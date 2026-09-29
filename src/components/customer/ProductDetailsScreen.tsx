@@ -27,12 +27,17 @@ export const ProductDetailsScreen: React.FC = () => {
     isWishlisted,
     navigate,
     currentLocation,
+    isMobileFrame,
   } = useApp();
 
   const product = selectedProduct || products[0];
   const wishlisted = isWishlisted(product.id);
   const cartItem = cart.find((i) => i.product.id === product.id);
   const [localQty, setLocalQty] = useState<number>(cartItem?.quantity || 1);
+
+  const gridClass = isMobileFrame
+    ? 'grid grid-cols-2 gap-2.5'
+    : 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4';
 
   // Similar products in the same category
   const similarProducts = products
@@ -289,7 +294,7 @@ export const ProductDetailsScreen: React.FC = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className={gridClass}>
             {similarProducts.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}

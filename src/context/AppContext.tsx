@@ -117,7 +117,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [role, setRoleState] = useState<UserRole>('customer');
   const [screen, setScreenState] = useState<ScreenName>('home');
   const [screenHistory, setScreenHistory] = useState<ScreenName[]>(['home']);
-  const [isMobileFrame, setIsMobileFrame] = useState<boolean>(false);
+  const [isMobileFrame, setIsMobileFrame] = useState<boolean>(true);
 
   // Auth State
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
