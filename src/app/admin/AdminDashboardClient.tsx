@@ -368,8 +368,17 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
             }`}
           >
             <CreditCard className="w-3.5 h-3.5" />
-            <span>Orders &amp; Payments (Phase 5)</span>
+            <span>Orders &amp; Payments</span>
           </button>
+          <Link
+            href="/rider"
+            target="_blank"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 bg-[#1B5E20] text-white hover:bg-[#144718] shadow-xs cursor-pointer"
+          >
+            <Truck className="w-3.5 h-3.5" />
+            <span>🛵 Open Rider App</span>
+            <ExternalLink className="w-3 h-3 opacity-80" />
+          </Link>
         </div>
       </div>
 
@@ -957,14 +966,20 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                     ? `${o.address.latitude},${o.address.longitude}`
                     : encodeURIComponent(`${o.address?.houseFlat || ''} ${o.address?.streetArea || ''} ${o.address?.city || 'Nellore'} ${o.address?.pincode || ''}`);
                   const riderMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destQuery}`;
+                  const riderAppUrl = typeof window !== 'undefined'
+                    ? `${window.location.origin}/rider?orderId=${o.id}`
+                    : `https://g1mart.vercel.app/rider?orderId=${o.id}`;
+
                   const whatsappShareText = encodeURIComponent(
                     `*🛵 G1 MART DELIVERY DISPATCH*\n` +
                     `Order ID: #${o.id}\n` +
+                    `Status: ${currentStatus}\n` +
                     `Customer: ${o.address?.fullName || 'Customer'} (${o.address?.mobileNumber || o.address?.phone || ''})\n` +
                     `Address: ${o.address?.houseFlat ? o.address.houseFlat + ', ' : ''}${o.address?.streetArea || ''}, ${o.address?.city || 'Nellore'}\n` +
                     `Landmark: ${o.address?.landmark || 'N/A'}\n` +
-                    `Items: ${o.items?.map((it) => `${it.productName} x${it.quantity}`).join(', ')}\n` +
-                    `Amount: ${o.isPaid ? 'PAID ONLINE (₹0 to collect)' : `₹${o.grandTotal} CASH ON DELIVERY`}\n` +
+                    `Items to Deliver: ${o.items?.map((it) => `${it.productName} (x${it.quantity})`).join(', ')}\n` +
+                    `Collect Amount: ${isFullyPaid ? 'ALREADY PAID (₹0 to collect)' : `₹${o.grandTotal} CASH ON DELIVERY`}\n\n` +
+                    `👉 Open in Rider App: ${riderAppUrl}\n` +
                     `📍 Turn-by-Turn GPS: ${riderMapsUrl}`
                   );
 
@@ -974,28 +989,33 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                       <div className="flex items-start justify-between border-b border-stone-100 pb-2.5">
                         <div>
                           <span className="font-mono font-black text-sm text-stone-900">#{o.id}</span>
-                          <span className="text-[10px] text-stone-400 block mt-0.5">{o.date} · Slot: {o.slot}</span>
+                          <span className="text-[10px] text-stone-500 block mt-0.5">{o.date} · Slot: {o.slot}</span>
                         </div>
                         <div className="text-right">
                           <span className="text-sm font-black text-stone-900 block">₹{o.grandTotal}</span>
                           <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${
                             isFullyPaid ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-900'
                           }`}>
-                            {isFullyPaid ? 'Paid' : 'Cash on Delivery'}
+                            {isFullyPaid ? '✓ Paid' : 'Cash on Delivery'}
                           </span>
                         </div>
                       </div>
 
                       {/* Customer & Address */}
-                      <div className="bg-stone-50 p-3 rounded-xl border border-stone-200/70 text-xs space-y-1">
+                      <div className="bg-stone-50 p-3 rounded-xl border border-stone-200/70 text-xs space-y-1.5">
                         <div className="flex items-center justify-between">
-                          <span className="font-bold text-stone-900">{o.address?.fullName || 'Customer'}</span>
+                          <div>
+                            <span className="font-bold text-stone-900">{o.address?.fullName || 'Customer'}</span>
+                            {o.userEmail && (
+                              <span className="text-[10px] text-stone-400 block truncate">{o.userEmail}</span>
+                            )}
+                          </div>
                           {(o.address?.mobileNumber || o.address?.phone) && (
                             <a
                               href={`tel:${o.address?.mobileNumber || o.address?.phone}`}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-300 font-bold rounded-lg text-[10px]"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#1B5E20] text-white font-bold rounded-lg text-[10px] shadow-2xs hover:bg-[#144718]"
                             >
-                              <Phone className="w-3 h-3 text-[#2E7D32]" />
+                              <Phone className="w-3 h-3" />
                               <span>Call {o.address?.mobileNumber || o.address?.phone}</span>
                             </a>
                           )}
@@ -1013,100 +1033,166 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                         )}
                       </div>
 
-                      {/* Items */}
-                      <div className="text-xs text-stone-600 flex items-center justify-between px-0.5">
-                        <span className="font-semibold">{o.items?.length || 0} items:</span>
-                        <span className="text-stone-500 truncate max-w-[200px] text-[11px]">
-                          {o.items?.map((it) => `${it.productName} (${it.quantity})`).join(', ')}
-                        </span>
+                      {/* Complete Itemized Picking & Packing Checklist */}
+                      <div className="bg-stone-50/80 rounded-xl border border-stone-200 p-3 space-y-2">
+                        <div className="flex items-center justify-between border-b border-stone-200/80 pb-1.5">
+                          <span className="text-xs font-black text-stone-800 flex items-center gap-1.5">
+                            <Package className="w-3.5 h-3.5 text-[#1B5E20]" />
+                            <span>Items in Order ({o.items?.length || 0})</span>
+                          </span>
+                          <span className="text-[10px] text-stone-500 font-bold">Total: ₹{o.grandTotal}</span>
+                        </div>
+                        <div className="divide-y divide-stone-100 max-h-56 overflow-y-auto space-y-1">
+                          {o.items?.map((item: any, idx: number) => (
+                            <div key={idx} className="pt-1.5 pb-1 flex items-center justify-between text-xs gap-2">
+                              <div className="flex items-center gap-2 min-w-0 flex-1">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={item.image || '/products/placeholder.svg'}
+                                  alt={item.productName}
+                                  className="w-9 h-9 object-contain rounded-lg border border-stone-200 bg-white p-0.5 shrink-0"
+                                  onError={(e) => {
+                                    (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
+                                  }}
+                                />
+                                <div className="min-w-0 flex-1">
+                                  <p className="font-bold text-stone-900 leading-snug break-words">{item.productName}</p>
+                                  <p className="text-[10px] text-stone-500">{item.unit || '1 pc'}</p>
+                                </div>
+                              </div>
+                              <div className="text-right shrink-0">
+                                <span className="inline-block bg-[#1B5E20]/10 text-[#1B5E20] font-black px-2 py-0.5 rounded-md text-xs">
+                                  x{item.quantity}
+                                </span>
+                                <span className="block text-[11px] font-extrabold text-stone-800 mt-0.5">
+                                  {item.price > 0 ? `₹${item.price * item.quantity}` : '₹--'}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       </div>
 
-                      {/* Status & Actions Grid */}
+                      {/* Unified Single-Color Progressive Fulfillment Pipeline */}
                       <div className="space-y-2 pt-1 border-t border-stone-100">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[11px] font-bold text-stone-500">Status:</span>
-                          <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-extrabold ${
-                            currentStatus === 'Delivered'
-                              ? 'bg-emerald-100 text-emerald-900'
-                              : currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery'
-                              ? 'bg-purple-100 text-purple-900 border border-purple-200'
-                              : currentStatus === 'Packed'
-                              ? 'bg-blue-100 text-blue-900'
-                              : 'bg-amber-100 text-amber-900'
-                          }`}>
-                            <Truck className="w-3 h-3" />
-                            <span>{currentStatus}</span>
-                          </span>
-                        </div>
-
-                        {/* Status Change Buttons */}
-                        <div className="grid grid-cols-2 gap-2">
-                          {currentStatus === 'Order Placed' && (
+                        <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider block">
+                          Order Progression Flow
+                        </span>
+                        <div className="flex flex-col gap-2">
+                          {/* Step 1: Pack Order */}
+                          {currentStatus === 'Order Placed' ? (
                             <button
                               type="button"
                               onClick={() => handleUpdateOrderStatus(o.id, 'Packed')}
                               disabled={updatingOrderId === o.id}
-                              className="py-2 px-3 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-xl text-xs font-bold text-center"
+                              className="w-full py-2.5 px-3 bg-[#1B5E20] hover:bg-[#144718] text-white rounded-xl text-xs font-black shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
                             >
-                              📦 Mark Packed
+                              <Package className="w-4 h-4" />
+                              <span>1. Mark Packed (Ready for Rider)</span>
                             </button>
+                          ) : (
+                            <div className="w-full py-2 px-3 bg-stone-900 text-emerald-400 rounded-xl text-xs font-bold flex items-center justify-between">
+                              <span className="flex items-center gap-1.5">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                                <span>Step 1: Packed &amp; Bagged</span>
+                              </span>
+                              <span className="text-[10px] text-stone-400">Completed</span>
+                            </div>
                           )}
 
-                          {(currentStatus === 'Order Placed' || currentStatus === 'Packed') && (
+                          {/* Step 2: Handover to Rider / Mark Dispatched */}
+                          {currentStatus === 'Packed' ? (
                             <button
                               type="button"
                               onClick={() => handleUpdateOrderStatus(o.id, 'Order Dispatched')}
                               disabled={updatingOrderId === o.id}
-                              className="py-2 px-3 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl text-xs font-bold text-center shadow-xs flex items-center justify-center gap-1"
+                              className="w-full py-2.5 px-3 bg-[#1B5E20] hover:bg-[#144718] text-white rounded-xl text-xs font-black shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
                             >
-                              <Truck className="w-3.5 h-3.5" />
-                              <span>Mark Dispatched</span>
+                              <Truck className="w-4 h-4" />
+                              <span>2. Handover to Rider (Mark Dispatched)</span>
+                              <ArrowRight className="w-3.5 h-3.5" />
                             </button>
+                          ) : currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery' || currentStatus === 'Delivered' ? (
+                            <div className="w-full py-2 px-3 bg-stone-900 text-emerald-400 rounded-xl text-xs font-bold flex items-center justify-between">
+                              <span className="flex items-center gap-1.5">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                                <span>Step 2: Dispatched with Rider</span>
+                              </span>
+                              <span className="text-[10px] text-stone-400">On Road</span>
+                            </div>
+                          ) : (
+                            <div className="w-full py-2 px-3 bg-stone-100 text-stone-400 rounded-xl text-xs font-medium flex items-center justify-between">
+                              <span>Step 2: Dispatch to Rider</span>
+                              <span className="text-[10px]">Awaiting Step 1</span>
+                            </div>
                           )}
 
-                          {(currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery') && (
+                          {/* Step 3: Mark Delivered */}
+                          {currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery' ? (
                             <button
                               type="button"
                               onClick={() => handleUpdateOrderStatus(o.id, 'Delivered')}
                               disabled={updatingOrderId === o.id}
-                              className="py-2 px-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold text-center shadow-xs flex items-center justify-center gap-1"
+                              className="w-full py-2.5 px-3 bg-[#1B5E20] hover:bg-[#144718] text-white rounded-xl text-xs font-black shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
                             >
-                              <Check className="w-3.5 h-3.5" />
-                              <span>Mark Delivered</span>
+                              <Check className="w-4 h-4 stroke-[3]" />
+                              <span>3. Confirm Customer Delivery</span>
                             </button>
+                          ) : currentStatus === 'Delivered' ? (
+                            <div className="w-full py-2 px-3 bg-stone-900 text-emerald-400 rounded-xl text-xs font-bold flex items-center justify-between">
+                              <span className="flex items-center gap-1.5">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                                <span>Step 3: Delivered at Doorstep 🎉</span>
+                              </span>
+                              <span className="text-[10px] text-stone-400">Completed</span>
+                            </div>
+                          ) : (
+                            <div className="w-full py-2 px-3 bg-stone-100 text-stone-400 rounded-xl text-xs font-medium flex items-center justify-between">
+                              <span>Step 3: Confirm Customer Delivery</span>
+                              <span className="text-[10px]">Awaiting Dispatch</span>
+                            </div>
                           )}
 
-                          {!isFullyPaid && (
+                          {/* Step 4: Cash Collection & Payment Audit */}
+                          {isFullyPaid ? (
+                            <div className="w-full py-2 px-3 bg-stone-900 text-emerald-400 rounded-xl text-xs font-bold flex items-center justify-between">
+                              <span className="flex items-center gap-1.5">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                                <span>Step 4: Paid (₹{o.grandTotal} Verified)</span>
+                              </span>
+                              <span className="text-[10px] text-stone-400">Audit Done</span>
+                            </div>
+                          ) : (
                             <button
                               type="button"
                               onClick={() => handleMarkPaid(o.id)}
                               disabled={markingOrderId === o.id}
-                              className="py-2 px-3 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-bold text-center flex items-center justify-center gap-1"
+                              className="w-full py-2.5 px-3 bg-[#1B5E20] hover:bg-[#144718] text-white rounded-xl text-xs font-black shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
                             >
-                              <UserCheck className="w-3.5 h-3.5 text-[#2E7D32]" />
-                              <span>{markingOrderId === o.id ? 'Marking...' : 'Mark Paid'}</span>
+                              <UserCheck className="w-4 h-4" />
+                              <span>{markingOrderId === o.id ? 'Verifying...' : `4. Collect Cash & Mark Paid (₹${o.grandTotal})`}</span>
                             </button>
                           )}
                         </div>
 
-                        {/* Rider Navigation & Share */}
+                        {/* Rider GPS Route & WhatsApp Dispatch */}
                         <div className="grid grid-cols-2 gap-2 pt-1">
                           <a
                             href={riderMapsUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="py-2 px-2 bg-[#1A2E1C] hover:bg-black text-white rounded-xl text-[11px] font-bold text-center flex items-center justify-center gap-1 shadow-2xs"
+                            className="py-2 px-2 bg-stone-900 hover:bg-black text-white rounded-xl text-[11px] font-bold text-center flex items-center justify-center gap-1 shadow-2xs"
                           >
-                            <Navigation className="w-3 h-3 text-emerald-400 fill-emerald-400" />
+                            <Navigation className="w-3.5 h-3.5 text-emerald-400 fill-emerald-400" />
                             <span>Rider GPS Route</span>
                           </a>
                           <a
                             href={`https://wa.me/?text=${whatsappShareText}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="py-2 px-2 bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#1B5E20] border border-[#25D366]/40 rounded-xl text-[11px] font-bold text-center flex items-center justify-center gap-1"
+                            className="py-2 px-2 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-xl text-[11px] font-bold text-center flex items-center justify-center gap-1 shadow-2xs"
                           >
-                            <Share2 className="w-3 h-3 text-[#25D366]" />
+                            <Share2 className="w-3.5 h-3.5" />
                             <span>WhatsApp Rider</span>
                           </a>
                         </div>
@@ -1188,13 +1274,29 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                           </div>
                         </td>
 
-                        <td className="py-3 px-3 align-top">
-                          <div className="font-black text-stone-900 text-sm">₹{o.grandTotal}</div>
-                          <div className="text-[11px] text-stone-500">
-                            {o.items?.length || 0} item{o.items?.length === 1 ? '' : 's'}
-                          </div>
-                          <div className="text-[10px] text-stone-400 max-w-[180px] truncate">
-                            {o.items?.map((item) => `${item.productName} (${item.quantity})`).join(', ')}
+                        <td className="py-3 px-3 align-top min-w-[220px]">
+                          <div className="font-black text-stone-900 text-sm mb-1">₹{o.grandTotal}</div>
+                          <div className="space-y-1.5 max-h-44 overflow-y-auto pr-1">
+                            {o.items?.map((item: any, idx: number) => (
+                              <div key={idx} className="flex items-center gap-1.5 text-xs bg-stone-50 p-1 rounded-lg border border-stone-100">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={item.image || '/products/placeholder.svg'}
+                                  alt={item.productName}
+                                  className="w-7 h-7 object-contain rounded bg-white border border-stone-200 shrink-0"
+                                  onError={(e) => {
+                                    (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
+                                  }}
+                                />
+                                <div className="min-w-0 flex-1">
+                                  <span className="font-bold text-stone-800 line-clamp-1 text-[11px]">{item.productName}</span>
+                                  <span className="text-[10px] text-stone-500 font-semibold">{item.unit || '1 pc'}</span>
+                                </div>
+                                <span className="bg-[#1B5E20]/10 text-[#1B5E20] font-black px-1.5 py-0.5 rounded text-[10px] shrink-0">
+                                  x{item.quantity}
+                                </span>
+                              </div>
+                            ))}
                           </div>
                         </td>
 
@@ -1209,77 +1311,60 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                               : o.paymentMethod}
                           </span>
 
-                          {o.paymentStatus === 'completed' && (
+                          {isFullyPaid ? (
                             <div>
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-green-100 text-green-800">
-                                <CheckCircle2 className="w-3 h-3 text-green-600" />
-                                <span>Paid Online</span>
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-stone-900 text-emerald-400">
+                                <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                                <span>Paid (₹{o.grandTotal})</span>
                               </span>
                             </div>
-                          )}
-
-                          {o.paymentStatus === 'manual_verified' && (
-                            <div>
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800">
-                                <UserCheck className="w-3 h-3 text-emerald-600" />
-                                <span>Verified Staff</span>
-                              </span>
-                            </div>
-                          )}
-
-                          {o.paymentStatus === 'pending' && (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-800">
+                          ) : (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-900">
                               <Clock className="w-3 h-3 text-amber-600" />
-                              <span>Pending</span>
-                            </span>
-                          )}
-
-                          {o.paymentStatus === 'cash_on_delivery' && (
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-sky-100 text-sky-800">
-                              <span>Cash on Delivery</span>
+                              <span>Cash to Collect</span>
                             </span>
                           )}
                         </td>
 
-                        {/* Fulfillment Status & Updater */}
-                        <td className="py-3 px-3 align-top">
+                        {/* Unified Single-Color Fulfillment Progression Pipeline */}
+                        <td className="py-3 px-3 align-top min-w-[190px]">
                           <div className="space-y-1.5">
-                            <div>
-                              <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-extrabold ${
-                                currentStatus === 'Delivered'
-                                  ? 'bg-emerald-100 text-emerald-900'
-                                  : currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery'
-                                  ? 'bg-purple-100 text-purple-900 border border-purple-200'
-                                  : currentStatus === 'Packed'
-                                  ? 'bg-blue-100 text-blue-900'
-                                  : 'bg-amber-100 text-amber-900'
-                              }`}>
-                                <Truck className="w-3 h-3" />
-                                <span>{currentStatus}</span>
-                              </span>
-                            </div>
+                            {/* Current Status Pill */}
+                            <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold ${
+                              currentStatus === 'Delivered'
+                                ? 'bg-emerald-100 text-emerald-900'
+                                : currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery'
+                                ? 'bg-purple-100 text-purple-900 border border-purple-200'
+                                : currentStatus === 'Packed'
+                                ? 'bg-blue-100 text-blue-900'
+                                : 'bg-amber-100 text-amber-900'
+                            }`}>
+                              <Truck className="w-3 h-3" />
+                              <span>{currentStatus}</span>
+                            </span>
 
-                            {/* Quick status progression buttons */}
+                            {/* Step Progression Buttons */}
                             <div className="flex flex-col gap-1">
                               {currentStatus === 'Order Placed' && (
                                 <button
                                   type="button"
                                   onClick={() => handleUpdateOrderStatus(o.id, 'Packed')}
                                   disabled={updatingOrderId === o.id}
-                                  className="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-md text-[10px] font-bold text-left transition-all"
+                                  className="w-full px-2.5 py-1.5 bg-[#1B5E20] hover:bg-[#144718] text-white rounded-lg text-[10px] font-black text-left shadow-2xs transition-all flex items-center justify-between cursor-pointer"
                                 >
-                                  📦 Mark Packed
+                                  <span>1. 📦 Mark Packed</span>
+                                  <ArrowRight className="w-3 h-3" />
                                 </button>
                               )}
 
-                              {(currentStatus === 'Order Placed' || currentStatus === 'Packed') && (
+                              {currentStatus === 'Packed' && (
                                 <button
                                   type="button"
                                   onClick={() => handleUpdateOrderStatus(o.id, 'Order Dispatched')}
                                   disabled={updatingOrderId === o.id}
-                                  className="px-2 py-1 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-md text-[10px] font-bold text-left shadow-2xs transition-all flex items-center justify-between"
+                                  className="w-full px-2.5 py-1.5 bg-[#1B5E20] hover:bg-[#144718] text-white rounded-lg text-[10px] font-black text-left shadow-2xs transition-all flex items-center justify-between cursor-pointer"
                                 >
-                                  <span>🛵 Mark Dispatched</span>
+                                  <span>2. 🛵 Handover to Rider</span>
                                   <ArrowRight className="w-3 h-3" />
                                 </button>
                               )}
@@ -1289,24 +1374,31 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                                   type="button"
                                   onClick={() => handleUpdateOrderStatus(o.id, 'Delivered')}
                                   disabled={updatingOrderId === o.id}
-                                  className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md text-[10px] font-bold text-left shadow-2xs transition-all flex items-center justify-between"
+                                  className="w-full px-2.5 py-1.5 bg-[#1B5E20] hover:bg-[#144718] text-white rounded-lg text-[10px] font-black text-left shadow-2xs transition-all flex items-center justify-between cursor-pointer"
                                 >
-                                  <span>✅ Mark Delivered</span>
+                                  <span>3. ✅ Confirm Delivery</span>
                                   <Check className="w-3 h-3" />
                                 </button>
+                              )}
+
+                              {currentStatus === 'Delivered' && (
+                                <div className="px-2 py-1 bg-stone-900 text-emerald-400 rounded-lg text-[10px] font-bold flex items-center gap-1">
+                                  <CheckCircle2 className="w-3 h-3" />
+                                  <span>Delivered at Doorstep</span>
+                                </div>
                               )}
                             </div>
                           </div>
                         </td>
 
                         {/* Rider Dispatch & Route */}
-                        <td className="py-3 px-3 align-top">
+                        <td className="py-3 px-3 align-top min-w-[150px]">
                           <div className="space-y-1.5">
                             <a
                               href={riderMapsUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#1A2E1C] hover:bg-black text-white rounded-lg text-[10px] font-bold shadow-2xs transition-all"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 bg-stone-900 hover:bg-black text-white rounded-lg text-[10px] font-bold shadow-2xs transition-all"
                             >
                               <Navigation className="w-3 h-3 text-emerald-400 fill-emerald-400" />
                               <span>Open Rider Route</span>
@@ -1317,29 +1409,29 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                                 href={`https://wa.me/?text=${whatsappShareText}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 px-2 py-1 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#1B5E20] border border-[#25D366]/30 rounded-lg text-[10px] font-bold transition-all"
+                                className="inline-flex items-center gap-1 px-2 py-1 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-lg text-[10px] font-bold shadow-2xs transition-all"
                               >
-                                <Share2 className="w-3 h-3 text-[#25D366]" />
+                                <Share2 className="w-3 h-3" />
                                 <span>WhatsApp to Rider</span>
                               </a>
                             </div>
                           </div>
                         </td>
 
-                        <td className="py-3 px-3 align-top text-right">
+                        <td className="py-3 px-3 align-top text-right min-w-[140px]">
                           {!isFullyPaid ? (
                             <button
                               type="button"
                               onClick={() => handleMarkPaid(o.id)}
                               disabled={markingOrderId === o.id}
-                              className="px-2.5 py-1.5 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-lg text-[11px] font-bold shadow-2xs transition-all flex items-center gap-1 ml-auto"
+                              className="px-2.5 py-1.5 bg-[#1B5E20] hover:bg-[#144718] text-white rounded-lg text-[10px] font-black shadow-2xs transition-all flex items-center gap-1 ml-auto cursor-pointer"
                             >
                               <UserCheck className="w-3 h-3" />
-                              <span>{markingOrderId === o.id ? 'Marking...' : 'Mark as Paid'}</span>
+                              <span>{markingOrderId === o.id ? 'Verifying...' : `Collect ₹${o.grandTotal}`}</span>
                             </button>
                           ) : (
-                            <span className="text-[11px] text-stone-400 font-medium">
-                              Audit complete
+                            <span className="text-[10px] text-stone-500 font-semibold bg-stone-100 px-2 py-0.5 rounded-full inline-block">
+                              ✓ Audit Complete
                             </span>
                           )}
                         </td>

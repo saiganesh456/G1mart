@@ -147,6 +147,8 @@ export interface Order {
   markedPaidBy?: string;
   providerOrderId?: string;
   transactionId?: string;
+  userId?: string;
+  userEmail?: string;
   timeline: {
     status: OrderStatus;
     time: string;

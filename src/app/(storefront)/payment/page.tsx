@@ -6,11 +6,12 @@ import { useRouter } from 'next/navigation';
 import { ArrowLeft, Banknote, Smartphone, CreditCard, ShieldCheck, AlertCircle } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 
 export default function PaymentPage() {
   const router = useRouter();
   const { cart, cartSubtotal, cartItemCount, clearCart } = useCart();
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, supabaseUser, user } = useAuth();
   const [selectedMethod, setSelectedMethod] = useState<'cod' | 'upi' | 'card'>('cod');
   const [processing, setProcessing] = useState(false);
 
@@ -33,6 +34,17 @@ export default function PaymentPage() {
       return;
     }
 
+    const payload = {
+      items: cart.map((i) => ({ productId: i.product.id, quantity: i.quantity })),
+      address: addressData,
+      paymentMethod: selectedMethod === 'cod' ? 'Cash on Delivery' : 'UPI',
+      slot: addressData.selectedSlot,
+      userId: supabaseUser?.id || undefined,
+      userEmail: user?.email || supabaseUser?.email || undefined,
+      userPhone: addressData.phone || user?.phone || undefined,
+      userName: addressData.fullName || user?.name || undefined,
+    };
+
     // 1. Cash on Delivery (Fallback method per Rule 11)
     if (selectedMethod === 'cod') {
       setProcessing(true);
@@ -40,12 +52,7 @@ export default function PaymentPage() {
         const res = await fetch('/api/checkout/initiate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            items: cart.map((i) => ({ productId: i.product.id, quantity: i.quantity })),
-            address: addressData,
-            paymentMethod: 'Cash on Delivery',
-            slot: addressData.selectedSlot,
-          }),
+          body: JSON.stringify(payload),
         });
         const data = await res.json();
         if (data.success && data.orderId) {
@@ -75,13 +82,34 @@ export default function PaymentPage() {
             })),
             address: addressData,
             slot: addressData.selectedSlot || 'Standard Delivery',
+            userId: supabaseUser?.id || undefined,
+            userEmail: user?.email || supabaseUser?.email || undefined,
           };
 
           try {
             sessionStorage.setItem('g1mart_latest_order', JSON.stringify(orderRecord));
             const prev = JSON.parse(sessionStorage.getItem('g1mart_orders_list') || '[]');
             sessionStorage.setItem('g1mart_orders_list', JSON.stringify([orderRecord, ...prev]));
+            
+            // Sync to permanent cross-device account storage
+            const accPrev = JSON.parse(localStorage.getItem('g1mart_account_orders') || '[]');
+            localStorage.setItem('g1mart_account_orders', JSON.stringify([orderRecord, ...accPrev]));
             localStorage.setItem('g1mart_recent_order', JSON.stringify(orderRecord));
+
+            // Sync to server store via API
+            fetch('/api/orders', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(orderRecord),
+            }).catch(() => {});
+
+            // Sync to Supabase auth user metadata across devices
+            if (supabaseUser && isSupabaseConfigured()) {
+              const existingOrders = supabaseUser.user_metadata?.orders || [];
+              supabase.auth.updateUser({
+                data: { orders: [orderRecord, ...existingOrders] },
+              }).catch(() => {});
+            }
           } catch {}
 
           clearCart();
@@ -105,12 +133,7 @@ export default function PaymentPage() {
       const res = await fetch('/api/checkout/initiate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          items: cart.map((i) => ({ productId: i.product.id, quantity: i.quantity })),
-          address: addressData,
-          paymentMethod: 'UPI',
-          slot: addressData.selectedSlot,
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
@@ -147,13 +170,31 @@ export default function PaymentPage() {
         })),
         address: addressData,
         slot: addressData.selectedSlot || 'Standard Delivery',
+        userId: supabaseUser?.id || undefined,
+        userEmail: user?.email || supabaseUser?.email || undefined,
       };
 
       try {
         sessionStorage.setItem('g1mart_latest_order', JSON.stringify(orderRecord));
         const prev = JSON.parse(sessionStorage.getItem('g1mart_orders_list') || '[]');
         sessionStorage.setItem('g1mart_orders_list', JSON.stringify([orderRecord, ...prev]));
+        
+        const accPrev = JSON.parse(localStorage.getItem('g1mart_account_orders') || '[]');
+        localStorage.setItem('g1mart_account_orders', JSON.stringify([orderRecord, ...accPrev]));
         localStorage.setItem('g1mart_recent_order', JSON.stringify(orderRecord));
+
+        fetch('/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderRecord),
+        }).catch(() => {});
+
+        if (supabaseUser && isSupabaseConfigured()) {
+          const existingOrders = supabaseUser.user_metadata?.orders || [];
+          supabase.auth.updateUser({
+            data: { orders: [orderRecord, ...existingOrders] },
+          }).catch(() => {});
+        }
       } catch {}
 
       clearCart();

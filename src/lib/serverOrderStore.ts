@@ -1,6 +1,12 @@
+import fs from 'fs';
+import path from 'path';
 import { CATALOG_PRODUCTS } from '@/data/catalog';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import type { Order, OrderItem, PaymentRecord, PaymentStatus, OrderStatus } from '@/types';
+
+const TMP_CACHE_PATH = typeof process !== 'undefined' && process.platform === 'win32'
+  ? path.join(process.cwd(), '.next', 'g1mart_orders_dev.json')
+  : '/tmp/g1mart_orders.json';
 
 // Global server memory store fallback for development & testing when Supabase is not connected
 declare global {
@@ -100,6 +106,7 @@ export const serverOrderStore = {
     slot?: string;
     paymentMethod: 'UPI' | 'Cash on Delivery' | 'Debit / Credit Card';
     userId?: string;
+    userEmail?: string;
   }): Promise<Order> {
     const order: Order = {
       id: params.orderId,
@@ -125,6 +132,8 @@ export const serverOrderStore = {
       isPaid: false,
       paidAmount: 0,
       providerOrderId: params.merchantOrderId,
+      userId: params.userId,
+      userEmail: params.userEmail,
       timeline: [
         { status: 'Order Placed', time: 'Just now', completed: true },
         { status: 'Packed', time: 'Pending', completed: false },
@@ -134,6 +143,7 @@ export const serverOrderStore = {
     };
 
     ordersMap.set(params.orderId, order);
+    this.persistToDisk();
 
     // Rule 9: Write payments rows for every attempt
     const paymentRecord: PaymentRecord = {
@@ -322,6 +332,7 @@ export const serverOrderStore = {
     order.paidAt = nowIso;
     order.markedPaidBy = staffIdentifier;
     ordersMap.set(orderId, order);
+    this.persistToDisk();
 
     const manualPayRecord: PaymentRecord = {
       id: `manual_${Date.now()}`,
@@ -362,6 +373,7 @@ export const serverOrderStore = {
     status: OrderStatus,
     updatedBy?: string
   ): Promise<{ success: boolean; order?: Order }> {
+    this.loadFromDisk();
     const order = ordersMap.get(orderId);
     if (!order) return { success: false };
 
@@ -385,6 +397,7 @@ export const serverOrderStore = {
     ];
 
     ordersMap.set(orderId, order);
+    this.persistToDisk();
 
     if (isSupabaseConfigured()) {
       try {
@@ -417,10 +430,62 @@ export const serverOrderStore = {
     return { success: true, order };
   },
 
+  persistToDisk() {
+    try {
+      const orders = Array.from(ordersMap.values());
+      const dir = path.dirname(TMP_CACHE_PATH);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+      fs.writeFileSync(TMP_CACHE_PATH, JSON.stringify(orders), 'utf-8');
+    } catch {}
+  },
+
+  loadFromDisk() {
+    try {
+      if (fs.existsSync(TMP_CACHE_PATH)) {
+        const raw = fs.readFileSync(TMP_CACHE_PATH, 'utf-8');
+        const orders: Order[] = JSON.parse(raw);
+        if (Array.isArray(orders)) {
+          for (const o of orders) {
+            if (o && o.id && !ordersMap.has(o.id)) {
+              ordersMap.set(o.id, o);
+            }
+          }
+        }
+      }
+    } catch {}
+  },
+
+  registerOrder(order: Order): Order {
+    if (!order || !order.id) return order;
+    ordersMap.set(order.id, order);
+    this.persistToDisk();
+    return order;
+  },
+
+  /**
+   * Retrieve orders for a specific user (by ID or phone)
+   */
+  getUserOrders(userId?: string, phone?: string): Order[] {
+    const all = this.getAllOrders();
+    const cleanPhone = phone ? phone.replace(/\D/g, '').slice(-10) : '';
+
+    return all.filter((o) => {
+      if (userId && o.userId && o.userId === userId) return true;
+      if (cleanPhone) {
+        const oPhone = (o.address?.phone || o.address?.mobileNumber || '').replace(/\D/g, '').slice(-10);
+        if (oPhone && oPhone === cleanPhone) return true;
+      }
+      return false;
+    });
+  },
+
   /**
    * Retrieve order by ID
    */
   getOrder(orderId: string): Order | undefined {
+    this.loadFromDisk();
     return ordersMap.get(orderId);
   },
 
@@ -428,6 +493,7 @@ export const serverOrderStore = {
    * Retrieve order by provider order ID (merchantOrderId)
    */
   getOrderByProviderOrderId(providerOrderId: string): Order | undefined {
+    this.loadFromDisk();
     for (const order of ordersMap.values()) {
       if (order.providerOrderId === providerOrderId) {
         return order;
@@ -440,6 +506,7 @@ export const serverOrderStore = {
    * Get all orders
    */
   getAllOrders(): Order[] {
+    this.loadFromDisk();
     return Array.from(ordersMap.values()).sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );

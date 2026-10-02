@@ -6,7 +6,7 @@ import { sanitizeIndianPhone } from '@/lib/phone';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { items, address, paymentMethod = 'UPI', slot } = body;
+    const { items, address, paymentMethod = 'UPI', slot, userId, userEmail } = body;
 
     if (!items || !Array.isArray(items) || items.length === 0) {
       return NextResponse.json(
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     }
 
     const addressData = body.address || body.deliveryAddress;
-    const rawPhone = addressData?.phone || addressData?.mobileNumber;
+    const rawPhone = addressData?.phone || addressData?.mobileNumber || body.userPhone;
 
     if (!addressData || !rawPhone) {
       return NextResponse.json(
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     }
 
     const cleanPhone = sanitizeIndianPhone(rawPhone);
-    const fullName = addressData.fullName || addressData.name || 'G1 Mart Customer';
+    const fullName = addressData.fullName || addressData.name || body.userName || 'G1 Mart Customer';
 
     // Rule 3: Server recalculates the total from database prices (never trust client)
     let calculated;
@@ -53,6 +53,8 @@ export async function POST(req: NextRequest) {
         address: { ...addressData, fullName, mobileNumber: cleanPhone, phone: cleanPhone },
         slot: slot || 'Standard Delivery',
         paymentMethod: 'Cash on Delivery',
+        userId: userId || undefined,
+        userEmail: userEmail || undefined,
       });
 
       await serverOrderStore.confirmCodOrder(orderId);
@@ -80,6 +82,8 @@ export async function POST(req: NextRequest) {
       address: { ...addressData, fullName, mobileNumber: cleanPhone, phone: cleanPhone },
       slot: slot || 'Standard Delivery',
       paymentMethod: 'UPI',
+      userId: userId || undefined,
+      userEmail: userEmail || undefined,
     });
 
     const host = req.headers.get('host') || 'localhost:3000';
