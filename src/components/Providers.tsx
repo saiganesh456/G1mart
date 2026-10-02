@@ -1,11 +1,16 @@
 'use client';
 
 import { CartProvider } from '@/context/CartContext';
+import { LocationProvider } from '@/context/LocationContext';
 
 /**
  * Root client-side providers wrapper.
- * Wrap with additional providers here as the app grows (auth, toast, etc.).
+ * Combines Cart and Location providers.
  */
 export function Providers({ children }: { children: React.ReactNode }) {
-  return <CartProvider>{children}</CartProvider>;
+  return (
+    <LocationProvider>
+      <CartProvider>{children}</CartProvider>
+    </LocationProvider>
+  );
 }

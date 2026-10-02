@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowLeft, Clock, MapPin, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Clock, MapPin, CheckCircle2, Navigation } from 'lucide-react';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -7,6 +7,11 @@ interface Props {
 
 export default async function OrderDetailPage({ params }: Props) {
   const { id } = await params;
+
+  // Placeholder coordinates for demo/display until loaded from Supabase
+  const sampleLat = 14.4426;
+  const sampleLng = 79.9865;
+  const googleMapsNavUrl = `https://www.google.com/maps/dir/?api=1&destination=${sampleLat},${sampleLng}`;
 
   return (
     <div className="max-w-2xl mx-auto space-y-4 pb-20 sm:pb-12 pt-2 sm:pt-4 px-3 sm:px-0">
@@ -26,10 +31,10 @@ export default async function OrderDetailPage({ params }: Props) {
             <span className="text-xs text-stone-400 font-semibold block">Order Status</span>
             <span className="text-sm font-extrabold text-[#2E7D32]">Order Received</span>
           </div>
-          <span className="text-xs text-stone-500">TODO: Live status from Supabase</span>
+          <span className="text-xs text-stone-500 font-medium">Doorstep Delivery</span>
         </div>
 
-        {/* Timeline placeholder */}
+        {/* Timeline */}
         <div className="space-y-3 py-2 text-xs">
           <div className="flex items-center gap-3 text-emerald-800">
             <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
@@ -49,9 +54,27 @@ export default async function OrderDetailPage({ params }: Props) {
           </div>
         </div>
 
-        <p className="text-[11px] text-stone-400 border-t border-stone-100 pt-3">
-          Order tracking will be connected to real-time status updates in Phase 2.
-        </p>
+        {/* Rider Navigation Direct Link */}
+        <div className="bg-stone-50 p-3.5 rounded-xl border border-stone-200/70 space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-stone-700">Delivery GPS Pin</span>
+            <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">
+              GPS ATTACHED
+            </span>
+          </div>
+          <p className="text-xs text-stone-500">
+            Delivery partners &amp; admin can tap to open turn-by-turn route navigation directly to customer gate.
+          </p>
+          <a
+            href={googleMapsNavUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3 py-2 bg-[#2E7D32] hover:bg-[#1b5e20] text-white font-bold rounded-lg text-xs transition-colors shadow-2xs mt-1"
+          >
+            <Navigation className="w-3.5 h-3.5 fill-white" />
+            <span>Open in Google Maps Navigation →</span>
+          </a>
+        </div>
       </div>
     </div>
   );

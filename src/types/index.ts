@@ -52,6 +52,8 @@ export interface Address {
   type: 'Home' | 'Work' | 'Other';
   isDefault: boolean;
   deliveryInstructions?: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 export type DeliverySlot =

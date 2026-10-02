@@ -1,15 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, MapPin, Clock, ShieldCheck, AlertCircle } from 'lucide-react';
+import { ArrowLeft, MapPin, Clock, ShieldCheck, AlertCircle, Navigation, CheckCircle2 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useLocation } from '@/context/LocationContext';
 import { STORE_CONFIG } from '@/config/store';
 
 export default function CheckoutPage() {
   const router = useRouter();
   const { cart, cartItemCount, cartSubtotal } = useCart();
+  const { currentLocation, detectLocation, isDetecting } = useLocation();
 
   // Form state
   const [fullName, setFullName] = useState('');
@@ -17,10 +19,47 @@ export default function CheckoutPage() {
   const [houseFlat, setHouseFlat] = useState('');
   const [streetArea, setStreetArea] = useState('');
   const [landmark, setLandmark] = useState('');
+  const [city, setCity] = useState<string>(STORE_CONFIG.address.city || 'Nellore');
   const [pincode, setPincode] = useState('');
+  const [latitude, setLatitude] = useState<number | undefined>(undefined);
+  const [longitude, setLongitude] = useState<number | undefined>(undefined);
   const [deliveryInstructions, setDeliveryInstructions] = useState('');
   const [selectedSlot, setSelectedSlot] = useState('Standard Delivery');
-  const [paymentOption, setPaymentOption] = useState<'cod' | 'online'>('cod');
+  const [autoFilled, setAutoFilled] = useState(false);
+
+  // Pre-fill from currentLocation if available
+  useEffect(() => {
+    if (currentLocation && !streetArea) {
+      if (currentLocation.street || currentLocation.area) {
+        setStreetArea(currentLocation.street || currentLocation.area);
+      }
+      if (currentLocation.city) {
+        setCity(currentLocation.city);
+      }
+      if (currentLocation.pincode) {
+        setPincode(currentLocation.pincode);
+      }
+      if (currentLocation.lat && currentLocation.lng) {
+        setLatitude(currentLocation.lat);
+        setLongitude(currentLocation.lng);
+        setAutoFilled(true);
+      }
+    }
+  }, [currentLocation, streetArea]);
+
+  const handleAutoFillClick = async () => {
+    const loc = await detectLocation();
+    if (loc) {
+      setStreetArea(loc.street || loc.area);
+      setCity(loc.city);
+      if (loc.pincode) setPincode(loc.pincode);
+      if (loc.lat && loc.lng) {
+        setLatitude(loc.lat);
+        setLongitude(loc.lng);
+      }
+      setAutoFilled(true);
+    }
+  };
 
   if (cartItemCount === 0) {
     return (
@@ -39,15 +78,27 @@ export default function CheckoutPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     /**
-     * TODO (Phase 2 — Server Checkout & Payment):
-     * 1. Send cart items + address + delivery slot to /api/checkout (Route Handler)
-     * 2. Server validates product IDs, active status, stock, and recalibrates authoritative prices
-     * 3. Server generates an order in "pending" status
-     * 4. If COD: order confirmed directly on server
-     * 5. If Online (PhonePe): server returns payment initiation URL, redirect customer to PhonePe
-     *
-     * Note: Do NOT calculate order total or set isPaid = true on client!
+     * Store temporary address in sessionStorage for payment confirmation
      */
+    try {
+      sessionStorage.setItem(
+        'g1mart_checkout_address',
+        JSON.stringify({
+          fullName,
+          phone,
+          houseFlat,
+          streetArea,
+          landmark,
+          city,
+          pincode,
+          latitude,
+          longitude,
+          deliveryInstructions,
+          selectedSlot,
+        })
+      );
+    } catch {}
+
     router.push('/payment');
   };
 
@@ -63,23 +114,43 @@ export default function CheckoutPage() {
         <h1 className="text-base sm:text-lg font-black text-[#212121]">Checkout</h1>
       </div>
 
-      {/* Phase 1 Advisory Notice */}
-      <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 flex items-start gap-2">
-        <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-        <div>
-          <span className="font-bold">Phase 1 Foundation:</span> Checkout form UI is ready. Real server-side order calculation and PhonePe payment verification will be wired in Phase 2.
-        </div>
-      </div>
-
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Delivery Address Card */}
-        <div className="bg-white rounded-2xl border border-stone-200/80 p-4 shadow-2xs space-y-3">
-          <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
-            <MapPin className="w-4 h-4 text-[#2E7D32]" />
-            <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider">
-              1. Delivery Address
-            </h2>
+        <div className="bg-white rounded-2xl border border-stone-200/80 p-4 shadow-2xs space-y-3.5">
+          <div className="flex items-center justify-between border-b border-stone-100 pb-2.5">
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-[#2E7D32]" />
+              <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider">
+                1. Delivery Doorstep Address
+              </h2>
+            </div>
+
+            {/* Auto Detect Button */}
+            <button
+              type="button"
+              onClick={handleAutoFillClick}
+              disabled={isDetecting}
+              className="px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-[#2E7D32] rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-50 cursor-pointer"
+            >
+              <Navigation className="w-3.5 h-3.5 fill-[#2E7D32]" />
+              <span>{isDetecting ? 'Detecting...' : 'Auto-detect GPS'}</span>
+            </button>
           </div>
+
+          {/* GPS Confirmation Pill */}
+          {autoFilled && latitude && longitude && (
+            <div className="p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-200 text-xs text-emerald-800 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#2E7D32] shrink-0" />
+                <span className="font-semibold">
+                  Exact GPS pin captured: ({latitude.toFixed(4)}, {longitude.toFixed(4)})
+                </span>
+              </div>
+              <span className="text-[10px] bg-white px-2 py-0.5 rounded font-bold text-emerald-900">
+                RIDER NAV READY
+              </span>
+            </div>
+          )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
             <div>
@@ -108,25 +179,25 @@ export default function CheckoutPage() {
             </div>
 
             <div className="sm:col-span-2">
-              <label className="font-bold text-stone-700 block mb-1">House / Flat / Building *</label>
+              <label className="font-bold text-stone-700 block mb-1">House / Flat / Floor / Building *</label>
               <input
                 type="text"
                 required
                 value={houseFlat}
                 onChange={(e) => setHouseFlat(e.target.value)}
-                placeholder="e.g. Flat 302, Sri Sai Residency"
+                placeholder="e.g. Flat 302, Sri Sai Residency, 3rd Floor"
                 className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="font-bold text-stone-700 block mb-1">Street / Area / Mandal *</label>
+              <label className="font-bold text-stone-700 block mb-1">Street / Area / Colony *</label>
               <input
                 type="text"
                 required
                 value={streetArea}
                 onChange={(e) => setStreetArea(e.target.value)}
-                placeholder="e.g. Trunk Road / Magunta Layout"
+                placeholder="e.g. Setti Gunta Rd, Weavers Colony"
                 className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
               />
             </div>
@@ -137,7 +208,7 @@ export default function CheckoutPage() {
                 type="text"
                 value={landmark}
                 onChange={(e) => setLandmark(e.target.value)}
-                placeholder="e.g. Near Clock Tower"
+                placeholder="e.g. Opposite Water Tank / Near Temple"
                 className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
               />
             </div>
@@ -150,20 +221,20 @@ export default function CheckoutPage() {
                 pattern="[0-9]{6}"
                 value={pincode}
                 onChange={(e) => setPincode(e.target.value)}
-                placeholder="6-digit PIN code"
+                placeholder="e.g. 524002"
                 className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
               />
             </div>
 
             <div className="sm:col-span-2">
               <label className="font-bold text-stone-700 block mb-1">
-                Delivery Instructions (Optional)
+                Delivery Instructions for Rider (Optional)
               </label>
               <input
                 type="text"
                 value={deliveryInstructions}
                 onChange={(e) => setDeliveryInstructions(e.target.value)}
-                placeholder="e.g. Leave with security / Call on arrival"
+                placeholder="e.g. Ring the bell twice / Leave at security gate"
                 className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
               />
             </div>
@@ -181,7 +252,11 @@ export default function CheckoutPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
             {[
-              { id: 'Standard Delivery', title: 'Standard Delivery', subtitle: STORE_CONFIG.delivery.cityEtaText },
+              {
+                id: 'Standard Delivery',
+                title: 'Standard Delivery',
+                subtitle: currentLocation.zone?.estimatedDeliveryTimeText || STORE_CONFIG.delivery.cityEtaText,
+              },
               { id: 'Morning Delivery', title: 'Morning Slot', subtitle: '7:00 AM – 10:00 AM' },
               { id: 'Evening Delivery', title: 'Evening Slot', subtitle: '5:00 PM – 8:00 PM' },
             ].map((slot) => (
@@ -222,13 +297,17 @@ export default function CheckoutPage() {
             </div>
             <div className="flex justify-between">
               <span>Delivery Fee</span>
-              <span className="text-emerald-700 font-semibold">Calculated on Server</span>
+              <span className="text-emerald-700 font-semibold">
+                {currentLocation.zone?.deliveryFee !== undefined
+                  ? `₹${currentLocation.zone.deliveryFee}`
+                  : 'Calculated on Server'}
+              </span>
             </div>
           </div>
 
           <button
             type="submit"
-            className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-bold text-sm shadow-md active:scale-[0.99] transition-all flex items-center justify-center gap-2"
+            className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-bold text-sm shadow-md active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer"
           >
             <span>Continue to Payment Selection</span>
           </button>
