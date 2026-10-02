@@ -1,7 +1,21 @@
 'use client';
 
 import Link from 'next/link';
-import { User, MapPin, Heart, HelpCircle, Shield, ShoppingBag, LogIn, LogOut } from 'lucide-react';
+import {
+  User,
+  MapPin,
+  Heart,
+  HelpCircle,
+  Shield,
+  ShoppingBag,
+  LogIn,
+  LogOut,
+  Store,
+  ShieldCheck,
+  Truck,
+  Navigation,
+  ArrowRight,
+} from 'lucide-react';
 import { STORE_CONFIG } from '@/config/store';
 import { useAuth } from '@/context/AuthContext';
 
@@ -94,6 +108,59 @@ export default function AccountPage() {
           </div>
           <span className="text-stone-400">→</span>
         </Link>
+      </div>
+
+      {/* Store Operations & Staff Management */}
+      <div className="bg-gradient-to-br from-stone-900 to-[#1A2E1C] rounded-2xl p-4 sm:p-5 text-white shadow-md space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <span className="text-xs font-black uppercase tracking-wider text-emerald-300">
+              Store Staff &amp; Operations
+            </span>
+          </div>
+          <span className="text-[10px] font-bold bg-white/10 px-2 py-0.5 rounded-full text-white/80">
+            Staff Access
+          </span>
+        </div>
+
+        <p className="text-xs text-stone-300 leading-relaxed">
+          Manage live orders, mark orders dispatched, audit payments, and handle rider deliveries directly from your phone.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+          <Link
+            href="/admin"
+            className="flex items-center justify-between p-3 bg-white/10 hover:bg-white/15 rounded-xl border border-white/10 transition-colors"
+          >
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                <Store className="w-4 h-4" />
+              </div>
+              <div className="text-left">
+                <div className="text-xs font-bold text-white">Admin Console</div>
+                <div className="text-[10px] text-stone-300">Catalog, Orders &amp; Images</div>
+              </div>
+            </div>
+            <ArrowRight className="w-4 h-4 text-emerald-400" />
+          </Link>
+
+          <Link
+            href="/rider"
+            className="flex items-center justify-between p-3 bg-white/10 hover:bg-white/15 rounded-xl border border-white/10 transition-colors"
+          >
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+                <Truck className="w-4 h-4" />
+              </div>
+              <div className="text-left">
+                <div className="text-xs font-bold text-white">Rider Delivery Portal</div>
+                <div className="text-[10px] text-stone-300">Turn-by-Turn GPS &amp; Dispatch</div>
+              </div>
+            </div>
+            <Navigation className="w-4 h-4 text-amber-400 fill-amber-400" />
+          </Link>
+        </div>
       </div>
 
       {/* Store Info Footer */}

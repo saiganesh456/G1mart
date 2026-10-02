@@ -3,18 +3,25 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, MapPin, Clock, ShieldCheck, AlertCircle, Navigation, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, MapPin, Clock, ShieldCheck, AlertCircle, Navigation, CheckCircle2, UserCheck, LogIn, Phone as PhoneIcon } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useLocation } from '@/context/LocationContext';
 import { useAuth } from '@/context/AuthContext';
 import { STORE_CONFIG } from '@/config/store';
-import { sanitizeIndianPhone, isValidIndianPhone } from '@/lib/phone';
+import { sanitizeIndianPhone, isValidIndianPhone, formatIndianPhoneDisplay } from '@/lib/phone';
+import { authService } from '@/services/authService';
 
 export default function CheckoutPage() {
   const router = useRouter();
   const { cart, cartItemCount, cartSubtotal } = useCart();
   const { currentLocation, detectLocation, isDetecting } = useLocation();
-  const { user } = useAuth();
+  const { user, isLoggedIn, setLocalUser } = useAuth();
+
+  // Auth gate state
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [quickPhone, setQuickPhone] = useState('');
+  const [quickName, setQuickName] = useState('');
+  const [authError, setAuthError] = useState<string | null>(null);
 
   // Form state
   const [fullName, setFullName] = useState('');
@@ -108,8 +115,50 @@ export default function CheckoutPage() {
     );
   }
 
+  const handleGoogleSignIn = async () => {
+    try {
+      setGoogleLoading(true);
+      setAuthError(null);
+      const res = await authService.signInWithGoogle('/checkout');
+      if (!res.success) {
+        setAuthError(res.error || 'Google sign-in could not be completed.');
+      }
+    } catch (err: any) {
+      setAuthError(err?.message || 'Google sign-in failed');
+    } finally {
+      setGoogleLoading(false);
+    }
+  };
+
+  const handleQuickAuth = (e: React.FormEvent) => {
+    e.preventDefault();
+    const clean = sanitizeIndianPhone(quickPhone);
+    if (!isValidIndianPhone(clean)) {
+      setAuthError('Please enter a valid 10-digit mobile number (starts with 6, 7, 8, or 9)');
+      return;
+    }
+    const name = quickName.trim() || 'Valued Customer';
+    setLocalUser({
+      name,
+      phone: clean,
+      email: '',
+      avatar: '',
+      memberSince: new Date().toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }),
+    });
+    setFullName(name);
+    setPhone(clean);
+    setAuthError(null);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isLoggedIn) {
+      setAuthError('Account registration is required before booking. Please sign in with Google or enter your mobile number above.');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     const cleanPhone = sanitizeIndianPhone(phone);
     if (!isValidIndianPhone(cleanPhone)) {
       setPhoneError('Please enter a valid 10-digit mobile number (starts with 6, 7, 8, or 9)');
@@ -160,14 +209,136 @@ export default function CheckoutPage() {
         <h1 className="text-base sm:text-lg font-black text-[#212121]">Checkout</h1>
       </div>
 
+      {/* Step 1: Mandatory Authentication Gate */}
+      {isLoggedIn ? (
+        <div className="bg-emerald-50/70 border border-emerald-200/80 rounded-2xl p-4 flex items-center justify-between shadow-2xs">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-[#2E7D32] text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs">
+              <CheckCircle2 className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-black text-stone-900">
+                  Step 1: Account Verified ({user?.name || 'Customer'})
+                </span>
+                <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.2 rounded">
+                  LOGGED IN
+                </span>
+              </div>
+              <p className="text-[11px] text-stone-500 font-medium mt-0.5">
+                {user?.email || (user?.phone ? formatIndianPhoneDisplay(user.phone) : 'Account active and ready for booking')}
+              </p>
+            </div>
+          </div>
+          <Link
+            href="/account"
+            className="text-[11px] font-bold text-[#2E7D32] hover:underline shrink-0"
+          >
+            Change
+          </Link>
+        </div>
+      ) : (
+        <div className="bg-white rounded-2xl border-2 border-[#2E7D32]/40 p-4 sm:p-5 shadow-sm space-y-4 animate-in fade-in">
+          <div className="flex items-center justify-between border-b border-stone-100 pb-2.5">
+            <div className="flex items-center gap-2">
+              <UserCheck className="w-4 h-4 text-[#2E7D32]" />
+              <h2 className="text-xs font-extrabold text-stone-900 uppercase tracking-wider">
+                Step 1: Account Required to Book Order
+              </h2>
+            </div>
+            <span className="text-[10px] font-black bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full">
+              Mandatory Sign-Up
+            </span>
+          </div>
+
+          <p className="text-xs text-stone-600 leading-relaxed">
+            Quick-commerce booking requires an account so our delivery riders can verify your order and provide live tracking updates.
+          </p>
+
+          {authError && (
+            <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-600" />
+              <span>{authError}</span>
+            </div>
+          )}
+
+          {/* Google Sign In Button */}
+          <button
+            type="button"
+            onClick={handleGoogleSignIn}
+            disabled={googleLoading}
+            className="w-full h-12 rounded-xl border border-stone-300 hover:border-stone-400 bg-white hover:bg-stone-50 text-stone-700 text-xs sm:text-sm font-bold flex items-center justify-center gap-3 transition-colors active:scale-[0.99] shadow-2xs cursor-pointer"
+          >
+            {googleLoading ? (
+              <div className="w-4 h-4 border-2 border-[#2E7D32] border-t-transparent rounded-full animate-spin" />
+            ) : (
+              <>
+                <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" />
+                  <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z" />
+                  <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.15z" />
+                  <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
+                </svg>
+                <span>Continue with Google</span>
+              </>
+            )}
+          </button>
+
+          {/* Quick Mobile Number Sign-In / Register */}
+          <div className="relative my-2 text-center">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-stone-200" />
+            </div>
+            <span className="relative bg-white px-3 text-[10px] font-bold text-stone-400 uppercase tracking-wider">
+              OR QUICK MOBILE SIGN-UP
+            </span>
+          </div>
+
+          <div className="space-y-2.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <input
+                type="text"
+                value={quickName}
+                onChange={(e) => setQuickName(e.target.value)}
+                placeholder="Your Full Name"
+                className="w-full h-11 px-3 rounded-xl bg-stone-50 border border-stone-300 text-xs font-bold outline-none focus:border-[#2E7D32] focus:bg-white"
+              />
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-stone-500">
+                  +91
+                </span>
+                <input
+                  type="tel"
+                  maxLength={10}
+                  value={quickPhone}
+                  onChange={(e) => setQuickPhone(sanitizeIndianPhone(e.target.value))}
+                  placeholder="98765 43210"
+                  className="w-full h-11 pl-11 pr-3 rounded-xl bg-stone-50 border border-stone-300 text-xs font-bold outline-none focus:border-[#2E7D32] focus:bg-white"
+                />
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleQuickAuth}
+              disabled={quickPhone.length !== 10}
+              className="w-full h-11 bg-[#1A2E1C] hover:bg-black text-white rounded-xl text-xs font-extrabold transition-all active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2"
+            >
+              <UserCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Verify Mobile &amp; Unlock Address Form</span>
+            </button>
+          </div>
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Delivery Address Card */}
-        <div className="bg-white rounded-2xl border border-stone-200/80 p-4 shadow-2xs space-y-3.5">
+        <div className={`bg-white rounded-2xl border border-stone-200/80 p-4 shadow-2xs space-y-3.5 ${!isLoggedIn ? 'opacity-60 pointer-events-none' : ''}`}>
           <div className="flex items-center justify-between border-b border-stone-100 pb-2.5">
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-[#2E7D32]" />
               <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider">
-                1. Delivery Doorstep Address
+                2. Delivery Doorstep Address
               </h2>
             </div>
 
@@ -175,7 +346,7 @@ export default function CheckoutPage() {
             <button
               type="button"
               onClick={handleAutoFillClick}
-              disabled={isDetecting}
+              disabled={isDetecting || !isLoggedIn}
               className="px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-[#2E7D32] rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-50 cursor-pointer"
             >
               <Navigation className="w-3.5 h-3.5 fill-[#2E7D32]" />
@@ -315,7 +486,7 @@ export default function CheckoutPage() {
           <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
             <Clock className="w-4 h-4 text-[#2E7D32]" />
             <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider">
-              2. Delivery Window
+              3. Delivery Window
             </h2>
           </div>
 
@@ -356,7 +527,7 @@ export default function CheckoutPage() {
         {/* Order Summary & Submit Button */}
         <div className="bg-white rounded-2xl border border-stone-200/80 p-4 shadow-2xs space-y-3">
           <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider border-b border-stone-100 pb-2">
-            3. Order Summary ({cartItemCount} items)
+            4. Order Summary ({cartItemCount} items)
           </h2>
 
           <div className="space-y-1.5 text-xs text-stone-600">
@@ -376,9 +547,14 @@ export default function CheckoutPage() {
 
           <button
             type="submit"
-            className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-bold text-sm shadow-md active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer"
+            disabled={!isLoggedIn}
+            className={`w-full h-12 rounded-xl font-bold text-sm active:scale-[0.99] transition-all flex items-center justify-center gap-2 ${
+              isLoggedIn
+                ? 'bg-[#2E7D32] hover:bg-[#1b5e20] text-white cursor-pointer shadow-md'
+                : 'bg-stone-300 text-stone-600 cursor-not-allowed'
+            }`}
           >
-            <span>Continue to Payment Selection</span>
+            <span>{isLoggedIn ? 'Continue to Payment Selection' : 'Please Sign In or Register in Step 1'}</span>
           </button>
         </div>
       </form>

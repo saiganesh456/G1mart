@@ -58,6 +58,7 @@ export interface Address {
   id: string;
   fullName: string;
   mobileNumber: string;
+  phone?: string;
   houseFlat: string;
   streetArea: string;
   landmark: string;
@@ -89,6 +90,7 @@ export type PaymentMethod =
 export type OrderStatus =
   | 'Order Placed'
   | 'Packed'
+  | 'Order Dispatched'
   | 'Out for Delivery'
   | 'Delivered'
   | 'Cancelled';

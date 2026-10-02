@@ -26,6 +26,11 @@ import {
   Clock,
   Upload,
   X,
+  MapPin,
+  Navigation,
+  Truck,
+  Phone,
+  Share2,
 } from 'lucide-react';
 import type { Category, Product, Order } from '@/types';
 import ProductCard from '@/components/storefront/ProductCard';
@@ -84,6 +89,31 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
       alert('Error marking order paid: ' + err.message);
     } finally {
       setMarkingOrderId(null);
+    }
+  };
+
+  const [updatingOrderId, setUpdatingOrderId] = useState<string | null>(null);
+
+  const handleUpdateOrderStatus = async (orderId: string, nextStatus: string) => {
+    setUpdatingOrderId(orderId);
+    try {
+      const res = await fetch(`/api/admin/orders/${orderId}/status`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: nextStatus, staffIdentifier: staffName }),
+      });
+      const data = await res.json();
+      if (data.success && data.order) {
+        setOrders((prev) =>
+          prev.map((o) => (o.id === orderId ? { ...o, ...data.order } : o))
+        );
+      } else {
+        alert('Failed: ' + (data.error || 'Could not update status'));
+      }
+    } catch (err: any) {
+      alert('Error updating status: ' + err.message);
+    } finally {
+      setUpdatingOrderId(null);
     }
   };
 
@@ -924,14 +954,30 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                     <th className="py-2.5 px-3">Order ID &amp; Time</th>
                     <th className="py-2.5 px-3">Customer &amp; Delivery</th>
                     <th className="py-2.5 px-3">Items &amp; Amount</th>
-                    <th className="py-2.5 px-3">Method</th>
-                    <th className="py-2.5 px-3">Payment Status</th>
-                    <th className="py-2.5 px-3 text-right">Staff Audit Action</th>
+                    <th className="py-2.5 px-3">Payment</th>
+                    <th className="py-2.5 px-3">Fulfillment Status</th>
+                    <th className="py-2.5 px-3">Rider Dispatch &amp; Route</th>
+                    <th className="py-2.5 px-3 text-right">Audit Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-stone-100 text-stone-800">
                   {orders.map((o) => {
                     const isFullyPaid = o.paymentStatus === 'completed' || o.paymentStatus === 'manual_verified';
+                    const currentStatus = o.status || 'Order Placed';
+                    const destQuery = (o.address?.latitude && o.address?.longitude)
+                      ? `${o.address.latitude},${o.address.longitude}`
+                      : encodeURIComponent(`${o.address?.houseFlat || ''} ${o.address?.streetArea || ''} ${o.address?.city || 'Nellore'} ${o.address?.pincode || ''}`);
+                    const riderMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destQuery}`;
+                    const whatsappShareText = encodeURIComponent(
+                      `*🛵 G1 MART DELIVERY DISPATCH*\n` +
+                      `Order ID: #${o.id}\n` +
+                      `Customer: ${o.address?.fullName || 'Customer'} (${o.address?.mobileNumber || o.address?.phone || ''})\n` +
+                      `Address: ${o.address?.houseFlat ? o.address.houseFlat + ', ' : ''}${o.address?.streetArea || ''}, ${o.address?.city || 'Nellore'}\n` +
+                      `Landmark: ${o.address?.landmark || 'N/A'}\n` +
+                      `Items: ${o.items?.map((it) => `${it.productName} x${it.quantity}`).join(', ')}\n` +
+                      `Amount to Collect: ${o.isPaid ? 'PAID ONLINE (₹0 to collect)' : `₹${o.grandTotal} CASH ON DELIVERY`}\n` +
+                      `📍 Turn-by-Turn GPS: ${riderMapsUrl}`
+                    );
 
                     return (
                       <tr key={o.id} className="hover:bg-stone-50/80 transition-colors">
@@ -947,10 +993,26 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
 
                         <td className="py-3 px-3 align-top">
                           <div className="font-bold text-stone-900">{o.address?.fullName || 'Customer'}</div>
-                          <div className="text-[11px] text-stone-500 font-mono">{o.address?.mobileNumber}</div>
-                          <div className="text-[10px] text-stone-400 truncate max-w-[180px]">
+                          <div className="text-[11px] text-stone-500 font-mono flex items-center gap-1.5 mt-0.5">
+                            <span>{o.address?.mobileNumber || o.address?.phone}</span>
+                            {(o.address?.mobileNumber || o.address?.phone) && (
+                              <a
+                                href={`tel:${o.address?.mobileNumber || o.address?.phone}`}
+                                title="Call customer"
+                                className="text-emerald-700 hover:text-emerald-800"
+                              >
+                                <Phone className="w-3 h-3" />
+                              </a>
+                            )}
+                          </div>
+                          <div className="text-[10px] text-stone-400 truncate max-w-[180px] mt-0.5">
                             {o.address?.houseFlat ? `${o.address.houseFlat}, ` : ''}{o.address?.streetArea}
                           </div>
+                          {o.address?.landmark && (
+                            <div className="text-[10px] text-stone-500 italic">
+                              Near {o.address.landmark}
+                            </div>
+                          )}
                           <div className="text-[10px] font-semibold text-emerald-700 mt-0.5">
                             Slot: {o.slot}
                           </div>
@@ -967,7 +1029,7 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                         </td>
 
                         <td className="py-3 px-3 align-top">
-                          <span className="inline-block px-2 py-0.5 rounded-lg bg-stone-100 text-stone-700 font-bold text-[10px] uppercase">
+                          <span className="inline-block px-2 py-0.5 rounded-lg bg-stone-100 text-stone-700 font-bold text-[10px] uppercase mb-1">
                             {o.paymentMethod === 'upi'
                               ? 'UPI (PhonePe)'
                               : o.paymentMethod === 'cod'
@@ -976,59 +1038,122 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                               ? 'Pay at Store'
                               : o.paymentMethod}
                           </span>
-                        </td>
 
-                        <td className="py-3 px-3 align-top">
                           {o.paymentStatus === 'completed' && (
                             <div>
-                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black bg-green-100 text-green-800">
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-green-100 text-green-800">
                                 <CheckCircle2 className="w-3 h-3 text-green-600" />
                                 <span>Paid Online</span>
                               </span>
-                              {o.transactionId && (
-                                <div className="text-[9px] font-mono text-stone-400 mt-1 truncate max-w-[140px]">
-                                  Txn: {o.transactionId}
-                                </div>
-                              )}
                             </div>
                           )}
 
                           {o.paymentStatus === 'manual_verified' && (
                             <div>
-                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800">
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800">
                                 <UserCheck className="w-3 h-3 text-emerald-600" />
-                                <span>Verified by Staff</span>
+                                <span>Verified Staff</span>
                               </span>
-                              <div className="text-[10px] font-medium text-emerald-900 mt-1">
-                                By: <strong>{o.markedPaidBy || 'Staff'}</strong>
-                              </div>
-                              {o.paidAt && (
-                                <div className="text-[9px] text-stone-400 font-mono">
-                                  {new Date(o.paidAt).toLocaleTimeString('en-IN', { timeStyle: 'short' })}
-                                </div>
-                              )}
                             </div>
                           )}
 
                           {o.paymentStatus === 'pending' && (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-100 text-amber-800">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-100 text-amber-800">
                               <Clock className="w-3 h-3 text-amber-600" />
                               <span>Pending</span>
                             </span>
                           )}
 
                           {o.paymentStatus === 'cash_on_delivery' && (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black bg-sky-100 text-sky-800">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-sky-100 text-sky-800">
                               <span>Cash on Delivery</span>
                             </span>
                           )}
+                        </td>
 
-                          {o.paymentStatus === 'failed' && (
-                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black bg-red-100 text-red-800">
-                              <XCircle className="w-3 h-3 text-red-600" />
-                              <span>Failed</span>
-                            </span>
-                          )}
+                        {/* Fulfillment Status & Updater */}
+                        <td className="py-3 px-3 align-top">
+                          <div className="space-y-1.5">
+                            <div>
+                              <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-extrabold ${
+                                currentStatus === 'Delivered'
+                                  ? 'bg-emerald-100 text-emerald-900'
+                                  : currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery'
+                                  ? 'bg-purple-100 text-purple-900 border border-purple-200'
+                                  : currentStatus === 'Packed'
+                                  ? 'bg-blue-100 text-blue-900'
+                                  : 'bg-amber-100 text-amber-900'
+                              }`}>
+                                <Truck className="w-3 h-3" />
+                                <span>{currentStatus}</span>
+                              </span>
+                            </div>
+
+                            {/* Quick status progression buttons */}
+                            <div className="flex flex-col gap-1">
+                              {currentStatus === 'Order Placed' && (
+                                <button
+                                  type="button"
+                                  onClick={() => handleUpdateOrderStatus(o.id, 'Packed')}
+                                  disabled={updatingOrderId === o.id}
+                                  className="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-md text-[10px] font-bold text-left transition-all"
+                                >
+                                  📦 Mark Packed
+                                </button>
+                              )}
+
+                              {(currentStatus === 'Order Placed' || currentStatus === 'Packed') && (
+                                <button
+                                  type="button"
+                                  onClick={() => handleUpdateOrderStatus(o.id, 'Order Dispatched')}
+                                  disabled={updatingOrderId === o.id}
+                                  className="px-2 py-1 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-md text-[10px] font-bold text-left shadow-2xs transition-all flex items-center justify-between"
+                                >
+                                  <span>🛵 Mark Dispatched</span>
+                                  <ArrowRight className="w-3 h-3" />
+                                </button>
+                              )}
+
+                              {(currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery') && (
+                                <button
+                                  type="button"
+                                  onClick={() => handleUpdateOrderStatus(o.id, 'Delivered')}
+                                  disabled={updatingOrderId === o.id}
+                                  className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-md text-[10px] font-bold text-left shadow-2xs transition-all flex items-center justify-between"
+                                >
+                                  <span>✅ Mark Delivered</span>
+                                  <Check className="w-3 h-3" />
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        </td>
+
+                        {/* Rider Dispatch & Route */}
+                        <td className="py-3 px-3 align-top">
+                          <div className="space-y-1.5">
+                            <a
+                              href={riderMapsUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#1A2E1C] hover:bg-black text-white rounded-lg text-[10px] font-bold shadow-2xs transition-all"
+                            >
+                              <Navigation className="w-3 h-3 text-emerald-400 fill-emerald-400" />
+                              <span>Open Rider Route</span>
+                            </a>
+
+                            <div>
+                              <a
+                                href={`https://wa.me/?text=${whatsappShareText}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 px-2 py-1 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#1B5E20] border border-[#25D366]/30 rounded-lg text-[10px] font-bold transition-all"
+                              >
+                                <Share2 className="w-3 h-3 text-[#25D366]" />
+                                <span>WhatsApp to Rider</span>
+                              </a>
+                            </div>
+                          </div>
                         </td>
 
                         <td className="py-3 px-3 align-top text-right">

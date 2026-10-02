@@ -10,6 +10,7 @@ interface AuthContextType {
   supabaseUser: any | null;
   isLoading: boolean;
   isLoggedIn: boolean;
+  setLocalUser: (profile: UserProfile) => void;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 }
@@ -19,6 +20,7 @@ const AuthContext = createContext<AuthContextType>({
   supabaseUser: null,
   isLoading: true,
   isLoggedIn: false,
+  setLocalUser: () => {},
   signOut: async () => {},
   refreshProfile: async () => {},
 });
@@ -31,6 +33,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const fetchProfile = async (rawUser?: any) => {
     try {
       if (!isSupabaseConfigured()) {
+        try {
+          const stored = localStorage.getItem('g1mart_user_session');
+          if (stored) setUser(JSON.parse(stored));
+        } catch {}
         setIsLoading(false);
         return;
       }
@@ -38,7 +44,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const activeUser = rawUser || (await supabase.auth.getUser()).data?.user;
       if (!activeUser) {
         setSupabaseUser(null);
-        setUser(null);
+        // Fallback to locally stored session if any
+        try {
+          const stored = localStorage.getItem('g1mart_user_session');
+          if (stored) {
+            setUser(JSON.parse(stored));
+          } else {
+            setUser(null);
+          }
+        } catch {
+          setUser(null);
+        }
         setIsLoading(false);
         return;
       }
@@ -49,9 +65,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const profile = await authService.getCurrentProfile();
       if (profile) {
         setUser(profile);
+        try {
+          localStorage.setItem('g1mart_user_session', JSON.stringify(profile));
+        } catch {}
       } else {
         const meta = activeUser.user_metadata || {};
-        setUser({
+        const p: UserProfile = {
           name: meta.full_name || meta.name || activeUser.email?.split('@')[0] || 'Customer',
           phone: activeUser.phone || meta.phone || '',
           email: activeUser.email || '',
@@ -60,7 +79,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             month: 'short',
             year: 'numeric',
           }),
-        });
+        };
+        setUser(p);
+        try {
+          localStorage.setItem('g1mart_user_session', JSON.stringify(p));
+        } catch {}
       }
     } catch (err) {
       console.warn('[AuthContext] Error loading user profile:', err);
@@ -81,7 +104,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         await fetchProfile(session.user);
       } else {
         setSupabaseUser(null);
-        setUser(null);
+        try {
+          const stored = localStorage.getItem('g1mart_user_session');
+          if (stored) setUser(JSON.parse(stored));
+          else setUser(null);
+        } catch {
+          setUser(null);
+        }
       }
     });
 
@@ -90,10 +119,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
+  const setLocalUser = (profile: UserProfile) => {
+    setUser(profile);
+    try {
+      localStorage.setItem('g1mart_user_session', JSON.stringify(profile));
+    } catch {}
+  };
+
   const signOut = async () => {
     await authService.signOut();
     setSupabaseUser(null);
     setUser(null);
+    try {
+      localStorage.removeItem('g1mart_user_session');
+    } catch {}
   };
 
   return (
@@ -102,7 +141,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         user,
         supabaseUser,
         isLoading,
-        isLoggedIn: Boolean(supabaseUser),
+        isLoggedIn: Boolean(supabaseUser || user),
+        setLocalUser,
         signOut,
         refreshProfile: fetchProfile,
       }}

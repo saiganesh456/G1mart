@@ -2,13 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Trash2, Plus, Minus, ArrowRight, ShoppingBag, ShieldCheck, CheckCircle2, Truck } from 'lucide-react';
+import { Trash2, Plus, Minus, ArrowRight, ShoppingBag, ShieldCheck, CheckCircle2, Truck, UserCheck } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 import { STORE_CONFIG } from '@/config/store';
 
 export default function CartPage() {
   const { cart, updateCartQuantity, removeFromCart, clearCart, cartItemCount, cartSubtotal } =
     useCart();
+  const { isLoggedIn } = useAuth();
   const [recentOrder, setRecentOrder] = useState<any>(null);
 
   useEffect(() => {
@@ -155,6 +157,27 @@ export default function CartPage() {
           </div>
         ))}
       </div>
+
+      {/* Account Verification Nudge */}
+      {!isLoggedIn && (
+        <div className="bg-gradient-to-r from-emerald-50 to-white rounded-2xl border border-emerald-200 p-3.5 flex items-center justify-between shadow-2xs">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-8 h-8 rounded-xl bg-[#2E7D32]/10 text-[#2E7D32] flex items-center justify-center font-bold text-xs shrink-0">
+              <UserCheck className="w-4 h-4" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-xs font-bold text-stone-900 truncate">Account Required to Book</p>
+              <p className="text-[11px] text-stone-500 truncate">Sign in with Google or Phone to complete your order</p>
+            </div>
+          </div>
+          <Link
+            href="/login"
+            className="px-3 py-1.5 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl text-xs font-bold shrink-0 transition-colors shadow-2xs ml-2"
+          >
+            Sign In
+          </Link>
+        </div>
+      )}
 
       {/* Bill Summary (Display Only) */}
       <div className="bg-white rounded-2xl border border-stone-200/80 p-4 shadow-2xs space-y-2.5">

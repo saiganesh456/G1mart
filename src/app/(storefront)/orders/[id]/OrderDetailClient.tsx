@@ -113,24 +113,68 @@ export default function OrderDetailClient({ orderId }: Props) {
         </div>
 
         {/* Live Tracking Timeline */}
-        <div className="space-y-3 py-1 text-xs">
-          <div className="flex items-center gap-3 text-emerald-800">
-            <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
-            <span className="font-bold">Order Placed</span>
-          </div>
-          <div className="flex items-center gap-3 text-stone-500">
-            <div className="w-4 h-4 rounded-full border-2 border-[#2E7D32] border-t-transparent animate-spin" />
-            <span className="font-semibold text-stone-800">Packing at G1 Mart Hub</span>
-          </div>
-          <div className="flex items-center gap-3 text-stone-400">
-            <Clock className="w-4 h-4" />
-            <span>Out for Express Delivery</span>
-          </div>
-          <div className="flex items-center gap-3 text-stone-400">
-            <Clock className="w-4 h-4" />
-            <span>Delivered at Doorstep</span>
-          </div>
-        </div>
+        {(() => {
+          const currentStatus = order?.status || 'Order Placed';
+          const isPlaced = true;
+          const isPacking = currentStatus === 'Packing' || currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery' || currentStatus === 'Delivered';
+          const isDispatched = currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery' || currentStatus === 'Delivered';
+          const isDelivered = currentStatus === 'Delivered';
+
+          return (
+            <div className="space-y-3 py-1 text-xs">
+              <div className="flex items-center gap-3 text-emerald-800">
+                <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
+                <span className="font-bold">Order Placed</span>
+              </div>
+              <div className="flex items-center gap-3">
+                {isPacking ? (
+                  <>
+                    <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
+                    <span className="font-bold text-stone-800">Packed at G1 Mart Hub</span>
+                  </>
+                ) : (
+                  <>
+                    <div className="w-4 h-4 rounded-full border-2 border-[#2E7D32] border-t-transparent animate-spin" />
+                    <span className="font-semibold text-stone-800">Packing at G1 Mart Hub</span>
+                  </>
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                {isDispatched ? (
+                  <>
+                    <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
+                    <span className="font-bold text-stone-800">
+                      {isDelivered ? 'Dispatched for Express Delivery' : 'Out for Express Delivery with Rider'}
+                    </span>
+                  </>
+                ) : isPacking ? (
+                  <>
+                    <div className="w-4 h-4 rounded-full border-2 border-[#2E7D32] border-t-transparent animate-spin" />
+                    <span className="font-semibold text-stone-800">Ready for Rider Pickup</span>
+                  </>
+                ) : (
+                  <>
+                    <Clock className="w-4 h-4 text-stone-400" />
+                    <span className="text-stone-400">Out for Express Delivery</span>
+                  </>
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                {isDelivered ? (
+                  <>
+                    <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
+                    <span className="font-bold text-emerald-800">Delivered at Doorstep 🎉</span>
+                  </>
+                ) : (
+                  <>
+                    <Clock className="w-4 h-4 text-stone-400" />
+                    <span className="text-stone-400">Delivered at Doorstep</span>
+                  </>
+                )}
+              </div>
+            </div>
+          );
+        })()}
 
         {/* Customer & Address Details */}
         {address && (
@@ -208,26 +252,35 @@ export default function OrderDetailClient({ orderId }: Props) {
           </div>
         )}
 
-        {/* Rider Navigation Direct Link */}
-        <div className="bg-stone-50 p-3.5 rounded-xl border border-stone-200/70 space-y-2">
+        {/* Customer Help & Support */}
+        <div className="bg-stone-50 p-4 rounded-xl border border-stone-200/70 space-y-2.5">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-stone-700">Delivery Navigation</span>
-            <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">
-              GPS ATTACHED
+            <span className="text-xs font-bold text-stone-800">Need Help with your Delivery?</span>
+            <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+              <ShieldCheck className="w-3 h-3 text-[#2E7D32]" />
+              <span>G1 Mart Care</span>
             </span>
           </div>
-          <p className="text-xs text-stone-500">
-            Turn-by-turn route navigation to customer doorstep.
+          <p className="text-xs text-stone-500 leading-relaxed">
+            Our store team in Nellore is processing your order. For queries or instant updates, connect with our store manager.
           </p>
-          <a
-            href={googleMapsNavUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-2 bg-[#2E7D32] hover:bg-[#1b5e20] text-white font-bold rounded-lg text-xs transition-colors shadow-2xs mt-1"
-          >
-            <Navigation className="w-3.5 h-3.5 fill-white" />
-            <span>Open Google Maps Route →</span>
-          </a>
+          <div className="flex items-center gap-2 pt-1">
+            <a
+              href="tel:+919876543210"
+              className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-white hover:bg-stone-100 text-stone-800 font-bold rounded-xl text-xs border border-stone-200 transition-colors shadow-2xs"
+            >
+              <Phone className="w-3.5 h-3.5 text-[#2E7D32]" />
+              <span>Call Store</span>
+            </a>
+            <a
+              href={`https://wa.me/919876543210?text=Hi%20G1%20Mart%20Team,%20I%20have%20an%20inquiry%20regarding%20my%20Order%20%23${orderId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-[#25D366] hover:bg-[#20ba59] text-white font-bold rounded-xl text-xs transition-colors shadow-2xs"
+            >
+              <span>WhatsApp Store</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>

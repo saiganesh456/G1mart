@@ -70,7 +70,7 @@ export const authService = {
     }
   },
 
-  async signInWithGoogle(): Promise<AuthResponse> {
+  async signInWithGoogle(nextUrl: string = '/account'): Promise<AuthResponse> {
     if (!isSupabaseConfigured()) {
       return {
         success: false,
@@ -87,7 +87,7 @@ export const authService = {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${redirectOrigin}/auth/callback?next=/account`,
+          redirectTo: `${redirectOrigin}/auth/callback?next=${encodeURIComponent(nextUrl)}`,
         },
       });
 

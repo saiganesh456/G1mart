@@ -360,6 +360,55 @@ export const serverOrderStore = {
   },
 
   /**
+   * Update order fulfillment status (e.g. Packed, Order Dispatched, Out for Delivery, Delivered)
+   */
+  async updateOrderStatus(
+    orderId: string,
+    status: OrderStatus,
+    updatedBy?: string
+  ): Promise<{ success: boolean; order?: Order }> {
+    const order = ordersMap.get(orderId);
+    if (!order) return { success: false };
+
+    const timeStr = new Date().toLocaleTimeString('en-IN', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    order.status = status;
+
+    // Update timeline steps
+    const isPacked = status === 'Packed' || status === 'Order Dispatched' || status === 'Out for Delivery' || status === 'Delivered';
+    const isDispatched = status === 'Order Dispatched' || status === 'Out for Delivery' || status === 'Delivered';
+    const isDelivered = status === 'Delivered';
+
+    order.timeline = [
+      { status: 'Order Placed', time: order.timeline[0]?.time || 'Confirmed', completed: true },
+      { status: 'Packed', time: isPacked ? timeStr : 'Pending', completed: isPacked },
+      { status: 'Out for Delivery', time: isDispatched ? timeStr : 'Pending', completed: isDispatched },
+      { status: 'Delivered', time: isDelivered ? timeStr : 'Pending', completed: isDelivered },
+    ];
+
+    ordersMap.set(orderId, order);
+
+    if (isSupabaseConfigured()) {
+      try {
+        await supabase
+          .from('orders')
+          .update({
+            status,
+            timeline: order.timeline,
+          })
+          .eq('id', orderId);
+      } catch (err) {
+        console.warn('[serverOrderStore] Supabase updateOrderStatus fallback:', err);
+      }
+    }
+
+    return { success: true, order };
+  },
+
+  /**
    * Confirm Cash on Delivery order
    */
   async confirmCodOrder(orderId: string): Promise<{ success: boolean; order?: Order }> {
