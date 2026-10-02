@@ -80,7 +80,11 @@ export type PaymentMethod =
   | 'Cash on Delivery'
   | 'UPI'
   | 'Debit / Credit Card'
-  | 'Net Banking';
+  | 'Net Banking'
+  | 'upi'
+  | 'cod'
+  | 'card'
+  | 'store';
 
 export type OrderStatus =
   | 'Order Placed'
@@ -91,9 +95,11 @@ export type OrderStatus =
 
 export type PaymentStatus =
   | 'pending'
-  | 'paid'
+  | 'completed'
   | 'failed'
-  | 'cash_on_delivery';
+  | 'cash_on_delivery'
+  | 'manual_verified'
+  | 'cancelled';
 
 export interface OrderItem {
   productId: string;
@@ -102,6 +108,20 @@ export interface OrderItem {
   price: number;
   quantity: number;
   image: string;
+}
+
+export interface PaymentRecord {
+  id: string;
+  orderId: string;
+  provider: 'phonepe' | 'cash_on_delivery' | 'manual_staff' | string;
+  providerOrderId?: string;
+  transactionId?: string;
+  amount: number; // In rupees
+  status: 'PENDING' | 'COMPLETED' | 'FAILED';
+  rawResponse?: any;
+  verifiedAt?: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Order {
@@ -119,6 +139,12 @@ export interface Order {
   deliveryFee: number;
   taxes: number;
   grandTotal: number;
+  isPaid?: boolean;
+  paidAmount?: number;
+  paidAt?: string;
+  markedPaidBy?: string;
+  providerOrderId?: string;
+  transactionId?: string;
   timeline: {
     status: OrderStatus;
     time: string;

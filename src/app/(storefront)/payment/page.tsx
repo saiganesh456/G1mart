@@ -12,15 +12,42 @@ export default function PaymentPage() {
   const [selectedMethod, setSelectedMethod] = useState<'cod' | 'upi' | 'card'>('cod');
   const [processing, setProcessing] = useState(false);
 
-  const handlePay = () => {
+  const handlePay = async () => {
+    let addressData: any = null;
+    try {
+      const raw = sessionStorage.getItem('g1mart_checkout_address');
+      if (raw) addressData = JSON.parse(raw);
+    } catch {}
+
+    if (!addressData || !addressData.phone) {
+      alert('Please complete your delivery address in checkout first.');
+      router.push('/checkout');
+      return;
+    }
+
+    // 1. Cash on Delivery (Fallback method per Rule 11)
     if (selectedMethod === 'cod') {
       setProcessing(true);
-      let addressData: any = null;
       try {
-        const raw = sessionStorage.getItem('g1mart_checkout_address');
-        if (raw) addressData = JSON.parse(raw);
+        const res = await fetch('/api/checkout/initiate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            items: cart.map((i) => ({ productId: i.product.id, quantity: i.quantity })),
+            address: addressData,
+            paymentMethod: 'Cash on Delivery',
+            slot: addressData.selectedSlot,
+          }),
+        });
+        const data = await res.json();
+        if (data.success && data.orderId) {
+          clearCart();
+          router.push(`/orders/${data.orderId}?placed=true`);
+          return;
+        }
       } catch {}
 
+      // Fallback local persistence if server is in offline test mode
       const orderId = `G1-${Math.floor(100000 + Math.random() * 900000)}`;
       const orderRecord = {
         id: orderId,
@@ -59,9 +86,33 @@ export default function PaymentPage() {
       return;
     }
 
-    alert(
-      'Online payment gateway (PhonePe UPI / Cards) is scheduled for Phase 2. Please choose Cash on Delivery (COD) to place your order right now.'
-    );
+    // 2. Online PhonePe UPI Checkout (Rules 1, 2, 3)
+    setProcessing(true);
+    try {
+      const res = await fetch('/api/checkout/initiate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: cart.map((i) => ({ productId: i.product.id, quantity: i.quantity })),
+          address: addressData,
+          paymentMethod: 'UPI',
+          slot: addressData.selectedSlot,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success || !data.redirectUrl) {
+        alert(data.error || 'Unable to initiate PhonePe UPI checkout');
+        setProcessing(false);
+        return;
+      }
+
+      // Customer redirected to PhonePe checkout URL per Rule 3
+      window.location.href = data.redirectUrl;
+    } catch (err: any) {
+      alert(err.message || 'Error communicating with checkout server');
+      setProcessing(false);
+    }
   };
 
   return (
@@ -77,10 +128,10 @@ export default function PaymentPage() {
       </div>
 
       {/* Advisory Notice */}
-      <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 flex items-start gap-2">
-        <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+      <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 flex items-start gap-2">
+        <ShieldCheck className="w-4 h-4 text-[#2E7D32] shrink-0 mt-0.5" />
         <div>
-          <span className="font-bold">Payment Gateway Integration (Phase 2):</span> PhonePe integration will be activated once merchant credentials are added to environment variables.
+          <span className="font-bold">PhonePe UPI Gateway:</span> Secure payment with GPay, PhonePe, Paytm, or Cards. Server verifies transaction with PhonePe before confirming order.
         </div>
       </div>
 
@@ -193,12 +244,18 @@ export default function PaymentPage() {
         <button
           type="button"
           onClick={handlePay}
-          className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all"
+          disabled={processing}
+          className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all disabled:opacity-60 cursor-pointer"
         >
+          {processing && (
+            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+          )}
           <span>
-            {selectedMethod === 'cod'
+            {processing
+              ? 'Connecting to PhonePe...'
+              : selectedMethod === 'cod'
               ? `Confirm Order with Cash on Delivery`
-              : `Proceed to Pay with ${selectedMethod.toUpperCase()}`}
+              : `Proceed to Pay with ${selectedMethod.toUpperCase()} (₹${cartSubtotal})`}
           </span>
         </button>
       </div>

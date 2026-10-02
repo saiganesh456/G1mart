@@ -20,8 +20,12 @@ import {
   Layers,
   ArrowRight,
   Check,
+  CreditCard,
+  RefreshCw,
+  UserCheck,
+  Clock,
 } from 'lucide-react';
-import type { Category, Product } from '@/types';
+import type { Category, Product, Order } from '@/types';
 import ProductCard from '@/components/storefront/ProductCard';
 
 interface Props {
@@ -34,7 +38,52 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [stockFilter, setStockFilter] = useState<'all' | 'in_stock' | 'out_of_stock'>('all');
-  const [activeTab, setActiveTab] = useState<'inventory' | 'add_product'>('inventory');
+  const [activeTab, setActiveTab] = useState<'inventory' | 'add_product' | 'orders'>('inventory');
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loadingOrders, setLoadingOrders] = useState(false);
+  const [markingOrderId, setMarkingOrderId] = useState<string | null>(null);
+  const [staffName, setStaffName] = useState('Store Staff (Counter)');
+
+  const fetchOrders = async () => {
+    setLoadingOrders(true);
+    try {
+      const res = await fetch('/api/admin/orders');
+      const data = await res.json();
+      if (data.success && Array.isArray(data.orders)) {
+        setOrders(data.orders);
+      }
+    } catch (err) {
+      console.error('Failed to fetch admin orders', err);
+    } finally {
+      setLoadingOrders(false);
+    }
+  };
+
+  const handleMarkPaid = async (orderId: string) => {
+    const enteredStaff = prompt('Enter staff member name or cashier ID for payment audit trail:', staffName) || staffName;
+    if (!enteredStaff) return;
+    setStaffName(enteredStaff);
+    setMarkingOrderId(orderId);
+    try {
+      const res = await fetch(`/api/admin/orders/${orderId}/mark-paid`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ staffIdentifier: enteredStaff }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setOrders((prev) =>
+          prev.map((o) => (o.id === orderId ? { ...o, ...data.order } : o))
+        );
+      } else {
+        alert('Failed: ' + (data.error || 'Could not mark order paid'));
+      }
+    } catch (err: any) {
+      alert('Error marking order paid: ' + err.message);
+    } finally {
+      setMarkingOrderId(null);
+    }
+  };
 
   // New product form state
   const [newProductName, setNewProductName] = useState('');
@@ -203,7 +252,7 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
         </div>
 
         {/* Tab Toggle Buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
             onClick={() => setActiveTab('inventory')}
@@ -227,6 +276,21 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
           >
             <PlusCircle className="w-3.5 h-3.5" />
             <span>+ Add New Product</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setActiveTab('orders');
+              fetchOrders();
+            }}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+              activeTab === 'orders'
+                ? 'bg-[#2E7D32] text-white shadow-xs'
+                : 'bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100'
+            }`}
+          >
+            <CreditCard className="w-3.5 h-3.5" />
+            <span>Orders &amp; Payments (Phase 5)</span>
           </button>
         </div>
       </div>
@@ -737,6 +801,186 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
               <div>✓ Instant addition to client-side catalog state</div>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* TAB 3: ORDERS & PAYMENTS (PHASE 5) */}
+      {activeTab === 'orders' && (
+        <div className="bg-white rounded-2xl border border-stone-200 shadow-2xs overflow-hidden space-y-4 p-5 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-100">
+            <div>
+              <h2 className="text-base font-extrabold text-stone-900 flex items-center gap-2">
+                <CreditCard className="w-5 h-5 text-[#2E7D32]" />
+                <span>Customer Orders &amp; Payment Audit</span>
+              </h2>
+              <p className="text-xs text-stone-500 font-medium mt-0.5">
+                Review UPI transactions, manage Cash on Delivery, and audit staff manual payment confirmations (SPEC Section 11 &amp; 15).
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={fetchOrders}
+                disabled={loadingOrders}
+                className="px-3 py-2 bg-stone-100 hover:bg-stone-200 rounded-xl text-xs font-bold text-stone-700 flex items-center gap-1.5 transition-all"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${loadingOrders ? 'animate-spin' : ''}`} />
+                <span>Refresh Orders</span>
+              </button>
+            </div>
+          </div>
+
+          {loadingOrders ? (
+            <div className="py-12 text-center text-xs font-bold text-stone-400">
+              Loading orders...
+            </div>
+          ) : orders.length === 0 ? (
+            <div className="py-12 text-center space-y-2">
+              <p className="text-sm font-bold text-stone-700">No customer orders recorded yet.</p>
+              <p className="text-xs text-stone-400 max-w-sm mx-auto">
+                Orders placed via UPI checkout, PhonePe, or Cash on Delivery will appear here in real-time.
+              </p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead className="bg-stone-100/70 border-b border-stone-200 text-stone-600 font-bold uppercase tracking-wider text-[10px]">
+                  <tr>
+                    <th className="py-2.5 px-3">Order ID &amp; Time</th>
+                    <th className="py-2.5 px-3">Customer &amp; Delivery</th>
+                    <th className="py-2.5 px-3">Items &amp; Amount</th>
+                    <th className="py-2.5 px-3">Method</th>
+                    <th className="py-2.5 px-3">Payment Status</th>
+                    <th className="py-2.5 px-3 text-right">Staff Audit Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-stone-100 text-stone-800">
+                  {orders.map((o) => {
+                    const isFullyPaid = o.paymentStatus === 'completed' || o.paymentStatus === 'manual_verified';
+
+                    return (
+                      <tr key={o.id} className="hover:bg-stone-50/80 transition-colors">
+                        <td className="py-3 px-3 align-top font-mono">
+                          <div className="font-bold text-stone-900">#{o.id}</div>
+                          <div className="text-[10px] text-stone-400 font-sans mt-0.5">
+                            {new Date(o.date).toLocaleString('en-IN', {
+                              dateStyle: 'short',
+                              timeStyle: 'short',
+                            })}
+                          </div>
+                        </td>
+
+                        <td className="py-3 px-3 align-top">
+                          <div className="font-bold text-stone-900">{o.address?.fullName || 'Customer'}</div>
+                          <div className="text-[11px] text-stone-500 font-mono">{o.address?.mobileNumber}</div>
+                          <div className="text-[10px] text-stone-400 truncate max-w-[180px]">
+                            {o.address?.houseFlat ? `${o.address.houseFlat}, ` : ''}{o.address?.streetArea}
+                          </div>
+                          <div className="text-[10px] font-semibold text-emerald-700 mt-0.5">
+                            Slot: {o.slot}
+                          </div>
+                        </td>
+
+                        <td className="py-3 px-3 align-top">
+                          <div className="font-black text-stone-900 text-sm">₹{o.grandTotal}</div>
+                          <div className="text-[11px] text-stone-500">
+                            {o.items?.length || 0} item{o.items?.length === 1 ? '' : 's'}
+                          </div>
+                          <div className="text-[10px] text-stone-400 max-w-[180px] truncate">
+                            {o.items?.map((item) => `${item.productName} (${item.quantity})`).join(', ')}
+                          </div>
+                        </td>
+
+                        <td className="py-3 px-3 align-top">
+                          <span className="inline-block px-2 py-0.5 rounded-lg bg-stone-100 text-stone-700 font-bold text-[10px] uppercase">
+                            {o.paymentMethod === 'upi'
+                              ? 'UPI (PhonePe)'
+                              : o.paymentMethod === 'cod'
+                              ? 'Cash on Delivery'
+                              : o.paymentMethod === 'store'
+                              ? 'Pay at Store'
+                              : o.paymentMethod}
+                          </span>
+                        </td>
+
+                        <td className="py-3 px-3 align-top">
+                          {o.paymentStatus === 'completed' && (
+                            <div>
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black bg-green-100 text-green-800">
+                                <CheckCircle2 className="w-3 h-3 text-green-600" />
+                                <span>Paid Online</span>
+                              </span>
+                              {o.transactionId && (
+                                <div className="text-[9px] font-mono text-stone-400 mt-1 truncate max-w-[140px]">
+                                  Txn: {o.transactionId}
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {o.paymentStatus === 'manual_verified' && (
+                            <div>
+                              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800">
+                                <UserCheck className="w-3 h-3 text-emerald-600" />
+                                <span>Verified by Staff</span>
+                              </span>
+                              <div className="text-[10px] font-medium text-emerald-900 mt-1">
+                                By: <strong>{o.markedPaidBy || 'Staff'}</strong>
+                              </div>
+                              {o.paidAt && (
+                                <div className="text-[9px] text-stone-400 font-mono">
+                                  {new Date(o.paidAt).toLocaleTimeString('en-IN', { timeStyle: 'short' })}
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {o.paymentStatus === 'pending' && (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-100 text-amber-800">
+                              <Clock className="w-3 h-3 text-amber-600" />
+                              <span>Pending</span>
+                            </span>
+                          )}
+
+                          {o.paymentStatus === 'cash_on_delivery' && (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black bg-sky-100 text-sky-800">
+                              <span>Cash on Delivery</span>
+                            </span>
+                          )}
+
+                          {o.paymentStatus === 'failed' && (
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black bg-red-100 text-red-800">
+                              <XCircle className="w-3 h-3 text-red-600" />
+                              <span>Failed</span>
+                            </span>
+                          )}
+                        </td>
+
+                        <td className="py-3 px-3 align-top text-right">
+                          {!isFullyPaid ? (
+                            <button
+                              type="button"
+                              onClick={() => handleMarkPaid(o.id)}
+                              disabled={markingOrderId === o.id}
+                              className="px-2.5 py-1.5 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-lg text-[11px] font-bold shadow-2xs transition-all flex items-center gap-1 ml-auto"
+                            >
+                              <UserCheck className="w-3 h-3" />
+                              <span>{markingOrderId === o.id ? 'Marking...' : 'Mark as Paid'}</span>
+                            </button>
+                          ) : (
+                            <span className="text-[11px] text-stone-400 font-medium">
+                              Audit complete
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       )}
     </div>
