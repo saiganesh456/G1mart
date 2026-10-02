@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="100%" height="100%">
+  <defs>
+    <linearGradient id="pouchGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="50%" stop-color="#F1F8E9" />
+      <stop offset="100%" stop-color="#DCEDC8" />
+    </linearGradient>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2E7D32" />
+      <stop offset="100%" stop-color="#1B5E20" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <!-- Pouch Outer Boundary with 3D Gusset Shadow -->
+  <rect x="25" y="18" width="270" height="284" rx="20" fill="url(#pouchGrad)" stroke="#E0E0E0" stroke-width="1.5" filter="url(#shadow)" />
+
+  <!-- Pouch Top Heat-Seal Crimp Details -->
+  <line x1="30" y1="26" x2="290" y2="26" stroke="#33691E" stroke-width="1" stroke-dasharray="3,3" opacity="0.4" />
+  <line x1="30" y1="32" x2="290" y2="32" stroke="#33691E" stroke-width="1" stroke-dasharray="3,3" opacity="0.4" />
+
+  <!-- Top Brand Banner: G1 MART -->
+  <rect x="40" y="38" width="240" height="42" rx="10" fill="url(#headerGrad)" />
+  <text x="160" y="60" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="15" fill="#FFFFFF" text-anchor="middle" letter-spacing="1.5">G1 MART</text>
+  <text x="160" y="73" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="600" font-size="8.5" fill="#E8F5E9" text-anchor="middle" letter-spacing="0.8">SUPERMARKET FRESH</text>
+
+  <!-- Center Circular Emblem with Category Icon -->
+  <circle cx="160" cy="120" r="32" fill="#FFFFFF" stroke="#33691E" stroke-width="2" stroke-opacity="0.25" />
+  <text x="160" y="130" font-size="30" text-anchor="middle">🥦</text>
+
+  <!-- Product Name on Packet -->
+  <text x="160" y="174" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="800" font-size="13.5" fill="#212121" text-anchor="middle">MANGO FRUIT</text>
+  
+
+  <!-- Net Quantity Pill -->
+  <rect x="100" y="208" width="120" height="26" rx="13" fill="#33691E" />
+  <text x="160" y="225" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="800" font-size="12" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">NET WT: 1 piece</text>
+
+  <!-- Clean Bottom Seal & Verification Badge -->
+  <line x1="45" y1="254" x2="275" y2="254" stroke="#BDBDBD" stroke-width="1" stroke-dasharray="2,2" />
+  <text x="160" y="272" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="700" font-size="9" fill="#616161" text-anchor="middle">★ HYGIENICALLY STORE-PACKED ★</text>
+  <text x="160" y="285" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="500" font-size="8" fill="#9E9E9E" text-anchor="middle">G1 Mart · Nellore Hub</text>
+</svg>

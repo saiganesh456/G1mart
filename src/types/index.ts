@@ -23,6 +23,8 @@ export interface Product {
   sku?: string;
   slug?: string;
   isActive?: boolean;
+  itemNumber?: number;
+  rawName?: string;
 }
 
 export interface Category {
