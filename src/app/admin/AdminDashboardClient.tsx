@@ -135,11 +135,17 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
       subCategory: newSubCategory,
       unit: newUnit,
       price: priceNum,
+      priceConfirmed: false,
       originalPrice: mrpNum,
       discountPercentage: mrpNum > priceNum ? Math.round(((mrpNum - priceNum) / mrpNum) * 100) : 0,
       inStock: stockNum > 0,
       stockCount: stockNum,
-      image: newImage || '/products/photos/test-rice.jpg',
+      image: '/products/placeholder.svg',
+      image_path: newImage,
+      image_source: 'own_photo',
+      image_license: 'Proprietary Store Asset',
+      image_status: 'pending',
+      image_match_note: 'Awaiting store owner review and approval before publishing to storefront.',
       description: newDesc,
       rating: 4.9,
       reviewsCount: 1,
@@ -167,11 +173,15 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
     subCategory: newSubCategory,
     unit: newUnit,
     price: parseFloat(newPrice) || 50,
+    priceConfirmed: true,
     originalPrice: parseFloat(newMRP) || 50,
     discountPercentage: 0,
     inStock: true,
     stockCount: parseInt(newStock, 10) || 20,
-    image: newImage,
+    image: newImage || '/products/placeholder.svg',
+    image_path: newImage,
+    image_source: 'own_photo',
+    image_status: 'approved', // Show in preview card so admin can see candidate layout
     description: newDesc,
     rating: 4.8,
     reviewsCount: 12,
@@ -315,74 +325,118 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
               <thead className="bg-stone-100/70 border-b border-stone-200 text-stone-600 font-bold uppercase tracking-wider text-[10px]">
                 <tr>
                   <th className="py-2.5 px-3">#</th>
-                  <th className="py-2.5 px-3">Product</th>
+                  <th className="py-2.5 px-3">Product Name &amp; Ambiguity Flag</th>
                   <th className="py-2.5 px-3">Category</th>
                   <th className="py-2.5 px-3">Unit</th>
                   <th className="py-2.5 px-3">Price (₹)</th>
+                  <th className="py-2.5 px-3">Section 9.2 Image Gate</th>
                   <th className="py-2.5 px-3">Stock Status</th>
                   <th className="py-2.5 px-3 text-right">Customer View</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-100 text-stone-800">
-                {filteredProducts.slice(0, 100).map((p, index) => (
-                  <tr key={p.id} className="hover:bg-stone-50/80 transition-colors">
-                    <td className="py-2.5 px-3 font-mono text-stone-400 text-[11px]">
-                      {p.itemNumber || index + 1}
-                    </td>
+                {filteredProducts.slice(0, 100).map((p, index) => {
+                  const displayImage =
+                    p.image_status === 'approved'
+                      ? p.image_path || p.image
+                      : '/products/placeholder.svg';
 
-                    {/* Product Name & Photo */}
-                    <td className="py-2.5 px-3">
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-10 h-10 rounded-lg bg-stone-50 border border-stone-200/80 overflow-hidden shrink-0 flex items-center justify-center p-1">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={p.image}
-                            alt={p.name}
-                            className="w-full h-full object-contain"
-                            onError={(e) => {
-                              (e.currentTarget as HTMLImageElement).src =
-                                'https://placehold.co/80x80/e8f5e9/2e7d32?text=G1';
-                            }}
-                          />
-                        </div>
-                        <div className="min-w-0">
-                          <div className="font-bold text-stone-900 truncate max-w-xs">
-                            {p.name}
+                  return (
+                    <tr key={p.id} className="hover:bg-stone-50/80 transition-colors">
+                      <td className="py-2.5 px-3 font-mono text-stone-400 text-[11px]">
+                        {p.itemNumber || index + 1}
+                      </td>
+
+                      {/* Product Name & Details */}
+                      <td className="py-2.5 px-3">
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-10 h-10 rounded-lg bg-stone-50 border border-stone-200/80 overflow-hidden shrink-0 flex items-center justify-center p-1">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={displayImage}
+                              alt={p.name}
+                              className="w-full h-full object-contain"
+                              onError={(e) => {
+                                (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
+                              }}
+                            />
                           </div>
-                          <div className="text-[10px] text-stone-500 font-medium">
-                            Brand: <span className="font-semibold text-stone-700">{p.brand}</span>
+                          <div className="min-w-0">
+                            <div className="font-bold text-stone-900 truncate max-w-xs flex items-center gap-1.5">
+                              <span>{p.name}</span>
+                              {p.is_ambiguous && (
+                                <span className="bg-red-100 text-red-700 text-[9px] font-black px-1.5 py-0.5 rounded shrink-0">
+                                  ⚠️ Ambiguous
+                                </span>
+                              )}
+                            </div>
+                            <div className="text-[10px] text-stone-500 font-medium">
+                              POS: <code className="bg-stone-100 px-1 rounded">{p.rawName || p.name}</code> · Brand: <span className="font-semibold text-stone-700">{p.brand}</span>
+                            </div>
+                            {p.ambiguity_note && (
+                              <div className="text-[10px] text-red-600 font-medium mt-0.5">
+                                {p.ambiguity_note}
+                              </div>
+                            )}
                           </div>
                         </div>
-                      </div>
-                    </td>
+                      </td>
 
-                    {/* Category & Subcategory */}
-                    <td className="py-2.5 px-3">
-                      <span className="font-semibold text-stone-700 block truncate">
-                        {p.category}
-                      </span>
-                      <span className="text-[10px] text-stone-400 block truncate">
-                        {p.subCategory || 'General'}
-                      </span>
-                    </td>
+                      {/* Category & Subcategory */}
+                      <td className="py-2.5 px-3">
+                        <span className="font-semibold text-stone-700 block truncate">
+                          {p.category}
+                        </span>
+                        <span className="text-[10px] text-stone-400 block truncate">
+                          {p.subCategory || 'General'}
+                        </span>
+                      </td>
 
-                    {/* Unit */}
-                    <td className="py-2.5 px-3 font-semibold text-stone-600">
-                      {p.unit}
-                    </td>
+                      {/* Unit */}
+                      <td className="py-2.5 px-3 font-semibold text-stone-600">
+                        {p.unit}
+                      </td>
 
-                    {/* Price with inline quick edit */}
-                    <td className="py-2.5 px-3">
-                      <div className="flex items-center gap-1">
-                        <span className="font-black text-stone-900">₹</span>
-                        <input
-                          type="number"
-                          defaultValue={p.price}
-                          onBlur={(e) => updatePrice(p.id, parseFloat(e.target.value))}
-                          className="w-16 px-1.5 py-0.5 border border-stone-200 rounded text-xs font-black text-stone-900 focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
-                        />
-                      </div>
-                    </td>
+                      {/* Price with inline quick edit */}
+                      <td className="py-2.5 px-3">
+                        {p.priceConfirmed && p.price > 0 ? (
+                          <div className="flex items-center gap-1">
+                            <span className="font-black text-stone-900">₹</span>
+                            <input
+                              type="number"
+                              defaultValue={p.price}
+                              onBlur={(e) => updatePrice(p.id, parseFloat(e.target.value))}
+                              className="w-16 px-1.5 py-0.5 border border-stone-200 rounded text-xs font-black text-stone-900 focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                            />
+                          </div>
+                        ) : (
+                          <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200/80 px-1.5 py-0.5 rounded tracking-tight">
+                            Price TBA
+                          </span>
+                        )}
+                      </td>
+
+                      {/* Section 9.2 Image Gate Status */}
+                      <td className="py-2.5 px-3">
+                        <div className="space-y-1">
+                          {p.image_status === 'approved' ? (
+                            <span className="bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded-full inline-block">
+                              ✓ Approved
+                            </span>
+                          ) : p.image_status === 'pending' ? (
+                            <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full inline-block">
+                              ⏳ Pending Review
+                            </span>
+                          ) : (
+                            <span className="bg-stone-100 text-stone-600 text-[10px] font-bold px-2 py-0.5 rounded-full inline-block">
+                              📦 Placeholder
+                            </span>
+                          )}
+                          <div className="text-[9px] text-stone-400 font-mono">
+                            src: {p.image_source || 'placeholder'}
+                          </div>
+                        </div>
+                      </td>
 
                     {/* Live Stock Toggle Switch */}
                     <td className="py-2.5 px-3">
@@ -422,7 +476,8 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                       </Link>
                     </td>
                   </tr>
-                ))}
+                );
+                })}
               </tbody>
             </table>
           </div>

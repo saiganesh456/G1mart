@@ -24,6 +24,12 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
     router.push(`/product/${product.id}`);
   };
 
+  // STRICT SPEC: Show image ONLY when image_status === 'approved'. Otherwise always placeholder.
+  const displayImage =
+    product.image_status === 'approved'
+      ? product.image_path || product.image
+      : '/products/placeholder.svg';
+
   return (
     <div
       onClick={handleCardClick}
@@ -33,10 +39,17 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
     >
       {/* Image */}
       <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-[#F8F9FA] border border-stone-100/90 flex items-center justify-center mb-2">
-        {/* Discount badge */}
-        {product.discountPercentage > 0 && product.inStock && (
+        {/* Discount badge - only if price confirmed and discount exists */}
+        {product.priceConfirmed && product.discountPercentage > 0 && product.inStock && (
           <span className="absolute top-1.5 left-1.5 z-10 bg-[#137333] text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow-2xs tracking-tight uppercase">
             {product.discountPercentage}% OFF
+          </span>
+        )}
+
+        {/* Ambiguous product badge if flagged */}
+        {product.is_ambiguous && (
+          <span className="absolute top-1.5 left-1.5 z-10 bg-amber-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow-2xs tracking-tight uppercase">
+            Review Flag
           </span>
         )}
 
@@ -66,16 +79,15 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           />
         </button>
 
-        {/* Product image */}
+        {/* Product image (Placeholder if not approved) */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={product.image}
+          src={displayImage}
           alt={product.name}
           referrerPolicy="no-referrer"
           className="w-full h-full object-contain p-1.5 group-hover:scale-105 transition-transform duration-300"
           onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src =
-              'https://placehold.co/300x300/f1f8e9/2e7d32?text=G1+Mart';
+            (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
           }}
         />
       </div>
@@ -94,7 +106,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
         {/* Price + action */}
         <div className="pt-2 border-t border-stone-100 flex items-center justify-between gap-1 mt-2">
           <div className="flex items-baseline gap-1 min-w-0">
-            {product.price > 0 ? (
+            {product.priceConfirmed && product.price > 0 ? (
               <>
                 <span className="text-xs sm:text-sm font-black text-stone-900 tabular-nums">
                   ₹{product.price}
@@ -106,8 +118,8 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
                 )}
               </>
             ) : (
-              <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded">
-                Price TBD
+              <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200/80 px-1.5 py-0.5 rounded tracking-tight">
+                Price TBA
               </span>
             )}
           </div>

@@ -6,97 +6,51 @@ let code = fs.readFileSync(path.join(__dirname, 'generate_472_catalog.js'), 'utf
 const functionsCode = `
 function detectPhotoImage(name, brand, category) {
   const u = name.toUpperCase();
+  if (u.includes('AASHIRVAAD') && (u.includes('1KG') || u.includes('ATTA') || u.includes('WHEAT'))) return '/products/prod-2.jpg';
+  if (u.includes('CRYSTAL SALT')) return '/products/photos/crystal-salt.jpg';
+  if (u.includes('SALT') || u.includes('TATA SALT')) return '/products/prod-1.jpg';
+  if (u.includes('FORTUNE') || (u.includes('SUNFLOWER') && u.includes('OIL'))) return '/products/prod-3.jpg';
+  if (u.includes('MILK') || u.includes('AROKYA') || u.includes('HATSUN')) return '/products/prod-4.jpg';
+  if (u.includes('BREAD') || u.includes('BUN')) return '/products/prod-5.jpg';
+  if (u.includes('BASMATI') || u.includes('INDIA GATE')) return '/products/prod-6.jpg';
+  if (u.includes('LAYS') || u.includes("LAY'S")) return '/products/prod-7.jpg';
+  if (u.includes('COCA') || u.includes('COLA')) return '/products/prod-8.jpg';
+  if (u.includes('SURF EXCEL')) return '/products/prod-9.jpg';
+  if (u.includes('COLGATE')) return '/products/prod-10.jpg';
+  if (u.includes('APPLE')) return '/products/prod-11.jpg';
+  if (u.includes('TOMATO') || u.includes('TEMATO')) return '/products/prod-12.jpg';
+  if (u.includes('ONION') || u.includes('OIONES')) return '/products/prod-13.jpg';
+  if (u.includes('POTATO') || u.includes('ALOO')) return '/products/prod-14.jpg';
+  if (u.includes('GINGER') || u.includes('ALLAM')) return '/products/prod-15.jpg';
+  if (u.includes('GARLIC') || u.includes('VELLULLI')) return '/products/prod-16.jpg';
+  if (u.includes('CHILLIES') || (u.includes('CHILLI') && !u.includes('POWDER'))) return '/products/prod-17.jpg';
+  if (u.includes('LEMON') || u.includes('NIMMA')) return '/products/prod-18.jpg';
+  if (u.includes('CORIANDER') && !u.includes('POWDER') && !u.includes('SEEDS')) return '/products/prod-19.jpg';
+  if (u.includes('CURRY LEAF') || u.includes('CURRY LEAVES')) return '/products/prod-20.jpg';
+  if (u.includes('JAM') || u.includes('KISSAN')) return '/products/prod-21.jpg';
+  if (u.includes('MAGGI') || u.includes('YIPPEE') || u.includes('NOODLES')) return '/products/prod-22.jpg';
+  if (u.includes('PARLE')) return '/products/prod-23.jpg';
+  if (u.includes('GOOD DAY')) return '/products/prod-24.jpg';
+  if (u.includes('OREO')) return '/products/prod-25.jpg';
+  if (u.includes('RED LABEL') || u.includes('3 ROSES') || (u.includes('TEA') && !u.includes('TATA') && !u.includes('5 STAR'))) return '/products/prod-26.jpg';
+  if (u.includes('TATA TEA')) return '/products/prod-27.jpg';
+  if (u.includes('BRU')) return '/products/prod-28.jpg';
+  if (u.includes('NESCAFE') || u.includes('COFFEE')) return '/products/prod-29.jpg';
+  if (u.includes('HORLICKS') || u.includes('BOOST')) return '/products/prod-30.jpg';
+  if (u.includes('DETTOL')) return '/products/prod-31.jpg';
+  if (u.includes('LIFEBUOY')) return '/products/prod-32.jpg';
+  if (u.includes('DOVE')) return '/products/prod-33.jpg';
+  if (u.includes('HEAD & SHOULDERS') || u.includes('CLEAR ANTI')) return '/products/prod-34.jpg';
+  if (u.includes('CLINIC PLUS')) return '/products/prod-35.jpg';
+  if (u.includes('PARACHUTE') || u.includes('COCONUT OIL')) return '/products/prod-36.jpg';
+  if (u.includes('VIM') || u.includes('EXO')) return '/products/prod-37.jpg';
+  if (u.includes('HARPIC')) return '/products/prod-38.jpg';
+  if (u.includes('LIZOL')) return '/products/prod-39.jpg';
+  if (u.includes('COMFORT')) return '/products/prod-40.jpg';
+  if (u.includes('DAIRY MILK') || u.includes('CADBURY')) return '/products/prod-41.jpg';
+  if (u.includes('KITKAT') || u.includes('5 STAR') || u.includes('MUNCH') || u.includes('5 MUCH')) return '/products/prod-42.jpg';
+  if (u.includes('WHISPER') || u.includes('HIMALAYA') || u.includes('WIPES')) return '/products/prod-43.jpg';
 
-  // 1. Exact FMCG Retail Packshots (Real Branded Packaging)
-  if (u.includes('AASHIRVAAD') && (u.includes('1KG') || u.includes('ATTA') || u.includes('WHEAT') || u.trim() === 'AASHIRVAAD 1KG')) {
-    return '/products/packshots/aashirvaad-atta-1kg.jpg';
-  }
-  if (u.includes('AASHIRVAAD') && u.includes('SALT')) {
-    return '/products/packshots/aashirvaad-crystal-salt.jpg';
-  }
-  if (u.includes('AASHIRVAAD') && (u.includes('RAVA') || u.includes('SUJI'))) {
-    return '/products/packshots/aashirvaad-suji-rava.jpg';
-  }
-  if (u.includes('5 MUCH') || u.includes('MUNCH')) {
-    return '/products/packshots/nestle-munch.jpg';
-  }
-  if (u.includes('5 STAR') && !u.includes('TEA')) {
-    return '/products/packshots/cadbury-5-star.jpg';
-  }
-  if (u.includes('5 STAR TEA') || (u.includes('TEA') && u.includes('5 STAR'))) {
-    return '/products/packshots/red-label-tea.jpg';
-  }
-  if (u.includes('ARIEL')) {
-    return '/products/packshots/ariel-front-liq.jpg';
-  }
-  if (u.includes('ARUN') && u.includes('BITE')) {
-    return '/products/packshots/arun-bites.jpg';
-  }
-  if (u.includes('ARUN') && u.includes('DONUT')) {
-    return '/products/packshots/arun-donut.jpg';
-  }
-  if (u.includes('ARUN')) {
-    return '/products/packshots/arun-popitos.jpg';
-  }
-  if (u.includes('TATA SALT') || (u.includes('SALT') && !u.includes('AASHIRVAAD') && !u.includes('CRYSTAL'))) {
-    return '/products/packshots/tata-salt.jpg';
-  }
-  if (u.includes('CRYSTAL SALT')) {
-    return '/products/packshots/aashirvaad-crystal-salt.jpg';
-  }
-  if (u.includes('PARLE')) {
-    return '/products/packshots/parle-g.jpg';
-  }
-  if (u.includes('BOURBON')) {
-    return '/products/packshots/britannia-bourbon.jpg';
-  }
-  if (u.includes('GOOD DAY')) {
-    return '/products/packshots/good-day.jpg';
-  }
-  if (u.includes('LAYS') || u.includes("LAY'S")) {
-    return '/products/packshots/lays-chips.jpg';
-  }
-  if (u.includes('MAGGI') || u.includes('YIPPEE') || u.includes('NOODLES')) {
-    return '/products/packshots/maggi-noodles.jpg';
-  }
-  if (u.includes('SURF EXCEL')) {
-    return '/products/packshots/surf-excel.jpg';
-  }
-  if (u.includes('COLGATE')) {
-    return '/products/packshots/colgate-toothpaste.jpg';
-  }
-  if (u.includes('BRU')) {
-    return '/products/packshots/bru-instant.jpg';
-  }
-  if (u.includes('HORLICKS')) {
-    return '/products/packshots/horlicks.jpg';
-  }
-  if (u.includes('VIM')) {
-    return '/products/packshots/vim-bar.jpg';
-  }
-  if (u.includes('BINGO')) {
-    return '/products/packshots/bingo-mad-angles.jpg';
-  }
-  if (u.includes('KURKURE')) {
-    return '/products/packshots/kurkure.jpg';
-  }
-  if (u.includes('THUMS')) {
-    return '/products/packshots/thums-up.jpg';
-  }
-  if (u.includes('DETTOL')) {
-    return '/products/packshots/dettol-soap.jpg';
-  }
-  if (u.includes('EXO')) {
-    return '/products/packshots/exo-scrubber.jpg';
-  }
-  if (u.includes('SCOTCH')) {
-    return '/products/packshots/scotch-brite.jpg';
-  }
-  if (u.includes('GALA') || u.includes('WIPE')) {
-    return '/products/packshots/gala-sponge.jpg';
-  }
-
-  // Staples & Ingredients
   if (u.includes('TOOR') || u.includes('KANDIPAPPU')) return '/products/photos/toor-dal.jpg';
   if (u.includes('MINAPAPPU') || u.includes('URAD')) return '/products/photos/urad-dal.jpg';
   if (u.includes('MOONG') || u.includes('PESALU') || u.includes('PESARA')) return '/products/photos/moong-dal.jpg';
@@ -116,25 +70,26 @@ function detectPhotoImage(name, brand, category) {
   if (u.includes('GHEE')) return '/products/photos/ghee.jpg';
   if (u.includes('OIL') || u.includes('OILE')) return '/products/photos/cooking-oil.jpg';
   if (u.includes('CAMPHOR') || u.includes('AGARBATHI') || u.includes('POOJA') || u.includes('SAMBRANI') || u.includes('VATHULU') || u.includes('GANDAM')) return '/products/photos/pooja-camphor.jpg';
-  if (u.includes('BISCUIT') || u.includes('COOKI') || u.includes('RUSK') || u.includes('50-50')) return '/products/packshots/parle-g.jpg';
-  if (u.includes('CHIPS') || u.includes('PAPAD') || u.includes('APPALAM') || u.includes('STIX') || u.includes('POPS')) return '/products/photos/chips-namkeen.jpg';
-  if (u.includes('SPRITE') || u.includes('LIMCA') || u.includes('FANTA') || u.includes('MAAZA') || u.includes('SODA') || u.includes('DRINK') || u.includes('COCA')) return '/products/packshots/thums-up.jpg';
-  if (u.includes('RIN') || u.includes('FAB') || u.includes('DETERGENT') || u.includes('BLEACH') || u.includes('ACID') || u.includes('UJALA') || u.includes('WIPER') || u.includes('MOP')) return '/products/photos/cleaning-wash.jpg';
-  if (u.includes('SOAP') || u.includes('CINTHOL') || u.includes('LUX') || u.includes('SANTOOR') || u.includes('PEARS') || u.includes('MEDIMIX') || u.includes('MARGO')) return '/products/packshots/dettol-soap.jpg';
-  if (u.includes('PASTE') || u.includes('DABUR RED') || u.includes('SENSODYNE') || u.includes('BRUSH')) return '/products/packshots/colgate-toothpaste.jpg';
-  if (u.includes('TEA') || u.includes('RED LABEL')) return '/products/packshots/red-label-tea.jpg';
-  if (u.includes('COFFEE') || u.includes('NESCAFE')) return '/products/packshots/bru-instant.jpg';
+  if (u.includes('BISCUIT') || u.includes('COOKI') || u.includes('RUSK') || u.includes('BOURBON') || u.includes('50-50')) return '/products/photos/biscuits-pack.jpg';
+  if (u.includes('CHIPS') || u.includes('BINGO') || u.includes('PAPAD') || u.includes('APPALAM') || u.includes('STIX') || u.includes('POPS')) return '/products/photos/chips-namkeen.jpg';
+  if (u.includes('SPRITE') || u.includes('THUMS') || u.includes('LIMCA') || u.includes('FANTA') || u.includes('MAAZA') || u.includes('SODA') || u.includes('DRINK')) return '/products/photos/cold-drink-bottle.jpg';
+  if (u.includes('ARIEL') || u.includes('RIN') || u.includes('FAB') || u.includes('DETERGENT') || u.includes('BLEACH') || u.includes('ACID') || u.includes('UJALA') || u.includes('WIPER') || u.includes('MOP')) return '/products/photos/cleaning-wash.jpg';
+  if (u.includes('SOAP') || u.includes('CINTHOL') || u.includes('LUX') || u.includes('SANTOOR') || u.includes('PEARS') || u.includes('MEDIMIX') || u.includes('MARGO')) return '/products/prod-31.jpg';
+  if (u.includes('PASTE') || u.includes('DABUR RED') || u.includes('SENSODYNE') || u.includes('BRUSH')) return '/products/prod-10.jpg';
+  if (u.includes('SHAMPOO')) return '/products/prod-35.jpg';
+  if (u.includes('HAIR OIL')) return '/products/prod-36.jpg';
+  if (u.includes('TEA')) return '/products/prod-26.jpg';
 
-  if (category === 'rice-dal-atta') return '/products/packshots/aashirvaad-atta-1kg.jpg';
+  if (category === 'rice-dal-atta') return '/products/photos/test-rice.jpg';
   if (category === 'edible-oils') return '/products/photos/cooking-oil.jpg';
-  if (category === 'dairy-bakery') return '/products/packshots/arun-bites.jpg';
-  if (category === 'snacks') return '/products/packshots/cadbury-5-star.jpg';
-  if (category === 'beverages') return '/products/packshots/red-label-tea.jpg';
-  if (category === 'household') return '/products/packshots/surf-excel.jpg';
-  if (category === 'personal-care') return '/products/packshots/dettol-soap.jpg';
+  if (category === 'dairy-bakery') return '/products/prod-4.jpg';
+  if (category === 'snacks') return '/products/photos/chips-namkeen.jpg';
+  if (category === 'beverages') return '/products/prod-26.jpg';
+  if (category === 'household') return '/products/photos/cleaning-wash.jpg';
+  if (category === 'personal-care') return '/products/prod-31.jpg';
   if (category === 'fruits-vegetables') return '/products/prod-11.jpg';
 
-  return '/products/packshots/aashirvaad-atta-1kg.jpg';
+  return '/products/photos/test-rice.jpg';
 }
 
 function detectSubCategory(name, category) {
@@ -177,7 +132,7 @@ function detectSubCategory(name, category) {
     return 'Bath Soaps';
   }
   if (category === 'household') {
-    if (u.includes('VIM') || u.includes('EXO') || u.includes('DISHWASH') || u.includes('SCRUB') || u.includes('SCOTCH') || u.includes('SPONGE')) return 'Dishwash & Kitchen';
+    if (u.includes('VIM') || u.includes('EXO') || u.includes('DISHWASH') || u.includes('SCRUB')) return 'Dishwash & Kitchen';
     if (u.includes('SURF') || u.includes('ARIEL') || u.includes('RIN') || u.includes('COMFORT') || u.includes('FAB') || u.includes('UJALA') || u.includes('DETERGENT')) return 'Detergent & Fabric Care';
     if (u.includes('HARPIC') || u.includes('LIZOL') || u.includes('NIMYLE') || u.includes('BLEACH') || u.includes('ACID') || u.includes('DOMEX')) return 'Floor & Cleaners';
     if (u.includes('CAMPHOR') || u.includes('AGARBATHI') || u.includes('SAMBRANI') || u.includes('POOJA') || u.includes('VATHULU') || u.includes('GANDAM')) return 'Pooja Needs';
@@ -235,7 +190,7 @@ const catalog = rawItems.map(item => {
   };
 });
 
-console.log(\`Generated \${catalog.length} structured products with real authentic FMCG packshots.\`);
+console.log(\`Generated \${catalog.length} structured products with real photographic imagery.\`);
 `;
 
 const cleanTitleIdx = code.indexOf('function cleanTitle(name)');
@@ -246,7 +201,7 @@ if (cleanTitleIdx !== -1 && genDirIdx !== -1) {
   const after = code.slice(genDirIdx);
   code = before + functionsCode + cleanTitleCode + after;
   fs.writeFileSync(path.join(__dirname, 'generate_472_catalog.js'), code, 'utf8');
-  console.log('Successfully updated generate_472_catalog.js with exact retail packshots');
+  console.log('Successfully updated generate_472_catalog.js');
 } else {
-  console.error('Could not find split points in generate_472_catalog.js');
+  console.error('Could not find split points');
 }

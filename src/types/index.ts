@@ -2,6 +2,9 @@ export * from './deliveryZone';
 
 export type UserRole = 'customer' | 'admin';
 
+export type ImageSource = 'own_photo' | 'openfoodfacts' | 'manufacturer' | 'placeholder';
+export type ImageStatus = 'pending' | 'approved' | 'placeholder';
+
 export interface Product {
   id: string;
   name: string;
@@ -10,11 +13,17 @@ export interface Product {
   subCategory?: string;
   unit: string;
   price: number;
+  priceConfirmed?: boolean;
   originalPrice: number;
   discountPercentage: number;
   inStock: boolean;
   stockCount: number;
   image: string;
+  image_path?: string;
+  image_source: ImageSource;
+  image_license?: string | null;
+  image_status: ImageStatus;
+  image_match_note?: string;
   description: string;
   rating: number;
   reviewsCount: number;
@@ -25,6 +34,9 @@ export interface Product {
   isActive?: boolean;
   itemNumber?: number;
   rawName?: string;
+  barcode?: string;
+  is_ambiguous?: boolean;
+  ambiguity_note?: string;
 }
 
 export interface Category {
