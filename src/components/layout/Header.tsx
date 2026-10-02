@@ -6,12 +6,14 @@ import { useState } from 'react';
 import { Search, ShoppingBag, User, MapPin, ChevronDown } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useLocation } from '@/context/LocationContext';
+import { useAuth } from '@/context/AuthContext';
 import LocationModal from './LocationModal';
 
 export default function Header() {
   const router = useRouter();
   const { cartItemCount, cartSubtotal } = useCart();
   const { currentLocation, setIsModalOpen } = useLocation();
+  const { user, isLoggedIn } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -63,10 +65,22 @@ export default function Header() {
 
               <Link
                 href="/account"
-                aria-label="My account"
-                className="w-9 h-9 flex items-center justify-center rounded-xl bg-stone-100 text-stone-700"
+                aria-label={isLoggedIn ? (user?.name || 'My account') : 'Sign In'}
+                className="w-9 h-9 flex items-center justify-center rounded-xl bg-stone-100 text-stone-700 overflow-hidden"
               >
-                <User className="w-4.5 h-4.5" />
+                {user?.avatar ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={user.avatar}
+                    alt={user.name || 'User'}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <User className="w-4.5 h-4.5" />
+                )}
               </Link>
             </div>
           </div>
@@ -182,8 +196,20 @@ export default function Header() {
                 href="/account"
                 className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-stone-600 hover:text-[#2E7D32] hover:bg-stone-100 font-medium transition-colors"
               >
-                <User className="w-4 h-4" />
-                Account
+                {user?.avatar ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={user.avatar}
+                    alt={user.name || 'User'}
+                    className="w-5 h-5 rounded-full object-cover border border-stone-200"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <User className="w-4 h-4" />
+                )}
+                <span>{isLoggedIn ? (user?.name ? user.name.split(' ')[0] : 'Account') : 'Sign In'}</span>
               </Link>
               <Link
                 href="/cart"

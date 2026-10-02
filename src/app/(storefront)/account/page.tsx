@@ -1,34 +1,55 @@
+'use client';
+
 import Link from 'next/link';
-import { User, MapPin, Heart, HelpCircle, Shield, ShoppingBag, LogIn } from 'lucide-react';
+import { User, MapPin, Heart, HelpCircle, Shield, ShoppingBag, LogIn, LogOut } from 'lucide-react';
 import { STORE_CONFIG } from '@/config/store';
+import { useAuth } from '@/context/AuthContext';
 
 export default function AccountPage() {
-  /**
-   * TODO (Phase 2):
-   * Connect to real Supabase auth session.
-   * Hardcoded personal email/name removed per AUDIT.md.
-   */
-  const isLoggedIn = false;
+  const { user, isLoggedIn, signOut, isLoading } = useAuth();
 
   return (
     <div className="max-w-2xl mx-auto space-y-4 pb-20 sm:pb-12 pt-2 sm:pt-4 px-3 sm:px-0">
       {/* Profile Card */}
       <div className="bg-white rounded-2xl border border-stone-200/80 p-4 sm:p-5 shadow-2xs flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-stone-100 text-stone-600 flex items-center justify-center">
-            <User className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-base font-extrabold text-[#212121]">
-              {isLoggedIn ? 'Customer Account' : 'Welcome to G1 Mart'}
+        <div className="flex items-center gap-3 min-w-0">
+          {user?.avatar ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={user.avatar}
+              alt={user.name || 'User'}
+              className="w-12 h-12 rounded-2xl object-cover border border-stone-200 shadow-xs shrink-0"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).style.display = 'none';
+              }}
+            />
+          ) : (
+            <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-[#2E7D32] flex items-center justify-center shrink-0 font-extrabold text-base">
+              {user?.name ? user.name.charAt(0).toUpperCase() : <User className="w-6 h-6" />}
+            </div>
+          )}
+          <div className="min-w-0">
+            <h1 className="text-base font-extrabold text-[#212121] truncate">
+              {isLoggedIn ? (user?.name || 'Customer Account') : 'Welcome to G1 Mart'}
             </h1>
-            <p className="text-xs text-stone-500 mt-0.5">
-              {isLoggedIn ? 'Manage your grocery orders & addresses' : 'Sign in to access your orders and saved addresses'}
+            <p className="text-xs text-stone-500 mt-0.5 truncate">
+              {isLoggedIn
+                ? (user?.email || user?.phone || 'Logged in via Google')
+                : 'Sign in to access your orders and saved addresses'}
             </p>
           </div>
         </div>
 
-        {!isLoggedIn && (
+        {isLoggedIn ? (
+          <button
+            type="button"
+            onClick={signOut}
+            className="px-3.5 py-2 bg-stone-100 hover:bg-rose-50 hover:text-rose-600 text-stone-700 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shrink-0 border border-stone-200"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>Sign Out</span>
+          </button>
+        ) : (
           <Link
             href="/login"
             className="px-3.5 py-2 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 shrink-0"
