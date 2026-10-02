@@ -72,9 +72,9 @@ export default function CartPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-4 pb-36 sm:pb-40 pt-2 sm:pt-4 px-3 sm:px-0">
+    <div className="w-full max-w-2xl mx-auto space-y-3.5 pb-36 sm:pb-40 pt-1 sm:pt-4 px-0 box-border overflow-hidden">
       {/* Top Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between w-full px-0.5">
         <div>
           <h1 className="text-base sm:text-lg font-black text-[#212121]">Shopping Bag</h1>
           <p className="text-xs text-stone-500">
@@ -91,19 +91,19 @@ export default function CartPage() {
       </div>
 
       {/* Cart Items List */}
-      <div className="bg-white rounded-2xl border border-stone-200/80 p-3 sm:p-4 shadow-2xs divide-y divide-stone-100 overflow-hidden w-full max-w-full">
+      <div className="bg-white rounded-2xl border border-stone-200/80 p-3 sm:p-4 shadow-2xs divide-y divide-stone-100 overflow-hidden w-full box-border">
         {cart.map(({ product, quantity }) => (
-          <div key={product.id} className="py-3.5 first:pt-0 last:pb-0 flex items-start gap-3 w-full">
+          <div key={product.id} className="py-3 first:pt-0 last:pb-0 flex items-start gap-2.5 w-full overflow-hidden box-border">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={product.image}
               alt={product.name}
-              className="w-14 h-14 object-contain rounded-xl bg-stone-50 p-1 border border-stone-100 shrink-0 mt-0.5"
+              className="w-12 h-12 sm:w-14 sm:h-14 object-contain rounded-xl bg-stone-50 p-1 border border-stone-100 shrink-0 mt-0.5"
             />
-            <div className="flex-1 min-w-0 flex flex-col justify-between gap-1.5">
+            <div className="flex-1 min-w-0 overflow-hidden space-y-1.5">
               {/* Row 1: Product Name & Delete */}
-              <div className="flex items-start justify-between gap-2">
-                <h3 className="text-xs font-bold text-[#212121] line-clamp-2 leading-snug break-words">
+              <div className="flex items-start justify-between gap-1.5 w-full">
+                <h3 className="text-xs font-bold text-[#212121] line-clamp-2 leading-tight break-words min-w-0 flex-1">
                   {product.name}
                 </h3>
                 <button
@@ -117,8 +117,8 @@ export default function CartPage() {
               </div>
 
               {/* Row 2: Unit, Price & Stepper */}
-              <div className="flex items-center justify-between gap-2 pt-0.5">
-                <div>
+              <div className="flex items-center justify-between gap-1 w-full">
+                <div className="min-w-0">
                   <span className="text-[11px] text-stone-500 block leading-none">{product.unit}</span>
                   <div className="mt-1 flex items-baseline gap-1">
                     {product.price > 0 ? (
@@ -132,29 +132,29 @@ export default function CartPage() {
                     )}
                     {product.price > 0 && quantity > 1 && (
                       <span className="text-[10px] text-stone-400">
-                        (₹{product.price}/pc)
+                        (₹{product.price})
                       </span>
                     )}
                   </div>
                 </div>
 
                 {/* Stepper */}
-                <div className="h-7 sm:h-8 flex items-center bg-stone-100 rounded-xl px-1 border border-stone-200 shrink-0">
+                <div className="h-7 flex items-center bg-stone-100 rounded-xl px-1 border border-stone-200 shrink-0">
                   <button
                     type="button"
                     onClick={() => updateCartQuantity(product.id, quantity - 1)}
-                    className="w-6 h-6 flex items-center justify-center text-stone-700 hover:bg-white rounded-lg active:scale-95 transition-all cursor-pointer"
+                    className="w-5 h-5 flex items-center justify-center text-stone-700 hover:bg-white rounded-md active:scale-95 transition-all cursor-pointer"
                     aria-label="Decrease quantity"
                   >
                     <Minus className="w-3 h-3 stroke-[3]" />
                   </button>
-                  <span className="w-6 text-center text-xs font-extrabold tabular-nums">
+                  <span className="w-5 text-center text-xs font-black tabular-nums">
                     {quantity}
                   </span>
                   <button
                     type="button"
                     onClick={() => updateCartQuantity(product.id, quantity + 1)}
-                    className="w-6 h-6 flex items-center justify-center text-stone-700 hover:bg-white rounded-lg active:scale-95 transition-all cursor-pointer"
+                    className="w-5 h-5 flex items-center justify-center text-stone-700 hover:bg-white rounded-md active:scale-95 transition-all cursor-pointer"
                     aria-label="Increase quantity"
                   >
                     <Plus className="w-3 h-3 stroke-[3]" />
@@ -168,19 +168,19 @@ export default function CartPage() {
 
       {/* Account Verification Nudge */}
       {!isLoggedIn && (
-        <div className="bg-gradient-to-r from-emerald-50 to-white rounded-2xl border border-emerald-200 p-3.5 flex items-center justify-between shadow-2xs">
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="w-8 h-8 rounded-xl bg-[#2E7D32]/10 text-[#2E7D32] flex items-center justify-center font-bold text-xs shrink-0">
-              <UserCheck className="w-4 h-4" />
+        <div className="bg-gradient-to-r from-emerald-50 to-white rounded-2xl border border-emerald-200 p-3 sm:p-3.5 flex items-center justify-between gap-2 shadow-2xs w-full overflow-hidden box-border">
+          <div className="flex items-center gap-2.5 min-w-0 flex-1">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#2E7D32]/10 text-[#2E7D32] flex items-center justify-center font-bold text-xs shrink-0">
+              <UserCheck className="w-3.5 h-3.5" />
             </div>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <p className="text-xs font-bold text-stone-900 truncate">Account Required to Book</p>
-              <p className="text-[11px] text-stone-500 truncate">Sign in with Google or Phone to complete your order</p>
+              <p className="text-[10px] sm:text-[11px] text-stone-500 truncate">Sign in to complete order &amp; track rider</p>
             </div>
           </div>
           <Link
             href="/login"
-            className="px-3 py-1.5 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl text-xs font-bold shrink-0 transition-colors shadow-2xs ml-2"
+            className="px-3 py-1.5 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl text-xs font-bold shrink-0 transition-colors shadow-2xs whitespace-nowrap"
           >
             Sign In
           </Link>
@@ -188,25 +188,25 @@ export default function CartPage() {
       )}
 
       {/* Bill Summary (Display Only) */}
-      <div className="bg-white rounded-2xl border border-stone-200/80 p-4 shadow-2xs space-y-2.5">
+      <div className="bg-white rounded-2xl border border-stone-200/80 p-3.5 sm:p-4 shadow-2xs space-y-2.5 w-full box-border overflow-hidden">
         <h2 className="text-xs font-bold text-stone-700 uppercase tracking-wider">
           Bill Details (Estimated)
         </h2>
         <div className="space-y-1.5 text-xs">
-          <div className="flex items-center justify-between text-stone-600">
+          <div className="flex items-center justify-between gap-2 text-stone-600">
             <span>Item Subtotal</span>
-            <span className="font-bold text-[#212121] tabular-nums">₹{cartSubtotal}</span>
+            <span className="font-bold text-[#212121] tabular-nums shrink-0">₹{cartSubtotal}</span>
           </div>
-          <div className="flex items-center justify-between text-stone-600">
+          <div className="flex items-center justify-between gap-2 text-stone-600">
             <span>Delivery Fee</span>
-            <span className="font-medium text-stone-500">Calculated at checkout</span>
+            <span className="font-medium text-stone-500 text-[11px] shrink-0">Calculated at checkout</span>
           </div>
         </div>
-        <div className="pt-2 border-t border-stone-100 flex items-center justify-between text-xs sm:text-sm font-extrabold text-[#212121]">
+        <div className="pt-2 border-t border-stone-100 flex items-center justify-between gap-2 text-xs sm:text-sm font-extrabold text-[#212121]">
           <span>Estimated Total</span>
-          <span className="tabular-nums">₹{cartSubtotal}</span>
+          <span className="tabular-nums shrink-0">₹{cartSubtotal}</span>
         </div>
-        <p className="text-[10px] text-stone-400 italic">
+        <p className="text-[10px] text-stone-400 italic leading-snug">
           * Final pricing, delivery fee, and applicable taxes are verified securely on the server upon checkout.
         </p>
       </div>
@@ -218,7 +218,7 @@ export default function CartPage() {
       </div>
 
       {/* Sticky Bottom CTA */}
-      <div className="fixed bottom-0 left-0 right-0 w-full z-50 bg-white/95 backdrop-blur-md border-t border-stone-200 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-xl">
+      <div className="fixed bottom-0 left-0 right-0 w-full z-50 bg-white/95 backdrop-blur-md border-t border-stone-200 px-3 sm:px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-xl box-border">
         <div className="max-w-2xl mx-auto flex items-center justify-between gap-3">
           <div className="flex flex-col text-left min-w-0">
             <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">TOTAL (EST.)</span>
@@ -226,7 +226,7 @@ export default function CartPage() {
           </div>
           <Link
             href="/checkout"
-            className="h-12 px-6 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-extrabold text-sm flex items-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all shrink-0 cursor-pointer"
+            className="h-11 sm:h-12 px-5 sm:px-6 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all shrink-0 cursor-pointer"
           >
             <span>Proceed to Checkout</span>
             <ArrowRight className="w-4 h-4" />
