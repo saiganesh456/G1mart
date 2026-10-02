@@ -91,68 +91,76 @@ export default function CartPage() {
       </div>
 
       {/* Cart Items List */}
-      <div className="bg-white rounded-2xl border border-stone-200/80 p-3 sm:p-4 shadow-2xs divide-y divide-stone-100">
+      <div className="bg-white rounded-2xl border border-stone-200/80 p-3 sm:p-4 shadow-2xs divide-y divide-stone-100 overflow-hidden w-full max-w-full">
         {cart.map(({ product, quantity }) => (
-          <div key={product.id} className="py-3 first:pt-0 last:pb-0 flex items-center gap-3">
+          <div key={product.id} className="py-3.5 first:pt-0 last:pb-0 flex items-start gap-3 w-full">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={product.image}
               alt={product.name}
-              className="w-14 h-14 object-contain rounded-xl bg-stone-50 p-1 border border-stone-100 shrink-0"
+              className="w-14 h-14 object-contain rounded-xl bg-stone-50 p-1 border border-stone-100 shrink-0 mt-0.5"
             />
-            <div className="flex-1 min-w-0">
-              <h3 className="text-xs font-bold text-[#212121] truncate">{product.name}</h3>
-              <p className="text-[11px] text-stone-500">{product.unit}</p>
-              <div className="mt-1 flex items-baseline gap-1.5">
-                {product.price > 0 ? (
-                  <span className="text-xs sm:text-sm font-extrabold text-[#212121] tabular-nums">
-                    ₹{product.price * quantity}
-                  </span>
-                ) : (
-                  <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-1 rounded">
-                    Price TBD
-                  </span>
-                )}
-                {product.price > 0 && quantity > 1 && (
-                  <span className="text-[10px] text-stone-400">
-                    (₹{product.price} each)
-                  </span>
-                )}
-              </div>
-            </div>
-
-            {/* Stepper */}
-            <div className="flex items-center gap-1.5 shrink-0">
-              <div className="h-8 flex items-center bg-stone-100 rounded-xl px-1 border border-stone-200">
+            <div className="flex-1 min-w-0 flex flex-col justify-between gap-1.5">
+              {/* Row 1: Product Name & Delete */}
+              <div className="flex items-start justify-between gap-2">
+                <h3 className="text-xs font-bold text-[#212121] line-clamp-2 leading-snug break-words">
+                  {product.name}
+                </h3>
                 <button
                   type="button"
-                  onClick={() => updateCartQuantity(product.id, quantity - 1)}
-                  className="w-6 h-6 flex items-center justify-center text-stone-700 hover:bg-white rounded-lg active:scale-95 transition-all"
-                  aria-label="Decrease quantity"
+                  onClick={() => removeFromCart(product.id)}
+                  className="p-1 -mr-1 text-stone-400 hover:text-rose-600 rounded-lg hover:bg-stone-50 transition-colors shrink-0"
+                  aria-label="Remove item"
                 >
-                  <Minus className="w-3 h-3 stroke-[3]" />
-                </button>
-                <span className="w-6 text-center text-xs font-extrabold tabular-nums">
-                  {quantity}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => updateCartQuantity(product.id, quantity + 1)}
-                  className="w-6 h-6 flex items-center justify-center text-stone-700 hover:bg-white rounded-lg active:scale-95 transition-all"
-                  aria-label="Increase quantity"
-                >
-                  <Plus className="w-3 h-3 stroke-[3]" />
+                  <Trash2 className="w-3.5 h-3.5" />
                 </button>
               </div>
 
-              <button
-                type="button"
-                onClick={() => removeFromCart(product.id)}
-                className="w-8 h-8 flex items-center justify-center text-stone-400 hover:text-rose-600 rounded-lg hover:bg-stone-50 transition-colors"
-                aria-label="Remove item"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
+              {/* Row 2: Unit, Price & Stepper */}
+              <div className="flex items-center justify-between gap-2 pt-0.5">
+                <div>
+                  <span className="text-[11px] text-stone-500 block leading-none">{product.unit}</span>
+                  <div className="mt-1 flex items-baseline gap-1">
+                    {product.price > 0 ? (
+                      <span className="text-xs sm:text-sm font-black text-[#212121] tabular-nums">
+                        ₹{product.price * quantity}
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-1 rounded">
+                        Price TBD
+                      </span>
+                    )}
+                    {product.price > 0 && quantity > 1 && (
+                      <span className="text-[10px] text-stone-400">
+                        (₹{product.price}/pc)
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Stepper */}
+                <div className="h-7 sm:h-8 flex items-center bg-stone-100 rounded-xl px-1 border border-stone-200 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => updateCartQuantity(product.id, quantity - 1)}
+                    className="w-6 h-6 flex items-center justify-center text-stone-700 hover:bg-white rounded-lg active:scale-95 transition-all cursor-pointer"
+                    aria-label="Decrease quantity"
+                  >
+                    <Minus className="w-3 h-3 stroke-[3]" />
+                  </button>
+                  <span className="w-6 text-center text-xs font-extrabold tabular-nums">
+                    {quantity}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => updateCartQuantity(product.id, quantity + 1)}
+                    className="w-6 h-6 flex items-center justify-center text-stone-700 hover:bg-white rounded-lg active:scale-95 transition-all cursor-pointer"
+                    aria-label="Increase quantity"
+                  >
+                    <Plus className="w-3 h-3 stroke-[3]" />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         ))}

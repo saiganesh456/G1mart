@@ -5,14 +5,22 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Banknote, Smartphone, CreditCard, ShieldCheck, AlertCircle } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 
 export default function PaymentPage() {
   const router = useRouter();
   const { cart, cartSubtotal, cartItemCount, clearCart } = useCart();
+  const { isLoggedIn } = useAuth();
   const [selectedMethod, setSelectedMethod] = useState<'cod' | 'upi' | 'card'>('cod');
   const [processing, setProcessing] = useState(false);
 
   const handlePay = async () => {
+    if (!isLoggedIn) {
+      alert('Account required for ordering. Please log in or verify your mobile number first.');
+      router.push('/checkout');
+      return;
+    }
+
     let addressData: any = null;
     try {
       const raw = sessionStorage.getItem('g1mart_checkout_address');
@@ -79,49 +87,16 @@ export default function PaymentPage() {
           clearCart();
           router.push(`/orders/${data.orderId}?placed=true`);
           return;
+        } else {
+          alert(data.error || 'Could not place Cash on Delivery order.');
+          setProcessing(false);
+          return;
         }
-      } catch {}
-
-      // Fallback local persistence if server is in offline test mode
-      const orderId = `G1-${Math.floor(100000 + Math.random() * 900000)}`;
-      const orderRecord = {
-        id: orderId,
-        orderNumber: orderId,
-        date: new Date().toLocaleDateString('en-IN', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-        }),
-        status: 'Order Placed',
-        paymentMethod: 'Cash on Delivery',
-        paymentStatus: 'cash_on_delivery',
-        subtotal: cartSubtotal,
-        grandTotal: cartSubtotal,
-        total: cartSubtotal,
-        items: cart.map((i) => ({
-          productId: i.product.id,
-          productName: i.product.name,
-          unit: i.product.unit,
-          price: i.product.price,
-          quantity: i.quantity,
-          image: i.product.image || '/products/placeholder.svg',
-        })),
-        address: addressData,
-        slot: addressData.selectedSlot || 'Standard Delivery',
-      };
-
-      try {
-        sessionStorage.setItem('g1mart_latest_order', JSON.stringify(orderRecord));
-        const prev = JSON.parse(sessionStorage.getItem('g1mart_orders_list') || '[]');
-        sessionStorage.setItem('g1mart_orders_list', JSON.stringify([orderRecord, ...prev]));
-        localStorage.setItem('g1mart_recent_order', JSON.stringify(orderRecord));
-      } catch {}
-
-      clearCart();
-      router.push(`/orders/${orderId}?placed=true`);
-      return;
+      } catch (err: any) {
+        alert('Server communication error: ' + (err.message || 'Failed to place order'));
+        setProcessing(false);
+        return;
+      }
     }
 
     // 2. Online PhonePe UPI Checkout (Rules 1, 2, 3)

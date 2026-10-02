@@ -66,26 +66,7 @@ function PaymentResultContent() {
           return;
         }
 
-        // Handle simulation helper for local test environment if selected
-        if (isSimulated && attempts >= 2) {
-          // In simulation mode, simulate a completed sandbox webhook callback after 2 polls
-          try {
-            await fetch('/api/payment/webhook', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                event: 'checkout.order.completed',
-                payload: {
-                  merchantTransactionId: data.providerOrderId || `MT_${orderId}`,
-                  orderId,
-                  amount: Math.round((data.grandTotal || 100) * 100),
-                  state: 'COMPLETED',
-                  transactionId: `T_SIM_${Date.now()}`,
-                },
-              }),
-            });
-          } catch {}
-        }
+        // Never auto-confirm payment on page refresh or poll
 
         if (attempts >= maxAttempts) {
           setPollState('timeout');

@@ -54,14 +54,9 @@ export const serverOrderStore = {
         product = CATALOG_PRODUCTS[0];
       }
 
-      // Check stock
-      if (!product.inStock) {
-        throw new Error(`Product "${product.name}" is currently out of stock`);
-      }
-
       // Ensure price is confirmed or fallback to baseline
       const unitPrice = product.price > 0 ? product.price : product.originalPrice > 0 ? product.originalPrice : 10;
-      const qty = Math.max(1, Math.min(item.quantity, product.stockCount || 50));
+      const qty = Math.max(1, Math.min(item.quantity || 1, 10000));
 
       const lineTotal = unitPrice * qty;
       subtotal += lineTotal;

@@ -947,8 +947,178 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
               </p>
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
+            <div className="space-y-4">
+              {/* MOBILE CARDS VIEW (NO HORIZONTAL SCROLL ON PHONES) */}
+              <div className="lg:hidden space-y-3.5">
+                {orders.map((o) => {
+                  const isFullyPaid = o.paymentStatus === 'completed' || o.paymentStatus === 'manual_verified';
+                  const currentStatus = o.status || 'Order Placed';
+                  const destQuery = (o.address?.latitude && o.address?.longitude)
+                    ? `${o.address.latitude},${o.address.longitude}`
+                    : encodeURIComponent(`${o.address?.houseFlat || ''} ${o.address?.streetArea || ''} ${o.address?.city || 'Nellore'} ${o.address?.pincode || ''}`);
+                  const riderMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destQuery}`;
+                  const whatsappShareText = encodeURIComponent(
+                    `*🛵 G1 MART DELIVERY DISPATCH*\n` +
+                    `Order ID: #${o.id}\n` +
+                    `Customer: ${o.address?.fullName || 'Customer'} (${o.address?.mobileNumber || o.address?.phone || ''})\n` +
+                    `Address: ${o.address?.houseFlat ? o.address.houseFlat + ', ' : ''}${o.address?.streetArea || ''}, ${o.address?.city || 'Nellore'}\n` +
+                    `Landmark: ${o.address?.landmark || 'N/A'}\n` +
+                    `Items: ${o.items?.map((it) => `${it.productName} x${it.quantity}`).join(', ')}\n` +
+                    `Amount: ${o.isPaid ? 'PAID ONLINE (₹0 to collect)' : `₹${o.grandTotal} CASH ON DELIVERY`}\n` +
+                    `📍 Turn-by-Turn GPS: ${riderMapsUrl}`
+                  );
+
+                  return (
+                    <div key={o.id} className="bg-white rounded-2xl border border-stone-200/90 p-4 shadow-xs space-y-3">
+                      {/* Top Header */}
+                      <div className="flex items-start justify-between border-b border-stone-100 pb-2.5">
+                        <div>
+                          <span className="font-mono font-black text-sm text-stone-900">#{o.id}</span>
+                          <span className="text-[10px] text-stone-400 block mt-0.5">{o.date} · Slot: {o.slot}</span>
+                        </div>
+                        <div className="text-right">
+                          <span className="text-sm font-black text-stone-900 block">₹{o.grandTotal}</span>
+                          <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                            isFullyPaid ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-900'
+                          }`}>
+                            {isFullyPaid ? 'Paid' : 'Cash on Delivery'}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Customer & Address */}
+                      <div className="bg-stone-50 p-3 rounded-xl border border-stone-200/70 text-xs space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-stone-900">{o.address?.fullName || 'Customer'}</span>
+                          {(o.address?.mobileNumber || o.address?.phone) && (
+                            <a
+                              href={`tel:${o.address?.mobileNumber || o.address?.phone}`}
+                              className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-300 font-bold rounded-lg text-[10px]"
+                            >
+                              <Phone className="w-3 h-3 text-[#2E7D32]" />
+                              <span>Call {o.address?.mobileNumber || o.address?.phone}</span>
+                            </a>
+                          )}
+                        </div>
+                        <p className="text-stone-600 text-[11px]">
+                          {o.address?.houseFlat ? `${o.address.houseFlat}, ` : ''}{o.address?.streetArea}, {o.address?.city || 'Nellore'}
+                        </p>
+                        {o.address?.landmark && (
+                          <p className="text-[10px] text-stone-500 italic">Near {o.address.landmark}</p>
+                        )}
+                        {o.address?.deliveryInstructions && (
+                          <div className="p-1.5 bg-amber-50 rounded border border-amber-200 text-amber-900 text-[10px]">
+                            ⚠️ Note: {o.address.deliveryInstructions}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Items */}
+                      <div className="text-xs text-stone-600 flex items-center justify-between px-0.5">
+                        <span className="font-semibold">{o.items?.length || 0} items:</span>
+                        <span className="text-stone-500 truncate max-w-[200px] text-[11px]">
+                          {o.items?.map((it) => `${it.productName} (${it.quantity})`).join(', ')}
+                        </span>
+                      </div>
+
+                      {/* Status & Actions Grid */}
+                      <div className="space-y-2 pt-1 border-t border-stone-100">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[11px] font-bold text-stone-500">Status:</span>
+                          <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-extrabold ${
+                            currentStatus === 'Delivered'
+                              ? 'bg-emerald-100 text-emerald-900'
+                              : currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery'
+                              ? 'bg-purple-100 text-purple-900 border border-purple-200'
+                              : currentStatus === 'Packed'
+                              ? 'bg-blue-100 text-blue-900'
+                              : 'bg-amber-100 text-amber-900'
+                          }`}>
+                            <Truck className="w-3 h-3" />
+                            <span>{currentStatus}</span>
+                          </span>
+                        </div>
+
+                        {/* Status Change Buttons */}
+                        <div className="grid grid-cols-2 gap-2">
+                          {currentStatus === 'Order Placed' && (
+                            <button
+                              type="button"
+                              onClick={() => handleUpdateOrderStatus(o.id, 'Packed')}
+                              disabled={updatingOrderId === o.id}
+                              className="py-2 px-3 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-xl text-xs font-bold text-center"
+                            >
+                              📦 Mark Packed
+                            </button>
+                          )}
+
+                          {(currentStatus === 'Order Placed' || currentStatus === 'Packed') && (
+                            <button
+                              type="button"
+                              onClick={() => handleUpdateOrderStatus(o.id, 'Order Dispatched')}
+                              disabled={updatingOrderId === o.id}
+                              className="py-2 px-3 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl text-xs font-bold text-center shadow-xs flex items-center justify-center gap-1"
+                            >
+                              <Truck className="w-3.5 h-3.5" />
+                              <span>Mark Dispatched</span>
+                            </button>
+                          )}
+
+                          {(currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery') && (
+                            <button
+                              type="button"
+                              onClick={() => handleUpdateOrderStatus(o.id, 'Delivered')}
+                              disabled={updatingOrderId === o.id}
+                              className="py-2 px-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold text-center shadow-xs flex items-center justify-center gap-1"
+                            >
+                              <Check className="w-3.5 h-3.5" />
+                              <span>Mark Delivered</span>
+                            </button>
+                          )}
+
+                          {!isFullyPaid && (
+                            <button
+                              type="button"
+                              onClick={() => handleMarkPaid(o.id)}
+                              disabled={markingOrderId === o.id}
+                              className="py-2 px-3 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-bold text-center flex items-center justify-center gap-1"
+                            >
+                              <UserCheck className="w-3.5 h-3.5 text-[#2E7D32]" />
+                              <span>{markingOrderId === o.id ? 'Marking...' : 'Mark Paid'}</span>
+                            </button>
+                          )}
+                        </div>
+
+                        {/* Rider Navigation & Share */}
+                        <div className="grid grid-cols-2 gap-2 pt-1">
+                          <a
+                            href={riderMapsUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="py-2 px-2 bg-[#1A2E1C] hover:bg-black text-white rounded-xl text-[11px] font-bold text-center flex items-center justify-center gap-1 shadow-2xs"
+                          >
+                            <Navigation className="w-3 h-3 text-emerald-400 fill-emerald-400" />
+                            <span>Rider GPS Route</span>
+                          </a>
+                          <a
+                            href={`https://wa.me/?text=${whatsappShareText}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="py-2 px-2 bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#1B5E20] border border-[#25D366]/40 rounded-xl text-[11px] font-bold text-center flex items-center justify-center gap-1"
+                          >
+                            <Share2 className="w-3 h-3 text-[#25D366]" />
+                            <span>WhatsApp Rider</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* DESKTOP TABLE VIEW (FULL COLUMNS ON LARGE SCREENS) */}
+              <div className="hidden lg:block overflow-x-auto">
+                <table className="w-full text-left text-xs">
                 <thead className="bg-stone-100/70 border-b border-stone-200 text-stone-600 font-bold uppercase tracking-wider text-[10px]">
                   <tr>
                     <th className="py-2.5 px-3">Order ID &amp; Time</th>
@@ -1179,7 +1349,8 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                 </tbody>
               </table>
             </div>
-          )}
+          </div>
+        )}
         </div>
       )}
 

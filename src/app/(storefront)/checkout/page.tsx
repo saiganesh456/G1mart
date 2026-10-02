@@ -67,25 +67,7 @@ export default function CheckoutPage() {
     }
   }, [user, phone, fullName]);
 
-  // Pre-fill from currentLocation if available
-  useEffect(() => {
-    if (currentLocation && !streetArea) {
-      if (currentLocation.street || currentLocation.area) {
-        setStreetArea(currentLocation.street || currentLocation.area);
-      }
-      if (currentLocation.city) {
-        setCity(currentLocation.city);
-      }
-      if (currentLocation.pincode) {
-        setPincode(currentLocation.pincode);
-      }
-      if (currentLocation.lat && currentLocation.lng) {
-        setLatitude(currentLocation.lat);
-        setLongitude(currentLocation.lng);
-        setAutoFilled(true);
-      }
-    }
-  }, [currentLocation, streetArea]);
+  // Only pre-fill GPS/location if user explicitly clicks Auto-detect GPS or had saved address
 
   const handleAutoFillClick = async () => {
     const loc = await detectLocation();
