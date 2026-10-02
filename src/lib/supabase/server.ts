@@ -15,12 +15,23 @@ interface CookieItem {
  * NEVER import this file from a 'use client' component.
  * NEVER expose SUPABASE_SERVICE_ROLE_KEY in browser bundles.
  */
+const supabaseUrl =
+  process.env.NEXT_PUBLIC_SUPABASE_URL ||
+  process.env.VITE_SUPABASE_URL ||
+  'https://pzrigfczxwscpzxkykvf.supabase.co';
+
+const supabaseAnonKey =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+  process.env.VITE_SUPABASE_ANON_KEY ||
+  'sb_publishable_21Va_owgBZfUACOuIp5Z2w_tQFUY74e';
+
 export async function createServerSupabaseClient() {
   const cookieStore = await cookies();
 
   return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co',
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder',
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         getAll() {

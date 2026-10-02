@@ -1,17 +1,29 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Phone, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
 import { authService } from '@/services/authService';
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [authError, setAuthError] = useState('');
+
+  useEffect(() => {
+    const errorParam = searchParams.get('error') || searchParams.get('error_description');
+    if (errorParam) {
+      if (errorParam === 'auth_failed' || errorParam === 'no_code_provided') {
+        setAuthError('Authentication failed. Please try again.');
+      } else {
+        setAuthError(decodeURIComponent(errorParam));
+      }
+    }
+  }, [searchParams]);
 
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -150,5 +162,13 @@ export default function LoginPage() {
         </Link>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="bg-white rounded-3xl p-8 text-center text-sm text-stone-400">Loading...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }
