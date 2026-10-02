@@ -13,13 +13,13 @@ const NAV_ITEMS = [
 ] as const;
 
 /** Pages where the bottom nav is not shown */
-const HIDDEN_PATHS = ['/login', '/checkout', '/cart'];
+const HIDDEN_PATHS = ['/login', '/checkout', '/cart', '/payment'];
 
 export default function BottomNav() {
   const pathname = usePathname();
   const { cartItemCount, cartSubtotal } = useCart();
 
-  // Hide on auth, checkout, and cart pages
+  // Hide on auth, checkout, cart, and payment pages
   const shouldHide = HIDDEN_PATHS.some((p) => pathname.startsWith(p));
   if (shouldHide) return null;
 
@@ -29,7 +29,8 @@ export default function BottomNav() {
   const showFloatingCart =
     cartItemCount > 0 &&
     !pathname.startsWith('/cart') &&
-    !pathname.startsWith('/checkout');
+    !pathname.startsWith('/checkout') &&
+    !pathname.startsWith('/payment');
 
   return (
     /* Only visible on mobile/tablet — desktop uses the header nav */

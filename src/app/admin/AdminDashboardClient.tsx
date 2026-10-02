@@ -24,6 +24,8 @@ import {
   RefreshCw,
   UserCheck,
   Clock,
+  Upload,
+  X,
 } from 'lucide-react';
 import type { Category, Product, Order } from '@/types';
 import ProductCard from '@/components/storefront/ProductCard';
@@ -83,6 +85,52 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
     } finally {
       setMarkingOrderId(null);
     }
+  };
+
+  // Image editing & upload state (Admin change product image)
+  const [editingImageProduct, setEditingImageProduct] = useState<Product | null>(null);
+  const [candidateImageUrl, setCandidateImageUrl] = useState('');
+  const [imageUploadPreview, setImageUploadPreview] = useState<string | null>(null);
+  const [imageSaveSuccess, setImageSaveSuccess] = useState<string | null>(null);
+
+  const handleImageFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64 = reader.result as string;
+      setImageUploadPreview(base64);
+      setCandidateImageUrl(base64);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleSaveProductImage = () => {
+    if (!editingImageProduct || !candidateImageUrl) return;
+    const targetId = editingImageProduct.id;
+    setProducts((prev) =>
+      prev.map((p) => {
+        if (p.id === targetId) {
+          return {
+            ...p,
+            image: candidateImageUrl,
+            image_path: candidateImageUrl,
+            image_status: 'approved',
+            image_source: 'own_photo',
+            image_license: 'Store Owner Approved Asset',
+            image_match_note: `Photo updated and approved by Store Admin on ${new Date().toLocaleDateString('en-IN')}`,
+          };
+        }
+        return p;
+      })
+    );
+    setImageSaveSuccess(`Product photo updated & published for "${editingImageProduct.name}"!`);
+    setTimeout(() => {
+      setImageSaveSuccess(null);
+      setEditingImageProduct(null);
+      setCandidateImageUrl('');
+      setImageUploadPreview(null);
+    }, 1500);
   };
 
   // New product form state
@@ -414,16 +462,30 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                       {/* Product Name & Details */}
                       <td className="py-2.5 px-3">
                         <div className="flex items-center gap-2.5">
-                          <div className="w-10 h-10 rounded-lg bg-stone-50 border border-stone-200/80 overflow-hidden shrink-0 flex items-center justify-center p-1">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                              src={displayImage}
-                              alt={p.name}
-                              className="w-full h-full object-contain"
-                              onError={(e) => {
-                                (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
+                          <div className="relative group shrink-0">
+                            <div className="w-10 h-10 rounded-lg bg-stone-50 border border-stone-200/80 overflow-hidden flex items-center justify-center p-1">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={displayImage}
+                                alt={p.name}
+                                className="w-full h-full object-contain"
+                                onError={(e) => {
+                                  (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
+                                }}
+                              />
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setEditingImageProduct(p);
+                                setCandidateImageUrl(p.image_status === 'approved' ? (p.image_path || p.image) : (p.image_path || ''));
+                                setImageUploadPreview(null);
                               }}
-                            />
+                              className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-full flex items-center justify-center shadow-xs transition-transform active:scale-90 cursor-pointer"
+                              title="Click pencil to change or upload product image"
+                            >
+                              <Edit2 className="w-2.5 h-2.5 stroke-[2.5]" />
+                            </button>
                           </div>
                           <div className="min-w-0">
                             <div className="font-bold text-stone-900 truncate max-w-xs flex items-center gap-1.5">
@@ -499,6 +561,18 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                           <div className="text-[9px] text-stone-400 font-mono">
                             src: {p.image_source || 'placeholder'}
                           </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setEditingImageProduct(p);
+                              setCandidateImageUrl(p.image_status === 'approved' ? (p.image_path || p.image) : (p.image_path || ''));
+                              setImageUploadPreview(null);
+                            }}
+                            className="mt-1 text-[10px] font-bold text-[#2E7D32] bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2 py-0.5 rounded-lg flex items-center gap-1 transition-all cursor-pointer"
+                          >
+                            <Edit2 className="w-2.5 h-2.5" />
+                            <span>Change Image</span>
+                          </button>
                         </div>
                       </td>
 
@@ -981,6 +1055,171 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
               </table>
             </div>
           )}
+        </div>
+      )}
+
+      {/* EDIT / UPLOAD PRODUCT IMAGE MODAL DIALOG */}
+      {editingImageProduct && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-4 animate-in fade-in">
+          <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl max-w-lg w-full p-5 sm:p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="flex items-start justify-between gap-3 border-b border-stone-100 pb-3">
+              <div>
+                <h3 className="text-base font-extrabold text-stone-900 flex items-center gap-2">
+                  <Edit2 className="w-4 h-4 text-[#2E7D32]" />
+                  <span>Update Product Image</span>
+                </h3>
+                <p className="text-xs text-stone-500 font-medium mt-0.5">
+                  #{editingImageProduct.itemNumber} · {editingImageProduct.name}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setEditingImageProduct(null);
+                  setImageUploadPreview(null);
+                }}
+                className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {imageSaveSuccess && (
+              <div className="p-3 bg-green-50 border border-green-200 rounded-xl text-green-800 font-bold text-xs flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" />
+                <span>{imageSaveSuccess}</span>
+              </div>
+            )}
+
+            {/* Visual Comparison: Current vs New */}
+            <div className="grid grid-cols-2 gap-3 p-3 bg-stone-50 rounded-2xl border border-stone-200/80">
+              <div className="space-y-1.5 text-center">
+                <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider block">
+                  Current Store Image
+                </span>
+                <div className="w-24 h-24 mx-auto bg-white rounded-xl border border-stone-200 p-2 flex items-center justify-center overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={
+                      editingImageProduct.image_status === 'approved'
+                        ? editingImageProduct.image_path || editingImageProduct.image
+                        : '/products/placeholder.svg'
+                    }
+                    alt="Current"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <span className="text-[10px] text-stone-500 font-medium block">
+                  Status: <strong>{editingImageProduct.image_status}</strong>
+                </span>
+              </div>
+
+              <div className="space-y-1.5 text-center">
+                <span className="text-[10px] font-bold text-[#2E7D32] uppercase tracking-wider block">
+                  New Candidate Preview
+                </span>
+                <div className="w-24 h-24 mx-auto bg-white rounded-xl border-2 border-[#2E7D32] p-2 flex items-center justify-center overflow-hidden shadow-xs">
+                  {candidateImageUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={candidateImageUrl}
+                      alt="New Preview"
+                      className="w-full h-full object-contain"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
+                      }}
+                    />
+                  ) : (
+                    <span className="text-[10px] text-stone-400 font-semibold">No Image</span>
+                  )}
+                </div>
+                <span className="text-[10px] text-emerald-700 font-extrabold block">
+                  Will mark as ✓ Approved
+                </span>
+              </div>
+            </div>
+
+            {/* 1. Upload Local File */}
+            <div className="space-y-2">
+              <label className="block text-xs font-bold text-stone-700">
+                1. Upload Photo from your Device (Mobile / PC)
+              </label>
+              <label className="w-full py-3 px-4 bg-emerald-50 hover:bg-emerald-100/80 border-2 border-dashed border-[#2E7D32]/40 rounded-2xl flex items-center justify-center gap-2 cursor-pointer transition-colors text-[#1B5E20] font-bold text-xs">
+                <Upload className="w-4 h-4 text-[#2E7D32]" />
+                <span>Choose Image File (PNG, JPG, WEBP)</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageFileUpload}
+                  className="hidden"
+                />
+              </label>
+            </div>
+
+            {/* 2. Or Paste Image URL */}
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold text-stone-700">
+                2. Or Paste Image URL
+              </label>
+              <input
+                type="text"
+                value={candidateImageUrl}
+                onChange={(e) => setCandidateImageUrl(e.target.value)}
+                placeholder="https://... or /products/photos/..."
+                className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#2E7D32] focus:bg-white"
+              />
+            </div>
+
+            {/* 3. FMCG Verified Presets */}
+            <div className="space-y-1.5">
+              <label className="block text-[11px] font-bold text-stone-500">
+                3. Or pick from verified grocery catalogue presets:
+              </label>
+              <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto p-1.5 bg-stone-50 rounded-xl border border-stone-200/80">
+                {PHOTO_PRESETS.map((p) => (
+                  <button
+                    key={p.label}
+                    type="button"
+                    onClick={() => {
+                      setCandidateImageUrl(p.url);
+                      setImageUploadPreview(null);
+                    }}
+                    className={`text-[10px] px-2 py-1 rounded-lg border font-semibold transition-all cursor-pointer ${
+                      candidateImageUrl === p.url
+                        ? 'bg-[#2E7D32] text-white border-[#2E7D32]'
+                        : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-100'
+                    }`}
+                  >
+                    {p.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Modal Actions */}
+            <div className="flex items-center gap-3 pt-3 border-t border-stone-100">
+              <button
+                type="button"
+                onClick={() => {
+                  setEditingImageProduct(null);
+                  setImageUploadPreview(null);
+                }}
+                className="flex-1 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleSaveProductImage}
+                disabled={!candidateImageUrl}
+                className="flex-1 py-2.5 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl text-xs font-extrabold shadow-md shadow-[#2E7D32]/20 transition-all disabled:opacity-50 cursor-pointer flex items-center justify-center gap-1.5"
+              >
+                <Check className="w-3.5 h-3.5 stroke-[3]" />
+                <span>Save &amp; Approve Image</span>
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

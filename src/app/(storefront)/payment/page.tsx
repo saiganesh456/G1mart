@@ -41,6 +41,41 @@ export default function PaymentPage() {
         });
         const data = await res.json();
         if (data.success && data.orderId) {
+          const orderRecord = {
+            id: data.orderId,
+            orderNumber: data.orderId,
+            date: new Date().toLocaleDateString('en-IN', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+            }),
+            status: 'Order Placed',
+            paymentMethod: 'Cash on Delivery',
+            paymentStatus: 'cash_on_delivery',
+            subtotal: cartSubtotal,
+            grandTotal: data.amountInPaise ? data.amountInPaise / 100 : cartSubtotal,
+            total: data.amountInPaise ? data.amountInPaise / 100 : cartSubtotal,
+            items: cart.map((i) => ({
+              productId: i.product.id,
+              productName: i.product.name,
+              unit: i.product.unit,
+              price: i.product.price,
+              quantity: i.quantity,
+              image: i.product.image || '/products/placeholder.svg',
+            })),
+            address: addressData,
+            slot: addressData.selectedSlot || 'Standard Delivery',
+          };
+
+          try {
+            sessionStorage.setItem('g1mart_latest_order', JSON.stringify(orderRecord));
+            const prev = JSON.parse(sessionStorage.getItem('g1mart_orders_list') || '[]');
+            sessionStorage.setItem('g1mart_orders_list', JSON.stringify([orderRecord, ...prev]));
+            localStorage.setItem('g1mart_recent_order', JSON.stringify(orderRecord));
+          } catch {}
+
           clearCart();
           router.push(`/orders/${data.orderId}?placed=true`);
           return;
@@ -63,6 +98,7 @@ export default function PaymentPage() {
         paymentMethod: 'Cash on Delivery',
         paymentStatus: 'cash_on_delivery',
         subtotal: cartSubtotal,
+        grandTotal: cartSubtotal,
         total: cartSubtotal,
         items: cart.map((i) => ({
           productId: i.product.id,
@@ -73,12 +109,14 @@ export default function PaymentPage() {
           image: i.product.image || '/products/placeholder.svg',
         })),
         address: addressData,
+        slot: addressData.selectedSlot || 'Standard Delivery',
       };
 
       try {
         sessionStorage.setItem('g1mart_latest_order', JSON.stringify(orderRecord));
         const prev = JSON.parse(sessionStorage.getItem('g1mart_orders_list') || '[]');
         sessionStorage.setItem('g1mart_orders_list', JSON.stringify([orderRecord, ...prev]));
+        localStorage.setItem('g1mart_recent_order', JSON.stringify(orderRecord));
       } catch {}
 
       clearCart();
@@ -107,7 +145,43 @@ export default function PaymentPage() {
         return;
       }
 
-      // Customer redirected to PhonePe checkout URL per Rule 3
+      // Persist pending order record so tracking is ready upon return
+      const orderRecord = {
+        id: data.orderId,
+        orderNumber: data.orderId,
+        date: new Date().toLocaleDateString('en-IN', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
+        status: 'Order Placed',
+        paymentMethod: 'UPI',
+        paymentStatus: 'pending',
+        subtotal: cartSubtotal,
+        grandTotal: data.amountInPaise ? data.amountInPaise / 100 : cartSubtotal,
+        total: data.amountInPaise ? data.amountInPaise / 100 : cartSubtotal,
+        items: cart.map((i) => ({
+          productId: i.product.id,
+          productName: i.product.name,
+          unit: i.product.unit,
+          price: i.product.price,
+          quantity: i.quantity,
+          image: i.product.image || '/products/placeholder.svg',
+        })),
+        address: addressData,
+        slot: addressData.selectedSlot || 'Standard Delivery',
+      };
+
+      try {
+        sessionStorage.setItem('g1mart_latest_order', JSON.stringify(orderRecord));
+        const prev = JSON.parse(sessionStorage.getItem('g1mart_orders_list') || '[]');
+        sessionStorage.setItem('g1mart_orders_list', JSON.stringify([orderRecord, ...prev]));
+        localStorage.setItem('g1mart_recent_order', JSON.stringify(orderRecord));
+      } catch {}
+
+      clearCart();
       window.location.href = data.redirectUrl;
     } catch (err: any) {
       alert(err.message || 'Error communicating with checkout server');
@@ -116,7 +190,7 @@ export default function PaymentPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-4 pb-28 pt-2 sm:pt-4 px-3 sm:px-0">
+    <div className="max-w-2xl mx-auto space-y-4 pb-36 sm:pb-40 pt-2 sm:pt-4 px-3 sm:px-0">
       <div className="flex items-center gap-3">
         <Link
           href="/checkout"
@@ -240,24 +314,26 @@ export default function PaymentPage() {
       </div>
 
       {/* Sticky Bottom Action */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 max-w-lg md:max-w-2xl mx-auto p-3 bg-white/95 backdrop-blur-md border-t border-stone-200">
-        <button
-          type="button"
-          onClick={handlePay}
-          disabled={processing}
-          className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all disabled:opacity-60 cursor-pointer"
-        >
-          {processing && (
-            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-          )}
-          <span>
-            {processing
-              ? 'Connecting to PhonePe...'
-              : selectedMethod === 'cod'
-              ? `Confirm Order with Cash on Delivery`
-              : `Proceed to Pay with ${selectedMethod.toUpperCase()} (₹${cartSubtotal})`}
-          </span>
-        </button>
+      <div className="fixed bottom-0 left-0 right-0 w-full z-50 bg-white/95 backdrop-blur-md border-t border-stone-200 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-xl">
+        <div className="max-w-2xl mx-auto">
+          <button
+            type="button"
+            onClick={handlePay}
+            disabled={processing}
+            className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all disabled:opacity-60 cursor-pointer"
+          >
+            {processing && (
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            )}
+            <span>
+              {processing
+                ? 'Processing...'
+                : selectedMethod === 'cod'
+                ? `Confirm Order with Cash on Delivery (₹${cartSubtotal})`
+                : `Proceed to Pay with ${selectedMethod.toUpperCase()} (₹${cartSubtotal})`}
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   );

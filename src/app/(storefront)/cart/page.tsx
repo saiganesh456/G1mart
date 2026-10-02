@@ -1,18 +1,55 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Trash2, Plus, Minus, ArrowRight, ShoppingBag, ShieldCheck } from 'lucide-react';
+import { Trash2, Plus, Minus, ArrowRight, ShoppingBag, ShieldCheck, CheckCircle2, Truck } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { STORE_CONFIG } from '@/config/store';
 
 export default function CartPage() {
   const { cart, updateCartQuantity, removeFromCart, clearCart, cartItemCount, cartSubtotal } =
     useCart();
+  const [recentOrder, setRecentOrder] = useState<any>(null);
+
+  useEffect(() => {
+    try {
+      const raw =
+        sessionStorage.getItem('g1mart_latest_order') ||
+        localStorage.getItem('g1mart_recent_order');
+      if (raw) {
+        setRecentOrder(JSON.parse(raw));
+      }
+    } catch {}
+  }, []);
 
   if (cartItemCount === 0) {
     return (
-      <div className="max-w-md mx-auto py-24 text-center space-y-4 px-4">
+      <div className="max-w-md mx-auto py-12 sm:py-20 text-center space-y-4 px-4">
+        {/* Active Order Banner if order was placed */}
+        {recentOrder && (
+          <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-left space-y-3 mb-6 shadow-xs animate-in fade-in">
+            <div className="flex items-center gap-2 text-emerald-900 font-extrabold text-sm">
+              <CheckCircle2 className="w-5 h-5 text-[#2E7D32] shrink-0" />
+              <span>Active Order #{recentOrder.id} Placed!</span>
+            </div>
+            <p className="text-xs text-stone-600 leading-relaxed">
+              Your order is confirmed and shipping to {recentOrder.address?.streetArea || recentOrder.address?.city || 'your address'}.
+            </p>
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-emerald-200/60 text-xs">
+              <span className="font-bold text-stone-700">
+                {recentOrder.paymentMethod} · ₹{recentOrder.grandTotal || recentOrder.total}
+              </span>
+              <Link
+                href={`/orders/${recentOrder.id}`}
+                className="inline-flex items-center gap-1 font-bold text-[#2E7D32] hover:underline"
+              >
+                <span>Track Live Order</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </div>
+        )}
+
         <div className="w-16 h-16 bg-stone-100 rounded-2xl flex items-center justify-center mx-auto text-stone-400">
           <ShoppingBag className="w-8 h-8" />
         </div>
@@ -24,7 +61,7 @@ export default function CartPage() {
         </div>
         <Link
           href="/"
-          className="inline-block px-5 py-2.5 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl text-xs font-bold transition-all shadow-sm"
+          className="inline-block px-6 py-3 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl text-xs font-bold transition-all shadow-sm"
         >
           Start Shopping
         </Link>
@@ -33,7 +70,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-4 pb-28 pt-2 sm:pt-4 px-3 sm:px-0">
+    <div className="max-w-2xl mx-auto space-y-4 pb-36 sm:pb-40 pt-2 sm:pt-4 px-3 sm:px-0">
       {/* Top Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -150,20 +187,20 @@ export default function CartPage() {
       </div>
 
       {/* Sticky Bottom CTA */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 max-w-lg md:max-w-2xl mx-auto p-3 bg-white/95 backdrop-blur-md border-t border-stone-200">
-        <Link
-          href="/checkout"
-          className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-bold text-sm flex items-center justify-between px-4 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.99] transition-all"
-        >
-          <div className="flex flex-col text-left">
-            <span className="text-[10px] text-white/80 font-medium">TOTAL (EST.)</span>
-            <span className="text-sm font-black tabular-nums">₹{cartSubtotal}</span>
+      <div className="fixed bottom-0 left-0 right-0 w-full z-50 bg-white/95 backdrop-blur-md border-t border-stone-200 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-xl">
+        <div className="max-w-2xl mx-auto flex items-center justify-between gap-3">
+          <div className="flex flex-col text-left min-w-0">
+            <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">TOTAL (EST.)</span>
+            <span className="text-base sm:text-lg font-black text-[#212121] tabular-nums truncate">₹{cartSubtotal}</span>
           </div>
-          <div className="flex items-center gap-1.5">
+          <Link
+            href="/checkout"
+            className="h-12 px-6 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-extrabold text-sm flex items-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all shrink-0 cursor-pointer"
+          >
             <span>Proceed to Checkout</span>
             <ArrowRight className="w-4 h-4" />
-          </div>
-        </Link>
+          </Link>
+        </div>
       </div>
     </div>
   );

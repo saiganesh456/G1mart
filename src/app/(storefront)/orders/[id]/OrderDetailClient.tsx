@@ -17,27 +17,43 @@ export default function OrderDetailClient({ orderId }: Props) {
   const [order, setOrder] = useState<any>(null);
 
   useEffect(() => {
+    let found = false;
     try {
-      // Check latest order or orders list in sessionStorage
-      const latestRaw = sessionStorage.getItem('g1mart_latest_order');
+      const latestRaw =
+        sessionStorage.getItem('g1mart_latest_order') ||
+        localStorage.getItem('g1mart_recent_order');
       if (latestRaw) {
         const parsed = JSON.parse(latestRaw);
         if (parsed.id === orderId || parsed.orderNumber === orderId) {
           setOrder(parsed);
-          return;
+          found = true;
         }
       }
 
       const listRaw = sessionStorage.getItem('g1mart_orders_list');
-      if (listRaw) {
+      if (listRaw && !found) {
         const list = JSON.parse(listRaw);
-        const found = list.find((o: any) => o.id === orderId || o.orderNumber === orderId);
-        if (found) {
-          setOrder(found);
-          return;
+        const match = list.find((o: any) => o.id === orderId || o.orderNumber === orderId);
+        if (match) {
+          setOrder(match);
+          found = true;
         }
       }
     } catch {}
+
+    // Always sync with server for verified items, prices, and delivery tracking
+    fetch(`/api/orders/${orderId}/payment-status`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.order) {
+          setOrder((prev: any) => ({ ...prev, ...data.order }));
+          try {
+            sessionStorage.setItem('g1mart_latest_order', JSON.stringify(data.order));
+            localStorage.setItem('g1mart_recent_order', JSON.stringify(data.order));
+          } catch {}
+        }
+      })
+      .catch((err) => console.warn('Could not sync order from server', err));
   }, [orderId]);
 
   const address = order?.address || null;
