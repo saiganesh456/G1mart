@@ -7,7 +7,7 @@ import { useCart } from '@/context/CartContext';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Home', icon: Home, matchPaths: ['/'] },
-  { href: '/category/fruits-vegetables', label: 'Categories', icon: LayoutGrid, matchPaths: ['/category'] },
+  { href: '/category/rice-dal-atta', label: 'Categories', icon: LayoutGrid, matchPaths: ['/category'] },
   { href: '/orders', label: 'Orders', icon: ShoppingBag, matchPaths: ['/orders'] },
   { href: '/account', label: 'Account', icon: User, matchPaths: ['/account', '/help'] },
 ] as const;

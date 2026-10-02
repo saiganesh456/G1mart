@@ -1,51 +1,57 @@
+import React from 'react';
 import Link from 'next/link';
-import { ShieldCheck, Lock } from 'lucide-react';
+import { Store, ShieldCheck, Package, ShoppingBag, ArrowLeft, ExternalLink } from 'lucide-react';
 
-/**
- * Admin layout — guards all /admin/* routes.
- *
- * TODO (Phase 3 — Admin Auth):
- * 1. Call createServerSupabaseClient() from @/lib/supabase/server
- * 2. Get the session: const { data: { session } } = await supabase.auth.getSession()
- * 3. Verify session.user has admin role in the `user_roles` table
- * 4. If not admin → redirect('/login') or show 403
- *
- * For now, this layout shows a "login required" placeholder to prevent any
- * accidental public access.
- */
+export const metadata = {
+  title: 'Admin Console | G1 Mart',
+  description: 'G1 Mart Store Manager & Inventory Dashboard',
+};
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  // TODO (Phase 3): Replace this block with a real server-side auth check.
-  const isAuthenticated = false; // STUB — always requires auth
+  return (
+    <div className="min-h-screen bg-[#F4F6F9] text-stone-900 flex flex-col">
+      {/* Admin Top Navigation Bar */}
+      <header className="sticky top-0 z-50 bg-[#1A2E1C] text-white border-b border-white/10 shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
+          {/* Brand & Admin Badge */}
+          <div className="flex items-center gap-3">
+            <Link href="/admin" className="flex items-center gap-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo.png"
+                alt="G1 Mart"
+                className="h-8 sm:h-9 w-auto object-contain brightness-0 invert"
+              />
+              <span className="font-extrabold text-white text-base tracking-tight hidden sm:inline">
+                Admin Console
+              </span>
+            </Link>
+            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+              <ShieldCheck className="w-3 h-3 text-emerald-400" />
+              <span>Store Manager</span>
+            </span>
+          </div>
 
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-stone-900 flex items-center justify-center p-6">
-        <div className="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl space-y-4">
-          <div className="w-14 h-14 bg-stone-100 rounded-2xl flex items-center justify-center mx-auto">
-            <Lock className="w-7 h-7 text-stone-700" />
+          {/* Quick Nav Links */}
+          <div className="flex items-center gap-2 sm:gap-4">
+            <Link
+              href="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-bold text-white/90 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-xl flex items-center gap-1.5 transition-all"
+            >
+              <Store className="w-3.5 h-3.5 text-emerald-300" />
+              <span>View Store</span>
+              <ExternalLink className="w-3 h-3 opacity-70" />
+            </Link>
           </div>
-          <div>
-            <h1 className="text-lg font-extrabold text-[#212121]">Admin Access Required</h1>
-            <p className="text-sm text-stone-500 mt-1.5 leading-relaxed">
-              This area is restricted to authorised store staff only.
-              Admin login with secure authentication will be enabled in Phase 3.
-            </p>
-          </div>
-          <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 font-semibold flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 shrink-0" />
-            <span>TODO Phase 3: Wire Supabase role-based auth here</span>
-          </div>
-          <Link
-            href="/"
-            className="block w-full py-2.5 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-bold text-sm transition-colors"
-          >
-            ← Back to Store
-          </Link>
         </div>
-      </div>
-    );
-  }
+      </header>
 
-  // When auth is wired: render admin shell here
-  return <div className="min-h-screen bg-stone-50">{children}</div>;
+      {/* Main Content Area */}
+      <div className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6">
+        {children}
+      </div>
+    </div>
+  );
 }

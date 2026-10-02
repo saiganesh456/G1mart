@@ -193,6 +193,13 @@ export default function Header() {
                 Orders
               </Link>
               <Link
+                href="/admin"
+                className="px-2.5 py-1.5 rounded-lg text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-200/80 hover:bg-emerald-100 transition-colors flex items-center gap-1 shadow-2xs"
+                title="Store Manager & Inventory Dashboard"
+              >
+                <span>Store Admin</span>
+              </Link>
+              <Link
                 href={isLoggedIn ? '/account' : '/login'}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-stone-600 hover:text-[#2E7D32] hover:bg-stone-100 font-medium transition-colors"
               >
