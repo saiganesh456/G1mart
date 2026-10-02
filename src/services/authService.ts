@@ -79,10 +79,15 @@ export const authService = {
     }
 
     try {
+      const redirectOrigin =
+        typeof window !== 'undefined'
+          ? window.location.origin
+          : 'http://localhost:3000';
+
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${typeof window !== 'undefined' ? window.location.origin : ''}/auth/callback`,
+          redirectTo: `${redirectOrigin}/auth/callback?next=/account`,
         },
       });
 

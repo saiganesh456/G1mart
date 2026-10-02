@@ -64,7 +64,7 @@ export default function Header() {
               </Link>
 
               <Link
-                href="/account"
+                href={isLoggedIn ? '/account' : '/login'}
                 aria-label={isLoggedIn ? (user?.name || 'My account') : 'Sign In'}
                 className="w-9 h-9 flex items-center justify-center rounded-xl bg-stone-100 text-stone-700 overflow-hidden"
               >
@@ -193,7 +193,7 @@ export default function Header() {
                 Orders
               </Link>
               <Link
-                href="/account"
+                href={isLoggedIn ? '/account' : '/login'}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-stone-600 hover:text-[#2E7D32] hover:bg-stone-100 font-medium transition-colors"
               >
                 {user?.avatar ? (

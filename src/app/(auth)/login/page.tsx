@@ -5,14 +5,22 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Phone, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
 import { authService } from '@/services/authService';
+import { useAuth } from '@/context/AuthContext';
 
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { isLoggedIn, isLoading: authLoading } = useAuth();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [authError, setAuthError] = useState('');
+
+  useEffect(() => {
+    if (!authLoading && isLoggedIn) {
+      router.replace('/account');
+    }
+  }, [authLoading, isLoggedIn, router]);
 
   useEffect(() => {
     const errorParam = searchParams.get('error') || searchParams.get('error_description');
