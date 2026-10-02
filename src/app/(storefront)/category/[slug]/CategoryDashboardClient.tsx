@@ -19,9 +19,11 @@ const SUBCAT_THUMBNAILS: Record<string, string> = {
   'Rice & Grains': '/products/prod-6.jpg',
   'Dals & Pulses': '/products/photos/toor-dal.jpg',
   'Salt & Sugar': '/products/photos/crystal-salt.jpg',
-  'Spices & Masalas': '/products/photos/spices-cloves.jpg',
 
   // Oils & Masala
+  'Cooking Oils & Ghee': '/products/prod-3.jpg',
+  'Spices & Masalas': '/products/photos/spices-cloves.jpg',
+  'Whole Spices & Seeds': '/products/photos/spices-cloves.jpg',
   'Sunflower Oil': '/products/prod-3.jpg',
   'Groundnut & Other Oils': '/products/photos/cooking-oil.jpg',
   'Deepam & Pooja Oil': '/products/photos/pooja-camphor.jpg',
@@ -29,6 +31,7 @@ const SUBCAT_THUMBNAILS: Record<string, string> = {
 
   // Dairy Bakery
   'Milk & Curd': '/products/prod-4.jpg',
+  'Ice Creams & Frozen Treats': '/categories/dairy-bread-eggs.jpg',
   'Bread & Bakery': '/products/prod-5.jpg',
   'Eggs': '/products/prod-4.jpg',
 
@@ -37,6 +40,7 @@ const SUBCAT_THUMBNAILS: Record<string, string> = {
   'Chips & Namkeen': '/products/photos/chips-namkeen.jpg',
   'Chocolates & Sweets': '/products/prod-41.jpg',
   'Dry Fruits & Nuts': '/products/photos/cashews.jpg',
+  'Papads & Fryums': '/products/photos/chips-namkeen.jpg',
   'Instant Noodles & Pasta': '/products/prod-22.jpg',
 
   // Beverages
@@ -48,6 +52,7 @@ const SUBCAT_THUMBNAILS: Record<string, string> = {
   // Personal Care
   'Bath Soaps': '/products/prod-31.jpg',
   'Oral Care': '/products/prod-10.jpg',
+  'Hair Care & Shampoo': '/products/prod-35.jpg',
   'Hair Care': '/products/prod-35.jpg',
   'Skincare & Hygiene': '/products/prod-43.jpg',
 
@@ -56,6 +61,7 @@ const SUBCAT_THUMBNAILS: Record<string, string> = {
   'Dishwash & Kitchen': '/products/prod-37.jpg',
   'Floor & Cleaners': '/products/prod-39.jpg',
   'Pooja Needs': '/products/photos/pooja-camphor.jpg',
+  'Home Utilities & Stationery': '/products/photos/cleaning-wash.jpg',
   'Home Utilities': '/products/photos/cleaning-wash.jpg',
 
   // Fruits & Veg

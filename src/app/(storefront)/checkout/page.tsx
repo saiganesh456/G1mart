@@ -6,16 +6,20 @@ import { useRouter } from 'next/navigation';
 import { ArrowLeft, MapPin, Clock, ShieldCheck, AlertCircle, Navigation, CheckCircle2 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useLocation } from '@/context/LocationContext';
+import { useAuth } from '@/context/AuthContext';
 import { STORE_CONFIG } from '@/config/store';
+import { sanitizeIndianPhone, isValidIndianPhone } from '@/lib/phone';
 
 export default function CheckoutPage() {
   const router = useRouter();
   const { cart, cartItemCount, cartSubtotal } = useCart();
   const { currentLocation, detectLocation, isDetecting } = useLocation();
+  const { user } = useAuth();
 
   // Form state
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
+  const [phoneError, setPhoneError] = useState<string | null>(null);
   const [houseFlat, setHouseFlat] = useState('');
   const [streetArea, setStreetArea] = useState('');
   const [landmark, setLandmark] = useState('');
@@ -26,6 +30,35 @@ export default function CheckoutPage() {
   const [deliveryInstructions, setDeliveryInstructions] = useState('');
   const [selectedSlot, setSelectedSlot] = useState('Standard Delivery');
   const [autoFilled, setAutoFilled] = useState(false);
+
+  // Pre-fill from sessionStorage or user profile
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem('g1mart_checkout_address');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.fullName) setFullName(parsed.fullName);
+        if (parsed.phone) setPhone(sanitizeIndianPhone(parsed.phone));
+        if (parsed.houseFlat) setHouseFlat(parsed.houseFlat);
+        if (parsed.streetArea) setStreetArea(parsed.streetArea);
+        if (parsed.landmark) setLandmark(parsed.landmark);
+        if (parsed.city) setCity(parsed.city);
+        if (parsed.pincode) setPincode(parsed.pincode);
+        if (parsed.deliveryInstructions) setDeliveryInstructions(parsed.deliveryInstructions);
+        if (parsed.selectedSlot) setSelectedSlot(parsed.selectedSlot);
+        return;
+      }
+    } catch {}
+
+    if (user) {
+      if (!phone && user.phone) {
+        setPhone(sanitizeIndianPhone(user.phone));
+      }
+      if (!fullName && user.name) {
+        setFullName(user.name);
+      }
+    }
+  }, [user, phone, fullName]);
 
   // Pre-fill from currentLocation if available
   useEffect(() => {
@@ -77,6 +110,19 @@ export default function CheckoutPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const cleanPhone = sanitizeIndianPhone(phone);
+    if (!isValidIndianPhone(cleanPhone)) {
+      setPhoneError('Please enter a valid 10-digit mobile number (starts with 6, 7, 8, or 9)');
+      return;
+    }
+    setPhoneError(null);
+
+    const cleanPincode = pincode.replace(/\D/g, '');
+    if (cleanPincode.length !== 6) {
+      alert('Please enter a valid 6-digit PIN code');
+      return;
+    }
+
     /**
      * Store temporary address in sessionStorage for payment confirmation
      */
@@ -85,12 +131,12 @@ export default function CheckoutPage() {
         'g1mart_checkout_address',
         JSON.stringify({
           fullName,
-          phone,
+          phone: cleanPhone,
           houseFlat,
           streetArea,
           landmark,
           city,
-          pincode,
+          pincode: cleanPincode,
           latitude,
           longitude,
           deliveryInstructions,
@@ -167,15 +213,38 @@ export default function CheckoutPage() {
 
             <div>
               <label className="font-bold text-stone-700 block mb-1">Mobile Number *</label>
-              <input
-                type="tel"
-                required
-                pattern="[0-9]{10}"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="10-digit mobile number"
-                className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
-              />
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-stone-500 select-none">
+                  +91
+                </span>
+                <input
+                  type="tel"
+                  required
+                  maxLength={16}
+                  value={phone}
+                  onChange={(e) => {
+                    const cleaned = sanitizeIndianPhone(e.target.value);
+                    setPhone(cleaned);
+                    if (phoneError && isValidIndianPhone(cleaned)) {
+                      setPhoneError(null);
+                    }
+                  }}
+                  onBlur={() => {
+                    if (phone && !isValidIndianPhone(phone)) {
+                      setPhoneError('Please enter a valid 10-digit mobile number');
+                    } else {
+                      setPhoneError(null);
+                    }
+                  }}
+                  placeholder="98765 43210"
+                  className={`w-full h-9 pl-11 pr-3 rounded-xl border outline-none transition-colors ${
+                    phoneError ? 'border-rose-400 bg-rose-50/20' : 'border-stone-300 focus:border-[#2E7D32]'
+                  }`}
+                />
+              </div>
+              {phoneError && (
+                <p className="text-[11px] text-rose-600 font-semibold mt-1">{phoneError}</p>
+              )}
             </div>
 
             <div className="sm:col-span-2">
@@ -218,9 +287,9 @@ export default function CheckoutPage() {
               <input
                 type="text"
                 required
-                pattern="[0-9]{6}"
+                maxLength={6}
                 value={pincode}
-                onChange={(e) => setPincode(e.target.value)}
+                onChange={(e) => setPincode(e.target.value.replace(/\D/g, '').slice(0, 6))}
                 placeholder="e.g. 524002"
                 className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
               />

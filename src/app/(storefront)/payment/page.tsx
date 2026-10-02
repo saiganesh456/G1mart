@@ -2,33 +2,65 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ArrowLeft, Banknote, Smartphone, CreditCard, ShieldCheck, AlertCircle } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
 export default function PaymentPage() {
-  const { cartSubtotal, cartItemCount } = useCart();
+  const router = useRouter();
+  const { cart, cartSubtotal, cartItemCount, clearCart } = useCart();
   const [selectedMethod, setSelectedMethod] = useState<'cod' | 'upi' | 'card'>('cod');
+  const [processing, setProcessing] = useState(false);
 
   const handlePay = () => {
-    /**
-     * TODO (Phase 2 — Payment Gateway Integration):
-     * 1. Cash on Delivery (COD):
-     *    - POST /api/checkout/confirm { method: 'cod' }
-     *    - Server confirms order with paymentStatus = 'cash_on_delivery'
-     *    - Redirect to /orders/[orderId]?placed=true
-     *
-     * 2. Online Payment (PhonePe PG):
-     *    - POST /api/payment/initiate { orderId }
-     *    - Server signs PhonePe request using PHONEPE_SALT_KEY and calls PhonePe Pay API
-     *    - Returns PhonePe redirect URL
-     *    - window.location.href = redirectUrl
-     *    - PhonePe callback hits /api/payment/verify Route Handler to verify SHA-256 signature
-     *    - Order marked paymentStatus = 'paid' ONLY after PhonePe server verification!
-     *
-     * NOTE: Fake setTimeout / client-side isPaid = true has been REMOVED per AUDIT.md.
-     */
+    if (selectedMethod === 'cod') {
+      setProcessing(true);
+      let addressData: any = null;
+      try {
+        const raw = sessionStorage.getItem('g1mart_checkout_address');
+        if (raw) addressData = JSON.parse(raw);
+      } catch {}
+
+      const orderId = `G1-${Math.floor(100000 + Math.random() * 900000)}`;
+      const orderRecord = {
+        id: orderId,
+        orderNumber: orderId,
+        date: new Date().toLocaleDateString('en-IN', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
+        status: 'Order Placed',
+        paymentMethod: 'Cash on Delivery',
+        paymentStatus: 'cash_on_delivery',
+        subtotal: cartSubtotal,
+        total: cartSubtotal,
+        items: cart.map((i) => ({
+          productId: i.product.id,
+          productName: i.product.name,
+          unit: i.product.unit,
+          price: i.product.price,
+          quantity: i.quantity,
+          image: i.product.image || '/products/placeholder.svg',
+        })),
+        address: addressData,
+      };
+
+      try {
+        sessionStorage.setItem('g1mart_latest_order', JSON.stringify(orderRecord));
+        const prev = JSON.parse(sessionStorage.getItem('g1mart_orders_list') || '[]');
+        sessionStorage.setItem('g1mart_orders_list', JSON.stringify([orderRecord, ...prev]));
+      } catch {}
+
+      clearCart();
+      router.push(`/orders/${orderId}?placed=true`);
+      return;
+    }
+
     alert(
-      'Phase 1 Notice: Payment processing is stubbed until PhonePe credentials are provided in Phase 2.'
+      'Online payment gateway (PhonePe UPI / Cards) is scheduled for Phase 2. Please choose Cash on Delivery (COD) to place your order right now.'
     );
   };
 

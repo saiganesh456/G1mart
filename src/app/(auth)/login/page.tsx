@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Phone, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
 import { authService } from '@/services/authService';
 import { useAuth } from '@/context/AuthContext';
+import { sanitizeIndianPhone, isValidIndianPhone } from '@/lib/phone';
 
 function LoginForm() {
   const router = useRouter();
@@ -136,19 +137,23 @@ function LoginForm() {
             <input
               type="tel"
               required
-              pattern="[0-9]{10}"
-              maxLength={10}
+              maxLength={16}
               value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
+              onChange={(e) => setPhoneNumber(sanitizeIndianPhone(e.target.value))}
               placeholder="98765 43210"
               className="w-full h-12 pl-12 pr-4 rounded-xl bg-stone-50 border border-stone-300 text-sm font-bold tracking-wider outline-none focus:border-[#2E7D32] focus:bg-white transition-colors"
             />
           </div>
+          {phoneNumber.length > 0 && !isValidIndianPhone(phoneNumber) && (
+            <p className="text-[11px] text-amber-700 mt-1 font-semibold">
+              Please enter a valid 10-digit mobile number (starts with 6, 7, 8, or 9)
+            </p>
+          )}
         </div>
 
         <button
           type="submit"
-          disabled={phoneNumber.length !== 10 || loading}
+          disabled={!isValidIndianPhone(phoneNumber) || loading}
           className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-bold text-sm shadow-md active:scale-[0.99] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none"
         >
           <span>Continue with Phone</span>

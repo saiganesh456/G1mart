@@ -4,11 +4,13 @@ import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, ShieldCheck, AlertCircle } from 'lucide-react';
+import { formatIndianPhoneDisplay, sanitizeIndianPhone } from '@/lib/phone';
 
 function OtpContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const phone = searchParams.get('phone') || '';
+  const rawPhone = searchParams.get('phone') || '';
+  const phone = sanitizeIndianPhone(rawPhone);
   const [otp, setOtp] = useState('');
   const [error, setError] = useState<string | null>(null);
 
@@ -41,7 +43,9 @@ function OtpContent() {
         <h1 className="text-xl font-extrabold text-[#212121]">Verify Mobile Number</h1>
         <p className="text-xs text-stone-500">
           Enter the 6-digit OTP code sent to{' '}
-          <strong className="text-stone-800">+91 {phone || 'XXXXXXXXXX'}</strong>
+          <strong className="text-stone-800">
+            {phone ? formatIndianPhoneDisplay(phone) : '+91 XXXXX XXXXX'}
+          </strong>
         </p>
       </div>
 

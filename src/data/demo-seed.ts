@@ -1,42 +1,45 @@
 import type { Product, Category } from '@/types';
 import { CATALOG_PRODUCTS } from './catalog';
 
-export const DEMO_CATEGORIES: Category[] = [
+const BASE_CATEGORIES: Omit<Category, 'itemCount'>[] = [
   {
     id: 'rice-dal-atta',
     name: 'Atta, Rice & Dal',
     icon: '🌾',
     image: '/categories/atta-rice-dal.jpg',
-    description: 'Rice, pulses, whole wheat atta, grains & masalas',
-    itemCount: 160,
-    subcategories: ['Atta & Flours', 'Rice & Grains', 'Dals & Pulses', 'Salt & Sugar', 'Spices & Masalas'],
+    description: 'Rice, pulses, whole wheat atta, grains & staples',
+    subcategories: ['Atta & Flours', 'Rice & Grains', 'Dals & Pulses', 'Salt & Sugar'],
   },
   {
     id: 'edible-oils',
     name: 'Masala, Oil & More',
     icon: '🛢️',
     image: '/categories/masala-oil.jpg',
-    description: 'Cooking oils, sunflower oil, groundnut oil & pure ghee',
-    itemCount: 25,
-    subcategories: ['Sunflower Oil', 'Groundnut & Other Oils', 'Deepam & Pooja Oil', 'Pure Ghee'],
+    description: 'Cooking oils, pure ghee, spice powders & whole seeds',
+    subcategories: ['Cooking Oils & Ghee', 'Spices & Masalas', 'Whole Spices & Seeds', 'Deepam & Pooja Oil'],
   },
   {
     id: 'dairy-bakery',
-    name: 'Dairy, Bread & Eggs',
+    name: 'Dairy, Bread & Ice Creams',
     icon: '🥛',
     image: '/categories/dairy-bread-eggs.jpg',
-    description: 'Fresh milk, curd, butter, brown bread, pav & eggs',
-    itemCount: 20,
-    subcategories: ['Milk & Curd', 'Bread & Bakery', 'Eggs'],
+    description: 'Fresh milk, curd, butter, bakery items & ice creams',
+    subcategories: ['Milk & Curd', 'Ice Creams & Frozen Treats', 'Bread & Bakery', 'Eggs'],
   },
   {
     id: 'snacks',
     name: 'Snacks & Munchies',
     icon: '🍪',
     image: '/categories/snacks-munchies.jpg',
-    description: 'Chips, namkeen, cookies, chocolates, dry fruits & instant noodles',
-    itemCount: 110,
-    subcategories: ['Biscuits & Cookies', 'Chips & Namkeen', 'Chocolates & Sweets', 'Dry Fruits & Nuts', 'Instant Noodles & Pasta'],
+    description: 'Chips, namkeen, cookies, chocolates, sweets, dry fruits & papads',
+    subcategories: [
+      'Biscuits & Cookies',
+      'Chips & Namkeen',
+      'Chocolates & Sweets',
+      'Dry Fruits & Nuts',
+      'Papads & Fryums',
+      'Instant Noodles & Pasta',
+    ],
   },
   {
     id: 'beverages',
@@ -44,39 +47,47 @@ export const DEMO_CATEGORIES: Category[] = [
     icon: '☕',
     image: '/categories/tea-coffee.jpg',
     description: 'Tea powders, instant coffee, health drinks & cold drinks',
-    itemCount: 35,
-    subcategories: ['Tea & Chai', 'Instant Coffee', 'Cold Drinks & Soda', 'Health Drinks'],
+    subcategories: ['Tea & Chai', 'Instant Coffee', 'Health Drinks', 'Cold Drinks & Soda'],
   },
   {
     id: 'personal-care',
     name: 'Personal Care',
     icon: '✨',
     image: '/categories/personal-care.jpg',
-    description: 'Soaps, shampoos, toothpastes, skincare & hair oils',
-    itemCount: 65,
-    subcategories: ['Bath Soaps', 'Oral Care', 'Hair Care', 'Skincare & Hygiene'],
+    description: 'Bath soaps, shampoos, oral care, toothbrushes & hygiene',
+    subcategories: ['Bath Soaps', 'Oral Care', 'Hair Care & Shampoo', 'Skincare & Hygiene'],
   },
   {
     id: 'household',
-    name: 'Cleaning Essentials',
+    name: 'Cleaning & Essentials',
     icon: '🧼',
     image: '/categories/cleaning-essentials.jpg',
-    description: 'Detergents, dishwash, floor cleaners, mops & pooja needs',
-    itemCount: 50,
-    subcategories: ['Detergent & Fabric Care', 'Dishwash & Kitchen', 'Floor & Cleaners', 'Pooja Needs', 'Home Utilities'],
+    description: 'Detergents, dishwash, surface cleaners, utilities & pooja needs',
+    subcategories: [
+      'Detergent & Fabric Care',
+      'Floor & Cleaners',
+      'Home Utilities & Stationery',
+      'Pooja Needs',
+      'Dishwash & Kitchen',
+    ],
   },
   {
     id: 'fruits-vegetables',
     name: 'Fresh Fruits & Veggies',
     icon: '🥦',
     image: '/categories/fruits-vegetables.jpg',
-    description: 'Fresh onions, potatoes, tomatoes, coconuts & daily staples',
-    itemCount: 7,
-    subcategories: ['Daily Vegetables', 'Fresh Produce & Fruits'],
+    description: 'Fresh coconuts, vegetables & seasonal fruits',
+    subcategories: ['Fresh Produce & Fruits', 'Daily Vegetables'],
   },
 ];
 
-// All 472 products from Item Sales Detail report
+// Dynamically compute exact item count for each category from active catalogue
+export const DEMO_CATEGORIES: Category[] = BASE_CATEGORIES.map((cat) => ({
+  ...cat,
+  itemCount: CATALOG_PRODUCTS.filter((p) => p.category === cat.id).length,
+}));
+
+// All active products in catalogue
 export const DEMO_PRODUCTS: Product[] = CATALOG_PRODUCTS;
 
 /** Convenience helpers */
