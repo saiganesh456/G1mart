@@ -36,26 +36,60 @@ export const authService = {
       const user = await this.getCurrentUser();
       if (!user) return null;
 
-      const { data, error } = await supabase
-        .from('customers')
+      // Check public.profiles first (from schema migration)
+      const { data } = await supabase
+        .from('profiles')
         .select('*')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
-      if (error || !data) return null;
+      if (data) {
+        return {
+          name: data.full_name || 'Customer',
+          phone: data.phone || user.phone || '',
+          email: data.email || user.email || '',
+          avatar: data.avatar_url || '',
+          memberSince: new Date(data.created_at).toLocaleDateString('en-IN', {
+            month: 'short',
+            year: 'numeric',
+          }),
+        };
+      }
 
+      // Fallback directly to user metadata (e.g. from Google OAuth)
+      const meta = user.user_metadata || {};
       return {
-        name: data.full_name || 'Customer',
-        phone: data.phone || user.phone || '',
-        email: data.email || user.email || '',
-        avatar: data.avatar_url || '',
-        memberSince: new Date(data.created_at).toLocaleDateString('en-IN', {
-          month: 'short',
-          year: 'numeric',
-        }),
+        name: meta.full_name || meta.name || user.email?.split('@')[0] || 'Customer',
+        phone: user.phone || meta.phone || '',
+        email: user.email || '',
+        avatar: meta.avatar_url || meta.picture || '',
+        memberSince: 'October 2026',
       };
     } catch {
       return null;
+    }
+  },
+
+  async signInWithGoogle(): Promise<AuthResponse> {
+    if (!isSupabaseConfigured()) {
+      return {
+        success: false,
+        error: 'Supabase configuration required for Google sign-in.',
+      };
+    }
+
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${typeof window !== 'undefined' ? window.location.origin : ''}/auth/callback`,
+        },
+      });
+
+      if (error) return { success: false, error: error.message };
+      return { success: true, data };
+    } catch (err: any) {
+      return { success: false, error: err.message || 'Google sign-in failed' };
     }
   },
 
