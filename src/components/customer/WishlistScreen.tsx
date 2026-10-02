@@ -4,16 +4,15 @@ import { useApp } from '../../context/AppContext';
 import { ProductCard } from '../common/ProductCard';
 
 export const WishlistScreen: React.FC = () => {
-  const { wishlistIds, products, navigate, isMobileFrame } = useApp();
+  const { wishlistIds, products, navigate } = useApp();
 
   const wishlistedProducts = products.filter((p) => wishlistIds.includes(p.id));
 
-  const gridClass = isMobileFrame
-    ? 'grid grid-cols-2 gap-2.5'
-    : 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4';
+  const gridClass =
+    'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4';
 
   return (
-    <div className="flex-1 pb-24 p-3.5 space-y-4">
+    <div className="flex-1 pb-24 p-3.5 space-y-4 max-w-6xl mx-auto w-full">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-base font-extrabold text-[#212121]">

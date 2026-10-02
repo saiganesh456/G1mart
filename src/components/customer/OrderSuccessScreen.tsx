@@ -10,7 +10,7 @@ import {
 import { useApp } from '../../context/AppContext';
 
 export const OrderSuccessScreen: React.FC = () => {
-  const { activeOrder, navigate } = useApp();
+  const { activeOrder, navigate, currentDeliveryZone } = useApp();
 
   const order = activeOrder;
 
@@ -53,7 +53,7 @@ export const OrderSuccessScreen: React.FC = () => {
                 Estimated Delivery
               </span>
               <span className="text-sm font-black text-[#212121]">
-                15 - 25 Minutes
+                {currentDeliveryZone?.estimatedDeliveryTimeText || '30 - 60 Minutes'}
               </span>
             </div>
           </div>
@@ -61,7 +61,7 @@ export const OrderSuccessScreen: React.FC = () => {
           <div className="pt-2 border-t border-stone-100 flex items-start gap-2.5 text-xs text-stone-600">
             <MapPin className="w-4 h-4 text-[#2E7D32] shrink-0 mt-0.5" />
             <p className="line-clamp-2">
-              Delivering to: <strong className="text-stone-800">{order?.address.houseFlat}</strong>, {order?.address.streetArea}, Hyderabad
+              Delivering to: <strong className="text-stone-800">{order?.address.houseFlat}</strong>, {order?.address.streetArea}, {order?.address.city || 'Nellore'}
             </p>
           </div>
 

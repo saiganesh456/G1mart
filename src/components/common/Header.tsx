@@ -18,7 +18,8 @@ import {
   X,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
-import { HYDERABAD_AREAS, INITIAL_CATEGORIES } from '../../data/mockData';
+import { NELLORE_AREAS } from '../../services/deliveryZoneService';
+import { INITIAL_CATEGORIES } from '../../data/mockData';
 
 export const Header: React.FC = () => {
   const {
@@ -40,6 +41,7 @@ export const Header: React.FC = () => {
     selectedCategoryId,
     setSelectedCategoryId,
     isMobileFrame,
+    currentDeliveryZone,
   } = useApp();
 
   const [showLocationModal, setShowLocationModal] = useState(false);
@@ -72,20 +74,19 @@ export const Header: React.FC = () => {
   return (
     <>
       {/* ========================================================================= */}
-      {/* DESKTOP & LAPTOP HEADER (only shown when not in mobile simulation mode)    */}
+      {/* DESKTOP & LAPTOP HEADER (shown on lg+ viewports >= 1024px)                */}
       {/* ========================================================================= */}
-      {!isMobileFrame && (
-        <header className="hidden lg:block sticky top-0 z-40 bg-white border-b border-stone-200/90 shadow-2xs select-none">
-          {/* Top Tier: Utility Bar for Role Switcher and Delivery Guarantee */}
+      <header className="hidden lg:block sticky top-0 z-40 bg-white border-b border-stone-200/90 shadow-2xs select-none">
+        {/* Top Tier: Utility Bar for Role Switcher and Delivery Guarantee */}
           <div className="bg-stone-900 text-stone-300 text-[11px] px-6 py-1.5 flex items-center justify-between">
             <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
                   <Truck className="w-3.5 h-3.5" />
-                  <span>Superfast 15-30 Min Delivery across Hyderabad</span>
+                  <span>Fast {currentDeliveryZone?.estimatedDeliveryTimeText || '30-60 Min'} Delivery across {currentDeliveryZone?.name || 'Nellore'}</span>
                 </span>
                 <span className="text-stone-600">|</span>
-                <span className="text-stone-300">Free delivery on orders above ₹499</span>
+                <span className="text-stone-300">Free delivery on orders above ₹{currentDeliveryZone?.freeDeliveryThreshold || 499}</span>
               </div>
 
               {/* Role Switcher in Desktop Top Bar */}
@@ -137,22 +138,20 @@ export const Header: React.FC = () => {
 
           {/* Main Header Tier */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-6">
-            {/* Zone 1: G1 Mart Logo & Hyderabad Delivery Location */}
+            {/* Zone 1: G1 Mart Logo & Nellore Delivery Location */}
             <div className="flex items-center gap-5 shrink-0">
-              {/* Logo with Rich Contrast Container so it never washes out */}
+              {/* Logo */}
               <button
                 type="button"
                 onClick={() => navigate('home')}
                 className="flex items-center shrink-0 group transition-transform active:scale-98"
                 aria-label="G1 Mart Home"
               >
-                <div className="bg-[#08240f] px-3 py-1.5 rounded-xl shadow-xs border border-emerald-900/60 hover:bg-[#0b2f14] transition-all flex items-center">
-                  <img
-                    src="/logo.png"
-                    alt="G1 Mart"
-                    className="h-8 xl:h-9 w-auto object-contain transition-all"
-                  />
-                </div>
+                <img
+                  src="/logo.png"
+                  alt="G1 Mart"
+                  className="h-8 xl:h-9 w-auto object-contain transition-all"
+                />
               </button>
 
               {/* Deliver to Selector Button */}
@@ -166,7 +165,7 @@ export const Header: React.FC = () => {
                 </div>
                 <div className="flex flex-col min-w-0">
                   <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider leading-none flex items-center gap-1">
-                    Deliver to Hyderabad
+                    Deliver to Nellore
                     <ChevronDown className="w-3 h-3 text-stone-400 group-hover:text-[#2E7D32] transition-colors" />
                   </span>
                   <span className="text-xs font-bold text-[#212121] truncate max-w-[150px] xl:max-w-[200px] mt-0.5">
@@ -337,126 +336,129 @@ export const Header: React.FC = () => {
             </div>
           </div>
         </header>
-      )}
 
       {/* ========================================================================= */}
-      {/* MOBILE QUICK-COMMERCE HEADER (Blinkit-style)                              */}
-      {/* Rendered whenever isMobileFrame is true, or on mobile viewports (< lg)    */}
+      {/* MOBILE & TABLET QUICK-COMMERCE HEADER (Blinkit-style, < lg)               */}
       {/* ========================================================================= */}
-      {(isMobileFrame || true) && (
-        <header
-          className={`${
-            isMobileFrame ? 'block' : 'lg:hidden'
-          } sticky top-0 z-30 bg-white border-b border-stone-200/90 shadow-2xs transition-all select-none`}
-        >
-          {/* Top Bar: Brand, Express Delivery Tag & Cart */}
-          <div className="px-3 pt-2.5 pb-2 flex items-center justify-between gap-2">
-            {/* Left: Back button or G1 Mart Brand Logo */}
-            <div className="flex items-center gap-2 min-w-0">
-              {canGoBack ? (
-                <button
-                  type="button"
-                  onClick={goBack}
-                  aria-label="Go back"
-                  className="w-8 h-8 rounded-xl bg-stone-100 hover:bg-stone-200/80 flex items-center justify-center text-stone-700 active:scale-95 transition-all shrink-0"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                </button>
-              ) : null}
-
-              {/* Logo in rich contrast container so it never washes out */}
+      <header className="lg:hidden sticky top-0 z-30 bg-white border-b border-stone-200/90 shadow-2xs transition-all select-none">
+        {/* Top Bar: Brand, Express Delivery Tag & Cart */}
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 pt-2.5 pb-2 flex items-center justify-between gap-2">
+          {/* Left: Back button or G1 Mart Brand Logo */}
+          <div className="flex items-center gap-2 min-w-0">
+            {canGoBack ? (
               <button
                 type="button"
-                onClick={() => navigate('home')}
-                className="flex items-center shrink-0 group text-left"
-                aria-label="G1 Mart Home"
+                onClick={goBack}
+                aria-label="Go back"
+                className="w-8 h-8 rounded-xl bg-stone-100 hover:bg-stone-200/80 flex items-center justify-center text-stone-700 active:scale-95 transition-all shrink-0"
               >
-                <div className="bg-[#08240f] px-2 py-1 rounded-xl shadow-xs border border-emerald-900/60 flex items-center shrink-0">
-                  <img
-                    src="/logo.png"
-                    alt="G1 Mart"
-                    className="h-6 w-auto object-contain"
-                  />
-                </div>
+                <ArrowLeft className="w-4 h-4" />
               </button>
+            ) : null}
 
-              {/* Delivery Address Pill */}
-              <button
-                type="button"
-                onClick={() => setShowLocationModal(true)}
-                className="flex flex-col text-left min-w-0 pl-1 py-0.5 rounded-lg hover:bg-stone-50 transition-colors"
-              >
-                <div className="flex items-center gap-1 leading-none">
-                  <span className="text-[10px] font-black text-[#137333] uppercase tracking-tight flex items-center gap-0.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    15-30 MINS
-                  </span>
-                </div>
-                <div className="flex items-center gap-0.5 mt-0.5">
-                  <span className="text-xs font-bold text-stone-800 truncate max-w-[125px] sm:max-w-[200px] leading-none">
-                    {displayLocation}
-                  </span>
-                  <ChevronDown className="w-3 h-3 text-stone-400 shrink-0" />
-                </div>
-              </button>
-            </div>
-
-            {/* Right: Notifications & Cart */}
-            <div className="flex items-center gap-1.5 shrink-0">
-              {/* Notifications */}
-              <button
-                type="button"
-                aria-label="Notifications"
-                onClick={() => navigate('notifications')}
-                className="relative w-8 h-8 rounded-xl hover:bg-stone-100 text-stone-700 flex items-center justify-center transition-colors active:scale-95"
-              >
-                <Bell className="w-4 h-4" />
-                {unreadNotificationCount > 0 && (
-                  <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-[#FF9800] text-black text-[8px] font-black rounded-full flex items-center justify-center shadow-xs">
-                    {unreadNotificationCount}
-                  </span>
-                )}
-              </button>
-
-              {/* Cart Button */}
-              <button
-                type="button"
-                aria-label="View Cart"
-                onClick={() => navigate('cart')}
-                className="relative flex items-center gap-1.5 h-8 px-2.5 rounded-xl bg-[#2E7D32] hover:bg-[#1b5e20] text-white shadow-xs transition-all active:scale-95"
-              >
-                <ShoppingCart className="w-3.5 h-3.5" />
-                {cartItemCount > 0 ? (
-                  <span className="text-xs font-extrabold tabular-nums">
-                    {cartItemCount}
-                  </span>
-                ) : (
-                  <span className="text-[11px] font-bold">Cart</span>
-                )}
-              </button>
-            </div>
-          </div>
-
-          {/* Quick-Commerce Search Trigger Row (Always Accessible) */}
-          <div className="px-3 pb-2.5 pt-0.5">
+            {/* Logo */}
             <button
               type="button"
-              onClick={() => navigate('search')}
-              className="w-full h-10 px-3 bg-stone-100/90 hover:bg-stone-100 rounded-xl border border-stone-200/80 flex items-center justify-between text-xs transition-all text-left group shadow-2xs"
+              onClick={() => navigate('home')}
+              className="flex items-center shrink-0 group text-left transition-transform active:scale-98"
+              aria-label="G1 Mart Home"
             >
-              <div className="flex items-center gap-2 min-w-0">
-                <Search className="w-4 h-4 text-emerald-700 shrink-0 group-hover:scale-110 transition-transform" />
-                <span className="text-stone-500 font-medium truncate">
-                  Search &quot;milk, bread, vegetables, atta...&quot;
+              <img
+                src="/logo.png"
+                alt="G1 Mart"
+                className="h-7 w-auto object-contain"
+              />
+            </button>
+
+            {/* Delivery Address Pill */}
+            <button
+              type="button"
+              onClick={() => setShowLocationModal(true)}
+              className="flex flex-col text-left min-w-0 pl-1 py-0.5 rounded-lg hover:bg-stone-50 transition-colors"
+            >
+              <div className="flex items-center gap-1 leading-none">
+                <span className="text-[10px] font-black text-[#137333] uppercase tracking-tight flex items-center gap-0.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  15-30 MINS
                 </span>
               </div>
-              <span className="text-[10px] font-black text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md shadow-2xs shrink-0">
-                FIND
-              </span>
+              <div className="flex items-center gap-0.5 mt-0.5">
+                <span className="text-xs font-bold text-stone-800 truncate max-w-[125px] sm:max-w-[200px] leading-none">
+                  {displayLocation}
+                </span>
+                <ChevronDown className="w-3 h-3 text-stone-400 shrink-0" />
+              </div>
             </button>
           </div>
-        </header>
-      )}
+
+          {/* Right: Role Switcher, Notifications & Cart */}
+          <div className="flex items-center gap-1.5 shrink-0">
+            {/* Quick Role Switcher Pill for Mobile / Tablet */}
+            <button
+              type="button"
+              onClick={() => setRole(role === 'customer' ? 'admin' : role === 'admin' ? 'delivery_partner' : 'customer')}
+              className="flex items-center gap-1 px-2 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-[10px] font-bold transition-all active:scale-95 border border-stone-200/60"
+              title={`Viewing Mode: ${role}. Tap to switch.`}
+            >
+              {role === 'customer' && <Users className="w-3.5 h-3.5 text-[#2E7D32]" />}
+              {role === 'admin' && <ShieldCheck className="w-3.5 h-3.5 text-[#2E7D32]" />}
+              {role === 'delivery_partner' && <Bike className="w-3.5 h-3.5 text-[#2E7D32]" />}
+              <span className="hidden sm:inline capitalize">{role === 'delivery_partner' ? 'Rider' : role}</span>
+            </button>
+
+            {/* Notifications */}
+            <button
+              type="button"
+              aria-label="Notifications"
+              onClick={() => navigate('notifications')}
+              className="relative w-8 h-8 rounded-xl hover:bg-stone-100 text-stone-700 flex items-center justify-center transition-colors active:scale-95"
+            >
+              <Bell className="w-4 h-4" />
+              {unreadNotificationCount > 0 && (
+                <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-[#FF9800] text-black text-[8px] font-black rounded-full flex items-center justify-center shadow-xs">
+                  {unreadNotificationCount}
+                </span>
+              )}
+            </button>
+
+            {/* Cart Button */}
+            <button
+              type="button"
+              aria-label="View Cart"
+              onClick={() => navigate('cart')}
+              className="relative flex items-center gap-1.5 h-8 px-2.5 rounded-xl bg-[#2E7D32] hover:bg-[#1b5e20] text-white shadow-xs transition-all active:scale-95"
+            >
+              <ShoppingCart className="w-3.5 h-3.5" />
+              {cartItemCount > 0 ? (
+                <span className="text-xs font-extrabold tabular-nums">
+                  {cartItemCount}
+                </span>
+              ) : (
+                <span className="text-[11px] font-bold">Cart</span>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Quick-Commerce Search Trigger Row (Always Accessible) */}
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 pb-2.5 pt-0.5">
+          <button
+            type="button"
+            onClick={() => navigate('search')}
+            className="w-full h-10 px-3 bg-stone-100/90 hover:bg-stone-100 rounded-xl border border-stone-200/80 flex items-center justify-between text-xs transition-all text-left group shadow-2xs"
+          >
+            <div className="flex items-center gap-2 min-w-0">
+              <Search className="w-4 h-4 text-emerald-700 shrink-0 group-hover:scale-110 transition-transform" />
+              <span className="text-stone-500 font-medium truncate">
+                Search &quot;milk, bread, vegetables, atta...&quot;
+              </span>
+            </div>
+            <span className="text-[10px] font-black text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md shadow-2xs shrink-0">
+              FIND
+            </span>
+          </button>
+        </div>
+      </header>
 
       {/* ========================================================================= */}
       {/* Location Selector Modal (Centered on desktop, Sheet on mobile)             */}
@@ -479,7 +481,7 @@ export const Header: React.FC = () => {
                   Choose Delivery Location
                 </h3>
                 <p className="text-xs text-stone-500 mt-0.5">
-                  Currently serving Hyderabad, Telangana with 15-30 min delivery
+                  Serving Nellore City (30-60m) &amp; villages up to 30 km (~2 hrs)
                 </p>
               </div>
               <button
@@ -556,13 +558,13 @@ export const Header: React.FC = () => {
               </div>
             )}
 
-            {/* Popular Hyderabad Areas */}
+            {/* Popular Nellore Areas */}
             <div>
               <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block mb-2">
-                Quick Select Hyderabad Hubs
+                Quick Select Nellore Hubs &amp; Areas
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 max-h-48 overflow-y-auto pr-1">
-                {HYDERABAD_AREAS.map((area) => (
+                {NELLORE_AREAS.map((area) => (
                   <button
                     key={area}
                     type="button"

@@ -14,8 +14,8 @@ export const AddressListScreen: React.FC = () => {
   } = useApp();
 
   const handleUseCurrentLocation = () => {
-    // Hyderabad geoloc mock
-    const currentLoc = 'Road No. 36, Jubilee Hills, Hyderabad - 500033';
+    // Nellore geoloc mock
+    const currentLoc = 'Magunta Layout, Nellore - 524003';
     setCurrentLocation(currentLoc);
     navigate('add_address');
   };
@@ -39,7 +39,7 @@ export const AddressListScreen: React.FC = () => {
           className="w-full py-2.5 px-3 border border-dashed border-[#2E7D32] hover:bg-[#2E7D32]/5 text-[#2E7D32] rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
         >
           <Plus className="w-4 h-4" />
-          <span>Add New Hyderabad Address</span>
+          <span>Add New Nellore Address</span>
         </button>
       </div>
 

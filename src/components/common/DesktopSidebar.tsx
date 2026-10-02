@@ -19,6 +19,7 @@ export const DesktopSidebar: React.FC = () => {
     navigate,
     products,
     currentLocation,
+    currentDeliveryZone,
   } = useApp();
 
   const handleSelectCategory = (catId: string) => {
@@ -27,7 +28,7 @@ export const DesktopSidebar: React.FC = () => {
   };
 
   return (
-    <aside className="w-64 xl:w-72 shrink-0 space-y-5 select-none">
+    <aside className="hidden lg:block w-64 xl:w-72 shrink-0 space-y-5 select-none">
       {/* Categories Navigation Card */}
       <div className="bg-white rounded-2xl border border-stone-200/80 shadow-xs overflow-hidden">
         <div className="px-4 py-3.5 border-b border-stone-100 flex items-center justify-between">
@@ -96,22 +97,22 @@ export const DesktopSidebar: React.FC = () => {
           </div>
           <div>
             <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#FFB74D] block">
-              HYDERABAD EXPRESS
+              NELLORE EXPRESS
             </span>
             <h4 className="text-sm font-black leading-tight">
-              15-30 Min Delivery
+              {currentDeliveryZone?.estimatedDeliveryTimeText || '30-60 Min Delivery'}
             </h4>
           </div>
         </div>
 
         <p className="text-xs text-white/90 leading-relaxed font-normal">
-          Direct from local G1 Mart dark stores to your doorstep across Hyderabad pin codes.
+          Direct from local G1 Mart hubs to your doorstep across Nellore city &amp; villages within 30 km.
         </p>
 
         <div className="pt-2 border-t border-white/20 space-y-1.5 text-[11px] text-white/90">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-3.5 h-3.5 text-[#FFB74D] shrink-0" />
-            <span>Free delivery on orders &gt; ₹499</span>
+            <span>Free delivery on orders &gt; ₹{currentDeliveryZone?.freeDeliveryThreshold || 499}</span>
           </div>
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-3.5 h-3.5 text-[#FFB74D] shrink-0" />
@@ -127,7 +128,7 @@ export const DesktopSidebar: React.FC = () => {
           <div className="bg-black/20 rounded-xl px-3 py-2 flex items-center justify-between text-[11px]">
             <span className="text-white/80">Active Zone:</span>
             <span className="font-bold text-white truncate max-w-[130px]">
-              {currentLocation.split(',')[0]}
+              {currentDeliveryZone?.name || currentLocation.split(',')[0]}
             </span>
           </div>
         </div>

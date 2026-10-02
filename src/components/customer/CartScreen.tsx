@@ -35,6 +35,7 @@ export const CartScreen: React.FC = () => {
     availableCoupons,
     navigate,
     selectedAddress,
+    currentDeliveryZone,
   } = useApp();
 
   const [couponInput, setCouponInput] = useState('');
@@ -65,7 +66,7 @@ export const CartScreen: React.FC = () => {
           Your G1 Mart cart is empty
         </h2>
         <p className="text-xs sm:text-sm text-stone-500 max-w-sm mt-2 leading-relaxed">
-          Looks like you haven't added fresh fruits, dairy, or daily essentials yet. Add items to enjoy 15-minute delivery!
+          Looks like you haven't added fresh fruits, dairy, or daily essentials yet. Add items to enjoy fast delivery across Nellore!
         </p>
         <button
           type="button"
@@ -78,7 +79,7 @@ export const CartScreen: React.FC = () => {
     );
   }
 
-  const freeDeliveryThreshold = 499;
+  const freeDeliveryThreshold = currentDeliveryZone?.freeDeliveryThreshold || 499;
   const amountNeededForFreeDelivery = Math.max(0, freeDeliveryThreshold - cartSubtotal);
 
   return (
@@ -90,7 +91,7 @@ export const CartScreen: React.FC = () => {
             Shopping Cart ({cart.length} {cart.length === 1 ? 'item' : 'items'})
           </h1>
           <p className="text-xs text-stone-500 mt-0.5">
-            Delivering to {selectedAddress ? `${selectedAddress.houseFlat}, ${selectedAddress.streetArea}` : 'Hyderabad'}
+            Delivering to {selectedAddress ? `${selectedAddress.houseFlat}, ${selectedAddress.streetArea}` : currentDeliveryZone?.name || 'Nellore'}
           </p>
         </div>
         <button

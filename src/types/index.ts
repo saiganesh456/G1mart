@@ -1,3 +1,4 @@
+export * from './deliveryZone';
 export type UserRole = 'customer' | 'admin' | 'delivery_partner';
 
 export type ScreenName =
@@ -74,6 +75,8 @@ export interface Address {
 }
 
 export type DeliverySlot =
+  | 'Express Delivery (30-60 mins)'
+  | 'Extended Delivery (~2 hours)'
   | 'Express Delivery (15-30 mins)'
   | 'Today Evening (5 PM - 8 PM)'
   | 'Tomorrow Morning (7 AM - 10 AM)'

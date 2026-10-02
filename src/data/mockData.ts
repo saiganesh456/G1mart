@@ -302,7 +302,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     inStock: true,
     stockCount: 75,
     image: '/products/prod-12.jpg',
-    description: 'Locally grown Telangana hybrid tomatoes, firm, juicy and rich in lycopene and vitamin C. Ideal for curries, salads and rasam.',
+    description: 'Locally grown Andhra hybrid tomatoes, firm, juicy and rich in lycopene and vitamin C. Ideal for curries, salads and rasam.',
     rating: 4.7,
     reviewsCount: 160,
     isPopular: true,
@@ -936,11 +936,11 @@ export const INITIAL_ADDRESSES: Address[] = [
     fullName: 'Sai Ganesh',
     mobileNumber: '9876543210',
     houseFlat: 'Flat 402, Sri Sai Nilayam',
-    streetArea: 'Road No. 36, Jubilee Hills',
-    landmark: 'Opposite Metro Station Pillar 1640',
-    city: 'Hyderabad',
-    state: 'Telangana',
-    pincode: '500033',
+    streetArea: 'Magunta Layout',
+    landmark: 'Near Children\'s Park',
+    city: 'Nellore',
+    state: 'Andhra Pradesh',
+    pincode: '524003',
     type: 'Home',
     isDefault: true,
     deliveryInstructions: 'Leave with security guard if not reachable',
@@ -949,15 +949,15 @@ export const INITIAL_ADDRESSES: Address[] = [
     id: 'addr-2',
     fullName: 'Sai Ganesh',
     mobileNumber: '9876543210',
-    houseFlat: 'Tower B, 7th Floor, Mindspace Tech Park',
-    streetArea: 'Hitec City, Madhapur',
-    landmark: 'Near Inorbit Mall',
-    city: 'Hyderabad',
-    state: 'Telangana',
-    pincode: '500081',
+    houseFlat: 'Shop No. 12, Ground Floor, VRC Complex',
+    streetArea: 'Trunk Road, Pogathota',
+    landmark: 'Opposite RTC Bus Stand',
+    city: 'Nellore',
+    state: 'Andhra Pradesh',
+    pincode: '524001',
     type: 'Work',
     isDefault: false,
-    deliveryInstructions: 'Call upon arrival at Tower B reception',
+    deliveryInstructions: 'Call upon arrival at VRC Complex reception',
   },
 ];
 
@@ -969,8 +969,14 @@ export const INITIAL_COUPONS: Coupon[] = [
     minOrder: 299,
   },
   {
-    code: 'HYDERABAD100',
+    code: 'NELLORE100',
     description: 'Flat ₹100 off on large pantry orders above ₹699',
+    discountAmount: 100,
+    minOrder: 699,
+  },
+  {
+    code: 'HYDERABAD100',
+    description: 'Special welcome coupon for pantry orders above ₹699',
     discountAmount: 100,
     minOrder: 699,
   },
@@ -986,7 +992,7 @@ export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
   {
     id: 'notif-1',
     title: 'Order Delivered! 🎉',
-    message: 'Your G1 Mart order #GM-8291 has been safely delivered to your doorstep in Jubilee Hills.',
+    message: 'Your G1 Mart order #GM-8291 has been safely delivered to your doorstep in Magunta Layout, Nellore.',
     time: '25 mins ago',
     read: false,
     type: 'order',
@@ -995,7 +1001,7 @@ export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
   {
     id: 'notif-2',
     title: 'Fresh Mangoes & Apples Just In! 🍎',
-    message: 'Farm fresh arrivals just reached our Jubilee Hills hub. Grab up to 25% off today.',
+    message: 'Farm fresh arrivals just reached our Pogathota Central hub. Grab up to 25% off today.',
     time: '2 hours ago',
     read: false,
     type: 'offer',
@@ -1003,7 +1009,7 @@ export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
   {
     id: 'notif-3',
     title: 'Free Delivery Weekend Alert 🚚',
-    message: 'Enjoy zero delivery fees on orders above ₹499 across all Hyderabad zones.',
+    message: 'Enjoy zero delivery fees on orders above ₹499 across all Nellore delivery zones.',
     time: '1 day ago',
     read: true,
     type: 'info',
@@ -1054,9 +1060,9 @@ export const INITIAL_ORDERS: Order[] = [
     deliveryBoy: {
       name: 'Raju Varma',
       phone: '+91 94401 23456',
-      vehicleNumber: 'TS 09 EQ 4421 (Hero Splendor)',
+      vehicleNumber: 'AP 26 EQ 4421 (Hero Splendor)',
       rating: 4.9,
-      currentLocation: 'Road No. 10, Jubilee Hills (5 mins away)',
+      currentLocation: 'Trunk Road, Pogathota, Nellore (5 mins away)',
     },
     timeline: [
       { status: 'Order Placed', time: '09:15 AM', completed: true },
@@ -1113,31 +1119,38 @@ export const INITIAL_ORDERS: Order[] = [
   },
 ];
 
-export const HYDERABAD_AREAS = [
-  'Jubilee Hills, Hyderabad - 500033',
-  'Banjara Hills, Hyderabad - 500034',
-  'Madhapur, Hyderabad - 500081',
-  'Gachibowli, Hyderabad - 500032',
-  'Kondapur, Hyderabad - 500084',
-  'Hitec City, Hyderabad - 500081',
-  'Kukatpally, Hyderabad - 500072',
-  'Secunderabad, Hyderabad - 500003',
-  'Ameerpet, Hyderabad - 500016',
-  'Begumpet, Hyderabad - 500016',
+export const NELLORE_AREAS = [
+  'Magunta Layout, Nellore - 524003',
+  'Pogathota, Nellore - 524001',
+  'VRC Centre, Trunk Road, Nellore - 524001',
+  'Balaji Nagar, Nellore - 524002',
+  'Stonehousepet, Nellore - 524002',
+  'Haranathapuram, Nellore - 524003',
+  'Dargamitta, Nellore - 524003',
+  'Vedayapalem, Nellore - 524004',
+  'Santhapet, Nellore - 524001',
+  'BV Nagar, Nellore - 524004',
+  'Kovur (Within 30 km) - 524137',
+  'Buchireddypalem (Within 30 km) - 524305',
+  'Venkatachalam (Within 30 km) - 524320',
+  'Indukurpet (Within 30 km) - 524314',
 ];
+
+// Alias for backwards compatibility
+export const HYDERABAD_AREAS = NELLORE_AREAS;
 
 export const FAQ_DATA = [
   {
-    q: 'How fast does G1 Mart deliver in Hyderabad?',
-    a: 'We offer Express Delivery in 15 to 30 minutes for daily essentials across major Hyderabad zones (Madhapur, Jubilee Hills, Gachibowli, Kondapur, Banjara Hills). We also have scheduled morning and evening slots.',
+    q: 'How fast does G1 Mart deliver in Nellore?',
+    a: 'We offer Express Delivery in 30 minutes to 1 hour across Nellore City (Magunta Layout, Pogathota, Balaji Nagar, Stonehousepet, Vedayapalem). For surrounding areas and villages within 30 km (Kovur, Buchireddypalem, Venkatachalam), delivery is completed within approximately 2 hours.',
   },
   {
-    q: 'Is Cash on Delivery (COD) available?',
-    a: 'Yes! Cash on Delivery is fully supported with no extra convenience charge. You can pay cash or scan the delivery partner’s UPI QR upon arrival.',
+    q: 'Is Cash on Delivery (COD) available in Nellore?',
+    a: 'Yes! Cash on Delivery is fully supported across all Nellore delivery zones with no extra charge. You can pay cash or scan the delivery partner’s UPI QR upon arrival.',
   },
   {
     q: 'What is the minimum order amount for free delivery?',
-    a: 'Orders above ₹499 qualify for 100% Free Delivery. For orders below ₹499, a nominal delivery fee of ₹30 is applied.',
+    a: 'Orders above ₹499 in Nellore City qualify for 100% Free Delivery. For orders in the extended 30 km zone, free delivery applies above ₹799.',
   },
   {
     q: 'Can I return an item if it is damaged or not fresh?',
@@ -1145,6 +1158,6 @@ export const FAQ_DATA = [
   },
   {
     q: 'How do I contact customer support?',
-    a: 'You can tap the Live Chat button in the Help & Support section or call our Hyderabad toll-free hotline at 1800-419-4100 (available 6:00 AM – 11:00 PM).',
+    a: 'You can tap the Live Chat button in the Help & Support section or call our Nellore customer support hotline at 1800-419-4100 (available 6:00 AM – 11:00 PM).',
   },
 ];

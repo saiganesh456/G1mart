@@ -8,7 +8,6 @@ export const CategoryScreen: React.FC = () => {
     products,
     selectedCategoryId,
     setSelectedCategoryId,
-    isMobileFrame,
   } = useApp();
 
   const currentCategory =
@@ -26,14 +25,13 @@ export const CategoryScreen: React.FC = () => {
     return true;
   });
 
-  const gridClass = isMobileFrame
-    ? 'grid grid-cols-2 gap-2.5'
-    : 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4';
+  const gridClass =
+    'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4';
 
   return (
     <div className="flex-1 pb-20 flex flex-col space-y-4 select-none">
-      {/* Category Horizontal Header (visible on mobile/tablet or isMobileFrame) */}
-      <div className={`${isMobileFrame ? 'block' : 'lg:hidden'} sticky top-0 z-20 bg-white border-b border-stone-200/80 -mx-3.5 px-3.5 py-2.5 shadow-2xs`}>
+      {/* Category Horizontal Header (visible on mobile/tablet < lg) */}
+      <div className="lg:hidden sticky top-0 z-20 bg-white border-b border-stone-200/80 -mx-3.5 px-3.5 py-2.5 shadow-2xs">
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
           {INITIAL_CATEGORIES.map((cat) => {
             const isSelected = cat.id === currentCategory.id;

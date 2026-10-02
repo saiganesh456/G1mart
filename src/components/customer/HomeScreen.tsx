@@ -17,14 +17,14 @@ import { INITIAL_CATEGORIES } from '../../data/mockData';
 import { ProductCard } from '../common/ProductCard';
 
 export const HomeScreen: React.FC = () => {
-  const { products, navigate, setSelectedCategoryId, isMobileFrame } = useApp();
+  const { products, navigate, setSelectedCategoryId, currentDeliveryZone } = useApp();
   const [activeBanner, setActiveBanner] = useState(0);
 
   const banners = [
     {
       id: 1,
       title: 'Fresh groceries delivered fast',
-      subtitle: 'Farm fresh produce directly to your doorstep in 15 mins across Hyderabad',
+      subtitle: `Farm fresh produce directly to your doorstep in ${currentDeliveryZone?.estimatedDeliveryTimeText || '30-60 mins'} across Nellore`,
       tag: 'SUPER FAST',
       image: '/assets/images/g1_grocery_delivery_hero_1790614094753.jpg',
       cta: 'Order Now',
@@ -41,8 +41,8 @@ export const HomeScreen: React.FC = () => {
     },
     {
       id: 3,
-      title: 'Free delivery on orders above ₹499',
-      subtitle: 'Zero delivery charges across all Hyderabad pin codes',
+      title: `Free delivery on orders above ₹${currentDeliveryZone?.freeDeliveryThreshold || 499}`,
+      subtitle: `Zero delivery charges on eligible orders across ${currentDeliveryZone?.name || 'Nellore'}`,
       tag: 'ZERO FEE',
       image: '/assets/images/g1_dairy_bakery_showcase_1790614143664.jpg',
       cta: 'Shop Now',
@@ -74,32 +74,29 @@ export const HomeScreen: React.FC = () => {
     setActiveBanner((prev) => (prev + 1) % banners.length);
   };
 
-  const productGridClass = isMobileFrame
-    ? 'grid grid-cols-2 gap-2.5'
-    : 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4';
+  const productGridClass =
+    'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4';
 
   return (
     <div className="flex-1 pb-20 space-y-5 sm:space-y-7 select-none">
-      {/* Mobile Search Bar Trigger (Only visible on natural mobile screens when header search isn't shown) */}
-      {!isMobileFrame && (
-        <div className="md:hidden">
-          <button
-            type="button"
-            onClick={() => navigate('search')}
-            className="w-full h-11 bg-white rounded-xl border border-stone-200/90 shadow-2xs px-3.5 flex items-center justify-between text-stone-400 hover:border-[#2E7D32] hover:text-stone-600 transition-all text-left"
-          >
-            <div className="flex items-center gap-2.5 min-w-0">
-              <Search className="w-4 h-4 text-[#2E7D32] shrink-0" />
-              <span className="text-xs text-stone-500 font-medium truncate">
-                Search groceries, fruits and essentials...
-              </span>
-            </div>
-            <span className="text-[10px] font-bold text-stone-400 bg-stone-100 px-1.5 py-0.5 rounded">
-              FIND
+      {/* Mobile Search Bar Trigger (Visible on mobile screens < md when header search isn't shown) */}
+      <div className="md:hidden">
+        <button
+          type="button"
+          onClick={() => navigate('search')}
+          className="w-full h-11 bg-white rounded-xl border border-stone-200/90 shadow-2xs px-3.5 flex items-center justify-between text-stone-400 hover:border-[#2E7D32] hover:text-stone-600 transition-all text-left"
+        >
+          <div className="flex items-center gap-2.5 min-w-0">
+            <Search className="w-4 h-4 text-[#2E7D32] shrink-0" />
+            <span className="text-xs text-stone-500 font-medium truncate">
+              Search groceries, fruits and essentials...
             </span>
-          </button>
-        </div>
-      )}
+          </div>
+          <span className="text-[10px] font-bold text-stone-400 bg-stone-100 px-1.5 py-0.5 rounded">
+            FIND
+          </span>
+        </button>
+      </div>
 
       {/* Hero Promotional Banner Carousel (Responsive height) */}
       <div className="relative">
@@ -145,27 +142,23 @@ export const HomeScreen: React.FC = () => {
             </div>
           ))}
 
-          {/* Carousel Prev/Next Buttons (Desktop visible) */}
-          {!isMobileFrame && (
-            <>
-              <button
-                type="button"
-                onClick={handlePrevBanner}
-                aria-label="Previous slide"
-                className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/80 hover:bg-white text-stone-800 items-center justify-center shadow-md transition-all active:scale-90"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                type="button"
-                onClick={handleNextBanner}
-                aria-label="Next slide"
-                className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/80 hover:bg-white text-stone-800 items-center justify-center shadow-md transition-all active:scale-90"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </>
-          )}
+          {/* Carousel Prev/Next Buttons (Desktop and tablet visible) */}
+          <button
+            type="button"
+            onClick={handlePrevBanner}
+            aria-label="Previous slide"
+            className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/80 hover:bg-white text-stone-800 items-center justify-center shadow-md transition-all active:scale-90"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            type="button"
+            onClick={handleNextBanner}
+            aria-label="Next slide"
+            className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white/80 hover:bg-white text-stone-800 items-center justify-center shadow-md transition-all active:scale-90"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
 
           {/* Banner Dots */}
           <div className="absolute bottom-2.5 right-3 z-20 flex items-center gap-1.5">
@@ -237,36 +230,34 @@ export const HomeScreen: React.FC = () => {
           </button>
         </div>
 
-        {/* Category Grid for Desktop (hidden when isMobileFrame) */}
-        {!isMobileFrame && (
-          <div className="hidden sm:grid sm:grid-cols-4 md:grid-cols-4 xl:grid-cols-8 gap-3">
-            {INITIAL_CATEGORIES.map((cat) => (
-              <button
-                key={cat.id}
-                type="button"
-                onClick={() => handleCategoryClick(cat.id)}
-                className="flex flex-col items-center p-3 rounded-2xl bg-white border border-stone-200/80 shadow-2xs hover:border-[#2E7D32] hover:shadow-sm transition-all group text-center active:scale-95"
-              >
-                <div className="w-12 h-12 rounded-xl bg-stone-50 group-hover:bg-[#2E7D32]/10 flex items-center justify-center text-2xl transition-colors mb-2">
-                  {cat.id === 'fruits-vegetables' && '🥦'}
-                  {cat.id === 'dairy-bakery' && '🥛'}
-                  {cat.id === 'rice-dal-atta' && '🌾'}
-                  {cat.id === 'snacks' && '🍪'}
-                  {cat.id === 'beverages' && '☕'}
-                  {cat.id === 'personal-care' && '✨'}
-                  {cat.id === 'household' && '🏠'}
-                  {cat.id === 'baby-care' && '👶'}
-                </div>
-                <span className="text-xs font-bold text-stone-800 group-hover:text-[#2E7D32] leading-tight line-clamp-2 transition-colors">
-                  {cat.name}
-                </span>
-              </button>
-            ))}
-          </div>
-        )}
+        {/* Category Grid for Desktop & Tablet (hidden on mobile < sm) */}
+        <div className="hidden sm:grid sm:grid-cols-4 md:grid-cols-4 xl:grid-cols-8 gap-3">
+          {INITIAL_CATEGORIES.map((cat) => (
+            <button
+              key={cat.id}
+              type="button"
+              onClick={() => handleCategoryClick(cat.id)}
+              className="flex flex-col items-center p-3 rounded-2xl bg-white border border-stone-200/80 shadow-2xs hover:border-[#2E7D32] hover:shadow-sm transition-all group text-center active:scale-95"
+            >
+              <div className="w-12 h-12 rounded-xl bg-stone-50 group-hover:bg-[#2E7D32]/10 flex items-center justify-center text-2xl transition-colors mb-2">
+                {cat.id === 'fruits-vegetables' && '🥦'}
+                {cat.id === 'dairy-bakery' && '🥛'}
+                {cat.id === 'rice-dal-atta' && '🌾'}
+                {cat.id === 'snacks' && '🍪'}
+                {cat.id === 'beverages' && '☕'}
+                {cat.id === 'personal-care' && '✨'}
+                {cat.id === 'household' && '🏠'}
+                {cat.id === 'baby-care' && '👶'}
+              </div>
+              <span className="text-xs font-bold text-stone-800 group-hover:text-[#2E7D32] leading-tight line-clamp-2 transition-colors">
+                {cat.name}
+              </span>
+            </button>
+          ))}
+        </div>
 
-        {/* Mobile Horizontal Carousel (Always shown in isMobileFrame or on small screens) */}
-        <div className={`${isMobileFrame ? 'flex' : 'sm:hidden flex'} items-start gap-2.5 overflow-x-auto no-scrollbar pb-1 px-1`}>
+        {/* Mobile Horizontal Carousel (Shown on mobile < sm) */}
+        <div className="sm:hidden flex items-start gap-2.5 overflow-x-auto no-scrollbar pb-1 px-1">
           {INITIAL_CATEGORIES.map((cat) => (
             <button
               key={cat.id}
@@ -334,7 +325,7 @@ export const HomeScreen: React.FC = () => {
               <TrendingUp className="w-3.5 h-3.5" />
             </div>
             <h2 className="text-base sm:text-lg font-black text-[#212121] tracking-tight">
-              Popular Groceries in Hyderabad
+              Popular Groceries in {currentDeliveryZone?.name || 'Nellore'}
             </h2>
           </div>
           <button

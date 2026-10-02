@@ -15,7 +15,7 @@ import { ProductCard } from '../common/ProductCard';
 type SortOption = 'relevance' | 'price_low_high' | 'price_high_low' | 'popularity';
 
 export const SearchScreen: React.FC = () => {
-  const { products, searchQuery, setSearchQuery, isMobileFrame } = useApp();
+  const { products, searchQuery, setSearchQuery } = useApp();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [sortBy, setSortBy] = useState<SortOption>('relevance');
   const [inStockOnly, setInStockOnly] = useState<boolean>(false);
@@ -23,9 +23,8 @@ export const SearchScreen: React.FC = () => {
   const [maxPrice, setMaxPrice] = useState<number>(700);
   const [showFilterDrawer, setShowFilterDrawer] = useState<boolean>(false);
 
-  const gridClass = isMobileFrame
-    ? 'grid grid-cols-2 gap-2.5'
-    : 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4';
+  const gridClass =
+    'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4';
 
   const suggestions = [
     'Milk',
@@ -178,7 +177,7 @@ export const SearchScreen: React.FC = () => {
       {!searchQuery && (
         <div className="px-3.5 py-3 border-b border-stone-200/50 bg-white">
           <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block mb-2">
-            Trending Searches in Hyderabad
+            Trending Searches in Nellore
           </span>
           <div className="flex flex-wrap gap-1.5">
             {suggestions.map((sug) => (

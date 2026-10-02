@@ -10,7 +10,7 @@ export const OnboardingScreen: React.FC = () => {
     {
       title: 'Fresh groceries at your fingertips',
       description:
-        'Crisp vegetables, farm-fresh fruits, and pure dairy sourced directly from Hyderabad local farms every morning.',
+        'Crisp vegetables, farm-fresh fruits, and pure dairy sourced directly from local Andhra farms every morning.',
       icon: Apple,
       badge: 'Farm Fresh Quality',
       color: 'bg-emerald-500',
@@ -26,9 +26,9 @@ export const OnboardingScreen: React.FC = () => {
     {
       title: 'Fast and reliable home delivery',
       description:
-        'Doorstep express delivery in 15-30 minutes across Hyderabad with live order tracking and contactless payment options.',
+        'Doorstep express delivery in 30 minutes to 1 hour across Nellore, and within ~2 hours to surrounding villages.',
       icon: Truck,
-      badge: '15-30 Mins Express',
+      badge: '30-60 Mins Express',
       color: 'bg-[#2E7D32]',
     },
   ];

@@ -20,6 +20,7 @@ export const PaymentScreen: React.FC = () => {
     user,
     placeOrder,
     goBack,
+    currentDeliveryZone,
   } = useApp();
 
   const [upiOption, setUpiOption] = useState<'gpay' | 'phonepe' | 'paytm' | 'custom'>('gpay');
@@ -75,7 +76,7 @@ export const PaymentScreen: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 pb-28 p-3.5 space-y-4">
+    <div className="flex-1 pb-28 p-3.5 space-y-4 max-w-2xl mx-auto w-full">
       {/* Order Summary Strip */}
       <div className="bg-[#2E7D32]/10 border border-[#2E7D32]/25 rounded-2xl p-3.5 flex items-center justify-between">
         <div>
@@ -87,7 +88,7 @@ export const PaymentScreen: React.FC = () => {
           </h2>
         </div>
         <span className="text-xs font-bold text-[#2E7D32] bg-white px-2.5 py-1 rounded-lg shadow-2xs">
-          Hyderabad Express
+          {currentDeliveryZone?.name || 'Nellore'} Express
         </span>
       </div>
 
@@ -155,7 +156,7 @@ export const PaymentScreen: React.FC = () => {
                 <div className="mt-3 pt-3 border-t border-stone-200/80 text-xs text-stone-700 bg-white/80 p-2.5 rounded-xl space-y-1">
                   <div className="flex items-center gap-1.5 font-bold text-emerald-800">
                     <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
-                    <span>Cash on Delivery is available for this Hyderabad order</span>
+                    <span>Cash on Delivery is available for this {currentDeliveryZone?.name || 'Nellore'} order</span>
                   </div>
                   <p className="text-[11px] text-stone-500 leading-relaxed">
                     Keep exact cash handy (₹{cartGrandTotal}) or scan the delivery partner's UPI QR code upon arrival at your doorstep.

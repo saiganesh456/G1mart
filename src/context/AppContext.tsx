@@ -12,7 +12,14 @@ import {
   UserProfile,
   DeliverySlot,
   PaymentMethod,
+  DeliveryZone,
 } from '../types';
+import { deliveryZoneService } from '../services/deliveryZoneService';
+import { productService } from '../services/productService';
+import { orderService } from '../services/orderService';
+import { addressService } from '../services/addressService';
+import { authService } from '../services/authService';
+import { isSupabaseConfigured } from '../lib/supabase';
 import {
   INITIAL_PRODUCTS,
   INITIAL_ADDRESSES,
@@ -106,6 +113,11 @@ interface AppContextType {
   markNotificationAsRead: (id: string) => void;
   clearAllNotifications: () => void;
 
+  // Delivery Zones (Configurable)
+  currentDeliveryZone: DeliveryZone;
+  allDeliveryZones: DeliveryZone[];
+  setDeliveryZoneId: (zoneId: string) => void;
+
   // Search
   searchQuery: string;
   setSearchQuery: (query: string) => void;
@@ -117,7 +129,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [role, setRoleState] = useState<UserRole>('customer');
   const [screen, setScreenState] = useState<ScreenName>('home');
   const [screenHistory, setScreenHistory] = useState<ScreenName[]>(['home']);
-  const [isMobileFrame, setIsMobileFrame] = useState<boolean>(true);
+  const [isMobileFrame, setIsMobileFrame] = useState<boolean>(false);
 
   // Auth State
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
@@ -130,8 +142,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     memberSince: 'August 2025',
   });
 
-  // Location State
-  const [currentLocation, setCurrentLocation] = useState<string>('Jubilee Hills, Hyderabad - 500033');
+  // Location State (Nellore, Andhra Pradesh)
+  const [currentLocation, setCurrentLocation] = useState<string>('Magunta Layout, Nellore - 524003');
 
   // Product & Category State
   const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
@@ -151,9 +163,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Address State
   const [addresses, setAddresses] = useState<Address[]>(INITIAL_ADDRESSES);
   const [selectedAddressId, setSelectedAddressId] = useState<string>(INITIAL_ADDRESSES[0].id);
+  const selectedAddress =
+    addresses.find((a) => a.id === selectedAddressId) || addresses[0] || null;
 
   // Checkout Options
-  const [selectedSlot, setSelectedSlot] = useState<DeliverySlot>('Express Delivery (15-30 mins)');
+  const [selectedSlot, setSelectedSlot] = useState<DeliverySlot>('Express Delivery (30-60 mins)');
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod>('Cash on Delivery');
   const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
 
@@ -166,6 +180,58 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Search State
   const [searchQuery, setSearchQuery] = useState<string>('');
+
+  // Load real data from Supabase if configured, while preserving instant mock data
+  useEffect(() => {
+    if (!isSupabaseConfigured()) return;
+
+    let isMounted = true;
+
+    // Load products
+    productService.getProducts().then((data) => {
+      if (isMounted && data && data.length > 0) {
+        setProducts(data);
+      }
+    }).catch(console.warn);
+
+    // Load addresses
+    addressService.getAddresses().then((data) => {
+      if (isMounted && data && data.length > 0) {
+        setAddresses(data);
+        setSelectedAddressId(data[0].id);
+      }
+    }).catch(console.warn);
+
+    // Load orders
+    orderService.getOrders().then((data) => {
+      if (isMounted && data && data.length > 0) {
+        setOrders(data);
+        setSelectedOrderId(data[0].id);
+      }
+    }).catch(console.warn);
+
+    // Sync Auth session
+    authService.getCurrentUserProfile().then((profile) => {
+      if (isMounted && profile) {
+        setIsLoggedIn(true);
+        setUser(profile);
+      }
+    }).catch(console.warn);
+
+    const unsubscribe = authService.onAuthStateChange((profile) => {
+      if (isMounted) {
+        if (profile) {
+          setIsLoggedIn(true);
+          setUser(profile);
+        }
+      }
+    });
+
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
+  }, []);
 
   // Handle Navigation
   const navigate = (
@@ -210,6 +276,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Auth Actions
   const loginWithPhone = async (phone: string): Promise<boolean> => {
     setUser((prev) => ({ ...prev, phone: `+91 ${phone}` }));
+    if (isSupabaseConfigured()) {
+      await authService.signInWithOtp(`+91${phone.replace(/\D/g, '')}`).catch(console.warn);
+    }
     return true;
   };
 
@@ -232,6 +301,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const logout = () => {
     setIsLoggedIn(false);
+    if (isSupabaseConfigured()) {
+      authService.signOut().catch(console.warn);
+    }
     navigate('login');
   };
 
@@ -248,8 +320,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   }
 
-  // Free delivery for orders above ₹499
-  const deliveryFee = cartSubtotal >= 499 || cartSubtotal === 0 ? 0 : 30;
+  // Dynamically resolve delivery zone from customer address or current location
+  const currentDeliveryZone = React.useMemo(() => {
+    if (selectedAddress) {
+      return deliveryZoneService.resolveZone(
+        `${selectedAddress.streetArea}, ${selectedAddress.city} - ${selectedAddress.pincode}`
+      );
+    }
+    return deliveryZoneService.resolveZone(currentLocation);
+  }, [selectedAddress, currentLocation]);
+
+  // Delivery fee dynamically computed by DeliveryZoneService
+  const deliveryFee = deliveryZoneService.calculateDeliveryFee(cartSubtotal, currentDeliveryZone);
   const cartTaxes = Math.round(cartSubtotal * 0.05); // 5% GST on groceries
   const cartGrandTotal = Math.max(0, cartSubtotal - cartDiscount + deliveryFee + cartTaxes);
 
@@ -338,9 +420,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const isWishlisted = (productId: string) => wishlistIds.includes(productId);
 
   // Address Actions
-  const selectedAddress =
-    addresses.find((a) => a.id === selectedAddressId) || addresses[0] || null;
-
   const addAddress = (newAddr: Omit<Address, 'id'>) => {
     const id = `addr-${Date.now()}`;
     const fullAddr: Address = { ...newAddr, id };
@@ -350,6 +429,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setAddresses((prev) => [...prev, fullAddr]);
     }
     setSelectedAddressId(id);
+    if (isSupabaseConfigured()) {
+      addressService.addAddress(newAddr).catch(console.warn);
+    }
   };
 
   const updateAddress = (updated: Address) => {
@@ -360,6 +442,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return a;
       })
     );
+    if (isSupabaseConfigured()) {
+      addressService.updateAddress(updated).catch(console.warn);
+    }
   };
 
   const deleteAddress = (id: string) => {
@@ -367,6 +452,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (selectedAddressId === id) {
       const remaining = addresses.filter((a) => a.id !== id);
       if (remaining.length > 0) setSelectedAddressId(remaining[0].id);
+    }
+    if (isSupabaseConfigured()) {
+      addressService.deleteAddress(id).catch(console.warn);
     }
   };
 
@@ -388,17 +476,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Admin Actions
   const adminUpdateProduct = (updated: Product) => {
     setProducts((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
+    if (isSupabaseConfigured()) {
+      productService.updateProduct(updated).catch(console.warn);
+    }
   };
 
   const adminAddProduct = (newProduct: Omit<Product, 'id'>) => {
     const id = `prod-${Date.now()}`;
+    const productWithId: Product = { ...newProduct, id };
     setProducts((prev) => [
-      {
-        ...newProduct,
-        id,
-      },
+      productWithId,
       ...prev,
     ]);
+    if (isSupabaseConfigured()) {
+      productService.addProduct(newProduct).catch(console.warn);
+    }
   };
 
   // Order Actions
@@ -439,21 +531,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       deliveryBoy: {
         name: 'Suresh Kumar',
         phone: '+91 98480 12345',
-        vehicleNumber: 'TS 08 FA 9920 (Electric Scooter)',
+        vehicleNumber: 'AP 26 FA 9920 (Electric Scooter)',
         rating: 4.9,
-        currentLocation: 'G1 Mart Hub, Madhapur, Hyderabad',
+        currentLocation: 'G1 Mart Hub, Pogathota, Nellore',
       },
       timeline: [
         { status: 'Order Placed', time: 'Just now', completed: true },
         { status: 'Packed', time: 'In 5-10 mins', completed: false },
         { status: 'Out for Delivery', time: 'In 15 mins', completed: false },
-        { status: 'Delivered', time: 'Estimated in 25 mins', completed: false },
+        { status: 'Delivered', time: `Estimated in ${currentDeliveryZone.estimatedDeliveryTimeText}`, completed: false },
       ],
     };
 
     setOrders((prev) => [newOrder, ...prev]);
     setSelectedOrderId(newOrder.id);
     clearCart();
+
+    if (isSupabaseConfigured()) {
+      orderService.createOrder(newOrder).catch((err) => {
+        console.warn('Failed to persist order to Supabase:', err);
+      });
+    }
 
     // Add confirmation notification
     setNotifications((prev) => [
@@ -505,6 +603,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         };
       })
     );
+
+    if (isSupabaseConfigured()) {
+      orderService.updateOrderStatus(orderId, newStatus, deliveryNote).catch((err) => {
+        console.warn('Failed to update order status in Supabase:', err);
+      });
+    }
 
     // Notify user of status update
     setNotifications((prev) => [
@@ -617,6 +721,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         unreadNotificationCount,
         markNotificationAsRead,
         clearAllNotifications,
+        currentDeliveryZone,
+        allDeliveryZones: deliveryZoneService.getAllZones(),
+        setDeliveryZoneId: (zoneId: string) => {
+          const found = deliveryZoneService.getZoneById(zoneId);
+          if (found && found.supportedAreas.length > 0) {
+            setCurrentLocation(`${found.supportedAreas[0]}, Nellore - ${found.pincodes[0]}`);
+          }
+        },
         searchQuery,
         setSearchQuery,
       }}

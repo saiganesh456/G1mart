@@ -27,7 +27,6 @@ export const ProductDetailsScreen: React.FC = () => {
     isWishlisted,
     navigate,
     currentLocation,
-    isMobileFrame,
   } = useApp();
 
   const product = selectedProduct || products[0];
@@ -35,9 +34,8 @@ export const ProductDetailsScreen: React.FC = () => {
   const cartItem = cart.find((i) => i.product.id === product.id);
   const [localQty, setLocalQty] = useState<number>(cartItem?.quantity || 1);
 
-  const gridClass = isMobileFrame
-    ? 'grid grid-cols-2 gap-2.5'
-    : 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4';
+  const gridClass =
+    'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4';
 
   // Similar products in the same category
   const similarProducts = products

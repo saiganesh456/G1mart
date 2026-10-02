@@ -16,19 +16,21 @@ import { INITIAL_CATEGORIES } from '../../data/mockData';
 export const DesktopFooter: React.FC = () => {
   const { navigate, setSelectedCategoryId } = useApp();
 
-  const hyderabadHubs = [
-    'Madhapur',
-    'Hitec City',
-    'Gachibowli',
-    'Kondapur',
-    'Jubilee Hills',
-    'Banjara Hills',
-    'Kukatpally',
-    'Miyapur',
-    'Secunderabad',
-    'Begumpet',
-    'Ameerpet',
-    'Dilsukhnagar',
+  const nelloreHubs = [
+    'Pogathota',
+    'Magunta Layout',
+    'VRC Centre',
+    'Balaji Nagar',
+    'Stonehousepet',
+    'Haranathapuram',
+    'Dargamitta',
+    'Vedayapalem',
+    'Santhapet',
+    'BV Nagar',
+    'Kovur (Within 30 km)',
+    'Buchireddypalem (Within 30 km)',
+    'Venkatachalam (Within 30 km)',
+    'Indukurpet (Within 30 km)',
   ];
 
   return (
@@ -94,12 +96,12 @@ export const DesktopFooter: React.FC = () => {
               />
             </div>
             <p className="text-xs text-stone-500 leading-relaxed max-w-sm">
-              G1 Mart is Hyderabad's trusted quick-commerce grocery delivery platform. Sourcing farm-fresh produce, dairy, grains, staples and daily household essentials delivered in 15-30 minutes.
+              G1 Mart is Nellore's trusted quick-commerce grocery delivery platform. Sourcing farm-fresh produce, dairy, grains, staples and daily household essentials delivered in 30 mins to 1 hour across the city, and within ~2 hours to surrounding villages.
             </p>
             <div className="pt-1 flex flex-col space-y-1.5 text-xs text-stone-600">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#2E7D32] shrink-0" />
-                <span>Headquarters: Road No. 36, Jubilee Hills, Hyderabad, Telangana 500033</span>
+                <span>Headquarters: Trunk Road, Near VRC Centre, Pogathota, Nellore, Andhra Pradesh 524001</span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-[#2E7D32] shrink-0" />
@@ -107,7 +109,7 @@ export const DesktopFooter: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#2E7D32] shrink-0" />
-                <span>Customer Care: +91 40 2345 6789 (Toll Free)</span>
+                <span>Customer Care: +91 861 234 5678 (Toll Free)</span>
               </div>
             </div>
           </div>
@@ -201,10 +203,10 @@ export const DesktopFooter: React.FC = () => {
           {/* Service Areas Column */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900 mb-3">
-              Delivery Hubs (Hyderabad)
+              Delivery Hubs (Nellore &amp; Surrounds)
             </h4>
             <div className="flex flex-wrap gap-1.5">
-              {hyderabadHubs.map((hub) => (
+              {nelloreHubs.map((hub) => (
                 <span
                   key={hub}
                   className="text-[11px] bg-stone-100 text-stone-600 px-2 py-0.5 rounded-md"
@@ -214,14 +216,14 @@ export const DesktopFooter: React.FC = () => {
               ))}
             </div>
             <p className="text-[11px] text-stone-400 mt-3 leading-snug">
-              Expanding rapidly to more pin codes across Telangana.
+              Expanding rapidly to more mandals and villages across Nellore district.
             </p>
           </div>
         </div>
       </div>
 
       {/* Bottom Legal / Copyright Strip */}
-      <div className="border-t border-stone-200/80 bg-stone-50 py-4">
+      <div className="border-t border-stone-200/80 bg-stone-50 py-4 pb-20 lg:pb-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-500">
           <div className="flex items-center gap-1.5">
             <span>© {new Date().getFullYear()} G1 Mart Supermarket Pvt. Ltd. All rights reserved.</span>

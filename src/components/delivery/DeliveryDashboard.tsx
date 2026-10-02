@@ -43,7 +43,7 @@ export const DeliveryDashboard: React.FC = () => {
               </span>
             </div>
             <p className="text-xs text-emerald-100">
-              Raju Varma · Hyderabad Hub Express Rider
+              Raju Varma · Nellore Hub Express Rider
             </p>
           </div>
         </div>
@@ -88,7 +88,7 @@ export const DeliveryDashboard: React.FC = () => {
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <h2 className="text-xs font-bold text-stone-700 uppercase tracking-wider">
-            Assigned Hyderabad Tasks ({activeDeliveries.length} Active)
+            Assigned Nellore Tasks ({activeDeliveries.length} Active)
           </h2>
         </div>
 

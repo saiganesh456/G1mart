@@ -18,7 +18,7 @@ export const HelpSupportScreen: React.FC = () => {
   >([
     {
       sender: 'agent',
-      text: 'Hello! Welcome to G1 Mart Hyderabad Support. How can we assist your grocery order today?',
+      text: 'Hello! Welcome to G1 Mart Nellore Support. How can we assist your grocery order today?',
       time: 'Just now',
     },
   ]);
@@ -45,7 +45,7 @@ export const HelpSupportScreen: React.FC = () => {
         ...prev,
         {
           sender: 'agent',
-          text: `Thank you for contacting us regarding "${userText}". Our Hyderabad support team is looking into this and our rider will ensure your order is handled smoothly.`,
+          text: `Thank you for contacting us regarding "${userText}". Our Nellore support team is looking into this and our rider will ensure your order is handled smoothly.`,
           time: 'Just now',
         },
       ]);
@@ -53,7 +53,7 @@ export const HelpSupportScreen: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 pb-24 p-3.5 space-y-4">
+    <div className="flex-1 pb-24 p-3.5 space-y-4 max-w-3xl mx-auto w-full">
       {/* Contact Channels Card */}
       <div className="bg-gradient-to-r from-[#2E7D32] to-[#1b5e20] text-white rounded-2xl p-4 shadow-md space-y-3">
         <div className="flex items-center gap-3">
@@ -63,7 +63,7 @@ export const HelpSupportScreen: React.FC = () => {
           <div>
             <h2 className="text-base font-extrabold">24/7 G1 Mart Helpdesk</h2>
             <p className="text-xs text-white/80">
-              Hyderabad delivery & product support
+              Nellore delivery &amp; product support
             </p>
           </div>
         </div>
@@ -144,7 +144,7 @@ export const HelpSupportScreen: React.FC = () => {
                     G1 Mart Support Executive
                   </h4>
                   <span className="text-[10px] text-emerald-200">
-                    Online · Hyderabad Hub
+                    Online · Nellore Central Hub
                   </span>
                 </div>
               </div>

@@ -30,10 +30,15 @@ export const CheckoutScreen: React.FC = () => {
     appliedCoupon,
     placeOrder,
     navigate,
+    currentDeliveryZone,
   } = useApp();
 
+  const expressSlotText: DeliverySlot = currentDeliveryZone?.type === 'rural_extended'
+    ? 'Extended Delivery (~2 hours)'
+    : 'Express Delivery (30-60 mins)';
+
   const slots: DeliverySlot[] = [
-    'Express Delivery (15-30 mins)',
+    expressSlotText,
     'Today Evening (5 PM - 8 PM)',
     'Tomorrow Morning (7 AM - 10 AM)',
     'Tomorrow Evening (5 PM - 8 PM)',
@@ -138,7 +143,7 @@ export const CheckoutScreen: React.FC = () => {
                         <span className="font-bold text-stone-800">{slot}</span>
                         {isExpress && (
                           <span className="text-[10px] text-[#2E7D32] font-semibold block">
-                            Direct dark store dispatch · Hyderabad Active
+                            Direct hub dispatch · {currentDeliveryZone?.name || 'Nellore'} Active
                           </span>
                         )}
                       </div>

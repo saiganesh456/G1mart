@@ -15,7 +15,7 @@ import {
 import { useApp } from '../../context/AppContext';
 
 export const OrderTrackingScreen: React.FC = () => {
-  const { activeOrder, updateOrderStatus } = useApp();
+  const { activeOrder, updateOrderStatus, currentDeliveryZone } = useApp();
   const [showItemDetails, setShowItemDetails] = useState(true);
 
   const order = activeOrder;
@@ -77,7 +77,7 @@ export const OrderTrackingScreen: React.FC = () => {
           <p className="text-xs text-emerald-100 mt-0.5">
             {order.status === 'Delivered'
               ? 'Delivered at your doorstep'
-              : 'Arriving in approx. 12-18 mins'}
+              : `Arriving in approx. ${currentDeliveryZone?.estimatedDeliveryTimeText || '30-60 mins'}`}
           </p>
         </div>
 
@@ -93,7 +93,7 @@ export const OrderTrackingScreen: React.FC = () => {
         )}
       </div>
 
-      {/* Interactive Hyderabad Map Simulation Graphic */}
+      {/* Interactive Nellore Map Simulation Graphic */}
       <div className="relative w-full h-44 rounded-2xl overflow-hidden bg-slate-900 border border-stone-300/80 shadow-xs flex flex-col justify-between p-3 select-none">
         {/* Background stylized roads pattern */}
         <div className="absolute inset-0 opacity-25">
@@ -118,7 +118,7 @@ export const OrderTrackingScreen: React.FC = () => {
         <div className="relative z-10 flex items-center justify-between">
           <span className="bg-black/60 backdrop-blur-xs text-white text-[10px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
             <Navigation className="w-3 h-3 text-[#66BB6A]" />
-            <span>Live GPS · Hyderabad Hub to {order.address.type}</span>
+            <span>Live GPS · Nellore Hub to {order.address.type}</span>
           </span>
           <span className="bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-md">
             1.4 km away

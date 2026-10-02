@@ -96,7 +96,6 @@ const AppContent: React.FC = () => {
     screen === 'otp';
 
   const isBrowseWithSidebar =
-    !isMobileFrame &&
     role === 'customer' &&
     (screen === 'home' ||
       screen === 'category' ||
@@ -109,13 +108,13 @@ const AppContent: React.FC = () => {
 
       {/* Main Responsive Content Router */}
       <main className="flex-1 flex flex-col min-h-0">
-        {isMobileFrame || isAuthOrSpecial ? (
-          // In phone simulation mode or auth flow: rendered clean & centered
+        {isAuthOrSpecial ? (
+          // In auth flow: rendered clean & centered
           <div className="w-full flex-1 flex flex-col">
             {renderScreen()}
           </div>
         ) : isBrowseWithSidebar ? (
-          // On desktop/tablet for browsing screens: full-width container with desktop sidebar
+          // On desktop for browsing screens: full-width container with desktop sidebar (sidebar hidden on < lg)
           <div className="max-w-7xl mx-auto w-full px-3.5 sm:px-6 lg:px-8 py-4 sm:py-6 flex gap-6 xl:gap-8 items-start flex-1">
             <DesktopSidebar />
             <div className="flex-1 min-w-0">

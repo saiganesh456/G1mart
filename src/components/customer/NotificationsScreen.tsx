@@ -11,7 +11,7 @@ export const NotificationsScreen: React.FC = () => {
   } = useApp();
 
   return (
-    <div className="flex-1 pb-24 p-3.5 space-y-4">
+    <div className="flex-1 pb-24 p-3.5 space-y-4 max-w-2xl mx-auto w-full">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-base font-extrabold text-[#212121]">
@@ -95,7 +95,7 @@ export const NotificationsScreen: React.FC = () => {
           </div>
           <h3 className="text-base font-bold text-[#212121]">All caught up</h3>
           <p className="text-xs text-stone-500 max-w-xs mx-auto mt-1">
-            You will receive order status alerts and exclusive Hyderabad grocery deals here.
+            You will receive order status alerts and exclusive Nellore grocery deals here.
           </p>
         </div>
       )}

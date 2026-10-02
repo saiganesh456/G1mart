@@ -1,6 +1,6 @@
 {
   "name": "G1 Mart - Grocery Delivery",
-  "description": "Fresh groceries, daily essentials, and supermarket delivery in Hyderabad, Telangana with real-time tracking, fast checkout, and Cash on Delivery.",
+  "description": "Fresh groceries, daily essentials, and supermarket delivery in Nellore, Andhra Pradesh with real-time tracking, fast checkout, and Cash on Delivery.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

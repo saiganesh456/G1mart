@@ -10,9 +10,9 @@ export const AddAddressScreen: React.FC = () => {
   const [houseFlat, setHouseFlat] = useState('');
   const [streetArea, setStreetArea] = useState('');
   const [landmark, setLandmark] = useState('');
-  const [city, setCity] = useState('Hyderabad');
-  const [state, setState] = useState('Telangana');
-  const [pincode, setPincode] = useState('500081');
+  const [city, setCity] = useState('Nellore');
+  const [state, setState] = useState('Andhra Pradesh');
+  const [pincode, setPincode] = useState('524003');
   const [type, setType] = useState<'Home' | 'Work' | 'Other'>('Home');
   const [isDefault, setIsDefault] = useState(true);
   const [deliveryInstructions, setDeliveryInstructions] = useState('');
@@ -43,13 +43,13 @@ export const AddAddressScreen: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 pb-24 p-3.5 space-y-4">
+    <div className="flex-1 pb-24 p-3.5 space-y-4 max-w-2xl mx-auto w-full">
       <div className="bg-white rounded-2xl border border-stone-200/80 p-4 shadow-2xs">
         <h2 className="text-base font-extrabold text-[#212121] mb-1">
           Add Delivery Address
         </h2>
         <p className="text-xs text-stone-500 mb-4">
-          Pinpoint your location in Hyderabad for 15-30m grocery delivery.
+          Pinpoint your location in Nellore for fast doorstep grocery delivery.
         </p>
 
         {error && (

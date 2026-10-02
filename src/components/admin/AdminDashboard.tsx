@@ -10,6 +10,8 @@ import {
   AlertTriangle,
   ArrowLeft,
   Search,
+  MapPin,
+  Clock,
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { OrderStatus, Product } from '../../types';
@@ -23,9 +25,10 @@ export const AdminDashboard: React.FC = () => {
     orders,
     updateOrderStatus,
     setRole,
+    allDeliveryZones,
   } = useApp();
 
-  const [activeTab, setActiveTab] = useState<'orders' | 'inventory' | 'add_product'>('orders');
+  const [activeTab, setActiveTab] = useState<'orders' | 'inventory' | 'add_product' | 'delivery_zones'>('orders');
   const [productSearch, setProductSearch] = useState('');
 
   // New product form state
@@ -106,7 +109,7 @@ export const AdminDashboard: React.FC = () => {
               Admin &amp; Inventory Console
             </h1>
             <span className="text-[11px] text-stone-400">
-              Hyderabad Hub Management · Real-time Control
+              Nellore Central Hub Management · Real-time Control
             </span>
           </div>
         </div>
@@ -186,6 +189,18 @@ export const AdminDashboard: React.FC = () => {
           }`}
         >
           + Add Item
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('delivery_zones')}
+          className={`flex-1 py-1.5 rounded-lg transition-all ${
+            activeTab === 'delivery_zones'
+              ? 'bg-white text-[#212121] shadow-2xs'
+              : 'text-stone-500 hover:text-stone-800'
+          }`}
+        >
+          Delivery Zones ({allDeliveryZones.length})
         </button>
       </div>
 
@@ -432,6 +447,112 @@ export const AdminDashboard: React.FC = () => {
             Save to G1 Mart Catalog
           </button>
         </form>
+      )}
+
+      {/* Delivery Zones Configuration Tab */}
+      {activeTab === 'delivery_zones' && (
+        <div className="space-y-4">
+          <div className="bg-white rounded-2xl border border-stone-200/80 p-4 shadow-2xs">
+            <h2 className="text-sm font-extrabold text-[#212121] mb-1">
+              Configurable Nellore Delivery Zones
+            </h2>
+            <p className="text-xs text-stone-500">
+              Configured delivery radius, fees, thresholds, and estimated turnaround times for Nellore City and surrounding mandals.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {allDeliveryZones.map((zone) => (
+              <div
+                key={zone.id}
+                className="bg-white rounded-2xl border border-stone-200/80 p-4 shadow-2xs space-y-3.5"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-xl bg-[#2E7D32]/10 text-[#2E7D32] flex items-center justify-center font-bold">
+                      <Truck className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-extrabold text-[#212121]">
+                        {zone.name}
+                      </h3>
+                      <span className="text-[10px] text-stone-400 font-mono">
+                        Code: {zone.code}
+                      </span>
+                    </div>
+                  </div>
+                  <span
+                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                      zone.isActive
+                        ? 'bg-emerald-100 text-emerald-800'
+                        : 'bg-stone-200 text-stone-600'
+                    }`}
+                  >
+                    {zone.isActive ? 'ACTIVE' : 'INACTIVE'}
+                  </span>
+                </div>
+
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  {zone.description}
+                </p>
+
+                <div className="grid grid-cols-2 gap-2 text-xs pt-1">
+                  <div className="bg-stone-50 p-2.5 rounded-xl border border-stone-100">
+                    <span className="text-[10px] text-stone-400 font-bold uppercase block">
+                      Max Radius
+                    </span>
+                    <span className="font-extrabold text-[#212121]">
+                      Within {zone.maxRadiusKm} km
+                    </span>
+                  </div>
+
+                  <div className="bg-stone-50 p-2.5 rounded-xl border border-stone-100">
+                    <span className="text-[10px] text-stone-400 font-bold uppercase block">
+                      Expected ETA
+                    </span>
+                    <span className="font-extrabold text-[#2E7D32]">
+                      {zone.estimatedDeliveryTimeText}
+                    </span>
+                  </div>
+
+                  <div className="bg-stone-50 p-2.5 rounded-xl border border-stone-100">
+                    <span className="text-[10px] text-stone-400 font-bold uppercase block">
+                      Delivery Fee
+                    </span>
+                    <span className="font-extrabold text-[#212121]">
+                      ₹{zone.deliveryFee}
+                    </span>
+                  </div>
+
+                  <div className="bg-stone-50 p-2.5 rounded-xl border border-stone-100">
+                    <span className="text-[10px] text-stone-400 font-bold uppercase block">
+                      Free Above
+                    </span>
+                    <span className="font-extrabold text-[#2E7D32]">
+                      ₹{zone.freeDeliveryThreshold}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-stone-100">
+                  <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider block mb-1.5">
+                    Covered Areas &amp; Mandals ({zone.supportedAreas.length})
+                  </span>
+                  <div className="flex flex-wrap gap-1 max-h-24 overflow-y-auto pr-1">
+                    {zone.supportedAreas.map((area) => (
+                      <span
+                        key={area}
+                        className="text-[10px] bg-stone-100 text-stone-600 px-2 py-0.5 rounded-md"
+                      >
+                        {area}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );

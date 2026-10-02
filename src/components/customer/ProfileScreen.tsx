@@ -103,7 +103,7 @@ export const ProfileScreen: React.FC = () => {
                 Saved Delivery Addresses
               </span>
               <span className="text-[11px] text-stone-400">
-                {addresses.length} addresses saved in Hyderabad
+                {addresses.length} addresses saved in Nellore
               </span>
             </div>
           </div>

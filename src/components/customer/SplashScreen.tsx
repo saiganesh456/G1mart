@@ -10,7 +10,7 @@ export const SplashScreen: React.FC = () => {
       {/* Top spacing */}
       <div className="pt-4 flex items-center gap-1.5 text-xs font-semibold text-[#2E7D32]">
         <Sparkles className="w-3.5 h-3.5" />
-        <span>HYDERABAD'S TRUSTED SUPERMARKET</span>
+        <span>NELLORE'S TRUSTED SUPERMARKET</span>
       </div>
 
       {/* Center Brand Identity with Official Logo */}
@@ -34,12 +34,12 @@ export const SplashScreen: React.FC = () => {
         </p>
 
         <p className="text-xs sm:text-sm text-stone-600 mt-4 max-w-sm font-normal leading-relaxed">
-          Fresh vegetables, dairy, farm produce and daily essentials delivered to your doorstep in 15-30 minutes across Hyderabad.
+          Fresh vegetables, dairy, farm produce and daily essentials delivered to your doorstep in 30 minutes to 1 hour across Nellore.
         </p>
 
         <div className="mt-6 flex items-center gap-2 text-xs font-semibold text-stone-600 bg-white/90 backdrop-blur-xs px-4 py-2 rounded-full border border-stone-200/80 shadow-2xs">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-          <span>Express Delivery Active Across Hyderabad</span>
+          <span>Express Delivery Active Across Nellore</span>
         </div>
       </div>
 
