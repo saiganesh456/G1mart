@@ -106,14 +106,6 @@ export const NELLORE_AREAS: string[] = [
   'Indukurpet (Within 30 km) - 524314',
 ];
 
-export const NELLORE_POPULAR_HUBS = [
-  { name: 'Pogathota Central Hub', area: 'Pogathota, Nellore', zone: 'Nellore City' },
-  { name: 'Magunta Layout Hub', area: 'Magunta Layout, Nellore', zone: 'Nellore City' },
-  { name: 'Stonehousepet Hub', area: 'Stonehousepet, Nellore', zone: 'Nellore City' },
-  { name: 'Vedayapalem Express', area: 'Vedayapalem, Nellore', zone: 'Nellore City' },
-  { name: 'Kovur Rural Hub', area: 'Kovur (Rural/Outskirts)', zone: 'Within 30 km' },
-  { name: 'Buchireddypalem Hub', area: 'Buchireddypalem', zone: 'Within 30 km' },
-];
 
 class DeliveryZoneService {
   private zones: DeliveryZone[] = [...DEFAULT_DELIVERY_ZONES];

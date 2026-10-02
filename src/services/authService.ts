@@ -1,4 +1,4 @@
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { supabase, isSupabaseConfigured } from '../lib/supabase/client';
 import { UserProfile, UserRole } from '../types';
 
 export interface AuthResponse<T = unknown> {
@@ -8,14 +8,8 @@ export interface AuthResponse<T = unknown> {
 }
 
 export const authService = {
-  /**
-   * Check if Supabase Auth is active and configured
-   */
   isConfigured: (): boolean => isSupabaseConfigured(),
 
-  /**
-   * Get current authenticated user session
-   */
   async getSession() {
     if (!isSupabaseConfigured()) return null;
     const { data, error } = await supabase.auth.getSession();
@@ -26,163 +20,92 @@ export const authService = {
     return data.session;
   },
 
-  /**
-   * Get current authenticated user
-   */
   async getCurrentUser() {
     if (!isSupabaseConfigured()) return null;
-    const { data: { user }, error } = await supabase.auth.getUser();
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
     if (error || !user) return null;
     return user;
   },
 
-  /**
-   * Get current authenticated user profile
-   */
-  async getCurrentUserProfile(): Promise<UserProfile | null> {
-    if (!isSupabaseConfigured()) return null;
-    const { data: { user }, error } = await supabase.auth.getUser();
-    if (error || !user) return null;
-    return authService.getUserProfile(user.id);
-  },
-
-  /**
-   * Fetch user profile from public.profiles
-   */
-  async getUserProfile(userId: string): Promise<UserProfile | null> {
+  async getCurrentProfile(): Promise<UserProfile | null> {
     if (!isSupabaseConfigured()) return null;
     try {
+      const user = await this.getCurrentUser();
+      if (!user) return null;
+
       const { data, error } = await supabase
-        .from('profiles')
+        .from('customers')
         .select('*')
-        .eq('id', userId)
+        .eq('id', user.id)
         .single();
 
-      if (error || !data) {
-        return null;
-      }
+      if (error || !data) return null;
 
       return {
         name: data.full_name || 'Customer',
-        phone: data.phone || '',
-        email: data.email || '',
+        phone: data.phone || user.phone || '',
+        email: data.email || user.email || '',
         avatar: data.avatar_url || '',
-        walletBalance: Number(data.wallet_balance) || 0,
         memberSince: new Date(data.created_at).toLocaleDateString('en-IN', {
-          month: 'long',
+          month: 'short',
           year: 'numeric',
         }),
       };
-    } catch (err) {
-      console.warn('[G1 Mart Auth] Failed to fetch profile from Supabase:', err);
+    } catch {
       return null;
     }
   },
 
-  /**
-   * Sign in with Phone Number (Passwordless OTP)
-   * Note: Production SMS provider requires Twilio / MessageBird in Supabase dashboard
-   */
-  async signInWithPhone(phone: string): Promise<AuthResponse> {
+  async signInWithOtp(phone: string): Promise<AuthResponse<{ message: string }>> {
     if (!isSupabaseConfigured()) {
-      return { success: true };
+      return {
+        success: false,
+        error: 'Supabase configuration required for SMS OTP.',
+      };
     }
 
     try {
-      const formattedPhone = phone.startsWith('+') ? phone : `+91${phone.replace(/\D/g, '')}`;
+      const formattedPhone = phone.startsWith('+') ? phone : `+91${phone}`;
       const { error } = await supabase.auth.signInWithOtp({
         phone: formattedPhone,
       });
 
-      if (error) {
-        return { success: false, error: error.message };
-      }
-      return { success: true };
+      if (error) return { success: false, error: error.message };
+      return { success: true, data: { message: `OTP sent to ${formattedPhone}` } };
     } catch (err: any) {
-      return { success: false, error: err.message || 'Phone sign-in failed' };
+      return { success: false, error: err.message || 'Failed to send OTP' };
     }
   },
 
-  /**
-   * Alias for signInWithPhone
-   */
-  async signInWithOtp(phone: string): Promise<AuthResponse> {
-    return this.signInWithPhone(phone);
-  },
-
-  /**
-   * Verify Phone OTP token
-   */
-  async verifyPhoneOtp(phone: string, token: string): Promise<AuthResponse> {
+  async verifyOtp(phone: string, token: string): Promise<AuthResponse<any>> {
     if (!isSupabaseConfigured()) {
-      return { success: token === '1234' || token.length >= 4 };
+      return {
+        success: false,
+        error: 'Supabase configuration required for OTP verification.',
+      };
     }
 
     try {
-      const formattedPhone = phone.startsWith('+') ? phone : `+91${phone.replace(/\D/g, '')}`;
+      const formattedPhone = phone.startsWith('+') ? phone : `+91${phone}`;
       const { data, error } = await supabase.auth.verifyOtp({
         phone: formattedPhone,
         token,
         type: 'sms',
       });
 
-      if (error) {
-        return { success: false, error: error.message };
-      }
-      return { success: true, data };
-    } catch (err: any) {
-      return { success: false, error: err.message || 'OTP verification failed' };
-    }
-  },
-
-  /**
-   * Sign in with Google OAuth
-   */
-  async signInWithGoogle(): Promise<AuthResponse> {
-    if (!isSupabaseConfigured()) {
-      return { success: true };
-    }
-
-    try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: window.location.origin,
-        },
-      });
-
       if (error) return { success: false, error: error.message };
       return { success: true, data };
     } catch (err: any) {
-      return { success: false, error: err.message || 'OAuth failed' };
+      return { success: false, error: err.message || 'Verification failed' };
     }
   },
 
-  /**
-   * Sign Out
-   */
-  async signOut(): Promise<void> {
-    if (!isSupabaseConfigured()) return;
-    await supabase.auth.signOut();
-  },
-
-  /**
-   * Listen to Auth State Changes
-   */
-  onAuthStateChange(callback: (profile: UserProfile | null) => void): () => void {
-    if (!isSupabaseConfigured()) {
-      return () => {};
-    }
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event: string, session: any) => {
-      if (session?.user) {
-        const profile = await authService.getUserProfile(session.user.id);
-        callback(profile);
-      } else {
-        callback(null);
-      }
-    });
-    return () => {
-      subscription?.unsubscribe();
-    };
+  async signOut(): Promise<boolean> {
+    if (!isSupabaseConfigured()) return true;
+    const { error } = await supabase.auth.signOut();
+    return !error;
   },
 };

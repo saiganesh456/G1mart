@@ -1,29 +1,6 @@
 export * from './deliveryZone';
-export type UserRole = 'customer' | 'admin' | 'delivery_partner';
 
-export type ScreenName =
-  | 'splash'
-  | 'onboarding'
-  | 'login'
-  | 'otp'
-  | 'home'
-  | 'search'
-  | 'category'
-  | 'product_details'
-  | 'cart'
-  | 'address_list'
-  | 'add_address'
-  | 'checkout'
-  | 'payment'
-  | 'order_success'
-  | 'my_orders'
-  | 'order_tracking'
-  | 'wishlist'
-  | 'profile'
-  | 'notifications'
-  | 'help_support'
-  | 'admin_dashboard'
-  | 'delivery_dashboard';
+export type UserRole = 'customer' | 'admin';
 
 export interface Product {
   id: string;
@@ -43,6 +20,9 @@ export interface Product {
   reviewsCount: number;
   isPopular?: boolean;
   isBestDeal?: boolean;
+  sku?: string;
+  slug?: string;
+  isActive?: boolean;
 }
 
 export interface Category {
@@ -75,20 +55,15 @@ export interface Address {
 }
 
 export type DeliverySlot =
-  | 'Express Delivery (30-60 mins)'
-  | 'Extended Delivery (~2 hours)'
-  | 'Express Delivery (15-30 mins)'
-  | 'Today Evening (5 PM - 8 PM)'
-  | 'Tomorrow Morning (7 AM - 10 AM)'
-  | 'Tomorrow Evening (5 PM - 8 PM)';
+  | 'Standard Delivery'
+  | 'Morning Delivery'
+  | 'Evening Delivery';
 
 export type PaymentMethod =
   | 'Cash on Delivery'
   | 'UPI'
-  | 'UPI (Google Pay, PhonePe, Paytm)'
   | 'Debit / Credit Card'
-  | 'Net Banking'
-  | 'G1 Mart Wallet';
+  | 'Net Banking';
 
 export type OrderStatus =
   | 'Order Placed'
@@ -96,6 +71,12 @@ export type OrderStatus =
   | 'Out for Delivery'
   | 'Delivered'
   | 'Cancelled';
+
+export type PaymentStatus =
+  | 'pending'
+  | 'paid'
+  | 'failed'
+  | 'cash_on_delivery';
 
 export interface OrderItem {
   productId: string;
@@ -108,26 +89,19 @@ export interface OrderItem {
 
 export interface Order {
   id: string;
+  orderNumber?: string;
   date: string;
   items: OrderItem[];
   address: Address;
-  slot: DeliverySlot;
+  slot: string;
   paymentMethod: PaymentMethod;
-  isPaid: boolean;
+  paymentStatus: PaymentStatus;
   status: OrderStatus;
   subtotal: number;
   discount: number;
   deliveryFee: number;
   taxes: number;
   grandTotal: number;
-  couponApplied?: string;
-  deliveryBoy?: {
-    name: string;
-    phone: string;
-    vehicleNumber: string;
-    rating: number;
-    currentLocation?: string;
-  };
   timeline: {
     status: OrderStatus;
     time: string;
@@ -135,30 +109,10 @@ export interface Order {
   }[];
 }
 
-export interface NotificationItem {
-  id: string;
-  title: string;
-  message: string;
-  time: string;
-  read: boolean;
-  type: 'order' | 'offer' | 'info';
-  orderId?: string;
-}
-
-export interface Coupon {
-  code: string;
-  description: string;
-  discountAmount?: number;
-  discountPercent?: number;
-  minOrder: number;
-  maxDiscount?: number;
-}
-
 export interface UserProfile {
   name: string;
   phone: string;
   email: string;
-  avatar: string;
-  walletBalance: number;
-  memberSince: string;
+  avatar?: string;
+  memberSince?: string;
 }

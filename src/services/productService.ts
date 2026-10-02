@@ -1,14 +1,14 @@
-import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { supabase, isSupabaseConfigured } from '../lib/supabase/client';
 import { Product, Category } from '../types';
-import { INITIAL_CATEGORIES, INITIAL_PRODUCTS } from '../data/mockData';
+import { DEMO_CATEGORIES, DEMO_PRODUCTS } from '../data/demo-seed';
 
 export const productService = {
   /**
-   * Fetch all active categories from Supabase (with fallback to mock data)
+   * Fetch all active categories from Supabase (with fallback to demo data)
    */
   async getCategories(): Promise<Category[]> {
     if (!isSupabaseConfigured()) {
-      return INITIAL_CATEGORIES;
+      return DEMO_CATEGORIES;
     }
 
     try {
@@ -25,120 +25,82 @@ export const productService = {
         .order('display_order', { ascending: true });
 
       if (error || !data || data.length === 0) {
-        return INITIAL_CATEGORIES;
-      }
-
-      return data.map((cat: any) => ({
-        id: cat.id,
-        name: cat.name,
-        icon: cat.icon,
-        description: cat.description || '',
-        itemCount: 0,
-        subcategories: (cat.subcategories || []).map((s: any) => s.name),
-      }));
-    } catch (err) {
-      console.warn('[G1 Mart ProductService] Failed to fetch categories from Supabase, using mock data:', err);
-      return INITIAL_CATEGORIES;
-    }
-  },
-
-  /**
-   * Fetch all products from Supabase (with fallback to mock data)
-   */
-  async getProducts(categoryId?: string): Promise<Product[]> {
-    if (!isSupabaseConfigured()) {
-      if (categoryId) {
-        return INITIAL_PRODUCTS.filter((p) => p.category === categoryId);
-      }
-      return INITIAL_PRODUCTS;
-    }
-
-    try {
-      let query = supabase
-        .from('products')
-        .select('*')
-        .order('name', { ascending: true });
-
-      if (categoryId && categoryId !== 'all') {
-        query = query.eq('category_id', categoryId);
-      }
-
-      const { data, error } = await query;
-
-      if (error || !data || data.length === 0) {
-        return categoryId ? INITIAL_PRODUCTS.filter((p) => p.category === categoryId) : INITIAL_PRODUCTS;
+        return DEMO_CATEGORIES;
       }
 
       return data.map((row: any) => ({
         id: row.id,
         name: row.name,
-        brand: row.brand,
-        category: row.category_id,
-        subCategory: row.sub_category || undefined,
-        unit: row.unit,
-        price: Number(row.price),
-        originalPrice: Number(row.original_price),
-        discountPercentage: row.discount_percentage,
-        inStock: row.in_stock,
-        stockCount: row.stock_count,
-        image: row.image,
-        description: row.description,
-        rating: Number(row.rating),
-        reviewsCount: row.reviews_count,
-        isPopular: row.is_popular,
-        isBestDeal: row.is_best_deal,
+        icon: row.icon || '🛍️',
+        description: row.description || '',
+        itemCount: 0,
+        subcategories: (row.subcategories || []).map((s: any) => s.name),
       }));
     } catch (err) {
-      console.warn('[G1 Mart ProductService] Failed to fetch products from Supabase, using mock data:', err);
-      return categoryId ? INITIAL_PRODUCTS.filter((p) => p.category === categoryId) : INITIAL_PRODUCTS;
+      console.warn('[G1 Mart ProductService] getCategories fallback:', err);
+      return DEMO_CATEGORIES;
     }
   },
 
   /**
-   * Admin: Add new product to Supabase
+   * Fetch all active catalog products from Supabase (with fallback to demo data)
    */
-  async addProduct(newProduct: Omit<Product, 'id'>): Promise<{ success: boolean; id?: string; error?: string }> {
-    const generatedId = `prod-${Date.now()}`;
+  async getProducts(): Promise<Product[]> {
     if (!isSupabaseConfigured()) {
-      return { success: true, id: generatedId };
+      return DEMO_PRODUCTS;
     }
 
     try {
-      const { data, error } = await supabase.from('products').insert({
-        id: generatedId,
-        name: newProduct.name,
-        brand: newProduct.brand,
-        category_id: newProduct.category,
-        sub_category: newProduct.subCategory || null,
-        unit: newProduct.unit,
-        price: newProduct.price,
-        original_price: newProduct.originalPrice,
-        discount_percentage: newProduct.discountPercentage,
-        in_stock: newProduct.inStock,
-        stock_count: newProduct.stockCount,
-        image: newProduct.image,
-        description: newProduct.description,
-        rating: newProduct.rating || 5.0,
-        reviews_count: newProduct.reviewsCount || 0,
-        is_popular: Boolean(newProduct.isPopular),
-        is_best_deal: Boolean(newProduct.isBestDeal),
-      }).select().single();
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('is_active', true);
 
-      if (error) {
-        return { success: false, error: error.message };
+      if (error || !data || data.length === 0) {
+        return DEMO_PRODUCTS;
       }
-      return { success: true, id: data.id };
-    } catch (err: any) {
-      return { success: false, error: err.message || 'Failed to add product' };
+
+      return data.map((row: any) => ({
+        id: row.id,
+        name: row.name,
+        brand: row.brand || '',
+        category: row.category_id || '',
+        subCategory: row.subcategory_name || undefined,
+        unit: row.unit || '1 unit',
+        price: Number(row.price),
+        originalPrice: Number(row.original_price || row.price),
+        discountPercentage: Math.max(
+          0,
+          Math.round(
+            ((Number(row.original_price || row.price) - Number(row.price)) /
+              Number(row.original_price || row.price || 1)) *
+              100
+          )
+        ),
+        inStock: Boolean(row.in_stock),
+        stockCount: Number(row.stock_count || 0),
+        image: row.image_url || '/products/prod-1.jpg',
+        description: row.description || '',
+        rating: Number(row.rating || 0),
+        reviewsCount: Number(row.reviews_count || 0),
+        isPopular: Boolean(row.is_popular),
+        isBestDeal: Boolean(row.is_best_deal),
+        sku: row.sku || undefined,
+        slug: row.slug || undefined,
+        isActive: Boolean(row.is_active),
+      }));
+    } catch (err) {
+      console.warn('[G1 Mart ProductService] getProducts fallback:', err);
+      return DEMO_PRODUCTS;
     }
   },
 
   /**
-   * Admin: Update product in Supabase
+   * Update an existing product
    */
-  async updateProduct(product: Product): Promise<{ success: boolean; error?: string }> {
+  async updateProduct(product: Product): Promise<boolean> {
     if (!isSupabaseConfigured()) {
-      return { success: true };
+      return true;
     }
 
     try {
@@ -147,57 +109,77 @@ export const productService = {
         .update({
           name: product.name,
           brand: product.brand,
-          category_id: product.category,
-          sub_category: product.subCategory || null,
-          unit: product.unit,
           price: product.price,
           original_price: product.originalPrice,
-          discount_percentage: product.discountPercentage,
           in_stock: product.inStock,
           stock_count: product.stockCount,
-          image: product.image,
-          description: product.description,
-          rating: product.rating,
-          reviews_count: product.reviewsCount,
-          is_popular: product.isPopular,
-          is_best_deal: product.isBestDeal,
+          updated_at: new Date().toISOString(),
         })
         .eq('id', product.id);
 
-      if (error) {
-        return { success: false, error: error.message };
-      }
-      return { success: true };
-    } catch (err: any) {
-      return { success: false, error: err.message || 'Failed to update product' };
+      return !error;
+    } catch (err) {
+      console.warn('[G1 Mart ProductService] updateProduct error:', err);
+      return false;
     }
   },
 
   /**
-   * Upload product image to Supabase Storage bucket ('product-images')
+   * Add a new product
    */
-  async uploadProductImage(file: File, path?: string): Promise<{ success: boolean; url?: string; error?: string }> {
+  async addProduct(product: Omit<Product, 'id'>): Promise<Product | null> {
     if (!isSupabaseConfigured()) {
-      return { success: false, error: 'Supabase storage is not configured yet.' };
+      return {
+        ...product,
+        id: `prod-${Date.now()}`,
+      };
     }
 
     try {
-      const filePath = path || `${Date.now()}-${file.name.replace(/\s+/g, '_')}`;
-      const { error: uploadError } = await supabase.storage
-        .from('product-images')
-        .upload(filePath, file, { upsert: true });
+      const { data, error } = await supabase
+        .from('products')
+        .insert({
+          name: product.name,
+          brand: product.brand,
+          category_id: product.category,
+          unit: product.unit,
+          price: product.price,
+          original_price: product.originalPrice,
+          in_stock: product.inStock,
+          stock_count: product.stockCount,
+          image_url: product.image,
+          description: product.description,
+          rating: product.rating,
+          reviews_count: product.reviewsCount,
+          is_popular: Boolean(product.isPopular),
+          is_best_deal: Boolean(product.isBestDeal),
+        })
+        .select()
+        .single();
 
-      if (uploadError) {
-        return { success: false, error: uploadError.message };
-      }
+      if (error || !data) return null;
 
-      const { data } = supabase.storage
-        .from('product-images')
-        .getPublicUrl(filePath);
-
-      return { success: true, url: data.publicUrl };
-    } catch (err: any) {
-      return { success: false, error: err.message || 'Image upload failed' };
+      return {
+        id: data.id,
+        name: data.name,
+        brand: data.brand || '',
+        category: data.category_id || '',
+        unit: data.unit || '1 unit',
+        price: Number(data.price),
+        originalPrice: Number(data.original_price || data.price),
+        discountPercentage: 0,
+        inStock: Boolean(data.in_stock),
+        stockCount: Number(data.stock_count || 0),
+        image: data.image_url || '/products/prod-1.jpg',
+        description: data.description || '',
+        rating: Number(data.rating || 0),
+        reviewsCount: Number(data.reviews_count || 0),
+        isPopular: Boolean(data.is_popular),
+        isBestDeal: Boolean(data.is_best_deal),
+      };
+    } catch (err) {
+      console.warn('[G1 Mart ProductService] addProduct error:', err);
+      return null;
     }
   },
 };
