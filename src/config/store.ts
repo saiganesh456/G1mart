@@ -30,6 +30,12 @@ export const STORE_CONFIG = {
     whatsapp: process.env.NEXT_PUBLIC_STORE_WHATSAPP || '919876543210',
   },
 
+  /** UPI Payment Configuration */
+  payment: {
+    upiId: process.env.NEXT_PUBLIC_STORE_UPI_ID || '9346389857-3@ybl',
+    upiPayeeName: 'G1 Mart',
+  },
+
   /** Store operating hours (displayed to customers) */
   hours: {
     open: 'TODO_OPEN_TIME',   // e.g. "6:00 AM"
