@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { ArrowLeft, Clock, MapPin, CheckCircle2, Navigation, Phone, Package, ShieldCheck } from 'lucide-react';
 import { formatIndianPhoneDisplay } from '@/lib/phone';
+import { STORE_CONFIG } from '@/config/store';
 
 interface Props {
   orderId: string;
@@ -266,14 +267,14 @@ export default function OrderDetailClient({ orderId }: Props) {
           </p>
           <div className="flex items-center gap-2 pt-1">
             <a
-              href="tel:+919876543210"
+              href={`tel:${(STORE_CONFIG.contact.phone || '+919876543210').replace(/\s+/g, '')}`}
               className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-white hover:bg-stone-100 text-stone-800 font-bold rounded-xl text-xs border border-stone-200 transition-colors shadow-2xs"
             >
               <Phone className="w-3.5 h-3.5 text-[#2E7D32]" />
               <span>Call Store</span>
             </a>
             <a
-              href={`https://wa.me/919876543210?text=Hi%20G1%20Mart%20Team,%20I%20have%20an%20inquiry%20regarding%20my%20Order%20%23${orderId}`}
+              href={`https://wa.me/${(STORE_CONFIG.contact.whatsapp || '919876543210').replace(/\D/g, '')}?text=${encodeURIComponent(`Hi G1 Mart Team, I have an inquiry regarding my Order #${orderId}`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-[#25D366] hover:bg-[#20ba59] text-white font-bold rounded-xl text-xs transition-colors shadow-2xs"

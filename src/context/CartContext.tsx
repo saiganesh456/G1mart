@@ -44,6 +44,47 @@ export function useCart(): CartContextType {
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [wishlistIds, setWishlistIds] = useState<Set<string>>(new Set());
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Hydrate cart and wishlist from localStorage on mount
+  React.useEffect(() => {
+    try {
+      const savedCart = localStorage.getItem('g1mart_cart');
+      if (savedCart) {
+        const parsed = JSON.parse(savedCart);
+        if (Array.isArray(parsed)) {
+          setCart(parsed);
+        }
+      }
+      const savedWishlist = localStorage.getItem('g1mart_wishlist');
+      if (savedWishlist) {
+        const parsed = JSON.parse(savedWishlist);
+        if (Array.isArray(parsed)) {
+          setWishlistIds(new Set(parsed));
+        }
+      }
+    } catch (e) {
+      console.error('Error hydrating cart/wishlist from localStorage:', e);
+    } finally {
+      setIsHydrated(true);
+    }
+  }, []);
+
+  // Save cart to localStorage on change (after initial hydration)
+  React.useEffect(() => {
+    if (!isHydrated) return;
+    try {
+      localStorage.setItem('g1mart_cart', JSON.stringify(cart));
+    } catch {}
+  }, [cart, isHydrated]);
+
+  // Save wishlist to localStorage on change (after initial hydration)
+  React.useEffect(() => {
+    if (!isHydrated) return;
+    try {
+      localStorage.setItem('g1mart_wishlist', JSON.stringify(Array.from(wishlistIds)));
+    } catch {}
+  }, [wishlistIds, isHydrated]);
 
   // -- Cart actions ----------------------------------------------------------
 
@@ -77,7 +118,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setCart((prev) => prev.filter((i) => i.product.id !== productId));
   }, []);
 
-  const clearCart = useCallback(() => setCart([]), []);
+  const clearCart = useCallback(() => {
+    setCart([]);
+    try {
+      localStorage.removeItem('g1mart_cart');
+    } catch {}
+  }, []);
 
   // -- Wishlist actions ------------------------------------------------------
 

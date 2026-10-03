@@ -197,13 +197,33 @@ export default function PaymentPage() {
         }
       } catch {}
 
-      clearCart();
+      // NOTE: Do NOT clearCart() here. Cart is safely cleared in /payment/result once payment is verified completed.
       window.location.href = data.redirectUrl;
     } catch (err: any) {
       alert(err.message || 'Error communicating with checkout server');
       setProcessing(false);
     }
   };
+
+  if (cartItemCount === 0) {
+    return (
+      <div className="max-w-md mx-auto py-20 text-center space-y-4 px-4">
+        <div className="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto text-stone-400">
+          <Banknote className="w-8 h-8" />
+        </div>
+        <h2 className="text-lg font-bold text-stone-800">Your cart is empty</h2>
+        <p className="text-stone-500 text-xs">
+          Please add items to your cart before proceeding to payment.
+        </p>
+        <Link
+          href="/"
+          className="inline-block px-5 py-2.5 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl text-xs font-bold transition-all shadow-md"
+        >
+          Return to Store &amp; Add Items
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-2xl mx-auto space-y-4 pb-36 sm:pb-40 pt-2 sm:pt-4 px-3 sm:px-0">

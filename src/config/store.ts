@@ -25,9 +25,9 @@ export const STORE_CONFIG = {
 
   /** Customer-facing contact details */
   contact: {
-    phone: 'TODO_PHONE',
-    email: 'TODO_EMAIL',
-    whatsapp: 'TODO_WHATSAPP',
+    phone: process.env.NEXT_PUBLIC_STORE_PHONE || '+91 98765 43210',
+    email: process.env.NEXT_PUBLIC_STORE_EMAIL || 'support@g1mart.com',
+    whatsapp: process.env.NEXT_PUBLIC_STORE_WHATSAPP || '919876543210',
   },
 
   /** Store operating hours (displayed to customers) */
