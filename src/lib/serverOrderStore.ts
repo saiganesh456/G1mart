@@ -198,14 +198,24 @@ export const serverOrderStore = {
    * Rule 5 & 8: Verify amount & mark order paid idempotently.
    */
   async markOrderPaid(params: {
-    providerOrderId: string;
+    providerOrderId?: string;
+    orderId?: string;
     transactionId?: string;
     amountInPaise?: number;
     rawResponse?: any;
   }): Promise<{ success: boolean; error?: string; order?: Order }> {
-    const order = this.getOrderByProviderOrderId(params.providerOrderId);
+    let order: Order | undefined;
+    if (params.orderId) {
+      order = this.getOrder(params.orderId);
+    }
+    if (!order && params.providerOrderId) {
+      order = this.getOrderByProviderOrderId(params.providerOrderId);
+    }
+    if (!order && params.orderId) {
+      order = ordersMap.get(params.orderId);
+    }
     if (!order) {
-      return { success: false, error: `No order found for merchantOrderId: ${params.providerOrderId}` };
+      return { success: false, error: `No order found for order #${params.orderId || params.providerOrderId}` };
     }
 
     // Idempotency check: Already marked completed with same status
@@ -287,12 +297,22 @@ export const serverOrderStore = {
    * Mark order payment failed
    */
   async markOrderFailed(params: {
-    providerOrderId: string;
+    providerOrderId?: string;
+    orderId?: string;
     transactionId?: string;
     error?: string;
     rawResponse?: any;
   }): Promise<{ success: boolean; order?: Order }> {
-    const order = this.getOrderByProviderOrderId(params.providerOrderId);
+    let order: Order | undefined;
+    if (params.orderId) {
+      order = this.getOrder(params.orderId);
+    }
+    if (!order && params.providerOrderId) {
+      order = this.getOrderByProviderOrderId(params.providerOrderId);
+    }
+    if (!order && params.orderId) {
+      order = ordersMap.get(params.orderId);
+    }
     if (!order) return { success: false };
 
     // Do not overwrite completed payments
@@ -459,9 +479,16 @@ export const serverOrderStore = {
 
   registerOrder(order: Order): Order {
     if (!order || !order.id) return order;
-    ordersMap.set(order.id, order);
+    this.loadFromDisk();
+    const existing = ordersMap.get(order.id);
+    const merged: Order = {
+      ...existing,
+      ...order,
+      providerOrderId: order.providerOrderId || existing?.providerOrderId || `MT_${order.id}`,
+    };
+    ordersMap.set(order.id, merged);
     this.persistToDisk();
-    return order;
+    return merged;
   },
 
   /**

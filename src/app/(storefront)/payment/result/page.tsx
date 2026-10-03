@@ -97,11 +97,18 @@ function PaymentResultContent() {
     if (!orderId) return;
     setSimulating(true);
     try {
-      await fetch('/api/payment/test-simulate', {
+      const simRes = await fetch('/api/payment/test-simulate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ orderId, action }),
       });
+      const simData = await simRes.json();
+      if (!simRes.ok || !simData.success) {
+        alert('Simulation notice: ' + (simData.error || 'Failed to simulate'));
+        setSimulating(false);
+        return;
+      }
+
       // Force status check immediately
       const res = await fetch(`/api/orders/${encodeURIComponent(orderId)}/payment-status`);
       const data = await res.json();

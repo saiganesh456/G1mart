@@ -157,6 +157,7 @@ export default function PaymentPage() {
         status: 'Order Placed',
         paymentMethod: 'UPI',
         paymentStatus: 'pending',
+        providerOrderId: data.providerOrderId || data.merchantOrderId || `MT_${data.orderId}`,
         subtotal: cartSubtotal,
         grandTotal: data.amountInPaise ? data.amountInPaise / 100 : cartSubtotal,
         total: data.amountInPaise ? data.amountInPaise / 100 : cartSubtotal,

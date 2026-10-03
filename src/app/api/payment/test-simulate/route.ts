@@ -22,6 +22,7 @@ export async function POST(req: NextRequest) {
       const transactionId = `T${Date.now().toString().slice(-8)}${Math.floor(1000 + Math.random() * 9000)}`;
 
       const markResult = await serverOrderStore.markOrderPaid({
+        orderId: order.id,
         providerOrderId,
         transactionId,
         amountInPaise,
@@ -46,6 +47,7 @@ export async function POST(req: NextRequest) {
       });
     } else if (action === 'failure' || action === 'cancel') {
       await serverOrderStore.markOrderFailed({
+        orderId: order.id,
         providerOrderId,
         error: 'Payment cancelled or declined in UPI simulation',
         rawResponse: {
