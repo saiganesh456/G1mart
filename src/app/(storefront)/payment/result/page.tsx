@@ -91,6 +91,35 @@ function PaymentResultContent() {
     };
   }, [orderId, clearCart, isSimulated]);
 
+  const [simulating, setSimulating] = useState(false);
+
+  const handleSimulate = async (action: 'success' | 'failure') => {
+    if (!orderId) return;
+    setSimulating(true);
+    try {
+      await fetch('/api/payment/test-simulate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId, action }),
+      });
+      // Force status check immediately
+      const res = await fetch(`/api/orders/${encodeURIComponent(orderId)}/payment-status`);
+      const data = await res.json();
+      if (data.isPaid || data.paymentStatus === 'completed') {
+        setOrderDetails(data);
+        setPollState('completed');
+        clearCart();
+      } else if (data.paymentStatus === 'failed') {
+        setPollState('failed');
+        setErrorMessage('Payment simulation declined');
+      }
+    } catch (err: any) {
+      alert('Simulation error: ' + err.message);
+    } finally {
+      setSimulating(false);
+    }
+  };
+
   return (
     <div className="max-w-md mx-auto py-12 px-4 space-y-5">
       {/* 1. Confirming State */}
@@ -111,6 +140,40 @@ function PaymentResultContent() {
           <div className="flex items-center justify-center gap-1.5 text-[11px] text-stone-400">
             <ShieldCheck className="w-3.5 h-3.5 text-[#2E7D32]" />
             <span>Secure 256-Bit Bank Verification</span>
+          </div>
+
+          {/* Interactive Sandbox Testing Panel */}
+          <div className="mt-4 p-4 rounded-2xl bg-stone-50 border border-stone-200 text-left space-y-2.5">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] font-black text-stone-800 uppercase tracking-wider flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#1B5E20] animate-ping" />
+                <span>PhonePe Sandbox Mode</span>
+              </span>
+              <span className="text-[10px] text-stone-400 font-bold">UAT Testing</span>
+            </div>
+            <p className="text-[11px] text-stone-600 leading-snug">
+              Tap below to simulate how the real UPI app responds upon payment:
+            </p>
+            <div className="grid grid-cols-2 gap-2 pt-1">
+              <button
+                type="button"
+                onClick={() => handleSimulate('success')}
+                disabled={simulating}
+                className="py-2.5 px-3 bg-[#1B5E20] hover:bg-[#144718] text-white rounded-xl text-xs font-bold text-center shadow-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span>{simulating ? 'Simulating...' : 'Simulate Success'}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleSimulate('failure')}
+                disabled={simulating}
+                className="py-2.5 px-3 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold text-center shadow-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
+              >
+                <XCircle className="w-3.5 h-3.5" />
+                <span>Simulate Decline</span>
+              </button>
+            </div>
           </div>
         </div>
       )}
