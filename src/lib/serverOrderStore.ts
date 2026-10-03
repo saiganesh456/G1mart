@@ -250,14 +250,18 @@ export const serverOrderStore = {
     ordersMap.set(order.id, order);
 
     // Update payment record
-    const payment = paymentsMap.get(params.providerOrderId);
-    if (payment) {
-      payment.status = 'COMPLETED';
-      payment.transactionId = params.transactionId;
-      payment.verifiedAt = nowIso;
-      payment.rawResponse = params.rawResponse;
-      payment.updatedAt = nowIso;
-      paymentsMap.set(params.providerOrderId, payment);
+    const pId = params.providerOrderId || order.providerOrderId;
+    let payment: PaymentRecord | undefined;
+    if (pId) {
+      payment = paymentsMap.get(pId);
+      if (payment) {
+        payment.status = 'COMPLETED';
+        payment.transactionId = params.transactionId;
+        payment.verifiedAt = nowIso;
+        payment.rawResponse = params.rawResponse;
+        payment.updatedAt = nowIso;
+        paymentsMap.set(pId, payment);
+      }
     }
 
     // Update Supabase if configured
@@ -274,7 +278,7 @@ export const serverOrderStore = {
           })
           .eq('id', order.id);
 
-        if (payment) {
+        if (payment && pId) {
           await supabase
             .from('payments')
             .update({
@@ -283,7 +287,7 @@ export const serverOrderStore = {
               verified_at: nowIso,
               raw_response: params.rawResponse,
             })
-            .eq('provider_order_id', params.providerOrderId);
+            .eq('provider_order_id', pId);
         }
       } catch (err) {
         console.warn('[serverOrderStore] Supabase update fallback to memory:', err);
@@ -323,13 +327,16 @@ export const serverOrderStore = {
     order.isPaid = false;
     ordersMap.set(order.id, order);
 
-    const payment = paymentsMap.get(params.providerOrderId);
-    if (payment) {
-      payment.status = 'FAILED';
-      payment.transactionId = params.transactionId;
-      payment.rawResponse = params.rawResponse;
-      payment.updatedAt = nowIso;
-      paymentsMap.set(params.providerOrderId, payment);
+    const pId = params.providerOrderId || order.providerOrderId;
+    if (pId) {
+      const payment = paymentsMap.get(pId);
+      if (payment) {
+        payment.status = 'FAILED';
+        payment.transactionId = params.transactionId;
+        payment.rawResponse = params.rawResponse;
+        payment.updatedAt = nowIso;
+        paymentsMap.set(pId, payment);
+      }
     }
 
     return { success: true, order };
