@@ -116,10 +116,34 @@ function PaymentResultContent() {
       }
 
       if (action === 'success') {
-        const finalOrder = simData.order || savedOrder || { id: orderId, grandTotal: 80 };
+        const finalOrder = {
+          ...(savedOrder || {}),
+          ...(simData.order || {}),
+          id: orderId,
+          orderNumber: orderId,
+          paymentStatus: 'completed',
+          isPaid: true,
+        };
         setOrderDetails(finalOrder);
         setPollState('completed');
         clearCart();
+
+        try {
+          const accOrders = JSON.parse(localStorage.getItem('g1mart_account_orders') || '[]');
+          const updatedAcc = accOrders.map((o: any) => (o.id === orderId ? finalOrder : o));
+          if (!updatedAcc.some((o: any) => o.id === orderId)) {
+            updatedAcc.unshift(finalOrder);
+          }
+          localStorage.setItem('g1mart_account_orders', JSON.stringify(updatedAcc));
+          localStorage.setItem('g1mart_recent_order', JSON.stringify(finalOrder));
+          sessionStorage.setItem('g1mart_latest_order', JSON.stringify(finalOrder));
+
+          fetch('/api/orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(finalOrder),
+          }).catch(() => {});
+        } catch {}
       } else {
         setPollState('failed');
         setErrorMessage('Payment simulation declined');

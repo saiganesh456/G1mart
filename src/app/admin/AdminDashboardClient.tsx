@@ -54,11 +54,45 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
   const fetchOrders = async () => {
     setLoadingOrders(true);
     try {
+      // 1. Gather local orders from device storage
+      let localOrders: any[] = [];
+      try {
+        const rawAcc = localStorage.getItem('g1mart_account_orders');
+        const rawRecent = localStorage.getItem('g1mart_recent_order');
+        const rawList = sessionStorage.getItem('g1mart_orders_list');
+        const listA = rawAcc ? JSON.parse(rawAcc) : [];
+        const listB = rawList ? JSON.parse(rawList) : [];
+        const single = rawRecent ? [JSON.parse(rawRecent)] : [];
+        const combined = [...listA, ...listB, ...single];
+        const uniqueMap = new Map<string, any>();
+        combined.forEach((o) => {
+          if (o && o.id) uniqueMap.set(o.id, o);
+        });
+        localOrders = Array.from(uniqueMap.values());
+      } catch {}
+
+      // Background sync local orders to server so other tabs/riders receive them
+      for (const lo of localOrders) {
+        fetch('/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(lo),
+        }).catch(() => {});
+      }
+
       const res = await fetch('/api/admin/orders');
       const data = await res.json();
-      if (data.success && Array.isArray(data.orders)) {
-        setOrders(data.orders);
-      }
+      const serverList = (data.success && Array.isArray(data.orders)) ? data.orders : [];
+
+      // Seamlessly merge server and local orders
+      const mergedMap = new Map<string, any>();
+      localOrders.forEach((o) => mergedMap.set(o.id, o));
+      serverList.forEach((o: any) => mergedMap.set(o.id, { ...mergedMap.get(o.id), ...o }));
+
+      const merged = Array.from(mergedMap.values()).sort(
+        (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
+      );
+      setOrders(merged);
     } catch (err) {
       console.error('Failed to fetch admin orders', err);
     } finally {
