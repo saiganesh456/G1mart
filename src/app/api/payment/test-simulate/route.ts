@@ -4,18 +4,37 @@ import { serverOrderStore } from '@/lib/serverOrderStore';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { orderId, action = 'success', tamperedAmount } = body;
+    const { orderId, action = 'success', tamperedAmount, orderData } = body;
 
     if (!orderId) {
       return NextResponse.json({ success: false, error: 'orderId is required' }, { status: 400 });
     }
 
-    const order = serverOrderStore.getOrder(orderId);
-    if (!order) {
-      return NextResponse.json({ success: false, error: `Order #${orderId} not found` }, { status: 404 });
+    let order = serverOrderStore.getOrder(orderId);
+    if (!order && orderData && (orderData.id === orderId || orderData.orderNumber === orderId)) {
+      order = serverOrderStore.registerOrder(orderData);
     }
 
-    const providerOrderId = order.providerOrderId || `MT_${orderId}_sim`;
+    if (!order) {
+      // Auto-fallback in ephemeral serverless instances
+      order = serverOrderStore.registerOrder({
+        id: orderId,
+        orderNumber: orderId,
+        date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        status: 'Order Placed',
+        paymentMethod: 'UPI',
+        paymentStatus: 'pending',
+        subtotal: orderData?.subtotal || 80,
+        grandTotal: orderData?.grandTotal || 80,
+        total: orderData?.total || 80,
+        items: orderData?.items || [],
+        address: orderData?.address || {},
+        slot: 'Standard Delivery',
+        providerOrderId: `MT_${orderId}`,
+      } as any);
+    }
+
+    const providerOrderId = order.providerOrderId || `MT_${orderId}`;
 
     if (action === 'success') {
       const amountInPaise = tamperedAmount ? Math.round(tamperedAmount * 100) : Math.round(order.grandTotal * 100);

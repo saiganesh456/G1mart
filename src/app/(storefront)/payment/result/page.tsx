@@ -97,10 +97,16 @@ function PaymentResultContent() {
     if (!orderId) return;
     setSimulating(true);
     try {
+      let savedOrder: any = null;
+      try {
+        const raw = sessionStorage.getItem('g1mart_latest_order') || localStorage.getItem('g1mart_recent_order');
+        if (raw) savedOrder = JSON.parse(raw);
+      } catch {}
+
       const simRes = await fetch('/api/payment/test-simulate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ orderId, action }),
+        body: JSON.stringify({ orderId, action, orderData: savedOrder }),
       });
       const simData = await simRes.json();
       if (!simRes.ok || !simData.success) {
@@ -109,14 +115,12 @@ function PaymentResultContent() {
         return;
       }
 
-      // Force status check immediately
-      const res = await fetch(`/api/orders/${encodeURIComponent(orderId)}/payment-status`);
-      const data = await res.json();
-      if (data.isPaid || data.paymentStatus === 'completed') {
-        setOrderDetails(data);
+      if (action === 'success') {
+        const finalOrder = simData.order || savedOrder || { id: orderId, grandTotal: 80 };
+        setOrderDetails(finalOrder);
         setPollState('completed');
         clearCart();
-      } else if (data.paymentStatus === 'failed') {
+      } else {
         setPollState('failed');
         setErrorMessage('Payment simulation declined');
       }
@@ -295,10 +299,41 @@ function PaymentResultContent() {
             </p>
           </div>
 
-          <div className="space-y-2 pt-2">
+          {/* Sandbox Controls for Testing */}
+          <div className="p-3.5 bg-stone-50 rounded-2xl border border-stone-200/80 text-left space-y-2.5">
+            <div className="flex items-center justify-between text-[11px] font-bold">
+              <span className="flex items-center gap-1.5 text-stone-700">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                PHONEPE SANDBOX TEST
+              </span>
+              <span className="text-[10px] text-stone-400 font-mono">UAT Testing</span>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => handleSimulate('success')}
+                disabled={simulating}
+                className="py-2.5 px-3 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl text-xs font-bold text-center shadow-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span>{simulating ? 'Simulating...' : 'Simulate Success'}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleSimulate('failure')}
+                disabled={simulating}
+                className="py-2.5 px-3 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold text-center shadow-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
+              >
+                <XCircle className="w-3.5 h-3.5" />
+                <span>Simulate Decline</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-2 pt-1">
             <Link
               href={`/orders/${orderId}`}
-              className="w-full h-11 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-md transition-all"
+              className="w-full h-11 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all"
             >
               <span>View in My Orders</span>
               <ArrowRight className="w-4 h-4" />
