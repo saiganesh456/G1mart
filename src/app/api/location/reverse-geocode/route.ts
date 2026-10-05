@@ -95,20 +95,57 @@ export async function POST(request: NextRequest) {
     const osmData = await osmRes.json();
     const addr = osmData.address || {};
 
-    const street = addr.road || addr.residential || addr.neighbourhood || '';
-    const area = addr.suburb || addr.neighbourhood || addr.quarter || addr.village || street;
-    const city = addr.city || addr.town || addr.county || 'Nellore';
-    const pincode = addr.postcode || '';
-    const state = addr.state || 'Andhra Pradesh';
+    const rawRoad = (addr.road || addr.residential || '').trim();
+    const village = (addr.village || addr.hamlet || '').trim();
+    const suburb = (addr.suburb || addr.neighbourhood || addr.quarter || '').trim();
+    const mandal = (addr.county || addr.subdistrict || addr.district || '').trim();
+    const city = (addr.city || addr.town || addr.municipality || 'Nellore').trim();
+    const pincode = (addr.postcode || '').trim();
+    const state = (addr.state || 'Andhra Pradesh').trim();
 
-    const cleanDisplayAddress = [street, area, city, pincode]
+    // Check if road is a highway or district road code (e.g. MDR032, SH57, NH16) or unnamed
+    const isTechnicalRoadCode =
+      !rawRoad ||
+      /^(MDR|SH|NH|ODR|VR|AH)[\s\-0-9]*/i.test(rawRoad) ||
+      /^[A-Z]{2,4}[0-9]+/i.test(rawRoad) ||
+      /^Unnamed/i.test(rawRoad) ||
+      /Road\s*[0-9]+$/i.test(rawRoad);
+
+    let street = '';
+    let area = '';
+
+    if (isTechnicalRoadCode) {
+      // Highway / district road codes (like MDR032) are technical navigation IDs, not delivery doorstep streets.
+      // Use village / hamlet / suburb / locality as the primary street address.
+      street = village || suburb || mandal || city;
+      area = [
+        mandal && mandal !== street ? mandal : '',
+        city && city !== mandal && city !== street ? city : '',
+      ]
+        .filter(Boolean)
+        .join(', ');
+    } else {
+      street = rawRoad;
+      area = [
+        village && village !== rawRoad ? village : '',
+        suburb && suburb !== village && suburb !== rawRoad ? suburb : '',
+        mandal && mandal !== village ? mandal : '',
+      ]
+        .filter(Boolean)
+        .join(', ');
+    }
+
+    if (!street) street = village || suburb || mandal || city;
+    if (!area) area = mandal || city;
+
+    const cleanDisplayAddress = [street, area && area !== street ? area : '', city, pincode]
       .filter(Boolean)
       .join(', ');
 
     const result: ReverseGeocodeResult = {
       formattedAddress: cleanDisplayAddress || osmData.display_name || `${city}, ${state}`,
       street,
-      area: area || city,
+      area,
       city,
       pincode,
       state,

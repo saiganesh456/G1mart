@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { DEMO_CATEGORIES, DEMO_PRODUCTS } from '@/data/demo-seed';
+import { productService } from '@/services/productService';
 import CategoryDashboardClient from './CategoryDashboardClient';
 
 interface Props {
@@ -8,18 +8,21 @@ interface Props {
 
 export default async function CategoryPage({ params }: Props) {
   const { slug } = await params;
-  const category = DEMO_CATEGORIES.find((c) => c.id === slug);
+  const [categories, products] = await Promise.all([
+    productService.getCategories(),
+    productService.getProductsByCategory(slug),
+  ]);
+
+  const category = categories.find((c) => c.id === slug);
 
   if (!category) {
     notFound();
   }
 
-  const products = DEMO_PRODUCTS.filter((p) => p.category === slug);
-
   return (
     <CategoryDashboardClient
       category={category}
-      allCategories={DEMO_CATEGORIES}
+      allCategories={categories}
       products={products}
     />
   );

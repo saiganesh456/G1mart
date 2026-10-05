@@ -27,11 +27,23 @@ export async function POST(
       );
     }
 
-    const result = await serverOrderStore.updateOrderStatus(
+    let result = await serverOrderStore.updateOrderStatus(
       id,
       status as OrderStatus,
       staffIdentifier || 'Store Admin'
     );
+
+    // If order was missing from server cache but client sent orderFallback, hydrate and retry
+    if ((!result.success || !result.order) && body.orderFallback) {
+      try {
+        serverOrderStore.cacheOrder(body.orderFallback);
+        result = await serverOrderStore.updateOrderStatus(
+          id,
+          status as OrderStatus,
+          staffIdentifier || 'Store Admin'
+        );
+      } catch {}
+    }
 
     if (!result.success || !result.order) {
       return NextResponse.json(

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Package,
@@ -31,9 +31,12 @@ import {
   Truck,
   Phone,
   Share2,
+  Users,
 } from 'lucide-react';
 import type { Category, Product, Order } from '@/types';
 import ProductCard from '@/components/storefront/ProductCard';
+import ProductImage from '@/components/storefront/ProductImage';
+import StaffManagementTab from '@/components/admin/StaffManagementTab';
 
 interface Props {
   initialProducts: Product[];
@@ -45,11 +48,15 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [stockFilter, setStockFilter] = useState<'all' | 'in_stock' | 'out_of_stock'>('all');
-  const [activeTab, setActiveTab] = useState<'inventory' | 'add_product' | 'orders'>('inventory');
+  const [activeTab, setActiveTab] = useState<'inventory' | 'add_product' | 'orders' | 'staff'>('orders');
   const [orders, setOrders] = useState<Order[]>([]);
   const [loadingOrders, setLoadingOrders] = useState(false);
   const [markingOrderId, setMarkingOrderId] = useState<string | null>(null);
   const [staffName, setStaffName] = useState('Store Staff (Counter)');
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   const fetchOrders = async () => {
     setLoadingOrders(true);
@@ -129,23 +136,71 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
   const [updatingOrderId, setUpdatingOrderId] = useState<string | null>(null);
 
   const handleUpdateOrderStatus = async (orderId: string, nextStatus: string) => {
+    const targetOrder = orders.find((o) => o.id === orderId);
     setUpdatingOrderId(orderId);
+
+    // Immediate optimistic update
+    setOrders((prev) =>
+      prev.map((o) => (o.id === orderId ? { ...o, status: nextStatus as any } : o))
+    );
+
     try {
       const res = await fetch(`/api/admin/orders/${orderId}/status`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: nextStatus, staffIdentifier: staffName }),
+        body: JSON.stringify({
+          status: nextStatus,
+          staffIdentifier: staffName,
+          orderFallback: targetOrder,
+        }),
       });
       const data = await res.json();
       if (data.success && data.order) {
         setOrders((prev) =>
           prev.map((o) => (o.id === orderId ? { ...o, ...data.order } : o))
         );
+
+        // Sync browser storage so subsequent loads don't revert to old status
+        try {
+          const rawAcc = localStorage.getItem('g1mart_account_orders');
+          if (rawAcc) {
+            const list = JSON.parse(rawAcc);
+            const nextList = list.map((item: any) =>
+              item.id === orderId ? { ...item, ...data.order, status: nextStatus } : item
+            );
+            localStorage.setItem('g1mart_account_orders', JSON.stringify(nextList));
+          }
+          const rawRecent = localStorage.getItem('g1mart_recent_order');
+          if (rawRecent) {
+            const recent = JSON.parse(rawRecent);
+            if (recent.id === orderId) {
+              localStorage.setItem('g1mart_recent_order', JSON.stringify({ ...recent, ...data.order, status: nextStatus }));
+            }
+          }
+          const rawList = sessionStorage.getItem('g1mart_orders_list');
+          if (rawList) {
+            const list = JSON.parse(rawList);
+            const nextList = list.map((item: any) =>
+              item.id === orderId ? { ...item, ...data.order, status: nextStatus } : item
+            );
+            sessionStorage.setItem('g1mart_orders_list', JSON.stringify(nextList));
+          }
+        } catch {}
       } else {
         alert('Failed: ' + (data.error || 'Could not update status'));
+        if (targetOrder) {
+          setOrders((prev) =>
+            prev.map((o) => (o.id === orderId ? targetOrder : o))
+          );
+        }
       }
     } catch (err: any) {
       alert('Error updating status: ' + err.message);
+      if (targetOrder) {
+        setOrders((prev) =>
+          prev.map((o) => (o.id === orderId ? targetOrder : o))
+        );
+      }
     } finally {
       setUpdatingOrderId(null);
     }
@@ -154,47 +209,98 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
   // Image editing & upload state (Admin change product image)
   const [editingImageProduct, setEditingImageProduct] = useState<Product | null>(null);
   const [candidateImageUrl, setCandidateImageUrl] = useState('');
+  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
   const [imageUploadPreview, setImageUploadPreview] = useState<string | null>(null);
   const [imageSaveSuccess, setImageSaveSuccess] = useState<string | null>(null);
+  const [imageSaveError, setImageSaveError] = useState<string | null>(null);
+  const [savingImage, setSavingImage] = useState(false);
 
   const handleImageFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    setSelectedImageFile(file);
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64 = reader.result as string;
       setImageUploadPreview(base64);
-      setCandidateImageUrl(base64);
     };
     reader.readAsDataURL(file);
   };
 
-  const handleSaveProductImage = () => {
-    if (!editingImageProduct || !candidateImageUrl) return;
-    const targetId = editingImageProduct.id;
-    setProducts((prev) =>
-      prev.map((p) => {
-        if (p.id === targetId) {
-          return {
-            ...p,
-            image: candidateImageUrl,
-            image_path: candidateImageUrl,
-            image_status: 'approved',
-            image_source: 'own_photo',
-            image_license: 'Store Owner Approved Asset',
-            image_match_note: `Photo updated and approved by Store Admin on ${new Date().toLocaleDateString('en-IN')}`,
-          };
+  const handleSaveProductImage = async () => {
+    if (!editingImageProduct) return;
+    if (!selectedImageFile && !candidateImageUrl) return;
+
+    setSavingImage(true);
+    setImageSaveError(null);
+
+    try {
+      let finalImageUrl = candidateImageUrl;
+
+      if (selectedImageFile) {
+        const formData = new FormData();
+        formData.append('file', selectedImageFile);
+        formData.append('productId', editingImageProduct.id);
+
+        const res = await fetch('/api/admin/products/upload-image', {
+          method: 'POST',
+          body: formData,
+        });
+        const data = await res.json();
+        if (!data.success) {
+          throw new Error(data.error || 'Failed to upload image file');
         }
-        return p;
-      })
-    );
-    setImageSaveSuccess(`Product photo updated & published for "${editingImageProduct.name}"!`);
-    setTimeout(() => {
-      setImageSaveSuccess(null);
-      setEditingImageProduct(null);
-      setCandidateImageUrl('');
-      setImageUploadPreview(null);
-    }, 1500);
+        finalImageUrl = data.imageUrl;
+      } else {
+        const res = await fetch('/api/admin/products/upload-image', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            productId: editingImageProduct.id,
+            imageUrl: candidateImageUrl,
+          }),
+        });
+        const data = await res.json();
+        if (!data.success) {
+          throw new Error(data.error || 'Failed to update image URL');
+        }
+        finalImageUrl = data.imageUrl;
+      }
+
+      // Persisted to Supabase successfully! Now update local state
+      const targetId = editingImageProduct.id;
+      setProducts((prev) =>
+        prev.map((p) => {
+          if (p.id === targetId) {
+            return {
+              ...p,
+              image: finalImageUrl,
+              image_url: finalImageUrl,
+              imageUrl: finalImageUrl,
+              image_path: finalImageUrl,
+              image_status: 'VERIFIED',
+              image_source: 'own_photo',
+              image_license: 'Store Owner Approved Asset',
+              image_match_note: `Photo updated and verified on ${new Date().toLocaleDateString('en-IN')}`,
+            };
+          }
+          return p;
+        })
+      );
+      setImageSaveSuccess(`Product photo uploaded & verified for "${editingImageProduct.name}"!`);
+      setTimeout(() => {
+        setImageSaveSuccess(null);
+        setEditingImageProduct(null);
+        setCandidateImageUrl('');
+        setImageUploadPreview(null);
+        setSelectedImageFile(null);
+        setSavingImage(false);
+      }, 1500);
+    } catch (err: any) {
+      console.error('[Admin] Image upload error:', err);
+      setImageSaveError(err.message || 'Image upload failed');
+      setSavingImage(false);
+    }
   };
 
   // New product form state
@@ -340,9 +446,10 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
     inStock: true,
     stockCount: parseInt(newStock, 10) || 20,
     image: newImage || '/products/placeholder.svg',
+    image_url: newImage || null,
     image_path: newImage,
     image_source: 'own_photo',
-    image_status: 'approved', // Show in preview card so admin can see candidate layout
+    image_status: 'VERIFIED', // Show in preview card so admin can see candidate layout
     description: newDesc,
     rating: 4.8,
     reviewsCount: 12,
@@ -403,6 +510,18 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
           >
             <CreditCard className="w-3.5 h-3.5" />
             <span>Orders &amp; Payments</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('staff')}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+              activeTab === 'staff'
+                ? 'bg-[#2E7D32] text-white shadow-xs'
+                : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+            }`}
+          >
+            <Users className="w-3.5 h-3.5" />
+            <span>Staff &amp; Roles</span>
           </button>
           <Link
             href="/rider"
@@ -521,10 +640,9 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
               </thead>
               <tbody className="divide-y divide-stone-100 text-stone-800">
                 {filteredProducts.slice(0, 100).map((p, index) => {
-                  const displayImage =
-                    p.image_status === 'approved'
-                      ? p.image_path || p.image
-                      : '/products/placeholder.svg';
+                  const effectiveUrl = p.image_url || p.imageUrl || p.image;
+                  const currentStatus = p.image_status || (p as any).imageStatus || 'MISSING';
+                  const isVerified = currentStatus === 'VERIFIED' || currentStatus === 'approved';
 
                   return (
                     <tr key={p.id} className="hover:bg-stone-50/80 transition-colors">
@@ -536,23 +654,21 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                       <td className="py-2.5 px-3">
                         <div className="flex items-center gap-2.5">
                           <div className="relative group shrink-0">
-                            <div className="w-10 h-10 rounded-lg bg-stone-50 border border-stone-200/80 overflow-hidden flex items-center justify-center p-1">
-                              {/* eslint-disable-next-line @next/next/no-img-element */}
-                              <img
-                                src={displayImage}
+                            <div className="w-10 h-10 rounded-lg bg-white border border-stone-200/80 overflow-hidden flex items-center justify-center p-0.5">
+                              <ProductImage
+                                imageUrl={effectiveUrl}
+                                imageStatus={currentStatus}
                                 alt={p.name}
-                                className="w-full h-full object-contain"
-                                onError={(e) => {
-                                  (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
-                                }}
                               />
                             </div>
                             <button
                               type="button"
                               onClick={() => {
                                 setEditingImageProduct(p);
-                                setCandidateImageUrl(p.image_status === 'approved' ? (p.image_path || p.image) : (p.image_path || ''));
+                                setCandidateImageUrl(isVerified ? (effectiveUrl || '') : '');
                                 setImageUploadPreview(null);
+                                setSelectedImageFile(null);
+                                setImageSaveError(null);
                               }}
                               className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-full flex items-center justify-center shadow-xs transition-transform active:scale-90 cursor-pointer"
                               title="Click pencil to change or upload product image"
@@ -608,6 +724,15 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                               className="w-16 px-1.5 py-0.5 border border-stone-200 rounded text-xs font-black text-stone-900 focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
                             />
                           </div>
+                        ) : p.originalPrice && p.originalPrice > 0 ? (
+                          <div className="flex flex-col">
+                            <span className="font-bold text-stone-900 text-xs tabular-nums">
+                              MRP ₹{p.originalPrice}
+                            </span>
+                            <span className="text-[9px] font-bold text-amber-700 bg-amber-50 px-1 py-0.2 rounded w-fit">
+                              Price TBA
+                            </span>
+                          </div>
                         ) : (
                           <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200/80 px-1.5 py-0.5 rounded tracking-tight">
                             Price TBA
@@ -618,28 +743,34 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                       {/* Section 9.2 Image Gate Status */}
                       <td className="py-2.5 px-3">
                         <div className="space-y-1">
-                          {p.image_status === 'approved' ? (
+                          {isVerified ? (
                             <span className="bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded-full inline-block">
-                              ✓ Approved
+                              ✓ Verified Authentic
                             </span>
-                          ) : p.image_status === 'pending' ? (
+                          ) : currentStatus === 'NEEDS_REVIEW' ? (
+                            <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full inline-block">
+                              🔍 Needs Review
+                            </span>
+                          ) : currentStatus === 'PENDING' ? (
                             <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full inline-block">
                               ⏳ Pending Review
                             </span>
                           ) : (
                             <span className="bg-stone-100 text-stone-600 text-[10px] font-bold px-2 py-0.5 rounded-full inline-block">
-                              📦 Placeholder
+                              📦 Missing / Unverified
                             </span>
                           )}
                           <div className="text-[9px] text-stone-400 font-mono">
-                            src: {p.image_source || 'placeholder'}
+                            status: {currentStatus}
                           </div>
                           <button
                             type="button"
                             onClick={() => {
                               setEditingImageProduct(p);
-                              setCandidateImageUrl(p.image_status === 'approved' ? (p.image_path || p.image) : (p.image_path || ''));
+                              setCandidateImageUrl(isVerified ? (effectiveUrl || '') : '');
                               setImageUploadPreview(null);
+                              setSelectedImageFile(null);
+                              setImageSaveError(null);
                             }}
                             className="mt-1 text-[10px] font-bold text-[#2E7D32] bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2 py-0.5 rounded-lg flex items-center gap-1 transition-all cursor-pointer"
                           >
@@ -1480,6 +1611,9 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
         </div>
       )}
 
+      {/* TAB 4: STAFF & ROLES MANAGEMENT */}
+      {activeTab === 'staff' && <StaffManagementTab />}
+
       {/* EDIT / UPLOAD PRODUCT IMAGE MODAL DIALOG */}
       {editingImageProduct && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-4 animate-in fade-in">
@@ -1520,20 +1654,15 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                 <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider block">
                   Current Store Image
                 </span>
-                <div className="w-24 h-24 mx-auto bg-white rounded-xl border border-stone-200 p-2 flex items-center justify-center overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={
-                      editingImageProduct.image_status === 'approved'
-                        ? editingImageProduct.image_path || editingImageProduct.image
-                        : '/products/placeholder.svg'
-                    }
-                    alt="Current"
-                    className="w-full h-full object-contain"
+                <div className="w-24 h-24 mx-auto bg-white rounded-xl border border-stone-200 p-1 flex items-center justify-center overflow-hidden">
+                  <ProductImage
+                    imageUrl={editingImageProduct.image_url || editingImageProduct.image}
+                    imageStatus={editingImageProduct.image_status}
+                    alt={editingImageProduct.name}
                   />
                 </div>
                 <span className="text-[10px] text-stone-500 font-medium block">
-                  Status: <strong>{editingImageProduct.image_status}</strong>
+                  Status: <strong>{editingImageProduct.image_status || 'MISSING'}</strong>
                 </span>
               </div>
 
@@ -1541,11 +1670,11 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                 <span className="text-[10px] font-bold text-[#2E7D32] uppercase tracking-wider block">
                   New Candidate Preview
                 </span>
-                <div className="w-24 h-24 mx-auto bg-white rounded-xl border-2 border-[#2E7D32] p-2 flex items-center justify-center overflow-hidden shadow-xs">
-                  {candidateImageUrl ? (
+                <div className="w-24 h-24 mx-auto bg-white rounded-xl border-2 border-[#2E7D32] p-1 flex items-center justify-center overflow-hidden shadow-xs">
+                  {imageUploadPreview || candidateImageUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
-                      src={candidateImageUrl}
+                      src={imageUploadPreview || candidateImageUrl}
                       alt="New Preview"
                       className="w-full h-full object-contain"
                       onError={(e) => {
@@ -1557,10 +1686,18 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                   )}
                 </div>
                 <span className="text-[10px] text-emerald-700 font-extrabold block">
-                  Will mark as ✓ Approved
+                  Will mark as ✓ VERIFIED
                 </span>
               </div>
             </div>
+
+            {/* Error Message Display if Upload Fails */}
+            {imageSaveError && (
+              <div className="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 font-semibold flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 text-rose-500 shrink-0" />
+                <span>{imageSaveError}</span>
+              </div>
+            )}
 
             {/* 1. Upload Local File */}
             <div className="space-y-2">
@@ -1569,10 +1706,10 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
               </label>
               <label className="w-full py-3 px-4 bg-emerald-50 hover:bg-emerald-100/80 border-2 border-dashed border-[#2E7D32]/40 rounded-2xl flex items-center justify-center gap-2 cursor-pointer transition-colors text-[#1B5E20] font-bold text-xs">
                 <Upload className="w-4 h-4 text-[#2E7D32]" />
-                <span>Choose Image File (PNG, JPG, WEBP)</span>
+                <span>{selectedImageFile ? `Selected: ${selectedImageFile.name}` : 'Choose Image File (PNG, JPG, WEBP)'}</span>
                 <input
                   type="file"
-                  accept="image/*"
+                  accept="image/jpeg,image/png,image/webp"
                   onChange={handleImageFileUpload}
                   className="hidden"
                 />
@@ -1587,7 +1724,10 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
               <input
                 type="text"
                 value={candidateImageUrl}
-                onChange={(e) => setCandidateImageUrl(e.target.value)}
+                onChange={(e) => {
+                  setCandidateImageUrl(e.target.value);
+                  setSelectedImageFile(null);
+                }}
                 placeholder="https://... or /products/photos/..."
                 className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#2E7D32] focus:bg-white"
               />
@@ -1606,6 +1746,7 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                     onClick={() => {
                       setCandidateImageUrl(p.url);
                       setImageUploadPreview(null);
+                      setSelectedImageFile(null);
                     }}
                     className={`text-[10px] px-2 py-1 rounded-lg border font-semibold transition-all cursor-pointer ${
                       candidateImageUrl === p.url
@@ -1626,19 +1767,31 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                 onClick={() => {
                   setEditingImageProduct(null);
                   setImageUploadPreview(null);
+                  setSelectedImageFile(null);
+                  setImageSaveError(null);
                 }}
-                className="flex-1 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+                disabled={savingImage}
+                className="flex-1 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs font-bold transition-colors cursor-pointer disabled:opacity-50"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleSaveProductImage}
-                disabled={!candidateImageUrl}
+                disabled={savingImage || (!candidateImageUrl && !selectedImageFile)}
                 className="flex-1 py-2.5 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl text-xs font-extrabold shadow-md shadow-[#2E7D32]/20 transition-all disabled:opacity-50 cursor-pointer flex items-center justify-center gap-1.5"
               >
-                <Check className="w-3.5 h-3.5 stroke-[3]" />
-                <span>Save &amp; Approve Image</span>
+                {savingImage ? (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    <span>Uploading &amp; Persisting...</span>
+                  </>
+                ) : (
+                  <>
+                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+                    <span>Save &amp; Verify Image</span>
+                  </>
+                )}
               </button>
             </div>
           </div>

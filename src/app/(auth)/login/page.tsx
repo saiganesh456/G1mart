@@ -11,17 +11,28 @@ import { sanitizeIndianPhone, isValidIndianPhone } from '@/lib/phone';
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { isLoggedIn, isLoading: authLoading } = useAuth();
+  const { user, isLoggedIn, isLoading: authLoading } = useAuth();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [authError, setAuthError] = useState('');
 
+  const nextParam = searchParams.get('next');
+  const roleParam = searchParams.get('role');
+
   useEffect(() => {
     if (!authLoading && isLoggedIn) {
-      router.replace('/account');
+      if (nextParam) {
+        router.replace(nextParam);
+      } else if (user?.role === 'admin') {
+        router.replace('/admin');
+      } else if (user?.role === 'delivery_partner' || user?.role === 'rider') {
+        router.replace('/rider');
+      } else {
+        router.replace('/account');
+      }
     }
-  }, [authLoading, isLoggedIn, router]);
+  }, [authLoading, isLoggedIn, user, nextParam, router]);
 
   useEffect(() => {
     const errorParam = searchParams.get('error') || searchParams.get('error_description');
@@ -38,14 +49,18 @@ function LoginForm() {
     e.preventDefault();
     if (phoneNumber.length !== 10) return;
     setLoading(true);
-    router.push(`/otp?phone=${encodeURIComponent(phoneNumber)}`);
+    const otpUrl = nextParam
+      ? `/otp?phone=${encodeURIComponent(phoneNumber)}&next=${encodeURIComponent(nextParam)}`
+      : `/otp?phone=${encodeURIComponent(phoneNumber)}`;
+    router.push(otpUrl);
   };
 
   const handleGoogleSignIn = async () => {
     try {
       setGoogleLoading(true);
       setAuthError('');
-      const res = await authService.signInWithGoogle();
+      const targetNext = nextParam || (roleParam === 'admin' ? '/admin' : '/account');
+      const res = await authService.signInWithGoogle(targetNext);
       if (!res.success) {
         setAuthError(res.error || 'Failed to initialize Google Sign-In');
       }
@@ -68,9 +83,19 @@ function LoginForm() {
             (e.currentTarget as HTMLImageElement).src = '/logo.png';
           }}
         />
-        <h1 className="text-xl font-extrabold text-[#212121]">Sign In / Register</h1>
+        <h1 className="text-xl font-extrabold text-[#212121]">
+          {roleParam === 'admin'
+            ? 'Administrator Sign In'
+            : roleParam === 'rider'
+            ? 'Rider Portal Sign In'
+            : 'Sign In / Register'}
+        </h1>
         <p className="text-xs text-stone-500">
-          Sign in with Google or enter your mobile number
+          {roleParam === 'admin'
+            ? 'Sign in with your authorized admin Google account (e.g. g1mart@gmail.com)'
+            : roleParam === 'rider'
+            ? 'Sign in with your registered delivery partner account'
+            : 'Sign in with Google or enter your mobile number'}
         </p>
       </div>
 

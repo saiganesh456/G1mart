@@ -1,12 +1,15 @@
 'use client';
 
-import React, { use } from 'react';
+import React, { use, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Heart, Plus, Minus, ShieldCheck, Truck, Clock } from 'lucide-react';
+import { ArrowLeft, Heart, Plus, Minus, ShieldCheck, Truck } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-import { DEMO_PRODUCTS } from '@/data/demo-seed';
+import { CATALOG_PRODUCTS } from '@/data/productsCatalog';
+import { productService } from '@/services/productService';
 import { STORE_CONFIG } from '@/config/store';
+import ProductImage from '@/components/storefront/ProductImage';
+import type { Product } from '@/types';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -17,7 +20,32 @@ export default function ProductDetailPage({ params }: Props) {
   const router = useRouter();
   const { cart, addToCart, updateCartQuantity, toggleWishlist, isWishlisted } = useCart();
 
-  const product = DEMO_PRODUCTS.find((p) => p.id === slug);
+  const [product, setProduct] = useState<Product | null>(() => 
+    CATALOG_PRODUCTS.find((p) => p.id === slug || p.slug === slug || String(p.itemNumber) === slug) || null
+  );
+  const [loading, setLoading] = useState(!product);
+
+  useEffect(() => {
+    let isMounted = true;
+    productService.getProductById(slug).then((live) => {
+      if (isMounted && live) {
+        setProduct(live);
+        setLoading(false);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [slug]);
+
+  if (!product && loading) {
+    return (
+      <div className="py-24 text-center space-y-3">
+        <div className="w-8 h-8 border-3 border-[#2E7D32] border-t-transparent rounded-full animate-spin mx-auto" />
+        <p className="text-stone-500 text-xs font-semibold">Loading product details...</p>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -44,7 +72,7 @@ export default function ProductDetailPage({ params }: Props) {
         <button
           type="button"
           onClick={() => router.back()}
-          className="w-9 h-9 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-700 shadow-2xs hover:bg-stone-50"
+          className="w-9 h-9 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-700 shadow-2xs hover:bg-stone-50 cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
         </button>
@@ -52,7 +80,7 @@ export default function ProductDetailPage({ params }: Props) {
         <button
           type="button"
           onClick={() => toggleWishlist(product.id)}
-          className="w-9 h-9 rounded-xl bg-white border border-stone-200 flex items-center justify-center shadow-2xs hover:bg-stone-50 text-stone-400"
+          className="w-9 h-9 rounded-xl bg-white border border-stone-200 flex items-center justify-center shadow-2xs hover:bg-stone-50 text-stone-400 cursor-pointer"
         >
           <Heart
             className={`w-4 h-4 ${
@@ -63,17 +91,17 @@ export default function ProductDetailPage({ params }: Props) {
       </div>
 
       {/* Main Image Frame */}
-      <div className="bg-white rounded-2xl border border-stone-200/80 p-6 flex items-center justify-center relative shadow-2xs">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-64 h-64 object-contain"
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src =
-              'https://placehold.co/400x400/f1f8e9/2e7d32?text=G1+Mart';
-          }}
-        />
+      <div className="bg-white rounded-2xl border border-stone-200/80 p-6 flex items-center justify-center relative shadow-2xs min-h-[280px]">
+        <div className="w-64 h-64 flex items-center justify-center">
+          <ProductImage
+            imageUrl={product.image_url || (product as any).imageUrl}
+            imageStatus={product.image_status || (product as any).imageStatus}
+            alt={product.name}
+            priority
+            className="w-full h-full object-contain"
+            containerClassName="w-full h-full"
+          />
+        </div>
         {product.discountPercentage > 0 && product.inStock && (
           <span className="absolute top-3 left-3 bg-[#137333] text-white text-xs font-black px-2 py-0.5 rounded shadow-2xs uppercase">
             {product.discountPercentage}% OFF
@@ -85,7 +113,7 @@ export default function ProductDetailPage({ params }: Props) {
       <div className="bg-white rounded-2xl border border-stone-200/80 p-4 sm:p-5 shadow-2xs space-y-3">
         <div>
           <span className="text-xs font-bold text-stone-500 uppercase tracking-wider">
-            {product.brand} · {product.unit}
+            {product.brand || 'Authentic Grocery'} · {product.unit}
           </span>
           <h1 className="text-lg sm:text-xl font-extrabold text-[#212121] mt-1 leading-snug">
             {product.name}
@@ -94,7 +122,7 @@ export default function ProductDetailPage({ params }: Props) {
 
         {/* Price Row */}
         <div className="flex items-baseline gap-2 pt-1 border-t border-stone-100">
-          {product.price > 0 ? (
+          {product.priceConfirmed && product.price > 0 ? (
             <>
               <span className="text-xl sm:text-2xl font-black text-stone-900 tabular-nums">
                 ₹{product.price}
@@ -105,6 +133,15 @@ export default function ProductDetailPage({ params }: Props) {
                 </span>
               )}
             </>
+          ) : product.originalPrice && product.originalPrice > 0 ? (
+            <div className="flex items-baseline gap-2">
+              <span className="text-xl sm:text-2xl font-black text-stone-900 tabular-nums">
+                MRP ₹{product.originalPrice}
+              </span>
+              <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded">
+                Price TBA
+              </span>
+            </div>
           ) : (
             <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-1 rounded">
               Price to be confirmed by store
@@ -118,7 +155,7 @@ export default function ProductDetailPage({ params }: Props) {
             Product Details
           </h2>
           <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
-            {product.description}
+            {product.description || 'Authentic FMCG retail item from G1 Mart inventory.'}
           </p>
         </div>
 
@@ -142,7 +179,7 @@ export default function ProductDetailPage({ params }: Props) {
             <button
               type="button"
               onClick={() => addToCart(product, 1)}
-              className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white font-bold rounded-xl text-sm shadow-md active:scale-[0.99] transition-all flex items-center justify-center gap-2"
+              className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white font-bold rounded-xl text-sm shadow-md active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <Plus className="w-4 h-4 stroke-[3]" />
               <span>Add to Cart</span>
@@ -153,7 +190,7 @@ export default function ProductDetailPage({ params }: Props) {
                 <button
                   type="button"
                   onClick={() => updateCartQuantity(product.id, quantity - 1)}
-                  className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-2xs active:scale-95 text-stone-800"
+                  className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-2xs active:scale-95 text-stone-800 cursor-pointer"
                 >
                   <Minus className="w-4 h-4 stroke-[3]" />
                 </button>
@@ -163,7 +200,7 @@ export default function ProductDetailPage({ params }: Props) {
                 <button
                   type="button"
                   onClick={() => updateCartQuantity(product.id, quantity + 1)}
-                  className="w-8 h-8 rounded-lg bg-[#2E7D32] text-white flex items-center justify-center shadow-2xs active:scale-95"
+                  className="w-8 h-8 rounded-lg bg-[#2E7D32] text-white flex items-center justify-center shadow-2xs active:scale-95 cursor-pointer"
                 >
                   <Plus className="w-4 h-4 stroke-[3]" />
                 </button>
@@ -171,7 +208,7 @@ export default function ProductDetailPage({ params }: Props) {
 
               <Link
                 href="/cart"
-                className="h-12 px-6 bg-[#2E7D32] hover:bg-[#1b5e20] text-white font-bold rounded-xl text-sm shadow-md flex items-center justify-center"
+                className="h-12 px-6 bg-[#2E7D32] hover:bg-[#1b5e20] text-white font-bold rounded-xl text-sm shadow-md flex items-center justify-center cursor-pointer"
               >
                 View Cart
               </Link>

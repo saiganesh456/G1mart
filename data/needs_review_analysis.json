@@ -1,0 +1,3989 @@
+[
+  {
+    "item_no": 1,
+    "id": "g1-prod-001",
+    "source_name": "5 MUCH",
+    "display_name": "5 Much Wafer",
+    "brand": "",
+    "variant": "Pieces",
+    "category": "snacks"
+  },
+  {
+    "item_no": 3,
+    "id": "g1-prod-003",
+    "source_name": "5 Star Tea 250g",
+    "display_name": "5 Star Tea 250g",
+    "brand": "",
+    "variant": "250g",
+    "category": "beverages"
+  },
+  {
+    "item_no": 15,
+    "id": "g1-prod-015",
+    "source_name": "ACID 700ML",
+    "display_name": "Floor & Toilet Cleaning Acid 700ml",
+    "brand": "Acid",
+    "variant": "700ml",
+    "category": "household"
+  },
+  {
+    "item_no": 17,
+    "id": "g1-prod-017",
+    "source_name": "ALL IN ONE 100G",
+    "display_name": "All-in-One Mixture 100g",
+    "brand": "All",
+    "variant": "100g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 21,
+    "id": "g1-prod-021",
+    "source_name": "Ariel Power Gel Top Load&semi Auto 1kg",
+    "display_name": "Ariel Matic Top Load Liquid Detergent 1L",
+    "brand": "Ariel",
+    "variant": "Top Load 1L",
+    "category": "household"
+  },
+  {
+    "item_no": 23,
+    "id": "g1-prod-023",
+    "source_name": "ARUN BITES",
+    "display_name": "Arun Ice Cream Bites",
+    "brand": "Arun",
+    "variant": "Bites 50ml",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 24,
+    "id": "g1-prod-024",
+    "source_name": "ARUN DONUT",
+    "display_name": "Arun Ice Cream Donut",
+    "brand": "Arun",
+    "variant": "Donut 60ml",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 25,
+    "id": "g1-prod-025",
+    "source_name": "ARUN DOUBLE",
+    "display_name": "Arun Double Blast Ice Cream Bar",
+    "brand": "Arun",
+    "variant": "Double Blast 70ml",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 26,
+    "id": "g1-prod-026",
+    "source_name": "ARUN IBAR",
+    "display_name": "Arun iBar Ice Cream Stick",
+    "brand": "Arun",
+    "variant": "iBar 60ml",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 27,
+    "id": "g1-prod-027",
+    "source_name": "ARUN MILKY FANTASY",
+    "display_name": "Arun Milky Fantasy Ice Cream Bar",
+    "brand": "Arun",
+    "variant": "Milky Fantasy 60ml",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 28,
+    "id": "g1-prod-028",
+    "source_name": "Arun Popitos",
+    "display_name": "Arun Popitos Mini Ice Cream Candies",
+    "brand": "Arun",
+    "variant": "Popitos Pack",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 29,
+    "id": "g1-prod-029",
+    "source_name": "Arun Sunny Sil",
+    "display_name": "Arun Sunny Silver Vanilla Ice Cream Bar",
+    "brand": "Arun",
+    "variant": "Sunny Silver 50ml",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 30,
+    "id": "g1-prod-030",
+    "source_name": "ARUN TOFFEE CON",
+    "display_name": "Arun Toffee Crunch Ice Cream Cone",
+    "brand": "Arun",
+    "variant": "Toffee Cone 100ml",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 31,
+    "id": "g1-prod-031",
+    "source_name": "ASSORATED FRUIT",
+    "display_name": "Assorted Fruit Candies",
+    "brand": "Assorated",
+    "variant": "Pieces",
+    "category": "snacks"
+  },
+  {
+    "item_no": 32,
+    "id": "g1-prod-032",
+    "source_name": "Avalu 250g",
+    "display_name": "Whole Mustard Seeds (Avalu) 250g",
+    "brand": "G1 Mart Selection",
+    "variant": "250g Pouch",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 33,
+    "id": "g1-prod-033",
+    "source_name": "Avalu50g",
+    "display_name": "Whole Mustard Seeds (Avalu) 50g",
+    "brand": "G1 Mart Selection",
+    "variant": "50g Pouch",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 34,
+    "id": "g1-prod-034",
+    "source_name": "BADAM 100GR",
+    "display_name": "Whole California Almonds (Badam) 100g",
+    "brand": "G1 Mart Selection",
+    "variant": "100g Pouch",
+    "category": "snacks"
+  },
+  {
+    "item_no": 35,
+    "id": "g1-prod-035",
+    "source_name": "BADAM 250G",
+    "display_name": "Whole California Almonds (Badam) 250g",
+    "brand": "G1 Mart Selection",
+    "variant": "250g Pouch",
+    "category": "snacks"
+  },
+  {
+    "item_no": 36,
+    "id": "g1-prod-036",
+    "source_name": "BADAM 50G",
+    "display_name": "Whole California Almonds (Badam) 50g",
+    "brand": "G1 Mart Selection",
+    "variant": "50g Pouch",
+    "category": "snacks"
+  },
+  {
+    "item_no": 37,
+    "id": "g1-prod-037",
+    "source_name": "BAMBINO MYSORE PACK 200G",
+    "display_name": "Bambino Traditional Mysore Pak Sweet 200g",
+    "brand": "Bambino",
+    "variant": "200g Box",
+    "category": "snacks"
+  },
+  {
+    "item_no": 38,
+    "id": "g1-prod-038",
+    "source_name": "BAMBINON VERMICELLI 250G",
+    "display_name": "Bambino Roasted Vermicelli 250g",
+    "brand": "Bambino",
+    "variant": "Roasted 250g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 39,
+    "id": "g1-prod-039",
+    "source_name": "BANSI RAVA 500G",
+    "display_name": "Bansi Wheat Rava 500g",
+    "brand": "G1 Mart Selection",
+    "variant": "500g Pouch",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 40,
+    "id": "g1-prod-040",
+    "source_name": "BAT PAPAD 250G",
+    "display_name": "Bat Shaped Fryum Papad 250g",
+    "brand": "G1 Mart Selection",
+    "variant": "250g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 41,
+    "id": "g1-prod-041",
+    "source_name": "BINGO CHILLI",
+    "display_name": "Bingo! Mad Angles Chilli Dhamaka 66g",
+    "brand": "Bingo",
+    "variant": "Chilli Dhamaka 66g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 43,
+    "id": "g1-prod-043",
+    "source_name": "BINGO MASALA",
+    "display_name": "Bingo! Mad Angles Achaari Masti 66g",
+    "brand": "Bingo",
+    "variant": "Achaari Masti 66g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 44,
+    "id": "g1-prod-044",
+    "source_name": "BINGO MASTI",
+    "display_name": "Bingo! Tedhe Medhe Masala Tadka 70g",
+    "brand": "Bingo",
+    "variant": "Masala Tadka 70g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 45,
+    "id": "g1-prod-045",
+    "source_name": "BINGO TOMATO",
+    "display_name": "Bingo! Mad Angles Tomato Madness 66g",
+    "brand": "Bingo",
+    "variant": "Tomato Madness 66g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 46,
+    "id": "g1-prod-046",
+    "source_name": "BINO TEMATO 21G",
+    "display_name": "Bingo! Mad Angles Tomato Madness 21g",
+    "brand": "Bingo",
+    "variant": "Tomato Madness 21g / Rs 5",
+    "category": "snacks"
+  },
+  {
+    "item_no": 47,
+    "id": "g1-prod-047",
+    "source_name": "Biriyani Masala",
+    "display_name": "Aachi Biryani Masala 50g",
+    "brand": "Aachi",
+    "variant": "50g Pouch",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 48,
+    "id": "g1-prod-048",
+    "source_name": "BISCOTT",
+    "display_name": "Biscott Bakery Biscuits",
+    "brand": "Biscott",
+    "variant": "Pieces",
+    "category": "snacks"
+  },
+  {
+    "item_no": 50,
+    "id": "g1-prod-050",
+    "source_name": "BOOST",
+    "display_name": "Boost Energy Drink 15g Sachet",
+    "brand": "Boost",
+    "variant": "15g Sachet / Rs 5",
+    "category": "beverages"
+  },
+  {
+    "item_no": 51,
+    "id": "g1-prod-051",
+    "source_name": "BOOST 200G",
+    "display_name": "Boost Energy & Nutrition Drink 200g Refill",
+    "brand": "Boost",
+    "variant": "200g Refill",
+    "category": "beverages"
+  },
+  {
+    "item_no": 52,
+    "id": "g1-prod-052",
+    "source_name": "BOURBON BISCUIT",
+    "display_name": "Britannia Bourbon Chocolate Cream Biscuits 120g",
+    "brand": "Britannia",
+    "variant": "Bourbon 120g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 56,
+    "id": "g1-prod-056",
+    "source_name": "Brush",
+    "display_name": "Utility Cleaning Brush",
+    "brand": "Brush",
+    "variant": "Pieces",
+    "category": "household"
+  },
+  {
+    "item_no": 57,
+    "id": "g1-prod-057",
+    "source_name": "CAMLIN 0.7MM LEDIS",
+    "display_name": "Camlin Kokuyo 0.7mm 2B Pencil Lead Tube",
+    "brand": "Camlin",
+    "variant": "0.7mm 2B Lead Tube",
+    "category": "household"
+  },
+  {
+    "item_no": 58,
+    "id": "g1-prod-058",
+    "source_name": "Camphor 50g",
+    "display_name": "Pure Pooja Camphor Tablets (Karpooram) 50g",
+    "brand": "G1 Mart Selection",
+    "variant": "50g Box",
+    "category": "household"
+  },
+  {
+    "item_no": 59,
+    "id": "g1-prod-059",
+    "source_name": "CASTOR OIL 100ML",
+    "display_name": "Pure Castor Oil (Aamudam) 100ml",
+    "brand": "G1 Mart Selection",
+    "variant": "100ml Bottle",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 60,
+    "id": "g1-prod-060",
+    "source_name": "CHILLY POWDER 100G",
+    "display_name": "Pure Guntur Red Chilli Powder 100g",
+    "brand": "G1 Mart Selection",
+    "variant": "100g Pouch",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 62,
+    "id": "g1-prod-062",
+    "source_name": "CINTHOL",
+    "display_name": "Godrej Cinthol Original Soap 100g",
+    "brand": "Cinthol",
+    "variant": "Original 100g",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 63,
+    "id": "g1-prod-063",
+    "source_name": "CLASSIC RUSK 59G",
+    "display_name": "Britannia Crunchy Toastea Rusk 59g",
+    "brand": "Britannia",
+    "variant": "Toastea 59g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 65,
+    "id": "g1-prod-065",
+    "source_name": "CLEAR ANTI-DANDRUFF NUTRIUM",
+    "display_name": "Clear Anti-Dandruff Complete Care Nutrium 10 Shampoo 80ml",
+    "brand": "Clear",
+    "variant": "80ml Bottle",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 66,
+    "id": "g1-prod-066",
+    "source_name": "CLINIC PLUS EGG",
+    "display_name": "Clinic Plus Naturally Strong Egg Protein Shampoo 80ml",
+    "brand": "Clinic Plus",
+    "variant": "Egg Protein 80ml",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 67,
+    "id": "g1-prod-067",
+    "source_name": "Clinic Plus STRONG&LONG",
+    "display_name": "Clinic Plus Strong & Long Health Shampoo 80ml",
+    "brand": "Clinic Plus",
+    "variant": "Strong & Long 80ml",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 69,
+    "id": "g1-prod-069",
+    "source_name": "COCA CALA",
+    "display_name": "Coca-Cola Original Taste Soft Drink 250ml",
+    "brand": "Coca-Cola",
+    "variant": "250ml Can",
+    "category": "beverages"
+  },
+  {
+    "item_no": 70,
+    "id": "g1-prod-070",
+    "source_name": "Coconut",
+    "display_name": "Fresh Whole Pooja Coconut (Kobbari Kaya)",
+    "brand": "G1 Mart Fresh",
+    "variant": "1 pc",
+    "category": "fruits-vegetables"
+  },
+  {
+    "item_no": 72,
+    "id": "g1-prod-072",
+    "source_name": "Colgate Brash",
+    "display_name": "Colgate Extra Clean Toothbrush",
+    "brand": "Colgate",
+    "variant": "Medium",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 73,
+    "id": "g1-prod-073",
+    "source_name": "Colgate Brush Set",
+    "display_name": "Colgate ZigZag Toothbrush (Pack of 3)",
+    "brand": "Colgate",
+    "variant": "Pack of 3",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 74,
+    "id": "g1-prod-074",
+    "source_name": "COLGATE EXTRA MEDIUM",
+    "display_name": "Colgate Extra Clean Medium Toothbrush",
+    "brand": "Colgate",
+    "variant": "Medium",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 75,
+    "id": "g1-prod-075",
+    "source_name": "COLGATE MAXFESH",
+    "display_name": "Colgate MaxFresh Spicy Red Gel Toothpaste 80g",
+    "brand": "Colgate",
+    "variant": "Spicy Fresh 80g",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 76,
+    "id": "g1-prod-076",
+    "source_name": "Colgate Softb Kids",
+    "display_name": "Colgate Kids Extra Soft Toothbrush",
+    "brand": "Colgate",
+    "variant": "Kids Extra Soft",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 77,
+    "id": "g1-prod-077",
+    "source_name": "Colgate Strong Teeth 300g",
+    "display_name": "Colgate Strong Teeth Dental Cream 300g",
+    "brand": "Colgate",
+    "variant": "300g Saver Pack",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 78,
+    "id": "g1-prod-078",
+    "source_name": "COLGATE VEDSHIAIKTI 100G",
+    "display_name": "Colgate Vedshakti Ayurvedic Toothpaste 100g",
+    "brand": "Colgate",
+    "variant": "100g Tube",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 79,
+    "id": "g1-prod-079",
+    "source_name": "COLOUR PAPAD 250G",
+    "display_name": "Colour Fryums Papad 250g",
+    "brand": "G1 Mart Selection",
+    "variant": "250g Pouch",
+    "category": "snacks"
+  },
+  {
+    "item_no": 80,
+    "id": "g1-prod-080",
+    "source_name": "Comfort 30ml",
+    "display_name": "Comfort After Wash Fabric Conditioner 30ml Sachet",
+    "brand": "Comfort",
+    "variant": "30ml Sachet",
+    "category": "household"
+  },
+  {
+    "item_no": 81,
+    "id": "g1-prod-081",
+    "source_name": "Comfort Morning Fresh 210 Ml",
+    "display_name": "Comfort Morning Fresh Fabric Conditioner 210ml",
+    "brand": "Comfort",
+    "variant": "Morning Fresh 210ml",
+    "category": "household"
+  },
+  {
+    "item_no": 82,
+    "id": "g1-prod-082",
+    "source_name": "COMFORT ROYAL 80ML",
+    "display_name": "Comfort Royal Fabric Conditioner 80ml",
+    "brand": "Comfort",
+    "variant": "Royal 80ml",
+    "category": "household"
+  },
+  {
+    "item_no": 83,
+    "id": "g1-prod-083",
+    "source_name": "CORIANDER 100G",
+    "display_name": "Whole Coriander Seeds (Dhaniyalu) 100g",
+    "brand": "G1 Mart Selection",
+    "variant": "100g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 84,
+    "id": "g1-prod-084",
+    "source_name": "CORIANDER POWDER 100G",
+    "display_name": "Pure Coriander Powder (Dhaniyala Podi) 100g",
+    "brand": "G1 Mart Selection",
+    "variant": "100g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 85,
+    "id": "g1-prod-085",
+    "source_name": "CORIANDER POWDER 50G",
+    "display_name": "Pure Coriander Powder (Dhaniyala Podi) 50g",
+    "brand": "G1 Mart Selection",
+    "variant": "50g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 86,
+    "id": "g1-prod-086",
+    "source_name": "CORIANDER SEEDS 250G",
+    "display_name": "Whole Coriander Seeds (Dhaniyalu) 250g",
+    "brand": "G1 Mart Selection",
+    "variant": "250g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 87,
+    "id": "g1-prod-087",
+    "source_name": "CURD",
+    "display_name": "Fresh Traditional Pouch Curd 500g",
+    "brand": "G1 Mart Fresh",
+    "variant": "500g Pouch",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 88,
+    "id": "g1-prod-088",
+    "source_name": "DABUR RED 100G",
+    "display_name": "Dabur Red Ayurvedic Toothpaste 100g",
+    "brand": "Dabur",
+    "variant": "100g Tube",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 89,
+    "id": "g1-prod-089",
+    "source_name": "DABUR RED 300G",
+    "display_name": "Dabur Red Ayurvedic Toothpaste 300g (Family Pack)",
+    "brand": "Dabur",
+    "variant": "300g Pack",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 90,
+    "id": "g1-prod-090",
+    "source_name": "DABUR RED 50G",
+    "display_name": "Dabur Red Ayurvedic Toothpaste 50g",
+    "brand": "Dabur",
+    "variant": "50g Tube",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 91,
+    "id": "g1-prod-091",
+    "source_name": "DAIRY MILK 10RS",
+    "display_name": "Cadbury Dairy Milk Chocolate Bar 12g (Rs 10)",
+    "brand": "Cadbury",
+    "variant": "12g / Rs 10",
+    "category": "snacks"
+  },
+  {
+    "item_no": 92,
+    "id": "g1-prod-092",
+    "source_name": "DAIRY MILK 5RS",
+    "display_name": "Cadbury Dairy Milk Chocolate Bar 6.5g (Rs 5)",
+    "brand": "Cadbury",
+    "variant": "6.5g / Rs 5",
+    "category": "snacks"
+  },
+  {
+    "item_no": 93,
+    "id": "g1-prod-093",
+    "source_name": "DARK FANTASY",
+    "display_name": "Sunfeast Dark Fantasy Choco Fills 75g",
+    "brand": "Dark Fantasy",
+    "variant": "Choco Fills 75g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 94,
+    "id": "g1-prod-094",
+    "source_name": "DARK FANTASY BOURBON 90G",
+    "display_name": "Sunfeast Dark Fantasy Bourbon Biscuits 90g",
+    "brand": "Dark Fantasy",
+    "variant": "Bourbon 90g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 95,
+    "id": "g1-prod-095",
+    "source_name": "Dark Fantasy Choco Fills 10g",
+    "display_name": "Sunfeast Dark Fantasy Choco Fills Single Cookie (Rs 5)",
+    "brand": "Dark Fantasy",
+    "variant": "Choco Fills 10g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 96,
+    "id": "g1-prod-096",
+    "source_name": "DARK FANTASY CHOCOLATE COOKIE",
+    "display_name": "Sunfeast Dark Fantasy Choco Meltz 50g",
+    "brand": "Dark Fantasy",
+    "variant": "Choco Meltz 50g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 97,
+    "id": "g1-prod-097",
+    "source_name": "Dark Fantasy Cookis",
+    "display_name": "Sunfeast Dark Fantasy Choco Nut Fills 75g",
+    "brand": "Dark Fantasy",
+    "variant": "Nut Fills 75g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 98,
+    "id": "g1-prod-098",
+    "source_name": "DARK FANTASY VANILLA 55G",
+    "display_name": "Sunfeast Dark Fantasy Vanilla Fills 55g",
+    "brand": "Dark Fantasy",
+    "variant": "Vanilla Fills 55g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 99,
+    "id": "g1-prod-099",
+    "source_name": "DARK FANTASY5RS",
+    "display_name": "Sunfeast Dark Fantasy Choco Fills (Rs 5 Pack)",
+    "brand": "Dark Fantasy",
+    "variant": "Rs 5 Pack",
+    "category": "snacks"
+  },
+  {
+    "item_no": 100,
+    "id": "g1-prod-100",
+    "source_name": "DESI POPZ",
+    "display_name": "GO DESi POPZ Tangy Imli Candy",
+    "brand": "GO DESi",
+    "variant": "Imli Pop",
+    "category": "snacks"
+  },
+  {
+    "item_no": 102,
+    "id": "g1-prod-102",
+    "source_name": "DOMEX POWDER",
+    "display_name": "Domex Disinfectant Floor Cleaning Powder",
+    "brand": "Domex",
+    "variant": "Powder",
+    "category": "household"
+  },
+  {
+    "item_no": 103,
+    "id": "g1-prod-103",
+    "source_name": "DOVE HAIR SHAMPOO6ML",
+    "display_name": "Dove Daily Shine Shampoo 6ml Sachet",
+    "brand": "Dove",
+    "variant": "6ml Sachet / Rs 2",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 104,
+    "id": "g1-prod-104",
+    "source_name": "DOVE SHAMPOO",
+    "display_name": "Dove Intense Repair Shampoo 80ml",
+    "brand": "Dove",
+    "variant": "80ml Bottle",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 105,
+    "id": "g1-prod-105",
+    "source_name": "DOVE SOP BAR",
+    "display_name": "Dove Cream Beauty Bathing Bar 100g",
+    "brand": "Dove",
+    "variant": "100g Bar",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 106,
+    "id": "g1-prod-106",
+    "source_name": "DRY NUTS BOL",
+    "display_name": "Dry Fruits & Mixed Nuts Bowl Pack 100g",
+    "brand": "G1 Mart Selection",
+    "variant": "100g Bowl",
+    "category": "snacks"
+  },
+  {
+    "item_no": 107,
+    "id": "g1-prod-107",
+    "source_name": "DUSTPAN",
+    "display_name": "Heavy Duty Plastic Cleaning Dustpan",
+    "brand": "G1 Mart Selection",
+    "variant": "Standard",
+    "category": "household"
+  },
+  {
+    "item_no": 108,
+    "id": "g1-prod-108",
+    "source_name": "E BUTES",
+    "display_name": "E Butes Shorthand SKU",
+    "brand": "",
+    "variant": "Pieces",
+    "category": "household"
+  },
+  {
+    "item_no": 109,
+    "id": "g1-prod-109",
+    "source_name": "EAGLE SAMBRANI 50G",
+    "display_name": "Eagle Brand Pure Sambrani Dhoop Cup 50g",
+    "brand": "Eagle",
+    "variant": "50g Box",
+    "category": "household"
+  },
+  {
+    "item_no": 110,
+    "id": "g1-prod-110",
+    "source_name": "Ear Buts",
+    "display_name": "Cotton Ear Buds Pack",
+    "brand": "Ear",
+    "variant": "Plastic Stem",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 111,
+    "id": "g1-prod-111",
+    "source_name": "Eggs",
+    "display_name": "Fresh Farm White Eggs (Pack of 6)",
+    "brand": "G1 Mart Fresh",
+    "variant": "Pack of 6",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 112,
+    "id": "g1-prod-112",
+    "source_name": "EGGS TRA",
+    "display_name": "Fresh Farm White Eggs Tray (Pack of 30)",
+    "brand": "G1 Mart Fresh",
+    "variant": "Tray of 30",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 113,
+    "id": "g1-prod-113",
+    "source_name": "ELACHI",
+    "display_name": "Whole Green Cardamom (Yalukalu) 20g",
+    "brand": "G1 Mart Selection",
+    "variant": "20g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 114,
+    "id": "g1-prod-114",
+    "source_name": "ELAICHI 10G",
+    "display_name": "Whole Green Cardamom (Yalukalu) 10g",
+    "brand": "G1 Mart Selection",
+    "variant": "10g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 115,
+    "id": "g1-prod-115",
+    "source_name": "ELAICHI RUSK 182G",
+    "display_name": "Britannia Toastea Premium Elaichi Rusk 182g",
+    "brand": "Britannia",
+    "variant": "Elaichi 182g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 116,
+    "id": "g1-prod-116",
+    "source_name": "ELAICHI RUSK 58G",
+    "display_name": "Britannia Toastea Elaichi Rusk 58g",
+    "brand": "Britannia",
+    "variant": "Elaichi 58g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 117,
+    "id": "g1-prod-117",
+    "source_name": "ENDU MERCHI 250G",
+    "display_name": "Guntur Dry Red Chillies (Endu Mirchi) 250g",
+    "brand": "G1 Mart Selection",
+    "variant": "250g Pouch",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 118,
+    "id": "g1-prod-118",
+    "source_name": "ENDU MERCHI 500G",
+    "display_name": "Guntur Dry Red Chillies (Endu Mirchi) 500g",
+    "brand": "G1 Mart Selection",
+    "variant": "500g Pouch",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 119,
+    "id": "g1-prod-119",
+    "source_name": "ENO",
+    "display_name": "Eno Fruit Salt Regular / Lemon 5g Sachet",
+    "brand": "Eno",
+    "variant": "5g Sachet",
+    "category": "household"
+  },
+  {
+    "item_no": 120,
+    "id": "g1-prod-120",
+    "source_name": "EXO",
+    "display_name": "Exo Touch & Shine Anti-Bacterial Dishwash Bar 150g",
+    "brand": "Exo",
+    "variant": "150g Bar",
+    "category": "household"
+  },
+  {
+    "item_no": 121,
+    "id": "g1-prod-121",
+    "source_name": "Exo 10",
+    "display_name": "Exo Touch & Shine Dishwash Bar (Rs 10 Pack)",
+    "brand": "Exo",
+    "variant": "Rs 10 Pack",
+    "category": "household"
+  },
+  {
+    "item_no": 122,
+    "id": "g1-prod-122",
+    "source_name": "Exo 5",
+    "display_name": "Exo Dishwash Bar (Rs 5 Pack)",
+    "brand": "Exo",
+    "variant": "Rs 5 Pack",
+    "category": "household"
+  },
+  {
+    "item_no": 123,
+    "id": "g1-prod-123",
+    "source_name": "EXO POWDER 5600G",
+    "display_name": "Exo Super Dishwash Powder 500g",
+    "brand": "Exo",
+    "variant": "500g Tub / Pack",
+    "category": "household"
+  },
+  {
+    "item_no": 124,
+    "id": "g1-prod-124",
+    "source_name": "EXO SCRUBRS",
+    "display_name": "Exo Stainless Steel Dishwash Scrubber",
+    "brand": "Exo",
+    "variant": "Steel Scrubber",
+    "category": "household"
+  },
+  {
+    "item_no": 125,
+    "id": "g1-prod-125",
+    "source_name": "FAB LIQ 825G",
+    "display_name": "Henko Matic / Fab Liquid Detergent 825ml",
+    "brand": "Henko",
+    "variant": "825ml Bottle",
+    "category": "household"
+  },
+  {
+    "item_no": 126,
+    "id": "g1-prod-126",
+    "source_name": "FAB LIQUID 10",
+    "display_name": "Fab Liquid Detergent Sachet (Rs 10)",
+    "brand": "Henko",
+    "variant": "Rs 10 Sachet",
+    "category": "household"
+  },
+  {
+    "item_no": 127,
+    "id": "g1-prod-127",
+    "source_name": "FAIR LOVELI RE NEW 2.78G",
+    "display_name": "Glow & Lovely Advanced Multivitamin Cream 9g",
+    "brand": "Glow & Lovely",
+    "variant": "9g Tube",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 128,
+    "id": "g1-prod-128",
+    "source_name": "FANTA 10RUPEES",
+    "display_name": "Fanta Orange Flavoured Carbonated Drink (Rs 10 Returnable / Mini Can)",
+    "brand": "Fanta",
+    "variant": "Rs 10 Pack",
+    "category": "beverages"
+  },
+  {
+    "item_no": 129,
+    "id": "g1-prod-129",
+    "source_name": "FINGER MILLET 500G",
+    "display_name": "Whole Finger Millet / Ragi Seeds 500g",
+    "brand": "G1 Mart Selection",
+    "variant": "500g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 130,
+    "id": "g1-prod-130",
+    "source_name": "FLAIR CARBONIX0.7MM",
+    "display_name": "Flair Carbonix 0.7mm Ball Pen",
+    "brand": "Flair",
+    "variant": "0.7mm Ball Pen",
+    "category": "household"
+  },
+  {
+    "item_no": 131,
+    "id": "g1-prod-131",
+    "source_name": "FLATTENED RICE 250G",
+    "display_name": "Flattened Rice / Medium Poha (Atukulu) 250g",
+    "brand": "G1 Mart Selection",
+    "variant": "250g Pouch",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 132,
+    "id": "g1-prod-132",
+    "source_name": "FLATTENED RICE 500G",
+    "display_name": "Flattened Rice / Medium Poha (Atukulu) 500g",
+    "brand": "G1 Mart Selection",
+    "variant": "500g Pouch",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 133,
+    "id": "g1-prod-133",
+    "source_name": "FOGG SPRAY",
+    "display_name": "Fogg Fresh Oriental / Master Body Spray 120ml",
+    "brand": "Fogg",
+    "variant": "120ml",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 134,
+    "id": "g1-prod-134",
+    "source_name": "Freedam Oil 500ml",
+    "display_name": "Freedom Refined Sunflower Oil 500ml",
+    "brand": "Freedom",
+    "variant": "500ml Pouch",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 135,
+    "id": "g1-prod-135",
+    "source_name": "Freedom 1LT",
+    "display_name": "Freedom Refined Sunflower Oil 1L Pouch",
+    "brand": "Freedom",
+    "variant": "1L Pouch",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 136,
+    "id": "g1-prod-136",
+    "source_name": "FREEDOM GROUNDNUT OLI 1L",
+    "display_name": "Freedom Filtered Groundnut Oil 1L Pouch",
+    "brand": "Freedom",
+    "variant": "Groundnut Oil 1L",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 137,
+    "id": "g1-prod-137",
+    "source_name": "FREEDOM OIL 1L",
+    "display_name": "Freedom Refined Sunflower Oil 1L Pouch",
+    "brand": "Freedom",
+    "variant": "1L Pouch",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 138,
+    "id": "g1-prod-138",
+    "source_name": "FREEDOM RICE 1L",
+    "display_name": "Freedom Physically Refined Rice Bran Oil 1L",
+    "brand": "Freedom",
+    "variant": "Rice Bran 1L",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 139,
+    "id": "g1-prod-139",
+    "source_name": "Fried Rice Masala 20g",
+    "display_name": "Ching's Secret Fried Rice Masala 20g",
+    "brand": "Ching's Secret",
+    "variant": "20g Sachet",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 140,
+    "id": "g1-prod-140",
+    "source_name": "Gadda Camphpr 25g",
+    "display_name": "Pure Pooja Camphor Lump (Gadda Karpooram) 25g",
+    "brand": "G1 Mart Selection",
+    "variant": "25g Pack",
+    "category": "household"
+  },
+  {
+    "item_no": 141,
+    "id": "g1-prod-141",
+    "source_name": "GANGI PENDI 100G",
+    "display_name": "Laundry Starch Powder (Gangi Pindi) 100g",
+    "brand": "G1 Mart Selection",
+    "variant": "100g",
+    "category": "household"
+  },
+  {
+    "item_no": 142,
+    "id": "g1-prod-142",
+    "source_name": "GARLIC MIXTURE 100G",
+    "display_name": "Spicy Garlic Namkeen Mixture (Vellulli Mixture) 100g",
+    "brand": "G1 Mart Selection",
+    "variant": "100g Pouch",
+    "category": "snacks"
+  },
+  {
+    "item_no": 143,
+    "id": "g1-prod-143",
+    "source_name": "GARNIER F . W",
+    "display_name": "Garnier Skin Naturals Bright Complete Face Wash 50g",
+    "brand": "Garnier",
+    "variant": "50g Tube",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 144,
+    "id": "g1-prod-144",
+    "source_name": "GAYATHARI SAMBRANI STICK",
+    "display_name": "Gayathri Dhoop Sambrani Sticks (Pack of 10)",
+    "brand": "Gayathri",
+    "variant": "10 sticks",
+    "category": "household"
+  },
+  {
+    "item_no": 145,
+    "id": "g1-prod-145",
+    "source_name": "Gelakara 50g",
+    "display_name": "Whole Cumin Seeds (Jeelakarra) 50g",
+    "brand": "G1 Mart Selection",
+    "variant": "50g Pouch",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 146,
+    "id": "g1-prod-146",
+    "source_name": "GEMINI TEE 100G",
+    "display_name": "Tata Gemini Strong Dust Tea 100g",
+    "brand": "Gemini",
+    "variant": "100g Pouch",
+    "category": "beverages"
+  },
+  {
+    "item_no": 147,
+    "id": "g1-prod-147",
+    "source_name": "Gilakara 100g",
+    "display_name": "Whole Cumin Seeds (Jeelakarra) 100g",
+    "brand": "G1 Mart Selection",
+    "variant": "100g Pouch",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 148,
+    "id": "g1-prod-148",
+    "source_name": "Gkl Black Dates",
+    "display_name": "Gokulam Premium Black Dates 500g",
+    "brand": "Gokulam",
+    "variant": "500g Box",
+    "category": "snacks"
+  },
+  {
+    "item_no": 149,
+    "id": "g1-prod-149",
+    "source_name": "GKL SEEDED 250G",
+    "display_name": "GKL Seeded Dates 250g",
+    "brand": "Gkl",
+    "variant": "250g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 150,
+    "id": "g1-prod-150",
+    "source_name": "GLOW & LOVELY",
+    "display_name": "Glow & Lovely Advanced Multivitamin Cream 25g",
+    "brand": "Glow & Lovely",
+    "variant": "25g Tube",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 151,
+    "id": "g1-prod-151",
+    "source_name": "Glow&lovely 20g",
+    "display_name": "Glow & Lovely Advanced Multivitamin Cream 20g",
+    "brand": "Glow & Lovely",
+    "variant": "20g Tube",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 152,
+    "id": "g1-prod-152",
+    "source_name": "GN GOLD LIQ",
+    "display_name": "Goodnight Gold Flash Mosquito Liquid Refill 45ml",
+    "brand": "Goodknight",
+    "variant": "45ml Refill",
+    "category": "household"
+  },
+  {
+    "item_no": 153,
+    "id": "g1-prod-153",
+    "source_name": "GN GOLD MATCH",
+    "display_name": "Goodnight Gold Flash Machine & Refill Combo",
+    "brand": "Goodknight",
+    "variant": "Machine + 45ml",
+    "category": "household"
+  },
+  {
+    "item_no": 154,
+    "id": "g1-prod-154",
+    "source_name": "GOKILAM DATES 250G",
+    "display_name": "Gokulam Premium Wet Dates 250g",
+    "brand": "Gokulam",
+    "variant": "250g Pack",
+    "category": "snacks"
+  },
+  {
+    "item_no": 155,
+    "id": "g1-prod-155",
+    "source_name": "GOKUL SANTOL POWDER 30G",
+    "display_name": "Gokul Santol Pure Sandal Talc 30g",
+    "brand": "Gokul",
+    "variant": "30g",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 156,
+    "id": "g1-prod-156",
+    "source_name": "Gokulam Dates",
+    "display_name": "Gokulam Premium Seedless Dates 500g",
+    "brand": "Gokulam",
+    "variant": "500g",
+    "category": "snacks"
+  },
+  {
+    "item_no": 157,
+    "id": "g1-prod-157",
+    "source_name": "GONGURA PICKELS 60G",
+    "display_name": "Priya Gongura Pickle with Garlic 60g Sachet",
+    "brand": "Priya",
+    "variant": "60g Sachet / Rs 10",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 158,
+    "id": "g1-prod-158",
+    "source_name": "Gopuram",
+    "display_name": "Gopuram Pure Pooja Turmeric Powder (Pasupu) 50g",
+    "brand": "Gopuram",
+    "variant": "50g Pouch",
+    "category": "household"
+  },
+  {
+    "item_no": 159,
+    "id": "g1-prod-159",
+    "source_name": "GOPURAM 20G",
+    "display_name": "Gopuram Pure Pooja Turmeric Powder (Pasupu) 20g",
+    "brand": "Gopuram",
+    "variant": "20g Pouch",
+    "category": "household"
+  },
+  {
+    "item_no": 160,
+    "id": "g1-prod-160",
+    "source_name": "Gopuram Turmeric Powder 20g",
+    "display_name": "Gopuram Pure Turmeric Powder 20g",
+    "brand": "Gopuram",
+    "variant": "20g",
+    "category": "household"
+  },
+  {
+    "item_no": 161,
+    "id": "g1-prod-161",
+    "source_name": "Gopuram Turmeric Powder 50",
+    "display_name": "Gopuram Pure Turmeric Powder 50g",
+    "brand": "Gopuram",
+    "variant": "50g",
+    "category": "household"
+  },
+  {
+    "item_no": 162,
+    "id": "g1-prod-162",
+    "source_name": "GRB GHEE",
+    "display_name": "GRB Pure Cow Ghee 200ml Pouch",
+    "brand": "GRB",
+    "variant": "200ml Pouch",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 163,
+    "id": "g1-prod-163",
+    "source_name": "GRB GHEE50ML",
+    "display_name": "GRB Pure Cow Ghee 50ml Sachet",
+    "brand": "GRB",
+    "variant": "50ml",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 164,
+    "id": "g1-prod-164",
+    "source_name": "GULAB JAM (1+1) 160GM",
+    "display_name": "MTR Gulab Jamun Instant Mix (1+1 Offer) 160g+160g",
+    "brand": "MTR",
+    "variant": "160g (1+1 Combo)",
+    "category": "snacks"
+  },
+  {
+    "item_no": 165,
+    "id": "g1-prod-165",
+    "source_name": "GULAB JAMUM MIX",
+    "display_name": "Gits Gulab Jamun Instant Mix 200g",
+    "brand": "Gits",
+    "variant": "200g Box",
+    "category": "snacks"
+  },
+  {
+    "item_no": 166,
+    "id": "g1-prod-166",
+    "source_name": "GUM 5RS",
+    "display_name": "Fevicol MR / Kores Synthetic Gum (Rs 5 Tube)",
+    "brand": "Pidilite",
+    "variant": "Rs 5 Pack",
+    "category": "household"
+  },
+  {
+    "item_no": 167,
+    "id": "g1-prod-167",
+    "source_name": "Harpic Blue 600m",
+    "display_name": "Harpic Disinfectant Bathroom & Toilet Cleaner Blue 600ml",
+    "brand": "Harpic",
+    "variant": "Power Plus 600ml",
+    "category": "household"
+  },
+  {
+    "item_no": 168,
+    "id": "g1-prod-168",
+    "source_name": "Harpic Red 500ml",
+    "display_name": "Harpic Bathroom Cleaner Power Plus Red 500ml",
+    "brand": "Harpic",
+    "variant": "Red 500ml",
+    "category": "household"
+  },
+  {
+    "item_no": 169,
+    "id": "g1-prod-169",
+    "source_name": "HATSUN CURD",
+    "display_name": "Hatsun Daily Fresh Curd 500g Pouch",
+    "brand": "Hatsun",
+    "variant": "500g Pouch",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 170,
+    "id": "g1-prod-170",
+    "source_name": "HEAD AND SHOULDER 2RS",
+    "display_name": "Head & Shoulders Anti-Dandruff Cool Menthol Shampoo (Rs 2 Sachet)",
+    "brand": "Head & Shoulders",
+    "variant": "Rs 2 Sachet",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 171,
+    "id": "g1-prod-171",
+    "source_name": "HIDE&SEEK BISCUITS 10RS",
+    "display_name": "HIDE&SEEK BISCUITS 10RS",
+    "brand": "Hide & Seek",
+    "variant": "10RS",
+    "category": "snacks"
+  },
+  {
+    "item_no": 172,
+    "id": "g1-prod-172",
+    "source_name": "HORLICKS",
+    "display_name": "HORLICKS",
+    "brand": "Horlicks",
+    "variant": "Packs",
+    "category": "beverages"
+  },
+  {
+    "item_no": 173,
+    "id": "g1-prod-173",
+    "source_name": "Horlicks 500g",
+    "display_name": "Horlicks 500g",
+    "brand": "Horlicks",
+    "variant": "500g",
+    "category": "beverages"
+  },
+  {
+    "item_no": 174,
+    "id": "g1-prod-174",
+    "source_name": "Horlicks Biscuit Small",
+    "display_name": "Horlicks Biscuit Small",
+    "brand": "Horlicks",
+    "variant": "Number",
+    "category": "beverages"
+  },
+  {
+    "item_no": 175,
+    "id": "g1-prod-175",
+    "source_name": "Horlicks Biscuits",
+    "display_name": "Horlicks Biscuits",
+    "brand": "Horlicks",
+    "variant": "Number",
+    "category": "beverages"
+  },
+  {
+    "item_no": 176,
+    "id": "g1-prod-176",
+    "source_name": "HORLICKS BISCUITS",
+    "display_name": "HORLICKS BISCUITS",
+    "brand": "Horlicks",
+    "variant": "Pieces",
+    "category": "beverages"
+  },
+  {
+    "item_no": 177,
+    "id": "g1-prod-177",
+    "source_name": "HR CHEKARALU 150G",
+    "display_name": "HR CHEKARALU 150G",
+    "brand": "Haldiram's",
+    "variant": "150G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 178,
+    "id": "g1-prod-178",
+    "source_name": "HR CORN FLAKES MIXTURE 24G",
+    "display_name": "HR CORN FLAKES MIXTURE 24G",
+    "brand": "Haldiram's",
+    "variant": "24G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 179,
+    "id": "g1-prod-179",
+    "source_name": "HR KHATTA MEETHA 48G",
+    "display_name": "HR KHATTA MEETHA 48G",
+    "brand": "Haldiram's",
+    "variant": "48G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 180,
+    "id": "g1-prod-180",
+    "source_name": "HR MASALA PEANUTS 34G",
+    "display_name": "HR MASALA PEANUTS 34G",
+    "brand": "Haldiram's",
+    "variant": "34G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 181,
+    "id": "g1-prod-181",
+    "source_name": "HR MOONG DAL 200G",
+    "display_name": "HR MOONG DAL 200G",
+    "brand": "Haldiram's",
+    "variant": "200G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 182,
+    "id": "g1-prod-182",
+    "source_name": "HR MOONG DAL 35G",
+    "display_name": "HR MOONG DAL 35G",
+    "brand": "Haldiram's",
+    "variant": "35G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 183,
+    "id": "g1-prod-183",
+    "source_name": "HR SOYA CHIPS 42G",
+    "display_name": "HR SOYA CHIPS 42G",
+    "brand": "Haldiram's",
+    "variant": "42G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 184,
+    "id": "g1-prod-184",
+    "source_name": "HR TASTY NUTS 38G",
+    "display_name": "HR TASTY NUTS 38G",
+    "brand": "Haldiram's",
+    "variant": "38G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 185,
+    "id": "g1-prod-185",
+    "source_name": "IMMUNITY BOOSTING",
+    "display_name": "IMMUNITY BOOSTING",
+    "brand": "Immunity",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 186,
+    "id": "g1-prod-186",
+    "source_name": "INDIA GATE 1KG",
+    "display_name": "INDIA GATE 1KG",
+    "brand": "India Gate",
+    "variant": "1KG",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 187,
+    "id": "g1-prod-187",
+    "source_name": "ITC CHIKKIN MASALA 50G",
+    "display_name": "ITC CHIKKIN MASALA 50G",
+    "brand": "ITC",
+    "variant": "50G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 188,
+    "id": "g1-prod-188",
+    "source_name": "ITC GARAM MASALA 50G",
+    "display_name": "ITC GARAM MASALA 50G",
+    "brand": "ITC",
+    "variant": "50G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 189,
+    "id": "g1-prod-189",
+    "source_name": "JAGGERY 1KG",
+    "display_name": "JAGGERY 1KG",
+    "brand": "Jaggery",
+    "variant": "1KG",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 190,
+    "id": "g1-prod-190",
+    "source_name": "JAGGERY 500G",
+    "display_name": "JAGGERY 500G",
+    "brand": "Jaggery",
+    "variant": "500G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 191,
+    "id": "g1-prod-191",
+    "source_name": "JAM OJAM",
+    "display_name": "JAM OJAM",
+    "brand": "Jam",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 192,
+    "id": "g1-prod-192",
+    "source_name": "Jeedi Pappu 100g",
+    "display_name": "Jeedi Pappu 100g",
+    "brand": "Jeedi",
+    "variant": "100g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 193,
+    "id": "g1-prod-193",
+    "source_name": "Jeedi Pappu 250g",
+    "display_name": "Jeedi Pappu 250g",
+    "brand": "Jeedi",
+    "variant": "250g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 194,
+    "id": "g1-prod-194",
+    "source_name": "Jeedi Pappu 50g",
+    "display_name": "Jeedi Pappu 50g",
+    "brand": "Jeedi",
+    "variant": "50g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 195,
+    "id": "g1-prod-195",
+    "source_name": "JEERA 100G",
+    "display_name": "JEERA 100G",
+    "brand": "Jeera",
+    "variant": "100G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 196,
+    "id": "g1-prod-196",
+    "source_name": "JEERA 250G",
+    "display_name": "JEERA 250G",
+    "brand": "Jeera",
+    "variant": "250G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 197,
+    "id": "g1-prod-197",
+    "source_name": "JEERA 50G",
+    "display_name": "JEERA 50G",
+    "brand": "Jeera",
+    "variant": "50G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 198,
+    "id": "g1-prod-198",
+    "source_name": "JS OILE 800ML",
+    "display_name": "JS OILE 800ML",
+    "brand": "",
+    "variant": "800ML",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 199,
+    "id": "g1-prod-199",
+    "source_name": "JS OILE DEEPAM 400ML",
+    "display_name": "JS OILE DEEPAM 400ML",
+    "brand": "",
+    "variant": "400ML",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 200,
+    "id": "g1-prod-200",
+    "source_name": "JS OILS 180ML",
+    "display_name": "JS OILS 180ML",
+    "brand": "",
+    "variant": "180ML",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 201,
+    "id": "g1-prod-201",
+    "source_name": "KALKANDA CANDY 250G",
+    "display_name": "KALKANDA CANDY 250G",
+    "brand": "Kalkanda",
+    "variant": "250G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 202,
+    "id": "g1-prod-202",
+    "source_name": "Kandipappu 1kg",
+    "display_name": "Kandipappu 1kg",
+    "brand": "Kandipappu",
+    "variant": "1kg",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 203,
+    "id": "g1-prod-203",
+    "source_name": "Kandipappu 500g",
+    "display_name": "Kandipappu 500g",
+    "brand": "Kandipappu",
+    "variant": "500g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 204,
+    "id": "g1-prod-204",
+    "source_name": "KASTURI APPALAM 40G",
+    "display_name": "KASTURI APPALAM 40G",
+    "brand": "Kasturi",
+    "variant": "40G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 205,
+    "id": "g1-prod-205",
+    "source_name": "KASURI METHI 10G",
+    "display_name": "KASURI METHI 10G",
+    "brand": "Kasuri",
+    "variant": "10G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 206,
+    "id": "g1-prod-206",
+    "source_name": "KINDAR JOYS 25",
+    "display_name": "KINDAR JOYS 25",
+    "brand": "Kinder Joy",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 207,
+    "id": "g1-prod-207",
+    "source_name": "KINDER JOY (B)",
+    "display_name": "KINDER JOY (B)",
+    "brand": "Kinder Joy",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 208,
+    "id": "g1-prod-208",
+    "source_name": "KINLEY 500ML",
+    "display_name": "KINLEY 500ML",
+    "brand": "Kinley",
+    "variant": "500ML",
+    "category": "beverages"
+  },
+  {
+    "item_no": 209,
+    "id": "g1-prod-209",
+    "source_name": "KINLEY SALTY LEMON SODA",
+    "display_name": "KINLEY SALTY LEMON SODA",
+    "brand": "Kinley",
+    "variant": "Pieces",
+    "category": "beverages"
+  },
+  {
+    "item_no": 210,
+    "id": "g1-prod-210",
+    "source_name": "KINLEYSTRONG SODA",
+    "display_name": "KINLEYSTRONG SODA",
+    "brand": "Kinleystrong",
+    "variant": "Pieces",
+    "category": "beverages"
+  },
+  {
+    "item_no": 211,
+    "id": "g1-prod-211",
+    "source_name": "KISAN JAM",
+    "display_name": "KISAN JAM",
+    "brand": "Kissan",
+    "variant": "Packs",
+    "category": "groceries"
+  },
+  {
+    "item_no": 212,
+    "id": "g1-prod-212",
+    "source_name": "KISAN TOMOTA KETCHUP",
+    "display_name": "KISAN TOMOTA KETCHUP",
+    "brand": "Kissan",
+    "variant": "Packs",
+    "category": "groceries"
+  },
+  {
+    "item_no": 213,
+    "id": "g1-prod-213",
+    "source_name": "KISMIS 100G",
+    "display_name": "KISMIS 100G",
+    "brand": "Kismis",
+    "variant": "100G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 214,
+    "id": "g1-prod-214",
+    "source_name": "KISMIS 50G",
+    "display_name": "KISMIS 50G",
+    "brand": "Kismis",
+    "variant": "50G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 215,
+    "id": "g1-prod-215",
+    "source_name": "KITKAT",
+    "display_name": "KITKAT",
+    "brand": "KitKat",
+    "variant": "Pieces",
+    "category": "snacks"
+  },
+  {
+    "item_no": 216,
+    "id": "g1-prod-216",
+    "source_name": "KNORR CUP SOUP",
+    "display_name": "KNORR CUP SOUP",
+    "brand": "Knorr",
+    "variant": "Pieces",
+    "category": "beverages"
+  },
+  {
+    "item_no": 217,
+    "id": "g1-prod-217",
+    "source_name": "KNORR DARK SOYA SAS",
+    "display_name": "KNORR DARK SOYA SAS",
+    "brand": "Knorr",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 218,
+    "id": "g1-prod-218",
+    "source_name": "KNORR RED CHILLI SAUCE 200G",
+    "display_name": "KNORR RED CHILLI SAUCE 200G",
+    "brand": "Knorr",
+    "variant": "200G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 219,
+    "id": "g1-prod-219",
+    "source_name": "KURNOOL RIC BAG 25KG",
+    "display_name": "KURNOOL RIC BAG 25KG",
+    "brand": "Kurnool",
+    "variant": "25KG",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 220,
+    "id": "g1-prod-220",
+    "source_name": "Lakme 2in1",
+    "display_name": "Lakme 2in1",
+    "brand": "Lakme",
+    "variant": "2in1",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 221,
+    "id": "g1-prod-221",
+    "source_name": "Lalitha Idly Ravva 1kg",
+    "display_name": "Lalitha Idly Ravva 1kg",
+    "brand": "Lalitha",
+    "variant": "1kg",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 222,
+    "id": "g1-prod-222",
+    "source_name": "Launch Plate",
+    "display_name": "Launch Plate",
+    "brand": "Launch",
+    "variant": "Packs",
+    "category": "groceries"
+  },
+  {
+    "item_no": 223,
+    "id": "g1-prod-223",
+    "source_name": "LAVENDER",
+    "display_name": "LAVENDER",
+    "brand": "Lavender",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 224,
+    "id": "g1-prod-224",
+    "source_name": "LG ENGIVA 50G",
+    "display_name": "LG ENGIVA 50G",
+    "brand": "LG",
+    "variant": "50G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 225,
+    "id": "g1-prod-225",
+    "source_name": "LGV 10G",
+    "display_name": "LGV 10G",
+    "brand": "LG",
+    "variant": "10G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 226,
+    "id": "g1-prod-226",
+    "source_name": "LIMCA 10RUPEES",
+    "display_name": "LIMCA 10RUPEES",
+    "brand": "Limca",
+    "variant": "Pieces",
+    "category": "beverages"
+  },
+  {
+    "item_no": 227,
+    "id": "g1-prod-227",
+    "source_name": "LION HONEY 250G",
+    "display_name": "LION HONEY 250G",
+    "brand": "Lion",
+    "variant": "250G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 228,
+    "id": "g1-prod-228",
+    "source_name": "LION HONEY SET 250G",
+    "display_name": "LION HONEY SET 250G",
+    "brand": "Lion",
+    "variant": "250G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 229,
+    "id": "g1-prod-229",
+    "source_name": "LIRIL LIMEN",
+    "display_name": "LIRIL LIMEN",
+    "brand": "Liril",
+    "variant": "Pieces",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 230,
+    "id": "g1-prod-230",
+    "source_name": "LOTTE CHOCO PIE",
+    "display_name": "LOTTE CHOCO PIE",
+    "brand": "Lotte",
+    "variant": "Pieces",
+    "category": "snacks"
+  },
+  {
+    "item_no": 231,
+    "id": "g1-prod-231",
+    "source_name": "LUX GLUTATHIONE",
+    "display_name": "LUX GLUTATHIONE",
+    "brand": "Lux",
+    "variant": "Pieces",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 232,
+    "id": "g1-prod-232",
+    "source_name": "LUX ROSE SCENT 545G",
+    "display_name": "LUX ROSE SCENT 545G",
+    "brand": "Lux",
+    "variant": "545G",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 233,
+    "id": "g1-prod-233",
+    "source_name": "MAAZA 250ML",
+    "display_name": "MAAZA 250ML",
+    "brand": "Maaza",
+    "variant": "250ML",
+    "category": "beverages"
+  },
+  {
+    "item_no": 234,
+    "id": "g1-prod-234",
+    "source_name": "MAGGI 140G",
+    "display_name": "MAGGI 140G",
+    "brand": "Maggi",
+    "variant": "140G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 235,
+    "id": "g1-prod-235",
+    "source_name": "MAGGI 15RS",
+    "display_name": "MAGGI 15RS",
+    "brand": "Maggi",
+    "variant": "15RS",
+    "category": "snacks"
+  },
+  {
+    "item_no": 236,
+    "id": "g1-prod-236",
+    "source_name": "Makhana SeaSalt&pepper 70g",
+    "display_name": "Makhana SeaSalt&pepper 70g",
+    "brand": "Makhana",
+    "variant": "70g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 237,
+    "id": "g1-prod-237",
+    "source_name": "MALKIST",
+    "display_name": "MALKIST",
+    "brand": "Malkist",
+    "variant": "Pieces",
+    "category": "snacks"
+  },
+  {
+    "item_no": 238,
+    "id": "g1-prod-238",
+    "source_name": "MALKIST CHEESE 144G",
+    "display_name": "MALKIST CHEESE 144G",
+    "brand": "Malkist",
+    "variant": "144G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 239,
+    "id": "g1-prod-239",
+    "source_name": "MALKIST CHEESE 72G",
+    "display_name": "MALKIST CHEESE 72G",
+    "brand": "Malkist",
+    "variant": "72G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 240,
+    "id": "g1-prod-240",
+    "source_name": "MALKIST DOUBLE CHOCOLATEY 144G",
+    "display_name": "MALKIST DOUBLE CHOCOLATEY 144G",
+    "brand": "Malkist",
+    "variant": "144G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 241,
+    "id": "g1-prod-241",
+    "source_name": "MALKIST DOUBLE CHOCOLATEY 72G",
+    "display_name": "MALKIST DOUBLE CHOCOLATEY 72G",
+    "brand": "Malkist",
+    "variant": "72G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 242,
+    "id": "g1-prod-242",
+    "source_name": "MANGALDEEP 3IN1",
+    "display_name": "MANGALDEEP 3IN1",
+    "brand": "Mangaldeep",
+    "variant": "3IN1",
+    "category": "groceries"
+  },
+  {
+    "item_no": 243,
+    "id": "g1-prod-243",
+    "source_name": "MANGALDEEP FLORA",
+    "display_name": "MANGALDEEP FLORA",
+    "brand": "Mangaldeep",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 244,
+    "id": "g1-prod-244",
+    "source_name": "Mangaldeep Sambrani",
+    "display_name": "Mangaldeep Sambrani",
+    "brand": "Mangaldeep",
+    "variant": "Pieces",
+    "category": "household"
+  },
+  {
+    "item_no": 245,
+    "id": "g1-prod-245",
+    "source_name": "Mangaldeep Samrani Cup 1 Box",
+    "display_name": "Mangaldeep Samrani Cup 1 Box",
+    "brand": "Mangaldeep",
+    "variant": "1 Box",
+    "category": "household"
+  },
+  {
+    "item_no": 246,
+    "id": "g1-prod-246",
+    "source_name": "MANGALDEEP SCENT 110G",
+    "display_name": "MANGALDEEP SCENT 110G",
+    "brand": "Mangaldeep",
+    "variant": "110G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 247,
+    "id": "g1-prod-247",
+    "source_name": "Mangaldeep Treya",
+    "display_name": "Mangaldeep Treya",
+    "brand": "Mangaldeep",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 248,
+    "id": "g1-prod-248",
+    "source_name": "MANGO FRUIT",
+    "display_name": "MANGO FRUIT",
+    "brand": "Mango",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 249,
+    "id": "g1-prod-249",
+    "source_name": "MARGO ORIGINAL 500G",
+    "display_name": "MARGO ORIGINAL 500G",
+    "brand": "Margo",
+    "variant": "500G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 250,
+    "id": "g1-prod-250",
+    "source_name": "MARIE LIGHT ACTIVE 140G",
+    "display_name": "MARIE LIGHT ACTIVE 140G",
+    "brand": "Marie Light",
+    "variant": "140G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 251,
+    "id": "g1-prod-251",
+    "source_name": "MARIE LIGHT ACTIVE 34G",
+    "display_name": "MARIE LIGHT ACTIVE 34G",
+    "brand": "Marie Light",
+    "variant": "34G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 252,
+    "id": "g1-prod-252",
+    "source_name": "Masala Noodles 200g",
+    "display_name": "Masala Noodles 200g",
+    "brand": "Masala",
+    "variant": "200g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 253,
+    "id": "g1-prod-253",
+    "source_name": "MAYA AGARBATHI",
+    "display_name": "MAYA AGARBATHI",
+    "brand": "Maya",
+    "variant": "Pieces",
+    "category": "household"
+  },
+  {
+    "item_no": 254,
+    "id": "g1-prod-254",
+    "source_name": "MEDIMIX CLASSIC SOP 75G",
+    "display_name": "MEDIMIX CLASSIC SOP 75G",
+    "brand": "Medimix",
+    "variant": "75G",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 255,
+    "id": "g1-prod-255",
+    "source_name": "MENTHULU 100G",
+    "display_name": "MENTHULU 100G",
+    "brand": "Menthulu",
+    "variant": "100G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 256,
+    "id": "g1-prod-256",
+    "source_name": "MENTHULU 250G",
+    "display_name": "MENTHULU 250G",
+    "brand": "Menthulu",
+    "variant": "250G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 257,
+    "id": "g1-prod-257",
+    "source_name": "MENTHULU 50G",
+    "display_name": "MENTHULU 50G",
+    "brand": "Menthulu",
+    "variant": "50G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 258,
+    "id": "g1-prod-258",
+    "source_name": "MIKL RUSK 58G",
+    "display_name": "MIKL RUSK 58G",
+    "brand": "Mikl",
+    "variant": "58G",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 259,
+    "id": "g1-prod-259",
+    "source_name": "MILK BIKIS",
+    "display_name": "MILK BIKIS",
+    "brand": "Milk Bikis",
+    "variant": "Pieces",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 260,
+    "id": "g1-prod-260",
+    "source_name": "MILK RUSK 182G",
+    "display_name": "MILK RUSK 182G",
+    "brand": "Milk",
+    "variant": "182G",
+    "category": "dairy-bakery"
+  },
+  {
+    "item_no": 261,
+    "id": "g1-prod-261",
+    "source_name": "MILKYBAR",
+    "display_name": "MILKYBAR",
+    "brand": "Milkybar",
+    "variant": "Pieces",
+    "category": "snacks"
+  },
+  {
+    "item_no": 262,
+    "id": "g1-prod-262",
+    "source_name": "MILKYBAR CHOO",
+    "display_name": "MILKYBAR CHOO",
+    "brand": "Milkybar",
+    "variant": "Pieces",
+    "category": "snacks"
+  },
+  {
+    "item_no": 263,
+    "id": "g1-prod-263",
+    "source_name": "MILKYBBAR SMAL BOX",
+    "display_name": "MILKYBBAR SMAL BOX",
+    "brand": "Milkybar",
+    "variant": "Packs",
+    "category": "snacks"
+  },
+  {
+    "item_no": 264,
+    "id": "g1-prod-264",
+    "source_name": "Minapappu 1kg",
+    "display_name": "Minapappu 1kg",
+    "brand": "Minapappu",
+    "variant": "1kg",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 265,
+    "id": "g1-prod-265",
+    "source_name": "Minapapu 500g",
+    "display_name": "Minapapu 500g",
+    "brand": "Minapapu",
+    "variant": "500g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 266,
+    "id": "g1-prod-266",
+    "source_name": "MINUTE MAID ORANGE",
+    "display_name": "MINUTE MAID ORANGE",
+    "brand": "Minute Maid",
+    "variant": "Pieces",
+    "category": "beverages"
+  },
+  {
+    "item_no": 267,
+    "id": "g1-prod-267",
+    "source_name": "MIRIYALU 50G",
+    "display_name": "MIRIYALU 50G",
+    "brand": "Miriyalu",
+    "variant": "50G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 268,
+    "id": "g1-prod-268",
+    "source_name": "MOMS MAGIC CASHEW& ALMOND",
+    "display_name": "MOMS MAGIC CASHEW& ALMOND",
+    "brand": "Mom's Magic",
+    "variant": "Pieces",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 269,
+    "id": "g1-prod-269",
+    "source_name": "MOMS MAGIC CASHEW&ALMOND 61G",
+    "display_name": "MOMS MAGIC CASHEW&ALMOND 61G",
+    "brand": "Mom's Magic",
+    "variant": "61G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 270,
+    "id": "g1-prod-270",
+    "source_name": "MOMS MAGIC SHINES SHINIG BUTTER 126G",
+    "display_name": "MOMS MAGIC SHINES SHINIG BUTTER 126G",
+    "brand": "Mom's Magic",
+    "variant": "126G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 271,
+    "id": "g1-prod-271",
+    "source_name": "MOMS MAGIC SHINES SHINING BUTTER 44G",
+    "display_name": "MOMS MAGIC SHINES SHINING BUTTER 44G",
+    "brand": "Mom's Magic",
+    "variant": "44G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 272,
+    "id": "g1-prod-272",
+    "source_name": "MOON DAL 250G",
+    "display_name": "MOON DAL 250G",
+    "brand": "Moon",
+    "variant": "250G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 273,
+    "id": "g1-prod-273",
+    "source_name": "MOON DAL 500G",
+    "display_name": "MOON DAL 500G",
+    "brand": "Moon",
+    "variant": "500G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 274,
+    "id": "g1-prod-274",
+    "source_name": "MOONG DALL 120G",
+    "display_name": "MOONG DALL 120G",
+    "brand": "Moong",
+    "variant": "120G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 275,
+    "id": "g1-prod-275",
+    "source_name": "MROW",
+    "display_name": "MROW",
+    "brand": "Mrow",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 276,
+    "id": "g1-prod-276",
+    "source_name": "MUNCH 5RS",
+    "display_name": "MUNCH 5RS",
+    "brand": "Munch",
+    "variant": "5RS",
+    "category": "snacks"
+  },
+  {
+    "item_no": 277,
+    "id": "g1-prod-277",
+    "source_name": "MUNG BEAN 500G",
+    "display_name": "MUNG BEAN 500G",
+    "brand": "Mung",
+    "variant": "500G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 278,
+    "id": "g1-prod-278",
+    "source_name": "MURALI VATHULU",
+    "display_name": "MURALI VATHULU",
+    "brand": "Murali",
+    "variant": "Pieces",
+    "category": "household"
+  },
+  {
+    "item_no": 279,
+    "id": "g1-prod-279",
+    "source_name": "Muskmelon Seeds 100g",
+    "display_name": "Muskmelon Seeds 100g",
+    "brand": "Muskmelon",
+    "variant": "100g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 280,
+    "id": "g1-prod-280",
+    "source_name": "MYSORE SANDAL 50G",
+    "display_name": "MYSORE SANDAL 50G",
+    "brand": "Mysore Sandal",
+    "variant": "50G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 281,
+    "id": "g1-prod-281",
+    "source_name": "Mysore Sandal Gold",
+    "display_name": "Mysore Sandal Gold",
+    "brand": "Mysore Sandal",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 282,
+    "id": "g1-prod-282",
+    "source_name": "MYSORE SANDAL SOAP 150G",
+    "display_name": "MYSORE SANDAL SOAP 150G",
+    "brand": "Mysore Sandal",
+    "variant": "150G",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 283,
+    "id": "g1-prod-283",
+    "source_name": "MYSORE SANDAL SOP 125G",
+    "display_name": "MYSORE SANDAL SOP 125G",
+    "brand": "Mysore Sandal",
+    "variant": "125G",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 284,
+    "id": "g1-prod-284",
+    "source_name": "MYSORE SANDALS FRESHNOL",
+    "display_name": "MYSORE SANDALS FRESHNOL",
+    "brand": "Mysore Sandal",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 285,
+    "id": "g1-prod-285",
+    "source_name": "NALLA KARAM PODI 150G",
+    "display_name": "NALLA KARAM PODI 150G",
+    "brand": "Nalla",
+    "variant": "150G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 286,
+    "id": "g1-prod-286",
+    "source_name": "NATURO",
+    "display_name": "NATURO",
+    "brand": "Naturo",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 287,
+    "id": "g1-prod-287",
+    "source_name": "NAVARATNA OIL 50ML",
+    "display_name": "NAVARATNA OIL 50ML",
+    "brand": "Navaratna",
+    "variant": "50ML",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 288,
+    "id": "g1-prod-288",
+    "source_name": "NEEM NIMYLE 200ML",
+    "display_name": "NEEM NIMYLE 200ML",
+    "brand": "Nimyle",
+    "variant": "200ML",
+    "category": "household"
+  },
+  {
+    "item_no": 289,
+    "id": "g1-prod-289",
+    "source_name": "Nice Peanut Chikki",
+    "display_name": "Nice Peanut Chikki",
+    "brand": "Nice",
+    "variant": "Pieces",
+    "category": "snacks"
+  },
+  {
+    "item_no": 290,
+    "id": "g1-prod-290",
+    "source_name": "NO 1 SOAP LEMON",
+    "display_name": "NO 1 SOAP LEMON",
+    "brand": "",
+    "variant": "Pieces",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 291,
+    "id": "g1-prod-291",
+    "source_name": "NSR",
+    "display_name": "NSR",
+    "brand": "Nsr",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 292,
+    "id": "g1-prod-292",
+    "source_name": "NUVVULU 250G",
+    "display_name": "NUVVULU 250G",
+    "brand": "Nuvvulu",
+    "variant": "250G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 293,
+    "id": "g1-prod-293",
+    "source_name": "NYCIL GERM EXPERT 210G",
+    "display_name": "NYCIL GERM EXPERT 210G",
+    "brand": "Nycil",
+    "variant": "210G",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 294,
+    "id": "g1-prod-294",
+    "source_name": "NYCIL POWDER SMALL",
+    "display_name": "NYCIL POWDER SMALL",
+    "brand": "Nycil",
+    "variant": "Pieces",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 295,
+    "id": "g1-prod-295",
+    "source_name": "OATS 400G",
+    "display_name": "OATS 400G",
+    "brand": "Oats",
+    "variant": "400G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 296,
+    "id": "g1-prod-296",
+    "source_name": "OIONES 500G",
+    "display_name": "OIONES 500G",
+    "brand": "Oiones",
+    "variant": "500G",
+    "category": "fruits-vegetables"
+  },
+  {
+    "item_no": 297,
+    "id": "g1-prod-297",
+    "source_name": "ONIONS 1KG",
+    "display_name": "ONIONS 1KG",
+    "brand": "Onions",
+    "variant": "1KG",
+    "category": "fruits-vegetables"
+  },
+  {
+    "item_no": 298,
+    "id": "g1-prod-298",
+    "source_name": "ORINGE CANDY 150G",
+    "display_name": "ORINGE CANDY 150G",
+    "brand": "Oringe",
+    "variant": "150G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 299,
+    "id": "g1-prod-299",
+    "source_name": "Osmania Bisc",
+    "display_name": "Osmania Bisc",
+    "brand": "Osmania",
+    "variant": "Pieces",
+    "category": "snacks"
+  },
+  {
+    "item_no": 300,
+    "id": "g1-prod-300",
+    "source_name": "Pachisenaga Pappu 250g",
+    "display_name": "Pachisenaga Pappu (Chana Dal) 250g",
+    "brand": "Pachisenaga",
+    "variant": "250g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 301,
+    "id": "g1-prod-301",
+    "source_name": "Pachisenagapappu 500g",
+    "display_name": "Pachisenagapappu 500g",
+    "brand": "Pachisenagapappu",
+    "variant": "500g",
+    "category": "groceries"
+  },
+  {
+    "item_no": 302,
+    "id": "g1-prod-302",
+    "source_name": "PARACHUTE 175ML",
+    "display_name": "PARACHUTE 175ML",
+    "brand": "Parachute",
+    "variant": "175ML",
+    "category": "groceries"
+  },
+  {
+    "item_no": 303,
+    "id": "g1-prod-303",
+    "source_name": "Parachute Aloe Vera 250ml",
+    "display_name": "Parachute Aloe Vera 250ml",
+    "brand": "Parachute",
+    "variant": "250ml",
+    "category": "groceries"
+  },
+  {
+    "item_no": 304,
+    "id": "g1-prod-304",
+    "source_name": "PARACHUTEB 100ML",
+    "display_name": "PARACHUTEB 100ML",
+    "brand": "Parachute",
+    "variant": "100ML",
+    "category": "groceries"
+  },
+  {
+    "item_no": 305,
+    "id": "g1-prod-305",
+    "source_name": "PARK10RS",
+    "display_name": "PARK10RS",
+    "brand": "",
+    "variant": "10RS",
+    "category": "groceries"
+  },
+  {
+    "item_no": 306,
+    "id": "g1-prod-306",
+    "source_name": "PEARS PURE& GENTLE GLOW 52G",
+    "display_name": "PEARS PURE& GENTLE GLOW 52G",
+    "brand": "Pears",
+    "variant": "52G",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 307,
+    "id": "g1-prod-307",
+    "source_name": "PEARS WITH MINT 50G",
+    "display_name": "PEARS WITH MINT 50G",
+    "brand": "Pears",
+    "variant": "50G",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 308,
+    "id": "g1-prod-308",
+    "source_name": "Pepper 100g",
+    "display_name": "Pepper 100g",
+    "brand": "Pepper",
+    "variant": "100g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 309,
+    "id": "g1-prod-309",
+    "source_name": "PEPPER BOLS 50G",
+    "display_name": "PEPPER BOLS 50G",
+    "brand": "Pepper",
+    "variant": "50G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 310,
+    "id": "g1-prod-310",
+    "source_name": "PITAMBARI 20G",
+    "display_name": "PITAMBARI 20G",
+    "brand": "Pitambari",
+    "variant": "20G",
+    "category": "household"
+  },
+  {
+    "item_no": 311,
+    "id": "g1-prod-311",
+    "source_name": "POND S 23G",
+    "display_name": "POND S 23G",
+    "brand": "Pond's",
+    "variant": "23G",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 312,
+    "id": "g1-prod-312",
+    "source_name": "PONDS BRICHT BEAUTY 15G",
+    "display_name": "PONDS BRICHT BEAUTY 15G",
+    "brand": "Pond's",
+    "variant": "15G",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 313,
+    "id": "g1-prod-313",
+    "source_name": "Ponds Cold Cream",
+    "display_name": "Ponds Cold Cream",
+    "brand": "Pond's",
+    "variant": "Pieces",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 314,
+    "id": "g1-prod-314",
+    "source_name": "POOJA GOLD OIL 800ML",
+    "display_name": "POOJA GOLD OIL 800ML",
+    "brand": "Pooja",
+    "variant": "800ML",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 315,
+    "id": "g1-prod-315",
+    "source_name": "POOJA OIAL 800ML",
+    "display_name": "POOJA OIAL 800ML",
+    "brand": "Pooja",
+    "variant": "800ML",
+    "category": "groceries"
+  },
+  {
+    "item_no": 316,
+    "id": "g1-prod-316",
+    "source_name": "POOJA POWDER 50 G,",
+    "display_name": "POOJA POWDER 50 G,",
+    "brand": "Pooja",
+    "variant": "50 G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 317,
+    "id": "g1-prod-317",
+    "source_name": "POOJA POWDER B GANDAM",
+    "display_name": "POOJA POWDER B GANDAM",
+    "brand": "Pooja",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 318,
+    "id": "g1-prod-318",
+    "source_name": "POWER NATURAL SOAP",
+    "display_name": "POWER NATURAL SOAP",
+    "brand": "Power",
+    "variant": "Pieces",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 319,
+    "id": "g1-prod-319",
+    "source_name": "Priya Gold 500g",
+    "display_name": "Priya Gold 500g",
+    "brand": "Priya",
+    "variant": "500g",
+    "category": "groceries"
+  },
+  {
+    "item_no": 320,
+    "id": "g1-prod-320",
+    "source_name": "PRIYA GOLD1KG",
+    "display_name": "PRIYA GOLD1KG",
+    "brand": "Priya",
+    "variant": "1KG",
+    "category": "groceries"
+  },
+  {
+    "item_no": 321,
+    "id": "g1-prod-321",
+    "source_name": "Pumpkin Seeds 100g",
+    "display_name": "Pumpkin Seeds 100g",
+    "brand": "Pumpkin",
+    "variant": "100g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 322,
+    "id": "g1-prod-322",
+    "source_name": "REAL AAM 400G",
+    "display_name": "REAL AAM 400G",
+    "brand": "Real",
+    "variant": "400G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 323,
+    "id": "g1-prod-323",
+    "source_name": "RED CHILLI PICKEL 60G",
+    "display_name": "RED CHILLI PICKEL 60G",
+    "brand": "Red",
+    "variant": "60G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 324,
+    "id": "g1-prod-324",
+    "source_name": "RED LABUL NATURAL 100G",
+    "display_name": "RED LABUL NATURAL 100G",
+    "brand": "Red Label",
+    "variant": "100G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 325,
+    "id": "g1-prod-325",
+    "source_name": "RED LENTILS 500G",
+    "display_name": "RED LENTILS 500G",
+    "brand": "Red",
+    "variant": "500G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 326,
+    "id": "g1-prod-326",
+    "source_name": "RIMZIM JEERA",
+    "display_name": "RIMZIM JEERA",
+    "brand": "Rimzim",
+    "variant": "Pieces",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 327,
+    "id": "g1-prod-327",
+    "source_name": "RIN",
+    "display_name": "RIN",
+    "brand": "Rin",
+    "variant": "Pieces",
+    "category": "household"
+  },
+  {
+    "item_no": 328,
+    "id": "g1-prod-328",
+    "source_name": "RIN ANTIBAV",
+    "display_name": "RIN ANTIBAV",
+    "brand": "Rin",
+    "variant": "Pieces",
+    "category": "household"
+  },
+  {
+    "item_no": 329,
+    "id": "g1-prod-329",
+    "source_name": "RIN MATIC",
+    "display_name": "RIN MATIC",
+    "brand": "Rin",
+    "variant": "Pieces",
+    "category": "household"
+  },
+  {
+    "item_no": 330,
+    "id": "g1-prod-330",
+    "source_name": "ROBAN CAKE 25G",
+    "display_name": "ROBAN CAKE 25G",
+    "brand": "Roban",
+    "variant": "25G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 331,
+    "id": "g1-prod-331",
+    "source_name": "RUCHI GOLD 750G",
+    "display_name": "RUCHI GOLD 750G",
+    "brand": "Ruchi Gold",
+    "variant": "750G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 332,
+    "id": "g1-prod-332",
+    "source_name": "Ruchigold 1kg",
+    "display_name": "Ruchigold 1kg",
+    "brand": "Ruchi Gold",
+    "variant": "1kg",
+    "category": "groceries"
+  },
+  {
+    "item_no": 333,
+    "id": "g1-prod-333",
+    "source_name": "SAGGUBIYYAM 250G",
+    "display_name": "SAGGUBIYYAM 250G",
+    "brand": "Saggubiyyam",
+    "variant": "250G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 334,
+    "id": "g1-prod-334",
+    "source_name": "SAI BANSI RAVVA 500G",
+    "display_name": "SAI BANSI RAVVA 500G",
+    "brand": "Sai",
+    "variant": "500G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 335,
+    "id": "g1-prod-335",
+    "source_name": "SALT MIRCHI 250G",
+    "display_name": "SALT MIRCHI 250G",
+    "brand": "Salt",
+    "variant": "250G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 336,
+    "id": "g1-prod-336",
+    "source_name": "SANTOOR",
+    "display_name": "SANTOOR",
+    "brand": "Santoor",
+    "variant": "Pieces",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 337,
+    "id": "g1-prod-337",
+    "source_name": "SANTOOR 150G",
+    "display_name": "SANTOOR 150G",
+    "brand": "Santoor",
+    "variant": "150G",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 338,
+    "id": "g1-prod-338",
+    "source_name": "SANTOOR FRESH SKIN",
+    "display_name": "SANTOOR FRESH SKIN",
+    "brand": "Santoor",
+    "variant": "Pieces",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 339,
+    "id": "g1-prod-339",
+    "source_name": "SANTOOR SOAP BIG SET",
+    "display_name": "SANTOOR SOAP BIG SET",
+    "brand": "Santoor",
+    "variant": "BIG SET",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 340,
+    "id": "g1-prod-340",
+    "source_name": "Savlon Handwash 375 Ml",
+    "display_name": "Savlon Handwash 375 Ml",
+    "brand": "Savlon",
+    "variant": "375 Ml",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 341,
+    "id": "g1-prod-341",
+    "source_name": "SCISSORS 10INCH",
+    "display_name": "SCISSORS 10INCH",
+    "brand": "Scissors",
+    "variant": "10INCH",
+    "category": "groceries"
+  },
+  {
+    "item_no": 342,
+    "id": "g1-prod-342",
+    "source_name": "Sensodyne Bresh",
+    "display_name": "Sensodyne Bresh",
+    "brand": "Sensodyne",
+    "variant": "Pieces",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 343,
+    "id": "g1-prod-343",
+    "source_name": "SENSORA PASTE 80G",
+    "display_name": "Sensora Sensitive Toothpaste 80G",
+    "brand": "Sensora",
+    "variant": "80G",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 344,
+    "id": "g1-prod-344",
+    "source_name": "SHINK BRASHS",
+    "display_name": "SHINK BRASHS",
+    "brand": "Shink",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 345,
+    "id": "g1-prod-345",
+    "source_name": "SMART MOP",
+    "display_name": "SMART MOP",
+    "brand": "Smart",
+    "variant": "Pairs",
+    "category": "household"
+  },
+  {
+    "item_no": 346,
+    "id": "g1-prod-346",
+    "source_name": "SOANPAPDI",
+    "display_name": "SOANPAPDI",
+    "brand": "Soanpapdi",
+    "variant": "Pieces",
+    "category": "snacks"
+  },
+  {
+    "item_no": 347,
+    "id": "g1-prod-347",
+    "source_name": "SOLO FRESH 100G",
+    "display_name": "SOLO FRESH 100G",
+    "brand": "Solo",
+    "variant": "100G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 348,
+    "id": "g1-prod-348",
+    "source_name": "SOMPU 50G",
+    "display_name": "SOMPU 50G",
+    "brand": "Sompu",
+    "variant": "50G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 349,
+    "id": "g1-prod-349",
+    "source_name": "SOMPU100G",
+    "display_name": "SOMPU100G",
+    "brand": "",
+    "variant": "100G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 350,
+    "id": "g1-prod-350",
+    "source_name": "SORGHUM500G",
+    "display_name": "SORGHUM500G",
+    "brand": "",
+    "variant": "500G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 351,
+    "id": "g1-prod-351",
+    "source_name": "SOYA BIG 100G",
+    "display_name": "SOYA BIG 100G",
+    "brand": "Soya",
+    "variant": "100G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 352,
+    "id": "g1-prod-352",
+    "source_name": "SOYA CHUNKS 42G",
+    "display_name": "SOYA CHUNKS 42G",
+    "brand": "Soya",
+    "variant": "42G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 353,
+    "id": "g1-prod-353",
+    "source_name": "SOYA SMALL 100G",
+    "display_name": "SOYA SMALL 100G",
+    "brand": "Soya",
+    "variant": "100G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 354,
+    "id": "g1-prod-354",
+    "source_name": "SOYA SMALL 50G",
+    "display_name": "SOYA SMALL 50G",
+    "brand": "Soya",
+    "variant": "50G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 355,
+    "id": "g1-prod-355",
+    "source_name": "SP CHOCOLATE 200G",
+    "display_name": "SP CHOCOLATE 200G",
+    "brand": "",
+    "variant": "200G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 356,
+    "id": "g1-prod-356",
+    "source_name": "SP DUET 200G",
+    "display_name": "SP DUET 200G",
+    "brand": "",
+    "variant": "200G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 357,
+    "id": "g1-prod-357",
+    "source_name": "SPINZ BB FACE POWDER 10G",
+    "display_name": "SPINZ BB FACE POWDER 10G",
+    "brand": "Spinz",
+    "variant": "10G",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 358,
+    "id": "g1-prod-358",
+    "source_name": "SPINZ BBCREAM15G",
+    "display_name": "SPINZ BBCREAM15G",
+    "brand": "Spinz",
+    "variant": "15G",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 359,
+    "id": "g1-prod-359",
+    "source_name": "SPINZ BBPOWDER20G",
+    "display_name": "SPINZ BBPOWDER20G",
+    "brand": "Spinz",
+    "variant": "20G",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 360,
+    "id": "g1-prod-360",
+    "source_name": "SPRITE 1L",
+    "display_name": "SPRITE 1L",
+    "brand": "Sprite",
+    "variant": "1L",
+    "category": "beverages"
+  },
+  {
+    "item_no": 361,
+    "id": "g1-prod-361",
+    "source_name": "SRI DURGA CHILLI POWDER 100G",
+    "display_name": "SRI DURGA CHILLI POWDER 100G",
+    "brand": "Sri Durga",
+    "variant": "100G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 362,
+    "id": "g1-prod-362",
+    "source_name": "SRI DURGA CORIANDER 100G",
+    "display_name": "SRI DURGA CORIANDER 100G",
+    "brand": "Sri Durga",
+    "variant": "100G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 363,
+    "id": "g1-prod-363",
+    "source_name": "SRI DURGA DANIA POWDER 50G",
+    "display_name": "SRI DURGA DANIA POWDER 50G",
+    "brand": "Sri Durga",
+    "variant": "50G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 364,
+    "id": "g1-prod-364",
+    "source_name": "Sri Durga Green Tamarind Pickleb 200g",
+    "display_name": "Sri Durga Green Tamarind Pickleb 200g",
+    "brand": "Sri Durga",
+    "variant": "200g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 365,
+    "id": "g1-prod-365",
+    "source_name": "SRI DURGA MANGO AVAKAI 200G",
+    "display_name": "SRI DURGA MANGO AVAKAI 200G",
+    "brand": "Sri Durga",
+    "variant": "200G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 366,
+    "id": "g1-prod-366",
+    "source_name": "SRI DURGA PAPULA PODI150G",
+    "display_name": "SRI DURGA PAPULA PODI150G",
+    "brand": "Sri Durga",
+    "variant": "150G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 367,
+    "id": "g1-prod-367",
+    "source_name": "SRI DURGA SINGER GARLIC",
+    "display_name": "SRI DURGA SINGER GARLIC",
+    "brand": "Sri Durga",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 368,
+    "id": "g1-prod-368",
+    "source_name": "SRI DURGA TARMARIK 50G",
+    "display_name": "SRI DURGA TARMARIK 50G",
+    "brand": "Sri Durga",
+    "variant": "50G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 369,
+    "id": "g1-prod-369",
+    "source_name": "SRI DURGA TOMATO PICKLE 200G",
+    "display_name": "SRI DURGA TOMATO PICKLE 200G",
+    "brand": "Sri Durga",
+    "variant": "200G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 370,
+    "id": "g1-prod-370",
+    "source_name": "SRI DURGA TOMATO PICKLE 500G",
+    "display_name": "SRI DURGA TOMATO PICKLE 500G",
+    "brand": "Sri Durga",
+    "variant": "500G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 371,
+    "id": "g1-prod-371",
+    "source_name": "SRI PAPADS 100G",
+    "display_name": "SRI PAPADS 100G",
+    "brand": "Sri",
+    "variant": "100G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 372,
+    "id": "g1-prod-372",
+    "source_name": "SS ROD",
+    "display_name": "SS ROD",
+    "brand": "",
+    "variant": "Packs",
+    "category": "groceries"
+  },
+  {
+    "item_no": 373,
+    "id": "g1-prod-373",
+    "source_name": "SSCG3",
+    "display_name": "SSCG3",
+    "brand": "",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 374,
+    "id": "g1-prod-374",
+    "source_name": "SSCG4S",
+    "display_name": "SSCG4S",
+    "brand": "",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 375,
+    "id": "g1-prod-375",
+    "source_name": "STARFREE XL",
+    "display_name": "STARFREE XL",
+    "brand": "Starfree",
+    "variant": "XL",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 376,
+    "id": "g1-prod-376",
+    "source_name": "STRABERRY CANDYB 135G",
+    "display_name": "STRABERRY CANDYB 135G",
+    "brand": "Straberry",
+    "variant": "135G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 377,
+    "id": "g1-prod-377",
+    "source_name": "Subha Lakshmi Turmeric 100",
+    "display_name": "Subha Lakshmi Turmeric 100",
+    "brand": "Subha",
+    "variant": "Pieces",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 378,
+    "id": "g1-prod-378",
+    "source_name": "Sugar 1Kg",
+    "display_name": "Sugar 1Kg",
+    "brand": "Sugar",
+    "variant": "1Kg",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 379,
+    "id": "g1-prod-379",
+    "source_name": "Sugar 500g",
+    "display_name": "Sugar 500g",
+    "brand": "Sugar",
+    "variant": "500g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 380,
+    "id": "g1-prod-380",
+    "source_name": "SUN GOLD SOAP 25",
+    "display_name": "SUN GOLD SOAP 25",
+    "brand": "Sun Gold",
+    "variant": "Pieces",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 381,
+    "id": "g1-prod-381",
+    "source_name": "SUNFEAST BOUNCE 28G",
+    "display_name": "SUNFEAST BOUNCE 28G",
+    "brand": "Sunfeast",
+    "variant": "28G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 382,
+    "id": "g1-prod-382",
+    "source_name": "SUNFEAST FANTASTIK CHOCO ALMOND",
+    "display_name": "SUNFEAST FANTASTIK CHOCO ALMOND",
+    "brand": "Sunfeast",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 383,
+    "id": "g1-prod-383",
+    "source_name": "SUNFEAST FANTASTIK FRUIT &NUT",
+    "display_name": "SUNFEAST FANTASTIK FRUIT &NUT",
+    "brand": "Sunfeast",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 384,
+    "id": "g1-prod-384",
+    "source_name": "SUNFEAST GLICOSE 24G",
+    "display_name": "SUNFEAST GLICOSE 24G",
+    "brand": "Sunfeast",
+    "variant": "24G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 385,
+    "id": "g1-prod-385",
+    "source_name": "SUNFEAST SUPERMILK 31G",
+    "display_name": "SUNFEAST SUPERMILK 31G",
+    "brand": "Sunfeast",
+    "variant": "31G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 386,
+    "id": "g1-prod-386",
+    "source_name": "SUNFEAST SUPERMILK 72G",
+    "display_name": "SUNFEAST SUPERMILK 72G",
+    "brand": "Sunfeast",
+    "variant": "72G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 387,
+    "id": "g1-prod-387",
+    "source_name": "SUNFEAST SWEET&SALTY 68G",
+    "display_name": "SUNFEAST SWEET&SALTY 68G",
+    "brand": "Sunfeast",
+    "variant": "68G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 388,
+    "id": "g1-prod-388",
+    "source_name": "Sunflower Seeds 100g",
+    "display_name": "Sunflower Seeds 100g",
+    "brand": "Sunflower",
+    "variant": "100g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 389,
+    "id": "g1-prod-389",
+    "source_name": "SUPER MOP",
+    "display_name": "SUPER MOP",
+    "brand": "Super",
+    "variant": "Pieces",
+    "category": "household"
+  },
+  {
+    "item_no": 390,
+    "id": "g1-prod-390",
+    "source_name": "SURF EXCEL 10",
+    "display_name": "SURF EXCEL 10",
+    "brand": "Surf Excel",
+    "variant": "Pieces",
+    "category": "household"
+  },
+  {
+    "item_no": 391,
+    "id": "g1-prod-391",
+    "source_name": "SURF EXCEL 65G",
+    "display_name": "SURF EXCEL 65G",
+    "brand": "Surf Excel",
+    "variant": "65G",
+    "category": "household"
+  },
+  {
+    "item_no": 392,
+    "id": "g1-prod-392",
+    "source_name": "SURF EXCEL 84 G",
+    "display_name": "SURF EXCEL 84 G",
+    "brand": "Surf Excel",
+    "variant": "84 G",
+    "category": "household"
+  },
+  {
+    "item_no": 393,
+    "id": "g1-prod-393",
+    "source_name": "Surf Excel Bar 250g",
+    "display_name": "Surf Excel Bar 250g",
+    "brand": "Surf Excel",
+    "variant": "250g",
+    "category": "household"
+  },
+  {
+    "item_no": 394,
+    "id": "g1-prod-394",
+    "source_name": "SURF EXCEL MATIC 70G",
+    "display_name": "SURF EXCEL MATIC 70G",
+    "brand": "Surf Excel",
+    "variant": "70G",
+    "category": "household"
+  },
+  {
+    "item_no": 395,
+    "id": "g1-prod-395",
+    "source_name": "SURFEXEL SOPE",
+    "display_name": "Surf Excel Detergent Bar",
+    "brand": "Surf Excel",
+    "variant": "Pieces",
+    "category": "household"
+  },
+  {
+    "item_no": 396,
+    "id": "g1-prod-396",
+    "source_name": "SURYA DEVA",
+    "display_name": "SURYA DEVA",
+    "brand": "Surya Deva",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 397,
+    "id": "g1-prod-397",
+    "source_name": "Swastiks Mango Pickle200g",
+    "display_name": "Swastiks Mango Pickle200g",
+    "brand": "Swastiks",
+    "variant": "200g",
+    "category": "groceries"
+  },
+  {
+    "item_no": 398,
+    "id": "g1-prod-398",
+    "source_name": "SWASTIKS RED CHILLI PICKLE 500G",
+    "display_name": "SWASTIKS RED CHILLI PICKLE 500G",
+    "brand": "Swastiks",
+    "variant": "500G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 399,
+    "id": "g1-prod-399",
+    "source_name": "SWD GARLIC MIXTUR",
+    "display_name": "SWD GARLIC MIXTUR",
+    "brand": "Swd",
+    "variant": "Pieces",
+    "category": "snacks"
+  },
+  {
+    "item_no": 400,
+    "id": "g1-prod-400",
+    "source_name": "SWD SPICY NUTS 25G",
+    "display_name": "SWD SPICY NUTS 25G",
+    "brand": "Swd",
+    "variant": "25G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 401,
+    "id": "g1-prod-401",
+    "source_name": "SWEEPER",
+    "display_name": "SWEEPER",
+    "brand": "Sweeper",
+    "variant": "Pieces",
+    "category": "household"
+  },
+  {
+    "item_no": 402,
+    "id": "g1-prod-402",
+    "source_name": "TAJ MAHAL 250G",
+    "display_name": "TAJ MAHAL 250G",
+    "brand": "Taj Mahal",
+    "variant": "250G",
+    "category": "beverages"
+  },
+  {
+    "item_no": 403,
+    "id": "g1-prod-403",
+    "source_name": "TAMARIND250G",
+    "display_name": "TAMARIND250G",
+    "brand": "",
+    "variant": "250G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 404,
+    "id": "g1-prod-404",
+    "source_name": "TAMARIND500G",
+    "display_name": "TAMARIND500G",
+    "brand": "",
+    "variant": "500G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 405,
+    "id": "g1-prod-405",
+    "source_name": "TANGY IMLI 350G",
+    "display_name": "TANGY IMLI 350G",
+    "brand": "Tangy",
+    "variant": "350G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 406,
+    "id": "g1-prod-406",
+    "source_name": "TASTY NUTS 100G",
+    "display_name": "TASTY NUTS 100G",
+    "brand": "Tasty",
+    "variant": "100G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 408,
+    "id": "g1-prod-408",
+    "source_name": "Telagadalu 100G",
+    "display_name": "Telagadalu 100G",
+    "brand": "Telagadalu",
+    "variant": "100G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 409,
+    "id": "g1-prod-409",
+    "source_name": "Telagadalu 250G",
+    "display_name": "Telagadalu 250G",
+    "brand": "Telagadalu",
+    "variant": "250G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 410,
+    "id": "g1-prod-410",
+    "source_name": "Telagadalu 500g",
+    "display_name": "Telagadalu 500g",
+    "brand": "Telagadalu",
+    "variant": "500g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 411,
+    "id": "g1-prod-411",
+    "source_name": "TERMERIC POWDER 100G",
+    "display_name": "Pure Turmeric Powder (Pasupu) 100G",
+    "brand": "Termeric",
+    "variant": "100G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 412,
+    "id": "g1-prod-412",
+    "source_name": "TERMERIC POWDER 500G",
+    "display_name": "Pure Turmeric Powder (Pasupu) 500G",
+    "brand": "Termeric",
+    "variant": "500G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 413,
+    "id": "g1-prod-413",
+    "source_name": "TERMERIC POWDER 50G",
+    "display_name": "Pure Turmeric Powder (Pasupu) 50G",
+    "brand": "Termeric",
+    "variant": "50G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 414,
+    "id": "g1-prod-414",
+    "source_name": "Thumsup",
+    "display_name": "Thumsup",
+    "brand": "Thums Up",
+    "variant": "Pieces",
+    "category": "beverages"
+  },
+  {
+    "item_no": 415,
+    "id": "g1-prod-415",
+    "source_name": "THUMSUP 1L",
+    "display_name": "THUMSUP 1L",
+    "brand": "Thums Up",
+    "variant": "1L",
+    "category": "beverages"
+  },
+  {
+    "item_no": 416,
+    "id": "g1-prod-416",
+    "source_name": "THUMSUP 2.25L",
+    "display_name": "THUMSUP 2.25L",
+    "brand": "Thums Up",
+    "variant": "2.25L",
+    "category": "beverages"
+  },
+  {
+    "item_no": 417,
+    "id": "g1-prod-417",
+    "source_name": "TOMATO SOUP",
+    "display_name": "TOMATO SOUP",
+    "brand": "Tomato",
+    "variant": "Pieces",
+    "category": "beverages"
+  },
+  {
+    "item_no": 418,
+    "id": "g1-prod-418",
+    "source_name": "TRESEMME 180ML",
+    "display_name": "TRESEMME 180ML",
+    "brand": "Tresemme",
+    "variant": "180ML",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 419,
+    "id": "g1-prod-419",
+    "source_name": "TULIPS COTTON SWABS",
+    "display_name": "TULIPS COTTON SWABS",
+    "brand": "Tulips",
+    "variant": "Pieces",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 420,
+    "id": "g1-prod-420",
+    "source_name": "UINIBIC CASEW BADAM",
+    "display_name": "Unibic CASEW BADAM",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 421,
+    "id": "g1-prod-421",
+    "source_name": "UINIBIC CHOCO CHIP",
+    "display_name": "Unibic CHOCO CHIP",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 422,
+    "id": "g1-prod-422",
+    "source_name": "UINIBIC CHOCO RIPPLE",
+    "display_name": "Unibic CHOCO RIPPLE",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 423,
+    "id": "g1-prod-423",
+    "source_name": "UINIBIC ORANGE SPLASH",
+    "display_name": "Unibic ORANGE SPLASH",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 424,
+    "id": "g1-prod-424",
+    "source_name": "UJALA 30ML",
+    "display_name": "UJALA 30ML",
+    "brand": "Ujala",
+    "variant": "30ML",
+    "category": "groceries"
+  },
+  {
+    "item_no": 425,
+    "id": "g1-prod-425",
+    "source_name": "Ujala 75ml",
+    "display_name": "Ujala 75ml",
+    "brand": "Ujala",
+    "variant": "75ml",
+    "category": "groceries"
+  },
+  {
+    "item_no": 426,
+    "id": "g1-prod-426",
+    "source_name": "ULTIMATE POWER LIQUID DETERGENT",
+    "display_name": "ULTIMATE POWER LIQUID DETERGENT",
+    "brand": "Ultimate",
+    "variant": "Pieces",
+    "category": "household"
+  },
+  {
+    "item_no": 427,
+    "id": "g1-prod-427",
+    "source_name": "ULTRA FLOOR CLEAN",
+    "display_name": "ULTRA FLOOR CLEAN",
+    "brand": "Ultra",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 428,
+    "id": "g1-prod-428",
+    "source_name": "ULTRA SOFT BRUSH",
+    "display_name": "ULTRA SOFT BRUSH",
+    "brand": "Ultra",
+    "variant": "Pieces",
+    "category": "household"
+  },
+  {
+    "item_no": 429,
+    "id": "g1-prod-429",
+    "source_name": "UNIBIC BUTTER",
+    "display_name": "UNIBIC BUTTER",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 430,
+    "id": "g1-prod-430",
+    "source_name": "UNIBIC CASHEW",
+    "display_name": "UNIBIC CASHEW",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 431,
+    "id": "g1-prod-431",
+    "source_name": "UNIBIC CASHEW BADAM",
+    "display_name": "UNIBIC CASHEW BADAM",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 432,
+    "id": "g1-prod-432",
+    "source_name": "UNIBIC CHOCO CHIP",
+    "display_name": "UNIBIC CHOCO CHIP",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 433,
+    "id": "g1-prod-433",
+    "source_name": "UNIBIC CHOCO NUT",
+    "display_name": "UNIBIC CHOCO NUT",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 434,
+    "id": "g1-prod-434",
+    "source_name": "UNIBIC CHOCO RIPPLE",
+    "display_name": "UNIBIC CHOCO RIPPLE",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 435,
+    "id": "g1-prod-435",
+    "source_name": "UNIBIC CHOCOLATE WAFER",
+    "display_name": "UNIBIC CHOCOLATE WAFER",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "snacks"
+  },
+  {
+    "item_no": 436,
+    "id": "g1-prod-436",
+    "source_name": "UNIBIC COCONUT",
+    "display_name": "UNIBIC COCONUT",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "fruits-vegetables"
+  },
+  {
+    "item_no": 437,
+    "id": "g1-prod-437",
+    "source_name": "UNIBIC DANISH COCONUT",
+    "display_name": "UNIBIC DANISH COCONUT",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "fruits-vegetables"
+  },
+  {
+    "item_no": 438,
+    "id": "g1-prod-438",
+    "source_name": "UNIBIC FRUIT & NUT",
+    "display_name": "UNIBIC FRUIT & NUT",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 439,
+    "id": "g1-prod-439",
+    "source_name": "UNIBIC OATS",
+    "display_name": "UNIBIC OATS",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 440,
+    "id": "g1-prod-440",
+    "source_name": "UNIBIC ORANGE SPLASH",
+    "display_name": "UNIBIC ORANGE SPLASH",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 441,
+    "id": "g1-prod-441",
+    "source_name": "UNIBIC PISTA BADAM",
+    "display_name": "UNIBIC PISTA BADAM",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 442,
+    "id": "g1-prod-442",
+    "source_name": "UNIBIC RICH CHOCOLATE WAFER",
+    "display_name": "UNIBIC RICH CHOCOLATE WAFER",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "snacks"
+  },
+  {
+    "item_no": 443,
+    "id": "g1-prod-443",
+    "source_name": "UNIBIC STRABERRY WAFER",
+    "display_name": "UNIBIC STRABERRY WAFER",
+    "brand": "Unibic",
+    "variant": "Pieces",
+    "category": "snacks"
+  },
+  {
+    "item_no": 444,
+    "id": "g1-prod-444",
+    "source_name": "VAM 50G",
+    "display_name": "VAM 50G",
+    "brand": "Vam",
+    "variant": "50G",
+    "category": "groceries"
+  },
+  {
+    "item_no": 445,
+    "id": "g1-prod-445",
+    "source_name": "VASELINE 5.5G",
+    "display_name": "VASELINE 5.5G",
+    "brand": "Vaseline",
+    "variant": "5.5G",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 446,
+    "id": "g1-prod-446",
+    "source_name": "Vermicilli Bambino1kg",
+    "display_name": "Vermicilli Bambino1kg",
+    "brand": "Vermicilli",
+    "variant": "1kg",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 447,
+    "id": "g1-prod-447",
+    "source_name": "Vermicilli Payasam Mix",
+    "display_name": "Vermicilli Payasam Mix",
+    "brand": "Vermicilli",
+    "variant": "Pieces",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 448,
+    "id": "g1-prod-448",
+    "source_name": "Verusenaga Pappu 1kg",
+    "display_name": "Verusenaga Pappu (Raw Groundnuts / Peanuts) 1kg",
+    "brand": "Verusenaga",
+    "variant": "1kg",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 449,
+    "id": "g1-prod-449",
+    "source_name": "Verusenaga Pappu 500g",
+    "display_name": "Verusenaga Pappu (Raw Groundnuts / Peanuts) 500g",
+    "brand": "Verusenaga",
+    "variant": "500g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 450,
+    "id": "g1-prod-450",
+    "source_name": "VIJAYA GROUNDNUT OIL 1L",
+    "display_name": "VIJAYA GROUNDNUT OIL 1L",
+    "brand": "Vijaya",
+    "variant": "1L",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 451,
+    "id": "g1-prod-451",
+    "source_name": "Vim 10g",
+    "display_name": "Vim 10g",
+    "brand": "Vim",
+    "variant": "10g",
+    "category": "household"
+  },
+  {
+    "item_no": 452,
+    "id": "g1-prod-452",
+    "source_name": "Vim 126g",
+    "display_name": "Vim 126g",
+    "brand": "Vim",
+    "variant": "126g",
+    "category": "household"
+  },
+  {
+    "item_no": 453,
+    "id": "g1-prod-453",
+    "source_name": "VIM 190ML",
+    "display_name": "VIM 190ML",
+    "brand": "Vim",
+    "variant": "190ML",
+    "category": "household"
+  },
+  {
+    "item_no": 454,
+    "id": "g1-prod-454",
+    "source_name": "VIM 250ML",
+    "display_name": "VIM 250ML",
+    "brand": "Vim",
+    "variant": "250ML",
+    "category": "household"
+  },
+  {
+    "item_no": 455,
+    "id": "g1-prod-455",
+    "source_name": "Vim 480g",
+    "display_name": "Vim 480g",
+    "brand": "Vim",
+    "variant": "480g",
+    "category": "household"
+  },
+  {
+    "item_no": 456,
+    "id": "g1-prod-456",
+    "source_name": "Vim 5rs Bar",
+    "display_name": "Vim 5rs Bar",
+    "brand": "Vim",
+    "variant": "5rs",
+    "category": "household"
+  },
+  {
+    "item_no": 457,
+    "id": "g1-prod-457",
+    "source_name": "Vim Sop",
+    "display_name": "Vim Dishwash Bar",
+    "brand": "Vim",
+    "variant": "Pieces",
+    "category": "household"
+  },
+  {
+    "item_no": 458,
+    "id": "g1-prod-458",
+    "source_name": "Vt Avalu 100g",
+    "display_name": "Vt Mustard Seeds (Avalu) 100g",
+    "brand": "",
+    "variant": "100g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 459,
+    "id": "g1-prod-459",
+    "source_name": "WAGH BAKRI TEA 100G",
+    "display_name": "WAGH BAKRI TEA 100G",
+    "brand": "Wagh Bakri",
+    "variant": "100G",
+    "category": "beverages"
+  },
+  {
+    "item_no": 461,
+    "id": "g1-prod-461",
+    "source_name": "WAGHB BAKRI ELAICHI 100G",
+    "display_name": "WAGHB BAKRI ELAICHI 100G",
+    "brand": "Wagh Bakri",
+    "variant": "100G",
+    "category": "beverages"
+  },
+  {
+    "item_no": 462,
+    "id": "g1-prod-462",
+    "source_name": "WALL STICK",
+    "display_name": "WALL STICK",
+    "brand": "Wall",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 463,
+    "id": "g1-prod-463",
+    "source_name": "Watermelon Seeds 100g",
+    "display_name": "Watermelon Seeds 100g",
+    "brand": "Watermelon",
+    "variant": "100g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 464,
+    "id": "g1-prod-464",
+    "source_name": "WHISPER XXL",
+    "display_name": "WHISPER XXL",
+    "brand": "Whisper",
+    "variant": "XXL",
+    "category": "personal-care"
+  },
+  {
+    "item_no": 465,
+    "id": "g1-prod-465",
+    "source_name": "WHITE URAD DAL 500G",
+    "display_name": "WHITE URAD DAL 500G",
+    "brand": "White",
+    "variant": "500G",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 466,
+    "id": "g1-prod-466",
+    "source_name": "WHITE URAD DAL250g",
+    "display_name": "WHITE URAD DAL250g",
+    "brand": "White",
+    "variant": "250g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 467,
+    "id": "g1-prod-467",
+    "source_name": "WIPPER STICK",
+    "display_name": "WIPPER STICK",
+    "brand": "Wipper",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 468,
+    "id": "g1-prod-468",
+    "source_name": "WOMENS PLUS",
+    "display_name": "WOMENS PLUS",
+    "brand": "Womens",
+    "variant": "Pieces",
+    "category": "groceries"
+  },
+  {
+    "item_no": 469,
+    "id": "g1-prod-469",
+    "source_name": "Yendu Kobbari 250g",
+    "display_name": "Yendu Kobbari (Dry Coconut) 250g",
+    "brand": "Yendu",
+    "variant": "250g",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 470,
+    "id": "g1-prod-470",
+    "source_name": "YIPPEE NOODLES 280G",
+    "display_name": "YIPPEE NOODLES 280G",
+    "brand": "Yippee",
+    "variant": "280G",
+    "category": "snacks"
+  },
+  {
+    "item_no": 471,
+    "id": "g1-prod-471",
+    "source_name": "YIPPEE NOODLES MAGIC MASALA",
+    "display_name": "YIPPEE NOODLES MAGIC MASALA",
+    "brand": "Yippee",
+    "variant": "Pieces",
+    "category": "rice-dal-atta"
+  },
+  {
+    "item_no": 472,
+    "id": "g1-prod-472",
+    "source_name": "YIPPEE WOW MASALA",
+    "display_name": "YIPPEE WOW MASALA",
+    "brand": "Yippee",
+    "variant": "Pieces",
+    "category": "rice-dal-atta"
+  }
+]

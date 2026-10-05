@@ -1,34 +1,34 @@
 import type { Product, Category } from '@/types';
-import { CATALOG_PRODUCTS } from './catalog';
+import { CATALOG_PRODUCTS as ALL_PRODUCTS } from './productsCatalog';
 
 const BASE_CATEGORIES: Omit<Category, 'itemCount'>[] = [
   {
-    id: 'rice-dal-atta',
-    name: 'Atta, Rice & Dal',
-    icon: '🌾',
-    image: '/categories/atta-rice-dal.jpg',
-    description: 'Rice, pulses, whole wheat atta, grains & staples',
-    subcategories: ['Atta & Flours', 'Rice & Grains', 'Dals & Pulses', 'Salt & Sugar'],
-  },
-  {
-    id: 'edible-oils',
-    name: 'Masala, Oil & More',
-    icon: '🛢️',
-    image: '/categories/masala-oil.jpg',
-    description: 'Cooking oils, pure ghee, spice powders & whole seeds',
-    subcategories: ['Cooking Oils & Ghee', 'Spices & Masalas', 'Whole Spices & Seeds', 'Deepam & Pooja Oil'],
+    id: 'fruits-vegetables',
+    name: 'Fruits & Vegetables',
+    icon: '🥦',
+    image: '/categories/fruits-vegetables.jpg',
+    description: 'Farm fresh fruits, leafy greens & organic vegetables',
+    subcategories: ['Fresh Produce & Fruits', 'Daily Vegetables'],
   },
   {
     id: 'dairy-bakery',
-    name: 'Dairy, Bread & Ice Creams',
+    name: 'Dairy & Bakery',
     icon: '🥛',
     image: '/categories/dairy-bread-eggs.jpg',
     description: 'Fresh milk, curd, butter, bakery items & ice creams',
     subcategories: ['Milk & Curd', 'Ice Creams & Frozen Treats', 'Bread & Bakery', 'Eggs'],
   },
   {
+    id: 'rice-dal-atta',
+    name: 'Rice, Dal & Atta',
+    icon: '🌾',
+    image: '/categories/atta-rice-dal.jpg',
+    description: 'Rice, pulses, whole wheat atta, grains & staples',
+    subcategories: ['Atta & Flours', 'Rice & Grains', 'Dals & Pulses', 'Salt & Sugar'],
+  },
+  {
     id: 'snacks',
-    name: 'Snacks & Munchies',
+    name: 'Snacks & Biscuits',
     icon: '🍪',
     image: '/categories/snacks-munchies.jpg',
     description: 'Chips, namkeen, cookies, chocolates, sweets, dry fruits & papads',
@@ -59,7 +59,7 @@ const BASE_CATEGORIES: Omit<Category, 'itemCount'>[] = [
   },
   {
     id: 'household',
-    name: 'Cleaning & Essentials',
+    name: 'Household & Cleaning',
     icon: '🧼',
     image: '/categories/cleaning-essentials.jpg',
     description: 'Detergents, dishwash, surface cleaners, utilities & pooja needs',
@@ -72,23 +72,23 @@ const BASE_CATEGORIES: Omit<Category, 'itemCount'>[] = [
     ],
   },
   {
-    id: 'fruits-vegetables',
-    name: 'Fresh Fruits & Veggies',
-    icon: '🥦',
-    image: '/categories/fruits-vegetables.jpg',
-    description: 'Fresh coconuts, vegetables & seasonal fruits',
-    subcategories: ['Fresh Produce & Fruits', 'Daily Vegetables'],
+    id: 'baby-care',
+    name: 'Baby Care',
+    icon: '👶',
+    image: '/categories/cleaning-essentials.jpg',
+    description: 'Baby diapers, wipes, soaps, baby shampoo and hygiene essentials',
+    subcategories: ['Diapers & Wipes', 'Baby Bath & Skincare'],
   },
 ];
 
 // Dynamically compute exact item count for each category from active catalogue
 export const DEMO_CATEGORIES: Category[] = BASE_CATEGORIES.map((cat) => ({
   ...cat,
-  itemCount: CATALOG_PRODUCTS.filter((p) => p.category === cat.id).length,
+  itemCount: ALL_PRODUCTS.filter((p) => p.category === cat.id).length,
 }));
 
-// All active products in catalogue
-export const DEMO_PRODUCTS: Product[] = CATALOG_PRODUCTS;
+// All active products in catalogue (All 472 products fallback)
+export const DEMO_PRODUCTS: Product[] = ALL_PRODUCTS;
 
 /** Convenience helpers */
 export function getDemoProductById(id: string): Product | undefined {

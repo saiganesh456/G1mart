@@ -6,6 +6,7 @@ import { Trash2, Plus, Minus, ArrowRight, ShoppingBag, ShieldCheck, CheckCircle2
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { STORE_CONFIG } from '@/config/store';
+import ProductImage from '@/components/storefront/ProductImage';
 
 export default function CartPage() {
   const { cart, updateCartQuantity, removeFromCart, clearCart, cartItemCount, cartSubtotal } =
@@ -94,12 +95,13 @@ export default function CartPage() {
       <div className="bg-white rounded-2xl border border-stone-200/80 p-3 sm:p-4 shadow-2xs divide-y divide-stone-100 overflow-hidden w-full box-border">
         {cart.map(({ product, quantity }) => (
           <div key={product.id} className="py-3 first:pt-0 last:pb-0 flex items-start gap-2.5 w-full overflow-hidden box-border">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-12 h-12 sm:w-14 sm:h-14 object-contain rounded-xl bg-stone-50 p-1 border border-stone-100 shrink-0 mt-0.5"
-            />
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-white border border-stone-100 shrink-0 mt-0.5 overflow-hidden flex items-center justify-center">
+              <ProductImage
+                imageUrl={product.image_url || (product as any).imageUrl || product.image}
+                imageStatus={product.image_status}
+                alt={product.name}
+              />
+            </div>
             <div className="flex-1 min-w-0 overflow-hidden space-y-1.5">
               {/* Row 1: Product Name & Delete */}
               <div className="flex items-start justify-between gap-1.5 w-full">

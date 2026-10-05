@@ -1,12 +1,17 @@
 import React from 'react';
-import { DEMO_CATEGORIES, DEMO_PRODUCTS } from '@/data/demo-seed';
+import { productService } from '@/services/productService';
 import AdminDashboardClient from './AdminDashboardClient';
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const [products, categories] = await Promise.all([
+    productService.getProducts(),
+    productService.getCategories(),
+  ]);
+
   return (
     <AdminDashboardClient
-      initialProducts={DEMO_PRODUCTS}
-      categories={DEMO_CATEGORIES}
+      initialProducts={products}
+      categories={categories}
     />
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { Store, ShieldCheck, Package, ShoppingBag, ArrowLeft, ExternalLink } from 'lucide-react';
+import { Store, ShieldCheck, ExternalLink } from 'lucide-react';
+import AdminAuthGuard from '@/components/admin/AdminAuthGuard';
 
 export const metadata = {
   title: 'Admin Console | G1 Mart',
@@ -48,9 +49,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </header>
 
-      {/* Main Content Area */}
+      {/* Main Content Area Protected by AdminAuthGuard */}
       <div className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6">
-        {children}
+        <AdminAuthGuard>
+          {children}
+        </AdminAuthGuard>
       </div>
     </div>
   );

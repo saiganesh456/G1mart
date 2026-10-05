@@ -1,16 +1,19 @@
 export * from './deliveryZone';
 
-export type UserRole = 'customer' | 'admin';
+export type UserRole = 'customer' | 'admin' | 'delivery_partner' | 'rider';
 
 export type ImageSource = 'own_photo' | 'openfoodfacts' | 'manufacturer' | 'placeholder';
-export type ImageStatus = 'pending' | 'approved' | 'placeholder';
+export type ImageStatus = 'VERIFIED' | 'PENDING' | 'MISSING' | 'pending' | 'approved' | 'placeholder';
 
 export interface Product {
   id: string;
+  source_item_no?: number;
+  source_name?: string;
   name: string;
   brand: string;
   category: string;
   subCategory?: string;
+  variant?: string;
   unit: string;
   price: number;
   priceConfirmed?: boolean;
@@ -19,6 +22,8 @@ export interface Product {
   inStock: boolean;
   stockCount: number;
   image: string;
+  image_url?: string | null;
+  imageUrl?: string | null;
   image_path?: string;
   image_source: ImageSource;
   image_license?: string | null;
@@ -157,9 +162,23 @@ export interface Order {
 }
 
 export interface UserProfile {
+  id?: string;
   name: string;
   phone: string;
   email: string;
   avatar?: string;
   memberSince?: string;
+  role?: UserRole;
 }
+
+export interface StaffMember {
+  id: string;
+  email: string;
+  role: 'admin' | 'rider';
+  name?: string;
+  phone?: string;
+  vehicleNumber?: string;
+  createdAt: string;
+  status: 'active' | 'inactive';
+}
+

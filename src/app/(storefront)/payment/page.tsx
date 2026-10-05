@@ -7,6 +7,7 @@ import { ArrowLeft, Banknote, Smartphone, CreditCard, ShieldCheck, AlertCircle }
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
+import { addressService } from '@/services/addressService';
 
 export default function PaymentPage() {
   const router = useRouter();
@@ -26,9 +27,13 @@ export default function PaymentPage() {
     try {
       const raw = sessionStorage.getItem('g1mart_checkout_address');
       if (raw) addressData = JSON.parse(raw);
+      if (!addressData || !addressData.phone) {
+        const lastUsed = localStorage.getItem('g1mart_last_used_address');
+        if (lastUsed) addressData = JSON.parse(lastUsed);
+      }
     } catch {}
 
-    if (!addressData || !addressData.phone) {
+    if (!addressData || (!addressData.phone && !addressData.mobileNumber)) {
       alert('Please complete your delivery address in checkout first.');
       router.push('/checkout');
       return;
@@ -110,6 +115,24 @@ export default function PaymentPage() {
                 data: { orders: [orderRecord, ...existingOrders] },
               }).catch(() => {});
             }
+
+            // Permanently save address for fast future checkout
+            addressService.saveAddress(supabaseUser?.id || user?.id, user?.email || supabaseUser?.email || addressData.phone, {
+              fullName: addressData.fullName || user?.name || '',
+              mobileNumber: addressData.phone || addressData.mobileNumber || user?.phone || '',
+              phone: addressData.phone || addressData.mobileNumber || user?.phone || '',
+              houseFlat: addressData.houseFlat || '',
+              streetArea: addressData.streetArea || '',
+              landmark: addressData.landmark || '',
+              city: addressData.city || 'Nellore',
+              state: 'Andhra Pradesh',
+              pincode: addressData.pincode || '',
+              type: addressData.type || 'Home',
+              isDefault: true,
+              deliveryInstructions: addressData.deliveryInstructions,
+              latitude: addressData.latitude,
+              longitude: addressData.longitude,
+            }).catch(() => {});
           } catch {}
 
           clearCart();
@@ -196,6 +219,24 @@ export default function PaymentPage() {
             data: { orders: [orderRecord, ...existingOrders] },
           }).catch(() => {});
         }
+
+        // Permanently save address for fast future checkout
+        addressService.saveAddress(supabaseUser?.id || user?.id, user?.email || supabaseUser?.email || addressData.phone, {
+          fullName: addressData.fullName || user?.name || '',
+          mobileNumber: addressData.phone || addressData.mobileNumber || user?.phone || '',
+          phone: addressData.phone || addressData.mobileNumber || user?.phone || '',
+          houseFlat: addressData.houseFlat || '',
+          streetArea: addressData.streetArea || '',
+          landmark: addressData.landmark || '',
+          city: addressData.city || 'Nellore',
+          state: 'Andhra Pradesh',
+          pincode: addressData.pincode || '',
+          type: addressData.type || 'Home',
+          isDefault: true,
+          deliveryInstructions: addressData.deliveryInstructions,
+          latitude: addressData.latitude,
+          longitude: addressData.longitude,
+        }).catch(() => {});
       } catch {}
 
       // NOTE: Do NOT clearCart() here. Cart is safely cleared in /payment/result once payment is verified completed.

@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import type { Order } from '@/types';
 import { formatIndianPhoneDisplay } from '@/lib/phone';
+import RiderAuthGuard from '@/components/rider/RiderAuthGuard';
 
 export default function RiderPage() {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -77,7 +78,8 @@ export default function RiderPage() {
   });
 
   return (
-    <div className="max-w-2xl mx-auto space-y-4 pb-24 pt-2 sm:pt-4 px-3 sm:px-0">
+    <RiderAuthGuard>
+      <div className="max-w-2xl mx-auto space-y-4 pb-24 pt-2 sm:pt-4 px-3 sm:px-0">
       {/* Rider Header Bar */}
       <div className="bg-[#1A2E1C] text-white p-4 rounded-2xl shadow-md flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -298,5 +300,6 @@ export default function RiderPage() {
         </div>
       )}
     </div>
+    </RiderAuthGuard>
   );
 }

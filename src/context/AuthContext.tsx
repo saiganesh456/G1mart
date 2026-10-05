@@ -70,15 +70,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         } catch {}
       } else {
         const meta = activeUser.user_metadata || {};
+        const uEmail = (activeUser.email || meta.email || '').toLowerCase().trim();
+        let fallbackRole: any = 'customer';
+        if (uEmail === 'g1mart@gmail.com' || uEmail === 'lingalamahendra0@gmail.com') {
+          fallbackRole = 'admin';
+        }
         const p: UserProfile = {
+          id: activeUser.id,
           name: meta.full_name || meta.name || activeUser.email?.split('@')[0] || 'Customer',
           phone: activeUser.phone || meta.phone || '',
-          email: activeUser.email || '',
+          email: uEmail,
           avatar: meta.avatar_url || meta.picture || '',
           memberSince: new Date(activeUser.created_at).toLocaleDateString('en-IN', {
             month: 'short',
             year: 'numeric',
           }),
+          role: fallbackRole,
         };
         setUser(p);
         try {

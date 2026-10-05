@@ -1,22 +1,38 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Heart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-import { DEMO_PRODUCTS } from '@/data/demo-seed';
+import { CATALOG_PRODUCTS } from '@/data/productsCatalog';
+import { productService } from '@/services/productService';
 import ProductGrid from '@/components/storefront/ProductGrid';
+import type { Product } from '@/types';
 
 export default function WishlistPage() {
   const { wishlistIds } = useCart();
-  const wishlistedProducts = DEMO_PRODUCTS.filter((p) => wishlistIds.has(p.id));
+  const [products, setProducts] = useState<Product[]>(CATALOG_PRODUCTS);
+
+  useEffect(() => {
+    let isMounted = true;
+    productService.getProducts().then((live) => {
+      if (isMounted && live && live.length > 0) {
+        setProducts(live);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const wishlistedProducts = products.filter((p) => wishlistIds.has(p.id));
 
   return (
     <div className="max-w-4xl mx-auto space-y-4 pb-20 sm:pb-12 pt-2 sm:pt-4 px-3 sm:px-0">
       <div className="flex items-center gap-3">
         <Link
           href="/account"
-          className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50"
+          className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50 cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
         </Link>
@@ -36,7 +52,7 @@ export default function WishlistPage() {
           </div>
           <Link
             href="/"
-            className="inline-block px-4 py-2 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl text-xs font-bold transition-all shadow-sm"
+            className="inline-block px-4 py-2 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer"
           >
             Explore Catalog
           </Link>

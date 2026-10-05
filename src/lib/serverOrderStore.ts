@@ -73,7 +73,9 @@ export const serverOrderStore = {
         unit: product.unit,
         price: unitPrice,
         quantity: qty,
-        image: product.image_status === 'approved' ? (product.image_path || product.image) : '/products/placeholder.svg',
+        image: (product.image_status === 'VERIFIED' || product.image_status === 'approved')
+          ? (product.image_url || product.image_path || product.image || '/products/placeholder.svg')
+          : '/products/placeholder.svg',
       });
     }
 
@@ -401,7 +403,43 @@ export const serverOrderStore = {
     updatedBy?: string
   ): Promise<{ success: boolean; order?: Order }> {
     this.loadFromDisk();
-    const order = ordersMap.get(orderId);
+    let order = ordersMap.get(orderId);
+
+    // Fallback: If order not in memory, try to load from Supabase
+    if (!order && isSupabaseConfigured()) {
+      try {
+        const { data } = await supabase.from('orders').select('*').eq('id', orderId).maybeSingle();
+        if (data) {
+          const loadedOrder: Order = {
+            id: data.id,
+            date: data.date,
+            slot: data.slot,
+            paymentMethod: data.payment_method,
+            paymentStatus: data.is_paid ? 'completed' : (data.payment_method === 'Cash on Delivery' ? 'cash_on_delivery' : 'pending'),
+            isPaid: data.is_paid,
+            status: data.status,
+            subtotal: Number(data.subtotal),
+            discount: Number(data.discount),
+            deliveryFee: Number(data.delivery_fee),
+            taxes: Number(data.taxes),
+            grandTotal: Number(data.grand_total),
+            items: [],
+            address: data.address as any,
+            timeline: [
+              { status: 'Order Placed', time: 'Confirmed', completed: true },
+              { status: 'Packed', time: 'Pending', completed: false },
+              { status: 'Out for Delivery', time: 'Pending', completed: false },
+              { status: 'Delivered', time: 'Pending', completed: false },
+            ],
+          };
+          order = loadedOrder;
+          ordersMap.set(orderId, loadedOrder);
+        }
+      } catch (err) {
+        console.warn('[serverOrderStore] Error loading order from Supabase:', err);
+      }
+    }
+
     if (!order) return { success: false };
 
     const timeStr = new Date().toLocaleTimeString('en-IN', {
@@ -412,12 +450,18 @@ export const serverOrderStore = {
     order.status = status;
 
     // Update timeline steps
-    const isPacked = status === 'Packed' || status === 'Order Dispatched' || status === 'Out for Delivery' || status === 'Delivered';
-    const isDispatched = status === 'Order Dispatched' || status === 'Out for Delivery' || status === 'Delivered';
+    const isPacked =
+      status === 'Packed' ||
+      status === 'Order Dispatched' ||
+      status === 'Out for Delivery' ||
+      status === 'Delivered';
+    const isDispatched =
+      status === 'Order Dispatched' || status === 'Out for Delivery' || status === 'Delivered';
     const isDelivered = status === 'Delivered';
 
+    const prevFirstTime = (order.timeline && order.timeline[0]?.time) || 'Confirmed';
     order.timeline = [
-      { status: 'Order Placed', time: order.timeline[0]?.time || 'Confirmed', completed: true },
+      { status: 'Order Placed', time: prevFirstTime, completed: true },
       { status: 'Packed', time: isPacked ? timeStr : 'Pending', completed: isPacked },
       { status: 'Out for Delivery', time: isDispatched ? timeStr : 'Pending', completed: isDispatched },
       { status: 'Delivered', time: isDelivered ? timeStr : 'Pending', completed: isDelivered },
@@ -428,11 +472,13 @@ export const serverOrderStore = {
 
     if (isSupabaseConfigured()) {
       try {
+        // Map status to valid database enum ('Order Placed', 'Packed', 'Out for Delivery', 'Delivered', 'Cancelled')
+        const dbStatus = status === 'Order Dispatched' ? 'Out for Delivery' : status;
         await supabase
           .from('orders')
           .update({
-            status,
-            timeline: order.timeline,
+            status: dbStatus,
+            updated_at: new Date().toISOString(),
           })
           .eq('id', orderId);
       } catch (err) {
@@ -441,6 +487,16 @@ export const serverOrderStore = {
     }
 
     return { success: true, order };
+  },
+
+  /**
+   * Cache or update an existing order in memory and persist
+   */
+  cacheOrder(order: Order) {
+    if (order && order.id) {
+      ordersMap.set(order.id, order);
+      this.persistToDisk();
+    }
   },
 
   /**

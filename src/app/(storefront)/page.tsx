@@ -1,15 +1,21 @@
 import Link from 'next/link';
-import { ArrowRight, Sparkles, Flame, Coffee, Cookie } from 'lucide-react';
+import { ArrowRight, Flame, Coffee, Cookie } from 'lucide-react';
 import BannerCarousel from '@/components/storefront/BannerCarousel';
 import CategoryGrid from '@/components/storefront/CategoryGrid';
 import ProductGrid from '@/components/storefront/ProductGrid';
-import { DEMO_CATEGORIES, DEMO_PRODUCTS } from '@/data/demo-seed';
+import { productService } from '@/services/productService';
 
-export default function HomePage() {
-  const popularProducts = DEMO_PRODUCTS.filter((p) => p.isPopular).slice(0, 10);
-  const stapleProducts = DEMO_PRODUCTS.filter((p) => p.category === 'rice-dal-atta').slice(0, 10);
-  const snackProducts = DEMO_PRODUCTS.filter((p) => p.category === 'snacks').slice(0, 10);
-  const beverageProducts = DEMO_PRODUCTS.filter((p) => p.category === 'beverages').slice(0, 10);
+export default async function HomePage() {
+  const [allProducts, categories] = await Promise.all([
+    productService.getProducts(),
+    productService.getCategories(),
+  ]);
+
+  const popularCandidates = allProducts.filter((p) => p.isPopular);
+  const popularProducts = popularCandidates.length > 0 ? popularCandidates.slice(0, 10) : allProducts.slice(0, 10);
+  const stapleProducts = allProducts.filter((p) => p.category === 'rice-dal-atta').slice(0, 10);
+  const snackProducts = allProducts.filter((p) => p.category === 'snacks').slice(0, 10);
+  const beverageProducts = allProducts.filter((p) => p.category === 'beverages').slice(0, 10);
 
   return (
     <div className="space-y-6 pb-20 sm:pb-12 pt-2 sm:pt-4 px-2 sm:px-0">
@@ -17,7 +23,7 @@ export default function HomePage() {
       <BannerCarousel />
 
       {/* Categories Grid */}
-      <CategoryGrid categories={DEMO_CATEGORIES} />
+      <CategoryGrid categories={categories} />
 
       {/* Popular Fast-Moving Items */}
       <section className="space-y-3 px-1 sm:px-0">
@@ -32,7 +38,7 @@ export default function HomePage() {
             href="/search"
             className="text-xs font-bold text-[#2E7D32] hover:text-[#1b5e20] flex items-center gap-0.5 transition-colors"
           >
-            <span>Explore all {DEMO_PRODUCTS.length} items</span>
+            <span>Explore all {allProducts.length} items</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>

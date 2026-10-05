@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-10-05T10:24:29Z",
+  "total_source_files_found": 14,
+  "total_source_files_analyzed": 14,
+  "total_source_product_rows": 1570,
+  "existing_products": 472,
+  "duplicate_skus_merged": 27,
+  "new_unique_products": 99,
+  "final_master_product_count": 571,
+  "real_verified_images_before": 29,
+  "new_verified_images": 29,
+  "total_verified_images": 58,
+  "needs_review": 425,
+  "unmatched": 0,
+  "missing_images": 88,
+  "failed_downloads": 0
+}

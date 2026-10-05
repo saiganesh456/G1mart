@@ -3,19 +3,35 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, MapPin, Clock, ShieldCheck, AlertCircle, Navigation, CheckCircle2, UserCheck, LogIn, Phone as PhoneIcon } from 'lucide-react';
+import {
+  ArrowLeft,
+  MapPin,
+  Clock,
+  ShieldCheck,
+  AlertCircle,
+  Navigation,
+  CheckCircle2,
+  UserCheck,
+  Plus,
+  Home,
+  Building2,
+  Check,
+  Sparkles,
+} from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useLocation } from '@/context/LocationContext';
 import { useAuth } from '@/context/AuthContext';
 import { STORE_CONFIG } from '@/config/store';
-import { sanitizeIndianPhone, isValidIndianPhone, formatIndianPhoneDisplay } from '@/lib/phone';
+import { sanitizeIndianPhone, isValidIndianPhone } from '@/lib/phone';
 import { authService } from '@/services/authService';
+import { addressService } from '@/services/addressService';
+import { Address } from '@/types';
 
 export default function CheckoutPage() {
   const router = useRouter();
   const { cart, cartItemCount, cartSubtotal } = useCart();
   const { currentLocation, detectLocation, isDetecting } = useLocation();
-  const { user, isLoggedIn, setLocalUser } = useAuth();
+  const { user, supabaseUser, isLoggedIn, setLocalUser } = useAuth();
 
   // Auth gate state
   const [googleLoading, setGoogleLoading] = useState(false);
@@ -23,7 +39,14 @@ export default function CheckoutPage() {
   const [quickName, setQuickName] = useState('');
   const [authError, setAuthError] = useState<string | null>(null);
 
-  // Form state
+  // Saved addresses state (Flipkart / Blinkit pattern)
+  const [savedAddresses, setSavedAddresses] = useState<Address[]>([]);
+  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
+  const [isAddingNewAddress, setIsAddingNewAddress] = useState(false);
+  const [addressType, setAddressType] = useState<'Home' | 'Work' | 'Other'>('Home');
+  const [isLoadingAddresses, setIsLoadingAddresses] = useState(true);
+
+  // Address Form state
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [phoneError, setPhoneError] = useState<string | null>(null);
@@ -38,42 +61,136 @@ export default function CheckoutPage() {
   const [selectedSlot, setSelectedSlot] = useState('Standard Delivery');
   const [autoFilled, setAutoFilled] = useState(false);
 
-  // Pre-fill from sessionStorage or user profile
+  // 1. Fetch saved addresses on mount or when user changes
   useEffect(() => {
-    try {
-      const saved = sessionStorage.getItem('g1mart_checkout_address');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed.fullName) setFullName(parsed.fullName);
-        if (parsed.phone) setPhone(sanitizeIndianPhone(parsed.phone));
-        if (parsed.houseFlat) setHouseFlat(parsed.houseFlat);
-        if (parsed.streetArea) setStreetArea(parsed.streetArea);
-        if (parsed.landmark) setLandmark(parsed.landmark);
-        if (parsed.city) setCity(parsed.city);
-        if (parsed.pincode) setPincode(parsed.pincode);
-        if (parsed.deliveryInstructions) setDeliveryInstructions(parsed.deliveryInstructions);
-        if (parsed.selectedSlot) setSelectedSlot(parsed.selectedSlot);
-        return;
-      }
-    } catch {}
+    let isMounted = true;
 
-    if (user) {
-      if (!phone && user.phone) {
-        setPhone(sanitizeIndianPhone(user.phone));
-      }
-      if (!fullName && user.name) {
-        setFullName(user.name);
-      }
-    }
-  }, [user, phone, fullName]);
+    const loadSavedAddresses = async () => {
+      try {
+        setIsLoadingAddresses(true);
+        const list = await addressService.getAddresses(supabaseUser?.id || user?.id, user?.email || user?.phone);
+        if (!isMounted) return;
 
-  // Only pre-fill GPS/location if user explicitly clicks Auto-detect GPS or had saved address
+        setSavedAddresses(list);
 
+        if (list.length > 0) {
+          // Identify the most relevant address: last used address or default or first
+          let active = list.find((a) => a.isDefault) || list[0];
+          try {
+            const lastUsed = localStorage.getItem('g1mart_last_used_address');
+            if (lastUsed) {
+              const parsed = JSON.parse(lastUsed);
+              const match = list.find((a) => a.id === parsed.id);
+              if (match) active = match;
+            }
+          } catch {}
+
+          setSelectedAddressId(active.id);
+          setFullName(active.fullName || user?.name || '');
+          setPhone(sanitizeIndianPhone(active.mobileNumber || active.phone || user?.phone || ''));
+          setHouseFlat(active.houseFlat || '');
+          setStreetArea(active.streetArea || '');
+          setLandmark(active.landmark || '');
+          setCity(active.city || STORE_CONFIG.address.city || 'Nellore');
+          setPincode(active.pincode || '');
+          setAddressType(active.type || 'Home');
+          if (active.deliveryInstructions) setDeliveryInstructions(active.deliveryInstructions);
+          if (active.latitude) setLatitude(active.latitude);
+          if (active.longitude) setLongitude(active.longitude);
+          setIsAddingNewAddress(false);
+        } else {
+          // No saved addresses found - show address form
+          setIsAddingNewAddress(true);
+          if (user?.name && !fullName) setFullName(user.name);
+          if (user?.phone && !phone) setPhone(sanitizeIndianPhone(user.phone));
+
+          // Also check sessionStorage
+          try {
+            const saved = sessionStorage.getItem('g1mart_checkout_address');
+            if (saved) {
+              const parsed = JSON.parse(saved);
+              if (parsed.fullName) setFullName(parsed.fullName);
+              if (parsed.phone) setPhone(sanitizeIndianPhone(parsed.phone));
+              if (parsed.houseFlat) setHouseFlat(parsed.houseFlat);
+              if (parsed.streetArea) setStreetArea(parsed.streetArea);
+              if (parsed.landmark) setLandmark(parsed.landmark);
+              if (parsed.city) setCity(parsed.city);
+              if (parsed.pincode) setPincode(parsed.pincode);
+              if (parsed.deliveryInstructions) setDeliveryInstructions(parsed.deliveryInstructions);
+              if (parsed.latitude) setLatitude(parsed.latitude);
+              if (parsed.longitude) setLongitude(parsed.longitude);
+            }
+          } catch {}
+        }
+      } catch (e) {
+        console.warn('[Checkout] Failed to load saved addresses:', e);
+        setIsAddingNewAddress(true);
+      } finally {
+        if (isMounted) setIsLoadingAddresses(false);
+      }
+    };
+
+    loadSavedAddresses();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [user]);
+
+  // Handle selecting an existing saved address
+  const handleSelectAddress = (addr: Address) => {
+    setSelectedAddressId(addr.id);
+    setFullName(addr.fullName || user?.name || '');
+    setPhone(sanitizeIndianPhone(addr.mobileNumber || addr.phone || user?.phone || ''));
+    setHouseFlat(addr.houseFlat || '');
+    setStreetArea(addr.streetArea || '');
+    setLandmark(addr.landmark || '');
+    setCity(addr.city || STORE_CONFIG.address.city || 'Nellore');
+    setPincode(addr.pincode || '');
+    setAddressType(addr.type || 'Home');
+    if (addr.deliveryInstructions) setDeliveryInstructions(addr.deliveryInstructions);
+    if (addr.latitude) setLatitude(addr.latitude);
+    if (addr.longitude) setLongitude(addr.longitude);
+    setIsAddingNewAddress(false);
+  };
+
+  // Switch to Add New Address mode
+  const handleStartAddNewAddress = () => {
+    setIsAddingNewAddress(true);
+    setSelectedAddressId(null);
+    if (user?.name) setFullName(user.name);
+    if (user?.phone) setPhone(sanitizeIndianPhone(user.phone));
+    setHouseFlat('');
+    setStreetArea('');
+    setLandmark('');
+    setPincode('');
+    setLatitude(undefined);
+    setLongitude(undefined);
+    setAutoFilled(false);
+  };
+
+  // Auto-detect GPS button handler
   const handleAutoFillClick = async () => {
     const loc = await detectLocation();
     if (loc) {
-      setStreetArea(loc.street || loc.area);
-      setCity(loc.city);
+      // Build a clean, human-readable Street/Area without road codes like MDR032
+      const rawParts = [loc.street, loc.area].filter(Boolean);
+      const uniqueParts: string[] = [];
+      rawParts.forEach((part) => {
+        part.split(',').forEach((sub) => {
+          const trimmed = sub.trim();
+          if (
+            trimmed &&
+            !uniqueParts.some((p) => p.toLowerCase() === trimmed.toLowerCase()) &&
+            trimmed.toLowerCase() !== (loc.city || '').toLowerCase()
+          ) {
+            uniqueParts.push(trimmed);
+          }
+        });
+      });
+      const cleanStreetArea = uniqueParts.join(', ');
+      setStreetArea(cleanStreetArea || loc.street || loc.area);
+      setCity(loc.city || STORE_CONFIG.address.city || 'Nellore');
       if (loc.pincode) setPincode(loc.pincode);
       if (loc.lat && loc.lng) {
         setLatitude(loc.lat);
@@ -132,7 +249,7 @@ export default function CheckoutPage() {
     setAuthError(null);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!isLoggedIn) {
@@ -154,27 +271,60 @@ export default function CheckoutPage() {
       return;
     }
 
+    if (!houseFlat.trim()) {
+      alert('Please enter your House / Flat / Floor / Building');
+      return;
+    }
+
+    if (!streetArea.trim()) {
+      alert('Please enter your Street / Area / Colony');
+      return;
+    }
+
+    // Prepare address object
+    const addressIdToUse = isAddingNewAddress
+      ? `addr-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`
+      : selectedAddressId || `addr-${Date.now()}`;
+
+    const addressRecord: Address = {
+      id: addressIdToUse,
+      fullName: fullName.trim(),
+      mobileNumber: cleanPhone,
+      phone: cleanPhone,
+      houseFlat: houseFlat.trim(),
+      streetArea: streetArea.trim(),
+      landmark: landmark.trim(),
+      city: city.trim() || STORE_CONFIG.address.city || 'Nellore',
+      state: 'Andhra Pradesh',
+      pincode: cleanPincode,
+      type: addressType,
+      isDefault: true,
+      deliveryInstructions: deliveryInstructions.trim() || undefined,
+      latitude,
+      longitude,
+    };
+
     /**
-     * Store temporary address in sessionStorage for payment confirmation
+     * Persist to permanent storage & session
      */
     try {
+      // 1. Save to addressService (LocalStorage + Supabase database)
+      await addressService.saveAddress(supabaseUser?.id || user?.id, user?.email || user?.phone, addressRecord);
+
+      // 2. Save to sessionStorage for payment flow
       sessionStorage.setItem(
         'g1mart_checkout_address',
         JSON.stringify({
-          fullName,
-          phone: cleanPhone,
-          houseFlat,
-          streetArea,
-          landmark,
-          city,
-          pincode: cleanPincode,
-          latitude,
-          longitude,
-          deliveryInstructions,
+          ...addressRecord,
           selectedSlot,
         })
       );
-    } catch {}
+
+      // 3. Save to localStorage last used
+      localStorage.setItem('g1mart_last_used_address', JSON.stringify(addressRecord));
+    } catch (err) {
+      console.warn('[Checkout] Failed to persist address:', err);
+    }
 
     router.push('/payment');
   };
@@ -191,35 +341,8 @@ export default function CheckoutPage() {
         <h1 className="text-base sm:text-lg font-black text-[#212121]">Checkout</h1>
       </div>
 
-      {/* Step 1: Mandatory Authentication Gate */}
-      {isLoggedIn ? (
-        <div className="bg-emerald-50/70 border border-emerald-200/80 rounded-2xl p-4 flex items-center justify-between shadow-2xs">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-[#2E7D32] text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs">
-              <CheckCircle2 className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-black text-stone-900">
-                  Step 1: Account Verified ({user?.name || 'Customer'})
-                </span>
-                <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.2 rounded">
-                  LOGGED IN
-                </span>
-              </div>
-              <p className="text-[11px] text-stone-500 font-medium mt-0.5">
-                {user?.email || (user?.phone ? formatIndianPhoneDisplay(user.phone) : 'Account active and ready for booking')}
-              </p>
-            </div>
-          </div>
-          <Link
-            href="/account"
-            className="text-[11px] font-bold text-[#2E7D32] hover:underline shrink-0"
-          >
-            Change
-          </Link>
-        </div>
-      ) : (
+      {/* Account Authentication Gate - ONLY shown if NOT logged in */}
+      {!isLoggedIn && (
         <div className="bg-white rounded-2xl border-2 border-[#2E7D32]/40 p-4 sm:p-5 shadow-sm space-y-4 animate-in fade-in">
           <div className="flex items-center justify-between border-b border-stone-100 pb-2.5">
             <div className="flex items-center gap-2">
@@ -315,152 +438,289 @@ export default function CheckoutPage() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Delivery Address Card */}
-        <div className={`bg-white rounded-2xl border border-stone-200/80 p-4 shadow-2xs space-y-3.5 ${!isLoggedIn ? 'opacity-60 pointer-events-none' : ''}`}>
+        <div className={`bg-white rounded-2xl border border-stone-200/80 p-4 shadow-2xs space-y-4 ${!isLoggedIn ? 'opacity-60 pointer-events-none' : ''}`}>
           <div className="flex items-center justify-between border-b border-stone-100 pb-2.5">
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-[#2E7D32]" />
               <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider">
-                2. Delivery Doorstep Address
+                Delivery Doorstep Address
               </h2>
             </div>
 
-            {/* Auto Detect Button */}
-            <button
-              type="button"
-              onClick={handleAutoFillClick}
-              disabled={isDetecting || !isLoggedIn}
-              className="px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-[#2E7D32] rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-50 cursor-pointer"
-            >
-              <Navigation className="w-3.5 h-3.5 fill-[#2E7D32]" />
-              <span>{isDetecting ? 'Detecting...' : 'Auto-detect GPS'}</span>
-            </button>
+            {/* Auto Detect Button if in form mode */}
+            {isAddingNewAddress && (
+              <button
+                type="button"
+                onClick={handleAutoFillClick}
+                disabled={isDetecting || !isLoggedIn}
+                className="px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-[#2E7D32] rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-50 cursor-pointer"
+              >
+                <Navigation className="w-3.5 h-3.5 fill-[#2E7D32]" />
+                <span>{isDetecting ? 'Detecting...' : 'Auto-detect GPS'}</span>
+              </button>
+            )}
           </div>
 
-          {/* GPS Confirmation Pill */}
-          {autoFilled && latitude && longitude && (
-            <div className="p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-200 text-xs text-emerald-800 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#2E7D32] shrink-0" />
-                <span className="font-semibold">
-                  Exact GPS pin captured: ({latitude.toFixed(4)}, {longitude.toFixed(4)})
+          {/* 1. Blinkit / Flipkart Saved Addresses Selector (when user has saved addresses) */}
+          {savedAddresses.length > 0 && !isAddingNewAddress ? (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider">
+                  Select Delivery Location ({savedAddresses.length} Saved)
                 </span>
+                <button
+                  type="button"
+                  onClick={handleStartAddNewAddress}
+                  className="text-xs font-bold text-[#2E7D32] hover:text-[#1b5e20] flex items-center gap-1 cursor-pointer transition-colors"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Add New Address</span>
+                </button>
               </div>
-              <span className="text-[10px] bg-white px-2 py-0.5 rounded font-bold text-emerald-900">
-                RIDER NAV READY
-              </span>
+
+              <div className="grid grid-cols-1 gap-2.5">
+                {savedAddresses.map((addr) => {
+                  const isSelected = selectedAddressId === addr.id;
+                  return (
+                    <div
+                      key={addr.id}
+                      onClick={() => handleSelectAddress(addr)}
+                      className={`relative p-3.5 rounded-xl border-2 transition-all cursor-pointer flex items-start gap-3 ${
+                        isSelected
+                          ? 'border-[#2E7D32] bg-emerald-50/30 shadow-xs'
+                          : 'border-stone-200 hover:border-stone-300 bg-white'
+                      }`}
+                    >
+                      {/* Radio Check Indicator */}
+                      <div
+                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
+                          isSelected
+                            ? 'border-[#2E7D32] bg-[#2E7D32] text-white'
+                            : 'border-stone-300 bg-white'
+                        }`}
+                      >
+                        {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                      </div>
+
+                      <div className="min-w-0 flex-1 space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="font-extrabold text-stone-900 text-xs">
+                            {addr.fullName}
+                          </span>
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-stone-100 text-stone-600 uppercase tracking-wider">
+                            {addr.type || 'Home'}
+                          </span>
+                          {addr.isDefault && (
+                            <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800">
+                              Default
+                            </span>
+                          )}
+                        </div>
+
+                        <p className="text-xs text-stone-600 leading-snug">
+                          {addr.houseFlat}, {addr.streetArea}
+                          {addr.landmark ? `, Near ${addr.landmark}` : ''}, {addr.city} - {addr.pincode}
+                        </p>
+
+                        <div className="flex items-center gap-3 text-[11px] text-stone-500 pt-0.5">
+                          <span>Phone: +91 {addr.mobileNumber || addr.phone}</span>
+                          {addr.deliveryInstructions && (
+                            <span className="truncate italic max-w-xs text-stone-400">
+                              Note: {addr.deliveryInstructions}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Add New Address Action Tile */}
+              <button
+                type="button"
+                onClick={handleStartAddNewAddress}
+                className="w-full py-2.5 px-3 rounded-xl border border-dashed border-stone-300 hover:border-[#2E7D32] hover:bg-emerald-50/30 text-stone-600 hover:text-[#2E7D32] text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Deliver to a Different Address</span>
+              </button>
+            </div>
+          ) : (
+            /* 2. Address Input Form (First-time user or adding new address) */
+            <div className="space-y-3.5">
+              {savedAddresses.length > 0 && (
+                <div className="flex items-center justify-between pb-2 border-b border-stone-100">
+                  <span className="text-xs font-bold text-stone-700">Enter New Address</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (savedAddresses.length > 0) {
+                        handleSelectAddress(savedAddresses[0]);
+                      }
+                    }}
+                    className="text-xs font-bold text-[#2E7D32] hover:underline cursor-pointer"
+                  >
+                    ← Choose from Saved Addresses ({savedAddresses.length})
+                  </button>
+                </div>
+              )}
+
+              {/* GPS Confirmation Pill */}
+              {autoFilled && latitude && longitude && (
+                <div className="p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-200 text-xs text-emerald-800 flex items-center justify-between animate-in fade-in">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#2E7D32] shrink-0" />
+                    <span className="font-semibold">
+                      Exact GPS pin captured: ({latitude.toFixed(4)}, {longitude.toFixed(4)})
+                    </span>
+                  </div>
+                  <span className="text-[10px] bg-white px-2 py-0.5 rounded font-bold text-emerald-900 shadow-2xs">
+                    RIDER NAV READY
+                  </span>
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div>
+                  <label className="font-bold text-stone-700 block mb-1">Full Name *</label>
+                  <input
+                    type="text"
+                    required
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder="e.g. Sai Ganesh"
+                    className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-bold text-stone-700 block mb-1">Mobile Number *</label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-stone-500 select-none">
+                      +91
+                    </span>
+                    <input
+                      type="tel"
+                      required
+                      maxLength={16}
+                      value={phone}
+                      onChange={(e) => {
+                        const cleaned = sanitizeIndianPhone(e.target.value);
+                        setPhone(cleaned);
+                        if (phoneError && isValidIndianPhone(cleaned)) {
+                          setPhoneError(null);
+                        }
+                      }}
+                      onBlur={() => {
+                        if (phone && !isValidIndianPhone(phone)) {
+                          setPhoneError('Please enter a valid 10-digit mobile number');
+                        } else {
+                          setPhoneError(null);
+                        }
+                      }}
+                      placeholder="98765 43210"
+                      className={`w-full h-9 pl-11 pr-3 rounded-xl border outline-none transition-colors ${
+                        phoneError ? 'border-rose-400 bg-rose-50/20' : 'border-stone-300 focus:border-[#2E7D32]'
+                      }`}
+                    />
+                  </div>
+                  {phoneError && (
+                    <p className="text-[11px] text-rose-600 font-semibold mt-1">{phoneError}</p>
+                  )}
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="font-bold text-stone-700 block mb-1">
+                    House / Flat / Floor / Building *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={houseFlat}
+                    onChange={(e) => setHouseFlat(e.target.value)}
+                    placeholder="e.g. Flat 302, Sri Sai Residency, 3rd Floor"
+                    className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
+                  />
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="font-bold text-stone-700 block mb-1">
+                    Street / Area / Colony *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={streetArea}
+                    onChange={(e) => setStreetArea(e.target.value)}
+                    placeholder="e.g. Tadipartipalem, Venkatachalam"
+                    className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-bold text-stone-700 block mb-1">Landmark (Optional)</label>
+                  <input
+                    type="text"
+                    value={landmark}
+                    onChange={(e) => setLandmark(e.target.value)}
+                    placeholder="e.g. Opposite Water Tank / Near Temple"
+                    className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-bold text-stone-700 block mb-1">PIN Code *</label>
+                  <input
+                    type="text"
+                    required
+                    maxLength={6}
+                    value={pincode}
+                    onChange={(e) => setPincode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                    placeholder="e.g. 524321"
+                    className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
+                  />
+                </div>
+
+                {/* Address Type Tag Selector */}
+                <div className="sm:col-span-2">
+                  <label className="font-bold text-stone-700 block mb-1.5">Save Address As</label>
+                  <div className="flex items-center gap-2">
+                    {(['Home', 'Work', 'Other'] as const).map((type) => (
+                      <button
+                        key={type}
+                        type="button"
+                        onClick={() => setAddressType(type)}
+                        className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 cursor-pointer ${
+                          addressType === type
+                            ? 'border-[#2E7D32] bg-[#2E7D32] text-white shadow-2xs'
+                            : 'border-stone-200 bg-white text-stone-600 hover:border-stone-300'
+                        }`}
+                      >
+                        {type === 'Home' && <Home className="w-3.5 h-3.5" />}
+                        {type === 'Work' && <Building2 className="w-3.5 h-3.5" />}
+                        {type === 'Other' && <MapPin className="w-3.5 h-3.5" />}
+                        <span>{type}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="font-bold text-stone-700 block mb-1">
+                    Delivery Instructions for Rider (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    value={deliveryInstructions}
+                    onChange={(e) => setDeliveryInstructions(e.target.value)}
+                    placeholder="e.g. Ring the bell twice / Leave at security gate"
+                    className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
+                  />
+                </div>
+              </div>
             </div>
           )}
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-            <div>
-              <label className="font-bold text-stone-700 block mb-1">Full Name *</label>
-              <input
-                type="text"
-                required
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="e.g. Ramesh Reddy"
-                className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
-              />
-            </div>
-
-            <div>
-              <label className="font-bold text-stone-700 block mb-1">Mobile Number *</label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-stone-500 select-none">
-                  +91
-                </span>
-                <input
-                  type="tel"
-                  required
-                  maxLength={16}
-                  value={phone}
-                  onChange={(e) => {
-                    const cleaned = sanitizeIndianPhone(e.target.value);
-                    setPhone(cleaned);
-                    if (phoneError && isValidIndianPhone(cleaned)) {
-                      setPhoneError(null);
-                    }
-                  }}
-                  onBlur={() => {
-                    if (phone && !isValidIndianPhone(phone)) {
-                      setPhoneError('Please enter a valid 10-digit mobile number');
-                    } else {
-                      setPhoneError(null);
-                    }
-                  }}
-                  placeholder="98765 43210"
-                  className={`w-full h-9 pl-11 pr-3 rounded-xl border outline-none transition-colors ${
-                    phoneError ? 'border-rose-400 bg-rose-50/20' : 'border-stone-300 focus:border-[#2E7D32]'
-                  }`}
-                />
-              </div>
-              {phoneError && (
-                <p className="text-[11px] text-rose-600 font-semibold mt-1">{phoneError}</p>
-              )}
-            </div>
-
-            <div className="sm:col-span-2">
-              <label className="font-bold text-stone-700 block mb-1">House / Flat / Floor / Building *</label>
-              <input
-                type="text"
-                required
-                value={houseFlat}
-                onChange={(e) => setHouseFlat(e.target.value)}
-                placeholder="e.g. Flat 302, Sri Sai Residency, 3rd Floor"
-                className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
-              />
-            </div>
-
-            <div className="sm:col-span-2">
-              <label className="font-bold text-stone-700 block mb-1">Street / Area / Colony *</label>
-              <input
-                type="text"
-                required
-                value={streetArea}
-                onChange={(e) => setStreetArea(e.target.value)}
-                placeholder="e.g. Setti Gunta Rd, Weavers Colony"
-                className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
-              />
-            </div>
-
-            <div>
-              <label className="font-bold text-stone-700 block mb-1">Landmark (Optional)</label>
-              <input
-                type="text"
-                value={landmark}
-                onChange={(e) => setLandmark(e.target.value)}
-                placeholder="e.g. Opposite Water Tank / Near Temple"
-                className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
-              />
-            </div>
-
-            <div>
-              <label className="font-bold text-stone-700 block mb-1">PIN Code *</label>
-              <input
-                type="text"
-                required
-                maxLength={6}
-                value={pincode}
-                onChange={(e) => setPincode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                placeholder="e.g. 524002"
-                className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
-              />
-            </div>
-
-            <div className="sm:col-span-2">
-              <label className="font-bold text-stone-700 block mb-1">
-                Delivery Instructions for Rider (Optional)
-              </label>
-              <input
-                type="text"
-                value={deliveryInstructions}
-                onChange={(e) => setDeliveryInstructions(e.target.value)}
-                placeholder="e.g. Ring the bell twice / Leave at security gate"
-                className="w-full h-9 px-3 rounded-xl border border-stone-300 outline-none focus:border-[#2E7D32]"
-              />
-            </div>
-          </div>
         </div>
 
         {/* Delivery Slot Card */}
@@ -468,7 +728,7 @@ export default function CheckoutPage() {
           <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
             <Clock className="w-4 h-4 text-[#2E7D32]" />
             <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider">
-              3. Delivery Window
+              Delivery Window
             </h2>
           </div>
 
@@ -509,7 +769,7 @@ export default function CheckoutPage() {
         {/* Order Summary & Submit Button */}
         <div className="bg-white rounded-2xl border border-stone-200/80 p-4 shadow-2xs space-y-3">
           <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider border-b border-stone-100 pb-2">
-            4. Order Summary ({cartItemCount} items)
+            Order Summary ({cartItemCount} items)
           </h2>
 
           <div className="space-y-1.5 text-xs text-stone-600">

@@ -31,7 +31,7 @@ function PaymentResultContent() {
   useEffect(() => {
     if (typeof window !== 'undefined' && upiIntentUrl) {
       QRCode.toDataURL(upiIntentUrl, { width: 220, margin: 1 })
-        .then((url) => setQrCodeDataUrl(url))
+        .then((url: string) => setQrCodeDataUrl(url))
         .catch(() => {});
     }
   }, [upiIntentUrl]);

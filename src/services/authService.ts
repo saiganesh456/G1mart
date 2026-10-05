@@ -43,27 +43,50 @@ export const authService = {
         .eq('id', user.id)
         .maybeSingle();
 
+      const userEmail = (data?.email || user.email || '').toLowerCase().trim();
+      let detectedRole: UserRole = (data?.role as any) || 'customer';
+
+      // Always grant admin to root admin emails or check server role
+      if (userEmail === 'g1mart@gmail.com' || userEmail === 'lingalamahendra0@gmail.com') {
+        detectedRole = 'admin';
+      } else {
+        try {
+          const roleRes = await fetch('/api/auth/role-check', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: userEmail }),
+          });
+          const roleData = await roleRes.json();
+          if (roleData.success && roleData.role) {
+            detectedRole = roleData.role;
+          }
+        } catch {}
+      }
+
       if (data) {
         return {
           name: data.full_name || 'Customer',
           phone: data.phone || user.phone || '',
-          email: data.email || user.email || '',
+          email: userEmail,
           avatar: data.avatar_url || '',
           memberSince: new Date(data.created_at).toLocaleDateString('en-IN', {
             month: 'short',
             year: 'numeric',
           }),
+          role: detectedRole,
         };
       }
 
       // Fallback directly to user metadata (e.g. from Google OAuth)
       const meta = user.user_metadata || {};
       return {
+        id: user.id,
         name: meta.full_name || meta.name || user.email?.split('@')[0] || 'Customer',
         phone: user.phone || meta.phone || '',
-        email: user.email || '',
+        email: userEmail,
         avatar: meta.avatar_url || meta.picture || '',
         memberSince: 'October 2026',
+        role: detectedRole,
       };
     } catch {
       return null;

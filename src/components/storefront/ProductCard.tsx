@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Heart, Plus, Minus } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import type { Product } from '@/types';
+import ProductImage from './ProductImage';
 
 interface ProductCardProps {
   product: Product;
@@ -23,12 +24,6 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
     if ((e.target as HTMLElement).closest('button')) return;
     router.push(`/product/${product.id}`);
   };
-
-  // STRICT SPEC: Show image ONLY when image_status === 'approved'. Otherwise always placeholder.
-  const displayImage =
-    product.image_status === 'approved'
-      ? product.image_path || product.image
-      : '/products/placeholder.svg';
 
   return (
     <div
@@ -79,16 +74,12 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           />
         </button>
 
-        {/* Product image (Placeholder if not approved) */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={displayImage}
+        {/* Canonical product image with authentic status check */}
+        <ProductImage
+          imageUrl={product.image_url || (product as any).imageUrl}
+          imageStatus={product.image_status || (product as any).imageStatus}
           alt={product.name}
-          referrerPolicy="no-referrer"
-          className="w-full h-full object-contain p-1.5 group-hover:scale-105 transition-transform duration-300"
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
-          }}
+          className="group-hover:scale-105"
         />
       </div>
 
@@ -117,6 +108,15 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
                   </span>
                 )}
               </>
+            ) : product.originalPrice && product.originalPrice > 0 ? (
+              <div className="flex flex-col">
+                <span className="text-[11px] font-extrabold text-stone-800 tabular-nums">
+                  MRP ₹{product.originalPrice}
+                </span>
+                <span className="text-[8px] font-bold text-amber-700 uppercase tracking-tighter">
+                  Price TBA
+                </span>
+              </div>
             ) : (
               <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200/80 px-1.5 py-0.5 rounded tracking-tight">
                 Price TBA
