@@ -3,11 +3,14 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Search, ShoppingBag, User, MapPin, ChevronDown } from 'lucide-react';
+import { Search, ShoppingBag, User, MapPin, ChevronDown, ScanBarcode } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useLocation } from '@/context/LocationContext';
 import { useAuth } from '@/context/AuthContext';
+import { STORE_CONFIG } from '@/config/store';
 import LocationModal from './LocationModal';
+import BarcodeScannerModal from '@/components/common/BarcodeScannerModal';
+import SlipScannerModal from '@/components/storefront/SlipScannerModal';
 
 export default function Header() {
   const router = useRouter();
@@ -15,6 +18,8 @@ export default function Header() {
   const { currentLocation, setIsModalOpen } = useLocation();
   const { user, isLoggedIn } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
+  const [isBarcodeModalOpen, setIsBarcodeModalOpen] = useState(false);
+  const [isSlipScannerOpen, setIsSlipScannerOpen] = useState(false);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +28,10 @@ export default function Header() {
     }
   };
 
-  const deliveryEta = currentLocation.zone?.estimatedDeliveryTimeText || '30-60 mins';
+  const deliveryEta =
+    STORE_CONFIG.delivery.cityEtaText && !STORE_CONFIG.delivery.cityEtaText.startsWith('TODO_')
+      ? STORE_CONFIG.delivery.cityEtaText
+      : currentLocation.zone?.estimatedDeliveryTimeText || 'Local Delivery';
 
   return (
     <>
@@ -118,15 +126,24 @@ export default function Header() {
           {/* Search bar */}
           <div className="px-3 pb-3">
             <form onSubmit={handleSearchSubmit} role="search">
-              <div className="relative">
+              <div className="relative flex items-center">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
                 <input
                   type="search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search groceries, brands…"
-                  className="w-full h-10 pl-9 pr-4 rounded-xl bg-stone-100 border border-stone-200 text-sm outline-none focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32]/20 transition-colors"
+                  placeholder="Search 'milk', 'atta', 'surf excel', 'tea'…"
+                  className="w-full h-10 pl-9 pr-11 rounded-xl bg-stone-100 border border-stone-200 text-sm outline-none focus:bg-white focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32]/20 transition-all placeholder:text-stone-400"
                 />
+                <button
+                  type="button"
+                  onClick={() => setIsBarcodeModalOpen(true)}
+                  aria-label="Scan barcode or product"
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-[#2E7D32] hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer flex items-center justify-center"
+                  title="Scan barcode / pantry item"
+                >
+                  <ScanBarcode className="w-5 h-5 stroke-[2.2]" />
+                </button>
               </div>
             </form>
           </div>
@@ -172,15 +189,24 @@ export default function Header() {
 
             {/* Search */}
             <form onSubmit={handleSearchSubmit} role="search" className="flex-1 max-w-xl">
-              <div className="relative">
+              <div className="relative flex items-center">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
                 <input
                   type="search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search groceries, brands, categories…"
-                  className="w-full h-10 pl-9 pr-4 rounded-xl bg-stone-100 border border-stone-200 text-sm outline-none focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32]/20 transition-colors"
+                  placeholder="Search groceries, brands, daily essentials…"
+                  className="w-full h-10 pl-9 pr-11 rounded-xl bg-stone-100 border border-stone-200 text-sm outline-none focus:bg-white focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32]/20 transition-all placeholder:text-stone-400"
                 />
+                <button
+                  type="button"
+                  onClick={() => setIsBarcodeModalOpen(true)}
+                  aria-label="Scan barcode or product"
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-[#2E7D32] hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer flex items-center justify-center"
+                  title="Scan barcode / pantry item"
+                >
+                  <ScanBarcode className="w-5 h-5 stroke-[2.2]" />
+                </button>
               </div>
             </form>
 
@@ -235,13 +261,12 @@ export default function Header() {
           <div className="border-t border-stone-100 bg-stone-50/60">
             <div className="max-w-7xl mx-auto px-6 py-1.5 flex items-center gap-1 overflow-x-auto no-scrollbar text-xs font-semibold">
               {[
-                { href: '/category/fruits-vegetables', label: '🥦 Fruits & Veg' },
-                { href: '/category/dairy-bakery', label: '🥛 Dairy & Bakery' },
-                { href: '/category/rice-dal-atta', label: '🌾 Rice, Dal & Atta' },
-                { href: '/category/snacks', label: '🍪 Snacks' },
-                { href: '/category/beverages', label: '☕ Beverages' },
+                { href: '/category/household-cleaning', label: '🧼 Household & Cleaning' },
                 { href: '/category/personal-care', label: '✨ Personal Care' },
-                { href: '/category/household', label: '🏠 Household' },
+                { href: '/category/pooja-essentials', label: '🪔 Pooja Essentials' },
+                { href: '/category/grocery-staples', label: '🌾 Grocery & Staples' },
+                { href: '/category/snacks-beverages', label: '🍪 Snacks & Beverages' },
+                { href: '/categories', label: '📑 All Departments' },
               ].map((item) => (
                 <Link
                   key={item.href}
@@ -258,6 +283,12 @@ export default function Header() {
 
       {/* Location Modal */}
       <LocationModal />
+
+      {/* Barcode Scanner Modal */}
+      <BarcodeScannerModal
+        isOpen={isBarcodeModalOpen}
+        onClose={() => setIsBarcodeModalOpen(false)}
+      />
     </>
   );
 }

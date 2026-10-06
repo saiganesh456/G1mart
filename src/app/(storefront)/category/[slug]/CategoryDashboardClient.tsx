@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, SlidersHorizontal, Check } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import { ArrowLeft, ChevronRight } from 'lucide-react';
 import ProductCard from '@/components/storefront/ProductCard';
+import { STORE_CONFIG } from '@/config/store';
 import type { Category, Product } from '@/types';
 
 interface Props {
@@ -12,66 +14,19 @@ interface Props {
   products: Product[];
 }
 
-// Subcategory thumbnail icon mapper for authentic Blinkit appearance
-const SUBCAT_THUMBNAILS: Record<string, string> = {
-  // Rice Dal Atta
-  'Atta & Flours': '/products/prod-2.jpg',
-  'Rice & Grains': '/products/prod-6.jpg',
-  'Dals & Pulses': '/products/photos/toor-dal.jpg',
-  'Salt & Sugar': '/products/photos/crystal-salt.jpg',
-
-  // Oils & Masala
-  'Cooking Oils & Ghee': '/products/prod-3.jpg',
-  'Spices & Masalas': '/products/photos/spices-cloves.jpg',
-  'Whole Spices & Seeds': '/products/photos/spices-cloves.jpg',
-  'Sunflower Oil': '/products/prod-3.jpg',
-  'Groundnut & Other Oils': '/products/photos/cooking-oil.jpg',
-  'Deepam & Pooja Oil': '/products/photos/pooja-camphor.jpg',
-  'Pure Ghee': '/products/photos/ghee.jpg',
-
-  // Dairy Bakery
-  'Milk & Curd': '/products/prod-4.jpg',
-  'Ice Creams & Frozen Treats': '/categories/dairy-bread-eggs.jpg',
-  'Bread & Bakery': '/products/prod-5.jpg',
-  'Eggs': '/products/prod-4.jpg',
-
-  // Snacks
-  'Biscuits & Cookies': '/products/photos/biscuits-pack.jpg',
-  'Chips & Namkeen': '/products/photos/chips-namkeen.jpg',
-  'Chocolates & Sweets': '/products/prod-41.jpg',
-  'Dry Fruits & Nuts': '/products/photos/cashews.jpg',
-  'Papads & Fryums': '/products/photos/chips-namkeen.jpg',
-  'Instant Noodles & Pasta': '/products/prod-22.jpg',
-
-  // Beverages
-  'Tea & Chai': '/products/prod-26.jpg',
-  'Instant Coffee': '/products/prod-28.jpg',
-  'Cold Drinks & Soda': '/products/photos/cold-drink-bottle.jpg',
-  'Health Drinks': '/products/prod-30.jpg',
-
-  // Personal Care
-  'Bath Soaps': '/products/prod-31.jpg',
-  'Oral Care': '/products/prod-10.jpg',
-  'Hair Care & Shampoo': '/products/prod-35.jpg',
-  'Hair Care': '/products/prod-35.jpg',
-  'Skincare & Hygiene': '/products/prod-43.jpg',
-
-  // Household
-  'Detergent & Fabric Care': '/products/prod-9.jpg',
-  'Dishwash & Kitchen': '/products/prod-37.jpg',
-  'Floor & Cleaners': '/products/prod-39.jpg',
-  'Pooja Needs': '/products/photos/pooja-camphor.jpg',
-  'Home Utilities & Stationery': '/products/photos/cleaning-wash.jpg',
-  'Home Utilities': '/products/photos/cleaning-wash.jpg',
-
-  // Fruits & Veg
-  'Daily Vegetables': '/products/prod-13.jpg',
-  'Fresh Produce & Fruits': '/products/prod-11.jpg',
-};
-
 export default function CategoryDashboardClient({ category, allCategories, products }: Props) {
+  const searchParams = useSearchParams();
+  const subParam = searchParams.get('sub');
+
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'popular' | 'price-asc' | 'price-desc'>('popular');
+
+  // Sync subcategory from URL query param if valid
+  useEffect(() => {
+    if (subParam && (category.subcategories || []).includes(subParam)) {
+      setSelectedSubCategory(subParam);
+    }
+  }, [subParam, category.subcategories]);
 
   const subcategories = useMemo(() => category.subcategories || [], [category.subcategories]);
 
@@ -100,27 +55,34 @@ export default function CategoryDashboardClient({ category, allCategories, produ
     return counts;
   }, [subcategories, products]);
 
+  // Delivery text from store config (no speed promises)
+  const deliveryText =
+    STORE_CONFIG.delivery.cityEtaText && !STORE_CONFIG.delivery.cityEtaText.startsWith('TODO_')
+      ? `Delivery window: ${STORE_CONFIG.delivery.cityEtaText}`
+      : 'Standard local delivery';
+
   return (
-    <div className="space-y-4 pb-24 sm:pb-16 pt-2 sm:pt-4 px-2 sm:px-0">
-      {/* Top Header & Breadcrumb */}
+    <div className="space-y-4 pb-24 sm:pb-16 pt-2 sm:pt-4 px-1 sm:px-0">
+      {/* Top Header & Breadcrumbs */}
       <div className="bg-white rounded-2xl border border-stone-200/80 shadow-2xs p-3 sm:p-4 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 min-w-0">
           <Link
-            href="/"
+            href="/categories"
             className="w-9 h-9 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center transition-colors shrink-0"
-            title="Back to Home"
+            title="All Categories"
+            aria-label="Back to all categories"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
-          <div>
+          <div className="min-w-0">
             <div className="flex items-center gap-2">
               <span className="text-xl sm:text-2xl leading-none">{category.icon}</span>
-              <h1 className="text-base sm:text-xl font-extrabold text-[#212121] tracking-tight">
+              <h1 className="text-base sm:text-lg font-extrabold text-[#212121] tracking-tight truncate">
                 {category.name}
               </h1>
             </div>
-            <p className="text-xs text-stone-500 font-medium mt-0.5">
-              Showing {filteredProducts.length} of {products.length} products · Express delivery in 30 mins
+            <p className="text-[11px] text-stone-500 font-medium mt-0.5 truncate">
+              {filteredProducts.length} of {products.length} items · {deliveryText}
             </p>
           </div>
         </div>
@@ -143,146 +105,140 @@ export default function CategoryDashboardClient({ category, allCategories, produ
         </div>
       </div>
 
-      {/* Main 2-Column Blinkit Category Dashboard Layout */}
-      <div className="flex items-start gap-3 sm:gap-5">
-        {/* Left Vertical Subcategory Rail (Matching Blinkit Image 3) */}
-        <aside className="w-24 sm:w-32 md:w-44 shrink-0 bg-white rounded-2xl border border-stone-200/80 shadow-2xs overflow-hidden sticky top-20 self-start max-h-[calc(100vh-6.5rem)] overflow-y-auto no-scrollbar">
-          <div className="p-2 border-b border-stone-100">
-            <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block px-1">
-              Subcategories
+      {/* Top Sub-Category Filter Chips (Mandatory Stage A Requirement) */}
+      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 px-0.5">
+        <button
+          type="button"
+          onClick={() => setSelectedSubCategory('all')}
+          className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all active:scale-95 cursor-pointer ${
+            selectedSubCategory === 'all'
+              ? 'bg-[#2E7D32] text-white shadow-2xs'
+              : 'bg-white text-stone-700 border border-stone-200 hover:border-[#2E7D32] hover:bg-stone-50'
+          }`}
+        >
+          All Items ({products.length})
+        </button>
+
+        {subcategories.map((sub) => {
+          const count = subCatCounts[sub] || 0;
+          const isSelected = selectedSubCategory === sub;
+          return (
+            <button
+              key={sub}
+              type="button"
+              onClick={() => setSelectedSubCategory(sub)}
+              className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer ${
+                isSelected
+                  ? 'bg-[#2E7D32] text-white shadow-2xs'
+                  : 'bg-white text-stone-700 border border-stone-200 hover:border-[#2E7D32] hover:bg-stone-50'
+              }`}
+            >
+              <span>{sub}</span>
+              <span
+                className={`text-[10px] px-1.5 py-0.2 rounded-full font-black ${
+                  isSelected ? 'bg-white/25 text-white' : 'bg-stone-100 text-stone-500'
+                }`}
+              >
+                {count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Main Content Area */}
+      <div className="flex items-start gap-4">
+        {/* Left Side Subcategory Rail (Desktop only) */}
+        <aside className="hidden lg:block w-52 shrink-0 bg-white rounded-2xl border border-stone-200/80 shadow-2xs overflow-hidden sticky top-20 self-start">
+          <div className="p-3 border-b border-stone-100 flex items-center justify-between">
+            <span className="text-[11px] font-black text-stone-500 uppercase tracking-wider">
+              Sub-categories
             </span>
           </div>
 
-          <div className="p-1.5 space-y-1">
-            {/* All Products Option */}
+          <div className="p-2 space-y-1">
             <button
               type="button"
               onClick={() => setSelectedSubCategory('all')}
-              className={`w-full text-left p-2 rounded-xl flex flex-col items-center gap-1 transition-all text-center ${
+              className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${
                 selectedSubCategory === 'all'
-                  ? 'bg-[#E8F5E9] text-[#1B5E20] font-extrabold border-l-4 border-[#2E7D32] shadow-2xs'
-                  : 'text-stone-600 hover:bg-stone-50 font-semibold'
+                  ? 'bg-[#E8F5E9] text-[#1B5E20] font-bold border-l-4 border-[#2E7D32]'
+                  : 'text-stone-700 hover:bg-stone-50 font-medium'
               }`}
             >
-              <div className="w-10 h-10 rounded-xl bg-white border border-stone-200/80 flex items-center justify-center text-lg shadow-2xs">
-                {category.icon}
-              </div>
-              <span className="text-[11px] leading-tight line-clamp-2">
-                All ({products.length})
-              </span>
+              <span>All Products</span>
+              <span className="text-[10px] font-bold text-stone-400">{products.length}</span>
             </button>
 
-            {/* Individual Subcategories */}
             {subcategories.map((sub) => {
               const count = subCatCounts[sub] || 0;
-              const thumb = SUBCAT_THUMBNAILS[sub] || category.image || '/products/photos/test-rice.jpg';
               const isSelected = selectedSubCategory === sub;
-
               return (
                 <button
                   key={sub}
                   type="button"
                   onClick={() => setSelectedSubCategory(sub)}
-                  className={`w-full p-2 rounded-xl flex flex-col items-center gap-1.5 transition-all text-center ${
+                  className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${
                     isSelected
-                      ? 'bg-[#E8F5E9] text-[#1B5E20] font-extrabold border-l-4 border-[#2E7D32] shadow-2xs'
-                      : 'text-stone-600 hover:bg-stone-50 font-semibold'
+                      ? 'bg-[#E8F5E9] text-[#1B5E20] font-bold border-l-4 border-[#2E7D32]'
+                      : 'text-stone-700 hover:bg-stone-50 font-medium'
                   }`}
                 >
-                  <div className="w-11 h-11 rounded-xl bg-white border border-stone-200/80 overflow-hidden flex items-center justify-center p-1 shadow-2xs shrink-0">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={thumb}
-                      alt={sub}
-                      className="w-full h-full object-contain"
-                      onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).src =
-                          'https://placehold.co/100x100/e8f5e9/2e7d32?text=' + encodeURIComponent(sub.slice(0, 3));
-                      }}
-                    />
-                  </div>
-                  <span className="text-[10px] sm:text-[11px] leading-tight line-clamp-2">
-                    {sub}
-                  </span>
-                  {count > 0 && (
-                    <span className="text-[9px] font-bold text-stone-400 bg-stone-100 px-1.5 py-0.2 rounded-full">
-                      {count}
-                    </span>
-                  )}
+                  <span className="truncate pr-1">{sub}</span>
+                  <span className="text-[10px] font-bold text-stone-400">{count}</span>
                 </button>
               );
             })}
           </div>
 
-          {/* Quick jump to other categories */}
-          <div className="p-2 border-t border-stone-100 mt-2">
-            <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block px-1 mb-1">
-              Other Stores
+          {/* Other departments jump */}
+          <div className="p-3 border-t border-stone-100 mt-2 bg-stone-50/50">
+            <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block mb-2">
+              Other Departments
             </span>
             <div className="space-y-1">
               {allCategories
                 .filter((c) => c.id !== category.id)
-                .slice(0, 5)
                 .map((c) => (
                   <Link
                     key={c.id}
                     href={`/category/${c.id}`}
-                    className="flex items-center gap-1.5 p-1.5 rounded-lg text-[10px] font-bold text-stone-600 hover:bg-[#E8F5E9]/50 hover:text-[#2E7D32] transition-colors"
+                    className="flex items-center justify-between p-1.5 rounded-lg text-xs font-semibold text-stone-600 hover:text-[#2E7D32] hover:bg-white transition-colors"
                   >
-                    <span>{c.icon}</span>
-                    <span className="truncate">{c.name}</span>
+                    <span className="flex items-center gap-1.5">
+                      <span>{c.icon}</span>
+                      <span className="truncate">{c.name}</span>
+                    </span>
+                    <ChevronRight className="w-3 h-3 text-stone-400" />
                   </Link>
                 ))}
             </div>
           </div>
         </aside>
 
-        {/* Right Product Grid Area (Matching Blinkit Image 3) */}
+        {/* Product Cards Grid */}
         <main className="flex-1 min-w-0 space-y-3">
-          {/* Subcategory Banner */}
-          <div className="flex items-center justify-between bg-white px-3.5 py-2.5 rounded-xl border border-stone-200/70">
-            <div>
-              <h2 className="text-sm sm:text-base font-extrabold text-[#212121]">
-                {selectedSubCategory === 'all' ? `All ${category.name}` : selectedSubCategory}
-              </h2>
-              <span className="text-xs text-stone-500 font-semibold">
-                {filteredProducts.length} items found
-              </span>
-            </div>
-
-            {selectedSubCategory !== 'all' && (
-              <button
-                type="button"
-                onClick={() => setSelectedSubCategory('all')}
-                className="text-xs font-bold text-[#2E7D32] hover:underline"
-              >
-                View all ({products.length})
-              </button>
-            )}
-          </div>
-
-          {/* Product Cards Grid with Real Photographic FMCG Cutouts */}
           {filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3.5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3">
               {filteredProducts.map((p) => (
                 <ProductCard key={p.id} product={p} />
               ))}
             </div>
           ) : (
-            <div className="bg-white rounded-2xl border border-stone-200 p-12 text-center space-y-3">
-              <span className="text-4xl">📦</span>
-              <h3 className="text-base font-bold text-stone-800">
-                No items in this subcategory yet
+            <div className="bg-white rounded-2xl border border-stone-200 p-10 text-center space-y-3">
+              <span className="text-3xl">📦</span>
+              <h3 className="text-sm sm:text-base font-bold text-stone-800">
+                No items found in this section
               </h3>
               <p className="text-xs text-stone-500 max-w-sm mx-auto">
-                We are actively adding fresh stocks to this shelf. Check out other items in {category.name}.
+                Check back soon or browse all available products in {category.name}.
               </p>
               <button
                 type="button"
                 onClick={() => setSelectedSubCategory('all')}
                 className="inline-block px-4 py-2 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl text-xs font-bold transition-colors"
               >
-                View All {category.name}
+                View All {category.name} ({products.length})
               </button>
             </div>
           )}

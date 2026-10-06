@@ -80,29 +80,21 @@ export const productService = {
    * Fetch all active categories from Supabase (with fallback to demo categories)
    */
   async getCategories(): Promise<Category[]> {
-    if (!isSupabaseConfigured()) {
-      return DEMO_CATEGORIES;
-    }
-
     try {
-      const { data, error } = await supabase
-        .from('categories')
-        .select('id, name, icon, description, display_order, is_active')
-        .eq('is_active', true)
-        .order('display_order', { ascending: true });
+      const products = await this.getProducts();
+      const productCountMap = new Map<string, number>();
+      products.forEach((p) => {
+        if (p.category) {
+          productCountMap.set(p.category, (productCountMap.get(p.category) || 0) + 1);
+        }
+      });
 
-      if (error || !data || data.length === 0) {
-        return DEMO_CATEGORIES;
-      }
+      const populated = DEMO_CATEGORIES.map((cat) => ({
+        ...cat,
+        itemCount: productCountMap.get(cat.id) || 0,
+      })).filter((cat) => cat.itemCount > 0);
 
-      return data.map((row: any) => ({
-        id: row.id,
-        name: row.name,
-        icon: row.icon || '🛍️',
-        description: row.description || '',
-        itemCount: 0,
-        subcategories: [],
-      }));
+      return populated.length > 0 ? populated : DEMO_CATEGORIES;
     } catch (err) {
       console.warn('[G1 Mart ProductService] getCategories fallback:', err);
       return DEMO_CATEGORIES;
@@ -125,8 +117,20 @@ export const productService = {
         .order('source_item_no', { ascending: true });
 
       if (data && data.length > 0) {
-        const localMap = new Map(CATALOG_PRODUCTS.map((p) => [p.id, p]));
-        return data.map((row: any) => mapDbRowToProduct(row, localMap.get(row.id)));
+        const dbMap = new Map(data.map((row: any) => [row.id, row]));
+        // Map all local catalog products, overlaying DB data if present
+        const merged = CATALOG_PRODUCTS.map((local) => {
+          const dbRow = dbMap.get(local.id);
+          return dbRow ? mapDbRowToProduct(dbRow, local) : local;
+        });
+        // Also include any extra DB products not in local catalog
+        const localIdSet = new Set(CATALOG_PRODUCTS.map((p) => p.id));
+        for (const row of data) {
+          if (!localIdSet.has(row.id)) {
+            merged.push(mapDbRowToProduct(row));
+          }
+        }
+        return merged;
       }
 
       return CATALOG_PRODUCTS;

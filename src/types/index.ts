@@ -53,6 +53,7 @@ export interface Category {
   description: string;
   itemCount: number;
   subcategories: string[];
+  group?: string;
 }
 
 export interface CartItem {

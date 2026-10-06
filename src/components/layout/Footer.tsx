@@ -19,9 +19,11 @@ export default function Footer() {
               <Truck className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-stone-900">Fast Delivery</h4>
+              <h4 className="text-sm font-bold text-stone-900">Local Delivery</h4>
               <p className="text-xs text-stone-500 mt-0.5">
-                {STORE_CONFIG.delivery.cityEtaText} across the city
+                {STORE_CONFIG.delivery.cityEtaText && !STORE_CONFIG.delivery.cityEtaText.startsWith('TODO_')
+                  ? `${STORE_CONFIG.delivery.cityEtaText} across service area`
+                  : 'Delivered directly to your door'}
               </p>
             </div>
           </div>
@@ -42,7 +44,7 @@ export default function Footer() {
             </div>
             <div>
               <h4 className="text-sm font-bold text-stone-900">Quality Assured</h4>
-              <p className="text-xs text-stone-500 mt-0.5">Fresh vegetables, dairy &amp; staples</p>
+              <p className="text-xs text-stone-500 mt-0.5">Authentic FMCG &amp; daily staples</p>
             </div>
           </div>
 
@@ -52,7 +54,7 @@ export default function Footer() {
             </div>
             <div>
               <h4 className="text-sm font-bold text-stone-900">Easy Payment</h4>
-              <p className="text-xs text-stone-500 mt-0.5">Cash on Delivery, UPI &amp; Cards</p>
+              <p className="text-xs text-stone-500 mt-0.5">Cash on Delivery &amp; UPI Payment</p>
             </div>
           </div>
         </div>
@@ -71,20 +73,24 @@ export default function Footer() {
               className="h-9 w-auto object-contain"
             />
             <p className="text-xs text-stone-500 leading-relaxed max-w-sm">
-              {/* TODO: Replace with owner-approved store description */}
-              G1 Mart — your trusted local grocery delivery service. Fresh produce, dairy,
-              grains and daily household essentials delivered to your door.
+              G1 Mart — your trusted local grocery supermarket. Authentic packaged goods,
+              cleaning essentials, pooja supplies, and daily household needs.
             </p>
             <div className="pt-1 flex flex-col space-y-1.5 text-xs text-stone-600">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#2E7D32] shrink-0" />
-                {/* TODO: Replace with real store address from STORE_CONFIG once confirmed */}
-                <span>{STORE_CONFIG.address.city} — {STORE_CONFIG.address.state}</span>
+                <span>
+                  {STORE_CONFIG.address.city && !STORE_CONFIG.address.city.startsWith('TODO_')
+                    ? `${STORE_CONFIG.address.city} — ${STORE_CONFIG.address.state}`
+                    : 'Local Supermarket Store'}
+                </span>
               </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-[#2E7D32] shrink-0" />
-                <span>Delivery Hours: {STORE_CONFIG.hours.open} – {STORE_CONFIG.hours.close}</span>
-              </div>
+              {STORE_CONFIG.hours.open && !STORE_CONFIG.hours.open.startsWith('TODO_') && (
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-[#2E7D32] shrink-0" />
+                  <span>Delivery Hours: {STORE_CONFIG.hours.open} – {STORE_CONFIG.hours.close}</span>
+                </div>
+              )}
               {STORE_CONFIG.contact.phone !== 'TODO_PHONE' && (
                 <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-[#2E7D32] shrink-0" />
