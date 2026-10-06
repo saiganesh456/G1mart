@@ -1,6 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-import { CATALOG_PRODUCTS } from '@/data/catalog';
+import { CATALOG_PRODUCTS as PILOT_PRODUCTS } from '@/data/catalog';
+import { CATALOG_PRODUCTS as CANONICAL_PRODUCTS } from '@/data/productsCatalog';
+
+const ALL_CATALOG_PRODUCTS = [...CANONICAL_PRODUCTS, ...PILOT_PRODUCTS];
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import type { Order, OrderItem, PaymentRecord, PaymentStatus, OrderStatus } from '@/types';
 
@@ -45,19 +48,19 @@ export const serverOrderStore = {
 
     for (const item of rawItems) {
       const pid = item.productId || item.id;
-      let product = CATALOG_PRODUCTS.find((p) => p.id === pid);
+      let product = ALL_CATALOG_PRODUCTS.find((p) => p.id === pid);
 
       if (!product && typeof pid === 'string' && pid.startsWith('prod-')) {
         const idx = parseInt(pid.replace('prod-', ''), 10) - 1;
-        product = CATALOG_PRODUCTS[idx] || CATALOG_PRODUCTS[0];
+        product = ALL_CATALOG_PRODUCTS[idx] || ALL_CATALOG_PRODUCTS[0];
       }
 
       if (!product && item.name) {
-        product = CATALOG_PRODUCTS.find((p) => p.name.toLowerCase().includes(item.name.toLowerCase()));
+        product = ALL_CATALOG_PRODUCTS.find((p) => p.name.toLowerCase().includes(item.name.toLowerCase()));
       }
 
       if (!product) {
-        product = CATALOG_PRODUCTS[0];
+        product = ALL_CATALOG_PRODUCTS[0];
       }
 
       // Ensure price is confirmed or fallback to baseline

@@ -123,20 +123,25 @@ export default function CartPage() {
                 <div className="min-w-0">
                   <span className="text-[11px] text-stone-500 block leading-none">{product.unit}</span>
                   <div className="mt-1 flex items-baseline gap-1">
-                    {product.price > 0 ? (
-                      <span className="text-xs sm:text-sm font-black text-[#212121] tabular-nums">
-                        ₹{product.price * quantity}
-                      </span>
-                    ) : (
-                      <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-1 rounded">
-                        Price TBD
-                      </span>
-                    )}
-                    {product.price > 0 && quantity > 1 && (
-                      <span className="text-[10px] text-stone-400">
-                        (₹{product.price})
-                      </span>
-                    )}
+                    {(() => {
+                      const unitPrice = product.price > 0 ? product.price : (product.originalPrice || 0);
+                      return unitPrice > 0 ? (
+                        <>
+                          <span className="text-xs sm:text-sm font-black text-[#212121] tabular-nums">
+                            ₹{unitPrice * quantity}
+                          </span>
+                          {quantity > 1 && (
+                            <span className="text-[10px] text-stone-400">
+                              (₹{unitPrice})
+                            </span>
+                          )}
+                        </>
+                      ) : (
+                        <span className="text-[10px] font-bold text-amber-600 bg-amber-50 px-1 rounded">
+                          Price TBD
+                        </span>
+                      );
+                    })()}
                   </div>
                 </div>
 

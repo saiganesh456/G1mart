@@ -157,7 +157,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
    * Route Handler (TODO Phase 2 — see /api/checkout/route.ts).
    */
   const cartSubtotal = useMemo(
-    () => cart.reduce((sum, i) => sum + i.product.price * i.quantity, 0),
+    () =>
+      cart.reduce((sum, i) => {
+        const unitPrice = i.product.price > 0 ? i.product.price : (i.product.originalPrice || 0);
+        return sum + unitPrice * i.quantity;
+      }, 0),
     [cart]
   );
 

@@ -2,7 +2,10 @@ import { Product } from '@/types';
 import rawCatalog from './products-catalog.json';
 
 export const CATALOG_PRODUCTS: Product[] = (rawCatalog as any[]).map((item) => {
-  const isApproved = Boolean(item.imageUrl && item.imageStatus === 'VERIFIED');
+  const isApproved = Boolean(item.imageUrl && (item.imageStatus === 'VERIFIED' || item.imageStatus === 'approved'));
+  const effectivePrice = Number(item.price && item.price > 0 ? item.price : (item.originalPrice || item.mrp || 0));
+  const mrp = Number(item.originalPrice || item.mrp || effectivePrice);
+
   return {
     id: item.id,
     itemNumber: item.sourceItemNo ?? item.itemNumber,
@@ -12,9 +15,9 @@ export const CATALOG_PRODUCTS: Product[] = (rawCatalog as any[]).map((item) => {
     category: item.category || 'other',
     subCategory: item.subCategory ?? undefined,
     unit: item.unit || '1 unit',
-    price: Number(item.price || 0),
-    priceConfirmed: Boolean(item.priceConfirmed ?? (item.price > 0)),
-    originalPrice: Number(item.originalPrice || item.price || 0),
+    price: effectivePrice,
+    priceConfirmed: Boolean(effectivePrice > 0),
+    originalPrice: mrp > 0 ? mrp : effectivePrice,
     discountPercentage: Number(item.discountPercentage || 0),
     inStock: Boolean(item.inStock ?? true),
     stockCount: Number(item.stockCount ?? 15),

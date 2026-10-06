@@ -122,26 +122,17 @@ export default function ProductDetailPage({ params }: Props) {
 
         {/* Price Row */}
         <div className="flex items-baseline gap-2 pt-1 border-t border-stone-100">
-          {product.priceConfirmed && product.price > 0 ? (
+          {((product.price && product.price > 0) || (product.originalPrice && product.originalPrice > 0)) ? (
             <>
               <span className="text-xl sm:text-2xl font-black text-stone-900 tabular-nums">
-                ₹{product.price}
+                ₹{product.price > 0 ? product.price : product.originalPrice}
               </span>
-              {product.originalPrice > product.price && (
+              {product.originalPrice > product.price && product.price > 0 && (
                 <span className="text-sm text-stone-400 line-through tabular-nums">
                   MRP ₹{product.originalPrice}
                 </span>
               )}
             </>
-          ) : product.originalPrice && product.originalPrice > 0 ? (
-            <div className="flex items-baseline gap-2">
-              <span className="text-xl sm:text-2xl font-black text-stone-900 tabular-nums">
-                MRP ₹{product.originalPrice}
-              </span>
-              <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded">
-                Price TBA
-              </span>
-            </div>
           ) : (
             <span className="text-xs font-bold text-amber-700 bg-amber-50 px-2 py-1 rounded">
               Price to be confirmed by store

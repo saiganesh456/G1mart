@@ -97,26 +97,17 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
         {/* Price + action */}
         <div className="pt-2 border-t border-stone-100 flex items-center justify-between gap-1 mt-2">
           <div className="flex items-baseline gap-1 min-w-0">
-            {product.priceConfirmed && product.price > 0 ? (
+            {((product.price && product.price > 0) || (product.originalPrice && product.originalPrice > 0)) ? (
               <>
                 <span className="text-xs sm:text-sm font-black text-stone-900 tabular-nums">
-                  ₹{product.price}
+                  ₹{product.price > 0 ? product.price : product.originalPrice}
                 </span>
-                {product.originalPrice > product.price && (
+                {product.originalPrice > product.price && product.price > 0 && (
                   <span className="text-[10px] text-stone-400 line-through tabular-nums">
                     ₹{product.originalPrice}
                   </span>
                 )}
               </>
-            ) : product.originalPrice && product.originalPrice > 0 ? (
-              <div className="flex flex-col">
-                <span className="text-[11px] font-extrabold text-stone-800 tabular-nums">
-                  MRP ₹{product.originalPrice}
-                </span>
-                <span className="text-[8px] font-bold text-amber-700 uppercase tracking-tighter">
-                  Price TBA
-                </span>
-              </div>
             ) : (
               <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200/80 px-1.5 py-0.5 rounded tracking-tight">
                 Price TBA
