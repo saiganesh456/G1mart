@@ -348,7 +348,7 @@ export default function CheckoutPage() {
             <div className="flex items-center gap-2">
               <UserCheck className="w-4 h-4 text-[#2E7D32]" />
               <h2 className="text-xs font-extrabold text-stone-900 uppercase tracking-wider">
-                Step 1: Account Required to Book Order
+                Account Required to Book Order
               </h2>
             </div>
             <span className="text-[10px] font-black bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full">
@@ -796,7 +796,7 @@ export default function CheckoutPage() {
                 : 'bg-stone-300 text-stone-600 cursor-not-allowed'
             }`}
           >
-            <span>{isLoggedIn ? 'Continue to Payment Selection' : 'Please Sign In or Register in Step 1'}</span>
+            <span>{isLoggedIn ? 'Continue to Payment Selection' : 'Please Sign In or Register to Continue'}</span>
           </button>
         </div>
       </form>
