@@ -135,6 +135,7 @@ export default function CheckoutPage() {
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   // Handle selecting an existing saved address

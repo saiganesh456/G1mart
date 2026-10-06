@@ -97,6 +97,7 @@ export default function OrdersPage() {
 
   useEffect(() => {
     syncOrders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supabaseUser, user]);
 
   return (

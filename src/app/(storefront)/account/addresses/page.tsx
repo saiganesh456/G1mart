@@ -63,6 +63,7 @@ export default function SavedAddressesPage() {
     loadAddresses();
     if (user?.name) setFullName(user.name);
     if (user?.phone) setPhone(sanitizeIndianPhone(user.phone));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const handleAutoDetect = async () => {
