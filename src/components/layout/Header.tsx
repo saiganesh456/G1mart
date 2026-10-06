@@ -137,10 +137,10 @@ export default function Header() {
                 />
                 <button
                   type="button"
-                  onClick={() => setIsBarcodeModalOpen(true)}
-                  aria-label="Scan barcode or product"
+                  onClick={() => setIsSlipScannerOpen(true)}
+                  aria-label="Scan slip or handwritten list"
                   className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-[#2E7D32] hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer flex items-center justify-center"
-                  title="Scan barcode / pantry item"
+                  title="Scan slip or handwritten list"
                 >
                   <ScanBarcode className="w-5 h-5 stroke-[2.2]" />
                 </button>
@@ -200,12 +200,13 @@ export default function Header() {
                 />
                 <button
                   type="button"
-                  onClick={() => setIsBarcodeModalOpen(true)}
-                  aria-label="Scan barcode or product"
-                  className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-[#2E7D32] hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer flex items-center justify-center"
-                  title="Scan barcode / pantry item"
+                  onClick={() => setIsSlipScannerOpen(true)}
+                  aria-label="Scan slip or handwritten list"
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-lg text-[#2E7D32] hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer flex items-center gap-1 text-xs font-bold"
+                  title="Scan handwritten slip or grocery list"
                 >
-                  <ScanBarcode className="w-5 h-5 stroke-[2.2]" />
+                  <ScanBarcode className="w-4 h-4 stroke-[2.2]" />
+                  <span>Scan Slip</span>
                 </button>
               </div>
             </form>
@@ -288,6 +289,12 @@ export default function Header() {
       <BarcodeScannerModal
         isOpen={isBarcodeModalOpen}
         onClose={() => setIsBarcodeModalOpen(false)}
+      />
+
+      {/* Slip Scanner Modal */}
+      <SlipScannerModal
+        isOpen={isSlipScannerOpen}
+        onClose={() => setIsSlipScannerOpen(false)}
       />
     </>
   );

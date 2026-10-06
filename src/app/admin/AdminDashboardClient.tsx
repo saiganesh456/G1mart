@@ -32,11 +32,13 @@ import {
   Phone,
   Share2,
   Users,
+  FileText,
 } from 'lucide-react';
 import type { Category, Product, Order } from '@/types';
 import ProductCard from '@/components/storefront/ProductCard';
 import ProductImage from '@/components/storefront/ProductImage';
 import StaffManagementTab from '@/components/admin/StaffManagementTab';
+import SlipsManagementTab from '@/components/admin/SlipsManagementTab';
 
 interface Props {
   initialProducts: Product[];
@@ -48,7 +50,7 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [stockFilter, setStockFilter] = useState<'all' | 'in_stock' | 'out_of_stock'>('all');
-  const [activeTab, setActiveTab] = useState<'inventory' | 'add_product' | 'orders' | 'staff'>('orders');
+  const [activeTab, setActiveTab] = useState<'inventory' | 'add_product' | 'orders' | 'staff' | 'slips'>('orders');
   const [orders, setOrders] = useState<Order[]>([]);
   const [loadingOrders, setLoadingOrders] = useState(false);
   const [markingOrderId, setMarkingOrderId] = useState<string | null>(null);
@@ -510,6 +512,18 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
           >
             <CreditCard className="w-3.5 h-3.5" />
             <span>Orders &amp; Payments</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('slips')}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+              activeTab === 'slips'
+                ? 'bg-[#2E7D32] text-white shadow-xs'
+                : 'bg-emerald-50 text-emerald-900 border border-emerald-200 hover:bg-emerald-100'
+            }`}
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>Customer Slips</span>
           </button>
           <button
             type="button"
@@ -1613,6 +1627,9 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
 
       {/* TAB 4: STAFF & ROLES MANAGEMENT */}
       {activeTab === 'staff' && <StaffManagementTab />}
+
+      {/* TAB 5: CUSTOMER HANDWRITTEN SLIPS */}
+      {activeTab === 'slips' && <SlipsManagementTab />}
 
       {/* EDIT / UPLOAD PRODUCT IMAGE MODAL DIALOG */}
       {editingImageProduct && (

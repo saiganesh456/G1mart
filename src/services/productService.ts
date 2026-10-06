@@ -1,4 +1,3 @@
-import { supabase, isSupabaseConfigured } from '../lib/supabase/client';
 import { Product, Category } from '../types';
 import { DEMO_CATEGORIES } from '../data/demo-seed';
 import { CATALOG_PRODUCTS } from '../data/productsCatalog';
@@ -105,66 +104,15 @@ export const productService = {
    * Fetch all active products (reconciled across Supabase DB and local master catalog)
    */
   async getProducts(): Promise<Product[]> {
-    if (!isSupabaseConfigured()) {
-      return CATALOG_PRODUCTS;
-    }
-
-    try {
-      const { data, error } = await supabase
-        .from('products')
-        .select('*')
-        .eq('is_active', true)
-        .order('source_item_no', { ascending: true });
-
-      if (data && data.length > 0) {
-        const dbMap = new Map(data.map((row: any) => [row.id, row]));
-        // Map all local catalog products, overlaying DB data if present
-        const merged = CATALOG_PRODUCTS.map((local) => {
-          const dbRow = dbMap.get(local.id);
-          return dbRow ? mapDbRowToProduct(dbRow, local) : local;
-        });
-        // Also include any extra DB products not in local catalog
-        const localIdSet = new Set(CATALOG_PRODUCTS.map((p) => p.id));
-        for (const row of data) {
-          if (!localIdSet.has(row.id)) {
-            merged.push(mapDbRowToProduct(row));
-          }
-        }
-        return merged;
-      }
-
-      return CATALOG_PRODUCTS;
-    } catch (err) {
-      console.warn('[G1 Mart ProductService] getProducts fallback to local catalog:', err);
-      return CATALOG_PRODUCTS;
-    }
+    return CATALOG_PRODUCTS;
   },
 
   /**
    * Fetch a single product by ID or slug
    */
   async getProductById(id: string): Promise<Product | null> {
-    const local = CATALOG_PRODUCTS.find((p) => p.id === id);
-
-    if (!isSupabaseConfigured()) {
-      return local || null;
-    }
-
-    try {
-      const { data, error } = await supabase
-        .from('products')
-        .select('*')
-        .eq('id', id)
-        .maybeSingle();
-
-      if (data) {
-        return mapDbRowToProduct(data, local);
-      }
-      return local || null;
-    } catch (err) {
-      console.warn('[G1 Mart ProductService] getProductById fallback:', err);
-      return local || null;
-    }
+    const local = CATALOG_PRODUCTS.find((p) => p.id === id || p.slug === id);
+    return local || null;
   },
 
   /**
@@ -183,97 +131,31 @@ export const productService = {
     imageUrl: string,
     imageStatus: 'VERIFIED' | 'PENDING' | 'MISSING' = 'VERIFIED'
   ): Promise<boolean> {
-    if (!isSupabaseConfigured()) {
-      return false;
-    }
-
-    try {
-      const { error } = await supabase
-        .from('products')
-        .update({
-          image_url: imageUrl,
-          image_status: imageStatus,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', productId);
-
-      return !error;
-    } catch (err) {
-      console.warn('[G1 Mart ProductService] updateProductImage error:', err);
-      return false;
-    }
-  },
-
-  /**
-   * Update an existing product
-   */
-  async updateProduct(product: Product): Promise<boolean> {
-    if (!isSupabaseConfigured()) {
+    const prod = CATALOG_PRODUCTS.find((p) => p.id === productId);
+    if (prod) {
+      prod.imageUrl = imageUrl;
+      prod.image = imageUrl;
+      prod.imageStatus = imageStatus;
       return true;
     }
-
-    try {
-      const { error } = await supabase
-        .from('products')
-        .update({
-          name: product.name,
-          brand: product.brand,
-          price: product.price,
-          original_price: product.originalPrice,
-          in_stock: product.inStock,
-          stock_count: product.stockCount,
-          image_url: product.image_url || product.image,
-          image_status: product.image_status,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', product.id);
-
-      return !error;
-    } catch (err) {
-      console.warn('[G1 Mart ProductService] updateProduct error:', err);
-      return false;
-    }
+    return false;
   },
 
-  /**
-   * Add a new product
-   */
+  async updateProduct(product: Product): Promise<boolean> {
+    const idx = CATALOG_PRODUCTS.findIndex((p) => p.id === product.id);
+    if (idx !== -1) {
+      CATALOG_PRODUCTS[idx] = product;
+      return true;
+    }
+    return false;
+  },
+
   async addProduct(product: Omit<Product, 'id'>): Promise<Product | null> {
-    if (!isSupabaseConfigured()) {
-      return {
-        ...product,
-        id: `prod-${Date.now()}`,
-      };
-    }
-
-    try {
-      const { data, error } = await supabase
-        .from('products')
-        .insert({
-          name: product.name,
-          brand: product.brand,
-          category_id: product.category,
-          unit: product.unit,
-          price: product.price,
-          original_price: product.originalPrice,
-          in_stock: product.inStock,
-          stock_count: product.stockCount,
-          image_url: product.image_url || product.image,
-          image_status: product.image_status || 'MISSING',
-          description: product.description,
-          rating: product.rating,
-          reviews_count: product.reviewsCount,
-          is_popular: Boolean(product.isPopular),
-          is_best_deal: Boolean(product.isBestDeal),
-        })
-        .select()
-        .single();
-
-      if (error || !data) return null;
-      return mapDbRowToProduct(data);
-    } catch (err) {
-      console.warn('[G1 Mart ProductService] addProduct error:', err);
-      return null;
-    }
+    const newProd = {
+      ...product,
+      id: `prod-${Date.now()}`,
+    } as Product;
+    CATALOG_PRODUCTS.unshift(newProd);
+    return newProd;
   },
 };
