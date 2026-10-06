@@ -124,15 +124,12 @@ export const productService = {
         .eq('is_active', true)
         .order('source_item_no', { ascending: true });
 
-      const dbMap = new Map((data || []).map((row: any) => [row.id, row]));
+      if (data && data.length > 0) {
+        const localMap = new Map(CATALOG_PRODUCTS.map((p) => [p.id, p]));
+        return data.map((row: any) => mapDbRowToProduct(row, localMap.get(row.id)));
+      }
 
-      return CATALOG_PRODUCTS.map((local) => {
-        const dbRow = dbMap.get(local.id);
-        if (dbRow) {
-          return mapDbRowToProduct(dbRow, local);
-        }
-        return local;
-      });
+      return CATALOG_PRODUCTS;
     } catch (err) {
       console.warn('[G1 Mart ProductService] getProducts fallback to local catalog:', err);
       return CATALOG_PRODUCTS;

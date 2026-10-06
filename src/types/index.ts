@@ -3,7 +3,7 @@ export * from './deliveryZone';
 export type UserRole = 'customer' | 'admin' | 'delivery_partner' | 'rider';
 
 export type ImageSource = 'own_photo' | 'openfoodfacts' | 'manufacturer' | 'placeholder';
-export type ImageStatus = 'VERIFIED' | 'PENDING' | 'MISSING' | 'pending' | 'approved' | 'placeholder';
+export type ImageStatus = 'VERIFIED' | 'PENDING' | 'MISSING' | 'NEEDS_REVIEW' | 'pending' | 'approved' | 'placeholder';
 
 export interface Product {
   id: string;
@@ -28,6 +28,7 @@ export interface Product {
   image_source: ImageSource;
   image_license?: string | null;
   image_status: ImageStatus;
+  imageStatus?: ImageStatus;
   image_match_note?: string;
   description: string;
   rating: number;

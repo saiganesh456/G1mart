@@ -45,65 +45,87 @@ export default async function HomePage() {
         <ProductGrid products={popularProducts} />
       </section>
 
-      {/* Rice, Dals & Cooking Staples */}
+      {/* Complete Product Catalog */}
       <section className="space-y-3 px-1 sm:px-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <span className="text-sm">🌾</span>
+            <span className="text-sm">🛒</span>
             <h2 className="text-sm sm:text-base font-extrabold text-[#212121] tracking-tight">
-              Rice, Dals &amp; Atta Staples
+              All Products ({allProducts.length})
             </h2>
           </div>
-          <Link
-            href="/category/rice-dal-atta"
-            className="text-xs font-bold text-[#2E7D32] hover:text-[#1b5e20] flex items-center gap-0.5 transition-colors"
-          >
-            <span>See all</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+          <span className="text-xs font-semibold text-stone-500">
+            PDF #1 Verified Catalog
+          </span>
         </div>
-        <ProductGrid products={stapleProducts} />
+        <ProductGrid products={allProducts} />
       </section>
 
-      {/* Snacks, Biscuits & Chocolates */}
-      <section className="space-y-3 px-1 sm:px-0">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <Cookie className="w-4 h-4 text-[#FF9800]" />
-            <h2 className="text-sm sm:text-base font-extrabold text-[#212121] tracking-tight">
-              Snacks &amp; Biscuits
-            </h2>
+      {/* Rice, Dals & Cooking Staples (Render if category populated) */}
+      {stapleProducts.length > 0 && (
+        <section className="space-y-3 px-1 sm:px-0">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm">🌾</span>
+              <h2 className="text-sm sm:text-base font-extrabold text-[#212121] tracking-tight">
+                Rice, Dals &amp; Atta Staples
+              </h2>
+            </div>
+            <Link
+              href="/category/rice-dal-atta"
+              className="text-xs font-bold text-[#2E7D32] hover:text-[#1b5e20] flex items-center gap-0.5 transition-colors"
+            >
+              <span>See all</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
-          <Link
-            href="/category/snacks"
-            className="text-xs font-bold text-[#2E7D32] hover:text-[#1b5e20] flex items-center gap-0.5 transition-colors"
-          >
-            <span>See all</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-        <ProductGrid products={snackProducts} />
-      </section>
+          <ProductGrid products={stapleProducts} />
+        </section>
+      )}
 
-      {/* Beverages & Tea */}
-      <section className="space-y-3 px-1 sm:px-0">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <Coffee className="w-4 h-4 text-[#512DA8]" />
-            <h2 className="text-sm sm:text-base font-extrabold text-[#212121] tracking-tight">
-              Tea, Coffee &amp; Drinks
-            </h2>
+      {/* Snacks, Biscuits & Chocolates (Render if category populated) */}
+      {snackProducts.length > 0 && (
+        <section className="space-y-3 px-1 sm:px-0">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5">
+              <Cookie className="w-4 h-4 text-[#FF9800]" />
+              <h2 className="text-sm sm:text-base font-extrabold text-[#212121] tracking-tight">
+                Snacks &amp; Biscuits
+              </h2>
+            </div>
+            <Link
+              href="/category/snacks"
+              className="text-xs font-bold text-[#2E7D32] hover:text-[#1b5e20] flex items-center gap-0.5 transition-colors"
+            >
+              <span>See all</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
-          <Link
-            href="/category/beverages"
-            className="text-xs font-bold text-[#2E7D32] hover:text-[#1b5e20] flex items-center gap-0.5 transition-colors"
-          >
-            <span>See all</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-        <ProductGrid products={beverageProducts} />
-      </section>
+          <ProductGrid products={snackProducts} />
+        </section>
+      )}
+
+      {/* Beverages & Tea (Render if category populated) */}
+      {beverageProducts.length > 0 && (
+        <section className="space-y-3 px-1 sm:px-0">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5">
+              <Coffee className="w-4 h-4 text-[#512DA8]" />
+              <h2 className="text-sm sm:text-base font-extrabold text-[#212121] tracking-tight">
+                Tea, Coffee &amp; Drinks
+              </h2>
+            </div>
+            <Link
+              href="/category/beverages"
+              className="text-xs font-bold text-[#2E7D32] hover:text-[#1b5e20] flex items-center gap-0.5 transition-colors"
+            >
+              <span>See all</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+          <ProductGrid products={beverageProducts} />
+        </section>
+      )}
     </div>
   );
 }

@@ -46,7 +46,7 @@ function SearchContent() {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search 470+ authentic products, brands..."
+          placeholder="Search authentic products, brands..."
           className="w-full h-11 pl-10 pr-4 rounded-xl bg-white border border-stone-200 text-sm outline-none focus:border-[#2E7D32] shadow-2xs"
           autoFocus
         />
