@@ -22,15 +22,22 @@ interface Props {
   onClose: () => void;
 }
 
+interface CapturedPhoto {
+  id: string;
+  blob: Blob;
+  previewUrl: string;
+}
+
 export default function SlipScannerModal({ isOpen, onClose }: Props) {
   const { user } = useAuth();
   const [step, setStep] = useState<'camera' | 'preview' | 'details' | 'success'>('camera');
   const [cameraActive, setCameraActive] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
-  const [capturedBlob, setCapturedBlob] = useState<Blob | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [capturedPhotos, setCapturedPhotos] = useState<CapturedPhoto[]>([]);
+  const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [customerName, setCustomerName] = useState(user?.name || '');
   const [customerPhone, setCustomerPhone] = useState(user?.phone || '');
+  const [deliveryNote, setDeliveryNote] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [uploadedSlipId, setUploadedSlipId] = useState<string | null>(null);
@@ -161,10 +168,15 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
     if (!videoRef.current) return;
     try {
       const blob = await compressImage(videoRef.current);
-      stopCamera();
       const url = URL.createObjectURL(blob);
-      setCapturedBlob(blob);
-      setPreviewUrl(url);
+      const newPhoto: CapturedPhoto = {
+        id: `photo_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+        blob,
+        previewUrl: url,
+      };
+      setCapturedPhotos((prev) => [...prev, newPhoto]);
+      setActivePhotoIndex(capturedPhotos.length);
+      stopCamera();
       setStep('preview');
     } catch (err) {
       console.error('[SlipScanner] Capture error:', err);
@@ -174,46 +186,78 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
 
   // File picker handler (gallery fallback)
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-      setUploadError('Please select a valid image file (JPG, PNG, or WebP).');
-      return;
-    }
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
 
     try {
-      const img = new Image();
-      const objectUrl = URL.createObjectURL(file);
-      img.src = objectUrl;
-      await new Promise((resolve) => {
-        img.onload = resolve;
-      });
+      const added: CapturedPhoto[] = [];
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) continue;
 
-      const blob = await compressImage(img);
-      stopCamera();
-      const url = URL.createObjectURL(blob);
-      setCapturedBlob(blob);
-      setPreviewUrl(url);
-      setStep('preview');
+        const img = new Image();
+        const objectUrl = URL.createObjectURL(file);
+        img.src = objectUrl;
+        await new Promise((resolve) => {
+          img.onload = resolve;
+        });
+
+        const blob = await compressImage(img);
+        const url = URL.createObjectURL(blob);
+        added.push({
+          id: `photo_${Date.now()}_${i}`,
+          blob,
+          previewUrl: url,
+        });
+      }
+
+      if (added.length > 0) {
+        setCapturedPhotos((prev) => [...prev, ...added]);
+        setActivePhotoIndex(capturedPhotos.length);
+        stopCamera();
+        setStep('preview');
+      } else {
+        setUploadError('Please select valid image files (JPG, PNG, or WebP).');
+      }
     } catch (err) {
       console.error('[SlipScanner] File processing error:', err);
-      setUploadError('Failed to process selected image.');
+      setUploadError('Failed to process selected images.');
     }
   };
 
-  // Retake photo
-  const handleRetake = () => {
-    setCapturedBlob(null);
-    setPreviewUrl(null);
+  // Add another photo
+  const handleAddAnother = () => {
     setUploadError(null);
     setStep('camera');
     startCamera();
   };
 
-  // Submit slip to server
+  // Remove photo from captured set
+  const handleRemovePhoto = (index: number) => {
+    setCapturedPhotos((prev) => {
+      const updated = prev.filter((_, idx) => idx !== index);
+      if (updated.length === 0) {
+        setStep('camera');
+        startCamera();
+      } else if (activePhotoIndex >= updated.length) {
+        setActivePhotoIndex(updated.length - 1);
+      }
+      return updated;
+    });
+  };
+
+  // Retake all photos
+  const handleRetakeAll = () => {
+    setCapturedPhotos([]);
+    setActivePhotoIndex(0);
+    setUploadError(null);
+    setStep('camera');
+    startCamera();
+  };
+
+  // Submit slip photos to server
   const handleUpload = async () => {
-    if (!capturedBlob) return;
+    if (capturedPhotos.length === 0) return;
 
     const cleanPhone = customerPhone.replace(/\D/g, '');
     if (!cleanPhone || cleanPhone.length < 10) {
@@ -227,9 +271,16 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
 
     try {
       const formData = new FormData();
-      formData.append('file', capturedBlob, 'slip.jpg');
+      capturedPhotos.forEach((photo, idx) => {
+        formData.append('files', photo.blob, `slip_${idx + 1}.jpg`);
+      });
+      // Fallback single file field for backward compatibility
+      if (capturedPhotos[0]) {
+        formData.append('file', capturedPhotos[0].blob, 'slip.jpg');
+      }
       formData.append('name', customerName.trim() || 'Valued Customer');
       formData.append('phone', cleanPhone);
+      formData.append('note', deliveryNote.trim());
 
       const res = await fetch('/api/slips/upload', {
         method: 'POST',
@@ -345,15 +396,67 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
           </div>
         )}
 
-        {/* ── STEP 2: PREVIEW CAPTURED PHOTO ── */}
-        {step === 'preview' && previewUrl && (
-          <div className="relative w-full h-full flex items-center justify-center p-3">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={previewUrl}
-              alt="Slip Preview"
-              className="max-w-full max-h-[75vh] object-contain rounded-2xl shadow-2xl border border-stone-800"
-            />
+        {/* ── STEP 2: PREVIEW CAPTURED PHOTOS (MULTI-PHOTO) ── */}
+        {step === 'preview' && capturedPhotos.length > 0 && (
+          <div className="relative w-full h-full flex flex-col items-center justify-between p-3 select-none">
+            {/* Active Photo Full Display */}
+            <div className="flex-1 w-full flex items-center justify-center p-2 relative min-h-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={capturedPhotos[activePhotoIndex]?.previewUrl}
+                alt={`Slip Page ${activePhotoIndex + 1}`}
+                className="max-w-full max-h-[62vh] object-contain rounded-2xl shadow-2xl border border-stone-800"
+              />
+
+              {/* Delete Current Page Button */}
+              <button
+                type="button"
+                onClick={() => handleRemovePhoto(activePhotoIndex)}
+                className="absolute top-4 right-4 p-2 rounded-full bg-black/70 hover:bg-rose-900 text-stone-300 hover:text-white transition-colors cursor-pointer"
+                title="Remove this page"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Thumbnail Strip with Add Another Page Option */}
+            <div className="w-full max-w-sm py-2 flex items-center justify-center gap-2 overflow-x-auto no-scrollbar">
+              {capturedPhotos.map((photo, idx) => (
+                <button
+                  key={photo.id}
+                  type="button"
+                  onClick={() => setActivePhotoIndex(idx)}
+                  className={`relative w-12 h-16 rounded-lg overflow-hidden border-2 transition-all shrink-0 cursor-pointer ${
+                    activePhotoIndex === idx
+                      ? 'border-[#4CAF50] scale-105 shadow-md'
+                      : 'border-stone-700 opacity-60 hover:opacity-100'
+                  }`}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={photo.previewUrl}
+                    alt={`Thumb ${idx + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                  <span className="absolute bottom-0 inset-x-0 bg-black/75 text-[9px] text-white font-black text-center">
+                    p.{idx + 1}
+                  </span>
+                </button>
+              ))}
+
+              {/* Add More Photos Button */}
+              {capturedPhotos.length < 5 && (
+                <button
+                  type="button"
+                  onClick={handleAddAnother}
+                  className="w-12 h-16 rounded-lg border-2 border-dashed border-stone-600 hover:border-emerald-400 bg-stone-900 flex flex-col items-center justify-center text-stone-400 hover:text-emerald-400 transition-colors shrink-0 cursor-pointer"
+                  title="Capture next page of slip"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span className="text-[9px] font-bold mt-0.5">Add</span>
+                </button>
+              )}
+            </div>
           </div>
         )}
 
@@ -363,7 +466,7 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
             <div className="text-center">
               <h3 className="text-base font-extrabold text-white">Your Contact Information</h3>
               <p className="text-xs text-stone-400 mt-1">
-                Store staff will contact you via Phone/WhatsApp once your slip is reviewed.
+                Store staff will contact you via Phone/WhatsApp once your {capturedPhotos.length} slip {capturedPhotos.length === 1 ? 'page is' : 'pages are'} reviewed.
               </p>
             </div>
 
@@ -399,6 +502,19 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
                     className="w-full h-11 pl-9 pr-3 rounded-xl bg-stone-800 border border-stone-700 text-white text-sm outline-none focus:border-[#4CAF50]"
                   />
                 </div>
+              </div>
+
+              <div>
+                <label className="text-[11px] font-bold text-stone-400 block mb-1">
+                  Special Notes for Store (Optional)
+                </label>
+                <textarea
+                  rows={2}
+                  value={deliveryNote}
+                  onChange={(e) => setDeliveryNote(e.target.value)}
+                  placeholder="e.g. Please deliver by 6 PM, include only Tata brand pulses"
+                  className="w-full p-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white text-xs outline-none focus:border-[#4CAF50]"
+                />
               </div>
 
               {uploadError && (

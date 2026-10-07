@@ -343,17 +343,52 @@ export default function SlipsManagementTab() {
 
             {/* Modal Body: Image & Staff Actions */}
             <div className="flex-1 overflow-y-auto p-5 grid grid-cols-1 lg:grid-cols-12 gap-5">
-              {/* Slip High-Res Image View */}
-              <div className="lg:col-span-7 bg-stone-950 rounded-2xl overflow-hidden flex items-center justify-center min-h-[350px] max-h-[550px] p-2 border border-stone-800">
-                {selectedSlip.image_url ? (
-                  /* eslint-disable-next-line @next/next/no-img-element */
-                  <img
-                    src={selectedSlip.image_url}
-                    alt="Customer Slip Preview"
-                    className="max-w-full max-h-[500px] object-contain rounded-xl"
-                  />
-                ) : (
-                  <div className="text-stone-400 text-xs">No image available</div>
+              {/* Slip High-Res Image View (Supports Multi-Page Slips) */}
+              <div className="lg:col-span-7 bg-stone-950 rounded-2xl overflow-hidden flex flex-col items-center justify-between min-h-[350px] max-h-[550px] p-2 border border-stone-800">
+                <div className="flex-1 w-full flex items-center justify-center min-h-0">
+                  {selectedSlip.image_urls && selectedSlip.image_urls.length > 0 ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={selectedSlip.image_urls[0]}
+                      alt="Customer Slip Preview"
+                      className="max-w-full max-h-[460px] object-contain rounded-xl"
+                    />
+                  ) : selectedSlip.image_url ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={selectedSlip.image_url}
+                      alt="Customer Slip Preview"
+                      className="max-w-full max-h-[460px] object-contain rounded-xl"
+                    />
+                  ) : (
+                    <div className="text-stone-400 text-xs">No image available</div>
+                  )}
+                </div>
+
+                {/* Multiple Page Strip in Admin if customer uploaded multiple photos */}
+                {selectedSlip.image_urls && selectedSlip.image_urls.length > 1 && (
+                  <div className="w-full py-2 flex items-center justify-center gap-2 overflow-x-auto no-scrollbar border-t border-stone-800">
+                    {selectedSlip.image_urls.map((imgUrl, pIdx) => (
+                      <a
+                        key={pIdx}
+                        href={imgUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="relative w-12 h-16 rounded-md overflow-hidden border border-stone-700 hover:border-emerald-400 shrink-0"
+                        title={`Page ${pIdx + 1} - click to view full size`}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={imgUrl}
+                          alt={`Page ${pIdx + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                        <span className="absolute bottom-0 inset-x-0 bg-black/80 text-[8px] text-white text-center">
+                          p.{pIdx + 1}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
                 )}
               </div>
 

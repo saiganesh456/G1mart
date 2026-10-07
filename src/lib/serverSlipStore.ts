@@ -16,6 +16,9 @@ export interface SlipRecord {
   customer_phone: string;
   image_path: string;
   image_url?: string;
+  image_urls?: string[];
+  image_paths?: string[];
+  customer_note?: string;
   status: 'new' | 'reviewed' | 'converted_to_order' | 'rejected';
   extracted_json?: any | null;
   confirmed_json?: any | null;
@@ -106,6 +109,9 @@ export const serverSlipStore = {
     customer_phone: string;
     image_path: string;
     image_url?: string;
+    image_paths?: string[];
+    image_urls?: string[];
+    customer_note?: string;
     ip?: string | null;
   }): Promise<SlipRecord> {
     const id = `slip_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
@@ -115,6 +121,9 @@ export const serverSlipStore = {
       customer_phone: data.customer_phone.trim(),
       image_path: data.image_path,
       image_url: data.image_url,
+      image_paths: data.image_paths || [data.image_path],
+      image_urls: data.image_urls || (data.image_url ? [data.image_url] : []),
+      customer_note: data.customer_note,
       status: 'new',
       extracted_json: null,
       confirmed_json: null,

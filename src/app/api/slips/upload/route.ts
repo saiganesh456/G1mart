@@ -11,9 +11,20 @@ export async function POST(req: NextRequest) {
 
     // Parse form data
     const formData = await req.formData();
-    const file = formData.get('file') as File | null;
-    const customerName = (formData.get('name') as string)?.trim() || 'Customer';
+    const customerName = (formData.get('name') as string)?.trim() || 'Valued Customer';
     const customerPhone = (formData.get('phone') as string)?.trim() || '';
+    const customerNote = (formData.get('note') as string)?.trim() || '';
+
+    // Collect all uploaded files (supports multi-page slips)
+    const rawFiles = formData.getAll('files') as File[];
+    const singleFile = formData.get('file') as File | null;
+    const filesToProcess: File[] = [];
+    if (rawFiles && rawFiles.length > 0) {
+      filesToProcess.push(...rawFiles.filter((f) => f && f.size > 0));
+    }
+    if (filesToProcess.length === 0 && singleFile && singleFile.size > 0) {
+      filesToProcess.push(singleFile);
+    }
 
     // 1. Validate customer phone
     if (!customerPhone || customerPhone.replace(/\D/g, '').length < 10) {
@@ -24,7 +35,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Rate limit per phone and per IP
-    const phoneLimit = serverSlipStore.checkRateLimit(`phone:${customerPhone}`, 5, 10 * 60 * 1000);
+    const phoneLimit = serverSlipStore.checkRateLimit(`phone:${customerPhone}`, 6, 10 * 60 * 1000);
     if (!phoneLimit.allowed) {
       return NextResponse.json(
         { error: 'Too many slip uploads from this phone number. Please wait a few minutes before trying again.' },
@@ -32,7 +43,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const ipLimit = serverSlipStore.checkRateLimit(`ip:${ip}`, 10, 10 * 60 * 1000);
+    const ipLimit = serverSlipStore.checkRateLimit(`ip:${ip}`, 12, 10 * 60 * 1000);
     if (!ipLimit.allowed) {
       return NextResponse.json(
         { error: 'Too many upload attempts. Please try again later.' },
@@ -41,91 +52,105 @@ export async function POST(req: NextRequest) {
     }
 
     // 3. Validate file presence
-    if (!file) {
+    if (filesToProcess.length === 0) {
       return NextResponse.json({ error: 'No slip image provided.' }, { status: 400 });
     }
 
-    // 4. Validate MIME type
-    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
-      return NextResponse.json(
-        { error: `Invalid image format (${file.type}). Only JPG, PNG, and WebP are allowed.` },
-        { status: 400 }
-      );
-    }
-
-    // 5. Validate file size
-    if (file.size > MAX_UPLOAD_BYTES) {
-      return NextResponse.json(
-        { error: `Image size (${(file.size / (1024 * 1024)).toFixed(1)}MB) exceeds the 1.5MB limit. Please compress or retake.` },
-        { status: 400 }
-      );
-    }
-
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    const ext = file.type.split('/')[1] || 'jpg';
-    const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${ext}`;
-    const storagePath = `slips/${customerPhone.replace(/\D/g, '')}/${fileName}`;
-
-    // Ensure local public uploads directory exists and write image
-    let localPublicUrl = '';
-    try {
-      const fs = await import('fs');
-      const path = await import('path');
-      const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'slips');
-      if (!fs.existsSync(uploadDir)) {
-        fs.mkdirSync(uploadDir, { recursive: true });
+    // Validate MIME types and file sizes
+    for (const f of filesToProcess) {
+      if (!ALLOWED_MIME_TYPES.includes(f.type)) {
+        return NextResponse.json(
+          { error: `Invalid image format (${f.type}). Only JPG, PNG, and WebP are allowed.` },
+          { status: 400 }
+        );
       }
-      const localFilePath = path.join(uploadDir, fileName);
-      fs.writeFileSync(localFilePath, buffer);
-      localPublicUrl = `/uploads/slips/${fileName}`;
-    } catch (fsErr) {
-      console.warn('[Slip Upload] Could not write to public folder:', fsErr);
+      if (f.size > MAX_UPLOAD_BYTES) {
+        return NextResponse.json(
+          { error: `Image (${f.name}) exceeds the 2.5MB limit. Please compress or retake.` },
+          { status: 400 }
+        );
+      }
     }
 
-    let imageUrl: string = localPublicUrl;
-    let imagePath: string = storagePath;
+    const fs = await import('fs');
+    const path = await import('path');
+    const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'slips');
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
 
-    // 6. Attempt upload to Supabase private storage bucket 'slips'
-    try {
-      const { data, error } = await supabase.storage
-        .from('slips')
-        .upload(storagePath, buffer, {
-          contentType: file.type,
-          upsert: false,
-        });
+    const uploadedUrls: string[] = [];
+    const uploadedPaths: string[] = [];
 
-      if (!error && data) {
-        imagePath = data.path;
-        // Generate signed URL (valid for 24 hours for review)
-        const { data: signedData } = await supabase.storage
+    for (let i = 0; i < filesToProcess.length; i++) {
+      const file = filesToProcess[i];
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const ext = file.type.split('/')[1] || 'jpg';
+      const fileName = `${Date.now()}_p${i + 1}_${Math.random().toString(36).substring(2, 7)}.${ext}`;
+      const storagePath = `slips/${customerPhone.replace(/\D/g, '')}/${fileName}`;
+
+      let localPublicUrl = '';
+      try {
+        const localFilePath = path.join(uploadDir, fileName);
+        fs.writeFileSync(localFilePath, buffer);
+        localPublicUrl = `/uploads/slips/${fileName}`;
+      } catch (fsErr) {
+        console.warn('[Slip Upload] Could not write to public folder:', fsErr);
+      }
+
+      let fileUrl = localPublicUrl;
+      let filePath = storagePath;
+
+      // Upload to Supabase private bucket 'slips'
+      try {
+        const { data, error } = await supabase.storage
           .from('slips')
-          .createSignedUrl(data.path, 60 * 60 * 24);
-        if (signedData?.signedUrl) {
-          imageUrl = signedData.signedUrl;
-        }
-      }
-    } catch (storageErr) {
-      console.warn('[Slip Upload] Private storage upload notice:', storageErr);
-    }
+          .upload(storagePath, buffer, {
+            contentType: file.type,
+            upsert: false,
+          });
 
-    // Fallback: If neither public folder nor Supabase provided URL, use base64
-    if (!imageUrl) {
-      imageUrl = `data:${file.type};base64,${buffer.toString('base64')}`;
+        if (!error && data) {
+          filePath = data.path;
+          const { data: signedData } = await supabase.storage
+            .from('slips')
+            .createSignedUrl(data.path, 60 * 60 * 24);
+          if (signedData?.signedUrl) {
+            fileUrl = signedData.signedUrl;
+          }
+        }
+      } catch (storageErr) {
+        console.warn('[Slip Upload] Private storage upload notice:', storageErr);
+      }
+
+      if (!fileUrl) {
+        fileUrl = `data:${file.type};base64,${buffer.toString('base64')}`;
+      }
+
+      uploadedUrls.push(fileUrl);
+      uploadedPaths.push(filePath);
     }
 
     // 7. Save record to slip_uploads
+    const primaryUrl = uploadedUrls[0];
+    const primaryPath = uploadedPaths[0];
+
     const slip = await serverSlipStore.createSlip({
       customer_name: customerName,
       customer_phone: customerPhone,
-      image_path: imagePath,
-      image_url: imageUrl,
+      image_path: primaryPath,
+      image_url: primaryUrl,
+      image_paths: uploadedPaths,
+      image_urls: uploadedUrls,
+      customer_note: customerNote,
       ip,
     });
 
     return NextResponse.json({
       success: true,
       slipId: slip.id,
+      pagesCount: uploadedUrls.length,
       message: 'Your slip was sent to the store.',
       slip: {
         id: slip.id,
