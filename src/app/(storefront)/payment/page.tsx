@@ -101,12 +101,19 @@ export default function PaymentPage() {
             localStorage.setItem('g1mart_account_orders', JSON.stringify([orderRecord, ...accPrev]));
             localStorage.setItem('g1mart_recent_order', JSON.stringify(orderRecord));
 
-            // Sync to server store via API
-            fetch('/api/orders', {
+            // Sync to server store via API immediately
+            await fetch('/api/orders', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(orderRecord),
             }).catch(() => {});
+
+            // Broadcast immediate real-time event to Admin dashboard and open tabs
+            try {
+              const bc = new BroadcastChannel('g1mart_order_channel');
+              bc.postMessage({ type: 'NEW_ORDER', order: orderRecord });
+              bc.close();
+            } catch {}
 
             // Sync to Supabase auth user metadata across devices
             if (supabaseUser && isSupabaseConfigured()) {
@@ -207,11 +214,17 @@ export default function PaymentPage() {
         localStorage.setItem('g1mart_account_orders', JSON.stringify([orderRecord, ...accPrev]));
         localStorage.setItem('g1mart_recent_order', JSON.stringify(orderRecord));
 
-        fetch('/api/orders', {
+        await fetch('/api/orders', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(orderRecord),
         }).catch(() => {});
+
+        try {
+          const bc = new BroadcastChannel('g1mart_order_channel');
+          bc.postMessage({ type: 'NEW_ORDER', order: orderRecord });
+          bc.close();
+        } catch {}
 
         if (supabaseUser && isSupabaseConfigured()) {
           const existingOrders = supabaseUser.user_metadata?.orders || [];

@@ -28,6 +28,15 @@ const ordersMap = global.__g1Orders;
 const paymentsMap = global.__g1Payments;
 const processedWebhooks = global.__g1ProcessedWebhooks;
 
+export const STATUS_RANK: Record<string, number> = {
+  'Order Placed': 1,
+  'Packed': 2,
+  'Order Dispatched': 3,
+  'Out for Delivery': 3,
+  'Delivered': 4,
+  'Cancelled': 5,
+};
+
 export interface RecalculatedCart {
   items: OrderItem[];
   subtotal: number;
@@ -252,6 +261,7 @@ export const serverOrderStore = {
     order.paidAt = nowIso;
     order.transactionId = params.transactionId;
     ordersMap.set(order.id, order);
+    this.persistToDisk();
 
     // Update payment record
     const pId = params.providerOrderId || order.providerOrderId;
@@ -330,6 +340,7 @@ export const serverOrderStore = {
     order.paymentStatus = 'failed';
     order.isPaid = false;
     ordersMap.set(order.id, order);
+    this.persistToDisk();
 
     const pId = params.providerOrderId || order.providerOrderId;
     if (pId) {
@@ -505,12 +516,14 @@ export const serverOrderStore = {
    * Confirm Cash on Delivery order
    */
   async confirmCodOrder(orderId: string): Promise<{ success: boolean; order?: Order }> {
+    this.loadFromDisk();
     const order = ordersMap.get(orderId);
     if (!order) return { success: false };
 
     order.paymentStatus = 'cash_on_delivery';
     order.isPaid = false;
     ordersMap.set(orderId, order);
+    this.persistToDisk();
 
     return { success: true, order };
   },
@@ -530,7 +543,6 @@ export const serverOrderStore = {
 
   loadFromDisk() {
     try {
-      // 1. Check primary persistent file
       let filePathToRead = ORDERS_FILE_PATH;
       if (!fs.existsSync(filePathToRead) && fs.existsSync(LEGACY_CACHE_PATH)) {
         filePathToRead = LEGACY_CACHE_PATH;
@@ -538,20 +550,31 @@ export const serverOrderStore = {
 
       if (fs.existsSync(filePathToRead)) {
         const raw = fs.readFileSync(filePathToRead, 'utf-8');
-        const orders: Order[] = JSON.parse(raw);
-        if (Array.isArray(orders)) {
-          for (const o of orders) {
-            if (o && o.id) {
-              const current = ordersMap.get(o.id);
+        const diskOrders: Order[] = JSON.parse(raw);
+        if (Array.isArray(diskOrders)) {
+          for (const d of diskOrders) {
+            if (d && d.id) {
+              const current = ordersMap.get(d.id);
               if (!current) {
-                ordersMap.set(o.id, o);
+                ordersMap.set(d.id, d);
               } else {
-                ordersMap.set(o.id, {
+                const curRank = STATUS_RANK[current.status] || 0;
+                const diskRank = STATUS_RANK[d.status] || 0;
+                const winningStatus = curRank >= diskRank ? current.status : d.status;
+                const winningIsPaid = Boolean(current.isPaid || d.isPaid);
+                const winningTimeline = (current.timeline && current.timeline.some((t: any) => t.completed && t.status !== 'Order Placed'))
+                  ? current.timeline
+                  : (d.timeline || current.timeline);
+
+                ordersMap.set(d.id, {
+                  ...d,
                   ...current,
-                  ...o,
-                  status: o.status || current.status,
-                  isPaid: o.isPaid ?? current.isPaid,
-                  paymentStatus: o.paymentStatus || current.paymentStatus,
+                  status: winningStatus,
+                  isPaid: winningIsPaid,
+                  paymentStatus: winningIsPaid
+                    ? (current.paymentStatus === 'manual_verified' ? 'manual_verified' : 'completed')
+                    : (current.paymentStatus || d.paymentStatus),
+                  timeline: winningTimeline,
                 });
               }
             }
@@ -567,10 +590,36 @@ export const serverOrderStore = {
     if (!order || !order.id) return order;
     this.loadFromDisk();
     const existing = ordersMap.get(order.id);
+
+    if (!existing) {
+      ordersMap.set(order.id, order);
+      this.persistToDisk();
+      return order;
+    }
+
+    // Strict status rank protection: Never allow a stale client payload to demote status!
+    const existingRank = STATUS_RANK[existing.status] || 0;
+    const newRank = STATUS_RANK[order.status] || 0;
+    const finalStatus = existingRank > newRank ? existing.status : (order.status || existing.status);
+    const finalIsPaid = Boolean(existing.isPaid || order.isPaid);
+    const finalPaymentStatus = (existing.isPaid || existing.paymentStatus === 'completed' || existing.paymentStatus === 'manual_verified')
+      ? existing.paymentStatus
+      : (order.paymentStatus || existing.paymentStatus);
+    const finalTimeline = (existing.timeline && existing.timeline.some((t: any) => t.completed && t.status !== 'Order Placed'))
+      ? existing.timeline
+      : (order.timeline || existing.timeline);
+
     const merged: Order = {
-      ...existing,
       ...order,
-      providerOrderId: order.providerOrderId || existing?.providerOrderId || `MT_${order.id}`,
+      ...existing,
+      items: (order.items && order.items.length > 0) ? order.items : existing.items,
+      address: order.address || existing.address,
+      status: finalStatus,
+      isPaid: finalIsPaid,
+      paymentStatus: finalPaymentStatus,
+      paidAmount: Math.max(existing.paidAmount || 0, order.paidAmount || 0),
+      timeline: finalTimeline,
+      providerOrderId: existing.providerOrderId || order.providerOrderId || `MT_${order.id}`,
     };
     ordersMap.set(order.id, merged);
     this.persistToDisk();

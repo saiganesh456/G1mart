@@ -80,23 +80,28 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
         localOrders = Array.from(uniqueMap.values());
       } catch {}
 
-      // Background sync local orders to server so other tabs/riders receive them
-      for (const lo of localOrders) {
-        fetch('/api/orders', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(lo),
-        }).catch(() => {});
-      }
-
       const res = await fetch('/api/admin/orders');
       const data = await res.json();
       const serverList = (data.success && Array.isArray(data.orders)) ? data.orders : [];
 
-      // Seamlessly merge server and local orders
+      // Only upload local orders that do not exist on the server yet (NEVER overwrite existing orders with stale local status)
+      for (const lo of localOrders) {
+        if (!serverList.some((s: any) => s.id === lo.id)) {
+          fetch('/api/orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(lo),
+          }).catch(() => {});
+        }
+      }
+
+      // Merge: Server orders are authoritative for status and payment confirmation
       const mergedMap = new Map<string, any>();
       localOrders.forEach((o) => mergedMap.set(o.id, o));
-      serverList.forEach((o: any) => mergedMap.set(o.id, { ...mergedMap.get(o.id), ...o }));
+      serverList.forEach((s: any) => {
+        const local = mergedMap.get(s.id);
+        mergedMap.set(s.id, { ...local, ...s });
+      });
 
       const merged = Array.from(mergedMap.values()).sort(
         (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
@@ -124,11 +129,33 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
     fetchOrders(false);
     fetchSlipsCount();
 
+    // Instant real-time cross-tab synchronization
+    let bc: BroadcastChannel | null = null;
+    try {
+      bc = new BroadcastChannel('g1mart_order_channel');
+      bc.onmessage = (event) => {
+        if (event.data?.type === 'NEW_ORDER' && event.data.order) {
+          setOrders((prev) => {
+            if (prev.some((o) => o.id === event.data.order.id)) return prev;
+            return [event.data.order, ...prev];
+          });
+        } else if (event.data?.type === 'ORDER_UPDATED' && event.data.order) {
+          setOrders((prev) =>
+            prev.map((o) => (o.id === event.data.order.id ? { ...o, ...event.data.order } : o))
+          );
+        }
+      };
+    } catch {}
+
     const interval = setInterval(() => {
       fetchOrders(true);
       fetchSlipsCount();
-    }, 4000);
-    return () => clearInterval(interval);
+    }, 2000); // 2-second fast sync
+
+    return () => {
+      clearInterval(interval);
+      if (bc) bc.close();
+    };
   }, []);
 
   const handleMarkPaid = async (orderId: string) => {
@@ -143,10 +170,36 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
         body: JSON.stringify({ staffIdentifier: enteredStaff }),
       });
       const data = await res.json();
-      if (data.success) {
+      if (data.success && data.order) {
         setOrders((prev) =>
           prev.map((o) => (o.id === orderId ? { ...o, ...data.order } : o))
         );
+
+        // Update local storage
+        try {
+          const rawAcc = localStorage.getItem('g1mart_account_orders');
+          if (rawAcc) {
+            const list = JSON.parse(rawAcc);
+            const nextList = list.map((item: any) =>
+              item.id === orderId ? { ...item, ...data.order, isPaid: true, paymentStatus: 'manual_verified' } : item
+            );
+            localStorage.setItem('g1mart_account_orders', JSON.stringify(nextList));
+          }
+          const rawRecent = localStorage.getItem('g1mart_recent_order');
+          if (rawRecent) {
+            const recent = JSON.parse(rawRecent);
+            if (recent.id === orderId) {
+              localStorage.setItem('g1mart_recent_order', JSON.stringify({ ...recent, ...data.order, isPaid: true, paymentStatus: 'manual_verified' }));
+            }
+          }
+        } catch {}
+
+        // Broadcast real-time payment update to customer tracking tab
+        try {
+          const bc = new BroadcastChannel('g1mart_order_channel');
+          bc.postMessage({ type: 'ORDER_UPDATED', orderId, order: data.order });
+          bc.close();
+        } catch {}
       } else {
         alert('Failed: ' + (data.error || 'Could not mark order paid'));
       }
@@ -163,7 +216,7 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
     const targetOrder = orders.find((o) => o.id === orderId);
     setUpdatingOrderId(orderId);
 
-    // Immediate optimistic update
+    // Immediate optimistic update in admin UI
     setOrders((prev) =>
       prev.map((o) => (o.id === orderId ? { ...o, status: nextStatus as any } : o))
     );
@@ -209,6 +262,13 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
             );
             sessionStorage.setItem('g1mart_orders_list', JSON.stringify(nextList));
           }
+        } catch {}
+
+        // Broadcast real-time status update to customer tracking tab in 0ms
+        try {
+          const bc = new BroadcastChannel('g1mart_order_channel');
+          bc.postMessage({ type: 'ORDER_UPDATED', orderId, order: data.order, status: nextStatus });
+          bc.close();
         } catch {}
       } else {
         alert('Failed: ' + (data.error || 'Could not update status'));

@@ -1,0 +1,54 @@
+[
+  {
+    "id": "G1-TEST-9901",
+    "status": "Order Dispatched",
+    "orderNumber": "G1-TEST-9901",
+    "date": "7/10/2026",
+    "paymentMethod": "Cash on Delivery",
+    "paymentStatus": "manual_verified",
+    "grandTotal": 380,
+    "items": [
+      {
+        "productId": "staple-atta",
+        "productName": "Aashirvaad Atta",
+        "unit": "5kg",
+        "price": 245,
+        "quantity": 1,
+        "image": "/products/packshots/aashirvaad-atta.jpg"
+      }
+    ],
+    "address": {
+      "fullName": "Harsha Test",
+      "mobileNumber": "9988776655",
+      "city": "Nellore"
+    },
+    "slot": "Standard Delivery",
+    "isPaid": true,
+    "timeline": [
+      {
+        "status": "Order Placed",
+        "time": "Confirmed",
+        "completed": true
+      },
+      {
+        "status": "Packed",
+        "time": "11:28 pm",
+        "completed": true
+      },
+      {
+        "status": "Out for Delivery",
+        "time": "11:28 pm",
+        "completed": true
+      },
+      {
+        "status": "Delivered",
+        "time": "Pending",
+        "completed": false
+      }
+    ],
+    "paidAmount": 380,
+    "providerOrderId": "MT_G1-TEST-9901",
+    "paidAt": "2026-10-07T17:58:29.564Z",
+    "markedPaidBy": "Cashier Harsha"
+  }
+]

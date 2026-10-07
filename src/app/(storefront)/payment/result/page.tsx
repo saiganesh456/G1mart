@@ -89,11 +89,17 @@ function PaymentResultContent() {
         localStorage.setItem('g1mart_recent_order', JSON.stringify(finalOrder));
         sessionStorage.setItem('g1mart_latest_order', JSON.stringify(finalOrder));
 
-        fetch('/api/orders', {
+        await fetch('/api/orders', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(finalOrder),
         }).catch(() => {});
+
+        try {
+          const bc = new BroadcastChannel('g1mart_order_channel');
+          bc.postMessage({ type: 'ORDER_UPDATED', orderId, order: finalOrder });
+          bc.close();
+        } catch {}
       } catch {}
     } catch (err: any) {
       alert('Error confirming payment: ' + err.message);

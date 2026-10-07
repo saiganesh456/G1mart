@@ -69,9 +69,38 @@ export default function OrderDetailClient({ orderId }: Props) {
     // Immediate sync
     syncLiveOrder();
 
-    // Auto-poll every 3.5s so admin changes (Mark as Paid, Packed, Dispatched) reflect live
-    const interval = setInterval(syncLiveOrder, 3500);
-    return () => clearInterval(interval);
+    // 1. Real-time instant BroadcastChannel listener (0ms latency cross-tab)
+    let bc: BroadcastChannel | null = null;
+    try {
+      bc = new BroadcastChannel('g1mart_order_channel');
+      bc.onmessage = (event) => {
+        if (event.data?.type === 'ORDER_UPDATED' && (event.data.orderId === orderId || event.data.order?.id === orderId)) {
+          setOrder((prev: any) => ({ ...prev, ...(event.data.order || {}), status: event.data.status || event.data.order?.status || prev?.status }));
+        }
+      };
+    } catch {}
+
+    // 2. Storage event listener (fires when admin tab updates localStorage on same machine)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'g1mart_recent_order' && e.newValue) {
+        try {
+          const parsed = JSON.parse(e.newValue);
+          if (parsed.id === orderId) {
+            setOrder((prev: any) => ({ ...prev, ...parsed }));
+          }
+        } catch {}
+      }
+    };
+    window.addEventListener('storage', handleStorageChange);
+
+    // 3. Fast auto-poll every 1.5s for cross-device updates
+    const interval = setInterval(syncLiveOrder, 1500);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('storage', handleStorageChange);
+      if (bc) bc.close();
+    };
   }, [orderId]);
 
   const address = order?.address || null;
@@ -123,8 +152,11 @@ export default function OrderDetailClient({ orderId }: Props) {
         <div className="flex items-center justify-between border-b border-stone-100 pb-3">
           <div>
             <span className="text-xs text-stone-400 font-semibold block">Order Status</span>
-            <span className="text-sm font-extrabold text-[#2E7D32]">
-              {order?.status || 'Order Received'}
+            <span className="text-sm sm:text-base font-black text-[#2E7D32] flex items-center gap-1.5">
+              <span>{order?.status || 'Order Received'}</span>
+              {(order?.status === 'Packed' || order?.status === 'Order Dispatched' || order?.status === 'Out for Delivery') && (
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              )}
             </span>
           </div>
           <div className="text-right">
@@ -148,42 +180,46 @@ export default function OrderDetailClient({ orderId }: Props) {
         {/* Live Tracking Timeline */}
         {(() => {
           const currentStatus = order?.status || 'Order Placed';
-          const isPlaced = true;
-          const isPacking = currentStatus === 'Packed' || currentStatus === 'Packing' || currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery' || currentStatus === 'Delivered';
+          const isPacked = currentStatus === 'Packed' || currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery' || currentStatus === 'Delivered';
           const isDispatched = currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery' || currentStatus === 'Delivered';
           const isDelivered = currentStatus === 'Delivered';
 
           return (
-            <div className="space-y-3 py-1 text-xs">
+            <div className="space-y-3.5 py-1 text-xs">
+              {/* Step 1: Placed */}
               <div className="flex items-center gap-3 text-emerald-800">
                 <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
-                <span className="font-bold">Order Placed</span>
+                <span className="font-bold">Order Placed &amp; Confirmed</span>
               </div>
+
+              {/* Step 2: Packing */}
               <div className="flex items-center gap-3">
-                {isPacking ? (
+                {isPacked ? (
                   <>
                     <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
-                    <span className="font-bold text-stone-800">Packed at G1 Mart Hub</span>
+                    <span className="font-bold text-stone-800">Packed &amp; Bagged at G1 Mart Hub</span>
                   </>
                 ) : (
                   <>
                     <div className="w-4 h-4 rounded-full border-2 border-[#2E7D32] border-t-transparent animate-spin" />
-                    <span className="font-semibold text-stone-800">Packing at G1 Mart Hub</span>
+                    <span className="font-bold text-[#2E7D32]">Packing &amp; preparing fresh groceries...</span>
                   </>
                 )}
               </div>
+
+              {/* Step 3: Dispatch & Rider */}
               <div className="flex items-center gap-3">
                 {isDispatched ? (
                   <>
                     <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
                     <span className="font-bold text-stone-800">
-                      {isDelivered ? 'Dispatched for Express Delivery' : 'Out for Express Delivery with Rider'}
+                      Out for Express Delivery with Rider 🛵
                     </span>
                   </>
-                ) : isPacking ? (
+                ) : isPacked ? (
                   <>
                     <div className="w-4 h-4 rounded-full border-2 border-[#2E7D32] border-t-transparent animate-spin" />
-                    <span className="font-semibold text-stone-800">Ready for Rider Pickup</span>
+                    <span className="font-bold text-[#2E7D32]">Ready for Rider Pickup (Rider Assigned)</span>
                   </>
                 ) : (
                   <>
@@ -192,11 +228,18 @@ export default function OrderDetailClient({ orderId }: Props) {
                   </>
                 )}
               </div>
+
+              {/* Step 4: Delivery */}
               <div className="flex items-center gap-3">
                 {isDelivered ? (
                   <>
                     <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
                     <span className="font-bold text-emerald-800">Delivered at Doorstep 🎉</span>
+                  </>
+                ) : isDispatched ? (
+                  <>
+                    <div className="w-4 h-4 rounded-full border-2 border-[#2E7D32] border-t-transparent animate-spin" />
+                    <span className="font-semibold text-stone-700">Rider on the way to your address</span>
                   </>
                 ) : (
                   <>
