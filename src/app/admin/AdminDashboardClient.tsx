@@ -50,18 +50,18 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [stockFilter, setStockFilter] = useState<'all' | 'in_stock' | 'out_of_stock'>('all');
-  const [activeTab, setActiveTab] = useState<'inventory' | 'add_product' | 'orders' | 'staff' | 'slips'>('orders');
+  const [activeTab, setActiveTab] = useState<'orders' | 'slips' | 'payments' | 'riders' | 'inventory' | 'add_product' | 'staff'>('orders');
   const [orders, setOrders] = useState<Order[]>([]);
   const [loadingOrders, setLoadingOrders] = useState(false);
   const [markingOrderId, setMarkingOrderId] = useState<string | null>(null);
   const [staffName, setStaffName] = useState('Store Staff (Counter)');
+  const [newSlipsCount, setNewSlipsCount] = useState(0);
+  const [paymentsFilter, setPaymentsFilter] = useState<'all' | 'pending' | 'paid'>('all');
+  const [paymentsSearch, setPaymentsSearch] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    fetchOrders();
-  }, []);
-
-  const fetchOrders = async () => {
-    setLoadingOrders(true);
+  const fetchOrders = async (silent = false) => {
+    if (!silent) setLoadingOrders(true);
     try {
       // 1. Gather local orders from device storage
       let localOrders: any[] = [];
@@ -105,9 +105,31 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
     } catch (err) {
       console.error('Failed to fetch admin orders', err);
     } finally {
-      setLoadingOrders(false);
+      if (!silent) setLoadingOrders(false);
     }
   };
+
+  const fetchSlipsCount = async () => {
+    try {
+      const res = await fetch('/api/admin/slips');
+      const data = await res.json();
+      if (res.ok && Array.isArray(data.slips)) {
+        const count = data.slips.filter((s: any) => s.status === 'new').length;
+        setNewSlipsCount(count);
+      }
+    } catch {}
+  };
+
+  useEffect(() => {
+    fetchOrders(false);
+    fetchSlipsCount();
+
+    const interval = setInterval(() => {
+      fetchOrders(true);
+      fetchSlipsCount();
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleMarkPaid = async (orderId: string) => {
     const enteredStaff = prompt('Enter staff member name or cashier ID for payment audit trail:', staffName) || staffName;
@@ -458,143 +480,398 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
     isPopular: true,
   };
 
+  // Computed live operational metrics
+  const activeOrders = useMemo(
+    () => orders.filter((o) => o.status !== 'Delivered' && o.status !== 'Cancelled'),
+    [orders]
+  );
+  const activeOrdersCount = activeOrders.length;
+  const pendingCodOrders = useMemo(
+    () => orders.filter((o) => !o.isPaid && o.paymentStatus !== 'completed' && o.paymentStatus !== 'manual_verified'),
+    [orders]
+  );
+  const pendingCodCount = pendingCodOrders.length;
+  const pendingCodTotal = useMemo(
+    () => pendingCodOrders.reduce((acc, o) => acc + (o.grandTotal || 0), 0),
+    [pendingCodOrders]
+  );
+  const totalRevenue = useMemo(
+    () => orders.reduce((acc, o) => acc + (o.grandTotal || 0), 0),
+    [orders]
+  );
+  const totalPaidRevenue = useMemo(
+    () =>
+      orders
+        .filter((o) => o.isPaid || o.paymentStatus === 'completed' || o.paymentStatus === 'manual_verified')
+        .reduce((acc, o) => acc + (o.grandTotal || 0), 0),
+    [orders]
+  );
+  const dispatchedOrders = useMemo(
+    () => orders.filter((o) => o.status === 'Order Dispatched' || o.status === 'Out for Delivery'),
+    [orders]
+  );
+  const packedOrders = useMemo(
+    () => orders.filter((o) => o.status === 'Packed'),
+    [orders]
+  );
+
+  const filteredPaymentOrders = useMemo(() => {
+    return orders.filter((o) => {
+      const isPaid =
+        o.isPaid ||
+        o.paymentStatus === 'completed' ||
+        o.paymentStatus === 'manual_verified';
+      if (paymentsFilter === 'pending' && isPaid) return false;
+      if (paymentsFilter === 'paid' && !isPaid) return false;
+      if (paymentsSearch) {
+        const query = paymentsSearch.toLowerCase();
+        const matchesName = (o.address?.fullName || '').toLowerCase().includes(query);
+        const matchesPhone = (o.address?.mobileNumber || o.address?.phone || '').includes(query);
+        const matchesId = (o.id || '').toLowerCase().includes(query);
+        return matchesName || matchesPhone || matchesId;
+      }
+      return true;
+    });
+  }, [orders, paymentsFilter, paymentsSearch]);
+
+  const navItems = [
+    {
+      id: 'orders' as const,
+      label: 'Orders',
+      icon: Package,
+      badge: activeOrdersCount > 0 ? activeOrdersCount : undefined,
+      badgeClass: 'bg-[#1B5E20] text-white',
+    },
+    {
+      id: 'slips' as const,
+      label: 'Customer Slips',
+      icon: FileText,
+      badge: newSlipsCount > 0 ? newSlipsCount : undefined,
+      badgeClass: 'bg-amber-500 text-white animate-pulse',
+    },
+    {
+      id: 'payments' as const,
+      label: 'Payments & Cash',
+      icon: CreditCard,
+      badge: pendingCodCount > 0 ? pendingCodCount : undefined,
+      badgeClass: 'bg-amber-100 text-amber-900 border border-amber-300',
+    },
+    {
+      id: 'riders' as const,
+      label: 'Riders & Dispatch',
+      icon: Truck,
+      badge: dispatchedOrders.length > 0 ? dispatchedOrders.length : undefined,
+      badgeClass: 'bg-purple-100 text-purple-900',
+    },
+    {
+      id: 'inventory' as const,
+      label: 'Inventory Catalog',
+      icon: Layers,
+      badge: totalProducts,
+      badgeClass: 'bg-stone-100 text-stone-600',
+    },
+    {
+      id: 'add_product' as const,
+      label: 'Add New Product',
+      icon: PlusCircle,
+    },
+    {
+      id: 'staff' as const,
+      label: 'Staff & Roles',
+      icon: Users,
+    },
+  ];
+
+  const mobileNavItems = [
+    { id: 'orders' as const, label: 'Orders', icon: Package, badge: activeOrdersCount },
+    { id: 'slips' as const, label: 'Slips', icon: FileText, badge: newSlipsCount },
+    { id: 'payments' as const, label: 'Payments', icon: CreditCard, badge: pendingCodCount },
+    { id: 'riders' as const, label: 'Riders', icon: Truck, badge: dispatchedOrders.length },
+    { id: 'inventory' as const, label: 'Catalog', icon: Layers },
+  ];
+
   return (
-    <div className="space-y-6">
-      {/* Top Banner & Tab Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-4 sm:p-5 rounded-2xl border border-stone-200 shadow-2xs">
-        <div>
-          <h1 className="text-lg sm:text-xl font-black text-stone-900 flex items-center gap-2">
-            <Package className="w-5 h-5 text-[#2E7D32]" />
-            <span>G1 Mart Store Inventory &amp; Catalog</span>
-          </h1>
-          <p className="text-xs text-stone-500 font-medium mt-0.5">
-            Manage 472 products, update real selling prices, toggle stock, and publish new inventory.
-          </p>
+    <div className="flex flex-col lg:flex-row gap-5 items-start pb-24 lg:pb-10 min-h-screen">
+      {/* ── DESKTOP APP SIDEBAR NAVIGATION ── */}
+      <aside className="hidden lg:flex flex-col w-64 shrink-0 bg-white rounded-2xl border border-stone-200/90 shadow-2xs p-4 space-y-5 sticky top-20">
+        {/* Hub Status Card */}
+        <div className="p-3 bg-stone-50 rounded-xl border border-stone-200/80 space-y-1">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-black uppercase text-stone-400 tracking-wider">Store Operations</span>
+            <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2E7D32] animate-pulse" />
+              Live Hub
+            </span>
+          </div>
+          <p className="text-xs font-black text-stone-900 truncate">G1 Mart Supermarket</p>
+          <p className="text-[10px] text-stone-500 truncate">Nellore · Magunta Layout</p>
         </div>
 
-        {/* Tab Toggle Buttons */}
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setActiveTab('inventory')}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-              activeTab === 'inventory'
-                ? 'bg-[#2E7D32] text-white shadow-xs'
-                : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
-            }`}
-          >
-            <Layers className="w-3.5 h-3.5" />
-            <span>Manage Inventory ({totalProducts})</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('add_product')}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-              activeTab === 'add_product'
-                ? 'bg-[#2E7D32] text-white shadow-xs'
-                : 'bg-[#E8F5E9] text-[#1B5E20] hover:bg-[#C8E6C9]'
-            }`}
-          >
-            <PlusCircle className="w-3.5 h-3.5" />
-            <span>+ Add New Product</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setActiveTab('orders');
-              fetchOrders();
-            }}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-              activeTab === 'orders'
-                ? 'bg-[#2E7D32] text-white shadow-xs'
-                : 'bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100'
-            }`}
-          >
-            <CreditCard className="w-3.5 h-3.5" />
-            <span>Orders &amp; Payments</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('slips')}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-              activeTab === 'slips'
-                ? 'bg-[#2E7D32] text-white shadow-xs'
-                : 'bg-emerald-50 text-emerald-900 border border-emerald-200 hover:bg-emerald-100'
-            }`}
-          >
-            <FileText className="w-3.5 h-3.5" />
-            <span>Customer Slips</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('staff')}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-              activeTab === 'staff'
-                ? 'bg-[#2E7D32] text-white shadow-xs'
-                : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
-            }`}
-          >
-            <Users className="w-3.5 h-3.5" />
-            <span>Staff &amp; Roles</span>
-          </button>
+        {/* Navigation Menu */}
+        <nav className="space-y-1 flex-1">
+          <span className="text-[10px] font-black uppercase text-stone-400 tracking-wider px-2 block mb-2">
+            Operations App
+          </span>
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => {
+                  setActiveTab(item.id);
+                  if (item.id === 'orders') fetchOrders(false);
+                }}
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  isActive
+                    ? 'bg-[#1B5E20] text-white shadow-xs'
+                    : 'text-stone-700 hover:bg-stone-100 hover:text-stone-900'
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-stone-500'}`} />
+                  <span>{item.label}</span>
+                </div>
+                {item.badge !== undefined && item.badge > 0 && (
+                  <span
+                    className={`px-2 py-0.5 rounded-full text-[10px] font-black ${
+                      isActive ? 'bg-white/20 text-white' : item.badgeClass || 'bg-stone-200 text-stone-800'
+                    }`}
+                  >
+                    {item.badge}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Quick App Actions Footer */}
+        <div className="pt-3 border-t border-stone-100 space-y-2">
           <Link
             href="/rider"
             target="_blank"
-            className="px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 bg-[#1B5E20] text-white hover:bg-[#144718] shadow-xs cursor-pointer"
+            className="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-900 text-xs font-bold transition-colors cursor-pointer"
           >
-            <Truck className="w-3.5 h-3.5" />
-            <span>🛵 Open Rider App</span>
-            <ExternalLink className="w-3 h-3 opacity-80" />
+            <div className="flex items-center gap-2">
+              <Truck className="w-3.5 h-3.5 text-purple-700" />
+              <span>🛵 Rider App</span>
+            </div>
+            <ExternalLink className="w-3 h-3 opacity-60" />
+          </Link>
+
+          <Link
+            href="/"
+            target="_blank"
+            className="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-700 text-xs font-bold transition-colors cursor-pointer"
+          >
+            <div className="flex items-center gap-2">
+              <Package className="w-3.5 h-3.5 text-[#2E7D32]" />
+              <span>View Storefront</span>
+            </div>
+            <ExternalLink className="w-3 h-3 opacity-60" />
           </Link>
         </div>
-      </div>
+      </aside>
 
-      {/* KPI Stats Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-        <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-stone-200 shadow-2xs flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-emerald-50 text-[#2E7D32] flex items-center justify-center font-black">
-            <Package className="w-5 h-5" />
+      {/* ── MOBILE PINNED BOTTOM NAVIGATION BAR ── */}
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200/90 px-2 py-2 flex items-center justify-around shadow-xl">
+        {mobileNavItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = activeTab === item.id;
+          return (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => {
+                setActiveTab(item.id);
+                if (item.id === 'orders') fetchOrders(false);
+              }}
+              className={`relative flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all cursor-pointer ${
+                isActive ? 'text-[#1B5E20]' : 'text-stone-500 hover:text-stone-800'
+              }`}
+            >
+              <div className="relative">
+                <Icon className={`w-5 h-5 ${isActive ? 'stroke-[2.5]' : 'stroke-[1.75]'}`} />
+                {item.badge !== undefined && item.badge > 0 && (
+                  <span className="absolute -top-1.5 -right-2 min-w-4 h-4 px-1 rounded-full bg-rose-500 text-white text-[9px] font-black flex items-center justify-center">
+                    {item.badge}
+                  </span>
+                )}
+              </div>
+              <span className={`text-[10px] mt-0.5 ${isActive ? 'font-black' : 'font-semibold'}`}>
+                {item.label}
+              </span>
+            </button>
+          );
+        })}
+
+        {/* More Options / Drawer Toggle */}
+        <button
+          type="button"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all cursor-pointer ${
+            activeTab === 'add_product' || activeTab === 'staff' ? 'text-[#1B5E20]' : 'text-stone-500'
+          }`}
+        >
+          <Users className="w-5 h-5 stroke-[1.75]" />
+          <span className="text-[10px] mt-0.5 font-semibold">More</span>
+        </button>
+      </nav>
+
+      {/* Mobile More Drawer / Modal */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-3 animate-in fade-in">
+          <div className="bg-white rounded-3xl w-full max-w-sm p-4 space-y-3 border border-stone-200 shadow-2xl">
+            <div className="flex items-center justify-between pb-2 border-b border-stone-100">
+              <span className="font-bold text-xs text-stone-900">More Operations</span>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-7 h-7 rounded-full bg-stone-100 flex items-center justify-center text-stone-600"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="space-y-1">
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab('add_product');
+                  setMobileMenuOpen(false);
+                }}
+                className={`w-full flex items-center gap-3 p-3 rounded-2xl text-xs font-bold ${
+                  activeTab === 'add_product' ? 'bg-[#1B5E20] text-white' : 'hover:bg-stone-100 text-stone-800'
+                }`}
+              >
+                <PlusCircle className="w-4 h-4" />
+                <span>+ Add New Product</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab('staff');
+                  setMobileMenuOpen(false);
+                }}
+                className={`w-full flex items-center gap-3 p-3 rounded-2xl text-xs font-bold ${
+                  activeTab === 'staff' ? 'bg-[#1B5E20] text-white' : 'hover:bg-stone-100 text-stone-800'
+                }`}
+              >
+                <Users className="w-4 h-4" />
+                <span>Staff &amp; Cashier Roles</span>
+              </button>
+              <Link
+                href="/rider"
+                target="_blank"
+                className="w-full flex items-center justify-between p-3 rounded-2xl text-xs font-bold bg-purple-50 text-purple-900"
+              >
+                <div className="flex items-center gap-3">
+                  <Truck className="w-4 h-4" />
+                  <span>🛵 Open Rider Dispatch App</span>
+                </div>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
+        </div>
+      )}
+
+      {/* ── MAIN APPLICATION WORKSPACE ── */}
+      <main className="flex-1 min-w-0 space-y-5 w-full">
+        {/* Top Operations Header Bar */}
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-stone-200/90 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="text-base sm:text-lg font-black text-stone-900">{totalProducts}</div>
-            <div className="text-[11px] font-semibold text-stone-500">Total Products</div>
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#2E7D32] animate-ping" />
+              <h1 className="text-base sm:text-lg font-black text-stone-900 tracking-tight">
+                {activeTab === 'orders' && 'Live Order Fulfillment & Dispatch'}
+                {activeTab === 'slips' && 'Handwritten Customer Slips'}
+                {activeTab === 'payments' && 'Cash Collection & UPI Payments Audit'}
+                {activeTab === 'riders' && 'Rider Fleet & GPS Express Dispatch'}
+                {activeTab === 'inventory' && 'Inventory Catalog & Price Control'}
+                {activeTab === 'add_product' && 'Add New Product to Store'}
+                {activeTab === 'staff' && 'Store Staff & Counter Cashiers'}
+              </h1>
+            </div>
+            <p className="text-xs text-stone-500 mt-0.5">
+              Nellore Hub · Magunta Layout · Staff: <span className="font-bold text-stone-700">{staffName}</span>
+            </p>
+          </div>
+
+          {/* Real-time KPI Chips & Manual Refresh */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="px-3 py-1.5 rounded-xl bg-stone-50 border border-stone-200/80 text-[11px] font-bold text-stone-700 flex items-center gap-1.5">
+              <span>Active Orders:</span>
+              <span className="font-black text-[#1B5E20]">{activeOrdersCount}</span>
+            </div>
+            <div className="px-3 py-1.5 rounded-xl bg-stone-50 border border-stone-200/80 text-[11px] font-bold text-stone-700 flex items-center gap-1.5">
+              <span>Cash to Collect:</span>
+              <span className="font-black text-amber-900">₹{pendingCodTotal}</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                fetchOrders(false);
+                fetchSlipsCount();
+              }}
+              disabled={loadingOrders}
+              className="px-3 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+              title="Refresh all store data"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${loadingOrders ? 'animate-spin' : ''}`} />
+              <span className="hidden sm:inline">Sync</span>
+            </button>
           </div>
         </div>
 
-        <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-stone-200 shadow-2xs flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-green-50 text-green-700 flex items-center justify-center font-black">
-            <CheckCircle2 className="w-5 h-5" />
-          </div>
-          <div>
-            <div className="text-base sm:text-lg font-black text-green-700">{inStockCount}</div>
-            <div className="text-[11px] font-semibold text-stone-500">Live In-Stock</div>
-          </div>
-        </div>
+        {/* TAB 1: INVENTORY MANAGER */}
+        {activeTab === 'inventory' && (
+          <div className="space-y-4">
+            {/* Catalog KPI Cards (Only in Inventory tab) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="bg-white p-3.5 rounded-2xl border border-stone-200 shadow-2xs flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-emerald-50 text-[#2E7D32] flex items-center justify-center font-black">
+                  <Package className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-base font-black text-stone-900">{totalProducts}</div>
+                  <div className="text-[10px] font-semibold text-stone-500">Total Products</div>
+                </div>
+              </div>
 
-        <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-stone-200 shadow-2xs flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center font-black">
-            <XCircle className="w-5 h-5" />
-          </div>
-          <div>
-            <div className="text-base sm:text-lg font-black text-red-600">{outOfStockCount}</div>
-            <div className="text-[11px] font-semibold text-stone-500">Out of Stock</div>
-          </div>
-        </div>
+              <div className="bg-white p-3.5 rounded-2xl border border-stone-200 shadow-2xs flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-green-50 text-green-700 flex items-center justify-center font-black">
+                  <CheckCircle2 className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-base font-black text-green-700">{inStockCount}</div>
+                  <div className="text-[10px] font-semibold text-stone-500">Live In-Stock</div>
+                </div>
+              </div>
 
-        <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-stone-200 shadow-2xs flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center font-black">
-            <Tag className="w-5 h-5" />
-          </div>
-          <div>
-            <div className="text-base sm:text-lg font-black text-stone-900">{categories.length}</div>
-            <div className="text-[11px] font-semibold text-stone-500">Store Aisles</div>
-          </div>
-        </div>
-      </div>
+              <div className="bg-white p-3.5 rounded-2xl border border-stone-200 shadow-2xs flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-red-50 text-red-600 flex items-center justify-center font-black">
+                  <XCircle className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-base font-black text-red-600">{outOfStockCount}</div>
+                  <div className="text-[10px] font-semibold text-stone-500">Out of Stock</div>
+                </div>
+              </div>
 
-      {/* TAB 1: INVENTORY MANAGER */}
-      {activeTab === 'inventory' && (
-        <div className="bg-white rounded-2xl border border-stone-200 shadow-2xs overflow-hidden">
+              <div className="bg-white p-3.5 rounded-2xl border border-stone-200 shadow-2xs flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center font-black">
+                  <Tag className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-base font-black text-stone-900">{categories.length}</div>
+                  <div className="text-[10px] font-semibold text-stone-500">Store Aisles</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl border border-stone-200 shadow-2xs overflow-hidden">
           {/* Search & Filter Toolbar */}
           <div className="p-3 sm:p-4 border-b border-stone-200/80 bg-stone-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             {/* Search */}
@@ -850,7 +1127,8 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
             </div>
           )}
         </div>
-      )}
+      </div>
+    )}
 
       {/* TAB 2: ADD NEW PRODUCT WITH LIVE CUSTOMER PREVIEW */}
       {activeTab === 'add_product' && (
@@ -1630,6 +1908,299 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
 
       {/* TAB 5: CUSTOMER HANDWRITTEN SLIPS */}
       {activeTab === 'slips' && <SlipsManagementTab />}
+
+      {/* TAB 6: PAYMENTS & CASH AUDIT */}
+      {activeTab === 'payments' && (
+        <div className="bg-white rounded-2xl border border-stone-200 shadow-2xs p-5 sm:p-6 space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-100">
+            <div>
+              <h2 className="text-base font-extrabold text-stone-900 flex items-center gap-2">
+                <CreditCard className="w-5 h-5 text-[#2E7D32]" />
+                <span>Cash Collection &amp; Payment Audit</span>
+              </h2>
+              <p className="text-xs text-stone-500 mt-0.5">
+                Audit Cash on Delivery collections, verify online UPI transactions, and reconcile register revenue.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => fetchOrders(false)}
+              disabled={loadingOrders}
+              className="px-3.5 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold transition-all flex items-center gap-1.5 self-start sm:self-center cursor-pointer"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${loadingOrders ? 'animate-spin' : ''}`} />
+              <span>Refresh Payments</span>
+            </button>
+          </div>
+
+          {/* Payment KPI Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+            <div className="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 space-y-1">
+              <span className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider block">Total Sales</span>
+              <span className="text-xl font-black text-stone-900 tabular-nums">₹{totalRevenue}</span>
+              <span className="text-[10px] text-emerald-700 block">{orders.length} Total Store Orders</span>
+            </div>
+            <div className="p-4 rounded-2xl bg-emerald-100/50 border border-emerald-300 space-y-1">
+              <span className="text-[11px] font-bold text-emerald-900 uppercase tracking-wider block">Collected &amp; Verified</span>
+              <span className="text-xl font-black text-[#1B5E20] tabular-nums">₹{totalPaidRevenue}</span>
+              <span className="text-[10px] text-emerald-800 block">UPI + Confirmed Cash In-Hand</span>
+            </div>
+            <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 space-y-1">
+              <span className="text-[11px] font-bold text-amber-900 uppercase tracking-wider block">Pending Cash to Collect</span>
+              <span className="text-xl font-black text-amber-900 tabular-nums">₹{pendingCodTotal}</span>
+              <span className="text-[10px] text-amber-700 font-bold block">{pendingCodCount} COD Orders Awaiting Payment</span>
+            </div>
+          </div>
+
+          {/* Filter & Search */}
+          <div className="flex flex-col sm:flex-row gap-3 pt-1">
+            <div className="relative flex-1">
+              <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="search"
+                value={paymentsSearch}
+                onChange={(e) => setPaymentsSearch(e.target.value)}
+                placeholder="Search by customer name, phone, or order ID…"
+                className="w-full h-10 pl-9 pr-3 rounded-xl bg-stone-50 border border-stone-200 text-xs text-stone-800 outline-none focus:border-[#2E7D32]"
+              />
+            </div>
+            <div className="flex items-center gap-1.5 overflow-x-auto">
+              {[
+                { id: 'all', label: `All (${orders.length})` },
+                { id: 'pending', label: `Pending Cash (${pendingCodCount})` },
+                { id: 'paid', label: `Paid & Verified (${orders.length - pendingCodCount})` },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setPaymentsFilter(tab.id as any)}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold shrink-0 transition-all cursor-pointer ${
+                    paymentsFilter === tab.id
+                      ? 'bg-[#2E7D32] text-white shadow-xs'
+                      : 'bg-white text-stone-600 border border-stone-200 hover:bg-stone-50'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Orders Payment List */}
+          {filteredPaymentOrders.length === 0 ? (
+            <div className="py-12 text-center text-xs font-bold text-stone-400 bg-stone-50 rounded-2xl border border-stone-200">
+              No payment records match the current filter.
+            </div>
+          ) : (
+            <div className="divide-y divide-stone-100 border border-stone-200 rounded-2xl overflow-hidden bg-white">
+              {filteredPaymentOrders.map((o) => {
+                const isPaid = o.isPaid || o.paymentStatus === 'completed' || o.paymentStatus === 'manual_verified';
+                return (
+                  <div key={o.id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-stone-50/50 transition-colors">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono font-black text-xs text-stone-900">#{o.id}</span>
+                        <span className="text-[10px] text-stone-400">{o.date}</span>
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                          isPaid ? 'bg-emerald-100 text-[#1B5E20]' : 'bg-amber-100 text-amber-900'
+                        }`}>
+                          {isPaid ? '✓ Paid' : 'Cash on Delivery'}
+                        </span>
+                      </div>
+                      <div className="text-xs text-stone-700 font-bold flex items-center gap-2">
+                        <span>{o.address?.fullName || 'Customer'}</span>
+                        {(o.address?.mobileNumber || o.address?.phone) && (
+                          <a href={`tel:${o.address?.mobileNumber || o.address?.phone}`} className="text-[#2E7D32] text-[11px] font-semibold hover:underline flex items-center gap-0.5">
+                            <Phone className="w-3 h-3" />
+                            <span>{o.address?.mobileNumber || o.address?.phone}</span>
+                          </a>
+                        )}
+                      </div>
+                      <p className="text-[11px] text-stone-500">
+                        {o.address?.houseFlat ? `${o.address.houseFlat}, ` : ''}{o.address?.streetArea || o.address?.city || 'Nellore'}
+                      </p>
+                    </div>
+
+                    <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2 shrink-0">
+                      <span className="text-base font-black text-stone-900 tabular-nums">₹{o.grandTotal}</span>
+                      {!isPaid ? (
+                        <button
+                          type="button"
+                          onClick={() => handleMarkPaid(o.id)}
+                          disabled={markingOrderId === o.id}
+                          className="px-3.5 py-1.5 bg-[#1B5E20] hover:bg-[#144718] text-white rounded-xl text-xs font-black shadow-xs flex items-center gap-1.5 transition-all cursor-pointer"
+                        >
+                          <UserCheck className="w-3.5 h-3.5" />
+                          <span>{markingOrderId === o.id ? 'Saving...' : 'Mark as Paid'}</span>
+                        </button>
+                      ) : (
+                        <span className="text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-200">
+                          {o.markedPaidBy ? `Verified by ${o.markedPaidBy}` : 'Online Verified'}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* TAB 7: RIDERS & DISPATCH */}
+      {activeTab === 'riders' && (
+        <div className="bg-white rounded-2xl border border-stone-200 shadow-2xs p-5 sm:p-6 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-100">
+            <div>
+              <h2 className="text-base font-extrabold text-stone-900 flex items-center gap-2">
+                <Truck className="w-5 h-5 text-[#2E7D32]" />
+                <span>Rider Fleet &amp; Live Express Dispatch</span>
+              </h2>
+              <p className="text-xs text-stone-500 mt-0.5">
+                Manage order handovers to delivery partners, track active delivery trips, and share route links.
+              </p>
+            </div>
+            <Link
+              href="/rider"
+              target="_blank"
+              className="px-4 py-2 bg-[#1B5E20] hover:bg-[#144718] text-white rounded-xl text-xs font-black shadow-xs flex items-center gap-2 transition-all self-start sm:self-center cursor-pointer"
+            >
+              <Truck className="w-4 h-4" />
+              <span>Launch Rider App</span>
+              <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+            </Link>
+          </div>
+
+          {/* Fleet Status Summary */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+            <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-1">
+              <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider block">Ready for Pickup</span>
+              <span className="text-xl font-black text-stone-900 tabular-nums">{packedOrders.length}</span>
+              <span className="text-[10px] text-stone-500 block">Orders packed at Nellore Hub</span>
+            </div>
+            <div className="p-4 rounded-2xl bg-purple-50 border border-purple-200 space-y-1">
+              <span className="text-[11px] font-bold text-purple-900 uppercase tracking-wider block">Out on Road</span>
+              <span className="text-xl font-black text-purple-900 tabular-nums">{dispatchedOrders.length}</span>
+              <span className="text-[10px] text-purple-700 block">Active Rider Express Trips</span>
+            </div>
+            <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-1">
+              <span className="text-[11px] font-bold text-emerald-900 uppercase tracking-wider block">Delivered Today</span>
+              <span className="text-xl font-black text-[#1B5E20] tabular-nums">
+                {orders.filter((o) => o.status === 'Delivered').length}
+              </span>
+              <span className="text-[10px] text-emerald-700 block">Completed Express Deliveries</span>
+            </div>
+          </div>
+
+          {/* Active Dispatch List */}
+          <div className="space-y-4">
+            <h3 className="text-xs font-black uppercase text-stone-400 tracking-wider">
+              Active Dispatch Queue ({packedOrders.length + dispatchedOrders.length})
+            </h3>
+            {packedOrders.length + dispatchedOrders.length === 0 ? (
+              <div className="py-12 text-center text-xs font-bold text-stone-400 bg-stone-50 rounded-2xl border border-stone-200">
+                All packed orders have been delivered! No active riders on the road currently.
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[...packedOrders, ...dispatchedOrders].map((o) => {
+                  const isFullyPaid = o.paymentStatus === 'completed' || o.paymentStatus === 'manual_verified';
+                  const destQuery = (o.address?.latitude && o.address?.longitude)
+                    ? `${o.address.latitude},${o.address.longitude}`
+                    : encodeURIComponent(`${o.address?.houseFlat || ''} ${o.address?.streetArea || ''} ${o.address?.city || 'Nellore'} ${o.address?.pincode || ''}`);
+                  const riderMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destQuery}`;
+                  const riderAppUrl = typeof window !== 'undefined'
+                    ? `${window.location.origin}/rider?orderId=${o.id}`
+                    : `https://g1mart.vercel.app/rider?orderId=${o.id}`;
+
+                  const whatsappShareText = encodeURIComponent(
+                    `*🛵 G1 MART DELIVERY DISPATCH*\n` +
+                    `Order ID: #${o.id}\n` +
+                    `Status: ${o.status}\n` +
+                    `Customer: ${o.address?.fullName || 'Customer'} (${o.address?.mobileNumber || o.address?.phone || ''})\n` +
+                    `Address: ${o.address?.houseFlat ? o.address.houseFlat + ', ' : ''}${o.address?.streetArea || ''}, ${o.address?.city || 'Nellore'}\n` +
+                    `Landmark: ${o.address?.landmark || 'N/A'}\n` +
+                    `Items: ${o.items?.map((it: any) => `${it.productName} (x${it.quantity})`).join(', ')}\n` +
+                    `Collect Amount: ${isFullyPaid ? 'ALREADY PAID (₹0 to collect)' : `₹${o.grandTotal} CASH ON DELIVERY`}\n\n` +
+                    `👉 Open in Rider App: ${riderAppUrl}\n` +
+                    `📍 Turn-by-Turn GPS: ${riderMapsUrl}`
+                  );
+
+                  return (
+                    <div key={o.id} className="bg-white rounded-2xl border border-stone-200 p-4 space-y-3 shadow-xs">
+                      <div className="flex items-center justify-between border-b border-stone-100 pb-2.5">
+                        <div>
+                          <span className="font-mono font-black text-sm text-stone-900">#{o.id}</span>
+                          <span className="text-[10px] text-stone-400 block">{o.slot || 'Express'}</span>
+                        </div>
+                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-black ${
+                          o.status === 'Packed'
+                            ? 'bg-blue-100 text-blue-900 border border-blue-200'
+                            : 'bg-purple-100 text-purple-900 border border-purple-200 animate-pulse'
+                        }`}>
+                          {o.status === 'Packed' ? 'Ready for Rider' : 'Out for Delivery'}
+                        </span>
+                      </div>
+
+                      <div className="text-xs space-y-1">
+                        <div className="flex items-center justify-between font-bold text-stone-900">
+                          <span>{o.address?.fullName || 'Customer'}</span>
+                          <span>₹{o.grandTotal} ({isFullyPaid ? 'Paid' : 'COD'})</span>
+                        </div>
+                        <p className="text-stone-500 text-[11px]">
+                          {o.address?.houseFlat ? `${o.address.houseFlat}, ` : ''}{o.address?.streetArea}, {o.address?.city || 'Nellore'}
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2 pt-1 border-t border-stone-100">
+                        <a
+                          href={riderMapsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="py-2 px-3 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
+                        >
+                          <Navigation className="w-3.5 h-3.5 text-blue-600" />
+                          <span>GPS Map</span>
+                        </a>
+                        <a
+                          href={`https://wa.me/?text=${whatsappShareText}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="py-2 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-[#1B5E20] text-xs font-bold flex items-center justify-center gap-1.5 transition-colors"
+                        >
+                          <Share2 className="w-3.5 h-3.5" />
+                          <span>Share Rider</span>
+                        </a>
+                      </div>
+
+                      {o.status === 'Packed' ? (
+                        <button
+                          type="button"
+                          onClick={() => handleUpdateOrderStatus(o.id, 'Order Dispatched')}
+                          className="w-full py-2 bg-[#1B5E20] hover:bg-[#144718] text-white rounded-xl text-xs font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                        >
+                          <Truck className="w-3.5 h-3.5" />
+                          <span>Handover to Rider (Dispatch)</span>
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => handleUpdateOrderStatus(o.id, 'Delivered')}
+                          className="w-full py-2 bg-stone-900 hover:bg-stone-800 text-white rounded-xl text-xs font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                        >
+                          <Check className="w-3.5 h-3.5 stroke-[3]" />
+                          <span>Confirm Customer Delivered</span>
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+      </main>
 
       {/* EDIT / UPLOAD PRODUCT IMAGE MODAL DIALOG */}
       {editingImageProduct && (

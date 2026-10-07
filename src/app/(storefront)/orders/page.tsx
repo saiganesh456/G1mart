@@ -82,6 +82,18 @@ export default function OrdersPage() {
           }
         }
       }
+
+      for (const [id, localOrder] of Array.from(orderMap.entries())) {
+        if (!data?.orders?.some((o: any) => o.id === id)) {
+          try {
+            const singleRes = await fetch(`/api/orders/${id}`);
+            const singleData = await singleRes.json();
+            if (singleData.success && singleData.order) {
+              orderMap.set(id, { ...localOrder, ...singleData.order });
+            }
+          } catch {}
+        }
+      }
     } catch (err) {
       console.warn('Could not fetch cloud orders:', err);
     }
@@ -97,6 +109,10 @@ export default function OrdersPage() {
 
   useEffect(() => {
     syncOrders();
+    const interval = setInterval(() => {
+      syncOrders();
+    }, 6000);
+    return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supabaseUser, user]);
 
