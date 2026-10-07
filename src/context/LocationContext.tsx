@@ -14,6 +14,7 @@ export interface DeliveryLocation {
   state?: string;
   lat?: number;
   lng?: number;
+  accuracy?: number; // Accurate GPS radius in meters
   zone?: DeliveryZone;
 }
 
@@ -44,6 +45,92 @@ export function useLocation(): LocationContextType {
   const ctx = useContext(LocationContext);
   if (!ctx) throw new Error('useLocation must be used inside <LocationProvider>');
   return ctx;
+}
+
+/**
+ * Strict Doorstep GPS Acquisition Engine
+ *
+ * Browsers often return coarse cell-tower/Wi-Fi positioning (~100m away) on the first callback.
+ * To achieve true doorstep satellite accuracy (<= 15 meters):
+ * 1. Uses navigator.geolocation.watchPosition with high accuracy and 0 maximumAge.
+ * 2. Continuously samples positions until hardware GPS locks down to <= 15m or best available.
+ * 3. Falls back gracefully if satellite lock takes longer than 4.5s.
+ */
+function acquireHighAccuracyGPS(
+  maxWaitMs: number = 4500,
+  targetDoorstepAccuracyMeters: number = 15
+): Promise<GeolocationPosition> {
+  return new Promise((resolve, reject) => {
+    if (typeof window === 'undefined' || !navigator.geolocation) {
+      reject(new Error('Geolocation is not supported by your browser.'));
+      return;
+    }
+
+    let bestPosition: GeolocationPosition | null = null;
+    let watchId: number | null = null;
+    let timer: NodeJS.Timeout | null = null;
+
+    const cleanup = () => {
+      if (watchId !== null) {
+        navigator.geolocation.clearWatch(watchId);
+        watchId = null;
+      }
+      if (timer !== null) {
+        clearTimeout(timer);
+        timer = null;
+      }
+    };
+
+    const onPosition = (pos: GeolocationPosition) => {
+      const acc = pos.coords.accuracy;
+      if (!bestPosition || acc < bestPosition.coords.accuracy) {
+        bestPosition = pos;
+      }
+
+      // If doorstep precision achieved (<= 15m), resolve immediately!
+      if (acc <= targetDoorstepAccuracyMeters) {
+        cleanup();
+        resolve(pos);
+      }
+    };
+
+    const onError = (err: GeolocationPositionError) => {
+      // If we already captured a reasonable fix (< 60m), use it
+      if (bestPosition && bestPosition.coords.accuracy <= 60) {
+        cleanup();
+        resolve(bestPosition);
+        return;
+      }
+      if (err.code === err.PERMISSION_DENIED) {
+        cleanup();
+        reject(err);
+      }
+    };
+
+    try {
+      watchId = navigator.geolocation.watchPosition(onPosition, onError, {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 12000,
+      });
+    } catch {
+      // Ignore watch setup error and rely on timer fallback
+    }
+
+    timer = setTimeout(() => {
+      cleanup();
+      if (bestPosition) {
+        resolve(bestPosition);
+      } else {
+        // Fallback to one-shot getCurrentPosition with strict high accuracy
+        navigator.geolocation.getCurrentPosition(
+          (pos) => resolve(pos),
+          (err) => reject(err),
+          { enableHighAccuracy: true, maximumAge: 0, timeout: 6000 }
+        );
+      }
+    }, maxWaitMs);
+  });
 }
 
 export function LocationProvider({ children }: { children: React.ReactNode }) {
@@ -108,66 +195,59 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
     setIsDetecting(true);
     setDetectError(null);
 
-    return new Promise((resolve) => {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          try {
-            const { latitude, longitude } = position.coords;
+    try {
+      // 1. Acquire true doorstep satellite coordinates (filter out coarse 100m cell-tower fixes)
+      const position = await acquireHighAccuracyGPS();
+      const { latitude, longitude, accuracy } = position.coords;
 
-            // Call server reverse-geocode route
-            const res = await fetch('/api/location/reverse-geocode', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ lat: latitude, lng: longitude }),
-            });
-
-            const data = await res.json();
-
-            if (!res.ok || !data.success) {
-              throw new Error(data.error || 'Failed to resolve location address');
-            }
-
-            const detected: DeliveryLocation = {
-              formattedAddress: data.data.formattedAddress,
-              street: data.data.street || '',
-              area: data.data.area || data.data.city || 'Nellore',
-              city: data.data.city || 'Nellore',
-              pincode: data.data.pincode || '',
-              state: data.data.state || 'Andhra Pradesh',
-              lat: latitude,
-              lng: longitude,
-            };
-
-            setLocation(detected);
-            setIsDetecting(false);
-            resolve(detected);
-          } catch (err: any) {
-            console.error('[DetectLocation] Geocode Error:', err);
-            setDetectError(err.message || 'Unable to reverse-geocode your coordinates.');
-            setIsDetecting(false);
-            resolve(null);
-          }
-        },
-        (error) => {
-          setIsDetecting(false);
-          let msg = 'Failed to detect your location.';
-          if (error.code === error.PERMISSION_DENIED) {
-            msg = 'Location permission denied. Please allow location access in your browser.';
-          } else if (error.code === error.POSITION_UNAVAILABLE) {
-            msg = 'Location information is currently unavailable.';
-          } else if (error.code === error.TIMEOUT) {
-            msg = 'Location request timed out. Please try again.';
-          }
-          setDetectError(msg);
-          resolve(null);
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 12000,
-          maximumAge: 0,
+      // 2. Call server reverse-geocode route for human readable street/colony
+      let geoData: any = null;
+      try {
+        const res = await fetch('/api/location/reverse-geocode', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ lat: latitude, lng: longitude }),
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          geoData = data.data;
         }
-      );
-    });
+      } catch (err) {
+        console.warn('[DetectLocation] Reverse geocode network fallback:', err);
+      }
+
+      const detected: DeliveryLocation = {
+        formattedAddress:
+          geoData?.formattedAddress ||
+          `Current GPS Location (${latitude.toFixed(5)}, ${longitude.toFixed(5)})`,
+        street: geoData?.street || 'Current GPS Location',
+        area: geoData?.area || geoData?.city || 'Nellore',
+        city: geoData?.city || 'Nellore',
+        pincode: geoData?.pincode || '',
+        state: geoData?.state || 'Andhra Pradesh',
+        lat: latitude,
+        lng: longitude,
+        accuracy: Math.round(accuracy),
+      };
+
+      setLocation(detected);
+      setIsDetecting(false);
+      return detected;
+    } catch (error: any) {
+      setIsDetecting(false);
+      let msg = 'Failed to detect your location.';
+      if (error?.code === 1) {
+        msg = 'Location permission denied. Please allow location access in your browser.';
+      } else if (error?.code === 2) {
+        msg = 'GPS satellite signal unavailable. Please ensure device location is enabled.';
+      } else if (error?.code === 3) {
+        msg = 'GPS satellite lock timed out. Please try again.';
+      } else if (error?.message) {
+        msg = error.message;
+      }
+      setDetectError(msg);
+      return null;
+    }
   }, [setLocation]);
 
   return (

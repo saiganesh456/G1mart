@@ -139,6 +139,7 @@ export default function PaymentPage() {
               deliveryInstructions: addressData.deliveryInstructions,
               latitude: addressData.latitude,
               longitude: addressData.longitude,
+              accuracy: addressData.accuracy,
             }).catch(() => {});
           } catch {}
 

@@ -57,6 +57,7 @@ export default function CheckoutPage() {
   const [pincode, setPincode] = useState('');
   const [latitude, setLatitude] = useState<number | undefined>(undefined);
   const [longitude, setLongitude] = useState<number | undefined>(undefined);
+  const [accuracy, setAccuracy] = useState<number | undefined>(undefined);
   const [deliveryInstructions, setDeliveryInstructions] = useState('');
   const [selectedSlot, setSelectedSlot] = useState('Standard Delivery');
   const [autoFilled, setAutoFilled] = useState(false);
@@ -152,6 +153,7 @@ export default function CheckoutPage() {
     if (addr.deliveryInstructions) setDeliveryInstructions(addr.deliveryInstructions);
     if (addr.latitude) setLatitude(addr.latitude);
     if (addr.longitude) setLongitude(addr.longitude);
+    if (addr.accuracy) setAccuracy(addr.accuracy);
     setIsAddingNewAddress(false);
   };
 
@@ -167,6 +169,7 @@ export default function CheckoutPage() {
     setPincode('');
     setLatitude(undefined);
     setLongitude(undefined);
+    setAccuracy(undefined);
     setAutoFilled(false);
   };
 
@@ -196,6 +199,7 @@ export default function CheckoutPage() {
       if (loc.lat && loc.lng) {
         setLatitude(loc.lat);
         setLongitude(loc.lng);
+        setAccuracy(loc.accuracy);
       }
       setAutoFilled(true);
     }
@@ -303,6 +307,7 @@ export default function CheckoutPage() {
       deliveryInstructions: deliveryInstructions.trim() || undefined,
       latitude,
       longitude,
+      accuracy,
     };
 
     /**
@@ -516,6 +521,12 @@ export default function CheckoutPage() {
                               Default
                             </span>
                           )}
+                          {addr.latitude && addr.longitude && (
+                            <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-50 text-emerald-800 border border-emerald-300 flex items-center gap-1">
+                              <Navigation className="w-2.5 h-2.5 fill-emerald-700" />
+                              <span>Doorstep GPS {addr.accuracy ? `(±${addr.accuracy}m)` : 'Verified'}</span>
+                            </span>
+                          )}
                         </div>
 
                         <p className="text-xs text-stone-600 leading-snug">
@@ -569,16 +580,29 @@ export default function CheckoutPage() {
 
               {/* GPS Confirmation Pill */}
               {autoFilled && latitude && longitude && (
-                <div className="p-2.5 rounded-xl bg-emerald-50/70 border border-emerald-200 text-xs text-emerald-800 flex items-center justify-between animate-in fade-in">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#2E7D32] shrink-0" />
-                    <span className="font-semibold">
-                      Exact GPS pin captured: ({latitude.toFixed(4)}, {longitude.toFixed(4)})
+                <div className="p-3 rounded-xl bg-emerald-50/90 border border-emerald-300 text-xs text-emerald-900 space-y-1.5 animate-in fade-in">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse" />
+                      <span className="font-extrabold text-[#1B5E20]">
+                        📍 Doorstep GPS Pin Locked
+                      </span>
+                    </div>
+                    <span className="text-[10px] bg-white text-emerald-800 font-extrabold px-2 py-0.5 rounded-full border border-emerald-200 shadow-2xs">
+                      {accuracy ? `Doorstep Accuracy: ±${accuracy}m` : 'RIDER NAV READY'}
                     </span>
                   </div>
-                  <span className="text-[10px] bg-white px-2 py-0.5 rounded font-bold text-emerald-900 shadow-2xs">
-                    RIDER NAV READY
-                  </span>
+                  <div className="flex items-center justify-between text-[11px] text-stone-600 font-mono">
+                    <span>GPS: {latitude.toFixed(6)}, {longitude.toFixed(6)}</span>
+                    <a
+                      href={`https://www.google.com/maps?q=${latitude},${longitude}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#2E7D32] hover:text-[#1B5E20] font-bold underline flex items-center gap-1"
+                    >
+                      Verify on Map ↗
+                    </a>
+                  </div>
                 </div>
               )}
 

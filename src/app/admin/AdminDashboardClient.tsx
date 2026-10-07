@@ -1737,10 +1737,13 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                   {orders.map((o) => {
                     const isFullyPaid = o.paymentStatus === 'completed' || o.paymentStatus === 'manual_verified';
                     const currentStatus = o.status || 'Order Placed';
-                    const destQuery = (o.address?.latitude && o.address?.longitude)
-                      ? `${o.address.latitude},${o.address.longitude}`
+                    const hasGpsPin = Boolean(o.address?.latitude && o.address?.longitude);
+                    const destQuery = hasGpsPin
+                      ? `${o.address!.latitude},${o.address!.longitude}`
                       : encodeURIComponent(`${o.address?.houseFlat || ''} ${o.address?.streetArea || ''} ${o.address?.city || 'Nellore'} ${o.address?.pincode || ''}`);
-                    const riderMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${destQuery}`;
+                    const riderMapsUrl = hasGpsPin
+                      ? `https://www.google.com/maps/dir/?api=1&destination=${destQuery}&travelmode=two_wheeler`
+                      : `https://www.google.com/maps/dir/?api=1&destination=${destQuery}`;
                     const whatsappShareText = encodeURIComponent(
                       `*🛵 G1 MART DELIVERY DISPATCH*\n` +
                       `Order ID: #${o.id}\n` +
@@ -1749,7 +1752,10 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                       `Landmark: ${o.address?.landmark || 'N/A'}\n` +
                       `Items: ${o.items?.map((it) => `${it.productName} x${it.quantity}`).join(', ')}\n` +
                       `Amount to Collect: ${o.isPaid ? 'PAID ONLINE (₹0 to collect)' : `₹${o.grandTotal} CASH ON DELIVERY`}\n` +
-                      `📍 Turn-by-Turn GPS: ${riderMapsUrl}`
+                      (hasGpsPin
+                        ? `📍 Doorstep GPS Pin: (${Number(o.address!.latitude).toFixed(6)}, ${Number(o.address!.longitude).toFixed(6)})${o.address?.accuracy ? ` [±${o.address.accuracy}m accuracy]` : ''}\n`
+                        : '') +
+                      `🗺️ Turn-by-Turn GPS Navigation: ${riderMapsUrl}`
                     );
 
                     return (
@@ -1920,6 +1926,13 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                               <Navigation className="w-3 h-3 text-emerald-400 fill-emerald-400" />
                               <span>Open Rider Route</span>
                             </a>
+
+                            {hasGpsPin && (
+                              <div className="flex items-center gap-1 text-[9px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                                <Navigation className="w-2.5 h-2.5 fill-emerald-700 text-emerald-700" />
+                                <span>Doorstep Pin {o.address?.accuracy ? `(±${o.address.accuracy}m)` : ''}</span>
+                              </div>
+                            )}
 
                             <div>
                               <a

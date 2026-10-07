@@ -28,6 +28,7 @@ export default function LocationModal() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [lockedSuccess, setLockedSuccess] = useState<string | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
   // Debounced search query
@@ -75,9 +76,14 @@ export default function LocationModal() {
   if (!isModalOpen) return null;
 
   const handleDetectClick = async () => {
+    setLockedSuccess(null);
     const detected = await detectLocation();
     if (detected) {
-      setTimeout(() => setIsModalOpen(false), 400);
+      setLockedSuccess(detected.accuracy ? `GPS Locked (±${detected.accuracy}m)` : 'GPS Pin Locked!');
+      setTimeout(() => {
+        setIsModalOpen(false);
+        setLockedSuccess(null);
+      }, 700);
     }
   };
 
@@ -149,8 +155,13 @@ export default function LocationModal() {
             >
               {isDetecting ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Detecting GPS...</span>
+                  <Loader2 className="w-4 h-4 animate-spin text-emerald-200" />
+                  <span>Locking Satellite GPS...</span>
+                </>
+              ) : lockedSuccess ? (
+                <>
+                  <CheckCircle2 className="w-4 h-4 text-emerald-200" />
+                  <span>{lockedSuccess}</span>
                 </>
               ) : (
                 <>

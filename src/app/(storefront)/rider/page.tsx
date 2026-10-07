@@ -238,6 +238,13 @@ export default function RiderPage() {
                     </p>
                   )}
 
+                  {o.address?.latitude && o.address?.longitude && (
+                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+                      <Navigation className="w-3 h-3 fill-emerald-700 text-emerald-700 shrink-0" />
+                      <span>Doorstep GPS Pin {o.address.accuracy ? `(±${o.address.accuracy}m accuracy)` : 'Locked'}</span>
+                    </div>
+                  )}
+
                   {o.address?.deliveryInstructions && (
                     <div className="p-2 bg-amber-50 border border-amber-200 rounded-lg text-amber-900 text-[11px] font-medium">
                       ⚠️ Instruction: {o.address.deliveryInstructions}

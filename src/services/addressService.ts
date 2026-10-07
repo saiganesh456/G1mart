@@ -71,6 +71,9 @@ export const addressService = {
             type: (row.type as 'Home' | 'Work' | 'Other') || 'Home',
             isDefault: Boolean(row.is_default),
             deliveryInstructions: row.delivery_instructions || undefined,
+            latitude: row.latitude ? Number(row.latitude) : undefined,
+            longitude: row.longitude ? Number(row.longitude) : undefined,
+            accuracy: row.accuracy ? Number(row.accuracy) : undefined,
           }));
 
           // Merge db and local addresses uniquely by id or matching houseFlat + streetArea
@@ -165,6 +168,9 @@ export const addressService = {
           type: fullAddress.type || 'Home',
           is_default: fullAddress.isDefault,
           delivery_instructions: fullAddress.deliveryInstructions || null,
+          latitude: fullAddress.latitude || null,
+          longitude: fullAddress.longitude || null,
+          accuracy: fullAddress.accuracy || null,
         };
 
         const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(fullAddress.id);

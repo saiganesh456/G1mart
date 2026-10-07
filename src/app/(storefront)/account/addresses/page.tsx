@@ -43,6 +43,7 @@ export default function SavedAddressesPage() {
   const [deliveryInstructions, setDeliveryInstructions] = useState('');
   const [latitude, setLatitude] = useState<number | undefined>(undefined);
   const [longitude, setLongitude] = useState<number | undefined>(undefined);
+  const [accuracy, setAccuracy] = useState<number | undefined>(undefined);
   const [autoFilled, setAutoFilled] = useState(false);
   const [saving, setSaving] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -90,6 +91,7 @@ export default function SavedAddressesPage() {
       if (loc.lat && loc.lng) {
         setLatitude(loc.lat);
         setLongitude(loc.lng);
+        setAccuracy(loc.accuracy);
       }
       setAutoFilled(true);
     }
@@ -133,6 +135,7 @@ export default function SavedAddressesPage() {
         deliveryInstructions: deliveryInstructions.trim() || undefined,
         latitude,
         longitude,
+        accuracy,
       });
 
       setShowAddModal(false);
@@ -143,6 +146,7 @@ export default function SavedAddressesPage() {
       setPincode('');
       setLatitude(undefined);
       setLongitude(undefined);
+      setAccuracy(undefined);
       setAutoFilled(false);
       await loadAddresses();
     } catch (err: any) {
@@ -227,6 +231,12 @@ export default function SavedAddressesPage() {
                       Default Address
                     </span>
                   )}
+                  {addr.latitude && addr.longitude && (
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-300 flex items-center gap-1">
+                      <Navigation className="w-2.5 h-2.5 fill-emerald-700" />
+                      <span>Doorstep GPS {addr.accuracy ? `(±${addr.accuracy}m)` : 'Verified'}</span>
+                    </span>
+                  )}
                 </div>
 
                 <button
@@ -297,9 +307,29 @@ export default function SavedAddressesPage() {
             </div>
 
             {autoFilled && latitude && longitude && (
-              <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#2E7D32] shrink-0" />
-                <span>GPS coordinates captured ({latitude.toFixed(4)}, {longitude.toFixed(4)})</span>
+              <div className="p-3 rounded-xl bg-emerald-50/90 border border-emerald-300 text-xs text-emerald-900 space-y-1.5 animate-in fade-in">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse" />
+                    <span className="font-extrabold text-[#1B5E20]">
+                      📍 Doorstep GPS Pin Locked
+                    </span>
+                  </div>
+                  <span className="text-[10px] bg-white text-emerald-800 font-extrabold px-2 py-0.5 rounded-full border border-emerald-200 shadow-2xs">
+                    {accuracy ? `Doorstep Accuracy: ±${accuracy}m` : 'RIDER NAV READY'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-[11px] text-stone-600 font-mono">
+                  <span>GPS: {latitude.toFixed(6)}, {longitude.toFixed(6)}</span>
+                  <a
+                    href={`https://www.google.com/maps?q=${latitude},${longitude}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#2E7D32] hover:text-[#1B5E20] font-bold underline flex items-center gap-1"
+                  >
+                    Verify on Map ↗
+                  </a>
+                </div>
               </div>
             )}
 

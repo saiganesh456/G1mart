@@ -107,6 +107,7 @@ export interface Address {
   deliveryInstructions?: string;
   latitude?: number;
   longitude?: number;
+  accuracy?: number;
 }
 
 export type DeliverySlot =
