@@ -447,8 +447,8 @@ const TOP_CURATED_STAPLES: Product[] = [
 
 const mappedRawCatalog: Product[] = (rawCatalog as any[]).map((item) => {
   const isApproved = Boolean(item.imageUrl && (item.imageStatus === 'VERIFIED' || item.imageStatus === 'approved'));
-  const effectivePrice = Number(item.price && item.price > 0 ? item.price : (item.originalPrice || item.mrp || 0));
-  const mrp = Number(item.originalPrice || item.mrp || effectivePrice);
+  const effectivePrice = Number(item.price && item.price > 0 ? item.price : 0);
+  const mrp = Number(item.originalPrice || 0);
 
   // Auto packshot override to guarantee clean isolated white-background images
   const cleanImage = getPackshotImage(item.name, item.brand, item.imageUrl);
@@ -469,7 +469,7 @@ const mappedRawCatalog: Product[] = (rawCatalog as any[]).map((item) => {
     subCategory: item.subCategory ?? undefined,
     unit: item.unit || '1 unit',
     price: effectivePrice,
-    priceConfirmed: Boolean(effectivePrice > 0),
+    priceConfirmed: Boolean(item.priceConfirmed && effectivePrice > 0),
     originalPrice: mrp > 0 ? mrp : effectivePrice,
     discountPercentage: Number(item.discountPercentage || 0),
     inStock: Boolean(item.inStock ?? true),
@@ -480,19 +480,20 @@ const mappedRawCatalog: Product[] = (rawCatalog as any[]).map((item) => {
     image_url: cleanImage,
     image_source: isApproved || cleanImage.includes('/packshots/') ? 'manufacturer' : 'placeholder',
     image_license: 'Brand Pack',
-    image_status: 'VERIFIED',
-    imageStatus: 'VERIFIED',
+    image_status: item.image_status || (isApproved ? 'VERIFIED' : 'NEEDS_REVIEW'),
+    imageStatus: item.imageStatus || (isApproved ? 'VERIFIED' : 'NEEDS_REVIEW'),
     image_match_note: item.imageMatchNote ?? undefined,
     description: item.description || `Original Indian market product: ${item.name}`,
     rating: Number(item.rating || 4.8),
     reviewsCount: Number(item.reviewsCount || 12),
-    isPopular: false, // Leave popular exclusively to curated distinct top staples
+    isPopular: Boolean(item.isPopular),
     isBestDeal: Boolean(item.isBestDeal),
     isActive: Boolean(item.isActive ?? true),
+    is_verified: Boolean(item.is_verified),
+    family_id: item.family_id || null,
+    pack_size: item.pack_size || item.unit || null,
   };
 });
 
-export const CATALOG_PRODUCTS: Product[] = [
-  ...TOP_CURATED_STAPLES,
-  ...mappedRawCatalog,
-];
+export const CATALOG_PRODUCTS: Product[] = mappedRawCatalog;
+

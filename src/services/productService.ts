@@ -78,11 +78,14 @@ export const productService = {
   /**
    * Fetch all active categories from Supabase (with fallback to demo categories)
    */
+  /**
+   * Fetch all active categories with verified products only
+   */
   async getCategories(): Promise<Category[]> {
     try {
-      const products = await this.getProducts();
+      const verifiedProducts = await this.getProducts();
       const productCountMap = new Map<string, number>();
-      products.forEach((p) => {
+      verifiedProducts.forEach((p) => {
         if (p.category) {
           productCountMap.set(p.category, (productCountMap.get(p.category) || 0) + 1);
         }
@@ -93,17 +96,24 @@ export const productService = {
         itemCount: productCountMap.get(cat.id) || 0,
       })).filter((cat) => cat.itemCount > 0);
 
-      return populated.length > 0 ? populated : DEMO_CATEGORIES;
+      return populated;
     } catch (err) {
       console.warn('[G1 Mart ProductService] getCategories fallback:', err);
-      return DEMO_CATEGORIES;
+      return [];
     }
   },
 
   /**
-   * Fetch all active products (reconciled across Supabase DB and local master catalog)
+   * Fetch verified products only (Strict Rule: is_verified === true)
    */
   async getProducts(): Promise<Product[]> {
+    return CATALOG_PRODUCTS.filter((p) => p.is_verified === true);
+  },
+
+  /**
+   * Fetch all products regardless of verification status (Admin use only)
+   */
+  async getAllProductsRaw(): Promise<Product[]> {
     return CATALOG_PRODUCTS;
   },
 
@@ -111,7 +121,8 @@ export const productService = {
    * Fetch a single product by ID or slug
    */
   async getProductById(id: string): Promise<Product | null> {
-    const local = CATALOG_PRODUCTS.find((p) => p.id === id || p.slug === id);
+    const verified = await this.getProducts();
+    const local = verified.find((p) => p.id === id || p.slug === id);
     return local || null;
   },
 

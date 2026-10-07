@@ -37,12 +37,21 @@ export interface Product {
   isBestDeal?: boolean;
   sku?: string;
   slug?: string;
-  isActive?: boolean;
-  itemNumber?: number;
   rawName?: string;
   barcode?: string;
   is_ambiguous?: boolean;
   ambiguity_note?: string;
+  is_verified?: boolean;
+  brand_id?: string | null;
+  family_id?: string | null;
+  pack_size?: string | null;
+}
+
+export interface Brand {
+  id: string;
+  name: string;
+  logo_url?: string | null;
+  category_id?: string | null;
 }
 
 export interface Category {
