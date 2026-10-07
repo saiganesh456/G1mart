@@ -2,166 +2,119 @@
 
 import { useRef, useState } from 'react';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight, ShoppingBag } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export interface QuickCategoryItem {
   id: string;
   name: string;
   shortLabel: string;
-  icon: string; // Emoji or image/symbol
-  targetSectionId?: string;
+  image: string; // Professional authentic product packshot
   href: string;
-  badge?: string;
 }
 
 export const QUICK_CATEGORIES: QuickCategoryItem[] = [
   {
     id: 'all',
-    name: 'All Essentials',
-    shortLabel: 'For You',
-    icon: '🛍️',
-    href: '#top-essentials',
-    targetSectionId: 'top-essentials',
+    name: 'All Departments',
+    shortLabel: 'All Store',
+    image: '/products/itc-001.jpg',
+    href: '/categories',
   },
   {
-    id: 'fresh',
-    name: 'Fresh Fruits & Veggies',
-    shortLabel: 'Fresh',
-    icon: '🍎',
-    href: '#grocery-kitchen',
-    targetSectionId: 'grocery-kitchen',
+    id: 'staples',
+    name: 'Atta, Rice & Dals',
+    shortLabel: 'Atta & Dals',
+    image: '/products/itc-001.jpg',
+    href: '/category/grocery-staples?sub=Atta%2C%20Flours%20%26%20Sooji',
   },
   {
-    id: 'grocery',
-    name: 'Atta, Rice & Staples',
-    shortLabel: 'Grocery',
-    icon: '🌾',
-    href: '#grocery-kitchen',
-    targetSectionId: 'grocery-kitchen',
+    id: 'oils',
+    name: 'Cooking Oils & Ghee',
+    shortLabel: 'Edible Oils',
+    image: '/products/g1-prod-134.jpg',
+    href: '/search?q=oil',
   },
   {
-    id: 'snacks',
-    name: 'Chips, Namkeen & Biscuits',
-    shortLabel: 'Snacks',
-    icon: '🍿',
-    href: '#snacks-drinks',
-    targetSectionId: 'snacks-drinks',
-  },
-  {
-    id: 'dairy',
-    name: 'Dairy, Bread & Eggs',
-    shortLabel: 'Dairy',
-    icon: '🥛',
-    href: '#grocery-kitchen',
-    targetSectionId: 'grocery-kitchen',
+    id: 'sugar',
+    name: 'Sugar, Salt & Jaggery',
+    shortLabel: 'Sugar & Salt',
+    image: '/products/hw-026.jpg',
+    href: '/search?q=sugar',
   },
   {
     id: 'tea-coffee',
-    name: 'Tea, Coffee & Drinks',
-    shortLabel: 'Chai & Drinks',
-    icon: '☕',
-    href: '#snacks-drinks',
-    targetSectionId: 'snacks-drinks',
+    name: 'Chai, Tea & Coffee',
+    shortLabel: 'Tea & Chai',
+    image: '/products/pdf1-004.jpg',
+    href: '/category/snacks-beverages?sub=Tea%20%26%20Chai',
   },
   {
-    id: 'household',
-    name: 'Cleaning & Detergents',
-    shortLabel: 'Household',
-    icon: '🧼',
-    href: '#household-lifestyle',
-    targetSectionId: 'household-lifestyle',
-  },
-  {
-    id: 'pooja',
-    name: 'Pooja Essentials & Agarbatti',
-    shortLabel: 'Pooja',
-    icon: '🪔',
-    href: '#pooja-section',
-    targetSectionId: 'pooja-section',
-  },
-  {
-    id: 'personal-care',
-    name: 'Soaps & Personal Care',
-    shortLabel: 'Personal Care',
-    icon: '✨',
-    href: '#personal-care-section',
-    targetSectionId: 'personal-care-section',
-  },
-  {
-    id: 'instant-food',
-    name: 'Instant Noodles & Pasta',
-    shortLabel: 'Instant Food',
-    icon: '🍜',
-    href: '#snacks-drinks',
-    targetSectionId: 'snacks-drinks',
-  },
-  {
-    id: 'kitchen',
-    name: 'Kitchenware & Utensils',
-    shortLabel: 'Kitchen',
-    icon: '🍳',
-    href: '#household-lifestyle',
-    targetSectionId: 'household-lifestyle',
+    id: 'biscuits',
+    name: 'Biscuits, Rusks & Cookies',
+    shortLabel: 'Biscuits',
+    image: '/products/st-005.jpg',
+    href: '/category/snacks-beverages?sub=Biscuits%20%26%20Cookies',
   },
   {
     id: 'sweets',
-    name: 'Sweets & Chocolates',
+    name: 'Chocolates & Sweets',
     shortLabel: 'Chocolates',
-    icon: '🍫',
-    href: '#snacks-drinks',
-    targetSectionId: 'snacks-drinks',
+    image: '/products/st-001.jpg',
+    href: '/category/snacks-beverages?sub=Chocolates%20%26%20Bars',
+  },
+  {
+    id: 'laundry',
+    name: 'Detergents & Fabric Care',
+    shortLabel: 'Detergents',
+    image: '/products/g1-prod-020.jpg',
+    href: '/category/household-cleaning?sub=Laundry%20%26%20Fabric%20Care',
+  },
+  {
+    id: 'dishwash',
+    name: 'Dishwash & Kitchen Care',
+    shortLabel: 'Dishwash',
+    image: '/products/pdf1-009.jpg',
+    href: '/category/household-cleaning?sub=Dishwashing%20%26%20Kitchen%20Care',
+  },
+  {
+    id: 'soaps',
+    name: 'Soaps & Bathing Care',
+    shortLabel: 'Bath Soaps',
+    image: '/products/pdf1-001.jpg',
+    href: '/category/personal-care?sub=Bath%20Soaps',
+  },
+  {
+    id: 'pooja',
+    name: 'Pooja Agarbatti & Dhoop',
+    shortLabel: 'Pooja Needs',
+    image: '/products/pdf1-091.jpg',
+    href: '/category/pooja-essentials',
   },
 ];
 
 interface HorizontalCategoryNavProps {
   activeId?: string;
-  onSelectCategory?: (id: string) => void;
 }
 
-export default function HorizontalCategoryNav({
-  activeId = 'all',
-  onSelectCategory,
-}: HorizontalCategoryNavProps) {
+export default function HorizontalCategoryNav({ activeId = 'all' }: HorizontalCategoryNavProps) {
   const [selected, setSelected] = useState(activeId);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
-      const scrollAmount = direction === 'left' ? -220 : 220;
+      const scrollAmount = direction === 'left' ? -240 : 240;
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
 
-  const handleItemClick = (e: React.MouseEvent, item: QuickCategoryItem) => {
-    setSelected(item.id);
-    if (onSelectCategory) {
-      onSelectCategory(item.id);
-    }
-
-    if (item.targetSectionId) {
-      const targetElement = document.getElementById(item.targetSectionId);
-      if (targetElement) {
-        e.preventDefault();
-        const headerOffset = 170;
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth',
-        });
-      }
-    }
-  };
-
   return (
-    <div className="sticky top-[96px] lg:top-[70px] z-20 w-full bg-white/95 backdrop-blur-md border-b border-stone-200/80 shadow-2xs py-2 px-1">
-      {/* Desktop scroll arrows */}
+    <div className="relative w-full bg-white border-y border-stone-200/80 py-2.5 px-1 shadow-2xs">
+      {/* Desktop scroll buttons */}
       <button
         type="button"
         onClick={() => scroll('left')}
-        aria-label="Scroll left"
-        className="hidden md:flex absolute -left-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white border border-stone-200 shadow-md text-stone-700 hover:text-[#2E7D32] items-center justify-center transition-all cursor-pointer opacity-90 hover:opacity-100"
+        aria-label="Scroll categories left"
+        className="hidden md:flex absolute -left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white border border-stone-200 shadow-md text-stone-700 hover:text-[#2E7D32] items-center justify-center transition-all cursor-pointer"
       >
         <ChevronLeft className="w-4 h-4" />
       </button>
@@ -169,16 +122,16 @@ export default function HorizontalCategoryNav({
       <button
         type="button"
         onClick={() => scroll('right')}
-        aria-label="Scroll right"
-        className="hidden md:flex absolute -right-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-white border border-stone-200 shadow-md text-stone-700 hover:text-[#2E7D32] items-center justify-center transition-all cursor-pointer opacity-90 hover:opacity-100"
+        aria-label="Scroll categories right"
+        className="hidden md:flex absolute -right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white border border-stone-200 shadow-md text-stone-700 hover:text-[#2E7D32] items-center justify-center transition-all cursor-pointer"
       >
         <ChevronRight className="w-4 h-4" />
       </button>
 
-      {/* Horizontal scrolling strip */}
+      {/* Touch swipe horizontal row for mobile */}
       <div
         ref={scrollRef}
-        className="flex items-center gap-2 sm:gap-3 overflow-x-auto scroll-smooth snap-x snap-mandatory py-1 px-1.5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        className="flex items-start gap-2.5 sm:gap-3.5 overflow-x-auto scroll-smooth snap-x snap-mandatory px-2 no-scrollbar"
       >
         {QUICK_CATEGORIES.map((item) => {
           const isActive = selected === item.id;
@@ -187,43 +140,34 @@ export default function HorizontalCategoryNav({
             <Link
               key={item.id}
               href={item.href}
-              onClick={(e) => handleItemClick(e, item)}
-              className="snap-start shrink-0 flex flex-col items-center group cursor-pointer w-[68px] sm:w-[74px] focus:outline-hidden transition-transform active:scale-95"
+              onClick={() => setSelected(item.id)}
+              className="snap-start shrink-0 flex flex-col items-center group cursor-pointer w-[66px] sm:w-[76px] transition-transform active:scale-95"
             >
-              {/* Category Icon Capsule / Rounded Box */}
+              {/* Product Packshot Frame with Clean Border & Background */}
               <div
-                className={`relative w-12 h-12 sm:w-13 sm:h-13 rounded-2xl flex items-center justify-center transition-all duration-200 ${
+                className={`relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl p-1 flex items-center justify-center overflow-hidden transition-all duration-200 ${
                   isActive
-                    ? 'bg-[#2E7D32] text-white shadow-md shadow-[#2E7D32]/20 scale-105'
-                    : 'bg-stone-50 hover:bg-emerald-50/80 border border-stone-200/70 text-stone-700 group-hover:border-emerald-300'
+                    ? 'bg-emerald-50 border-2 border-[#2E7D32] shadow-sm'
+                    : 'bg-[#F8F9FA] border border-stone-200/90 group-hover:border-[#2E7D32] group-hover:bg-white'
                 }`}
               >
-                <span className="text-2xl sm:text-2xl select-none leading-none drop-shadow-2xs">
-                  {item.icon}
-                </span>
-
-                {item.badge && (
-                  <span className="absolute -top-1 -right-1 bg-rose-500 text-white text-[9px] font-black px-1 py-0.2 rounded-full uppercase">
-                    {item.badge}
-                  </span>
-                )}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-full object-contain select-none group-hover:scale-105 transition-transform"
+                  loading="lazy"
+                />
               </div>
 
-              {/* Label */}
+              {/* Clear Label with high contrast */}
               <span
                 className={`text-[11px] font-bold text-center leading-tight mt-1.5 line-clamp-1 w-full transition-colors ${
-                  isActive ? 'text-[#2E7D32]' : 'text-stone-700 group-hover:text-[#2E7D32]'
+                  isActive ? 'text-[#2E7D32]' : 'text-stone-800 group-hover:text-[#2E7D32]'
                 }`}
               >
                 {item.shortLabel}
               </span>
-
-              {/* Underline indicator */}
-              <div
-                className={`h-0.5 w-6 rounded-full mt-0.5 transition-all duration-200 ${
-                  isActive ? 'bg-[#2E7D32] scale-100' : 'bg-transparent scale-0'
-                }`}
-              />
             </Link>
           );
         })}

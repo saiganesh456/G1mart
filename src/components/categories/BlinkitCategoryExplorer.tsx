@@ -81,13 +81,23 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
                 <div className="absolute left-0 top-0 bottom-0 w-1 sm:w-1.5 bg-[#2E7D32] rounded-r-md" />
               )}
 
-              {/* Category Icon */}
+              {/* Category Icon / Packshot */}
               <div
-                className={`w-10 h-10 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center text-xl shrink-0 transition-transform ${
-                  isActive ? 'bg-emerald-50 scale-105' : 'bg-white border border-stone-200/60'
+                className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl p-1 flex items-center justify-center shrink-0 transition-transform overflow-hidden ${
+                  isActive ? 'bg-emerald-50 border-2 border-[#2E7D32] scale-105 shadow-2xs' : 'bg-white border border-stone-200/70'
                 }`}
               >
-                <span>{cat.icon || '🛍️'}</span>
+                {cat.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={cat.image}
+                    alt={cat.name}
+                    className="w-full h-full object-contain select-none"
+                    loading="lazy"
+                  />
+                ) : (
+                  <span className="text-xl">🛍️</span>
+                )}
               </div>
 
               {/* Title & Count */}

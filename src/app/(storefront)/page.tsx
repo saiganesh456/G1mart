@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ArrowRight, Flame, Sparkles, Coffee, ShieldCheck, Zap, ClipboardList, ScanLine } from 'lucide-react';
 import BannerCarousel from '@/components/storefront/BannerCarousel';
 import HorizontalCategoryNav from '@/components/storefront/HorizontalCategoryNav';
+import BlinkitCategorySection from '@/components/storefront/BlinkitCategorySection';
 import ProductGrid from '@/components/storefront/ProductGrid';
 import { productService } from '@/services/productService';
 
@@ -70,6 +71,9 @@ export default async function HomePage() {
         </div>
         <ProductGrid products={popularProducts} />
       </section>
+
+      {/* Explore by Category: Blinkit 4-Col Grid of Verified Packshots */}
+      <BlinkitCategorySection />
 
       {/* Grocery & Staples Department Showcase */}
       {stapleProducts.length > 0 && (
