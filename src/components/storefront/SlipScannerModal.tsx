@@ -41,8 +41,8 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
 
   // Sync user details if available
   useEffect(() => {
-    if (user?.name && !customerName) setCustomerName(user.name);
-    if (user?.phone && !customerPhone) setCustomerPhone(user.phone);
+    if (user?.name) setCustomerName(user.name);
+    if (user?.phone) setCustomerPhone(user.phone);
   }, [user]);
 
   // Clean up camera stream

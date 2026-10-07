@@ -54,6 +54,27 @@ export interface Category {
   itemCount: number;
   subcategories: string[];
   group?: string;
+  parent_id?: string | null;
+  display_order?: number;
+}
+
+export interface SearchSynonym {
+  id: string;
+  term: string;
+  synonyms: string[];
+}
+
+export interface CustomerSavedList {
+  id: string;
+  phone: string;
+  name: string;
+  type: 'monthly_essentials' | 'saved_template';
+  items: {
+    productId: string;
+    quantity: number;
+    addedAt: string;
+  }[];
+  updatedAt: string;
 }
 
 export interface CartItem {

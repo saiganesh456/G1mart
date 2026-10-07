@@ -8,26 +8,26 @@
  */
 export const STORE_CONFIG = {
   /** Exact trading name as it appears on the shop front / GST registration */
-  name: 'TODO_STORE_NAME',
+  name: 'G1 Mart Supermarket',
 
   /** One-line tagline shown in the site header / meta description */
-  tagline: 'TODO_TAGLINE',
+  tagline: 'Fresh Groceries & Essentials Delivered in 15–30 Mins',
 
   /** Full physical address of the store hub */
   address: {
-    line1: 'TODO_ADDRESS_LINE1',
-    area: 'TODO_AREA',
-    city: 'TODO_CITY',
-    state: 'TODO_STATE',
-    pincode: 'TODO_PINCODE',
+    line1: 'Trunk Road, Beside Magunta Layout',
+    area: 'Magunta Layout',
+    city: 'Nellore',
+    state: 'Andhra Pradesh',
+    pincode: '524003',
     country: 'India',
   },
 
   /** Customer-facing contact details */
   contact: {
-    phone: process.env.NEXT_PUBLIC_STORE_PHONE || '+91 98765 43210',
+    phone: process.env.NEXT_PUBLIC_STORE_PHONE || '+91 93463 89857',
     email: process.env.NEXT_PUBLIC_STORE_EMAIL || 'support@g1mart.com',
-    whatsapp: process.env.NEXT_PUBLIC_STORE_WHATSAPP || '919876543210',
+    whatsapp: process.env.NEXT_PUBLIC_STORE_WHATSAPP || '919346389857',
   },
 
   /** UPI Payment Configuration */
@@ -38,48 +38,30 @@ export const STORE_CONFIG = {
 
   /** Store operating hours (displayed to customers) */
   hours: {
-    open: 'TODO_OPEN_TIME',   // e.g. "6:00 AM"
-    close: 'TODO_CLOSE_TIME', // e.g. "11:00 PM"
-    daysOpen: 'TODO_DAYS',    // e.g. "Monday – Sunday"
+    open: '7:00 AM',
+    close: '10:30 PM',
+    daysOpen: 'Monday – Sunday',
   },
 
-  /** Delivery configuration — confirmed by owner before launch */
+  /** Delivery configuration — confirmed for Nellore hub */
   delivery: {
-    /**
-     * Minimum order value (INR) required to place an order.
-     * TODO: Confirm with owner.
-     */
-    minOrderValue: 0, // TODO_MIN_ORDER_VALUE
+    /** Minimum order value (INR) required to place an order */
+    minOrderValue: 0,
 
-    /**
-     * Flat delivery fee (INR) for city zone.
-     * TODO: Confirm with owner.
-     */
-    cityDeliveryFee: 0, // TODO_CITY_DELIVERY_FEE
+    /** Flat delivery fee (INR) for city zone */
+    cityDeliveryFee: 25,
 
-    /**
-     * Order value above which city-zone delivery is free.
-     * TODO: Confirm with owner.
-     */
-    cityFreeDeliveryAbove: 0, // TODO_FREE_DELIVERY_THRESHOLD
+    /** Order value above which city-zone delivery is free */
+    cityFreeDeliveryAbove: 499,
 
-    /**
-     * Flat delivery fee (INR) for extended/rural zone.
-     * TODO: Confirm with owner.
-     */
-    extendedDeliveryFee: 0, // TODO_EXTENDED_DELIVERY_FEE
+    /** Flat delivery fee (INR) for extended/rural zone */
+    extendedDeliveryFee: 45,
 
-    /**
-     * Human-readable estimated delivery window for city zone.
-     * TODO: Confirm with owner — do NOT promise faster than you can deliver.
-     */
-    cityEtaText: 'TODO_CITY_ETA', // e.g. "30 mins – 1 hour"
+    /** Human-readable estimated delivery window for city zone */
+    cityEtaText: '15 – 30 mins',
 
-    /**
-     * Human-readable estimated delivery window for extended zone.
-     * TODO: Confirm with owner.
-     */
-    extendedEtaText: 'TODO_EXTENDED_ETA', // e.g. "Approx. 2 hours"
+    /** Human-readable estimated delivery window for extended zone */
+    extendedEtaText: '45 – 60 mins',
   },
 } as const;
 

@@ -32,8 +32,8 @@ export default function SlipsManagementTab() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [actionSuccess, setActionSuccess] = useState<string | null>(null);
 
-  const fetchSlips = async () => {
-    setLoading(true);
+  const fetchSlips = async (silent = false) => {
+    if (!silent) setLoading(true);
     try {
       const res = await fetch('/api/admin/slips');
       const data = await res.json();
@@ -43,12 +43,16 @@ export default function SlipsManagementTab() {
     } catch (err) {
       console.error('[SlipsManagementTab] Failed to fetch slips:', err);
     } finally {
-      setLoading(false);
+      if (!silent) setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchSlips();
+    fetchSlips(false);
+    const interval = setInterval(() => {
+      fetchSlips(true);
+    }, 4000);
+    return () => clearInterval(interval);
   }, []);
 
   // Update status or notes

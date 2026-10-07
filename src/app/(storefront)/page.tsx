@@ -19,11 +19,40 @@ export default async function HomePage() {
   const personalCareProducts = allProducts.filter((p) => p.category === 'personal-care').slice(0, 10);
 
   return (
-    <div className="space-y-6 pb-20 sm:pb-12 pt-2 sm:pt-4 px-1 sm:px-0">
-      {/* Hero Banner Carousel */}
+    <div className="space-y-4 pb-20 sm:pb-12 pt-1 sm:pt-3 px-1 sm:px-0">
+      {/* Compact Banner Carousel (<= 110px) */}
       <BannerCarousel />
 
-      {/* Flipkart Minutes Horizontal Category Bar (Scrolls Right-to-Left) */}
+      {/* Quick Action Row: Order Again & Upload List */}
+      <div className="grid grid-cols-2 gap-2 pt-1">
+        <Link
+          href="/order-again"
+          className="flex items-center gap-2.5 p-2.5 rounded-xl bg-emerald-50 border border-emerald-200/80 hover:bg-emerald-100/70 transition-all shadow-2xs group"
+        >
+          <div className="w-8 h-8 rounded-lg bg-[#2E7D32] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+            <span className="text-base font-bold">↺</span>
+          </div>
+          <div className="min-w-0">
+            <div className="text-xs font-black text-[#212121] leading-tight">Order Again</div>
+            <p className="text-[10px] text-stone-500 truncate">1-tap repeat orders</p>
+          </div>
+        </Link>
+
+        <Link
+          href="/order-again?tab=list"
+          className="flex items-center gap-2.5 p-2.5 rounded-xl bg-stone-50 border border-stone-200/90 hover:bg-stone-100 transition-all shadow-2xs group"
+        >
+          <div className="w-8 h-8 rounded-lg bg-stone-700 text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+            <span className="text-base font-bold">📝</span>
+          </div>
+          <div className="min-w-0">
+            <div className="text-xs font-black text-[#212121] leading-tight">Monthly List</div>
+            <p className="text-[10px] text-stone-500 truncate">Saved essentials</p>
+          </div>
+        </Link>
+      </div>
+
+      {/* Top Departments Navigation Strip */}
       <HorizontalCategoryNav />
 
       {/* Popular Fast-Moving Items */}

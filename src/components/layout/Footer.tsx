@@ -70,6 +70,7 @@ export default function Footer() {
             <img
               src="/assets/images/g1_mart_banner_transparent.png"
               alt="G1 Mart"
+              style={{ height: '36px', maxHeight: '36px', width: 'auto', maxWidth: '160px', objectFit: 'contain' }}
               className="h-9 w-auto object-contain"
             />
             <p className="text-xs text-stone-500 leading-relaxed max-w-sm">

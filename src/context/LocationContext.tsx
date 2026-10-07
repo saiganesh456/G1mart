@@ -58,10 +58,24 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        const zone = deliveryZoneService.resolveZone(
-          `${parsed.area} ${parsed.city} ${parsed.pincode}`
-        );
-        setCurrentLocation({ ...parsed, zone });
+        // Sanitize legacy TODO strings from older builds
+        if (
+          !parsed ||
+          typeof parsed.city !== 'string' ||
+          parsed.city.includes('TODO') ||
+          (parsed.area && parsed.area.includes('TODO')) ||
+          (parsed.formattedAddress && parsed.formattedAddress.includes('TODO'))
+        ) {
+          const defaultZone = deliveryZoneService.getDefaultZone();
+          const cleanLoc = { ...DEFAULT_LOCATION, zone: defaultZone };
+          setCurrentLocation(cleanLoc);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(cleanLoc));
+        } else {
+          const zone = deliveryZoneService.resolveZone(
+            `${parsed.area} ${parsed.city} ${parsed.pincode}`
+          );
+          setCurrentLocation({ ...parsed, zone });
+        }
       } else {
         const defaultZone = deliveryZoneService.getDefaultZone();
         setCurrentLocation((prev) => ({ ...prev, zone: defaultZone }));

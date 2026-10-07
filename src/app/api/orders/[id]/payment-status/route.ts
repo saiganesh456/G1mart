@@ -24,12 +24,14 @@ export async function GET(req: NextRequest, { params }: Props) {
         success: true,
         orderId: order.id,
         paymentStatus: order.paymentStatus,
+        status: order.status,
         isPaid: !!order.isPaid,
         paidAmount: order.paidAmount,
         paidAt: order.paidAt,
         grandTotal: order.grandTotal,
         paymentMethod: order.paymentMethod,
         transactionId: order.transactionId,
+        order,
       });
     }
 
@@ -50,11 +52,13 @@ export async function GET(req: NextRequest, { params }: Props) {
             success: true,
             orderId: markResult.order.id,
             paymentStatus: markResult.order.paymentStatus,
+            status: markResult.order.status,
             isPaid: !!markResult.order.isPaid,
             paidAmount: markResult.order.paidAmount,
             paidAt: markResult.order.paidAt,
             grandTotal: markResult.order.grandTotal,
             transactionId: markResult.order.transactionId,
+            order: markResult.order,
           });
         }
       } else if (verifyResult.state === 'FAILED') {

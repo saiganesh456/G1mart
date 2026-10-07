@@ -146,28 +146,22 @@ export default function CategoryDashboardClient({ category, allCategories, produ
         })}
       </div>
 
-      {/* Main Content Area */}
-      <div className="flex items-start gap-4">
-        {/* Left Side Subcategory Rail (Desktop only) */}
-        <aside className="hidden lg:block w-52 shrink-0 bg-white rounded-2xl border border-stone-200/80 shadow-2xs overflow-hidden sticky top-20 self-start">
-          <div className="p-3 border-b border-stone-100 flex items-center justify-between">
-            <span className="text-[11px] font-black text-stone-500 uppercase tracking-wider">
-              Sub-categories
-            </span>
-          </div>
-
-          <div className="p-2 space-y-1">
+      {/* Main Content Area: Fixed Left Rail + Scrolling Product Grid */}
+      <div className="flex items-start gap-2 sm:gap-4 min-h-[calc(100vh-140px)]">
+        {/* Fixed Left Rail (Own Scroll Area, active highlight, works on Mobile & Desktop) */}
+        <aside className="w-24 sm:w-48 lg:w-56 shrink-0 bg-stone-50 border-r border-stone-200/80 sticky top-28 sm:top-24 max-h-[calc(100vh-120px)] overflow-y-auto no-scrollbar py-1">
+          <div className="space-y-1 pr-1">
             <button
               type="button"
               onClick={() => setSelectedSubCategory('all')}
-              className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${
+              className={`w-full text-left p-2 rounded-xl text-[11px] sm:text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between transition-colors ${
                 selectedSubCategory === 'all'
-                  ? 'bg-[#E8F5E9] text-[#1B5E20] font-bold border-l-4 border-[#2E7D32]'
-                  : 'text-stone-700 hover:bg-stone-50 font-medium'
+                  ? 'bg-white text-[#1B5E20] font-black border-l-4 border-[#2E7D32] shadow-2xs'
+                  : 'text-stone-600 hover:bg-white/60 font-medium'
               }`}
             >
-              <span>All Products</span>
-              <span className="text-[10px] font-bold text-stone-400">{products.length}</span>
+              <span className="truncate w-full">All Items</span>
+              <span className="text-[10px] font-bold text-stone-400 mt-0.5 sm:mt-0">{products.length}</span>
             </button>
 
             {subcategories.map((sub) => {
@@ -178,60 +172,36 @@ export default function CategoryDashboardClient({ category, allCategories, produ
                   key={sub}
                   type="button"
                   onClick={() => setSelectedSubCategory(sub)}
-                  className={`w-full text-left px-3 py-2 rounded-xl text-xs flex items-center justify-between transition-colors ${
+                  className={`w-full text-left p-2 rounded-xl text-[11px] sm:text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between transition-colors ${
                     isSelected
-                      ? 'bg-[#E8F5E9] text-[#1B5E20] font-bold border-l-4 border-[#2E7D32]'
-                      : 'text-stone-700 hover:bg-stone-50 font-medium'
+                      ? 'bg-white text-[#1B5E20] font-black border-l-4 border-[#2E7D32] shadow-2xs'
+                      : 'text-stone-600 hover:bg-white/60 font-medium'
                   }`}
                 >
-                  <span className="truncate pr-1">{sub}</span>
-                  <span className="text-[10px] font-bold text-stone-400">{count}</span>
+                  <span className="line-clamp-2 w-full">{sub}</span>
+                  <span className="text-[10px] font-bold text-stone-400 mt-0.5 sm:mt-0">{count}</span>
                 </button>
               );
             })}
           </div>
-
-          {/* Other departments jump */}
-          <div className="p-3 border-t border-stone-100 mt-2 bg-stone-50/50">
-            <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block mb-2">
-              Other Departments
-            </span>
-            <div className="space-y-1">
-              {allCategories
-                .filter((c) => c.id !== category.id)
-                .map((c) => (
-                  <Link
-                    key={c.id}
-                    href={`/category/${c.id}`}
-                    className="flex items-center justify-between p-1.5 rounded-lg text-xs font-semibold text-stone-600 hover:text-[#2E7D32] hover:bg-white transition-colors"
-                  >
-                    <span className="flex items-center gap-1.5">
-                      <span>{c.icon}</span>
-                      <span className="truncate">{c.name}</span>
-                    </span>
-                    <ChevronRight className="w-3 h-3 text-stone-400" />
-                  </Link>
-                ))}
-            </div>
-          </div>
         </aside>
 
-        {/* Product Cards Grid */}
-        <main className="flex-1 min-w-0 space-y-3">
+        {/* Product Cards Grid (Only the right-hand product grid scrolls with the page) */}
+        <main className="flex-1 min-w-0 space-y-3 pb-24 sm:pb-12">
           {filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
               {filteredProducts.map((p) => (
-                <ProductCard key={p.id} product={p} />
+                <ProductCard key={p.id} product={p} compact />
               ))}
             </div>
           ) : (
-            <div className="bg-white rounded-2xl border border-stone-200 p-10 text-center space-y-3">
-              <span className="text-3xl">📦</span>
-              <h3 className="text-sm sm:text-base font-bold text-stone-800">
+            <div className="bg-white rounded-2xl border border-stone-200 p-8 text-center space-y-3">
+              <span className="text-2xl">📦</span>
+              <h3 className="text-sm font-bold text-stone-800">
                 No items found in this section
               </h3>
               <p className="text-xs text-stone-500 max-w-sm mx-auto">
-                Check back soon or browse all available products in {category.name}.
+                Browse all available products in {category.name}.
               </p>
               <button
                 type="button"

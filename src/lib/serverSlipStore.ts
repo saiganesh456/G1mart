@@ -2,11 +2,12 @@
  * Server Slip Store
  *
  * Handles server-side persistence of customer slip uploads.
- * Integrates with Supabase private storage and `slip_uploads` table,
- * while maintaining a robust server-side fallback store so the admin
- * workflow and tests operate seamlessly in all environments.
+ * Combines persistent local disk JSON storage (data/g1mart_slips.json),
+ * global server memory caching, and Supabase cloud sync.
  */
 
+import fs from 'fs';
+import path from 'path';
 import { supabase } from '@/lib/supabase/client';
 
 export interface SlipRecord {
@@ -25,11 +26,59 @@ export interface SlipRecord {
   ip?: string | null;
 }
 
-// In-memory server cache to guarantee instant reactivity across server routes
-const SERVER_SLIPS: SlipRecord[] = [];
+const SLIPS_FILE_PATH = path.join(process.cwd(), 'data', 'g1mart_slips.json');
+
+declare global {
+  // eslint-disable-next-line no-var
+  var __g1Slips: SlipRecord[] | undefined;
+}
+
+if (!global.__g1Slips) {
+  global.__g1Slips = [];
+}
 
 // Rate limiting tracking: maps key (phone or IP) -> timestamp[]
 const RATE_LIMIT_CACHE = new Map<string, number[]>();
+
+function ensureDataDir(): void {
+  const dir = path.dirname(SLIPS_FILE_PATH);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+}
+
+function loadDiskSlips(): SlipRecord[] {
+  try {
+    ensureDataDir();
+    if (fs.existsSync(SLIPS_FILE_PATH)) {
+      const raw = fs.readFileSync(SLIPS_FILE_PATH, 'utf-8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        return parsed;
+      }
+    }
+  } catch (err) {
+    console.warn('[serverSlipStore] Error reading slips from disk:', err);
+  }
+  return [];
+}
+
+function persistDiskSlips(slips: SlipRecord[]): void {
+  try {
+    ensureDataDir();
+    fs.writeFileSync(SLIPS_FILE_PATH, JSON.stringify(slips, null, 2), 'utf-8');
+  } catch (err) {
+    console.error('[serverSlipStore] Error writing slips to disk:', err);
+  }
+}
+
+// Initial load into global cache
+if (global.__g1Slips.length === 0) {
+  const disk = loadDiskSlips();
+  if (disk.length > 0) {
+    global.__g1Slips = disk;
+  }
+}
 
 export const serverSlipStore = {
   /**
@@ -76,10 +125,23 @@ export const serverSlipStore = {
       ip: data.ip || null,
     };
 
-    // Store in server memory
-    SERVER_SLIPS.unshift(record);
+    // 1. Sync in-memory global
+    const diskSlips = loadDiskSlips();
+    const map = new Map<string, SlipRecord>();
+    diskSlips.forEach((s) => map.set(s.id, s));
+    (global.__g1Slips || []).forEach((s) => map.set(s.id, s));
+    map.set(record.id, record);
 
-    // Try persisting to Supabase if table is present
+    const merged = Array.from(map.values()).sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+
+    global.__g1Slips = merged;
+
+    // 2. Persist to disk file
+    persistDiskSlips(merged);
+
+    // 3. Try persisting to Supabase if table is present
     try {
       const { error } = await supabase.from('slip_uploads').insert({
         id: record.id,
@@ -92,7 +154,6 @@ export const serverSlipStore = {
         created_at: record.created_at,
       });
       if (error) {
-        // Table might not be applied yet, memory store serves as active fallback
         console.warn('[serverSlipStore] Supabase insert note:', error.message);
       }
     } catch (err: any) {
@@ -106,6 +167,11 @@ export const serverSlipStore = {
    * List all slips (Admin view)
    */
   async getSlips(): Promise<SlipRecord[]> {
+    const diskSlips = loadDiskSlips();
+    const map = new Map<string, SlipRecord>();
+    diskSlips.forEach((s) => map.set(s.id, s));
+    (global.__g1Slips || []).forEach((s) => map.set(s.id, s));
+
     try {
       const { data, error } = await supabase
         .from('slip_uploads')
@@ -113,9 +179,6 @@ export const serverSlipStore = {
         .order('created_at', { ascending: false });
 
       if (!error && data && data.length > 0) {
-        // Merge Supabase records with memory records
-        const map = new Map<string, SlipRecord>();
-        SERVER_SLIPS.forEach((s) => map.set(s.id, s));
         data.forEach((row: any) => {
           map.set(row.id, {
             id: row.id,
@@ -132,15 +195,17 @@ export const serverSlipStore = {
             created_at: row.created_at || new Date().toISOString(),
           });
         });
-        return Array.from(map.values()).sort(
-          (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-        );
       }
-    } catch (err) {
-      // Fallback to in-memory store
+    } catch {
+      // Fallback to disk + memory
     }
 
-    return SERVER_SLIPS;
+    const all = Array.from(map.values()).sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+
+    global.__g1Slips = all;
+    return all;
   },
 
   /**
@@ -162,7 +227,8 @@ export const serverSlipStore = {
       handled_by?: string;
     }
   ): Promise<SlipRecord | null> {
-    const slip = SERVER_SLIPS.find((s) => s.id === id);
+    const all = await this.getSlips();
+    const slip = all.find((s) => s.id === id);
     const now = new Date().toISOString();
 
     if (slip) {
@@ -170,6 +236,9 @@ export const serverSlipStore = {
       if (updates.admin_notes !== undefined) slip.admin_notes = updates.admin_notes;
       if (updates.handled_by) slip.handled_by = updates.handled_by;
       slip.handled_at = now;
+
+      global.__g1Slips = all;
+      persistDiskSlips(all);
     }
 
     try {
@@ -182,7 +251,7 @@ export const serverSlipStore = {
           handled_at: now,
         })
         .eq('id', id);
-    } catch (err) {
+    } catch {
       // Supabase update fallback
     }
 

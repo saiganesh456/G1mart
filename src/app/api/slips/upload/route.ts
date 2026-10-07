@@ -63,10 +63,27 @@ export async function POST(req: NextRequest) {
 
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${file.type.split('/')[1] || 'jpg'}`;
+    const ext = file.type.split('/')[1] || 'jpg';
+    const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${ext}`;
     const storagePath = `slips/${customerPhone.replace(/\D/g, '')}/${fileName}`;
 
-    let imageUrl: string = '';
+    // Ensure local public uploads directory exists and write image
+    let localPublicUrl = '';
+    try {
+      const fs = await import('fs');
+      const path = await import('path');
+      const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'slips');
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
+      const localFilePath = path.join(uploadDir, fileName);
+      fs.writeFileSync(localFilePath, buffer);
+      localPublicUrl = `/uploads/slips/${fileName}`;
+    } catch (fsErr) {
+      console.warn('[Slip Upload] Could not write to public folder:', fsErr);
+    }
+
+    let imageUrl: string = localPublicUrl;
     let imagePath: string = storagePath;
 
     // 6. Attempt upload to Supabase private storage bucket 'slips'
@@ -84,13 +101,15 @@ export async function POST(req: NextRequest) {
         const { data: signedData } = await supabase.storage
           .from('slips')
           .createSignedUrl(data.path, 60 * 60 * 24);
-        imageUrl = signedData?.signedUrl || '';
+        if (signedData?.signedUrl) {
+          imageUrl = signedData.signedUrl;
+        }
       }
     } catch (storageErr) {
       console.warn('[Slip Upload] Private storage upload notice:', storageErr);
     }
 
-    // Fallback: If Supabase bucket is pending migration, encode as base64 data-url for local store
+    // Fallback: If neither public folder nor Supabase provided URL, use base64
     if (!imageUrl) {
       imageUrl = `data:${file.type};base64,${buffer.toString('base64')}`;
     }

@@ -42,19 +42,36 @@ export default function OrderDetailClient({ orderId }: Props) {
       }
     } catch {}
 
-    // Always sync with server for verified items, prices, and delivery tracking
-    fetch(`/api/orders/${orderId}/payment-status`)
-      .then((res) => res.json())
-      .then((data) => {
+    const syncLiveOrder = async () => {
+      try {
+        const res = await fetch(`/api/orders/${orderId}`);
+        const data = await res.json();
         if (data.success && data.order) {
           setOrder((prev: any) => ({ ...prev, ...data.order }));
           try {
             sessionStorage.setItem('g1mart_latest_order', JSON.stringify(data.order));
             localStorage.setItem('g1mart_recent_order', JSON.stringify(data.order));
           } catch {}
+          return;
         }
-      })
-      .catch((err) => console.warn('Could not sync order from server', err));
+
+        // Secondary fallback to payment-status endpoint
+        const payRes = await fetch(`/api/orders/${orderId}/payment-status`);
+        const payData = await payRes.json();
+        if (payData.success && payData.order) {
+          setOrder((prev: any) => ({ ...prev, ...payData.order }));
+        }
+      } catch (err) {
+        // quiet polling error
+      }
+    };
+
+    // Immediate sync
+    syncLiveOrder();
+
+    // Auto-poll every 3.5s so admin changes (Mark as Paid, Packed, Dispatched) reflect live
+    const interval = setInterval(syncLiveOrder, 3500);
+    return () => clearInterval(interval);
   }, [orderId]);
 
   const address = order?.address || null;
@@ -62,6 +79,11 @@ export default function OrderDetailClient({ orderId }: Props) {
   const lat = address?.latitude || 14.4426;
   const lng = address?.longitude || 79.9865;
   const googleMapsNavUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+
+  const isFullyPaid =
+    order?.isPaid ||
+    order?.paymentStatus === 'completed' ||
+    order?.paymentStatus === 'manual_verified';
 
   return (
     <div className="max-w-2xl mx-auto space-y-4 pb-24 pt-2 sm:pt-4 px-3 sm:px-0">
@@ -106,9 +128,19 @@ export default function OrderDetailClient({ orderId }: Props) {
             </span>
           </div>
           <div className="text-right">
-            <span className="text-xs text-stone-400 font-semibold block">Payment</span>
-            <span className="text-xs font-bold text-stone-800">
-              {order?.paymentMethod || 'Cash on Delivery'}
+            <span className="text-xs text-stone-400 font-semibold block">Payment Status</span>
+            <span
+              className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-black ${
+                isFullyPaid
+                  ? 'bg-emerald-100 text-[#1B5E20] border border-emerald-300'
+                  : 'bg-amber-100 text-amber-900 border border-amber-300'
+              }`}
+            >
+              {isFullyPaid
+                ? '✓ Paid & Confirmed'
+                : order?.paymentMethod === 'Cash on Delivery'
+                ? 'Cash on Delivery (Pending)'
+                : 'Payment Pending'}
             </span>
           </div>
         </div>
@@ -117,7 +149,7 @@ export default function OrderDetailClient({ orderId }: Props) {
         {(() => {
           const currentStatus = order?.status || 'Order Placed';
           const isPlaced = true;
-          const isPacking = currentStatus === 'Packing' || currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery' || currentStatus === 'Delivered';
+          const isPacking = currentStatus === 'Packed' || currentStatus === 'Packing' || currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery' || currentStatus === 'Delivered';
           const isDispatched = currentStatus === 'Order Dispatched' || currentStatus === 'Out for Delivery' || currentStatus === 'Delivered';
           const isDelivered = currentStatus === 'Delivered';
 

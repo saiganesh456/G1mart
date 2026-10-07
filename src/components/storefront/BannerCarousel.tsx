@@ -52,7 +52,7 @@ export default function BannerCarousel() {
   const banner = BANNERS[current];
 
   return (
-    <section className="relative w-full aspect-[16/7] sm:aspect-[16/6] rounded-2xl overflow-hidden bg-stone-200 mx-0 sm:mx-0">
+    <section className="relative w-full h-24 sm:h-28 md:h-32 rounded-2xl overflow-hidden bg-stone-200 mx-0 sm:mx-0 shadow-2xs">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         key={banner.id}
@@ -65,17 +65,22 @@ export default function BannerCarousel() {
       {/* Gradient overlay */}
       <div className={`absolute inset-0 bg-gradient-to-r ${banner.bg}`} />
 
-      {/* Text content */}
-      <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6">
-        <h2 className="text-white font-black text-base sm:text-xl leading-tight drop-shadow-md">
-          {banner.title}
-        </h2>
-        <p className="text-white/90 text-xs sm:text-sm mt-1 drop-shadow-sm">
-          {banner.subtitle}
-        </p>
+      {/* Text content (Compact <= 110px layout) */}
+      <div className="absolute inset-0 flex items-center justify-between p-3 sm:p-5">
+        <div className="max-w-[70%]">
+          <span className="inline-block text-[10px] font-black uppercase tracking-wider bg-white/20 text-white px-1.5 py-0.5 rounded backdrop-blur-xs mb-1">
+            G1 Mart Fresh
+          </span>
+          <h2 className="text-white font-black text-sm sm:text-base leading-tight drop-shadow-md truncate">
+            {banner.title}
+          </h2>
+          <p className="text-white/90 text-[11px] sm:text-xs truncate drop-shadow-sm mt-0.5">
+            {banner.subtitle}
+          </p>
+        </div>
         <Link
           href={banner.cta.href}
-          className="mt-3 self-start px-4 py-2 bg-white text-[#2E7D32] rounded-xl font-bold text-xs sm:text-sm shadow-md hover:bg-stone-50 active:scale-95 transition-all"
+          className="shrink-0 px-3 py-1.5 bg-white text-[#2E7D32] rounded-xl font-bold text-xs shadow-md hover:bg-stone-50 active:scale-95 transition-all"
         >
           {banner.cta.label}
         </Link>

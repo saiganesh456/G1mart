@@ -2,14 +2,15 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, LayoutGrid, ShoppingBag, User, ArrowRight } from 'lucide-react';
+import { Home, LayoutGrid, RotateCcw, MessageCircle, User, ArrowRight } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Home', icon: Home, matchPaths: ['/'] },
   { href: '/categories', label: 'Categories', icon: LayoutGrid, matchPaths: ['/categories', '/category'] },
-  { href: '/orders', label: 'Orders', icon: ShoppingBag, matchPaths: ['/orders'] },
-  { href: '/account', label: 'Account', icon: User, matchPaths: ['/account', '/help'] },
+  { href: '/order-again', label: 'Order Again', icon: RotateCcw, matchPaths: ['/order-again'] },
+  { href: '/help', label: 'Chat', icon: MessageCircle, matchPaths: ['/help'] },
+  { href: '/account', label: 'Account', icon: User, matchPaths: ['/account'] },
 ] as const;
 
 /** Pages where the bottom nav is not shown */
@@ -64,9 +65,9 @@ export default function BottomNav() {
         </div>
       )}
 
-      {/* Tab bar */}
+      {/* Tab bar (Min 48px touch targets, safe area padding) */}
       <nav
-        className="pointer-events-auto bg-white/95 backdrop-blur-md border-t border-stone-200/90 shadow-sm px-2 py-1 flex items-center justify-around h-16"
+        className="pointer-events-auto bg-white/95 backdrop-blur-md border-t border-stone-200/90 shadow-sm px-1.5 py-1 flex items-center justify-around h-16 pb-[calc(env(safe-area-inset-bottom,0px)+0.25rem)]"
         aria-label="Main navigation"
       >
         {NAV_ITEMS.map((item) => {

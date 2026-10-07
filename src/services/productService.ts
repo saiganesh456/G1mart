@@ -141,6 +141,53 @@ export const productService = {
     return false;
   },
 
+  /**
+   * Search products with typo-tolerance, brand matching, and Telugu/synonym expansion
+   */
+  async searchProducts(query: string): Promise<Product[]> {
+    const q = query.trim().toLowerCase();
+    if (!q) return CATALOG_PRODUCTS;
+
+    const { DEFAULT_SEARCH_SYNONYMS } = await import('../data/searchSynonyms');
+    
+    // Check if query or tokens match any synonym terms
+    const expandedTokens = new Set<string>();
+    expandedTokens.add(q);
+    q.split(/\s+/).forEach((tok) => expandedTokens.add(tok));
+
+    DEFAULT_SEARCH_SYNONYMS.forEach((item) => {
+      if (q.includes(item.term) || item.synonyms.some((s) => q.includes(s))) {
+        expandedTokens.add(item.term);
+        item.synonyms.forEach((s) => expandedTokens.add(s));
+      }
+    });
+
+    const tokens = Array.from(expandedTokens);
+
+    return CATALOG_PRODUCTS.filter((p) => {
+      const name = p.name.toLowerCase();
+      const brand = (p.brand || '').toLowerCase();
+      const cat = (p.category || '').toLowerCase();
+      const sub = (p.subCategory || '').toLowerCase();
+      const unit = (p.unit || '').toLowerCase();
+      const raw = (p.rawName || '').toLowerCase();
+
+      // Direct substring match
+      if (name.includes(q) || brand.includes(q) || cat.includes(q) || sub.includes(q) || raw.includes(q)) {
+        return true;
+      }
+
+      // Check expanded synonym tokens
+      return tokens.some((token) => 
+        name.includes(token) || 
+        brand.includes(token) || 
+        cat.includes(token) || 
+        sub.includes(token) ||
+        unit.includes(token)
+      );
+    });
+  },
+
   async updateProduct(product: Product): Promise<boolean> {
     const idx = CATALOG_PRODUCTS.findIndex((p) => p.id === product.id);
     if (idx !== -1) {
@@ -159,3 +206,4 @@ export const productService = {
     return newProd;
   },
 };
+

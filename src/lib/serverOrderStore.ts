@@ -7,9 +7,8 @@ const ALL_CATALOG_PRODUCTS = [...CANONICAL_PRODUCTS, ...PILOT_PRODUCTS];
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import type { Order, OrderItem, PaymentRecord, PaymentStatus, OrderStatus } from '@/types';
 
-const TMP_CACHE_PATH = typeof process !== 'undefined' && process.platform === 'win32'
-  ? path.join(process.cwd(), '.next', 'g1mart_orders_dev.json')
-  : '/tmp/g1mart_orders.json';
+const ORDERS_FILE_PATH = path.join(process.cwd(), 'data', 'g1mart_orders.json');
+const LEGACY_CACHE_PATH = path.join(process.cwd(), '.next', 'g1mart_orders_dev.json');
 
 // Global server memory store fallback for development & testing when Supabase is not connected
 declare global {
@@ -519,28 +518,49 @@ export const serverOrderStore = {
   persistToDisk() {
     try {
       const orders = Array.from(ordersMap.values());
-      const dir = path.dirname(TMP_CACHE_PATH);
+      const dir = path.dirname(ORDERS_FILE_PATH);
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
-      fs.writeFileSync(TMP_CACHE_PATH, JSON.stringify(orders), 'utf-8');
-    } catch {}
+      fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), 'utf-8');
+    } catch (err) {
+      console.warn('[serverOrderStore] persistToDisk error:', err);
+    }
   },
 
   loadFromDisk() {
     try {
-      if (fs.existsSync(TMP_CACHE_PATH)) {
-        const raw = fs.readFileSync(TMP_CACHE_PATH, 'utf-8');
+      // 1. Check primary persistent file
+      let filePathToRead = ORDERS_FILE_PATH;
+      if (!fs.existsSync(filePathToRead) && fs.existsSync(LEGACY_CACHE_PATH)) {
+        filePathToRead = LEGACY_CACHE_PATH;
+      }
+
+      if (fs.existsSync(filePathToRead)) {
+        const raw = fs.readFileSync(filePathToRead, 'utf-8');
         const orders: Order[] = JSON.parse(raw);
         if (Array.isArray(orders)) {
           for (const o of orders) {
-            if (o && o.id && !ordersMap.has(o.id)) {
-              ordersMap.set(o.id, o);
+            if (o && o.id) {
+              const current = ordersMap.get(o.id);
+              if (!current) {
+                ordersMap.set(o.id, o);
+              } else {
+                ordersMap.set(o.id, {
+                  ...current,
+                  ...o,
+                  status: o.status || current.status,
+                  isPaid: o.isPaid ?? current.isPaid,
+                  paymentStatus: o.paymentStatus || current.paymentStatus,
+                });
+              }
             }
           }
         }
       }
-    } catch {}
+    } catch (err) {
+      console.warn('[serverOrderStore] loadFromDisk error:', err);
+    }
   },
 
   registerOrder(order: Order): Order {

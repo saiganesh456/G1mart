@@ -45,6 +45,7 @@ export default function Header() {
               <img
                 src="/assets/images/g1_mart_banner_transparent.png"
                 alt="G1 Mart"
+                style={{ height: '32px', maxHeight: '32px', width: 'auto', maxWidth: '140px', objectFit: 'contain' }}
                 className="h-8 w-auto object-contain"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).src = '/logo.png';
@@ -124,7 +125,7 @@ export default function Header() {
           </div>
 
           {/* Search bar */}
-          <div className="px-3 pb-3">
+          <div className="px-3 pb-2">
             <form onSubmit={handleSearchSubmit} role="search">
               <div className="relative flex items-center">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
@@ -132,7 +133,7 @@ export default function Header() {
                   type="search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search 'milk', 'atta', 'surf excel', 'tea'…"
+                  placeholder="Search 'sugar', 'oil', 'surf', 'dal'…"
                   className="w-full h-10 pl-9 pr-11 rounded-xl bg-stone-100 border border-stone-200 text-sm outline-none focus:bg-white focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32]/20 transition-all placeholder:text-stone-400"
                 />
                 <button
@@ -147,6 +148,46 @@ export default function Header() {
               </div>
             </form>
           </div>
+
+          {/* Sticky Mobile Category Chip Strip (Always stays pinned with Header) */}
+          <div className="border-t border-stone-100 bg-stone-50/80 px-2 py-1.5 overflow-x-auto no-scrollbar flex items-center gap-1.5 text-xs font-bold">
+            <Link
+              href="/"
+              className="shrink-0 px-2.5 py-1 rounded-full bg-[#2E7D32] text-white shadow-2xs text-[11px]"
+            >
+              All
+            </Link>
+            <Link
+              href="/category/grocery-staples"
+              className="shrink-0 px-2.5 py-1 rounded-full bg-white border border-stone-200 text-stone-700 hover:text-[#2E7D32] active:bg-emerald-50 transition-colors text-[11px]"
+            >
+              Grocery &amp; Staples
+            </Link>
+            <Link
+              href="/category/snacks-beverages"
+              className="shrink-0 px-2.5 py-1 rounded-full bg-white border border-stone-200 text-stone-700 hover:text-[#2E7D32] active:bg-emerald-50 transition-colors text-[11px]"
+            >
+              Snacks &amp; Chai
+            </Link>
+            <Link
+              href="/category/household-cleaning"
+              className="shrink-0 px-2.5 py-1 rounded-full bg-white border border-stone-200 text-stone-700 hover:text-[#2E7D32] active:bg-emerald-50 transition-colors text-[11px]"
+            >
+              Cleaning &amp; Home
+            </Link>
+            <Link
+              href="/category/personal-care"
+              className="shrink-0 px-2.5 py-1 rounded-full bg-white border border-stone-200 text-stone-700 hover:text-[#2E7D32] active:bg-emerald-50 transition-colors text-[11px]"
+            >
+              Personal Care
+            </Link>
+            <Link
+              href="/category/pooja-essentials"
+              className="shrink-0 px-2.5 py-1 rounded-full bg-white border border-stone-200 text-stone-700 hover:text-[#2E7D32] active:bg-emerald-50 transition-colors text-[11px]"
+            >
+              Pooja
+            </Link>
+          </div>
         </div>
 
         {/* ── Desktop Header ── */}
@@ -158,6 +199,7 @@ export default function Header() {
               <img
                 src="/assets/images/g1_mart_banner_transparent.png"
                 alt="G1 Mart"
+                style={{ height: '36px', maxHeight: '36px', width: 'auto', maxWidth: '160px', objectFit: 'contain' }}
                 className="h-9 w-auto object-contain"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).src = '/logo.png';
