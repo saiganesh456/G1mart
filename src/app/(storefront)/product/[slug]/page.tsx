@@ -9,6 +9,7 @@ import { CATALOG_PRODUCTS } from '@/data/productsCatalog';
 import { productService } from '@/services/productService';
 import { STORE_CONFIG } from '@/config/store';
 import ProductImage from '@/components/storefront/ProductImage';
+import ProductCard from '@/components/storefront/ProductCard';
 import type { Product } from '@/types';
 
 interface Props {
@@ -24,6 +25,13 @@ export default function ProductDetailPage({ params }: Props) {
     CATALOG_PRODUCTS.find((p) => p.id === slug || p.slug === slug || String(p.itemNumber) === slug) || null
   );
   const [loading, setLoading] = useState(!product);
+
+  const relatedProducts = React.useMemo(() => {
+    if (!product) return [];
+    return CATALOG_PRODUCTS.filter(
+      (p) => p.id !== product.id && (p.category === product.category || (product.subCategory && p.subCategory === product.subCategory))
+    ).slice(0, 6);
+  }, [product]);
 
   useEffect(() => {
     let isMounted = true;
@@ -162,6 +170,25 @@ export default function ProductDetailPage({ params }: Props) {
           </div>
         </div>
       </div>
+
+      {/* Frequently Bought Together & Related Products */}
+      {relatedProducts.length > 0 && (
+        <div className="pt-2 space-y-3">
+          <div className="px-1">
+            <h3 className="text-sm sm:text-base font-extrabold text-[#212121] tracking-tight">
+              Related Products &amp; Customers Also Bought
+            </h3>
+            <p className="text-[11px] text-stone-500 font-medium">
+              Popular essentials in {product.category.replace(/-/g, ' ')}
+            </p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 pb-4">
+            {relatedProducts.map((rel) => (
+              <ProductCard key={rel.id} product={rel} compact />
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Sticky Bottom Add To Cart CTA */}
       <div className="fixed bottom-0 left-0 right-0 z-40 max-w-lg md:max-w-2xl mx-auto p-3 bg-white/95 backdrop-blur-md border-t border-stone-200">

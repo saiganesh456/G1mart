@@ -142,7 +142,7 @@ export default function HorizontalCategoryNav({
       const targetElement = document.getElementById(item.targetSectionId);
       if (targetElement) {
         e.preventDefault();
-        const headerOffset = 130;
+        const headerOffset = 170;
         const elementPosition = targetElement.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -155,7 +155,7 @@ export default function HorizontalCategoryNav({
   };
 
   return (
-    <div className="relative w-full bg-white border-b border-stone-200/70 shadow-2xs py-2 px-1">
+    <div className="sticky top-[96px] lg:top-[70px] z-20 w-full bg-white/95 backdrop-blur-md border-b border-stone-200/80 shadow-2xs py-2 px-1">
       {/* Desktop scroll arrows */}
       <button
         type="button"

@@ -148,46 +148,6 @@ export default function Header() {
               </div>
             </form>
           </div>
-
-          {/* Sticky Mobile Category Chip Strip (Always stays pinned with Header) */}
-          <div className="border-t border-stone-100 bg-stone-50/80 px-2 py-1.5 overflow-x-auto no-scrollbar flex items-center gap-1.5 text-xs font-bold">
-            <Link
-              href="/"
-              className="shrink-0 px-2.5 py-1 rounded-full bg-[#2E7D32] text-white shadow-2xs text-[11px]"
-            >
-              All
-            </Link>
-            <Link
-              href="/category/grocery-staples"
-              className="shrink-0 px-2.5 py-1 rounded-full bg-white border border-stone-200 text-stone-700 hover:text-[#2E7D32] active:bg-emerald-50 transition-colors text-[11px]"
-            >
-              Grocery &amp; Staples
-            </Link>
-            <Link
-              href="/category/snacks-beverages"
-              className="shrink-0 px-2.5 py-1 rounded-full bg-white border border-stone-200 text-stone-700 hover:text-[#2E7D32] active:bg-emerald-50 transition-colors text-[11px]"
-            >
-              Snacks &amp; Chai
-            </Link>
-            <Link
-              href="/category/household-cleaning"
-              className="shrink-0 px-2.5 py-1 rounded-full bg-white border border-stone-200 text-stone-700 hover:text-[#2E7D32] active:bg-emerald-50 transition-colors text-[11px]"
-            >
-              Cleaning &amp; Home
-            </Link>
-            <Link
-              href="/category/personal-care"
-              className="shrink-0 px-2.5 py-1 rounded-full bg-white border border-stone-200 text-stone-700 hover:text-[#2E7D32] active:bg-emerald-50 transition-colors text-[11px]"
-            >
-              Personal Care
-            </Link>
-            <Link
-              href="/category/pooja-essentials"
-              className="shrink-0 px-2.5 py-1 rounded-full bg-white border border-stone-200 text-stone-700 hover:text-[#2E7D32] active:bg-emerald-50 transition-colors text-[11px]"
-            >
-              Pooja
-            </Link>
-          </div>
         </div>
 
         {/* ── Desktop Header ── */}

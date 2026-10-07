@@ -2,14 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, LayoutGrid, RotateCcw, MessageCircle, User, ArrowRight } from 'lucide-react';
+import { Home, LayoutGrid, Package, User, ArrowRight } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Home', icon: Home, matchPaths: ['/'] },
   { href: '/categories', label: 'Categories', icon: LayoutGrid, matchPaths: ['/categories', '/category'] },
-  { href: '/order-again', label: 'Order Again', icon: RotateCcw, matchPaths: ['/order-again'] },
-  { href: '/help', label: 'Chat', icon: MessageCircle, matchPaths: ['/help'] },
+  { href: '/orders', label: 'Orders', icon: Package, matchPaths: ['/orders', '/order-status'] },
   { href: '/account', label: 'Account', icon: User, matchPaths: ['/account'] },
 ] as const;
 

@@ -1,8 +1,7 @@
 import Link from 'next/link';
-import { ArrowRight, Flame, Sparkles, Coffee, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowRight, Flame, Sparkles, Coffee, ShieldCheck, Zap, ClipboardList, ScanLine } from 'lucide-react';
 import BannerCarousel from '@/components/storefront/BannerCarousel';
 import HorizontalCategoryNav from '@/components/storefront/HorizontalCategoryNav';
-import BlinkitCategorySection from '@/components/storefront/BlinkitCategorySection';
 import ProductGrid from '@/components/storefront/ProductGrid';
 import { productService } from '@/services/productService';
 
@@ -10,7 +9,7 @@ export default async function HomePage() {
   const allProducts = await productService.getProducts();
 
   const popularCandidates = allProducts.filter((p) => p.isPopular);
-  const popularProducts = popularCandidates.length > 0 ? popularCandidates.slice(0, 10) : allProducts.slice(0, 10);
+  const popularProducts = popularCandidates.length > 0 ? popularCandidates : allProducts.slice(0, 12);
 
   const stapleProducts = allProducts.filter((p) => p.category === 'grocery-staples').slice(0, 10);
   const snackBeverageProducts = allProducts.filter((p) => p.category === 'snacks-beverages').slice(0, 10);
@@ -23,40 +22,37 @@ export default async function HomePage() {
       {/* Compact Banner Carousel (<= 110px) */}
       <BannerCarousel />
 
-      {/* Quick Action Row: Order Again & Upload List */}
-      <div className="grid grid-cols-2 gap-2 pt-1">
-        <Link
-          href="/order-again"
-          className="flex items-center gap-2.5 p-2.5 rounded-xl bg-emerald-50 border border-emerald-200/80 hover:bg-emerald-100/70 transition-all shadow-2xs group"
-        >
-          <div className="w-8 h-8 rounded-lg bg-[#2E7D32] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-            <span className="text-base font-bold">↺</span>
+      {/* Monthly Grocery List & Slip Scanner Shortcut */}
+      <Link
+        href="/monthly-list"
+        className="flex items-center justify-between p-3 rounded-2xl bg-gradient-to-r from-[#1b5e20] to-[#2E7D32] text-white shadow-sm hover:shadow-md active:scale-[0.99] transition-all group"
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-xs flex items-center justify-center shrink-0">
+            <ClipboardList className="w-5 h-5 text-white" />
           </div>
           <div className="min-w-0">
-            <div className="text-xs font-black text-[#212121] leading-tight">Order Again</div>
-            <p className="text-[10px] text-stone-500 truncate">1-tap repeat orders</p>
+            <div className="flex items-center gap-1.5 flex-wrap">
+              <span className="text-xs sm:text-sm font-black tracking-tight">Monthly Grocery Essentials</span>
+              <span className="bg-amber-400 text-stone-900 text-[10px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-wider">
+                ₹2,000–₹3,000 Basket
+              </span>
+            </div>
+            <p className="text-[11px] text-emerald-100 truncate">
+              Pre-curated family staples • Scan paper slip with camera
+            </p>
           </div>
-        </Link>
+        </div>
+        <div className="w-8 h-8 rounded-full bg-white/20 group-hover:bg-white group-hover:text-[#2E7D32] flex items-center justify-center transition-colors shrink-0">
+          <ArrowRight className="w-4 h-4" />
+        </div>
+      </Link>
 
-        <Link
-          href="/order-again?tab=list"
-          className="flex items-center gap-2.5 p-2.5 rounded-xl bg-stone-50 border border-stone-200/90 hover:bg-stone-100 transition-all shadow-2xs group"
-        >
-          <div className="w-8 h-8 rounded-lg bg-stone-700 text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-            <span className="text-base font-bold">📝</span>
-          </div>
-          <div className="min-w-0">
-            <div className="text-xs font-black text-[#212121] leading-tight">Monthly List</div>
-            <p className="text-[10px] text-stone-500 truncate">Saved essentials</p>
-          </div>
-        </Link>
-      </div>
-
-      {/* Top Departments Navigation Strip */}
+      {/* Sticky Category Navigation Strip (Fixed under header while scrolling) */}
       <HorizontalCategoryNav />
 
       {/* Popular Fast-Moving Items */}
-      <section id="top-essentials" className="scroll-mt-32 space-y-3 px-1 sm:px-0">
+      <section id="top-essentials" className="scroll-mt-36 space-y-3 px-1 sm:px-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             <Flame className="w-4 h-4 text-[#E65100]" />
@@ -74,9 +70,6 @@ export default async function HomePage() {
         </div>
         <ProductGrid products={popularProducts} />
       </section>
-
-      {/* Blinkit Style Categorized Department Sections (Pastel 4-Col Grids) */}
-      <BlinkitCategorySection />
 
       {/* Grocery & Staples Department Showcase */}
       {stapleProducts.length > 0 && (
