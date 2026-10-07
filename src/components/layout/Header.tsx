@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { Search, ShoppingBag, User, MapPin, ChevronDown, ScanBarcode } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
@@ -14,6 +14,8 @@ import SlipScannerModal from '@/components/storefront/SlipScannerModal';
 
 export default function Header() {
   const router = useRouter();
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
   const { cartItemCount, cartSubtotal } = useCart();
   const { currentLocation, setIsModalOpen } = useLocation();
   const { user, isLoggedIn } = useAuth();
@@ -124,30 +126,32 @@ export default function Header() {
             </button>
           </div>
 
-          {/* Search bar */}
-          <div className="px-3 pb-2">
-            <form onSubmit={handleSearchSubmit} role="search">
-              <div className="relative flex items-center">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
-                <input
-                  type="search"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search 'sugar', 'oil', 'surf', 'dal'…"
-                  className="w-full h-10 pl-9 pr-11 rounded-xl bg-stone-100 border border-stone-200 text-sm outline-none focus:bg-white focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32]/20 transition-all placeholder:text-stone-400"
-                />
-                <button
-                  type="button"
-                  onClick={() => setIsSlipScannerOpen(true)}
-                  aria-label="Scan slip or handwritten list"
-                  className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-[#2E7D32] hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer flex items-center justify-center"
-                  title="Scan slip or handwritten list"
-                >
-                  <ScanBarcode className="w-5 h-5 stroke-[2.2]" />
-                </button>
-              </div>
-            </form>
-          </div>
+          {/* Search bar — Shown ONLY on Home page per Owner Design Rules */}
+          {isHomePage && (
+            <div className="px-3 pb-2">
+              <form onSubmit={handleSearchSubmit} role="search">
+                <div className="relative flex items-center">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
+                  <input
+                    type="search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search 'sugar', 'oil', 'surf', 'dal'…"
+                    className="w-full h-10 pl-9 pr-11 rounded-xl bg-stone-100 border border-stone-200 text-sm outline-none focus:bg-white focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32]/20 transition-all placeholder:text-stone-400"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setIsSlipScannerOpen(true)}
+                    aria-label="Scan slip or handwritten list"
+                    className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-[#2E7D32] hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer flex items-center justify-center"
+                    title="Scan slip or handwritten list"
+                  >
+                    <ScanBarcode className="w-5 h-5 stroke-[2.2]" />
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
         </div>
 
         {/* ── Desktop Header ── */}
@@ -189,29 +193,33 @@ export default function Header() {
               </div>
             </button>
 
-            {/* Search */}
-            <form onSubmit={handleSearchSubmit} role="search" className="flex-1 max-w-xl">
-              <div className="relative flex items-center">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
-                <input
-                  type="search"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search groceries, brands, daily essentials…"
-                  className="w-full h-10 pl-9 pr-11 rounded-xl bg-stone-100 border border-stone-200 text-sm outline-none focus:bg-white focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32]/20 transition-all placeholder:text-stone-400"
-                />
-                <button
-                  type="button"
-                  onClick={() => setIsSlipScannerOpen(true)}
-                  aria-label="Scan slip or handwritten list"
-                  className="absolute right-1.5 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-lg text-[#2E7D32] hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer flex items-center gap-1 text-xs font-bold"
-                  title="Scan handwritten slip or grocery list"
-                >
-                  <ScanBarcode className="w-4 h-4 stroke-[2.2]" />
-                  <span>Scan Slip</span>
-                </button>
-              </div>
-            </form>
+            {/* Search — Shown ONLY on Home page per Owner Design Rules */}
+            {isHomePage ? (
+              <form onSubmit={handleSearchSubmit} role="search" className="flex-1 max-w-xl">
+                <div className="relative flex items-center">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
+                  <input
+                    type="search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search groceries, brands, daily essentials…"
+                    className="w-full h-10 pl-9 pr-11 rounded-xl bg-stone-100 border border-stone-200 text-sm outline-none focus:bg-white focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32]/20 transition-all placeholder:text-stone-400"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setIsSlipScannerOpen(true)}
+                    aria-label="Scan slip or handwritten list"
+                    className="absolute right-1.5 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-lg text-[#2E7D32] hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer flex items-center gap-1 text-xs font-bold"
+                    title="Scan handwritten slip or grocery list"
+                  >
+                    <ScanBarcode className="w-4 h-4 stroke-[2.2]" />
+                    <span>Scan Slip</span>
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div className="flex-1" />
+            )}
 
             {/* Nav links */}
             <nav className="flex items-center gap-1 shrink-0">

@@ -161,15 +161,15 @@ export default function CartPage() {
       </div>
 
       {/* Cart Items Grouped by Department */}
-      <div className="space-y-4">
+      <div className="space-y-6">
         {groupedCart.map(([catKey, group]) => (
-          <div key={catKey} className="bg-white rounded-2xl border border-stone-200/90 shadow-2xs overflow-hidden">
+          <div key={catKey} className="bg-white">
             {/* Department Group Header */}
-            <div className="bg-stone-50/90 px-3.5 py-2 border-b border-stone-100 flex items-center justify-between">
-              <span className="text-xs font-black text-stone-800 tracking-tight">
+            <div className="pb-2 flex items-center justify-between border-b border-stone-100">
+              <span className="text-xs font-black text-stone-900 tracking-tight">
                 {group.categoryTitle}
               </span>
-              <span className="text-[10px] font-bold text-stone-500 bg-white border border-stone-200 px-1.5 py-0.5 rounded-full">
+              <span className="text-[10px] font-bold text-stone-500">
                 {group.items.length} items
               </span>
             </div>
@@ -179,9 +179,9 @@ export default function CartPage() {
               {group.items.map(({ product, quantity }) => {
                 const unitPrice = product.price > 0 ? product.price : (product.originalPrice || 0);
                 return (
-                  <div key={product.id} className="p-3 flex items-center gap-3">
-                    {/* Fixed 1:1 Packshot Box */}
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 shrink-0 rounded-xl overflow-hidden bg-stone-50 border border-stone-100 flex items-center justify-center p-1">
+                  <div key={product.id} className="py-3 flex items-center gap-3">
+                    {/* Fixed 1:1 Packshot (sitting directly on white) */}
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 shrink-0 bg-white flex items-center justify-center p-0.5">
                       <ProductImage
                         imageUrl={product.image_url || (product as any).imageUrl || product.image}
                         imageStatus={product.image_status}
@@ -273,8 +273,8 @@ export default function CartPage() {
         ))}
       </div>
 
-      {/* Bill Summary (Display Only) */}
-      <div className="bg-white rounded-2xl border border-stone-200/90 p-3.5 sm:p-4 shadow-2xs space-y-2.5">
+      {/* Bill Summary (Display Only) — Pure white, clean borderless summary */}
+      <div className="bg-white py-3 space-y-2.5 border-t border-b border-stone-100">
         <h2 className="text-xs font-black text-stone-700 uppercase tracking-wider">
           Bill Details (Estimated)
         </h2>

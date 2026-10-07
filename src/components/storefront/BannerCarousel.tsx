@@ -52,7 +52,7 @@ export default function BannerCarousel() {
   const banner = BANNERS[current];
 
   return (
-    <section className="relative w-full h-24 sm:h-28 md:h-32 rounded-2xl overflow-hidden bg-stone-200 mx-0 sm:mx-0 shadow-2xs">
+    <section className="relative w-full h-24 sm:h-28 max-h-[110px] rounded-xl overflow-hidden bg-stone-100 mx-0">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         key={banner.id}

@@ -62,13 +62,13 @@ export default function CategoryDashboardClient({ category, allCategories, produ
       : 'Standard local delivery';
 
   return (
-    <div className="space-y-4 pb-24 sm:pb-16 pt-2 sm:pt-4 px-1 sm:px-0">
-      {/* Top Header & Breadcrumbs */}
-      <div className="bg-white rounded-2xl border border-stone-200/80 shadow-2xs p-3 sm:p-4 flex items-center justify-between gap-3">
+    <div className="space-y-4 pb-24 sm:pb-16 pt-2 sm:pt-4 px-1 sm:px-0 bg-white">
+      {/* Top Header & Breadcrumbs — Clean borderless header on pure white */}
+      <div className="bg-white pb-3 flex items-center justify-between gap-3 border-b border-stone-100">
         <div className="flex items-center gap-3 min-w-0">
           <Link
             href="/categories"
-            className="w-9 h-9 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center transition-colors shrink-0"
+            className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center transition-colors shrink-0"
             title="All Categories"
             aria-label="Back to all categories"
           >

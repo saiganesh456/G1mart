@@ -173,16 +173,16 @@ export default function BlinkitCategorySection({
             </Link>
           </div>
 
-          {/* Clean 4-Column Mobile Grid with Professional Product Packshots */}
-          <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-3">
+          {/* Clean 3-Column Mobile Grid with Cut-Out Images Directly on White Canvas */}
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 sm:gap-4">
             {group.items.map((cat) => (
               <Link
                 key={cat.id}
                 href={cat.href}
                 className="group flex flex-col items-center cursor-pointer focus:outline-hidden transition-transform active:scale-95"
               >
-                {/* 1:1 Square Packshot Card */}
-                <div className="w-full aspect-square rounded-2xl bg-[#F8F9FA] border border-stone-200/90 p-1.5 flex items-center justify-center overflow-hidden transition-all duration-200 group-hover:shadow-md group-hover:border-[#2E7D32] group-hover:bg-white">
+                {/* 1:1 Transparent Cut-out Canvas (sitting directly on pure white) */}
+                <div className="w-full aspect-square bg-white p-1 flex items-center justify-center overflow-hidden transition-all duration-200">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={cat.image}
@@ -193,7 +193,7 @@ export default function BlinkitCategorySection({
                 </div>
 
                 {/* Clean 2-Line High-Contrast Label Underneath */}
-                <span className="text-[11px] sm:text-xs font-bold text-stone-800 text-center leading-tight line-clamp-2 mt-1.5 px-0.5 w-full group-hover:text-[#2E7D32] transition-colors">
+                <span className="text-[12px] sm:text-xs font-bold text-stone-900 text-center leading-tight line-clamp-2 mt-1 px-0.5 w-full group-hover:text-[#2E7D32] transition-colors">
                   {cat.name}
                 </span>
               </Link>

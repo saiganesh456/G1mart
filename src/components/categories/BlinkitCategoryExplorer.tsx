@@ -60,9 +60,9 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
   };
 
   return (
-    <div className="flex h-[calc(100vh-140px)] sm:h-[calc(100vh-160px)] bg-white rounded-2xl border border-stone-200/80 shadow-2xs overflow-hidden">
+    <div className="flex h-[calc(100vh-140px)] sm:h-[calc(100vh-160px)] bg-white overflow-hidden">
       {/* ── Left Category Rail (Blinkit Style) ── */}
-      <aside className="w-22 sm:w-56 shrink-0 bg-[#F8F9FA] border-r border-stone-200/80 overflow-y-auto no-scrollbar flex flex-col py-2 select-none">
+      <aside className="w-22 sm:w-56 shrink-0 bg-white border-r border-stone-100 overflow-y-auto no-scrollbar flex flex-col py-2 select-none">
         {categories.map((cat) => {
           const isActive = cat.id === activeCategoryId;
           return (
@@ -120,8 +120,8 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
 
       {/* ── Right Content Area: Products Grid ── */}
       <main className="flex-1 flex flex-col min-w-0 bg-white overflow-hidden">
-        {/* Category Header & Filters */}
-        <div className="p-3 sm:p-4 border-b border-stone-200/80 space-y-2.5 shrink-0 bg-white">
+        {/* Category Header & Filters (No search bar per Stage 2 Owner Rules) */}
+        <div className="p-3 sm:p-4 border-b border-stone-100 space-y-2 shrink-0 bg-white">
           <div className="flex items-center justify-between gap-2">
             <div>
               <h2 className="text-sm sm:text-base font-extrabold text-[#212121] leading-tight">
@@ -130,18 +130,6 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
               <p className="text-[11px] text-stone-500 font-medium">
                 {displayedProducts.length} items with instant delivery
               </p>
-            </div>
-
-            {/* Quick in-category filter */}
-            <div className="relative w-36 sm:w-56">
-              <input
-                type="text"
-                placeholder="Search here..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full text-xs pl-7 pr-2.5 py-1.5 rounded-lg bg-stone-50 border border-stone-200 focus:outline-hidden focus:border-[#2E7D32] transition-colors"
-              />
-              <Search className="w-3.5 h-3.5 text-stone-400 absolute left-2 top-1/2 -translate-y-1/2" />
             </div>
           </div>
 

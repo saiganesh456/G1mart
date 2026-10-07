@@ -28,12 +28,12 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
   return (
     <div
       onClick={handleCardClick}
-      className={`group relative bg-white rounded-2xl border border-stone-200/90 shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col justify-between overflow-hidden cursor-pointer select-none ${
-        compact ? 'p-2' : 'p-2.5 sm:p-3'
+      className={`group relative bg-white transition-all duration-200 flex flex-col justify-between cursor-pointer select-none ${
+        compact ? 'p-1' : 'p-1.5 sm:p-2'
       }`}
     >
-      {/* Image */}
-      <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-[#F8F9FA] border border-stone-100/90 flex items-center justify-center mb-2">
+      {/* Image — sits directly on pure white canvas, no gray boxes or borders */}
+      <div className="relative w-full aspect-square overflow-hidden bg-white flex items-center justify-center mb-1.5">
         {/* Discount badge - only if price confirmed and discount exists */}
         {product.priceConfirmed && product.discountPercentage > 0 && product.inStock && (
           <span className="absolute top-1.5 left-1.5 z-10 bg-[#137333] text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow-2xs tracking-tight uppercase">
@@ -95,7 +95,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
         </div>
 
         {/* Price + action */}
-        <div className="pt-2 border-t border-stone-100 flex items-center justify-between gap-1 mt-2">
+        <div className="pt-1.5 flex items-center justify-between gap-1 mt-1.5">
           <div className="flex items-baseline gap-1 min-w-0">
             {((product.price && product.price > 0) || (product.originalPrice && product.originalPrice > 0)) ? (
               <>

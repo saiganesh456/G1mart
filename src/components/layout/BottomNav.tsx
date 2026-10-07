@@ -2,14 +2,15 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, LayoutGrid, Package, User, ArrowRight } from 'lucide-react';
+import { Home, LayoutGrid, Camera, RotateCcw, User, ArrowRight } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
 const NAV_ITEMS = [
-  { href: '/', label: 'Home', icon: Home, matchPaths: ['/'] },
-  { href: '/categories', label: 'Categories', icon: LayoutGrid, matchPaths: ['/categories', '/category'] },
-  { href: '/orders', label: 'Orders', icon: Package, matchPaths: ['/orders', '/order-status'] },
-  { href: '/account', label: 'Account', icon: User, matchPaths: ['/account'] },
+  { href: '/', label: 'Home', icon: Home, matchPaths: ['/'], isSpecial: false },
+  { href: '/categories', label: 'Categories', icon: LayoutGrid, matchPaths: ['/categories', '/category'], isSpecial: false },
+  { href: '/monthly-list', label: 'Send List', icon: Camera, matchPaths: ['/monthly-list'], isSpecial: true },
+  { href: '/order-again', label: 'Order Again', icon: RotateCcw, matchPaths: ['/order-again', '/orders'], isSpecial: false },
+  { href: '/account', label: 'Account', icon: User, matchPaths: ['/account'], isSpecial: false },
 ] as const;
 
 /** Pages where the bottom nav is not shown */
@@ -72,6 +73,34 @@ export default function BottomNav() {
         {NAV_ITEMS.map((item) => {
           const active = isActive(item.matchPaths);
           const Icon = item.icon;
+
+          if (item.isSpecial) {
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="flex-1 min-h-[48px] flex flex-col items-center justify-center relative active:scale-95 transition-transform"
+                aria-current={active ? 'page' : undefined}
+                aria-label="Send your monthly list with camera"
+              >
+                <div
+                  className={`-mt-5 w-11 h-11 rounded-full flex items-center justify-center shadow-md border-2 border-white transition-all ${
+                    active ? 'bg-[#1b5e20] text-white' : 'bg-[#2E7D32] text-white hover:bg-[#1b5e20]'
+                  }`}
+                >
+                  <Icon className="w-5 h-5 stroke-[2.4]" />
+                </div>
+                <span
+                  className={`text-[10px] tracking-tight font-black mt-0.5 ${
+                    active ? 'text-[#2E7D32]' : 'text-stone-800'
+                  }`}
+                >
+                  {item.label}
+                </span>
+              </Link>
+            );
+          }
+
           return (
             <Link
               key={item.href}
