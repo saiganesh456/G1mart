@@ -1,6 +1,6 @@
 import { Product, ProductVariant, Category, Section } from '../types';
 import { DEMO_CATEGORIES, DEMO_SECTIONS } from '../data/demo-seed';
-import { CATALOG_PRODUCTS } from '../data/productsCatalog';
+import { resolveLegacyId } from '../lib/legacyIdMap';
 
 // ---------------------------------------------------------------------------
 // Load migrated JSON data (1 053 products + 1 231 variants) as server-side module
@@ -84,8 +84,8 @@ function mapMigratedProduct(row: typeof MIGRATED_PRODUCTS[number]): Product {
     imageUrl: row.image_url ?? null,
     image_path: row.image_url ?? undefined,
     image_source: row.image_url ? 'manufacturer' : 'placeholder',
-    image_status: row.image_url ? 'VERIFIED' : 'NEEDS_REVIEW',
-    imageStatus: row.image_url ? 'VERIFIED' : 'NEEDS_REVIEW',
+    image_status: row.image_url ? 'VERIFIED' : 'missing',
+    imageStatus: row.image_url ? 'VERIFIED' : 'missing',
     description: `${brandName} — ${row.name}`,
     rating: 4.8,
     reviewsCount: 12,
@@ -97,8 +97,7 @@ function mapMigratedProduct(row: typeof MIGRATED_PRODUCTS[number]): Product {
   };
 }
 
-// Build the full migrated product list once
-const MIGRATED_PRODUCT_LIST: Product[] = MIGRATED_PRODUCTS.map(mapMigratedProduct);
+export const MIGRATED_PRODUCT_LIST: Product[] = MIGRATED_PRODUCTS.map(mapMigratedProduct);
 
 function mapDbRowToProduct(row: any, fallback?: Product): Product {
   const priceNum = (row.price !== null && row.price !== undefined && Number(row.price) > 0) 
@@ -209,39 +208,39 @@ export const productService = {
   },
 
   /**
-   * Fetch verified products only.
-   * Returns migrated products (with variants) if available, otherwise falls back to CATALOG_PRODUCTS.
+   * Fetch canonical products.
+   * MIGRATED_PRODUCT_LIST is the ONLY product source.
    */
   async getProducts(): Promise<Product[]> {
-    if (MIGRATED_PRODUCT_LIST.length > 0) {
-      return MIGRATED_PRODUCT_LIST;
-    }
-    return CATALOG_PRODUCTS.filter((p) => p.is_verified === true);
+    return MIGRATED_PRODUCT_LIST;
   },
 
   /**
-   * Fetch all products regardless of verification status (Admin use only)
+   * Fetch all products (Admin use)
    */
   async getAllProductsRaw(): Promise<Product[]> {
-    return CATALOG_PRODUCTS;
+    return MIGRATED_PRODUCT_LIST;
   },
 
   /**
-   * Fetch a single product by ID or slug — tries migrated list first
+   * Fetch a single product by canonical ID, legacy ID, or slug.
+   * Uses legacy ID resolution map so past links/orders work seamlessly.
    */
   async getProductById(id: string): Promise<Product | null> {
-    const migrated = MIGRATED_PRODUCT_LIST.find((p) => p.id === id);
+    if (!id) return null;
+    const canonicalId = resolveLegacyId(id);
+    const migrated = MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalId || p.id === id);
     if (migrated) return migrated;
-    const verified = await this.getProducts();
-    const local = verified.find((p) => p.id === id || p.slug === id);
-    return local || null;
+    const bySlug = MIGRATED_PRODUCT_LIST.find((p) => p.slug === id || p.slug === canonicalId);
+    return bySlug || null;
   },
 
   /**
    * Get variants for a specific product by product ID
    */
   getVariantsForProduct(productId: string): ProductVariant[] {
-    return variantsByProductId.get(productId) ?? [];
+    const canonicalId = resolveLegacyId(productId);
+    return variantsByProductId.get(canonicalId) ?? variantsByProductId.get(productId) ?? [];
   },
 
   /**
@@ -260,18 +259,21 @@ export const productService = {
   },
 
   /**
-   * Update product image URL and status in Supabase
+   * Update product image URL and status
    */
   async updateProductImage(
     productId: string,
     imageUrl: string,
-    imageStatus: 'VERIFIED' | 'PENDING' | 'MISSING' = 'VERIFIED'
+    imageStatus: 'VERIFIED' | 'PENDING' | 'missing' = 'VERIFIED'
   ): Promise<boolean> {
-    const prod = CATALOG_PRODUCTS.find((p) => p.id === productId);
+    const canonicalId = resolveLegacyId(productId);
+    const prod = MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalId || p.id === productId);
     if (prod) {
       prod.imageUrl = imageUrl;
       prod.image = imageUrl;
+      prod.image_url = imageUrl;
       prod.imageStatus = imageStatus;
+      prod.image_status = imageStatus;
       return true;
     }
     return false;
@@ -326,9 +328,9 @@ export const productService = {
   },
 
   async updateProduct(product: Product): Promise<boolean> {
-    const idx = CATALOG_PRODUCTS.findIndex((p) => p.id === product.id);
+    const idx = MIGRATED_PRODUCT_LIST.findIndex((p) => p.id === product.id);
     if (idx !== -1) {
-      CATALOG_PRODUCTS[idx] = product;
+      MIGRATED_PRODUCT_LIST[idx] = product;
       return true;
     }
     return false;
@@ -337,9 +339,9 @@ export const productService = {
   async addProduct(product: Omit<Product, 'id'>): Promise<Product | null> {
     const newProd = {
       ...product,
-      id: `prod-${Date.now()}`,
+      id: `g1-p${String(MIGRATED_PRODUCT_LIST.length + 1).padStart(4, '0')}`,
     } as Product;
-    CATALOG_PRODUCTS.unshift(newProd);
+    MIGRATED_PRODUCT_LIST.unshift(newProd);
     return newProd;
   },
 };

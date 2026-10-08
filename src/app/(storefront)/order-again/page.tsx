@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { RotateCcw, ShoppingBag, ArrowRight, Check, AlertCircle, Bookmark, Trash2 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-import { CATALOG_PRODUCTS } from '@/data/productsCatalog';
+import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
+import { resolveLegacyId } from '@/lib/legacyIdMap';
 import ProductImage from '@/components/storefront/ProductImage';
 
 const MONTHLY_LIST_KEY = 'g1mart_monthly_essentials';
@@ -45,7 +46,8 @@ export default function OrderAgainPage() {
     let outOfStockCount = 0;
 
     recentOrder.items.forEach((item: any) => {
-      const prod = CATALOG_PRODUCTS.find((p) => p.id === item.productId);
+      const canonicalId = resolveLegacyId(item.productId) || item.productId;
+      const prod = MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalId);
       if (prod && prod.inStock) {
         addToCart(prod, item.quantity || 1);
         addedCount++;
@@ -72,7 +74,8 @@ export default function OrderAgainPage() {
     let outOfStockCount = 0;
 
     monthlyList.forEach((item: any) => {
-      const prod = CATALOG_PRODUCTS.find((p) => p.id === item.productId);
+      const canonicalId = resolveLegacyId(item.productId) || item.productId;
+      const prod = MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalId);
       if (prod && prod.inStock) {
         addToCart(prod, item.quantity || 1);
         addedCount++;
@@ -166,7 +169,8 @@ export default function OrderAgainPage() {
 
               <div className="space-y-2 max-h-60 overflow-y-auto no-scrollbar pr-1">
                 {recentOrder.items?.map((item: any, idx: number) => {
-                  const prod = CATALOG_PRODUCTS.find((p) => p.id === item.productId);
+                  const canonicalId = resolveLegacyId(item.productId) || item.productId;
+                  const prod = MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalId);
                   return (
                     <div key={idx} className="flex items-center justify-between text-xs py-1">
                       <div className="flex items-center gap-2 min-w-0">
@@ -238,7 +242,8 @@ export default function OrderAgainPage() {
 
               <div className="divide-y divide-stone-100 max-h-80 overflow-y-auto no-scrollbar">
                 {monthlyList.map((item) => {
-                  const prod = CATALOG_PRODUCTS.find((p) => p.id === item.productId);
+                  const canonicalId = resolveLegacyId(item.productId) || item.productId;
+                  const prod = MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalId);
                   if (!prod) return null;
                   return (
                     <div key={item.productId} className="py-2.5 flex items-center justify-between gap-3">

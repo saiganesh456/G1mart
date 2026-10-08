@@ -1,46 +1,7 @@
 import { Product } from '@/types';
 import rawCatalog from './products-catalog.json';
 
-const PACKSHOT_MAP: [RegExp, string][] = [
-  [/mysore\s*sandal/i, '/products/packshots/mysore-sandal-soap.jpg'],
-  [/wagh\s*bakri/i, '/products/packshots/wagh-bakri-tea.jpg'],
-  [/aashirvaad.*(atta|whole wheat)/i, '/products/packshots/aashirvaad-atta.jpg'],
-  [/aashirvaad.*salt/i, '/products/packshots/aashirvaad-salt.jpg'],
-  [/aashirvaad.*suji|rava/i, '/products/packshots/aashirvaad-suji-rava.jpg'],
-  [/tata\s*salt/i, '/products/packshots/tata-salt.jpg'],
-  [/sunflower|freedom.*oil/i, '/products/packshots/sunflower-oil.jpg'],
-  [/toor\s*dal|arhar\s*dal/i, '/products/packshots/toor-dal.jpg'],
-  [/surf\s*excel/i, '/products/packshots/surf-excel.jpg'],
-  [/vim/i, '/products/packshots/vim-bar.jpg'],
-  [/exo.*scrub|exo.*dishwash/i, '/products/packshots/exo-scrubber.jpg'],
-  [/maggi.*noodle/i, '/products/packshots/maggi-noodles.jpg'],
-  [/dettol/i, '/products/packshots/dettol-soap.jpg'],
-  [/colgate/i, '/products/packshots/colgate-toothpaste.jpg'],
-  [/scotch.*brite/i, '/products/packshots/scotch-brite.jpg'],
-  [/gala.*sponge/i, '/products/packshots/gala-sponge.jpg'],
-  [/red\s*label/i, '/products/packshots/red-label-tea.jpg'],
-  [/bru\s*instant/i, '/products/packshots/bru-instant.jpg'],
-  [/horlicks/i, '/products/packshots/horlicks.jpg'],
-  [/thums\s*up/i, '/products/packshots/thums-up.jpg'],
-  [/5\s*star/i, '/products/packshots/cadbury-5-star.jpg'],
-  [/munch/i, '/products/packshots/nestle-munch.jpg'],
-  [/ariel/i, '/products/packshots/ariel-front-liq.jpg'],
-  [/good\s*day/i, '/products/packshots/good-day.jpg'],
-  [/parle[- ]*g/i, '/products/packshots/parle-g.jpg'],
-  [/kurkure/i, '/products/packshots/kurkure.jpg'],
-  [/lays/i, '/products/packshots/lays-chips.jpg'],
-  [/amul/i, '/products/packshots/amul-milk.jpg'],
-];
 
-function getPackshotImage(name: string, brand?: string, fallbackImg?: string): string {
-  const query = `${name} ${brand || ''}`;
-  for (const [regex, packshotPath] of PACKSHOT_MAP) {
-    if (regex.test(query)) {
-      return packshotPath;
-    }
-  }
-  return fallbackImg || '/products/placeholder.svg';
-}
 
 const TOP_CURATED_STAPLES: Product[] = [
   {
@@ -497,8 +458,7 @@ const mappedRawCatalog: Product[] = (rawCatalog as any[]).map((item) => {
   const effectivePrice = Number(item.price && item.price > 0 ? item.price : 0);
   const mrp = Number(item.originalPrice || 0);
 
-  // Auto packshot override to guarantee clean isolated white-background images
-  const cleanImage = getPackshotImage(item.name, item.brand, item.imageUrl);
+  const cleanImage = item.imageUrl || null;
 
   // Format display name with unit if missing to prevent duplicate title confusion
   let displayName = item.name;

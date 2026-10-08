@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Camera } from 'lucide-react';
 
 interface ProductImageProps {
   imageUrl?: string | null;
@@ -10,6 +9,8 @@ interface ProductImageProps {
   imageStatus?: string | null;
   image_status?: string | null;
   alt: string;
+  brand?: string | null;
+  name?: string | null;
   className?: string;
   containerClassName?: string;
   priority?: boolean;
@@ -22,6 +23,8 @@ export default function ProductImage({
   imageStatus,
   image_status,
   alt,
+  brand,
+  name,
   className = '',
   containerClassName = '',
   priority = false,
@@ -44,6 +47,10 @@ export default function ProductImage({
     status !== 'PLACEHOLDER' &&
     !hasError;
 
+  const displayName = name || alt || 'Product';
+  const displayBrand = brand && brand !== 'Other' ? brand : 'G1 Mart';
+  const initialChar = (displayName.trim()[0] || 'G').toUpperCase();
+
   return (
     <div
       className={`relative w-full h-full flex items-center justify-center bg-white overflow-hidden ${containerClassName}`}
@@ -59,17 +66,28 @@ export default function ProductImage({
           className={`w-full h-full object-contain p-1.5 transition-transform duration-200 select-none ${className}`}
         />
       ) : (
-        // Standardized, high-end "PHOTO COMING SOON" badge (No dark overlays, pure clean packaging frame)
-        <div className="w-full h-full flex flex-col items-center justify-center p-3 text-center bg-[#FAFAFA] border border-dashed border-stone-200 rounded-xl select-none">
-          <div className="w-9 h-9 rounded-full bg-stone-100 flex items-center justify-center text-stone-400 mb-1.5 shadow-2xs">
-            <Camera className="w-4 h-4 stroke-[1.8]" />
+        // Clean neutral typographic placeholder showing product and brand name
+        <div className="w-full h-full flex flex-col items-center justify-between p-2 sm:p-2.5 text-center bg-stone-50/80 border border-stone-200/70 rounded-xl select-none group-hover:border-stone-300 transition-colors">
+          <div className="w-full flex items-center justify-between gap-1">
+            <span className="text-[9px] font-black uppercase tracking-wider text-stone-500 truncate text-left">
+              {displayBrand}
+            </span>
+            <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-md bg-stone-200/70 text-stone-600 text-[10px] font-extrabold flex items-center justify-center shrink-0">
+              {initialChar}
+            </span>
           </div>
-          <span className="text-[10px] font-black uppercase tracking-wider text-stone-600 leading-tight">
-            Photo Coming Soon
-          </span>
-          <span className="text-[8px] font-medium text-stone-400 mt-0.5 tracking-tight">
-            Indian Pack Verification
-          </span>
+
+          <div className="my-auto py-1 px-0.5">
+            <p className="text-[11px] font-extrabold text-stone-800 line-clamp-2 leading-tight">
+              {displayName}
+            </p>
+          </div>
+
+          <div className="w-full pt-1 border-t border-stone-200/60 flex items-center justify-center">
+            <span className="text-[8px] sm:text-[9px] font-bold text-stone-500 tracking-tight">
+              Genuine Store Item
+            </span>
+          </div>
         </div>
       )}
     </div>

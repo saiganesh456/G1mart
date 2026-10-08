@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Heart, Plus, Minus, ShieldCheck, Truck, Check } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-import { CATALOG_PRODUCTS } from '@/data/productsCatalog';
-import { productService } from '@/services/productService';
+import { resolveLegacyId } from '@/lib/legacyIdMap';
+import { productService, MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import { STORE_CONFIG } from '@/config/store';
 import ProductImage from '@/components/storefront/ProductImage';
 import ProductCard from '@/components/storefront/ProductCard';
@@ -21,14 +21,15 @@ export default function ProductDetailPage({ params }: Props) {
   const router = useRouter();
   const { cart, addToCart, updateCartQuantity, getItemQuantity, toggleWishlist, isWishlisted } = useCart();
 
+  const canonicalId = resolveLegacyId(slug) || slug;
   const [product, setProduct] = useState<Product | null>(() => 
-    CATALOG_PRODUCTS.find((p) => p.id === slug || p.slug === slug || String(p.itemNumber) === slug) || null
+    MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalId || p.id === slug) || null
   );
   const [loading, setLoading] = useState(!product);
 
   useEffect(() => {
     let isMounted = true;
-    productService.getProductById(slug).then((live) => {
+    productService.getProductById(canonicalId).then((live) => {
       if (isMounted && live) {
         setProduct(live);
         setLoading(false);
@@ -37,7 +38,7 @@ export default function ProductDetailPage({ params }: Props) {
     return () => {
       isMounted = false;
     };
-  }, [slug]);
+  }, [canonicalId]);
 
   // Size & Pack Selection Options
   const sizeVariants = useMemo(() => {
@@ -69,7 +70,7 @@ export default function ProductDetailPage({ params }: Props) {
       .split(/\s+/)
       .filter((w) => w.length > 2);
 
-    const siblings = CATALOG_PRODUCTS.filter((p) => {
+    const siblings = MIGRATED_PRODUCT_LIST.filter((p) => {
       if (p.id === product.id) return false;
       if (p.brand && product.brand && p.brand.toLowerCase() !== product.brand.toLowerCase()) return false;
       const pNameLower = p.name.toLowerCase();
@@ -144,7 +145,7 @@ export default function ProductDetailPage({ params }: Props) {
 
   const relatedProducts = useMemo(() => {
     if (!product) return [];
-    return CATALOG_PRODUCTS.filter(
+    return MIGRATED_PRODUCT_LIST.filter(
       (p) => p.id !== product.id && (p.category === product.category || (product.subCategory && p.subCategory === product.subCategory))
     ).slice(0, 6);
   }, [product]);

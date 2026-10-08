@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
+import Link from 'next/link';
 import { Plus, Minus, ChevronDown, X, Check } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import type { Product, ProductVariant } from '@/types';
@@ -171,12 +172,15 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
   return (
     <>
       <div
-        className={`group relative bg-white flex flex-col justify-between cursor-pointer select-none ${
+        className={`group relative bg-white flex flex-col justify-between min-w-0 select-none ${
           compact ? 'p-1' : 'p-1.5 sm:p-2'
         }`}
       >
         {/* Image area */}
-        <div className="relative w-full aspect-square overflow-hidden bg-white flex items-center justify-center mb-1.5">
+        <Link
+          href={`/product/${product.id}`}
+          className="relative w-full aspect-square overflow-hidden bg-white flex items-center justify-center mb-1.5 cursor-pointer block"
+        >
           {/* Discount badge */}
           {discount > 0 && effectiveInStock && (
             <span className="absolute top-1.5 left-1.5 z-10 bg-[#137333] text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow-xs tracking-tight uppercase">
@@ -200,19 +204,21 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
             alt={product.name}
             className="group-hover:scale-105"
           />
-        </div>
+        </Link>
 
         {/* Info */}
-        <div className="flex-1 flex flex-col justify-between gap-1">
+        <div className="flex-1 flex flex-col justify-between gap-1 min-w-0">
           {/* Brand */}
           <div className="text-[10px] font-bold text-stone-400 truncate uppercase tracking-wider leading-none">
             {product.brand}
           </div>
 
           {/* Product name — max 2 lines */}
-          <h3 className="text-[11px] sm:text-xs font-extrabold text-stone-900 line-clamp-2 leading-snug min-h-[2.5em] group-hover:text-[#2E7D32] transition-colors">
-            {product.name}
-          </h3>
+          <Link href={`/product/${product.id}`} className="block">
+            <h3 className="text-[11px] sm:text-xs font-extrabold text-stone-900 line-clamp-2 leading-snug min-h-[2.5em] group-hover:text-[#2E7D32] transition-colors">
+              {product.name}
+            </h3>
+          </Link>
 
           {/* Size chip — tapping opens variant sheet */}
           {(variants.length > 0 || product.unit) && (

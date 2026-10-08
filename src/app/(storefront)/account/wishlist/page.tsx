@@ -4,14 +4,13 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Heart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-import { CATALOG_PRODUCTS } from '@/data/productsCatalog';
-import { productService } from '@/services/productService';
+import { productService, MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import ProductGrid from '@/components/storefront/ProductGrid';
 import type { Product } from '@/types';
 
 export default function WishlistPage() {
   const { wishlistIds } = useCart();
-  const [products, setProducts] = useState<Product[]>(CATALOG_PRODUCTS);
+  const [products, setProducts] = useState<Product[]>(MIGRATED_PRODUCT_LIST);
 
   useEffect(() => {
     let isMounted = true;

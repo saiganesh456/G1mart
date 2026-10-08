@@ -1,9 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { CATALOG_PRODUCTS as PILOT_PRODUCTS } from '@/data/catalog';
-import { CATALOG_PRODUCTS as CANONICAL_PRODUCTS } from '@/data/productsCatalog';
-
-const ALL_CATALOG_PRODUCTS = [...CANONICAL_PRODUCTS, ...PILOT_PRODUCTS];
+import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
+import { resolveLegacyId } from '@/lib/legacyIdMap';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import type { Order, OrderItem, PaymentRecord, PaymentStatus, OrderStatus } from '@/types';
 
@@ -103,19 +101,15 @@ export const serverOrderStore = {
       }
 
       // --- Fallback: catalog product lookup ---
-      let product = ALL_CATALOG_PRODUCTS.find((p) => p.id === pid);
-
-      if (!product && typeof pid === 'string' && pid.startsWith('prod-')) {
-        const idx = parseInt(pid.replace('prod-', ''), 10) - 1;
-        product = ALL_CATALOG_PRODUCTS[idx] || ALL_CATALOG_PRODUCTS[0];
-      }
+      const canonicalPid = resolveLegacyId(pid) || pid;
+      let product = MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalPid || p.id === pid);
 
       if (!product && item.name) {
-        product = ALL_CATALOG_PRODUCTS.find((p) => p.name.toLowerCase().includes(item.name.toLowerCase()));
+        product = MIGRATED_PRODUCT_LIST.find((p) => p.name.toLowerCase().includes(item.name.toLowerCase()));
       }
 
       if (!product) {
-        product = ALL_CATALOG_PRODUCTS[0];
+        product = MIGRATED_PRODUCT_LIST[0];
       }
 
       // Ensure price is confirmed or fallback to baseline

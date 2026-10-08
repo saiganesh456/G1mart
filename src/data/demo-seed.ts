@@ -1,5 +1,15 @@
-import type { Product, Category, Section } from '@/types';
-import { CATALOG_PRODUCTS as ALL_PRODUCTS } from './productsCatalog';
+import type { Category, Section } from '@/types';
+
+// Load migrated products directly to determine category counts
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const MIGRATED_PROD_ROWS: Array<{ id: string; category_id?: string | null }> = (() => {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    return require('../../data/migrated_products.json');
+  } catch {
+    return [];
+  }
+})();
 
 export const DEMO_SECTIONS: Section[] = [
   { id: 'grocery-kitchen', name: 'Grocery & Kitchen', sort_order: 1 },
@@ -285,20 +295,8 @@ export const SUPERMARKET_CATEGORIES: Omit<Category, 'itemCount'>[] = [
 // Helper to determine item count for categories
 export const DEMO_CATEGORIES: Category[] = SUPERMARKET_CATEGORIES.map((cat) => ({
   ...cat,
-  itemCount: ALL_PRODUCTS.filter((p) => p.category === cat.id || p.category_id === cat.id).length,
+  itemCount: MIGRATED_PROD_ROWS.filter((p) => p.category_id === cat.id).length,
 }));
-
-// All active products in catalogue
-export const DEMO_PRODUCTS: Product[] = ALL_PRODUCTS;
-
-/** Convenience helpers */
-export function getDemoProductById(id: string): Product | undefined {
-  return DEMO_PRODUCTS.find((p) => p.id === id);
-}
-
-export function getDemoProductsByCategory(categoryId: string): Product[] {
-  return DEMO_PRODUCTS.filter((p) => p.category === categoryId || p.category_id === categoryId);
-}
 
 export function getDemoCategoryById(id: string): Category | undefined {
   return DEMO_CATEGORIES.find((c) => c.id === id);

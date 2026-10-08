@@ -4,7 +4,7 @@ import React, { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Search as SearchIcon, X, Clock, ArrowRight } from 'lucide-react';
 import ProductGrid from '@/components/storefront/ProductGrid';
-import { CATALOG_PRODUCTS } from '@/data/productsCatalog';
+import { productService, MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import { DEFAULT_SEARCH_SYNONYMS } from '@/data/searchSynonyms';
 import type { Product } from '@/types';
 
@@ -17,7 +17,11 @@ function SearchContent() {
   const initialQuery = searchParams.get('q') || '';
   const [query, setQuery] = useState(initialQuery);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
-  const [products] = useState<Product[]>(CATALOG_PRODUCTS);
+  const [products, setProducts] = useState<Product[]>(MIGRATED_PRODUCT_LIST);
+
+  useEffect(() => {
+    productService.getProducts().then(setProducts).catch(() => {});
+  }, []);
 
   // Load recent searches from localStorage
   useEffect(() => {
