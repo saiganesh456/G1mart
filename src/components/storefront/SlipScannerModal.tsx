@@ -14,6 +14,7 @@ import {
   ShieldCheck,
   Phone,
   User,
+  Plus,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
@@ -102,8 +103,8 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
   useEffect(() => {
     if (isOpen) {
       setStep('camera');
-      setCapturedBlob(null);
-      setPreviewUrl(null);
+      setCapturedPhotos([]);
+      setActivePhotoIndex(0);
       setUploadError(null);
       setUploadedSlipId(null);
       startCamera();
@@ -635,7 +636,7 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
         <div className="px-6 py-4 bg-stone-950/90 border-t border-stone-800 flex items-center justify-between gap-3 z-10">
           <button
             type="button"
-            onClick={handleRetake}
+            onClick={handleRetakeAll}
             className="flex-1 py-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-bold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
           >
             <RefreshCw className="w-4 h-4" />

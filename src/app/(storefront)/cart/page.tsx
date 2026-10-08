@@ -176,10 +176,16 @@ export default function CartPage() {
 
             {/* Department Items List */}
             <div className="divide-y divide-stone-100">
-              {group.items.map(({ product, quantity }) => {
-                const unitPrice = product.price > 0 ? product.price : (product.originalPrice || 0);
+              {group.items.map(({ product, quantity, variant }) => {
+                const unitPrice = variant?.price
+                  ? variant.price
+                  : product.price > 0
+                    ? product.price
+                    : (product.originalPrice || 0);
+                const sizeLabel = variant?.size_label || product.unit;
+                const variantId = variant?.id;
                 return (
-                  <div key={product.id} className="py-3 flex items-center gap-3">
+                  <div key={`${product.id}::${variantId ?? 'base'}`} className="py-3 flex items-center gap-3">
                     {/* Fixed 1:1 Packshot (sitting directly on white) */}
                     <div className="w-14 h-14 sm:w-16 sm:h-16 shrink-0 bg-white flex items-center justify-center p-0.5">
                       <ProductImage
@@ -191,12 +197,18 @@ export default function CartPage() {
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2">
-                        <h3 className="text-xs font-bold text-stone-900 line-clamp-2 leading-snug">
-                          {product.name}
-                        </h3>
+                        <div className="min-w-0">
+                          <h3 className="text-xs font-bold text-stone-900 line-clamp-2 leading-snug">
+                            {product.name}
+                          </h3>
+                          {/* Variant size label chip */}
+                          <span className="inline-block mt-0.5 text-[10px] font-bold text-stone-500 bg-stone-100 px-1.5 py-0.5 rounded">
+                            {sizeLabel}
+                          </span>
+                        </div>
                         <button
                           type="button"
-                          onClick={() => removeFromCart(product.id)}
+                          onClick={() => removeFromCart(product.id, variantId)}
                           className="p-1 text-stone-400 hover:text-rose-600 rounded-lg hover:bg-stone-50 transition-colors shrink-0"
                           aria-label="Remove item"
                         >
@@ -206,8 +218,7 @@ export default function CartPage() {
 
                       <div className="flex items-center justify-between gap-1 mt-1.5">
                         <div className="min-w-0">
-                          <span className="text-[11px] text-stone-500 block leading-none">{product.unit}</span>
-                          <div className="mt-1 flex items-baseline gap-1">
+                          <div className="flex items-baseline gap-1">
                             {unitPrice > 0 ? (
                               <>
                                 <span className="text-xs sm:text-sm font-black text-stone-900 tabular-nums">
@@ -231,7 +242,7 @@ export default function CartPage() {
                         <div className="h-7 flex items-center bg-stone-100 rounded-xl px-1 border border-stone-200 shrink-0">
                           <button
                             type="button"
-                            onClick={() => updateCartQuantity(product.id, quantity - 1)}
+                            onClick={() => updateCartQuantity(product.id, quantity - 1, variantId)}
                             className="w-5 h-5 flex items-center justify-center text-stone-700 hover:bg-white rounded-md active:scale-95 transition-all cursor-pointer"
                             aria-label="Decrease quantity"
                           >
@@ -247,7 +258,7 @@ export default function CartPage() {
                             onChange={(e) => {
                               const val = parseInt(e.target.value, 10);
                               if (!isNaN(val) && val >= 1 && val <= 99) {
-                                updateCartQuantity(product.id, val);
+                                updateCartQuantity(product.id, val, variantId);
                               }
                             }}
                             className="w-6 text-center text-xs font-black tabular-nums bg-transparent outline-none p-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
@@ -256,7 +267,7 @@ export default function CartPage() {
 
                           <button
                             type="button"
-                            onClick={() => updateCartQuantity(product.id, quantity + 1)}
+                            onClick={() => updateCartQuantity(product.id, quantity + 1, variantId)}
                             className="w-5 h-5 flex items-center justify-center text-stone-700 hover:bg-white rounded-md active:scale-95 transition-all cursor-pointer"
                             aria-label="Increase quantity"
                           >

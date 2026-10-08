@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
-import type { Product, CartItem } from '@/types';
+import type { Product, CartItem, ProductVariant } from '@/types';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -10,15 +10,18 @@ import type { Product, CartItem } from '@/types';
 interface CartContextType {
   // Cart
   cart: CartItem[];
-  addToCart: (product: Product, quantity?: number) => void;
-  updateCartQuantity: (productId: string, quantity: number) => void;
-  removeFromCart: (productId: string) => void;
+  addToCart: (product: Product, quantity?: number, variant?: ProductVariant) => void;
+  updateCartQuantity: (productId: string, quantity: number, variantId?: string) => void;
+  removeFromCart: (productId: string, variantId?: string) => void;
   clearCart: () => void;
 
   // Wishlist
   wishlistIds: Set<string>;
   toggleWishlist: (productId: string) => void;
   isWishlisted: (productId: string) => boolean;
+
+  // Query helpers
+  getItemQuantity: (productId: string, variantId?: string) => number;
 
   // Derived read-only values
   cartItemCount: number;
@@ -35,6 +38,15 @@ export function useCart(): CartContextType {
   const ctx = useContext(CartContext);
   if (!ctx) throw new Error('useCart must be used inside <CartProvider>');
   return ctx;
+}
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/** Unique key for a cart line: product + optional variant */
+function cartKey(productId: string, variantId?: string): string {
+  return variantId ? `${productId}::${variantId}` : productId;
 }
 
 // ---------------------------------------------------------------------------
@@ -88,34 +100,37 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   // -- Cart actions ----------------------------------------------------------
 
-  const addToCart = useCallback((product: Product, quantity = 1) => {
+  const addToCart = useCallback((product: Product, quantity = 1, variant?: ProductVariant) => {
     setCart((prev) => {
-      const existing = prev.find((i) => i.product.id === product.id);
+      const key = cartKey(product.id, variant?.id);
+      const existing = prev.find((i) => cartKey(i.product.id, i.variant?.id) === key);
       if (existing) {
         return prev.map((i) =>
-          i.product.id === product.id
+          cartKey(i.product.id, i.variant?.id) === key
             ? { ...i, quantity: i.quantity + quantity }
             : i
         );
       }
-      return [...prev, { product, quantity }];
+      return [...prev, { product, quantity, variant: variant ?? undefined, variantId: variant?.id }];
     });
   }, []);
 
-  const updateCartQuantity = useCallback((productId: string, quantity: number) => {
+  const updateCartQuantity = useCallback((productId: string, quantity: number, variantId?: string) => {
+    const key = cartKey(productId, variantId);
     if (quantity <= 0) {
-      setCart((prev) => prev.filter((i) => i.product.id !== productId));
+      setCart((prev) => prev.filter((i) => cartKey(i.product.id, i.variant?.id) !== key));
     } else {
       setCart((prev) =>
         prev.map((i) =>
-          i.product.id === productId ? { ...i, quantity } : i
+          cartKey(i.product.id, i.variant?.id) === key ? { ...i, quantity } : i
         )
       );
     }
   }, []);
 
-  const removeFromCart = useCallback((productId: string) => {
-    setCart((prev) => prev.filter((i) => i.product.id !== productId));
+  const removeFromCart = useCallback((productId: string, variantId?: string) => {
+    const key = cartKey(productId, variantId);
+    setCart((prev) => prev.filter((i) => cartKey(i.product.id, i.variant?.id) !== key));
   }, []);
 
   const clearCart = useCallback(() => {
@@ -144,6 +159,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     [wishlistIds]
   );
 
+  // -- Query helpers ---------------------------------------------------------
+
+  const getItemQuantity = useCallback(
+    (productId: string, variantId?: string): number => {
+      const key = cartKey(productId, variantId);
+      const item = cart.find((i) => cartKey(i.product.id, i.variant?.id) === key);
+      return item?.quantity ?? 0;
+    },
+    [cart]
+  );
+
   // -- Derived values --------------------------------------------------------
 
   const cartItemCount = useMemo(
@@ -153,13 +179,18 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   /**
    * Client-side subtotal for display purposes only.
-   * Authoritative totals are calculated server-side in the checkout
-   * Route Handler (TODO Phase 2 — see /api/checkout/route.ts).
+   * Uses variant price if available, otherwise product baseline price.
+   * Authoritative totals are recalculated server-side on checkout.
    */
   const cartSubtotal = useMemo(
     () =>
       cart.reduce((sum, i) => {
-        const unitPrice = i.product.price > 0 ? i.product.price : (i.product.originalPrice || 0);
+        const unitPrice =
+          i.variant?.price
+            ? i.variant.price
+            : i.product.price > 0
+              ? i.product.price
+              : (i.product.originalPrice || 0);
         return sum + unitPrice * i.quantity;
       }, 0),
     [cart]
@@ -177,6 +208,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       wishlistIds,
       toggleWishlist,
       isWishlisted,
+      getItemQuantity,
       cartItemCount,
       cartSubtotal,
     }),
@@ -189,6 +221,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       wishlistIds,
       toggleWishlist,
       isWishlisted,
+      getItemQuantity,
       cartItemCount,
       cartSubtotal,
     ]

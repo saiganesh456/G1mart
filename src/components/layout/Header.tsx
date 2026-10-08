@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { Search, ShoppingBag, User, MapPin, ChevronDown, ScanBarcode } from 'lucide-react';
+import { Search, ShoppingBag, User, MapPin, ChevronDown, Camera } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useLocation } from '@/context/LocationContext';
 import { useAuth } from '@/context/AuthContext';
@@ -37,10 +37,10 @@ export default function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-30 bg-white border-b border-stone-200/80 shadow-sm">
+      <header className="sticky top-0 z-30 bg-white border-b border-stone-200/80 shadow-xs">
         {/* ── Mobile Header ── */}
         <div className="lg:hidden">
-          {/* Top row: logo + cart */}
+          {/* Top row: logo + cart button + profile avatar */}
           <div className="flex items-center justify-between px-3 pt-3 pb-2">
             <Link href="/" className="flex items-center gap-2" aria-label="G1 Mart home">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -60,20 +60,22 @@ export default function Header() {
               <Link
                 href="/cart"
                 aria-label={`Cart — ${cartItemCount} items`}
-                className="relative flex items-center gap-1.5 h-9 px-3 rounded-xl bg-[#2E7D32] text-white font-bold text-xs shadow-sm"
+                className="relative flex items-center gap-1.5 h-9 px-3 rounded-xl bg-[#2E7D32] hover:bg-[#1b5e20] text-white font-bold text-xs shadow-xs transition-colors"
               >
                 <ShoppingBag className="w-4 h-4" />
-                {cartItemCount > 0 && (
+                {cartItemCount > 0 ? (
                   <>
                     <span className="tabular-nums">{cartItemCount}</span>
                     <span className="hidden sm:inline text-white/80 tabular-nums">
                       · ₹{cartSubtotal}
                     </span>
                   </>
+                ) : (
+                  <span>Cart</span>
                 )}
-                {cartItemCount === 0 && <span>Cart</span>}
               </Link>
 
+              {/* Profile avatar */}
               <Link
                 href={isLoggedIn ? '/account' : '/login'}
                 aria-label={isLoggedIn ? (user?.name || 'My account') : 'Sign In'}
@@ -96,57 +98,59 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Location strip (Blinkit style dropdown) */}
-          <div className="px-3 pb-2">
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(true)}
-              className="w-full flex items-center justify-between gap-1.5 p-1.5 rounded-xl hover:bg-stone-50 transition-colors text-left"
-            >
-              <div className="flex items-center gap-2 min-w-0">
-                <div className="w-6 h-6 rounded-lg bg-emerald-100 text-[#2E7D32] flex items-center justify-center shrink-0">
-                  <MapPin className="w-3.5 h-3.5" />
-                </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-1">
-                    <span className="text-[11px] font-black text-[#212121] uppercase tracking-tight">
-                      Delivery in {deliveryEta}
-                    </span>
-                    <ChevronDown className="w-3 h-3 text-stone-500 shrink-0" />
-                  </div>
-                  <p className="text-[11px] text-stone-500 font-medium truncate leading-tight">
-                    {currentLocation.street || currentLocation.area}, {currentLocation.city}
-                  </p>
-                </div>
-              </div>
-
-              <span className="text-[10px] font-extrabold text-[#2E7D32] bg-emerald-50 px-2 py-0.5 rounded-md shrink-0">
-                CHANGE
-              </span>
-            </button>
-          </div>
-
-          {/* Search bar — Shown ONLY on Home page per Owner Design Rules */}
-          {isHomePage && (
+          {/* Delivery strip — Removed from Home per Owner Design Rules */}
+          {!isHomePage && (
             <div className="px-3 pb-2">
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+                className="w-full flex items-center justify-between gap-1.5 p-1.5 rounded-xl hover:bg-stone-50 transition-colors text-left"
+              >
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="w-6 h-6 rounded-lg bg-emerald-100 text-[#2E7D32] flex items-center justify-center shrink-0">
+                    <MapPin className="w-3.5 h-3.5" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1">
+                      <span className="text-[11px] font-black text-[#212121] uppercase tracking-tight">
+                        Delivery in {deliveryEta}
+                      </span>
+                      <ChevronDown className="w-3 h-3 text-stone-500 shrink-0" />
+                    </div>
+                    <p className="text-[11px] text-stone-500 font-medium truncate leading-tight">
+                      {currentLocation.street || currentLocation.area}, {currentLocation.city}
+                    </p>
+                  </div>
+                </div>
+
+                <span className="text-[10px] font-extrabold text-[#2E7D32] bg-emerald-50 px-2 py-0.5 rounded-md shrink-0">
+                  CHANGE
+                </span>
+              </button>
+            </div>
+          )}
+
+          {/* One simple search bar — Shown ONLY on Home page */}
+          {isHomePage && (
+            <div className="px-3 pb-2.5">
               <form onSubmit={handleSearchSubmit} role="search">
                 <div className="relative flex items-center">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
+                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
                   <input
                     type="search"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search 'sugar', 'oil', 'surf', 'dal'…"
-                    className="w-full h-10 pl-9 pr-11 rounded-xl bg-stone-100 border border-stone-200 text-sm outline-none focus:bg-white focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32]/20 transition-all placeholder:text-stone-400"
+                    placeholder='Search "sugar", "oil", "soap"'
+                    className="w-full h-11 pl-10 pr-12 rounded-xl bg-stone-50 border border-stone-200 text-sm outline-none focus:bg-white focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32]/20 transition-all placeholder:text-stone-400"
                   />
                   <button
                     type="button"
                     onClick={() => setIsSlipScannerOpen(true)}
-                    aria-label="Scan slip or handwritten list"
-                    className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-[#2E7D32] hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer flex items-center justify-center"
-                    title="Scan slip or handwritten list"
+                    aria-label="Scan slip with camera"
+                    title="Scan slip or handwritten list with camera"
+                    className="absolute right-1.5 top-1/2 -translate-y-1/2 p-2 rounded-lg text-[#2E7D32] hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer flex items-center justify-center"
                   >
-                    <ScanBarcode className="w-5 h-5 stroke-[2.2]" />
+                    <Camera className="w-5 h-5 stroke-[2.2]" />
                   </button>
                 </div>
               </form>
@@ -171,48 +175,50 @@ export default function Header() {
               />
             </Link>
 
-            {/* Delivery Location Pill (Blinkit style) */}
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(true)}
-              className="flex items-center gap-2.5 p-2 rounded-xl border border-stone-200 hover:border-[#2E7D32] hover:bg-stone-50/70 transition-all text-left shrink-0 max-w-xs group cursor-pointer"
-            >
-              <div className="w-8 h-8 rounded-lg bg-emerald-100 text-[#2E7D32] flex items-center justify-center shrink-0">
-                <MapPin className="w-4 h-4" />
-              </div>
-              <div className="min-w-0 pr-1">
-                <div className="flex items-center gap-1">
-                  <span className="text-xs font-black text-[#212121]">
-                    Delivery in {deliveryEta}
-                  </span>
-                  <ChevronDown className="w-3.5 h-3.5 text-stone-400 group-hover:text-[#2E7D32] transition-colors" />
+            {/* Delivery Location Pill — Removed from Home per Owner Design Rules */}
+            {!isHomePage && (
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+                className="flex items-center gap-2.5 p-2 rounded-xl border border-stone-200 hover:border-[#2E7D32] hover:bg-stone-50/70 transition-all text-left shrink-0 max-w-xs group cursor-pointer"
+              >
+                <div className="w-8 h-8 rounded-lg bg-emerald-100 text-[#2E7D32] flex items-center justify-center shrink-0">
+                  <MapPin className="w-4 h-4" />
                 </div>
-                <p className="text-[11px] text-stone-500 font-medium truncate mt-0.5">
-                  {currentLocation.formattedAddress}
-                </p>
-              </div>
-            </button>
+                <div className="min-w-0 pr-1">
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs font-black text-[#212121]">
+                      Delivery in {deliveryEta}
+                    </span>
+                    <ChevronDown className="w-3.5 h-3.5 text-stone-400 group-hover:text-[#2E7D32] transition-colors" />
+                  </div>
+                  <p className="text-[11px] text-stone-500 font-medium truncate mt-0.5">
+                    {currentLocation.formattedAddress}
+                  </p>
+                </div>
+              </button>
+            )}
 
-            {/* Search — Shown ONLY on Home page per Owner Design Rules */}
+            {/* Search — Shown ONLY on Home page */}
             {isHomePage ? (
               <form onSubmit={handleSearchSubmit} role="search" className="flex-1 max-w-xl">
                 <div className="relative flex items-center">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
+                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
                   <input
                     type="search"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search groceries, brands, daily essentials…"
-                    className="w-full h-10 pl-9 pr-11 rounded-xl bg-stone-100 border border-stone-200 text-sm outline-none focus:bg-white focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32]/20 transition-all placeholder:text-stone-400"
+                    placeholder='Search "sugar", "oil", "soap"'
+                    className="w-full h-10 pl-10 pr-24 rounded-xl bg-stone-50 border border-stone-200 text-sm outline-none focus:bg-white focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32]/20 transition-all placeholder:text-stone-400"
                   />
                   <button
                     type="button"
                     onClick={() => setIsSlipScannerOpen(true)}
-                    aria-label="Scan slip or handwritten list"
-                    className="absolute right-1.5 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-lg text-[#2E7D32] hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer flex items-center gap-1 text-xs font-bold"
+                    aria-label="Scan slip with camera"
                     title="Scan handwritten slip or grocery list"
+                    className="absolute right-1.5 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-lg text-[#2E7D32] hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer flex items-center gap-1.5 text-xs font-bold"
                   >
-                    <ScanBarcode className="w-4 h-4 stroke-[2.2]" />
+                    <Camera className="w-4 h-4 stroke-[2.2]" />
                     <span>Scan Slip</span>
                   </button>
                 </div>
@@ -268,27 +274,29 @@ export default function Header() {
             </nav>
           </div>
 
-          {/* Desktop category nav strip */}
-          <div className="border-t border-stone-100 bg-stone-50/60">
-            <div className="max-w-7xl mx-auto px-6 py-1.5 flex items-center gap-1 overflow-x-auto no-scrollbar text-xs font-semibold">
-              {[
-                { href: '/category/household-cleaning', label: '🧼 Household & Cleaning' },
-                { href: '/category/personal-care', label: '✨ Personal Care' },
-                { href: '/category/pooja-essentials', label: '🪔 Pooja Essentials' },
-                { href: '/category/grocery-staples', label: '🌾 Grocery & Staples' },
-                { href: '/category/snacks-beverages', label: '🍪 Snacks & Beverages' },
-                { href: '/categories', label: '📑 All Departments' },
-              ].map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="whitespace-nowrap px-3 py-1.5 rounded-lg text-stone-600 hover:text-[#2E7D32] hover:bg-white transition-colors"
-                >
-                  {item.label}
-                </Link>
-              ))}
+          {/* Desktop category nav strip — Hidden on home */}
+          {!isHomePage && (
+            <div className="border-t border-stone-100 bg-stone-50/60">
+              <div className="max-w-7xl mx-auto px-6 py-1.5 flex items-center gap-1 overflow-x-auto no-scrollbar text-xs font-semibold">
+                {[
+                  { href: '/category/household-cleaning', label: '🧼 Household & Cleaning' },
+                  { href: '/category/personal-care', label: '✨ Personal Care' },
+                  { href: '/category/pooja-essentials', label: '🪔 Pooja Essentials' },
+                  { href: '/category/grocery-staples', label: '🌾 Grocery & Staples' },
+                  { href: '/category/snacks-beverages', label: '🍪 Snacks & Beverages' },
+                  { href: '/categories', label: '📑 All Departments' },
+                ].map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="whitespace-nowrap px-3 py-1.5 rounded-lg text-stone-600 hover:text-[#2E7D32] hover:bg-white transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </header>
 

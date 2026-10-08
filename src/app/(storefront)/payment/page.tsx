@@ -33,21 +33,45 @@ export default function PaymentPage() {
       }
     } catch {}
 
-    if (!addressData || (!addressData.phone && !addressData.mobileNumber)) {
+    const isPickup = addressData?.orderType === 'pickup';
+    if (!isPickup && (!addressData || (!addressData.phone && !addressData.mobileNumber))) {
       alert('Please complete your delivery address in checkout first.');
       router.push('/checkout');
       return;
     }
 
+    const effectiveAddress = isPickup
+      ? {
+          id: 'store-pickup',
+          fullName: addressData?.fullName || user?.name || 'Customer',
+          mobileNumber: addressData?.phone || addressData?.mobileNumber || user?.phone || '9876543210',
+          phone: addressData?.phone || addressData?.mobileNumber || user?.phone || '9876543210',
+          houseFlat: 'G1 Mart Supermarket',
+          streetArea: 'Trunk Road, Magunta Layout',
+          landmark: 'In-Store Customer Pickup',
+          city: 'Nellore',
+          state: 'Andhra Pradesh',
+          pincode: '524003',
+          type: 'Other' as const,
+          isDefault: false,
+          deliveryInstructions: 'In-Store Customer Pickup',
+        }
+      : addressData;
+
     const payload = {
-      items: cart.map((i) => ({ productId: i.product.id, quantity: i.quantity })),
-      address: addressData,
+      items: cart.map((i) => ({
+        productId: i.product.id,
+        quantity: i.quantity,
+        ...(i.variantId ? { variantId: i.variantId } : {}),
+        ...(i.variant?.size_label ? { sizeLabel: i.variant.size_label } : {}),
+      })),
+      address: effectiveAddress,
       paymentMethod: selectedMethod === 'cod' ? 'Cash on Delivery' : 'UPI',
-      slot: addressData.selectedSlot,
+      slot: addressData?.selectedSlot || (isPickup ? 'Store Pickup' : 'Standard Delivery'),
       userId: supabaseUser?.id || undefined,
       userEmail: user?.email || supabaseUser?.email || undefined,
-      userPhone: addressData.phone || user?.phone || undefined,
-      userName: addressData.fullName || user?.name || undefined,
+      userPhone: effectiveAddress.phone || user?.phone || undefined,
+      userName: effectiveAddress.fullName || user?.name || undefined,
     };
 
     // 1. Cash on Delivery (Fallback method per Rule 11)
@@ -80,13 +104,15 @@ export default function PaymentPage() {
             items: cart.map((i) => ({
               productId: i.product.id,
               productName: i.product.name,
-              unit: i.product.unit,
-              price: i.product.price,
+              unit: i.variant?.size_label || i.product.unit,
+              price: i.variant?.price || i.product.price,
               quantity: i.quantity,
               image: i.product.image || '/products/placeholder.svg',
+              variantId: i.variantId,
+              sizeLabel: i.variant?.size_label,
             })),
-            address: addressData,
-            slot: addressData.selectedSlot || 'Standard Delivery',
+            address: effectiveAddress,
+            slot: addressData?.selectedSlot || (isPickup ? 'Store Pickup' : 'Standard Delivery'),
             userId: supabaseUser?.id || undefined,
             userEmail: user?.email || supabaseUser?.email || undefined,
           };
@@ -195,13 +221,15 @@ export default function PaymentPage() {
         items: cart.map((i) => ({
           productId: i.product.id,
           productName: i.product.name,
-          unit: i.product.unit,
-          price: i.product.price,
+          unit: i.variant?.size_label || i.product.unit,
+          price: i.variant?.price || i.product.price,
           quantity: i.quantity,
           image: i.product.image || '/products/placeholder.svg',
+          variantId: i.variantId,
+          sizeLabel: i.variant?.size_label,
         })),
-        address: addressData,
-        slot: addressData.selectedSlot || 'Standard Delivery',
+        address: effectiveAddress,
+        slot: addressData?.selectedSlot || (isPickup ? 'Store Pickup' : 'Standard Delivery'),
         userId: supabaseUser?.id || undefined,
         userEmail: user?.email || supabaseUser?.email || undefined,
       };

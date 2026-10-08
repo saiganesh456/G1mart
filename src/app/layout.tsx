@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: 'G1 Mart | Fresh Groceries Online',
   description: 'Order fresh groceries online for fast home delivery.',
   icons: { icon: '/logo.png' },
+  manifest: '/manifest.json',
 };
 
 export const viewport: Viewport = {
@@ -14,6 +15,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: 'cover',
+  themeColor: '#2E7D32',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

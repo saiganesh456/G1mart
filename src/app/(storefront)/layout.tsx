@@ -1,6 +1,7 @@
 import Header from '@/components/layout/Header';
 import BottomNav from '@/components/layout/BottomNav';
 import Footer from '@/components/layout/Footer';
+import InstallAppPlacard from '@/components/common/InstallAppPlacard';
 
 /**
  * Storefront layout — wraps all public customer-facing pages.
@@ -14,6 +15,7 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
         {children}
       </main>
       <Footer />
+      <InstallAppPlacard />
       <BottomNav />
     </div>
   );

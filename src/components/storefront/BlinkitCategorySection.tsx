@@ -27,42 +27,42 @@ export const DEPARTMENT_GROUPS: DepartmentGroup[] = [
       {
         id: 'bc-soaps',
         name: 'Bath Soaps',
-        image: '/products/packshots/mysore-sandal-soap.jpg',
+        image: '/products/packshots/mysore-sandal-soap.png',
         href: '/category/personal-care?sub=Bath%20Soaps',
         bgTint: '#FFF1F2', // Soft pastel rose
       },
       {
         id: 'bc-hair',
         name: 'Hair Oils & Care',
-        image: '/products/packshots/amul-milk.jpg',
+        image: '/products/packshots/parachute-oil.png',
         href: '/category/personal-care?sub=Hair%20Oils%20%26%20Care',
         bgTint: '#F0FDF4', // Soft pastel mint
       },
       {
         id: 'bc-laundry',
         name: 'Laundry & Detergents',
-        image: '/products/packshots/surf-excel.jpg',
+        image: '/products/packshots/surf-excel.png',
         href: '/category/household-cleaning?sub=Laundry%20%26%20Detergents',
         bgTint: '#EFF6FF', // Soft pastel sky blue
       },
       {
         id: 'bc-dishwash',
         name: 'Dishwashing Care',
-        image: '/products/packshots/vim-bar.jpg',
+        image: '/products/packshots/vim-bar.png',
         href: '/category/household-cleaning?sub=Dishwashing%20%26%20Utensil%20Care',
         bgTint: '#ECFDF5', // Soft pastel emerald
       },
       {
         id: 'bc-oral',
         name: 'Oral & Toothpastes',
-        image: '/products/packshots/colgate-toothpaste.jpg',
+        image: '/products/packshots/colgate-toothpaste.png',
         href: '/category/personal-care?sub=Oral%20Care',
         bgTint: '#F5F3FF', // Soft pastel lavender
       },
       {
         id: 'bc-cleaners',
         name: 'Cleaners & Pest Control',
-        image: '/products/packshots/exo-scrubber.jpg',
+        image: '/products/packshots/cleaner-spray.png',
         href: '/category/household-cleaning?sub=Cleaners%20%26%20Pest%20Control',
         bgTint: '#FFFBEB', // Soft pastel amber
       },
@@ -76,42 +76,42 @@ export const DEPARTMENT_GROUPS: DepartmentGroup[] = [
       {
         id: 'gk-atta',
         name: 'Atta, Flours & Sooji',
-        image: '/products/packshots/aashirvaad-atta.jpg',
+        image: '/products/packshots/aashirvaad-atta.png',
         href: '/category/grocery-staples?sub=Atta%2C%20Flours%20%26%20Sooji',
         bgTint: '#FEF3C7', // Soft warm wheat
       },
       {
         id: 'gk-oil',
         name: 'Edible Cooking Oils',
-        image: '/products/packshots/sunflower-oil.jpg',
+        image: '/products/packshots/sunflower-oil.png',
         href: '/category/grocery-staples?sub=Edible%20Cooking%20Oils%20%26%20Ghee',
         bgTint: '#FFF7ED', // Soft warm orange
       },
       {
         id: 'gk-dal',
         name: 'Dals & Pulses',
-        image: '/products/packshots/toor-dal.jpg',
+        image: '/products/packshots/toor-dal.png',
         href: '/category/grocery-staples?sub=Dals%20%26%20Pulses',
         bgTint: '#FFF1F2', // Soft pastel coral
       },
       {
         id: 'gk-spices',
         name: 'Spices & Masalas',
-        image: '/products/packshots/aashirvaad-crystal-salt.jpg',
+        image: '/products/packshots/turmeric-powder.png',
         href: '/category/grocery-staples?sub=Spices%2C%20Masalas%20%26%20Seeds',
         bgTint: '#FEFCE8', // Soft warm yellow
       },
       {
         id: 'gk-salt',
         name: 'Salt, Sugar & Jaggery',
-        image: '/products/packshots/tata-salt.jpg',
+        image: '/products/packshots/aashirvaad-salt.png',
         href: '/category/grocery-staples?sub=Salt%2C%20Sugar%20%26%20Jaggery',
         bgTint: '#F0FDF4', // Soft mint
       },
       {
         id: 'gk-rice',
         name: 'Rice, Poha & Vermicelli',
-        image: '/products/packshots/aashirvaad-suji-rava.jpg',
+        image: '/products/packshots/lalitha-idli-rava.png',
         href: '/category/grocery-staples?sub=Rice%2C%20Poha%20%26%20Vermicelli',
         bgTint: '#F8FAFC', // Soft cool grey
       },
@@ -125,42 +125,42 @@ export const DEPARTMENT_GROUPS: DepartmentGroup[] = [
       {
         id: 'sd-biscuits',
         name: 'Biscuits & Cookies',
-        image: '/products/packshots/good-day.jpg',
+        image: '/products/packshots/good-day.png',
         href: '/category/snacks-beverages?sub=Biscuits%2C%20Rusks%20%26%20Cookies',
         bgTint: '#F0F9FF', // Soft ice blue
       },
       {
         id: 'sd-chocolates',
         name: 'Chocolates & Sweets',
-        image: '/products/packshots/cadbury-5-star.jpg',
+        image: '/products/packshots/cadbury-5-star.png',
         href: '/category/snacks-beverages?sub=Chocolates%20%26%20Sweets',
         bgTint: '#FAF5FF', // Soft violet
       },
       {
         id: 'sd-tea',
         name: 'Tea, Chai & Coffee',
-        image: '/products/packshots/red-label-tea.jpg',
+        image: '/products/packshots/red-label-tea.png',
         href: '/category/snacks-beverages?sub=Tea%2C%20Chai%20%26%20Coffee',
         bgTint: '#FEF3C7', // Soft warm tea amber
       },
       {
         id: 'sd-chips',
         name: 'Chips & Namkeen',
-        image: '/products/packshots/lays-chips.jpg',
+        image: '/products/packshots/kurkure.png',
         href: '/category/snacks-beverages?sub=Chips%20%26%20Namkeen',
         bgTint: '#FFF1F2', // Soft warm rose
       },
       {
         id: 'sd-drinks',
         name: 'Cold Drinks & Juices',
-        image: '/products/packshots/thums-up.jpg',
+        image: '/products/packshots/thums-up.png',
         href: '/category/snacks-beverages?sub=Cold%20Drinks%20%26%20Health%20Juices',
         bgTint: '#EFF6FF', // Soft blue
       },
       {
         id: 'sd-icecream',
         name: 'Dairy & Arun Ice Cream',
-        image: '/products/packshots/arun-bites.jpg',
+        image: '/products/packshots/arun-donut.jpg',
         href: '/category/snacks-beverages?sub=Dairy%20%26%20Ice%20Creams',
         bgTint: '#FDF2F8', // Soft pink
       },

@@ -12,8 +12,12 @@ interface ReverseGeocodeResult {
 }
 
 export async function POST(request: NextRequest) {
+  let lat: any = 0;
+  let lng: any = 0;
   try {
-    const { lat, lng } = await request.json();
+    const body = await request.json();
+    lat = body.lat;
+    lng = body.lng;
 
     if (!lat || !lng) {
       return NextResponse.json(

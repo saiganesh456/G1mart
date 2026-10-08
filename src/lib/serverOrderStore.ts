@@ -54,11 +54,55 @@ export const serverOrderStore = {
    * Client-submitted prices are completely ignored.
    */
   recalculateOrderTotal(rawItems: any[]): RecalculatedCart {
+    // Lazy load migrated variants JSON for server-side price verification
+    let migratedVariants: Array<{ id: string; product_id: string; size_label: string; price: number; mrp: number; stock: number }> = [];
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      migratedVariants = require('../../data/migrated_product_variants.json');
+    } catch {}
+    const variantById = new Map(migratedVariants.map((v) => [v.id, v]));
+
+    // Lazy load migrated products for server-side price verification
+    let migratedProducts: Array<{ id: string; name: string; brand_id?: string; category_id?: string; image_url?: string }> = [];
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      migratedProducts = require('../../data/migrated_products.json');
+    } catch {}
+    const migratedProductById = new Map(migratedProducts.map((p) => [p.id, p]));
+
     const verifiedItems: OrderItem[] = [];
     let subtotal = 0;
 
     for (const item of rawItems) {
       const pid = item.productId || item.id;
+      const vid = item.variantId || item.variant_id;
+
+      // --- Try variant price first (most accurate) ---
+      if (vid) {
+        const variant = variantById.get(vid);
+        if (variant && variant.product_id === pid) {
+          const qty = Math.max(1, Math.min(item.quantity || 1, 10000));
+          const unitPrice = variant.price > 0 ? variant.price : 10;
+          const lineTotal = unitPrice * qty;
+          subtotal += lineTotal;
+
+          // Try to get product image
+          const mp = migratedProductById.get(pid);
+          verifiedItems.push({
+            productId: pid,
+            productName: item.productName || item.name || variant.product_id,
+            unit: variant.size_label,
+            price: unitPrice,
+            quantity: qty,
+            image: mp?.image_url || '/products/placeholder.svg',
+            variantId: vid,
+            sizeLabel: variant.size_label,
+          });
+          continue;
+        }
+      }
+
+      // --- Fallback: catalog product lookup ---
       let product = ALL_CATALOG_PRODUCTS.find((p) => p.id === pid);
 
       if (!product && typeof pid === 'string' && pid.startsWith('prod-')) {
@@ -101,6 +145,7 @@ export const serverOrderStore = {
     return {
       items: verifiedItems,
       subtotal,
+
       deliveryFee,
       taxes,
       grandTotal,

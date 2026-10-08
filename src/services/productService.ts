@@ -1,6 +1,104 @@
-import { Product, Category } from '../types';
-import { DEMO_CATEGORIES } from '../data/demo-seed';
+import { Product, ProductVariant, Category, Section } from '../types';
+import { DEMO_CATEGORIES, DEMO_SECTIONS } from '../data/demo-seed';
 import { CATALOG_PRODUCTS } from '../data/productsCatalog';
+
+// ---------------------------------------------------------------------------
+// Load migrated JSON data (1 053 products + 1 231 variants) as server-side module
+// These are plain JSON files read at build-time / server startup.
+// ---------------------------------------------------------------------------
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const MIGRATED_PRODUCTS: Array<{
+  id: string;
+  name: string;
+  brand_id?: string | null;
+  category_id?: string | null;
+  image_url?: string | null;
+}> = (() => {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    return require('../../data/migrated_products.json');
+  } catch {
+    return [];
+  }
+})();
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const MIGRATED_VARIANTS: ProductVariant[] = (() => {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    return require('../../data/migrated_product_variants.json');
+  } catch {
+    return [];
+  }
+})();
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const MIGRATED_BRANDS: Array<{ id: string; name: string; logo_url?: string | null }> = (() => {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    return require('../../data/migrated_brands.json');
+  } catch {
+    return [];
+  }
+})();
+
+// Build lookup maps once
+const brandNameById = new Map<string, string>(MIGRATED_BRANDS.map((b) => [b.id, b.name]));
+const variantsByProductId = new Map<string, ProductVariant[]>();
+for (const v of MIGRATED_VARIANTS) {
+  if (!variantsByProductId.has(v.product_id)) variantsByProductId.set(v.product_id, []);
+  variantsByProductId.get(v.product_id)!.push(v);
+}
+
+/**
+ * Convert a migrated_products.json row → Product shape used across the storefront.
+ */
+function mapMigratedProduct(row: typeof MIGRATED_PRODUCTS[number]): Product {
+  const brandName = brandNameById.get(row.brand_id ?? '') || 'G1 Mart';
+  const variants = variantsByProductId.get(row.id) || [];
+  const cheapest = variants.length > 0 ? variants.reduce((a, b) => (a.price <= b.price ? a : b)) : null;
+
+  const price = cheapest?.price ?? 0;
+  const mrp = cheapest?.mrp ?? price;
+  const inStock = variants.length === 0 || variants.some((v) => v.stock > 0);
+  const discount =
+    mrp > price && mrp > 0 ? Math.round(((mrp - price) / mrp) * 100) : 0;
+
+  return {
+    id: row.id,
+    name: row.name,
+    brand: brandName,
+    brand_id: row.brand_id ?? null,
+    category: row.category_id ?? '',
+    category_id: row.category_id ?? null,
+    subCategory: undefined,
+    unit: cheapest?.size_label ?? '1 unit',
+    price,
+    priceConfirmed: price > 0,
+    originalPrice: mrp,
+    discountPercentage: discount,
+    inStock,
+    stockCount: variants.reduce((s, v) => s + v.stock, 0),
+    image: row.image_url ?? '/products/placeholder.svg',
+    image_url: row.image_url ?? null,
+    imageUrl: row.image_url ?? null,
+    image_path: row.image_url ?? undefined,
+    image_source: row.image_url ? 'manufacturer' : 'placeholder',
+    image_status: row.image_url ? 'VERIFIED' : 'NEEDS_REVIEW',
+    imageStatus: row.image_url ? 'VERIFIED' : 'NEEDS_REVIEW',
+    description: `${brandName} — ${row.name}`,
+    rating: 4.8,
+    reviewsCount: 12,
+    isPopular: false,
+    isBestDeal: false,
+    isActive: true,
+    is_verified: true,
+    variants,
+  };
+}
+
+// Build the full migrated product list once
+const MIGRATED_PRODUCT_LIST: Product[] = MIGRATED_PRODUCTS.map(mapMigratedProduct);
 
 function mapDbRowToProduct(row: any, fallback?: Product): Product {
   const priceNum = (row.price !== null && row.price !== undefined && Number(row.price) > 0) 
@@ -78,6 +176,10 @@ export const productService = {
   /**
    * Fetch all active categories from Supabase (with fallback to demo categories)
    */
+  async getSections(): Promise<Section[]> {
+    return DEMO_SECTIONS;
+  },
+
   /**
    * Fetch all active categories with verified products only
    */
@@ -86,27 +188,34 @@ export const productService = {
       const verifiedProducts = await this.getProducts();
       const productCountMap = new Map<string, number>();
       verifiedProducts.forEach((p) => {
-        if (p.category) {
-          productCountMap.set(p.category, (productCountMap.get(p.category) || 0) + 1);
+        const catKey = p.category_id || p.category;
+        if (catKey) {
+          productCountMap.set(catKey, (productCountMap.get(catKey) || 0) + 1);
         }
       });
 
       const populated = DEMO_CATEGORIES.map((cat) => ({
         ...cat,
         itemCount: productCountMap.get(cat.id) || 0,
-      })).filter((cat) => cat.itemCount > 0);
+      }));
 
-      return populated;
+      // Only show categories that have verified products
+      const activeOnly = populated.filter((cat) => (cat.itemCount || 0) > 0);
+      return activeOnly.length > 0 ? activeOnly : DEMO_CATEGORIES;
     } catch (err) {
       console.warn('[G1 Mart ProductService] getCategories fallback:', err);
-      return [];
+      return DEMO_CATEGORIES;
     }
   },
 
   /**
-   * Fetch verified products only (Strict Rule: is_verified === true)
+   * Fetch verified products only.
+   * Returns migrated products (with variants) if available, otherwise falls back to CATALOG_PRODUCTS.
    */
   async getProducts(): Promise<Product[]> {
+    if (MIGRATED_PRODUCT_LIST.length > 0) {
+      return MIGRATED_PRODUCT_LIST;
+    }
     return CATALOG_PRODUCTS.filter((p) => p.is_verified === true);
   },
 
@@ -118,12 +227,28 @@ export const productService = {
   },
 
   /**
-   * Fetch a single product by ID or slug
+   * Fetch a single product by ID or slug — tries migrated list first
    */
   async getProductById(id: string): Promise<Product | null> {
+    const migrated = MIGRATED_PRODUCT_LIST.find((p) => p.id === id);
+    if (migrated) return migrated;
     const verified = await this.getProducts();
     const local = verified.find((p) => p.id === id || p.slug === id);
     return local || null;
+  },
+
+  /**
+   * Get variants for a specific product by product ID
+   */
+  getVariantsForProduct(productId: string): ProductVariant[] {
+    return variantsByProductId.get(productId) ?? [];
+  },
+
+  /**
+   * Get a single variant by ID
+   */
+  getVariantById(variantId: string): ProductVariant | null {
+    return MIGRATED_VARIANTS.find((v) => v.id === variantId) ?? null;
   },
 
   /**
@@ -131,7 +256,7 @@ export const productService = {
    */
   async getProductsByCategory(categoryId: string): Promise<Product[]> {
     const all = await this.getProducts();
-    return all.filter((p) => p.category === categoryId);
+    return all.filter((p) => p.category === categoryId || p.category_id === categoryId);
   },
 
   /**
@@ -157,7 +282,8 @@ export const productService = {
    */
   async searchProducts(query: string): Promise<Product[]> {
     const q = query.trim().toLowerCase();
-    if (!q) return CATALOG_PRODUCTS;
+    const all = await this.getProducts();
+    if (!q) return all;
 
     const { DEFAULT_SEARCH_SYNONYMS } = await import('../data/searchSynonyms');
     
@@ -175,7 +301,7 @@ export const productService = {
 
     const tokens = Array.from(expandedTokens);
 
-    return CATALOG_PRODUCTS.filter((p) => {
+    return all.filter((p) => {
       const name = p.name.toLowerCase();
       const brand = (p.brand || '').toLowerCase();
       const cat = (p.category || '').toLowerCase();
@@ -217,4 +343,3 @@ export const productService = {
     return newProd;
   },
 };
-

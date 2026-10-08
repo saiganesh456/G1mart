@@ -1,0 +1,22 @@
+[
+  {
+    "id": "grocery-kitchen",
+    "name": "Grocery & Kitchen",
+    "sort_order": 1
+  },
+  {
+    "id": "snacks-drinks",
+    "name": "Snacks & Drinks",
+    "sort_order": 2
+  },
+  {
+    "id": "household",
+    "name": "Household",
+    "sort_order": 3
+  },
+  {
+    "id": "personal-care",
+    "name": "Personal Care",
+    "sort_order": 4
+  }
+]

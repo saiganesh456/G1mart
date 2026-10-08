@@ -1,0 +1,7373 @@
+[
+  {
+    "id": "g1-p0001",
+    "name": "Unibic Wafer",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0002",
+    "name": "Unibic Choco Ripple",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0003",
+    "name": "Pepper Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0004",
+    "name": "Glucon-d",
+    "brand_id": "brand-glucon-d",
+    "category_id": "drinks-juices",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0005",
+    "name": "Lifebuoy Neem&aloe",
+    "brand_id": "brand-lifebuoy",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/lifebuoy-soap.jpg"
+  },
+  {
+    "id": "g1-p0006",
+    "name": "Glow & Lovely",
+    "brand_id": "brand-glow-lovely",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0007",
+    "name": "Pears Pure & Gentle Soap (4 + 1 Free Pack",
+    "brand_id": "brand-pears",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/pears-soap.jpg"
+  },
+  {
+    "id": "g1-p0008",
+    "name": "Kesh King Oil100ml",
+    "brand_id": "brand-kesh-king",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0009",
+    "name": "KEO Karpin Hair OIL",
+    "brand_id": "brand-keo-karpin",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0010",
+    "name": "Vasmol",
+    "brand_id": "brand-vasmol",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0011",
+    "name": "Dairy Milk 10rs",
+    "brand_id": "brand-cadbury",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/packshots/cadbury-5-star.jpg"
+  },
+  {
+    "id": "g1-p0012",
+    "name": "Dairy Milk 5RS",
+    "brand_id": "brand-cadbury",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/packshots/cadbury-5-star.jpg"
+  },
+  {
+    "id": "g1-p0013",
+    "name": "Nirmala Sweet Betek NUT Packet",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0014",
+    "name": "Turmeric Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/turmeric-powder.jpg"
+  },
+  {
+    "id": "g1-p0015",
+    "name": "Continental Xtra",
+    "brand_id": "brand-continental",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0016",
+    "name": "3 Roses Elaichi",
+    "brand_id": "brand-3-roses",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0017",
+    "name": "Amla Shikakai",
+    "brand_id": "brand-dabur",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0018",
+    "name": "HIT Chalk",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0019",
+    "name": "Aachi Ginger Garlic Paste",
+    "brand_id": "brand-aachi",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0020",
+    "name": "Johnsonis Baby Powder G50",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "baby-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0021",
+    "name": "Himalaya Baby Powder",
+    "brand_id": "brand-himalaya",
+    "category_id": "baby-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0022",
+    "name": "Hatsun Curd",
+    "brand_id": "brand-hatsun",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0023",
+    "name": "Dettol Original Germ Protection Bathing Soap",
+    "brand_id": "brand-dettol",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/dettol-soap.png"
+  },
+  {
+    "id": "g1-p0024",
+    "name": "Cinthol",
+    "brand_id": "brand-cinthol",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/cinthol-soap.jpg"
+  },
+  {
+    "id": "g1-p0025",
+    "name": "FAB Liquid 10",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/packshots/fab-liquid.jpg"
+  },
+  {
+    "id": "g1-p0026",
+    "name": "Parle-g Gluco",
+    "brand_id": "brand-parle",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/parle-g.jpg"
+  },
+  {
+    "id": "g1-p0027",
+    "name": "Krack Jack",
+    "brand_id": "brand-parle",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/parle-g.jpg"
+  },
+  {
+    "id": "g1-p0028",
+    "name": "Tata RA Salt",
+    "brand_id": "brand-tata",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/tata-salt.png"
+  },
+  {
+    "id": "g1-p0029",
+    "name": "Launch Plate",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dishwash",
+    "image_url": "/products/packshots/launch-plate.jpg"
+  },
+  {
+    "id": "g1-p0030",
+    "name": "High Power",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0031",
+    "name": "Happy Happy",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0032",
+    "name": "Arun Icecream",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0033",
+    "name": "Colgate Vedshakti",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p0034",
+    "name": "Arun Toffee CON",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0035",
+    "name": "Arun Bites",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0036",
+    "name": "Ariel Front Liquid 10",
+    "brand_id": "brand-ariel",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/packshots/ariel-front-liq.jpg"
+  },
+  {
+    "id": "g1-p0037",
+    "name": "Arun Popitos",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0038",
+    "name": "Arun Sunny Sil",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0039",
+    "name": "Thumsup",
+    "brand_id": "brand-thums-up",
+    "category_id": "hygiene",
+    "image_url": "/products/packshots/thums-up.jpg"
+  },
+  {
+    "id": "g1-p0040",
+    "name": "Arun Likstick ICE",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0041",
+    "name": "DRY Nuts BOL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0042",
+    "name": "Elachi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0043",
+    "name": "Arun Donut",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0044",
+    "name": "Arun Whaie",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0045",
+    "name": "Arun Ibar",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0046",
+    "name": "Arun Double",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0047",
+    "name": "707 Soap",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0048",
+    "name": "Arokya Milk",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0049",
+    "name": "Lock 60mm",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0050",
+    "name": "Lock 35mm",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0051",
+    "name": "Arun Milky Fantasy",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0052",
+    "name": "Curd",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0053",
+    "name": "RIN Matic",
+    "brand_id": "brand-rin",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0054",
+    "name": "EXO Powder",
+    "brand_id": "brand-exo",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0055",
+    "name": "Domex Powder",
+    "brand_id": "brand-domex",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0056",
+    "name": "Rin Fabric",
+    "brand_id": "brand-rin",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0057",
+    "name": "SUN Gold Soap 25",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0058",
+    "name": "Coke",
+    "brand_id": "brand-coca-cola",
+    "category_id": "drinks-juices",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0059",
+    "name": "Arun Sandwich",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0060",
+    "name": "Moms Magic",
+    "brand_id": "brand-sunfeast",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0061",
+    "name": "Good DAY",
+    "brand_id": "brand-britannia",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/good-day.png"
+  },
+  {
+    "id": "g1-p0062",
+    "name": "Pulpy Orange",
+    "brand_id": "brand-minute-maid",
+    "category_id": "drinks-juices",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0063",
+    "name": "Rice Flour",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0064",
+    "name": "MTR Rasam",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0065",
+    "name": "MTR Sambar",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0066",
+    "name": "Aachi Rasam",
+    "brand_id": "brand-aachi",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0067",
+    "name": "Aachi Rasam 10rs",
+    "brand_id": "brand-aachi",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0068",
+    "name": "Power Soap 10",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0069",
+    "name": "Aacsi Chaat Masale 10rs",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0070",
+    "name": "Aachi Mutton 5 RS",
+    "brand_id": "brand-aachi",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0071",
+    "name": "Aachi Biryani",
+    "brand_id": "brand-aachi",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0072",
+    "name": "Aachi Fish Masala",
+    "brand_id": "brand-aachi",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0073",
+    "name": "Aachi Muttan Masala",
+    "brand_id": "brand-aachi",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0074",
+    "name": "Aachi Chicken Masala",
+    "brand_id": "brand-aachi",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0075",
+    "name": "Aachi Biryani Masala",
+    "brand_id": "brand-aachi",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0076",
+    "name": "Aachi Garam Masala",
+    "brand_id": "brand-aachi",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0077",
+    "name": "Endu Kharjuram",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0078",
+    "name": "Arun Kulfi",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0079",
+    "name": "FAB Liquid",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/packshots/fab-liquid.jpg"
+  },
+  {
+    "id": "g1-p0080",
+    "name": "Korralu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0081",
+    "name": "Pottu Minapappu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0082",
+    "name": "Rajma Seds",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0083",
+    "name": "Odonil AIR Fresh",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0084",
+    "name": "ZED Black",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0085",
+    "name": "LIA Cones",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0086",
+    "name": "Arun Ibar Mini",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0087",
+    "name": "Arun Butterscotch",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dishwash",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0088",
+    "name": "Endu Mirchi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/aachi-chilli.jpg"
+  },
+  {
+    "id": "g1-p0089",
+    "name": "Dettal Soap",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0090",
+    "name": "Stay Free Regular",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0091",
+    "name": "Colgate Super Flexi",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p0092",
+    "name": "TAJ Mahal",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0093",
+    "name": "Borugulu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0094",
+    "name": "Jeedi Pappu 10rs",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0095",
+    "name": "Gasagasaalu 10rs",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0096",
+    "name": "Nalla Karam",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0097",
+    "name": "Tresemme",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0098",
+    "name": "Domex",
+    "brand_id": "brand-domex",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0099",
+    "name": "Stay Free Extra",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0100",
+    "name": "Pepsodent Toothbrush",
+    "brand_id": "brand-pepsodent",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/bru-instant.jpg"
+  },
+  {
+    "id": "g1-p0101",
+    "name": "Dabur Amla Hair Oil",
+    "brand_id": "brand-dabur",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0102",
+    "name": "Santoor Hand Wash Gentle Care",
+    "brand_id": "brand-santoor",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/santoor-soap.png"
+  },
+  {
+    "id": "g1-p0103",
+    "name": "Arun Venilla Black",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0104",
+    "name": "Dabur Rose Water",
+    "brand_id": "brand-dabur",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0105",
+    "name": "Huggies XL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0106",
+    "name": "Huggies L",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0107",
+    "name": "Huggies M",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0108",
+    "name": "Huggies S",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0109",
+    "name": "Unibic Butter",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0110",
+    "name": "Milky BAR",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0111",
+    "name": "Hugges S",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0112",
+    "name": "Huggies",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0113",
+    "name": "Tide Powder",
+    "brand_id": "brand-tide",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0114",
+    "name": "Hanobar",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0115",
+    "name": "Power LLQ",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0116",
+    "name": "Royal Mirage Body Spray",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0117",
+    "name": "Parachute",
+    "brand_id": "brand-parachute",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0118",
+    "name": "Milky BAR BIG BOX",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0119",
+    "name": "Good Kinh Agarbatti",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "pooja-needs",
+    "image_url": "/products/packshots/pooja-agarbatti.jpg"
+  },
+  {
+    "id": "g1-p0120",
+    "name": "Colgate Total",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p0121",
+    "name": "Lipton Green TEA",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0122",
+    "name": "Cinthol Original Soap (super Saver Pack",
+    "brand_id": "brand-cinthol",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/cinthol-soap.jpg"
+  },
+  {
+    "id": "g1-p0123",
+    "name": "Dettol Hand Wash",
+    "brand_id": "brand-dettol",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/dettol-soap.jpg"
+  },
+  {
+    "id": "g1-p0124",
+    "name": "Santoor White",
+    "brand_id": "brand-santoor",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/santoor-soap.jpg"
+  },
+  {
+    "id": "g1-p0125",
+    "name": "Zinda Tilismath",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0126",
+    "name": "Saphala Soap",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0127",
+    "name": "Cinthol Fresh",
+    "brand_id": "brand-cinthol",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/cinthol-soap.jpg"
+  },
+  {
+    "id": "g1-p0128",
+    "name": "Himalaya Baby Soap",
+    "brand_id": "brand-himalaya",
+    "category_id": "baby-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0129",
+    "name": "Johnsunis Babu Soap",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0130",
+    "name": "Santoor Baby Soap",
+    "brand_id": "brand-santoor",
+    "category_id": "baby-care",
+    "image_url": "/products/packshots/santoor-soap.jpg"
+  },
+  {
+    "id": "g1-p0131",
+    "name": "Yardley RED Roses",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0132",
+    "name": "Yardley Gold",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0133",
+    "name": "Yardley Sandalwood",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0134",
+    "name": "Yardley Jasmine",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0135",
+    "name": "Yardley Morning DEW",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0136",
+    "name": "Fairever Face Cream",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0137",
+    "name": "NO 1 Soap Lemon",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0138",
+    "name": "Dabur Honey",
+    "brand_id": "brand-dabur",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0139",
+    "name": "Koyas Xlnc Premium Incense",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "pooja-needs",
+    "image_url": "/products/packshots/pooja-agarbatti.jpg"
+  },
+  {
+    "id": "g1-p0140",
+    "name": "Himalaya LIP Balm",
+    "brand_id": "brand-himalaya",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0141",
+    "name": "Garnier Bright Complete",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0142",
+    "name": "Aswini Subhra Bath Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0143",
+    "name": "Henna",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0144",
+    "name": "Continental Strong",
+    "brand_id": "brand-continental",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0145",
+    "name": "Puresprk",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0146",
+    "name": "AER Power Pocket",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0147",
+    "name": "Godreg AER Rose Bathroom Fresh",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0148",
+    "name": "NO 1 BIG",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0149",
+    "name": "Godreg AER Lavender Bathroom Fresh",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0150",
+    "name": "Godreg AER Lemon Bathroom Fresh",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0151",
+    "name": "IFB Descal",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0152",
+    "name": "Pitambari Rooperi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0153",
+    "name": "Tongue Cleaner",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0154",
+    "name": "Tongue Cleaner 18rs",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0155",
+    "name": "RIN",
+    "brand_id": "brand-rin",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0156",
+    "name": "SUN Gold",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0157",
+    "name": "Tcon Pops",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0158",
+    "name": "Arun Chocobar",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0159",
+    "name": "Dettol Skincare Nourishing Soap",
+    "brand_id": "brand-dettol",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/dettol-soap.png"
+  },
+  {
+    "id": "g1-p0160",
+    "name": "Real Salt",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0161",
+    "name": "Dabur Almond Hair OIL",
+    "brand_id": "brand-dabur",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0162",
+    "name": "Hanobar Dark",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0163",
+    "name": "Dalchini",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0164",
+    "name": "Hatsun Malai Lassi",
+    "brand_id": "brand-hatsun",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0165",
+    "name": "Hatsun Paneer",
+    "brand_id": "brand-hatsun",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0166",
+    "name": "Ruchi Gold",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0167",
+    "name": "Arun FUN Wheel",
+    "brand_id": "brand-wheel",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0168",
+    "name": "Polo",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0169",
+    "name": "Ambica Agarbathi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0170",
+    "name": "Dettol Cool",
+    "brand_id": "brand-dettol",
+    "category_id": "hygiene",
+    "image_url": "/products/packshots/dettol-soap.jpg"
+  },
+  {
+    "id": "g1-p0171",
+    "name": "Colgate Active Salt",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p0172",
+    "name": "Center Fresh",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0173",
+    "name": "5 Star TEA",
+    "brand_id": "brand-cadbury",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/packshots/cadbury-5-star.jpg"
+  },
+  {
+    "id": "g1-p0174",
+    "name": "Rexona",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dishwash",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0175",
+    "name": "Oreo",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0176",
+    "name": "Milk Bikis",
+    "brand_id": "brand-britannia",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0177",
+    "name": "Crane",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0178",
+    "name": "Britannia Rusk",
+    "brand_id": "brand-britannia",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0179",
+    "name": "Marie Gold",
+    "brand_id": "brand-britannia",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0180",
+    "name": "Power Natural Soap",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0181",
+    "name": "Limca",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0182",
+    "name": "Maaza",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0183",
+    "name": "Javva Wheat Ravva",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0184",
+    "name": "Nuvvulu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0185",
+    "name": "Thati Bellam (natural Sweet Jaggery",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0186",
+    "name": "Maya Agarbathi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0187",
+    "name": "Hamam Neem &tulsi",
+    "brand_id": "brand-hamam",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0188",
+    "name": "Maya Rose",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0189",
+    "name": "Santoor Sandalwood Soap (big Value Pack",
+    "brand_id": "brand-santoor",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/santoor-soap.jpg"
+  },
+  {
+    "id": "g1-p0190",
+    "name": "Kabuli Senagalu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0191",
+    "name": "Nalla Senagalu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0192",
+    "name": "Oral B",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oral-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0193",
+    "name": "Vaseline",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "skin-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0194",
+    "name": "Arun Butterscotcg",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0195",
+    "name": "Tella Bataneelu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0196",
+    "name": "Bansi Ravva",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0197",
+    "name": "Dharani Corn Flour",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0198",
+    "name": "Dharani Atta",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0199",
+    "name": "Munch",
+    "brand_id": "brand-nestle",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0200",
+    "name": "Rock Salt",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0201",
+    "name": "Clinic Plus",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0202",
+    "name": "Tata Salt",
+    "brand_id": "brand-tata-salt",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/tata-salt.png"
+  },
+  {
+    "id": "g1-p0203",
+    "name": "Sajjalu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0204",
+    "name": "Pasta",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0205",
+    "name": "Gottalu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0206",
+    "name": "Idil Rava",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0207",
+    "name": "Pani Puri Papad",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "chips-namkeen",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0208",
+    "name": "Lavian Brownie",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0209",
+    "name": "RAJ Peanut Chikki",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0210",
+    "name": "Unibic Cashew",
+    "brand_id": "brand-unibic",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0211",
+    "name": "Kitkat",
+    "brand_id": "brand-nestle",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0212",
+    "name": "Harpic",
+    "brand_id": "brand-harpic",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0213",
+    "name": "Unbic Wafer",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0214",
+    "name": "Arun Tringo",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0215",
+    "name": "Butter Milk",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0216",
+    "name": "Active Wheel",
+    "brand_id": "brand-wheel",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0217",
+    "name": "Arun",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0218",
+    "name": "EXO Round",
+    "brand_id": "brand-exo",
+    "category_id": "dishwash",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0219",
+    "name": "Rice",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0220",
+    "name": "Lizol",
+    "brand_id": "brand-lizol",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0221",
+    "name": "Kitkat BOX",
+    "brand_id": "brand-nestle",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0222",
+    "name": "Whisper XL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0223",
+    "name": "Salt Rice",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0224",
+    "name": "Bheerm Brooom",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0225",
+    "name": "Steei Broom",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0226",
+    "name": "Five Finger Broom",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0227",
+    "name": "Steel Broom",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0228",
+    "name": "Prince Broom",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0229",
+    "name": "Wiper SML 14 Inch",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0230",
+    "name": "Cleaning Brush Round",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/bru-instant.jpg"
+  },
+  {
+    "id": "g1-p0231",
+    "name": "ZED Black Aggarbathi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0232",
+    "name": "Galaxy Steel Round MOP",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dishwash",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0233",
+    "name": "Smile MOP",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0234",
+    "name": "Twist MOP Color",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0235",
+    "name": "Twist MOP White",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0236",
+    "name": "Onions",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0237",
+    "name": "Arun Vanilla",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0238",
+    "name": "Jeedi Pappu A1",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0239",
+    "name": "EXO",
+    "brand_id": "brand-exo",
+    "category_id": "dishwash",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0240",
+    "name": "Cadbury Choclairs Gold",
+    "brand_id": "brand-cadbury",
+    "category_id": "instant-food",
+    "image_url": "/products/packshots/cadbury-5-star.jpg"
+  },
+  {
+    "id": "g1-p0241",
+    "name": "Dazzy Chocolate",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0242",
+    "name": "MY- Melody",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0243",
+    "name": "Kopiko",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0244",
+    "name": "Dazzy Fruit Bonbon",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0245",
+    "name": "Kacche AAM",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0246",
+    "name": "Eclairs Choco",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0247",
+    "name": "Dazzy Rich Gold",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0248",
+    "name": "Chocolate PKT",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0249",
+    "name": "Sensora Paste",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0250",
+    "name": "Allout Matchs",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0251",
+    "name": "Dabur RED",
+    "brand_id": "brand-dabur",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0252",
+    "name": "GN Gold Match",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0253",
+    "name": "Unibic Fruit & NUT",
+    "brand_id": "brand-unibic",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0254",
+    "name": "Odonil",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0255",
+    "name": "GN Gold Liquid",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0256",
+    "name": "Derby Eclairs Coconut",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0257",
+    "name": "Lotte Coconut Punch",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0258",
+    "name": "Tcon Heart Tino",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0259",
+    "name": "Lotte Lacto King",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0260",
+    "name": "Dazzy Eclairs",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0261",
+    "name": "Garnier F . W",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0262",
+    "name": "Nyra Original",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0263",
+    "name": "Dazzy Choco Orange",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "drinks-juices",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0264",
+    "name": "Dazzy Mango",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0265",
+    "name": "Mentos Rainboe",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0266",
+    "name": "Mentos Mint",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0267",
+    "name": "Alpenliebe",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0268",
+    "name": "Meera Oile250g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0269",
+    "name": "Dairy Milk Crackle",
+    "brand_id": "brand-cadbury",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/packshots/cadbury-5-star.jpg"
+  },
+  {
+    "id": "g1-p0270",
+    "name": "Dairy Milk Fruit&nut",
+    "brand_id": "brand-cadbury",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/packshots/cadbury-5-star.jpg"
+  },
+  {
+    "id": "g1-p0271",
+    "name": "HIM F.W .",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0272",
+    "name": "Daory Milk",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0273",
+    "name": "Maggi",
+    "brand_id": "brand-nestle",
+    "category_id": "hygiene",
+    "image_url": "/products/packshots/maggi-noodles.png"
+  },
+  {
+    "id": "g1-p0274",
+    "name": "Gloe&handsome MEN",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0275",
+    "name": "Jelly TOS",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0276",
+    "name": "Colin",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0277",
+    "name": "Mysore Sandal Agarbathies",
+    "brand_id": "brand-mysore-sandal",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/mysore-sandal-soap.jpg"
+  },
+  {
+    "id": "g1-p0278",
+    "name": "Gopuram K",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0279",
+    "name": "Hatsun Ghee",
+    "brand_id": "brand-hatsun",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0280",
+    "name": "Lavangalu10g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0281",
+    "name": "Arun Chocolate Ball",
+    "brand_id": "brand-arun-icecreams",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0282",
+    "name": "Cycle Agarbati 5",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0283",
+    "name": "Kichen Knife",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0284",
+    "name": "Gloe&handsome",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0285",
+    "name": "Cheeta Matches",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0286",
+    "name": "Vamu Wather",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0287",
+    "name": "RB Soda",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0288",
+    "name": "LIA",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0289",
+    "name": "Chik Shampoo",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0290",
+    "name": "Endu Marchi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0291",
+    "name": "Munch 10rs",
+    "brand_id": "brand-nestle",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0292",
+    "name": "Ponds Bricht Beauy12g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0293",
+    "name": "Kisan Mixedfruit 2RS",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0294",
+    "name": "Vaseline LIP Carem",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "skin-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0295",
+    "name": "Badam A1",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0296",
+    "name": "Nycil",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0297",
+    "name": "Clinic Egg",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0298",
+    "name": "Ultra Power",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0299",
+    "name": "Vim GEL Shudhham",
+    "brand_id": "brand-vim",
+    "category_id": "dishwash",
+    "image_url": "/products/packshots/vim-bar.jpg"
+  },
+  {
+    "id": "g1-p0300",
+    "name": "Crayons",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0301",
+    "name": "Unibic Biscot",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0302",
+    "name": "Gayathari Sambrani Stick",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0303",
+    "name": "Surf Excvel Matic1.",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0304",
+    "name": "Surf Excel Matic",
+    "brand_id": "brand-surf-excel",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/packshots/surf-excel.jpg"
+  },
+  {
+    "id": "g1-p0305",
+    "name": "Surf Excel Matic Ntop Load",
+    "brand_id": "brand-surf-excel",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/packshots/surf-excel.jpg"
+  },
+  {
+    "id": "g1-p0306",
+    "name": "VIM Neem Clean",
+    "brand_id": "brand-vim",
+    "category_id": "dishwash",
+    "image_url": "/products/packshots/vim-bar.jpg"
+  },
+  {
+    "id": "g1-p0307",
+    "name": "VIM Power OF 100lemons",
+    "brand_id": "brand-vim",
+    "category_id": "dishwash",
+    "image_url": "/products/packshots/vim-bar.jpg"
+  },
+  {
+    "id": "g1-p0308",
+    "name": "Horlicks Womens Plus Caramel",
+    "brand_id": "brand-horlicks",
+    "category_id": "drinks-juices",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0309",
+    "name": "Hellmanns Mayonnaise",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sauces-spreads",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0310",
+    "name": "Kissam Tomato Ketchup",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sauces-spreads",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0311",
+    "name": "Kissan Tomato Ketchup",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sauces-spreads",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0312",
+    "name": "Kissan Sweet&spicy",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0313",
+    "name": "Boro Plus Powder Small",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0314",
+    "name": "Kissan Tomaato Ketchup",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sauces-spreads",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0315",
+    "name": "Kissan Peanut Butter Crunchy",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0316",
+    "name": "Kissan Peanut Butter Creamy",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0317",
+    "name": "Horlicks",
+    "brand_id": "brand-horlicks",
+    "category_id": "drinks-juices",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0318",
+    "name": "Lifeduoy Cools Skin",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "skin-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0319",
+    "name": "Lifeduoy Neem",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0320",
+    "name": "Fair &lovely",
+    "brand_id": "brand-glow-lovely",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0321",
+    "name": "Rexona Deorant MEN",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dishwash",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0322",
+    "name": "Rexona Aloe Vera",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dishwash",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0323",
+    "name": "Unibic Pista Badam",
+    "brand_id": "brand-unibic",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0324",
+    "name": "Nycil Powder Small",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0325",
+    "name": "Rexona Dpowder DRY",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0326",
+    "name": "Rexona Dpowdert Shower Fresh",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0327",
+    "name": "Kandi Pappu (toor Dal",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0328",
+    "name": "Aniva Orange",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "drinks-juices",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0329",
+    "name": "Verusenaga Pappu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0330",
+    "name": "Kandipappu1kg",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0331",
+    "name": "Boro Plus BIG",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0332",
+    "name": "Surf Excel Easy Wash",
+    "brand_id": "brand-surf-excel",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/packshots/surf-excel.jpg"
+  },
+  {
+    "id": "g1-p0333",
+    "name": "Hatsun Jeera (cumin Seeds) Buttermilk",
+    "brand_id": "brand-hatsun",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0334",
+    "name": "Hatsun Mango Lassi",
+    "brand_id": "brand-hatsun",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0335",
+    "name": "Aniva Orange Drink",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0336",
+    "name": "Jilakara 10rupees",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0337",
+    "name": "Anasa Puvvu 10rupees",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0338",
+    "name": "Jathipatri 10rupees",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0339",
+    "name": "Marathi Mogga 10rupees",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0340",
+    "name": "Endu Draksha 10rupees",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0341",
+    "name": "Lavangalu (whole Cloves) 10rupees",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0342",
+    "name": "Miriyalu10rupees",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0343",
+    "name": "Rangoli",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0344",
+    "name": "Endu Draksha",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0345",
+    "name": "Colgate Zigzag",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p0346",
+    "name": "Ujala Fresh",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0347",
+    "name": "Kinley Soda",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0348",
+    "name": "Spinz BB Cream BIG",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0349",
+    "name": "Colgate Kids 2+",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p0350",
+    "name": "Patikan Bellam (natural Sweet Jaggery",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0351",
+    "name": "Dark Fantasy Yumfills PIE",
+    "brand_id": "brand-sunfeast",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0352",
+    "name": "Dark Fantasy Bourbon",
+    "brand_id": "brand-britannia",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/britannia-bourbon.jpg"
+  },
+  {
+    "id": "g1-p0353",
+    "name": "Nycil Powder BIG",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0354",
+    "name": "Fogg Body Spary",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0355",
+    "name": "Denver Body Spray",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0356",
+    "name": "Indica Easy BIG",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0357",
+    "name": "Indica Easy Small",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0358",
+    "name": "Pitambari",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0359",
+    "name": "Unibic Choco NUT",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0360",
+    "name": "Sensodyne Fresh GEL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0361",
+    "name": "Lock 50mm",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0362",
+    "name": "Lock 32mm",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0363",
+    "name": "Lock 38mm",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0364",
+    "name": "Tulip",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0365",
+    "name": "Magnet",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0366",
+    "name": "Melody",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0367",
+    "name": "Something Something",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0368",
+    "name": "Unibic Choco Chip",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0369",
+    "name": "Kiss ME",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0370",
+    "name": "ZX Spray",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0371",
+    "name": "First Love",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0372",
+    "name": "OSR Girl",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0373",
+    "name": "Amla OIL",
+    "brand_id": "brand-dabur",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0374",
+    "name": "Meera Shampoo Badam",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0375",
+    "name": "Gokul Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0376",
+    "name": "Gokul PDR",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0377",
+    "name": "Sugar 50kgs Bag",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0378",
+    "name": "Unibic Danish Coconut",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0379",
+    "name": "Sugar",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0380",
+    "name": "Kandi Pappu (toor Dal) 50kgs Bag",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0381",
+    "name": "Sai Pappu 50kgs Bag",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0382",
+    "name": "White Urad DAL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/urad-dal.jpg"
+  },
+  {
+    "id": "g1-p0383",
+    "name": "White Urad Dal250g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/urad-dal.jpg"
+  },
+  {
+    "id": "g1-p0384",
+    "name": "Yendu Kobbari 25kgs Bag",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0385",
+    "name": "Yendu Kobbari",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0386",
+    "name": "Pachisenga Pappu 50kgs Bag",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0387",
+    "name": "Pachisenagapappu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0388",
+    "name": "Pachisenaga Pappu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0389",
+    "name": "Minapappu 50kgs Bag",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0390",
+    "name": "Minapappu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0391",
+    "name": "Minapapu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0392",
+    "name": "Verusenaga Pappu 50kgs Bag",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0393",
+    "name": "Verusenaga Pappu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0394",
+    "name": "Gokulam Dates",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0395",
+    "name": "India Gate",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0396",
+    "name": "Jeera (cumin Seeds",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0397",
+    "name": "BAT Papad",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "chips-namkeen",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0398",
+    "name": "Colour Papad",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "chips-namkeen",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0399",
+    "name": "Unibic Waffer",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0400",
+    "name": "Unibic Orange Splash",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0401",
+    "name": "Salt Mirchi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/aachi-chilli.jpg"
+  },
+  {
+    "id": "g1-p0402",
+    "name": "Jaggery",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0403",
+    "name": "Tamarind500g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0404",
+    "name": "Tamarind250g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0405",
+    "name": "RED Lentils",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0406",
+    "name": "Wheat",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0407",
+    "name": "Sorghum500g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0408",
+    "name": "Mung Bean",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0409",
+    "name": "Finger Millet",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0410",
+    "name": "Unibic Cashew Badam",
+    "brand_id": "brand-unibic",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0411",
+    "name": "Basmati Rice",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0412",
+    "name": "Moon DAL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0413",
+    "name": "Coriander Seeds",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0414",
+    "name": "Coriander",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0415",
+    "name": "Soya Small",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0416",
+    "name": "Soya BIG",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0417",
+    "name": "Flattened Rice",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0418",
+    "name": "Freedom OIL Botel",
+    "brand_id": "brand-freedom",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0419",
+    "name": "Horlicks Biscuits",
+    "brand_id": "brand-horlicks",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/horlicks.png"
+  },
+  {
+    "id": "g1-p0420",
+    "name": "Knorr Tomato Soup",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0421",
+    "name": "Horlicks Biscuit Small",
+    "brand_id": "brand-horlicks",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/horlicks.png"
+  },
+  {
+    "id": "g1-p0422",
+    "name": "VT Jedipappu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0423",
+    "name": "VT Draksha",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0424",
+    "name": "Clinic Plus Strong&long",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0425",
+    "name": "Vim 5rs Bar",
+    "brand_id": "brand-vim",
+    "category_id": "dishwash",
+    "image_url": "/products/packshots/vim-bar.jpg"
+  },
+  {
+    "id": "g1-p0426",
+    "name": "Ashirvad 5kgs Bag",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0427",
+    "name": "Dharani Upma Ravva",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0428",
+    "name": "Lalitha Idly Ravva",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/lalitha-idli-rava.jpg"
+  },
+  {
+    "id": "g1-p0429",
+    "name": "Vermicilli Payasam Mix",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0430",
+    "name": "Dabour Amla Oil",
+    "brand_id": "brand-dabur",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0431",
+    "name": "Vt Avalu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0432",
+    "name": "Colgate Brush Set Main",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p0433",
+    "name": "Sensora Tooth Paste Main",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0434",
+    "name": "Vermicilli Bambino1kg",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0435",
+    "name": "Parachute Main",
+    "brand_id": "brand-parachute",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0436",
+    "name": "Maya Agni Samrani",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0437",
+    "name": "Aashirvaad Vermicelli",
+    "brand_id": "brand-aashirvaad",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/aashirvaad-atta.jpg"
+  },
+  {
+    "id": "g1-p0438",
+    "name": "Whisper Choice Xl Main",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0439",
+    "name": "Ruchi Gold",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0440",
+    "name": "Aashirvaad",
+    "brand_id": "brand-aashirvaad",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/aashirvaad-atta.jpg"
+  },
+  {
+    "id": "g1-p0441",
+    "name": "Harpic Blue 600m",
+    "brand_id": "brand-harpic",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0442",
+    "name": "Harpic Red",
+    "brand_id": "brand-harpic",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0443",
+    "name": "Comfort",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0444",
+    "name": "Pepper",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0445",
+    "name": "Tide",
+    "brand_id": "brand-tide",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0446",
+    "name": "Vim",
+    "brand_id": "brand-vim",
+    "category_id": "dishwash",
+    "image_url": "/products/packshots/vim-bar.jpg"
+  },
+  {
+    "id": "g1-p0447",
+    "name": "Surf Excel Bar",
+    "brand_id": "brand-surf-excel",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/packshots/surf-excel.jpg"
+  },
+  {
+    "id": "g1-p0448",
+    "name": "Solo Fresh",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0449",
+    "name": "Eno",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0450",
+    "name": "Cycle Pue Agarbathi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0451",
+    "name": "Mangaldeep Sambrani",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0452",
+    "name": "Gopuram",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0453",
+    "name": "Ear Buts",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0454",
+    "name": "Brush",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/bru-instant.jpg"
+  },
+  {
+    "id": "g1-p0455",
+    "name": "Mangaldeep Treya",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0456",
+    "name": "Coconut",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0457",
+    "name": "Aashirvaad Suji Rava",
+    "brand_id": "brand-aashirvaad",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/aashirvaad-suji-rava.jpg"
+  },
+  {
+    "id": "g1-p0458",
+    "name": "Ruchigold",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0459",
+    "name": "Freedom 1LT",
+    "brand_id": "brand-freedom",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0460",
+    "name": "Telagapindi / Telagadalu (sesame Press",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0461",
+    "name": "Sensodyne",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0462",
+    "name": "Mangaldeep Samrani Cup 1 Box",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0463",
+    "name": "3 Roses Te",
+    "brand_id": "brand-3-roses",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0464",
+    "name": "ENO Laman BOX 1",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0465",
+    "name": "SS ROD",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0466",
+    "name": "Gelakara",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0467",
+    "name": "Closeup Past",
+    "brand_id": "brand-close-up",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0468",
+    "name": "SS R B",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0469",
+    "name": "Supar MOP",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0470",
+    "name": "Priya Gold1kg",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0471",
+    "name": "Mangaldeep Scent",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0472",
+    "name": "Unibic Coconut",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0473",
+    "name": "Mangaldeep Flora",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0474",
+    "name": "Mangaladeep Treya",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dishwash",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0475",
+    "name": "Mangaldeep Temple",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0476",
+    "name": "Mangaldeep Sandel",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0477",
+    "name": "Mangaldeep Long Lasting",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0478",
+    "name": "Savlon Handwash",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0479",
+    "name": "Savlon Mosture Shield Handwash",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0480",
+    "name": "Sompu100g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0481",
+    "name": "Unibic Oats",
+    "brand_id": "brand-unibic",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0482",
+    "name": "Aashirvaad Crystal Salt",
+    "brand_id": "brand-aashirvaad",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/aashirvaad-atta.jpg"
+  },
+  {
+    "id": "g1-p0483",
+    "name": "Wheel 2in1",
+    "brand_id": "brand-wheel",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0484",
+    "name": "Arilel Power GEL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0485",
+    "name": "Ponds Sandl",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0486",
+    "name": "Kisan Tomota Ketchup",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sauces-spreads",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0487",
+    "name": "Comfort Royal",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0488",
+    "name": "Unibic Sugar Free Butter",
+    "brand_id": "brand-unibic",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0489",
+    "name": "Surfexel Sope",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0490",
+    "name": "Eyarbads",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0491",
+    "name": "Fair Loveli RE NEW",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0492",
+    "name": "Gkl Black Dates",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0493",
+    "name": "GKL Seeded",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0494",
+    "name": "Badam 100gr",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0495",
+    "name": "Kismis",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0496",
+    "name": "Dove Hair Shampoo6ml",
+    "brand_id": "brand-dove",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/dove-soap.jpg"
+  },
+  {
+    "id": "g1-p0497",
+    "name": "Surf Excel",
+    "brand_id": "brand-surf-excel",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/packshots/surf-excel.jpg"
+  },
+  {
+    "id": "g1-p0498",
+    "name": "Unibic Free Multigrain",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0499",
+    "name": "Ariel Power Gel Top Load&semi Auto",
+    "brand_id": "brand-ariel",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0500",
+    "name": "Henko Matic Liquid Top Load 1lt",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0501",
+    "name": "Henk Matic Liquid Front Load 1lt",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0502",
+    "name": "Gopuram Turmeric Powder 50",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/turmeric-powder.jpg"
+  },
+  {
+    "id": "g1-p0503",
+    "name": "Gopuram Turmeric Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/turmeric-powder.jpg"
+  },
+  {
+    "id": "g1-p0504",
+    "name": "Vivel Sandal Soap",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0505",
+    "name": "Vivel Aloe Vera Soap",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0506",
+    "name": "Fiama Gel Bar Soap",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0507",
+    "name": "Unibic Free Cashew",
+    "brand_id": "brand-unibic",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0508",
+    "name": "Medimix Transparent Soap",
+    "brand_id": "brand-medimix",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/mysore-sandal-soap.png"
+  },
+  {
+    "id": "g1-p0509",
+    "name": "Medimex Sandal Soap",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0510",
+    "name": "Medimex Classic Soap",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0511",
+    "name": "Margo Original",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0512",
+    "name": "Medimix Classic",
+    "brand_id": "brand-medimix",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/mysore-sandal-soap.png"
+  },
+  {
+    "id": "g1-p0513",
+    "name": "Pears Pure& Gentle Glow",
+    "brand_id": "brand-pears",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/pears-soap.jpg"
+  },
+  {
+    "id": "g1-p0514",
+    "name": "Medimix Ayurvedic Classic 18 Herbs Soap",
+    "brand_id": "brand-medimix",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/mysore-sandal-soap.png"
+  },
+  {
+    "id": "g1-p0515",
+    "name": "LUX Rose Scent",
+    "brand_id": "brand-lux",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/lux-soap.png"
+  },
+  {
+    "id": "g1-p0516",
+    "name": "Margo Neem",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0517",
+    "name": "Pears With Lemon",
+    "brand_id": "brand-pears",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/pears-soap.jpg"
+  },
+  {
+    "id": "g1-p0518",
+    "name": "Unibic Sugar Free Oatmeal",
+    "brand_id": "brand-unibic",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0519",
+    "name": "Pears With Mint",
+    "brand_id": "brand-pears",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/pears-soap.jpg"
+  },
+  {
+    "id": "g1-p0520",
+    "name": "LUX Sandal Wood",
+    "brand_id": "brand-lux",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/lux-soap.png"
+  },
+  {
+    "id": "g1-p0521",
+    "name": "LIX Jasmine",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0522",
+    "name": "LUX Rose & Vitamin E Glowing Skin Soap",
+    "brand_id": "brand-lux",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/lux-soap.png"
+  },
+  {
+    "id": "g1-p0523",
+    "name": "VIM JEL",
+    "brand_id": "brand-vim",
+    "category_id": "dishwash",
+    "image_url": "/products/packshots/vim-bar.jpg"
+  },
+  {
+    "id": "g1-p0524",
+    "name": "LUX Jasminr Mega Pack",
+    "brand_id": "brand-lux",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/lux-soap.png"
+  },
+  {
+    "id": "g1-p0525",
+    "name": "LUX Rose Mega Pack",
+    "brand_id": "brand-lux",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/lux-soap.png"
+  },
+  {
+    "id": "g1-p0526",
+    "name": "Colgate Salt",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p0527",
+    "name": "BRU Tripti Blend",
+    "brand_id": "brand-bru",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/packshots/bru-instant.png"
+  },
+  {
+    "id": "g1-p0528",
+    "name": "LIA 3in1",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0529",
+    "name": "Loban Sambrani 20rs",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0530",
+    "name": "Murali Vathulu Main",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0531",
+    "name": "E Butes",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0532",
+    "name": "Parachuteb",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0533",
+    "name": "Dove Soap",
+    "brand_id": "brand-dove",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/dove-soap.jpg"
+  },
+  {
+    "id": "g1-p0534",
+    "name": "Colgate",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p0535",
+    "name": "Biscott",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0536",
+    "name": "Korean Ramen",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0537",
+    "name": "5 Much",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0538",
+    "name": "Pooja Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/pooja-agarbatti.jpg"
+  },
+  {
+    "id": "g1-p0539",
+    "name": "Jeera100g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0540",
+    "name": "Kasturi Appalam / Papad",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "chips-namkeen",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0541",
+    "name": "Aachi Appalam / Papad",
+    "brand_id": "brand-aachi",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0542",
+    "name": "SRI Papads",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "chips-namkeen",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0543",
+    "name": "Mysore Sandal Pure Sandalwood Soap",
+    "brand_id": "brand-mysore-sandal",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/mysore-sandal-soap.png"
+  },
+  {
+    "id": "g1-p0544",
+    "name": "Closeup",
+    "brand_id": "brand-close-up",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0545",
+    "name": "Unibic Cheese Wafer",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0546",
+    "name": "Pepsodent GUM Care",
+    "brand_id": "brand-pepsodent",
+    "category_id": "oral-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0547",
+    "name": "Pepsodent 12hr Germi Check",
+    "brand_id": "brand-pepsodent",
+    "category_id": "oral-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0548",
+    "name": "Pepsodent 2in1",
+    "brand_id": "brand-pepsodent",
+    "category_id": "oral-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0549",
+    "name": "Pepsodent",
+    "brand_id": "brand-pepsodent",
+    "category_id": "oral-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0550",
+    "name": "Unibic Straberry Wafer",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0551",
+    "name": "Colgate Strong Teeth",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p0552",
+    "name": "Colgate Axfresh",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p0553",
+    "name": "Colgate Vedshaikti",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p0554",
+    "name": "Colgate Maxfresh",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p0555",
+    "name": "Unibic Chocolate Wafer",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0556",
+    "name": "Pepsodent Clove Salt",
+    "brand_id": "brand-pepsodent",
+    "category_id": "oral-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0557",
+    "name": "Rin Soap",
+    "brand_id": "brand-rin",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0558",
+    "name": "Exo 5",
+    "brand_id": "brand-exo",
+    "category_id": "dishwash",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0559",
+    "name": "Exo 10",
+    "brand_id": "brand-exo",
+    "category_id": "dishwash",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0560",
+    "name": "Vim Soap",
+    "brand_id": "brand-vim",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/vim-bar.jpg"
+  },
+  {
+    "id": "g1-p0561",
+    "name": "Exo Soap",
+    "brand_id": "brand-exo",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0562",
+    "name": "Comfort Morning Fresh",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0563",
+    "name": "Comfort Moring Fresh",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0564",
+    "name": "Comfort Royale 210",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0565",
+    "name": "Comfort Desire",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0566",
+    "name": "Ujala Young&fresh Aura",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0567",
+    "name": "Ujala Young&fresh Bliss",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0568",
+    "name": "Hr Soya Sticks",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0569",
+    "name": "HR Chekaralu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0570",
+    "name": "HR Moong DAL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0571",
+    "name": "HR Chocolate Soan Papdi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0572",
+    "name": "HR Masala Peanuts",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0573",
+    "name": "Unibic Rich Chocolate Wafer",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0574",
+    "name": "HR Navratan MIX",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0575",
+    "name": "HR Soya Chips",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "chips-namkeen",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0576",
+    "name": "HR Corn Flakes Mixture",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0577",
+    "name": "HR Khatta Meetha",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/haldiram-khatta-meetha.jpg"
+  },
+  {
+    "id": "g1-p0578",
+    "name": "HR Salted Peanuts",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0579",
+    "name": "HR Mixture",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0580",
+    "name": "HR Tasty Nuts",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0581",
+    "name": "Jeedi Pappu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0582",
+    "name": "Unibic Milky Biscot",
+    "brand_id": "brand-unibic",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0583",
+    "name": "Badam",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0584",
+    "name": "Kismis",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0585",
+    "name": "BRU Instant",
+    "brand_id": "brand-bru",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/packshots/bru-instant.png"
+  },
+  {
+    "id": "g1-p0586",
+    "name": "Surya Deva",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0587",
+    "name": "Elaichi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0588",
+    "name": "Parachute Advansed",
+    "brand_id": "brand-parachute",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0589",
+    "name": "More Light 5lt",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0590",
+    "name": "Ajay Brush",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/bru-instant.jpg"
+  },
+  {
+    "id": "g1-p0591",
+    "name": "Colgate Toothbrush",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p0592",
+    "name": "Avalu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0593",
+    "name": "Avalu50g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0594",
+    "name": "Gilakara",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0595",
+    "name": "RED Labul Natural",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0596",
+    "name": "Gokul Santol",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0597",
+    "name": "Kisan Mixed Fuuit",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0598",
+    "name": "Milkybar",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0599",
+    "name": "Yippee Noodles Magic Masala",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0600",
+    "name": "Lipton TEA",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0601",
+    "name": "LGV",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0602",
+    "name": "Ponds Bricht Miracle",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0603",
+    "name": "Boost",
+    "brand_id": "brand-boost",
+    "category_id": "drinks-juices",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0604",
+    "name": "Malkist",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0605",
+    "name": "Ponds",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0606",
+    "name": "Dettal",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0607",
+    "name": "3roses Natural Care",
+    "brand_id": "brand-3-roses",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0608",
+    "name": "Induleka Shapoo",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0609",
+    "name": "BRU Instent JAR",
+    "brand_id": "brand-bru",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/packshots/bru-instant.png"
+  },
+  {
+    "id": "g1-p0610",
+    "name": "Lolipop",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0611",
+    "name": "Ariyal500g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0612",
+    "name": "Newmake Bras",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0613",
+    "name": "SWD Spicy Nuts",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0614",
+    "name": "Ujala",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0615",
+    "name": "Santoor Sandal & Turmeric Bath Soap",
+    "brand_id": "brand-santoor",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/santoor-soap.png"
+  },
+  {
+    "id": "g1-p0616",
+    "name": "Starfree XL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0617",
+    "name": "Sunsilk",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0618",
+    "name": "Swastik CUT Mango Pikel200g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0619",
+    "name": "JS Oils",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0620",
+    "name": "Lotte Choco PIE",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0621",
+    "name": "Santoor Small SET",
+    "brand_id": "brand-santoor",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/santoor-soap.jpg"
+  },
+  {
+    "id": "g1-p0622",
+    "name": "Santoor Fresh Skin",
+    "brand_id": "brand-santoor",
+    "category_id": "skin-care",
+    "image_url": "/products/packshots/santoor-soap.jpg"
+  },
+  {
+    "id": "g1-p0623",
+    "name": "SWD Garlic Mixtur",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0624",
+    "name": "Softouch 860+",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0625",
+    "name": "Softouch Liquid Blue",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0626",
+    "name": "Softouch Black",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0627",
+    "name": "Lotte Choco PIE BOX",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0628",
+    "name": "Meera Shampoo Onion",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0629",
+    "name": "Meera Onion Shampoo",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0630",
+    "name": "Karthika Shampoo",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0631",
+    "name": "Spinz Bbcream15g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0632",
+    "name": "Spinz BB Face Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0633",
+    "name": "ALL IN ONE",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0634",
+    "name": "GRB Ghee50ml",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0635",
+    "name": "GRB Ghee",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0636",
+    "name": "Spinz Bbpowder20g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0637",
+    "name": "Santoor Pack",
+    "brand_id": "brand-santoor",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/santoor-soap.jpg"
+  },
+  {
+    "id": "g1-p0638",
+    "name": "Wipro Balpu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0639",
+    "name": "Meera Shampoo",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0640",
+    "name": "Freedam Oil",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0641",
+    "name": "Sri Durga Lemon Pickle",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0642",
+    "name": "Garlic Mixture",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0643",
+    "name": "Sri Durga Pulihora Pk",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0644",
+    "name": "Sri Durga Green Tamarind Pickleb",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0645",
+    "name": "Sri Durga Ginger Pickle",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0646",
+    "name": "Ujala",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0647",
+    "name": "Sri Durga Mango Sut Pickle",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0648",
+    "name": "SRI Durga Ginger Garlic Paste",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0649",
+    "name": "SRI Durga Leman",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0650",
+    "name": "SRI Durga Mango CUT Pickle",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0651",
+    "name": "SRI Durga Tomato Pickle",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0652",
+    "name": "Tasty Nuts",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0653",
+    "name": "SRI Durga Gongura Pickle",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0654",
+    "name": "SRI Durga Amla Pickle",
+    "brand_id": "brand-dabur",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0655",
+    "name": "Castor OIL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0656",
+    "name": "SRI Durga RED Chilli Pickle",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/aachi-chilli.jpg"
+  },
+  {
+    "id": "g1-p0657",
+    "name": "SRI Durga Mango Avakai",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0658",
+    "name": "SRI Durga Mango Thokku",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0659",
+    "name": "Chegodi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/packshots/britannia-bourbon.jpg"
+  },
+  {
+    "id": "g1-p0660",
+    "name": "Bambino Vermicelli",
+    "brand_id": "brand-bambino",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0661",
+    "name": "Miriyalu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0662",
+    "name": "Mikl Rusk",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0663",
+    "name": "Classic Rusk",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0664",
+    "name": "Elaichi Rusk",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0665",
+    "name": "Milk Rusk",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0666",
+    "name": "Malkist Cheese",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0667",
+    "name": "Malkist Double Chocolatey",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0668",
+    "name": "Moong Dall",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0669",
+    "name": "Malkist Cappuccino",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0670",
+    "name": "JS Oile Deepam",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0671",
+    "name": "Knorr Green Chilli Sauce",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sauces-spreads",
+    "image_url": "/products/packshots/aachi-chilli.jpg"
+  },
+  {
+    "id": "g1-p0672",
+    "name": "Fried Rice Masala",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0673",
+    "name": "Biriyani Masala",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0674",
+    "name": "Pasta Masala",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0675",
+    "name": "Noodlles Masala",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0676",
+    "name": "Nice Peanut Chikki",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0677",
+    "name": "Corn Flakes",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0678",
+    "name": "White Sesame Chikki",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0679",
+    "name": "Pani Puri Masala",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0680",
+    "name": "Fitday Millet Chikki",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0681",
+    "name": "Chatpat Masala Noodles",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0682",
+    "name": "Choki Stix",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0683",
+    "name": "Kamarkat Sweets 1rupe",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0684",
+    "name": "Pasta C.M 0.3",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0685",
+    "name": "Tangy Imli",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0686",
+    "name": "Real AAM",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0687",
+    "name": "Kaccha AAM",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0688",
+    "name": "Gulab JAM",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sauces-spreads",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0689",
+    "name": "Kopiko",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0690",
+    "name": "JAM Ojam",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sauces-spreads",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0691",
+    "name": "Kasuri Methi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0692",
+    "name": "Black Chikki",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0693",
+    "name": "Ginger Garlic Paste",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0694",
+    "name": "RED Chilli Pickel",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/aachi-chilli.jpg"
+  },
+  {
+    "id": "g1-p0695",
+    "name": "Mango Pickel",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0696",
+    "name": "Tomato Pickel",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0697",
+    "name": "Lemon Pickel",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0698",
+    "name": "Soya Mini Chunks",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0699",
+    "name": "Gongura Pickels",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0700",
+    "name": "Assorated Fruit",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0701",
+    "name": "Ultra Floor Clean",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0702",
+    "name": "Sweeper",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0703",
+    "name": "Mango Fruit",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0704",
+    "name": "Ragi Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0705",
+    "name": "Soya Chunks",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0706",
+    "name": "Pappula Podi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0707",
+    "name": "Nalla Karam Podi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0708",
+    "name": "Ground Nuts Karam Podo",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0709",
+    "name": "Kobbari Karam Podi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0710",
+    "name": "Lavender",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0711",
+    "name": "Mangaldeep",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0712",
+    "name": "Mysore Sandal",
+    "brand_id": "brand-mysore-sandal",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/mysore-sandal-soap.jpg"
+  },
+  {
+    "id": "g1-p0713",
+    "name": "LUX Jasmine",
+    "brand_id": "brand-lux",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/lux-soap.png"
+  },
+  {
+    "id": "g1-p0714",
+    "name": "Lifebuoy",
+    "brand_id": "brand-lifebuoy",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/lifebuoy-soap.jpg"
+  },
+  {
+    "id": "g1-p0715",
+    "name": "Margo",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0716",
+    "name": "Aashirvaad Salt",
+    "brand_id": "brand-aashirvaad",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/aashirvaad-atta.jpg"
+  },
+  {
+    "id": "g1-p0717",
+    "name": "Immunity Boosting",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "drinks-juices",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0718",
+    "name": "Wagh Bakri250g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/packshots/wagh-bakri-tea.jpg"
+  },
+  {
+    "id": "g1-p0719",
+    "name": "Mangaldeep Sandal",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0720",
+    "name": "Ultra Soft Brush",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/bru-instant.jpg"
+  },
+  {
+    "id": "g1-p0721",
+    "name": "Wipper Stick",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0722",
+    "name": "Mysore Sandals Freshnol",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/mysore-sandal-soap.jpg"
+  },
+  {
+    "id": "g1-p0723",
+    "name": "BRU",
+    "brand_id": "brand-bru",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/packshots/bru-instant.png"
+  },
+  {
+    "id": "g1-p0724",
+    "name": "Horlicks Womens Plus Chocolate",
+    "brand_id": "brand-horlicks",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/packshots/horlicks.png"
+  },
+  {
+    "id": "g1-p0725",
+    "name": "Clinic Plus EGG",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0726",
+    "name": "Clear Anti-dandruff Nutrium",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0727",
+    "name": "Knorr CUP Soup",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0728",
+    "name": "Saggubiyyam",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0729",
+    "name": "Tomato Soup",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0730",
+    "name": "Masala Noodels",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0731",
+    "name": "Wall Stick",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0732",
+    "name": "Ultimate Power Liquid Detergent",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0733",
+    "name": "JOY Lady",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0734",
+    "name": "Geeta",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0735",
+    "name": "Pooja Oial",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "pooja-needs",
+    "image_url": "/products/packshots/pooja-agarbatti.jpg"
+  },
+  {
+    "id": "g1-p0736",
+    "name": "Bansi Wheat Rava",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0737",
+    "name": "Kurnool RIC BAG",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0738",
+    "name": "Bambino Mysore Pack",
+    "brand_id": "brand-bambino",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0739",
+    "name": "SRI Durga Chilli Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/aachi-chilli.jpg"
+  },
+  {
+    "id": "g1-p0740",
+    "name": "SRI Durga Chilli",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/aachi-chilli.jpg"
+  },
+  {
+    "id": "g1-p0741",
+    "name": "SRI Durga Tarmarik",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0742",
+    "name": "SRI Durga Dania Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0743",
+    "name": "Dark Fantasy",
+    "brand_id": "brand-sunfeast",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0744",
+    "name": "Corn Flour Powdar1kg",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0745",
+    "name": "707 Liquid",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0746",
+    "name": "5 Star Chaklet 510",
+    "brand_id": "brand-cadbury",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/packshots/cadbury-5-star.jpg"
+  },
+  {
+    "id": "g1-p0747",
+    "name": "5 Star 5RS",
+    "brand_id": "brand-cadbury",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/packshots/cadbury-5-star.jpg"
+  },
+  {
+    "id": "g1-p0748",
+    "name": "SP Pinapple",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0749",
+    "name": "5 Starfullbox",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/packshots/cadbury-5-star.png"
+  },
+  {
+    "id": "g1-p0750",
+    "name": "5star Fullbox",
+    "brand_id": "brand-cadbury",
+    "category_id": "instant-food",
+    "image_url": "/products/packshots/cadbury-5-star.jpg"
+  },
+  {
+    "id": "g1-p0751",
+    "name": "Staryfree XL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0752",
+    "name": "Milkybbar Smal BOX",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0753",
+    "name": "Munch 5RS",
+    "brand_id": "brand-nestle",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0754",
+    "name": "Park10rs",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0755",
+    "name": "GUM 5RS Main",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0756",
+    "name": "GUM 10rs Main",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0757",
+    "name": "Softouch",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0758",
+    "name": "Head AND Shoulder 2RS",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0759",
+    "name": "SP Mango",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0760",
+    "name": "Sunrise 5RS",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0761",
+    "name": "Hide&seek Biscuits 10rs",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0762",
+    "name": "ENO 10rs",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0763",
+    "name": "Gokul Soap BOX",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0764",
+    "name": "Kinder JOY (B",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0765",
+    "name": "Kindar Joys 25",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0766",
+    "name": "Navaratna OIL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0767",
+    "name": "Head AND Shoulder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/jg-020.jpg"
+  },
+  {
+    "id": "g1-p0768",
+    "name": "SP Orange",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "drinks-juices",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0769",
+    "name": "Lion Honey SET",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0770",
+    "name": "Nippo AAA Main",
+    "brand_id": "brand-nippo",
+    "category_id": "kitchenware",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0771",
+    "name": "Nippo Gold",
+    "brand_id": "brand-nippo",
+    "category_id": "kitchenware",
+    "image_url": "/products/jg-024.jpg"
+  },
+  {
+    "id": "g1-p0772",
+    "name": "Balian Chemiya 10",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0773",
+    "name": "Maggi 15rs",
+    "brand_id": "brand-nestle",
+    "category_id": "instant-food",
+    "image_url": "/products/packshots/maggi-noodles.png"
+  },
+  {
+    "id": "g1-p0774",
+    "name": "Baby OIL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "baby-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0775",
+    "name": "Pooja Powder B Gandam",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/pooja-agarbatti.jpg"
+  },
+  {
+    "id": "g1-p0776",
+    "name": "SP Badam",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0777",
+    "name": "Pooja Gandan Smal",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "pooja-needs",
+    "image_url": "/products/packshots/pooja-agarbatti.jpg"
+  },
+  {
+    "id": "g1-p0778",
+    "name": "Gopuram Pasupu (pure Turmeric Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/turmeric-powder.jpg"
+  },
+  {
+    "id": "g1-p0779",
+    "name": "Mariegold Biscuit",
+    "brand_id": "brand-britannia",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0780",
+    "name": "Jimjam Bisccuit",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sauces-spreads",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0781",
+    "name": "Bourbon Biscuit",
+    "brand_id": "brand-britannia",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/britannia-bourbon.jpg"
+  },
+  {
+    "id": "g1-p0782",
+    "name": "Aachi Sambar Powder",
+    "brand_id": "brand-aachi",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0783",
+    "name": "Maggi",
+    "brand_id": "brand-nestle",
+    "category_id": "instant-food",
+    "image_url": "/products/packshots/maggi-noodles.png"
+  },
+  {
+    "id": "g1-p0784",
+    "name": "SP Duet",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0785",
+    "name": "Flair Pens",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0786",
+    "name": "Flair PEN SET Main",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0787",
+    "name": "Pooja Gold OIL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0788",
+    "name": "Priya Gold",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0789",
+    "name": "Zandu Balam Red",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0790",
+    "name": "Zandu Balm Gren",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0791",
+    "name": "Sastri Balm",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0792",
+    "name": "Moov",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0793",
+    "name": "Mysore Sandal Gold",
+    "brand_id": "brand-mysore-sandal",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/mysore-sandal-soap.jpg"
+  },
+  {
+    "id": "g1-p0794",
+    "name": "SP Chocolate",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0795",
+    "name": "Swastiks Mango Pickle200g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0796",
+    "name": "Eggs",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0797",
+    "name": "Colgate Softb Kids",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p0798",
+    "name": "Sunfeast Nice",
+    "brand_id": "brand-sunfeast",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0799",
+    "name": "Dark Fantasy Choco Fills",
+    "brand_id": "brand-sunfeast",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0800",
+    "name": "Dark Fantasy Cookis",
+    "brand_id": "brand-sunfeast",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0801",
+    "name": "Dark Fantasy Chocolate Notes",
+    "brand_id": "brand-sunfeast",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0802",
+    "name": "Dark Fantasy Chocolate Cookie",
+    "brand_id": "brand-sunfeast",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0803",
+    "name": "Dark Fantasy Vanilla",
+    "brand_id": "brand-sunfeast",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0804",
+    "name": "Hing",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0805",
+    "name": "Moms Magic Cashew&almond",
+    "brand_id": "brand-sunfeast",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0806",
+    "name": "Marie Light Active",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0807",
+    "name": "Sunfeast Glucose",
+    "brand_id": "brand-sunfeast",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0808",
+    "name": "Sunfeast Glicose",
+    "brand_id": "brand-sunfeast",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0809",
+    "name": "Marie Light Evening",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0810",
+    "name": "Sunfeast Supermilk",
+    "brand_id": "brand-sunfeast",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0811",
+    "name": "Sunfeast Sweet&salty",
+    "brand_id": "brand-sunfeast",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0812",
+    "name": "Trubble GUM BIG",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0813",
+    "name": "Eggs TRA",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0814",
+    "name": "Whisper XXL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0815",
+    "name": "Sunfeast Bounce",
+    "brand_id": "brand-sunfeast",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0816",
+    "name": "Sunfeast Bourbon",
+    "brand_id": "brand-britannia",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/packshots/britannia-bourbon.jpg"
+  },
+  {
+    "id": "g1-p0817",
+    "name": "Wagh Bakri TEA",
+    "brand_id": "brand-wagh-bakri",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/packshots/wagh-bakri-tea.jpg"
+  },
+  {
+    "id": "g1-p0818",
+    "name": "Yippee Noodles",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0819",
+    "name": "Trubble GUM Small",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0820",
+    "name": "Sunfeast Fantastik Choco Almond",
+    "brand_id": "brand-sunfeast",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0821",
+    "name": "Sunfeast Fantastik Fruit &nut",
+    "brand_id": "brand-sunfeast",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0822",
+    "name": "Sunfeast Fantastik Roast&almond",
+    "brand_id": "brand-sunfeast",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0823",
+    "name": "Moms Magic Shines Shining Butter",
+    "brand_id": "brand-sunfeast",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0824",
+    "name": "Moms Magic Shines Shinig Butter",
+    "brand_id": "brand-sunfeast",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0825",
+    "name": "Pond S",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0826",
+    "name": "Kisan JAM",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sauces-spreads",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0827",
+    "name": "Yippee WOW Masala",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0828",
+    "name": "Surf Excel 10",
+    "brand_id": "brand-surf-excel",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/packshots/surf-excel.jpg"
+  },
+  {
+    "id": "g1-p0829",
+    "name": "Mangaldeep 3in1",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0830",
+    "name": "Roban Cake",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0831",
+    "name": "Bath Mugs",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0832",
+    "name": "Dustpan",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0833",
+    "name": "Soap BOX",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0834",
+    "name": "Shink Brashs",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oral-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0835",
+    "name": "Bath Brash1",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0836",
+    "name": "Cloth Brushb1",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/bru-instant.jpg"
+  },
+  {
+    "id": "g1-p0837",
+    "name": "Cloth Brash2",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oral-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0838",
+    "name": "Cloth Pins",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0839",
+    "name": "Smart MOP",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0840",
+    "name": "C Three IN ONE",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0841",
+    "name": "MOP Sticks B",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0842",
+    "name": "Cleaning Wiper",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0843",
+    "name": "Sscg3",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0844",
+    "name": "Sscg2",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0845",
+    "name": "Ssc5d",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0846",
+    "name": "Sscg4s",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0847",
+    "name": "Freedom OIL",
+    "brand_id": "brand-freedom",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0848",
+    "name": "Dove Soap BAR",
+    "brand_id": "brand-dove",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/dove-soap.jpg"
+  },
+  {
+    "id": "g1-p0849",
+    "name": "Elashi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0850",
+    "name": "EXO Scrubrs",
+    "brand_id": "brand-exo",
+    "category_id": "dishwash",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0851",
+    "name": "Bingo Masala",
+    "brand_id": "brand-bingo",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0852",
+    "name": "SRI Durga Papula Podi150g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0853",
+    "name": "Dark Fantasy5rs",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "biscuits-bakery",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0854",
+    "name": "Desi Popz",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0855",
+    "name": "Lion Honey",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0856",
+    "name": "Knorr Spicy Jjajangmyeon",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0857",
+    "name": "Sunfeast Day&night",
+    "brand_id": "brand-sunfeast",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0858",
+    "name": "Mrow",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0859",
+    "name": "Aashirvaad Rava",
+    "brand_id": "brand-aashirvaad",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/aashirvaad-suji-rava.jpg"
+  },
+  {
+    "id": "g1-p0860",
+    "name": "Dansi Rava",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0861",
+    "name": "Bingo Masti",
+    "brand_id": "brand-bingo",
+    "category_id": "chips-namkeen",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0862",
+    "name": "Bingo Tomato",
+    "brand_id": "brand-bingo",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0863",
+    "name": "Bingo Korean",
+    "brand_id": "brand-bingo",
+    "category_id": "chips-namkeen",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0864",
+    "name": "Bino Temato",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0865",
+    "name": "Bingo Chilli",
+    "brand_id": "brand-bingo",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/aachi-chilli.jpg"
+  },
+  {
+    "id": "g1-p0866",
+    "name": "Yippee Magic Masala",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0867",
+    "name": "SAI Bansi Ravva",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0868",
+    "name": "VIM Pudina Fresh",
+    "brand_id": "brand-vim",
+    "category_id": "dishwash",
+    "image_url": "/products/packshots/vim-bar.jpg"
+  },
+  {
+    "id": "g1-p0869",
+    "name": "Milkybar Choo",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0870",
+    "name": "Flair Carbonix0.7mm",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0871",
+    "name": "Camlin 0.7mm Ledis",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0872",
+    "name": "Pepper Bols",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0873",
+    "name": "SRI Durga Singer Garlic",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0874",
+    "name": "Freedom Groundnut OLI",
+    "brand_id": "brand-freedom",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0875",
+    "name": "C Naivedya CUP Sambrani",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0876",
+    "name": "Gangi Pendi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0877",
+    "name": "Gasagasaalu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0878",
+    "name": "Sompu (sweet Fennel Seeds",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0879",
+    "name": "Menthulu (fenugreek Seeds",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0880",
+    "name": "Cliinic Plus Fengreek",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0881",
+    "name": "Cliinice Plus EGG",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dairy-bread-eggs",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0882",
+    "name": "3 Roses Natural Care",
+    "brand_id": "brand-3-roses",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0883",
+    "name": "LIA Chandana",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0884",
+    "name": "Broore Bond 3roses",
+    "brand_id": "brand-3-roses",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0885",
+    "name": "3roses",
+    "brand_id": "brand-3-roses",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0886",
+    "name": "BRU Green Label",
+    "brand_id": "brand-bru",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/packshots/bru-instant.png"
+  },
+  {
+    "id": "g1-p0887",
+    "name": "BRU Super Strong",
+    "brand_id": "brand-bru",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/packshots/bru-instant.png"
+  },
+  {
+    "id": "g1-p0888",
+    "name": "Cliinic Plus Rice Water",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0889",
+    "name": "LIA Jasmin",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0890",
+    "name": "Boost BOX",
+    "brand_id": "brand-boost",
+    "category_id": "drinks-juices",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0891",
+    "name": "Horlicks Womens Plus",
+    "brand_id": "brand-horlicks",
+    "category_id": "drinks-juices",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0892",
+    "name": "Sensodyne Bresh",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0893",
+    "name": "Pumpkin Seeds",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0894",
+    "name": "Sunflower Seeds",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/sunflower-oil.jpg"
+  },
+  {
+    "id": "g1-p0895",
+    "name": "Muskmelon Seeds",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0896",
+    "name": "Ponds Cold Cream",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "skin-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0897",
+    "name": "Gadda Camphpr",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0898",
+    "name": "Watermelon Seeds",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0899",
+    "name": "LIA Rose",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0900",
+    "name": "Camphor",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "pooja-needs",
+    "image_url": "/products/packshots/pooja-agarbatti.jpg"
+  },
+  {
+    "id": "g1-p0901",
+    "name": "Lakme 2in1",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0902",
+    "name": "Parachute Aloe Vera",
+    "brand_id": "brand-parachute",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p0903",
+    "name": "Eagle Sambrani",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0904",
+    "name": "Ambika Sambrani",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0905",
+    "name": "Wagh Bakri",
+    "brand_id": "brand-wagh-bakri",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/packshots/wagh-bakri-tea.jpg"
+  },
+  {
+    "id": "g1-p0906",
+    "name": "Waghb Bakri Elaichi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/packshots/wagh-bakri-tea.jpg"
+  },
+  {
+    "id": "g1-p0907",
+    "name": "Cycle LIA Lavender",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0908",
+    "name": "Musore Sandal Baby 75",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "baby-care",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0909",
+    "name": "Gokilam Dates",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0910",
+    "name": "Mysore Sandal CUO Sambrani",
+    "brand_id": "brand-mysore-sandal",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/mysore-sandal-soap.jpg"
+  },
+  {
+    "id": "g1-p0911",
+    "name": "Right Zoom",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0912",
+    "name": "Right Zoomb",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0913",
+    "name": "Swastiks Vermicelli",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0914",
+    "name": "Apsara Pencils",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0915",
+    "name": "Liril Limen",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0916",
+    "name": "Cycle LIA Pinapple",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0917",
+    "name": "Mysore Sandal Kleenoi",
+    "brand_id": "brand-mysore-sandal",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/mysore-sandal-soap.jpg"
+  },
+  {
+    "id": "g1-p0918",
+    "name": "Ultra Wash",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0919",
+    "name": "Bleaching Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0920",
+    "name": "Swastiks RED Chilli Pickle",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/aachi-chilli.jpg"
+  },
+  {
+    "id": "g1-p0921",
+    "name": "Knorr RED Chilli Sauce",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sauces-spreads",
+    "image_url": "/products/packshots/aachi-chilli.jpg"
+  },
+  {
+    "id": "g1-p0922",
+    "name": "Ujala Crisp Shine",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0923",
+    "name": "Oiones",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0924",
+    "name": "C Sugandha Mallika",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0925",
+    "name": "Ponds Body Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0926",
+    "name": "Ponds Body Powder Magic",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0927",
+    "name": "Ponds Body Powder Aloe Cooling",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0928",
+    "name": "Ponds Body Powder Starlight",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0929",
+    "name": "Ponds Body Powder Dreamflower",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0930",
+    "name": "NSR",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0931",
+    "name": "Ponds Body Powder Sandal",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0932",
+    "name": "C Sandlaum",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0933",
+    "name": "Gokul Secret Garden",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0934",
+    "name": "Gokul Floral Fresh",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oral-care",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0935",
+    "name": "Kalkanda Candy",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0936",
+    "name": "EXO Ginger Lamon",
+    "brand_id": "brand-exo",
+    "category_id": "dishwash",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0937",
+    "name": "Mysore Sandal Agarbathi",
+    "brand_id": "brand-mysore-sandal",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/mysore-sandal-soap.jpg"
+  },
+  {
+    "id": "g1-p0938",
+    "name": "Moms Magic Cashew& Almond",
+    "brand_id": "brand-sunfeast",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0939",
+    "name": "HIT Anti Roach",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0940",
+    "name": "Nycil Germ Expert",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0941",
+    "name": "C Sandulum Cones",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0942",
+    "name": "Fogg Spray",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0943",
+    "name": "Fanta 10rupees",
+    "brand_id": "brand-fanta",
+    "category_id": "drinks-juices",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0944",
+    "name": "Limca 10rupees",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0945",
+    "name": "Tulips Cotton Swabs",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0946",
+    "name": "Coca Cala",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0947",
+    "name": "Cycle LIA Cones",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0948",
+    "name": "Sprite Zero Sugur",
+    "brand_id": "brand-sprite",
+    "category_id": "drinks-juices",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0949",
+    "name": "Thumsup Xforce",
+    "brand_id": "brand-thums-up",
+    "category_id": "hygiene",
+    "image_url": "/products/packshots/thums-up.jpg"
+  },
+  {
+    "id": "g1-p0950",
+    "name": "Freedom",
+    "brand_id": "brand-freedom",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0951",
+    "name": "Chilly Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0952",
+    "name": "Freedom Rice",
+    "brand_id": "brand-freedom",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0953",
+    "name": "Minute Maid Orange",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "drinks-juices",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0954",
+    "name": "Maaza",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/packshots/frooti.jpg"
+  },
+  {
+    "id": "g1-p0955",
+    "name": "Rimzim Jeera (cumin Seeds",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0956",
+    "name": "Scissors 10inch",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0957",
+    "name": "Scissors 8.2 Inch",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0958",
+    "name": "RED Label Natural Care",
+    "brand_id": "brand-red-label",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/packshots/red-label-tea.png"
+  },
+  {
+    "id": "g1-p0959",
+    "name": "Kinley Salty Lemon Soda",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0960",
+    "name": "Kinleystrong Soda",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0961",
+    "name": "Sprite",
+    "brand_id": "brand-sprite",
+    "category_id": "drinks-juices",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0962",
+    "name": "Kinley Water",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0963",
+    "name": "Kinley",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0964",
+    "name": "Spis Himalaya Honey",
+    "brand_id": "brand-himalaya",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0965",
+    "name": "Broen Sugar",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0966",
+    "name": "MIX Fruit Jelly",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0967",
+    "name": "Cherry",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0968",
+    "name": "Oringe Candy",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0969",
+    "name": "Unibic Casew Badam",
+    "brand_id": "brand-unibic",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/packshots/unibic-choco-ripple.jpg"
+  },
+  {
+    "id": "g1-p0970",
+    "name": "Naturo",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0971",
+    "name": "Kashmir MIX",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0972",
+    "name": "Straberry Candyb",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sweets-chocolates",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0973",
+    "name": "Tulasi Sesame Jumbo 200",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0974",
+    "name": "Tulasi Peanut",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0975",
+    "name": "Peanut Balls",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p0976",
+    "name": "Honey",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0977",
+    "name": "Nattu Sakkarai",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0978",
+    "name": "Salt Bisckit",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0979",
+    "name": "Mayur Makhana",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0980",
+    "name": "Coconut Fudge",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0981",
+    "name": "Fofello",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0982",
+    "name": "Kaju Butter",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0983",
+    "name": "Jewels",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0984",
+    "name": "Almond Roasted",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0985",
+    "name": "Pistachio",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0986",
+    "name": "Osmania Bisc",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0987",
+    "name": "Barari Dattes",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0988",
+    "name": "Makhana Savory&crunch",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0989",
+    "name": "Mint Pudina",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0990",
+    "name": "Coriander Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/britannia-bourbon.jpg"
+  },
+  {
+    "id": "g1-p0991",
+    "name": "Makhana Punjabi Tikka",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0992",
+    "name": "Makhana Seasalt&pepper",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0993",
+    "name": "Makhana Mrxican Jalarena",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0994",
+    "name": "Makhana Tomata",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0995",
+    "name": "Makhana Cream&onion",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "vegetables-fruits",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0996",
+    "name": "Makhana Cheese&garlic",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0997",
+    "name": "Vijaya Groundnut OIL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0998",
+    "name": "Organic Jaggery Candy",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p0999",
+    "name": "Organic Jaggery &ginger500g",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1000",
+    "name": "Oats",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1001",
+    "name": "Aashirvaad Chilli Powder",
+    "brand_id": "brand-aashirvaad",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/aashirvaad-atta.jpg"
+  },
+  {
+    "id": "g1-p1002",
+    "name": "Acid",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "floor-surface-cleaners",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1003",
+    "name": "Super MOP",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1004",
+    "name": "LG Engiva",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1005",
+    "name": "Endu Mirchi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/packshots/aachi-chilli.jpg"
+  },
+  {
+    "id": "g1-p1006",
+    "name": "Endu Merchi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1007",
+    "name": "Makhana Seeds",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1008",
+    "name": "Salt Pista",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "dry-fruits-cereals",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1009",
+    "name": "Dazzy Orientto BOX",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1010",
+    "name": "Ponds Bricht Beauty",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1011",
+    "name": "Alasandalu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p1012",
+    "name": "RED Alasandalu",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p1013",
+    "name": "RIN Antibav",
+    "brand_id": "brand-rin",
+    "category_id": "laundry-detergents",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1014",
+    "name": "Subha Lakshmi Turmeric 100",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/turmeric-powder.jpg"
+  },
+  {
+    "id": "g1-p1015",
+    "name": "Gemini TEE",
+    "brand_id": "brand-gemini",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1016",
+    "name": "JS Oile",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1017",
+    "name": "LUX Glutathione",
+    "brand_id": "brand-lux",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/lux-soap.png"
+  },
+  {
+    "id": "g1-p1018",
+    "name": "Colgate Maxfesh",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p1019",
+    "name": "Gulab Jamum MIX",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sauces-spreads",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1020",
+    "name": "Aachhi Garam Masala",
+    "brand_id": "brand-aachi",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1021",
+    "name": "Colgate Extra Medium",
+    "brand_id": "brand-colgate",
+    "category_id": "oral-care",
+    "image_url": "/products/packshots/colgate-toothpaste.jpg"
+  },
+  {
+    "id": "g1-p1022",
+    "name": "SRI Durga Coriander",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p1023",
+    "name": "ITC Chikkin Masala",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p1024",
+    "name": "Knorr Dark Soya SAS",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1025",
+    "name": "ENO",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1026",
+    "name": "Dove Shampoo",
+    "brand_id": "brand-dove",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/dove-soap.jpg"
+  },
+  {
+    "id": "g1-p1027",
+    "name": "Soanpapdi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "instant-food",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1028",
+    "name": "Chenaga Pindi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1029",
+    "name": "Neem Nimyle",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1030",
+    "name": "Maida Pindi",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "atta-rice-dal",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1031",
+    "name": "Pachi Karpooram BOX",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1032",
+    "name": "ITC Garam Masala",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/packshots/toor-dal.jpg"
+  },
+  {
+    "id": "g1-p1033",
+    "name": "Pachi Karpooram",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1034",
+    "name": "Parachute Ayurvedic",
+    "brand_id": "brand-parachute",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p1035",
+    "name": "Z Magnetsm FOR MEN",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1036",
+    "name": "Z Magnetsn FOR MAN",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1037",
+    "name": "ALL OUT Ultra Likved",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1038",
+    "name": "Veet",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1039",
+    "name": "Gokul Santol Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1040",
+    "name": "MTR Gulab Jamun",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "sauces-spreads",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1041",
+    "name": "Gillette Foam",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1042",
+    "name": "Gemini",
+    "brand_id": "brand-gemini",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1043",
+    "name": "Gemini TEA",
+    "brand_id": "brand-gemini",
+    "category_id": "oil-ghee-masala",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1044",
+    "name": "Chandrika Soap",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1045",
+    "name": "Popular Appalam / Papad",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "chips-namkeen",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1046",
+    "name": "50-50 Sweet&salty",
+    "brand_id": "brand-britannia",
+    "category_id": "sugar-salt-staples",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1047",
+    "name": "Aswini Hair OIL",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hair-care",
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "g1-p1048",
+    "name": "Banjaras Rose Water",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1049",
+    "name": "Black Henna BOX",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1050",
+    "name": "Black Rose Hair DYE",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "hygiene",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1051",
+    "name": "Spingz BB Powder",
+    "brand_id": "brand-g1-mart-fresh",
+    "category_id": "soaps-bath",
+    "image_url": "/products/placeholder.svg"
+  },
+  {
+    "id": "g1-p1052",
+    "name": "Santoor Sandal & Milk Soap",
+    "brand_id": "brand-santoor",
+    "category_id": "soaps-bath",
+    "image_url": "/products/packshots/santoor-soap.jpg"
+  },
+  {
+    "id": "g1-p1053",
+    "name": "Chakra Gold",
+    "brand_id": "brand-chakra-gold",
+    "category_id": "tea-coffee-milk-drinks",
+    "image_url": "/products/placeholder.svg"
+  }
+]

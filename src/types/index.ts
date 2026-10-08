@@ -5,11 +5,31 @@ export type UserRole = 'customer' | 'admin' | 'delivery_partner' | 'rider';
 export type ImageSource = 'own_photo' | 'openfoodfacts' | 'manufacturer' | 'placeholder';
 export type ImageStatus = 'VERIFIED' | 'PENDING' | 'MISSING' | 'NEEDS_REVIEW' | 'pending' | 'approved' | 'placeholder';
 
+export interface Section {
+  id: string;
+  name: string;
+  sort_order: number;
+  created_at?: string;
+}
+
+export interface ProductVariant {
+  id: string;
+  product_id: string;
+  size_label: string;
+  price: number;
+  mrp: number;
+  stock: number;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export interface Product {
   id: string;
-  source_item_no?: number;
-  source_name?: string;
   name: string;
+  brand_id?: string | null;
+  category_id?: string | null;
+  image_url?: string | null;
+  variants?: ProductVariant[];
   brand: string;
   category: string;
   subCategory?: string;
@@ -22,17 +42,20 @@ export interface Product {
   inStock: boolean;
   stockCount: number;
   image: string;
-  image_url?: string | null;
   imageUrl?: string | null;
   image_path?: string;
-  image_source: ImageSource;
+  image_source?: ImageSource;
   image_license?: string | null;
-  image_status: ImageStatus;
+  image_status?: ImageStatus;
   imageStatus?: ImageStatus;
   image_match_note?: string;
   description: string;
   rating: number;
   reviewsCount: number;
+  itemNumber?: number | string;
+  isActive?: boolean;
+  source_item_no?: number;
+  source_name?: string;
   isPopular?: boolean;
   isBestDeal?: boolean;
   sku?: string;
@@ -42,7 +65,6 @@ export interface Product {
   is_ambiguous?: boolean;
   ambiguity_note?: string;
   is_verified?: boolean;
-  brand_id?: string | null;
   family_id?: string | null;
   pack_size?: string | null;
 }
@@ -52,6 +74,7 @@ export interface Brand {
   name: string;
   logo_url?: string | null;
   category_id?: string | null;
+  created_at?: string;
 }
 
 export interface Category {
@@ -65,6 +88,9 @@ export interface Category {
   group?: string;
   parent_id?: string | null;
   display_order?: number;
+  section_id?: string | null;
+  tile_image_url?: string;
+  sort_order?: number;
 }
 
 export interface SearchSynonym {
@@ -89,6 +115,10 @@ export interface CustomerSavedList {
 export interface CartItem {
   product: Product;
   quantity: number;
+  /** Active variant selected by the user (if the product has variants) */
+  variant?: ProductVariant;
+  /** Variant ID shortcut for storage/serialization */
+  variantId?: string;
 }
 
 export interface Address {
@@ -151,6 +181,8 @@ export interface OrderItem {
   price: number;
   quantity: number;
   image: string;
+  variantId?: string;
+  sizeLabel?: string;
 }
 
 export interface PaymentRecord {

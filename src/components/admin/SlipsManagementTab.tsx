@@ -157,7 +157,7 @@ export default function SlipsManagementTab() {
 
         <button
           type="button"
-          onClick={fetchSlips}
+          onClick={() => fetchSlips()}
           disabled={loading}
           className="self-start sm:self-center px-3.5 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
         >

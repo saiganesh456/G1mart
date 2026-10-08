@@ -1,0 +1,374 @@
+[
+  {
+    "id": "brand-3-roses",
+    "name": "3 Roses",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-aachi",
+    "name": "Aachi",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-aashirvaad",
+    "name": "Aashirvaad",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-ariel",
+    "name": "Ariel",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-arun-icecreams",
+    "name": "Arun Icecreams",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-bambino",
+    "name": "Bambino",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-bingo",
+    "name": "Bingo",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-boost",
+    "name": "Boost",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-britannia",
+    "name": "Britannia",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-bru",
+    "name": "Bru",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-cadbury",
+    "name": "Cadbury",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-chakra-gold",
+    "name": "Chakra Gold",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-cinthol",
+    "name": "Cinthol",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-close-up",
+    "name": "Close Up",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-coca-cola",
+    "name": "Coca-Cola",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-colgate",
+    "name": "Colgate",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-continental",
+    "name": "Continental",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-dabur",
+    "name": "Dabur",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-dettol",
+    "name": "Dettol",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-domex",
+    "name": "Domex",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-dove",
+    "name": "Dove",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-exo",
+    "name": "Exo",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-fanta",
+    "name": "Fanta",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-freedom",
+    "name": "Freedom",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-g1-mart-fresh",
+    "name": "G1 Mart Fresh",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-gemini",
+    "name": "Gemini",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-glow-lovely",
+    "name": "Glow & Lovely",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-glucon-d",
+    "name": "Glucon-D",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-hamam",
+    "name": "Hamam",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-harpic",
+    "name": "Harpic",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-hatsun",
+    "name": "Hatsun",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-himalaya",
+    "name": "Himalaya",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-horlicks",
+    "name": "Horlicks",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-keo-karpin",
+    "name": "Keo Karpin",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-kesh-king",
+    "name": "Kesh King",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-lifebuoy",
+    "name": "Lifebuoy",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-lizol",
+    "name": "Lizol",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-lux",
+    "name": "Lux",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-medimix",
+    "name": "Medimix",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-minute-maid",
+    "name": "Minute Maid",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-mysore-sandal",
+    "name": "Mysore Sandal",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-nestle",
+    "name": "Nestle",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-nippo",
+    "name": "Nippo",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-parachute",
+    "name": "Parachute",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-parle",
+    "name": "Parle",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-pears",
+    "name": "Pears",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-pepsodent",
+    "name": "Pepsodent",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-red-label",
+    "name": "Red Label",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-rin",
+    "name": "Rin",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-santoor",
+    "name": "Santoor",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-sprite",
+    "name": "Sprite",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-sunfeast",
+    "name": "Sunfeast",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-surf-excel",
+    "name": "Surf Excel",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-tata",
+    "name": "Tata",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-tata-salt",
+    "name": "Tata Salt",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-thums-up",
+    "name": "Thums Up",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-tide",
+    "name": "Tide",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-unibic",
+    "name": "Unibic",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-vasmol",
+    "name": "Vasmol",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-vim",
+    "name": "Vim",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-wagh-bakri",
+    "name": "Wagh Bakri",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  },
+  {
+    "id": "brand-wheel",
+    "name": "Wheel",
+    "logo_url": null,
+    "created_at": "2026-10-08T12:00:00Z"
+  }
+]

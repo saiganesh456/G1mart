@@ -44,3 +44,6 @@ next-env.d.ts
 # Python
 __pycache__/
 *.pyc
+
+# Local backup
+backup_pre_migration/

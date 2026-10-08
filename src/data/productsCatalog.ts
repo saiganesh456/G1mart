@@ -445,6 +445,53 @@ const TOP_CURATED_STAPLES: Product[] = [
   },
 ];
 
+const SUBCAT_TO_CATEGORY: Record<string, string> = {
+  'Atta, Flours & Sooji': 'atta-rice-dal',
+  'Rice, Poha & Vermicelli': 'atta-rice-dal',
+  'Dals & Pulses': 'atta-rice-dal',
+  'Edible Cooking Oils & Ghee': 'oil-ghee-masala',
+  'Spices, Masalas & Seeds': 'oil-ghee-masala',
+  'Dairy & Ice Creams': 'dairy-bread-eggs',
+  'Salt, Sugar & Jaggery': 'sugar-salt-staples',
+  'Kitchen Staples': 'sugar-salt-staples',
+  'Biscuits, Rusks & Cookies': 'biscuits-bakery',
+  'Chocolates & Sweets': 'sweets-chocolates',
+  'Chips & Namkeen': 'chips-namkeen',
+  'Cold Drinks & Health Juices': 'drinks-juices',
+  'Tea, Chai & Coffee': 'tea-coffee-milk-drinks',
+  'Packaged Foods': 'instant-food',
+  'Laundry & Detergents': 'laundry-detergents',
+  'Dishwashing & Utensil Care': 'dishwash',
+  'Cleaners & Pest Control': 'floor-surface-cleaners',
+  'Cleaning Essentials': 'floor-surface-cleaners',
+  'Electricals & Batteries': 'kitchenware',
+  'Pooja Agarbatti & Dhoop': 'pooja-needs',
+  'Bath Soaps': 'soaps-bath',
+  'Oral Care': 'oral-care',
+  'Hair Oils & Care': 'hair-care',
+  'Personal Care Essentials': 'hygiene',
+};
+
+export function resolveProductCategory(item: any): string {
+  if (item.category_id && SUBCAT_TO_CATEGORY[item.category_id]) {
+    return SUBCAT_TO_CATEGORY[item.category_id];
+  }
+  const sub = item.subCategory || item.sub_category || '';
+  const name = (item.name || '').toLowerCase();
+  if (name.includes('baby') || name.includes('diaper')) return 'baby-care';
+  if (/sauce|jam|ketchup|spread|mayonnaise/.test(name)) return 'sauces-spreads';
+  if (/vegetable|fruit|onion|potato|tomato/.test(name)) return 'vegetables-fruits';
+  if (/almond|cashew|badam|kaju|cereal|oats|corn flakes|pista/.test(name)) return 'dry-fruits-cereals';
+  if (/face wash|skin|cold cream|lotion|body lotion|vaseline/.test(name)) return 'skin-care';
+  if (SUBCAT_TO_CATEGORY[sub]) return SUBCAT_TO_CATEGORY[sub];
+  const oldCat = item.category || '';
+  if (oldCat === 'pooja-essentials') return 'pooja-needs';
+  if (oldCat === 'snacks-beverages') return 'chips-namkeen';
+  if (oldCat === 'household-cleaning') return 'floor-surface-cleaners';
+  if (oldCat === 'personal-care') return 'soaps-bath';
+  return 'sugar-salt-staples';
+}
+
 const mappedRawCatalog: Product[] = (rawCatalog as any[]).map((item) => {
   const isApproved = Boolean(item.imageUrl && (item.imageStatus === 'VERIFIED' || item.imageStatus === 'approved'));
   const effectivePrice = Number(item.price && item.price > 0 ? item.price : 0);
@@ -459,13 +506,16 @@ const mappedRawCatalog: Product[] = (rawCatalog as any[]).map((item) => {
     displayName = `${displayName} (${item.unit})`;
   }
 
+  const resolvedCategory = resolveProductCategory(item);
+
   return {
     id: item.id,
     itemNumber: item.sourceItemNo ?? item.itemNumber,
     rawName: item.sourceName ?? item.name,
     name: displayName,
     brand: item.brand || 'Unbranded',
-    category: item.category || 'other',
+    category: resolvedCategory,
+    category_id: resolvedCategory,
     subCategory: item.subCategory ?? undefined,
     unit: item.unit || '1 unit',
     price: effectivePrice,

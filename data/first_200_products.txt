@@ -1,0 +1,200 @@
+#001 | ItemNo: 1 | ID: g1-1 | Name: Unibic Wafer | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#002 | ItemNo: 2 | ID: g1-2 | Name: Unibic Waffer | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#003 | ItemNo: 3 | ID: g1-3 | Name: Unibic Cashew Badam | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 6.43 | Img: /products/packshots/unibic-choco-ripple.jpg
+#004 | ItemNo: 4 | ID: g1-4 | Name: Unibic Fruit & NUT | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 39.33 | Img: /products/packshots/unibic-choco-ripple.jpg
+#005 | ItemNo: 5 | ID: g1-5 | Name: Unibic Choco NUT | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 22.49 | Img: /products/packshots/unibic-choco-ripple.jpg
+#006 | ItemNo: 7 | ID: g1-7 | Name: Unibic Pista Badam | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 52.4 | Img: /products/packshots/unibic-choco-ripple.jpg
+#007 | ItemNo: 8 | ID: g1-8 | Name: Unibic Orange Splash | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 28.0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#008 | ItemNo: 9 | ID: g1-9 | Name: Unibic Casew Badam | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 28.0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#009 | ItemNo: 10 | ID: g1-10 | Name: Unibic Choco Ripple | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 28.0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#010 | ItemNo: 11 | ID: g1-11 | Name: Unibic Butter | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 16.33 | Img: /products/packshots/unibic-choco-ripple.jpg
+#011 | ItemNo: 12 | ID: g1-12 | Name: Unibic Cashew | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 42.33 | Img: /products/packshots/unibic-choco-ripple.jpg
+#012 | ItemNo: 13 | ID: g1-13 | Name: Unibic Fruit & NUT | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 39.33 | Img: /products/packshots/unibic-choco-ripple.jpg
+#013 | ItemNo: 14 | ID: g1-14 | Name: Unibic Pista Badam | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 52.4 | Img: /products/packshots/unibic-choco-ripple.jpg
+#014 | ItemNo: 15 | ID: g1-15 | Name: Unibic Choco NUT | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 22.49 | Img: /products/packshots/unibic-choco-ripple.jpg
+#015 | ItemNo: 16 | ID: g1-16 | Name: Unibic Choco Chip | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 30.0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#016 | ItemNo: 17 | ID: g1-17 | Name: Unibic Danish Coconut | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 10.0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#017 | ItemNo: 18 | ID: g1-18 | Name: Unibic Fruit & NUT | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 39.33 | Img: /products/packshots/unibic-choco-ripple.jpg
+#018 | ItemNo: 19 | ID: g1-19 | Name: Unibic Choco Ripple | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 8.33 | Img: /products/packshots/unibic-choco-ripple.jpg
+#019 | ItemNo: 20 | ID: g1-20 | Name: Unibic Orange Splash | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 7.38 | Img: /products/packshots/unibic-choco-ripple.jpg
+#020 | ItemNo: 21 | ID: g1-21 | Name: Unibic Cashew Badam | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 6.43 | Img: /products/packshots/unibic-choco-ripple.jpg
+#021 | ItemNo: 22 | ID: g1-22 | Name: Unibic Butter | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 16.33 | Img: /products/packshots/unibic-choco-ripple.jpg
+#022 | ItemNo: 23 | ID: g1-23 | Name: Unibic Fruit & NUT | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 39.33 | Img: /products/packshots/unibic-choco-ripple.jpg
+#023 | ItemNo: 24 | ID: g1-24 | Name: Unibic Pista Badam | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 52.4 | Img: /products/packshots/unibic-choco-ripple.jpg
+#024 | ItemNo: 25 | ID: g1-25 | Name: Unibic Choco Chip | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 30.0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#025 | ItemNo: 26 | ID: g1-26 | Name: Unibic Cashew | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 42.33 | Img: /products/packshots/unibic-choco-ripple.jpg
+#026 | ItemNo: 27 | ID: g1-27 | Name: Unibic Choco NUT | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 22.49 | Img: /products/packshots/unibic-choco-ripple.jpg
+#027 | ItemNo: 28 | ID: g1-28 | Name: Unibic Butter | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 16.33 | Img: /products/packshots/unibic-choco-ripple.jpg
+#028 | ItemNo: 29 | ID: g1-29 | Name: Unibic Coconut | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 30.0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#029 | ItemNo: 30 | ID: g1-30 | Name: Unibic Oats | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 58.0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#030 | ItemNo: 31 | ID: g1-31 | Name: Unibic Sugar Free Butter | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#031 | ItemNo: 32 | ID: g1-32 | Name: Unibic Free Multigrain | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#032 | ItemNo: 33 | ID: g1-33 | Name: Unibic Free Cashew | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#033 | ItemNo: 34 | ID: g1-34 | Name: Unibic Sugar Free Oatmeal | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#034 | ItemNo: 35 | ID: g1-35 | Name: Unibic Biscot | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#035 | ItemNo: 36 | ID: g1-36 | Name: Biscott | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 30.0 | Img: /products/packshots/good-day.jpg
+#036 | ItemNo: 37 | ID: g1-37 | Name: Unibic Cheese Wafer | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#037 | ItemNo: 38 | ID: g1-38 | Name: Unibic Straberry Wafer | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#038 | ItemNo: 39 | ID: g1-39 | Name: Unibic Chocolate Wafer | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#039 | ItemNo: 40 | ID: g1-40 | Name: Unibic Straberry Wafer | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#040 | ItemNo: 41 | ID: g1-41 | Name: Unibic Rich Chocolate Wafer | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#041 | ItemNo: 42 | ID: g1-42 | Name: Unibic Milky Biscot | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 0 | Img: /products/packshots/unibic-choco-ripple.jpg
+#042 | ItemNo: 43 | ID: g1-43 | Name: Unibic Cashew Badam | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 6.43 | Img: /products/packshots/unibic-choco-ripple.jpg
+#043 | ItemNo: 44 | ID: g1-44 | Name: Unibic Choco Ripple | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 8.33 | Img: /products/packshots/unibic-choco-ripple.jpg
+#044 | ItemNo: 45 | ID: g1-45 | Name: Unibic Orange Splash | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 7.38 | Img: /products/packshots/unibic-choco-ripple.jpg
+#045 | ItemNo: 46 | ID: g1-46 | Name: Unibic Butter | Brand: Unibic | Cat: snacks-beverages | SubCat: Biscuits, Rusks & Cookies | Price: 16.33 | Img: /products/packshots/unibic-choco-ripple.jpg
+#046 | ItemNo: 47 | ID: g1-47 | Name: SWD Spicy Nuts 25G | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chips & Namkeen | Price: 10.0 | Img: /products/packshots/haldiram-khatta-meetha.jpg
+#047 | ItemNo: 48 | ID: g1-48 | Name: SWD Garlic Mixtur | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chips & Namkeen | Price: 10.0 | Img: /products/packshots/haldiram-khatta-meetha.jpg
+#048 | ItemNo: 49 | ID: g1-49 | Name: ALL IN ONE 100g | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Packaged Foods | Price: 55.0 | Img: /products/packshots/good-day.jpg
+#049 | ItemNo: 50 | ID: g1-50 | Name: Garlic Mixture 100g | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chips & Namkeen | Price: 55.0 | Img: /products/packshots/haldiram-khatta-meetha.jpg
+#050 | ItemNo: 51 | ID: g1-51 | Name: Tasty Nuts 100g | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chips & Namkeen | Price: 55.0 | Img: /products/packshots/haldiram-khatta-meetha.jpg
+#051 | ItemNo: 52 | ID: g1-52 | Name: Chegodi | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chips & Namkeen | Price: 0 | Img: /products/packshots/haldiram-khatta-meetha.jpg
+#052 | ItemNo: 53 | ID: g1-53 | Name: Moong Dall 120g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 55.0 | Img: /products/packshots/moong-dal.jpg
+#053 | ItemNo: 54 | ID: g1-54 | Name: Corn Flakes 100g | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Instant & Packaged Food | Price: 0 | Img: /products/packshots/corn-flakes.jpg
+#054 | ItemNo: 55 | ID: g1-55 | Name: Gulab JAM (1+1) 160gm | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chocolates & Sweets | Price: 135.0 | Img: /products/packshots/cadbury-dairy-milk.jpg
+#055 | ItemNo: 56 | ID: g1-56 | Name: Soya Mini Chunks 200g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 0 | Img: /products/packshots/toor-dal.jpg
+#056 | ItemNo: 57 | ID: g1-57 | Name: Soya Chunks 200g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 0 | Img: /products/packshots/toor-dal.jpg
+#057 | ItemNo: 58 | ID: g1-58 | Name: Soya Chunks 42G | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 10.0 | Img: /products/packshots/toor-dal.jpg
+#058 | ItemNo: 59 | ID: g1-59 | Name: Soya Mini Chunks 42G | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 0 | Img: /products/packshots/toor-dal.jpg
+#059 | ItemNo: 60 | ID: g1-60 | Name: Masala Noodels 50G | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Instant & Packaged Food | Price: 0 | Img: /products/packshots/maggi-noodles.jpg
+#060 | ItemNo: 61 | ID: g1-61 | Name: Bambino Mysore Pack 200g | Brand: Bambino | Cat: snacks-beverages | SubCat: Chocolates & Sweets | Price: 0 | Img: /products/packshots/cadbury-dairy-milk.jpg
+#061 | ItemNo: 62 | ID: g1-62 | Name: SP Pinapple 200g | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Packaged Foods | Price: 0 | Img: /products/packshots/good-day.jpg
+#062 | ItemNo: 63 | ID: g1-63 | Name: SP Mango 200g | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Packaged Foods | Price: 0 | Img: /products/packshots/good-day.jpg
+#063 | ItemNo: 64 | ID: g1-64 | Name: SP Orange 200g | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Cold Drinks & Health Juices | Price: 0 | Img: /products/packshots/good-day.jpg
+#064 | ItemNo: 65 | ID: g1-65 | Name: SP Badam 200g | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Dry Fruits, Nuts & Seeds | Price: 0 | Img: /products/packshots/cashew-nuts.jpg
+#065 | ItemNo: 66 | ID: g1-66 | Name: SP Duet 200g | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Packaged Foods | Price: 70.0 | Img: /products/packshots/good-day.jpg
+#066 | ItemNo: 67 | ID: g1-67 | Name: SP Chocolate 200g | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chocolates & Sweets | Price: 70.0 | Img: /products/packshots/cadbury-dairy-milk.jpg
+#067 | ItemNo: 68 | ID: g1-68 | Name: Hing 40G | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 0 | Img: /products/packshots/garam-masala.jpg
+#068 | ItemNo: 69 | ID: g1-69 | Name: Trubble GUM BIG | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chocolates & Sweets | Price: 0 | Img: /products/packshots/cadbury-dairy-milk.jpg
+#069 | ItemNo: 70 | ID: g1-70 | Name: Trubble GUM Small | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chocolates & Sweets | Price: 0 | Img: /products/packshots/cadbury-dairy-milk.jpg
+#070 | ItemNo: 71 | ID: g1-71 | Name: Roban Cake 25G | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 20.0 | Img: /products/packshots/santoor-soap.jpg
+#071 | ItemNo: 72 | ID: g1-72 | Name: C Three IN ONE | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#072 | ItemNo: 73 | ID: g1-73 | Name: C Three IN ONE | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#073 | ItemNo: 74 | ID: g1-74 | Name: C Three IN ONE | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#074 | ItemNo: 75 | ID: g1-75 | Name: C Three IN ONE | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#075 | ItemNo: 76 | ID: g1-76 | Name: C Naivedya CUP Sambrani | Brand: G1 Mart Fresh | Cat: pooja-essentials | SubCat: Pooja Needs & Incense | Price: 0 | Img: /products/packshots/pooja-agarbatti.jpg
+#076 | ItemNo: 77 | ID: g1-77 | Name: LIA Chandana | Brand: G1 Mart Fresh | Cat: pooja-essentials | SubCat: Pooja Needs & Incense | Price: 0 | Img: /products/packshots/pooja-agarbatti.jpg
+#077 | ItemNo: 78 | ID: g1-78 | Name: LIA Jasmin | Brand: G1 Mart Fresh | Cat: pooja-essentials | SubCat: Pooja Needs & Incense | Price: 0 | Img: /products/packshots/pooja-agarbatti.jpg
+#078 | ItemNo: 79 | ID: g1-79 | Name: LIA Rose | Brand: G1 Mart Fresh | Cat: pooja-essentials | SubCat: Pooja Needs & Incense | Price: 0 | Img: /products/packshots/pooja-agarbatti.jpg
+#079 | ItemNo: 80 | ID: g1-80 | Name: Cycle LIA Lavender | Brand: G1 Mart Fresh | Cat: pooja-essentials | SubCat: Pooja Needs & Incense | Price: 0 | Img: /products/packshots/pooja-agarbatti.jpg
+#080 | ItemNo: 81 | ID: g1-81 | Name: Cycle LIA Pinapple | Brand: G1 Mart Fresh | Cat: pooja-essentials | SubCat: Pooja Needs & Incense | Price: 0 | Img: /products/packshots/pooja-agarbatti.jpg
+#081 | ItemNo: 82 | ID: g1-82 | Name: C Sugandha Mallika | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#082 | ItemNo: 83 | ID: g1-83 | Name: C Sandlaum | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#083 | ItemNo: 84 | ID: g1-84 | Name: C Sandulum Cones | Brand: G1 Mart Fresh | Cat: pooja-essentials | SubCat: Pooja Needs & Incense | Price: 0 | Img: /products/packshots/pooja-agarbatti.jpg
+#084 | ItemNo: 85 | ID: g1-85 | Name: Cycle LIA Cones | Brand: G1 Mart Fresh | Cat: pooja-essentials | SubCat: Pooja Needs & Incense | Price: 0 | Img: /products/packshots/pooja-agarbatti.jpg
+#085 | ItemNo: 86 | ID: g1-86 | Name: Turmeric Powder 100g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 45.0 | Img: /products/packshots/turmeric-powder.jpg
+#086 | ItemNo: 87 | ID: g1-87 | Name: Turmeric Powder 500g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 145.0 | Img: /products/packshots/turmeric-powder.jpg
+#087 | ItemNo: 88 | ID: g1-88 | Name: Chilly Powder 50G | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 0 | Img: /products/packshots/aachi-chilli.jpg
+#088 | ItemNo: 89 | ID: g1-89 | Name: Chilly Powder 100g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 55.0 | Img: /products/packshots/aachi-chilli.jpg
+#089 | ItemNo: 90 | ID: g1-90 | Name: Chilly Powder 200g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 0 | Img: /products/packshots/aachi-chilli.jpg
+#090 | ItemNo: 91 | ID: g1-91 | Name: Chilly Powder 500g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 0 | Img: /products/packshots/aachi-chilli.jpg
+#091 | ItemNo: 92 | ID: g1-92 | Name: Coriander Powder 50G | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 15.0 | Img: /products/packshots/coriander-powder.jpg
+#092 | ItemNo: 93 | ID: g1-93 | Name: Coriander Powder 100g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 0 | Img: /products/packshots/coriander-powder.jpg
+#093 | ItemNo: 94 | ID: g1-94 | Name: Coriander Powder 200g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 0 | Img: /products/packshots/coriander-powder.jpg
+#094 | ItemNo: 95 | ID: g1-95 | Name: Coriander Powder 500g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 0 | Img: /products/packshots/coriander-powder.jpg
+#095 | ItemNo: 96 | ID: g1-96 | Name: ITC Chikkin Masala 50G | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 45.0 | Img: /products/packshots/chicken-masala.jpg
+#096 | ItemNo: 97 | ID: g1-97 | Name: ITC Garam Masala 50G | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 48.0 | Img: /products/packshots/garam-masala.jpg
+#097 | ItemNo: 98 | ID: g1-98 | Name: Jeera (cumin Seeds) 100g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 56.67 | Img: /products/packshots/jeera-cumin-seeds.jpg
+#098 | ItemNo: 99 | ID: g1-99 | Name: Jeera (cumin Seeds) 50G | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 30.0 | Img: /products/packshots/jeera-cumin-seeds.jpg
+#099 | ItemNo: 100 | ID: g1-100 | Name: Pepper Powder 6G | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 0 | Img: /products/packshots/black-pepper.jpg
+#100 | ItemNo: 101 | ID: g1-101 | Name: Turmeric Powder 50G | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 20.0 | Img: /products/packshots/turmeric-powder.jpg
+#101 | ItemNo: 102 | ID: g1-102 | Name: FAB Liquid 10 | Brand: G1 Mart Fresh | Cat: household-cleaning | SubCat: Laundry & Detergents | Price: 10.0 | Img: /products/packshots/fab-liquid.jpg
+#102 | ItemNo: 103 | ID: g1-103 | Name: Ariel Front Liquid 10 | Brand: Ariel | Cat: household-cleaning | SubCat: Laundry & Detergents | Price: 10.0 | Img: /products/packshots/ariel-front-liq.jpg
+#103 | ItemNo: 104 | ID: g1-104 | Name: 707 Soap | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Bath Soaps | Price: 10.0 | Img: /products/packshots/santoor-soap.jpg
+#104 | ItemNo: 105 | ID: g1-105 | Name: SUN Gold Soap 25 | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Bath Soaps | Price: 24.0 | Img: /products/packshots/santoor-soap.jpg
+#105 | ItemNo: 106 | ID: g1-106 | Name: Power Soap 10 | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Bath Soaps | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#106 | ItemNo: 107 | ID: g1-107 | Name: FAB Liquid 825g | Brand: G1 Mart Fresh | Cat: household-cleaning | SubCat: Laundry & Detergents | Price: 95.0 | Img: /products/packshots/fab-liquid.jpg
+#107 | ItemNo: 108 | ID: g1-108 | Name: Stay Free Regular | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Feminine Hygiene | Price: 0 | Img: /products/packshots/stayfree.jpg
+#108 | ItemNo: 109 | ID: g1-109 | Name: Stay Free Extra | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Feminine Hygiene | Price: 0 | Img: /products/packshots/stayfree.jpg
+#109 | ItemNo: 110 | ID: g1-110 | Name: Milky BAR | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chocolates & Sweets | Price: 0 | Img: /products/packshots/cadbury-dairy-milk.jpg
+#110 | ItemNo: 111 | ID: g1-111 | Name: Milky BAR BIG BOX | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chocolates & Sweets | Price: 0 | Img: /products/packshots/cadbury-dairy-milk.jpg
+#111 | ItemNo: 112 | ID: g1-112 | Name: Cinthol Fresh | Brand: Cinthol | Cat: personal-care | SubCat: Bath Soaps | Price: 0 | Img: /products/packshots/cinthol-soap.jpg
+#112 | ItemNo: 113 | ID: g1-113 | Name: NO 1 Soap Lemon | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Bath Soaps | Price: 135.0 | Img: /products/packshots/santoor-soap.jpg
+#113 | ItemNo: 114 | ID: g1-114 | Name: NO 1 BIG | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#114 | ItemNo: 115 | ID: g1-115 | Name: Dettol Soap | Brand: Dettol | Cat: personal-care | SubCat: Bath Soaps | Price: 0 | Img: /products/packshots/dettol-soap.jpg
+#115 | ItemNo: 116 | ID: g1-116 | Name: Dettol Cool | Brand: Dettol | Cat: personal-care | SubCat: Bath Soaps | Price: 0 | Img: /products/packshots/dettol-soap.jpg
+#116 | ItemNo: 117 | ID: g1-117 | Name: Power Natural Soap | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Bath Soaps | Price: 48.0 | Img: /products/packshots/santoor-soap.jpg
+#117 | ItemNo: 118 | ID: g1-118 | Name: Santoor Sandalwood Soap (big Value Pack) | Brand: Santoor | Cat: personal-care | SubCat: Bath Soaps | Price: 205.0 | Img: /products/packshots/santoor-soap.jpg
+#118 | ItemNo: 119 | ID: g1-119 | Name: Munch | Brand: Nestle | Cat: snacks-beverages | SubCat: Chocolates & Sweets | Price: 0 | Img: /products/packshots/nestle-munch.jpg
+#119 | ItemNo: 120 | ID: g1-120 | Name: Kitkat | Brand: Nestle | Cat: snacks-beverages | SubCat: Chocolates & Sweets | Price: 14.5 | Img: /products/packshots/cadbury-dairy-milk.jpg
+#120 | ItemNo: 121 | ID: g1-121 | Name: Kitkat BOX | Brand: Nestle | Cat: snacks-beverages | SubCat: Chocolates & Sweets | Price: 0 | Img: /products/packshots/cadbury-dairy-milk.jpg
+#121 | ItemNo: 122 | ID: g1-122 | Name: ZED Black Aggarbathi | Brand: G1 Mart Fresh | Cat: pooja-essentials | SubCat: Pooja Needs & Incense | Price: 0 | Img: /products/packshots/pooja-agarbatti.jpg
+#122 | ItemNo: 123 | ID: g1-123 | Name: Dazzy Chocolate | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chocolates & Sweets | Price: 0 | Img: /products/packshots/cadbury-dairy-milk.jpg
+#123 | ItemNo: 124 | ID: g1-124 | Name: Dazzy Rich Gold | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chocolates & Sweets | Price: 0 | Img: /products/packshots/cadbury-dairy-milk.jpg
+#124 | ItemNo: 125 | ID: g1-125 | Name: Chocolate PKT | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chocolates & Sweets | Price: 0 | Img: /products/packshots/cadbury-dairy-milk.jpg
+#125 | ItemNo: 126 | ID: g1-126 | Name: Sensora Paste 80G | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Oral Care | Price: 140.0 | Img: /products/packshots/colgate-toothpaste.jpg
+#126 | ItemNo: 127 | ID: g1-127 | Name: Allout Matchs | Brand: G1 Mart Fresh | Cat: household-cleaning | SubCat: Cleaning Essentials | Price: 100.0 | Img: /products/packshots/goodknight.jpg
+#127 | ItemNo: 128 | ID: g1-128 | Name: Dabur RED 50G | Brand: Dabur | Cat: personal-care | SubCat: Oral Care | Price: 20.0 | Img: /products/packshots/colgate-toothpaste.jpg
+#128 | ItemNo: 129 | ID: g1-129 | Name: GN Gold Match | Brand: G1 Mart Fresh | Cat: household-cleaning | SubCat: Cleaning Essentials | Price: 105.0 | Img: /products/packshots/goodknight.jpg
+#129 | ItemNo: 130 | ID: g1-130 | Name: Odonil | Brand: G1 Mart Fresh | Cat: household-cleaning | SubCat: Cleaning Essentials | Price: 0 | Img: /products/packshots/cleaner-spray.jpg
+#130 | ItemNo: 131 | ID: g1-131 | Name: GN Gold Liquid | Brand: G1 Mart Fresh | Cat: household-cleaning | SubCat: Cleaning Essentials | Price: 80.0 | Img: /products/packshots/goodknight.jpg
+#131 | ItemNo: 132 | ID: g1-132 | Name: Dabur RED 100g | Brand: Dabur | Cat: personal-care | SubCat: Oral Care | Price: 70.0 | Img: /products/packshots/colgate-toothpaste.jpg
+#132 | ItemNo: 133 | ID: g1-133 | Name: Dabur RED 300g | Brand: Dabur | Cat: personal-care | SubCat: Oral Care | Price: 198.0 | Img: /products/packshots/colgate-toothpaste.jpg
+#133 | ItemNo: 134 | ID: g1-134 | Name: Garnier F . W | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 95.0 | Img: /products/packshots/santoor-soap.jpg
+#134 | ItemNo: 135 | ID: g1-135 | Name: HIM F.W .50ml | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Skin & Baby Care | Price: 0 | Img: /products/packshots/ponds-talc.jpg
+#135 | ItemNo: 136 | ID: g1-136 | Name: Cycle Agarbati 5 | Brand: G1 Mart Fresh | Cat: pooja-essentials | SubCat: Pooja Needs & Incense | Price: 0 | Img: /products/packshots/pooja-agarbatti.jpg
+#136 | ItemNo: 137 | ID: g1-137 | Name: HIM F.W .50ml | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Skin & Baby Care | Price: 0 | Img: /products/packshots/ponds-talc.jpg
+#137 | ItemNo: 138 | ID: g1-138 | Name: Gayathari Sambrani Stick | Brand: G1 Mart Fresh | Cat: pooja-essentials | SubCat: Pooja Needs & Incense | Price: 0 | Img: /products/packshots/pooja-agarbatti.jpg
+#138 | ItemNo: 139 | ID: g1-139 | Name: Boro Plus Powder Small | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Skin & Baby Care | Price: 0 | Img: /products/packshots/ponds-talc.jpg
+#139 | ItemNo: 140 | ID: g1-140 | Name: Nycil Powder Small | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Skin & Baby Care | Price: 45.0 | Img: /products/packshots/ponds-talc.jpg
+#140 | ItemNo: 141 | ID: g1-141 | Name: Boro Plus BIG | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Skin & Baby Care | Price: 0 | Img: /products/packshots/ponds-talc.jpg
+#141 | ItemNo: 142 | ID: g1-142 | Name: Nycil Powder Small | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Skin & Baby Care | Price: 45.0 | Img: /products/packshots/ponds-talc.jpg
+#142 | ItemNo: 143 | ID: g1-143 | Name: Spinz BB Cream BIG | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Skin & Baby Care | Price: 0 | Img: /products/packshots/ponds-talc.jpg
+#143 | ItemNo: 144 | ID: g1-144 | Name: Nycil Powder BIG | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Skin & Baby Care | Price: 0 | Img: /products/packshots/ponds-talc.jpg
+#144 | ItemNo: 145 | ID: g1-145 | Name: Fogg Body Spary | Brand: G1 Mart Fresh | Cat: household-cleaning | SubCat: Cleaning Essentials | Price: 0 | Img: /products/packshots/cleaner-spray.jpg
+#145 | ItemNo: 146 | ID: g1-146 | Name: Denver Body Spray | Brand: G1 Mart Fresh | Cat: household-cleaning | SubCat: Cleaning Essentials | Price: 0 | Img: /products/packshots/cleaner-spray.jpg
+#146 | ItemNo: 147 | ID: g1-147 | Name: Indica Easy BIG | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#147 | ItemNo: 148 | ID: g1-148 | Name: Indica Easy Small | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#148 | ItemNo: 149 | ID: g1-149 | Name: Pitambari 20G | Brand: G1 Mart Fresh | Cat: household-cleaning | SubCat: Dishwashing & Utensil Care | Price: 10.0 | Img: /products/packshots/vim-bar.jpg
+#149 | ItemNo: 150 | ID: g1-150 | Name: Pitambari 30G | Brand: G1 Mart Fresh | Cat: household-cleaning | SubCat: Dishwashing & Utensil Care | Price: 0 | Img: /products/packshots/vim-bar.jpg
+#150 | ItemNo: 151 | ID: g1-151 | Name: Pitambari 50G | Brand: G1 Mart Fresh | Cat: household-cleaning | SubCat: Dishwashing & Utensil Care | Price: 0 | Img: /products/packshots/vim-bar.jpg
+#151 | ItemNo: 152 | ID: g1-152 | Name: Sensodyne Fresh GEL 75G | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Oral Care | Price: 0 | Img: /products/packshots/colgate-toothpaste.jpg
+#152 | ItemNo: 153 | ID: g1-153 | Name: Lock 50mm | Brand: G1 Mart Fresh | Cat: household-cleaning | SubCat: Cleaning Essentials | Price: 0 | Img: /products/packshots/cleaner-spray.jpg
+#153 | ItemNo: 154 | ID: g1-154 | Name: Lock 32mm | Brand: G1 Mart Fresh | Cat: household-cleaning | SubCat: Cleaning Essentials | Price: 0 | Img: /products/packshots/cleaner-spray.jpg
+#154 | ItemNo: 155 | ID: g1-155 | Name: Lock 38mm | Brand: G1 Mart Fresh | Cat: household-cleaning | SubCat: Cleaning Essentials | Price: 0 | Img: /products/packshots/cleaner-spray.jpg
+#155 | ItemNo: 156 | ID: g1-156 | Name: Tulip 150ml | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#156 | ItemNo: 157 | ID: g1-157 | Name: Magnet 100ml | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#157 | ItemNo: 158 | ID: g1-158 | Name: Melody 100ml | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#158 | ItemNo: 159 | ID: g1-159 | Name: Something Something 60ml | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 0 | Img: /products/packshots/garam-masala.jpg
+#159 | ItemNo: 160 | ID: g1-160 | Name: Kiss ME 40ml | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#160 | ItemNo: 161 | ID: g1-161 | Name: ZX 60ml Spray | Brand: G1 Mart Fresh | Cat: household-cleaning | SubCat: Cleaning Essentials | Price: 0 | Img: /products/packshots/cleaner-spray.jpg
+#161 | ItemNo: 162 | ID: g1-162 | Name: First Love 30ml | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#162 | ItemNo: 163 | ID: g1-163 | Name: OSR Girl 40ml | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Personal Care Essentials | Price: 0 | Img: /products/packshots/santoor-soap.jpg
+#163 | ItemNo: 164 | ID: g1-164 | Name: Amla OIL 180ml | Brand: Dabur | Cat: personal-care | SubCat: Hair Oils & Care | Price: 0 | Img: /products/packshots/parachute-oil.jpg
+#164 | ItemNo: 165 | ID: g1-165 | Name: Meera Shampoo Badam 80ml | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Dry Fruits, Nuts & Seeds | Price: 0 | Img: /products/packshots/cashew-nuts.jpg
+#165 | ItemNo: 166 | ID: g1-166 | Name: Gokul Powder 300g | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Skin & Baby Care | Price: 0 | Img: /products/packshots/ponds-talc.jpg
+#166 | ItemNo: 167 | ID: g1-167 | Name: Gokul PDR 70G | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Skin & Baby Care | Price: 0 | Img: /products/packshots/ponds-talc.jpg
+#167 | ItemNo: 168 | ID: g1-168 | Name: Gokul PDR 70G | Brand: G1 Mart Fresh | Cat: personal-care | SubCat: Skin & Baby Care | Price: 0 | Img: /products/packshots/ponds-talc.jpg
+#168 | ItemNo: 169 | ID: g1-169 | Name: Sugar 50kgs Bag | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Salt, Sugar & Jaggery | Price: 0 | Img: /products/packshots/aashirvaad-salt.jpg
+#169 | ItemNo: 170 | ID: g1-170 | Name: Sugar 500g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Salt, Sugar & Jaggery | Price: 30.0 | Img: /products/packshots/aashirvaad-salt.jpg
+#170 | ItemNo: 171 | ID: g1-171 | Name: Sugar 250g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Salt, Sugar & Jaggery | Price: 0 | Img: /products/packshots/aashirvaad-salt.jpg
+#171 | ItemNo: 172 | ID: g1-172 | Name: Sugar 1kg | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Salt, Sugar & Jaggery | Price: 0 | Img: /products/packshots/aashirvaad-salt.jpg
+#172 | ItemNo: 173 | ID: g1-173 | Name: Kandi Pappu (toor Dal) 50kgs Bag | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 0 | Img: /products/packshots/toor-dal.jpg
+#173 | ItemNo: 174 | ID: g1-174 | Name: Kandi Pappu (toor Dal) 1kg | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 0 | Img: /products/packshots/toor-dal.jpg
+#174 | ItemNo: 175 | ID: g1-175 | Name: Kandi Pappu (toor Dal) 500g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 68.0 | Img: /products/packshots/toor-dal.jpg
+#175 | ItemNo: 176 | ID: g1-176 | Name: Sai Pappu 50kgs Bag | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 0 | Img: /products/packshots/toor-dal.jpg
+#176 | ItemNo: 177 | ID: g1-177 | Name: White Urad DAL 500g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 50.0 | Img: /products/packshots/urad-dal.jpg
+#177 | ItemNo: 179 | ID: g1-179 | Name: White Urad Dal250g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 30.0 | Img: /products/packshots/urad-dal.jpg
+#178 | ItemNo: 180 | ID: g1-180 | Name: Yendu Kobbari 25kgs Bag | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Kitchen Staples | Price: 0 | Img: /products/packshots/dry-coconut.jpg
+#179 | ItemNo: 181 | ID: g1-181 | Name: Yendu Kobbari 250g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Kitchen Staples | Price: 51.0 | Img: /products/packshots/dry-coconut.jpg
+#180 | ItemNo: 184 | ID: g1-184 | Name: Pachisenga Pappu 50kgs Bag | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 0 | Img: /products/packshots/chana-dal.jpg
+#181 | ItemNo: 186 | ID: g1-186 | Name: Pachisenagapappu 500g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 48.0 | Img: /products/packshots/chana-dal.jpg
+#182 | ItemNo: 187 | ID: g1-187 | Name: Pachisenaga Pappu 250g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 24.0 | Img: /products/packshots/chana-dal.jpg
+#183 | ItemNo: 188 | ID: g1-188 | Name: Minapappu 50kgs Bag | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 0 | Img: /products/packshots/urad-dal.jpg
+#184 | ItemNo: 189 | ID: g1-189 | Name: Minapappu 1kg | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 0 | Img: /products/packshots/urad-dal.jpg
+#185 | ItemNo: 190 | ID: g1-190 | Name: Minapapu 500g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 65.0 | Img: /products/packshots/urad-dal.jpg
+#186 | ItemNo: 191 | ID: g1-191 | Name: Verusenaga Pappu 50kgs Bag | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Kitchen Staples | Price: 0 | Img: /products/packshots/peanuts.jpg
+#187 | ItemNo: 192 | ID: g1-192 | Name: Verusenaga Pappu 1kg | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Kitchen Staples | Price: 0 | Img: /products/packshots/peanuts.jpg
+#188 | ItemNo: 193 | ID: g1-193 | Name: Verusenaga Pappu 500g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Kitchen Staples | Price: 80.0 | Img: /products/packshots/peanuts.jpg
+#189 | ItemNo: 194 | ID: g1-194 | Name: Horlicks 500g | Brand: Horlicks | Cat: snacks-beverages | SubCat: Cold Drinks & Health Juices | Price: 220.34 | Img: /products/packshots/horlicks.jpg
+#190 | ItemNo: 195 | ID: g1-195 | Name: Gokulam Dates | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Dry Fruits, Nuts & Seeds | Price: 225.0 | Img: /products/packshots/cashew-nuts.jpg
+#191 | ItemNo: 196 | ID: g1-196 | Name: India Gate 1KG | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Kitchen Staples | Price: 145.0 | Img: /products/packshots/basmati-rice.jpg
+#192 | ItemNo: 197 | ID: g1-197 | Name: Jeera (cumin Seeds) 250g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 72.0 | Img: /products/packshots/jeera-cumin-seeds.jpg
+#193 | ItemNo: 198 | ID: g1-198 | Name: BAT Papad 250g | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chips & Namkeen | Price: 20.0 | Img: /products/packshots/aachi-appalam.jpg
+#194 | ItemNo: 199 | ID: g1-199 | Name: Colour Papad 250g | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chips & Namkeen | Price: 20.0 | Img: /products/packshots/aachi-appalam.jpg
+#195 | ItemNo: 200 | ID: g1-200 | Name: Salt Mirchi 250g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Spices, Masalas & Seeds | Price: 20.0 | Img: /products/packshots/aachi-chilli.jpg
+#196 | ItemNo: 201 | ID: g1-201 | Name: Jaggery 500g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Salt, Sugar & Jaggery | Price: 40.0 | Img: /products/packshots/aashirvaad-salt.jpg
+#197 | ItemNo: 202 | ID: g1-202 | Name: Jaggery 1KG | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Salt, Sugar & Jaggery | Price: 80.0 | Img: /products/packshots/aashirvaad-salt.jpg
+#198 | ItemNo: 203 | ID: g1-203 | Name: Tamarind500g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Kitchen Staples | Price: 95.0 | Img: /products/packshots/tamarind.jpg
+#199 | ItemNo: 204 | ID: g1-204 | Name: Tamarind250g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Kitchen Staples | Price: 45.0 | Img: /products/packshots/tamarind.jpg
+#200 | ItemNo: 205 | ID: g1-205 | Name: RED Lentils 500g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 50.0 | Img: /products/packshots/toor-dal.jpg
