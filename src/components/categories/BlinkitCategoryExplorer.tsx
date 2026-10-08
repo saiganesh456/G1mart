@@ -15,7 +15,6 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
     categories[0]?.id || 'grocery-staples'
   );
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('all');
-  const [selectedBrand, setSelectedBrand] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   const activeCategory = useMemo(() => {
@@ -36,30 +35,11 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
     return Array.from(set);
   }, [categoryProducts]);
 
-  // Brands available for current category & subcategory
-  const availableBrands = useMemo(() => {
-    let baseList = categoryProducts;
-    if (selectedSubCategory !== 'all') {
-      baseList = baseList.filter((p) => p.subCategory === selectedSubCategory);
-    }
-    const brandMap = new Map<string, number>();
-    baseList.forEach((p) => {
-      const b = p.brand && p.brand !== 'G1 Mart Fresh' ? p.brand : 'Other';
-      brandMap.set(b, (brandMap.get(b) || 0) + 1);
-    });
-    return Array.from(brandMap.entries())
-      .filter(([_, count]) => count > 0)
-      .sort((a, b) => b[1] - a[1]);
-  }, [categoryProducts, selectedSubCategory]);
-
-  // Filtered products by subcategory, brand, and search query
+  // Filtered products by subcategory and search query
   const displayedProducts = useMemo(() => {
     let list = categoryProducts;
     if (selectedSubCategory !== 'all') {
       list = list.filter((p) => p.subCategory === selectedSubCategory);
-    }
-    if (selectedBrand !== 'all') {
-      list = list.filter((p) => (p.brand || 'Other') === selectedBrand);
     }
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
@@ -71,12 +51,11 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
       );
     }
     return list;
-  }, [categoryProducts, selectedSubCategory, selectedBrand, searchQuery]);
+  }, [categoryProducts, selectedSubCategory, searchQuery]);
 
   const handleSelectCategory = (catId: string) => {
     setActiveCategoryId(catId);
     setSelectedSubCategory('all');
-    setSelectedBrand('all');
     setSearchQuery('');
   };
 
@@ -159,10 +138,7 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
             <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
               <button
                 type="button"
-                onClick={() => {
-                  setSelectedSubCategory('all');
-                  setSelectedBrand('all');
-                }}
+                onClick={() => setSelectedSubCategory('all')}
                 className={`shrink-0 px-2.5 py-1 rounded-full text-[11px] font-bold transition-all cursor-pointer ${
                   selectedSubCategory === 'all'
                     ? 'bg-[#2E7D32] text-white shadow-2xs'
@@ -175,10 +151,7 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
                 <button
                   key={sub}
                   type="button"
-                  onClick={() => {
-                    setSelectedSubCategory(sub);
-                    setSelectedBrand('all');
-                  }}
+                  onClick={() => setSelectedSubCategory(sub)}
                   className={`shrink-0 px-2.5 py-1 rounded-full text-[11px] font-bold transition-all cursor-pointer ${
                     selectedSubCategory === sub
                       ? 'bg-[#2E7D32] text-white shadow-2xs'
@@ -186,47 +159,6 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
                   }`}
                 >
                   {sub}
-                </button>
-              ))}
-            </div>
-          )}
-
-          {/* Brand Filter Shelf (e.g. Santoor, Mysore Sandal, Cinthol, etc.) */}
-          {availableBrands.length > 1 && (
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 px-1 bg-stone-50 rounded-xl border border-stone-100">
-              <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider shrink-0 px-1">
-                Brand:
-              </span>
-              <button
-                type="button"
-                onClick={() => setSelectedBrand('all')}
-                className={`shrink-0 px-2 py-0.5 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
-                  selectedBrand === 'all'
-                    ? 'bg-[#2E7D32] text-white shadow-xs'
-                    : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200/70'
-                }`}
-              >
-                All Brands
-              </button>
-              {availableBrands.map(([bName, bCount]) => (
-                <button
-                  key={bName}
-                  type="button"
-                  onClick={() => setSelectedBrand(bName)}
-                  className={`shrink-0 px-2 py-0.5 rounded-lg text-[11px] font-bold transition-all flex items-center gap-1 cursor-pointer ${
-                    selectedBrand === bName
-                      ? 'bg-[#2E7D32] text-white shadow-xs'
-                      : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200/70'
-                  }`}
-                >
-                  <span>{bName}</span>
-                  <span
-                    className={`text-[9px] px-1 py-0.2 rounded-full font-black ${
-                      selectedBrand === bName ? 'bg-white/20 text-white' : 'bg-stone-100 text-stone-500'
-                    }`}
-                  >
-                    {bCount}
-                  </span>
                 </button>
               ))}
             </div>

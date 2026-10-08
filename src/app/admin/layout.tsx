@@ -21,7 +21,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <img
                 src="/logo.png"
                 alt="G1 Mart"
-                className="h-8 sm:h-9 w-auto object-contain brightness-0 invert"
+                className="h-8 sm:h-9 w-auto object-contain rounded-md"
               />
               <span className="font-extrabold text-white text-base tracking-tight hidden sm:inline">
                 Admin Console

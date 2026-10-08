@@ -61,6 +61,18 @@ function loadCacheFromDisk() {
     }
   });
 
+  // Add default Rider for testing
+  if (!ridersMap.has('rider@g1mart.com')) {
+    ridersMap.set('rider@g1mart.com', {
+      id: 'default-rider',
+      email: 'rider@g1mart.com',
+      role: 'delivery_partner',
+      name: 'Test Rider',
+      createdAt: '2026-10-01T00:00:00Z',
+      status: 'active',
+    });
+  }
+
   // Check additional env emails
   const envAdmins = process.env.ADMIN_EMAILS || '';
   if (envAdmins) {
