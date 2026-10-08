@@ -26,3 +26,22 @@ This log tracks the step-by-step execution across all 5 phases as specified in t
   - Next.js build: 36/36 routes compiled successfully without errors.
 - **Unresolved:** None.
 
+## Phase 2 - Reclassify Categories, Sub-Categories, Brands, Variants
+- **Status:** COMPLETED & VERIFIED
+- **Changes:**
+  - Classify by Product Type: fixed the 23 misplaced products from `/audit/report.md` + 58 Telugu dal/pulse/grain products previously routed to hygiene.
+  - Sub-categories: created `data/migrated_sub_categories.json` (64 sub-categories across all parent categories). Assigned sub-category to 100% of products (0 missing).
+  - Brand recovery: extracted true FMCG brands from product names (107 recognized brands). Loose produce assigned "G1 Mart Fresh", unbranded items assigned "Local / Unbranded". Brand filter completely purged of "Other".
+  - Variant merging: merged 10 size duplicate standalone products into parent products with live multi-variant pricing per size. Updated `src/data/legacyIdMap.json` so secondary product IDs redirect to the primary product.
+  - Review CSV: exported 16 low-confidence / ambiguous items to `/audit/review.csv`.
+- **Counts:**
+  - Products: 1,053 -> 1,043 (10 size duplicates merged into parent variants)
+  - Variants: 1,231 (100% preserved)
+  - Brands: 62 -> 107
+  - Products with brand 'Other': 0 (100% eliminated)
+  - Products without sub-category: 0 (100% assigned)
+  - Sub-categories: 64
+  - Next.js build: 36/36 routes compiled successfully.
+- **Unresolved:** None.
+
+

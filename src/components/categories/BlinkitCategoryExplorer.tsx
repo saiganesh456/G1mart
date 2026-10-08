@@ -44,7 +44,7 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
     }
     const brandMap = new Map<string, number>();
     baseList.forEach((p) => {
-      const b = p.brand && p.brand !== 'G1 Mart Fresh' ? p.brand : 'Other';
+      const b = p.brand || 'Local / Unbranded';
       brandMap.set(b, (brandMap.get(b) || 0) + 1);
     });
     return Array.from(brandMap.entries())
@@ -59,7 +59,7 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
       list = list.filter((p) => p.subCategory === selectedSubCategory);
     }
     if (selectedBrand !== 'all') {
-      list = list.filter((p) => (p.brand || 'Other') === selectedBrand);
+      list = list.filter((p) => (p.brand || 'Local / Unbranded') === selectedBrand);
     }
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();

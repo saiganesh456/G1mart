@@ -1,0 +1,386 @@
+[
+  {
+    "id": "sub-001",
+    "category_id": "atta-rice-dal",
+    "name": "Atta & Flours",
+    "slug": "atta-flours"
+  },
+  {
+    "id": "sub-002",
+    "category_id": "atta-rice-dal",
+    "name": "Poha & Dalia",
+    "slug": "poha-dalia"
+  },
+  {
+    "id": "sub-003",
+    "category_id": "atta-rice-dal",
+    "name": "Pulses & Dal",
+    "slug": "pulses-dal"
+  },
+  {
+    "id": "sub-004",
+    "category_id": "atta-rice-dal",
+    "name": "Rice & Grains",
+    "slug": "rice-grains"
+  },
+  {
+    "id": "sub-005",
+    "category_id": "baby-care",
+    "name": "Baby Bath & Skin Care",
+    "slug": "baby-bath-skin-care"
+  },
+  {
+    "id": "sub-006",
+    "category_id": "baby-care",
+    "name": "Baby Diapers & Wipes",
+    "slug": "baby-diapers-wipes"
+  },
+  {
+    "id": "sub-007",
+    "category_id": "biscuits-bakery",
+    "name": "Biscuits",
+    "slug": "biscuits"
+  },
+  {
+    "id": "sub-008",
+    "category_id": "biscuits-bakery",
+    "name": "Cakes & Wafers",
+    "slug": "cakes-wafers"
+  },
+  {
+    "id": "sub-009",
+    "category_id": "biscuits-bakery",
+    "name": "Cookies",
+    "slug": "cookies"
+  },
+  {
+    "id": "sub-010",
+    "category_id": "biscuits-bakery",
+    "name": "Rusk & Bakery Snacks",
+    "slug": "rusk-bakery-snacks"
+  },
+  {
+    "id": "sub-011",
+    "category_id": "chips-namkeen",
+    "name": "Chips & Crisps",
+    "slug": "chips-crisps"
+  },
+  {
+    "id": "sub-012",
+    "category_id": "chips-namkeen",
+    "name": "Namkeen & Bhujia",
+    "slug": "namkeen-bhujia"
+  },
+  {
+    "id": "sub-013",
+    "category_id": "chips-namkeen",
+    "name": "Popcorn & Roasted Snacks",
+    "slug": "popcorn-roasted-snacks"
+  },
+  {
+    "id": "sub-014",
+    "category_id": "dairy-bread-eggs",
+    "name": "Eggs",
+    "slug": "eggs"
+  },
+  {
+    "id": "sub-015",
+    "category_id": "dairy-bread-eggs",
+    "name": "Ice Creams",
+    "slug": "ice-creams"
+  },
+  {
+    "id": "sub-016",
+    "category_id": "dairy-bread-eggs",
+    "name": "Milk & Curd",
+    "slug": "milk-curd"
+  },
+  {
+    "id": "sub-017",
+    "category_id": "dishwash",
+    "name": "Dishwash Bars & Liquids",
+    "slug": "dishwash-bars-liquids"
+  },
+  {
+    "id": "sub-018",
+    "category_id": "dishwash",
+    "name": "Scrubs & Sponges",
+    "slug": "scrubs-sponges"
+  },
+  {
+    "id": "sub-019",
+    "category_id": "drinks-juices",
+    "name": "Energy & Health Drinks",
+    "slug": "energy-health-drinks"
+  },
+  {
+    "id": "sub-020",
+    "category_id": "drinks-juices",
+    "name": "Juices & Fruit Drinks",
+    "slug": "juices-fruit-drinks"
+  },
+  {
+    "id": "sub-021",
+    "category_id": "drinks-juices",
+    "name": "Soft Drinks & Sodas",
+    "slug": "soft-drinks-sodas"
+  },
+  {
+    "id": "sub-022",
+    "category_id": "drinks-juices",
+    "name": "Water & Soda",
+    "slug": "water-soda"
+  },
+  {
+    "id": "sub-023",
+    "category_id": "dry-fruits-cereals",
+    "name": "Breakfast Cereals & Oats",
+    "slug": "breakfast-cereals-oats"
+  },
+  {
+    "id": "sub-024",
+    "category_id": "dry-fruits-cereals",
+    "name": "Dry Fruits & Nuts",
+    "slug": "dry-fruits-nuts"
+  },
+  {
+    "id": "sub-025",
+    "category_id": "floor-surface-cleaners",
+    "name": "Air Fresheners",
+    "slug": "air-fresheners"
+  },
+  {
+    "id": "sub-026",
+    "category_id": "floor-surface-cleaners",
+    "name": "Floor & Surface Cleaners",
+    "slug": "floor-surface-cleaners"
+  },
+  {
+    "id": "sub-027",
+    "category_id": "floor-surface-cleaners",
+    "name": "Mosquito & Pest Repellents",
+    "slug": "mosquito-pest-repellents"
+  },
+  {
+    "id": "sub-028",
+    "category_id": "floor-surface-cleaners",
+    "name": "Toilet Cleaners",
+    "slug": "toilet-cleaners"
+  },
+  {
+    "id": "sub-029",
+    "category_id": "hair-care",
+    "name": "Hair Oil",
+    "slug": "hair-oil"
+  },
+  {
+    "id": "sub-030",
+    "category_id": "hair-care",
+    "name": "Shampoo",
+    "slug": "shampoo"
+  },
+  {
+    "id": "sub-031",
+    "category_id": "hygiene",
+    "name": "Hair Removal & Shaving",
+    "slug": "hair-removal-shaving"
+  },
+  {
+    "id": "sub-032",
+    "category_id": "hygiene",
+    "name": "Intimate & Personal Hygiene",
+    "slug": "intimate-personal-hygiene"
+  },
+  {
+    "id": "sub-033",
+    "category_id": "hygiene",
+    "name": "Sanitary Pads & Napkins",
+    "slug": "sanitary-pads-napkins"
+  },
+  {
+    "id": "sub-034",
+    "category_id": "instant-food",
+    "name": "Instant Noodles & Pasta",
+    "slug": "instant-noodles-pasta"
+  },
+  {
+    "id": "sub-035",
+    "category_id": "instant-food",
+    "name": "Ready to Cook & Soups",
+    "slug": "ready-to-cook-soups"
+  },
+  {
+    "id": "sub-036",
+    "category_id": "kitchenware",
+    "name": "Disposables & Matches",
+    "slug": "disposables-matches"
+  },
+  {
+    "id": "sub-037",
+    "category_id": "kitchenware",
+    "name": "Kitchen Storage & Utilities",
+    "slug": "kitchen-storage-utilities"
+  },
+  {
+    "id": "sub-038",
+    "category_id": "laundry-detergents",
+    "name": "Detergent Bars",
+    "slug": "detergent-bars"
+  },
+  {
+    "id": "sub-039",
+    "category_id": "laundry-detergents",
+    "name": "Detergent Powders & Liquids",
+    "slug": "detergent-powders-liquids"
+  },
+  {
+    "id": "sub-040",
+    "category_id": "laundry-detergents",
+    "name": "Fabric Conditioners & Bleach",
+    "slug": "fabric-conditioners-bleach"
+  },
+  {
+    "id": "sub-041",
+    "category_id": "oil-ghee-masala",
+    "name": "Edible Oils",
+    "slug": "edible-oils"
+  },
+  {
+    "id": "sub-042",
+    "category_id": "oil-ghee-masala",
+    "name": "Ghee & Vanaspati",
+    "slug": "ghee-vanaspati"
+  },
+  {
+    "id": "sub-043",
+    "category_id": "oil-ghee-masala",
+    "name": "Masala Powders",
+    "slug": "masala-powders"
+  },
+  {
+    "id": "sub-044",
+    "category_id": "oil-ghee-masala",
+    "name": "Pickles & Chutneys",
+    "slug": "pickles-chutneys"
+  },
+  {
+    "id": "sub-045",
+    "category_id": "oil-ghee-masala",
+    "name": "Whole Spices",
+    "slug": "whole-spices"
+  },
+  {
+    "id": "sub-046",
+    "category_id": "oral-care",
+    "name": "Toothbrushes & Tongue Cleaners",
+    "slug": "toothbrushes-tongue-cleaners"
+  },
+  {
+    "id": "sub-047",
+    "category_id": "oral-care",
+    "name": "Toothpaste",
+    "slug": "toothpaste"
+  },
+  {
+    "id": "sub-048",
+    "category_id": "pooja-needs",
+    "name": "Agarbatti & Dhoop",
+    "slug": "agarbatti-dhoop"
+  },
+  {
+    "id": "sub-049",
+    "category_id": "pooja-needs",
+    "name": "Pooja Oil, Camphor & Diya",
+    "slug": "pooja-oil-camphor-diya"
+  },
+  {
+    "id": "sub-050",
+    "category_id": "sauces-spreads",
+    "name": "Jams & Spreads",
+    "slug": "jams-spreads"
+  },
+  {
+    "id": "sub-051",
+    "category_id": "sauces-spreads",
+    "name": "Sauces & Ketchup",
+    "slug": "sauces-ketchup"
+  },
+  {
+    "id": "sub-052",
+    "category_id": "skin-care",
+    "name": "Face Wash & Creams",
+    "slug": "face-wash-creams"
+  },
+  {
+    "id": "sub-053",
+    "category_id": "skin-care",
+    "name": "Talcum Powders",
+    "slug": "talcum-powders"
+  },
+  {
+    "id": "sub-054",
+    "category_id": "soaps-bath",
+    "name": "Bathing Soaps",
+    "slug": "bathing-soaps"
+  },
+  {
+    "id": "sub-055",
+    "category_id": "soaps-bath",
+    "name": "Hand Wash & Sanitizers",
+    "slug": "hand-wash-sanitizers"
+  },
+  {
+    "id": "sub-056",
+    "category_id": "sugar-salt-staples",
+    "name": "Other Staples",
+    "slug": "other-staples"
+  },
+  {
+    "id": "sub-057",
+    "category_id": "sugar-salt-staples",
+    "name": "Salt",
+    "slug": "salt"
+  },
+  {
+    "id": "sub-058",
+    "category_id": "sugar-salt-staples",
+    "name": "Sugar & Jaggery",
+    "slug": "sugar-jaggery"
+  },
+  {
+    "id": "sub-059",
+    "category_id": "sweets-chocolates",
+    "name": "Candies & Gums",
+    "slug": "candies-gums"
+  },
+  {
+    "id": "sub-060",
+    "category_id": "sweets-chocolates",
+    "name": "Chocolates",
+    "slug": "chocolates"
+  },
+  {
+    "id": "sub-061",
+    "category_id": "tea-coffee-milk-drinks",
+    "name": "Coffee",
+    "slug": "coffee"
+  },
+  {
+    "id": "sub-062",
+    "category_id": "tea-coffee-milk-drinks",
+    "name": "Tea",
+    "slug": "tea"
+  },
+  {
+    "id": "sub-063",
+    "category_id": "vegetables-fruits",
+    "name": "Fresh Fruits",
+    "slug": "fresh-fruits"
+  },
+  {
+    "id": "sub-064",
+    "category_id": "vegetables-fruits",
+    "name": "Fresh Vegetables",
+    "slug": "fresh-vegetables"
+  }
+]

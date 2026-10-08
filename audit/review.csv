@@ -1,0 +1,17 @@
+product_id,product_name,current_category,suggested_category,suggested_sub_category,current_brand,suggested_brand,confidence,reason_for_review
+g1-p0030,High Power,hygiene,hygiene,Sanitary Pads & Napkins,G1 Mart Fresh,Local / Unbranded,LOW,Ambiguous hardware/cleaning chemical brand
+g1-p0049,Lock 60mm,hygiene,kitchenware,Kitchen Storage & Utilities,G1 Mart Fresh,Local / Unbranded,LOW,Hardware utility item
+g1-p0155,RIN,laundry-detergents,laundry-detergents,Detergent Powders & Liquids,Rin,Rin,LOW,Abbreviated or extremely short product name
+g1-p0239,EXO,dishwash,dishwash,Dishwash Bars & Liquids,Exo,Exo,LOW,Abbreviated or extremely short product name
+g1-p0288,LIA,hygiene,hygiene,Sanitary Pads & Napkins,G1 Mart Fresh,Local / Unbranded,LOW,Abbreviated or extremely short product name
+g1-p0318,Lifeduoy Cools Skin,skin-care,skin-care,Face Wash & Creams,G1 Mart Fresh,Local / Unbranded,LOW,Personal/baby care item with unverified local manufacturer
+g1-p0446,Vim,dishwash,dishwash,Dishwash Bars & Liquids,Vim,Vim,LOW,Abbreviated or extremely short product name
+g1-p0449,Eno,hygiene,sugar-salt-staples,Other Staples,G1 Mart Fresh,Eno,LOW,Abbreviated or extremely short product name
+g1-p0601,LGV,hygiene,hygiene,Sanitary Pads & Napkins,G1 Mart Fresh,Local / Unbranded,LOW,Abbreviated or extremely short product name
+g1-p0723,BRU,tea-coffee-milk-drinks,tea-coffee-milk-drinks,Coffee,Bru,Bru,LOW,Abbreviated or extremely short product name
+g1-p0755,GUM 5RS Main,hygiene,hygiene,Sanitary Pads & Napkins,G1 Mart Fresh,Local / Unbranded,LOW,Ambiguous whether stationery adhesive or confectionery chewing gum
+g1-p0756,GUM 10rs Main,hygiene,hygiene,Sanitary Pads & Napkins,G1 Mart Fresh,Local / Unbranded,LOW,Ambiguous whether stationery adhesive or confectionery chewing gum
+g1-p0774,Baby OIL,baby-care,baby-care,Baby Bath & Skin Care,G1 Mart Fresh,Local / Unbranded,LOW,Personal/baby care item with unverified local manufacturer
+g1-p0908,Musore Sandal Baby 75,baby-care,baby-care,Baby Bath & Skin Care,G1 Mart Fresh,Local / Unbranded,LOW,Personal/baby care item with unverified local manufacturer
+g1-p0930,NSR,sugar-salt-staples,sugar-salt-staples,Other Staples,G1 Mart Fresh,Local / Unbranded,LOW,Abbreviated or extremely short product name
+g1-p1025,ENO,instant-food,sugar-salt-staples,Other Staples,G1 Mart Fresh,Eno,LOW,Abbreviated or extremely short product name

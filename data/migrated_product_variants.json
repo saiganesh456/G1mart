@@ -121,7 +121,7 @@
   },
   {
     "id": "g1-p0012-v1",
-    "product_id": "g1-p0012",
+    "product_id": "g1-p0011",
     "size_label": "1 unit",
     "price": 5.0,
     "mrp": 6.0,
@@ -665,7 +665,7 @@
   },
   {
     "id": "g1-p0067-v1",
-    "product_id": "g1-p0067",
+    "product_id": "g1-p0066",
     "size_label": "1 unit",
     "price": 10.0,
     "mrp": 11.0,
@@ -913,7 +913,7 @@
   },
   {
     "id": "g1-p0094-v1",
-    "product_id": "g1-p0094",
+    "product_id": "g1-p0581",
     "size_label": "1 unit",
     "price": 10.0,
     "mrp": 11.0,
@@ -921,7 +921,7 @@
   },
   {
     "id": "g1-p0095-v1",
-    "product_id": "g1-p0095",
+    "product_id": "g1-p0877",
     "size_label": "1 unit",
     "price": 10.0,
     "mrp": 11.0,
@@ -2721,7 +2721,7 @@
   },
   {
     "id": "g1-p0291-v1",
-    "product_id": "g1-p0291",
+    "product_id": "g1-p0199",
     "size_label": "1 unit",
     "price": 10.0,
     "mrp": 11.0,
@@ -3089,7 +3089,7 @@
   },
   {
     "id": "g1-p0329-v1",
-    "product_id": "g1-p0329",
+    "product_id": "g1-p0393",
     "size_label": "250g",
     "price": 45.0,
     "mrp": 50.0,
@@ -7193,7 +7193,7 @@
   },
   {
     "id": "g1-p0753-v1",
-    "product_id": "g1-p0753",
+    "product_id": "g1-p0199",
     "size_label": "1 unit",
     "price": 5.0,
     "mrp": 6.0,
@@ -7361,7 +7361,7 @@
   },
   {
     "id": "g1-p0773-v1",
-    "product_id": "g1-p0773",
+    "product_id": "g1-p0273",
     "size_label": "Packs",
     "price": 15.0,
     "mrp": 17.0,
@@ -7441,7 +7441,7 @@
   },
   {
     "id": "g1-p0783-v1",
-    "product_id": "g1-p0783",
+    "product_id": "g1-p0273",
     "size_label": "140g",
     "price": 30.0,
     "mrp": 34.0,
@@ -9385,7 +9385,7 @@
   },
   {
     "id": "g1-p1005-v1",
-    "product_id": "g1-p1005",
+    "product_id": "g1-p0088",
     "size_label": "500g",
     "price": 45.0,
     "mrp": 50.0,

@@ -54,7 +54,7 @@ for (const v of MIGRATED_VARIANTS) {
  * Convert a migrated_products.json row → Product shape used across the storefront.
  */
 function mapMigratedProduct(row: typeof MIGRATED_PRODUCTS[number]): Product {
-  const brandName = brandNameById.get(row.brand_id ?? '') || 'G1 Mart';
+  const brandName = brandNameById.get(row.brand_id ?? '') || (row as any).brand || 'Local / Unbranded';
   const variants = variantsByProductId.get(row.id) || [];
   const cheapest = variants.length > 0 ? variants.reduce((a, b) => (a.price <= b.price ? a : b)) : null;
 
@@ -71,7 +71,7 @@ function mapMigratedProduct(row: typeof MIGRATED_PRODUCTS[number]): Product {
     brand_id: row.brand_id ?? null,
     category: row.category_id ?? '',
     category_id: row.category_id ?? null,
-    subCategory: undefined,
+    subCategory: (row as any).sub_category || (row as any).subCategory || undefined,
     unit: cheapest?.size_label ?? '1 unit',
     price,
     priceConfirmed: price > 0,
