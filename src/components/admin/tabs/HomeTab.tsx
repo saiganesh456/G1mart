@@ -23,7 +23,7 @@ interface Props {
   onNavigateToInventory: (filter?: string) => void;
   audioEnabled: boolean;
   onToggleAudio: () => void;
-  onTestAudio: () => void;
+  onTestAudio?: () => void;
 }
 
 export default function HomeTab({
@@ -108,12 +108,12 @@ export default function HomeTab({
           </div>
         </div>
 
-        {/* Audio Alert Controller */}
+        {/* Audio Alert Status Toggle */}
         <div className="flex items-center gap-2 bg-black/20 p-2 rounded-2xl border border-white/10 backdrop-blur-xs self-start md:self-auto">
           <button
             type="button"
             onClick={onToggleAudio}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
               audioEnabled
                 ? 'bg-emerald-500 text-white shadow-xs'
                 : 'bg-white/15 text-white/90 hover:bg-white/25'
@@ -121,14 +121,6 @@ export default function HomeTab({
           >
             {audioEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
             <span>{audioEnabled ? 'Sound: ON' : 'Sound: OFF'}</span>
-          </button>
-          <button
-            type="button"
-            onClick={onTestAudio}
-            title="Test alert sound"
-            className="px-3 py-1.5 bg-white/20 hover:bg-white/30 border border-white/20 text-white rounded-xl text-xs font-black transition-colors"
-          >
-            🔔 Test Sound
           </button>
         </div>
       </div>
@@ -298,7 +290,7 @@ export default function HomeTab({
               Catalog Products
             </span>
             <p className="text-xl font-black text-stone-900 mt-0.5">{products.length}</p>
-            <span className="text-[10px] font-bold text-emerald-700">780 Verified Supermarket Items</span>
+            <span className="text-[10px] font-bold text-emerald-700">{products.length} Active Catalog Items</span>
           </div>
           <div className="w-10 h-10 rounded-2xl bg-stone-100 text-stone-700 flex items-center justify-center">
             <Layers className="w-5 h-5" />

@@ -19,6 +19,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import type { Category, Product, Order, StaffMember } from '@/types';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 
 // Tab components
 import HomeTab from '@/components/admin/tabs/HomeTab';
@@ -48,17 +49,36 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     riders: [],
   });
 
-  // Notifications & Sound State
+  // Notifications & Loud Voice Alarm State
   const [audioEnabled, setAudioEnabled] = useState(true);
-  const [previousOrderCount, setPreviousOrderCount] = useState<number>(0);
+  const [isAlarmRinging, setIsAlarmRinging] = useState(false);
   const [newOrderAlert, setNewOrderAlert] = useState<Order | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const audioCtxRef = useRef<AudioContext | null>(null);
 
-  // Initialize audio and unlock Web Audio Context on first user touch/click
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const alarmAudioRef = useRef<HTMLAudioElement | null>(null);
+  const alarmLoopTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const alarmActiveRef = useRef<boolean>(false);
+  const seenOrderIdsRef = useRef<Set<string>>(new Set());
+  const isInitialFetchDoneRef = useRef<boolean>(false);
+
+  // Initialize and unlock audio on first user touch/click
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      audioRef.current = new Audio('/ting.mp3');
+      try {
+        alarmAudioRef.current = new Audio('/new_order_voice.wav');
+        alarmAudioRef.current.load();
+      } catch {}
+
+      if ('speechSynthesis' in window) {
+        try {
+          window.speechSynthesis.getVoices();
+          window.speechSynthesis.onvoiceschanged = () => {
+            try {
+              window.speechSynthesis.getVoices();
+            } catch {}
+          };
+        } catch {}
+      }
 
       const unlockAudio = () => {
         try {
@@ -70,6 +90,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             if (audioCtxRef.current.state === 'suspended') {
               audioCtxRef.current.resume();
             }
+          }
+          if (alarmAudioRef.current) {
+            alarmAudioRef.current.load();
           }
         } catch {}
       };
@@ -83,16 +106,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     }
   }, []);
 
-  const playNotificationSound = () => {
-    // 1. Play /ting.mp3
-    try {
-      if (audioRef.current) {
-        audioRef.current.currentTime = 0;
-        audioRef.current.play().catch(() => {});
-      }
-    } catch {}
-
-    // 2. Play ultra-crisp synthesized order notification chime via Web Audio API
+  // Web Audio chime
+  const playWebAudioChime = () => {
     try {
       const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
       if (AudioCtx) {
@@ -110,7 +125,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         const gain1 = ctx.createGain();
         osc1.type = 'triangle';
         osc1.frequency.setValueAtTime(987.77, now);
-        gain1.gain.setValueAtTime(0.4, now);
+        gain1.gain.setValueAtTime(0.5, now);
         gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
         osc1.connect(gain1);
         gain1.connect(ctx.destination);
@@ -122,7 +137,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         const gain2 = ctx.createGain();
         osc2.type = 'sine';
         osc2.frequency.setValueAtTime(1318.51, now + 0.08);
-        gain2.gain.setValueAtTime(0.45, now + 0.08);
+        gain2.gain.setValueAtTime(0.55, now + 0.08);
         gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.85);
         osc2.connect(gain2);
         gain2.connect(ctx.destination);
@@ -134,15 +149,219 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     }
   };
 
-  const handleTestAudio = () => {
+  // Repeating loud female voice iteration ("New order! New order!")
+  const playFemaleVoiceLoop = () => {
+    if (!alarmActiveRef.current) return;
+
+    // 1. Play recorded female voice audio file (/new_order_voice.wav)
+    try {
+      if (!alarmAudioRef.current) {
+        alarmAudioRef.current = new Audio('/new_order_voice.wav');
+      }
+      alarmAudioRef.current.currentTime = 0;
+      alarmAudioRef.current.volume = 1.0;
+      const playPromise = alarmAudioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    } catch {}
+
+    // 2. Play Web Speech API loud female voice alongside
+    try {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance('New order! New order!');
+        utterance.volume = 1.0;
+        utterance.rate = 1.0;
+        utterance.pitch = 1.25;
+
+        const voices = window.speechSynthesis.getVoices();
+        if (voices && voices.length > 0) {
+          const femaleVoice =
+            voices.find((v) => {
+              const n = v.name.toLowerCase();
+              return (
+                n.includes('female') ||
+                n.includes('zira') ||
+                n.includes('samantha') ||
+                n.includes('karen') ||
+                n.includes('victoria') ||
+                n.includes('moira') ||
+                n.includes('veena') ||
+                n.includes('google uk english female') ||
+                n.includes('google us english') ||
+                n.includes('microsoft zira') ||
+                (v.lang.startsWith('en') && (n.includes('woman') || n.includes('girl') || n.includes('lady')))
+              );
+            }) ||
+            voices.find((v) => v.lang.startsWith('en')) ||
+            voices[0];
+          if (femaleVoice) utterance.voice = femaleVoice;
+        }
+
+        window.speechSynthesis.speak(utterance);
+      }
+    } catch {}
+
+    // 3. Play chime
+    playWebAudioChime();
+
+    // 4. Repeat every 2.6 seconds while alarmActiveRef.current is true
+    if (alarmLoopTimerRef.current) {
+      clearTimeout(alarmLoopTimerRef.current);
+    }
+    alarmLoopTimerRef.current = setTimeout(() => {
+      if (alarmActiveRef.current) {
+        playFemaleVoiceLoop();
+      }
+    }, 2600);
+  };
+
+  // Start the alarm
+  const startAlarm = (order: Order) => {
+    if (!audioEnabled) {
+      setNewOrderAlert(order);
+      return;
+    }
+    alarmActiveRef.current = true;
+    setIsAlarmRinging(true);
+    setNewOrderAlert(order);
+
+    if (alarmLoopTimerRef.current) {
+      clearTimeout(alarmLoopTimerRef.current);
+    }
+
+    playFemaleVoiceLoop();
+  };
+
+  // Stop the alarm instantly
+  const stopAlarm = () => {
+    alarmActiveRef.current = false;
+    setIsAlarmRinging(false);
+
+    if (alarmLoopTimerRef.current) {
+      clearTimeout(alarmLoopTimerRef.current);
+      alarmLoopTimerRef.current = null;
+    }
+
+    try {
+      if (alarmAudioRef.current) {
+        alarmAudioRef.current.pause();
+        alarmAudioRef.current.currentTime = 0;
+      }
+    } catch {}
+
+    try {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    } catch {}
+  };
+
+  // Test the loud female voice alert
+  const handleTestVoiceAlert = () => {
     setAudioEnabled(true);
-    playNotificationSound();
+    const mockOrder: Order = {
+      id: `G1-${Math.floor(100000 + Math.random() * 900000)}`,
+      date: 'Just now',
+      slot: 'Standard Delivery',
+      paymentMethod: 'Cash on Delivery',
+      paymentStatus: 'pending',
+      status: 'Order Placed',
+      subtotal: 145,
+      discount: 0,
+      deliveryFee: 0,
+      taxes: 0,
+      grandTotal: 145,
+      items: [
+        {
+          productId: 'p-test',
+          productName: 'Ariel Matic Front Load Detergent',
+          unit: '1 kg',
+          price: 145,
+          quantity: 1,
+          image: '/products/placeholder.svg',
+        },
+      ],
+      address: {
+        id: 'a-test',
+        fullName: 'Test Customer (Nellore)',
+        mobileNumber: '9876543210',
+        houseFlat: 'Flat 402',
+        streetArea: 'Magunta Layout',
+        landmark: 'Near Supermarket',
+        city: 'Nellore',
+        state: 'Andhra Pradesh',
+        pincode: '524003',
+        type: 'Home',
+        isDefault: true,
+      },
+      timeline: [{ status: 'Order Placed', time: 'Just now', completed: true }],
+    };
+    startAlarm(mockOrder);
   };
 
   const handleToggleAudio = () => {
     const next = !audioEnabled;
     setAudioEnabled(next);
-    if (next) playNotificationSound();
+    if (!next) {
+      stopAlarm();
+    }
+  };
+
+  // Helper to parse Supabase row
+  const formatSupabaseRowToOrder = (row: any): Order => {
+    const address =
+      row.address ||
+      row.delivery_address || {
+        fullName: 'Customer',
+        mobileNumber: '',
+        houseFlat: '',
+        streetArea: '',
+        landmark: '',
+        city: 'Nellore',
+        state: 'Andhra Pradesh',
+        pincode: '',
+        type: 'Home',
+        isDefault: true,
+      };
+
+    return {
+      id: row.id,
+      orderNumber: row.order_number || row.id,
+      date: row.date || new Date(row.created_at || Date.now()).toLocaleDateString('en-IN', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
+      items: Array.isArray(row.order_items)
+        ? row.order_items.map((oi: any) => ({
+            productId: oi.product_id || oi.productId || 'p-1',
+            productName: oi.product_name || oi.productName || 'Catalog Item',
+            unit: oi.unit || '1 unit',
+            price: Number(oi.unit_price || oi.price || 0),
+            quantity: Number(oi.quantity || 1),
+            image: oi.image_url || oi.image || '/products/placeholder.svg',
+          }))
+        : Array.isArray(row.items)
+        ? row.items
+        : [],
+      address,
+      slot: row.slot || row.delivery_slot || 'Standard Delivery',
+      paymentMethod: row.payment_method || 'Cash on Delivery',
+      paymentStatus: row.payment_status || (row.is_paid ? 'completed' : 'pending'),
+      status: (row.status as any) || 'Order Placed',
+      subtotal: Number(row.subtotal || row.total_amount || 0),
+      discount: Number(row.discount || row.discount_amount || 0),
+      deliveryFee: Number(row.delivery_fee || 0),
+      taxes: Number(row.taxes || 0),
+      grandTotal: Number(row.grand_total || row.total_amount || 0),
+      isPaid: Boolean(row.is_paid),
+      paidAmount: Number(row.paid_amount || 0),
+      timeline: [{ status: 'Order Placed', time: 'Just Now', completed: true }],
+    };
   };
 
   // Fetch Orders from Server & Local Storage
@@ -192,13 +411,19 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
       );
 
-      // Sound notification on new order count detection
-      if (previousOrderCount > 0 && merged.length > previousOrderCount) {
-        if (audioEnabled) playNotificationSound();
-        const latest = merged[0];
-        if (latest) setNewOrderAlert(latest);
+      // Strict deduplication & new order alert detection
+      if (isInitialFetchDoneRef.current) {
+        const newlyArrived = merged.filter((o) => !seenOrderIdsRef.current.has(o.id));
+        if (newlyArrived.length > 0) {
+          newlyArrived.forEach((o) => seenOrderIdsRef.current.add(o.id));
+          startAlarm(newlyArrived[0]);
+        }
+      } else {
+        // Initial load: mark historical orders as seen, do not ring alarm
+        merged.forEach((o) => seenOrderIdsRef.current.add(o.id));
+        isInitialFetchDoneRef.current = true;
       }
-      setPreviousOrderCount(merged.length);
+
       setOrders(merged);
 
       // Keep selected order in sync if currently viewed
@@ -229,19 +454,93 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     fetchOrders(false);
     fetchStaff();
 
-    // 0ms Cross-Tab Real-time Broadcast Channel
+    // 1. Supabase Realtime Channel (Instant 0ms database push notifications)
+    let supabaseChannel: any = null;
+    if (isSupabaseConfigured()) {
+      try {
+        supabaseChannel = supabase
+          .channel('g1mart_admin_orders_live')
+          .on(
+            'postgres_changes',
+            {
+              event: '*',
+              schema: 'public',
+              table: 'orders',
+            },
+            (payload: any) => {
+              if (payload.eventType === 'INSERT') {
+                const row = payload.new;
+                if (!row || !row.id) return;
+
+                // Strict deduplication: never alert twice for the same order
+                if (seenOrderIdsRef.current.has(row.id)) return;
+                seenOrderIdsRef.current.add(row.id);
+
+                const newOrder = formatSupabaseRowToOrder(row);
+                setOrders((prev) => {
+                  if (prev.some((o) => o.id === newOrder.id)) return prev;
+                  return [newOrder, ...prev];
+                });
+
+                // Trigger loud female voice alarm immediately!
+                startAlarm(newOrder);
+
+                // Hydrate full items & relations in background
+                fetchOrders(true);
+              } else if (payload.eventType === 'UPDATE') {
+                const row = payload.new;
+                if (!row || !row.id) return;
+
+                setOrders((prev) =>
+                  prev.map((o) => {
+                    if (o.id !== row.id) return o;
+                    return {
+                      ...o,
+                      status: (row.status as any) || o.status,
+                      paymentStatus: (row.payment_status as any) || o.paymentStatus,
+                      isPaid: Boolean(row.is_paid ?? o.isPaid),
+                    };
+                  })
+                );
+
+                if (selectedOrder?.id === row.id) {
+                  setSelectedOrder((prev) =>
+                    prev
+                      ? {
+                          ...prev,
+                          status: (row.status as any) || prev.status,
+                          paymentStatus: (row.payment_status as any) || prev.paymentStatus,
+                          isPaid: Boolean(row.is_paid ?? prev.isPaid),
+                        }
+                      : null
+                  );
+                }
+              }
+            }
+          )
+          .subscribe((status: string) => {
+            console.log('[Supabase Realtime] Orders channel status:', status);
+          });
+      } catch (err) {
+        console.warn('[Supabase Realtime] Setup notice:', err);
+      }
+    }
+
+    // 2. Cross-Tab Real-time Broadcast Channel
     let bc: BroadcastChannel | null = null;
     try {
       bc = new BroadcastChannel('g1mart_order_channel');
       bc.onmessage = (event) => {
         if (event.data?.type === 'NEW_ORDER' && event.data.order) {
           const newOrder = event.data.order;
+          if (seenOrderIdsRef.current.has(newOrder.id)) return;
+          seenOrderIdsRef.current.add(newOrder.id);
+
           setOrders((prev) => {
             if (prev.some((o) => o.id === newOrder.id)) return prev;
             return [newOrder, ...prev];
           });
-          if (audioEnabled) playNotificationSound();
-          setNewOrderAlert(newOrder);
+          startAlarm(newOrder);
         } else if (event.data?.type === 'ORDER_UPDATED' && event.data.order) {
           setOrders((prev) =>
             prev.map((o) => (o.id === event.data.order.id ? { ...o, ...event.data.order } : o))
@@ -253,14 +552,20 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       };
     } catch {}
 
-    // 2-second background sync polling
+    // 3. 4-second safety net background sync (never misses orders if realtime is reconnecting)
     const interval = setInterval(() => {
       fetchOrders(true);
-    }, 2000);
+    }, 4000);
 
     return () => {
       clearInterval(interval);
       if (bc) bc.close();
+      if (supabaseChannel) {
+        try {
+          supabase.removeChannel(supabaseChannel);
+        } catch {}
+      }
+      stopAlarm();
     };
   }, [audioEnabled, selectedOrder?.id]);
 
@@ -515,10 +820,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           </div>
           <button
             type="button"
-            onClick={handleTestAudio}
-            className="w-full py-1.5 bg-white hover:bg-stone-100 text-stone-700 border border-stone-200 rounded-xl text-[11px] font-bold transition-colors"
+            onClick={handleTestVoiceAlert}
+            className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-[11px] font-black transition-all flex items-center justify-center gap-1.5 shadow-xs"
           >
-            🔔 Test Ting Sound
+            <span>📢 Test Voice Alert</span>
           </button>
         </div>
 
@@ -545,40 +850,75 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
 
       {/* 2. REALTIME ORDER ARRIVAL FLOATING POPUP BANNER */}
       {newOrderAlert && (
-        <div className="fixed top-16 right-4 sm:right-6 z-50 max-w-sm w-full bg-[#1B5E20] text-white p-4 rounded-3xl shadow-2xl border-2 border-emerald-400 flex items-center justify-between gap-3 animate-in fade-in slide-in-from-top-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-white/20 text-white flex items-center justify-center font-black animate-bounce">
-              🔔
+        <div
+          className={`fixed top-14 sm:top-6 right-3 sm:right-6 z-50 max-w-md w-full text-white p-4 sm:p-5 rounded-3xl shadow-2xl border-2 transition-all ${
+            isAlarmRinging
+              ? 'bg-[#143d18] border-red-400 ring-4 ring-red-400/50 animate-pulse'
+              : 'bg-[#1B5E20] border-emerald-400'
+          }`}
+        >
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div
+                className={`w-12 h-12 rounded-2xl flex items-center justify-center text-xl shrink-0 ${
+                  isAlarmRinging ? 'bg-red-500 text-white animate-bounce' : 'bg-white/20 text-white'
+                }`}
+              >
+                {isAlarmRinging ? '🚨' : '🔔'}
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <h4 className="text-xs font-black tracking-wider uppercase text-emerald-200">
+                    {isAlarmRinging ? 'New Order Alert!' : 'Order Notification'}
+                  </h4>
+                  {isAlarmRinging && (
+                    <span className="text-[10px] font-black uppercase bg-red-500/90 text-white px-2 py-0.5 rounded-full animate-pulse">
+                      Voice Alarm Active
+                    </span>
+                  )}
+                </div>
+                <p className="text-base font-black truncate mt-0.5">
+                  #{newOrderAlert.id} • ₹{newOrderAlert.grandTotal}
+                </p>
+                <p className="text-xs text-emerald-100 truncate">
+                  {newOrderAlert.address?.fullName || 'Customer'} • {newOrderAlert.items?.length || 1} items • {newOrderAlert.paymentMethod || 'COD'}
+                </p>
+              </div>
             </div>
-            <div>
-              <h4 className="text-xs font-black tracking-wider uppercase text-emerald-200">
-                New Order Received!
-              </h4>
-              <p className="text-sm font-bold truncate">
-                #{newOrderAlert.id} • ₹{newOrderAlert.grandTotal}
-              </p>
-              <p className="text-[11px] text-emerald-100 truncate">
-                {newOrderAlert.address?.fullName || 'Customer'} ({newOrderAlert.items?.length || 0} items)
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-1.5 shrink-0">
             <button
               type="button"
               onClick={() => {
+                stopAlarm();
+                setNewOrderAlert(null);
+              }}
+              className="p-1.5 text-white/70 hover:text-white rounded-lg transition-colors"
+              title="Close alert and stop voice"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          <div className="mt-3.5 pt-3 border-t border-white/15 flex items-center justify-end gap-2">
+            {isAlarmRinging && (
+              <button
+                type="button"
+                onClick={stopAlarm}
+                className="px-3.5 py-2 bg-white/20 hover:bg-white/30 text-white rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5"
+              >
+                <span>⏹️ Stop Voice</span>
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => {
+                stopAlarm();
                 setSelectedOrder(newOrderAlert);
                 setNewOrderAlert(null);
               }}
-              className="px-3 py-1.5 bg-white text-emerald-900 rounded-xl text-xs font-black uppercase tracking-wider shadow-sm hover:bg-emerald-50 transition-colors"
+              className="px-4 py-2 bg-white text-emerald-950 hover:bg-emerald-50 rounded-xl text-xs font-black uppercase tracking-wider shadow-md transition-all flex items-center gap-1.5"
             >
-              Open
-            </button>
-            <button
-              type="button"
-              onClick={() => setNewOrderAlert(null)}
-              className="p-1 text-white/80 hover:text-white"
-            >
-              <X className="w-4 h-4" />
+              <CheckCircle2 className="w-4 h-4 text-emerald-700" />
+              <span>Open &amp; Acknowledge</span>
             </button>
           </div>
         </div>
@@ -614,8 +954,12 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               <HomeTab
                 orders={orders}
                 products={products}
-                onViewOrder={(order) => setSelectedOrder(order)}
+                onViewOrder={(order) => {
+                  stopAlarm();
+                  setSelectedOrder(order);
+                }}
                 onNavigateToOrders={(filter) => {
+                  stopAlarm();
                   setActiveTab('orders');
                 }}
                 onNavigateToInventory={(stockFilter) => {
@@ -623,14 +967,17 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 }}
                 audioEnabled={audioEnabled}
                 onToggleAudio={handleToggleAudio}
-                onTestAudio={handleTestAudio}
+                onTestAudio={handleTestVoiceAlert}
               />
             )}
 
             {activeTab === 'orders' && (
               <OrdersTab
                 orders={orders}
-                onViewOrder={(order) => setSelectedOrder(order)}
+                onViewOrder={(order) => {
+                  stopAlarm();
+                  setSelectedOrder(order);
+                }}
                 onUpdateStatus={(id, nextStatus) => {
                   handleUpdateOrderStatus(id, nextStatus);
                 }}
