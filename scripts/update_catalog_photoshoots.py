@@ -12,31 +12,50 @@ with open(catalog_path, "r", encoding="utf-8") as f:
 print(f"Loaded {len(products)} products from {catalog_path}")
 
 RULES = [
-    # --- 1. Distinct Biscuits, Cookies & Bakery (MUST precede chocolate, nuts & dairy!) ---
+    # --- 1. Pest Control & Rodenticides (Must precede foods/cakes/bars!) ---
+    (r"(?:roban|allout|all\s*out|good\s*knight|gn\s*gold|hit\b|mosquito|repellent|rat\s*cake|insecticide)", "/products/packshots/goodknight.jpg", "household-cleaning", "Cleaning Essentials"),
+
+    # --- 2. Pooja Essentials (Must precede personal care & generic soaps!) ---
+    (r"(?:cycle|lia\b|zed\s*black|agarbatti|agarbathies|agarbati|agarbathi|ambica|dhoop|incense|pooja|camphor|karpooram|diya|sambrani|mangaldeep|cones\b|\bc\s*three\s*in\s*one\b|\bc\s*sugandha\b|\bc\s*sandla?um\b|gayathari\s*sambrani)", "/products/packshots/pooja-agarbatti.jpg", "pooja-essentials", "Pooja Needs & Incense"),
+
+    # --- 3. Cleaning Tools: Brooms, Mops, Wipers, Brushes ---
+    (r"(?:broom|brooom|wiper|mop\b|cleaning\s*brush|jhadu|pocha)", "/products/packshots/cleaning-broom.jpg", "household-cleaning", "Cleaning Essentials"),
+
+    # --- 4. Personal Care: Hair Oils, Shampoos & Fragrances (Must precede dry fruits/nuts!) ---
+    (r"(?:shampoo|conditioner|clinic\s*plus|head\s*&\s*shoulders|sunsilk|pantene|tresemme|\bmeera\b)", "/products/packshots/shampoo.jpg", "personal-care", "Hair Oils & Care"),
+    (r"(?:amla\s*oil|hair\s*oil|parachute|coconut\s*oil)", "/products/packshots/parachute-oil.jpg", "personal-care", "Hair Oils & Care"),
+    (r"(?:fogg|denver|body\s*spray|perfume|attar|axe\b|wild\s*stone|spinz.*spray|tulip\b.*(?:150ml|spray|deo)|\bmagnet\b.*(?:100ml|spray|deo)|\bmelody\b.*(?:100ml|spray|deo)|something\s*something|kiss\s*me|first\s*love|osr\s*girl|zx\b.*spray)", "/products/packshots/body-spray.jpg", "personal-care", "Fragrances & Deos"),
+
+    # --- 5. Pickles & Jams ---
+    (r"(?:pickle|pikel|avakaya|avakai|thokku|pulihora\s*pk|mango\s*sut)", "/products/packshots/mango-pickle.jpg", "grocery-staples", "Kitchen Staples"),
+    (r"(?:kissan|kisan|mixedfruit|fruit\s*jam|\bjam\b)", "/products/packshots/mixed-fruit-jam.jpg", "snacks-beverages", "Instant & Packaged Food"),
+
+    # --- 6. Distinct Biscuits, Cookies & Bakery ---
     (r"(?:unibic|unbic)", "/products/packshots/unibic-choco-ripple.jpg", "snacks-beverages", "Biscuits, Rusks & Cookies"),
     (r"\bbourbon\b", "/products/packshots/britannia-bourbon.jpg", "snacks-beverages", "Biscuits, Rusks & Cookies"),
     (r"(?:parle-?g|\bparle\b|happy\s*happy|krack\s*jack|monaco|20-?20)", "/products/packshots/parle-g.jpg", "snacks-beverages", "Biscuits, Rusks & Cookies"),
     (r"good\s*day", "/products/packshots/good-day.jpg", "snacks-beverages", "Biscuits, Rusks & Cookies"),
-    (r"(?:biscott|biscot|cookie|cookies|rusk|rusks|\bmarie\b|moms\s*magic|dark\s*fantasy|milano|oreo|bounce|treat\b|jim\s*jam|tiger\b|milk\s*bikis)", "/products/packshots/good-day.jpg", "snacks-beverages", "Biscuits, Rusks & Cookies"),
+    (r"(?:biscott|biscot|cookie|cookies|rusk|rusks|\bmarie\b|moms\s*magic|dark\s*fantasy|milano|oreo|bounce|treat\b|jim\s*jam|tiger\b|milk\s*bikis|malkist)", "/products/packshots/good-day.jpg", "snacks-beverages", "Biscuits, Rusks & Cookies"),
 
-    # --- 2. Chips, Namkeen & Savories ---
+    # --- 7. Chips, Namkeen & Savories ---
     (r"lays.*(?:magic\s*masala|masala)", "/products/packshots/lays-magic-masala.jpg", "snacks-beverages", "Chips & Namkeen"),
     (r"lays", "/products/packshots/lays-classic-salted.jpg", "snacks-beverages", "Chips & Namkeen"),
     (r"kurkure|tedhe\s*medhe", "/products/packshots/kurkure.jpg", "snacks-beverages", "Chips & Namkeen"),
     (r"bingo|mad\s*angles", "/products/packshots/bingo-mad-angles.jpg", "snacks-beverages", "Chips & Namkeen"),
-    (r"(?:appalam|papad|lijjat)", "/products/packshots/aachi-appalam.jpg", "snacks-beverages", "Chips & Namkeen"),
-    (r"(?:khatta\s*meetha|bhujia|mixture|mixtur\b|namkeen|sev\b|chegodi|borugulu|murmura|puffed\s*rice|spicy\s*nuts|tasty\s*nuts|haldiram|bikaji)", "/products/packshots/haldiram-khatta-meetha.jpg", "snacks-beverages", "Chips & Namkeen"),
+    (r"(?:appalam|papad|lijjat|gottalu)", "/products/packshots/aachi-appalam.jpg", "snacks-beverages", "Chips & Namkeen"),
+    (r"(?:khatta\s*meetha|bhujia|mixture|mixtur\b|namkeen|sev\b|chegodi|borugulu|murmura|puffed\s*rice|spicy\s*nuts|tasty\s*nuts|haldiram|bikaji|all\s*in\s*one|soya\s*sticks|navratan)", "/products/packshots/haldiram-khatta-meetha.jpg", "snacks-beverages", "Chips & Namkeen"),
 
-    # --- 3. Instant Foods, Soups, Noodles & Cereals ---
+    # --- 8. Instant Foods, Soups, Noodles & Cereals ---
     (r"(?:maggi|yippee|noodles|noodels|pasta|macaroni|top\s*ramen|soup\b|knorr)", "/products/packshots/maggi-noodles.jpg", "snacks-beverages", "Instant & Packaged Food"),
     (r"(?:corn\s*flakes|kellogg|muesli|chocos|oats\b|oatmeal)", "/products/packshots/corn-flakes.jpg", "snacks-beverages", "Instant & Packaged Food"),
 
-    # --- 4. Chocolates, Sweets, Candies & Confectionery ---
-    (r"(?:5\s*star|5star)", "/products/packshots/cadbury-5-star.jpg", "snacks-beverages", "Chocolates & Sweets"),
+    # --- 9. Chocolates, Traditional Sweets & Confectionery ---
+    (r"(?:5\s*star|5star|5\s*much)", "/products/packshots/cadbury-5-star.jpg", "snacks-beverages", "Chocolates & Sweets"),
     (r"\bmunch\b", "/products/packshots/nestle-munch.jpg", "snacks-beverages", "Chocolates & Sweets"),
-    (r"(?:dairy\s*milk|cadbury|kitkat|perk\b|milky\s*bar|milkybar|eclairs|choclairs|brownie|dazzy|bonbon|kopiko|center\s*fresh|polo\b|mentos|candy|candies|alpenliebe|kacche\s*aam|lotte|jelly|pops\b|hanobar|tcon|chocolates?|gulab\s*jam|mysore\s*pa[ck]|sweet\b|sweets\b|bubble\s*gum|trubble\s*gum|gum\b)", "/products/packshots/cadbury-dairy-milk.jpg", "snacks-beverages", "Chocolates & Sweets"),
+    (r"(?:soan\s*papdi|\bsp\s+(?:pinapple|mango|orange|badam|duet|chocolate)\b|mysore\s*pa[ck]|gulab\s*jam|rasgulla)", "/products/packshots/soan-papdi.jpg", "snacks-beverages", "Chocolates & Sweets"),
+    (r"(?:dairy\s*milk|cadbury|kitkat|perk\b|milky\s*bar|milkybar|eclairs|choclairs|brownie|dazzy|bonbon|kopiko|center\s*fresh|polo\b|mentos|candy|candies|alpenliebe|kacche\s*aam|lotte|jelly|pops\b|hanobar|tcon|chocolates?|sweet\b|sweets\b|bubble\s*gum|trubble\s*gum|gum\b|lolipop|choki\s*stix)", "/products/packshots/cadbury-dairy-milk.jpg", "snacks-beverages", "Chocolates & Sweets"),
 
-    # --- 5. Beverages (Hot & Cold) ---
+    # --- 10. Beverages (Hot & Cold) ---
     (r"(?:horlicks|boost\b|bournvita|complan|glucon-?d|pediasure|protinex)", "/products/packshots/horlicks.jpg", "snacks-beverages", "Cold Drinks & Health Juices"),
     (r"(?:coca\s*cola|\bcoke\b)", "/products/packshots/coca-cola.jpg", "snacks-beverages", "Cold Drinks & Health Juices"),
     (r"(?:thums\s*up|thumsup|sprite|limca|mountain\s*dew|pepsi|7\s*up|fanta|mirinda|soda\b|kinley)", "/products/packshots/thums-up.jpg", "snacks-beverages", "Cold Drinks & Health Juices"),
@@ -44,17 +63,18 @@ RULES = [
     (r"(?:coffee|bru\b|nescafe|sunrise)", "/products/packshots/bru-instant.jpg", "snacks-beverages", "Tea, Chai & Coffee"),
     (r"(?:\btea\b|chai\b|3\s*roses|red\s*label|taj\s*mahal|wagh\s*bakri|chakra\s*gold|kannan\s*devan|green\s*tea)", "/products/packshots/red-label-tea.jpg", "snacks-beverages", "Tea, Chai & Coffee"),
 
-    # --- 6. Dairy & Ice Creams ---
+    # --- 11. Dairy & Ice Creams ---
     (r"(?:hatsun.*(?:curd|dahi|pouch)|hatsun.*(?:milk|paneer|lassi)|\bcurd\b|\bdahi\b|\blassi\b|\bpaneer\b|yogurt)", "/products/packshots/curd-dahi.jpg", "snacks-beverages", "Dairy & Ice Creams"),
     (r"(?:arun.*(?:bites|bite))", "/products/packshots/arun-bites.jpg", "snacks-beverages", "Dairy & Ice Creams"),
     (r"(?:arun.*(?:popitos|popito))", "/products/packshots/arun-popitos.jpg", "snacks-beverages", "Dairy & Ice Creams"),
     (r"(?:arun|milky\s*fantasy|ice\s*cream|kulfi|cassata|cornetto|cone\b.*cream)", "/products/packshots/arun-donut.jpg", "snacks-beverages", "Dairy & Ice Creams"),
+    (r"(?:amul\s*milk|milk\s*packet|fresh\s*milk|\bmilk\b(?!.*bikis)(?!.*rusk)(?!.*bar))", "/products/packshots/amul-milk.jpg", "snacks-beverages", "Dairy & Ice Creams"),
 
-    # --- 7. Cooking Pastes & Tamarind ---
+    # --- 12. Cooking Pastes & Tamarind ---
     (r"(?:ginger\s*garlic|garlic\s*paste|allam\s*vellulli)", "/products/packshots/ginger-garlic-paste.jpg", "grocery-staples", "Spices, Masalas & Seeds"),
     (r"(?:tamarind|chintapandu|\bimli\b)", "/products/packshots/tamarind.jpg", "grocery-staples", "Kitchen Staples"),
 
-    # --- 8. Specific Spices & Masalas ---
+    # --- 13. Specific Spices & Masalas ---
     (r"(?:chicken\s*masala|chikkin\s*masala|mutton\s*masala|fish\s*masala|meat\s*masala)", "/products/packshots/chicken-masala.jpg", "grocery-staples", "Spices, Masalas & Seeds"),
     (r"biryani\s*masala", "/products/packshots/biryani-masala.jpg", "grocery-staples", "Spices, Masalas & Seeds"),
     (r"(?:turmeric|pasupu|haldi)", "/products/packshots/turmeric-powder.jpg", "grocery-staples", "Spices, Masalas & Seeds"),
@@ -64,46 +84,53 @@ RULES = [
     (r"(?:coriander\s*seed|dhaniya\s*seed|dhaniyalu|whole\s*dhaniya)", "/products/packshots/coriander-seeds.jpg", "grocery-staples", "Spices, Masalas & Seeds"),
     (r"(?:coriander\s*powder|dhaniya\s*powder|dhania\s*powder|coriander|dhaniya|dhania)", "/products/packshots/coriander-powder.jpg", "grocery-staples", "Spices, Masalas & Seeds"),
     (r"(?:black\s*pepper|kali\s*mirch|miriyalu|pepper)", "/products/packshots/black-pepper.jpg", "grocery-staples", "Spices, Masalas & Seeds"),
-    (r"(?:mustard|\brai\b|avalu|sarson|gasagasa|gasagasalu|poppy\s*seed|pumpkin\s*seeds?|watermelon\s*seeds?|muskmelon\s*seeds?|seeds\b|seeded)", "/products/packshots/mustard-seeds.jpg", "grocery-staples", "Spices, Masalas & Seeds"),
+    (r"(?:mustard|\brai\b|avalu|sarson|gasagasa|gasagasalu|poppy\s*seed|pumpkin\s*seeds?|watermelon\s*seeds?|muskmelon\s*seeds?|nuvvulu|sesame)", "/products/packshots/mustard-seeds.jpg", "grocery-staples", "Spices, Masalas & Seeds"),
     (r"(?:fenugreek|methi\b|menthulu)", "/products/packshots/fenugreek-seeds.jpg", "grocery-staples", "Spices, Masalas & Seeds"),
     (r"(?:fennel|saunf|sompu)", "/products/packshots/fennel-seeds.jpg", "grocery-staples", "Spices, Masalas & Seeds"),
     (r"(?:clove|laung|lavanga|lavangalu)", "/products/packshots/cloves.jpg", "grocery-staples", "Spices, Masalas & Seeds"),
     (r"(?:cardamom|elaichi|elachi|yaluka|yalukalu)", "/products/packshots/cardamom.jpg", "grocery-staples", "Spices, Masalas & Seeds"),
     (r"(?:garam\s*masala|sambar|sambhar|rasam|chaat\s*masal|chana\s*masala|sabji\s*masala|curry\s*powder|hing\b|asafoetida|\bmasala\b)", "/products/packshots/garam-masala.jpg", "grocery-staples", "Spices, Masalas & Seeds"),
 
-    # --- 9. Dry Fruits & Nuts ---
+    # --- 14. Dry Fruits & Nuts ---
     (r"(?:cashew|kaju|jeedi\s*pappu|jedipappu|badam|almond|kismis|draksha|dates\b|kharjuram|dry\s*fruits?|dry\s*nuts|makhana|walnut|pista)", "/products/packshots/cashew-nuts.jpg", "snacks-beverages", "Dry Fruits, Nuts & Seeds"),
     (r"(?:peanut|groundnut|verusenaga|palli\b|\bchikki\b|peanut\s*butter)", "/products/packshots/peanuts.jpg", "grocery-staples", "Kitchen Staples"),
     (r"(?:kobbari|copra|dry\s*coconut|yendu\s*kobbari)", "/products/packshots/dry-coconut.jpg", "grocery-staples", "Kitchen Staples"),
 
-    # --- 10. Cooking Oils vs Hair Oils ---
-    (r"(?:amla\s*oil|hair\s*oil|parachute|coconut\s*oil)", "/products/packshots/parachute-oil.jpg", "personal-care", "Hair Oils & Care"),
+    # --- 15. Edible Cooking Oils & Ghee ---
     (r"(?:sunflower|fortune|freedom|gold\s*winner|ruchi\s*gold|ruchigold|priya\s*gold|cooking\s*oil|groundnut\s*oil|deepam|gingelly|sesame\s*oil|\boil\b|ghee|butter\b)", "/products/packshots/sunflower-oil.jpg", "grocery-staples", "Edible Cooking Oils & Ghee"),
 
-    # --- 11. Dals & Pulses ---
-    (r"(?:senaga|senagapappu|chana\s*dal|bengal\s*gram|pachi\s*senga|pachi\s*senaga|putnalu|\bdalia\b|roasted\s*gram|chana\b)", "/products/packshots/chana-dal.jpg", "grocery-staples", "Dals & Pulses"),
+    # --- 16. Dals, Pulses & Peas ---
+    (r"(?:senaga|senagapappu|chana\s*dal|bengal\s*gram|pachi\s*senga|pachi\s*senaga|putnalu|\bdalia\b|roasted\s*gram|chana\b|batani|bataneelu|peas\b)", "/products/packshots/chana-dal.jpg", "grocery-staples", "Dals & Pulses"),
     (r"(?:moong|pesara\s*pappu|pesara|green\s*gram|moon\s*dal)", "/products/packshots/moong-dal.jpg", "grocery-staples", "Dals & Pulses"),
     (r"(?:urad|minapa|minapapu|minapappu|black\s*gram|pottu\s*minapa|pottu\s*minapappu)", "/products/packshots/urad-dal.jpg", "grocery-staples", "Dals & Pulses"),
-    (r"(?:\btoor\b|kandi\s*pappu|kandipappu|arhar|pigeon\s*pea|masoor|red\s*lentil|lentil|rajma|alasandalu|\bdal\b|\bpappu\b|soya\s*chunk|soya\s*badi|soya\s*mini|meal\s*maker)", "/products/packshots/toor-dal.jpg", "grocery-staples", "Dals & Pulses"),
+    (r"(?:\btoor\b|kandi\s*pappu|kandipappu|sai\s*pappu|arhar|pigeon\s*pea|masoor|red\s*lentil|lentil|rajma|alasandalu|\bdal\b|\bpappu\b|soya\s*chunk|soya\s*badi|soya\s*mini|meal\s*maker)", "/products/packshots/toor-dal.jpg", "grocery-staples", "Dals & Pulses"),
 
-    # --- 12. Rice, Rava, Flours & Grains ---
+    # --- 17. Rice, Rava, Flours & Grains ---
     (r"(?:lalitha.*(?:rava|ravva|idli|idly)|(?:idli|idly)\s*(?:rava|ravva))", "/products/packshots/lalitha-idli-rava.jpg", "grocery-staples", "Atta, Flours & Sooji"),
     (r"(?:suji|sooji|bombay\s*rava|aashirvaad.*(?:suji|rava|ravva))", "/products/packshots/aashirvaad-suji-rava.jpg", "grocery-staples", "Atta, Flours & Sooji"),
     (r"(?:vermicelli|semiya|seviyan|bambino)", "/products/packshots/vermicelli.jpg", "grocery-staples", "Rice, Poha & Vermicelli"),
     (r"(?:aashirvaad.*atta|atta\b|wheat\s*flour|godhuma|maida|besan|flour)", "/products/packshots/aashirvaad-atta.jpg", "grocery-staples", "Atta, Flours & Sooji"),
-    (r"(?:basmati|india\s*gate|biryani\s*rice|raw\s*rice|boiled\s*rice|biyyamu|biyyam|\brice\b|\bric\b|korralu|millets?)", "/products/packshots/basmati-rice.jpg", "grocery-staples", "Kitchen Staples"),
+    (r"(?:basmati|india\s*gate|biryani\s*rice|raw\s*rice|boiled\s*rice|biyyamu|biyyam|\brice\b|\bric\b|korralu|millets?|sajjalu|bajra|jowar|ragi)", "/products/packshots/basmati-rice.jpg", "grocery-staples", "Kitchen Staples"),
 
-    # --- 13. Salt, Sugar, Honey & Jaggery ---
+    # --- 18. Salt, Sugar, Honey & Jaggery ---
     (r"(?:tata\s*salt|salt\b|uppu)", "/products/packshots/tata-salt.jpg", "grocery-staples", "Salt, Sugar & Jaggery"),
     (r"(?:sugar|jaggery|bellam|sakkarai|honey\b)", "/products/packshots/aashirvaad-salt.jpg", "grocery-staples", "Salt, Sugar & Jaggery"),
 
-    # --- 14. Pooja Essentials ---
-    (r"(?:cycle|lia\b|zed\s*black|agarbatti|agarbathies|agarbati|agarbathi|ambica|dhoop|incense|pooja|camphor|karpooram|diya|sambrani|mangaldeep|cones\b)", "/products/packshots/pooja-agarbatti.jpg", "pooja-essentials", "Pooja Needs & Incense"),
+    # --- 19. Oral Care ---
+    (r"(?:close\s*up|closeup)", "/products/packshots/close-up-toothpaste.jpg", "personal-care", "Oral Care"),
+    (r"(?:colgate|pepsodent|sensodyne|sensora|dabur\s*red|oral\s*b|toothpaste|toothbrush|paste\b)", "/products/packshots/colgate-toothpaste.jpg", "personal-care", "Oral Care"),
 
-    # --- 15. Soaps & Bath ---
+    # --- 20. Feminine & Baby Care ---
+    (r"(?:stay\s*free|stayfree|whisper|sanitary|pads\b|napkin)", "/products/packshots/stayfree.jpg", "personal-care", "Feminine Hygiene"),
+    (r"(?:huggies|hugges|pampers|mamy\s*poko|diaper|baby\s*wipes)", "/products/packshots/huggies.jpg", "personal-care", "Skin & Baby Care"),
+
+    # --- 21. Personal Care Talc, Creams & Lotions ---
+    (r"(?:talc\b|talcum|ponds\b|yardley|gokul|face\s*powder|body\s*powder|bath\s*powder|subhra|nycil|boro\s*plus|baby\s*powder|baby\s*soap|glow\s*&\s*lovely|fair\s*&\s*lovely|rose\s*water|lip\s*balm|cream\b|f\.?w\b|face\s*wash|henna|vaseline|indica|spinz)", "/products/packshots/ponds-talc.jpg", "personal-care", "Skin & Baby Care"),
+
+    # --- 22. Bath Soaps ---
     (r"mysore\s*sandal", "/products/packshots/mysore-sandal-soap.jpg", "personal-care", "Bath Soaps"),
     (r"cinthol", "/products/packshots/cinthol-soap.jpg", "personal-care", "Bath Soaps"),
-    (r"(?:dettol|dettal)", "/products/packshots/dettol-soap.jpg", "personal-care", "Bath Soaps"),
+    (r"(?:dettol|dettal|hamam|saphala)", "/products/packshots/dettol-soap.jpg", "personal-care", "Bath Soaps"),
     (r"lux\b", "/products/packshots/lux-soap.jpg", "personal-care", "Bath Soaps"),
     (r"pears", "/products/packshots/pears-soap.jpg", "personal-care", "Bath Soaps"),
     (r"dove", "/products/packshots/dove-soap.jpg", "personal-care", "Bath Soaps"),
@@ -111,25 +138,12 @@ RULES = [
     (r"santoor", "/products/packshots/santoor-soap.jpg", "personal-care", "Bath Soaps"),
     (r"(?:soap\b|bath\b|body\s*wash|hand\s*wash)", "/products/packshots/santoor-soap.jpg", "personal-care", "Bath Soaps"),
 
-    # --- 16. Oral Care ---
-    (r"(?:close\s*up|closeup)", "/products/packshots/close-up-toothpaste.jpg", "personal-care", "Oral Care"),
-    (r"(?:colgate|pepsodent|sensodyne|sensora|dabur\s*red|toothpaste|toothbrush|paste\b)", "/products/packshots/colgate-toothpaste.jpg", "personal-care", "Oral Care"),
-
-    # --- 17. Feminine & Baby Care ---
-    (r"(?:stay\s*free|stayfree|whisper|sanitary|pads\b|napkin)", "/products/packshots/stayfree.jpg", "personal-care", "Feminine Hygiene"),
-    (r"(?:huggies|hugges|pampers|mamy\s*poko|diaper|baby\s*wipes)", "/products/packshots/huggies.jpg", "personal-care", "Skin & Baby Care"),
-
-    # --- 18. Personal Care Talc, Creams & Shampoos ---
-    (r"(?:shampoo|conditioner|clinic\s*plus|head\s*&\s*shoulders|sunsilk|pantene|tresemme|meera)", "/products/packshots/shampoo.jpg", "personal-care", "Hair Oils & Care"),
-    (r"(?:talc\b|talcum|ponds\b|yardley|gokul|face\s*powder|body\s*powder|bath\s*powder|subhra|nycil|boro\s*plus|baby\s*powder|baby\s*soap|glow\s*&\s*lovely|fair\s*&\s*lovely|rose\s*water|lip\s*balm|cream\b|f\.?w\b|face\s*wash|henna)", "/products/packshots/ponds-talc.jpg", "personal-care", "Skin & Baby Care"),
-
-    # --- 19. Household Cleaning & Pest Control ---
+    # --- 23. Household Cleaning, Dishwash & Laundry ---
     (r"ariel.*liq", "/products/packshots/ariel-front-liq.jpg", "household-cleaning", "Laundry & Detergents"),
     (r"fab.*liq", "/products/packshots/fab-liquid.jpg", "household-cleaning", "Laundry & Detergents"),
-    (r"(?:vim\b|dishwash|scrub|prill|exo\b|pitambari|sponge)", "/products/packshots/vim-bar.jpg", "household-cleaning", "Dishwashing & Utensil Care"),
-    (r"(?:surf\s*excel|surf\b|tide|wheel\b|rin\b|detergent|washing\s*powder|comfort|fabric)", "/products/packshots/surf-excel.jpg", "household-cleaning", "Laundry & Detergents"),
-    (r"(?:allout|all\s*out|good\s*knight|gn\s*gold|hit\b|mosquito|repellent)", "/products/packshots/goodknight.jpg", "household-cleaning", "Cleaning Essentials"),
-    (r"(?:cleaner|harpic|lizol|colin|domex|aer\b|godrej\s*aer|godreg\s*aer|odonil|air\s*fresh|descal|fogg|denver|spray|spary|body\s*spray|perfume|lock\b|hardware)", "/products/packshots/cleaner-spray.jpg", "household-cleaning", "Cleaning Essentials"),
+    (r"(?:vim\b|dishwash|scrub|prill|exo\b|pitambari|sponge|scotch\s*brite)", "/products/packshots/vim-bar.jpg", "household-cleaning", "Dishwashing & Utensil Care"),
+    (r"(?:surf\s*excel|surf\b|tide|wheel\b|rin\b|detergent|washing\s*powder|comfort|fabric|power\s*llq|high\s*power|sun\s*gold)", "/products/packshots/surf-excel.jpg", "household-cleaning", "Laundry & Detergents"),
+    (r"(?:cleaner|harpic|lizol|colin|domex|aer\b|godrej\s*aer|godreg\s*aer|odonil|air\s*fresh|descal|lock\b|hardware)", "/products/packshots/cleaner-spray.jpg", "household-cleaning", "Cleaning Essentials"),
     (r"(?:launch\s*plate|paper\s*plate|disposable|plate\b)", "/products/packshots/launch-plate.jpg", "household-cleaning", "Kitchen & Dining Needs")
 ]
 
