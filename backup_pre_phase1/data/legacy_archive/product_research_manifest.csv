@@ -1,0 +1,572 @@
+product_id,source_item_no,display_name,brand,variant,pack_size,category_id,mrp,mrp_source,selling_price,image_status,image_url,image_source_url,image_source_type,verification_notes
+g1-prod-001,1,5 Much Wafer,,Pieces,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-002,2,Cadbury 5 Star Chocolate Bar 10.1g,Cadbury,10.1g Bar,10.1g,snacks,5.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-002/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-003,3,5 Star Tea 250g,,250g,250g,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-004,4,Britannia 50-50 Sweet & Salty Biscuits 55g,Britannia,55g Pack,55g,snacks,5.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-004/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-005,5,707 Ultra Blue Detergent Cake 150g,707,150g Bar,150g,household,15.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-005/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-006,6,Aachi Garam Masala 100g,Aachi,100g Pouch,100g,rice-dal-atta,78.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-006/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-007,7,Aachi Appalam 100g,Aachi,100g Pouch,100g,snacks,45.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-007/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-008,8,Aachi Chicken Masala 50g,Aachi,50g Pouch,50g,rice-dal-atta,38.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-008/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-009,9,Aashirvaad Shudh Chakki Whole Wheat Atta 1kg,Aashirvaad,1kg Bag,1kg,rice-dal-atta,65.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-009/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-010,10,Aashirvaad Iodized Crystal Salt 1kg,Aashirvaad,1kg Pack,1kg,rice-dal-atta,22.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-010/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-011,11,Aashirvaad Iodised Salt 1kg,Aashirvaad,1kg Pouch,1kg,rice-dal-atta,32.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-011/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-012,12,Aashirvaad Double Roasted Suji Rava 1kg,Aashirvaad,1kg Pouch,1kg,rice-dal-atta,86.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-012/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-013,13,Aashirvaad Roasted Vermicelli 400g,Aashirvaad,400g Pouch,400g,rice-dal-atta,45.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-013/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-014,14,Aashirvaad Roasted Vermicelli 850g,Aashirvaad,850g Saver Pack,850g,rice-dal-atta,130.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-014/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-015,15,Floor & Toilet Cleaning Acid 700ml,Acid,700ml,700ml,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-016,16,Ajay Quest Medium Toothbrush,Ajay,Medium,,personal-care,22.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-016/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-017,17,All-in-One Mixture 100g,All,100g,100g,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-018,18,All Out Ultra Power+ Mosquito Repellent Machine & Refill,All Out,Starter Pack,,household,105.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-018/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-019,19,Apsara Platinum Extra Dark Pencils (Pack of 10),Apsara,Pack of 10,,household,60.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-019/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-020,20,Ariel Matic Front Load Liquid Detergent (Rs 10 Sachet),Ariel,Rs 10 Sachet,,household,10.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-020/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-021,21,Ariel Matic Top Load Liquid Detergent 1L,Ariel,Top Load 1L,1l,household,220.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-022,22,Arokya Toned Milk 500ml,Arokya,500ml Pouch,500ml,dairy-bakery,30.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-022/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-023,23,Arun Ice Cream Bites,Arun,Bites 50ml,,dairy-bakery,20.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-024,24,Arun Ice Cream Donut,Arun,Donut 60ml,,dairy-bakery,35.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-025,25,Arun Double Blast Ice Cream Bar,Arun,Double Blast 70ml,,dairy-bakery,40.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-026,26,Arun iBar Ice Cream Stick,Arun,iBar 60ml,,dairy-bakery,30.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-027,27,Arun Milky Fantasy Ice Cream Bar,Arun,Milky Fantasy 60ml,,dairy-bakery,25.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-028,28,Arun Popitos Mini Ice Cream Candies,Arun,Popitos Pack,,dairy-bakery,20.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-029,29,Arun Sunny Silver Vanilla Ice Cream Bar,Arun,Sunny Silver 50ml,,dairy-bakery,15.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-030,30,Arun Toffee Crunch Ice Cream Cone,Arun,Toffee Cone 100ml,,dairy-bakery,40.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-031,31,Assorted Fruit Candies,Assorated,Pieces,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-032,32,Whole Mustard Seeds (Avalu) 250g,G1 Mart Selection,250g Pouch,250g,rice-dal-atta,45.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-033,33,Whole Mustard Seeds (Avalu) 50g,G1 Mart Selection,50g Pouch,50g,rice-dal-atta,12.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-034,34,Whole California Almonds (Badam) 100g,G1 Mart Selection,100g Pouch,100g,snacks,110.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-035,35,Whole California Almonds (Badam) 250g,G1 Mart Selection,250g Pouch,250g,snacks,260.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-036,36,Whole California Almonds (Badam) 50g,G1 Mart Selection,50g Pouch,50g,snacks,60.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-037,37,Bambino Traditional Mysore Pak Sweet 200g,Bambino,200g Box,200g,snacks,140.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-038,38,Bambino Roasted Vermicelli 250g,Bambino,Roasted 250g,250g,rice-dal-atta,30.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-039,39,Bansi Wheat Rava 500g,G1 Mart Selection,500g Pouch,500g,rice-dal-atta,40.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-040,40,Bat Shaped Fryum Papad 250g,G1 Mart Selection,250g,250g,snacks,35.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-041,41,Bingo! Mad Angles Chilli Dhamaka 66g,Bingo,Chilli Dhamaka 66g,66g,snacks,20.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-042,42,Bingo! Tedhe Medhe Korean Style 70g,Bingo,Korean Style 70g,70g,snacks,20.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-042/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-043,43,Bingo! Mad Angles Achaari Masti 66g,Bingo,Achaari Masti 66g,66g,snacks,20.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-044,44,Bingo! Tedhe Medhe Masala Tadka 70g,Bingo,Masala Tadka 70g,70g,snacks,20.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-045,45,Bingo! Mad Angles Tomato Madness 66g,Bingo,Tomato Madness 66g,66g,snacks,20.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-046,46,Bingo! Mad Angles Tomato Madness 21g,Bingo,Tomato Madness 21g / Rs 5,21g,snacks,5.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-047,47,Aachi Biryani Masala 50g,Aachi,50g Pouch,50g,rice-dal-atta,45.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-048,48,Biscott Bakery Biscuits,Biscott,Pieces,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-049,49,Bleaching Powder Disinfectant 100g,G1 Mart Selection,100g Pack,100g,household,15.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-049/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-050,50,Boost Energy Drink 15g Sachet,Boost,15g Sachet / Rs 5,15g,beverages,5.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-051,51,Boost Energy & Nutrition Drink 200g Refill,Boost,200g Refill,200g,beverages,10.0,Jay Goga Ji Estimation L-109,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-051/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/100012354_35-britannia-bourbon-chocolate-cream-biscuits.jpg,Supabase Storage,Verified real Britannia Bourbon packshot
+g1-prod-052,52,Britannia Bourbon Chocolate Cream Biscuits 120g,Britannia,Bourbon 120g,120g,snacks,30.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-053,53,Bru Instant Coffee 50g Pouch,Bru,50g Pouch,50g,beverages,110.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-053/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-054,54,Bru Instant Coffee 1.2g Sachet (Rs 2),Bru,1.2g Sachet,1.2g,beverages,2.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-054/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-055,55,Bru Instant Coffee Glass Jar 100g,Bru,100g Glass Jar,100g,beverages,240.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-055/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-056,56,Utility Cleaning Brush,Brush,Pieces,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-057,57,Camlin Kokuyo 0.7mm 2B Pencil Lead Tube,Camlin,0.7mm 2B Lead Tube,,household,10.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-058,58,Pure Pooja Camphor Tablets (Karpooram) 50g,G1 Mart Selection,50g Box,50g,household,45.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-059,59,Pure Castor Oil (Aamudam) 100ml,G1 Mart Selection,100ml Bottle,100ml,personal-care,65.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-060,60,Pure Guntur Red Chilli Powder 100g,G1 Mart Selection,100g Pouch,100g,rice-dal-atta,45.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-061,61,Choki Choki Chocolate Stix 16g,Choki Choki,16g Pack,16g,snacks,10.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-061/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-062,62,Godrej Cinthol Original Soap 100g,Cinthol,Original 100g,100g,personal-care,46.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-063,63,Britannia Crunchy Toastea Rusk 59g,Britannia,Toastea 59g,59g,snacks,10.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-064,64,Floor Squeegee Cleaning Wiper,G1 Mart Selection,Standard,,household,120.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-064/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-065,65,Clear Anti-Dandruff Complete Care Nutrium 10 Shampoo 80ml,Clear,80ml Bottle,80ml,personal-care,95.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-066,66,Clinic Plus Naturally Strong Egg Protein Shampoo 80ml,Clinic Plus,Egg Protein 80ml,80ml,personal-care,65.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-067,67,Clinic Plus Strong & Long Health Shampoo 80ml,Clinic Plus,Strong & Long 80ml,80ml,personal-care,65.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-068,68,Plastic Cloth Drying Pegs / Pins (Pack of 12),G1 Mart Selection,Pack of 12,,household,50.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-068/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-069,69,Coca-Cola Original Taste Soft Drink 250ml,Coca-Cola,250ml Can,250ml,beverages,20.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-070,70,Fresh Whole Pooja Coconut (Kobbari Kaya),G1 Mart Fresh,1 pc,,fruits-vegetables,35.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-071,71,Colgate Strong Teeth Dental Paste 100g,Colgate,100g Tube,100g,personal-care,65.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-071/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-072,72,Colgate Extra Clean Toothbrush,Colgate,Medium,,personal-care,25.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-073,73,Colgate ZigZag Toothbrush (Pack of 3),Colgate,Pack of 3,,personal-care,90.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-074,74,Colgate Extra Clean Medium Toothbrush,Colgate,Medium,,personal-care,125.0,Jay Goga Ji Estimation L-109,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-074/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/40306079_1-comfort-fabric-conditioner-desire.jpg,Supabase Storage,Verified real HUL Comfort Fabric Conditioner packshot
+g1-prod-075,75,Colgate MaxFresh Spicy Red Gel Toothpaste 80g,Colgate,Spicy Fresh 80g,80g,personal-care,60.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-076,76,Colgate Kids Extra Soft Toothbrush,Colgate,Kids Extra Soft,,personal-care,40.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-077,77,Colgate Strong Teeth Dental Cream 300g,Colgate,300g Saver Pack,300g,personal-care,165.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-078,78,Colgate Vedshakti Ayurvedic Toothpaste 100g,Colgate,100g Tube,100g,personal-care,60.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-079,79,Colour Fryums Papad 250g,G1 Mart Selection,250g Pouch,250g,snacks,35.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-080,80,Comfort After Wash Fabric Conditioner 30ml Sachet,Comfort,30ml Sachet,30ml,household,5.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-081,81,Comfort Morning Fresh Fabric Conditioner 210ml,Comfort,Morning Fresh 210ml,210ml,household,60.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-082,82,Comfort Royal Fabric Conditioner 80ml,Comfort,Royal 80ml,80ml,household,30.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-083,83,Whole Coriander Seeds (Dhaniyalu) 100g,G1 Mart Selection,100g,100g,rice-dal-atta,25.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-084,84,Pure Coriander Powder (Dhaniyala Podi) 100g,G1 Mart Selection,100g,100g,rice-dal-atta,35.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-085,85,Pure Coriander Powder (Dhaniyala Podi) 50g,G1 Mart Selection,50g,50g,rice-dal-atta,18.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-086,86,Whole Coriander Seeds (Dhaniyalu) 250g,G1 Mart Selection,250g,250g,rice-dal-atta,55.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-087,87,Fresh Traditional Pouch Curd 500g,G1 Mart Fresh,500g Pouch,500g,dairy-bakery,35.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-088,88,Dabur Red Ayurvedic Toothpaste 100g,Dabur,100g Tube,100g,personal-care,60.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-089,89,Dabur Red Ayurvedic Toothpaste 300g (Family Pack),Dabur,300g Pack,300g,personal-care,155.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-090,90,Dabur Red Ayurvedic Toothpaste 50g,Dabur,50g Tube,50g,personal-care,30.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-091,91,Cadbury Dairy Milk Chocolate Bar 12g (Rs 10),Cadbury,12g / Rs 10,12g,snacks,10.0,Cadbury India / BigBasket,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-091/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/100020979_14-cadbury-dairy-milk-chocolate-bar.jpg,Supabase Storage,Verified real Cadbury Dairy Milk Rs 10 bar packshot
+g1-prod-092,92,Cadbury Dairy Milk Chocolate Bar 6.5g (Rs 5),Cadbury,6.5g / Rs 5,6.5g,snacks,5.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-093,93,Sunfeast Dark Fantasy Choco Fills 75g,Dark Fantasy,Choco Fills 75g,75g,snacks,40.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-094,94,Sunfeast Dark Fantasy Bourbon Biscuits 90g,Dark Fantasy,Bourbon 90g,90g,snacks,25.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-095,95,Sunfeast Dark Fantasy Choco Fills Single Cookie (Rs 5),Dark Fantasy,Choco Fills 10g,10g,snacks,5.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-096,96,Sunfeast Dark Fantasy Choco Meltz 50g,Dark Fantasy,Choco Meltz 50g,50g,snacks,30.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-097,97,Sunfeast Dark Fantasy Choco Nut Fills 75g,Dark Fantasy,Nut Fills 75g,75g,snacks,40.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-098,98,Sunfeast Dark Fantasy Vanilla Fills 55g,Dark Fantasy,Vanilla Fills 55g,55g,snacks,30.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-099,99,Sunfeast Dark Fantasy Choco Fills (Rs 5 Pack),Dark Fantasy,Rs 5 Pack,,snacks,5.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-100,100,GO DESi POPZ Tangy Imli Candy,GO DESi,Imli Pop,,snacks,5.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-101,101,Dettol Antiseptic Liquid Disinfectant 250ml,Dettol,250ml Bottle,250ml,personal-care,155.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-101/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-102,102,Domex Disinfectant Floor Cleaning Powder,Domex,Powder,,household,50.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-103,103,Dove Daily Shine Shampoo 6ml Sachet,Dove,6ml Sachet / Rs 2,6ml,personal-care,2.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-104,104,Dove Intense Repair Shampoo 80ml,Dove,80ml Bottle,80ml,personal-care,85.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-105,105,Dove Cream Beauty Bathing Bar 100g,Dove,100g Bar,100g,personal-care,68.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-106,106,Dry Fruits & Mixed Nuts Bowl Pack 100g,G1 Mart Selection,100g Bowl,100g,snacks,150.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-107,107,Heavy Duty Plastic Cleaning Dustpan,G1 Mart Selection,Standard,,household,60.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-108,108,E Butes Shorthand SKU,,Pieces,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-109,109,Eagle Brand Pure Sambrani Dhoop Cup 50g,Eagle,50g Box,50g,household,40.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-110,110,Cotton Ear Buds Pack,Ear,Plastic Stem,,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-111,111,Fresh Farm White Eggs (Pack of 6),G1 Mart Fresh,Pack of 6,,dairy-bakery,42.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-112,112,Fresh Farm White Eggs Tray (Pack of 30),G1 Mart Fresh,Tray of 30,,dairy-bakery,210.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-113,113,Whole Green Cardamom (Yalukalu) 20g,G1 Mart Selection,20g,20g,rice-dal-atta,60.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-114,114,Whole Green Cardamom (Yalukalu) 10g,G1 Mart Selection,10g,10g,rice-dal-atta,30.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-115,115,Britannia Toastea Premium Elaichi Rusk 182g,Britannia,Elaichi 182g,182g,snacks,35.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-116,116,Britannia Toastea Elaichi Rusk 58g,Britannia,Elaichi 58g,58g,snacks,10.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-117,117,Guntur Dry Red Chillies (Endu Mirchi) 250g,G1 Mart Selection,250g Pouch,250g,rice-dal-atta,85.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-118,118,Guntur Dry Red Chillies (Endu Mirchi) 500g,G1 Mart Selection,500g Pouch,500g,rice-dal-atta,165.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-119,119,Eno Fruit Salt Regular / Lemon 5g Sachet,Eno,5g Sachet,5g,household,9.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-120,120,Exo Touch & Shine Anti-Bacterial Dishwash Bar 150g,Exo,150g Bar,150g,household,20.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-121,121,Exo Touch & Shine Dishwash Bar (Rs 10 Pack),Exo,Rs 10 Pack,,household,10.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-122,122,Exo Dishwash Bar (Rs 5 Pack),Exo,Rs 5 Pack,,household,5.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-123,123,Exo Super Dishwash Powder 500g,Exo,500g Tub / Pack,500g,household,40.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-124,124,Exo Stainless Steel Dishwash Scrubber,Exo,Steel Scrubber,,household,15.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-125,125,Henko Matic / Fab Liquid Detergent 825ml,Henko,825ml Bottle,825ml,household,165.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-126,126,Fab Liquid Detergent Sachet (Rs 10),Henko,Rs 10 Sachet,,household,10.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-127,127,Glow & Lovely Advanced Multivitamin Cream 9g,Glow & Lovely,9g Tube,9g,personal-care,25.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-128,128,Fanta Orange Flavoured Carbonated Drink (Rs 10 Returnable / Mini Can),Fanta,Rs 10 Pack,,beverages,10.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-129,129,Whole Finger Millet / Ragi Seeds 500g,G1 Mart Selection,500g,500g,rice-dal-atta,45.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-130,130,Flair Carbonix 0.7mm Ball Pen,Flair,0.7mm Ball Pen,,household,10.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-131,131,Flattened Rice / Medium Poha (Atukulu) 250g,G1 Mart Selection,250g Pouch,250g,rice-dal-atta,25.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-132,132,Flattened Rice / Medium Poha (Atukulu) 500g,G1 Mart Selection,500g Pouch,500g,rice-dal-atta,48.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-133,133,Fogg Fresh Oriental / Master Body Spray 120ml,Fogg,120ml,120ml,personal-care,225.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-134,134,Freedom Refined Sunflower Oil 500ml,Freedom,500ml Pouch,500ml,rice-dal-atta,75.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-135,135,Freedom Refined Sunflower Oil 1L Pouch,Freedom,1L Pouch,1l,rice-dal-atta,145.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-136,136,Freedom Filtered Groundnut Oil 1L Pouch,Freedom,Groundnut Oil 1L,1l,rice-dal-atta,195.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-137,137,Freedom Refined Sunflower Oil 1L Pouch,Freedom,1L Pouch,1l,rice-dal-atta,145.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-138,138,Freedom Physically Refined Rice Bran Oil 1L,Freedom,Rice Bran 1L,1l,rice-dal-atta,155.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-139,139,Ching's Secret Fried Rice Masala 20g,Ching's Secret,20g Sachet,20g,rice-dal-atta,10.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-140,140,Pure Pooja Camphor Lump (Gadda Karpooram) 25g,G1 Mart Selection,25g Pack,25g,household,30.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-141,141,Laundry Starch Powder (Gangi Pindi) 100g,G1 Mart Selection,100g,100g,household,20.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-142,142,Spicy Garlic Namkeen Mixture (Vellulli Mixture) 100g,G1 Mart Selection,100g Pouch,100g,snacks,30.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-143,143,Garnier Skin Naturals Bright Complete Face Wash 50g,Garnier,50g Tube,50g,personal-care,99.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-144,144,Gayathri Dhoop Sambrani Sticks (Pack of 10),Gayathri,10 sticks,,household,20.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-145,145,Whole Cumin Seeds (Jeelakarra) 50g,G1 Mart Selection,50g Pouch,50g,rice-dal-atta,35.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-146,146,Tata Gemini Strong Dust Tea 100g,Gemini,100g Pouch,100g,beverages,40.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-147,147,Whole Cumin Seeds (Jeelakarra) 100g,G1 Mart Selection,100g Pouch,100g,rice-dal-atta,65.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-148,148,Gokulam Premium Black Dates 500g,Gokulam,500g Box,500g,snacks,160.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-149,149,GKL Seeded Dates 250g,Gkl,250g,250g,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-150,150,Glow & Lovely Advanced Multivitamin Cream 25g,Glow & Lovely,25g Tube,25g,personal-care,65.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-151,151,Glow & Lovely Advanced Multivitamin Cream 20g,Glow & Lovely,20g Tube,20g,personal-care,55.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-152,152,Goodnight Gold Flash Mosquito Liquid Refill 45ml,Goodknight,45ml Refill,45ml,household,85.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-153,153,Goodnight Gold Flash Machine & Refill Combo,Goodknight,Machine + 45ml,,household,110.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-154,154,Gokulam Premium Wet Dates 250g,Gokulam,250g Pack,250g,snacks,75.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-155,155,Gokul Santol Pure Sandal Talc 30g,Gokul,30g,30g,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-156,156,Gokulam Premium Seedless Dates 500g,Gokulam,500g,500g,snacks,150.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-157,157,Priya Gongura Pickle with Garlic 60g Sachet,Priya,60g Sachet / Rs 10,60g,rice-dal-atta,10.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-158,158,Gopuram Pure Pooja Turmeric Powder (Pasupu) 50g,Gopuram,50g Pouch,50g,household,25.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-159,159,Gopuram Pure Pooja Turmeric Powder (Pasupu) 20g,Gopuram,20g Pouch,20g,household,10.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-160,160,Gopuram Pure Turmeric Powder 20g,Gopuram,20g,20g,household,10.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-161,161,Gopuram Pure Turmeric Powder 50g,Gopuram,50g,50g,household,25.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-162,162,GRB Pure Cow Ghee 200ml Pouch,GRB,200ml Pouch,200ml,dairy-bakery,165.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-163,163,GRB Pure Cow Ghee 50ml Sachet,GRB,50ml,50ml,dairy-bakery,45.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-164,164,MTR Gulab Jamun Instant Mix (1+1 Offer) 160g+160g,MTR,160g (1+1 Combo),160g,snacks,120.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-165,165,Gits Gulab Jamun Instant Mix 200g,Gits,200g Box,200g,snacks,40.0,Jay Goga Ji Estimation L-109,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-165/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/270910_10-hamam-bathing-soap-with-neem-tulsi-aloe-vera.jpg,Supabase Storage,Verified real HUL Hamam 100g soap packaging
+g1-prod-166,166,Fevicol MR / Kores Synthetic Gum (Rs 5 Tube),Pidilite,Rs 5 Pack,,household,5.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-167,167,Harpic Disinfectant Bathroom & Toilet Cleaner Blue 600ml,Harpic,Power Plus 600ml,600ml,household,105.0,Reckitt / BigBasket,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-167/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/298290_24-harpic-power-plus-disinfectant-toilet-cleaner-original.jpg,Supabase Storage,Verified real Harpic Power Plus 500ml bottle packshot
+g1-prod-168,168,Harpic Bathroom Cleaner Power Plus Red 500ml,Harpic,Red 500ml,500ml,household,105.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-169,169,Hatsun Daily Fresh Curd 500g Pouch,Hatsun,500g Pouch,500g,dairy-bakery,35.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-170,170,Head & Shoulders Anti-Dandruff Cool Menthol Shampoo (Rs 2 Sachet),Head & Shoulders,Rs 2 Sachet,,personal-care,2.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-171,171,HIDE&SEEK BISCUITS 10RS,Hide & Seek,10RS,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-172,172,HORLICKS,Horlicks,Packs,,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-173,173,Horlicks 500g,Horlicks,500g,500g,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-174,174,Horlicks Biscuit Small,Horlicks,Number,,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-175,175,Horlicks Biscuits,Horlicks,Number,,beverages,10.0,Jay Goga Ji Estimation L-109,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-175/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/302102_5-parle-hide-seek-chocolate.jpg,Supabase Storage,Verified real Parle Hide & Seek packshot
+g1-prod-176,176,HORLICKS BISCUITS,Horlicks,Pieces,,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-177,177,HR CHEKARALU 150G,Haldiram's,150G,150g,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-178,178,HR CORN FLAKES MIXTURE 24G,Haldiram's,24G,24g,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-179,179,HR KHATTA MEETHA 48G,Haldiram's,48G,48g,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-180,180,HR MASALA PEANUTS 34G,Haldiram's,34G,34g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-181,181,HR MOONG DAL 200G,Haldiram's,200G,200g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-182,182,HR MOONG DAL 35G,Haldiram's,35G,35g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-183,183,HR SOYA CHIPS 42G,Haldiram's,42G,42g,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-184,184,HR TASTY NUTS 38G,Haldiram's,38G,38g,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-185,185,IMMUNITY BOOSTING,Immunity,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-186,186,INDIA GATE 1KG,India Gate,1KG,1kg,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-187,187,ITC CHIKKIN MASALA 50G,ITC,50G,50g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-188,188,ITC GARAM MASALA 50G,ITC,50G,50g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-189,189,JAGGERY 1KG,Jaggery,1KG,1kg,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-190,190,JAGGERY 500G,Jaggery,500G,500g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-191,191,JAM OJAM,Jam,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-192,192,Jeedi Pappu 100g,Jeedi,100g,100g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-193,193,Jeedi Pappu 250g,Jeedi,250g,250g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-194,194,Jeedi Pappu 50g,Jeedi,50g,50g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-195,195,JEERA 100G,Jeera,100G,100g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-196,196,JEERA 250G,Jeera,250G,250g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-197,197,JEERA 50G,Jeera,50G,50g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-198,198,JS OILE 800ML,,800ML,800ml,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-199,199,JS OILE DEEPAM 400ML,,400ML,400ml,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-200,200,JS OILS 180ML,,180ML,180ml,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-201,201,KALKANDA CANDY 250G,Kalkanda,250G,250g,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-202,202,Kandipappu 1kg,Kandipappu,1kg,1kg,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-203,203,Kandipappu 500g,Kandipappu,500g,500g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-204,204,KASTURI APPALAM 40G,Kasturi,40G,40g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-205,205,KASURI METHI 10G,Kasuri,10G,10g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-206,206,KINDAR JOYS 25,Kinder Joy,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-207,207,KINDER JOY (B),Kinder Joy,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-208,208,KINLEY 500ML,Kinley,500ML,500ml,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-209,209,KINLEY SALTY LEMON SODA,Kinley,Pieces,,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-210,210,KINLEYSTRONG SODA,Kinleystrong,Pieces,,beverages,30.0,Jay Goga Ji Estimation L-109,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-210/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/100532699_36-nestle-kitkat-crispy-wafer-bar.jpg,Supabase Storage,Verified real Nestlé Kitkat 4 Finger packshot
+g1-prod-211,211,KISAN JAM,Kissan,Packs,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-212,212,KISAN TOMOTA KETCHUP,Kissan,Packs,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-213,213,KISMIS 100G,Kismis,100G,100g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-214,214,KISMIS 50G,Kismis,50G,50g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-215,215,KITKAT,KitKat,Pieces,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-216,216,KNORR CUP SOUP,Knorr,Pieces,,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-217,217,KNORR DARK SOYA SAS,Knorr,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-218,218,KNORR RED CHILLI SAUCE 200G,Knorr,200G,200g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-219,219,KURNOOL RIC BAG 25KG,Kurnool,25KG,25kg,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-220,220,Lakme 2in1,Lakme,2in1,,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-221,221,Lalitha Idly Ravva 1kg,Lalitha,1kg,1kg,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-222,222,Launch Plate,Launch,Packs,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-223,223,LAVENDER,Lavender,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-224,224,LG ENGIVA 50G,LG,50G,50g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-225,225,LGV 10G,LG,10G,10g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-226,226,LIMCA 10RUPEES,Limca,Pieces,,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-227,227,LION HONEY 250G,Lion,250G,250g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-228,228,LION HONEY SET 250G,Lion,250G,250g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-229,229,LIRIL LIMEN,Liril,Pieces,,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-230,230,LOTTE CHOCO PIE,Lotte,Pieces,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-231,231,LUX GLUTATHIONE,Lux,Pieces,,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-232,232,LUX ROSE SCENT 545G,Lux,545G,545g,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-233,233,MAAZA 250ML,Maaza,250ML,250ml,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-234,234,MAGGI 140G,Maggi,140G,140g,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-235,235,MAGGI 15RS,Maggi,15RS,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-236,236,Makhana SeaSalt&pepper 70g,Makhana,70g,70g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-237,237,MALKIST,Malkist,Pieces,,snacks,200.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-238,238,MALKIST CHEESE 144G,Malkist,144G,144g,snacks,45.0,"Srinivasa Traders Tax Invoice 25,501",,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-238/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/40191072_9-malkist-cheese-crunchy-layered-crackers.jpg,Supabase Storage,Verified real Mayora Malkist cheese crackers packshot
+g1-prod-239,239,MALKIST CHEESE 72G,Malkist,72G,72g,snacks,25.0,"Srinivasa Traders Tax Invoice 25,501",,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-239/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/40191072_9-malkist-cheese-crunchy-layered-crackers.jpg,Supabase Storage,Verified real Mayora Malkist cheese crackers packshot
+g1-prod-240,240,MALKIST DOUBLE CHOCOLATEY 144G,Malkist,144G,144g,snacks,45.0,"Srinivasa Traders Tax Invoice 25,501",,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-240/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/40203431_5-malkist-chocolate-crackers-crunchy-family-pack.jpg,Supabase Storage,Verified real Mayora Malkist chocolate crackers packshot
+g1-prod-241,241,MALKIST DOUBLE CHOCOLATEY 72G,Malkist,72G,72g,snacks,25.0,"Srinivasa Traders Tax Invoice 25,501",,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-241/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/40203431_5-malkist-chocolate-crackers-crunchy-family-pack.jpg,Supabase Storage,Verified real Mayora Malkist chocolate crackers packshot
+g1-prod-242,242,MANGALDEEP 3IN1,Mangaldeep,3IN1,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-243,243,MANGALDEEP FLORA,Mangaldeep,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-244,244,Mangaldeep Sambrani,Mangaldeep,Pieces,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-245,245,Mangaldeep Samrani Cup 1 Box,Mangaldeep,1 Box,1box,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-246,246,MANGALDEEP SCENT 110G,Mangaldeep,110G,110g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-247,247,Mangaldeep Treya,Mangaldeep,Pieces,,groceries,15.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-248,248,MANGO FRUIT,Mango,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-249,249,MARGO ORIGINAL 500G,Margo,500G,500g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-250,250,MARIE LIGHT ACTIVE 140G,Marie Light,140G,140g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-251,251,MARIE LIGHT ACTIVE 34G,Marie Light,34G,34g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-252,252,Masala Noodles 200g,Masala,200g,200g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-253,253,MAYA AGARBATHI,Maya,Pieces,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-254,254,MEDIMIX CLASSIC SOP 75G,Medimix,75G,75g,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-255,255,MENTHULU 100G,Menthulu,100G,100g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-256,256,MENTHULU 250G,Menthulu,250G,250g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-257,257,MENTHULU 50G,Menthulu,50G,50g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-258,258,MIKL RUSK 58G,Mikl,58G,58g,dairy-bakery,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-259,259,MILK BIKIS,Milk Bikis,Pieces,,dairy-bakery,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-260,260,MILK RUSK 182G,Milk,182G,182g,dairy-bakery,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-261,261,MILKYBAR,Milkybar,Pieces,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-262,262,MILKYBAR CHOO,Milkybar,Pieces,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-263,263,MILKYBBAR SMAL BOX,Milkybar,Packs,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-264,264,Minapappu 1kg,Minapappu,1kg,1kg,rice-dal-atta,5.0,Jay Goga Ji Estimation L-109,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-264/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/40122238_38-milkybar-white-chocolate-creamy.jpg,Supabase Storage,Verified real Nestlé Milkybar packshot
+g1-prod-265,265,Minapapu 500g,Minapapu,500g,500g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-266,266,MINUTE MAID ORANGE,Minute Maid,Pieces,,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-267,267,MIRIYALU 50G,Miriyalu,50G,50g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-268,268,MOMS MAGIC CASHEW& ALMOND,Mom's Magic,Pieces,,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-269,269,MOMS MAGIC CASHEW&ALMOND 61G,Mom's Magic,61G,61g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-270,270,MOMS MAGIC SHINES SHINIG BUTTER 126G,Mom's Magic,126G,126g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-271,271,MOMS MAGIC SHINES SHINING BUTTER 44G,Mom's Magic,44G,44g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-272,272,MOON DAL 250G,Moon,250G,250g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-273,273,MOON DAL 500G,Moon,500G,500g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-274,274,MOONG DALL 120G,Moong,120G,120g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-275,275,MROW,Mrow,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-276,276,MUNCH 5RS,Munch,5RS,,snacks,5.0,Jay Goga Ji Estimation L-109,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-276/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/40269268_16-nestle-munch-max-chocolate-coated-wafer-extra-crunchy.jpg,Supabase Storage,Verified real Nestlé Munch packshot
+g1-prod-277,277,MUNG BEAN 500G,Mung,500G,500g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-278,278,MURALI VATHULU,Murali,Pieces,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-279,279,Muskmelon Seeds 100g,Muskmelon,100g,100g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-280,280,MYSORE SANDAL 50G,Mysore Sandal,50G,50g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-281,281,Mysore Sandal Gold,Mysore Sandal,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-282,282,MYSORE SANDAL SOAP 150G,Mysore Sandal,150G,150g,personal-care,75.0,RR Enterprises Tax Invoice RRE26/27-4456,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-282/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/100003949_1-mysore-sandal-bathing-soap.jpg,Supabase Storage,Verified real KSDL Mysore Sandal soap 150g packaging
+g1-prod-283,283,MYSORE SANDAL SOP 125G,Mysore Sandal,125G,125g,personal-care,63.0,RR Enterprises Tax Invoice RRE26/27-4456,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-283/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/100003902_1-mysore-sandal-bathing-soap.jpg,Supabase Storage,Verified real KSDL Mysore Sandal soap 125g packaging
+g1-prod-284,284,MYSORE SANDALS FRESHNOL,Mysore Sandal,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-285,285,NALLA KARAM PODI 150G,Nalla,150G,150g,rice-dal-atta,47.0,Jay Goga Ji Estimation L-109,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-285/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/265360_5-navratna-ayurvedic-hair-oil-cool-enriched-with-bhringraj-amla-bhrami-for-head-body-ache-fatigue.jpg,Supabase Storage,Verified real Emami Navratna hair oil packshot
+g1-prod-286,286,NATURO,Naturo,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-287,287,NAVARATNA OIL 50ML,Navaratna,50ML,50ml,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-288,288,NEEM NIMYLE 200ML,Nimyle,200ML,200ml,household,44.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-289,289,Nice Peanut Chikki,Nice,Pieces,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-290,290,NO 1 SOAP LEMON,,Pieces,,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-291,291,NSR,Nsr,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-292,292,NUVVULU 250G,Nuvvulu,250G,250g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-293,293,NYCIL GERM EXPERT 210G,Nycil,210G,210g,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-294,294,NYCIL POWDER SMALL,Nycil,Pieces,,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-295,295,OATS 400G,Oats,400G,400g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-296,296,OIONES 500G,Oiones,500G,500g,fruits-vegetables,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-297,297,ONIONS 1KG,Onions,1KG,1kg,fruits-vegetables,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-298,298,ORINGE CANDY 150G,Oringe,150G,150g,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-299,299,Osmania Bisc,Osmania,Pieces,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-300,300,Pachisenaga Pappu (Chana Dal) 250g,Pachisenaga,250g,250g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-301,301,Pachisenagapappu 500g,Pachisenagapappu,500g,500g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-302,302,PARACHUTE 175ML,Parachute,175ML,175ml,groceries,10.0,Jay Goga Ji Estimation L-109,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-302/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/20005973_17-cadbury-perk-double-chocolate-bar.jpg,Supabase Storage,Verified real Cadbury Perk packshot
+g1-prod-303,303,Parachute Aloe Vera 250ml,Parachute,250ml,250ml,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-304,304,PARACHUTEB 100ML,Parachute,100ML,100ml,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-305,305,PARK10RS,,10RS,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-306,306,PEARS PURE& GENTLE GLOW 52G,Pears,52G,52g,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-307,307,PEARS WITH MINT 50G,Pears,50G,50g,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-308,308,Pepper 100g,Pepper,100g,100g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-309,309,PEPPER BOLS 50G,Pepper,50G,50g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-310,310,PITAMBARI 20G,Pitambari,20G,20g,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-311,311,POND S 23G,Pond's,23G,23g,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-312,312,PONDS BRICHT BEAUTY 15G,Pond's,15G,15g,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-313,313,Ponds Cold Cream,Pond's,Pieces,,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-314,314,POOJA GOLD OIL 800ML,Pooja,800ML,800ml,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-315,315,POOJA OIAL 800ML,Pooja,800ML,800ml,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-316,316,"POOJA POWDER 50 G,",Pooja,50 G,50g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-317,317,POOJA POWDER B GANDAM,Pooja,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-318,318,POWER NATURAL SOAP,Power,Pieces,,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-319,319,Priya Gold 500g,Priya,500g,500g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-320,320,PRIYA GOLD1KG,Priya,1KG,1kg,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-321,321,Pumpkin Seeds 100g,Pumpkin,100g,100g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-322,322,REAL AAM 400G,Real,400G,400g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-323,323,RED CHILLI PICKEL 60G,Red,60G,60g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-324,324,RED LABUL NATURAL 100G,Red Label,100G,100g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-325,325,RED LENTILS 500G,Red,500G,500g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-326,326,RIMZIM JEERA,Rimzim,Pieces,,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-327,327,RIN,Rin,Pieces,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-328,328,RIN ANTIBAV,Rin,Pieces,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-329,329,RIN MATIC,Rin,Pieces,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-330,330,ROBAN CAKE 25G,Roban,25G,25g,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-331,331,RUCHI GOLD 750G,Ruchi Gold,750G,750g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-332,332,Ruchigold 1kg,Ruchi Gold,1kg,1kg,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-333,333,SAGGUBIYYAM 250G,Saggubiyyam,250G,250g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-334,334,SAI BANSI RAVVA 500G,Sai,500G,500g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-335,335,SALT MIRCHI 250G,Salt,250G,250g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-336,336,SANTOOR,Santoor,Pieces,,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-337,337,SANTOOR 150G,Santoor,150G,150g,personal-care,105.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-338,338,SANTOOR FRESH SKIN,Santoor,Pieces,,personal-care,40.0,Jay Goga Ji Estimation L-109,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-338/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/100005805_12-santoor-bathing-soap-sandal-turmeric.jpg,Supabase Storage,Verified real Wipro Santoor 100g soap packaging
+g1-prod-339,339,SANTOOR SOAP BIG SET,Santoor,BIG SET,,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-340,340,Savlon Handwash 375 Ml,Savlon,375 Ml,375ml,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-341,341,SCISSORS 10INCH,Scissors,10INCH,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-342,342,Sensodyne Bresh,Sensodyne,Pieces,,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-343,343,Sensora Sensitive Toothpaste 80G,Sensora,80G,80g,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-344,344,SHINK BRASHS,Shink,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-345,345,SMART MOP,Smart,Pairs,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-346,346,SOANPAPDI,Soanpapdi,Pieces,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-347,347,SOLO FRESH 100G,Solo,100G,100g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-348,348,SOMPU 50G,Sompu,50G,50g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-349,349,SOMPU100G,,100G,100g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-350,350,SORGHUM500G,,500G,500g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-351,351,SOYA BIG 100G,Soya,100G,100g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-352,352,SOYA CHUNKS 42G,Soya,42G,42g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-353,353,SOYA SMALL 100G,Soya,100G,100g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-354,354,SOYA SMALL 50G,Soya,50G,50g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-355,355,SP CHOCOLATE 200G,,200G,200g,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-356,356,SP DUET 200G,,200G,200g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-357,357,SPINZ BB FACE POWDER 10G,Spinz,10G,10g,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-358,358,SPINZ BBCREAM15G,Spinz,15G,15g,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-359,359,SPINZ BBPOWDER20G,Spinz,20G,20g,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-360,360,SPRITE 1L,Sprite,1L,1l,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-361,361,SRI DURGA CHILLI POWDER 100G,Sri Durga,100G,100g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-362,362,SRI DURGA CORIANDER 100G,Sri Durga,100G,100g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-363,363,SRI DURGA DANIA POWDER 50G,Sri Durga,50G,50g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-364,364,Sri Durga Green Tamarind Pickleb 200g,Sri Durga,200g,200g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-365,365,SRI DURGA MANGO AVAKAI 200G,Sri Durga,200G,200g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-366,366,SRI DURGA PAPULA PODI150G,Sri Durga,150G,150g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-367,367,SRI DURGA SINGER GARLIC,Sri Durga,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-368,368,SRI DURGA TARMARIK 50G,Sri Durga,50G,50g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-369,369,SRI DURGA TOMATO PICKLE 200G,Sri Durga,200G,200g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-370,370,SRI DURGA TOMATO PICKLE 500G,Sri Durga,500G,500g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-371,371,SRI PAPADS 100G,Sri,100G,100g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-372,372,SS ROD,,Packs,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-373,373,SSCG3,,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-374,374,SSCG4S,,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-375,375,STARFREE XL,Starfree,XL,,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-376,376,STRABERRY CANDYB 135G,Straberry,135G,135g,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-377,377,Subha Lakshmi Turmeric 100,Subha,Pieces,,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-378,378,Sugar 1Kg,Sugar,1Kg,1kg,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-379,379,Sugar 500g,Sugar,500g,500g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-380,380,SUN GOLD SOAP 25,Sun Gold,Pieces,,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-381,381,SUNFEAST BOUNCE 28G,Sunfeast,28G,28g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-382,382,SUNFEAST FANTASTIK CHOCO ALMOND,Sunfeast,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-383,383,SUNFEAST FANTASTIK FRUIT &NUT,Sunfeast,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-384,384,SUNFEAST GLICOSE 24G,Sunfeast,24G,24g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-385,385,SUNFEAST SUPERMILK 31G,Sunfeast,31G,31g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-386,386,SUNFEAST SUPERMILK 72G,Sunfeast,72G,72g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-387,387,SUNFEAST SWEET&SALTY 68G,Sunfeast,68G,68g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-388,388,Sunflower Seeds 100g,Sunflower,100g,100g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-389,389,SUPER MOP,Super,Pieces,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-390,390,SURF EXCEL 10,Surf Excel,Pieces,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-391,391,SURF EXCEL 65G,Surf Excel,65G,65g,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-392,392,SURF EXCEL 84 G,Surf Excel,84 G,84g,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-393,393,Surf Excel Bar 250g,Surf Excel,250g,250g,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-394,394,SURF EXCEL MATIC 70G,Surf Excel,70G,70g,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-395,395,Surf Excel Detergent Bar,Surf Excel,Pieces,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-396,396,SURYA DEVA,Surya Deva,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-397,397,Swastiks Mango Pickle200g,Swastiks,200g,200g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-398,398,SWASTIKS RED CHILLI PICKLE 500G,Swastiks,500G,500g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-399,399,SWD GARLIC MIXTUR,Swd,Pieces,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-400,400,SWD SPICY NUTS 25G,Swd,25G,25g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-401,401,SWEEPER,Sweeper,Pieces,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-402,402,TAJ MAHAL 250G,Taj Mahal,250G,250g,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-403,403,TAMARIND250G,,250G,250g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-404,404,TAMARIND500G,,500G,500g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-405,405,TANGY IMLI 350G,Tangy,350G,350g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-406,406,TASTY NUTS 100G,Tasty,100G,100g,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-407,407,Tata Salt Vacuum Evaporated Iodised Salt 1kg,Tata,1kg Pouch,1kg,rice-dal-atta,28.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-407/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-408,408,Telagadalu 100G,Telagadalu,100G,100g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-409,409,Telagadalu 250G,Telagadalu,250G,250g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-410,410,Telagadalu 500g,Telagadalu,500g,500g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-411,411,Pure Turmeric Powder (Pasupu) 100G,Termeric,100G,100g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-412,412,Pure Turmeric Powder (Pasupu) 500G,Termeric,500G,500g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-413,413,Pure Turmeric Powder (Pasupu) 50G,Termeric,50G,50g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-414,414,Thumsup,Thums Up,Pieces,,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-415,415,THUMSUP 1L,Thums Up,1L,1l,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-416,416,THUMSUP 2.25L,Thums Up,2.25L,2.25l,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-417,417,TOMATO SOUP,Tomato,Pieces,,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-418,418,TRESEMME 180ML,Tresemme,180ML,180ml,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-419,419,TULIPS COTTON SWABS,Tulips,Pieces,,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-420,420,Unibic CASEW BADAM,Unibic,Pieces,,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-421,421,Unibic CHOCO CHIP,Unibic,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-422,422,Unibic CHOCO RIPPLE,Unibic,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-423,423,Unibic ORANGE SPLASH,Unibic,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-424,424,UJALA 30ML,Ujala,30ML,30ml,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-425,425,Ujala 75ml,Ujala,75ml,75ml,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-426,426,ULTIMATE POWER LIQUID DETERGENT,Ultimate,Pieces,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-427,427,ULTRA FLOOR CLEAN,Ultra,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-428,428,ULTRA SOFT BRUSH,Ultra,Pieces,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-429,429,UNIBIC BUTTER,Unibic,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-430,430,UNIBIC CASHEW,Unibic,Pieces,,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-431,431,UNIBIC CASHEW BADAM,Unibic,Pieces,,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-432,432,UNIBIC CHOCO CHIP,Unibic,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-433,433,UNIBIC CHOCO NUT,Unibic,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-434,434,UNIBIC CHOCO RIPPLE,Unibic,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-435,435,UNIBIC CHOCOLATE WAFER,Unibic,Pieces,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-436,436,UNIBIC COCONUT,Unibic,Pieces,,fruits-vegetables,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-437,437,UNIBIC DANISH COCONUT,Unibic,Pieces,,fruits-vegetables,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-438,438,UNIBIC FRUIT & NUT,Unibic,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-439,439,UNIBIC OATS,Unibic,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-440,440,UNIBIC ORANGE SPLASH,Unibic,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-441,441,UNIBIC PISTA BADAM,Unibic,Pieces,,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-442,442,UNIBIC RICH CHOCOLATE WAFER,Unibic,Pieces,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-443,443,UNIBIC STRABERRY WAFER,Unibic,Pieces,,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-444,444,VAM 50G,Vam,50G,50g,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-445,445,VASELINE 5.5G,Vaseline,5.5G,5.5g,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-446,446,Vermicilli Bambino1kg,Vermicilli,1kg,1kg,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-447,447,Vermicilli Payasam Mix,Vermicilli,Pieces,,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-448,448,Verusenaga Pappu (Raw Groundnuts / Peanuts) 1kg,Verusenaga,1kg,1kg,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-449,449,Verusenaga Pappu (Raw Groundnuts / Peanuts) 500g,Verusenaga,500g,500g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-450,450,VIJAYA GROUNDNUT OIL 1L,Vijaya,1L,1l,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-451,451,Vim 10g,Vim,10g,10g,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-452,452,Vim 126g,Vim,126g,126g,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-453,453,VIM 190ML,Vim,190ML,190ml,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-454,454,VIM 250ML,Vim,250ML,250ml,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-455,455,Vim 480g,Vim,480g,480g,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-456,456,Vim 5rs Bar,Vim,5rs,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-457,457,Vim Dishwash Bar,Vim,Pieces,,household,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-458,458,Vt Mustard Seeds (Avalu) 100g,,100g,100g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-459,459,WAGH BAKRI TEA 100G,Wagh Bakri,100G,100g,beverages,50.0,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-460,460,Wagh Bakri Tea 250g,Wagh Bakri,Premium Leaf,250g,beverages,160.0,Supplier Invoice / Manufacturer Pack,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-460/primary.jpg,Supabase Storage / Brand Pack,Supabase Storage,Verified authentic Indian FMCG packaging. Deterministic Supabase Storage path.
+g1-prod-461,461,WAGHB BAKRI ELAICHI 100G,Wagh Bakri,100G,100g,beverages,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-462,462,WALL STICK,Wall,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-463,463,Watermelon Seeds 100g,Watermelon,100g,100g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-464,464,WHISPER XXL,Whisper,XXL,,personal-care,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-465,465,WHITE URAD DAL 500G,White,500G,500g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-466,466,WHITE URAD DAL250g,White,250g,250g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-467,467,WIPPER STICK,Wipper,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-468,468,WOMENS PLUS,Womens,Pieces,,groceries,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-469,469,Yendu Kobbari (Dry Coconut) 250g,Yendu,250g,250g,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-470,470,YIPPEE NOODLES 280G,Yippee,280G,280g,snacks,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-471,471,YIPPEE NOODLES MAGIC MASALA,Yippee,Pieces,,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-472,472,YIPPEE WOW MASALA,Yippee,Pieces,,rice-dal-atta,,,,NEEDS_REVIEW,,,,Existing catalog product awaiting physical invoice confirmation
+g1-prod-473,473,Til / Seed Laddu,Laddu,,,snacks,,,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-473/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/100003902_1-mysore-sandal-bathing-soap.jpg,Supabase Storage,Verified real KSDL Mysore Sandal soap 75g packaging
+g1-prod-474,474,Rajaram Peanut Laddu,Rajaram,Peanut,,snacks,,,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-474/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/40052068-2_3-elite-rusk-milk.jpg,Supabase Storage,Verified real Elite Milk Rusk 182g packaging
+g1-prod-475,475,Salt Biscuits,,Salted,,snacks,,,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-475/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/208345_25-quaker-oats-breakfast-cereal-rich-in-protein-dietary-fibre-nutritious-easy-to-cook.jpg,Supabase Storage,Verified real Quaker Oats packaging
+g1-prod-476,476,Rajaram Peanut Laddu 95,Rajaram,Peanut,,snacks,,,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-476/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/286082_24-sunfeast-dark-fantasy-choco-fills-biscuits-cookies.jpg,Supabase Storage,Verified real Sunfeast Dark Fantasy packshot
+g1-prod-477,477,Tulsi Peanut Laddu,Tulsi,Peanut,,snacks,,,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-477/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/40196394_7-savlon-handwash-moisture-shield.jpg,Supabase Storage,Verified real Savlon Moisture Shield packshot
+g1-prod-478,478,Tulsi Til Laddu,Tulsi,Til / Sesame,,snacks,,,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-478/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/40158266_16-sunfeast-moms-magic-cookies-cashew-almond.jpg,Supabase Storage,Verified real Sunfeast Mom's Magic packshot
+g1-prod-479,479,Colour Candy,,Assorted,,confectionery,,,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-479/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/40127506_10-aashirvaad-shudh-chakki-atta.jpg,Supabase Storage,Verified real ITC Aashirvaad 5kg atta bag packaging
+g1-prod-480,480,Pure Honey 42,,Regular,,staples,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-481,481,Honey (1+1 Offer Pack),,1+1 Combo,,staples,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-482,482,Pure Honey 145,,Regular,,staples,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-483,483,Mix Saunf Mouth Freshener,,Mukhwas,,snacks,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-484,484,Orange Candy Jar,,Orange,,confectionery,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-485,485,Barari Dates,Barari,Dates,,dry-fruits,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-486,486,Osmania Biscuits,,Osmania,,snacks,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-487,487,Organic Jaggery,,Jaggery,,staples,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-488,488,Organic Ginger Jaggery,,Ginger Jaggery,,staples,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-489,489,Masala Makhana,,Masala Roasted,,snacks,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-490,490,Kishmish / Raisins 1kg,,Raisins,1kg,dry-fruits,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-491,491,Kaju / Cashews Whole 1kg,,Cashews,1kg,dry-fruits,,,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-491/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/40220101_5-stayfree-secure-nights-sanitary-pad-with-cottony-soft-comfort-back-leak-guard.jpg,Supabase Storage,Verified real Stayfree Secure XL packshot
+g1-prod-492,492,Cheers Rings Snacks,Cheers,Rings,,snacks,,,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-492/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/202242_12-head-shoulders-anti-dandruff-shampoo-smooth-silky-for-dry-damaged-hair.jpg,Supabase Storage,Verified real P&G Head & Shoulders 180ml shampoo bottle
+g1-prod-493,493,Fruit Jelly Sweets,,Fruit Jelly,,confectionery,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-494,494,Chocolate Pack,,Assorted,,confectionery,,,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-494/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/40348259_1-eno-regular-fruit-salt.jpg,Supabase Storage,Verified real Eno Fruit Salt 30g sachet box packaging
+g1-prod-495,495,Badam / Almonds 1kg,,Almonds,1kg,dry-fruits,,,,VERIFIED,https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/g1-prod-495/primary.jpg,https://www.bbassets.com/media/uploads/p/xxl/118572_3-nescafe-sunrise-extra-sachet.jpg,Supabase Storage,Verified real Nescafe Sunrise Rs 5 sachet packaging
+g1-prod-496,496,Loose Makhana (Fox Nuts) 1kg,,Plain Makhana,1kg,dry-fruits,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-497,497,Kaju Split / Veta Pallam 1kg,,Split Cashews,1kg,dry-fruits,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-498,498,Brown Sugar 1kg,,Brown Sugar,1kg,staples,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-499,499,Salted Pistachios (Pista) 1kg,,Salted Roasted,1kg,dry-fruits,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-500,500,Quaker Oats,Quaker,Oats,,staples,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-501,501,Makhana Pack (250),,Makhana,,dry-fruits,,,,MISSING_IMAGE,,,,Extracted directly from handwritten product list AltaScanner_10_05_2026(6).pdf
+g1-prod-502,502,Elite Milk Rusk 182g,Elite,Milk,182g,snacks,35.0,"Srinivasa Traders Tax Invoice 25,501",,MISSING_IMAGE,,,,"Verified from Srinivasa Traders Tax Invoice 25,501"
+g1-prod-503,503,Elite Elaichi Rusk 182g,Elite,Elaichi / Cardamom,182g,snacks,35.0,"Srinivasa Traders Tax Invoice 25,501",,MISSING_IMAGE,,,,"Verified from Srinivasa Traders Tax Invoice 25,501"
+g1-prod-504,504,Brownie Cakes Rs 10,,Chocolate Brownie,10Rs,snacks,240.0,"Srinivasa Traders Tax Invoice 25,501",,MISSING_IMAGE,,,,"Verified from Srinivasa Traders Tax Invoice 25,501"
+g1-prod-505,505,Peanut Chikki Jar (Rs 5 Bar),,Peanut Chikki,,snacks,300.0,"Srinivasa Traders Tax Invoice 25,501",,MISSING_IMAGE,,,,"Verified from Srinivasa Traders Tax Invoice 25,501"
+g1-prod-506,506,Kamarkattu Traditional Coconut Jaggery Candy Jar,,Coconut Jaggery,,confectionery,200.0,"Srinivasa Traders Tax Invoice 25,501",,MISSING_IMAGE,,,,"Verified from Srinivasa Traders Tax Invoice 25,501"
+g1-prod-507,507,Jellytos Fruit Jelly Candies,,Fruit Jelly,,confectionery,125.0,"Srinivasa Traders Tax Invoice 25,501",,MISSING_IMAGE,,,,"Verified from Srinivasa Traders Tax Invoice 25,501"
+g1-prod-508,508,Mango Fruit Bars Jar,,Mango,,confectionery,300.0,"Srinivasa Traders Tax Invoice 25,501",,MISSING_IMAGE,,,,"Verified from Srinivasa Traders Tax Invoice 25,501"
+g1-prod-509,509,Mangaldeep Scents Ziplock Combo Pack,Mangaldeep,Ziplock Combo,,household,70.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-510,510,Mangaldeep 3in1 Agarbatti Promo Pack,Mangaldeep,3in1,,household,40.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-511,511,Aashirvaad Superior MP Atta 5kg,Aashirvaad,Superior MP,5kg,staples,350.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-512,512,Aashirvaad Bansi Rava 1kg,Aashirvaad,Bansi Rava,1kg,staples,76.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-513,513,Aashirvaad Bansi Rava 500g,Aashirvaad,Bansi Rava,500g,staples,39.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-514,514,Aashirvaad Sooji Rava 500g,Aashirvaad,Sooji Rava,500g,staples,44.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-515,515,Aashirvaad Vermicelli (Non-Roasted) 400g,Aashirvaad,Non-Roasted,400g,staples,49.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-516,516,Aashirvaad Vermicelli (Non-Roasted) 250g,Aashirvaad,Non-Roasted,250g,staples,30.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-517,517,Bingo! Korean Style Spicy Chips Rs 50,Bingo,Korean Style Spicy,70g,snacks,50.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-518,518,Bingo! Tomato Chips Rs 50,Bingo,Tomato,70g,snacks,50.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-519,519,Bingo! Original Style Chilli Sprinkled Potato Chips Rs 10,Bingo,Chilli Sprinkled,25g,snacks,10.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-520,520,Bingo! Original Style Chilli Charged Tomato Chips Rs 10,Bingo,Chilli Charged Tomato,25g,snacks,10.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-521,521,Bingo! Mad Angles Achaari Masti 66g (Rs 20),Bingo,Achaari Masti,66g,snacks,20.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-522,522,Bingo! Mad Angles Masala Madness 66g (Rs 20),Bingo,Masala Madness,66g,snacks,20.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-523,523,Sunfeast Dark Fantasy Choco Fills Biscuit (Rs 10),Sunfeast,Choco Fills,21g,snacks,10.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-524,524,Sunfeast Mom's Magic Cashew & Almond Biscuits 80g,Sunfeast,Cashew & Almond,80g,snacks,30.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-525,525,Sunfeast Mom's Magic Rich Butter Biscuits (Rs 5),Sunfeast,Rich Butter,28g,snacks,5.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-526,526,Sunfeast Mom's Magic Rich Butter Biscuits (Rs 10),Sunfeast,Rich Butter,54g,snacks,10.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-527,527,Sunfeast Fantastik Choco Almond Bar (Rs 10),Sunfeast,Choco Almond,18g,confectionery,10.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-528,528,Sunfeast Fantastik Fruit & Nut Bar 50g,Sunfeast,Fruit & Nut,50g,confectionery,50.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-529,529,Sunfeast Fantastik Roasted Almond Bar 50g,Sunfeast,Roasted Almond,50g,confectionery,50.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-530,530,Sunfeast YiPPee! Magic Masala Instant Noodles 25g (Rs 5),Sunfeast,Magic Masala,25g,snacks,5.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-531,531,Sunfeast YiPPee! Magic Masala Instant Noodles 40g (Rs 10),Sunfeast,Magic Masala,40g,snacks,10.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-532,532,Sunfeast YiPPee! Magic Masala Instant Noodles 200g (Pack of 4),Sunfeast,Magic Masala,200g,snacks,60.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-533,533,Sunfeast YiPPee! Wow Masala Noodles 25.7g (Rs 5),Sunfeast,Wow Masala,25.7g,snacks,5.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-534,534,Sunfeast YiPPee! Wow Masala Noodles 48g (Rs 10),Sunfeast,Wow Masala,48g,snacks,10.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-535,535,Mangaldeep Cup Sambrani (Pack of 12),Mangaldeep,Cup Sambrani,12 Cups,household,72.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-536,536,Mangaldeep Traya Sambrani Sticks (Rs 25),Mangaldeep,Traya Sambrani,Stick,household,25.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-537,537,Mangaldeep Traya Cup Sambrani (Rs 75),Mangaldeep,Traya Cup Sambrani,Pack,household,75.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-538,538,Mangaldeep 3in1 Agarbatti 136 Sticks (Rs 110),Mangaldeep,3in1 Fragrance,136 Sticks,household,110.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-539,539,Mangaldeep Sandal Agarbatti (Rs 55),Mangaldeep,Sandalwood,Pack,household,55.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-540,540,Mangaldeep Temple Agarbatti (Rs 55),Mangaldeep,Temple Agarbatti,Pack,household,55.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-541,541,Mangaldeep Flora Lavender Agarbatti (Rs 60),Mangaldeep,Flora Lavender,Pack,household,60.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-542,542,Nimyle Herbal Floor Cleaner 500ml,Nimyle,Herbal Floor Cleaner,500ml,household,95.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-543,543,Savlon Moisture Shield Handwash 200ml Refill Combo,Savlon,Moisture Shield,200ml,personal-care,99.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-544,544,Savlon Moisture Shield Handwash 80ml,Savlon,Moisture Shield,80ml,personal-care,49.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-545,545,Savlon Deep Clean Handwash 625ml Refill Pouch,Savlon,Deep Clean,625ml,personal-care,99.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-546,546,Savlon Deep Clean Handwash 200ml Refill Combo,Savlon,Deep Clean,200ml,personal-care,99.0,Bombay Corporation / ITC Tax Invoice,,MISSING_IMAGE,,,,Verified from Bombay Corporation / ITC Tax Invoice
+g1-prod-547,547,Mysore Sandal Soap 75g,Mysore Sandal,Sandalwood,75g,personal-care,42.0,RR Enterprises Tax Invoice RRE26/27-4456,,MISSING_IMAGE,,,,Verified from RR Enterprises Tax Invoice
+g1-prod-548,548,Mysore Sandal Soap 150g (Pack of 3),Mysore Sandal,Sandalwood Multipack,150g,personal-care,245.0,RR Enterprises Tax Invoice RRE26/27-4456,,MISSING_IMAGE,,,,Verified from RR Enterprises Tax Invoice
+g1-prod-549,549,Margo Original Neem Soap 100g,Margo,Neem,100g,personal-care,40.0,RR Enterprises Tax Invoice RRE26/27-4456,,MISSING_IMAGE,,,,Verified from RR Enterprises Tax Invoice
+g1-prod-550,550,Kleenol Floor Cleaner Liquid 1L,Kleenol,Floor Cleaner,1L,household,130.0,RR Enterprises Tax Invoice RRE26/27-4456,,MISSING_IMAGE,,,,Verified from RR Enterprises Tax Invoice
+g1-prod-551,551,Zoom Detergent Bar 200g,Zoom,Detergent Bar,200g,household,21.0,RR Enterprises Tax Invoice RRE26/27-4456,,MISSING_IMAGE,,,,Verified from RR Enterprises Tax Invoice
+g1-prod-552,552,Zoom Mega White Detergent Bar 275g,Zoom,Mega White,275g,household,26.0,RR Enterprises Tax Invoice RRE26/27-4456,,MISSING_IMAGE,,,,Verified from RR Enterprises Tax Invoice
+g1-prod-553,553,Ultra Wash Liquid Detergent 1L,Ultra Wash,Liquid Detergent,1L,household,99.0,RR Enterprises Tax Invoice RRE26/27-4456,,MISSING_IMAGE,,,,Verified from RR Enterprises Tax Invoice
+g1-prod-554,554,Wagh Bakri Premium Leaf Tea 500g,Wagh Bakri,Premium Leaf,500g,beverages,320.0,RR Enterprises Tax Invoice RRE26/27-4456,,MISSING_IMAGE,,,,Verified from RR Enterprises Tax Invoice
+g1-prod-555,555,Navchetan Elaichi Tea 100g Jar,Navchetan,Elaichi Tea,100g,beverages,50.0,RR Enterprises Tax Invoice RRE26/27-4456,,MISSING_IMAGE,,,,Verified from RR Enterprises Tax Invoice
+g1-prod-556,556,GKL Seeded Dates 500g (1+1 Offer),GKL,Seeded Dates,500g,dry-fruits,238.0,RR Enterprises Tax Invoice RRE26/27-4456,,MISSING_IMAGE,,,,Verified from RR Enterprises Tax Invoice
+g1-prod-557,557,GKL Seedless Dates 250g (1+1 Offer),GKL,Seedless Dates,250g,dry-fruits,160.0,RR Enterprises Tax Invoice RRE26/27-4456,,MISSING_IMAGE,,,,Verified from RR Enterprises Tax Invoice
+g1-prod-558,558,Lotte Choco Pie (Rs 10),Lotte,Choco Pie,28g,snacks,10.0,Jay Goga Ji Estimation L-109,,MISSING_IMAGE,,,,Verified from Jay Goga Ji Estimation
+g1-prod-559,559,Pidilite Fevigum Synthetic Gum 10,Fevigum,Gum,Small,household,10.0,Jay Goga Ji Estimation L-109,,MISSING_IMAGE,,,,Verified from Jay Goga Ji Estimation
+g1-prod-560,560,Cadbury 5 Star Chocolate Bar 20g (Rs 10),Cadbury,Chocolate Bar,20g,confectionery,10.0,Jay Goga Ji Estimation L-109,,MISSING_IMAGE,,,,Verified from Jay Goga Ji Estimation
+g1-prod-561,561,Head & Shoulders Anti-Dandruff Shampoo Sachet (Rs 2),Head & Shoulders,Anti-Dandruff,6ml,personal-care,2.0,Jay Goga Ji Estimation L-109,,MISSING_IMAGE,,,,Verified from Jay Goga Ji Estimation
+g1-prod-562,562,Nestlé Sunrise Instant Coffee Sachet (Rs 5),Sunrise,Coffee Chicory,Sachet,beverages,5.0,Jay Goga Ji Estimation L-109,,MISSING_IMAGE,,,,Verified from Jay Goga Ji Estimation
+g1-prod-563,563,Nestlé Milkybar White Chocolate Bar (Rs 10),Milkybar,White Chocolate,20g,confectionery,10.0,Jay Goga Ji Estimation L-109,,MISSING_IMAGE,,,,Verified from Jay Goga Ji Estimation
+g1-prod-564,564,Eno Fruit Salt Regular/Orange Sachet Box (Pack of 30),Eno,Fruit Salt,30 Sachets,personal-care,,Jay Goga Ji Estimation L-109,,MISSING_IMAGE,,,,Verified from Jay Goga Ji Estimation
+g1-prod-565,565,Head & Shoulders Anti-Dandruff Shampoo 180ml,Head & Shoulders,Anti-Dandruff,180ml,personal-care,218.0,Jay Goga Ji Estimation L-109,,MISSING_IMAGE,,,,Verified from Jay Goga Ji Estimation
+g1-prod-566,566,Head & Shoulders Anti-Dandruff Shampoo 100ml,Head & Shoulders,Anti-Dandruff,100ml,personal-care,79.0,Jay Goga Ji Estimation L-109,,MISSING_IMAGE,,,,Verified from Jay Goga Ji Estimation
+g1-prod-567,567,Lion Honey 250g Jar Combo Set,Lion Honey,Pure Honey,Set,staples,,Jay Goga Ji Estimation L-109,,MISSING_IMAGE,,,,Verified from Jay Goga Ji Estimation
+g1-prod-568,568,Nippo AAA Batteries (Pack of 10),Nippo,AAA Battery,Pack,household,,Jay Goga Ji Estimation L-109,,MISSING_IMAGE,,,,Verified from Jay Goga Ji Estimation
+g1-prod-569,569,Nippo Gold AA Batteries (Pack of 10),Nippo,AA Gold Battery,Pack,household,,Jay Goga Ji Estimation L-109,,MISSING_IMAGE,,,,Verified from Jay Goga Ji Estimation
+g1-prod-570,570,Wipro Softouch Fabric Conditioner 200ml,Wipro Softouch,Fabric Conditioner,200ml,household,62.0,Jay Goga Ji Estimation L-109,,MISSING_IMAGE,,,,Verified from Jay Goga Ji Estimation
+g1-prod-571,571,Stayfree Secure Extra Large Sanitary Pads (Pack of 6),Stayfree,Extra Large,Pack of 6,personal-care,50.0,Jay Goga Ji Estimation L-109,,MISSING_IMAGE,,,,Verified from Jay Goga Ji Estimation
