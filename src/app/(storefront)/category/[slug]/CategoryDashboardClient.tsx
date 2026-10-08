@@ -19,22 +19,43 @@ export default function CategoryDashboardClient({ category, allCategories, produ
   const subParam = searchParams.get('sub');
 
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('all');
+  const [selectedBrand, setSelectedBrand] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'popular' | 'price-asc' | 'price-desc'>('popular');
 
   // Sync subcategory from URL query param if valid
   useEffect(() => {
     if (subParam && (category.subcategories || []).includes(subParam)) {
       setSelectedSubCategory(subParam);
+      setSelectedBrand('all');
     }
   }, [subParam, category.subcategories]);
 
   const subcategories = useMemo(() => category.subcategories || [], [category.subcategories]);
 
-  // Filter products by selected subcategory
+  // Compute available brands for the current subcategory selection
+  const availableBrands = useMemo(() => {
+    let baseList = products;
+    if (selectedSubCategory !== 'all') {
+      baseList = baseList.filter((p) => p.subCategory === selectedSubCategory);
+    }
+    const brandMap = new Map<string, number>();
+    baseList.forEach((p) => {
+      const b = p.brand && p.brand !== 'G1 Mart Fresh' ? p.brand : 'Other';
+      brandMap.set(b, (brandMap.get(b) || 0) + 1);
+    });
+    return Array.from(brandMap.entries())
+      .filter(([_, count]) => count > 0)
+      .sort((a, b) => b[1] - a[1]);
+  }, [products, selectedSubCategory]);
+
+  // Filter products by selected subcategory and brand
   const filteredProducts = useMemo(() => {
     let list = products;
     if (selectedSubCategory !== 'all') {
       list = list.filter((p) => p.subCategory === selectedSubCategory);
+    }
+    if (selectedBrand !== 'all') {
+      list = list.filter((p) => (p.brand || 'Other') === selectedBrand);
     }
 
     if (sortBy === 'price-asc') {
@@ -44,7 +65,7 @@ export default function CategoryDashboardClient({ category, allCategories, produ
       return [...list].sort((a, b) => b.price - a.price);
     }
     return [...list].sort((a, b) => (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0));
-  }, [products, selectedSubCategory, sortBy]);
+  }, [products, selectedSubCategory, selectedBrand, sortBy]);
 
   // Compute item count per subcategory
   const subCatCounts = useMemo(() => {
@@ -145,6 +166,47 @@ export default function CategoryDashboardClient({ category, allCategories, produ
           );
         })}
       </div>
+
+      {/* Brand Shelf Strip (e.g. Santoor, Mysore Sandal, Cinthol, etc.) */}
+      {availableBrands.length > 1 && (
+        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 px-0.5 bg-stone-50/70 p-1.5 rounded-2xl border border-stone-100">
+          <span className="text-[11px] font-extrabold text-stone-500 uppercase tracking-wider px-2 shrink-0">
+            Brand:
+          </span>
+          <button
+            type="button"
+            onClick={() => setSelectedBrand('all')}
+            className={`px-2.5 py-1 rounded-xl text-xs font-bold shrink-0 transition-all cursor-pointer ${
+              selectedBrand === 'all'
+                ? 'bg-[#2E7D32] text-white shadow-xs'
+                : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200/80'
+            }`}
+          >
+            All Brands
+          </button>
+          {availableBrands.map(([bName, bCount]) => (
+            <button
+              key={bName}
+              type="button"
+              onClick={() => setSelectedBrand(bName)}
+              className={`px-2.5 py-1 rounded-xl text-xs font-bold shrink-0 flex items-center gap-1 transition-all cursor-pointer ${
+                selectedBrand === bName
+                  ? 'bg-[#2E7D32] text-white shadow-xs'
+                  : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200/80'
+              }`}
+            >
+              <span>{bName}</span>
+              <span
+                className={`text-[10px] px-1 py-0.2 rounded-full font-black ${
+                  selectedBrand === bName ? 'bg-white/20 text-white' : 'bg-stone-100 text-stone-500'
+                }`}
+              >
+                {bCount}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Main Content Area: Fixed Left Rail + Scrolling Product Grid */}
       <div className="flex items-start gap-2 sm:gap-4 min-h-[calc(100vh-140px)]">

@@ -453,21 +453,121 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
     });
   }, [products, searchQuery, selectedCategory, stockFilter]);
 
-  // Handle live stock toggle
-  const toggleStock = (productId: string) => {
-    setProducts((prev) =>
-      prev.map((p) => (p.id === productId ? { ...p, inStock: !p.inStock } : p))
-    );
+  // State for complete product edit modal
+  const [editingProductModal, setEditingProductModal] = useState<Product | null>(null);
+  const [editFormName, setEditFormName] = useState('');
+  const [editFormBrand, setEditFormBrand] = useState('');
+  const [editFormPrice, setEditFormPrice] = useState('');
+  const [editFormMRP, setEditFormMRP] = useState('');
+  const [editFormUnit, setEditFormUnit] = useState('');
+  const [editFormCategory, setEditFormCategory] = useState('');
+  const [editFormSubCategory, setEditFormSubCategory] = useState('');
+  const [editFormInStock, setEditFormInStock] = useState(true);
+  const [editFormImageUrl, setEditFormImageUrl] = useState('');
+  const [isSavingProductDetails, setIsSavingProductDetails] = useState(false);
+  const [saveProductError, setSaveProductError] = useState<string | null>(null);
+  const [saveProductSuccess, setSaveProductSuccess] = useState(false);
+
+  const openEditProductModal = (p: Product) => {
+    setEditingProductModal(p);
+    setEditFormName(p.name);
+    setEditFormBrand(p.brand || '');
+    setEditFormPrice(p.price > 0 ? String(p.price) : '');
+    setEditFormMRP(p.originalPrice > 0 ? String(p.originalPrice) : String(p.price || ''));
+    setEditFormUnit(p.unit || '');
+    setEditFormCategory(p.category || 'personal-care');
+    setEditFormSubCategory(p.subCategory || '');
+    setEditFormInStock(p.inStock ?? true);
+    setEditFormImageUrl(p.imageUrl || p.image || '');
+    setSaveProductError(null);
+    setSaveProductSuccess(false);
   };
 
-  // Handle inline price update
-  const updatePrice = (productId: string, newP: number) => {
+  const handleSaveProductDetails = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingProductModal) return;
+    setIsSavingProductDetails(true);
+    setSaveProductError(null);
+    try {
+      const priceNum = parseFloat(editFormPrice) || 0;
+      const mrpNum = parseFloat(editFormMRP) || priceNum;
+      const updatedPayload = {
+        id: editingProductModal.id,
+        name: editFormName,
+        brand: editFormBrand,
+        price: priceNum,
+        originalPrice: mrpNum,
+        unit: editFormUnit,
+        category: editFormCategory,
+        subCategory: editFormSubCategory,
+        inStock: editFormInStock,
+        imageUrl: editFormImageUrl,
+        imageStatus: editFormImageUrl && !editFormImageUrl.includes('placeholder.svg') ? 'VERIFIED' : 'NEEDS_REVIEW',
+      };
+
+      const res = await fetch('/api/admin/products', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedPayload),
+      });
+      const data = await res.json();
+      if (data.success && data.product) {
+        setProducts((prev) =>
+          prev.map((item) => (item.id === editingProductModal.id ? { ...item, ...data.product } : item))
+        );
+        setSaveProductSuccess(true);
+        setTimeout(() => {
+          setEditingProductModal(null);
+          setSaveProductSuccess(false);
+        }, 1200);
+      } else {
+        setSaveProductError(data.error || 'Failed to update product');
+      }
+    } catch (err: any) {
+      setSaveProductError(err.message || 'Failed to update product');
+    } finally {
+      setIsSavingProductDetails(false);
+    }
+  };
+
+  // Handle live stock toggle with backend persistence
+  const toggleStock = async (productId: string) => {
+    const target = products.find((p) => p.id === productId);
+    if (!target) return;
+    const nextVal = !target.inStock;
+    setProducts((prev) =>
+      prev.map((p) => (p.id === productId ? { ...p, inStock: nextVal } : p))
+    );
+    try {
+      await fetch('/api/admin/products', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: productId, inStock: nextVal }),
+      });
+    } catch (e) {
+      console.error('Failed to update stock', e);
+    }
+  };
+
+  // Handle inline price update with backend persistence
+  const updatePrice = async (productId: string, newP: number) => {
     if (isNaN(newP) || newP < 0) return;
+    const target = products.find((p) => p.id === productId);
+    const mrp = target?.originalPrice && target.originalPrice >= newP ? target.originalPrice : newP;
     setProducts((prev) =>
       prev.map((p) =>
-        p.id === productId ? { ...p, price: newP, originalPrice: newP } : p
+        p.id === productId ? { ...p, price: newP, originalPrice: mrp, priceConfirmed: newP > 0 } : p
       )
     );
+    try {
+      await fetch('/api/admin/products', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: productId, price: newP, originalPrice: mrp }),
+      });
+    } catch (e) {
+      console.error('Failed to update price', e);
+    }
   };
 
   // Handle Add Product submit
@@ -1157,16 +1257,27 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                       </button>
                     </td>
 
-                    {/* View on Store link */}
+                    {/* Actions: Edit & View on Store */}
                     <td className="py-2.5 px-3 text-right">
-                      <Link
-                        href={`/category/${p.category}`}
-                        target="_blank"
-                        className="inline-flex items-center gap-1 text-[11px] font-bold text-[#2E7D32] hover:text-[#1B5E20] hover:underline"
-                      >
-                        <span>View</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </Link>
+                      <div className="flex items-center justify-end gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => openEditProductModal(p)}
+                          className="inline-flex items-center gap-1 text-[11px] font-bold text-stone-700 bg-stone-100 hover:bg-stone-200 border border-stone-200 px-2 py-1 rounded-lg transition-colors cursor-pointer"
+                          title="Edit product name, price, MRP, and stock"
+                        >
+                          <Edit2 className="w-3 h-3 text-[#2E7D32]" />
+                          <span>Edit</span>
+                        </button>
+                        <Link
+                          href={`/category/${p.category}`}
+                          target="_blank"
+                          className="inline-flex items-center gap-0.5 text-[11px] font-bold text-[#2E7D32] hover:text-[#1B5E20] hover:underline px-1.5 py-1"
+                        >
+                          <span>View</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </Link>
+                      </div>
                     </td>
                   </tr>
                 );
@@ -2455,6 +2566,229 @@ export default function AdminDashboardClient({ initialProducts, categories }: Pr
                 )}
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Complete Product Details Edit Modal */}
+      {editingProductModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-4 animate-in fade-in">
+          <div className="bg-white rounded-3xl border border-stone-200 shadow-2xl max-w-lg w-full p-5 sm:p-6 space-y-4 max-h-[92vh] overflow-y-auto">
+            <div className="flex items-start justify-between gap-3 border-b border-stone-100 pb-3">
+              <div>
+                <h3 className="text-base font-extrabold text-stone-900 flex items-center gap-2">
+                  <Edit2 className="w-4 h-4 text-[#2E7D32]" />
+                  <span>Edit Product #{editingProductModal.itemNumber}</span>
+                </h3>
+                <p className="text-xs text-stone-500 font-medium mt-0.5">
+                  POS: <code className="bg-stone-100 px-1 rounded">{editingProductModal.rawName || editingProductModal.name}</code>
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setEditingProductModal(null)}
+                className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {saveProductSuccess && (
+              <div className="p-3 bg-green-50 border border-green-200 rounded-xl text-green-800 font-bold text-xs flex items-center gap-2">
+                <Check className="w-4 h-4 text-green-600 stroke-[3]" />
+                <span>Product updated and persisted successfully!</span>
+              </div>
+            )}
+
+            {saveProductError && (
+              <div className="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 font-semibold flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 text-rose-500 shrink-0" />
+                <span>{saveProductError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSaveProductDetails} className="space-y-3.5">
+              {/* Product Name */}
+              <div>
+                <label className="block text-xs font-bold text-stone-700 mb-1">
+                  Product Name / Title
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={editFormName}
+                  onChange={(e) => setEditFormName(e.target.value)}
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                />
+              </div>
+
+              {/* Brand & Unit */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                    Brand
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={editFormBrand}
+                    onChange={(e) => setEditFormBrand(e.target.value)}
+                    placeholder="e.g. Santoor, Mysore Sandal"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                    Pack Size / Unit
+                  </label>
+                  <input
+                    type="text"
+                    value={editFormUnit}
+                    onChange={(e) => setEditFormUnit(e.target.value)}
+                    placeholder="e.g. 100g, 1kg, 4+1 Pack"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                  />
+                </div>
+              </div>
+
+              {/* Pricing: MRP & Selling Rate */}
+              <div className="grid grid-cols-2 gap-3 bg-stone-50/80 p-3 rounded-2xl border border-stone-200">
+                <div>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                    MRP (Printed ₹)
+                  </label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={editFormMRP}
+                    onChange={(e) => setEditFormMRP(e.target.value)}
+                    placeholder="e.g. 50"
+                    className="w-full px-3 py-2 bg-white border border-stone-200 rounded-xl text-xs font-black text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-emerald-800 mb-1">
+                    Selling Rate (Our Price ₹)
+                  </label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    required
+                    value={editFormPrice}
+                    onChange={(e) => setEditFormPrice(e.target.value)}
+                    placeholder="e.g. 45"
+                    className="w-full px-3 py-2 bg-white border border-emerald-300 rounded-xl text-xs font-black text-[#2E7D32] focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                  />
+                </div>
+              </div>
+
+              {/* Category & Subcategory */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                    Department
+                  </label>
+                  <select
+                    value={editFormCategory}
+                    onChange={(e) => setEditFormCategory(e.target.value)}
+                    className="w-full px-2.5 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                  >
+                    {categories.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-stone-700 mb-1">
+                    Subcategory
+                  </label>
+                  <input
+                    type="text"
+                    value={editFormSubCategory}
+                    onChange={(e) => setEditFormSubCategory(e.target.value)}
+                    placeholder="e.g. Bath Soaps, Atta"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                  />
+                </div>
+              </div>
+
+              {/* Stock Status Toggle */}
+              <div className="flex items-center justify-between p-3 bg-stone-50 rounded-2xl border border-stone-200">
+                <div>
+                  <div className="text-xs font-bold text-stone-800">In Stock Availability</div>
+                  <div className="text-[10px] text-stone-500">Enable to show product available for customer order</div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setEditFormInStock(!editFormInStock)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer ${
+                    editFormInStock
+                      ? 'bg-green-100 text-green-800 border border-green-300'
+                      : 'bg-red-100 text-red-800 border border-red-300'
+                  }`}
+                >
+                  {editFormInStock ? '✓ IN STOCK' : '✗ OUT OF STOCK'}
+                </button>
+              </div>
+
+              {/* Image URL & Preview */}
+              <div>
+                <label className="block text-xs font-bold text-stone-700 mb-1">
+                  Product Image URL / Path
+                </label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={editFormImageUrl}
+                    onChange={(e) => setEditFormImageUrl(e.target.value)}
+                    placeholder="/products/packshots/... or https://..."
+                    className="flex-1 px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-mono text-stone-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                  />
+                  <div className="w-10 h-10 rounded-xl bg-white border border-stone-200 p-1 flex items-center justify-center overflow-hidden shrink-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={editFormImageUrl || '/products/placeholder.svg'}
+                      alt="Preview"
+                      className="w-full h-full object-contain"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Form Buttons */}
+              <div className="flex items-center gap-3 pt-3 border-t border-stone-100">
+                <button
+                  type="button"
+                  onClick={() => setEditingProductModal(null)}
+                  disabled={isSavingProductDetails}
+                  className="flex-1 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSavingProductDetails}
+                  className="flex-1 py-2.5 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl text-xs font-extrabold shadow-md shadow-[#2E7D32]/20 transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                >
+                  {isSavingProductDetails ? (
+                    <>
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      <span>Saving...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Check className="w-3.5 h-3.5 stroke-[3]" />
+                      <span>Save Product</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
