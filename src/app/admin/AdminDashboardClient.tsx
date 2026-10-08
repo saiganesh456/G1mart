@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import MobileAdminDashboardClient from './MobileAdminDashboardClient';
 import DesktopAdminDashboardClient from './DesktopAdminDashboardClient';
 
-export default function AdminDashboardClient() {
+export default function AdminDashboardClient(props: any) {
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -17,5 +17,5 @@ export default function AdminDashboardClient() {
   // Avoid hydration mismatch by rendering nothing until mounted
   if (isMobile === null) return null;
 
-  return isMobile ? <MobileAdminDashboardClient /> : <DesktopAdminDashboardClient />;
+  return isMobile ? <MobileAdminDashboardClient {...props} /> : <DesktopAdminDashboardClient {...props} />;
 }
