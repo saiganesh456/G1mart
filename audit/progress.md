@@ -69,9 +69,16 @@ This log tracks the step-by-step execution across all 5 phases as specified in t
   - Test Verification: verified photo pipeline end to end on 3 sample phone photos (`g1-p0001`, `g1-p0002`, `g1-p0003`); generated 800x800 WebP cutouts, verified dimensions and transparency, and catalog status updated to 'verified'.
 - **Verification:**
   - Tested 3 photos end-to-end with verified 800x800 WebP outputs.
+## Phase 5 - Category Tile Collages & Clean Icon Fallback
+- **Status:** COMPLETED & VERIFIED
+- **Changes:**
+  - Built Category Collage Generator: `scripts/photo_pipeline/generate_category_collages.py` to composite the 3 best verified cut-out images onto a soft tinted rounded square (Blinkit / Flipkart Minutes style, with subtle drop-shadows and angled offset), exported as high-fidelity WebP files (`/public/categories/collages/<category_id>.webp`).
+  - Clean Icon Fallbacks: For any category with fewer than 3 verified cut-outs, the generator automatically renders a modern, minimalist SVG icon tile on a soft tinted rounded square with ambient lighting, completely replacing all old single boxed product packshots and generic stock photos.
+  - Automatic Regeneration: Integrated automatic category collage regeneration into the photo upload route (`/api/admin/products/upload-photo`) and the bulk importer (`scripts/photo_pipeline/bulk_import_photos.py`) so collages update dynamically whenever new store photos are captured and verified.
+  - Category Mapping: Generated `src/data/categoryTiles.json` and updated `src/data/demo-seed.ts` (`SUPERMARKET_CATEGORIES` and `DEMO_CATEGORIES`) so all 24 categories dynamically source their `tile_image_url` and `image` from `/categories/collages/`.
+- **Verification:**
+  - Collage rendering: `biscuits-bakery.webp` composited from 3 verified product cut-outs (`Unibic Wafer`, `Unibic Choco Ripple`, and `Good DAY`).
+  - Icon fallbacks: 23 categories cleanly rendered as soft-tinted SVG icon tiles (`.svg`).
+  - Single boxed photos: 0 (completely eliminated; all old packshot and generic jpg refs removed).
   - Next.js build: 38/38 routes compiled successfully.
 - **Unresolved:** None.
-
-
-
-

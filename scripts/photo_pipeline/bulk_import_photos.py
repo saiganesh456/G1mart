@@ -70,6 +70,14 @@ def bulk_import(input_folder, output_dir="public/products/verified", catalog_pat
         with open(catalog_path, 'w', encoding='utf-8') as f:
             json.dump(products, f, indent=2)
         print(f"\nSuccessfully imported and updated {imported_count} products in {catalog_path}")
+        
+        # Auto-regenerate category collages
+        try:
+            from generate_category_collages import generate_all_category_tiles
+            print("Auto-regenerating category collages...")
+            generate_all_category_tiles()
+        except Exception as e:
+            print(f"Note: Collage regeneration error: {e}")
     else:
         print("\nNo matching photos processed.")
 

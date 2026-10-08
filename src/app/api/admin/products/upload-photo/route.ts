@@ -59,6 +59,12 @@ export async function POST(req: NextRequest) {
         product.image_source = 'store_camera';
         product.image_license = 'Proprietary / G1 Mart';
         fs.writeFileSync(catalogPath, JSON.stringify(catalog, null, 2), 'utf-8');
+
+        // Automatically regenerate category tile collages in background
+        const collageScript = path.join(process.cwd(), 'scripts', 'photo_pipeline', 'generate_category_collages.py');
+        execFile('python', [collageScript], (err) => {
+          if (err) console.error('Auto-regenerate category collages error:', err);
+        });
       }
     }
 
