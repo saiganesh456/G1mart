@@ -1,0 +1,1036 @@
+product_id,product_name,brand,category,sub_category,priority,barcode,status
+g1-p0198,Dharani Atta,Local / Unbranded,atta-rice-dal,Atta & Flours,1,,missing
+g1-p0197,Dharani Corn Flour,Local / Unbranded,atta-rice-dal,Atta & Flours,1,,missing
+g1-p0183,Javva Wheat Ravva,Local / Unbranded,atta-rice-dal,Atta & Flours,1,,missing
+g1-p0437,Aashirvaad Vermicelli,Aashirvaad,atta-rice-dal,Poha & Dalia,1,,missing
+g1-p0660,Bambino Vermicelli,Bambino,atta-rice-dal,Poha & Dalia,1,,missing
+g1-p0913,Swastiks Vermicelli,Local / Unbranded,atta-rice-dal,Poha & Dalia,1,,missing
+g1-p0081,Pottu Minapappu,Local / Unbranded,atta-rice-dal,Pulses & Dal,1,,missing
+g1-p0082,Rajma Seds,Local / Unbranded,atta-rice-dal,Pulses & Dal,1,,missing
+g1-p0133,Yardley Sandalwood,Yardley,atta-rice-dal,Pulses & Dal,1,,missing
+g1-p0080,Korralu,Local / Unbranded,atta-rice-dal,Rice & Grains,1,,missing
+g1-p0219,Rice,Local / Unbranded,atta-rice-dal,Rice & Grains,1,,missing
+g1-p0063,Rice Flour,Local / Unbranded,atta-rice-dal,Rice & Grains,1,,missing
+g1-p0021,Himalaya Baby Powder,Himalaya,baby-care,Baby Bath & Skin Care,1,,missing
+g1-p0111,Hugges S,Huggies,baby-care,Baby Bath & Skin Care,1,,missing
+g1-p0020,Johnsonis Baby Powder G50,Johnson's Baby,baby-care,Baby Bath & Skin Care,1,,missing
+g1-p0106,Huggies L,Huggies,baby-care,Baby Diapers & Wipes,1,,missing
+g1-p0107,Huggies M,Huggies,baby-care,Baby Diapers & Wipes,1,,missing
+g1-p0105,Huggies XL,Huggies,baby-care,Baby Diapers & Wipes,1,,missing
+g1-p0031,Happy Happy,Parle,biscuits-bakery,Biscuits,1,,missing
+g1-p0027,Krack Jack,Parle,biscuits-bakery,Biscuits,1,,missing
+g1-p0026,Parle-g Gluco,Parle,biscuits-bakery,Biscuits,1,,missing
+g1-p0351,Dark Fantasy Yumfills PIE,Sunfeast,biscuits-bakery,Cakes & Wafers,1,,missing
+g1-p0830,Roban Cake,Local / Unbranded,biscuits-bakery,Cakes & Wafers,1,,missing
+g1-p0109,Unibic Butter,Unibic,biscuits-bakery,Cookies,1,,missing
+g1-p0002,Unibic Choco Ripple,Unibic,biscuits-bakery,Cookies,1,,missing
+g1-p0001,Unibic Wafer,Unibic,biscuits-bakery,Cookies,1,,missing
+g1-p0178,Britannia Rusk,Britannia,biscuits-bakery,Rusk & Bakery Snacks,1,,missing
+g1-p0663,Classic Rusk,Local / Unbranded,biscuits-bakery,Rusk & Bakery Snacks,1,,missing
+g1-p0662,Mikl Rusk,Local / Unbranded,biscuits-bakery,Rusk & Bakery Snacks,1,,missing
+g1-p0861,Bingo Masti,Bingo,chips-namkeen,Chips & Crisps,1,,missing
+g1-p0862,Bingo Tomato,Bingo,chips-namkeen,Chips & Crisps,1,,missing
+g1-p0575,HR Soya Chips,Local / Unbranded,chips-namkeen,Chips & Crisps,1,,missing
+g1-p0397,BAT Papad,Local / Unbranded,chips-namkeen,Namkeen & Bhujia,1,,missing
+g1-p0398,Colour Papad,Local / Unbranded,chips-namkeen,Namkeen & Bhujia,1,,missing
+g1-p0207,Pani Puri Papad,Local / Unbranded,chips-namkeen,Namkeen & Bhujia,1,,missing
+g1-p0995,Makhana Cream&onion,Makhana,chips-namkeen,Popcorn & Roasted Snacks,1,,missing
+g1-p0881,Cliinice Plus EGG,Local / Unbranded,dairy-bread-eggs,Eggs,1,,missing
+g1-p0035,Arun Bites,Arun Icecreams,dairy-bread-eggs,Ice Creams,1,,missing
+g1-p0032,Arun Icecream,Arun Icecreams,dairy-bread-eggs,Ice Creams,1,,missing
+g1-p0037,Arun Popitos,Arun Icecreams,dairy-bread-eggs,Ice Creams,1,,missing
+g1-p0048,Arokya Milk,Local / Unbranded,dairy-bread-eggs,Milk & Curd,1,,missing
+g1-p0052,Curd,Local / Unbranded,dairy-bread-eggs,Milk & Curd,1,,missing
+g1-p0022,Hatsun Curd,Hatsun,dairy-bread-eggs,Milk & Curd,1,,missing
+g1-p0087,Arun Butterscotch,Arun Icecreams,dishwash,Dishwash Bars & Liquids,1,,missing
+g1-p0218,EXO Round,Exo,dishwash,Dishwash Bars & Liquids,1,,missing
+g1-p0174,Rexona,Local / Unbranded,dishwash,Dishwash Bars & Liquids,1,,missing
+g1-p0850,EXO Scrubrs,Exo,dishwash,Scrubs & Sponges,1,,missing
+g1-p0232,Galaxy Steel Round MOP,Local / Unbranded,dishwash,Scrubs & Sponges,1,,missing
+g1-p0004,Glucon-d,Glucon-D,drinks-juices,Energy & Health Drinks,1,,missing
+g1-p0954,Maaza,Maaza,drinks-juices,Juices & Fruit Drinks,1,,missing
+g1-p0058,Coke,Coca-Cola,drinks-juices,Soft Drinks & Sodas,1,,missing
+g1-p0062,Pulpy Orange,Minute Maid,drinks-juices,Soft Drinks & Sodas,1,,missing
+g1-p0039,Thumsup,Thums Up,drinks-juices,Soft Drinks & Sodas,1,,missing
+g1-p0960,Kinleystrong Soda,Local / Unbranded,drinks-juices,Water & Soda,1,,missing
+g1-p0287,RB Soda,Local / Unbranded,drinks-juices,Water & Soda,1,,missing
+g1-p0677,Corn Flakes,Local / Unbranded,dry-fruits-cereals,Breakfast Cereals & Oats,1,,missing
+g1-p0576,HR Corn Flakes Mixture,Local / Unbranded,dry-fruits-cereals,Breakfast Cereals & Oats,1,,missing
+g1-p0481,Unibic Oats,Unibic,dry-fruits-cereals,Breakfast Cereals & Oats,1,,missing
+g1-p0295,Badam A1,Local / Unbranded,dry-fruits-cereals,Dry Fruits & Nuts,1,,missing
+g1-p0077,Endu Kharjuram,Local / Unbranded,dry-fruits-cereals,Dry Fruits & Nuts,1,,missing
+g1-p0210,Unibic Cashew,Unibic,dry-fruits-cereals,Dry Fruits & Nuts,1,,missing
+g1-p0146,AER Power Pocket,Godrej,floor-surface-cleaners,Air Fresheners,1,,missing
+g1-p0254,Odonil,Odonil,floor-surface-cleaners,Air Fresheners,1,,missing
+g1-p0083,Odonil AIR Fresh,Odonil,floor-surface-cleaners,Air Fresheners,1,,missing
+g1-p0098,Domex,Domex,floor-surface-cleaners,Floor & Surface Cleaners,1,,missing
+g1-p0220,Lizol,Lizol,floor-surface-cleaners,Floor & Surface Cleaners,1,,missing
+g1-p0292,Ponds Bricht Beauy12g,Ponds,floor-surface-cleaners,Floor & Surface Cleaners,1,,missing
+g1-p0939,HIT Anti Roach,Godrej,floor-surface-cleaners,Mosquito & Pest Repellents,1,,missing
+g1-p0018,HIT Chalk,Godrej,floor-surface-cleaners,Mosquito & Pest Repellents,1,,missing
+g1-p0235,Twist MOP White,Local / Unbranded,floor-surface-cleaners,Mosquito & Pest Repellents,1,,missing
+g1-p0212,Harpic,Harpic,floor-surface-cleaners,Toilet Cleaners,1,,missing
+g1-p0441,Harpic Blue 600m,Harpic,floor-surface-cleaners,Toilet Cleaners,1,,missing
+g1-p0442,Harpic Red,Harpic,floor-surface-cleaners,Toilet Cleaners,1,,missing
+g1-p0101,Dabur Amla Hair Oil,Dabur,hair-care,Hair Oil,1,,missing
+g1-p0009,KEO Karpin Hair OIL,Keo Karpin,hair-care,Hair Oil,1,,missing
+g1-p0008,Kesh King Oil100ml,Kesh King,hair-care,Hair Oil,1,,missing
+g1-p0017,Amla Shikakai,Dabur,hair-care,Shampoo,1,,missing
+g1-p0097,Tresemme,Tresemme,hair-care,Shampoo,1,,missing
+g1-p0010,Vasmol,Vasmol,hair-care,Shampoo,1,,missing
+g1-p1041,Gillette Foam,Gillette,hygiene,Hair Removal & Shaving,1,,missing
+g1-p1038,Veet,Veet,hygiene,Hair Removal & Shaving,1,,missing
+g1-p0918,Ultra Wash,Local / Unbranded,hygiene,Intimate & Personal Hygiene,1,,missing
+g1-p0069,Aacsi Chaat Masale 10rs,Aachi,hygiene,Sanitary Pads & Napkins,1,,missing
+g1-p0030,High Power,Local / Unbranded,hygiene,Sanitary Pads & Napkins,1,,missing
+g1-p0090,Stay Free Regular,Stayfree,hygiene,Sanitary Pads & Napkins,1,,missing
+g1-p0093,Borugulu,Local / Unbranded,instant-food,Instant Noodles & Pasta,1,,missing
+g1-p0041,DRY Nuts BOL,Local / Unbranded,instant-food,Instant Noodles & Pasta,1,,missing
+g1-p0050,Lock 35mm,Local / Unbranded,instant-food,Instant Noodles & Pasta,1,,missing
+g1-p0856,Knorr Spicy Jjajangmyeon,Knorr,instant-food,Ready to Cook & Soups,1,,missing
+g1-p0420,Knorr Tomato Soup,Knorr,instant-food,Ready to Cook & Soups,1,,missing
+g1-p0729,Tomato Soup,Local / Unbranded,instant-food,Ready to Cook & Soups,1,,missing
+g1-p0250,Allout Matchs,Local / Unbranded,kitchenware,Disposables & Matches,1,,missing
+g1-p0285,Cheeta Matches,Local / Unbranded,kitchenware,Disposables & Matches,1,,missing
+g1-p0252,GN Gold Match,Local / Unbranded,kitchenware,Disposables & Matches,1,,missing
+g1-p0362,Lock 32mm,Local / Unbranded,kitchenware,Kitchen Storage & Utilities,1,,missing
+g1-p0361,Lock 50mm,Local / Unbranded,kitchenware,Kitchen Storage & Utilities,1,,missing
+g1-p0049,Lock 60mm,Local / Unbranded,kitchenware,Kitchen Storage & Utilities,1,,missing
+g1-p0447,Surf Excel Bar,Surf Excel,laundry-detergents,Detergent Bars,1,,missing
+g1-p0079,FAB Liquid,FAB,laundry-detergents,Detergent Powders & Liquids,1,,missing
+g1-p0025,FAB Liquid 10,FAB,laundry-detergents,Detergent Powders & Liquids,1,,missing
+g1-p0053,RIN Matic,Rin,laundry-detergents,Detergent Powders & Liquids,1,,missing
+g1-p0443,Comfort,Comfort,laundry-detergents,Fabric Conditioners & Bleach,1,,missing
+g1-p0056,Rin Fabric,Rin,laundry-detergents,Fabric Conditioners & Bleach,1,,missing
+g1-p0346,Ujala Fresh,Ujala,laundry-detergents,Fabric Conditioners & Bleach,1,,missing
+g1-p0418,Freedom OIL Botel,Freedom,oil-ghee-masala,Edible Oils,1,,missing
+g1-p0619,JS Oils,Local / Unbranded,oil-ghee-masala,Edible Oils,1,,missing
+g1-p0268,Meera Oile250g,Meera,oil-ghee-masala,Edible Oils,1,,missing
+g1-p0635,GRB Ghee,Local / Unbranded,oil-ghee-masala,Ghee & Vanaspati,1,,missing
+g1-p0634,GRB Ghee50ml,Local / Unbranded,oil-ghee-masala,Ghee & Vanaspati,1,,missing
+g1-p0279,Hatsun Ghee,Hatsun,oil-ghee-masala,Ghee & Vanaspati,1,,missing
+g1-p0066,Aachi Rasam Powder,Aachi,oil-ghee-masala,Masala Powders,1,,missing
+g1-p0064,MTR Rasam,MTR,oil-ghee-masala,Masala Powders,1,,missing
+g1-p0065,MTR Sambar,MTR,oil-ghee-masala,Masala Powders,1,,missing
+g1-p0694,RED Chilli Pickel,Local / Unbranded,oil-ghee-masala,Pickles & Chutneys,1,,missing
+g1-p0656,SRI Durga RED Chilli Pickle,Sri Durga,oil-ghee-masala,Pickles & Chutneys,1,,missing
+g1-p0651,SRI Durga Tomato Pickle,Sri Durga,oil-ghee-masala,Pickles & Chutneys,1,,missing
+g1-p0019,Aachi Ginger Garlic Paste,Aachi,oil-ghee-masala,Whole Spices,1,,missing
+g1-p0070,Aachi Mutton 5 RS,Aachi,oil-ghee-masala,Whole Spices,1,,missing
+g1-p0042,Elachi,Local / Unbranded,oil-ghee-masala,Whole Spices,1,,missing
+g1-p0100,Pepsodent Toothbrush,Pepsodent,oral-care,Toothbrushes & Tongue Cleaners,1,,missing
+g1-p0153,Tongue Cleaner,Local / Unbranded,oral-care,Toothbrushes & Tongue Cleaners,1,,missing
+g1-p0154,Tongue Cleaner 18rs,Local / Unbranded,oral-care,Toothbrushes & Tongue Cleaners,1,,missing
+g1-p0091,Colgate Super Flexi,Colgate,oral-care,Toothpaste,1,,missing
+g1-p0120,Colgate Total,Colgate,oral-care,Toothpaste,1,,missing
+g1-p0033,Colgate Vedshakti,Colgate,oral-care,Toothpaste,1,,missing
+g1-p0119,Good Kinh Agarbatti,Local / Unbranded,pooja-needs,Agarbatti & Dhoop,1,,missing
+g1-p0085,LIA Cones,Zed Black,pooja-needs,Agarbatti & Dhoop,1,,missing
+g1-p0084,ZED Black,Zed Black,pooja-needs,Agarbatti & Dhoop,1,,missing
+g1-p0900,Camphor,Local / Unbranded,pooja-needs,"Pooja Oil, Camphor & Diya",1,,missing
+g1-p1033,Pachi Karpooram,Local / Unbranded,pooja-needs,"Pooja Oil, Camphor & Diya",1,,missing
+g1-p1031,Pachi Karpooram BOX,Local / Unbranded,pooja-needs,"Pooja Oil, Camphor & Diya",1,,missing
+g1-p0309,Hellmanns Mayonnaise,Local / Unbranded,sauces-spreads,Jams & Spreads,1,,missing
+g1-p0314,Kissan Tomaato Ketchup,Kissan,sauces-spreads,Jams & Spreads,1,,missing
+g1-p0311,Kissan Tomato Ketchup,Kissan,sauces-spreads,Jams & Spreads,1,,missing
+g1-p0293,Kisan Mixedfruit 2RS,Kissan,sauces-spreads,Sauces & Ketchup,1,,missing
+g1-p0486,Kisan Tomota Ketchup,Kissan,sauces-spreads,Sauces & Ketchup,1,,missing
+g1-p0310,Kissam Tomato Ketchup,Local / Unbranded,sauces-spreads,Sauces & Ketchup,1,,missing
+g1-p0318,Lifeduoy Cools Skin,Lifebuoy,skin-care,Face Wash & Creams,1,,missing
+g1-p0193,Vaseline,Vaseline,skin-care,Face Wash & Creams,1,,missing
+g1-p0294,Vaseline LIP Carem,Vaseline,skin-care,Face Wash & Creams,1,,missing
+g1-p0896,Ponds Cold Cream,Ponds,skin-care,Talcum Powders,1,,missing
+g1-p0006,Glow & Lovely,Glow & Lovely,soaps-bath,Bathing Soaps,1,,missing
+g1-p0005,Lifebuoy Neem&aloe,Lifebuoy,soaps-bath,Bathing Soaps,1,,missing
+g1-p0003,Pepper Powder,Local / Unbranded,soaps-bath,Bathing Soaps,1,,missing
+g1-p0123,Dettol Hand Wash,Dettol,soaps-bath,Hand Wash & Sanitizers,1,,missing
+g1-p0102,Santoor Hand Wash Gentle Care,Santoor,soaps-bath,Hand Wash & Sanitizers,1,,missing
+g1-p0478,Savlon Handwash,Local / Unbranded,soaps-bath,Hand Wash & Sanitizers,1,,missing
+g1-p0337,Anasa Puvvu 10rupees,Local / Unbranded,sugar-salt-staples,Other Staples,1,,missing
+g1-p0088,Endu Mirchi (Dried Red Chillies),Local / Unbranded,sugar-salt-staples,Other Staples,1,,missing
+g1-p0238,Jeedi Pappu A1,Local / Unbranded,sugar-salt-staples,Other Staples,1,,missing
+g1-p0160,Real Salt,Local / Unbranded,sugar-salt-staples,Salt,1,,missing
+g1-p0200,Rock Salt,Local / Unbranded,sugar-salt-staples,Salt,1,,missing
+g1-p0028,Tata RA Salt,Tata,sugar-salt-staples,Salt,1,,missing
+g1-p0350,Patikan Bellam (natural Sweet Jaggery,Local / Unbranded,sugar-salt-staples,Sugar & Jaggery,1,,missing
+g1-p0377,Sugar 50kgs Bag,Local / Unbranded,sugar-salt-staples,Sugar & Jaggery,1,,missing
+g1-p0185,Thati Bellam (natural Sweet Jaggery,Local / Unbranded,sugar-salt-staples,Sugar & Jaggery,1,,missing
+g1-p0034,Arun Toffee CON,Arun Icecreams,sweets-chocolates,Candies & Gums,1,,missing
+g1-p0208,Lavian Brownie,Local / Unbranded,sweets-chocolates,Candies & Gums,1,,missing
+g1-p0013,Nirmala Sweet Betek NUT Packet,Local / Unbranded,sweets-chocolates,Candies & Gums,1,,missing
+g1-p0011,Dairy Milk Chocolate,Cadbury,sweets-chocolates,Chocolates,1,,missing
+g1-p0211,Kitkat,Nestle,sweets-chocolates,Chocolates,1,,missing
+g1-p0199,Nestle Munch Chocolate Wafer,Nestle,sweets-chocolates,Chocolates,1,,missing
+g1-p0585,BRU Instant,Bru,tea-coffee-milk-drinks,Coffee,1,,missing
+g1-p0609,BRU Instent JAR,Bru,tea-coffee-milk-drinks,Coffee,1,,missing
+g1-p0527,BRU Tripti Blend,Bru,tea-coffee-milk-drinks,Coffee,1,,missing
+g1-p0016,3 Roses Elaichi,3 Roses,tea-coffee-milk-drinks,Tea,1,,missing
+g1-p0015,Continental Xtra,Continental,tea-coffee-milk-drinks,Tea,1,,missing
+g1-p0092,TAJ Mahal,Taj Mahal,tea-coffee-milk-drinks,Tea,1,,missing
+g1-p0703,Mango Fruit,G1 Mart Fresh,vegetables-fruits,Fresh Fruits,1,,missing
+g1-p0821,Sunfeast Fantastik Fruit &nut,Sunfeast,vegetables-fruits,Fresh Fruits,1,,missing
+g1-p0236,Onions,G1 Mart Fresh,vegetables-fruits,Fresh Vegetables,1,,missing
+g1-p0736,Bansi Wheat Rava,Local / Unbranded,atta-rice-dal,Atta & Flours,2,,missing
+g1-p0744,Corn Flour Powdar1kg,Local / Unbranded,atta-rice-dal,Atta & Flours,2,,missing
+g1-p0406,Wheat,Local / Unbranded,atta-rice-dal,Atta & Flours,2,,missing
+g1-p0440,Aashirvaad,Aashirvaad,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0482,Aashirvaad Crystal Salt,Aashirvaad,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0859,Aashirvaad Rava,Aashirvaad,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0716,Aashirvaad Salt,Aashirvaad,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0457,Aashirvaad Suji Rava,Aashirvaad,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p1011,Alasandalu,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0738,Bambino Mysore Pack,Bambino,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0196,Bansi Ravva,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0163,Dalchini,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0860,Dansi Rava,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0427,Dharani Upma Ravva,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0570,HR Moong DAL,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0578,HR Salted Peanuts,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0206,Idil Rava,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0327,Kandi Pappu (toor Dal,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0380,Kandi Pappu (toor Dal) 50kgs Bag,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0330,Kandipappu1kg,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0315,Kissan Peanut Butter Crunchy,Kissan,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p1030,Maida Pindi,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0719,Mangaldeep Sandal,Mangaldeep,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0412,Moon DAL,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0668,Moong Dall,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0676,Nice Peanut Chikki,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0387,Pachisenagapappu,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0975,Peanut Balls,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0209,RAJ Peanut Chikki,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p1012,RED Alasandalu,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0867,SAI Bansi Ravva,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0974,Tulasi Peanut,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0434,Vermicilli Bambino1kg,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0382,White Urad DAL,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0383,White Urad Dal250g,Local / Unbranded,atta-rice-dal,Pulses & Dal,2,,missing
+g1-p0411,Basmati Rice,Local / Unbranded,atta-rice-dal,Rice & Grains,2,,missing
+g1-p0888,Cliinic Plus Rice Water,Local / Unbranded,atta-rice-dal,Rice & Grains,2,,missing
+g1-p0417,Flattened Rice,Local / Unbranded,atta-rice-dal,Rice & Grains,2,,missing
+g1-p0774,Baby OIL,Local / Unbranded,baby-care,Baby Bath & Skin Care,2,,missing
+g1-p0128,Himalaya Baby Soap,Himalaya,baby-care,Baby Bath & Skin Care,2,,missing
+g1-p0908,Musore Sandal Baby 75,Mysore Sandal,baby-care,Baby Bath & Skin Care,2,,missing
+g1-p0130,Santoor Baby Soap,Santoor,baby-care,Baby Bath & Skin Care,2,,missing
+g1-p0112,Huggies,Huggies,baby-care,Baby Diapers & Wipes,2,,missing
+g1-p0108,Huggies S,Huggies,baby-care,Baby Diapers & Wipes,2,,missing
+g1-p0051,Arun Milky Fantasy,Arun Icecreams,biscuits-bakery,Biscuits,2,,missing
+g1-p0781,Bourbon Biscuit,Britannia,biscuits-bakery,Biscuits,2,,missing
+g1-p0743,Dark Fantasy,Sunfeast,biscuits-bakery,Biscuits,2,,missing
+g1-p0352,Dark Fantasy Bourbon,Britannia,biscuits-bakery,Biscuits,2,,missing
+g1-p0799,Dark Fantasy Choco Fills,Sunfeast,biscuits-bakery,Biscuits,2,,missing
+g1-p0801,Dark Fantasy Chocolate Notes,Sunfeast,biscuits-bakery,Biscuits,2,,missing
+g1-p0800,Dark Fantasy Cookis,Sunfeast,biscuits-bakery,Biscuits,2,,missing
+g1-p0803,Dark Fantasy Vanilla,Sunfeast,biscuits-bakery,Biscuits,2,,missing
+g1-p0853,Dark Fantasy5rs,Local / Unbranded,biscuits-bakery,Biscuits,2,,missing
+g1-p0761,Hide&seek Biscuits 10rs,Local / Unbranded,biscuits-bakery,Biscuits,2,,missing
+g1-p0421,Horlicks Biscuit Small,Horlicks,biscuits-bakery,Biscuits,2,,missing
+g1-p0419,Horlicks Biscuits,Horlicks,biscuits-bakery,Biscuits,2,,missing
+g1-p0779,Mariegold Biscuit,Britannia,biscuits-bakery,Biscuits,2,,missing
+g1-p0060,Moms Magic,Sunfeast,biscuits-bakery,Biscuits,2,,missing
+g1-p0824,Moms Magic Shines Shinig Butter,Sunfeast,biscuits-bakery,Biscuits,2,,missing
+g1-p0823,Moms Magic Shines Shining Butter,Sunfeast,biscuits-bakery,Biscuits,2,,missing
+g1-p0816,Sunfeast Bourbon,Britannia,biscuits-bakery,Biscuits,2,,missing
+g1-p0802,Dark Fantasy Chocolate Cookie,Sunfeast,biscuits-bakery,Cookies,2,,missing
+g1-p0301,Unibic Biscot,Unibic,biscuits-bakery,Cookies,2,,missing
+g1-p0545,Unibic Cheese Wafer,Unibic,biscuits-bakery,Cookies,2,,missing
+g1-p0368,Unibic Choco Chip,Unibic,biscuits-bakery,Cookies,2,,missing
+g1-p0359,Unibic Choco NUT,Unibic,biscuits-bakery,Cookies,2,,missing
+g1-p0555,Unibic Chocolate Wafer,Unibic,biscuits-bakery,Cookies,2,,missing
+g1-p0472,Unibic Coconut,Unibic,biscuits-bakery,Cookies,2,,missing
+g1-p0378,Unibic Danish Coconut,Unibic,biscuits-bakery,Cookies,2,,missing
+g1-p0498,Unibic Free Multigrain,Unibic,biscuits-bakery,Cookies,2,,missing
+g1-p0253,Unibic Fruit & NUT,Unibic,biscuits-bakery,Cookies,2,,missing
+g1-p0582,Unibic Milky Biscot,Unibic,biscuits-bakery,Cookies,2,,missing
+g1-p0400,Unibic Orange Splash,Unibic,biscuits-bakery,Cookies,2,,missing
+g1-p0573,Unibic Rich Chocolate Wafer,Unibic,biscuits-bakery,Cookies,2,,missing
+g1-p0550,Unibic Straberry Wafer,Unibic,biscuits-bakery,Cookies,2,,missing
+g1-p0399,Unibic Waffer,Unibic,biscuits-bakery,Cookies,2,,missing
+g1-p0664,Elaichi Rusk,Local / Unbranded,biscuits-bakery,Rusk & Bakery Snacks,2,,missing
+g1-p0665,Milk Rusk,Local / Unbranded,biscuits-bakery,Rusk & Bakery Snacks,2,,missing
+g1-p0863,Bingo Korean,Bingo,chips-namkeen,Chips & Crisps,2,,missing
+g1-p0540,Kasturi Appalam / Papad,Local / Unbranded,chips-namkeen,Namkeen & Bhujia,2,,missing
+g1-p1045,Popular Appalam / Papad,Local / Unbranded,chips-namkeen,Namkeen & Bhujia,2,,missing
+g1-p0542,SRI Papads,Local / Unbranded,chips-namkeen,Namkeen & Bhujia,2,,missing
+g1-p0217,Arun,Arun Icecreams,dairy-bread-eggs,Ice Creams,2,,missing
+g1-p0194,Arun Butterscotcg,Arun Icecreams,dairy-bread-eggs,Ice Creams,2,,missing
+g1-p0158,Arun Chocobar,Arun Icecreams,dairy-bread-eggs,Ice Creams,2,,missing
+g1-p0043,Arun Donut,Arun Icecreams,dairy-bread-eggs,Ice Creams,2,,missing
+g1-p0046,Arun Double,Arun Icecreams,dairy-bread-eggs,Ice Creams,2,,missing
+g1-p0045,Arun Ibar,Arun Icecreams,dairy-bread-eggs,Ice Creams,2,,missing
+g1-p0086,Arun Ibar Mini,Arun Icecreams,dairy-bread-eggs,Ice Creams,2,,missing
+g1-p0078,Arun Kulfi,Arun Icecreams,dairy-bread-eggs,Ice Creams,2,,missing
+g1-p0040,Arun Likstick ICE,Arun Icecreams,dairy-bread-eggs,Ice Creams,2,,missing
+g1-p0059,Arun Sandwich,Arun Icecreams,dairy-bread-eggs,Ice Creams,2,,missing
+g1-p0038,Arun Sunny Sil,Arun Icecreams,dairy-bread-eggs,Ice Creams,2,,missing
+g1-p0237,Arun Vanilla,Arun Icecreams,dairy-bread-eggs,Ice Creams,2,,missing
+g1-p0103,Arun Venilla Black,Arun Icecreams,dairy-bread-eggs,Ice Creams,2,,missing
+g1-p0044,Arun Whaie,Arun Icecreams,dairy-bread-eggs,Ice Creams,2,,missing
+g1-p0215,Butter Milk,Local / Unbranded,dairy-bread-eggs,Milk & Curd,2,,missing
+g1-p0272,Daory Milk,Local / Unbranded,dairy-bread-eggs,Milk & Curd,2,,missing
+g1-p0176,Milk Bikis,Britannia,dairy-bread-eggs,Milk & Curd,2,,missing
+g1-p0110,Milky BAR,Local / Unbranded,dairy-bread-eggs,Milk & Curd,2,,missing
+g1-p0118,Milky BAR BIG BOX,Local / Unbranded,dairy-bread-eggs,Milk & Curd,2,,missing
+g1-p0598,Milkybar,Nestle,dairy-bread-eggs,Milk & Curd,2,,missing
+g1-p0869,Milkybar Choo,Nestle,dairy-bread-eggs,Milk & Curd,2,,missing
+g1-p0752,Milkybbar Smal BOX,Local / Unbranded,dairy-bread-eggs,Milk & Curd,2,,missing
+g1-p0798,Sunfeast Nice,Sunfeast,dairy-bread-eggs,Milk & Curd,2,,missing
+g1-p0810,Sunfeast Supermilk,Sunfeast,dairy-bread-eggs,Milk & Curd,2,,missing
+g1-p0438,Whisper Choice Xl Main,Whisper,dairy-bread-eggs,Milk & Curd,2,,missing
+g1-p0239,EXO,Exo,dishwash,Dishwash Bars & Liquids,2,,missing
+g1-p0936,EXO Ginger Lamon,Exo,dishwash,Dishwash Bars & Liquids,2,,missing
+g1-p0559,Exo 10,Exo,dishwash,Dishwash Bars & Liquids,2,,missing
+g1-p0558,Exo 5,Exo,dishwash,Dishwash Bars & Liquids,2,,missing
+g1-p0474,Mangaladeep Treya,Local / Unbranded,dishwash,Dishwash Bars & Liquids,2,,missing
+g1-p0322,Rexona Aloe Vera,Local / Unbranded,dishwash,Dishwash Bars & Liquids,2,,missing
+g1-p0321,Rexona Deorant MEN,Local / Unbranded,dishwash,Dishwash Bars & Liquids,2,,missing
+g1-p0523,VIM JEL,Vim,dishwash,Dishwash Bars & Liquids,2,,missing
+g1-p0306,VIM Neem Clean,Vim,dishwash,Dishwash Bars & Liquids,2,,missing
+g1-p0307,VIM Power OF 100lemons,Vim,dishwash,Dishwash Bars & Liquids,2,,missing
+g1-p0868,VIM Pudina Fresh,Vim,dishwash,Dishwash Bars & Liquids,2,,missing
+g1-p0446,Vim,Vim,dishwash,Dishwash Bars & Liquids,2,,missing
+g1-p0425,Vim 5rs Bar,Vim,dishwash,Dishwash Bars & Liquids,2,,missing
+g1-p0299,Vim GEL Shudhham,Vim,dishwash,Dishwash Bars & Liquids,2,,missing
+g1-p0328,Aniva Orange,Local / Unbranded,drinks-juices,Soft Drinks & Sodas,2,,missing
+g1-p0603,Boost,Boost,drinks-juices,Soft Drinks & Sodas,2,,missing
+g1-p0890,Boost BOX,Boost,drinks-juices,Soft Drinks & Sodas,2,,missing
+g1-p0943,Fanta 10rupees,Fanta,drinks-juices,Soft Drinks & Sodas,2,,missing
+g1-p0317,Horlicks,Horlicks,drinks-juices,Soft Drinks & Sodas,2,,missing
+g1-p0891,Horlicks Womens Plus,Horlicks,drinks-juices,Soft Drinks & Sodas,2,,missing
+g1-p0308,Horlicks Womens Plus Caramel,Horlicks,drinks-juices,Soft Drinks & Sodas,2,,missing
+g1-p0717,Immunity Boosting,Local / Unbranded,drinks-juices,Soft Drinks & Sodas,2,,missing
+g1-p0953,Minute Maid Orange,Local / Unbranded,drinks-juices,Soft Drinks & Sodas,2,,missing
+g1-p0768,SP Orange,Local / Unbranded,drinks-juices,Soft Drinks & Sodas,2,,missing
+g1-p0961,Sprite,Sprite,drinks-juices,Soft Drinks & Sodas,2,,missing
+g1-p0948,Sprite Zero Sugur,Sprite,drinks-juices,Soft Drinks & Sodas,2,,missing
+g1-p0949,Thumsup Xforce,Thums Up,drinks-juices,Soft Drinks & Sodas,2,,missing
+g1-p1000,Oats,Local / Unbranded,dry-fruits-cereals,Breakfast Cereals & Oats,2,,missing
+g1-p0984,Almond Roasted,Local / Unbranded,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0583,Badam,Local / Unbranded,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0494,Badam 100gr,Local / Unbranded,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0492,Gkl Black Dates,Local / Unbranded,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0909,Gokilam Dates,Local / Unbranded,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0394,Gokulam Dates,Local / Unbranded,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0982,Kaju Butter,Local / Unbranded,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0495,Kismis,Local / Unbranded,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0938,Moms Magic Cashew& Almond,Sunfeast,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0805,Moms Magic Cashew&almond,Sunfeast,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0985,Pistachio,Local / Unbranded,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0776,SP Badam,Local / Unbranded,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p1008,Salt Pista,Local / Unbranded,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0969,Unibic Casew Badam,Unibic,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0410,Unibic Cashew Badam,Unibic,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0507,Unibic Free Cashew,Unibic,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0323,Unibic Pista Badam,Unibic,dry-fruits-cereals,Dry Fruits & Nuts,2,,missing
+g1-p0745,707 Liquid,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p1002,Acid,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0842,Cleaning Wiper,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0838,Cloth Pins,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0832,Dustpan,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0758,Head AND Shoulder 2RS,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0841,MOP Sticks B,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0612,Newmake Bras,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0468,SS R B,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0465,SS ROD,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0839,Smart MOP,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0757,Softouch,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0624,Softouch 860+,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0626,Softouch Black,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0625,Softouch Liquid Blue,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0845,Ssc5d,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0844,Sscg2,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0843,Sscg3,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0846,Sscg4s,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0751,Staryfree XL,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0617,Sunsilk,Sunsilk,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0469,Supar MOP,Local / Unbranded,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p0614,Ujala,Ujala,floor-surface-cleaners,Floor & Surface Cleaners,2,,missing
+g1-p1037,ALL OUT Ultra Likved,Local / Unbranded,floor-surface-cleaners,Mosquito & Pest Repellents,2,,missing
+g1-p0373,Amla OIL,Dabur,hair-care,Hair Oil,2,,missing
+g1-p1047,Aswini Hair OIL,Local / Unbranded,hair-care,Hair Oil,2,,missing
+g1-p0430,Dabour Amla Oil,Dabur,hair-care,Hair Oil,2,,missing
+g1-p0161,Dabur Almond Hair OIL,Dabur,hair-care,Hair Oil,2,,missing
+g1-p0289,Chik Shampoo,Local / Unbranded,hair-care,Shampoo,2,,missing
+g1-p0201,Clinic Plus,Clinic Plus,hair-care,Shampoo,2,,missing
+g1-p0725,Clinic Plus EGG,Clinic Plus,hair-care,Shampoo,2,,missing
+g1-p0630,Karthika Shampoo,Local / Unbranded,hair-care,Shampoo,2,,missing
+g1-p0629,Meera Onion Shampoo,Meera,hair-care,Shampoo,2,,missing
+g1-p0639,Meera Shampoo,Meera,hair-care,Shampoo,2,,missing
+g1-p0374,Meera Shampoo Badam,Meera,hair-care,Shampoo,2,,missing
+g1-p0628,Meera Shampoo Onion,Meera,hair-care,Shampoo,2,,missing
+g1-p0117,Parachute,Parachute,hair-care,Shampoo,2,,missing
+g1-p0588,Parachute Advansed,Parachute,hair-care,Shampoo,2,,missing
+g1-p0902,Parachute Aloe Vera,Parachute,hair-care,Shampoo,2,,missing
+g1-p1034,Parachute Ayurvedic,Parachute,hair-care,Shampoo,2,,missing
+g1-p0435,Parachute Main,Parachute,hair-care,Shampoo,2,,missing
+g1-p0532,Parachuteb,Local / Unbranded,hair-care,Shampoo,2,,missing
+g1-p0654,SRI Durga Amla Pickle,Dabur,hair-care,Shampoo,2,,missing
+g1-p0885,3roses,3 Roses,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0607,3roses Natural Care,3 Roses,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0904,Ambika Sambrani,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0914,Apsara Pencils,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0484,Arilel Power GEL,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0611,Ariyal500g,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p1048,Banjaras Rose Water,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0987,Barari Dattes,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0224,Bheerm Brooom,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0692,Black Chikki,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p1049,Black Henna BOX,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p1050,Black Rose Hair DYE,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0331,Boro Plus BIG,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0884,Broore Bond 3roses,3 Roses,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0875,C Naivedya CUP Sambrani,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0932,C Sandlaum,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0924,C Sugandha Mallika,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0840,C Three IN ONE,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0871,Camlin 0.7mm Ledis,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p1028,Chenaga Pindi,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0967,Cherry,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0726,Clear Anti-dandruff Nutrium,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0880,Cliinic Plus Fengreek,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0297,Clinic Egg,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0544,Closeup,Close Up,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0946,Coca Cala,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0456,Coconut,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0980,Coconut Fudge,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0276,Colin,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0177,Crane,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0300,Crayons,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0282,Cycle Agarbati 5,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0907,Cycle LIA Lavender,Zed Black,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0916,Cycle LIA Pinapple,Zed Black,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0138,Dabur Honey,Dabur,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0251,Dabur RED,Dabur,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0104,Dabur Rose Water,Dabur,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0247,Dazzy Rich Gold,Dazzy,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0355,Denver Body Spray,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0606,Dettal,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0531,E Butes,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0903,Eagle Sambrani,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0453,Ear Buts,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0796,Eggs,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0813,Eggs TRA,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0290,Endu Marchi,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0490,Eyarbads,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0320,Fair &lovely,Glow & Lovely,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0491,Fair Loveli RE NEW,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0409,Finger Millet,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0371,First Love,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0226,Five Finger Broom,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0870,Flair Carbonix0.7mm,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0786,Flair PEN SET Main,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0785,Flair Pens,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0981,Fofello,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0354,Fogg Body Spary,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0942,Fogg Spray,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0255,GN Gold Liquid,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0756,GUM 10rs Main,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0755,GUM 5RS Main,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0897,Gadda Camphpr,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0876,Gangi Pendi,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0141,Garnier Bright Complete,Garnier,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0261,Garnier F . W,Garnier,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0302,Gayathari Sambrani Stick,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0734,Geeta,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0284,Gloe&handsome,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0274,Gloe&handsome MEN,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0376,Gokul PDR,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0596,Gokul Santol,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0933,Gokul Secret Garden,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0452,Gopuram,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0278,Gopuram K,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0205,Gottalu,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0271,HIM F.W .,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0569,HR Chekaralu,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0501,Henk Matic Liquid Front Load 1lt,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0500,Henko Matic Liquid Top Load 1lt,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0143,Henna,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0140,Himalaya LIP Balm,Himalaya,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0976,Honey,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0151,IFB Descal,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0356,Indica Easy BIG,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0357,Indica Easy Small,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0608,Induleka Shapoo,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0733,JOY Lady,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0983,Jewels,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0336,Jilakara 10rupees,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0190,Kabuli Senagalu,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0687,Kaccha AAM,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0971,Kashmir MIX,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0691,Kasuri Methi,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0283,Kichen Knife,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0963,Kinley,Kinley,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0962,Kinley Water,Kinley,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0597,Kisan Mixed Fuuit,Kissan,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0369,Kiss ME,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0727,Knorr CUP Soup,Knorr,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0689,Kopiko,Kopiko,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0536,Korean Ramen,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p1004,LG Engiva,Vandevi,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0601,LGV,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0288,LIA,Zed Black,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0528,LIA 3in1,Zed Black,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0883,LIA Chandana,Zed Black,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0889,LIA Jasmin,Zed Black,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0899,LIA Rose,Zed Black,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0521,LIX Jasmine,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0901,Lakme 2in1,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0710,Lavender,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0319,Lifeduoy Neem,Lifebuoy,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0855,Lion Honey,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0915,Liril Limen,Liril,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0529,Loban Sambrani 20rs,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0273,Maggi 2-Minute Noodles,Nestle,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0365,Magnet,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0988,Makhana Savory&crunch,Makhana,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p1007,Makhana Seeds,Makhana,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0604,Malkist,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0711,Mangaldeep,Mangaldeep,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0829,Mangaldeep 3in1,Mangaldeep,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0477,Mangaldeep Long Lasting,Mangaldeep,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0451,Mangaldeep Sambrani,Mangaldeep,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0462,Mangaldeep Samrani Cup 1 Box,Mangaldeep,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0476,Mangaldeep Sandel,Mangaldeep,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0471,Mangaldeep Scent,Mangaldeep,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0475,Mangaldeep Temple,Mangaldeep,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0455,Mangaldeep Treya,Mangaldeep,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0715,Margo,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0516,Margo Neem,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0511,Margo Original,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0436,Maya Agni Samrani,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0188,Maya Rose,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0366,Melody,Parle,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0989,Mint Pudina,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0792,Moov,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0589,More Light 5lt,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0858,Mrow,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0408,Mung Bean,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0530,Murali Vathulu Main,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0148,NO 1 BIG,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0191,Nalla Senagalu,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0977,Nattu Sakkarai,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p1029,Neem Nimyle,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0184,Nuvvulu,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0296,Nycil,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0940,Nycil Germ Expert,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0372,OSR Girl,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0923,Oiones,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0986,Osmania Bisc,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0204,Pasta,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0684,Pasta C.M 0.3,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0358,Pitambari,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0152,Pitambari Rooperi,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0825,Pond S,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0605,Ponds,Ponds,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p1010,Ponds Bricht Beauty,Ponds,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0602,Ponds Bricht Miracle,Ponds,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0485,Ponds Sandl,Ponds,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0115,Power LLQ,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0145,Puresprk,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0595,RED Labul Natural,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0405,RED Lentils,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0343,Rangoli,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0686,Real AAM,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0911,Right Zoom,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0912,Right Zoomb,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0116,Royal Mirage Body Spray,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0166,Ruchi Gold,Ruchi Gold,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0873,SRI Durga Singer Garlic,Sri Durga,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0741,SRI Durga Tarmarik,Sri Durga,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0156,SUN Gold,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0728,Saggubiyyam,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0203,Sajjalu,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0791,Sastri Balm,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0956,Scissors 10inch,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0957,Scissors 8.2 Inch,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0892,Sensodyne Bresh,Sensodyne,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0360,Sensodyne Fresh GEL,Sensodyne,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0249,Sensora Paste,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0433,Sensora Tooth Paste Main,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0233,Smile MOP,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0448,Solo Fresh,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0367,Something Something,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0407,Sorghum500g,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0416,Soya BIG,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0415,Soya Small,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0964,Spis Himalaya Honey,Himalaya,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0616,Starfree XL,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0099,Stay Free Extra,Stayfree,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0225,Steei Broom,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0227,Steel Broom,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0760,Sunrise 5RS,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p1003,Super MOP,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0586,Surya Deva,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0702,Sweeper,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0685,Tangy Imli,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0195,Tella Bataneelu,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0812,Trubble GUM BIG,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0819,Trubble GUM Small,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0364,Tulip,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0234,Twist MOP Color,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0701,Ultra Floor Clean,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0298,Ultra Power,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0286,Vamu Wather,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0429,Vermicilli Payasam Mix,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0906,Waghb Bakri Elaichi,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0731,Wall Stick,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0222,Whisper XL,Whisper,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0814,Whisper XXL,Whisper,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0229,Wiper SML 14 Inch,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0721,Wipper Stick,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0638,Wipro Balpu,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0132,Yardley Gold,Yardley,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0134,Yardley Jasmine,Yardley,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0135,Yardley Morning DEW,Yardley,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0131,Yardley RED Roses,Yardley,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p1035,Z Magnetsm FOR MEN,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p1036,Z Magnetsn FOR MAN,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0370,ZX Spray,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0789,Zandu Balam Red,Zandu,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0790,Zandu Balm Gren,Zandu,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0125,Zinda Tilismath,Local / Unbranded,hygiene,Sanitary Pads & Napkins,2,,missing
+g1-p0537,5 Much,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0750,5star Fullbox,Cadbury,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0633,ALL IN ONE,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0267,Alpenliebe,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0772,Balian Chemiya 10,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0864,Bino Temato,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0535,Biscott,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0240,Cadbury Choclairs Gold,Cadbury,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0172,Center Fresh,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0659,Chegodi,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0682,Choki Stix,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0424,Clinic Plus Strong&long,Clinic Plus,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0260,Dazzy Eclairs,Dazzy,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0264,Dazzy Mango,Dazzy,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p1009,Dazzy Orientto BOX,Dazzy,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0256,Derby Eclairs Coconut,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0854,Desi Popz,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0246,Eclairs Choco,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0849,Elashi,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0680,Fitday Millet Chikki,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0493,GKL Seeded,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0642,Garlic Mixture,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0699,Gongura Pickels,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0708,Ground Nuts Karam Podo,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0579,HR Mixture,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0574,HR Navratan MIX,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0580,HR Tasty Nuts,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0114,Hanobar,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0162,Hanobar Dark,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0164,Hatsun Malai Lassi,Hatsun,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0334,Hatsun Mango Lassi,Hatsun,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0165,Hatsun Paneer,Hatsun,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0804,Hing,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0568,Hr Soya Sticks,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0275,Jelly TOS,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0245,Kacche AAM,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0765,Kindar Joys 25,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0764,Kinder JOY (B,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0347,Kinley Soda,Kinley,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0709,Kobbari Karam Podi,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0243,Kopiko,Kopiko,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0697,Lemon Pickel,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0181,Limca,Limca,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0944,Limca 10rupees,Limca,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0769,Lion Honey SET,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0610,Lolipop,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0620,Lotte Choco PIE,Lotte,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0627,Lotte Choco PIE BOX,Lotte,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0257,Lotte Coconut Punch,Lotte,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0259,Lotte Lacto King,Lotte,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0242,MY- Melody,Parle,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0182,Maaza,Maaza,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0996,Makhana Cheese&garlic,Makhana,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0993,Makhana Mrxican Jalarena,Makhana,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0991,Makhana Punjabi Tikka,Makhana,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0994,Makhana Tomata,Makhana,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0669,Malkist Cappuccino,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0666,Malkist Cheese,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0179,Marie Gold,Britannia,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0806,Marie Light Active,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0809,Marie Light Evening,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0266,Mentos Mint,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0265,Mentos Rainboe,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0707,Nalla Karam Podi,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0970,Naturo,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0262,Nyra Original,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0175,Oreo,Cadbury,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0706,Pappula Podi,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0754,Park10rs,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0168,Polo,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0784,SP Duet,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0759,SP Mango,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0748,SP Pinapple,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0653,SRI Durga Gongura Pickle,Sri Durga,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0649,SRI Durga Leman,Sri Durga,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0657,SRI Durga Mango Avakai,Sri Durga,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0650,SRI Durga Mango CUT Pickle,Sri Durga,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0658,SRI Durga Mango Thokku,Sri Durga,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0852,SRI Durga Papula Podi150g,Sri Durga,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0623,SWD Garlic Mixtur,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0613,SWD Spicy Nuts,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p1027,Soanpapdi,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0705,Soya Chunks,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0698,Soya Mini Chunks,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0645,Sri Durga Ginger Pickle,Sri Durga,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0641,Sri Durga Lemon Pickle,Sri Durga,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0647,Sri Durga Mango Sut Pickle,Sri Durga,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0643,Sri Durga Pulihora Pk,Sri Durga,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0815,Sunfeast Bounce,Sunfeast,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0857,Sunfeast Day&night,Sunfeast,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0808,Sunfeast Glicose,Sunfeast,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0807,Sunfeast Glucose,Sunfeast,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0618,Swastik CUT Mango Pikel200g,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0795,Swastiks Mango Pickle200g,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0652,Tasty Nuts,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0258,Tcon Heart Tino,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0157,Tcon Pops,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0973,Tulasi Sesame Jumbo 200,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0945,Tulips Cotton Swabs,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0213,Unbic Wafer,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0678,White Sesame Chikki,Local / Unbranded,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p0818,Yippee Noodles,Sunfeast,instant-food,Instant Noodles & Pasta,2,,missing
+g1-p1024,Knorr Dark Soya SAS,Knorr,instant-food,Ready to Cook & Soups,2,,missing
+g1-p0426,Ashirvad 5kgs Bag,Local / Unbranded,kitchenware,Kitchen Storage & Utilities,2,,missing
+g1-p0363,Lock 38mm,Local / Unbranded,kitchenware,Kitchen Storage & Utilities,2,,missing
+g1-p0770,Nippo AAA Main,Nippo,kitchenware,Kitchen Storage & Utilities,2,,missing
+g1-p0216,Active Wheel,Wheel,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0335,Aniva Orange Drink,Local / Unbranded,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0499,Ariel Power Gel Top Load&semi Auto,Ariel,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0167,Arun FUN Wheel,Wheel,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0214,Arun Tringo,Arun Icecreams,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0968,Oringe Candy,Local / Unbranded,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0228,Prince Broom,Local / Unbranded,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0155,RIN,Rin,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p1013,RIN Antibav,Rin,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0644,Sri Durga Green Tamarind Pickleb,Sri Durga,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0497,Surf Excel,Surf Excel,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0828,Surf Excel 10,Surf Excel,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0332,Surf Excel Easy Wash,Surf Excel,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0304,Surf Excel Matic,Surf Excel,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0305,Surf Excel Matic Ntop Load,Surf Excel,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0303,Surf Excvel Matic1.,Surf Excel,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0404,Tamarind250g,Local / Unbranded,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0403,Tamarind500g,Local / Unbranded,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0445,Tide,Tide,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0113,Tide Powder,Tide,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0732,Ultimate Power Liquid Detergent,Local / Unbranded,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0483,Wheel 2in1,Wheel,laundry-detergents,Detergent Powders & Liquids,2,,missing
+g1-p0565,Comfort Desire,Comfort,laundry-detergents,Fabric Conditioners & Bleach,2,,missing
+g1-p0563,Comfort Moring Fresh,Comfort,laundry-detergents,Fabric Conditioners & Bleach,2,,missing
+g1-p0562,Comfort Morning Fresh,Comfort,laundry-detergents,Fabric Conditioners & Bleach,2,,missing
+g1-p0487,Comfort Royal,Comfort,laundry-detergents,Fabric Conditioners & Bleach,2,,missing
+g1-p0564,Comfort Royale 210,Comfort,laundry-detergents,Fabric Conditioners & Bleach,2,,missing
+g1-p0646,Ujala,Ujala,laundry-detergents,Fabric Conditioners & Bleach,2,,missing
+g1-p0922,Ujala Crisp Shine,Ujala,laundry-detergents,Fabric Conditioners & Bleach,2,,missing
+g1-p0566,Ujala Young&fresh Aura,Ujala,laundry-detergents,Fabric Conditioners & Bleach,2,,missing
+g1-p0567,Ujala Young&fresh Bliss,Ujala,laundry-detergents,Fabric Conditioners & Bleach,2,,missing
+g1-p0655,Castor OIL,Local / Unbranded,oil-ghee-masala,Edible Oils,2,,missing
+g1-p0640,Freedam Oil,Local / Unbranded,oil-ghee-masala,Edible Oils,2,,missing
+g1-p0847,Freedom OIL,Freedom,oil-ghee-masala,Edible Oils,2,,missing
+g1-p1016,JS Oile,Local / Unbranded,oil-ghee-masala,Edible Oils,2,,missing
+g1-p0670,JS Oile Deepam,Local / Unbranded,oil-ghee-masala,Edible Oils,2,,missing
+g1-p0766,Navaratna OIL,Local / Unbranded,oil-ghee-masala,Edible Oils,2,,missing
+g1-p0787,Pooja Gold OIL,Local / Unbranded,oil-ghee-masala,Edible Oils,2,,missing
+g1-p0894,Sunflower Seeds,Local / Unbranded,oil-ghee-masala,Edible Oils,2,,missing
+g1-p0997,Vijaya Groundnut OIL,Local / Unbranded,oil-ghee-masala,Edible Oils,2,,missing
+g1-p1020,Aachhi Garam Masala,Aachi,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0075,Aachi Biryani Masala,Aachi,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0074,Aachi Chicken Masala,Aachi,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0072,Aachi Fish Masala,Aachi,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0076,Aachi Garam Masala,Aachi,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0073,Aachi Muttan Masala,Aachi,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0851,Bingo Masala,Bingo,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0673,Biriyani Masala,Local / Unbranded,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0681,Chatpat Masala Noodles,Local / Unbranded,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0672,Fried Rice Masala,Local / Unbranded,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0778,Gopuram Pasupu (pure Turmeric Powder,Local / Unbranded,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0572,HR Masala Peanuts,Local / Unbranded,oil-ghee-masala,Masala Powders,2,,missing
+g1-p1023,ITC Chikkin Masala,Local / Unbranded,oil-ghee-masala,Masala Powders,2,,missing
+g1-p1032,ITC Garam Masala,Local / Unbranded,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0730,Masala Noodels,Local / Unbranded,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0096,Nalla Karam,Local / Unbranded,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0675,Noodlles Masala,Local / Unbranded,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0679,Pani Puri Masala,Local / Unbranded,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0674,Pasta Masala,Local / Unbranded,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0866,Yippee Magic Masala,Sunfeast,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0599,Yippee Noodles Magic Masala,Sunfeast,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0827,Yippee WOW Masala,Sunfeast,oil-ghee-masala,Masala Powders,2,,missing
+g1-p0695,Mango Pickel,Local / Unbranded,oil-ghee-masala,Pickles & Chutneys,2,,missing
+g1-p0920,Swastiks RED Chilli Pickle,Local / Unbranded,oil-ghee-masala,Pickles & Chutneys,2,,missing
+g1-p0696,Tomato Pickel,Local / Unbranded,oil-ghee-masala,Pickles & Chutneys,2,,missing
+g1-p0541,Aachi Appalam / Papad,Aachi,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0071,Aachi Biryani,Aachi,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0865,Bingo Chilli,Bingo,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0414,Coriander,Local / Unbranded,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0413,Coriander Seeds,Local / Unbranded,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0950,Freedom,Freedom,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0459,Freedom 1LT,Freedom,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0874,Freedom Groundnut OLI,Freedom,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0952,Freedom Rice,Freedom,oil-ghee-masala,Whole Spices,2,,missing
+g1-p1042,Gemini,Gemini,oil-ghee-masala,Whole Spices,2,,missing
+g1-p1043,Gemini TEA,Gemini,oil-ghee-masala,Whole Spices,2,,missing
+g1-p1015,Gemini TEE,Gemini,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0693,Ginger Garlic Paste,Local / Unbranded,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0333,Hatsun Jeera (cumin Seeds) Buttermilk,Hatsun,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0396,Jeera (cumin Seeds,Local / Unbranded,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0539,Jeera100g,Local / Unbranded,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0341,Lavangalu (whole Cloves) 10rupees,Local / Unbranded,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0280,Lavangalu10g,Local / Unbranded,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0992,Makhana Seasalt&pepper,Makhana,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0879,Menthulu (fenugreek Seeds,Local / Unbranded,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0444,Pepper,Local / Unbranded,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0872,Pepper Bols,Local / Unbranded,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0955,Rimzim Jeera (cumin Seeds,Local / Unbranded,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0740,SRI Durga Chilli,Sri Durga,oil-ghee-masala,Whole Spices,2,,missing
+g1-p1022,SRI Durga Coriander,Sri Durga,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0648,SRI Durga Ginger Garlic Paste,Sri Durga,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0878,Sompu (sweet Fennel Seeds,Local / Unbranded,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0480,Sompu100g,Local / Unbranded,oil-ghee-masala,Whole Spices,2,,missing
+g1-p1014,Subha Lakshmi Turmeric 100,Local / Unbranded,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0460,Telagapindi / Telagadalu (sesame Press,Local / Unbranded,oil-ghee-masala,Whole Spices,2,,missing
+g1-p0590,Ajay Brush,Local / Unbranded,oral-care,Toothbrushes & Tongue Cleaners,2,,missing
+g1-p0454,Brush,Local / Unbranded,oral-care,Toothbrushes & Tongue Cleaners,2,,missing
+g1-p0230,Cleaning Brush Round,Local / Unbranded,oral-care,Toothbrushes & Tongue Cleaners,2,,missing
+g1-p0836,Cloth Brushb1,Local / Unbranded,oral-care,Toothbrushes & Tongue Cleaners,2,,missing
+g1-p0432,Colgate Brush Set Main,Colgate,oral-care,Toothbrushes & Tongue Cleaners,2,,missing
+g1-p0591,Colgate Toothbrush,Colgate,oral-care,Toothbrushes & Tongue Cleaners,2,,missing
+g1-p0720,Ultra Soft Brush,Local / Unbranded,oral-care,Toothbrushes & Tongue Cleaners,2,,missing
+g1-p0837,Cloth Brash2,Local / Unbranded,oral-care,Toothpaste,2,,missing
+g1-p0534,Colgate,Colgate,oral-care,Toothpaste,2,,missing
+g1-p0171,Colgate Active Salt,Colgate,oral-care,Toothpaste,2,,missing
+g1-p0552,Colgate Axfresh,Colgate,oral-care,Toothpaste,2,,missing
+g1-p1021,Colgate Extra Medium,Colgate,oral-care,Toothpaste,2,,missing
+g1-p0349,Colgate Kids 2+,Colgate,oral-care,Toothpaste,2,,missing
+g1-p1018,Colgate Maxfesh,Colgate,oral-care,Toothpaste,2,,missing
+g1-p0554,Colgate Maxfresh,Colgate,oral-care,Toothpaste,2,,missing
+g1-p0526,Colgate Salt,Colgate,oral-care,Toothpaste,2,,missing
+g1-p0797,Colgate Softb Kids,Colgate,oral-care,Toothpaste,2,,missing
+g1-p0551,Colgate Strong Teeth,Colgate,oral-care,Toothpaste,2,,missing
+g1-p0553,Colgate Vedshaikti,Colgate,oral-care,Toothpaste,2,,missing
+g1-p0345,Colgate Zigzag,Colgate,oral-care,Toothpaste,2,,missing
+g1-p0934,Gokul Floral Fresh,Local / Unbranded,oral-care,Toothpaste,2,,missing
+g1-p0192,Oral B,Oral-B,oral-care,Toothpaste,2,,missing
+g1-p0549,Pepsodent,Pepsodent,oral-care,Toothpaste,2,,missing
+g1-p0547,Pepsodent 12hr Germi Check,Pepsodent,oral-care,Toothpaste,2,,missing
+g1-p0548,Pepsodent 2in1,Pepsodent,oral-care,Toothpaste,2,,missing
+g1-p0556,Pepsodent Clove Salt,Pepsodent,oral-care,Toothpaste,2,,missing
+g1-p0546,Pepsodent GUM Care,Pepsodent,oral-care,Toothpaste,2,,missing
+g1-p0834,Shink Brashs,Local / Unbranded,oral-care,Toothpaste,2,,missing
+g1-p0941,C Sandulum Cones,Local / Unbranded,pooja-needs,Agarbatti & Dhoop,2,,missing
+g1-p0947,Cycle LIA Cones,Zed Black,pooja-needs,Agarbatti & Dhoop,2,,missing
+g1-p0139,Koyas Xlnc Premium Incense,Local / Unbranded,pooja-needs,Agarbatti & Dhoop,2,,missing
+g1-p0777,Pooja Gandan Smal,Local / Unbranded,pooja-needs,Agarbatti & Dhoop,2,,missing
+g1-p0735,Pooja Oial,Local / Unbranded,pooja-needs,Agarbatti & Dhoop,2,,missing
+g1-p0688,Gulab JAM,Local / Unbranded,sauces-spreads,Jams & Spreads,2,,missing
+g1-p1019,Gulab Jamum MIX,Local / Unbranded,sauces-spreads,Jams & Spreads,2,,missing
+g1-p0690,JAM Ojam,Local / Unbranded,sauces-spreads,Jams & Spreads,2,,missing
+g1-p0780,Jimjam Bisccuit,Local / Unbranded,sauces-spreads,Jams & Spreads,2,,missing
+g1-p0826,Kisan JAM,Kissan,sauces-spreads,Jams & Spreads,2,,missing
+g1-p1040,MTR Gulab Jamun,MTR,sauces-spreads,Jams & Spreads,2,,missing
+g1-p0671,Knorr Green Chilli Sauce,Knorr,sauces-spreads,Sauces & Ketchup,2,,missing
+g1-p0921,Knorr RED Chilli Sauce,Knorr,sauces-spreads,Sauces & Ketchup,2,,missing
+g1-p0622,Santoor Fresh Skin,Santoor,skin-care,Face Wash & Creams,2,,missing
+g1-p0047,707 Soap,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0782,Aachi Sambar Powder,Aachi,soaps-bath,Bathing Soaps,2,,missing
+g1-p1001,Aashirvaad Chilli Powder,Aashirvaad,soaps-bath,Bathing Soaps,2,,missing
+g1-p0169,Ambica Agarbathi,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0142,Aswini Subhra Bath Powder,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0835,Bath Brash1,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0831,Bath Mugs,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0919,Bleaching Powder,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0313,Boro Plus Powder Small,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p1044,Chandrika Soap,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0951,Chilly Powder,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0024,Cinthol,Cinthol,soaps-bath,Bathing Soaps,2,,missing
+g1-p0127,Cinthol Fresh,Cinthol,soaps-bath,Bathing Soaps,2,,missing
+g1-p0122,Cinthol Original Soap (super Saver Pack,Cinthol,soaps-bath,Bathing Soaps,2,,missing
+g1-p0990,Coriander Powder,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0450,Cycle Pue Agarbathi,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0089,Dettal Soap,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0170,Dettol Cool,Dettol,soaps-bath,Bathing Soaps,2,,missing
+g1-p0023,Dettol Original Germ Protection Bathing Soap,Dettol,soaps-bath,Bathing Soaps,2,,missing
+g1-p0159,Dettol Skincare Nourishing Soap,Dettol,soaps-bath,Bathing Soaps,2,,missing
+g1-p0055,Domex Powder,Domex,soaps-bath,Bathing Soaps,2,,missing
+g1-p0496,Dove Hair Shampoo6ml,Dove,soaps-bath,Bathing Soaps,2,,missing
+g1-p1026,Dove Shampoo,Dove,soaps-bath,Bathing Soaps,2,,missing
+g1-p0533,Dove Soap,Dove,soaps-bath,Bathing Soaps,2,,missing
+g1-p0848,Dove Soap BAR,Dove,soaps-bath,Bathing Soaps,2,,missing
+g1-p0054,EXO Powder,Exo,soaps-bath,Bathing Soaps,2,,missing
+g1-p0561,Exo Soap,Exo,soaps-bath,Bathing Soaps,2,,missing
+g1-p0136,Fairever Face Cream,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0506,Fiama Gel Bar Soap,Fiama,soaps-bath,Bathing Soaps,2,,missing
+g1-p0149,Godreg AER Lavender Bathroom Fresh,Godrej,soaps-bath,Bathing Soaps,2,,missing
+g1-p0150,Godreg AER Lemon Bathroom Fresh,Godrej,soaps-bath,Bathing Soaps,2,,missing
+g1-p0147,Godreg AER Rose Bathroom Fresh,Godrej,soaps-bath,Bathing Soaps,2,,missing
+g1-p0375,Gokul Powder,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p1039,Gokul Santol Powder,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0763,Gokul Soap BOX,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0503,Gopuram Turmeric Powder,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0502,Gopuram Turmeric Powder 50,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0187,Hamam Neem &tulsi,Hamam,soaps-bath,Bathing Soaps,2,,missing
+g1-p0129,Johnsunis Babu Soap,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0316,Kissan Peanut Butter Creamy,Kissan,soaps-bath,Bathing Soaps,2,,missing
+g1-p1017,LUX Glutathione,Lux,soaps-bath,Bathing Soaps,2,,missing
+g1-p0713,LUX Jasmine,Lux,soaps-bath,Bathing Soaps,2,,missing
+g1-p0524,LUX Jasminr Mega Pack,Lux,soaps-bath,Bathing Soaps,2,,missing
+g1-p0522,LUX Rose & Vitamin E Glowing Skin Soap,Lux,soaps-bath,Bathing Soaps,2,,missing
+g1-p0525,LUX Rose Mega Pack,Lux,soaps-bath,Bathing Soaps,2,,missing
+g1-p0515,LUX Rose Scent,Lux,soaps-bath,Bathing Soaps,2,,missing
+g1-p0520,LUX Sandal Wood,Lux,soaps-bath,Bathing Soaps,2,,missing
+g1-p0714,Lifebuoy,Lifebuoy,soaps-bath,Bathing Soaps,2,,missing
+g1-p0186,Maya Agarbathi,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0510,Medimex Classic Soap,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0509,Medimex Sandal Soap,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0514,Medimix Ayurvedic Classic 18 Herbs Soap,Medimix,soaps-bath,Bathing Soaps,2,,missing
+g1-p0512,Medimix Classic,Medimix,soaps-bath,Bathing Soaps,2,,missing
+g1-p0508,Medimix Transparent Soap,Medimix,soaps-bath,Bathing Soaps,2,,missing
+g1-p0712,Mysore Sandal,Mysore Sandal,soaps-bath,Bathing Soaps,2,,missing
+g1-p0937,Mysore Sandal Agarbathi,Mysore Sandal,soaps-bath,Bathing Soaps,2,,missing
+g1-p0277,Mysore Sandal Agarbathies,Mysore Sandal,soaps-bath,Bathing Soaps,2,,missing
+g1-p0910,Mysore Sandal CUO Sambrani,Mysore Sandal,soaps-bath,Bathing Soaps,2,,missing
+g1-p0793,Mysore Sandal Gold,Mysore Sandal,soaps-bath,Bathing Soaps,2,,missing
+g1-p0543,Mysore Sandal Pure Sandalwood Soap,Mysore Sandal,soaps-bath,Bathing Soaps,2,,missing
+g1-p0722,Mysore Sandals Freshnol,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0137,NO 1 Soap Lemon,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0353,Nycil Powder BIG,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0324,Nycil Powder Small,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0007,Pears Pure & Gentle Soap (4 + 1 Free Pack,Pears,soaps-bath,Bathing Soaps,2,,missing
+g1-p0513,Pears Pure& Gentle Glow,Pears,soaps-bath,Bathing Soaps,2,,missing
+g1-p0517,Pears With Lemon,Pears,soaps-bath,Bathing Soaps,2,,missing
+g1-p0519,Pears With Mint,Pears,soaps-bath,Bathing Soaps,2,,missing
+g1-p0925,Ponds Body Powder,Ponds,soaps-bath,Bathing Soaps,2,,missing
+g1-p0927,Ponds Body Powder Aloe Cooling,Ponds,soaps-bath,Bathing Soaps,2,,missing
+g1-p0929,Ponds Body Powder Dreamflower,Ponds,soaps-bath,Bathing Soaps,2,,missing
+g1-p0926,Ponds Body Powder Magic,Ponds,soaps-bath,Bathing Soaps,2,,missing
+g1-p0931,Ponds Body Powder Sandal,Ponds,soaps-bath,Bathing Soaps,2,,missing
+g1-p0928,Ponds Body Powder Starlight,Ponds,soaps-bath,Bathing Soaps,2,,missing
+g1-p0538,Pooja Powder,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0775,Pooja Powder B Gandam,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0180,Power Natural Soap,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0068,Power Soap 10,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0704,Ragi Powder,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0325,Rexona Dpowder DRY,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0326,Rexona Dpowdert Shower Fresh,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0557,Rin Soap,Rin,soaps-bath,Bathing Soaps,2,,missing
+g1-p0739,SRI Durga Chilli Powder,Sri Durga,soaps-bath,Bathing Soaps,2,,missing
+g1-p0742,SRI Durga Dania Powder,Sri Durga,soaps-bath,Bathing Soaps,2,,missing
+g1-p0057,SUN Gold Soap 25,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0637,Santoor Pack,Santoor,soaps-bath,Bathing Soaps,2,,missing
+g1-p1052,Santoor Sandal & Milk Soap,Santoor,soaps-bath,Bathing Soaps,2,,missing
+g1-p0615,Santoor Sandal & Turmeric Bath Soap,Santoor,soaps-bath,Bathing Soaps,2,,missing
+g1-p0189,Santoor Sandalwood Soap (big Value Pack,Santoor,soaps-bath,Bathing Soaps,2,,missing
+g1-p0621,Santoor Small SET,Santoor,soaps-bath,Bathing Soaps,2,,missing
+g1-p0124,Santoor White,Santoor,soaps-bath,Bathing Soaps,2,,missing
+g1-p0126,Saphala Soap,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0833,Soap BOX,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p1051,Spingz BB Powder,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0348,Spinz BB Cream BIG,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0632,Spinz BB Face Powder,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0631,Spinz Bbcream15g,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0636,Spinz Bbpowder20g,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0489,Surfexel Sope,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0014,Turmeric Powder,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0560,Vim Soap,Vim,soaps-bath,Bathing Soaps,2,,missing
+g1-p0505,Vivel Aloe Vera Soap,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0504,Vivel Sandal Soap,Local / Unbranded,soaps-bath,Bathing Soaps,2,,missing
+g1-p0231,ZED Black Aggarbathi,Zed Black,soaps-bath,Bathing Soaps,2,,missing
+g1-p0479,Savlon Mosture Shield Handwash,Local / Unbranded,soaps-bath,Hand Wash & Sanitizers,2,,missing
+g1-p0592,Avalu,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0593,Avalu50g,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0467,Closeup Past,Close Up,sugar-salt-staples,Other Staples,2,,missing
+g1-p1025,ENO,Eno,sugar-salt-staples,Other Staples,2,,missing
+g1-p0762,ENO 10rs,Eno,sugar-salt-staples,Other Staples,2,,missing
+g1-p0464,ENO Laman BOX 1,Eno,sugar-salt-staples,Other Staples,2,,missing
+g1-p0587,Elaichi,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0344,Endu Draksha,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0340,Endu Draksha 10rupees,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p1006,Endu Merchi,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0449,Eno,Eno,sugar-salt-staples,Other Staples,2,,missing
+g1-p0877,Gasagasaalu (Poppy Seeds),Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0466,Gelakara,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0594,Gilakara,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0395,India Gate,India Gate,sugar-salt-staples,Other Staples,2,,missing
+g1-p0338,Jathipatri 10rupees,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0581,Jeedi Pappu (Cashew Nuts),Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0584,Kismis,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0737,Kurnool RIC BAG,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0473,Mangaldeep Flora,Mangaldeep,sugar-salt-staples,Other Staples,2,,missing
+g1-p0339,Marathi Mogga 10rupees,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0979,Mayur Makhana,Makhana,sugar-salt-staples,Other Staples,2,,missing
+g1-p0390,Minapappu,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0389,Minapappu 50kgs Bag,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0391,Minapapu,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0661,Miriyalu,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0342,Miriyalu10rupees,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0895,Muskmelon Seeds,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0917,Mysore Sandal Kleenoi,Mysore Sandal,sugar-salt-staples,Other Staples,2,,missing
+g1-p0930,NSR,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0388,Pachisenaga Pappu,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0386,Pachisenga Pappu 50kgs Bag,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0788,Priya Gold,Priya,sugar-salt-staples,Other Staples,2,,missing
+g1-p0470,Priya Gold1kg,Priya,sugar-salt-staples,Other Staples,2,,missing
+g1-p0893,Pumpkin Seeds,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0439,Ruchi Gold,Ruchi Gold,sugar-salt-staples,Other Staples,2,,missing
+g1-p0458,Ruchigold,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0381,Sai Pappu 50kgs Bag,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0461,Sensodyne,Sensodyne,sugar-salt-staples,Other Staples,2,,missing
+g1-p0423,VT Draksha,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0422,VT Jedipappu,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0393,Verusenaga Pappu (Peanuts),Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0392,Verusenaga Pappu 50kgs Bag,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0431,Vt Avalu,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0898,Watermelon Seeds,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0385,Yendu Kobbari,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p0384,Yendu Kobbari 25kgs Bag,Local / Unbranded,sugar-salt-staples,Other Staples,2,,missing
+g1-p1046,50-50 Sweet&salty,Britannia,sugar-salt-staples,Salt,2,,missing
+g1-p0959,Kinley Salty Lemon Soda,Kinley,sugar-salt-staples,Salt,2,,missing
+g1-p0978,Salt Bisckit,Local / Unbranded,sugar-salt-staples,Salt,2,,missing
+g1-p0401,Salt Mirchi,Local / Unbranded,sugar-salt-staples,Salt,2,,missing
+g1-p0223,Salt Rice,Local / Unbranded,sugar-salt-staples,Salt,2,,missing
+g1-p0811,Sunfeast Sweet&salty,Sunfeast,sugar-salt-staples,Salt,2,,missing
+g1-p0202,Tata Salt,Tata Salt,sugar-salt-staples,Salt,2,,missing
+g1-p0965,Broen Sugar,Local / Unbranded,sugar-salt-staples,Sugar & Jaggery,2,,missing
+g1-p0402,Jaggery,Local / Unbranded,sugar-salt-staples,Sugar & Jaggery,2,,missing
+g1-p0999,Organic Jaggery &ginger500g,Local / Unbranded,sugar-salt-staples,Sugar & Jaggery,2,,missing
+g1-p0998,Organic Jaggery Candy,Local / Unbranded,sugar-salt-staples,Sugar & Jaggery,2,,missing
+g1-p0379,Sugar,Local / Unbranded,sugar-salt-staples,Sugar & Jaggery,2,,missing
+g1-p0488,Unibic Sugar Free Butter,Unibic,sugar-salt-staples,Sugar & Jaggery,2,,missing
+g1-p0518,Unibic Sugar Free Oatmeal,Unibic,sugar-salt-staples,Sugar & Jaggery,2,,missing
+g1-p0700,Assorated Fruit,Local / Unbranded,sweets-chocolates,Candies & Gums,2,,missing
+g1-p0244,Dazzy Fruit Bonbon,Dazzy,sweets-chocolates,Candies & Gums,2,,missing
+g1-p0935,Kalkanda Candy,Local / Unbranded,sweets-chocolates,Candies & Gums,2,,missing
+g1-p0683,Kamarkat Sweets 1rupe,Local / Unbranded,sweets-chocolates,Candies & Gums,2,,missing
+g1-p0312,Kissan Sweet&spicy,Kissan,sweets-chocolates,Candies & Gums,2,,missing
+g1-p0966,MIX Fruit Jelly,Local / Unbranded,sweets-chocolates,Candies & Gums,2,,missing
+g1-p0972,Straberry Candyb,Local / Unbranded,sweets-chocolates,Candies & Gums,2,,missing
+g1-p0822,Sunfeast Fantastik Roast&almond,Sunfeast,sweets-chocolates,Candies & Gums,2,,missing
+g1-p0747,5 Star 5RS,Cadbury,sweets-chocolates,Chocolates,2,,missing
+g1-p0746,5 Star Chaklet 510,Cadbury,sweets-chocolates,Chocolates,2,,missing
+g1-p0749,5 Starfullbox,Local / Unbranded,sweets-chocolates,Chocolates,2,,missing
+g1-p0281,Arun Chocolate Ball,Arun Icecreams,sweets-chocolates,Chocolates,2,,missing
+g1-p0248,Chocolate PKT,Local / Unbranded,sweets-chocolates,Chocolates,2,,missing
+g1-p0269,Dairy Milk Crackle,Cadbury,sweets-chocolates,Chocolates,2,,missing
+g1-p0270,Dairy Milk Fruit&nut,Cadbury,sweets-chocolates,Chocolates,2,,missing
+g1-p0263,Dazzy Choco Orange,Dazzy,sweets-chocolates,Chocolates,2,,missing
+g1-p0241,Dazzy Chocolate,Dazzy,sweets-chocolates,Chocolates,2,,missing
+g1-p0571,HR Chocolate Soan Papdi,Local / Unbranded,sweets-chocolates,Chocolates,2,,missing
+g1-p0724,Horlicks Womens Plus Chocolate,Horlicks,sweets-chocolates,Chocolates,2,,missing
+g1-p0221,Kitkat BOX,Nestle,sweets-chocolates,Chocolates,2,,missing
+g1-p0667,Malkist Double Chocolatey,Local / Unbranded,sweets-chocolates,Chocolates,2,,missing
+g1-p0794,SP Chocolate,Local / Unbranded,sweets-chocolates,Chocolates,2,,missing
+g1-p0820,Sunfeast Fantastik Choco Almond,Sunfeast,sweets-chocolates,Chocolates,2,,missing
+g1-p0723,BRU,Bru,tea-coffee-milk-drinks,Coffee,2,,missing
+g1-p0886,BRU Green Label,Bru,tea-coffee-milk-drinks,Coffee,2,,missing
+g1-p0887,BRU Super Strong,Bru,tea-coffee-milk-drinks,Coffee,2,,missing
+g1-p0882,3 Roses Natural Care,3 Roses,tea-coffee-milk-drinks,Tea,2,,missing
+g1-p0463,3 Roses Te,3 Roses,tea-coffee-milk-drinks,Tea,2,,missing
+g1-p0173,5 Star TEA,Cadbury,tea-coffee-milk-drinks,Tea,2,,missing
+g1-p1053,Chakra Gold,Chakra Gold,tea-coffee-milk-drinks,Tea,2,,missing
+g1-p0144,Continental Strong,Continental,tea-coffee-milk-drinks,Tea,2,,missing
+g1-p0121,Lipton Green TEA,Lipton,tea-coffee-milk-drinks,Tea,2,,missing
+g1-p0600,Lipton TEA,Lipton,tea-coffee-milk-drinks,Tea,2,,missing
+g1-p0905,Wagh Bakri,Wagh Bakri,tea-coffee-milk-drinks,Tea,2,,missing
+g1-p0817,Wagh Bakri TEA,Wagh Bakri,tea-coffee-milk-drinks,Tea,2,,missing
+g1-p0718,Wagh Bakri250g,Local / Unbranded,tea-coffee-milk-drinks,Tea,2,,missing
