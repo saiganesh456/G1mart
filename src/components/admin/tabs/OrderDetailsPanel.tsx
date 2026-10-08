@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Order, StaffMember } from '@/types';
+import { Order, StaffMember, OrderStatus } from '@/types';
 import {
   ArrowLeft,
   CheckCircle2,
@@ -272,8 +272,9 @@ export default function OrderDetailsPanel({
             <select
               value={manualStatus}
               onChange={(e) => {
-                setManualStatus(e.target.value);
-                onUpdateStatus(order.id, e.target.value);
+                const newStatus = e.target.value as OrderStatus;
+                setManualStatus(newStatus);
+                onUpdateStatus(order.id, newStatus);
               }}
               className="bg-stone-100 border border-stone-200 rounded-xl px-2.5 py-1 text-xs font-bold text-stone-800 focus:outline-none focus:ring-2 focus:ring-emerald-600"
             >

@@ -157,6 +157,7 @@ export type PaymentMethod =
 
 export type OrderStatus =
   | 'Order Placed'
+  | 'New'
   | 'Confirmed'
   | 'Packing'
   | 'Packed'
@@ -249,7 +250,7 @@ export interface UserProfile {
 export interface StaffMember {
   id: string;
   email: string;
-  role: 'admin' | 'rider';
+  role: 'admin' | 'rider' | 'delivery_partner';
   name?: string;
   phone?: string;
   vehicleNumber?: string;
