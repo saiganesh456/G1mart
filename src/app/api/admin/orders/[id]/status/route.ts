@@ -9,11 +9,14 @@ export async function POST(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { status, staffIdentifier } = body;
+    const { status, staffIdentifier, assignedRider } = body;
 
     const validStatuses: OrderStatus[] = [
       'Order Placed',
+      'Confirmed',
+      'Packing',
       'Packed',
+      'Rider Assigned',
       'Order Dispatched',
       'Out for Delivery',
       'Delivered',
@@ -30,7 +33,8 @@ export async function POST(
     let result = await serverOrderStore.updateOrderStatus(
       id,
       status as OrderStatus,
-      staffIdentifier || 'Store Admin'
+      staffIdentifier || 'Store Admin',
+      assignedRider
     );
 
     // If order was missing from server cache but client sent orderFallback, hydrate and retry
@@ -40,7 +44,8 @@ export async function POST(
         result = await serverOrderStore.updateOrderStatus(
           id,
           status as OrderStatus,
-          staffIdentifier || 'Store Admin'
+          staffIdentifier || 'Store Admin',
+          assignedRider
         );
       } catch {}
     }

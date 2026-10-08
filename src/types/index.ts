@@ -127,7 +127,10 @@ export type PaymentMethod =
 
 export type OrderStatus =
   | 'Order Placed'
+  | 'Confirmed'
+  | 'Packing'
   | 'Packed'
+  | 'Rider Assigned'
   | 'Order Dispatched'
   | 'Out for Delivery'
   | 'Delivered'
@@ -187,6 +190,13 @@ export interface Order {
   transactionId?: string;
   userId?: string;
   userEmail?: string;
+  assignedRider?: {
+    id?: string;
+    name: string;
+    phone?: string;
+    vehicleNumber?: string;
+    assignedAt?: string;
+  };
   timeline: {
     status: OrderStatus;
     time: string;

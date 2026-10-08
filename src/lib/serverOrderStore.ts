@@ -30,11 +30,14 @@ const processedWebhooks = global.__g1ProcessedWebhooks;
 
 export const STATUS_RANK: Record<string, number> = {
   'Order Placed': 1,
-  'Packed': 2,
-  'Order Dispatched': 3,
-  'Out for Delivery': 3,
-  'Delivered': 4,
-  'Cancelled': 5,
+  'Confirmed': 2,
+  'Packing': 3,
+  'Packed': 4,
+  'Rider Assigned': 5,
+  'Order Dispatched': 6,
+  'Out for Delivery': 6,
+  'Delivered': 7,
+  'Cancelled': 8,
 };
 
 export interface RecalculatedCart {
@@ -413,7 +416,14 @@ export const serverOrderStore = {
   async updateOrderStatus(
     orderId: string,
     status: OrderStatus,
-    updatedBy?: string
+    updatedBy?: string,
+    assignedRider?: {
+      id?: string;
+      name: string;
+      phone?: string;
+      vehicleNumber?: string;
+      assignedAt?: string;
+    }
   ): Promise<{ success: boolean; order?: Order }> {
     this.loadFromDisk();
     let order = ordersMap.get(orderId);
@@ -461,10 +471,17 @@ export const serverOrderStore = {
     });
 
     order.status = status;
+    if (assignedRider) {
+      order.assignedRider = {
+        ...assignedRider,
+        assignedAt: assignedRider.assignedAt || new Date().toISOString(),
+      };
+    }
 
     // Update timeline steps
     const isPacked =
       status === 'Packed' ||
+      status === 'Rider Assigned' ||
       status === 'Order Dispatched' ||
       status === 'Out for Delivery' ||
       status === 'Delivered';
@@ -486,13 +503,31 @@ export const serverOrderStore = {
     if (isSupabaseConfigured()) {
       try {
         // Map status to valid database enum ('Order Placed', 'Packed', 'Out for Delivery', 'Delivered', 'Cancelled')
-        const dbStatus = status === 'Order Dispatched' ? 'Out for Delivery' : status;
+        let dbStatus: 'Order Placed' | 'Packed' | 'Out for Delivery' | 'Delivered' | 'Cancelled' = 'Order Placed';
+        if (status === 'Delivered') {
+          dbStatus = 'Delivered';
+        } else if (status === 'Out for Delivery' || status === 'Order Dispatched') {
+          dbStatus = 'Out for Delivery';
+        } else if (status === 'Packed' || status === 'Rider Assigned') {
+          dbStatus = 'Packed';
+        } else if (status === 'Cancelled') {
+          dbStatus = 'Cancelled';
+        } else {
+          dbStatus = 'Order Placed';
+        }
+
+        const updatePayload: any = {
+          status: dbStatus,
+          updated_at: new Date().toISOString(),
+        };
+
+        if (order.assignedRider?.id && order.assignedRider.id.includes('-') && order.assignedRider.id.length > 20) {
+          updatePayload.assigned_rider_id = order.assignedRider.id;
+        }
+
         await supabase
           .from('orders')
-          .update({
-            status: dbStatus,
-            updated_at: new Date().toISOString(),
-          })
+          .update(updatePayload)
           .eq('id', orderId);
       } catch (err) {
         console.warn('[serverOrderStore] Supabase updateOrderStatus fallback:', err);
