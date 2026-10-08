@@ -212,6 +212,7 @@ export default function InventoryTab({
                 <div className="relative w-full aspect-square rounded-2xl bg-stone-50 border border-stone-100 p-3 flex items-center justify-center overflow-hidden mb-3 group-hover:border-emerald-200 transition-colors">
                   <ProductImage
                     imageUrl={product.image_url || product.imageUrl || product.image}
+                    imageStatus={product.imageStatus || product.image_status || 'VERIFIED'}
                     alt={product.name}
                   />
 

@@ -49,24 +49,88 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   });
 
   // Notifications & Sound State
-  const [audioEnabled, setAudioEnabled] = useState(false);
+  const [audioEnabled, setAudioEnabled] = useState(true);
   const [previousOrderCount, setPreviousOrderCount] = useState<number>(0);
   const [newOrderAlert, setNewOrderAlert] = useState<Order | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
 
-  // Initialize audio element
+  // Initialize audio and unlock Web Audio Context on first user touch/click
   useEffect(() => {
     if (typeof window !== 'undefined') {
       audioRef.current = new Audio('/ting.mp3');
+
+      const unlockAudio = () => {
+        try {
+          const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+          if (AudioCtx) {
+            if (!audioCtxRef.current) {
+              audioCtxRef.current = new AudioCtx();
+            }
+            if (audioCtxRef.current.state === 'suspended') {
+              audioCtxRef.current.resume();
+            }
+          }
+        } catch {}
+      };
+
+      window.addEventListener('click', unlockAudio, { once: true });
+      window.addEventListener('touchstart', unlockAudio, { once: true });
+      return () => {
+        window.removeEventListener('click', unlockAudio);
+        window.removeEventListener('touchstart', unlockAudio);
+      };
     }
   }, []);
 
   const playNotificationSound = () => {
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play().catch(() => {
-        // Browser autoplay restrictions may require explicit user interaction
-      });
+    // 1. Play /ting.mp3
+    try {
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play().catch(() => {});
+      }
+    } catch {}
+
+    // 2. Play ultra-crisp synthesized order notification chime via Web Audio API
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (AudioCtx) {
+        if (!audioCtxRef.current || audioCtxRef.current.state === 'closed') {
+          audioCtxRef.current = new AudioCtx();
+        }
+        const ctx = audioCtxRef.current;
+        if (ctx.state === 'suspended') {
+          ctx.resume();
+        }
+        const now = ctx.currentTime;
+
+        // Tone 1: High crisp ding (B5 note / 987.77 Hz)
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        osc1.type = 'triangle';
+        osc1.frequency.setValueAtTime(987.77, now);
+        gain1.gain.setValueAtTime(0.4, now);
+        gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+        osc1.connect(gain1);
+        gain1.connect(ctx.destination);
+        osc1.start(now);
+        osc1.stop(now + 0.35);
+
+        // Tone 2: Bright harmonic chime (E6 note / 1318.51 Hz)
+        const osc2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(1318.51, now + 0.08);
+        gain2.gain.setValueAtTime(0.45, now + 0.08);
+        gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.85);
+        osc2.connect(gain2);
+        gain2.connect(ctx.destination);
+        osc2.start(now + 0.08);
+        osc2.stop(now + 0.85);
+      }
+    } catch (e) {
+      console.warn('Audio chime notice:', e);
     }
   };
 

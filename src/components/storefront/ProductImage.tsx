@@ -30,16 +30,19 @@ export default function ProductImage({
 
   // Canonical image URL determination
   const candidateUrl = image_url || imageUrl || src || null;
-  const status = (image_status || imageStatus || '').trim();
+  const status = (image_status || imageStatus || '').trim().toUpperCase();
 
-  // Strict check: Display image only when status is explicitly VERIFIED (or approved)
-  // and a valid non-placeholder image URL is present
-  const isVerified =
-    (status === 'VERIFIED' || status === 'approved') &&
+  // Display image whenever a valid non-placeholder image URL is present
+  const hasValidUrl =
     Boolean(candidateUrl) &&
-    !candidateUrl?.includes('placeholder.svg');
+    !candidateUrl?.includes('placeholder.svg') &&
+    (candidateUrl?.startsWith('/') || candidateUrl?.startsWith('http') || candidateUrl?.startsWith('data:'));
 
-  const shouldRenderImage = isVerified && candidateUrl && !hasError;
+  const shouldRenderImage =
+    hasValidUrl &&
+    status !== 'MISSING' &&
+    status !== 'PLACEHOLDER' &&
+    !hasError;
 
   return (
     <div

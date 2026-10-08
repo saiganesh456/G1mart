@@ -80,50 +80,55 @@ export default function HomeTab({
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto p-3 sm:p-6 pb-24">
-      {/* Header Banner */}
-      <div className="bg-white rounded-3xl p-5 sm:p-6 border border-stone-200/90 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="flex items-center gap-3.5">
+      {/* Header Banner - Premium Brand Ribbon */}
+      <div className="bg-gradient-to-r from-[#1A2E1C] via-[#1B5E20] to-[#2E7D32] text-white rounded-3xl p-5 sm:p-6 border border-emerald-800/40 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.png"
             alt="G1 MART"
-            className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl object-contain bg-[#1A2E1C]/5 p-1 border border-stone-100 shadow-2xs"
+            className="w-12 h-12 sm:w-16 sm:h-16 object-contain shrink-0"
           />
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-black tracking-wider uppercase text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+              <span className="text-[11px] font-black tracking-wider uppercase text-emerald-200 bg-emerald-500/25 border border-emerald-400/30 px-2.5 py-0.5 rounded-full flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse" />
                 Live Store Hub
               </span>
-              <span className="text-xs text-stone-400 font-bold hidden sm:inline">Nellore A1 Hub</span>
+              <span className="text-xs text-emerald-100/70 font-semibold hidden sm:inline">
+                Nellore Main Supermarket
+              </span>
             </div>
-            <h1 className="text-lg sm:text-2xl font-black text-stone-900 mt-1 tracking-tight">
+            <h1 className="text-lg sm:text-2xl font-black text-white mt-1 tracking-tight">
               G1 MART Operations Dashboard
             </h1>
+            <p className="text-xs text-emerald-100/90 font-medium hidden sm:block">
+              Real-time supermarket order dispatch, inventory &amp; cash management
+            </p>
           </div>
         </div>
 
         {/* Audio Alert Controller */}
-        <div className="flex items-center gap-2 bg-stone-50 p-2 rounded-2xl border border-stone-200 self-start md:self-auto">
+        <div className="flex items-center gap-2 bg-black/20 p-2 rounded-2xl border border-white/10 backdrop-blur-xs self-start md:self-auto">
           <button
             type="button"
             onClick={onToggleAudio}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
               audioEnabled
-                ? 'bg-emerald-600 text-white shadow-xs'
-                : 'bg-stone-200 text-stone-700 hover:bg-stone-300'
+                ? 'bg-emerald-500 text-white shadow-xs'
+                : 'bg-white/15 text-white/90 hover:bg-white/25'
             }`}
           >
             {audioEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-            <span>{audioEnabled ? 'Sound Alerts: ON' : 'Sound Alerts: OFF'}</span>
+            <span>{audioEnabled ? 'Sound: ON' : 'Sound: OFF'}</span>
           </button>
           <button
             type="button"
             onClick={onTestAudio}
             title="Test alert sound"
-            className="px-2.5 py-1.5 bg-white hover:bg-stone-100 border border-stone-200 text-stone-700 rounded-xl text-xs font-bold transition-colors"
+            className="px-3 py-1.5 bg-white/20 hover:bg-white/30 border border-white/20 text-white rounded-xl text-xs font-black transition-colors"
           >
-            Test Sound 🔔
+            🔔 Test Sound
           </button>
         </div>
       </div>

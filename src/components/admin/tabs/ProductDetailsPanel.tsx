@@ -142,6 +142,7 @@ export default function ProductDetailsPanel({
           <div className="w-24 h-24 rounded-2xl bg-stone-50 border border-stone-200 p-2 overflow-hidden shrink-0">
             <ProductImage
               imageUrl={product.image_url || product.imageUrl || product.image}
+              imageStatus={product.imageStatus || product.image_status || 'VERIFIED'}
               alt={product.name}
             />
           </div>
