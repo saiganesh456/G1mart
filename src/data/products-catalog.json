@@ -10567,8 +10567,8 @@
     "rawName": "KISSAM TOMATO KETCHUP 500G",
     "name": "Kissam Tomato Ketchup 500g",
     "brand": "G1 Mart Fresh",
-    "category": "personal-care",
-    "subCategory": "Personal Care Essentials",
+    "category": "snacks-beverages",
+    "subCategory": "Instant & Packaged Food",
     "unit": "500g",
     "pack_size": "500g",
     "price": 0,
@@ -10577,9 +10577,9 @@
     "discountPercentage": 0,
     "inStock": true,
     "stockCount": 35,
-    "imageUrl": "/products/packshots/santoor-soap.jpg",
-    "image": "/products/packshots/santoor-soap.jpg",
-    "image_url": "/products/packshots/santoor-soap.jpg",
+    "imageUrl": "/products/packshots/tomato-ketchup.jpg",
+    "image": "/products/packshots/tomato-ketchup.jpg",
+    "image_url": "/products/packshots/tomato-ketchup.jpg",
     "imageStatus": "VERIFIED",
     "image_status": "VERIFIED",
     "description": "Kissam Tomato Ketchup 500g (500g) by G1 Mart Fresh. Fresh supermarket retail inventory at G1 Mart.",
@@ -10589,7 +10589,7 @@
     "isBestDeal": false,
     "isActive": true,
     "is_verified": true,
-    "image_path": "/products/packshots/santoor-soap.jpg"
+    "image_path": "/products/packshots/tomato-ketchup.jpg"
   },
   {
     "id": "g1-1388",
@@ -10609,9 +10609,9 @@
     "discountPercentage": 0,
     "inStock": true,
     "stockCount": 35,
-    "imageUrl": "/products/packshots/mixed-fruit-jam.jpg",
-    "image": "/products/packshots/mixed-fruit-jam.jpg",
-    "image_url": "/products/packshots/mixed-fruit-jam.jpg",
+    "imageUrl": "/products/packshots/tomato-ketchup.jpg",
+    "image": "/products/packshots/tomato-ketchup.jpg",
+    "image_url": "/products/packshots/tomato-ketchup.jpg",
     "imageStatus": "VERIFIED",
     "image_status": "VERIFIED",
     "description": "Kissan Tomato Ketchup 200g (200g) by G1 Mart Fresh. Fresh supermarket retail inventory at G1 Mart.",
@@ -10621,7 +10621,7 @@
     "isBestDeal": false,
     "isActive": true,
     "is_verified": true,
-    "image_path": "/products/packshots/mixed-fruit-jam.jpg"
+    "image_path": "/products/packshots/tomato-ketchup.jpg"
   },
   {
     "id": "g1-1389",
@@ -10705,9 +10705,9 @@
     "discountPercentage": 0,
     "inStock": true,
     "stockCount": 35,
-    "imageUrl": "/products/packshots/mixed-fruit-jam.jpg",
-    "image": "/products/packshots/mixed-fruit-jam.jpg",
-    "image_url": "/products/packshots/mixed-fruit-jam.jpg",
+    "imageUrl": "/products/packshots/tomato-ketchup.jpg",
+    "image": "/products/packshots/tomato-ketchup.jpg",
+    "image_url": "/products/packshots/tomato-ketchup.jpg",
     "imageStatus": "VERIFIED",
     "image_status": "VERIFIED",
     "description": "Kissan Tomaato Ketchup 415g (415g) by G1 Mart Fresh. Fresh supermarket retail inventory at G1 Mart.",
@@ -10717,7 +10717,7 @@
     "isBestDeal": false,
     "isActive": true,
     "is_verified": true,
-    "image_path": "/products/packshots/mixed-fruit-jam.jpg"
+    "image_path": "/products/packshots/tomato-ketchup.jpg"
   },
   {
     "id": "g1-1391",
@@ -10727,8 +10727,8 @@
     "rawName": "KISSAN PEANUT BUTTER CRUNCHY 100G",
     "name": "Kissan Peanut Butter Crunchy 100g",
     "brand": "G1 Mart Fresh",
-    "category": "snacks-beverages",
-    "subCategory": "Instant & Packaged Food",
+    "category": "grocery-staples",
+    "subCategory": "Kitchen Staples",
     "unit": "100g",
     "pack_size": "100g",
     "price": 0,
@@ -10737,9 +10737,9 @@
     "discountPercentage": 0,
     "inStock": true,
     "stockCount": 35,
-    "imageUrl": "/products/packshots/mixed-fruit-jam.jpg",
-    "image": "/products/packshots/mixed-fruit-jam.jpg",
-    "image_url": "/products/packshots/mixed-fruit-jam.jpg",
+    "imageUrl": "/products/packshots/peanuts.jpg",
+    "image": "/products/packshots/peanuts.jpg",
+    "image_url": "/products/packshots/peanuts.jpg",
     "imageStatus": "VERIFIED",
     "image_status": "VERIFIED",
     "description": "Kissan Peanut Butter Crunchy 100g (100g) by G1 Mart Fresh. Fresh supermarket retail inventory at G1 Mart.",
@@ -10749,7 +10749,7 @@
     "isBestDeal": false,
     "isActive": true,
     "is_verified": true,
-    "image_path": "/products/packshots/mixed-fruit-jam.jpg"
+    "image_path": "/products/packshots/peanuts.jpg"
   },
   {
     "id": "g1-1392",
@@ -10759,8 +10759,8 @@
     "rawName": "KISSAN PEANUT BUTTER CREAMY",
     "name": "Kissan Peanut Butter Creamy",
     "brand": "G1 Mart Fresh",
-    "category": "snacks-beverages",
-    "subCategory": "Instant & Packaged Food",
+    "category": "grocery-staples",
+    "subCategory": "Kitchen Staples",
     "unit": "Pieces",
     "pack_size": "Pieces",
     "price": 0,
@@ -10769,9 +10769,9 @@
     "discountPercentage": 0,
     "inStock": true,
     "stockCount": 35,
-    "imageUrl": "/products/packshots/mixed-fruit-jam.jpg",
-    "image": "/products/packshots/mixed-fruit-jam.jpg",
-    "image_url": "/products/packshots/mixed-fruit-jam.jpg",
+    "imageUrl": "/products/packshots/peanuts.jpg",
+    "image": "/products/packshots/peanuts.jpg",
+    "image_url": "/products/packshots/peanuts.jpg",
     "imageStatus": "VERIFIED",
     "image_status": "VERIFIED",
     "description": "Kissan Peanut Butter Creamy (Pieces) by G1 Mart Fresh. Fresh supermarket retail inventory at G1 Mart.",
@@ -10781,7 +10781,7 @@
     "isBestDeal": false,
     "isActive": true,
     "is_verified": true,
-    "image_path": "/products/packshots/mixed-fruit-jam.jpg"
+    "image_path": "/products/packshots/peanuts.jpg"
   },
   {
     "id": "g1-1393",
@@ -17713,9 +17713,9 @@
     "discountPercentage": 0,
     "inStock": true,
     "stockCount": 35,
-    "imageUrl": "/products/packshots/mixed-fruit-jam.jpg",
-    "image": "/products/packshots/mixed-fruit-jam.jpg",
-    "image_url": "/products/packshots/mixed-fruit-jam.jpg",
+    "imageUrl": "/products/packshots/tomato-ketchup.jpg",
+    "image": "/products/packshots/tomato-ketchup.jpg",
+    "image_url": "/products/packshots/tomato-ketchup.jpg",
     "imageStatus": "VERIFIED",
     "image_status": "VERIFIED",
     "description": "Kisan Tomota Ketchup (Packs) by G1 Mart Fresh. Fresh supermarket retail inventory at G1 Mart.",
@@ -17725,7 +17725,7 @@
     "isBestDeal": false,
     "isActive": true,
     "is_verified": true,
-    "image_path": "/products/packshots/mixed-fruit-jam.jpg"
+    "image_path": "/products/packshots/tomato-ketchup.jpg"
   },
   {
     "id": "g1-308",
@@ -25265,9 +25265,9 @@
     "discountPercentage": 0,
     "inStock": true,
     "stockCount": 35,
-    "imageUrl": "/products/packshots/maggi-noodles.jpg",
-    "image": "/products/packshots/maggi-noodles.jpg",
-    "image_url": "/products/packshots/maggi-noodles.jpg",
+    "imageUrl": "/products/packshots/tomato-ketchup.jpg",
+    "image": "/products/packshots/tomato-ketchup.jpg",
+    "image_url": "/products/packshots/tomato-ketchup.jpg",
     "imageStatus": "VERIFIED",
     "image_status": "VERIFIED",
     "description": "Knorr Green Chilli Sauce 200g (200g) by G1 Mart Fresh. Fresh supermarket retail inventory at G1 Mart.",
@@ -25277,7 +25277,7 @@
     "isBestDeal": false,
     "isActive": true,
     "is_verified": true,
-    "image_path": "/products/packshots/maggi-noodles.jpg"
+    "image_path": "/products/packshots/tomato-ketchup.jpg"
   },
   {
     "id": "g1-535",
@@ -25800,7 +25800,7 @@
     "name": "Gulab JAM (1+1) 160gm",
     "brand": "G1 Mart Fresh",
     "category": "snacks-beverages",
-    "subCategory": "Instant & Packaged Food",
+    "subCategory": "Chocolates & Sweets",
     "unit": "160gm",
     "pack_size": "160gm",
     "price": 135.0,
@@ -25809,9 +25809,9 @@
     "discountPercentage": 0,
     "inStock": true,
     "stockCount": 35,
-    "imageUrl": "/products/packshots/mixed-fruit-jam.jpg",
-    "image": "/products/packshots/mixed-fruit-jam.jpg",
-    "image_url": "/products/packshots/mixed-fruit-jam.jpg",
+    "imageUrl": "/products/packshots/soan-papdi.jpg",
+    "image": "/products/packshots/soan-papdi.jpg",
+    "image_url": "/products/packshots/soan-papdi.jpg",
     "imageStatus": "VERIFIED",
     "image_status": "VERIFIED",
     "description": "Gulab JAM (1+1) 160gm (160gm) by G1 Mart Fresh. Fresh supermarket retail inventory at G1 Mart.",
@@ -25821,7 +25821,7 @@
     "isBestDeal": false,
     "isActive": true,
     "is_verified": true,
-    "image_path": "/products/packshots/mixed-fruit-jam.jpg"
+    "image_path": "/products/packshots/soan-papdi.jpg"
   },
   {
     "id": "g1-550",
@@ -35025,9 +35025,9 @@
     "discountPercentage": 0,
     "inStock": true,
     "stockCount": 35,
-    "imageUrl": "/products/packshots/maggi-noodles.jpg",
-    "image": "/products/packshots/maggi-noodles.jpg",
-    "image_url": "/products/packshots/maggi-noodles.jpg",
+    "imageUrl": "/products/packshots/tomato-ketchup.jpg",
+    "image": "/products/packshots/tomato-ketchup.jpg",
+    "image_url": "/products/packshots/tomato-ketchup.jpg",
     "imageStatus": "VERIFIED",
     "image_status": "VERIFIED",
     "description": "Knorr RED Chilli Sauce 200g (200g) by G1 Mart Fresh. Fresh supermarket retail inventory at G1 Mart.",
@@ -35037,7 +35037,7 @@
     "isBestDeal": false,
     "isActive": true,
     "is_verified": true,
-    "image_path": "/products/packshots/maggi-noodles.jpg"
+    "image_path": "/products/packshots/tomato-ketchup.jpg"
   },
   {
     "id": "g1-817",

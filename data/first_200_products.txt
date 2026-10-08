@@ -51,7 +51,7 @@
 #051 | ItemNo: 52 | ID: g1-52 | Name: Chegodi | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chips & Namkeen | Price: 0 | Img: /products/packshots/haldiram-khatta-meetha.jpg
 #052 | ItemNo: 53 | ID: g1-53 | Name: Moong Dall 120g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 55.0 | Img: /products/packshots/moong-dal.jpg
 #053 | ItemNo: 54 | ID: g1-54 | Name: Corn Flakes 100g | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Instant & Packaged Food | Price: 0 | Img: /products/packshots/corn-flakes.jpg
-#054 | ItemNo: 55 | ID: g1-55 | Name: Gulab JAM (1+1) 160gm | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Instant & Packaged Food | Price: 135.0 | Img: /products/packshots/mixed-fruit-jam.jpg
+#054 | ItemNo: 55 | ID: g1-55 | Name: Gulab JAM (1+1) 160gm | Brand: G1 Mart Fresh | Cat: snacks-beverages | SubCat: Chocolates & Sweets | Price: 135.0 | Img: /products/packshots/soan-papdi.jpg
 #055 | ItemNo: 56 | ID: g1-56 | Name: Soya Mini Chunks 200g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 0 | Img: /products/packshots/toor-dal.jpg
 #056 | ItemNo: 57 | ID: g1-57 | Name: Soya Chunks 200g | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 0 | Img: /products/packshots/toor-dal.jpg
 #057 | ItemNo: 58 | ID: g1-58 | Name: Soya Chunks 42G | Brand: G1 Mart Fresh | Cat: grocery-staples | SubCat: Dals & Pulses | Price: 10.0 | Img: /products/packshots/toor-dal.jpg

@@ -66,7 +66,7 @@ function loadCacheFromDisk() {
     ridersMap.set('rider@g1mart.com', {
       id: 'default-rider',
       email: 'rider@g1mart.com',
-      role: 'delivery_partner',
+      role: 'rider',
       name: 'Test Rider',
       createdAt: '2026-10-01T00:00:00Z',
       status: 'active',

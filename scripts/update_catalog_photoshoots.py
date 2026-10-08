@@ -26,7 +26,12 @@ RULES = [
     (r"(?:amla\s*oil|hair\s*oil|parachute|coconut\s*oil)", "/products/packshots/parachute-oil.jpg", "personal-care", "Hair Oils & Care"),
     (r"(?:fogg|denver|body\s*spray|perfume|attar|axe\b|wild\s*stone|spinz.*spray|tulip\b.*(?:150ml|spray|deo)|\bmagnet\b.*(?:100ml|spray|deo)|\bmelody\b.*(?:100ml|spray|deo)|something\s*something|kiss\s*me|first\s*love|osr\s*girl|zx\b.*spray)", "/products/packshots/body-spray.jpg", "personal-care", "Fragrances & Deos"),
 
-    # --- 5. Pickles & Jams ---
+    # --- 5. Sweets & Confectionery (Indian Sweets) ---
+    (r"(?:gulab\s*jam|soan\s*papdi|\bsp\s+(?:pinapple|mango|orange|badam|duet|chocolate)\b|mysore\s*pa[ck]|rasgulla)", "/products/packshots/soan-papdi.jpg", "snacks-beverages", "Chocolates & Sweets"),
+
+    # --- 6. Pickles, Sauces & Jams ---
+    (r"(?:ketchup|sauce\b)", "/products/packshots/tomato-ketchup.jpg", "snacks-beverages", "Instant & Packaged Food"),
+    (r"(?:peanut\s*butter)", "/products/packshots/peanuts.jpg", "grocery-staples", "Kitchen Staples"),
     (r"(?:pickle|pikel|avakaya|avakai|thokku|pulihora\s*pk|mango\s*sut)", "/products/packshots/mango-pickle.jpg", "grocery-staples", "Kitchen Staples"),
     (r"(?:kissan|kisan|mixedfruit|fruit\s*jam|\bjam\b)", "/products/packshots/mixed-fruit-jam.jpg", "snacks-beverages", "Instant & Packaged Food"),
 
