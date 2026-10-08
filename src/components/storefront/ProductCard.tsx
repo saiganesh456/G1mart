@@ -237,9 +237,9 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
             </button>
           )}
 
-          {/* Price + ADD button */}
-          <div className="pt-0.5 flex items-center justify-between gap-1">
-            <div className="flex items-baseline gap-1 min-w-0">
+          {/* Price + ADD button — stacks on narrow cards to prevent right overflow */}
+          <div className="pt-1 flex flex-col min-[380px]:flex-row items-stretch min-[380px]:items-center justify-between gap-1 min-w-0">
+            <div className="flex items-baseline gap-1 min-w-0 shrink-0">
               {effectivePrice > 0 ? (
                 <>
                   <span className="text-xs sm:text-sm font-black text-stone-900 tabular-nums leading-none">
@@ -252,7 +252,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
                   )}
                 </>
               ) : (
-                <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200/80 px-1.5 py-0.5 rounded tracking-tight">
+                <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200/80 px-1 py-0.5 rounded tracking-tight">
                   Price TBA
                 </span>
               )}
@@ -264,34 +264,34 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
                 <button
                   type="button"
                   onClick={handleAdd}
-                  className="h-7 px-2 rounded-lg border border-[#2E7D32] bg-white hover:bg-[#2E7D32] text-[#2E7D32] hover:text-white font-extrabold text-[11px] tracking-wide transition-all active:scale-95 flex items-center gap-0.5 shadow-xs shrink-0"
+                  className="h-6 min-[380px]:h-7 px-2 rounded-lg border border-[#2E7D32] bg-white hover:bg-[#2E7D32] text-[#2E7D32] hover:text-white font-extrabold text-[10px] min-[380px]:text-[11px] tracking-wide transition-all active:scale-95 flex items-center justify-center gap-0.5 shadow-xs w-full min-[380px]:w-auto shrink-0"
                 >
                   <span>ADD</span>
-                  <Plus className="w-3 h-3 stroke-[3]" />
+                  <Plus className="w-2.5 h-2.5 min-[380px]:w-3 min-[380px]:h-3 stroke-[3]" />
                 </button>
               ) : (
-                <div className="h-7 flex items-center bg-[#2E7D32] text-white rounded-lg shadow-xs px-1 shrink-0">
+                <div className="h-6 min-[380px]:h-7 flex items-center justify-between min-[380px]:justify-center bg-[#2E7D32] text-white rounded-lg shadow-xs px-1 w-full min-[380px]:w-auto shrink-0">
                   <button
                     type="button"
                     aria-label="Decrease quantity"
                     onClick={handleDecrease}
-                    className="w-5 h-6 flex items-center justify-center hover:bg-black/15 rounded active:scale-90"
+                    className="w-5 h-5 min-[380px]:h-6 flex items-center justify-center hover:bg-black/15 rounded active:scale-90"
                   >
-                    <Minus className="w-3 h-3 stroke-[3]" />
+                    <Minus className="w-2.5 h-2.5 min-[380px]:w-3 min-[380px]:h-3 stroke-[3]" />
                   </button>
-                  <span className="w-5 text-center text-xs font-black tabular-nums">{quantity}</span>
+                  <span className="flex-1 min-[380px]:w-5 text-center text-xs font-black tabular-nums">{quantity}</span>
                   <button
                     type="button"
                     aria-label="Increase quantity"
                     onClick={handleIncrease}
-                    className="w-5 h-6 flex items-center justify-center hover:bg-black/15 rounded active:scale-90"
+                    className="w-5 h-5 min-[380px]:h-6 flex items-center justify-center hover:bg-black/15 rounded active:scale-90"
                   >
-                    <Plus className="w-3 h-3 stroke-[3]" />
+                    <Plus className="w-2.5 h-2.5 min-[380px]:w-3 min-[380px]:h-3 stroke-[3]" />
                   </button>
                 </div>
               )
             ) : (
-              <span className="text-[10px] font-bold text-stone-400 bg-stone-100 px-2 py-1 rounded-md shrink-0">
+              <span className="text-[9px] min-[380px]:text-[10px] font-bold text-stone-400 bg-stone-100 px-1.5 py-0.5 rounded text-center shrink-0">
                 Unavailable
               </span>
             )}

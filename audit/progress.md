@@ -44,4 +44,19 @@ This log tracks the step-by-step execution across all 5 phases as specified in t
   - Next.js build: 36/36 routes compiled successfully.
 - **Unresolved:** None.
 
+## Phase 3 - UI Fixes & Mobile Responsiveness
+- **Status:** COMPLETED & VERIFIED
+- **Changes:**
+  - Categories Page Overflow: adjusted left category rail to ~72px (`w-[72px] sm:w-56`), reduced paddings (`p-1.5 sm:p-4`), eliminated clipping `overflow-hidden`, enforced `min-w-0` on cards and grid columns.
+  - ProductCard Mobile Layout: stacked price above ADD button on narrow screens (`<380px`) to prevent right edge cut-off; kept horizontal row on wider cards.
+  - Detail Navigation: verified `ProductCard` image and title link directly to `/product/:id` from home, search, and category explorers without interfering with ADD button or size chip.
+  - Product Detail Page: added "More from this brand" section querying verified brand siblings; validated variant selector with live price calculation, MRP, discount badges, and sticky cart action bar.
+  - Category Explorer: dynamic sub-category chip row and real brand chips updating item counts live.
+- **Verification:**
+  - Viewports: tested at 360px, 390px, 430px viewports (zero horizontal overflow or cut-off).
+  - User Journey: end-to-end flow verified (home > category > sub-category > product > add to cart, and search > product).
+  - Next.js build: 36/36 routes compiled successfully.
+- **Unresolved:** None.
+
+
 

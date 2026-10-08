@@ -150,6 +150,13 @@ export default function ProductDetailPage({ params }: Props) {
     ).slice(0, 6);
   }, [product]);
 
+  const brandProducts = useMemo(() => {
+    if (!product || !product.brand || product.brand === 'Local / Unbranded') return [];
+    return MIGRATED_PRODUCT_LIST.filter(
+      (p) => p.id !== product.id && p.brand && p.brand.toLowerCase() === product.brand.toLowerCase()
+    ).slice(0, 6);
+  }, [product]);
+
   if (!product && loading) {
     return (
       <div className="py-24 text-center space-y-3">
@@ -350,6 +357,25 @@ export default function ProductDetailPage({ params }: Props) {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 pb-4">
             {relatedProducts.map((rel) => (
               <ProductCard key={rel.id} product={rel} compact />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* More from this brand */}
+      {brandProducts.length > 0 && (
+        <div className="pt-2 space-y-3">
+          <div className="px-1">
+            <h3 className="text-sm sm:text-base font-extrabold text-[#212121] tracking-tight">
+              More from {effectiveProduct.brand}
+            </h3>
+            <p className="text-[11px] text-stone-500 font-medium">
+              Explore other popular items by {effectiveProduct.brand}
+            </p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 pb-4">
+            {brandProducts.map((bp) => (
+              <ProductCard key={bp.id} product={bp} compact />
             ))}
           </div>
         </div>

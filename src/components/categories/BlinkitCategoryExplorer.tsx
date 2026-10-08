@@ -82,8 +82,8 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
 
   return (
     <div className="flex h-[calc(100vh-140px)] sm:h-[calc(100vh-160px)] bg-white overflow-hidden">
-      {/* ── Left Category Rail (Blinkit Style) ── */}
-      <aside className="w-22 sm:w-56 shrink-0 bg-white border-r border-stone-100 overflow-y-auto no-scrollbar flex flex-col py-2 select-none">
+      {/* ── Left Category Rail (Blinkit Style, ~72px mobile) ── */}
+      <aside className="w-[72px] sm:w-56 shrink-0 bg-white border-r border-stone-100 overflow-y-auto no-scrollbar flex flex-col py-1.5 select-none">
         {categories.map((cat) => {
           const isActive = cat.id === activeCategoryId;
           return (
@@ -91,7 +91,7 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
               key={cat.id}
               type="button"
               onClick={() => handleSelectCategory(cat.id)}
-              className={`relative px-2 py-3 sm:px-4 sm:py-3.5 flex flex-col sm:flex-row items-center sm:gap-3 text-center sm:text-left transition-all cursor-pointer ${
+              className={`relative px-1 py-2 sm:px-4 sm:py-3.5 flex flex-col sm:flex-row items-center sm:gap-3 text-center sm:text-left transition-all cursor-pointer ${
                 isActive
                   ? 'bg-white text-[#2E7D32] font-black shadow-2xs'
                   : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100/70'
@@ -104,7 +104,7 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
 
               {/* Category Icon / Packshot */}
               <div
-                className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl p-1 flex items-center justify-center shrink-0 transition-transform overflow-hidden ${
+                className={`w-9 h-9 sm:w-11 sm:h-11 rounded-lg p-0.5 flex items-center justify-center shrink-0 transition-transform overflow-hidden ${
                   isActive ? 'bg-emerald-50 border-2 border-[#2E7D32] scale-105 shadow-2xs' : 'bg-white border border-stone-200/70'
                 }`}
               >
@@ -117,14 +117,14 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
                     loading="lazy"
                   />
                 ) : (
-                  <span className="text-xl">🛍️</span>
+                  <span className="text-lg">🛍️</span>
                 )}
               </div>
 
               {/* Title & Count */}
               <div className="mt-1 sm:mt-0 min-w-0">
                 <span
-                  className={`text-[11px] sm:text-xs leading-tight line-clamp-2 block ${
+                  className={`text-[10px] sm:text-xs leading-tight line-clamp-2 block text-center sm:text-left ${
                     isActive ? 'font-black text-[#2E7D32]' : 'font-semibold text-stone-700'
                   }`}
                 >
@@ -140,9 +140,9 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
       </aside>
 
       {/* ── Right Content Area: Products Grid ── */}
-      <main className="flex-1 flex flex-col min-w-0 bg-white overflow-hidden">
+      <main className="flex-1 flex flex-col min-w-0 bg-white">
         {/* Category Header & Filters (No search bar per Stage 2 Owner Rules) */}
-        <div className="p-3 sm:p-4 border-b border-stone-100 space-y-2 shrink-0 bg-white">
+        <div className="p-2 sm:p-4 border-b border-stone-100 space-y-2 shrink-0 bg-white">
           <div className="flex items-center justify-between gap-2">
             <div>
               <h2 className="text-sm sm:text-base font-extrabold text-[#212121] leading-tight">
@@ -234,7 +234,7 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
         </div>
 
         {/* Scrollable Products Grid with Clean Packshots */}
-        <div className="flex-1 overflow-y-auto p-2.5 sm:p-4">
+        <div className="flex-1 overflow-y-auto p-1.5 sm:p-4 min-w-0">
           {displayedProducts.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center p-6 text-stone-400">
               <div className="w-12 h-12 rounded-full bg-stone-100 flex items-center justify-center mb-2">
@@ -246,9 +246,11 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 pb-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1.5 sm:gap-3 pb-8 min-w-0">
               {displayedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <div key={product.id} className="min-w-0">
+                  <ProductCard product={product} />
+                </div>
               ))}
             </div>
           )}
