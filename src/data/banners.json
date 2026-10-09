@@ -7,10 +7,6 @@
     "link": "#scan-slip",
     "bg_image": "/banners/bg_monthly_list.jpg",
     "image_url": "/banners/bg_monthly_list.jpg",
-    "products": [
-      "/products/verified/g1-p0440.webp",
-      "/products/verified/g1-p0061.webp"
-    ],
     "badge": "SLIP SCAN",
     "sort_order": 1,
     "active": true
@@ -35,10 +31,6 @@
     "link": "/category/laundry-detergents",
     "bg_image": "/banners/bg_household.jpg",
     "image_url": "/banners/bg_household.jpg",
-    "products": [
-      "/products/verified/g1-p0457.webp",
-      "/products/verified/g1-p0028.webp"
-    ],
     "badge": "TOP BRANDS",
     "sort_order": 3,
     "active": true
@@ -51,11 +43,6 @@
     "link": "/category/chips-namkeen",
     "bg_image": "/banners/bg_snacks_drinks.jpg",
     "image_url": "/banners/bg_snacks_drinks.jpg",
-    "products": [
-      "/products/verified/g1-p0039.webp",
-      "/products/verified/g1-p0862.webp",
-      "/products/verified/g1-p0061.webp"
-    ],
     "badge": "QUICK BITES",
     "sort_order": 4,
     "active": true
