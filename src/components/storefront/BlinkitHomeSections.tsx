@@ -23,7 +23,6 @@ const SECTION_TINTS: Record<string, string> = {
  * 2-line centered label below the tile.
  */
 function CategoryTileItem({ cat, sectionId }: { cat: Category; sectionId: string }) {
-  const [imageLoaded, setImageLoaded] = useState(false);
   const tint = SECTION_TINTS[sectionId] || '#F8FAFC';
   const tileUrl = (categoryTilesMap as Record<string, string>)[cat.id] || cat.tile_image_url || `/categories/collages/${cat.id}.webp`;
 
@@ -39,26 +38,17 @@ function CategoryTileItem({ cat, sectionId }: { cat: Category; sectionId: string
         style={{ backgroundColor: tint }}
         className="relative w-full aspect-square rounded-[16px] p-2 flex items-center justify-center overflow-hidden transition-all duration-200 group-hover:scale-[1.03] shadow-2xs"
       >
-        {/* Skeleton loader while loading */}
-        {!imageLoaded && (
-          <div className="absolute inset-0 bg-stone-200/40 animate-pulse rounded-[16px]" />
-        )}
-
         {/* Product Collage Cut-Out / SVG Icon */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={tileUrl}
           alt={cat.name}
-          loading="lazy"
+          loading="eager"
           decoding="async"
-          onLoad={() => setImageLoaded(true)}
           onError={(e) => {
-            setImageLoaded(true);
             (e.currentTarget as HTMLImageElement).src = `/categories/collages/${cat.id}.svg`;
           }}
-          className={`w-full h-full object-contain select-none transition-all duration-200 ${
-            imageLoaded ? 'opacity-100 scale-100 group-hover:scale-105' : 'opacity-0 scale-95'
-          }`}
+          className="w-full h-full object-contain select-none transition-transform duration-200 group-hover:scale-105"
         />
       </div>
 

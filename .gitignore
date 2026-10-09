@@ -49,3 +49,10 @@ __pycache__/
 backup_pre_migration/
 backup_pre_phase1/
 backup_master_task/
+
+# Reference & Quarantine folders
+reference/
+/reference/
+quarantine/
+/quarantine/
+public/quarantine/

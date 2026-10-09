@@ -1,11 +1,16 @@
 [
   {
     "id": "banner-monthly-list",
-    "title": "Send your monthly grocery list - we pack it",
-    "subtitle": "Upload handwritten slip or WhatsApp photo, we pack & deliver",
+    "title": "Send your monthly grocery list — we pack it",
+    "subtitle": "Upload handwritten slip or WhatsApp photo, our store packs everything with zero markup",
     "cta": "Upload List",
     "link": "#scan-slip",
-    "image_url": "/banners/monthly-list.svg",
+    "bg_image": "/banners/bg_monthly_list.jpg",
+    "image_url": "/banners/bg_monthly_list.jpg",
+    "products": [
+      "/products/verified/g1-p0440.webp",
+      "/products/verified/g1-p0061.webp"
+    ],
     "badge": "SLIP SCAN",
     "sort_order": 1,
     "active": true
@@ -13,32 +18,44 @@
   {
     "id": "banner-fresh-produce",
     "title": "Fresh vegetables & fruits",
-    "subtitle": "Handpicked daily from local mandi with instant delivery",
+    "subtitle": "Handpicked daily from the local mandi with direct home delivery",
     "cta": "Shop Fresh",
     "link": "/category/vegetables-fruits",
-    "image_url": "/banners/vegetables-fruits.svg",
+    "bg_image": "/banners/bg_fresh_produce.jpg",
+    "image_url": "/banners/bg_fresh_produce.jpg",
     "badge": "FARM FRESH",
     "sort_order": 2,
     "active": true
   },
   {
     "id": "banner-household",
-    "title": "Household & cleaning",
-    "subtitle": "Detergents, floor cleaners, dishwash bars & home essentials",
+    "title": "Household & cleaning essentials",
+    "subtitle": "Detergents, floor cleaners, dishwash bars & trusted home supplies",
     "cta": "Shop Essentials",
-    "link": "/category/floor-surface-cleaners",
-    "image_url": "/banners/household.svg",
+    "link": "/category/laundry-detergents",
+    "bg_image": "/banners/bg_household.jpg",
+    "image_url": "/banners/bg_household.jpg",
+    "products": [
+      "/products/verified/g1-p0457.webp",
+      "/products/verified/g1-p0028.webp"
+    ],
     "badge": "TOP BRANDS",
     "sort_order": 3,
     "active": true
   },
   {
     "id": "banner-snacks-drinks",
-    "title": "Snacks & drinks",
-    "subtitle": "Crispy namkeen, biscuits, chips, sodas & cold juices",
+    "title": "Snacks & chilled beverages",
+    "subtitle": "Crispy namkeen, biscuits, chips, chocolates and sodas",
     "cta": "Explore Snacks",
     "link": "/category/chips-namkeen",
-    "image_url": "/banners/snacks-drinks.svg",
+    "bg_image": "/banners/bg_snacks_drinks.jpg",
+    "image_url": "/banners/bg_snacks_drinks.jpg",
+    "products": [
+      "/products/verified/g1-p0039.webp",
+      "/products/verified/g1-p0862.webp",
+      "/products/verified/g1-p0061.webp"
+    ],
     "badge": "QUICK BITES",
     "sort_order": 4,
     "active": true

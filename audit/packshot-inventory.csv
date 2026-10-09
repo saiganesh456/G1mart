@@ -1,0 +1,249 @@
+file,brand,product_line,variant,pack_size,source_location,status,notes_or_rejection_reason
+aachi-appalam.jpg,Aachi,Appalam / Papad,Classic Plain,100g,packshots,matched,Exact brand + line + variant match
+aachi-appalam.png,Aachi,Appalam / Papad,Classic Plain,100g,packshots,matched,Exact brand + line + variant match
+aachi-chilli.jpg,Aachi,Chilli Powder,Red Chilli,100g,packshots,matched,Exact brand + line + variant match
+aachi-chilli.png,Aachi,Chilli Powder,Red Chilli,100g,packshots,matched,Exact brand + line + variant match
+aashirvaad-atta-1kg.jpg,ITC Aashirvaad,Whole Wheat Atta,Regular Whole Wheat,1kg,packshots,matched,Exact brand + line + variant match
+aashirvaad-atta-1kg.png,ITC Aashirvaad,Whole Wheat Atta,Regular Whole Wheat,1kg,packshots,matched,Exact brand + line + variant match
+aashirvaad-atta.jpg,ITC Aashirvaad,Whole Wheat Atta,Regular Whole Wheat,10kg,packshots,matched,Exact brand + line + variant match
+aashirvaad-atta.png,ITC Aashirvaad,Whole Wheat Atta,Regular Whole Wheat,10kg,packshots,matched,Exact brand + line + variant match
+aashirvaad-crystal-salt.jpg,ITC Aashirvaad,Crystal Salt,Pure Crystal Salt,1kg,packshots,matched,Exact brand + line + variant match
+aashirvaad-crystal-salt.png,ITC Aashirvaad,Crystal Salt,Pure Crystal Salt,1kg,packshots,matched,Exact brand + line + variant match
+aashirvaad-salt.jpg,ITC Aashirvaad,Iodised Salt,Iodised Salt,1kg,packshots,matched,Exact brand + line + variant match
+aashirvaad-salt.png,ITC Aashirvaad,Iodised Salt,Iodised Salt,1kg,packshots,matched,Exact brand + line + variant match
+aashirvaad-suji-rava.jpg,ITC Aashirvaad,Suji Rava,Roasted/Plain Suji Rava,500g,packshots,matched,Exact brand + line + variant match
+aashirvaad-suji-rava.png,ITC Aashirvaad,Suji Rava,Roasted/Plain Suji Rava,500g,packshots,matched,Exact brand + line + variant match
+amul-milk.jpg,Generic / Unbranded,amul-milk,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+ariel-front-liq.jpg,P&G Ariel,Matic Power Gel,Front Load Liquid,3.2kg,packshots,matched,Exact brand + line + variant match
+ariel-front-liq.png,P&G Ariel,Matic Power Gel,Front Load Liquid,3.2kg,packshots,matched,Exact brand + line + variant match
+arun-bites.jpg,Arun Icecreams,Bites,Ice Cream Bites,50ml,packshots,matched,Exact brand + line + variant match
+arun-donut.jpg,Arun Icecreams,Ice Cream Donut,Chocolate Donut,60ml,packshots,matched,Exact brand + line + variant match
+arun-donut.png,Arun Icecreams,Ice Cream Donut,Chocolate Donut,60ml,packshots,matched,Exact brand + line + variant match
+arun-icecream.jpg,Arun Icecreams,Ice Cream Cup,Vanilla Cup,100ml,packshots,matched,Exact brand + line + variant match
+arun-icecream.png,Arun Icecreams,Ice Cream Cup,Vanilla Cup,100ml,packshots,matched,Exact brand + line + variant match
+arun-popitos.jpg,Generic / Unbranded,arun-popitos,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+basmati-rice.jpg,Generic / Unbranded,basmati-rice,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+basmati-rice.png,Generic / Unbranded,basmati-rice,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+bingo-mad-angles.jpg,ITC Bingo,Mad Angles,Achaari Masti / Chaat,66g,packshots,matched,Exact brand + line + variant match
+biryani-masala.jpg,Generic / Unbranded,biryani-masala,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+biryani-masala.png,Generic / Unbranded,biryani-masala,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+black-pepper.jpg,Generic / Unbranded,black-pepper,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+black-pepper.png,Generic / Unbranded,black-pepper,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+body-spray.jpg,Generic / Unbranded,body-spray,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+body-spray.png,Generic / Unbranded,body-spray,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+britannia-bourbon.jpg,Britannia,Bourbon,Chocolate Creme Biscuits,150g,packshots,matched,Exact brand + line + variant match
+britannia-bourbon.png,Britannia,Bourbon,Chocolate Creme Biscuits,150g,packshots,matched,Exact brand + line + variant match
+bru-instant.jpg,HUL Bru,Instant Coffee,Classic Granules Pouch,100g,packshots,matched,Exact brand + line + variant match
+bru-instant.png,HUL Bru,Instant Coffee,Classic Granules Pouch,100g,packshots,matched,Exact brand + line + variant match
+cadbury-5-star.jpg,Mondelez Cadbury,5 Star,Caramel Chocolate Bar,40g,packshots,matched,Exact brand + line + variant match
+cadbury-5-star.png,Mondelez Cadbury,5 Star,Caramel Chocolate Bar,40g,packshots,matched,Exact brand + line + variant match
+cadbury-dairy-milk.jpg,Mondelez Cadbury,Dairy Milk,Milk Chocolate Bar,50g,packshots,matched,Exact brand + line + variant match
+cadbury-dairy-milk.png,Mondelez Cadbury,Dairy Milk,Milk Chocolate Bar,50g,packshots,matched,Exact brand + line + variant match
+cardamom.jpg,Generic / Unbranded,cardamom,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+cardamom.png,Generic / Unbranded,cardamom,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+cashew-nuts.jpg,Generic / Unbranded,cashew-nuts,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+cashew-nuts.png,Generic / Unbranded,cashew-nuts,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+catch-coriander.jpg,Generic / Unbranded,catch-coriander,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+chana-dal-royal.jpg,Generic / Unbranded,chana-dal-royal,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+chana-dal.jpg,Generic / Unbranded,chana-dal,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+chana-dal.png,Generic / Unbranded,chana-dal,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+chicken-masala.jpg,Generic / Unbranded,chicken-masala,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+chicken-masala.png,Generic / Unbranded,chicken-masala,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+cinnamon.jpg,Generic / Unbranded,cinnamon,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+cinnamon.png,Generic / Unbranded,cinnamon,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+cinthol-soap.jpg,Godrej Cinthol,Original Soap,Deodorant & Complexion,100g,packshots,matched,Exact brand + line + variant match
+cinthol-soap.png,Godrej Cinthol,Original Soap,Deodorant & Complexion,100g,packshots,matched,Exact brand + line + variant match
+cleaner-spray.jpg,Reckitt Colin,Glass Cleaner,Regular Blue Spray,500ml,packshots,matched,Exact brand + line + variant match
+cleaner-spray.png,Reckitt Colin,Glass Cleaner,Regular Blue Spray,500ml,packshots,matched,Exact brand + line + variant match
+cleaning-broom.jpg,Generic / Unbranded,cleaning-broom,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+cleaning-broom.png,Generic / Unbranded,cleaning-broom,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+close-up-toothpaste.jpg,HUL Close Up,Everfresh,Red Hot Gel Toothpaste,80g,packshots,matched,Exact brand + line + variant match
+close-up-toothpaste.png,HUL Close Up,Everfresh,Red Hot Gel Toothpaste,80g,packshots,matched,Exact brand + line + variant match
+cloves.jpg,Generic / Unbranded,cloves,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+cloves.png,Generic / Unbranded,cloves,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+coca-cola.jpg,Coca-Cola,Coke,Classic PET Bottle,750ml,packshots,matched,Exact brand + line + variant match
+coca-cola.png,Coca-Cola,Coke,Classic PET Bottle,750ml,packshots,matched,Exact brand + line + variant match
+colgate-toothpaste.jpg,Colgate,Strong Teeth,Dental Cream Toothpaste,100g,packshots,matched,Exact brand + line + variant match
+colgate-toothpaste.png,Colgate,Strong Teeth,Dental Cream Toothpaste,100g,packshots,matched,Exact brand + line + variant match
+coriander-powder.jpg,Generic / Unbranded,coriander-powder,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+coriander-powder.png,Generic / Unbranded,coriander-powder,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+coriander-seeds.jpg,Generic / Unbranded,coriander-seeds,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+coriander-seeds.png,Generic / Unbranded,coriander-seeds,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+corn-flakes.jpg,Kellogg's,Corn Flakes,Original Carton,475g,packshots,matched,Exact brand + line + variant match
+corn-flakes.png,Kellogg's,Corn Flakes,Original Carton,475g,packshots,matched,Exact brand + line + variant match
+curd-dahi.jpg,Hatsun / Heritage,Curd / Dahi,Pouch Curd,500g,packshots,matched,Exact brand + line + variant match
+curd-dahi.png,Hatsun / Heritage,Curd / Dahi,Pouch Curd,500g,packshots,matched,Exact brand + line + variant match
+dettol-soap.jpg,Reckitt Dettol,Original Germ Protection,Classic Green Bar,125g,packshots,matched,Exact brand + line + variant match
+dettol-soap.png,Reckitt Dettol,Original Germ Protection,Classic Green Bar,125g,packshots,matched,Exact brand + line + variant match
+disposable-paper-plates.jpg,Generic / Unbranded,disposable-paper-plates,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+disposable-paper-plates.png,Generic / Unbranded,disposable-paper-plates,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+dove-soap.jpg,HUL Dove,Cream Beauty Bar,White Moisture Bar,100g,packshots,matched,Exact brand + line + variant match
+dove-soap.png,HUL Dove,Cream Beauty Bar,White Moisture Bar,100g,packshots,matched,Exact brand + line + variant match
+dry-coconut.jpg,Generic / Unbranded,dry-coconut,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+dry-coconut.png,Generic / Unbranded,dry-coconut,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+exo-scrubber.jpg,Jyothy Labs Exo,Safecool Scrubber,Anti-Bacterial Scrubber,1 pc,packshots,matched,Exact brand + line + variant match
+fab-liquid.jpg,Generic / Unbranded,fab-liquid,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+fab-liquid.png,Generic / Unbranded,fab-liquid,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+fennel-seeds.jpg,Generic / Unbranded,fennel-seeds,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+fennel-seeds.png,Generic / Unbranded,fennel-seeds,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+fenugreek-seeds.jpg,Generic / Unbranded,fenugreek-seeds,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+fenugreek-seeds.png,Generic / Unbranded,fenugreek-seeds,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+fortune-oil.jpg,Adani Wilmar Fortune,Sunlite Sunflower Oil,Refined Sunflower Oil Pouch,1L,packshots,matched,Exact brand + line + variant match
+fortune-oil.png,Adani Wilmar Fortune,Sunlite Sunflower Oil,Refined Sunflower Oil Pouch,1L,packshots,matched,Exact brand + line + variant match
+frooti.jpg,Parle Agro Frooti,Mango Drink,Fresh N Juicy Mango Drink,160ml,packshots,matched,Exact brand + line + variant match
+frooti.png,Parle Agro Frooti,Mango Drink,Fresh N Juicy Mango Drink,160ml,packshots,matched,Exact brand + line + variant match
+gala-sponge.jpg,Generic / Unbranded,gala-sponge,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+garam-masala.jpg,Generic / Unbranded,garam-masala,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+garam-masala.png,Generic / Unbranded,garam-masala,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+ginger-garlic-paste.jpg,Generic / Unbranded,ginger-garlic-paste,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+ginger-garlic-paste.png,Generic / Unbranded,ginger-garlic-paste,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+good-day.jpg,Britannia,Good Day,Cashew Cookies,120g,packshots,matched,Exact brand + line + variant match
+good-day.png,Britannia,Good Day,Cashew Cookies,120g,packshots,matched,Exact brand + line + variant match
+goodknight.jpg,Godrej Goodknight,Activ+ Liquid Vaporizer,Mosquito Repellent Refill,45ml,packshots,matched,Exact brand + line + variant match
+goodknight.png,Godrej Goodknight,Activ+ Liquid Vaporizer,Mosquito Repellent Refill,45ml,packshots,matched,Exact brand + line + variant match
+haldiram-khatta-meetha.jpg,Haldiram's,Khatta Meetha,Sweet & Sour Namkeen Pouch,200g,packshots,matched,Exact brand + line + variant match
+haldiram-khatta-meetha.png,Haldiram's,Khatta Meetha,Sweet & Sour Namkeen Pouch,200g,packshots,matched,Exact brand + line + variant match
+horlicks.jpg,Unilever Horlicks,Health Drink,Classic Malt Jar,500g,packshots,matched,Exact brand + line + variant match
+horlicks.png,Unilever Horlicks,Health Drink,Classic Malt Jar,500g,packshots,matched,Exact brand + line + variant match
+huggies.jpg,Kimberly-Clark Huggies,Wonder Pants,Baby Diapers,M/L/XL,packshots,matched,Exact brand + line + variant match
+huggies.png,Kimberly-Clark Huggies,Wonder Pants,Baby Diapers,M/L/XL,packshots,matched,Exact brand + line + variant match
+jeera-cumin-seeds.jpg,Generic / Unbranded,jeera-cumin-seeds,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+jeera-cumin-seeds.png,Generic / Unbranded,jeera-cumin-seeds,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+kurkure.jpg,Generic / Unbranded,kurkure,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+kurkure.png,Generic / Unbranded,kurkure,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+lalitha-idli-rava.jpg,Sri Lalitha,Idly Ravva,Premium Idly Ravva,1kg,packshots,matched,Exact brand + line + variant match
+lalitha-idli-rava.png,Sri Lalitha,Idly Ravva,Premium Idly Ravva,1kg,packshots,matched,Exact brand + line + variant match
+launch-plate.jpg,Generic / Unbranded,launch-plate,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+launch-plate.png,Generic / Unbranded,launch-plate,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+lays-chips.jpg,Generic / Unbranded,lays-chips,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+lays-chips.png,Generic / Unbranded,lays-chips,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+lays-classic-salted.jpg,Generic / Unbranded,lays-classic-salted,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+lays-classic-salted.png,Generic / Unbranded,lays-classic-salted,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+lays-magic-masala.jpg,Generic / Unbranded,lays-magic-masala,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+lays-magic-masala.png,Generic / Unbranded,lays-magic-masala,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+lifebuoy-soap.jpg,HUL Lifebuoy,Total 10 / Neem & Aloe,Germ Protection Bar,125g,packshots,matched,Exact brand + line + variant match
+lifebuoy-soap.png,HUL Lifebuoy,Total 10 / Neem & Aloe,Germ Protection Bar,125g,packshots,matched,Exact brand + line + variant match
+lux-soap.jpg,HUL Lux,Glowing Skin Soap,Rose & Vitamin E,100g,packshots,matched,Exact brand + line + variant match
+lux-soap.png,HUL Lux,Glowing Skin Soap,Rose & Vitamin E,100g,packshots,matched,Exact brand + line + variant match
+maggi-noodles.jpg,Nestle Maggi,2-Minute Noodles,Masala Noodles,70g,packshots,matched,Exact brand + line + variant match
+maggi-noodles.png,Nestle Maggi,2-Minute Noodles,Masala Noodles,70g,packshots,matched,Exact brand + line + variant match
+mango-pickle.jpg,Generic / Unbranded,mango-pickle,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+mango-pickle.png,Generic / Unbranded,mango-pickle,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+mixed-fruit-jam.jpg,HUL Kissan,Mixed Fruit Jam,Classic Glass Jar,500g,packshots,matched,Exact brand + line + variant match
+mixed-fruit-jam.png,HUL Kissan,Mixed Fruit Jam,Classic Glass Jar,500g,packshots,matched,Exact brand + line + variant match
+moong-dal.jpg,Generic / Unbranded,moong-dal,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+moong-dal.png,Generic / Unbranded,moong-dal,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+mustard-seeds.jpg,Generic / Unbranded,mustard-seeds,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+mustard-seeds.png,Generic / Unbranded,mustard-seeds,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+mysore-sandal-soap.jpg,Mysore Sandal,Pure Sandalwood Soap,Original Sandal,75g,packshots,matched,Exact brand + line + variant match
+mysore-sandal-soap.png,Mysore Sandal,Pure Sandalwood Soap,Original Sandal,75g,packshots,matched,Exact brand + line + variant match
+nestle-munch.jpg,Nestle,Munch,Chocolate Wafer Bar,25g,packshots,matched,Exact brand + line + variant match
+parachute-oil.jpg,Marico Parachute,100% Pure Coconut Oil,Pure Coconut Oil Bottle,200ml,packshots,matched,Exact brand + line + variant match
+parachute-oil.png,Marico Parachute,100% Pure Coconut Oil,Pure Coconut Oil Bottle,200ml,packshots,matched,Exact brand + line + variant match
+parle-g.jpg,Parle,Parle-G,Original Gluco Biscuits,250g,packshots,matched,Exact brand + line + variant match
+parle-g.png,Parle,Parle-G,Original Gluco Biscuits,250g,packshots,matched,Exact brand + line + variant match
+peanuts.jpg,Generic / Unbranded,peanuts,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+peanuts.png,Generic / Unbranded,peanuts,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+pears-soap.jpg,HUL Pears,Pure & Gentle,Amber Glycerine Bar,125g,packshots,matched,Exact brand + line + variant match
+pears-soap.png,HUL Pears,Pure & Gentle,Amber Glycerine Bar,125g,packshots,matched,Exact brand + line + variant match
+ponds-talc.jpg,Generic / Unbranded,ponds-talc,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+ponds-talc.png,Generic / Unbranded,ponds-talc,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+pooja-agarbatti.jpg,Generic / Unbranded,pooja-agarbatti,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+pooja-agarbatti.png,Generic / Unbranded,pooja-agarbatti,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+red-label-tea.jpg,Brooke Bond Red Label,Natural Care Tea,Spiced Tea Box,250g,packshots,matched,Exact brand + line + variant match
+red-label-tea.png,Brooke Bond Red Label,Natural Care Tea,Spiced Tea Box,250g,packshots,matched,Exact brand + line + variant match
+santoor-soap.jpg,Wipro Santoor,Sandal & Turmeric Bath Soap,Sandal & Turmeric,100g,packshots,matched,Exact brand + line + variant match
+santoor-soap.png,Wipro Santoor,Sandal & Turmeric Bath Soap,Sandal & Turmeric,100g,packshots,matched,Exact brand + line + variant match
+scotch-brite.jpg,Generic / Unbranded,scotch-brite,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+shampoo.jpg,Generic / Unbranded,shampoo,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+shampoo.png,Generic / Unbranded,shampoo,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+soan-papdi.jpg,Generic / Unbranded,soan-papdi,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+soan-papdi.png,Generic / Unbranded,soan-papdi,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+stayfree.jpg,Stayfree,Secure Regular,Cottony Wings Pads,7 pads,packshots,matched,Exact brand + line + variant match
+stayfree.png,Stayfree,Secure Regular,Cottony Wings Pads,7 pads,packshots,matched,Exact brand + line + variant match
+sunflower-oil.jpg,Generic / Unbranded,sunflower-oil,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+sunflower-oil.png,Generic / Unbranded,sunflower-oil,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+surf-excel.jpg,HUL Surf Excel,Easy Wash,Detergent Powder,1kg,packshots,matched,Exact brand + line + variant match
+surf-excel.png,HUL Surf Excel,Easy Wash,Detergent Powder,1kg,packshots,matched,Exact brand + line + variant match
+tamarind.jpg,Generic / Unbranded,tamarind,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+tamarind.png,Generic / Unbranded,tamarind,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+tata-black-pepper.jpg,Generic / Unbranded,tata-black-pepper,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+tata-salt.jpg,Tata Salt,Vacuum Evaporated Salt,Iodised Salt,1kg,packshots,matched,Exact brand + line + variant match
+tata-salt.png,Tata Salt,Vacuum Evaporated Salt,Iodised Salt,1kg,packshots,matched,Exact brand + line + variant match
+thums-up.jpg,Coca-Cola Thums Up,Carbonated Soft Drink,PET Bottle,750ml,packshots,matched,Exact brand + line + variant match
+thums-up.png,Coca-Cola Thums Up,Carbonated Soft Drink,PET Bottle,750ml,packshots,matched,Exact brand + line + variant match
+tomato-ketchup.jpg,HUL Kissan,Fresh Tomato Ketchup,Squeezy Pouch,950g,packshots,matched,Exact brand + line + variant match
+tomato-ketchup.png,HUL Kissan,Fresh Tomato Ketchup,Squeezy Pouch,950g,packshots,matched,Exact brand + line + variant match
+toor-dal.jpg,Generic / Unbranded,toor-dal,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+toor-dal.png,Generic / Unbranded,toor-dal,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+turmeric-powder.jpg,Generic / Unbranded,turmeric-powder,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+turmeric-powder.png,Generic / Unbranded,turmeric-powder,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+unibic-choco-ripple.jpg,Unibic,Choco Ripple,Chocolate Creme Cookies,150g,packshots,matched,Exact brand + line + variant match
+unibic-choco-ripple.png,Unibic,Choco Ripple,Chocolate Creme Cookies,150g,packshots,matched,Exact brand + line + variant match
+urad-dal.jpg,Generic / Unbranded,urad-dal,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+urad-dal.png,Generic / Unbranded,urad-dal,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+vermicelli.jpg,Generic / Unbranded,vermicelli,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+vermicelli.png,Generic / Unbranded,vermicelli,Bulk Pack / Spice,Standard,packshots,rejected,No exact brand/product line match in current catalog
+vim-bar.jpg,HUL Vim,Dishwash Bar,Lemon Fresh,125g,packshots,matched,Exact brand + line + variant match
+vim-bar.png,HUL Vim,Dishwash Bar,Lemon Fresh,125g,packshots,matched,Exact brand + line + variant match
+wagh-bakri-tea.jpg,Wagh Bakri,Premium Leaf Tea,Leaf Tea Carton,250g,packshots,matched,Exact brand + line + variant match
+ariel-front-liq.jpg,P&G Ariel,Matic Power Gel,Front Load Liquid,3.2kg,quarantine,matched,Exact brand + line + variant match
+g1-p0001.webp,Unbranded,Placeholder Box,Solid Color Box,N/A,quarantine,rejected,Fake placeholder art (plain coloured rectangle)
+g1-p0002.webp,Unbranded,Placeholder Box,Solid Color Box,N/A,quarantine,rejected,Fake placeholder art (plain coloured rectangle)
+g1-p0003.webp,Unbranded,Placeholder Box,Solid Color Box,N/A,quarantine,rejected,Fake placeholder art (plain coloured rectangle)
+g1-p0004.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0009.webp,Keo Karpin,Hair Oil,Olive & Vitamin E,100ml,quarantine,rejected,Hands/people holding product
+g1-p0022.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0026.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0060.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0064.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0092.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0113.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0117.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0201.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0210.webp,Nestle Maggi,Cuppa Mania,Back Panel,70g,quarantine,rejected,Back-of-pack/nutrition panel view
+g1-p0270.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0293.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0315.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0395.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0419.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0437.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0599.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0671.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0807.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p0851.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+g1-p1040.webp,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+haldiram-khatta-meetha.jpg,Haldiram's,Khatta Meetha,Sweet & Sour Namkeen Pouch,200g,quarantine,matched,Exact brand + line + variant match
+jg-020.jpg,Head & Shoulders,Smooth & Silky Shampoo,Classic Bottle,180ml,quarantine,review,"Shampoo bottle on white background, catalog has sachet"
+jg-024.jpg,Nippo,Gold Battery,AA 10-pack card,10 pcs,quarantine,review,"Battery packcard, no exact electrical category match"
+lalitha-idli-rava.jpg,Sri Lalitha,Idly Ravva,Premium Idly Ravva,1kg,quarantine,matched,Exact brand + line + variant match
+launch-plate.jpg,Unbranded,Paper Plate,Disposable Round,10 pcs,quarantine,review,"Plain paper plate, no brand packaging"
+red-label-tea.png,Various,Store/OFF Photo,Cutout artifact,N/A,quarantine,rejected,Jagged and torn edges after cut-out / halo patches
+almonds.jpg,Local / Unbranded,almonds,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+biscuits-pack.jpg,Local / Unbranded,biscuits-pack,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+cashews.jpg,Local / Unbranded,cashews,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+chana-dal.jpg,Local / Unbranded,chana-dal,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+chilli-powder.jpg,Local / Unbranded,chilli-powder,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+chips-namkeen.jpg,Local / Unbranded,chips-namkeen,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+cleaning-wash.jpg,Local / Unbranded,cleaning-wash,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+cold-drink-bottle.jpg,Local / Unbranded,cold-drink-bottle,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+cooking-oil.jpg,Local / Unbranded,cooking-oil,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+coriander-powder.jpg,Local / Unbranded,coriander-powder,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+crystal-salt.jpg,Local / Unbranded,crystal-salt,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+ghee.jpg,Local / Unbranded,ghee,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+moong-dal.jpg,Local / Unbranded,moong-dal,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+mustard-cumin.jpg,Local / Unbranded,mustard-cumin,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+poha.jpg,Local / Unbranded,poha,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+pooja-camphor.jpg,Local / Unbranded,pooja-camphor,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+raisins.jpg,Local / Unbranded,raisins,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+real-aashirvaad.jpg,Local / Unbranded,real-aashirvaad,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+spices-cloves.jpg,Local / Unbranded,spices-cloves,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+sugar-jaggery.jpg,Local / Unbranded,sugar-jaggery,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+suji-rava.jpg,Local / Unbranded,suji-rava,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+test-rice.jpg,Local / Unbranded,test-rice,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+toor-dal.jpg,Local / Unbranded,toor-dal,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+turmeric.jpg,Local / Unbranded,turmeric,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+urad-dal.jpg,Local / Unbranded,urad-dal,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+vermicelli.jpg,Local / Unbranded,vermicelli,Bulk / Loose Produce,Variable,photos,rejected,Loose ingredients photo without branded packaging
+jg-020.jpg,Generic / Unbranded,jg-020,Bulk Pack / Spice,Standard,products_root,rejected,No exact brand/product line match in current catalog
+jg-024.jpg,Generic / Unbranded,jg-024,Bulk Pack / Spice,Standard,products_root,rejected,No exact brand/product line match in current catalog

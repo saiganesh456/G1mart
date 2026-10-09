@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
@@ -30,7 +30,7 @@ export default function BannerCarousel() {
       .then((res) => res.json())
       .then((data) => {
         if (data.banners && data.banners.length > 0) {
-          // Merge
+          setBanners(data.banners);
         }
       })
       .catch(() => {});
@@ -78,7 +78,7 @@ export default function BannerCarousel() {
         {banners.map((b, idx) => {
           const isActive = idx === current;
           return (
-            <div key={b.id} className={\bsolute inset-0 transition-opacity duration-500 ease-in-out \\}>
+            <div key={b.id} className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${isActive ? 'opacity-100 z-10' : 'opacity-0 pointer-events-none'}`}>
               <Link href={b.link} onClick={(e) => handleBannerClick(e, b)} className="block w-full h-full cursor-pointer relative" aria-label={b.title}>
                 <img src={b.bg_image || b.image_url} alt="" loading={idx === 0 ? 'eager' : 'lazy'} decoding="async" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-r from-[#1b5e20]/90 via-[#2e7d32]/80 to-transparent sm:via-[#2e7d32]/70 sm:to-transparent" />
@@ -91,7 +91,7 @@ export default function BannerCarousel() {
                   {b.products && b.products.length > 0 && (
                     <div className="w-1/3 sm:w-1/4 h-full relative flex items-center justify-end pr-2 sm:pr-4 z-10">
                       {b.products.map((prodUrl, pIdx) => (
-                        <img key={pIdx} src={prodUrl} alt="" className="absolute h-4/5 sm:h-5/6 object-contain drop-shadow-xl" style={{ right: \\%\, zIndex: 10 - pIdx }} />
+                        <img key={pIdx} src={prodUrl} alt="" className="absolute h-4/5 sm:h-5/6 object-contain drop-shadow-xl" style={{ right: `${pIdx * 25}%`, zIndex: 10 - pIdx }} />
                       ))}
                     </div>
                   )}
@@ -103,7 +103,13 @@ export default function BannerCarousel() {
         {total > 1 && (
           <div className="absolute bottom-2 sm:bottom-3 left-0 right-0 z-20 flex items-center justify-center gap-1.5 pointer-events-none">
             {banners.map((_, dotIdx) => (
-              <button key={dotIdx} type="button" onClick={() => setCurrent(dotIdx)} aria-label={\Go to slide \\} className={\	ransition-all rounded-full pointer-events-auto \\} />
+              <button
+                key={dotIdx}
+                type="button"
+                onClick={() => setCurrent(dotIdx)}
+                aria-label={`Go to slide ${dotIdx + 1}`}
+                className={`transition-all rounded-full pointer-events-auto ${dotIdx === current ? 'w-5 h-1.5 bg-white' : 'w-1.5 h-1.5 bg-white/50'}`}
+              />
             ))}
           </div>
         )}
