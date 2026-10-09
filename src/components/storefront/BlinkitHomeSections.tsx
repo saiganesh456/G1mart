@@ -30,6 +30,7 @@ function CategoryTileItem({ cat, sectionId }: { cat: Category; sectionId: string
   return (
     <Link
       href={`/category/${cat.id}`}
+      data-category-tile="true"
       className="group flex flex-col items-center cursor-pointer focus:outline-hidden active:scale-95 transition-transform"
       aria-label={cat.name}
     >

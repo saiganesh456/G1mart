@@ -9,9 +9,9 @@ import InstallAppPlacard from '@/components/common/InstallAppPlacard';
  */
 export default function StorefrontLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col w-full max-w-full overflow-x-hidden box-border">
+    <div className="min-h-screen flex flex-col w-full max-w-full overflow-x-clip box-border">
       <Header />
-      <main className="flex-1 flex flex-col max-w-7xl w-full min-w-0 mx-auto px-3 sm:px-4 lg:px-6 box-border overflow-x-hidden">
+      <main className="flex-1 flex flex-col max-w-7xl w-full min-w-0 mx-auto px-3 sm:px-4 lg:px-6 box-border overflow-x-clip">
         {children}
       </main>
       <Footer />

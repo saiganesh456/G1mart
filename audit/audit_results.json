@@ -1,0 +1,152 @@
+{
+  "overflowPassed": true,
+  "prohibitedCopyPassed": true,
+  "stickySearchPassed": true,
+  "interactionsPassed": true,
+  "screenshots": [
+    "01_home_top.png",
+    "02_home_scrolled.png",
+    "03_category_atta_rice_dal.png",
+    "04_category_chips_namkeen.png",
+    "05_category_soaps_bath.png",
+    "06_product_page.png",
+    "07_checkout_address_sheet.png"
+  ],
+  "dataAudit": {
+    "totalProducts": 1043,
+    "verifiedCount": 33,
+    "missingCount": 1010,
+    "coveragePercent": "3.2%",
+    "duplicateImages": 0,
+    "heroShotsTotal": 169,
+    "heroShotsDone": 28,
+    "heroShotsRemaining": 141,
+    "categoryStats": {
+      "biscuits-bakery": {
+        "total": 48,
+        "verified": 6,
+        "missing": 42
+      },
+      "soaps-bath": {
+        "total": 112,
+        "verified": 1,
+        "missing": 111
+      },
+      "drinks-juices": {
+        "total": 20,
+        "verified": 1,
+        "missing": 19
+      },
+      "hair-care": {
+        "total": 26,
+        "verified": 3,
+        "missing": 23
+      },
+      "sweets-chocolates": {
+        "total": 31,
+        "verified": 1,
+        "missing": 30
+      },
+      "tea-coffee-milk-drinks": {
+        "total": 21,
+        "verified": 2,
+        "missing": 19
+      },
+      "floor-surface-cleaners": {
+        "total": 36,
+        "verified": 0,
+        "missing": 36
+      },
+      "oil-ghee-masala": {
+        "total": 74,
+        "verified": 1,
+        "missing": 73
+      },
+      "baby-care": {
+        "total": 12,
+        "verified": 0,
+        "missing": 12
+      },
+      "dairy-bread-eggs": {
+        "total": 27,
+        "verified": 1,
+        "missing": 26
+      },
+      "laundry-detergents": {
+        "total": 39,
+        "verified": 2,
+        "missing": 37
+      },
+      "sugar-salt-staples": {
+        "total": 70,
+        "verified": 1,
+        "missing": 69
+      },
+      "dishwash": {
+        "total": 20,
+        "verified": 1,
+        "missing": 19
+      },
+      "hygiene": {
+        "total": 231,
+        "verified": 1,
+        "missing": 230
+      },
+      "oral-care": {
+        "total": 34,
+        "verified": 0,
+        "missing": 34
+      },
+      "instant-food": {
+        "total": 110,
+        "verified": 2,
+        "missing": 108
+      },
+      "kitchenware": {
+        "total": 10,
+        "verified": 1,
+        "missing": 9
+      },
+      "atta-rice-dal": {
+        "total": 49,
+        "verified": 3,
+        "missing": 46
+      },
+      "dry-fruits-cereals": {
+        "total": 24,
+        "verified": 1,
+        "missing": 23
+      },
+      "pooja-needs": {
+        "total": 12,
+        "verified": 0,
+        "missing": 12
+      },
+      "skin-care": {
+        "total": 5,
+        "verified": 0,
+        "missing": 5
+      },
+      "chips-namkeen": {
+        "total": 12,
+        "verified": 1,
+        "missing": 11
+      },
+      "vegetables-fruits": {
+        "total": 2,
+        "verified": 0,
+        "missing": 2
+      },
+      "sauces-spreads": {
+        "total": 17,
+        "verified": 4,
+        "missing": 13
+      },
+      "feminine-hygiene": {
+        "total": 1,
+        "verified": 0,
+        "missing": 1
+      }
+    }
+  }
+}
