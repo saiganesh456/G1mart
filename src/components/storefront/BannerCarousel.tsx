@@ -27,9 +27,12 @@ export default function BannerCarousel() {
 
   useEffect(() => {
     fetch('/api/banners')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) return null;
+        return res.json().catch(() => null);
+      })
       .then((data) => {
-        if (data.banners && data.banners.length > 0) {
+        if (data && data.banners && data.banners.length > 0) {
           setBanners(data.banners);
         }
       })

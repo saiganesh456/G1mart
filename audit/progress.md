@@ -101,3 +101,19 @@ Screenshots captured using Playwright:
 - Category View (390px): `audit/screens/category_mobile_after.png`
   - Verified products (Unibic Choco Ripple, Parle-G Gluco, Good DAY, Bourbon Biscuit) sorted to the very top.
   - Left brand rail showing verified product thumbnails and monogram fallbacks.
+
+---
+
+## 6. Iterative Visual Refinements & Quality Polish
+- **Transparent Padded White Box Removal:** Identified 19 packshots in `public/products/packshots/` that had solid white boxes masquerading as transparent PNGs due to corner-alpha padding. Executed `clean_all_verified_cutouts.py` with `rembg` U2Net to extract pure, isolated pack shapes (e.g. Horlicks, Dettol, Tata Salt, Maggi, Parachute Oil).
+- **Collage Precision Geometry:** Rewrote collage pipeline (`rebuild_premium_collages.py`):
+  1. Trims all empty transparent padding via `getbbox()` to recover true pack boundaries.
+  2. Proportional scale factor applied to target 75–80% tile height without stretching or distorting aspect ratios.
+  3. Grounded on an aligned bottom baseline with soft realistic contact drop shadows (`GaussianBlur`).
+  4. Automatic vertical centering on the 400x400 canvas so flat packs (soaps, biscuits) sit centered.
+- **Color Palette Alignment:** Replaced generic section tints with exact pastel hex values sampled directly from the user's reference screenshots (`agent refernace pic`):
+  - Grocery & Kitchen: `#FAF7EE` (soft warm ivory)
+  - Snacks & Drinks: `#E8F4F3` (soft clean mint)
+  - Household Essentials: `#EEF5FB` (soft sky blue)
+  - Beauty & Personal Care: `#EDF6F3` (soft sage)
+- **Client Resilience:** Hardened `BannerCarousel.tsx` API fetch parser with safe nullish fallbacks to prevent unhandled rejection overlays during Fast Refresh.

@@ -10,12 +10,12 @@ interface BlinkitHomeSectionsProps {
   categories: Category[];
 }
 
-// Tint per section: light teal / warm cream / soft blue / blush
+// Reference tints per section sampled directly from target mobile/desktop UI
 const SECTION_TINTS: Record<string, string> = {
-  'grocery-kitchen': '#FFFBEB', // warm cream
-  'snacks-drinks': '#FFF1F2',   // blush
-  'household': '#F0F9FF',       // soft blue
-  'personal-care': '#F0FDF4',   // light teal
+  'grocery-kitchen': '#FAF7EE', // soft warm ivory
+  'snacks-drinks': '#E8F4F3',   // soft clean mint
+  'household': '#EEF5FB',       // soft sky blue
+  'personal-care': '#EDF6F3',   // soft sage
 };
 
 /**
