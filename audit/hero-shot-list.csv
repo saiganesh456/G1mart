@@ -1,0 +1,170 @@
+category,sub-category,brand,product_id,name,size,done
+Vegetables & Fruits,Fresh Vegetables,G1 Mart Fresh,g1-p0236,Onions,1 unit,false
+Vegetables & Fruits,Fresh Fruits,G1 Mart Fresh,g1-p0703,Mango Fruit,1 unit,false
+Atta Rice & Dal,Poha & Dalia,Aashirvaad,g1-p0437,Aashirvaad Vermicelli,1 unit,true
+Atta Rice & Dal,Pulses & Dal,Local / Unbranded,g1-p0327,Kandi Pappu (toor Dal,1 unit,false
+Atta Rice & Dal,Rice & Grains,Local / Unbranded,g1-p0063,Rice Flour,1 unit,false
+Atta Rice & Dal,Pulses & Dal,Local / Unbranded,g1-p0081,Pottu Minapappu (Urad Dal with Husk),1 unit,false
+Atta Rice & Dal,Poha & Dalia,Bambino,g1-p0660,Bambino Vermicelli,1 unit,false
+Oil Ghee & Masala,Masala Powders,Aachi,g1-p0076,Aachi Garam Masala,1 unit,false
+Oil Ghee & Masala,Ghee & Vanaspati,Hatsun,g1-p0279,Hatsun Ghee,1 unit,false
+Oil Ghee & Masala,Whole Spices,Aachi,g1-p0019,Aachi Ginger Garlic Paste,1 unit,false
+Oil Ghee & Masala,Whole Spices,Local / Unbranded,g1-p0042,Elachi,1 unit,false
+Oil Ghee & Masala,Edible Oils,Freedom,g1-p0418,Freedom OIL Botel,1 unit,false
+Oil Ghee & Masala,Whole Spices,Sri Durga,g1-p0648,SRI Durga Ginger Garlic Paste,1 unit,false
+Oil Ghee & Masala,Masala Powders,MTR,g1-p0064,MTR Rasam,1 unit,true
+Oil Ghee & Masala,Masala Powders,Sunfeast,g1-p0827,Yippee WOW Masala,1 unit,false
+Oil Ghee & Masala,Whole Spices,Gemini,g1-p1042,Gemini,1 unit,false
+Oil Ghee & Masala,Edible Oils,Meera,g1-p0268,Meera Oile250g,1 unit,false
+Dairy Bread & Eggs,Milk & Curd,Local / Unbranded,g1-p0048,Arokya Milk,1 unit,false
+Dairy Bread & Eggs,Ice Creams,Arun Icecreams,g1-p0194,Arun Butterscotcg,1 unit,false
+Dairy Bread & Eggs,Milk & Curd,Hatsun,g1-p0022,Hatsun Curd,1 unit,true
+Dairy Bread & Eggs,Ice Creams & Desserts,Arun Icecreams,g1-p0032,Arun Icecream,1 unit,false
+Dairy Bread & Eggs,Milk & Curd,Sunfeast,g1-p0810,Sunfeast Supermilk,1 unit,false
+Dairy Bread & Eggs,Milk & Curd,Nestle,g1-p0869,Milkybar Choo,1 unit,false
+Dry Fruits & Cereals,Dry Fruits & Nuts,Unibic,g1-p0210,Unibic Cashew,1 unit,true
+Dry Fruits & Cereals,Dry Fruits & Nuts,Sunfeast,g1-p0805,Moms Magic Cashew&almond,1 unit,false
+Dry Fruits & Cereals,Breakfast Cereals & Oats,Local / Unbranded,g1-p0576,HR Corn Flakes Mixture,1 unit,false
+Dry Fruits & Cereals,Dry Fruits & Nuts,Local / Unbranded,g1-p0077,Endu Kharjuram,1 unit,false
+Sugar Salt & Staples,Salt,Tata Salt,g1-p0202,Tata Salt,1 unit,false
+Sugar Salt & Staples,Sugar & Jaggery,Local / Unbranded,g1-p0377,Sugar 50kgs Bag,1 unit,false
+Sugar Salt & Staples,Sugar & Jaggery,Local / Unbranded,g1-p0185,Thati Bellam (natural Sweet Jaggery,1 unit,false
+Sugar Salt & Staples,Salt,Tata,g1-p0028,Tata RA Salt,1 unit,false
+Sugar Salt & Staples,Other Staples,Eno,g1-p0449,Eno,1 unit,false
+Sugar Salt & Staples,Other Staples,Priya,g1-p0470,Priya Gold1kg,1 unit,false
+Sugar Salt & Staples,Sugar & Jaggery,Unibic,g1-p0488,Unibic Sugar Free Butter,1 unit,false
+Sugar Salt & Staples,Other Staples,India Gate,g1-p0395,India Gate,1 unit,true
+Sugar Salt & Staples,Other Staples,Ruchi Gold,g1-p0439,Ruchi Gold,1 unit,false
+Sugar Salt & Staples,Other Staples,Sensodyne,g1-p0461,Sensodyne,1 unit,false
+Chips & Namkeen,Chips & Crisps,Bingo,g1-p0851,Bingo Masala,1 unit,true
+Chips & Namkeen,Namkeen & Snacks,Local / Unbranded,g1-p0995,Makhana Cream & Onion,1 unit,false
+Chips & Namkeen,Namkeen & Bhujia,Local / Unbranded,g1-p0207,Pani Puri Papad,1 unit,false
+Chips & Namkeen,Namkeen & Bhujia,Local / Unbranded,g1-p0397,BAT Papad,1 unit,false
+Biscuits & Bakery,Biscuits,Parle,g1-p0026,Parle-g Gluco,1 unit,true
+Biscuits & Bakery,Biscuits,Britannia,g1-p0061,Good DAY,1 unit,true
+Biscuits & Bakery,Cookies,Unibic,g1-p0001,Unibic Wafer,1 unit,true
+Biscuits & Bakery,Biscuits,Britannia,g1-p0352,Dark Fantasy Bourbon,1 unit,false
+Biscuits & Bakery,Biscuits,Sunfeast,g1-p0060,Moms Magic,1 unit,true
+Biscuits & Bakery,Biscuits,Horlicks,g1-p0419,Horlicks Biscuits,1 unit,true
+Biscuits & Bakery,Biscuits,Arun Icecreams,g1-p0051,Arun Milky Fantasy,1 unit,false
+Sweets & Chocolates,Chocolates,Cadbury,g1-p0011,Dairy Milk Chocolate,1 unit,false
+Sweets & Chocolates,Chocolates,Cadbury,g1-p0746,5 Star Chaklet 510,1 unit,false
+Sweets & Chocolates,Candies & Gums,Local / Unbranded,g1-p0013,Nirmala Sweet Betek NUT Packet,1 unit,false
+Sweets & Chocolates,Candies & Gums,Arun Icecreams,g1-p0034,Arun Toffee CON,1 unit,false
+Sweets & Chocolates,Chocolates,Nestle,g1-p0199,Nestle Munch Chocolate Wafer,1 unit,false
+Sweets & Chocolates,Chocolates,Dazzy,g1-p0241,Dazzy Chocolate,1 unit,false
+Sweets & Chocolates,Chocolates,Sunfeast,g1-p0820,Sunfeast Fantastik Choco Almond,1 unit,false
+Sweets & Chocolates,Chocolates,Cadbury Dairy Milk,g1-p0270,Dairy Milk Fruit & Nut,1 unit,true
+Sweets & Chocolates,Candies & Gums,Kissan,g1-p0312,Kissan Sweet&spicy,1 unit,false
+Sweets & Chocolates,Chocolates,Horlicks,g1-p0724,Horlicks Womens Plus Chocolate,1 unit,false
+Drinks & Juices,Soft Drinks & Sodas,Thums Up,g1-p0039,Thumsup,1 unit,false
+Drinks & Juices,Juices & Fruit Drinks,Maaza,g1-p0954,Maaza,1 unit,false
+Drinks & Juices,Soft Drinks & Sodas,Sprite,g1-p0948,Sprite Zero Sugur,1 unit,false
+Drinks & Juices,Energy & Health Drinks,Glucon-D,g1-p0004,Glucon-d,1 unit,true
+Drinks & Juices,Soft Drinks & Sodas,Horlicks,g1-p0308,Horlicks Womens Plus Caramel,1 unit,false
+Drinks & Juices,Soft Drinks & Sodas,Boost,g1-p0603,Boost,1 unit,false
+Drinks & Juices,Soft Drinks & Sodas,Coca-Cola,g1-p0058,Coke,1 unit,false
+Drinks & Juices,Soft Drinks & Sodas,Minute Maid,g1-p0062,Pulpy Orange,1 unit,false
+Drinks & Juices,Soft Drinks & Sodas,Fanta,g1-p0943,Fanta 10rupees,1 unit,false
+Tea Coffee & Milk Drinks,Tea,Local / Unbranded,g1-p0718,Wagh Bakri250g,1 unit,false
+Tea Coffee & Milk Drinks,Coffee,Bru,g1-p0527,BRU Tripti Blend,1 unit,false
+Tea Coffee & Milk Drinks,Tea,Continental,g1-p0015,Continental Xtra,1 unit,false
+Tea Coffee & Milk Drinks,Tea,3 Roses,g1-p0016,3 Roses Elaichi,1 unit,false
+Tea Coffee & Milk Drinks,Tea,Lipton,g1-p0121,Lipton Green TEA,1 unit,false
+Tea Coffee & Milk Drinks,Tea,Wagh Bakri,g1-p0817,Wagh Bakri TEA,1 unit,false
+Tea Coffee & Milk Drinks,Tea,Taj Mahal,g1-p0092,TAJ Mahal,1 unit,true
+Tea Coffee & Milk Drinks,Tea,Cadbury,g1-p0173,5 Star TEA,1 unit,false
+Tea Coffee & Milk Drinks,Tea,Red Label,g1-p0958,RED Label Natural Care,1 unit,true
+Instant Food,Instant Soups,Knorr,g1-p0420,Knorr Tomato Soup,1 unit,false
+Instant Food,Noodles & Pasta,Sunfeast Yippee,g1-p0599,Yippee Noodles Magic Masala,1 unit,true
+Instant Food,Instant Noodles & Pasta,Local / Unbranded,g1-p0041,DRY Nuts BOL,1 unit,false
+Instant Food,Instant Noodles & Pasta,Local / Unbranded,g1-p0050,Lock 35mm,1 unit,false
+Instant Food,Instant Noodles & Pasta,Sri Durga,g1-p0641,Sri Durga Lemon Pickle,1 unit,false
+Instant Food,Instant Noodles & Pasta,Sunfeast,g1-p0807,Sunfeast Glucose,1 unit,true
+Instant Food,Instant Noodles & Pasta,Lotte,g1-p0257,Lotte Coconut Punch,1 unit,false
+Instant Food,Instant Noodles & Pasta,Makhana,g1-p0991,Makhana Punjabi Tikka,1 unit,false
+Instant Food,Instant Noodles & Pasta,Hatsun,g1-p0164,Hatsun Malai Lassi,1 unit,false
+Instant Food,Instant Noodles & Pasta,Cadbury,g1-p0175,Oreo,1 unit,false
+Instant Food,Instant Noodles & Pasta,Dazzy,g1-p0260,Dazzy Eclairs,1 unit,false
+Sauces & Spreads,Jams & Spreads,Kissan,g1-p0293,Kissan Mixed Fruit Jam,1 unit,true
+Sauces & Spreads,Jams & Spreads,Kissan,g1-p0315,Kissan Peanut Butter Crunchy,1 unit,true
+Sauces & Spreads,Sauces & Ketchup,Local / Unbranded,g1-p0310,Kissam Tomato Ketchup,1 unit,false
+Sauces & Spreads,Pickles & Chutneys,Sri Durga,g1-p0651,Sri Durga Tomato Pickle,1 unit,false
+Sauces & Spreads,Sauces & Ketchup,Knorr,g1-p0671,Knorr Green Chilli Sauce,1 unit,true
+Sauces & Spreads,Jams & Spreads,MTR,g1-p1040,MTR Gulab Jamun,1 unit,true
+Laundry & Detergents,Detergent Powders & Liquids,FAB,g1-p0025,FAB Liquid 10,1 unit,false
+Laundry & Detergents,Detergent Powders & Liquids,Ariel,g1-p0036,Ariel Front Liquid 10,1 unit,true
+Laundry & Detergents,Detergent Powders & Liquids,Rin,g1-p0053,RIN Matic,1 unit,false
+Laundry & Detergents,Fabric Conditioners & Bleach,Rin,g1-p0056,Rin Fabric,1 unit,false
+Laundry & Detergents,Detergent Powders & Liquids,Surf Excel,g1-p0303,Surf Excvel Matic1.,1 unit,false
+Laundry & Detergents,Fabric Conditioners & Bleach,Comfort,g1-p0443,Comfort,1 unit,false
+Laundry & Detergents,Fabric Conditioners & Bleach,Ujala,g1-p0346,Ujala Fresh,1 unit,false
+Laundry & Detergents,Detergent Powders & Liquids,Wheel,g1-p0167,Arun FUN Wheel,1 unit,false
+Laundry & Detergents,Detergent Powders & Liquids,Tide,g1-p0113,Tide Powder,1 unit,true
+Dishwash,Dishwash Bars & Liquids,Vim,g1-p0425,Vim 5rs Bar,1 unit,false
+Dishwash,Dishwash Bars & Liquids,Vim,g1-p0299,Vim GEL Shudhham,1 unit,false
+Dishwash,Dishwash Bars & Liquids,Local / Unbranded,g1-p0174,Rexona,1 unit,false
+Dishwash,Dishwash Bars & Liquids,Local / Unbranded,g1-p0029,Launch Plate,1 unit,true
+Dishwash,Dishwash Bars & Liquids,Exo,g1-p0218,EXO Round,1 unit,false
+Dishwash,Dishwash Bars & Liquids,Arun Icecreams,g1-p0087,Arun Butterscotch,1 unit,false
+Floor & Surface Cleaners,Floor & Surface Cleaners,Lizol,g1-p0220,Lizol,1 unit,false
+Floor & Surface Cleaners,Toilet Cleaners,Harpic,g1-p0212,Harpic,1 unit,false
+Floor & Surface Cleaners,Floor & Surface Cleaners,Domex,g1-p0098,Domex,1 unit,false
+Floor & Surface Cleaners,Mosquito & Pest Repellents,Godrej,g1-p0018,HIT Chalk,1 unit,false
+Floor & Surface Cleaners,Air Fresheners,Odonil,g1-p0083,Odonil AIR Fresh,1 unit,false
+Floor & Surface Cleaners,Floor & Surface Cleaners,Ponds,g1-p0292,Ponds Bricht Beauy12g,1 unit,false
+Floor & Surface Cleaners,Floor & Surface Cleaners,Ujala,g1-p0614,Ujala,1 unit,false
+Floor & Surface Cleaners,Floor & Surface Cleaners,Sunsilk,g1-p0617,Sunsilk,1 unit,false
+Pooja Needs,Agarbatti & Dhoop,Local / Unbranded,g1-p0119,Good Kinh Agarbatti,1 unit,false
+Pooja Needs,"Pooja Oil, Camphor & Diya",Local / Unbranded,g1-p0900,Camphor,1 unit,false
+Pooja Needs,Agarbatti & Dhoop,Zed Black,g1-p0084,ZED Black,1 unit,false
+Pooja Needs,Agarbatti & Dhoop,Zed Black,g1-p0085,LIA Cones,1 unit,false
+Pooja Needs,Agarbatti & Dhoop,Mangaldeep,g1-p0719,Mangaldeep Sandal Agarbatti,1 unit,false
+Kitchenware,Kitchen Storage & Utilities,Local / Unbranded,g1-p0049,Lock 60mm,1 unit,false
+Kitchenware,Disposables & Matches,Local / Unbranded,g1-p0250,Allout Matchs,1 unit,false
+Kitchenware,Disposables & Matches,Local / Unbranded,g1-p0252,GN Gold Match,1 unit,false
+Kitchenware,Disposables & Matches,Local / Unbranded,g1-p0285,Cheeta Matches,1 unit,false
+Kitchenware,Kitchen Storage & Utilities,Nippo,g1-p0771,Nippo Gold,1 unit,true
+Soaps & Bath,Hand Wash & Sanitizers,Santoor,g1-p0102,Santoor Hand Wash Gentle Care,1 unit,false
+Soaps & Bath,Bathing Soaps,Lux,g1-p0515,LUX Rose Scent,1 unit,false
+Soaps & Bath,Bathing Soaps,Dettol,g1-p0023,Dettol Original Germ Protection Bathing Soap,1 unit,false
+Soaps & Bath,Bathing Soaps,Dove,g1-p0496,Dove Hair Shampoo6ml,1 unit,false
+Soaps & Bath,Bathing Soaps,Mysore Sandal,g1-p0277,Mysore Sandal Agarbathies,1 unit,false
+Soaps & Bath,Bathing Soaps,Ponds,g1-p0925,Ponds Body Powder,1 unit,false
+Soaps & Bath,Bathing Soaps,Pears,g1-p0007,Pears Pure & Gentle Soap (4 + 1 Free Pack,1 unit,false
+Soaps & Bath,Bathing Soaps,Cinthol,g1-p0024,Cinthol,1 unit,false
+Oral Care,Toothpaste,Colgate,g1-p0554,Colgate Maxfresh,1 unit,false
+Oral Care,Toothpaste,Colgate,g1-p0033,Colgate Vedshakti,1 unit,false
+Oral Care,Toothbrushes & Tongue Cleaners,Pepsodent,g1-p0100,Pepsodent Toothbrush,1 unit,false
+Oral Care,Toothpaste,Colgate,g1-p0091,Colgate Super Flexi,1 unit,false
+Oral Care,Toothpaste,Oral-B,g1-p0192,Oral B,1 unit,false
+Hair Care,Shampoo,Parachute,g1-p0117,Parachute,1 unit,true
+Hair Care,Shampoo,Dabur,g1-p0017,Amla Shikakai,1 unit,false
+Hair Care,Shampoo & Conditioner,Meera,g1-p0374,Meera Badam Shampoo,1 unit,false
+Hair Care,Hair Oil,Kesh King,g1-p0008,Kesh King Oil100ml,1 unit,false
+Hair Care,Shampoo,Clinic Plus,g1-p0201,Clinic Plus,1 unit,true
+Hair Care,Hair Oil,Keo Karpin,g1-p0009,KEO Karpin Hair OIL,1 unit,true
+Hair Care,Shampoo,Vasmol,g1-p0010,Vasmol,1 unit,false
+Hair Care,Shampoo,Tresemme,g1-p0097,Tresemme,1 unit,false
+Skin Care,Face Wash & Creams,Vaseline,g1-p0193,Vaseline,1 unit,false
+Skin Care,Face Wash & Creams,Vaseline,g1-p0294,Vaseline LIP Carem,1 unit,false
+Skin Care,Face Wash & Creams,Lifebuoy,g1-p0318,Lifeduoy Cools Skin,1 unit,false
+Skin Care,Face Wash & Creams,Santoor,g1-p0622,Santoor Fresh Skin,1 unit,false
+Skin Care,Talcum Powders,Ponds,g1-p0896,Ponds Cold Cream,1 unit,false
+Baby Care,Baby Bath & Skin Care,Johnson's Baby,g1-p0020,Johnsonis Baby Powder G50,1 unit,false
+Baby Care,Baby Bath & Skin Care,Himalaya,g1-p0021,Himalaya Baby Powder,1 unit,false
+Baby Care,Baby Diapers & Wipes,Huggies,g1-p0105,Huggies XL,1 unit,false
+Baby Care,Baby Diapers & Wipes,Huggies,g1-p0106,Huggies L,1 unit,false
+Baby Care,Baby Bath & Skin Care,Santoor,g1-p0130,Santoor Baby Soap,1 unit,false
+Baby Care,Baby Bath & Skin Care,Mysore Sandal,g1-p0908,Musore Sandal Baby 75,1 unit,false
+Hygiene,Sanitary Pads & Napkins,Local / Unbranded,g1-p0030,High Power,1 unit,false
+Hygiene,Sanitary Pads & Napkins,Aachi,g1-p0069,Aacsi Chaat Masale 10rs,1 unit,false
+Hygiene,Sanitary Pads & Napkins,Stayfree,g1-p0090,Stay Free Regular,1 unit,false
+Hygiene,Sanitary Pads & Napkins,Stayfree,g1-p0099,Stay Free Extra,1 unit,false
+Hygiene,Sanitary Pads & Napkins,Mangaldeep,g1-p0451,Mangaldeep Sambrani,1 unit,false
+Hygiene,Sanitary Pads & Napkins,Zed Black,g1-p0288,LIA,1 unit,false
+Hygiene,Sanitary Pads & Napkins,Yardley,g1-p0131,Yardley RED Roses,1 unit,false
+Hygiene,Sanitary Pads & Napkins,Ponds,g1-p0485,Ponds Sandl,1 unit,false
+Hygiene,Sanitary Pads & Napkins,Dabur,g1-p0104,Dabur Rose Water,1 unit,false
+Hygiene,Sanitary Pads & Napkins,3 Roses,g1-p0607,3roses Natural Care,1 unit,false
+Hygiene,Sanitary Pads & Napkins,Himalaya,g1-p0140,Himalaya LIP Balm,1 unit,false

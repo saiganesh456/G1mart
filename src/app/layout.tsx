@@ -5,7 +5,10 @@ import { Providers } from '@/components/Providers';
 export const metadata: Metadata = {
   title: 'G1 Mart | Fresh Groceries Online',
   description: 'Order fresh groceries online for fast home delivery.',
-  icons: { icon: '/logo.png' },
+  icons: {
+    icon: '/icons/icon-192x192.png',
+    apple: '/icons/apple-touch-icon.png',
+  },
   manifest: '/manifest.json',
 };
 

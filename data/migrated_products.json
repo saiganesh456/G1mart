@@ -53,11 +53,12 @@
     "category": "drinks-juices",
     "sub_category": "Energy & Health Drinks",
     "subCategory": "Energy & Health Drinks",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0004.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts (Glucon-D)"
   },
   {
     "id": "g1-p0005",
@@ -128,11 +129,12 @@
     "category": "hair-care",
     "sub_category": "Hair Oil",
     "subCategory": "Hair Oil",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0009.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts (keo karpin)"
   },
   {
     "id": "g1-p0010",
@@ -308,11 +310,12 @@
     "category": "dairy-bread-eggs",
     "sub_category": "Milk & Curd",
     "subCategory": "Milk & Curd",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0022.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts (Hatsun)"
   },
   {
     "id": "g1-p0023",
@@ -368,11 +371,12 @@
     "category": "biscuits-bakery",
     "sub_category": "Biscuits",
     "subCategory": "Biscuits",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0026.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts (Parle)"
   },
   {
     "id": "g1-p0027",
@@ -457,12 +461,13 @@
     "category_id": "dairy-bread-eggs",
     "category": "dairy-bread-eggs",
     "sub_category": "Ice Creams",
-    "subCategory": "Ice Creams",
+    "subCategory": "Ice Creams & Desserts",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Arun Icecream"
   },
   {
     "id": "g1-p0033",
@@ -852,7 +857,8 @@
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "image_attribution": "Open Food Facts (COCA-COLA SERVICES SA/NV, Coke ZERO)"
   },
   {
     "id": "g1-p0059",
@@ -878,11 +884,12 @@
     "category": "biscuits-bakery",
     "sub_category": "Biscuits",
     "subCategory": "Biscuits",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0060.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts (Sunfeast)"
   },
   {
     "id": "g1-p0061",
@@ -938,11 +945,12 @@
     "category": "oil-ghee-masala",
     "sub_category": "Masala Powders",
     "subCategory": "Masala Powders",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0064.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts (MTR)"
   },
   {
     "id": "g1-p0065",
@@ -1171,7 +1179,7 @@
   },
   {
     "id": "g1-p0081",
-    "name": "Pottu Minapappu",
+    "name": "Pottu Minapappu (Urad Dal with Husk)",
     "brand_id": "b-063",
     "brand": "Local / Unbranded",
     "category_id": "atta-rice-dal",
@@ -1182,7 +1190,8 @@
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Pottu Minapappu"
   },
   {
     "id": "g1-p0082",
@@ -1343,11 +1352,12 @@
     "category": "tea-coffee-milk-drinks",
     "sub_category": "Tea",
     "subCategory": "Tea",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0092.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts (BROOKE BOND)"
   },
   {
     "id": "g1-p0093",
@@ -1628,11 +1638,12 @@
     "category": "laundry-detergents",
     "sub_category": "Detergent Powders & Liquids",
     "subCategory": "Detergent Powders & Liquids",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0113.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts ()"
   },
   {
     "id": "g1-p0114",
@@ -1688,11 +1699,12 @@
     "category": "hair-care",
     "sub_category": "Shampoo",
     "subCategory": "Shampoo",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0117.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts (Parachute)"
   },
   {
     "id": "g1-p0118",
@@ -1921,18 +1933,19 @@
   },
   {
     "id": "g1-p0133",
-    "name": "Yardley Sandalwood",
+    "name": "Yardley Sandalwood Talc",
     "brand_id": "b-075",
     "brand": "Yardley",
-    "category_id": "atta-rice-dal",
-    "category": "atta-rice-dal",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
     "sub_category": "Pulses & Dal",
-    "subCategory": "Pulses & Dal",
+    "subCategory": "Bath & Body",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Yardley Sandalwood"
   },
   {
     "id": "g1-p0134",
@@ -2341,7 +2354,7 @@
   },
   {
     "id": "g1-p0161",
-    "name": "Dabur Almond Hair OIL",
+    "name": "Dabur Almond Hair Oil",
     "brand_id": "brand-dabur",
     "brand": "Dabur",
     "category_id": "hair-care",
@@ -2352,7 +2365,8 @@
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Dabur Almond Hair OIL"
   },
   {
     "id": "g1-p0162",
@@ -2566,18 +2580,19 @@
   },
   {
     "id": "g1-p0176",
-    "name": "Milk Bikis",
+    "name": "Britannia Milk Bikis",
     "brand_id": "brand-britannia",
     "brand": "Britannia",
-    "category_id": "dairy-bread-eggs",
-    "category": "dairy-bread-eggs",
+    "category_id": "biscuits-bakery",
+    "category": "biscuits-bakery",
     "sub_category": "Milk & Curd",
-    "subCategory": "Milk & Curd",
+    "subCategory": "Biscuits & Cookies",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Milk Bikis"
   },
   {
     "id": "g1-p0177",
@@ -2817,7 +2832,8 @@
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "image_attribution": "Open Food Facts (Hollywood, Oral-B)"
   },
   {
     "id": "g1-p0193",
@@ -2948,11 +2964,12 @@
     "category": "hair-care",
     "sub_category": "Shampoo",
     "subCategory": "Shampoo",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0201.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts ()"
   },
   {
     "id": "g1-p0202",
@@ -3083,11 +3100,12 @@
     "category": "dry-fruits-cereals",
     "sub_category": "Dry Fruits & Nuts",
     "subCategory": "Dry Fruits & Nuts",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0210.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts (Unibic)"
   },
   {
     "id": "g1-p0211",
@@ -3597,7 +3615,8 @@
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Dazzy Fruit Bonbon"
   },
   {
     "id": "g1-p0245",
@@ -3721,18 +3740,19 @@
   },
   {
     "id": "g1-p0253",
-    "name": "Unibic Fruit & NUT",
+    "name": "Unibic Fruit & Nut Cookies",
     "brand_id": "brand-unibic",
     "brand": "Unibic",
     "category_id": "biscuits-bakery",
     "category": "biscuits-bakery",
     "sub_category": "Cookies",
-    "subCategory": "Cookies",
+    "subCategory": "Biscuits & Cookies",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Unibic Fruit & NUT"
   },
   {
     "id": "g1-p0254",
@@ -3882,7 +3902,8 @@
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Dazzy Choco Orange"
   },
   {
     "id": "g1-p0264",
@@ -3976,18 +3997,20 @@
   },
   {
     "id": "g1-p0270",
-    "name": "Dairy Milk Fruit&nut",
+    "name": "Dairy Milk Fruit & Nut",
     "brand_id": "brand-cadbury",
-    "brand": "Cadbury",
+    "brand": "Cadbury Dairy Milk",
     "category_id": "sweets-chocolates",
     "category": "sweets-chocolates",
     "sub_category": "Chocolates",
     "subCategory": "Chocolates",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0270.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "rawName": "Dairy Milk Fruit&nut",
+    "image_attribution": "Open Food Facts (Cadbury)"
   },
   {
     "id": "g1-p0271",
@@ -4306,18 +4329,20 @@
   },
   {
     "id": "g1-p0293",
-    "name": "Kisan Mixedfruit 2RS",
+    "name": "Kissan Mixed Fruit Jam",
     "brand_id": "b-089",
     "brand": "Kissan",
     "category_id": "sauces-spreads",
     "category": "sauces-spreads",
     "sub_category": "Sauces & Ketchup",
-    "subCategory": "Sauces & Ketchup",
-    "image_url": null,
-    "image_status": "missing",
+    "subCategory": "Jams & Spreads",
+    "image_url": "/products/verified/g1-p0293.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "rawName": "Kisan Mixedfruit 2RS",
+    "image_attribution": "Open Food Facts (kissan)"
   },
   {
     "id": "g1-p0294",
@@ -4639,15 +4664,17 @@
     "name": "Kissan Peanut Butter Crunchy",
     "brand_id": "b-089",
     "brand": "Kissan",
-    "category_id": "atta-rice-dal",
-    "category": "atta-rice-dal",
+    "category_id": "sauces-spreads",
+    "category": "sauces-spreads",
     "sub_category": "Pulses & Dal",
-    "subCategory": "Pulses & Dal",
-    "image_url": null,
-    "image_status": "missing",
+    "subCategory": "Jams & Spreads",
+    "image_url": "/products/verified/g1-p0315.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "rawName": "Kissan Peanut Butter Crunchy",
+    "image_attribution": "Open Food Facts (Kissan)"
   },
   {
     "id": "g1-p0316",
@@ -5506,18 +5533,19 @@
   },
   {
     "id": "g1-p0374",
-    "name": "Meera Shampoo Badam",
+    "name": "Meera Badam Shampoo",
     "brand_id": "b-087",
     "brand": "Meera",
     "category_id": "hair-care",
     "category": "hair-care",
     "sub_category": "Shampoo",
-    "subCategory": "Shampoo",
+    "subCategory": "Shampoo & Conditioner",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Meera Shampoo Badam"
   },
   {
     "id": "g1-p0375",
@@ -5828,11 +5856,12 @@
     "category": "sugar-salt-staples",
     "sub_category": "Other Staples",
     "subCategory": "Other Staples",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0395.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts (KRBL limited)"
   },
   {
     "id": "g1-p0396",
@@ -6188,11 +6217,12 @@
     "category": "biscuits-bakery",
     "sub_category": "Biscuits",
     "subCategory": "Biscuits",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0419.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts ()"
   },
   {
     "id": "g1-p0420",
@@ -6202,12 +6232,13 @@
     "category_id": "instant-food",
     "category": "instant-food",
     "sub_category": "Ready to Cook & Soups",
-    "subCategory": "Ready to Cook & Soups",
+    "subCategory": "Instant Soups",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Knorr Tomato Soup"
   },
   {
     "id": "g1-p0421",
@@ -6458,26 +6489,28 @@
     "category": "atta-rice-dal",
     "sub_category": "Poha & Dalia",
     "subCategory": "Poha & Dalia",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0437.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts (Aashirvaad)"
   },
   {
     "id": "g1-p0438",
-    "name": "Whisper Choice Xl Main",
+    "name": "Whisper Choice XL",
     "brand_id": "b-083",
     "brand": "Whisper",
-    "category_id": "dairy-bread-eggs",
-    "category": "dairy-bread-eggs",
+    "category_id": "feminine-hygiene",
+    "category": "feminine-hygiene",
     "sub_category": "Milk & Curd",
-    "subCategory": "Milk & Curd",
+    "subCategory": "Sanitary Pads",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Whisper Choice Xl Main"
   },
   {
     "id": "g1-p0439",
@@ -8869,30 +8902,33 @@
     "name": "Milkybar",
     "brand_id": "brand-nestle",
     "brand": "Nestle",
-    "category_id": "dairy-bread-eggs",
-    "category": "dairy-bread-eggs",
+    "category_id": "sweets-chocolates",
+    "category": "sweets-chocolates",
     "sub_category": "Milk & Curd",
-    "subCategory": "Milk & Curd",
+    "subCategory": "Chocolates",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Milkybar"
   },
   {
     "id": "g1-p0599",
     "name": "Yippee Noodles Magic Masala",
     "brand_id": "brand-sunfeast",
-    "brand": "Sunfeast",
-    "category_id": "oil-ghee-masala",
-    "category": "oil-ghee-masala",
+    "brand": "Sunfeast Yippee",
+    "category_id": "instant-food",
+    "category": "instant-food",
     "sub_category": "Masala Powders",
-    "subCategory": "Masala Powders",
-    "image_url": null,
-    "image_status": "missing",
+    "subCategory": "Noodles & Pasta",
+    "image_url": "/products/verified/g1-p0599.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "rawName": "Yippee Noodles Magic Masala",
+    "image_attribution": "Open Food Facts (ITC, Sunfeast)"
   },
   {
     "id": "g1-p0600",
@@ -8952,7 +8988,8 @@
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "image_attribution": "Open Food Facts (Daco Bello)"
   },
   {
     "id": "g1-p0604",
@@ -9316,18 +9353,19 @@
   },
   {
     "id": "g1-p0628",
-    "name": "Meera Shampoo Onion",
+    "name": "Meera Onion Shampoo",
     "brand_id": "b-087",
     "brand": "Meera",
     "category_id": "hair-care",
     "category": "hair-care",
     "sub_category": "Shampoo",
-    "subCategory": "Shampoo",
+    "subCategory": "Shampoo & Conditioner",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Meera Shampoo Onion"
   },
   {
     "id": "g1-p0629",
@@ -9337,12 +9375,13 @@
     "category_id": "hair-care",
     "category": "hair-care",
     "sub_category": "Shampoo",
-    "subCategory": "Shampoo",
+    "subCategory": "Shampoo & Conditioner",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Meera Onion Shampoo"
   },
   {
     "id": "g1-p0630",
@@ -9661,18 +9700,19 @@
   },
   {
     "id": "g1-p0651",
-    "name": "SRI Durga Tomato Pickle",
+    "name": "Sri Durga Tomato Pickle",
     "brand_id": "b-101",
     "brand": "Sri Durga",
-    "category_id": "oil-ghee-masala",
-    "category": "oil-ghee-masala",
+    "category_id": "sauces-spreads",
+    "category": "sauces-spreads",
     "sub_category": "Pickles & Chutneys",
     "subCategory": "Pickles & Chutneys",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "SRI Durga Tomato Pickle"
   },
   {
     "id": "g1-p0652",
@@ -9968,11 +10008,12 @@
     "category": "sauces-spreads",
     "sub_category": "Sauces & Ketchup",
     "subCategory": "Sauces & Ketchup",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0671.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts (Knorr)"
   },
   {
     "id": "g1-p0672",
@@ -10336,18 +10377,19 @@
   },
   {
     "id": "g1-p0696",
-    "name": "Tomato Pickel",
+    "name": "Tomato Pickle",
     "brand_id": "b-063",
     "brand": "Local / Unbranded",
-    "category_id": "oil-ghee-masala",
-    "category": "oil-ghee-masala",
+    "category_id": "sauces-spreads",
+    "category": "sauces-spreads",
     "sub_category": "Pickles & Chutneys",
     "subCategory": "Pickles & Chutneys",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Tomato Pickel"
   },
   {
     "id": "g1-p0697",
@@ -10396,7 +10438,7 @@
   },
   {
     "id": "g1-p0700",
-    "name": "Assorated Fruit",
+    "name": "Assorted Fruit Jelly",
     "brand_id": "b-063",
     "brand": "Local / Unbranded",
     "category_id": "sweets-chocolates",
@@ -10407,7 +10449,8 @@
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Assorated Fruit"
   },
   {
     "id": "g1-p0701",
@@ -10681,18 +10724,19 @@
   },
   {
     "id": "g1-p0719",
-    "name": "Mangaldeep Sandal",
+    "name": "Mangaldeep Sandal Agarbatti",
     "brand_id": "b-097",
     "brand": "Mangaldeep",
-    "category_id": "atta-rice-dal",
-    "category": "atta-rice-dal",
+    "category_id": "pooja-needs",
+    "category": "pooja-needs",
     "sub_category": "Pulses & Dal",
-    "subCategory": "Pulses & Dal",
+    "subCategory": "Agarbatti & Dhoop",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Mangaldeep Sandal"
   },
   {
     "id": "g1-p0720",
@@ -10833,16 +10877,17 @@
     "id": "g1-p0729",
     "name": "Tomato Soup",
     "brand_id": "b-063",
-    "brand": "Local / Unbranded",
+    "brand": "Knorr",
     "category_id": "instant-food",
     "category": "instant-food",
     "sub_category": "Ready to Cook & Soups",
-    "subCategory": "Ready to Cook & Soups",
+    "subCategory": "Instant Soups",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Tomato Soup"
   },
   {
     "id": "g1-p0730",
@@ -11821,18 +11866,19 @@
   },
   {
     "id": "g1-p0798",
-    "name": "Sunfeast Nice",
+    "name": "Sunfeast Nice Biscuits",
     "brand_id": "brand-sunfeast",
     "brand": "Sunfeast",
-    "category_id": "dairy-bread-eggs",
-    "category": "dairy-bread-eggs",
+    "category_id": "biscuits-bakery",
+    "category": "biscuits-bakery",
     "sub_category": "Milk & Curd",
-    "subCategory": "Milk & Curd",
+    "subCategory": "Biscuits & Cookies",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Sunfeast Nice"
   },
   {
     "id": "g1-p0799",
@@ -11963,11 +12009,12 @@
     "category": "instant-food",
     "sub_category": "Instant Noodles & Pasta",
     "subCategory": "Instant Noodles & Pasta",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p0807.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts (Sunfeast)"
   },
   {
     "id": "g1-p0808",
@@ -12162,37 +12209,40 @@
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Sunfeast Fantastik Choco Almond"
   },
   {
     "id": "g1-p0821",
-    "name": "Sunfeast Fantastik Fruit &nut",
+    "name": "Sunfeast Fantastik Fruit & Nut",
     "brand_id": "brand-sunfeast",
     "brand": "Sunfeast",
-    "category_id": "vegetables-fruits",
-    "category": "vegetables-fruits",
+    "category_id": "sweets-chocolates",
+    "category": "sweets-chocolates",
     "sub_category": "Fresh Fruits",
-    "subCategory": "Fresh Fruits",
+    "subCategory": "Chocolates",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Sunfeast Fantastik Fruit &nut"
   },
   {
     "id": "g1-p0822",
-    "name": "Sunfeast Fantastik Roast&almond",
+    "name": "Sunfeast Fantastik Roast & Almond",
     "brand_id": "brand-sunfeast",
     "brand": "Sunfeast",
     "category_id": "sweets-chocolates",
     "category": "sweets-chocolates",
     "sub_category": "Candies & Gums",
-    "subCategory": "Candies & Gums",
+    "subCategory": "Chocolates",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Sunfeast Fantastik Roast&almond"
   },
   {
     "id": "g1-p0823",
@@ -12619,15 +12669,17 @@
     "name": "Bingo Masala",
     "brand_id": "brand-bingo",
     "brand": "Bingo",
-    "category_id": "oil-ghee-masala",
-    "category": "oil-ghee-masala",
+    "category_id": "chips-namkeen",
+    "category": "chips-namkeen",
     "sub_category": "Masala Powders",
-    "subCategory": "Masala Powders",
-    "image_url": null,
-    "image_status": "missing",
+    "subCategory": "Chips & Crisps",
+    "image_url": "/products/verified/g1-p0851.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "rawName": "Bingo Masala",
+    "image_attribution": "Open Food Facts (Bingo)"
   },
   {
     "id": "g1-p0852",
@@ -12781,7 +12833,7 @@
   },
   {
     "id": "g1-p0862",
-    "name": "Bingo Tomato",
+    "name": "Bingo Mad Angles Tomato",
     "brand_id": "brand-bingo",
     "brand": "Bingo",
     "category_id": "chips-namkeen",
@@ -12792,7 +12844,8 @@
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Bingo Tomato"
   },
   {
     "id": "g1-p0863",
@@ -13066,18 +13119,19 @@
   },
   {
     "id": "g1-p0881",
-    "name": "Cliinice Plus EGG",
+    "name": "Clinic Plus Egg Protein Shampoo",
     "brand_id": "b-063",
-    "brand": "Local / Unbranded",
-    "category_id": "dairy-bread-eggs",
-    "category": "dairy-bread-eggs",
+    "brand": "Clinic Plus",
+    "category_id": "hair-care",
+    "category": "hair-care",
     "sub_category": "Eggs",
-    "subCategory": "Eggs",
+    "subCategory": "Shampoo & Conditioner",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Cliinice Plus EGG"
   },
   {
     "id": "g1-p0882",
@@ -14341,7 +14395,7 @@
   },
   {
     "id": "g1-p0966",
-    "name": "MIX Fruit Jelly",
+    "name": "Mix Fruit Jelly",
     "brand_id": "b-063",
     "brand": "Local / Unbranded",
     "category_id": "sweets-chocolates",
@@ -14352,7 +14406,8 @@
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "MIX Fruit Jelly"
   },
   {
     "id": "g1-p0967",
@@ -14776,18 +14831,19 @@
   },
   {
     "id": "g1-p0995",
-    "name": "Makhana Cream&onion",
+    "name": "Makhana Cream & Onion",
     "brand_id": "b-104",
-    "brand": "Makhana",
+    "brand": "Local / Unbranded",
     "category_id": "chips-namkeen",
     "category": "chips-namkeen",
     "sub_category": "Popcorn & Roasted Snacks",
-    "subCategory": "Popcorn & Roasted Snacks",
+    "subCategory": "Namkeen & Snacks",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Makhana Cream&onion"
   },
   {
     "id": "g1-p0996",
@@ -15061,18 +15117,19 @@
   },
   {
     "id": "g1-p1015",
-    "name": "Gemini TEE",
+    "name": "Gemini Tea",
     "brand_id": "brand-gemini",
     "brand": "Gemini",
-    "category_id": "oil-ghee-masala",
-    "category": "oil-ghee-masala",
+    "category_id": "tea-coffee-milk-drinks",
+    "category": "tea-coffee-milk-drinks",
     "sub_category": "Whole Spices",
-    "subCategory": "Whole Spices",
+    "subCategory": "Tea",
     "image_url": null,
     "image_status": "missing",
     "barcode": null,
     "image_source": null,
-    "image_license": null
+    "image_license": null,
+    "rawName": "Gemini TEE"
   },
   {
     "id": "g1-p1016",
@@ -15443,11 +15500,12 @@
     "category": "sauces-spreads",
     "sub_category": "Jams & Spreads",
     "subCategory": "Jams & Spreads",
-    "image_url": null,
-    "image_status": "missing",
+    "image_url": "/products/verified/g1-p1040.webp",
+    "image_status": "verified",
     "barcode": null,
-    "image_source": null,
-    "image_license": null
+    "image_source": "Open Food Facts",
+    "image_license": "ODbL / CC-BY-SA 3.0",
+    "image_attribution": "Open Food Facts (MTR)"
   },
   {
     "id": "g1-p1041",

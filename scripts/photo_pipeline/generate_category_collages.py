@@ -98,8 +98,10 @@ def generate_svg_icon_tile(category_id, output_path, tint_rgb):
 
 def generate_collage_tile(category_id, verified_cutout_paths, output_path, tint_rgb, canvas_size=(400, 400)):
     """
-    Composite 3 best verified cut-outs on a soft tinted rounded square
-    (Blinkit / Flipkart Minutes style: 2 back angled/offset, 1 front prominent).
+    Composite verified cut-outs on a soft tinted rounded square:
+    - 1 photo: centered & enlarged (~260px)
+    - 2 photos: two prominent cutouts side-by-side / overlapping
+    - 3+ photos: Blinkit collage (overlapping, largest centre, soft shadow)
     """
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     w, h = canvas_size
@@ -109,34 +111,58 @@ def generate_collage_tile(category_id, verified_cutout_paths, output_path, tint_
     draw = ImageDraw.Draw(canvas)
     draw.rounded_rectangle([0, 0, w, h], radius=64, fill=tint_rgb + (255,))
 
-    # Load 3 images
-    imgs = [Image.open(p).convert("RGBA") for p in verified_cutout_paths[:3]]
-
-    # Positions and scaling:
-    # Item 0 (Left back): size ~180x180, pos (35, 70)
-    # Item 1 (Right back): size ~180x180, pos (190, 60)
-    # Item 2 (Center front): size ~230x230, pos (85, 120) with soft drop shadow
-    slots = [
-        {'size': 180, 'pos': (30, 60)},
-        {'size': 180, 'pos': (190, 50)},
-        {'size': 230, 'pos': (85, 125)}
-    ]
-
-    for idx, img in enumerate(imgs):
-        slot = slots[idx]
-        target_s = slot['size']
-        img.thumbnail((target_s, target_s), Image.Resampling.LANCZOS)
-        
+    count = len(verified_cutout_paths)
+    if count == 1:
+        img = Image.open(verified_cutout_paths[0]).convert("RGBA")
+        img.thumbnail((260, 260), Image.Resampling.LANCZOS)
+        # Center position
+        pos = ((w - img.width) // 2, (h - img.height) // 2)
         # Soft shadow
         shadow = Image.new("RGBA", canvas_size, (0, 0, 0, 0))
-        shadow_mask = img.split()[3].point(lambda a: int(a * 0.15))
-        shadow_pos = (slot['pos'][0], slot['pos'][1] + 8)
-        shadow.paste((0, 0, 0, 150), shadow_pos, shadow_mask)
-        shadow = shadow.filter(ImageFilter.GaussianBlur(6))
+        shadow_mask = img.split()[3].point(lambda a: int(a * 0.18))
+        shadow.paste((0, 0, 0, 160), (pos[0], pos[1] + 10), shadow_mask)
+        shadow = shadow.filter(ImageFilter.GaussianBlur(8))
         canvas.alpha_composite(shadow)
+        canvas.paste(img, pos, img)
 
-        # Paste cutout
-        canvas.paste(img, slot['pos'], img)
+    elif count == 2:
+        imgs = [Image.open(p).convert("RGBA") for p in verified_cutout_paths[:2]]
+        slots = [
+            {'size': 210, 'pos': (40, 95)},
+            {'size': 220, 'pos': (160, 90)},
+        ]
+        for idx, img in enumerate(imgs):
+            slot = slots[idx]
+            img.thumbnail((slot['size'], slot['size']), Image.Resampling.LANCZOS)
+            pos = slot['pos']
+            shadow = Image.new("RGBA", canvas_size, (0, 0, 0, 0))
+            shadow_mask = img.split()[3].point(lambda a: int(a * 0.16))
+            shadow.paste((0, 0, 0, 150), (pos[0], pos[1] + 8), shadow_mask)
+            shadow = shadow.filter(ImageFilter.GaussianBlur(7))
+            canvas.alpha_composite(shadow)
+            canvas.paste(img, pos, img)
+
+    else:
+        # 3 or 4 photos
+        imgs = [Image.open(p).convert("RGBA") for p in verified_cutout_paths[:min(4, count)]]
+        slots = [
+            {'size': 180, 'pos': (30, 55)},
+            {'size': 180, 'pos': (190, 45)},
+            {'size': 230, 'pos': (85, 125)},
+        ]
+        if len(imgs) >= 4:
+            slots.append({'size': 150, 'pos': (210, 170)})
+
+        for idx, img in enumerate(imgs):
+            slot = slots[idx]
+            img.thumbnail((slot['size'], slot['size']), Image.Resampling.LANCZOS)
+            pos = slot['pos']
+            shadow = Image.new("RGBA", canvas_size, (0, 0, 0, 0))
+            shadow_mask = img.split()[3].point(lambda a: int(a * 0.15))
+            shadow.paste((0, 0, 0, 150), (pos[0], pos[1] + 8), shadow_mask)
+            shadow = shadow.filter(ImageFilter.GaussianBlur(6))
+            canvas.alpha_composite(shadow)
+            canvas.paste(img, pos, img)
 
     canvas.save(output_path, "WEBP", quality=92, method=6)
     return output_path
@@ -152,11 +178,11 @@ def generate_all_category_tiles():
     for p in products:
         if p.get('image_status') == 'verified' and p.get('image_url'):
             url = p['image_url']
-            # Resolve local file
             if url.startswith('/'):
                 local_path = os.path.join(PROJECT_ROOT, 'public', url.lstrip('/'))
                 if os.path.exists(local_path):
-                    verified_by_cat[p['category_id']].append(local_path)
+                    c_id = p.get('category') or p.get('category_id')
+                    verified_by_cat[c_id].append(local_path)
 
     out_dir = os.path.join(PROJECT_ROOT, 'public', 'categories', 'collages')
     os.makedirs(out_dir, exist_ok=True)
@@ -168,18 +194,18 @@ def generate_all_category_tiles():
         verified_imgs = verified_by_cat.get(cat_id, [])
         tint = CATEGORY_TINTS.get(cat_id, (245, 245, 245))
 
-        if len(verified_imgs) >= 3:
-            # Composite 3 verified cut-out images
+        if len(verified_imgs) >= 1:
+            # Composite verified cut-outs
             out_file = os.path.join(out_dir, f"{cat_id}.webp")
             generate_collage_tile(cat_id, verified_imgs, out_file, tint)
             tile_url = f"/categories/collages/{cat_id}.webp"
             tile_type = f"Collage ({len(verified_imgs)} verified photos)"
         else:
-            # Clean SVG icon tile (no stock photo, no boxed single photo)
+            # Clean SVG icon tile (zero photos)
             out_file = os.path.join(out_dir, f"{cat_id}.svg")
             generate_svg_icon_tile(cat_id, out_file, tint)
             tile_url = f"/categories/collages/{cat_id}.svg"
-            tile_type = f"Clean Icon Tile ({len(verified_imgs)}/3 verified photos)"
+            tile_type = "Clean Icon Tile (0 verified photos)"
 
         summary.append({
             'category_id': cat_id,

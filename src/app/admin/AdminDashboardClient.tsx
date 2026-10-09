@@ -29,6 +29,8 @@ import InventoryTab from '@/components/admin/tabs/InventoryTab';
 import ProductDetailsPanel from '@/components/admin/tabs/ProductDetailsPanel';
 import MobileBottomNav from '@/components/admin/tabs/MobileBottomNav';
 import StaffManagementTab from '@/components/admin/StaffManagementTab';
+import ShootListTab from '@/components/admin/tabs/ShootListTab';
+import { Camera } from 'lucide-react';
 
 interface Props {
   initialProducts: Product[];
@@ -37,7 +39,7 @@ interface Props {
 
 export default function AdminDashboardClient({ initialProducts = [], categories = [] }: Props) {
   // Navigation & Active View state
-  const [activeTab, setActiveTab] = useState<'home' | 'orders' | 'inventory' | 'staff'>('home');
+  const [activeTab, setActiveTab] = useState<'home' | 'orders' | 'inventory' | 'staff' | 'shoot-list'>('home');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -738,6 +740,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       icon: Layers,
       badge: products.length > 0 ? products.length : undefined,
     },
+    { id: 'shoot-list' as const, label: 'Shoot List', icon: Camera },
     { id: 'staff' as const, label: 'Staff & Fleet', icon: Users },
   ];
 
@@ -994,6 +997,16 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             )}
 
             {activeTab === 'staff' && <StaffManagementTab />}
+
+            {activeTab === 'shoot-list' && (
+              <ShootListTab
+                products={products}
+                categories={categories}
+                onProductUpdated={(updated) =>
+                  setProducts((prev) => prev.map((p) => (p.id === updated.id ? updated : p)))
+                }
+              />
+            )}
           </>
         )}
       </main>
