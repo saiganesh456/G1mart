@@ -96,22 +96,22 @@ export default function CategoryDashboardClient({ category, products }: Props) {
 
       {/* ── Body: Left Brand Rail + Right Product Grid ── */}
       <div className="flex flex-1 items-start">
-        {/* Left Brand Rail (sticky, Blinkit style) */}
-        <aside className="w-20 sm:w-24 shrink-0 bg-stone-50 border-r border-stone-200/80 sticky top-[57px] self-start h-[calc(100vh-57px)] overflow-y-auto no-scrollbar">
+        {/* Left Brand Rail (sticky, Blinkit style, responsive width) */}
+        <aside className="w-20 sm:w-28 md:w-36 lg:w-48 shrink-0 bg-stone-50 border-r border-stone-200/80 sticky top-[57px] self-start h-[calc(100vh-57px)] overflow-y-auto no-scrollbar">
           <div className="py-1">
             {/* All button */}
             <button
               type="button"
               onClick={() => setSelectedBrand('all')}
-              className={`w-full text-center px-1 py-2.5 text-[11px] font-bold leading-tight transition-colors ${
+              className={`w-full text-center px-1 sm:px-2 py-2.5 text-[11px] sm:text-xs font-bold leading-tight transition-colors ${
                 selectedBrand === 'all'
                   ? 'bg-white text-[#2E7D32] font-extrabold border-r-2 border-[#2E7D32]'
                   : 'text-stone-500 hover:bg-white/70'
               }`}
             >
-              <span className="block">All</span>
-              <span className={`text-[9px] ${selectedBrand === 'all' ? 'text-[#2E7D32]' : 'text-stone-400'}`}>
-                {products.length}
+              <span className="block">All Brands</span>
+              <span className={`text-[9px] sm:text-[10px] ${selectedBrand === 'all' ? 'text-[#2E7D32]' : 'text-stone-400'}`}>
+                {products.length} items
               </span>
             </button>
 
@@ -122,14 +122,14 @@ export default function CategoryDashboardClient({ category, products }: Props) {
                   key={brandName}
                   type="button"
                   onClick={() => setSelectedBrand(brandName)}
-                  className={`w-full text-center px-1 py-2.5 text-[11px] leading-tight transition-colors ${
+                  className={`w-full text-center px-1 sm:px-2 py-2.5 text-[11px] sm:text-xs leading-tight transition-colors ${
                     isSelected
                       ? 'bg-white text-[#2E7D32] font-extrabold border-r-2 border-[#2E7D32]'
                       : 'text-stone-500 font-medium hover:bg-white/70'
                   }`}
                 >
                   <span className="block line-clamp-2 break-words">{brandName}</span>
-                  <span className={`text-[9px] ${isSelected ? 'text-[#2E7D32]' : 'text-stone-400'}`}>
+                  <span className={`text-[9px] sm:text-[10px] ${isSelected ? 'text-[#2E7D32]' : 'text-stone-400'}`}>
                     {count}
                   </span>
                 </button>
@@ -138,10 +138,10 @@ export default function CategoryDashboardClient({ category, products }: Props) {
           </div>
         </aside>
 
-        {/* Right: Product Grid (2 columns, strict) */}
-        <main className="flex-1 min-w-0 p-2">
+        {/* Right: Product Grid (Responsive: 2 cols on mobile, 4 on laptop, 5-6 on wide screens) */}
+        <main className="flex-1 min-w-0 p-1.5 sm:p-3 lg:p-4">
           {filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 sm:gap-3 lg:gap-3.5">
               {filteredProducts.map((p) => (
                 <ProductCard key={`${p.id}::${selectedBrand}`} product={p} compact />
               ))}

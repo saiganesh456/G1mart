@@ -305,29 +305,36 @@ export default function Header() {
             </nav>
           </div>
 
-          {/* Desktop category nav strip — Hidden on home */}
-          {!isHomePage && (
-            <div className="border-t border-stone-100 bg-stone-50/60">
-              <div className="max-w-7xl mx-auto px-6 py-1.5 flex items-center gap-1 overflow-x-auto no-scrollbar text-xs font-semibold">
-                {[
-                  { href: '/category/household-cleaning', label: '🧼 Household & Cleaning' },
-                  { href: '/category/personal-care', label: '✨ Personal Care' },
-                  { href: '/category/pooja-essentials', label: '🪔 Pooja Essentials' },
-                  { href: '/category/grocery-staples', label: '🌾 Grocery & Staples' },
-                  { href: '/category/snacks-beverages', label: '🍪 Snacks & Beverages' },
-                  { href: '/categories', label: '📑 All Departments' },
-                ].map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="whitespace-nowrap px-3 py-1.5 rounded-lg text-stone-600 hover:text-[#2E7D32] hover:bg-white transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
+          {/* Desktop category nav strip — visible across all pages including Home */}
+          <div className="border-t border-stone-200/60 bg-stone-50/80">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-1.5 flex items-center gap-1 overflow-x-auto no-scrollbar text-xs font-bold">
+              {[
+                { href: '/categories', label: '📑 All Departments', isPrimary: true },
+                { href: '/category/vegetables-fruits', label: '🥦 Vegetables & Fruits' },
+                { href: '/category/atta-rice-dal', label: '🌾 Atta, Rice & Dal' },
+                { href: '/category/oil-ghee-masala', label: '🛢️ Oil, Ghee & Masala' },
+                { href: '/category/dairy-bread-eggs', label: '🥛 Dairy & Eggs' },
+                { href: '/category/chips-namkeen', label: '🍪 Snacks & Munchies' },
+                { href: '/category/drinks-juices', label: '🥤 Cold Drinks & Juices' },
+                { href: '/category/instant-food', label: '🍜 Instant Food' },
+                { href: '/category/laundry-detergents', label: '🧼 Laundry & Cleaning' },
+                { href: '/category/pooja-needs', label: '🪔 Pooja Needs' },
+                { href: '/category/soaps-bath', label: '✨ Personal Care' },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`whitespace-nowrap px-3 py-1.5 rounded-lg transition-all shrink-0 ${
+                    item.isPrimary
+                      ? 'bg-emerald-100 text-[#1B5E20] hover:bg-emerald-200 shadow-2xs font-extrabold'
+                      : 'text-stone-600 hover:text-[#2E7D32] hover:bg-white'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </div>
-          )}
+          </div>
         </div>
       </header>
 

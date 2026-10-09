@@ -246,7 +246,7 @@ export default function BlinkitCategoryExplorer({ categories, products }: Props)
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1.5 sm:gap-3 pb-8 min-w-0">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-3 lg:gap-3.5 pb-8 min-w-0">
               {displayedProducts.map((product) => (
                 <div key={product.id} className="min-w-0">
                   <ProductCard product={product} />
