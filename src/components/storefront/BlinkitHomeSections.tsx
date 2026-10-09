@@ -124,8 +124,27 @@ export default function BlinkitHomeSections({ sections, categories }: BlinkitHom
 
   return (
     <div className="space-y-6 sm:space-y-8 lg:space-y-9">
+      {/* Master Department Quick Jump Pills — Guarantees laptop users immediately see all 4 departments */}
+      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 pt-0.5 border-b border-stone-100">
+        <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider shrink-0 hidden sm:inline">
+          Departments:
+        </span>
+        {sectionsWithCategories.map((sec) => (
+          <a
+            key={sec.id}
+            href={`#${sec.id}`}
+            className="shrink-0 px-3 py-1.5 rounded-xl bg-stone-50 hover:bg-emerald-50 text-stone-700 hover:text-[#2E7D32] border border-stone-200/80 hover:border-emerald-300 text-xs font-bold transition-all shadow-2xs active:scale-95 flex items-center gap-1.5"
+          >
+            <span>{sec.name}</span>
+            <span className="bg-white text-stone-600 text-[10px] px-1.5 py-0.2 rounded-full font-extrabold border border-stone-200/70">
+              {sec.categories.length}
+            </span>
+          </a>
+        ))}
+      </div>
+
       {sectionsWithCategories.map((section) => (
-        <section key={section.id} id={section.id} className="space-y-3">
+        <section key={section.id} id={section.id} className="space-y-3 scroll-mt-24">
           {/* Section heading with category count badge */}
           <div className="flex items-center justify-between px-0.5">
             <div className="flex items-center gap-2">
@@ -146,11 +165,11 @@ export default function BlinkitHomeSections({ sections, categories }: BlinkitHom
 
           {/* Responsive Quick-Commerce Grid:
               - Mobile (<640px): 4 columns
-              - Small Tablet (sm): 6 columns
-              - Medium Tablet (md): 6 columns
-              - Laptop & Desktop (lg/xl): 8 columns (fits entire 6-7 item section in 1 clean row!)
+              - Small & Medium Tablet (sm/md): 6 columns
+              - Laptop (lg): 6 columns (Symmetrically fits 6-department rows without blank gaps)
+              - Large Desktop (xl/2xl): 7-8 columns
           */}
-          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-8 gap-x-2 gap-y-3.5 sm:gap-x-3.5 sm:gap-y-4 lg:gap-x-4 lg:gap-y-5">
+          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8 gap-x-2 gap-y-3.5 sm:gap-x-3.5 sm:gap-y-4 lg:gap-x-4 lg:gap-y-5">
             {section.categories.map((cat, idx) => (
               <CategoryTileItem key={cat.id} cat={cat} index={idx} />
             ))}
