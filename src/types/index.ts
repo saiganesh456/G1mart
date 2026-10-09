@@ -225,6 +225,7 @@ export interface Order {
   userEmail?: string;
   assignedRider?: {
     id?: string;
+    email?: string;
     name: string;
     phone?: string;
     vehicleNumber?: string;

@@ -31,11 +31,11 @@ interface LocationContextType {
 const STORAGE_KEY = 'g1mart_delivery_location_v1';
 
 const DEFAULT_LOCATION: DeliveryLocation = {
-  formattedAddress: `${STORE_CONFIG.address.area || 'Magunta Layout'}, ${STORE_CONFIG.address.city || 'Nellore'}`,
-  street: STORE_CONFIG.address.line1 || 'Trunk Road',
-  area: STORE_CONFIG.address.area || 'Magunta Layout',
+  formattedAddress: `${STORE_CONFIG.address.area || 'Padarupalli'}, ${STORE_CONFIG.address.city || 'Nellore'}`,
+  street: STORE_CONFIG.address.line1 || 'Govt Hospital, beside Padarupalli',
+  area: STORE_CONFIG.address.area || 'Padarupalli',
   city: STORE_CONFIG.address.city || 'Nellore',
-  pincode: STORE_CONFIG.address.pincode || '524003',
+  pincode: STORE_CONFIG.address.pincode || '524004',
   state: STORE_CONFIG.address.state || 'Andhra Pradesh',
 };
 

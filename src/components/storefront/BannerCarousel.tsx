@@ -11,6 +11,7 @@ interface BannerItem {
   cta: string;
   link: string;
   bg_image?: string;
+  image_url?: string;
   products?: string[];
   badge?: string;
   sort_order?: number;

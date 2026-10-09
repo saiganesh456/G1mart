@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, LayoutGrid, Package, User, ArrowRight } from 'lucide-react';
+import { Home, LayoutGrid, Package, User, ArrowRight, Truck } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Home', icon: Home, matchPaths: ['/'] },
@@ -18,10 +19,14 @@ const HIDDEN_PATHS = ['/login', '/checkout', '/cart', '/payment'];
 export default function BottomNav() {
   const pathname = usePathname();
   const { cartItemCount, cartSubtotal } = useCart();
+  const { user } = useAuth();
 
   // Hide on auth, checkout, cart, and payment pages
   const shouldHide = HIDDEN_PATHS.some((p) => pathname.startsWith(p));
   if (shouldHide) return null;
+
+  const isRider = user?.role === 'delivery_partner' || user?.role === 'rider';
+  const showRiderPill = isRider && !pathname.startsWith('/rider');
 
   const isActive = (matchPaths: readonly string[]) =>
     matchPaths.some((p) => (p === '/' ? pathname === '/' : pathname.startsWith(p)));
@@ -35,6 +40,25 @@ export default function BottomNav() {
   return (
     /* Only visible on mobile/tablet — desktop uses the header nav */
     <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 max-w-lg md:max-w-2xl mx-auto pointer-events-none">
+      {/* Floating Rider Mode switcher pill */}
+      {showRiderPill && !showFloatingCart && (
+        <div className="p-3 pointer-events-auto">
+          <Link
+            href="/rider"
+            className="w-full h-11 bg-[#1A2E1C] hover:bg-black text-white rounded-2xl px-4 flex items-center justify-between shadow-lg active:scale-[0.99] transition-all border border-emerald-500/30"
+          >
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <Truck className="w-4 h-4 text-emerald-400" />
+              <span className="text-xs font-bold">Rider Mode Active</span>
+            </div>
+            <div className="flex items-center gap-1 text-[11px] font-black text-emerald-400">
+              <span>OPEN CONSOLE</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+          </Link>
+        </div>
+      )}
 
       {/* Floating green "View cart - N items" pill */}
       {showFloatingCart && (

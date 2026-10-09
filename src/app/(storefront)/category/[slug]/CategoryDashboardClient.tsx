@@ -210,10 +210,10 @@ export default function CategoryDashboardClient({ category, products }: Props) {
         </div>
       )}
 
-      {/* ── Body: Left Brand Rail (~76px) + Right Product Grid (2 columns) ── */}
+      {/* ── Body: Left Brand Rail (~76px) + Right Product Grid ── */}
       <div className="flex flex-1 items-start min-w-0">
         {/* ── 3. LEFT RAIL: Brands (~76px wide, no overflow) ── */}
-        <aside className="w-[76px] shrink-0 bg-stone-50/60 border-r border-stone-200/80 sticky top-[95px] self-start h-[calc(100vh-95px)] overflow-y-auto no-scrollbar flex flex-col py-2 select-none">
+        <aside className="w-[76px] sm:w-24 md:w-28 shrink-0 bg-stone-50/60 border-r border-stone-200/80 sticky top-[95px] self-start h-[calc(100vh-95px)] overflow-y-auto no-scrollbar flex flex-col py-2 select-none">
           {/* "All" button first */}
           <button
             type="button"
@@ -339,10 +339,10 @@ export default function CategoryDashboardClient({ category, products }: Props) {
           )}
         </aside>
 
-        {/* ── 4. Product Grid: 2 columns strict ── */}
-        <main className="flex-1 min-w-0 p-2">
+        {/* ── 4. Product Grid: Responsive (2 cols on mobile, 3-6 cols on larger screens) ── */}
+        <main className="flex-1 min-w-0 p-1.5 sm:p-3 lg:p-4">
           {filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-2 gap-2 min-w-0">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 sm:gap-3 lg:gap-3.5 min-w-0">
               {filteredProducts.map((p) => (
                 <ProductCard key={`${p.id}::${selectedBrand}`} product={p} compact />
               ))}

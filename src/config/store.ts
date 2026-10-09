@@ -15,31 +15,31 @@ export const STORE_CONFIG = {
 
   /** Full physical address of the store hub */
   address: {
-    line1: 'Trunk Road, Beside Magunta Layout',
-    area: 'Magunta Layout',
+    line1: 'Govt Hospital, Beside Padarupalli',
+    area: 'Padarupalli',
     city: 'Nellore',
     state: 'Andhra Pradesh',
-    pincode: '524003',
+    pincode: '524004',
     country: 'India',
   },
 
   /** Customer-facing contact details */
   contact: {
-    phone: process.env.NEXT_PUBLIC_STORE_PHONE || '+91 93463 89857',
+    phone: process.env.NEXT_PUBLIC_STORE_PHONE || '+91 91107 59629',
     email: process.env.NEXT_PUBLIC_STORE_EMAIL || 'support@g1mart.com',
-    whatsapp: process.env.NEXT_PUBLIC_STORE_WHATSAPP || '919346389857',
+    whatsapp: process.env.NEXT_PUBLIC_STORE_WHATSAPP || '919110759629',
   },
 
   /** UPI Payment Configuration */
   payment: {
-    upiId: process.env.NEXT_PUBLIC_STORE_UPI_ID || '9346389857-3@ybl',
+    upiId: process.env.NEXT_PUBLIC_STORE_UPI_ID || '9110759629@ybl',
     upiPayeeName: 'G1 Mart',
   },
 
   /** Store operating hours (displayed to customers) */
   hours: {
-    open: '7:00 AM',
-    close: '10:30 PM',
+    open: '10:00 AM',
+    close: '5:00 PM',
     daysOpen: 'Monday – Sunday',
   },
 

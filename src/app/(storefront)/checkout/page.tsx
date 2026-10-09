@@ -437,7 +437,7 @@ export default function CheckoutPage() {
                   G1 Mart Supermarket
                 </span>
                 <p className="text-[11px] text-stone-500 font-medium truncate mt-0.5">
-                  Trunk Road, Magunta Layout, Nellore · Ready in 30 mins
+                  {STORE_CONFIG.address.line1}, {STORE_CONFIG.address.city} · Ready in 30 mins
                 </p>
               </div>
             </div>
@@ -465,8 +465,8 @@ export default function CheckoutPage() {
                 title: 'Standard Delivery',
                 subtitle: currentLocation.zone?.estimatedDeliveryTimeText || STORE_CONFIG.delivery.cityEtaText,
               },
-              { id: 'Morning Delivery', title: 'Morning Slot', subtitle: '7:00 AM – 10:00 AM' },
-              { id: 'Evening Delivery', title: 'Evening Slot', subtitle: '5:00 PM – 8:00 PM' },
+              { id: 'Morning Delivery', title: 'Morning Slot', subtitle: '10:00 AM – 1:00 PM' },
+              { id: 'Afternoon Delivery', title: 'Afternoon Slot', subtitle: '1:00 PM – 5:00 PM' },
             ].map((slot) => (
               <label
                 key={slot.id}

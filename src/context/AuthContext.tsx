@@ -74,6 +74,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         let fallbackRole: any = 'customer';
         if (uEmail === 'g1mart@gmail.com' || uEmail === 'lingalamahendra0@gmail.com') {
           fallbackRole = 'admin';
+        } else if (
+          uEmail === 'gummasaiganesh57@gmail.com' ||
+          uEmail === 'vv727457@gmail.com' ||
+          uEmail === 'rider@g1mart.com'
+        ) {
+          fallbackRole = 'delivery_partner';
         }
         const p: UserProfile = {
           id: activeUser.id,

@@ -82,7 +82,9 @@ export default function HelpPage() {
             <MapPin className="w-4 h-4 text-[#2E7D32] shrink-0 mt-0.5" />
             <div>
               <span className="font-bold text-stone-900 block">Store Location</span>
-              <span className="text-stone-500">MDR032, Venkatachalam, Andhra Pradesh</span>
+              <span className="text-stone-500">
+                {STORE_CONFIG.address.line1}, {STORE_CONFIG.address.city}, {STORE_CONFIG.address.state} – {STORE_CONFIG.address.pincode}, {STORE_CONFIG.address.country}
+              </span>
             </div>
           </div>
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Order, StaffMember, OrderStatus } from '@/types';
+import { soundAlerts } from '@/lib/soundAlerts';
 import {
   ArrowLeft,
   CheckCircle2,
@@ -130,6 +131,7 @@ export default function OrderDetailsPanel({
     const riderInfo = foundRider
       ? {
           id: foundRider.id,
+          email: foundRider.email,
           name: foundRider.name || 'Express Rider',
           phone: foundRider.phone,
           vehicleNumber: foundRider.vehicleNumber,
@@ -140,6 +142,7 @@ export default function OrderDetailsPanel({
           vehicleNumber: 'AP 26 EQ 4589',
         };
 
+    soundAlerts.playRiderAssignmentChime();
     onUpdateStatus(order.id, 'Rider Assigned', riderInfo);
   };
 

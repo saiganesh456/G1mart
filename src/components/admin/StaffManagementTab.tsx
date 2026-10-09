@@ -19,6 +19,7 @@ import {
   Info,
 } from 'lucide-react';
 import type { StaffMember } from '@/types';
+import { soundAlerts } from '@/lib/soundAlerts';
 
 export default function StaffManagementTab() {
   const [admins, setAdmins] = useState<StaffMember[]>([]);
@@ -45,8 +46,37 @@ export default function StaffManagementTab() {
       const res = await fetch('/api/admin/staff');
       const data = await res.json();
       if (data.success) {
-        setAdmins(data.admins || []);
-        setRiders(data.riders || []);
+        let serverAdmins: StaffMember[] = data.admins || [];
+        let serverRiders: StaffMember[] = data.riders || [];
+
+        // Check local storage backup to ensure riders never vanish across server restarts
+        try {
+          const localRaw = localStorage.getItem('g1mart_staff_directory');
+          if (localRaw) {
+            const local = JSON.parse(localRaw);
+            const localRiders: StaffMember[] = local.riders || [];
+            const missingRiders = localRiders.filter(
+              (lr) => !serverRiders.some((sr) => sr.email?.toLowerCase().trim() === lr.email?.toLowerCase().trim())
+            );
+            if (missingRiders.length > 0) {
+              await fetch('/api/admin/staff', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type: 'sync', riders: localRiders }),
+              });
+              serverRiders = [...serverRiders, ...missingRiders];
+            }
+          }
+        } catch {}
+
+        setAdmins(serverAdmins);
+        setRiders(serverRiders);
+        try {
+          localStorage.setItem(
+            'g1mart_staff_directory',
+            JSON.stringify({ admins: serverAdmins, riders: serverRiders })
+          );
+        } catch {}
       }
     } catch (err: any) {
       console.error('Failed to load staff list:', err);
@@ -77,6 +107,7 @@ export default function StaffManagementTab() {
       });
       const data = await res.json();
       if (data.success) {
+        soundAlerts.playRoleGrantedChime();
         setFeedback({
           type: 'success',
           message: `Admin access granted to ${adminEmail}. They will automatically open the Admin Console when logging in.`,
@@ -153,6 +184,7 @@ export default function StaffManagementTab() {
       });
       const data = await res.json();
       if (data.success) {
+        soundAlerts.playRoleGrantedChime();
         setFeedback({
           type: 'success',
           message: `Delivery Rider ${riderName} registered. When logging in with ${riderEmail}, they will automatically enter the Rider Console.`,
@@ -164,6 +196,9 @@ export default function StaffManagementTab() {
         if (data.staffDirectory) {
           setAdmins(data.staffDirectory.admins || []);
           setRiders(data.staffDirectory.riders || []);
+          try {
+            localStorage.setItem('g1mart_staff_directory', JSON.stringify(data.staffDirectory));
+          } catch {}
         } else {
           fetchStaff();
         }
@@ -193,6 +228,9 @@ export default function StaffManagementTab() {
         setFeedback({ type: 'success', message: `Removed rider access for ${email}` });
         if (data.staffDirectory) {
           setRiders(data.staffDirectory.riders || []);
+          try {
+            localStorage.setItem('g1mart_staff_directory', JSON.stringify(data.staffDirectory));
+          } catch {}
         } else {
           fetchStaff();
         }

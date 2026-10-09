@@ -20,7 +20,17 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { type, email, name, phone, vehicleNumber } = body;
+    const { type, email, name, phone, vehicleNumber, admins, riders } = body;
+
+    // Support client synchronization
+    if (type === 'sync') {
+      serverStaffStore.syncClientStaff(admins, riders);
+      return NextResponse.json({
+        success: true,
+        message: 'Staff directory synchronized successfully',
+        staffDirectory: serverStaffStore.getStaff(),
+      });
+    }
 
     if (!email) {
       return NextResponse.json(
@@ -61,7 +71,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { success: false, error: 'Invalid staff type. Must be "admin" or "rider".' },
+      { success: false, error: 'Invalid staff type. Must be "admin", "rider", or "sync".' },
       { status: 400 }
     );
   } catch (err: any) {

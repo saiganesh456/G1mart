@@ -78,12 +78,12 @@ export default function Footer() {
               cleaning essentials, pooja supplies, and daily household needs.
             </p>
             <div className="pt-1 flex flex-col space-y-1.5 text-xs text-stone-600">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-[#2E7D32] shrink-0" />
+              <div className="flex items-start gap-2">
+                <MapPin className="w-4 h-4 text-[#2E7D32] shrink-0 mt-0.5" />
                 <span>
-                  {STORE_CONFIG.address.city && !STORE_CONFIG.address.city.startsWith('TODO_')
-                    ? `${STORE_CONFIG.address.city} — ${STORE_CONFIG.address.state}`
-                    : 'Local Supermarket Store'}
+                  {STORE_CONFIG.address.line1
+                    ? `${STORE_CONFIG.address.line1}, ${STORE_CONFIG.address.city}, ${STORE_CONFIG.address.state} – ${STORE_CONFIG.address.pincode}, ${STORE_CONFIG.address.country}`
+                    : `${STORE_CONFIG.address.city} — ${STORE_CONFIG.address.state}`}
                 </span>
               </div>
               {STORE_CONFIG.hours.open && !STORE_CONFIG.hours.open.startsWith('TODO_') && (
