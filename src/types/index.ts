@@ -2,8 +2,8 @@ export * from './deliveryZone';
 
 export type UserRole = 'customer' | 'admin' | 'delivery_partner' | 'rider';
 
-export type ImageSource = 'own_photo' | 'openfoodfacts' | 'manufacturer' | 'placeholder';
-export type ImageStatus = 'VERIFIED' | 'PENDING' | 'MISSING' | 'NEEDS_REVIEW' | 'pending' | 'approved' | 'placeholder';
+export type ImageSource = 'own_photo' | 'openfoodfacts' | 'manufacturer' | 'placeholder' | 'store_camera';
+export type ImageStatus = 'VERIFIED' | 'PENDING' | 'MISSING' | 'NEEDS_REVIEW' | 'verified' | 'missing' | 'pending' | 'approved' | 'placeholder';
 
 export interface Section {
   id: string;
