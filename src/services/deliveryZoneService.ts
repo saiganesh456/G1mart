@@ -28,6 +28,7 @@ export const DEFAULT_DELIVERY_ZONES: DeliveryZone[] = [
     isActive: true,
     pincodes: ['524001', '524002', '524003', '524004'],
     supportedAreas: [
+      'Padarupalli',
       'Pogathota',
       'Magunta Layout',
       'Stonehousepet',
@@ -90,6 +91,7 @@ export const DEFAULT_DELIVERY_ZONES: DeliveryZone[] = [
  * Standard Nellore quick-select area list for customer location pickers
  */
 export const NELLORE_AREAS: string[] = [
+  'Padarupalli, Beside Govt Hospital, Nellore - 524004',
   'Magunta Layout, Nellore - 524003',
   'Pogathota, Nellore - 524001',
   'VRC Centre, Trunk Road, Nellore - 524001',

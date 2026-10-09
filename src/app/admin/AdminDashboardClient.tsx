@@ -757,7 +757,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             </span>
           </div>
           <p className="text-xs font-black text-stone-900 truncate">G1 Mart Main Supermarket</p>
-          <p className="text-[10px] text-stone-500 truncate">Nellore A1 Hub • Magunta Layout</p>
+          <p className="text-[10px] text-stone-500 truncate">Nellore Hub • Padarupalli (524004)</p>
         </div>
 
         {/* Navigation Menu Links */}
