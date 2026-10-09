@@ -3,44 +3,24 @@ import { DEMO_CATEGORIES, DEMO_SECTIONS } from '../data/demo-seed';
 import { resolveLegacyId } from '../lib/legacyIdMap';
 
 // ---------------------------------------------------------------------------
-// Load migrated JSON data (1 053 products + 1 231 variants) as server-side module
+// Load migrated JSON data (1 043 products + 1 231 variants) as server-side module
 // These are plain JSON files read at build-time / server startup.
 // ---------------------------------------------------------------------------
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+import migratedProductsData from '../../data/migrated_products.json';
+import migratedVariantsData from '../../data/migrated_product_variants.json';
+import migratedBrandsData from '../../data/migrated_brands.json';
+
 const MIGRATED_PRODUCTS: Array<{
   id: string;
   name: string;
   brand_id?: string | null;
   category_id?: string | null;
   image_url?: string | null;
-}> = (() => {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    return require('../../data/migrated_products.json');
-  } catch {
-    return [];
-  }
-})();
+}> = migratedProductsData;
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const MIGRATED_VARIANTS: ProductVariant[] = (() => {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    return require('../../data/migrated_product_variants.json');
-  } catch {
-    return [];
-  }
-})();
+const MIGRATED_VARIANTS: ProductVariant[] = migratedVariantsData as ProductVariant[];
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const MIGRATED_BRANDS: Array<{ id: string; name: string; logo_url?: string | null }> = (() => {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    return require('../../data/migrated_brands.json');
-  } catch {
-    return [];
-  }
-})();
+const MIGRATED_BRANDS: Array<{ id: string; name: string; logo_url?: string | null }> = migratedBrandsData;
 
 // Build lookup maps once
 const brandNameById = new Map<string, string>(MIGRATED_BRANDS.map((b) => [b.id, b.name]));

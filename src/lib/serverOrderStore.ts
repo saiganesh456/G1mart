@@ -4,6 +4,7 @@ import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import { resolveLegacyId } from '@/lib/legacyIdMap';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import type { Order, OrderItem, PaymentRecord, PaymentStatus, OrderStatus } from '@/types';
+import migratedVariantsData from '../../data/migrated_product_variants.json';
 
 const ORDERS_FILE_PATH = path.join(process.cwd(), 'data', 'g1mart_orders.json');
 const LEGACY_CACHE_PATH = path.join(process.cwd(), '.next', 'g1mart_orders_dev.json');
@@ -52,21 +53,9 @@ export const serverOrderStore = {
    * Client-submitted prices are completely ignored.
    */
   recalculateOrderTotal(rawItems: any[]): RecalculatedCart {
-    // Lazy load migrated variants JSON for server-side price verification
-    let migratedVariants: Array<{ id: string; product_id: string; size_label: string; price: number; mrp: number; stock: number }> = [];
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      migratedVariants = require('../../data/migrated_product_variants.json');
-    } catch {}
-    const variantById = new Map(migratedVariants.map((v) => [v.id, v]));
-
-    // Lazy load migrated products for server-side price verification
-    let migratedProducts: Array<{ id: string; name: string; brand_id?: string; category_id?: string; image_url?: string }> = [];
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      migratedProducts = require('../../data/migrated_products.json');
-    } catch {}
-    const migratedProductById = new Map(migratedProducts.map((p) => [p.id, p]));
+    // Use imported variants and product list for server-side price verification
+    const variantById = new Map((migratedVariantsData as any[]).map((v) => [v.id, v]));
+    const migratedProductById = new Map(MIGRATED_PRODUCT_LIST.map((p) => [p.id, p]));
 
     const verifiedItems: OrderItem[] = [];
     let subtotal = 0;

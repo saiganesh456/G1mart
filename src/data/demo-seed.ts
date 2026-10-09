@@ -6,15 +6,8 @@ const getCategoryTile = (id: string): string => CATEGORY_TILES[id] || `/categori
 
 
 // Load migrated products directly to determine category counts
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const MIGRATED_PROD_ROWS: Array<{ id: string; category_id?: string | null }> = (() => {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    return require('../../data/migrated_products.json');
-  } catch {
-    return [];
-  }
-})();
+import migratedProductsData from '../../data/migrated_products.json';
+const MIGRATED_PROD_ROWS: Array<{ id: string; category_id?: string | null }> = migratedProductsData;
 
 export const DEMO_SECTIONS: Section[] = [
   { id: 'grocery-kitchen', name: 'Grocery & Kitchen', sort_order: 1 },
