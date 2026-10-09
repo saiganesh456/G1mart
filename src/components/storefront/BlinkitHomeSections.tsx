@@ -105,7 +105,7 @@ export default function BlinkitHomeSections({ categories }: BlinkitHomeSectionsP
           </h2>
 
           {/* 4 columns grid, 8px gap (gap-2), soft tinted rounded square tiles */}
-          <div className="grid grid-cols-4 gap-2 sm:gap-3">
+          <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-2 sm:gap-3">
             {section.categories.map((cat) => (
               <CategoryTileItem key={cat.id} cat={cat} sectionId={section.id} />
             ))}

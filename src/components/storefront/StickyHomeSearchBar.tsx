@@ -25,7 +25,7 @@ export default function StickyHomeSearchBar() {
 
   return (
     <>
-      <div data-sticky-search-wrapper="true" className="sticky top-0 z-30 bg-white/95 backdrop-blur-md -mx-3 sm:-mx-4 lg:-mx-6 px-3 sm:px-4 lg:px-6 py-2.5 border-b border-stone-200/80 shadow-xs">
+      <div data-sticky-search-wrapper="true" className="sticky top-0 z-30 bg-white/95 backdrop-blur-md lg:hidden -mx-3 sm:-mx-4 lg:-mx-6 px-3 sm:px-4 lg:px-6 py-2.5 border-b border-stone-200/80 shadow-xs">
         <form onSubmit={handleSubmit} role="search">
           <div className="relative flex items-center max-w-xl mx-auto">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />

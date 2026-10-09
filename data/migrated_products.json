@@ -9,10 +9,11 @@
     "sub_category": "Cookies",
     "subCategory": "Cookies",
     "image_url": "/products/verified/g1-p0001.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "store_camera",
-    "image_license": "Proprietary / G1 Mart"
+    "image_license": "Proprietary / G1 Mart",
+    "image_check_reason": "Fake placeholder box"
   },
   {
     "id": "g1-p0002",
@@ -24,10 +25,11 @@
     "sub_category": "Cookies",
     "subCategory": "Cookies",
     "image_url": "/products/verified/g1-p0002.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "store_camera",
-    "image_license": "Proprietary / G1 Mart"
+    "image_license": "Proprietary / G1 Mart",
+    "image_check_reason": "Fake placeholder box"
   },
   {
     "id": "g1-p0003",
@@ -39,10 +41,11 @@
     "sub_category": "Bathing Soaps",
     "subCategory": "Bathing Soaps",
     "image_url": "/products/verified/g1-p0003.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "store_camera",
-    "image_license": "Proprietary / G1 Mart"
+    "image_license": "Proprietary / G1 Mart",
+    "image_check_reason": "Fake placeholder box"
   },
   {
     "id": "g1-p0004",
@@ -54,11 +57,12 @@
     "sub_category": "Energy & Health Drinks",
     "subCategory": "Energy & Health Drinks",
     "image_url": "/products/verified/g1-p0004.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts (Glucon-D)"
+    "image_attribution": "Open Food Facts (Glucon-D)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0005",
@@ -130,11 +134,12 @@
     "sub_category": "Hair Oil",
     "subCategory": "Hair Oil",
     "image_url": "/products/verified/g1-p0009.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts (keo karpin)"
+    "image_attribution": "Open Food Facts (keo karpin)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0010",
@@ -311,11 +316,12 @@
     "sub_category": "Milk & Curd",
     "subCategory": "Milk & Curd",
     "image_url": "/products/verified/g1-p0022.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts (Hatsun)"
+    "image_attribution": "Open Food Facts (Hatsun)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0023",
@@ -372,11 +378,12 @@
     "sub_category": "Biscuits",
     "subCategory": "Biscuits",
     "image_url": "/products/verified/g1-p0026.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts (Parle)"
+    "image_attribution": "Open Food Facts (Parle)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0027",
@@ -418,10 +425,11 @@
     "sub_category": "Dishwash Bars & Liquids",
     "subCategory": "Dishwash Bars & Liquids",
     "image_url": "/products/packshots/launch-plate.jpg",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "packshot",
-    "image_license": "Proprietary"
+    "image_license": "Proprietary",
+    "image_check_reason": "No brand name readable, white background"
   },
   {
     "id": "g1-p0030",
@@ -524,10 +532,11 @@
     "sub_category": "Detergent Powders & Liquids",
     "subCategory": "Detergent Powders & Liquids",
     "image_url": "/products/packshots/ariel-front-liq.jpg",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "packshot",
-    "image_license": "Proprietary"
+    "image_license": "Proprietary",
+    "image_check_reason": "No transparent background"
   },
   {
     "id": "g1-p0037",
@@ -885,11 +894,12 @@
     "sub_category": "Biscuits",
     "subCategory": "Biscuits",
     "image_url": "/products/verified/g1-p0060.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts (Sunfeast)"
+    "image_attribution": "Open Food Facts (Sunfeast)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0061",
@@ -904,7 +914,8 @@
     "image_status": "verified",
     "barcode": null,
     "image_source": "packshot",
-    "image_license": "Proprietary"
+    "image_license": "Proprietary",
+    "image_check_reason": "Passes all checks"
   },
   {
     "id": "g1-p0062",
@@ -946,11 +957,12 @@
     "sub_category": "Masala Powders",
     "subCategory": "Masala Powders",
     "image_url": "/products/verified/g1-p0064.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts (MTR)"
+    "image_attribution": "Open Food Facts (MTR)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0065",
@@ -1353,11 +1365,12 @@
     "sub_category": "Tea",
     "subCategory": "Tea",
     "image_url": "/products/verified/g1-p0092.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts (BROOKE BOND)"
+    "image_attribution": "Open Food Facts (BROOKE BOND)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0093",
@@ -1639,11 +1652,12 @@
     "sub_category": "Detergent Powders & Liquids",
     "subCategory": "Detergent Powders & Liquids",
     "image_url": "/products/verified/g1-p0113.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts ()"
+    "image_attribution": "Open Food Facts ()",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0114",
@@ -1700,11 +1714,12 @@
     "sub_category": "Shampoo",
     "subCategory": "Shampoo",
     "image_url": "/products/verified/g1-p0117.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts (Parachute)"
+    "image_attribution": "Open Food Facts (Parachute)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0118",
@@ -2965,11 +2980,12 @@
     "sub_category": "Shampoo",
     "subCategory": "Shampoo",
     "image_url": "/products/verified/g1-p0201.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts ()"
+    "image_attribution": "Open Food Facts ()",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0202",
@@ -3101,11 +3117,12 @@
     "sub_category": "Dry Fruits & Nuts",
     "subCategory": "Dry Fruits & Nuts",
     "image_url": "/products/verified/g1-p0210.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts (Unibic)"
+    "image_attribution": "Open Food Facts (Unibic)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0211",
@@ -4005,12 +4022,13 @@
     "sub_category": "Chocolates",
     "subCategory": "Chocolates",
     "image_url": "/products/verified/g1-p0270.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
     "rawName": "Dairy Milk Fruit&nut",
-    "image_attribution": "Open Food Facts (Cadbury)"
+    "image_attribution": "Open Food Facts (Cadbury)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0271",
@@ -4337,12 +4355,13 @@
     "sub_category": "Sauces & Ketchup",
     "subCategory": "Jams & Spreads",
     "image_url": "/products/verified/g1-p0293.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
     "rawName": "Kisan Mixedfruit 2RS",
-    "image_attribution": "Open Food Facts (kissan)"
+    "image_attribution": "Open Food Facts (kissan)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0294",
@@ -4669,12 +4688,13 @@
     "sub_category": "Pulses & Dal",
     "subCategory": "Jams & Spreads",
     "image_url": "/products/verified/g1-p0315.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
     "rawName": "Kissan Peanut Butter Crunchy",
-    "image_attribution": "Open Food Facts (Kissan)"
+    "image_attribution": "Open Food Facts (Kissan)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0316",
@@ -5857,11 +5877,12 @@
     "sub_category": "Other Staples",
     "subCategory": "Other Staples",
     "image_url": "/products/verified/g1-p0395.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts (KRBL limited)"
+    "image_attribution": "Open Food Facts (KRBL limited)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0396",
@@ -6218,11 +6239,12 @@
     "sub_category": "Biscuits",
     "subCategory": "Biscuits",
     "image_url": "/products/verified/g1-p0419.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts ()"
+    "image_attribution": "Open Food Facts ()",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0420",
@@ -6355,10 +6377,11 @@
     "sub_category": "Pulses & Dal",
     "subCategory": "Pulses & Dal",
     "image_url": "/products/packshots/lalitha-idli-rava.jpg",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "packshot",
-    "image_license": "Proprietary"
+    "image_license": "Proprietary",
+    "image_check_reason": "No transparent background"
   },
   {
     "id": "g1-p0429",
@@ -6490,11 +6513,12 @@
     "sub_category": "Poha & Dalia",
     "subCategory": "Poha & Dalia",
     "image_url": "/products/verified/g1-p0437.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts (Aashirvaad)"
+    "image_attribution": "Open Food Facts (Aashirvaad)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0438",
@@ -8592,10 +8616,11 @@
     "sub_category": "Atta & Flours",
     "subCategory": "Atta & Flours",
     "image_url": "/products/packshots/haldiram-khatta-meetha.jpg",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "packshot",
-    "image_license": "Proprietary"
+    "image_license": "Proprietary",
+    "image_check_reason": "No transparent background"
   },
   {
     "id": "g1-p0578",
@@ -8923,12 +8948,13 @@
     "sub_category": "Masala Powders",
     "subCategory": "Noodles & Pasta",
     "image_url": "/products/verified/g1-p0599.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
     "rawName": "Yippee Noodles Magic Masala",
-    "image_attribution": "Open Food Facts (ITC, Sunfeast)"
+    "image_attribution": "Open Food Facts (ITC, Sunfeast)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0600",
@@ -10009,11 +10035,12 @@
     "sub_category": "Sauces & Ketchup",
     "subCategory": "Sauces & Ketchup",
     "image_url": "/products/verified/g1-p0671.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts (Knorr)"
+    "image_attribution": "Open Food Facts (Knorr)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0672",
@@ -11439,10 +11466,11 @@
     "sub_category": "Sanitary Pads & Napkins",
     "subCategory": "Sanitary Pads & Napkins",
     "image_url": "/products/jg-020.jpg",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "packshot",
-    "image_license": "Proprietary"
+    "image_license": "Proprietary",
+    "image_check_reason": "No transparent background"
   },
   {
     "id": "g1-p0768",
@@ -11499,10 +11527,11 @@
     "sub_category": "Kitchen Storage & Utilities",
     "subCategory": "Kitchen Storage & Utilities",
     "image_url": "/products/jg-024.jpg",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "packshot",
-    "image_license": "Proprietary"
+    "image_license": "Proprietary",
+    "image_check_reason": "No transparent background"
   },
   {
     "id": "g1-p0772",
@@ -12010,11 +12039,12 @@
     "sub_category": "Instant Noodles & Pasta",
     "subCategory": "Instant Noodles & Pasta",
     "image_url": "/products/verified/g1-p0807.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts (Sunfeast)"
+    "image_attribution": "Open Food Facts (Sunfeast)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0808",
@@ -12674,12 +12704,13 @@
     "sub_category": "Masala Powders",
     "subCategory": "Chips & Crisps",
     "image_url": "/products/verified/g1-p0851.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
     "rawName": "Bingo Masala",
-    "image_attribution": "Open Food Facts (Bingo)"
+    "image_attribution": "Open Food Facts (Bingo)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p0852",
@@ -14283,10 +14314,11 @@
     "sub_category": "Tea",
     "subCategory": "Tea",
     "image_url": "/products/packshots/red-label-tea.png",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "packshot",
-    "image_license": "Proprietary"
+    "image_license": "Proprietary",
+    "image_check_reason": "Bad cutout with jagged edges and white blobs"
   },
   {
     "id": "g1-p0959",
@@ -15501,11 +15533,12 @@
     "sub_category": "Jams & Spreads",
     "subCategory": "Jams & Spreads",
     "image_url": "/products/verified/g1-p1040.webp",
-    "image_status": "verified",
+    "image_status": "rejected",
     "barcode": null,
     "image_source": "Open Food Facts",
     "image_license": "ODbL / CC-BY-SA 3.0",
-    "image_attribution": "Open Food Facts (MTR)"
+    "image_attribution": "Open Food Facts (MTR)",
+    "image_check_reason": "Invalid source (Open Food Facts)"
   },
   {
     "id": "g1-p1041",

@@ -8,7 +8,11 @@
     "image_url": "/banners/monthly-list.svg",
     "badge": "SLIP SCAN",
     "sort_order": 1,
-    "active": true
+    "active": true,
+    "bg_image": "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1200",
+    "products": [
+      "/products/packshots/good-day.png"
+    ]
   },
   {
     "id": "banner-fresh-produce",
@@ -19,7 +23,9 @@
     "image_url": "/banners/vegetables-fruits.svg",
     "badge": "FARM FRESH",
     "sort_order": 2,
-    "active": true
+    "active": true,
+    "bg_image": "https://images.unsplash.com/photo-1518843875459-f738682238a6?auto=format&fit=crop&q=80&w=1200",
+    "products": []
   },
   {
     "id": "banner-household",
@@ -30,7 +36,9 @@
     "image_url": "/banners/household.svg",
     "badge": "TOP BRANDS",
     "sort_order": 3,
-    "active": true
+    "active": true,
+    "bg_image": "https://images.unsplash.com/photo-1584820927498-cafe8c1c6820?auto=format&fit=crop&q=80&w=1200",
+    "products": []
   },
   {
     "id": "banner-snacks-drinks",
@@ -41,6 +49,10 @@
     "image_url": "/banners/snacks-drinks.svg",
     "badge": "QUICK BITES",
     "sort_order": 4,
-    "active": true
+    "active": true,
+    "bg_image": "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&q=80&w=1200",
+    "products": [
+      "/products/packshots/good-day.png"
+    ]
   }
 ]
