@@ -47,3 +47,5 @@ __pycache__/
 
 # Local backup
 backup_pre_migration/
+backup_pre_phase1/
+backup_master_task/
