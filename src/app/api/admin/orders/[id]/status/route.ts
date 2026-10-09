@@ -57,6 +57,14 @@ export async function POST(
       );
     }
 
+    // Trigger targeted background Web Push notification directly to the customer (even when app is closed)
+    try {
+      const { serverPushService } = await import('@/lib/serverPushService');
+      await serverPushService.sendOrderPushNotification(result.order, status as OrderStatus);
+    } catch (pushErr) {
+      console.warn('[Admin Order Status] Push dispatch notice:', pushErr);
+    }
+
     return NextResponse.json({
       success: true,
       order: result.order,

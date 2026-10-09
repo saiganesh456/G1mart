@@ -831,46 +831,46 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             <span>📢 Test Voice Alert</span>
           </button>
 
-          {/* Quick-Commerce Notification Simulator */}
+          {/* Customer Push Notification Simulator */}
           <div className="pt-2 border-t border-stone-200/80 space-y-1.5">
             <span className="text-[10px] font-black uppercase text-stone-500 tracking-wider block">
-              Customer Push Simulator
+              Customer Notification Test
             </span>
             <div className="grid grid-cols-2 gap-1.5">
               <button
                 type="button"
-                onClick={() => notifyWelcome('Harsha')}
-                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate"
+                onClick={() => notifyWelcome('Customer')}
+                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate cursor-pointer"
               >
-                🎉 VIP Welcome
+                Welcome Alert
               </button>
               <button
                 type="button"
                 onClick={() => notifyApkDownloaded()}
-                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate"
+                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate cursor-pointer"
               >
-                ⚡ APK Download
+                APK Download
               </button>
               <button
                 type="button"
-                onClick={() => notifyOrderStatus('G1-82914', 'Packed')}
-                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate"
+                onClick={() => notifyOrderStatus('G1-82914', 'Packed', { userId: 'admin' })}
+                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate cursor-pointer"
               >
-                📦 Order Packed
+                Order Packed
               </button>
               <button
                 type="button"
-                onClick={() => notifyOrderStatus('G1-82914', 'Out for Delivery')}
-                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate"
+                onClick={() => notifyOrderStatus('G1-82914', 'Out for Delivery', { userId: 'admin' })}
+                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate cursor-pointer"
               >
-                🛵 Out Delivery
+                Out for Delivery
               </button>
               <button
                 type="button"
-                onClick={() => notifyOrderStatus('G1-82914', 'Delivered')}
-                className="col-span-2 px-2 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-lg text-[10px] font-bold text-center transition-all"
+                onClick={() => notifyOrderStatus('G1-82914', 'Delivered', { userId: 'admin' })}
+                className="col-span-2 px-2 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-[#2E7D32] border border-emerald-200 rounded-lg text-[10px] font-bold text-center transition-all cursor-pointer"
               >
-                ✨ Delivered Celebration
+                Order Delivered
               </button>
             </div>
           </div>
