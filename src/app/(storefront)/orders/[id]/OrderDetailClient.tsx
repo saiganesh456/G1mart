@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { ArrowLeft, Clock, MapPin, CheckCircle2, Navigation, Phone, Package, ShieldCheck } from 'lucide-react';
 import { formatIndianPhoneDisplay } from '@/lib/phone';
 import { STORE_CONFIG } from '@/config/store';
+import { useNotification } from '@/context/NotificationContext';
 
 interface Props {
   orderId: string;
@@ -14,6 +15,7 @@ interface Props {
 export default function OrderDetailClient({ orderId }: Props) {
   const searchParams = useSearchParams();
   const isJustPlaced = searchParams.get('placed') === 'true';
+  const { notifyOrderStatus } = useNotification();
 
   const [order, setOrder] = useState<any>(null);
 
@@ -47,7 +49,12 @@ export default function OrderDetailClient({ orderId }: Props) {
         const res = await fetch(`/api/orders/${orderId}`);
         const data = await res.json();
         if (data.success && data.order) {
-          setOrder((prev: any) => ({ ...prev, ...data.order }));
+          setOrder((prev: any) => {
+            if (prev && prev.status && prev.status !== data.order.status) {
+              notifyOrderStatus(orderId, data.order.status, data.order);
+            }
+            return { ...prev, ...data.order };
+          });
           try {
             sessionStorage.setItem('g1mart_latest_order', JSON.stringify(data.order));
             localStorage.setItem('g1mart_recent_order', JSON.stringify(data.order));
@@ -59,7 +66,12 @@ export default function OrderDetailClient({ orderId }: Props) {
         const payRes = await fetch(`/api/orders/${orderId}/payment-status`);
         const payData = await payRes.json();
         if (payData.success && payData.order) {
-          setOrder((prev: any) => ({ ...prev, ...payData.order }));
+          setOrder((prev: any) => {
+            if (prev && prev.status && prev.status !== payData.order.status) {
+              notifyOrderStatus(orderId, payData.order.status, payData.order);
+            }
+            return { ...prev, ...payData.order };
+          });
         }
       } catch (err) {
         // quiet polling error
@@ -102,6 +114,12 @@ export default function OrderDetailClient({ orderId }: Props) {
       if (bc) bc.close();
     };
   }, [orderId]);
+
+  useEffect(() => {
+    if (isJustPlaced) {
+      notifyOrderStatus(orderId, 'Order Placed');
+    }
+  }, [isJustPlaced, orderId, notifyOrderStatus]);
 
   const address = order?.address || null;
   const items = order?.items || [];

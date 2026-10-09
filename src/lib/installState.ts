@@ -76,6 +76,13 @@ export async function executeInstallFlow(
 ): Promise<'pwa' | 'apk'> {
   markAppInstalled(userId);
 
+  // Trigger global APK download / installation notification & chime
+  if (typeof window !== 'undefined') {
+    try {
+      window.dispatchEvent(new CustomEvent('g1mart:apk-downloaded'));
+    } catch {}
+  }
+
   // 1. If Chrome PWA prompt is available, launch WebAPK native installation
   if (deferredInstallPrompt) {
     try {

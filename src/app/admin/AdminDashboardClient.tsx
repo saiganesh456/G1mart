@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import type { Category, Product, Order, StaffMember } from '@/types';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
+import { useNotification } from '@/context/NotificationContext';
 
 // Tab components
 import HomeTab from '@/components/admin/tabs/HomeTab';
@@ -51,7 +52,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     riders: [],
   });
 
-  // Notifications & Loud Voice Alarm State
+  // Notifications & Quick-Commerce Alert Engine
+  const { notifyWelcome, notifyApkDownloaded, notifyOrderStatus } = useNotification();
   const [audioEnabled, setAudioEnabled] = useState(true);
   const [isAlarmRinging, setIsAlarmRinging] = useState(false);
   const [newOrderAlert, setNewOrderAlert] = useState<Order | null>(null);
@@ -828,6 +830,50 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           >
             <span>📢 Test Voice Alert</span>
           </button>
+
+          {/* Quick-Commerce Notification Simulator */}
+          <div className="pt-2 border-t border-stone-200/80 space-y-1.5">
+            <span className="text-[10px] font-black uppercase text-stone-500 tracking-wider block">
+              Customer Push Simulator
+            </span>
+            <div className="grid grid-cols-2 gap-1.5">
+              <button
+                type="button"
+                onClick={() => notifyWelcome('Harsha')}
+                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate"
+              >
+                🎉 VIP Welcome
+              </button>
+              <button
+                type="button"
+                onClick={() => notifyApkDownloaded()}
+                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate"
+              >
+                ⚡ APK Download
+              </button>
+              <button
+                type="button"
+                onClick={() => notifyOrderStatus('G1-82914', 'Packed')}
+                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate"
+              >
+                📦 Order Packed
+              </button>
+              <button
+                type="button"
+                onClick={() => notifyOrderStatus('G1-82914', 'Out for Delivery')}
+                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate"
+              >
+                🛵 Out Delivery
+              </button>
+              <button
+                type="button"
+                onClick={() => notifyOrderStatus('G1-82914', 'Delivered')}
+                className="col-span-2 px-2 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-lg text-[10px] font-bold text-center transition-all"
+              >
+                ✨ Delivered Celebration
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Store Manager Footer */}
