@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { Bike, ShieldCheck, ArrowRight, Volume2 } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
+import { soundAlerts } from '@/lib/soundAlerts';
 import type { Category, Section } from '@/types';
 
 interface BlinkitHomeSectionsProps {
@@ -100,6 +103,8 @@ function CategoryTileItem({ cat, index }: { cat: Category; index: number }) {
 }
 
 export default function BlinkitHomeSections({ sections, categories }: BlinkitHomeSectionsProps) {
+  const { user } = useAuth();
+
   // Define default 4 sections if none passed or ordering them strictly
   const orderedSections = [
     { id: 'grocery-kitchen', name: 'Grocery & Kitchen' },
@@ -124,6 +129,88 @@ export default function BlinkitHomeSections({ sections, categories }: BlinkitHom
 
   return (
     <div className="space-y-6 sm:space-y-8 lg:space-y-9">
+      {/* ── Rider Partner Quick Access Banner on Home Page ── */}
+      {(user?.role === 'delivery_partner' || user?.role === 'rider') && (
+        <div className="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-[#1A2E1C] via-[#162B18] to-[#0D1C0F] text-white border border-emerald-500/50 shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-400/30">
+              <Bike className="w-5 h-5 text-emerald-400 animate-pulse" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                <h3 className="text-sm font-black text-white">Rider Partner Mode Active</h3>
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 font-extrabold px-2 py-0.5 rounded-full border border-emerald-400/30">
+                  On Duty
+                </span>
+              </div>
+              <p className="text-xs text-emerald-200/90 mt-0.5">
+                Logged in as <b>{user?.name || user?.email}</b>. Live delivery route & order dispatch available.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <button
+              type="button"
+              onClick={() => soundAlerts.playRiderAssignmentChime()}
+              className="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-emerald-300 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
+              title="Test notification sound chime"
+            >
+              <Volume2 className="w-3.5 h-3.5" />
+              <span>Test Sound</span>
+            </button>
+            <Link
+              href="/rider"
+              className="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-stone-950 font-black text-xs sm:text-sm shadow-sm transition-transform active:scale-95 flex items-center justify-center gap-1.5"
+            >
+              <span>Open Rider Console</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* ── Admin Panel Quick Access Banner on Home Page ── */}
+      {user?.role === 'admin' && (
+        <div className="p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-950 text-white border border-blue-500/40 shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0 border border-blue-400/30">
+              <ShieldCheck className="w-5 h-5 text-blue-400" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                <h3 className="text-sm font-black text-white">Store Administrator Mode</h3>
+                <span className="text-[10px] bg-blue-500/20 text-blue-300 font-extrabold px-2 py-0.5 rounded-full border border-blue-400/30">
+                  Full Access
+                </span>
+              </div>
+              <p className="text-xs text-slate-300 mt-0.5">
+                Quick access to darkstore inventory, order dispatch, photo queue, and delivery staff.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <button
+              type="button"
+              onClick={() => soundAlerts.playRoleGrantedChime()}
+              className="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-blue-300 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
+              title="Test notification sound chime"
+            >
+              <Volume2 className="w-3.5 h-3.5" />
+              <span>Test Sound</span>
+            </button>
+            <Link
+              href="/admin"
+              className="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-blue-500 hover:bg-blue-400 text-white font-black text-xs sm:text-sm shadow-sm transition-transform active:scale-95 flex items-center justify-center gap-1.5"
+            >
+              <span>Open Admin Panel</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      )}
+
       {/* Master Department Quick Jump Pills — Guarantees laptop users immediately see all 4 departments */}
       <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 pt-0.5 border-b border-stone-100">
         <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider shrink-0 hidden sm:inline">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Order, StaffMember, OrderStatus } from '@/types';
+import { soundAlerts } from '@/lib/soundAlerts';
 import {
   ArrowLeft,
   CheckCircle2,
@@ -141,6 +142,7 @@ export default function OrderDetailsPanel({
           vehicleNumber: 'AP 26 EQ 4589',
         };
 
+    soundAlerts.playRiderAssignmentChime();
     onUpdateStatus(order.id, 'Rider Assigned', riderInfo);
   };
 

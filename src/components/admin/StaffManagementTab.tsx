@@ -19,6 +19,7 @@ import {
   Info,
 } from 'lucide-react';
 import type { StaffMember } from '@/types';
+import { soundAlerts } from '@/lib/soundAlerts';
 
 export default function StaffManagementTab() {
   const [admins, setAdmins] = useState<StaffMember[]>([]);
@@ -106,6 +107,7 @@ export default function StaffManagementTab() {
       });
       const data = await res.json();
       if (data.success) {
+        soundAlerts.playRoleGrantedChime();
         setFeedback({
           type: 'success',
           message: `Admin access granted to ${adminEmail}. They will automatically open the Admin Console when logging in.`,
@@ -182,6 +184,7 @@ export default function StaffManagementTab() {
       });
       const data = await res.json();
       if (data.success) {
+        soundAlerts.playRoleGrantedChime();
         setFeedback({
           type: 'success',
           message: `Delivery Rider ${riderName} registered. When logging in with ${riderEmail}, they will automatically enter the Rider Console.`,

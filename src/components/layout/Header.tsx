@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { Search, ShoppingBag, User, MapPin, ChevronDown, Camera, Home, Package, LayoutGrid } from 'lucide-react';
+import { Search, ShoppingBag, User, MapPin, ChevronDown, Camera, Home, Package, LayoutGrid, Bike, ShieldCheck } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useLocation } from '@/context/LocationContext';
 import { useAuth } from '@/context/AuthContext';
@@ -191,8 +191,8 @@ export default function Header() {
 
         {/* ── Desktop Header ── */}
         <div className="hidden lg:block">
-          <div className="max-w-7xl mx-auto px-4 lg:px-6 py-2.5 flex items-center justify-between gap-4">
-            {/* Left: Logo & Location Selector */}
+          <div className="w-full px-3 sm:px-6 lg:px-8 xl:px-10 py-2.5 flex items-center justify-between gap-3 xl:gap-4">
+            {/* Left: Logo & Location Selector (Pushed to the left corner) */}
             <div className="flex items-center gap-3 xl:gap-4 shrink-0">
               <Link href="/" className="shrink-0" aria-label="G1 Mart home">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -254,7 +254,7 @@ export default function Header() {
               </div>
             </form>
 
-            {/* Right: Desktop Navigation links (Anchored to the right margin) */}
+            {/* Right: Desktop Navigation links (Anchored firmly to the right corner) */}
             <nav className="flex items-center gap-1.5 xl:gap-2 shrink-0 ml-auto">
               <Link
                 href="/"
@@ -276,6 +276,30 @@ export default function Header() {
                 <span>Categories</span>
               </Link>
 
+              {/* Rider Console Direct Button (If user has rider rights) */}
+              {(user?.role === 'delivery_partner' || user?.role === 'rider') && (
+                <Link
+                  href="/rider"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#1A2E1C] hover:bg-black text-emerald-400 font-extrabold text-xs border border-emerald-500/50 shadow-xs transition-all active:scale-95"
+                  title="Open Rider Delivery Console"
+                >
+                  <Bike className="w-4 h-4 text-emerald-400 animate-pulse" />
+                  <span>Rider Console</span>
+                </Link>
+              )}
+
+              {/* Admin Panel Direct Button (If user has admin rights) */}
+              {user?.role === 'admin' && (
+                <Link
+                  href="/admin"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#0f172a] hover:bg-black text-blue-400 font-extrabold text-xs border border-blue-500/50 shadow-xs transition-all active:scale-95"
+                  title="Open Admin Management Console"
+                >
+                  <ShieldCheck className="w-4 h-4 text-blue-400" />
+                  <span>Admin Panel</span>
+                </Link>
+              )}
+
               <Link
                 href="/orders"
                 className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center gap-1.5 ${
@@ -288,7 +312,9 @@ export default function Header() {
 
               <Link
                 href={isLoggedIn ? '/account' : '/login'}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm text-stone-600 hover:text-[#2E7D32] hover:bg-stone-100 font-semibold transition-colors"
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-colors ${
+                  pathname.startsWith('/account') ? 'text-[#2E7D32] bg-emerald-50 font-bold' : 'text-stone-600 hover:text-[#2E7D32] hover:bg-stone-100'
+                }`}
               >
                 {user?.avatar ? (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -306,6 +332,7 @@ export default function Header() {
                 <span>{isLoggedIn ? (user?.name ? user.name.split(' ')[0] : 'Account') : 'Sign In'}</span>
               </Link>
 
+              {/* Cart Button — Anchored at the far right corner */}
               <Link
                 href="/cart"
                 className="relative ml-1 flex items-center gap-2 h-10 px-4 rounded-xl bg-[#2E7D32] hover:bg-[#1b5e20] text-white font-bold text-sm shadow-sm transition-all active:scale-98 shrink-0"
@@ -325,9 +352,9 @@ export default function Header() {
             </nav>
           </div>
 
-          {/* Desktop category nav strip — comprehensive access to all sections and departments */}
+          {/* Desktop category nav strip — comprehensive full-width edge-to-edge access */}
           <div className="border-t border-stone-200/60 bg-stone-50/90">
-            <div className="max-w-7xl mx-auto px-4 lg:px-6 py-1.5 flex items-center gap-1 overflow-x-auto no-scrollbar text-xs font-bold">
+            <div className="w-full px-3 sm:px-6 lg:px-8 xl:px-10 py-1.5 flex items-center gap-1 overflow-x-auto no-scrollbar text-xs font-bold">
               <Link
                 href="/categories"
                 className="whitespace-nowrap px-3 py-1.5 rounded-lg bg-emerald-100 text-[#1B5E20] hover:bg-emerald-200 shadow-2xs font-black shrink-0 transition-colors"

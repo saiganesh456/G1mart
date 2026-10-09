@@ -24,11 +24,13 @@ import {
   ShoppingBag,
   Check,
   Info,
+  Volume2,
 } from 'lucide-react';
 import type { Order } from '@/types';
 import { formatIndianPhoneDisplay } from '@/lib/phone';
 import RiderAuthGuard from '@/components/rider/RiderAuthGuard';
 import { useAuth } from '@/context/AuthContext';
+import { soundAlerts } from '@/lib/soundAlerts';
 
 export default function RiderPage() {
   const { user } = useAuth();
@@ -58,13 +60,27 @@ export default function RiderPage() {
     });
   };
 
+  const knownOrderIdsRef = React.useRef<Set<string> | null>(null);
+
   const fetchOrders = async () => {
     setLoading(true);
     try {
       const res = await fetch('/api/admin/orders');
       const data = await res.json();
       if (data.success && Array.isArray(data.orders)) {
-        setOrders(data.orders);
+        const newOrders: Order[] = data.orders;
+        if (knownOrderIdsRef.current !== null) {
+          const hasNewOrder = newOrders.some(
+            (o) =>
+              !knownOrderIdsRef.current!.has(o.id) &&
+              (o.status === 'Rider Assigned' || o.status === 'Ready for Pickup' || o.status === 'Out for Delivery')
+          );
+          if (hasNewOrder) {
+            soundAlerts.playRiderAssignmentChime();
+          }
+        }
+        knownOrderIdsRef.current = new Set(newOrders.map((o) => o.id));
+        setOrders(newOrders);
       }
     } catch (err) {
       console.error('Failed to load rider orders', err);
@@ -219,9 +235,19 @@ export default function RiderPage() {
             <div className="flex items-center gap-2">
               <button
                 type="button"
+                onClick={() => soundAlerts.playRiderAssignmentChime()}
+                className="h-9 px-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5 text-xs font-bold transition-all border border-white/10 cursor-pointer active:scale-95"
+                title="Test notification alert chime"
+              >
+                <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="hidden sm:inline">Test</span>
+                <span>Alert</span>
+              </button>
+              <button
+                type="button"
                 onClick={fetchOrders}
                 disabled={loading}
-                className="w-9 h-9 rounded-2xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all border border-white/10"
+                className="w-9 h-9 rounded-2xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all border border-white/10 cursor-pointer active:scale-95"
                 title="Refresh dispatch queue"
               >
                 <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
