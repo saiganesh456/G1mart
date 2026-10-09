@@ -2,77 +2,77 @@
   {
     "id": "brand-3-roses",
     "name": "3 Roses",
-    "logo_url": null,
+    "logo_url": "/brands/3-roses.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 6
   },
   {
     "id": "brand-aachi",
     "name": "Aachi",
-    "logo_url": null,
+    "logo_url": "/brands/aachi.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 13
   },
   {
     "id": "brand-aashirvaad",
     "name": "Aashirvaad",
-    "logo_url": null,
+    "logo_url": "/brands/aashirvaad.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 7
   },
   {
     "id": "brand-ariel",
     "name": "Ariel",
-    "logo_url": null,
+    "logo_url": "/brands/ariel.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 2
   },
   {
     "id": "brand-arun-icecreams",
     "name": "Arun Icecreams",
-    "logo_url": null,
+    "logo_url": "/brands/arun-icecreams.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 22
   },
   {
     "id": "brand-bambino",
     "name": "Bambino",
-    "logo_url": null,
+    "logo_url": "/brands/bambino.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 2
   },
   {
     "id": "brand-bingo",
     "name": "Bingo",
-    "logo_url": null,
+    "logo_url": "/brands/bingo.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 5
   },
   {
     "id": "brand-boost",
     "name": "Boost",
-    "logo_url": null,
+    "logo_url": "/brands/boost.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 2
   },
   {
     "id": "brand-britannia",
     "name": "Britannia",
-    "logo_url": null,
+    "logo_url": "/brands/britannia.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 9
   },
   {
     "id": "brand-bru",
     "name": "Bru",
-    "logo_url": null,
+    "logo_url": "/brands/bru.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 6
   },
   {
     "id": "brand-cadbury",
     "name": "Cadbury",
-    "logo_url": null,
+    "logo_url": "/brands/cadbury.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 9
   },
@@ -86,28 +86,28 @@
   {
     "id": "brand-cinthol",
     "name": "Cinthol",
-    "logo_url": null,
+    "logo_url": "/brands/cinthol.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 3
   },
   {
     "id": "brand-close-up",
     "name": "Close Up",
-    "logo_url": null,
+    "logo_url": "/brands/close-up.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 2
   },
   {
     "id": "brand-coca-cola",
     "name": "Coca-Cola",
-    "logo_url": null,
+    "logo_url": "/brands/coca-cola.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 1
   },
   {
     "id": "brand-colgate",
     "name": "Colgate",
-    "logo_url": null,
+    "logo_url": "/brands/colgate.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 17
   },
@@ -121,35 +121,35 @@
   {
     "id": "brand-dabur",
     "name": "Dabur",
-    "logo_url": null,
+    "logo_url": "/brands/dabur.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 9
   },
   {
     "id": "brand-dettol",
     "name": "Dettol",
-    "logo_url": null,
+    "logo_url": "/brands/dettol.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 4
   },
   {
     "id": "brand-domex",
     "name": "Domex",
-    "logo_url": null,
+    "logo_url": "/brands/domex.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 2
   },
   {
     "id": "brand-dove",
     "name": "Dove",
-    "logo_url": null,
+    "logo_url": "/brands/dove.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 4
   },
   {
     "id": "brand-exo",
     "name": "Exo",
-    "logo_url": null,
+    "logo_url": "/brands/exo.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 8
   },
@@ -163,7 +163,7 @@
   {
     "id": "brand-freedom",
     "name": "Freedom",
-    "logo_url": null,
+    "logo_url": "/brands/freedom.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 6
   },
@@ -205,28 +205,28 @@
   {
     "id": "brand-harpic",
     "name": "Harpic",
-    "logo_url": null,
+    "logo_url": "/brands/harpic.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 3
   },
   {
     "id": "brand-hatsun",
     "name": "Hatsun",
-    "logo_url": null,
+    "logo_url": "/brands/hatsun.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 6
   },
   {
     "id": "brand-himalaya",
     "name": "Himalaya",
-    "logo_url": null,
+    "logo_url": "/brands/himalaya.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 4
   },
   {
     "id": "brand-horlicks",
     "name": "Horlicks",
-    "logo_url": null,
+    "logo_url": "/brands/horlicks.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 6
   },
@@ -247,14 +247,14 @@
   {
     "id": "brand-lifebuoy",
     "name": "Lifebuoy",
-    "logo_url": null,
+    "logo_url": "/brands/lifebuoy.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 4
   },
   {
     "id": "brand-lizol",
     "name": "Lizol",
-    "logo_url": null,
+    "logo_url": "/brands/lizol.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 1
   },
@@ -268,7 +268,7 @@
   {
     "id": "brand-medimix",
     "name": "Medimix",
-    "logo_url": null,
+    "logo_url": "/brands/medimix.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 3
   },
@@ -282,14 +282,14 @@
   {
     "id": "brand-mysore-sandal",
     "name": "Mysore Sandal",
-    "logo_url": null,
+    "logo_url": "/brands/mysore-sandal.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 8
   },
   {
     "id": "brand-nestle",
     "name": "Nestle",
-    "logo_url": null,
+    "logo_url": "/brands/nestle.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 6
   },
@@ -303,105 +303,105 @@
   {
     "id": "brand-parachute",
     "name": "Parachute",
-    "logo_url": null,
+    "logo_url": "/brands/parachute.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 5
   },
   {
     "id": "brand-parle",
     "name": "Parle",
-    "logo_url": null,
+    "logo_url": "/brands/parle.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 5
   },
   {
     "id": "brand-pears",
     "name": "Pears",
-    "logo_url": null,
+    "logo_url": "/brands/pears.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 4
   },
   {
     "id": "brand-pepsodent",
     "name": "Pepsodent",
-    "logo_url": null,
+    "logo_url": "/brands/pepsodent.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 6
   },
   {
     "id": "brand-red-label",
     "name": "Red Label",
-    "logo_url": null,
+    "logo_url": "/brands/red-label.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 1
   },
   {
     "id": "brand-rin",
     "name": "Rin",
-    "logo_url": null,
+    "logo_url": "/brands/rin.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 5
   },
   {
     "id": "brand-santoor",
     "name": "Santoor",
-    "logo_url": null,
+    "logo_url": "/brands/santoor.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 9
   },
   {
     "id": "brand-sprite",
     "name": "Sprite",
-    "logo_url": null,
+    "logo_url": "/brands/sprite.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 2
   },
   {
     "id": "brand-sunfeast",
     "name": "Sunfeast",
-    "logo_url": null,
+    "logo_url": "/brands/sunfeast.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 26
   },
   {
     "id": "brand-surf-excel",
     "name": "Surf Excel",
-    "logo_url": null,
+    "logo_url": "/brands/surf-excel.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 7
   },
   {
     "id": "brand-tata",
     "name": "Tata",
-    "logo_url": null,
+    "logo_url": "/brands/tata.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 1
   },
   {
     "id": "brand-tata-salt",
     "name": "Tata Salt",
-    "logo_url": null,
+    "logo_url": "/brands/tata-salt.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 1
   },
   {
     "id": "brand-thums-up",
     "name": "Thums Up",
-    "logo_url": null,
+    "logo_url": "/brands/thums-up.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 2
   },
   {
     "id": "brand-tide",
     "name": "Tide",
-    "logo_url": null,
+    "logo_url": "/brands/tide.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 2
   },
   {
     "id": "brand-unibic",
     "name": "Unibic",
-    "logo_url": null,
+    "logo_url": "/brands/unibic.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 25
   },
@@ -415,21 +415,21 @@
   {
     "id": "brand-vim",
     "name": "Vim",
-    "logo_url": null,
+    "logo_url": "/brands/vim.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 8
   },
   {
     "id": "brand-wagh-bakri",
     "name": "Wagh Bakri",
-    "logo_url": null,
+    "logo_url": "/brands/wagh-bakri.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 2
   },
   {
     "id": "brand-wheel",
     "name": "Wheel",
-    "logo_url": null,
+    "logo_url": "/brands/wheel.png",
     "created_at": "2026-10-08T12:00:00Z",
     "product_count": 3
   },
@@ -442,7 +442,7 @@
   {
     "id": "b-064",
     "name": "Godrej",
-    "logo_url": null,
+    "logo_url": "/brands/godrej.png",
     "product_count": 6
   },
   {
@@ -460,31 +460,31 @@
   {
     "id": "b-067",
     "name": "MTR",
-    "logo_url": null,
+    "logo_url": "/brands/mtr.png",
     "product_count": 3
   },
   {
     "id": "b-068",
     "name": "Odonil",
-    "logo_url": null,
+    "logo_url": "/brands/odonil.png",
     "product_count": 2
   },
   {
     "id": "b-069",
     "name": "Zed Black",
-    "logo_url": null,
+    "logo_url": "/brands/zed-black.png",
     "product_count": 11
   },
   {
     "id": "b-070",
     "name": "Stayfree",
-    "logo_url": null,
+    "logo_url": "/brands/stayfree.png",
     "product_count": 2
   },
   {
     "id": "b-071",
     "name": "Taj Mahal",
-    "logo_url": null,
+    "logo_url": "/brands/taj-mahal.png",
     "product_count": 1
   },
   {
@@ -496,25 +496,25 @@
   {
     "id": "b-073",
     "name": "Huggies",
-    "logo_url": null,
+    "logo_url": "/brands/huggies.png",
     "product_count": 6
   },
   {
     "id": "b-074",
     "name": "Lipton",
-    "logo_url": null,
+    "logo_url": "/brands/lipton.png",
     "product_count": 2
   },
   {
     "id": "b-075",
     "name": "Yardley",
-    "logo_url": null,
+    "logo_url": "/brands/yardley.png",
     "product_count": 5
   },
   {
     "id": "b-076",
     "name": "Garnier",
-    "logo_url": null,
+    "logo_url": "/brands/garnier.png",
     "product_count": 2
   },
   {
@@ -526,13 +526,13 @@
   {
     "id": "b-078",
     "name": "Limca",
-    "logo_url": null,
+    "logo_url": "/brands/limca.png",
     "product_count": 2
   },
   {
     "id": "b-079",
     "name": "Maaza",
-    "logo_url": null,
+    "logo_url": "/brands/maaza.png",
     "product_count": 2
   },
   {
@@ -544,19 +544,19 @@
   {
     "id": "b-081",
     "name": "Vaseline",
-    "logo_url": null,
+    "logo_url": "/brands/vaseline.png",
     "product_count": 2
   },
   {
     "id": "b-082",
     "name": "Clinic Plus",
-    "logo_url": null,
+    "logo_url": "/brands/clinic-plus.png",
     "product_count": 3
   },
   {
     "id": "b-083",
     "name": "Whisper",
-    "logo_url": null,
+    "logo_url": "/brands/whisper.png",
     "product_count": 3
   },
   {
@@ -574,31 +574,31 @@
   {
     "id": "b-086",
     "name": "Lotte",
-    "logo_url": null,
+    "logo_url": "/brands/lotte.png",
     "product_count": 4
   },
   {
     "id": "b-087",
     "name": "Meera",
-    "logo_url": null,
+    "logo_url": "/brands/meera.png",
     "product_count": 5
   },
   {
     "id": "b-088",
     "name": "Ponds",
-    "logo_url": null,
+    "logo_url": "/brands/ponds.png",
     "product_count": 12
   },
   {
     "id": "b-089",
     "name": "Kissan",
-    "logo_url": null,
+    "logo_url": "/brands/kissan.png",
     "product_count": 9
   },
   {
     "id": "b-090",
     "name": "Ujala",
-    "logo_url": null,
+    "logo_url": "/brands/ujala.png",
     "product_count": 6
   },
   {
@@ -610,7 +610,7 @@
   {
     "id": "b-092",
     "name": "Sensodyne",
-    "logo_url": null,
+    "logo_url": "/brands/sensodyne.png",
     "product_count": 3
   },
   {
@@ -622,49 +622,49 @@
   {
     "id": "b-094",
     "name": "Knorr",
-    "logo_url": null,
+    "logo_url": "/brands/knorr.png",
     "product_count": 6
   },
   {
     "id": "b-095",
     "name": "Comfort",
-    "logo_url": null,
+    "logo_url": "/brands/comfort.png",
     "product_count": 6
   },
   {
     "id": "b-096",
     "name": "Eno",
-    "logo_url": null,
+    "logo_url": "/brands/eno.png",
     "product_count": 4
   },
   {
     "id": "b-097",
     "name": "Mangaldeep",
-    "logo_url": null,
+    "logo_url": "/brands/mangaldeep.png",
     "product_count": 11
   },
   {
     "id": "b-098",
     "name": "Priya",
-    "logo_url": null,
+    "logo_url": "/brands/priya.png",
     "product_count": 2
   },
   {
     "id": "b-099",
     "name": "Fiama",
-    "logo_url": null,
+    "logo_url": "/brands/fiama.png",
     "product_count": 1
   },
   {
     "id": "b-100",
     "name": "Sunsilk",
-    "logo_url": null,
+    "logo_url": "/brands/sunsilk.png",
     "product_count": 1
   },
   {
     "id": "b-101",
     "name": "Sri Durga",
-    "logo_url": null,
+    "logo_url": "/brands/sri-durga.png",
     "product_count": 20
   },
   {

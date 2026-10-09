@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import ProductCard from '@/components/storefront/ProductCard';
+import { getBrandLogo } from '@/lib/brandLogos';
 import type { Category, Product } from '@/types';
 
 interface Props {
@@ -71,7 +72,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
   // Build brand list: (brandName → { count, bestVerifiedCutout })
   // "All" first, "Local brands" last
   const availableBrands = useMemo(() => {
-    const brandMap = new Map<string, { count: number; verifiedPhoto: string | null }>();
+    const brandMap = new Map<string, { count: number; logoUrl: string | null }>();
     let localCount = 0;
 
     subFilteredProducts.forEach((p) => {
@@ -82,16 +83,16 @@ export default function CategoryDashboardClient({ category, products }: Props) {
         localCount += 1;
       } else {
         const existing = brandMap.get(b);
-        const hasVerified = p.image_status === 'verified' && p.image_url;
+        const officialLogo = getBrandLogo(b);
         if (!existing) {
           brandMap.set(b, {
             count: 1,
-            verifiedPhoto: hasVerified ? p.image_url! : null,
+            logoUrl: officialLogo,
           });
         } else {
           existing.count += 1;
-          if (!existing.verifiedPhoto && hasVerified) {
-            existing.verifiedPhoto = p.image_url!;
+          if (!existing.logoUrl && officialLogo) {
+            existing.logoUrl = officialLogo;
           }
         }
       }
@@ -247,7 +248,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
           </button>
 
           {/* Individual Brands */}
-          {availableBrands.brands.map(([brandName, { count, verifiedPhoto }]) => {
+          {availableBrands.brands.map(([brandName, { count, logoUrl }]) => {
             const isSelected = selectedBrand === brandName;
             const initial = (brandName[0] || 'B').toUpperCase();
             const monogramStyle = getMonogramColor(brandName);
@@ -267,22 +268,22 @@ export default function CategoryDashboardClient({ category, products }: Props) {
 
                 {/* Round thumbnail (~56px / 52px) */}
                 <div
-                  className={`w-[52px] h-[52px] rounded-full border p-0.5 flex items-center justify-center overflow-hidden transition-all ${
+                  className={`w-[52px] h-[52px] rounded-full border p-1 flex items-center justify-center overflow-hidden transition-all bg-white ${
                     isSelected
-                      ? 'border-[#2E7D32] ring-2 ring-[#2E7D32]/25 bg-white shadow-2xs scale-105'
-                      : 'border-stone-200 bg-white hover:border-stone-300'
+                      ? 'border-[#2E7D32] ring-2 ring-[#2E7D32]/25 shadow-2xs scale-105'
+                      : 'border-stone-200 hover:border-stone-300'
                   }`}
                 >
-                  {verifiedPhoto ? (
+                  {logoUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
-                      src={verifiedPhoto}
+                      src={logoUrl}
                       alt={brandName}
                       loading="lazy"
-                      className="w-full h-full object-contain select-none"
+                      className="w-full h-full object-contain p-0.5 select-none"
                     />
                   ) : (
-                    // Coloured monogram circle with brand initial (never text only, never another brand's photo)
+                    // Coloured monogram circle with brand initial
                     <div
                       className={`w-full h-full rounded-full flex items-center justify-center font-black text-sm select-none ${monogramStyle}`}
                     >
@@ -317,13 +318,18 @@ export default function CategoryDashboardClient({ category, products }: Props) {
                 <div className="absolute left-0 top-1 bottom-1 w-1 bg-[#2E7D32] rounded-r-md" />
               )}
               <div
-                className={`w-[52px] h-[52px] rounded-full border flex items-center justify-center transition-all ${
+                className={`w-[52px] h-[52px] rounded-full border p-1 flex items-center justify-center transition-all bg-white ${
                   selectedBrand === 'local'
-                    ? 'border-[#2E7D32] bg-emerald-50 text-[#2E7D32] font-black ring-2 ring-[#2E7D32]/20 shadow-2xs'
-                    : 'border-stone-200 bg-stone-100 text-stone-600 font-bold'
+                    ? 'border-[#2E7D32] bg-emerald-50 ring-2 ring-[#2E7D32]/20 shadow-2xs scale-105'
+                    : 'border-stone-200 hover:border-stone-300'
                 }`}
               >
-                <span className="text-sm">🌾</span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo.png"
+                  alt="Jeevan Mart"
+                  className="w-8 h-8 object-contain select-none"
+                />
               </div>
               <span
                 className={`text-[10px] leading-[11px] line-clamp-2 text-center mt-1 w-full px-0.5 font-semibold ${
