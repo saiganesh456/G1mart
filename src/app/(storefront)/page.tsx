@@ -1,5 +1,6 @@
 import { productService } from '@/services/productService';
 import BlinkitHomeSections from '@/components/storefront/BlinkitHomeSections';
+import BannerCarousel from '@/components/storefront/BannerCarousel';
 
 export const metadata = {
   title: 'G1 Mart Supermarket — Fresh Groceries & Daily Essentials',
@@ -8,7 +9,10 @@ export const metadata = {
 
 /**
  * Mobile-first Blinkit & Flipkart Minutes style Home Page
- * White background, G1 Mart deep green as the only accent, 4 sectioned category grids.
+ * 1. Logo & profile row scrolls away
+ * 2. Sticky search bar with camera scan stays pinned
+ * 3. Auto-rotating banner carousel (2.2:1 rounded 16px)
+ * 4. 4 sectioned category collage grids
  */
 export default async function HomePage() {
   const [sections, categories] = await Promise.all([
@@ -17,8 +21,11 @@ export default async function HomePage() {
   ]);
 
   return (
-    <div className="w-full bg-white pb-24 sm:pb-14 pt-2.5 sm:pt-4">
-      {/* 4 sectioned grids: Grocery & Kitchen, Snacks & Drinks, Household, Personal Care */}
+    <div className="w-full bg-white pb-24 sm:pb-14 pt-2.5 sm:pt-3 space-y-4 sm:space-y-5">
+      {/* 3. Auto-rotating banner carousel */}
+      <BannerCarousel />
+
+      {/* 4. Sectioned grids: Grocery & Kitchen, Snacks & Drinks, Household, Personal Care */}
       <BlinkitHomeSections sections={sections} categories={categories} />
     </div>
   );

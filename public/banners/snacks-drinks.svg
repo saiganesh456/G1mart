@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400">
+  <defs>
+    <linearGradient id="bgGrad4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#14532D"/>
+      <stop offset="60%" stop-color="#15803D"/>
+      <stop offset="100%" stop-color="#CA8A04"/>
+    </linearGradient>
+    <filter id="shadow4" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <rect width="880" height="400" rx="32" fill="url(#bgGrad4)"/>
+  <circle cx="830" cy="60" r="170" fill="#FFFFFF" opacity="0.05"/>
+  <circle cx="700" cy="350" r="150" fill="#000000" opacity="0.1"/>
+
+  <g transform="translate(60, 60)">
+    <rect width="130" height="32" rx="16" fill="#FFFFFF" opacity="0.2"/>
+    <text x="65" y="21" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="900" fill="#FEF08A" text-anchor="middle" letter-spacing="1.5">QUICK BITES</text>
+
+    <text x="0" y="90" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="900" fill="#FFFFFF" letter-spacing="-0.5">Snacks, namkeen</text>
+    <text x="0" y="132" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="900" fill="#FEF9C3" letter-spacing="-0.5">&amp; cold drinks</text>
+
+    <text x="0" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500" fill="#FEF08A">Kurkure, Bingo, Parle-G, Good Day &amp; Thums Up.</text>
+    <text x="0" y="206" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500" fill="#FEF08A">Chilled beverages &amp; tea-time favourites at store prices.</text>
+
+    <g transform="translate(0, 235)">
+      <rect width="170" height="46" rx="23" fill="#FFFFFF" filter="url(#shadow4)"/>
+      <text x="85" y="29" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="800" fill="#15803D" text-anchor="middle">Explore Snacks</text>
+    </g>
+  </g>
+
+  <!-- Right Graphic: Beverage can, snack pack, biscuit -->
+  <g transform="translate(640, 80)" filter="url(#shadow4)">
+    <!-- Snack pouch / chip bag -->
+    <path d="M40 70h70l8 120H32L40 70Z" fill="#EAB308"/>
+    <path d="M40 70l10-8 10 8 10-8 10 8 10-8 10 8 10-8" stroke="#CA8A04" stroke-width="2" fill="none"/>
+    <rect x="52" y="105" width="46" height="40" rx="8" fill="#FFFFFF" opacity="0.85"/>
+    <circle cx="75" cy="125" r="10" fill="#EAB308"/>
+
+    <!-- Cold Beverage Can -->
+    <rect x="125" y="100" width="55" height="110" rx="14" fill="#DC2626"/>
+    <ellipse cx="152" cy="100" rx="27" ry="8" fill="#F87171"/>
+    <rect x="135" y="125" width="35" height="50" rx="6" fill="#FFFFFF" opacity="0.2"/>
+
+    <!-- Biscuit / Cookie -->
+    <circle cx="50" cy="205" r="28" fill="#F59E0B" stroke="#D97706" stroke-width="3"/>
+    <circle cx="42" cy="195" r="2.5" fill="#78350F"/>
+    <circle cx="58" cy="195" r="2.5" fill="#78350F"/>
+    <circle cx="50" cy="210" r="2.5" fill="#78350F"/>
+    <circle cx="40" cy="215" r="2.5" fill="#78350F"/>
+    <circle cx="60" cy="215" r="2.5" fill="#78350F"/>
+  </g>
+</svg>

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, ShoppingBag, User, Camera } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
@@ -25,6 +25,12 @@ export default function Header() {
       router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
     }
   };
+
+  useEffect(() => {
+    const handleOpenSlip = () => setIsSlipScannerOpen(true);
+    window.addEventListener('g1mart:open-slip-scan', handleOpenSlip);
+    return () => window.removeEventListener('g1mart:open-slip-scan', handleOpenSlip);
+  }, []);
 
   return (
     <>

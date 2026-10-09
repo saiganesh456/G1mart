@@ -1,124 +1,151 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import defaultBanners from '@/data/banners.json';
 
-const BANNERS = [
-  {
-    id: 'hero',
-    image: '/assets/images/g1_grocery_delivery_hero_1790614094753.jpg',
-    alt: 'G1 Mart — Local Supermarket',
-    title: 'G1 Mart Supermarket',
-    subtitle: 'Daily essentials, groceries & household supplies from your neighbourhood store.',
-    cta: { label: 'Explore Products', href: '/search' },
-    bg: 'from-[#2E7D32]/85 to-transparent',
-  },
-  {
-    id: 'household',
-    image: '/assets/images/g1_special_offers_banner_1790614114336.jpg',
-    alt: 'Household & Cleaning Care',
-    title: 'Household & Cleaning',
-    subtitle: 'Laundry care, dishwash bars, floor disinfectants & utilities.',
-    cta: { label: 'Shop Household', href: '/category/household-cleaning' },
-    bg: 'from-[#1b5e20]/85 to-transparent',
-  },
-  {
-    id: 'pooja',
-    image: '/assets/images/g1_dairy_bakery_showcase_1790614143664.jpg',
-    alt: 'Daily Departments',
-    title: 'Pooja Needs & Personal Care',
-    subtitle: 'Authentic agarbatti, pure sandalwood soaps & daily grooming.',
-    cta: { label: 'All Departments', href: '/categories' },
-    bg: 'from-[#FF9800]/80 to-transparent',
-  },
-];
+interface BannerItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  cta: string;
+  link: string;
+  image_url: string;
+  badge?: string;
+  sort_order?: number;
+  active?: boolean;
+}
 
 export default function BannerCarousel() {
+  const [banners, setBanners] = useState<BannerItem[]>(defaultBanners as BannerItem[]);
   const [current, setCurrent] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Touch swipe handling
+  const touchStartXRef = useRef<number | null>(null);
+  const touchEndXRef = useRef<number | null>(null);
+
+  // Fetch active banners from API on mount
+  useEffect(() => {
+    fetch('/api/banners')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.banners && data.banners.length > 0) {
+          setBanners(data.banners);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const total = banners.length;
+
+  const nextSlide = useCallback(() => {
+    if (total > 0) {
+      setCurrent((prev) => (prev + 1) % total);
+    }
+  }, [total]);
+
+  const prevSlide = useCallback(() => {
+    if (total > 0) {
+      setCurrent((prev) => (prev - 1 + total) % total);
+    }
+  }, [total]);
 
   // Auto-advance every 4 seconds
   useEffect(() => {
-    const timer = setInterval(
-      () => setCurrent((c) => (c + 1) % BANNERS.length),
-      4000
-    );
-    return () => clearInterval(timer);
-  }, []);
+    if (isPaused || total <= 1) return;
+    const interval = setInterval(nextSlide, 4000);
+    return () => clearInterval(interval);
+  }, [isPaused, nextSlide, total]);
 
-  const prev = () => setCurrent((c) => (c - 1 + BANNERS.length) % BANNERS.length);
-  const next = () => setCurrent((c) => (c + 1) % BANNERS.length);
+  // Handle touch events for swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.targetTouches[0].clientX;
+  };
 
-  const banner = BANNERS[current];
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndXRef.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartXRef.current || !touchEndXRef.current) return;
+    const diff = touchStartXRef.current - touchEndXRef.current;
+    if (diff > 45) {
+      nextSlide(); // Swiped left -> next
+    } else if (diff < -45) {
+      prevSlide(); // Swiped right -> prev
+    }
+    touchStartXRef.current = null;
+    touchEndXRef.current = null;
+  };
+
+  const handleBannerClick = (e: React.MouseEvent, banner: BannerItem) => {
+    if (banner.link === '#scan-slip') {
+      e.preventDefault();
+      window.dispatchEvent(new CustomEvent('g1mart:open-slip-scan'));
+    }
+  };
+
+  if (total === 0) return null;
 
   return (
-    <section className="relative w-full h-24 sm:h-28 max-h-[110px] rounded-xl overflow-hidden bg-stone-100 mx-0">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        key={banner.id}
-        src={banner.image}
-        alt={banner.alt}
-        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
-        draggable={false}
-      />
+    <section
+      aria-label="Promotional announcements"
+      className="relative w-full overflow-hidden select-none"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
+      {/* 2.2:1 Aspect Ratio rounded 16px container */}
+      <div className="relative w-full aspect-[2.2/1] rounded-[16px] overflow-hidden bg-emerald-950 shadow-2xs">
+        {banners.map((b, idx) => {
+          const isActive = idx === current;
+          return (
+            <div
+              key={b.id}
+              className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+              }`}
+            >
+              <Link
+                href={b.link}
+                onClick={(e) => handleBannerClick(e, b)}
+                className="block w-full h-full cursor-pointer relative"
+                aria-label={b.title}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={b.image_url}
+                  alt={b.title}
+                  loading={idx === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                />
+              </Link>
+            </div>
+          );
+        })}
 
-      {/* Gradient overlay */}
-      <div className={`absolute inset-0 bg-gradient-to-r ${banner.bg}`} />
-
-      {/* Text content (Compact <= 110px layout) */}
-      <div className="absolute inset-0 flex items-center justify-between p-3 sm:p-5">
-        <div className="max-w-[70%]">
-          <span className="inline-block text-[10px] font-black uppercase tracking-wider bg-white/20 text-white px-1.5 py-0.5 rounded backdrop-blur-xs mb-1">
-            G1 Mart Fresh
-          </span>
-          <h2 className="text-white font-black text-sm sm:text-base leading-tight drop-shadow-md truncate">
-            {banner.title}
-          </h2>
-          <p className="text-white/90 text-[11px] sm:text-xs truncate drop-shadow-sm mt-0.5">
-            {banner.subtitle}
-          </p>
-        </div>
-        <Link
-          href={banner.cta.href}
-          className="shrink-0 px-3 py-1.5 bg-white text-[#2E7D32] rounded-xl font-bold text-xs shadow-md hover:bg-stone-50 active:scale-95 transition-all"
-        >
-          {banner.cta.label}
-        </Link>
-      </div>
-
-      {/* Arrows */}
-      <button
-        type="button"
-        onClick={prev}
-        aria-label="Previous banner"
-        className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 bg-white/80 rounded-full flex items-center justify-center shadow-sm hover:bg-white transition-colors"
-      >
-        <ChevronLeft className="w-4 h-4 text-stone-700" />
-      </button>
-      <button
-        type="button"
-        onClick={next}
-        aria-label="Next banner"
-        className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 bg-white/80 rounded-full flex items-center justify-center shadow-sm hover:bg-white transition-colors"
-      >
-        <ChevronRight className="w-4 h-4 text-stone-700" />
-      </button>
-
-      {/* Dots */}
-      <div className="absolute bottom-2 right-3 flex gap-1.5">
-        {BANNERS.map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => setCurrent(i)}
-            aria-label={`Go to banner ${i + 1}`}
-            className={`rounded-full transition-all ${
-              i === current
-                ? 'w-4 h-1.5 bg-white'
-                : 'w-1.5 h-1.5 bg-white/50 hover:bg-white/80'
-            }`}
-          />
-        ))}
+        {/* Carousel Dots Indicators */}
+        {total > 1 && (
+          <div className="absolute bottom-2 sm:bottom-3 left-0 right-0 z-20 flex items-center justify-center gap-1.5 pointer-events-none">
+            {banners.map((_, dotIdx) => (
+              <button
+                key={dotIdx}
+                type="button"
+                onClick={() => setCurrent(dotIdx)}
+                aria-label={`Go to slide ${dotIdx + 1}`}
+                className={`transition-all rounded-full pointer-events-auto ${
+                  dotIdx === current
+                    ? 'w-5 h-1.5 bg-white shadow-xs'
+                    : 'w-1.5 h-1.5 bg-white/50 hover:bg-white/80'
+                }`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

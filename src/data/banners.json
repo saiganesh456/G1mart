@@ -1,0 +1,46 @@
+[
+  {
+    "id": "banner-monthly-list",
+    "title": "Send your monthly grocery list - we pack it",
+    "subtitle": "Upload handwritten slip or WhatsApp photo, we pack & deliver",
+    "cta": "Upload List",
+    "link": "#scan-slip",
+    "image_url": "/banners/monthly-list.svg",
+    "badge": "SLIP SCAN",
+    "sort_order": 1,
+    "active": true
+  },
+  {
+    "id": "banner-fresh-produce",
+    "title": "Fresh vegetables & fruits",
+    "subtitle": "Handpicked daily from local mandi with instant delivery",
+    "cta": "Shop Fresh",
+    "link": "/category/vegetables-fruits",
+    "image_url": "/banners/vegetables-fruits.svg",
+    "badge": "FARM FRESH",
+    "sort_order": 2,
+    "active": true
+  },
+  {
+    "id": "banner-household",
+    "title": "Household & cleaning",
+    "subtitle": "Detergents, floor cleaners, dishwash bars & home essentials",
+    "cta": "Shop Essentials",
+    "link": "/category/floor-surface-cleaners",
+    "image_url": "/banners/household.svg",
+    "badge": "TOP BRANDS",
+    "sort_order": 3,
+    "active": true
+  },
+  {
+    "id": "banner-snacks-drinks",
+    "title": "Snacks & drinks",
+    "subtitle": "Crispy namkeen, biscuits, chips, sodas & cold juices",
+    "cta": "Explore Snacks",
+    "link": "/category/chips-namkeen",
+    "image_url": "/banners/snacks-drinks.svg",
+    "badge": "QUICK BITES",
+    "sort_order": 4,
+    "active": true
+  }
+]

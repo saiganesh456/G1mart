@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1B5E20"/>
+      <stop offset="60%" stop-color="#2E7D32"/>
+      <stop offset="100%" stop-color="#388E3C"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.05"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Background with 16px radius -->
+  <rect width="880" height="400" rx="32" fill="url(#bgGrad)"/>
+
+  <!-- Subtle ambient circles -->
+  <circle cx="820" cy="60" r="180" fill="#FFFFFF" opacity="0.05"/>
+  <circle cx="700" cy="350" r="160" fill="#000000" opacity="0.1"/>
+
+  <!-- Left Content Info -->
+  <g transform="translate(60, 60)">
+    <!-- Badge -->
+    <rect width="140" height="32" rx="16" fill="#FFFFFF" opacity="0.2"/>
+    <text x="70" y="21" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="900" fill="#A5D6A7" text-anchor="middle" letter-spacing="1.5">SLIP SCANNER</text>
+
+    <!-- Headline -->
+    <text x="0" y="90" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="900" fill="#FFFFFF" letter-spacing="-0.5">Send your monthly</text>
+    <text x="0" y="132" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="900" fill="#E8F5E9" letter-spacing="-0.5">grocery list — we pack it</text>
+
+    <!-- Subtitle -->
+    <text x="0" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500" fill="#C8E6C9">Upload a handwritten slip, photo or WhatsApp text.</text>
+    <text x="0" y="206" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="500" fill="#C8E6C9">Our store staff packs everything with zero markup.</text>
+
+    <!-- CTA Button Graphic -->
+    <g transform="translate(0, 235)">
+      <rect width="180" height="46" rx="23" fill="#FFFFFF" filter="url(#shadow)"/>
+      <text x="90" y="29" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="800" fill="#1B5E20" text-anchor="middle">Upload Slip &amp; Order</text>
+    </g>
+  </g>
+
+  <!-- Right Graphic: Stylized Notepad List with Camera / Pen -->
+  <g transform="translate(620, 80)" filter="url(#shadow)">
+    <!-- Notepad paper -->
+    <rect width="190" height="240" rx="18" fill="#FFFFFF" opacity="0.95"/>
+    <rect width="190" height="35" rx="18" fill="#E8F5E9"/>
+    <!-- Spiral binding dots -->
+    <circle cx="35" cy="18" r="4" fill="#2E7D32"/>
+    <circle cx="65" cy="18" r="4" fill="#2E7D32"/>
+    <circle cx="95" cy="18" r="4" fill="#2E7D32"/>
+    <circle cx="125" cy="18" r="4" fill="#2E7D32"/>
+    <circle cx="155" cy="18" r="4" fill="#2E7D32"/>
+
+    <!-- Lined rows with checkmarks -->
+    <g transform="translate(25, 60)">
+      <circle cx="10" cy="12" r="7" fill="#E8F5E9"/>
+      <path d="M7 12l2 2 4-4" stroke="#2E7D32" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <rect x="25" y="8" width="90" height="8" rx="4" fill="#CFD8DC"/>
+
+      <circle cx="10" cy="42" r="7" fill="#E8F5E9"/>
+      <path d="M7 42l2 2 4-4" stroke="#2E7D32" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <rect x="25" y="38" width="105" height="8" rx="4" fill="#CFD8DC"/>
+
+      <circle cx="10" cy="72" r="7" fill="#E8F5E9"/>
+      <path d="M7 72l2 2 4-4" stroke="#2E7D32" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <rect x="25" y="68" width="80" height="8" rx="4" fill="#CFD8DC"/>
+
+      <circle cx="10" cy="102" r="7" fill="#E8F5E9"/>
+      <path d="M7 102l2 2 4-4" stroke="#2E7D32" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <rect x="25" y="98" width="95" height="8" rx="4" fill="#CFD8DC"/>
+    </g>
+
+    <!-- Camera badge overlay -->
+    <circle cx="155" cy="195" r="32" fill="#1B5E20" stroke="#FFFFFF" stroke-width="4"/>
+    <path d="M143 190h6l3-4h14l3 4h6a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4h-32a4 4 0 0 1-4-4v-14a4 4 0 0 1 4-4Z" fill="#FFFFFF"/>
+    <circle cx="163" cy="201" r="5" fill="#1B5E20"/>
+  </g>
+</svg>
