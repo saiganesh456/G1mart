@@ -92,39 +92,19 @@ export default function ProductDetailPage({ params }: Props) {
       }));
     }
 
-    // Default smart pack size variants
+    // Default single unit variant
     const basePrice = product.price > 0 ? product.price : product.originalPrice || 0;
     const baseUnit = product.unit || 'Standard Pack';
 
     return [
       {
-        id: `${product.id}-1x`,
-        label: `${baseUnit} (1 unit)`,
+        id: product.id,
+        label: baseUnit,
         price: basePrice,
         originalPrice: product.originalPrice,
-        discountText: null,
+        discountText: product.discountPercentage > 0 ? `${product.discountPercentage}% OFF` : null,
         product,
         multiplier: 1,
-        isSibling: false,
-      },
-      {
-        id: `${product.id}-2x`,
-        label: `Pack of 2`,
-        price: Math.round(basePrice * 2 * 0.95),
-        originalPrice: basePrice * 2,
-        discountText: '5% OFF',
-        product,
-        multiplier: 2,
-        isSibling: false,
-      },
-      {
-        id: `${product.id}-4x`,
-        label: `Family Saver (4 units)`,
-        price: Math.round(basePrice * 4 * 0.9),
-        originalPrice: basePrice * 4,
-        discountText: '10% OFF',
-        product,
-        multiplier: 4,
         isSibling: false,
       },
     ];
@@ -221,6 +201,10 @@ export default function ProductDetailPage({ params }: Props) {
             imageUrl={effectiveProduct.image_url || (effectiveProduct as any).imageUrl}
             imageStatus={effectiveProduct.image_status || (effectiveProduct as any).imageStatus}
             alt={effectiveProduct.name}
+            name={effectiveProduct.name}
+            brand={effectiveProduct.brand}
+            category={effectiveProduct.category}
+            subCategory={effectiveProduct.subCategory}
             priority
             className="w-full h-full object-contain"
             containerClassName="w-full h-full"

@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import ProductCard from '@/components/storefront/ProductCard';
-import { STORE_CONFIG } from '@/config/store';
 import type { Category, Product } from '@/types';
 
 interface Props {
@@ -49,11 +48,6 @@ export default function CategoryDashboardClient({ category, products }: Props) {
     return [...list].sort((a, b) => (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0));
   }, [products, selectedBrand, sortBy]);
 
-  const deliveryText =
-    STORE_CONFIG.delivery.cityEtaText && !STORE_CONFIG.delivery.cityEtaText.startsWith('TODO_')
-      ? `Delivery: ${STORE_CONFIG.delivery.cityEtaText}`
-      : 'Standard local delivery';
-
   return (
     <div className="flex flex-col min-h-screen bg-white pb-24 sm:pb-16">
       {/* ── Top Bar: back arrow + title (no search bar) ── */}
@@ -67,16 +61,11 @@ export default function CategoryDashboardClient({ category, products }: Props) {
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div className="min-w-0">
-            <div className="flex items-center gap-1.5">
-              {category.icon && (
-                <span className="text-xl leading-none">{category.icon}</span>
-              )}
-              <h1 className="text-base font-extrabold text-[#212121] tracking-tight truncate">
-                {category.name}
-              </h1>
-            </div>
+            <h1 className="text-base font-extrabold text-[#212121] tracking-tight truncate">
+              {category.name}
+            </h1>
             <p className="text-[10px] text-stone-400 font-medium mt-0.5 truncate">
-              {filteredProducts.length} products · {deliveryText}
+              {filteredProducts.length} products
             </p>
           </div>
         </div>

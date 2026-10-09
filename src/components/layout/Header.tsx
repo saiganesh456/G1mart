@@ -3,12 +3,9 @@
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { Search, ShoppingBag, User, MapPin, ChevronDown, Camera } from 'lucide-react';
+import { Search, ShoppingBag, User, Camera } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-import { useLocation } from '@/context/LocationContext';
 import { useAuth } from '@/context/AuthContext';
-import { STORE_CONFIG } from '@/config/store';
-import LocationModal from './LocationModal';
 import BarcodeScannerModal from '@/components/common/BarcodeScannerModal';
 import SlipScannerModal from '@/components/storefront/SlipScannerModal';
 
@@ -17,7 +14,6 @@ export default function Header() {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
   const { cartItemCount, cartSubtotal } = useCart();
-  const { currentLocation, setIsModalOpen } = useLocation();
   const { user, isLoggedIn } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [isBarcodeModalOpen, setIsBarcodeModalOpen] = useState(false);
@@ -30,18 +26,13 @@ export default function Header() {
     }
   };
 
-  const deliveryEta =
-    STORE_CONFIG.delivery.cityEtaText && !STORE_CONFIG.delivery.cityEtaText.startsWith('TODO_')
-      ? STORE_CONFIG.delivery.cityEtaText
-      : currentLocation.zone?.estimatedDeliveryTimeText || 'Local Delivery';
-
   return (
     <>
-      <header className="sticky top-0 z-30 bg-white border-b border-stone-200/80 shadow-xs">
+      <header className="bg-white">
         {/* ── Mobile Header ── */}
         <div className="lg:hidden">
-          {/* Top row: logo + cart button + profile avatar */}
-          <div className="flex items-center justify-between px-3 pt-3 pb-2">
+          {/* Top row: logo + cart button + profile avatar — scrolls away */}
+          <div className="flex items-center justify-between px-3 pt-3 pb-2 border-b border-stone-100">
             <Link href="/" className="flex items-center gap-2" aria-label="G1 Mart home">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -98,41 +89,9 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Delivery strip — Removed from Home per Owner Design Rules */}
-          {!isHomePage && (
-            <div className="px-3 pb-2">
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(true)}
-                className="w-full flex items-center justify-between gap-1.5 p-1.5 rounded-xl hover:bg-stone-50 transition-colors text-left"
-              >
-                <div className="flex items-center gap-2 min-w-0">
-                  <div className="w-6 h-6 rounded-lg bg-emerald-100 text-[#2E7D32] flex items-center justify-center shrink-0">
-                    <MapPin className="w-3.5 h-3.5" />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1">
-                      <span className="text-[11px] font-black text-[#212121] uppercase tracking-tight">
-                        Delivery in {deliveryEta}
-                      </span>
-                      <ChevronDown className="w-3 h-3 text-stone-500 shrink-0" />
-                    </div>
-                    <p className="text-[11px] text-stone-500 font-medium truncate leading-tight">
-                      {currentLocation.street || currentLocation.area}, {currentLocation.city}
-                    </p>
-                  </div>
-                </div>
-
-                <span className="text-[10px] font-extrabold text-[#2E7D32] bg-emerald-50 px-2 py-0.5 rounded-md shrink-0">
-                  CHANGE
-                </span>
-              </button>
-            </div>
-          )}
-
-          {/* One simple search bar — Shown ONLY on Home page */}
+          {/* Sticky Search bar — Shown ONLY on Home page */}
           {isHomePage && (
-            <div className="px-3 pb-2.5">
+            <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md px-3 py-2.5 border-b border-stone-200/80 shadow-xs">
               <form onSubmit={handleSearchSubmit} role="search">
                 <div className="relative flex items-center">
                   <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
@@ -175,29 +134,7 @@ export default function Header() {
               />
             </Link>
 
-            {/* Delivery Location Pill — Removed from Home per Owner Design Rules */}
-            {!isHomePage && (
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(true)}
-                className="flex items-center gap-2.5 p-2 rounded-xl border border-stone-200 hover:border-[#2E7D32] hover:bg-stone-50/70 transition-all text-left shrink-0 max-w-xs group cursor-pointer"
-              >
-                <div className="w-8 h-8 rounded-lg bg-emerald-100 text-[#2E7D32] flex items-center justify-center shrink-0">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <div className="min-w-0 pr-1">
-                  <div className="flex items-center gap-1">
-                    <span className="text-xs font-black text-[#212121]">
-                      Delivery in {deliveryEta}
-                    </span>
-                    <ChevronDown className="w-3.5 h-3.5 text-stone-400 group-hover:text-[#2E7D32] transition-colors" />
-                  </div>
-                  <p className="text-[11px] text-stone-500 font-medium truncate mt-0.5">
-                    {currentLocation.formattedAddress}
-                  </p>
-                </div>
-              </button>
-            )}
+
 
             {/* Search — Shown ONLY on Home page */}
             {isHomePage ? (
@@ -299,9 +236,6 @@ export default function Header() {
           )}
         </div>
       </header>
-
-      {/* Location Modal */}
-      <LocationModal />
 
       {/* Barcode Scanner Modal */}
       <BarcodeScannerModal

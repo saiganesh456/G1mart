@@ -202,20 +202,22 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
             imageUrl={product.image_url || product.imageUrl}
             imageStatus={product.image_status || product.imageStatus}
             alt={product.name}
+            name={product.name}
+            brand={product.brand}
+            category={product.category}
+            subCategory={product.subCategory}
             className="group-hover:scale-105"
           />
         </Link>
 
         {/* Info */}
         <div className="flex-1 flex flex-col justify-between gap-1 min-w-0">
-          {/* Brand */}
-          <div className="text-[10px] font-bold text-stone-400 truncate uppercase tracking-wider leading-none">
-            {product.brand}
-          </div>
-
-          {/* Product name — max 2 lines */}
-          <Link href={`/product/${product.id}`} className="block">
-            <h3 className="text-[11px] sm:text-xs font-extrabold text-stone-900 line-clamp-2 leading-snug min-h-[2.5em] group-hover:text-[#2E7D32] transition-colors">
+          {/* Brand & Product name — links to detail */}
+          <Link href={`/product/${product.id}`} className="block group/link">
+            <div className="text-[10px] font-bold text-stone-400 truncate uppercase tracking-wider leading-none mb-1">
+              {product.brand}
+            </div>
+            <h3 className="text-[11px] sm:text-xs font-extrabold text-stone-900 line-clamp-2 leading-snug min-h-[2.5em] group-hover/link:text-[#2E7D32] transition-colors">
               {product.name}
             </h3>
           </Link>
