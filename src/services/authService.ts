@@ -49,6 +49,12 @@ export const authService = {
       // Always grant admin to root admin emails or check server role
       if (userEmail === 'g1mart@gmail.com' || userEmail === 'lingalamahendra0@gmail.com') {
         detectedRole = 'admin';
+      } else if (
+        userEmail === 'gummasaiganesh57@gmail.com' ||
+        userEmail === 'vv727457@gmail.com' ||
+        userEmail === 'rider@g1mart.com'
+      ) {
+        detectedRole = 'delivery_partner';
       } else {
         try {
           const roleRes = await fetch('/api/auth/role-check', {

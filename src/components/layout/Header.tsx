@@ -38,6 +38,37 @@ export default function Header() {
   return (
     <>
       <header className="sticky top-0 z-30 bg-white border-b border-stone-200/80 shadow-xs">
+        {/* Rider Banner if user is delivery partner */}
+        {(user?.role === 'delivery_partner' || user?.role === 'rider') && (
+          <div className="bg-[#1A2E1C] text-white px-3 sm:px-4 py-1.5 text-xs font-bold flex items-center justify-between border-b border-emerald-900/40">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>🛵 Delivery Partner Mode Active</span>
+            </div>
+            <Link
+              href="/rider"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-black px-3 py-0.5 rounded-full transition-colors shadow-xs"
+            >
+              Open Rider Console →
+            </Link>
+          </div>
+        )}
+
+        {/* Admin Banner if user is admin */}
+        {user?.role === 'admin' && (
+          <div className="bg-[#0f172a] text-white px-3 sm:px-4 py-1.5 text-xs font-bold flex items-center justify-between border-b border-slate-800">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+              <span>🛡️ Store Administrator Mode</span>
+            </div>
+            <Link
+              href="/admin"
+              className="bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-black px-3 py-0.5 rounded-full transition-colors shadow-xs"
+            >
+              Open Admin Console →
+            </Link>
+          </div>
+        )}
         {/* ── Mobile Header ── */}
         <div className="lg:hidden">
           {/* Top row: logo + cart button + profile avatar */}

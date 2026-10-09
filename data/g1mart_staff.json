@@ -1,0 +1,53 @@
+{
+  "admins": [
+    {
+      "id": "root-admin-01",
+      "email": "g1mart@gmail.com",
+      "role": "admin",
+      "name": "Primary Store Admin",
+      "createdAt": "2026-10-01T00:00:00Z",
+      "status": "active"
+    },
+    {
+      "id": "root-admin-02",
+      "email": "lingalamahendra0@gmail.com",
+      "role": "admin",
+      "name": "Mahendra Lingala (Store Admin)",
+      "createdAt": "2026-10-01T00:00:00Z",
+      "status": "active"
+    }
+  ],
+  "riders": [
+    {
+      "id": "rider-sai-ganesh",
+      "email": "gummasaiganesh57@gmail.com",
+      "role": "rider",
+      "name": "Sai Ganesh",
+      "phone": "9876543210",
+      "vehicleNumber": "AP 26 EQ 4589",
+      "createdAt": "2026-10-01T00:00:00Z",
+      "status": "active"
+    },
+    {
+      "id": "rider-vamsi-vardhan",
+      "email": "vv727457@gmail.com",
+      "role": "rider",
+      "name": "Vamsi Vardhan",
+      "phone": "9876543211",
+      "vehicleNumber": "AP 26 EQ 4590",
+      "createdAt": "2026-10-01T00:00:00Z",
+      "status": "active"
+    },
+    {
+      "id": "default-rider",
+      "email": "rider@g1mart.com",
+      "role": "rider",
+      "name": "Express Delivery Rider",
+      "phone": "9876543212",
+      "vehicleNumber": "AP 26 EQ 4591",
+      "createdAt": "2026-10-01T00:00:00Z",
+      "status": "active"
+    }
+  ],
+  "updatedAt": "2026-10-09T08:00:00Z"
+}

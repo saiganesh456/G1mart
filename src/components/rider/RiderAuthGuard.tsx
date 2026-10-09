@@ -23,12 +23,17 @@ export default function RiderAuthGuard({ children }: { children: React.ReactNode
         return;
       }
 
+      const cleanEmail = user.email?.toLowerCase().trim() || '';
       // Admins and Riders both have clearance for rider delivery console
       if (
         user.role === 'delivery_partner' ||
         user.role === 'rider' ||
         user.role === 'admin' ||
-        user.email?.toLowerCase().trim() === 'g1mart@gmail.com'
+        cleanEmail === 'g1mart@gmail.com' ||
+        cleanEmail === 'lingalamahendra0@gmail.com' ||
+        cleanEmail === 'gummasaiganesh57@gmail.com' ||
+        cleanEmail === 'vv727457@gmail.com' ||
+        cleanEmail === 'rider@g1mart.com'
       ) {
         if (isMounted) setVerifiedRider(true);
         return;

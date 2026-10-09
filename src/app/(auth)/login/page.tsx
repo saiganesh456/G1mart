@@ -59,7 +59,8 @@ function LoginForm() {
     try {
       setGoogleLoading(true);
       setAuthError('');
-      const targetNext = nextParam || (roleParam === 'admin' ? '/admin' : '/account');
+      const targetNext =
+        nextParam || (roleParam === 'admin' ? '/admin' : roleParam === 'rider' ? '/rider' : '/account');
       const res = await authService.signInWithGoogle(targetNext);
       if (!res.success) {
         setAuthError(res.error || 'Failed to initialize Google Sign-In');

@@ -130,6 +130,7 @@ export default function OrderDetailsPanel({
     const riderInfo = foundRider
       ? {
           id: foundRider.id,
+          email: foundRider.email,
           name: foundRider.name || 'Express Rider',
           phone: foundRider.phone,
           vehicleNumber: foundRider.vehicleNumber,
