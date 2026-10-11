@@ -44,18 +44,15 @@ export default async function CategoryPage({ params }: Props) {
     notFound();
   }
 
-  // Filter products for this category
-  const matchingProducts = allProducts.filter(
+  // Strict Category Filter: A category page must show ONLY products whose category_id matches.
+  // No fallback or "related" items, no leftover items from other categories.
+  const finalProducts = allProducts.filter(
     (p) =>
-      p.category === category!.id ||
-      p.category === targetId ||
-      p.category === rawSlug ||
       p.category_id === category!.id ||
-      p.category_id === targetId
+      p.category_id === targetId ||
+      p.category === category!.id ||
+      p.category === targetId
   );
-
-  // If no match (shouldn't happen with migrated data), show first 40
-  const finalProducts = matchingProducts.length > 0 ? matchingProducts : allProducts.slice(0, 40);
 
   return (
     <CategoryDashboardClient
