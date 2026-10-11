@@ -76,3 +76,21 @@ export interface DeliveryZoneResolutionResult {
   estimatedTimeText: string;
   serviceNotice?: string;
 }
+
+/**
+ * Phase 2: Server Distance Service Result
+ * output: { serviceable, distance_km, eta_min, zone, min_order, approximate }
+ */
+export interface DistanceServiceResult {
+  serviceable: boolean;
+  distance_km: number;
+  eta_min: number;
+  zone: DeliveryZone | null;
+  min_order: number;
+  approximate: boolean;
+  straight_line_km?: number;
+  driving_duration_min?: number;
+  prep_time_min?: number;
+  cached?: boolean;
+}
+

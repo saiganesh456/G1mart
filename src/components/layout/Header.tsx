@@ -8,7 +8,6 @@ import { useCart } from '@/context/CartContext';
 import { useLocation } from '@/context/LocationContext';
 import { useAuth } from '@/context/AuthContext';
 import { STORE_CONFIG } from '@/config/store';
-import LocationModal from './LocationModal';
 import BarcodeScannerModal from '@/components/common/BarcodeScannerModal';
 import SlipScannerModal from '@/components/storefront/SlipScannerModal';
 
@@ -36,10 +35,15 @@ export default function Header() {
     return () => window.removeEventListener('g1mart:open-slip-scan', handleOpenSlip);
   }, []);
 
-  const deliveryEta =
-    STORE_CONFIG.delivery.cityEtaText && !STORE_CONFIG.delivery.cityEtaText.startsWith('TODO_')
-      ? STORE_CONFIG.delivery.cityEtaText
-      : currentLocation.zone?.estimatedDeliveryTimeText || 'Local Delivery';
+  const etaMins = currentLocation.eta_min ?? currentLocation.etaMin;
+  const deliveryEta = etaMins
+    ? `~${etaMins} min`
+    : (currentLocation.zone?.estimatedDeliveryTimeText || '15–30 mins');
+
+  const shortAddress =
+    currentLocation.area ||
+    currentLocation.street ||
+    (currentLocation.formattedAddress ? currentLocation.formattedAddress.split(',')[0] : 'Padarupalli, Nellore');
 
   return (
     <>
@@ -134,6 +138,30 @@ export default function Header() {
               </Link>
             </div>
           </div>
+
+          {/* Mobile Delivery in ~X min Location Pill */}
+          <div className="px-3 py-1.5 bg-emerald-50/50 border-b border-emerald-900/10 flex items-center justify-between">
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="flex items-center gap-2 text-left min-w-0 flex-1 group cursor-pointer"
+            >
+              <div className="w-6 h-6 rounded-lg bg-emerald-100 text-[#1B5E20] flex items-center justify-center shrink-0">
+                <MapPin className="w-3.5 h-3.5 text-[#1B5E20]" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-1">
+                  <span className="text-xs font-black text-[#1B5E20]">
+                    Delivery in {deliveryEta}
+                  </span>
+                  <ChevronDown className="w-3 h-3 text-stone-400 group-hover:text-[#1B5E20] transition-colors" />
+                </div>
+                <p className="text-[11px] text-stone-600 font-medium truncate">
+                  {shortAddress}
+                </p>
+              </div>
+            </button>
+          </div>
         </div>
 
         {/* ── Desktop Header ── */}
@@ -170,8 +198,8 @@ export default function Header() {
                     </span>
                     <ChevronDown className="w-3 h-3 text-stone-400 group-hover:text-[#2E7D32] transition-colors" />
                   </div>
-                  <p className="text-[11px] text-stone-500 font-medium truncate">
-                    {currentLocation.formattedAddress}
+                  <p className="text-[11px] text-stone-500 font-medium truncate" title={currentLocation.formattedAddress}>
+                    {shortAddress}
                   </p>
                 </div>
               </button>
@@ -375,8 +403,6 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Location Modal */}
-      <LocationModal />
 
       {/* Barcode Scanner Modal */}
       <BarcodeScannerModal

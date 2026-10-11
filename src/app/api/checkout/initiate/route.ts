@@ -3,6 +3,8 @@ import { serverOrderStore } from '@/lib/serverOrderStore';
 import { phonePeAdapter } from '@/lib/payment/phonepeAdapter';
 import { sanitizeIndianPhone } from '@/lib/phone';
 
+import { serverDistanceService } from '@/lib/serverDistanceService';
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -36,6 +38,48 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: err.message }, { status: 400 });
     }
 
+    // Distance, Serviceability & Distance-Based Zone Minimum Order Check
+    const isPickup =
+      body.orderType === 'pickup' ||
+      addressData?.orderType === 'pickup' ||
+      slot === 'Store Pickup' ||
+      addressData?.id === 'store-pickup';
+
+    let distanceKm = 0;
+    let zoneMinOrder = 0;
+
+    if (!isPickup) {
+      const lat = addressData?.latitude ?? addressData?.lat ?? body.lat;
+      const lng = addressData?.longitude ?? addressData?.lng ?? body.lng;
+
+      if (typeof lat === 'number' && typeof lng === 'number') {
+        const distResult = await serverDistanceService.calculateDistance(lat, lng);
+        if (!distResult.serviceable) {
+          return NextResponse.json(
+            {
+              success: false,
+              error: 'Your delivery location is beyond our 30 km serviceable radius. Please select Store Pickup.',
+            },
+            { status: 400 }
+          );
+        }
+        distanceKm = distResult.distance_km;
+        zoneMinOrder = distResult.min_order;
+
+        // Strict server minimum order validation against item subtotal
+        if (calculated.subtotal < zoneMinOrder) {
+          const diff = zoneMinOrder - calculated.subtotal;
+          return NextResponse.json(
+            {
+              success: false,
+              error: `Minimum order for your delivery zone (${distanceKm} km) is ₹${zoneMinOrder}. Please add ₹${diff} more.`,
+            },
+            { status: 400 }
+          );
+        }
+      }
+    }
+
     const orderId = `G1-${Math.floor(100000 + Math.random() * 900000)}`;
     const merchantOrderId = `MT_${orderId}_${Date.now()}`;
     const isCod = paymentMethod === 'Cash on Delivery' || paymentMethod?.toLowerCase() === 'cod';
@@ -55,6 +99,8 @@ export async function POST(req: NextRequest) {
         paymentMethod: 'Cash on Delivery',
         userId: userId || undefined,
         userEmail: userEmail || undefined,
+        distance_km: distanceKm,
+        zone_min_order: zoneMinOrder,
       });
 
       await serverOrderStore.confirmCodOrder(orderId);
@@ -84,6 +130,8 @@ export async function POST(req: NextRequest) {
       paymentMethod: 'UPI',
       userId: userId || undefined,
       userEmail: userEmail || undefined,
+      distance_km: distanceKm,
+      zone_min_order: zoneMinOrder,
     });
 
     const host = req.headers.get('host') || 'localhost:3000';

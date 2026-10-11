@@ -5,6 +5,7 @@ import { CartProvider } from '@/context/CartContext';
 import { LocationProvider } from '@/context/LocationContext';
 import { NotificationProvider } from '@/context/NotificationContext';
 import GlobalNotificationBanner from '@/components/common/GlobalNotificationBanner';
+import LocationGate from '@/components/location/LocationGate';
 
 /**
  * Root client-side providers wrapper.
@@ -16,7 +17,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <NotificationProvider>
         <LocationProvider>
           <CartProvider>
-            {children}
+            <LocationGate>
+              {children}
+            </LocationGate>
             <GlobalNotificationBanner />
           </CartProvider>
         </LocationProvider>

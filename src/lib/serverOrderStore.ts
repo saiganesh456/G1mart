@@ -120,8 +120,8 @@ export const serverOrderStore = {
       });
     }
 
-    // Delivery fee rule: Free delivery above ₹499, otherwise standard ₹25
-    const deliveryFee = subtotal >= 499 ? 0 : 25;
+    // Business Rule: Delivery is free in all zones. No delivery fee.
+    const deliveryFee = 0;
     const taxes = 0; // Essential groceries in AP standard zero GST rate
     const grandTotal = subtotal + deliveryFee + taxes;
 

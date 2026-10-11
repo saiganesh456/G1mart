@@ -12,10 +12,13 @@ import {
   CheckCircle2,
   UserCheck,
   Plus,
+  Minus,
   Store,
   Truck,
   Check,
   ChevronRight,
+  ShoppingBag,
+  Sparkles,
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useLocation } from '@/context/LocationContext';
@@ -26,10 +29,11 @@ import { authService } from '@/services/authService';
 import { addressService } from '@/services/addressService';
 import AddressBottomSheet from '@/components/checkout/AddressBottomSheet';
 import type { Address } from '@/types';
+import type { DistanceServiceResult } from '@/types/deliveryZone';
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { cart, cartItemCount, cartSubtotal } = useCart();
+  const { cart, cartItemCount, cartSubtotal, updateCartQuantity, removeFromCart } = useCart();
   const { currentLocation } = useLocation();
   const { user, supabaseUser, isLoggedIn, setLocalUser } = useAuth();
 
@@ -40,6 +44,10 @@ export default function CheckoutPage() {
   const [isAddressSheetOpen, setIsAddressSheetOpen] = useState(false);
   const [savedAddress, setSavedAddress] = useState<Address | null>(null);
   const [isLoadingAddress, setIsLoadingAddress] = useState(true);
+
+  // Address-specific distance & zone resolution
+  const [addressDistanceData, setAddressDistanceData] = useState<DistanceServiceResult | null>(null);
+  const [isResolvingDistance, setIsResolvingDistance] = useState(false);
 
   // Delivery slot selection
   const [selectedSlot, setSelectedSlot] = useState('Standard Delivery');
@@ -64,7 +72,6 @@ export default function CheckoutPage() {
         if (!isMounted) return;
 
         if (list.length > 0) {
-          // Priority: last used address or default or first
           let active = list.find((a) => a.isDefault) || list[0];
           try {
             const lastUsed = localStorage.getItem('g1mart_last_used_address');
@@ -76,7 +83,6 @@ export default function CheckoutPage() {
           } catch {}
           setSavedAddress(active);
         } else {
-          // Check session storage
           try {
             const sessionRaw = sessionStorage.getItem('g1mart_checkout_address');
             if (sessionRaw) {
@@ -97,6 +103,44 @@ export default function CheckoutPage() {
       isMounted = false;
     };
   }, [user, supabaseUser]);
+
+  // Re-evaluate distance when saved address has specific coordinates that differ from currentLocation
+  useEffect(() => {
+    let isMounted = true;
+
+    if (orderType === 'delivery' && savedAddress?.latitude && savedAddress?.longitude) {
+      const addrLat = savedAddress.latitude;
+      const addrLng = savedAddress.longitude;
+      const curLat = currentLocation.lat || 0;
+      const curLng = currentLocation.lng || 0;
+
+      // If coordinates are identical or within 100m of currentLocation, reuse currentLocation
+      if (Math.abs(addrLat - curLat) < 0.001 && Math.abs(addrLng - curLng) < 0.001) {
+        setAddressDistanceData(null);
+      } else {
+        setIsResolvingDistance(true);
+        fetch(`/api/location/distance?lat=${addrLat}&lng=${addrLng}`)
+          .then((res) => res.json())
+          .then((data) => {
+            if (isMounted && data.success && data.data) {
+              setAddressDistanceData(data.data);
+            }
+          })
+          .catch((err) => {
+            console.warn('[Checkout] Failed to resolve address distance:', err);
+          })
+          .finally(() => {
+            if (isMounted) setIsResolvingDistance(false);
+          });
+      }
+    } else {
+      setAddressDistanceData(null);
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [savedAddress, currentLocation, orderType]);
 
   // Auth Handlers
   const handleGoogleSignIn = async () => {
@@ -138,6 +182,38 @@ export default function CheckoutPage() {
     setIsAddressSheetOpen(false);
   };
 
+  // --- Phase 4 Business Rules & Distance Zone Calculations ---
+  const isPickup = orderType === 'pickup';
+
+  // Active distance in km (pickup is exempt)
+  const activeDistanceKm = isPickup
+    ? 0
+    : (addressDistanceData?.distance_km ?? currentLocation.distance_km ?? currentLocation.distanceKm ?? 2);
+
+  // Active ETA in minutes
+  const activeEtaMins = isPickup
+    ? 30
+    : (addressDistanceData?.eta_min ?? currentLocation.eta_min ?? currentLocation.etaMin ?? 15);
+
+  // Distance-based minimum order: Pickup skips the minimum (₹0)
+  const activeMinOrder = isPickup
+    ? 0
+    : (addressDistanceData?.min_order ?? currentLocation.min_order ?? currentLocation.zone?.min_order ?? 500);
+
+  // Serviceability status (30 km road distance limit)
+  const isAddressServiceable = isPickup
+    ? true
+    : (addressDistanceData ? addressDistanceData.serviceable : (currentLocation.serviceable ?? (activeDistanceKm <= 30)));
+
+  // Minimum is checked against ITEM SUBTOTAL after discounts (never including COD fee)
+  const isBelowMinOrder = !isPickup && cartSubtotal < activeMinOrder;
+  const shortfallAmount = Math.max(0, activeMinOrder - cartSubtotal);
+  const minOrderProgress = Math.min(100, Math.round((cartSubtotal / (activeMinOrder || 1)) * 100));
+
+  // Delivery is FREE in all zones
+  const deliveryFee = 0;
+  const grandTotal = cartSubtotal + deliveryFee;
+
   // Place Order / Proceed to Payment Handler
   const handlePlaceOrder = () => {
     if (!isLoggedIn) {
@@ -146,13 +222,25 @@ export default function CheckoutPage() {
       return;
     }
 
-    // 1. If delivery and NO saved address: slide up bottom sheet!
+    // If delivery and NO saved address: open address bottom sheet
     if (orderType === 'delivery' && !savedAddress) {
       setIsAddressSheetOpen(true);
       return;
     }
 
-    // 2. Prepare checkout payload
+    // Distance serviceability check (max 30 km)
+    if (orderType === 'delivery' && !isAddressServiceable) {
+      alert('Selected delivery address is beyond our 30 km serviceable radius. Please select Store Pickup or choose another address.');
+      return;
+    }
+
+    // Minimum order check (Phase 4)
+    if (isBelowMinOrder) {
+      alert(`Minimum order for your delivery zone (${activeDistanceKm} km) is ₹${activeMinOrder}. Please add ₹${shortfallAmount} more to proceed.`);
+      return;
+    }
+
+    // Prepare checkout payload
     const checkoutData = {
       ...(savedAddress || {}),
       orderType,
@@ -160,6 +248,13 @@ export default function CheckoutPage() {
       fullName: savedAddress?.fullName || user?.name || 'Customer',
       phone: savedAddress?.phone || savedAddress?.mobileNumber || user?.phone || '9876543210',
       mobileNumber: savedAddress?.phone || savedAddress?.mobileNumber || user?.phone || '9876543210',
+      distance_km: activeDistanceKm,
+      zone_min_order: activeMinOrder,
+      eta_min: activeEtaMins,
+      subtotal: cartSubtotal,
+      delivery_fee: 0,
+      latitude: savedAddress?.latitude ?? currentLocation.lat,
+      longitude: savedAddress?.longitude ?? currentLocation.lng,
     };
 
     try {
@@ -169,7 +264,7 @@ export default function CheckoutPage() {
       }
     } catch {}
 
-    // 3. Proceed to payment
+    // Proceed to Payment step (Phase 5)
     router.push('/payment');
   };
 
@@ -186,9 +281,6 @@ export default function CheckoutPage() {
       </div>
     );
   }
-
-  const deliveryFee = orderType === 'pickup' ? 0 : (currentLocation.zone?.deliveryFee ?? 0);
-  const grandTotal = cartSubtotal + deliveryFee;
 
   return (
     <div className="max-w-xl mx-auto space-y-3.5 pb-28 pt-2 sm:pt-4 px-2.5 sm:px-0">
@@ -336,7 +428,7 @@ export default function CheckoutPage() {
             </div>
             <div className="min-w-0">
               <span className="font-extrabold text-xs block leading-tight">Store Pickup</span>
-              <span className="text-[10px] text-stone-500 font-medium">Free at G1 Mart</span>
+              <span className="text-[10px] text-stone-500 font-medium">Free at G1 Mart (No min order)</span>
             </div>
           </button>
         </div>
@@ -378,6 +470,11 @@ export default function CheckoutPage() {
                     <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-stone-100 text-stone-600 uppercase">
                       {savedAddress.type || 'Home'}
                     </span>
+                    {activeDistanceKm > 0 && (
+                      <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-[#1B5E20]">
+                        {activeDistanceKm} km
+                      </span>
+                    )}
                   </div>
                   <p className="text-[11px] text-stone-500 font-medium truncate mt-0.5">
                     {savedAddress.landmark ? `Near ${savedAddress.landmark}, ` : ''}
@@ -420,6 +517,26 @@ export default function CheckoutPage() {
               </button>
             </div>
           )}
+
+          {/* Unserviceable Warning if address is over 30 km */}
+          {!isAddressServiceable && orderType === 'delivery' && (
+            <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl space-y-1.5 animate-in fade-in">
+              <div className="flex items-center gap-1.5 text-rose-800 text-xs font-black">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <span>Delivery Not Available ({activeDistanceKm} km from store)</span>
+              </div>
+              <p className="text-[11px] text-rose-700 leading-tight">
+                Maximum delivery radius is 30 km. You can still place your order by choosing Store Pickup!
+              </p>
+              <button
+                type="button"
+                onClick={() => setOrderType('pickup')}
+                className="mt-1 px-3 py-1 bg-[#2E7D32] hover:bg-[#1B5E20] text-white text-xs font-bold rounded-lg transition-transform active:scale-95 cursor-pointer"
+              >
+                Switch to Store Pickup (Free)
+              </button>
+            </div>
+          )}
         </div>
       ) : (
         /* Store Pickup Small Line (skip address requirement for pickup) */
@@ -448,6 +565,150 @@ export default function CheckoutPage() {
         </div>
       )}
 
+      {/* PHASE 4: Distance-Based Minimum Order Banner (Shown ONLY at Checkout when below minimum) */}
+      {isBelowMinOrder && (
+        <div className="bg-gradient-to-r from-amber-50 to-emerald-50/60 border-2 border-amber-400/90 rounded-2xl p-4 shadow-xs space-y-3 animate-in fade-in">
+          <div className="flex items-start justify-between gap-2.5">
+            <div className="flex items-start gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-900 flex items-center justify-center shrink-0 mt-0.5">
+                <ShoppingBag className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="text-xs sm:text-sm font-black text-amber-950 leading-tight">
+                  Add ₹{shortfallAmount} more to get free delivery to your location
+                </h3>
+                <p className="text-[11px] text-stone-600 font-medium mt-1 leading-relaxed">
+                  Minimum order for your area ({activeDistanceKm > 0 ? `${activeDistanceKm} km` : 'distance'}) is{' '}
+                  <strong className="text-stone-900">₹{activeMinOrder}</strong>. Delivery is 100% FREE once met!
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/"
+              className="px-3.5 py-2 bg-[#2E7D32] hover:bg-[#1B5E20] text-white text-xs font-black rounded-xl shrink-0 flex items-center gap-1 shadow-sm active:scale-95 transition-all cursor-pointer"
+            >
+              <Plus className="w-3.5 h-3.5 stroke-[3]" />
+              <span>Add items</span>
+            </Link>
+          </div>
+
+          {/* Live Progress Bar (Updates live as cart changes) */}
+          <div className="space-y-1">
+            <div className="flex justify-between text-[10px] font-black uppercase tracking-wider text-amber-900">
+              <span>Delivery Threshold Progress</span>
+              <span>
+                ₹{cartSubtotal} of ₹{activeMinOrder} ({minOrderProgress}%)
+              </span>
+            </div>
+            <div className="h-2 w-full bg-stone-200/80 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-[#2E7D32] transition-all duration-300 rounded-full"
+                style={{ width: `${minOrderProgress}%` }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* PHASE 4: At or Above Minimum: Delivery ETA and Free Delivery Banner */}
+      {!isBelowMinOrder && (
+        <div className="bg-emerald-50/90 border border-[#2E7D32]/30 rounded-2xl p-3.5 shadow-2xs flex items-center justify-between gap-3 animate-in fade-in">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-8 h-8 rounded-xl bg-[#2E7D32] text-white flex items-center justify-center shrink-0">
+              {orderType === 'pickup' ? <Store className="w-4 h-4" /> : <Truck className="w-4 h-4" />}
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-xs font-black text-emerald-950">
+                  {orderType === 'pickup' ? 'Ready for Store Pickup' : `Delivery in ~${activeEtaMins} mins`}
+                </span>
+                <span className="text-[10px] font-black uppercase px-2 py-0.2 bg-emerald-600 text-white rounded-full">
+                  100% FREE
+                </span>
+              </div>
+              <p className="text-[11px] text-emerald-800 font-medium truncate mt-0.5">
+                {orderType === 'pickup'
+                  ? 'Packaged at G1 Mart Padarupalli within 30 mins'
+                  : `Free doorstep delivery to your location (${activeDistanceKm} km zone)`}
+              </p>
+            </div>
+          </div>
+          <span className="text-xs font-black text-[#2E7D32] shrink-0">
+            ₹0 Delivery Fee
+          </span>
+        </div>
+      )}
+
+      {/* Quick Basket Adjuster (Allows customer to adjust quantities right on checkout to meet minimum) */}
+      <div className="bg-white rounded-2xl border border-stone-200/90 p-3.5 shadow-2xs space-y-2.5">
+        <div className="flex items-center justify-between border-b border-stone-100 pb-2">
+          <div className="flex items-center gap-2">
+            <ShoppingBag className="w-4 h-4 text-[#2E7D32]" />
+            <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider">
+              Basket Items ({cartItemCount})
+            </h2>
+          </div>
+          <Link href="/cart" className="text-[11px] font-bold text-[#2E7D32] hover:underline">
+            Edit Full Cart
+          </Link>
+        </div>
+
+        <div className="divide-y divide-stone-100 max-h-48 overflow-y-auto pr-1">
+          {cart.map((item) => {
+            const linePrice = item.variant?.price || item.product.price;
+            return (
+              <div
+                key={`${item.product.id}-${item.variantId || ''}`}
+                className="py-2 flex items-center justify-between gap-2 text-xs"
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="font-bold text-stone-900 truncate text-[11px] sm:text-xs">
+                    {item.product.name}
+                  </p>
+                  <p className="text-[10px] text-stone-500">
+                    {item.variant?.size_label || item.product.unit} · ₹{linePrice} each
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <div className="flex items-center border border-stone-200 rounded-lg bg-stone-50 p-0.5">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (item.quantity <= 1) {
+                          removeFromCart(item.product.id, item.variantId);
+                        } else {
+                          updateCartQuantity(item.product.id, item.quantity - 1, item.variantId);
+                        }
+                      }}
+                      className="w-5 h-5 flex items-center justify-center text-stone-600 hover:bg-white rounded transition-colors cursor-pointer"
+                      aria-label="Decrease quantity"
+                    >
+                      <Minus className="w-3 h-3" />
+                    </button>
+                    <span className="w-6 text-center font-black text-xs tabular-nums text-stone-900">
+                      {item.quantity}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        updateCartQuantity(item.product.id, item.quantity + 1, item.variantId)
+                      }
+                      className="w-5 h-5 flex items-center justify-center text-stone-600 hover:bg-white rounded transition-colors cursor-pointer"
+                      aria-label="Increase quantity"
+                    >
+                      <Plus className="w-3 h-3 stroke-[2.5]" />
+                    </button>
+                  </div>
+                  <span className="font-bold text-stone-900 text-xs tabular-nums min-w-[42px] text-right">
+                    ₹{linePrice * item.quantity}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
       {/* 3. Delivery / Pickup Window Selection */}
       <div className="bg-white rounded-2xl border border-stone-200/90 p-3.5 shadow-2xs space-y-2.5">
         <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
@@ -463,7 +724,7 @@ export default function CheckoutPage() {
               {
                 id: 'Standard Delivery',
                 title: 'Standard Delivery',
-                subtitle: currentLocation.zone?.estimatedDeliveryTimeText || STORE_CONFIG.delivery.cityEtaText,
+                subtitle: `Estimated ~${activeEtaMins} mins`,
               },
               { id: 'Morning Delivery', title: 'Morning Slot', subtitle: '10:00 AM – 1:00 PM' },
               { id: 'Afternoon Delivery', title: 'Afternoon Slot', subtitle: '1:00 PM – 5:00 PM' },
@@ -515,10 +776,18 @@ export default function CheckoutPage() {
           </div>
           <div className="flex justify-between">
             <span>Delivery Fee</span>
-            <span className="font-bold text-[#2E7D32]">
-              {orderType === 'pickup' || deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`}
-            </span>
+            <span className="font-bold text-[#2E7D32]">FREE</span>
           </div>
+
+          {orderType === 'delivery' && (
+            <div className="flex justify-between text-[11px] pt-1 text-stone-500 border-t border-dashed border-stone-100">
+              <span>Zone Minimum Order ({activeDistanceKm > 0 ? `${activeDistanceKm} km` : 'distance'})</span>
+              <span className={`font-bold ${isBelowMinOrder ? 'text-amber-700' : 'text-emerald-700'}`}>
+                ₹{activeMinOrder} {isBelowMinOrder ? `(Need ₹${shortfallAmount} more)` : '(Met ✓)'}
+              </span>
+            </div>
+          )}
+
           <div className="pt-2 border-t border-stone-100 flex justify-between font-black text-sm text-[#212121]">
             <span>To Pay</span>
             <span className="tabular-nums">₹{grandTotal}</span>
@@ -532,7 +801,7 @@ export default function CheckoutPage() {
         <span>Authentic in-store billing &amp; verified FMCG stock</span>
       </div>
 
-      {/* 5. Sticky Bottom CTA: Place Order / Proceed to Payment */}
+      {/* 5. Sticky Bottom CTA: Place Order / Proceed to Payment (Phase 4) */}
       <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-3 py-3 shadow-lg">
         <div className="max-w-xl mx-auto flex items-center justify-between gap-3">
           <div className="flex flex-col text-left min-w-0">
@@ -540,14 +809,33 @@ export default function CheckoutPage() {
             <span className="text-base sm:text-lg font-black text-[#212121] tabular-nums">₹{grandTotal}</span>
           </div>
 
-          <button
-            type="button"
-            onClick={handlePlaceOrder}
-            className="h-11 sm:h-12 px-6 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all cursor-pointer"
-          >
-            <span>Place Order</span>
-            <ChevronRight className="w-4 h-4" />
-          </button>
+          {isBelowMinOrder ? (
+            <button
+              type="button"
+              disabled
+              className="h-11 sm:h-12 px-5 bg-stone-200 text-stone-500 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-1.5 cursor-not-allowed opacity-80"
+              title={`Add ₹${shortfallAmount} more to meet the ₹${activeMinOrder} minimum for your area`}
+            >
+              <span>Add ₹{shortfallAmount} More</span>
+            </button>
+          ) : !isAddressServiceable && orderType === 'delivery' ? (
+            <button
+              type="button"
+              disabled
+              className="h-11 sm:h-12 px-5 bg-rose-100 text-rose-700 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-1.5 cursor-not-allowed"
+            >
+              <span>Outside 30 km Area</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handlePlaceOrder}
+              className="h-11 sm:h-12 px-6 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all cursor-pointer"
+            >
+              <span>Proceed to Payment</span>
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          )}
         </div>
       </div>
 

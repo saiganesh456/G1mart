@@ -32,7 +32,7 @@ export default function AddressBottomSheet({
   onAddressSaved,
   initialAddress,
 }: AddressBottomSheetProps) {
-  const { detectLocation, isDetecting: isDetectingGPS } = useLocation();
+  const { detectLocation, isDetecting: isDetectingGPS, currentLocation } = useLocation();
   const { user, supabaseUser } = useAuth();
 
   const [fullName, setFullName] = useState('');
@@ -169,9 +169,9 @@ export default function AddressBottomSheet({
         pincode: cleanPincode || '524003',
         type: addressType,
         isDefault: true,
-        latitude,
-        longitude,
-        accuracy,
+        latitude: latitude ?? currentLocation?.lat,
+        longitude: longitude ?? currentLocation?.lng,
+        accuracy: accuracy ?? currentLocation?.accuracy,
       };
 
       // Persist via addressService (LocalStorage + Supabase)
