@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { MapPin, Navigation, Sparkles, X } from 'lucide-react';
+import { MapPin, X } from 'lucide-react';
 
 interface Props {
   isOpen: boolean;
@@ -11,8 +11,9 @@ interface Props {
 }
 
 /**
- * Short friendly screen preceding the OS/browser location prompt.
- * Reassures customers why location is needed for quick-commerce delivery.
+ * Blinkit-style clean & minimal delivery location prompt popup.
+ * Positioned under the header location bar, with zero AI/sparkle icons.
+ * Reference: Blinkit location prompt layout.
  */
 export default function PrePromptModal({
   isOpen,
@@ -23,43 +24,68 @@ export default function PrePromptModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl max-w-sm w-full shadow-2xl border border-stone-200/90 overflow-hidden text-center transform transition-all animate-in zoom-in-95 duration-200">
-        <div className="p-6 pt-7 sm:p-7 flex flex-col items-center">
-          {/* Animated Delivery Pin */}
-          <div className="w-16 h-16 rounded-full bg-emerald-100/80 text-[#1B5E20] flex items-center justify-center mb-4 relative shadow-inner">
-            <MapPin className="w-8 h-8 text-[#1B5E20]" />
-            <span className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center">
-              <Sparkles className="w-3.5 h-3.5" />
-            </span>
-          </div>
-
-          <h2 className="text-base sm:text-lg font-black text-stone-900 tracking-tight">
-            Check Doorstep Delivery
-          </h2>
-
-          <p className="text-xs sm:text-[13px] text-stone-500 font-medium mt-2 leading-relaxed px-2">
-            G1 Mart delivers fresh groceries in <strong>15–30 mins</strong>. Please allow location access to verify delivery to your doorstep.
+    <div
+      className="fixed inset-0 z-50 bg-black/25 backdrop-blur-[1px] animate-in fade-in duration-150 flex items-start justify-center lg:justify-start p-3 sm:p-4 pointer-events-auto"
+      onClick={(e) => {
+        if (e.target === e.currentTarget && onClose) {
+          onClose();
+        }
+      }}
+    >
+      {/* 
+        Card container:
+        - Mobile: Anchored near the top under the mobile header (top-24 / top-28), centered horizontally
+        - Desktop (lg+): Anchored directly under the header location area (top-[72px], left-20 / left-28)
+      */}
+      <div className="w-full max-w-md sm:max-w-[480px] bg-white rounded-xl sm:rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.18)] border border-stone-200/90 p-4 sm:p-5 text-left transform transition-all animate-in zoom-in-95 duration-150 mt-24 sm:mt-24 lg:mt-16 lg:ml-20 xl:ml-32">
+        {/* Header row: "Welcome to g1mart" + optional close */}
+        <div className="flex items-center justify-between mb-3 sm:mb-3.5">
+          <p className="text-xs sm:text-[13px] font-semibold text-stone-600 tracking-tight">
+            Welcome to <span className="font-extrabold text-[#1B5E20]">g1mart</span>
           </p>
-
-          <div className="w-full mt-6 space-y-2.5">
+          {onClose && (
             <button
               type="button"
-              onClick={onContinueToGps}
-              className="w-full py-3.5 px-4 rounded-2xl bg-[#1B5E20] hover:bg-[#154a19] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm transition-all active:scale-98 cursor-pointer"
+              onClick={onClose}
+              aria-label="Close"
+              className="text-stone-400 hover:text-stone-600 p-0.5 rounded-md transition-colors cursor-pointer"
             >
-              <Navigation className="w-4 h-4 fill-white" />
-              <span>Allow Location Access</span>
+              <X className="w-4 h-4" />
             </button>
+          )}
+        </div>
 
-            <button
-              type="button"
-              onClick={onSelectManually}
-              className="w-full py-3 px-4 rounded-2xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs transition-colors cursor-pointer"
-            >
-              Select Location Manually
-            </button>
+        {/* Body row: Location Pin outline + Prompt text */}
+        <div className="flex items-start gap-2.5 sm:gap-3 mb-4 sm:mb-5">
+          <div className="text-stone-800 shrink-0 mt-0.5">
+            <MapPin className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
           </div>
+          <p className="text-stone-800 font-medium text-xs sm:text-[13.5px] leading-snug">
+            Please provide your delivery location to see products at nearby store
+          </p>
+        </div>
+
+        {/* Action row: [Detect my location]  OR  [search delivery location] */}
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          <button
+            type="button"
+            onClick={onContinueToGps}
+            className="bg-[#1B5E20] hover:bg-[#154a19] active:bg-[#0e3512] text-white text-xs sm:text-[13px] font-bold px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg shadow-xs transition-colors shrink-0 cursor-pointer"
+          >
+            Detect my location
+          </button>
+
+          <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border border-stone-200 text-stone-400 text-[10px] sm:text-[11px] font-bold flex items-center justify-center shrink-0 select-none">
+            OR
+          </div>
+
+          <button
+            type="button"
+            onClick={onSelectManually}
+            className="flex-1 min-w-0 bg-white hover:bg-stone-50 border border-stone-300 hover:border-stone-400 text-stone-400 hover:text-stone-600 text-xs sm:text-[13px] font-normal px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-lg text-left truncate transition-colors cursor-pointer"
+          >
+            search delivery location
+          </button>
         </div>
       </div>
     </div>
