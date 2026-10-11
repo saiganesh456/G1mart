@@ -14,11 +14,19 @@ interface Props {
 
 /** Blacklisted/mismatched subcategories per category domain */
 const CATEGORY_SUB_BLACKLIST: Record<string, string[]> = {
-  'atta-rice-dal': ['Cleaners', 'Laundry & Detergents', 'Sanitary Pads & Napkins'],
-  'vegetables-fruits': ['Cleaners', 'Detergent Powders & Liquids'],
-  'oil-ghee-masala': ['Detergent Powders & Liquids', 'Chocolates & Sweets'],
-  'soaps-bath': ['Atta, Rice & Dals', 'Edible Oils'],
-  'floor-surface-cleaners': ['Tea & Coffee', 'Sanitary Pads & Napkins', 'Chocolates'],
+  'sweets-chocolates': ['Cleaners', 'Laundry & Detergents', 'Milk & Curd', 'Sanitary Pads & Napkins', 'Tea & Coffee', 'Detergent Powders & Liquids'],
+  'atta-rice-dal': ['Cleaners', 'Laundry & Detergents', 'Sanitary Pads & Napkins', 'Detergent Powders & Liquids'],
+  'vegetables-fruits': ['Cleaners', 'Detergent Powders & Liquids', 'Laundry & Detergents'],
+  'oil-ghee-masala': ['Detergent Powders & Liquids', 'Chocolates & Sweets', 'Cleaners'],
+  'soaps-bath': ['Atta, Rice & Dals', 'Edible Oils', 'Pulses & Dal'],
+  'floor-surface-cleaners': ['Tea & Coffee', 'Sanitary Pads & Napkins', 'Chocolates', 'Chocolates & Sweets'],
+  'biscuits-bakery': ['Milk & Curd', 'Dry Fruits & Nuts', 'Laundry & Detergents'],
+  'drinks-juices': ['Detergent Powders & Liquids', 'Cleaners', 'Laundry & Detergents'],
+  'dairy-bread-eggs': ['Laundry & Detergents', 'Detergent Powders & Liquids', 'Chocolates'],
+  'sugar-salt-staples': ['Sanitary Pads & Napkins', 'Detergent Powders & Liquids', 'Edible Oils'],
+  'pooja-needs': ['Candies & Gums', 'Sanitary Pads & Napkins', 'Pulses & Dal'],
+  'hair-care': ['Eggs', 'Spices & Oils', 'Edible Oils'],
+  'oral-care': ['Tea & Coffee'],
 };
 
 export default function CategoryDashboardClient({ category, products }: Props) {

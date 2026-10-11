@@ -8,6 +8,8 @@ const ROUTES = [
   { name: 'category_atta', path: '/category/atta-rice-dal' },
   { name: 'account', path: '/account' },
   { name: 'orders', path: '/orders' },
+  { name: 'cart', path: '/cart' },
+  { name: 'search', path: '/search' },
 ];
 
 const WIDTHS = [360, 375, 390, 412];
@@ -43,6 +45,21 @@ async function run() {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
   });
 
+  // Pre-warm routes so dev server compiles them before tests
+  console.log('Warming up routes...');
+  for (const route of ROUTES) {
+    const page = await context.newPage();
+    try {
+      await page.goto(`${BASE_URL}${route.path}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
+      await page.waitForTimeout(500);
+    } catch (e) {
+      console.warn(`Warmup warning for ${route.name}: ${e.message}`);
+    } finally {
+      await page.close();
+    }
+  }
+  console.log('Warmup complete. Running viewport audits...');
+
   for (const route of ROUTES) {
     results.overflow[route.name] = {};
     results.forbiddenStrings[route.name] = [];
@@ -52,14 +69,13 @@ async function run() {
       await page.setViewportSize({ width, height: HEIGHT });
 
       try {
-        const res = await page.goto(`${BASE_URL}${route.path}`, {
+        await page.goto(`${BASE_URL}${route.path}`, {
           waitUntil: 'domcontentloaded',
-          timeout: 20000,
+          timeout: 45000,
         });
-        await page.waitForTimeout(1500);
+        await page.waitForTimeout(800);
 
-        // 1. Overflow verification script:
-        // list every element whose getBoundingClientRect().right > innerWidth
+        // 1. Overflow check
         const overflowData = await page.evaluate(() => {
           const innerW = window.innerWidth;
           const scrollW = document.documentElement.scrollWidth;
@@ -67,10 +83,9 @@ async function run() {
 
           document.querySelectorAll('*').forEach((el) => {
             const rect = el.getBoundingClientRect();
-            // Ignore fixed elements like full-width modals, overlays, or script/link tags
             if (
               rect.width > 0 &&
-              rect.right > innerW + 1 && // 1px tolerance for subpixel antialiasing
+              rect.right > innerW + 1 &&
               window.getComputedStyle(el).display !== 'none'
             ) {
               overflowingElements.push({
@@ -105,13 +120,11 @@ async function run() {
 
         // At 390px, perform string checks and capture reference screenshot
         if (width === 390) {
-          // Delivery bar check:
           const hasDeliveryBar = await page.evaluate(() => {
             const bodyText = document.body.innerText;
             return /Delivery in ~|Venkatachalam, Nellore/i.test(bodyText);
           });
 
-          // Criteria 2: Delivery bar must exist ONLY on Home
           const deliveryBarExpected = route.name === 'home';
           results.deliveryBar[route.name] = {
             found: hasDeliveryBar,
@@ -122,7 +135,6 @@ async function run() {
             results.allPassed = false;
           }
 
-          // Forbidden strings check:
           const pageText = await page.evaluate(() => document.body.innerText);
           for (const str of FORBIDDEN_STRINGS) {
             if (pageText.includes(str)) {
@@ -131,7 +143,6 @@ async function run() {
             }
           }
 
-          // Capture screenshot
           const screenshotName = `${route.name}_390x844.png`;
           for (const dir of outDirs) {
             const dest = path.join(dir, screenshotName);
