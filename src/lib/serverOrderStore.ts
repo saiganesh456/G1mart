@@ -151,7 +151,23 @@ export const serverOrderStore = {
     paymentMethod: 'UPI' | 'Cash on Delivery' | 'Debit / Credit Card';
     userId?: string;
     userEmail?: string;
+    distance_km?: number;
+    distanceKm?: number;
+    zone_min_order?: number;
+    zoneMinOrder?: number;
+    cod_fee?: number;
+    codFee?: number;
+    final_total?: number;
+    finalTotal?: number;
+    type?: 'standard' | 'slip';
+    orderType?: 'standard' | 'slip';
   }): Promise<Order> {
+    const distanceKm = params.distance_km ?? params.distanceKm;
+    const zoneMinOrder = params.zone_min_order ?? params.zoneMinOrder;
+    const codFee = params.cod_fee ?? params.codFee ?? 0;
+    const finalTotal = params.final_total ?? params.finalTotal ?? params.grandTotal;
+    const orderType = params.type ?? params.orderType ?? 'standard';
+
     const order: Order = {
       id: params.orderId,
       orderNumber: params.orderId,
@@ -173,6 +189,16 @@ export const serverOrderStore = {
       deliveryFee: params.deliveryFee,
       taxes: params.taxes,
       grandTotal: params.grandTotal,
+      finalTotal,
+      final_total: finalTotal,
+      distanceKm,
+      distance_km: distanceKm,
+      zoneMinOrder,
+      zone_min_order: zoneMinOrder,
+      codFee,
+      cod_fee: codFee,
+      orderType,
+      type: orderType,
       isPaid: false,
       paidAmount: 0,
       providerOrderId: params.merchantOrderId,
@@ -218,6 +244,11 @@ export const serverOrderStore = {
           delivery_fee: order.deliveryFee,
           taxes: order.taxes,
           grand_total: order.grandTotal,
+          final_total: finalTotal,
+          distance_km: distanceKm,
+          zone_min_order: zoneMinOrder,
+          cod_fee: codFee,
+          type: orderType,
           address: order.address,
           provider_order_id: params.merchantOrderId,
         });

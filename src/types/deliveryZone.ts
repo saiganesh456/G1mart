@@ -1,29 +1,76 @@
 export type DeliveryZoneType = 'city' | 'rural_extended' | 'out_of_coverage';
 
+/**
+ * Phase 1: Store Global Settings
+ * Single row in database and runtime store
+ */
+export interface StoreSettings {
+  id?: string;
+  store_lat: number;
+  store_lng: number;
+  store_address: string;
+  max_radius_km: number;
+  prep_time_min: number;
+  cod_fee: number;
+  updated_at?: string;
+}
+
+/**
+ * Phase 1: Distance-Based Delivery Zone
+ * Delivery is FREE in all zones.
+ * Initial business zones:
+ * 0–5 km: ₹500
+ * 5–10 km: ₹1000
+ * 10–15 km: ₹1000
+ * 15–30 km: ₹2000
+ * over 30 km: not serviceable
+ */
 export interface DeliveryZone {
   id: string;
-  name: string;
-  code: string;
-  type: DeliveryZoneType;
-  geographicCoverage: string;
-  maxRadiusKm: number;
-  estimatedMinDeliveryTime: number; // in minutes
-  estimatedMaxDeliveryTime: number; // in minutes
-  estimatedDeliveryTimeText: string; // e.g. "30 - 60 mins" or "Approx. 2 hours"
-  deliveryFee: number; // in INR
-  minOrderValue: number; // in INR
-  freeDeliveryThreshold: number; // in INR
-  isActive: boolean;
-  pincodes: string[];
-  supportedAreas: string[];
-  description: string;
+  min_km: number;
+  max_km: number;
+  min_order: number;
+  active: boolean;
+  name?: string;
+  description?: string;
+  // Compatibility fields for legacy references:
+  code?: string;
+  type?: DeliveryZoneType;
+  geographicCoverage?: string;
+  maxRadiusKm?: number;
+  minOrderValue?: number;
+  isActive?: boolean;
+  deliveryFee?: number;
+  freeDeliveryThreshold?: number;
+  estimatedMinDeliveryTime?: number;
+  estimatedMaxDeliveryTime?: number;
+  estimatedDeliveryTimeText?: string;
+  pincodes?: string[];
+  supportedAreas?: string[];
+}
+
+/**
+ * Phase 1: Customer Location with Distance & Serviceability
+ */
+export interface CustomerLocationData {
+  lat: number;
+  lng: number;
+  address: string;
+  pincode: string;
+  distance_km?: number;
+  eta_min?: number;
+  zone_id?: string;
+  approximate?: boolean;
+  calculated_at?: string;
+  serviceable?: boolean;
+  min_order?: number;
 }
 
 export interface DeliveryZoneResolutionResult {
   zone: DeliveryZone;
   isCovered: boolean;
   distanceKm?: number;
-  deliveryFee: number;
+  deliveryFee: number; // Always 0 (Delivery is free in all zones)
   isEligibleForFreeDelivery: boolean;
   minOrderMet: boolean;
   estimatedTimeText: string;

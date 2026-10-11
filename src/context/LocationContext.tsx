@@ -16,6 +16,18 @@ export interface DeliveryLocation {
   lng?: number;
   accuracy?: number; // Accurate GPS radius in meters
   zone?: DeliveryZone;
+  // Phase 1 customer location fields
+  distance_km?: number;
+  distanceKm?: number;
+  eta_min?: number;
+  etaMin?: number;
+  zone_id?: string;
+  zoneId?: string;
+  approximate?: boolean;
+  calculated_at?: string;
+  calculatedAt?: string;
+  serviceable?: boolean;
+  min_order?: number;
 }
 
 interface LocationContextType {

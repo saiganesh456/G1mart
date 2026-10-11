@@ -215,6 +215,16 @@ export interface Order {
   deliveryFee: number;
   taxes: number;
   grandTotal: number;
+  finalTotal?: number;
+  final_total?: number;
+  distanceKm?: number;
+  distance_km?: number;
+  zoneMinOrder?: number;
+  zone_min_order?: number;
+  codFee?: number;
+  cod_fee?: number;
+  orderType?: 'standard' | 'slip';
+  type?: 'standard' | 'slip';
   isPaid?: boolean;
   paidAmount?: number;
   paidAt?: string;

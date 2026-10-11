@@ -44,6 +44,41 @@ export interface Database {
           updated_at?: string;
         };
       };
+      store_settings: {
+        Row: {
+          id: string;
+          store_lat: number;
+          store_lng: number;
+          store_address: string;
+          max_radius_km: number;
+          prep_time_min: number;
+          cod_fee: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          store_lat?: number;
+          store_lng?: number;
+          store_address?: string;
+          max_radius_km?: number;
+          prep_time_min?: number;
+          cod_fee?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          store_lat?: number;
+          store_lng?: number;
+          store_address?: string;
+          max_radius_km?: number;
+          prep_time_min?: number;
+          cod_fee?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
       delivery_zones: {
         Row: {
           id: string;
@@ -52,6 +87,10 @@ export interface Database {
           type: 'city' | 'rural_extended' | 'out_of_coverage';
           geographic_coverage: string;
           max_radius_km: number;
+          min_km: number;
+          max_km: number;
+          min_order: number;
+          active: boolean;
           estimated_min_delivery_time: number;
           estimated_max_delivery_time: number;
           estimated_delivery_time_text: string;
@@ -72,6 +111,10 @@ export interface Database {
           type: 'city' | 'rural_extended' | 'out_of_coverage';
           geographic_coverage: string;
           max_radius_km: number;
+          min_km?: number;
+          max_km?: number;
+          min_order?: number;
+          active?: boolean;
           estimated_min_delivery_time: number;
           estimated_max_delivery_time: number;
           estimated_delivery_time_text: string;
@@ -92,6 +135,10 @@ export interface Database {
           type?: 'city' | 'rural_extended' | 'out_of_coverage';
           geographic_coverage?: string;
           max_radius_km?: number;
+          min_km?: number;
+          max_km?: number;
+          min_order?: number;
+          active?: boolean;
           estimated_min_delivery_time?: number;
           estimated_max_delivery_time?: number;
           estimated_delivery_time_text?: string;
@@ -244,6 +291,13 @@ export interface Database {
           type: 'Home' | 'Work' | 'Other';
           is_default: boolean;
           delivery_instructions: string | null;
+          lat: number | null;
+          lng: number | null;
+          distance_km: number | null;
+          eta_min: number | null;
+          zone_id: string | null;
+          approximate: boolean;
+          calculated_at: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -261,6 +315,13 @@ export interface Database {
           type?: 'Home' | 'Work' | 'Other';
           is_default?: boolean;
           delivery_instructions?: string | null;
+          lat?: number | null;
+          lng?: number | null;
+          distance_km?: number | null;
+          eta_min?: number | null;
+          zone_id?: string | null;
+          approximate?: boolean;
+          calculated_at?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -278,6 +339,13 @@ export interface Database {
           type?: 'Home' | 'Work' | 'Other';
           is_default?: boolean;
           delivery_instructions?: string | null;
+          lat?: number | null;
+          lng?: number | null;
+          distance_km?: number | null;
+          eta_min?: number | null;
+          zone_id?: string | null;
+          approximate?: boolean;
+          calculated_at?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -325,6 +393,11 @@ export interface Database {
           delivery_fee: number;
           taxes: number;
           grand_total: number;
+          final_total?: number | null;
+          distance_km?: number | null;
+          zone_min_order?: number | null;
+          cod_fee?: number | null;
+          type?: string | null;
           coupon_applied: string | null;
           address: Json;
           delivery_zone_id: string | null;
@@ -345,6 +418,11 @@ export interface Database {
           delivery_fee?: number;
           taxes?: number;
           grand_total: number;
+          final_total?: number | null;
+          distance_km?: number | null;
+          zone_min_order?: number | null;
+          cod_fee?: number | null;
+          type?: string | null;
           coupon_applied?: string | null;
           address: Json;
           delivery_zone_id?: string | null;
@@ -365,6 +443,11 @@ export interface Database {
           delivery_fee?: number;
           taxes?: number;
           grand_total?: number;
+          final_total?: number | null;
+          distance_km?: number | null;
+          zone_min_order?: number | null;
+          cod_fee?: number | null;
+          type?: string | null;
           coupon_applied?: string | null;
           address?: Json;
           delivery_zone_id?: string | null;

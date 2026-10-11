@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   X,
   Sparkles,
+  Settings,
 } from 'lucide-react';
 import type { Category, Product, Order, StaffMember } from '@/types';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
@@ -31,6 +32,7 @@ import ProductDetailsPanel from '@/components/admin/tabs/ProductDetailsPanel';
 import MobileBottomNav from '@/components/admin/tabs/MobileBottomNav';
 import StaffManagementTab from '@/components/admin/StaffManagementTab';
 import ShootListTab from '@/components/admin/tabs/ShootListTab';
+import SettingsTab from '@/components/admin/tabs/SettingsTab';
 import { Camera } from 'lucide-react';
 
 interface Props {
@@ -40,7 +42,7 @@ interface Props {
 
 export default function AdminDashboardClient({ initialProducts = [], categories = [] }: Props) {
   // Navigation & Active View state
-  const [activeTab, setActiveTab] = useState<'home' | 'orders' | 'inventory' | 'staff' | 'shoot-list'>('home');
+  const [activeTab, setActiveTab] = useState<'home' | 'orders' | 'inventory' | 'staff' | 'shoot-list' | 'settings'>('home');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -744,6 +746,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     },
     { id: 'shoot-list' as const, label: 'Shoot List', icon: Camera },
     { id: 'staff' as const, label: 'Staff & Fleet', icon: Users },
+    { id: 'settings' as const, label: 'Store Settings & Zones', icon: Settings },
   ];
 
   return (
@@ -1053,6 +1056,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 }
               />
             )}
+
+            {activeTab === 'settings' && <SettingsTab />}
           </>
         )}
       </main>

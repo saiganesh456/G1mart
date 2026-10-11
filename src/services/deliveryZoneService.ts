@@ -4,27 +4,34 @@ import { DeliveryZone, DeliveryZoneResolutionResult } from '../types/deliveryZon
  * G1 MART Configurable Delivery Zone Catalog
  * Business Location: Nellore, Andhra Pradesh, India
  * 
- * Rules:
- * 1. Nellore City: Expected delivery 30 minutes to 1 hour.
- * 2. Areas/villages outside Nellore City (within ~30 km): Expected delivery approx. 2 hours.
- * 
- * Note: Configurable values below are not hardcoded in UI components;
- * UI screens dynamically consume delivery parameters through this service.
+ * Business Rules (Phase 1):
+ * 1. Delivery is FREE across all zones. No delivery fee.
+ * 2. Max delivery radius: 30 km road distance.
+ * 3. Minimum order grows with distance:
+ *    - 0–5 km: ₹500
+ *    - 5–10 km: ₹1000
+ *    - 10–15 km: ₹1000
+ *    - 15–30 km: ₹2000
+ *    - over 30 km: Not serviceable
  */
 export const DEFAULT_DELIVERY_ZONES: DeliveryZone[] = [
   {
-    id: 'zone-nellore-city',
-    name: 'Nellore City',
-    code: 'NELLORE_CITY',
+    id: 'zone-0-5',
+    name: '0–5 km (Local)',
+    code: 'ZONE_0_5',
     type: 'city',
-    geographicCoverage: 'Nellore Municipal Corporation & Urban Center',
-    maxRadiusKm: 10,
-    estimatedMinDeliveryTime: 30,
-    estimatedMaxDeliveryTime: 60,
-    estimatedDeliveryTimeText: '30 mins - 1 hour',
-    deliveryFee: 30,
-    minOrderValue: 149,
-    freeDeliveryThreshold: 499,
+    geographicCoverage: 'Nellore Urban Center (within 5 km)',
+    maxRadiusKm: 5,
+    min_km: 0,
+    max_km: 5,
+    min_order: 500,
+    active: true,
+    estimatedMinDeliveryTime: 15,
+    estimatedMaxDeliveryTime: 30,
+    estimatedDeliveryTimeText: '15–30 mins',
+    deliveryFee: 0,
+    minOrderValue: 500,
+    freeDeliveryThreshold: 0,
     isActive: true,
     pincodes: ['524001', '524002', '524003', '524004'],
     supportedAreas: [
@@ -44,46 +51,73 @@ export const DEFAULT_DELIVERY_ZONES: DeliveryZone[] = [
       'Podalakur Road (City limits)',
       'Fathekhanpet',
     ],
-    description: 'Superfast doorstep delivery across Nellore City in 30 minutes to 1 hour.',
+    description: 'Local express delivery in 15–30 mins. Free delivery, min order ₹500.',
   },
   {
-    id: 'zone-nellore-extended-30km',
-    name: 'Nellore Extended (Within 30 km)',
-    code: 'NELLORE_RURAL_30KM',
-    type: 'rural_extended',
-    geographicCoverage: 'Surrounding mandals & villages within ~30 km radius of Nellore',
-    maxRadiusKm: 30,
-    estimatedMinDeliveryTime: 90,
-    estimatedMaxDeliveryTime: 120,
-    estimatedDeliveryTimeText: 'Approx. 2 hours',
-    deliveryFee: 50,
-    minOrderValue: 249,
-    freeDeliveryThreshold: 799,
+    id: 'zone-5-10',
+    name: '5–10 km (City)',
+    code: 'ZONE_5_10',
+    type: 'city',
+    geographicCoverage: 'Greater Nellore (5–10 km)',
+    maxRadiusKm: 10,
+    min_km: 5,
+    max_km: 10,
+    min_order: 1000,
+    active: true,
+    estimatedMinDeliveryTime: 30,
+    estimatedMaxDeliveryTime: 45,
+    estimatedDeliveryTimeText: '30–45 mins',
+    deliveryFee: 0,
+    minOrderValue: 1000,
+    freeDeliveryThreshold: 0,
     isActive: true,
-    pincodes: [
-      '524137', // Kovur
-      '524305', // Buchireddypalem
-      '524314', // Indukurpet
-      '524320', // Venkatachalam
-      '524316', // Kodavalur
-      '524345', // Podalakur
-      '524344', // Muthukur
-      '524315', // Allur
-    ],
-    supportedAreas: [
-      'Kovur',
-      'Buchireddypalem',
-      'Indukurpet',
-      'Venkatachalam',
-      'Kodavalur',
-      'Podalakur (Rural)',
-      'Muthukur',
-      'Allur',
-      'Damaramadugu',
-      'Kakupalli',
-      'Kanuparthipadu',
-    ],
-    description: 'Doorstep grocery delivery to villages and surrounding areas within 30 km of Nellore in approx. 2 hours.',
+    pincodes: ['524004', '524137'],
+    supportedAreas: ['Kovur', 'Kallurpalli', 'Chinthareddypalem'],
+    description: 'City delivery in 30–45 mins. Free delivery, min order ₹1000.',
+  },
+  {
+    id: 'zone-10-15',
+    name: '10–15 km (Suburban)',
+    code: 'ZONE_10_15',
+    type: 'rural_extended',
+    geographicCoverage: 'Suburban mandals within 15 km',
+    maxRadiusKm: 15,
+    min_km: 10,
+    max_km: 15,
+    min_order: 1000,
+    active: true,
+    estimatedMinDeliveryTime: 45,
+    estimatedMaxDeliveryTime: 60,
+    estimatedDeliveryTimeText: '45–60 mins',
+    deliveryFee: 0,
+    minOrderValue: 1000,
+    freeDeliveryThreshold: 0,
+    isActive: true,
+    pincodes: ['524314', '524320'],
+    supportedAreas: ['Venkatachalam', 'Indukurpet', 'Damaramadugu', 'Kakupalli'],
+    description: 'Suburban delivery in 45–60 mins. Free delivery, min order ₹1000.',
+  },
+  {
+    id: 'zone-15-30',
+    name: '15–30 km (Extended)',
+    code: 'ZONE_15_30',
+    type: 'rural_extended',
+    geographicCoverage: 'Extended surrounding mandals (up to 30 km)',
+    maxRadiusKm: 30,
+    min_km: 15,
+    max_km: 30,
+    min_order: 2000,
+    active: true,
+    estimatedMinDeliveryTime: 60,
+    estimatedMaxDeliveryTime: 90,
+    estimatedDeliveryTimeText: 'Approx. 1–1.5 hours',
+    deliveryFee: 0,
+    minOrderValue: 2000,
+    freeDeliveryThreshold: 0,
+    isActive: true,
+    pincodes: ['524305', '524316', '524345', '524344', '524315'],
+    supportedAreas: ['Buchireddypalem', 'Kodavalur', 'Podalakur', 'Muthukur', 'Allur'],
+    description: 'Doorstep grocery delivery within 30 km in approx. 1–1.5 hours. Free delivery, min order ₹2000.',
   },
 ];
 
@@ -102,12 +136,11 @@ export const NELLORE_AREAS: string[] = [
   'Vedayapalem, Nellore - 524004',
   'Santhapet, Nellore - 524001',
   'BV Nagar, Nellore - 524004',
-  'Kovur (Within 30 km) - 524137',
+  'Kovur (Within 10 km) - 524137',
   'Buchireddypalem (Within 30 km) - 524305',
-  'Venkatachalam (Within 30 km) - 524320',
-  'Indukurpet (Within 30 km) - 524314',
+  'Venkatachalam (Within 15 km) - 524320',
+  'Indukurpet (Within 15 km) - 524314',
 ];
-
 
 class DeliveryZoneService {
   private zones: DeliveryZone[] = [...DEFAULT_DELIVERY_ZONES];
@@ -120,17 +153,31 @@ class DeliveryZoneService {
   }
 
   /**
-   * Return active delivery zones
+   * Set zones from server
    */
-  public getActiveZones(): DeliveryZone[] {
-    return this.zones.filter((z) => z.isActive);
+  public setZones(newZones: DeliveryZone[]): void {
+    if (Array.isArray(newZones) && newZones.length > 0) {
+      this.zones = newZones.map((z) => ({
+        ...z,
+        deliveryFee: 0,
+        minOrderValue: Number(z.min_order ?? z.minOrderValue ?? 500),
+        isActive: z.active !== undefined ? Boolean(z.active) : Boolean(z.isActive ?? true),
+      }));
+    }
   }
 
   /**
-   * Get default delivery zone (Nellore City)
+   * Return active delivery zones
+   */
+  public getActiveZones(): DeliveryZone[] {
+    return this.zones.filter((z) => (z.active !== undefined ? z.active : z.isActive ?? true));
+  }
+
+  /**
+   * Get default delivery zone (0–5 km)
    */
   public getDefaultZone(): DeliveryZone {
-    const defaultZone = this.zones.find((z) => z.code === 'NELLORE_CITY' && z.isActive);
+    const defaultZone = this.zones.find((z) => (z.min_km === 0 || z.code === 'ZONE_0_5') && (z.active ?? z.isActive));
     return defaultZone || this.zones[0];
   }
 
@@ -142,7 +189,28 @@ class DeliveryZoneService {
   }
 
   /**
-   * Resolve appropriate delivery zone based on an address, city, area or pincode string
+   * Resolve zone by road distance in km
+   */
+  public resolveZoneByDistance(distanceKm: number, maxRadiusKm = 30): DeliveryZone | null {
+    if (distanceKm > maxRadiusKm) {
+      return null;
+    }
+    const activeZones = this.getActiveZones();
+    for (const z of activeZones) {
+      const min = Number(z.min_km ?? 0);
+      const max = Number(z.max_km ?? 30);
+      if (min === 0) {
+        if (distanceKm >= 0 && distanceKm <= max) return z;
+      } else {
+        if (distanceKm > min && distanceKm <= max) return z;
+      }
+    }
+    const upper = activeZones.find((z) => Number(z.max_km) >= distanceKm);
+    return upper || null;
+  }
+
+  /**
+   * Fallback resolve zone based on text query (e.g. area name)
    */
   public resolveZone(locationQuery: string | undefined): DeliveryZone {
     if (!locationQuery || !locationQuery.trim()) {
@@ -151,71 +219,76 @@ class DeliveryZoneService {
 
     const query = locationQuery.toLowerCase();
 
-    // 1. Check for extended zone pincodes first
-    const extendedZone = this.zones.find((z) => z.code === 'NELLORE_RURAL_30KM');
-    if (extendedZone) {
-      const matchesExtendedPincode = extendedZone.pincodes.some((pin) => query.includes(pin));
-      const matchesExtendedArea = extendedZone.supportedAreas.some((area) =>
-        query.includes(area.toLowerCase())
-      );
-      if (matchesExtendedPincode || matchesExtendedArea) {
-        return extendedZone;
-      }
+    // 15–30 km check
+    const z15to30 = this.zones.find((z) => z.id === 'zone-15-30' || z.code === 'ZONE_15_30');
+    if (z15to30) {
+      const matchPin = z15to30.pincodes?.some((pin) => query.includes(pin));
+      const matchArea = z15to30.supportedAreas?.some((a) => query.includes(a.toLowerCase()));
+      if (matchPin || matchArea) return z15to30;
     }
 
-    // 2. Check for city zone pincodes & areas
-    const cityZone = this.zones.find((z) => z.code === 'NELLORE_CITY');
-    if (cityZone) {
-      const matchesCityPincode = cityZone.pincodes.some((pin) => query.includes(pin));
-      const matchesCityArea = cityZone.supportedAreas.some((area) =>
-        query.includes(area.toLowerCase())
-      );
-      if (matchesCityPincode || matchesCityArea || query.includes('nellore')) {
-        return cityZone;
-      }
+    // 10–15 km check
+    const z10to15 = this.zones.find((z) => z.id === 'zone-10-15' || z.code === 'ZONE_10_15');
+    if (z10to15) {
+      const matchPin = z10to15.pincodes?.some((pin) => query.includes(pin));
+      const matchArea = z10to15.supportedAreas?.some((a) => query.includes(a.toLowerCase()));
+      if (matchPin || matchArea) return z10to15;
     }
 
-    // Default fallback to City Zone
+    // 5–10 km check
+    const z5to10 = this.zones.find((z) => z.id === 'zone-5-10' || z.code === 'ZONE_5_10');
+    if (z5to10) {
+      const matchPin = z5to10.pincodes?.some((pin) => query.includes(pin));
+      const matchArea = z5to10.supportedAreas?.some((a) => query.includes(a.toLowerCase()));
+      if (matchPin || matchArea) return z5to10;
+    }
+
+    // 0–5 km Local check
     return this.getDefaultZone();
   }
 
   /**
-   * Evaluate full delivery resolution (fee, min order, eligibility) for a given cart subtotal and location
+   * Evaluate full delivery resolution (fee is always 0, min order is checked against subtotal)
    */
   public evaluateDelivery(
     subtotal: number,
     locationQuery?: string,
-    zoneOverride?: DeliveryZone
+    zoneOverride?: DeliveryZone,
+    distanceKm?: number
   ): DeliveryZoneResolutionResult {
-    const zone = zoneOverride || this.resolveZone(locationQuery);
-    const isCovered = zone.isActive;
-    const isEligibleForFreeDelivery = subtotal >= zone.freeDeliveryThreshold;
-    const deliveryFee = subtotal === 0 || isEligibleForFreeDelivery ? 0 : zone.deliveryFee;
-    const minOrderMet = subtotal >= zone.minOrderValue;
+    let zone: DeliveryZone | null = zoneOverride || null;
+
+    if (!zone && distanceKm !== undefined) {
+      zone = this.resolveZoneByDistance(distanceKm);
+    }
+    if (!zone) {
+      zone = this.resolveZone(locationQuery);
+    }
+
+    const isCovered = Boolean(zone && (zone.active ?? zone.isActive));
+    const minOrder = Number(zone?.min_order ?? zone?.minOrderValue ?? 0);
+    const minOrderMet = subtotal >= minOrder;
 
     return {
       zone,
       isCovered,
-      deliveryFee,
-      isEligibleForFreeDelivery,
+      deliveryFee: 0, // Always FREE delivery in all zones
+      isEligibleForFreeDelivery: true,
       minOrderMet,
-      estimatedTimeText: zone.estimatedDeliveryTimeText,
-      serviceNotice: !isCovered ? 'Service currently unavailable in this zone' : undefined,
+      estimatedTimeText: zone?.estimatedDeliveryTimeText || '15–30 mins',
+      serviceNotice: !isCovered ? 'Service currently unavailable in this zone (>30 km)' : undefined,
     };
   }
 
   /**
-   * Calculate delivery fee based on cart subtotal and zone
+   * Delivery fee is always 0 in all zones
    */
-  public calculateDeliveryFee(subtotal: number, zone?: DeliveryZone): number {
-    const targetZone = zone || this.getDefaultZone();
-    if (subtotal === 0) return 0;
-    if (subtotal >= targetZone.freeDeliveryThreshold) return 0;
-    return targetZone.deliveryFee;
+  public calculateDeliveryFee(_subtotal: number, _zone?: DeliveryZone): number {
+    return 0;
   }
 
   /**
-   * Admin configuration update (in-memory for Phase 1)
+   * Admin configuration update (in-memory)
    */
   public updateZoneConfig(zoneId: string, updates: Partial<DeliveryZone>): void {
     this.zones = this.zones.map((zone) =>

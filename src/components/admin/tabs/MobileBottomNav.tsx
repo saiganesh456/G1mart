@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, Package, Layers, Users, Camera } from 'lucide-react';
+import { LayoutDashboard, Package, Layers, Users, Camera, Settings } from 'lucide-react';
 
 interface Props {
   activeTab: string;
@@ -11,9 +11,9 @@ export default function MobileBottomNav({ activeTab, onChangeTab, orderBadge }: 
   const navItems = [
     { id: 'home', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'orders', label: 'Orders', icon: Package, badge: orderBadge },
-    { id: 'shoot-list', label: 'Shoot List', icon: Camera },
     { id: 'inventory', label: 'Inventory', icon: Layers },
     { id: 'staff', label: 'Staff', icon: Users },
+    { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
   return (
