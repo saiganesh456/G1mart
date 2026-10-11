@@ -306,7 +306,7 @@ export default function Header() {
                 href="/categories"
                 className="whitespace-nowrap px-3 py-1.5 rounded-lg bg-emerald-100 text-[#1B5E20] hover:bg-emerald-200 shadow-2xs font-black shrink-0 transition-colors"
               >
-                📑 All Departments (24)
+                All Categories
               </Link>
 
               <div className="h-4 w-px bg-stone-300 mx-1 shrink-0" />
@@ -316,25 +316,31 @@ export default function Header() {
                 href="/#grocery-kitchen"
                 className="whitespace-nowrap px-2.5 py-1.5 rounded-lg text-stone-700 hover:text-[#2E7D32] hover:bg-white shrink-0 transition-colors"
               >
-                🥦 Grocery & Kitchen (6)
+                Grocery & Kitchen
               </Link>
               <Link
                 href="/#snacks-drinks"
                 className="whitespace-nowrap px-2.5 py-1.5 rounded-lg text-stone-700 hover:text-[#2E7D32] hover:bg-white shrink-0 transition-colors"
               >
-                🍿 Snacks & Drinks (7)
+                Snacks & Drinks
               </Link>
               <Link
                 href="/#household"
                 className="whitespace-nowrap px-2.5 py-1.5 rounded-lg text-stone-700 hover:text-[#2E7D32] hover:bg-white shrink-0 transition-colors"
               >
-                🧹 Household (5)
+                Household Essentials
               </Link>
               <Link
                 href="/#personal-care"
                 className="whitespace-nowrap px-2.5 py-1.5 rounded-lg text-stone-700 hover:text-[#2E7D32] hover:bg-white shrink-0 transition-colors"
               >
-                ✨ Personal Care (6)
+                Beauty & Personal Care
+              </Link>
+              <Link
+                href="/#local-specials"
+                className="whitespace-nowrap px-2.5 py-1.5 rounded-lg text-emerald-800 hover:text-[#2E7D32] hover:bg-emerald-50 shrink-0 transition-colors font-extrabold"
+              >
+                Local Specials
               </Link>
 
               <div className="h-4 w-px bg-stone-300 mx-1 shrink-0" />

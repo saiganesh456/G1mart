@@ -27,7 +27,6 @@ const SECTION_TINTS: Record<string, string> = {
  * Fully responsive: fills column width on mobile, 2 lines max 13-14px medium weight label.
  */
 function CategoryTileItem({ cat, sectionId }: { cat: Category; sectionId: string }) {
-  const [imageLoaded, setImageLoaded] = useState(false);
   const tint = SECTION_TINTS[sectionId] || '#F8FAFC';
   const tileUrl = (categoryTilesMap as Record<string, string>)[cat.id] || cat.tile_image_url || `/categories/collages/${cat.id}.webp`;
 
@@ -44,11 +43,6 @@ function CategoryTileItem({ cat, sectionId }: { cat: Category; sectionId: string
           style={{ backgroundColor: tint }}
           className="relative w-full aspect-square rounded-[16px] p-2 sm:p-2.5 lg:p-3 flex items-center justify-center overflow-hidden transition-all duration-200 group-hover:scale-[1.04] group-hover:shadow-md border border-stone-200/50 shadow-2xs"
         >
-          {/* Skeleton loader while loading */}
-          {!imageLoaded && (
-            <div className="absolute inset-0 bg-stone-200/50 animate-pulse rounded-[16px]" />
-          )}
-
           {/* Product Collage Cut-Out / SVG Icon (front-facing, transparent background cutouts, soft shadow) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -56,14 +50,13 @@ function CategoryTileItem({ cat, sectionId }: { cat: Category; sectionId: string
             alt={cat.name}
             loading="eager"
             decoding="async"
-            onLoad={() => setImageLoaded(true)}
             onError={(e) => {
-              setImageLoaded(true);
-              (e.currentTarget as HTMLImageElement).src = `/categories/collages/${cat.id}.svg`;
+              const target = e.currentTarget as HTMLImageElement;
+              if (!target.src.endsWith('.svg')) {
+                target.src = `/categories/collages/${cat.id}.svg`;
+              }
             }}
-            className={`w-[82%] h-[82%] object-contain select-none drop-shadow-sm transition-all duration-200 ${
-              imageLoaded ? 'opacity-100 scale-100 group-hover:scale-108' : 'opacity-0 scale-95'
-            }`}
+            className="w-[82%] h-[82%] object-contain select-none drop-shadow-sm transition-all duration-200 group-hover:scale-108"
           />
         </div>
 
