@@ -18,6 +18,8 @@ import {
   X,
   Sparkles,
   Settings,
+  FileText,
+  CheckSquare,
 } from 'lucide-react';
 import type { Category, Product, Order, StaffMember } from '@/types';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
@@ -33,6 +35,7 @@ import MobileBottomNav from '@/components/admin/tabs/MobileBottomNav';
 import StaffManagementTab from '@/components/admin/StaffManagementTab';
 import ShootListTab from '@/components/admin/tabs/ShootListTab';
 import SettingsTab from '@/components/admin/tabs/SettingsTab';
+import SlipOrdersTab from '@/components/admin/tabs/SlipOrdersTab';
 import { Camera } from 'lucide-react';
 
 interface Props {
@@ -42,7 +45,7 @@ interface Props {
 
 export default function AdminDashboardClient({ initialProducts = [], categories = [] }: Props) {
   // Navigation & Active View state
-  const [activeTab, setActiveTab] = useState<'home' | 'orders' | 'inventory' | 'staff' | 'shoot-list' | 'settings'>('home');
+  const [activeTab, setActiveTab] = useState<'home' | 'orders' | 'slips' | 'packer' | 'inventory' | 'staff' | 'shoot-list' | 'settings'>('home');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -730,6 +733,23 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     ).length;
   }, [orders]);
 
+  const [slipCounts, setSlipCounts] = useState<{ new: number; confirmed: number }>({ new: 0, confirmed: 0 });
+
+  useEffect(() => {
+    const fetchCounts = async () => {
+      try {
+        const res = await fetch('/api/admin/slip-orders');
+        const data = await res.json();
+        if (data.counts) {
+          setSlipCounts({ new: data.counts.new || 0, confirmed: data.counts.confirmed || 0 });
+        }
+      } catch {}
+    };
+    fetchCounts();
+    const iv = setInterval(fetchCounts, 5000);
+    return () => clearInterval(iv);
+  }, []);
+
   const navMenuItems = [
     { id: 'home' as const, label: 'Dashboard', icon: LayoutDashboard },
     {
@@ -737,6 +757,18 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       label: 'Live Orders',
       icon: Package,
       badge: activeOrdersCount > 0 ? activeOrdersCount : undefined,
+    },
+    {
+      id: 'slips' as const,
+      label: 'Slip Orders & Billing',
+      icon: FileText,
+      badge: slipCounts.new > 0 ? slipCounts.new : undefined,
+    },
+    {
+      id: 'packer' as const,
+      label: 'Packer Queue',
+      icon: CheckSquare,
+      badge: slipCounts.confirmed > 0 ? slipCounts.confirmed : undefined,
     },
     {
       id: 'inventory' as const,
@@ -1036,6 +1068,14 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               />
             )}
 
+            {activeTab === 'slips' && (
+              <SlipOrdersTab products={products} initialActiveSubTab="slips" />
+            )}
+
+            {activeTab === 'packer' && (
+              <SlipOrdersTab products={products} initialActiveSubTab="packer" />
+            )}
+
             {activeTab === 'inventory' && (
               <InventoryTab
                 products={products}
@@ -1077,6 +1117,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           setSelectedProduct(null);
         }}
         orderBadge={activeOrdersCount > 0 ? activeOrdersCount : undefined}
+        slipsBadge={slipCounts.new > 0 ? slipCounts.new : undefined}
       />
     </div>
   );

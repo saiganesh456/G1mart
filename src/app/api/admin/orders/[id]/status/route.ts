@@ -57,6 +57,29 @@ export async function POST(
       );
     }
 
+    // If this is a slip order, mirror to serverSlipOrders
+    if (id.startsWith('SLIP-')) {
+      try {
+        const { serverSlipOrders } = await import('@/lib/serverSlipOrders');
+        if ((status === 'Rider Assigned' || status === 'Out for Delivery') && assignedRider) {
+          await serverSlipOrders.assignRider({
+            slipId: id,
+            riderId: assignedRider.id || 'rider-1',
+            riderName: assignedRider.name || 'Express Rider',
+            riderPhone: assignedRider.phone || '',
+            staffName: staffIdentifier || 'Rider',
+          });
+        }
+        if (status === 'Out for Delivery' || status === 'Order Dispatched') {
+          await serverSlipOrders.updateDeliveryStatus(id, 'OUT_FOR_DELIVERY', staffIdentifier || 'Rider');
+        } else if (status === 'Delivered') {
+          await serverSlipOrders.updateDeliveryStatus(id, 'DELIVERED', staffIdentifier || 'Rider');
+        }
+      } catch (slipSyncErr) {
+        console.warn('[OrderStatus] Slip status sync notice:', slipSyncErr);
+      }
+    }
+
     // Trigger targeted background Web Push notification directly to the customer (even when app is closed)
     try {
       const { serverPushService } = await import('@/lib/serverPushService');

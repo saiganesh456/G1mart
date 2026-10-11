@@ -283,6 +283,13 @@ export default function OrdersTab({
                       {order.address?.streetArea || order.address?.city || 'Nellore'}
                     </span>
                   </p>
+
+                  {((order as any).distance_km !== undefined || (order as any).eta_min !== undefined) && (
+                    <div className="flex items-center justify-between text-[11px] font-bold text-stone-700 bg-white/80 px-2 py-1 rounded-lg border border-stone-200/60 mt-1">
+                      <span>🛣️ {(order as any).distance_km || 0} km road distance</span>
+                      <span className="text-[#2E7D32]">⏱️ ~{(order as any).eta_min || 20} min ETA</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Product Items Breakdown preview */}

@@ -614,10 +614,22 @@ export const serverOrderStore = {
     const order = ordersMap.get(orderId);
     if (!order) return { success: false };
 
-    order.paymentStatus = 'cash_on_delivery';
+    order.paymentStatus = 'COD_PENDING';
     order.isPaid = false;
     ordersMap.set(orderId, order);
     this.persistToDisk();
+
+    if (isSupabaseConfigured()) {
+      supabase
+        .from('orders')
+        .update({
+          payment_status: 'COD_PENDING',
+          status: 'Order Placed',
+        })
+        .eq('id', orderId)
+        .then(() => {})
+        .catch(() => {});
+    }
 
     return { success: true, order };
   },

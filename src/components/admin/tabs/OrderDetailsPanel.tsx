@@ -361,6 +361,13 @@ export default function OrderDetailsPanel({
               </div>
             </div>
 
+            {((order as any).distance_km !== undefined || (order as any).eta_min !== undefined) && (
+              <div className="flex items-center justify-between text-xs font-bold text-stone-700 bg-stone-50 px-3 py-2 rounded-xl border border-stone-200/80 mt-1">
+                <span>🛣️ Road Distance: <strong>{(order as any).distance_km || 0} km</strong></span>
+                <span className="text-[#2E7D32]">⏱️ Delivery ETA: <strong>~{(order as any).eta_min || 20} mins</strong></span>
+              </div>
+            )}
+
             <a
               href={mapsUrl}
               target="_blank"

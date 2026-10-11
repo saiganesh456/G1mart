@@ -494,10 +494,23 @@ export default function RiderPage() {
 
                     {o.address?.latitude && o.address?.longitude && (
                       <div className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
-                        <Navigation className="w-3 h-3 fill-emerald-700 text-emerald-700 shrink-0" />
+                        <Navigation className="w-3.5 h-3.5 fill-emerald-700 text-emerald-700 shrink-0" />
                         <span>
                           Doorstep GPS Locked ({o.address.latitude.toFixed(4)},{' '}
                           {o.address.longitude.toFixed(4)})
+                        </span>
+                      </div>
+                    )}
+
+                    {((o as any).distance_km !== undefined || (o as any).eta_min !== undefined) && (
+                      <div className="flex items-center justify-between text-xs font-extrabold text-stone-800 bg-emerald-50/80 px-2.5 py-1.5 rounded-xl border border-emerald-200">
+                        <span className="flex items-center gap-1 text-stone-800">
+                          <Navigation className="w-3 h-3 text-[#2E7D32]" />
+                          <span>{(o as any).distance_km || 0} km road distance</span>
+                        </span>
+                        <span className="flex items-center gap-1 text-[#2E7D32]">
+                          <Clock className="w-3 h-3" />
+                          <span>~{(o as any).eta_min || 20} min ETA</span>
                         </span>
                       </div>
                     )}

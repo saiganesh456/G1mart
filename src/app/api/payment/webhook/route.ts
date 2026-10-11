@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { razorpayAdapter } from '@/lib/payment/razorpayAdapter';
 import { phonePeAdapter } from '@/lib/payment/phonepeAdapter';
 import { serverOrderStore } from '@/lib/serverOrderStore';
 
@@ -11,8 +12,14 @@ export async function POST(req: NextRequest) {
       headersRecord[key.toLowerCase()] = val;
     });
 
-    // 1. Validate incoming Authorization / X-VERIFY signature
-    const webhookResult = await phonePeAdapter.handleWebhook(headersRecord, rawBody);
+    // 1. Detect gateway provider (Razorpay vs PhonePe) and validate signature
+    const isRazorpay = Boolean(
+      headersRecord['x-razorpay-signature'] ||
+      (rawBody && typeof rawBody.event === 'string' && (rawBody.event.startsWith('payment.') || rawBody.event.startsWith('order.')))
+    );
+
+    const adapter = isRazorpay ? razorpayAdapter : phonePeAdapter;
+    const webhookResult = await adapter.handleWebhook(headersRecord, rawBody);
 
     if (!webhookResult.providerOrderId) {
       return NextResponse.json(

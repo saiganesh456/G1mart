@@ -1,4 +1,5 @@
 export * from './deliveryZone';
+export * from './slipOrder';
 
 export type UserRole = 'customer' | 'admin' | 'delivery_partner' | 'rider';
 
@@ -170,8 +171,10 @@ export type OrderStatus =
 export type PaymentStatus =
   | 'pending'
   | 'completed'
+  | 'paid'
   | 'failed'
   | 'cash_on_delivery'
+  | 'COD_PENDING'
   | 'manual_verified'
   | 'cancelled';
 

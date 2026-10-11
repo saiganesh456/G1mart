@@ -1,54 +1,92 @@
 [
   {
-    "id": "G1-TEST-9901",
-    "status": "Order Dispatched",
-    "orderNumber": "G1-TEST-9901",
-    "date": "7/10/2026",
-    "paymentMethod": "Cash on Delivery",
-    "paymentStatus": "manual_verified",
-    "grandTotal": 380,
+    "id": "SLIP-312841",
+    "orderNumber": "SLIP-312841",
+    "date": "11 Oct 2026, 09:14 pm",
     "items": [
       {
-        "productId": "staple-atta",
-        "productName": "Aashirvaad Atta",
-        "unit": "5kg",
-        "price": 245,
+        "productId": "item_SLIP-312841_1",
+        "productName": "Idhayam Sesame Oil 1L",
+        "unit": "1 L",
+        "price": 280,
         "quantity": 1,
-        "image": "/products/packshots/aashirvaad-atta.jpg"
+        "image": "/products/placeholder.svg"
+      },
+      {
+        "productId": "item_SLIP-312841_2",
+        "productName": "Daawat Rozzana Basmati Rice 5kg",
+        "unit": "5 kg",
+        "price": 620,
+        "quantity": 1,
+        "image": "/products/placeholder.svg"
+      },
+      {
+        "productId": "item_SLIP-312841_3",
+        "productName": "G1 Premium Toor Dal 2kg",
+        "unit": "2 kg",
+        "price": 320,
+        "quantity": 1,
+        "image": "/products/placeholder.svg"
+      },
+      {
+        "productId": "item_SLIP-312841_4",
+        "productName": "Raw Groundnuts 1kg",
+        "unit": "1 kg",
+        "price": 150,
+        "quantity": 1,
+        "image": "/products/placeholder.svg"
       }
     ],
     "address": {
-      "fullName": "Harsha Test",
-      "mobileNumber": "9988776655",
+      "fullName": "Sita Devi",
+      "phone": "9440556677",
+      "mobileNumber": "9440556677",
+      "streetArea": "Near Ramalayam Temple, Kodavalur, Nellore Dist",
       "city": "Nellore"
     },
     "slot": "Standard Delivery",
-    "isPaid": true,
+    "paymentMethod": "Cash on Delivery",
+    "paymentStatus": "pending",
+    "status": "Order Placed",
+    "subtotal": 1370,
+    "discount": 0,
+    "deliveryFee": 0,
+    "taxes": 0,
+    "grandTotal": 1370,
+    "finalTotal": 1370,
+    "final_total": 1370,
+    "distanceKm": 14.9,
+    "distance_km": 14.9,
+    "zoneMinOrder": 1000,
+    "zone_min_order": 1000,
+    "codFee": 0,
+    "cod_fee": 0,
+    "orderType": "slip",
+    "type": "slip",
+    "isPaid": false,
+    "paidAmount": 0,
+    "providerOrderId": "MT_SLIP-312841",
     "timeline": [
       {
         "status": "Order Placed",
-        "time": "Confirmed",
+        "time": "Just now",
         "completed": true
       },
       {
         "status": "Packed",
-        "time": "11:28 pm",
-        "completed": true
+        "time": "Pending",
+        "completed": false
       },
       {
         "status": "Out for Delivery",
-        "time": "11:28 pm",
-        "completed": true
+        "time": "Pending",
+        "completed": false
       },
       {
         "status": "Delivered",
         "time": "Pending",
         "completed": false
       }
-    ],
-    "paidAmount": 380,
-    "providerOrderId": "MT_G1-TEST-9901",
-    "paidAt": "2026-10-07T17:58:29.564Z",
-    "markedPaidBy": "Cashier Harsha"
+    ]
   }
 ]

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { serverSlipStore } from '@/lib/serverSlipStore';
+import { serverSlipOrders } from '@/lib/serverSlipOrders';
 import { supabase } from '@/lib/supabase/client';
 
 const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
@@ -14,6 +15,17 @@ export async function POST(req: NextRequest) {
     const customerName = (formData.get('name') as string)?.trim() || 'Valued Customer';
     const customerPhone = (formData.get('phone') as string)?.trim() || '';
     const customerNote = (formData.get('note') as string)?.trim() || '';
+
+    // Location attributes copied from saved location
+    const address = (formData.get('address') as string)?.trim() || 'Padarupalli, Nellore';
+    const lat = formData.get('lat') ? Number(formData.get('lat')) : null;
+    const lng = formData.get('lng') ? Number(formData.get('lng')) : null;
+    const pincode = (formData.get('pincode') as string)?.trim() || null;
+    const distanceKm = formData.get('distance_km') ? Number(formData.get('distance_km')) : 2;
+    const etaMin = formData.get('eta_min') ? Number(formData.get('eta_min')) : 15;
+    const zoneId = (formData.get('zone_id') as string)?.trim() || null;
+    const zoneMinOrder = formData.get('zone_min_order') ? Number(formData.get('zone_min_order')) : 500;
+    const orderType = ((formData.get('order_type') as string) === 'pickup' ? 'pickup' : 'delivery') as 'delivery' | 'pickup';
 
     // Collect all uploaded files (supports multi-page slips)
     const rawFiles = formData.getAll('files') as File[];
@@ -147,16 +159,37 @@ export async function POST(req: NextRequest) {
       ip,
     });
 
+    // Create Phase 6 slip_orders record
+    const slipOrder = await serverSlipOrders.createSlipOrder({
+      customerName,
+      customerPhone,
+      customerNote,
+      address,
+      lat,
+      lng,
+      pincode,
+      distanceKm,
+      etaMin,
+      zoneId,
+      zoneMinOrder,
+      orderType,
+      images: uploadedPaths.map((p, idx) => ({
+        storagePath: p,
+        imageUrl: uploadedUrls[idx],
+      })),
+    });
+
     return NextResponse.json({
       success: true,
-      slipId: slip.id,
+      slipId: slipOrder.id,
+      orderId: slipOrder.id,
       pagesCount: uploadedUrls.length,
-      message: 'Your slip was sent to the store.',
+      message: 'We received your list. Our team will call you to confirm',
       slip: {
-        id: slip.id,
-        customer_name: slip.customer_name,
-        created_at: slip.created_at,
-        status: slip.status,
+        id: slipOrder.id,
+        customer_name: slipOrder.customer_name,
+        created_at: slipOrder.created_at,
+        status: slipOrder.status,
       },
     });
   } catch (err: any) {

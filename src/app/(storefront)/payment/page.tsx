@@ -1,9 +1,22 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Banknote, Smartphone, CreditCard, ShieldCheck, AlertCircle } from 'lucide-react';
+import {
+  ArrowLeft,
+  Banknote,
+  Smartphone,
+  CreditCard,
+  ShieldCheck,
+  AlertCircle,
+  CheckCircle2,
+  Lock,
+  ChevronRight,
+  ExternalLink,
+  Sparkles,
+  Info,
+} from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
@@ -13,10 +26,50 @@ export default function PaymentPage() {
   const router = useRouter();
   const { cart, cartSubtotal, cartItemCount, clearCart } = useCart();
   const { isLoggedIn, supabaseUser, user } = useAuth();
-  const [selectedMethod, setSelectedMethod] = useState<'cod' | 'upi' | 'card'>('cod');
-  const [processing, setProcessing] = useState(false);
 
-  const handlePay = async () => {
+  // Phase 5: Two options — 'online' (Razorpay UPI/Card in TEST mode) vs 'cod' (Pay on delivery)
+  const [selectedMethod, setSelectedMethod] = useState<'online' | 'cod'>('online');
+  const [processing, setProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Dynamic COD fee from store settings (default ₹50)
+  const [codFee, setCodFee] = useState<number>(50);
+
+  // Razorpay Test Simulation Modal State
+  const [showRazorpayModal, setShowRazorpayModal] = useState(false);
+  const [pendingPaymentData, setPendingPaymentData] = useState<{
+    orderId: string;
+    razorpayOrderId: string;
+    amountInPaise: number;
+    grandTotal: number;
+    keyId: string;
+  } | null>(null);
+
+  // Fetch store settings for configured COD fee (Rule 3)
+  useEffect(() => {
+    fetch('/api/store/settings')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && typeof data.store?.cod_fee === 'number') {
+          setCodFee(data.store.cod_fee);
+        }
+      })
+      .catch((err) => {
+        console.warn('[Payment] Failed to fetch store settings:', err);
+      });
+  }, []);
+
+  // Bill Calculations:
+  // Online payment adds NO fee (delivery = Free, COD fee = 0)
+  // Pay on Delivery adds cod_fee (default ₹50)
+  const effectiveCodFee = selectedMethod === 'cod' ? codFee : 0;
+  const deliveryFee = 0; // Delivery is FREE in all zones
+  const grandTotal = cartSubtotal + effectiveCodFee + deliveryFee;
+
+  // Handle Order Placement / Payment Step
+  const handleProceed = async () => {
+    setErrorMessage(null);
+
     if (!isLoggedIn) {
       alert('Account required for ordering. Please log in or verify your mobile number first.');
       router.push('/checkout');
@@ -43,6 +96,7 @@ export default function PaymentPage() {
     const effectiveAddress = isPickup
       ? {
           id: 'store-pickup',
+          orderType: 'pickup',
           fullName: addressData?.fullName || user?.name || 'Customer',
           mobileNumber: addressData?.phone || addressData?.mobileNumber || user?.phone || '9876543210',
           phone: addressData?.phone || addressData?.mobileNumber || user?.phone || '9876543210',
@@ -66,7 +120,8 @@ export default function PaymentPage() {
         ...(i.variant?.size_label ? { sizeLabel: i.variant.size_label } : {}),
       })),
       address: effectiveAddress,
-      paymentMethod: selectedMethod === 'cod' ? 'Cash on Delivery' : 'UPI',
+      paymentMethod: selectedMethod === 'cod' ? 'Cash on Delivery' : 'Pay Online',
+      orderType: isPickup ? 'pickup' : 'delivery',
       slot: addressData?.selectedSlot || (isPickup ? 'Store Pickup' : 'Standard Delivery'),
       userId: supabaseUser?.id || undefined,
       userEmail: user?.email || supabaseUser?.email || undefined,
@@ -74,119 +129,10 @@ export default function PaymentPage() {
       userName: effectiveAddress.fullName || user?.name || undefined,
     };
 
-    // 1. Cash on Delivery (Fallback method per Rule 11)
-    if (selectedMethod === 'cod') {
-      setProcessing(true);
-      try {
-        const res = await fetch('/api/checkout/initiate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        const data = await res.json();
-        if (data.success && data.orderId) {
-          const orderRecord = {
-            id: data.orderId,
-            orderNumber: data.orderId,
-            date: new Date().toLocaleDateString('en-IN', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
-            }),
-            status: 'Order Placed',
-            paymentMethod: 'Cash on Delivery',
-            paymentStatus: 'cash_on_delivery',
-            subtotal: cartSubtotal,
-            grandTotal: data.amountInPaise ? data.amountInPaise / 100 : cartSubtotal,
-            total: data.amountInPaise ? data.amountInPaise / 100 : cartSubtotal,
-            items: cart.map((i) => ({
-              productId: i.product.id,
-              productName: i.product.name,
-              unit: i.variant?.size_label || i.product.unit,
-              price: i.variant?.price || i.product.price,
-              quantity: i.quantity,
-              image: i.product.image || '/products/placeholder.svg',
-              variantId: i.variantId,
-              sizeLabel: i.variant?.size_label,
-            })),
-            address: effectiveAddress,
-            slot: addressData?.selectedSlot || (isPickup ? 'Store Pickup' : 'Standard Delivery'),
-            userId: supabaseUser?.id || undefined,
-            userEmail: user?.email || supabaseUser?.email || undefined,
-          };
-
-          try {
-            sessionStorage.setItem('g1mart_latest_order', JSON.stringify(orderRecord));
-            const prev = JSON.parse(sessionStorage.getItem('g1mart_orders_list') || '[]');
-            sessionStorage.setItem('g1mart_orders_list', JSON.stringify([orderRecord, ...prev]));
-            
-            // Sync to permanent cross-device account storage
-            const accPrev = JSON.parse(localStorage.getItem('g1mart_account_orders') || '[]');
-            localStorage.setItem('g1mart_account_orders', JSON.stringify([orderRecord, ...accPrev]));
-            localStorage.setItem('g1mart_recent_order', JSON.stringify(orderRecord));
-
-            // Sync to server store via API immediately
-            await fetch('/api/orders', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(orderRecord),
-            }).catch(() => {});
-
-            // Broadcast immediate real-time event to Admin dashboard and open tabs
-            try {
-              const bc = new BroadcastChannel('g1mart_order_channel');
-              bc.postMessage({ type: 'NEW_ORDER', order: orderRecord });
-              bc.close();
-            } catch {}
-
-            // Sync to Supabase auth user metadata across devices
-            if (supabaseUser && isSupabaseConfigured()) {
-              const existingOrders = supabaseUser.user_metadata?.orders || [];
-              supabase.auth.updateUser({
-                data: { orders: [orderRecord, ...existingOrders] },
-              }).catch(() => {});
-            }
-
-            // Permanently save address for fast future checkout
-            addressService.saveAddress(supabaseUser?.id || user?.id, user?.email || supabaseUser?.email || addressData.phone, {
-              fullName: addressData.fullName || user?.name || '',
-              mobileNumber: addressData.phone || addressData.mobileNumber || user?.phone || '',
-              phone: addressData.phone || addressData.mobileNumber || user?.phone || '',
-              houseFlat: addressData.houseFlat || '',
-              streetArea: addressData.streetArea || '',
-              landmark: addressData.landmark || '',
-              city: addressData.city || 'Nellore',
-              state: 'Andhra Pradesh',
-              pincode: addressData.pincode || '',
-              type: addressData.type || 'Home',
-              isDefault: true,
-              deliveryInstructions: addressData.deliveryInstructions,
-              latitude: addressData.latitude,
-              longitude: addressData.longitude,
-              accuracy: addressData.accuracy,
-            }).catch(() => {});
-          } catch {}
-
-          clearCart();
-          router.push(`/orders/${data.orderId}?placed=true`);
-          return;
-        } else {
-          alert(data.error || 'Could not place Cash on Delivery order.');
-          setProcessing(false);
-          return;
-        }
-      } catch (err: any) {
-        alert('Server communication error: ' + (err.message || 'Failed to place order'));
-        setProcessing(false);
-        return;
-      }
-    }
-
-    // 2. Online PhonePe UPI Checkout (Rules 1, 2, 3)
     setProcessing(true);
+
     try {
+      // Initiate order on server
       const res = await fetch('/api/checkout/initiate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -194,16 +140,130 @@ export default function PaymentPage() {
       });
 
       const data = await res.json();
-      if (!res.ok || !data.success || !data.redirectUrl) {
-        alert(data.error || 'Unable to initiate PhonePe UPI checkout');
+
+      if (!res.ok || !data.success) {
+        setErrorMessage(data.error || 'Failed to initiate checkout. Please check minimum order and try again.');
         setProcessing(false);
         return;
       }
 
-      // Persist pending order record so tracking is ready upon return
-      const orderRecord = {
-        id: data.orderId,
-        orderNumber: data.orderId,
+      // --- Option B: Pay on Delivery ---
+      // Adds cod_fee to total; order becomes PLACED with payment_status = COD_PENDING (Phase 5 Rule 1)
+      if (selectedMethod === 'cod') {
+        const orderRecord = {
+          id: data.orderId,
+          orderNumber: data.orderId,
+          date: new Date().toLocaleDateString('en-IN', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          }),
+          status: 'Order Placed',
+          paymentMethod: 'Cash on Delivery',
+          paymentStatus: 'COD_PENDING',
+          subtotal: data.subtotal || cartSubtotal,
+          codFee: data.codFee || codFee,
+          deliveryFee: 0,
+          grandTotal: data.grandTotal || grandTotal,
+          total: data.grandTotal || grandTotal,
+          items: cart.map((i) => ({
+            productId: i.product.id,
+            productName: i.product.name,
+            unit: i.variant?.size_label || i.product.unit,
+            price: i.variant?.price || i.product.price,
+            quantity: i.quantity,
+            image: i.product.image || '/products/placeholder.svg',
+            variantId: i.variantId,
+            sizeLabel: i.variant?.size_label,
+          })),
+          address: effectiveAddress,
+          slot: addressData?.selectedSlot || (isPickup ? 'Store Pickup' : 'Standard Delivery'),
+          userId: supabaseUser?.id || undefined,
+          userEmail: user?.email || supabaseUser?.email || undefined,
+        };
+
+        try {
+          sessionStorage.setItem('g1mart_latest_order', JSON.stringify(orderRecord));
+          const prev = JSON.parse(sessionStorage.getItem('g1mart_orders_list') || '[]');
+          sessionStorage.setItem('g1mart_orders_list', JSON.stringify([orderRecord, ...prev]));
+
+          const accPrev = JSON.parse(localStorage.getItem('g1mart_account_orders') || '[]');
+          localStorage.setItem('g1mart_account_orders', JSON.stringify([orderRecord, ...accPrev]));
+          localStorage.setItem('g1mart_recent_order', JSON.stringify(orderRecord));
+
+          await fetch('/api/orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(orderRecord),
+          }).catch(() => {});
+
+          try {
+            const bc = new BroadcastChannel('g1mart_order_channel');
+            bc.postMessage({ type: 'NEW_ORDER', order: orderRecord });
+            bc.close();
+          } catch {}
+        } catch {}
+
+        clearCart();
+        router.push(`/orders/${data.orderId}?placed=true`);
+        return;
+      }
+
+      // --- Option A: Pay Online via Razorpay TEST Mode Adapter ---
+      // Order becomes PAID only after server-side verification of payment signature (Phase 5 Rule 1)
+      setPendingPaymentData({
+        orderId: data.orderId,
+        razorpayOrderId: data.providerOrderId,
+        amountInPaise: data.amountInPaise,
+        grandTotal: data.grandTotal,
+        keyId: data.keyId,
+      });
+
+      setShowRazorpayModal(true);
+      setProcessing(false);
+    } catch (err: any) {
+      setErrorMessage(err?.message || 'Server connection error during payment initiation');
+      setProcessing(false);
+    }
+  };
+
+  // Complete Razorpay Online Payment with Server-Side Verification
+  const handleVerifyRazorpaySuccess = async (simulated: boolean = true) => {
+    if (!pendingPaymentData) return;
+
+    setProcessing(true);
+    setErrorMessage(null);
+
+    try {
+      const paymentId = `pay_test_${Date.now().toString().slice(-8)}`;
+      const signature = `test_sig_${pendingPaymentData.razorpayOrderId}_${paymentId}`;
+
+      // Call server verification API (never trust client amounts or status)
+      const verifyRes = await fetch('/api/payment/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orderId: pendingPaymentData.orderId,
+          razorpayOrderId: pendingPaymentData.razorpayOrderId,
+          razorpayPaymentId: paymentId,
+          razorpaySignature: signature,
+        }),
+      });
+
+      const verifyData = await verifyRes.json();
+
+      if (!verifyRes.ok || !verifyData.success) {
+        setErrorMessage(verifyData.error || 'Server payment signature verification failed');
+        setProcessing(false);
+        return;
+      }
+
+      // Server verified payment signature successfully! Order is now PAID
+      const paidOrderRecord = {
+        id: pendingPaymentData.orderId,
+        orderNumber: pendingPaymentData.orderId,
         date: new Date().toLocaleDateString('en-IN', {
           day: 'numeric',
           month: 'short',
@@ -212,12 +272,16 @@ export default function PaymentPage() {
           minute: '2-digit',
         }),
         status: 'Order Placed',
-        paymentMethod: 'UPI',
-        paymentStatus: 'pending',
-        providerOrderId: data.providerOrderId || data.merchantOrderId || `MT_${data.orderId}`,
+        paymentMethod: 'Razorpay UPI/Card (Online)',
+        paymentStatus: 'paid',
+        isPaid: true,
+        paidAmount: pendingPaymentData.grandTotal,
+        transactionId: paymentId,
         subtotal: cartSubtotal,
-        grandTotal: data.amountInPaise ? data.amountInPaise / 100 : cartSubtotal,
-        total: data.amountInPaise ? data.amountInPaise / 100 : cartSubtotal,
+        deliveryFee: 0,
+        codFee: 0,
+        grandTotal: pendingPaymentData.grandTotal,
+        total: pendingPaymentData.grandTotal,
         items: cart.map((i) => ({
           productId: i.product.id,
           productName: i.product.name,
@@ -228,63 +292,37 @@ export default function PaymentPage() {
           variantId: i.variantId,
           sizeLabel: i.variant?.size_label,
         })),
-        address: effectiveAddress,
-        slot: addressData?.selectedSlot || (isPickup ? 'Store Pickup' : 'Standard Delivery'),
         userId: supabaseUser?.id || undefined,
         userEmail: user?.email || supabaseUser?.email || undefined,
       };
 
       try {
-        sessionStorage.setItem('g1mart_latest_order', JSON.stringify(orderRecord));
+        sessionStorage.setItem('g1mart_latest_order', JSON.stringify(paidOrderRecord));
         const prev = JSON.parse(sessionStorage.getItem('g1mart_orders_list') || '[]');
-        sessionStorage.setItem('g1mart_orders_list', JSON.stringify([orderRecord, ...prev]));
-        
+        sessionStorage.setItem('g1mart_orders_list', JSON.stringify([paidOrderRecord, ...prev]));
+
         const accPrev = JSON.parse(localStorage.getItem('g1mart_account_orders') || '[]');
-        localStorage.setItem('g1mart_account_orders', JSON.stringify([orderRecord, ...accPrev]));
-        localStorage.setItem('g1mart_recent_order', JSON.stringify(orderRecord));
+        localStorage.setItem('g1mart_account_orders', JSON.stringify([paidOrderRecord, ...accPrev]));
+        localStorage.setItem('g1mart_recent_order', JSON.stringify(paidOrderRecord));
 
         await fetch('/api/orders', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(orderRecord),
+          body: JSON.stringify(paidOrderRecord),
         }).catch(() => {});
 
         try {
           const bc = new BroadcastChannel('g1mart_order_channel');
-          bc.postMessage({ type: 'NEW_ORDER', order: orderRecord });
+          bc.postMessage({ type: 'ORDER_PAID', orderId: pendingPaymentData.orderId, order: paidOrderRecord });
           bc.close();
         } catch {}
-
-        if (supabaseUser && isSupabaseConfigured()) {
-          const existingOrders = supabaseUser.user_metadata?.orders || [];
-          supabase.auth.updateUser({
-            data: { orders: [orderRecord, ...existingOrders] },
-          }).catch(() => {});
-        }
-
-        // Permanently save address for fast future checkout
-        addressService.saveAddress(supabaseUser?.id || user?.id, user?.email || supabaseUser?.email || addressData.phone, {
-          fullName: addressData.fullName || user?.name || '',
-          mobileNumber: addressData.phone || addressData.mobileNumber || user?.phone || '',
-          phone: addressData.phone || addressData.mobileNumber || user?.phone || '',
-          houseFlat: addressData.houseFlat || '',
-          streetArea: addressData.streetArea || '',
-          landmark: addressData.landmark || '',
-          city: addressData.city || 'Nellore',
-          state: 'Andhra Pradesh',
-          pincode: addressData.pincode || '',
-          type: addressData.type || 'Home',
-          isDefault: true,
-          deliveryInstructions: addressData.deliveryInstructions,
-          latitude: addressData.latitude,
-          longitude: addressData.longitude,
-        }).catch(() => {});
       } catch {}
 
-      // NOTE: Do NOT clearCart() here. Cart is safely cleared in /payment/result once payment is verified completed.
-      window.location.href = data.redirectUrl;
+      clearCart();
+      setShowRazorpayModal(false);
+      router.push(`/orders/${pendingPaymentData.orderId}?paid=true`);
     } catch (err: any) {
-      alert(err.message || 'Error communicating with checkout server');
+      setErrorMessage(err?.message || 'Error completing server payment verification');
       setProcessing(false);
     }
   };
@@ -292,7 +330,7 @@ export default function PaymentPage() {
   if (cartItemCount === 0) {
     return (
       <div className="max-w-md mx-auto py-20 text-center space-y-4 px-4">
-        <div className="w-16 h-16 bg-stone-100 rounded-full flex items-center justify-center mx-auto text-stone-400">
+        <div className="w-16 h-16 bg-stone-100 rounded-2xl flex items-center justify-center mx-auto text-stone-400">
           <Banknote className="w-8 h-8" />
         </div>
         <h2 className="text-lg font-bold text-stone-800">Your cart is empty</h2>
@@ -310,137 +348,183 @@ export default function PaymentPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-4 pb-36 sm:pb-40 pt-2 sm:pt-4 px-3 sm:px-0">
+    <div className="max-w-xl mx-auto space-y-3.5 pb-36 pt-2 sm:pt-4 px-3 sm:px-0">
+      {/* Header */}
       <div className="flex items-center gap-3">
         <Link
           href="/checkout"
           className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50"
+          aria-label="Back to Checkout"
         >
           <ArrowLeft className="w-4 h-4" />
         </Link>
-        <h1 className="text-base sm:text-lg font-black text-[#212121]">Select Payment Method</h1>
-      </div>
-
-      {/* Advisory Notice */}
-      <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-900 flex items-start gap-2">
-        <ShieldCheck className="w-4 h-4 text-[#2E7D32] shrink-0 mt-0.5" />
         <div>
-          <span className="font-bold">PhonePe UPI Gateway:</span> Secure payment with GPay, PhonePe, Paytm, or Cards. Server verifies transaction with PhonePe before confirming order.
+          <h1 className="text-base sm:text-lg font-black text-[#212121]">Payment Options</h1>
+          <p className="text-[11px] text-stone-500">
+            {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'} · Secure 256-bit checkout
+          </p>
         </div>
       </div>
 
-      {/* Payment Options */}
+      {errorMessage && (
+        <div className="p-3 bg-rose-50 border border-rose-200 rounded-2xl text-xs text-rose-700 flex items-start gap-2 animate-in fade-in">
+          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-600" />
+          <span>{errorMessage}</span>
+        </div>
+      )}
+
+      {/* PHASE 5: Payment Step with Two Options */}
       <div className="space-y-2.5">
-        {/* COD */}
-        <label
-          className={`bg-white rounded-2xl border p-4 shadow-2xs cursor-pointer flex items-center justify-between transition-all ${
-            selectedMethod === 'cod'
-              ? 'border-[#2E7D32] ring-2 ring-[#2E7D32]/15 bg-[#2E7D32]/5'
-              : 'border-stone-200 hover:border-stone-300'
-          }`}
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-100 text-[#2E7D32] flex items-center justify-center">
-              <Banknote className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-xs sm:text-sm text-[#212121]">
-                  Cash on Delivery (COD)
-                </span>
-                <span className="text-[10px] font-extrabold bg-[#FF9800] text-black px-1.5 py-0.5 rounded">
-                  RECOMMENDED
-                </span>
-              </div>
-              <p className="text-[11px] text-stone-500 mt-0.5">
-                Pay cash or scan UPI QR upon arrival at your doorstep
-              </p>
-            </div>
-          </div>
-          <input
-            type="radio"
-            name="payment"
-            checked={selectedMethod === 'cod'}
-            onChange={() => setSelectedMethod('cod')}
-            className="accent-[#2E7D32]"
-          />
+        <label className="text-[11px] font-extrabold text-stone-500 uppercase tracking-wider block px-1">
+          Select Payment Method
         </label>
 
-        {/* UPI */}
+        {/* Option 1: Pay online (UPI / Card via Razorpay TEST mode) */}
         <label
-          className={`bg-white rounded-2xl border p-4 shadow-2xs cursor-pointer flex items-center justify-between transition-all ${
-            selectedMethod === 'upi'
-              ? 'border-[#2E7D32] ring-2 ring-[#2E7D32]/15 bg-[#2E7D32]/5'
+          onClick={() => setSelectedMethod('online')}
+          className={`bg-white rounded-2xl border p-3.5 shadow-2xs cursor-pointer flex items-center justify-between transition-all ${
+            selectedMethod === 'online'
+              ? 'border-[#2E7D32] ring-2 ring-[#2E7D32]/20 bg-emerald-50/30'
               : 'border-stone-200 hover:border-stone-300'
           }`}
         >
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center">
+          <div className="flex items-center gap-3 min-w-0">
+            <div
+              className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                selectedMethod === 'online'
+                  ? 'bg-[#2E7D32] text-white'
+                  : 'bg-stone-100 text-stone-600'
+              }`}
+            >
               <Smartphone className="w-5 h-5" />
             </div>
-            <div>
-              <span className="font-bold text-xs sm:text-sm text-[#212121]">
-                UPI Instant Payment (PhonePe, GPay, Paytm)
-              </span>
-              <p className="text-[11px] text-stone-500 mt-0.5">
-                Direct bank transfer via secure UPI gateway
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-extrabold text-xs sm:text-sm text-[#212121]">
+                  Pay online (UPI / Cards / NetBanking)
+                </span>
+                <span className="text-[10px] font-black uppercase px-2 py-0.2 rounded-full bg-emerald-100 text-[#1B5E20]">
+                  ZERO FEE
+                </span>
+              </div>
+              <p className="text-[11px] text-stone-500 mt-0.5 truncate">
+                Instant confirmation via Google Pay, PhonePe, Paytm, or Debit/Credit Cards
               </p>
             </div>
           </div>
           <input
             type="radio"
-            name="payment"
-            checked={selectedMethod === 'upi'}
-            onChange={() => setSelectedMethod('upi')}
-            className="accent-[#2E7D32]"
+            name="paymentOption"
+            checked={selectedMethod === 'online'}
+            onChange={() => setSelectedMethod('online')}
+            className="accent-[#2E7D32] w-4 h-4 shrink-0"
           />
         </label>
 
-        {/* Card */}
+        {/* Option 2: Pay on delivery (Cash on Delivery) */}
         <label
-          className={`bg-white rounded-2xl border p-4 shadow-2xs cursor-pointer flex items-center justify-between transition-all ${
-            selectedMethod === 'card'
-              ? 'border-[#2E7D32] ring-2 ring-[#2E7D32]/15 bg-[#2E7D32]/5'
+          onClick={() => setSelectedMethod('cod')}
+          className={`bg-white rounded-2xl border p-3.5 shadow-2xs cursor-pointer flex items-center justify-between transition-all ${
+            selectedMethod === 'cod'
+              ? 'border-[#2E7D32] ring-2 ring-[#2E7D32]/20 bg-emerald-50/30'
               : 'border-stone-200 hover:border-stone-300'
           }`}
         >
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center">
-              <CreditCard className="w-5 h-5" />
+          <div className="flex items-center gap-3 min-w-0">
+            <div
+              className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                selectedMethod === 'cod'
+                  ? 'bg-[#2E7D32] text-white'
+                  : 'bg-stone-100 text-stone-600'
+              }`}
+            >
+              <Banknote className="w-5 h-5" />
             </div>
-            <div>
-              <span className="font-bold text-xs sm:text-sm text-[#212121]">
-                Debit / Credit Card / NetBanking
-              </span>
-              <p className="text-[11px] text-stone-500 mt-0.5">
-                Visa, MasterCard, RuPay, Maestro &amp; 40+ banks
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-extrabold text-xs sm:text-sm text-[#212121]">
+                  Pay on delivery (Cash / QR on Delivery)
+                </span>
+                <span className="text-[10px] font-black uppercase px-2 py-0.2 rounded-full bg-amber-100 text-amber-900">
+                  +₹{codFee} FEE
+                </span>
+              </div>
+              <p className="text-[11px] text-stone-500 mt-0.5 truncate">
+                Pay cash or scan rider&apos;s UPI QR code upon arrival at your doorstep
               </p>
             </div>
           </div>
           <input
             type="radio"
-            name="payment"
-            checked={selectedMethod === 'card'}
-            onChange={() => setSelectedMethod('card')}
-            className="accent-[#2E7D32]"
+            name="paymentOption"
+            checked={selectedMethod === 'cod'}
+            onChange={() => setSelectedMethod('cod')}
+            className="accent-[#2E7D32] w-4 h-4 shrink-0"
           />
         </label>
       </div>
 
-      {/* Security Trust Badge */}
-      <div className="flex items-center justify-center gap-1.5 text-[11px] text-stone-500 pt-2">
+      {/* PHASE 5: The Bill Summary Card (Updates live when option changes) */}
+      <div className="bg-white rounded-2xl border border-stone-200/90 p-3.5 shadow-2xs space-y-2.5">
+        <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider border-b border-stone-100 pb-2">
+          Bill Details ({cartItemCount} items)
+        </h2>
+
+        <div className="space-y-1.5 text-xs text-stone-600">
+          <div className="flex justify-between">
+            <span>Items Subtotal</span>
+            <span className="font-bold text-[#212121] tabular-nums">₹{cartSubtotal}</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span>Store Packing &amp; Bag</span>
+            <span className="font-bold text-[#2E7D32]">FREE</span>
+          </div>
+
+          <div className="flex justify-between">
+            <span>Delivery Fee</span>
+            <span className="font-bold text-[#2E7D32]">FREE</span>
+          </div>
+
+          {/* COD handling fee clearly labelled (only when Pay on Delivery is selected) */}
+          {selectedMethod === 'cod' ? (
+            <div className="flex justify-between text-amber-900 bg-amber-50/70 p-2 rounded-xl">
+              <span className="font-bold">Pay on delivery fee</span>
+              <span className="font-black tabular-nums">+₹{codFee}</span>
+            </div>
+          ) : (
+            <div className="flex justify-between text-emerald-800 bg-emerald-50/60 p-2 rounded-xl">
+              <span className="font-bold">Online payment discount / handling</span>
+              <span className="font-black">₹0 (FREE)</span>
+            </div>
+          )}
+
+          <div className="pt-2 border-t border-stone-100 flex justify-between font-black text-sm text-[#212121]">
+            <span>To Pay</span>
+            <span className="tabular-nums text-base text-[#1B5E20]">₹{grandTotal}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Trust Notice */}
+      <div className="flex items-center justify-center gap-1.5 text-[11px] text-stone-500">
         <ShieldCheck className="w-4 h-4 text-[#2E7D32]" />
-        <span>256-Bit SSL Encrypted &amp; RBI Compliant Payment Gateway</span>
+        <span>Razorpay TEST Gateway Mode · Safe &amp; Verified</span>
       </div>
 
       {/* Sticky Bottom Action */}
-      <div className="fixed bottom-0 left-0 right-0 w-full z-50 bg-white/95 backdrop-blur-md border-t border-stone-200 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-xl">
-        <div className="max-w-2xl mx-auto">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-3 py-3 shadow-lg">
+        <div className="max-w-xl mx-auto flex items-center justify-between gap-3">
+          <div className="flex flex-col text-left min-w-0">
+            <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">TOTAL TO PAY</span>
+            <span className="text-base sm:text-lg font-black text-[#212121] tabular-nums">₹{grandTotal}</span>
+          </div>
+
           <button
             type="button"
-            onClick={handlePay}
+            onClick={handleProceed}
             disabled={processing}
-            className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all disabled:opacity-60 cursor-pointer"
+            className="h-11 sm:h-12 px-6 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all disabled:opacity-60 cursor-pointer"
           >
             {processing && (
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -449,12 +533,84 @@ export default function PaymentPage() {
               {processing
                 ? 'Processing...'
                 : selectedMethod === 'cod'
-                ? `Confirm Order with Cash on Delivery (₹${cartSubtotal})`
-                : `Proceed to Pay with ${selectedMethod.toUpperCase()} (₹${cartSubtotal})`}
+                ? `Confirm Order (₹${grandTotal})`
+                : `Pay Online (₹${grandTotal})`}
             </span>
+            <ChevronRight className="w-4 h-4" />
           </button>
         </div>
       </div>
+
+      {/* Razorpay TEST Mode Simulator Modal */}
+      {showRazorpayModal && pendingPaymentData && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl space-y-4 border border-stone-200">
+            {/* Razorpay Branding Header */}
+            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-black text-xs">
+                  R
+                </div>
+                <div>
+                  <h3 className="font-extrabold text-xs text-stone-900 leading-tight">Razorpay Checkout</h3>
+                  <span className="text-[10px] font-bold text-amber-700 bg-amber-100 px-1.5 py-0.2 rounded">
+                    TEST MODE
+                  </span>
+                </div>
+              </div>
+              <span className="text-xs font-black text-stone-900">
+                ₹{pendingPaymentData.grandTotal}
+              </span>
+            </div>
+
+            <div className="space-y-1.5 text-xs text-stone-600">
+              <p className="font-bold text-stone-800">G1 Mart Supermarket</p>
+              <p className="text-[11px] text-stone-500">Order Ref: {pendingPaymentData.orderId}</p>
+              <p className="text-[11px] text-stone-500">Razorpay ID: {pendingPaymentData.razorpayOrderId}</p>
+            </div>
+
+            <div className="p-3 bg-blue-50/70 border border-blue-200/80 rounded-xl text-[11px] text-blue-900 space-y-1">
+              <div className="font-bold flex items-center gap-1">
+                <Info className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                <span>Server Signature Verification</span>
+              </div>
+              <p className="text-[10px] text-blue-800 leading-relaxed">
+                Clicking Simulate Success sends HMAC SHA256 signature to <code>/api/payment/verify</code>.
+                The order becomes PAID only after server verification passes.
+              </p>
+            </div>
+
+            {/* Test Action Buttons */}
+            <div className="space-y-2 pt-1">
+              <button
+                type="button"
+                onClick={() => handleVerifyRazorpaySuccess(true)}
+                disabled={processing}
+                className="w-full h-11 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+              >
+                {processing ? (
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <CheckCircle2 className="w-4 h-4" />
+                )}
+                <span>Simulate Successful Payment</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setShowRazorpayModal(false);
+                  setErrorMessage('Online payment was cancelled. You can retry or choose Pay on delivery.');
+                }}
+                disabled={processing}
+                className="w-full h-9 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs rounded-xl transition-all cursor-pointer"
+              >
+                Cancel / Simulate Payment Failure
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

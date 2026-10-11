@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { serverOrderStore } from '@/lib/serverOrderStore';
+import { razorpayAdapter } from '@/lib/payment/razorpayAdapter';
 import { phonePeAdapter } from '@/lib/payment/phonepeAdapter';
 import { sanitizeIndianPhone } from '@/lib/phone';
-
 import { serverDistanceService } from '@/lib/serverDistanceService';
+import { serverStoreSettings } from '@/lib/serverStoreSettings';
 
 export async function POST(req: NextRequest) {
   try {
@@ -82,18 +83,30 @@ export async function POST(req: NextRequest) {
 
     const orderId = `G1-${Math.floor(100000 + Math.random() * 900000)}`;
     const merchantOrderId = `MT_${orderId}_${Date.now()}`;
-    const isCod = paymentMethod === 'Cash on Delivery' || paymentMethod?.toLowerCase() === 'cod';
+    const isCod =
+      paymentMethod === 'Cash on Delivery' ||
+      paymentMethod === 'Pay on delivery' ||
+      paymentMethod?.toLowerCase() === 'cod';
 
-    // Handle Fallback Cash on Delivery / Pay at store (Rule 11)
+    // Fetch server store settings to get configured COD fee (Rule 3: never trust client amounts)
+    const storeSettings = await serverStoreSettings.getStoreSettings();
+    const configuredCodFee = Number(storeSettings.cod_fee ?? 50);
+
+    // Option 1: Pay on Delivery (adds server-configured COD handling fee)
     if (isCod) {
+      const codFee = configuredCodFee;
+      const finalGrandTotal = calculated.subtotal + codFee; // Delivery is FREE (0)
+
       const order = await serverOrderStore.createPendingOrder({
         orderId,
         merchantOrderId,
         items: calculated.items,
         subtotal: calculated.subtotal,
-        deliveryFee: calculated.deliveryFee,
+        deliveryFee: 0,
         taxes: calculated.taxes,
-        grandTotal: calculated.grandTotal,
+        grandTotal: finalGrandTotal,
+        final_total: finalGrandTotal,
+        cod_fee: codFee,
         address: { ...addressData, fullName, mobileNumber: cleanPhone, phone: cleanPhone },
         slot: slot || 'Standard Delivery',
         paymentMethod: 'Cash on Delivery',
@@ -103,6 +116,7 @@ export async function POST(req: NextRequest) {
         zone_min_order: zoneMinOrder,
       });
 
+      // Status becomes PLACED with payment_status = COD_PENDING (Phase 5 Rule 1)
       await serverOrderStore.confirmCodOrder(orderId);
 
       return NextResponse.json({
@@ -110,21 +124,31 @@ export async function POST(req: NextRequest) {
         orderId,
         providerOrderId: merchantOrderId,
         merchantOrderId,
-        amountInPaise: Math.round(order.grandTotal * 100),
+        amountInPaise: Math.round(finalGrandTotal * 100),
+        subtotal: calculated.subtotal,
+        codFee,
+        grandTotal: finalGrandTotal,
         paymentMethod: 'Cash on Delivery',
+        paymentStatus: 'COD_PENDING',
         redirectUrl: `/orders/${orderId}?placed=true`,
       });
     }
 
-    // Standard Online UPI Checkout (PhonePe Hosted Checkout)
+    // Option 2: Pay Online (UPI / Card via Razorpay TEST mode adapter)
+    // Online payment adds NO fee (codFee = 0, deliveryFee = 0)
+    const finalGrandTotal = calculated.subtotal;
+    const amountInPaise = Math.round(finalGrandTotal * 100);
+
     const order = await serverOrderStore.createPendingOrder({
       orderId,
       merchantOrderId,
       items: calculated.items,
       subtotal: calculated.subtotal,
-      deliveryFee: calculated.deliveryFee,
+      deliveryFee: 0,
       taxes: calculated.taxes,
-      grandTotal: calculated.grandTotal,
+      grandTotal: finalGrandTotal,
+      final_total: finalGrandTotal,
+      cod_fee: 0,
       address: { ...addressData, fullName, mobileNumber: cleanPhone, phone: cleanPhone },
       slot: slot || 'Standard Delivery',
       paymentMethod: 'UPI',
@@ -141,10 +165,7 @@ export async function POST(req: NextRequest) {
     const redirectUrl = `${baseUrl}/payment/result?orderId=${encodeURIComponent(orderId)}`;
     const callbackUrl = `${baseUrl}/api/payment/webhook`;
 
-    // Rule 3: Amount in paise (integer)
-    const amountInPaise = Math.round(order.grandTotal * 100);
-
-    const paymentResult = await phonePeAdapter.createPayment({
+    const paymentResult = await razorpayAdapter.createPayment({
       orderId,
       merchantOrderId,
       amountInPaise,
@@ -154,31 +175,20 @@ export async function POST(req: NextRequest) {
       callbackUrl,
     });
 
-    if (!paymentResult.success || !paymentResult.redirectUrl) {
-      // In sandbox mode or local simulation when PhonePe external API cannot reach localhost or sandbox mock:
-      // Provide a clean simulation redirect to return page so testing continues without disruption.
-      const fallbackSimUrl = `${baseUrl}/payment/result?orderId=${encodeURIComponent(orderId)}&simulated=true`;
-
-      return NextResponse.json({
-        success: true,
-        orderId,
-        providerOrderId: merchantOrderId,
-        merchantOrderId,
-        amountInPaise,
-        grandTotal: order.grandTotal,
-        redirectUrl: paymentResult.redirectUrl || fallbackSimUrl,
-        notice: paymentResult.error ? `PhonePe Sandbox notice: ${paymentResult.error}` : undefined,
-      });
-    }
-
     return NextResponse.json({
       success: true,
       orderId,
-      providerOrderId: merchantOrderId,
+      providerOrderId: paymentResult.providerOrderId,
       merchantOrderId,
       amountInPaise,
-      grandTotal: order.grandTotal,
+      subtotal: calculated.subtotal,
+      codFee: 0,
+      grandTotal: finalGrandTotal,
+      keyId: process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_g1mart_dev',
+      currency: 'INR',
       redirectUrl: paymentResult.redirectUrl,
+      paymentMethod: 'Pay Online',
+      paymentStatus: 'pending',
     });
   } catch (err: any) {
     return NextResponse.json(

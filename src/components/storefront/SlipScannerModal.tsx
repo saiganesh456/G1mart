@@ -16,7 +16,9 @@ import {
   User,
   Plus,
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { useLocation } from '@/context/LocationContext';
 
 interface Props {
   isOpen: boolean;
@@ -30,7 +32,9 @@ interface CapturedPhoto {
 }
 
 export default function SlipScannerModal({ isOpen, onClose }: Props) {
+  const router = useRouter();
   const { user } = useAuth();
+  const { currentLocation, isServiceable } = useLocation();
   const [step, setStep] = useState<'camera' | 'preview' | 'details' | 'success'>('camera');
   const [cameraActive, setCameraActive] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
@@ -260,6 +264,12 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
   const handleUpload = async () => {
     if (capturedPhotos.length === 0) return;
 
+    if (!isServiceable && (currentLocation.distance_km || 0) > 30) {
+      setUploadError('Your detected location is beyond our 30 km serviceable radius. Slips can only be accepted in serviceable areas.');
+      setStep('details');
+      return;
+    }
+
     const cleanPhone = customerPhone.replace(/\D/g, '');
     if (!cleanPhone || cleanPhone.length < 10) {
       setUploadError('Please provide a valid 10-digit mobile number.');
@@ -283,6 +293,17 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
       formData.append('phone', cleanPhone);
       formData.append('note', deliveryNote.trim());
 
+      // Copy saved customer location snapshot (Phase 6 Rule 1 & 2)
+      formData.append('address', currentLocation.formattedAddress || 'Padarupalli, Nellore');
+      if (currentLocation.lat) formData.append('lat', String(currentLocation.lat));
+      if (currentLocation.lng) formData.append('lng', String(currentLocation.lng));
+      if (currentLocation.pincode) formData.append('pincode', currentLocation.pincode);
+      formData.append('distance_km', String(currentLocation.distance_km || 2));
+      formData.append('eta_min', String(currentLocation.eta_min || 15));
+      if (currentLocation.zone?.id) formData.append('zone_id', currentLocation.zone.id);
+      formData.append('zone_min_order', String(currentLocation.min_order || currentLocation.zone?.min_order || 500));
+      formData.append('order_type', 'delivery');
+
       const res = await fetch('/api/slips/upload', {
         method: 'POST',
         body: formData,
@@ -293,7 +314,48 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
         throw new Error(data.error || 'Failed to upload slip.');
       }
 
-      setUploadedSlipId(data.slipId || 'slip_received');
+      const activeSlipId = data.orderId || data.slipId || 'slip_received';
+      setUploadedSlipId(activeSlipId);
+
+      // Cache slip order so customer sees it in Orders immediately (Phase 6 Rule 2)
+      const slipOrderRecord = {
+        id: activeSlipId,
+        orderNumber: activeSlipId,
+        date: new Date().toLocaleDateString('en-IN', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
+        status: 'SLIP_RECEIVED',
+        type: 'slip',
+        paymentMethod: 'Cash on Delivery',
+        paymentStatus: 'pending',
+        subtotal: 0,
+        grandTotal: 0,
+        total: 0,
+        items: [],
+        address: {
+          fullName: customerName,
+          phone: cleanPhone,
+          mobileNumber: cleanPhone,
+          streetArea: currentLocation.formattedAddress || 'Padarupalli, Nellore',
+          city: 'Nellore',
+        },
+        customerNote: deliveryNote,
+      };
+
+      try {
+        sessionStorage.setItem('g1mart_latest_order', JSON.stringify(slipOrderRecord));
+        const prev = JSON.parse(sessionStorage.getItem('g1mart_orders_list') || '[]');
+        sessionStorage.setItem('g1mart_orders_list', JSON.stringify([slipOrderRecord, ...prev]));
+
+        const accPrev = JSON.parse(localStorage.getItem('g1mart_account_orders') || '[]');
+        localStorage.setItem('g1mart_account_orders', JSON.stringify([slipOrderRecord, ...accPrev]));
+        localStorage.setItem('g1mart_recent_order', JSON.stringify(slipOrderRecord));
+      } catch {}
+
       setStep('success');
     } catch (err: any) {
       console.error('[SlipScanner] Upload error:', err);
@@ -563,31 +625,49 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
             </div>
 
             <div className="space-y-1.5">
-              <h3 className="text-lg font-black text-white">Your slip was sent to the store.</h3>
+              <h3 className="text-base sm:text-lg font-black text-white leading-snug">
+                We received your list. Our team will call you to confirm
+              </h3>
               <p className="text-xs text-stone-300 leading-relaxed">
-                Our supermarket staff has received your handwritten grocery list. We will check stock availability and call or message you on{' '}
-                <span className="text-white font-bold">{customerPhone}</span> to confirm your items.
+                Our store staff has received your handwritten grocery list. We will prepare your bill and call you on{' '}
+                <span className="text-white font-bold">{customerPhone}</span> to confirm items and pricing.
               </p>
             </div>
 
-            <div className="p-3 rounded-2xl bg-stone-800/80 border border-stone-700/80 text-left text-xs space-y-1">
+            <div className="p-3 rounded-2xl bg-stone-800/80 border border-stone-700/80 text-left text-xs space-y-1.5">
               <div className="flex justify-between text-stone-400">
-                <span>Slip Reference:</span>
-                <span className="font-mono text-white font-bold">{uploadedSlipId}</span>
+                <span>Slip Order ID:</span>
+                <span className="font-mono text-emerald-400 font-bold">{uploadedSlipId}</span>
               </div>
               <div className="flex justify-between text-stone-400">
-                <span>Status:</span>
-                <span className="text-emerald-400 font-bold">Received by G1 Mart</span>
+                <span>Live Status:</span>
+                <span className="text-emerald-400 font-bold">SLIP_RECEIVED (In Queue)</span>
               </div>
             </div>
 
-            <button
-              type="button"
-              onClick={onClose}
-              className="w-full py-3 bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-bold text-sm rounded-xl transition-all cursor-pointer shadow-md"
-            >
-              Continue Shopping
-            </button>
+            <div className="space-y-2 pt-1">
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  if (uploadedSlipId) {
+                    router.push(`/orders/${uploadedSlipId}`);
+                  }
+                }}
+                className="w-full py-3 bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-extrabold text-xs sm:text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
+              >
+                <span>Track Live Status in Orders</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <button
+                type="button"
+                onClick={onClose}
+                className="w-full py-2.5 bg-stone-800 hover:bg-stone-700 text-stone-300 font-bold text-xs rounded-xl transition-all cursor-pointer"
+              >
+                Continue Shopping
+              </button>
+            </div>
           </div>
         )}
       </div>

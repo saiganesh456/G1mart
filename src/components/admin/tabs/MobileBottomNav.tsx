@@ -1,18 +1,19 @@
 import React from 'react';
-import { LayoutDashboard, Package, Layers, Users, Camera, Settings } from 'lucide-react';
+import { LayoutDashboard, Package, Layers, Users, Camera, Settings, FileText } from 'lucide-react';
 
 interface Props {
   activeTab: string;
   onChangeTab: (tab: string) => void;
   orderBadge?: number;
+  slipsBadge?: number;
 }
 
-export default function MobileBottomNav({ activeTab, onChangeTab, orderBadge }: Props) {
+export default function MobileBottomNav({ activeTab, onChangeTab, orderBadge, slipsBadge }: Props) {
   const navItems = [
     { id: 'home', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'orders', label: 'Orders', icon: Package, badge: orderBadge },
-    { id: 'inventory', label: 'Inventory', icon: Layers },
-    { id: 'staff', label: 'Staff', icon: Users },
+    { id: 'slips', label: 'Slips', icon: FileText, badge: slipsBadge },
+    { id: 'inventory', label: 'Stock', icon: Layers },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 

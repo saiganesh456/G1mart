@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PhonePe Payment Gateway Integration Guide — G1 Mart (g1mart.in)</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 16mm 14mm 16mm 14mm;
+      @bottom-right {
+        content: counter(page);
+        font-size: 9pt;
+        color: #64748b;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 10pt;
+      line-height: 1.55;
+      color: #1e293b;
+      background: #ffffff;
+    }
+
+    .cover {
+      page-break-after: always;
+      padding: 40px 10px 20px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 90vh;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #f3e8ff;
+      color: #5f259f;
+      font-weight: 800;
+      font-size: 8.5pt;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .cover-title {
+      font-size: 26pt;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .cover-title span {
+      color: #5f259f;
+    }
+
+    .cover-subtitle {
+      font-size: 13pt;
+      color: #475569;
+      font-weight: 500;
+      margin-bottom: 30px;
+      line-height: 1.4;
+    }
+
+    .meta-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 30px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      font-size: 9pt;
+    }
+
+    .meta-item strong {
+      display: block;
+      color: #64748b;
+      text-transform: uppercase;
+      font-size: 7.5pt;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .meta-item span {
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 9.5pt;
+    }
+
+    .toc {
+      background: #faf5ff;
+      border-left: 4px solid #5f259f;
+      padding: 16px 20px;
+      border-radius: 4px 10px 10px 4px;
+      margin-top: 20px;
+    }
+
+    .toc h3 {
+      font-size: 11pt;
+      color: #5f259f;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .toc ul {
+      list-style-type: none;
+    }
+
+    .toc li {
+      padding: 3px 0;
+      font-size: 9pt;
+      color: #334155;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .toc li span.dots {
+      flex: 1;
+      border-bottom: 1px dotted #cbd5e1;
+      margin: 0 8px 4px 8px;
+    }
+
+    /* Standard Page Sections */
+    h1 {
+      font-size: 16pt;
+      font-weight: 900;
+      color: #0f172a;
+      border-bottom: 2px solid #5f259f;
+      padding-bottom: 6px;
+      margin-top: 28px;
+      margin-bottom: 14px;
+      page-break-after: avoid;
+    }
+
+    h2 {
+      font-size: 12pt;
+      font-weight: 800;
+      color: #5f259f;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      page-break-after: avoid;
+    }
+
+    h3 {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #1e293b;
+      margin-top: 12px;
+      margin-bottom: 6px;
+      page-break-after: avoid;
+    }
+
+    p {
+      margin-bottom: 10px;
+      color: #334155;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    li {
+      margin-bottom: 4px;
+      color: #334155;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 7.5pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .badge-purple { background: #f3e8ff; color: #5f259f; }
+    .badge-green { background: #dcfce7; color: #15803d; }
+    .badge-amber { background: #fef3c7; color: #b45309; }
+    .badge-blue { background: #e0f2fe; color: #0369a1; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 16px 0;
+      font-size: 8.5pt;
+      page-break-inside: avoid;
+    }
+
+    th, td {
+      padding: 8px 10px;
+      border: 1px solid #cbd5e1;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 800;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+    }
+
+    code {
+      font-size: 8pt;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 7.5pt;
+      line-height: 1.45;
+      overflow-x: auto;
+      margin: 10px 0 14px 0;
+      page-break-inside: avoid;
+    }
+
+    .callout {
+      border-left: 4px solid #5f259f;
+      background: #faf5ff;
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+      margin: 12px 0;
+      font-size: 8.5pt;
+      page-break-inside: avoid;
+    }
+
+    .callout-title {
+      font-weight: 800;
+      color: #5f259f;
+      margin-bottom: 4px;
+    }
+
+    .callout-green {
+      border-left-color: #16a34a;
+      background: #f0fdf4;
+    }
+
+    .callout-green .callout-title {
+      color: #16a34a;
+    }
+
+    .callout-amber {
+      border-left-color: #d97706;
+      background: #fffbeb;
+    }
+
+    .callout-amber .callout-title {
+      color: #d97706;
+    }
+
+    .flow-step {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+      padding: 10px;
+      background: #f8fafc;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      page-break-inside: avoid;
+    }
+
+    .step-number {
+      width: 26px;
+      height: 26px;
+      background: #5f259f;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 9pt;
+      shrink: 0;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-title {
+      font-weight: 800;
+      color: #0f172a;
+      font-size: 9pt;
+      margin-bottom: 2px;
+    }
+
+    .step-desc {
+      font-size: 8pt;
+      color: #475569;
+    }
+
+    .page-break {
+      page-break-after: always;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover">
+    <div>
+      <div class="cover-badge">Official Architecture Specification</div>
+      <div class="cover-title">PhonePe Payment Gateway<br><span>Integration Blueprint</span></div>
+      <div class="cover-subtitle">Complete Production Specification, Flow Analysis & Requirement Checklist for G1 Mart Supermarket (g1mart.in)</div>
+
+      <div class="meta-card">
+        <div class="meta-grid">
+          <div class="meta-item">
+            <strong>Target Application</strong>
+            <span>G1 Mart Supermarket Web App</span>
+          </div>
+          <div class="meta-item">
+            <strong>Production Domain</strong>
+            <span>https://g1mart.in</span>
+          </div>
+          <div class="meta-item">
+            <strong>Payment Provider</strong>
+            <span>PhonePe Standard Checkout (PG v1)</span>
+          </div>
+          <div class="meta-item">
+            <strong>Target Framework</strong>
+            <span>Next.js 15.3 (App Router) / React 19 / TypeScript</span>
+          </div>
+          <div class="meta-item">
+            <strong>Database & State</strong>
+            <span>Supabase PostgreSQL + Server Order Store</span>
+          </div>
+          <div class="meta-item">
+            <strong>Document Version & Date</strong>
+            <span>v1.0 (Production Master) — October 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="toc">
+        <h3>TABLE OF CONTENTS</h3>
+        <ul>
+          <li><span>1. Executive Summary & Why PhonePe</span><span class="dots"></span><span>Page 2</span></li>
+          <li><span>2. Merchant Account & Legal KYC Requirements</span><span class="dots"></span><span>Page 2</span></li>
+          <li><span>3. Website Compliance Checklist for g1mart.in</span><span class="dots"></span><span>Page 3</span></li>
+          <li><span>4. End-to-End System Architecture & Flow</span><span class="dots"></span><span>Page 4</span></li>
+          <li><span>5. Production URLs & Endpoint Directory</span><span class="dots"></span><span>Page 5</span></li>
+          <li><span>6. Cryptographic Signature Generation (X-VERIFY)</span><span class="dots"></span><span>Page 6</span></li>
+          <li><span>7. Code Walkthrough & Files to Update</span><span class="dots"></span><span>Page 7</span></li>
+          <li><span>8. Testing & Go-Live Activation Checklist</span><span class="dots"></span><span>Page 8</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="font-size: 8pt; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 12px; display: flex; justify-content: space-between;">
+      <span>G1 Mart Supermarket — Nellore, AP</span>
+      <span>Confidential & Proprietary</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1 & 2 -->
+  <div>
+    <h1>1. Executive Summary & Why PhonePe</h1>
+    <p>
+      G1 Mart (<strong>g1mart.in</strong>) operates a fast-delivery grocery model serving Nellore, Andhra Pradesh. Choosing PhonePe as the primary online payment gateway provides critical advantages for an Indian grocery e-commerce business:
+    </p>
+
+    <ul>
+      <li><strong>Market Dominance in India</strong>: PhonePe commands over 48% of all UPI transactions in India, offering frictionless UPI Intent checkout on mobile devices.</li>
+      <li><strong>Deep UPI App Linking</strong>: Customers on Android and iPhone can tap to pay immediately without manually entering their VPA or scanning external QR codes.</li>
+      <li><strong>Higher Payment Success Rates</strong>: Fallback options for RuPay Debit cards, VISA/Mastercard, NetBanking, and PhonePe Wallet ensure high conversion rates.</li>
+      <li><strong>Server-to-Server Webhook Security</strong>: Direct server callbacks safeguard against dropped user connections, network dropouts, or users closing their browser tab before redirecting.</li>
+    </ul>
+
+    <div class="callout callout-green">
+      <div class="callout-title">Current Codebase Readiness</div>
+      <p>
+        The G1 Mart codebase already contains a pre-built adapter at <code>src/lib/payment/phonepeAdapter.ts</code> implementing the <code>/pg/v1/pay</code> API, Order Status verification (<code>/pg/v1/status</code>), and webhook payload signature checking.
+      </p>
+    </div>
+
+    <h1>2. Merchant Account & Legal KYC Requirements</h1>
+    <p>
+      To transition from PhonePe UAT Sandbox (<code>PGTESTPAYUAT</code>) to live payments, the business must establish an approved <strong>PhonePe Merchant Account</strong>.
+    </p>
+
+    <h3>2.1 Required Business Documents</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Document</th>
+          <th>Requirement Details</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Business Registration / GSTIN</strong></td>
+          <td>GST Registration Certificate of G1 Mart Supermarket or Trade License / Shop & Establishment Certificate</td>
+          <td>Proof of legal business entity</td>
+        </tr>
+        <tr>
+          <td><strong>Entity PAN Card</strong></td>
+          <td>PAN card of the business (or Proprietor's PAN card if Sole Proprietorship)</td>
+          <td>Tax & Financial compliance (RBI mandate)</td>
+        </tr>
+        <tr>
+          <td><strong>Bank Account Proof</strong></td>
+          <td>Cancelled Cheque or Bank Statement (last 3 months) showing Account Name, Account Number, and IFSC</td>
+          <td>Daily automated payout settlement account</td>
+        </tr>
+        <tr>
+          <td><strong>Authorized Signatory KYC</strong></td>
+          <td>Aadhaar Card, Passport or Voter ID of the store owner/director</td>
+          <td>Identity verification</td>
+        </tr>
+        <tr>
+          <td><strong>Physical Store Proof</strong></td>
+          <td>Storefront photo showing "G1 Mart Supermarket" signage, interior view, and Padarupalli address proof</td>
+          <td>Merchant onboarding verification</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>2.2 PhonePe Credentials You Will Receive</h3>
+    <ul>
+      <li><strong>Production Merchant ID (MID)</strong>: A unique alphanumeric string (e.g., <code>G1MARTOFFLINE</code> or <code>MXXXXXXXXXXXXX</code>).</li>
+      <li><strong>Production Salt Key</strong>: A 32-character secret hex UUID used for HMAC SHA-256 signature calculations.</li>
+      <li><strong>Salt Index</strong>: Typically <code>1</code> (indicates key versioning).</li>
+    </ul>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 3 -->
+  <div>
+    <h1>3. Website Compliance Checklist for g1mart.in</h1>
+    <p>
+      Before PhonePe activates live production keys, their risk and compliance team audits the live website (<strong>https://g1mart.in</strong>). The following requirements are strictly mandatory:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%;">Compliance Policy</th>
+          <th style="width: 45%;">Required Content & Information</th>
+          <th style="width: 30%;">Status in G1mart Codebase</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>About Us & Contact Us</strong></td>
+          <td>
+            • Full physical address: <em>Govt Hospital, beside Padarupalli, Nellore, AP - 524004</em><br>
+            • Customer care phone: <em>+91 91107 59629</em><br>
+            • Official email: <em>support@g1mart.in</em>
+          </td>
+          <td><span class="badge badge-green">Implemented</span> in <code>store.ts</code> and Footer</td>
+        </tr>
+        <tr>
+          <td><strong>Terms & Conditions</strong></td>
+          <td>
+            • Governing law (Courts of Nellore, Andhra Pradesh)<br>
+            • User eligibility and order acceptance terms<br>
+            • Pricing policy and delivery terms
+          </td>
+          <td><span class="badge badge-amber">Needs Public Page</span> (<code>/terms</code>)</td>
+        </tr>
+        <tr>
+          <td><strong>Privacy Policy</strong></td>
+          <td>
+            • Data collection policy (phone number, address, GPS location)<br>
+            • No sharing of payment credentials (processed securely by PhonePe)<br>
+            • Cookie usage policy
+          </td>
+          <td><span class="badge badge-amber">Needs Public Page</span> (<code>/privacy</code>)</td>
+        </tr>
+        <tr>
+          <td><strong>Cancellation & Refund Policy</strong></td>
+          <td>
+            • Cancellation allowed before order is packed<br>
+            • Refund processing time (5–7 business days via original payment mode)<br>
+            • Quality guarantee on fresh perishables
+          </td>
+          <td><span class="badge badge-amber">Needs Public Page</span> (<code>/refund-policy</code>)</td>
+        </tr>
+        <tr>
+          <td><strong>Shipping & Delivery Policy</strong></td>
+          <td>
+            • Delivery ETA: 15–30 minutes standard within 30 km radius<br>
+            • Delivery fee: 100% FREE<br>
+            • Distance-based minimum order limits clearly stated
+          </td>
+          <td><span class="badge badge-green">Implemented</span> in Checkout Zone Engine</td>
+        </tr>
+        <tr>
+          <td><strong>Currency & Pricing Transparency</strong></td>
+          <td>
+            • All product selling prices clearly shown in Indian Rupees (INR / ₹)<br>
+            • No hidden surcharges at checkout
+          </td>
+          <td><span class="badge badge-green">Implemented</span></td>
+        </tr>
+        <tr>
+          <td><strong>SSL / HTTPS Security</strong></td>
+          <td>
+            • Valid TLS certificate on <code>https://g1mart.in</code> with automated renewal
+          </td>
+          <td><span class="badge badge-green">Standard on Vercel / Cloudflare</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-amber">
+      <div class="callout-title">Action Required for Verification</div>
+      <p>
+        Ensure you publish simple static pages for <code>/terms</code>, <code>/privacy</code>, and <code>/refund-policy</code> on <code>g1mart.in</code> before submitting the domain to PhonePe.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 4 -->
+  <div>
+    <h1>4. End-to-End System Architecture & Flow</h1>
+    <p>
+      The complete transaction lifecycle consists of 7 distinct phases between the customer browser, G1 Mart Next.js server, and PhonePe PG servers:
+    </p>
+
+    <div class="flow-step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <div class="step-title">Customer Initiates Checkout (Browser -> Next.js Server)</div>
+        <div class="step-desc">
+          Customer taps "Pay Online (₹Total)" at <code>https://g1mart.in/payment</code>. The frontend sends the cart items and address to <code>POST /api/checkout/initiate</code>.
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <div class="step-title">Server Security & Price Recalculation</div>
+        <div class="step-desc">
+          <code>serverOrderStore.recalculateOrderTotal()</code> recalculates line totals from database prices to eliminate client tampering. It assigns a unique order ID (<code>G1-XXXXXX</code>) and merchant transaction ID (<code>MT_G1-XXXXXX_timestamp</code>).
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <div class="step-title">PhonePe Standard Pay Page Initiation (Next.js -> PhonePe API)</div>
+        <div class="step-desc">
+          The server creates a Base64-encoded JSON payload and calculates the <code>X-VERIFY</code> SHA-256 header. It posts to <code>https://api.phonepe.com/apis/pg/v1/pay</code>. PhonePe returns a secure hosted URL: <code>instrumentResponse.redirectInfo.url</code>.
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <div class="step-title">Customer Redirect & Payment Execution</div>
+        <div class="step-desc">
+          The customer browser redirects to PhonePe's hosted pay page. The customer authorizes payment via their preferred UPI App (PhonePe, GPay, Paytm) or Card.
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="step-number">5</div>
+      <div class="step-content">
+        <div class="step-title">Channel A: Server-to-Server Webhook (PhonePe -> Next.js)</div>
+        <div class="step-desc">
+          PhonePe posts an asynchronous callback to <code>https://g1mart.in/api/payment/webhook</code>. The server validates the checksum signature, checks idempotency, updates Supabase <code>orders.payment_status = 'completed'</code>, and marks <code>is_paid = true</code>.
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="step-number">6</div>
+      <div class="step-content">
+        <div class="step-title">Channel B: Frontend Redirect & Status Polling</div>
+        <div class="step-desc">
+          PhonePe redirects the user back to <code>https://g1mart.in/payment/result?orderId=G1-XXXXXX</code>. If the webhook has already resolved, the page confirms instantly. If pending, the page polls <code>/api/orders/{id}/payment-status</code> every 2.5 seconds.
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-step">
+      <div class="step-number">7</div>
+      <div class="step-content">
+        <div class="step-title">Order Dispatch & Real-Time Fulfillment</div>
+        <div class="step-desc">
+          The order triggers broadcast notifications to the G1 Mart Store Admin dashboard and rider dispatch portal for immediate packing and dispatch.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 5 -->
+  <div>
+    <h1>5. Production URLs & Endpoint Directory</h1>
+    <p>
+      The table below catalogs every URL and endpoint required for the PhonePe integration on <strong>g1mart.in</strong>:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Endpoint Type</th>
+          <th>Full URL</th>
+          <th>HTTP Method</th>
+          <th>Purpose & Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>App Base URL</strong></td>
+          <td><code>https://g1mart.in</code></td>
+          <td>—</td>
+          <td>Application root configured via <code>NEXT_PUBLIC_APP_URL</code></td>
+        </tr>
+        <tr>
+          <td><strong>Customer Checkout</strong></td>
+          <td><code>https://g1mart.in/checkout</code></td>
+          <td>GET</td>
+          <td>Fulfillment type (Delivery/Pickup), address, and 30km boundary check</td>
+        </tr>
+        <tr>
+          <td><strong>Payment Selector</strong></td>
+          <td><code>https://g1mart.in/payment</code></td>
+          <td>GET</td>
+          <td>Payment choice: Pay Online (Zero Fee) vs Pay on Delivery (+₹50 COD Fee)</td>
+        </tr>
+        <tr>
+          <td><strong>Checkout Initiate API</strong></td>
+          <td><code>https://g1mart.in/api/checkout/initiate</code></td>
+          <td>POST</td>
+          <td>Recalculates cart from DB, creates pending order, and calls PhonePe <code>/pg/v1/pay</code></td>
+        </tr>
+        <tr>
+          <td><strong>Customer Redirect URL</strong></td>
+          <td><code>https://g1mart.in/payment/result?orderId={orderId}</code></td>
+          <td>GET / POST</td>
+          <td>Return URL configured in PhonePe payload where customer lands after payment</td>
+        </tr>
+        <tr>
+          <td><strong>S2S Webhook URL</strong></td>
+          <td><code>https://g1mart.in/api/payment/webhook</code></td>
+          <td>POST</td>
+          <td>Registered in PhonePe Dashboard to receive server-to-server transaction notifications</td>
+        </tr>
+        <tr>
+          <td><strong>Status Polling API</strong></td>
+          <td><code>https://g1mart.in/api/orders/{orderId}/payment-status</code></td>
+          <td>GET</td>
+          <td>Internal API polling PhonePe Order Status API (<code>/pg/v1/status/{mid}/{txId}</code>)</td>
+        </tr>
+        <tr>
+          <td><strong>Order Confirmation Page</strong></td>
+          <td><code>https://g1mart.in/orders/{orderId}?paid=true</code></td>
+          <td>GET</td>
+          <td>Live delivery tracker and invoice after payment confirmation</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>5.1 Environment Variables Configuration</h2>
+    <p>
+      Configure these keys in <code>.env.local</code> (for development) and your production deployment environment:
+    </p>
+
+    <pre><code># Base App Host
+NEXT_PUBLIC_APP_URL=https://g1mart.in
+
+# PhonePe Production Credentials
+PHONEPE_MERCHANT_ID=G1MARTOFFLINE
+PHONEPE_SALT_KEY=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+PHONEPE_SALT_INDEX=1
+PHONEPE_ENV=PRODUCTION
+
+# Optional Webhook Basic Auth (if configured in PhonePe Dashboard)
+PHONEPE_WEBHOOK_USERNAME=g1mart_s2s_user
+PHONEPE_WEBHOOK_PASSWORD=g1mart_s2s_secure_pass</code></pre>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 6 -->
+  <div>
+    <h1>6. Cryptographic Signature Generation (X-VERIFY)</h1>
+    <p>
+      PhonePe mandates SHA-256 HMAC checksums on every request and webhook to prevent tampering and man-in-the-middle attacks.
+    </p>
+
+    <h3>6.1 Payment Initiation Checksum (POST /pg/v1/pay)</h3>
+    <pre><code>// 1. Convert JSON payload to Base64 string
+const base64Payload = Buffer.from(JSON.stringify(payload)).toString('base64');
+
+// 2. Concatenate base64 string + API endpoint path + Salt Key
+const stringToHash = base64Payload + '/pg/v1/pay' + PHONEPE_SALT_KEY;
+
+// 3. Compute SHA256 digest
+const sha256 = crypto.createHash('sha256').update(stringToHash).digest('hex');
+
+// 4. Append Salt Index to form X-VERIFY header
+const xVerify = `${sha256}###${PHONEPE_SALT_INDEX}`;</code></pre>
+
+    <h3>6.2 Order Status Check Checksum (GET /pg/v1/status/{mid}/{transactionId})</h3>
+    <pre><code>// Concatenate status endpoint path + Salt Key
+const endpointPath = `/pg/v1/status/${PHONEPE_MERCHANT_ID}/${merchantTransactionId}`;
+const stringToHash = endpointPath + PHONEPE_SALT_KEY;
+const sha256 = crypto.createHash('sha256').update(stringToHash).digest('hex');
+const xVerify = `${sha256}###${PHONEPE_SALT_INDEX}`;</code></pre>
+
+    <h3>6.3 Webhook Callback Verification</h3>
+    <pre><code>// Extract x-verify from incoming headers
+const receivedXVerify = headers['x-verify'];
+const base64Response = req.body.response;
+
+// Calculate expected signature
+const stringToHash = base64Response + PHONEPE_SALT_KEY;
+const calculatedSha256 = crypto.createHash('sha256').update(stringToHash).digest('hex');
+const expectedXVerify = `${calculatedSha256}###${PHONEPE_SALT_INDEX}`;
+
+if (receivedXVerify !== expectedXVerify) {
+  throw new Error('Invalid signature on incoming PhonePe webhook');
+}</code></pre>
+
+    <div class="callout callout-green">
+      <div class="callout-title">Already Implemented</div>
+      <p>
+        This exact cryptographic validation is fully programmed in <code>PhonePePaymentAdapter</code> inside <code>src/lib/payment/phonepeAdapter.ts</code>.
+      </p>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 7 -->
+  <div>
+    <h1>7. Code Walkthrough & Files to Update</h1>
+    <p>
+      To complete the PhonePe gateway integration, the following 3 files require slight adjustments to link the storefront directly to PhonePe:
+    </p>
+
+    <h3>7.1 File 1: <code>src/app/api/checkout/initiate/route.ts</code></h3>
+    <p>
+      Change the payment initiation call from <code>razorpayAdapter</code> to <code>phonePeAdapter</code>:
+    </p>
+    <pre><code>// Line 3: Import PhonePe adapter
+import { phonePeAdapter } from '@/lib/payment/phonepeAdapter';
+
+// Line 168: Invoke PhonePe createPayment instead of Razorpay
+const paymentResult = await phonePeAdapter.createPayment({
+  orderId,
+  merchantOrderId,
+  amountInPaise,
+  customerPhone: cleanPhone,
+  customerName: fullName,
+  redirectUrl,
+  callbackUrl,
+});
+
+// Return redirectUrl to frontend
+return NextResponse.json({
+  success: true,
+  orderId,
+  providerOrderId: paymentResult.providerOrderId,
+  redirectUrl: paymentResult.redirectUrl, // PhonePe hosted payment URL
+  paymentMethod: 'Pay Online',
+  paymentStatus: 'pending',
+});</code></pre>
+
+    <h3>7.2 File 2: <code>src/app/(storefront)/payment/page.tsx</code></h3>
+    <p>
+      When the customer clicks "Pay Online (₹Total)" and the server returns the PhonePe <code>redirectUrl</code>, redirect the window directly to PhonePe:
+    </p>
+    <pre><code>if (selectedMethod === 'online') {
+  if (data.redirectUrl) {
+    // Redirect customer browser directly to PhonePe hosted checkout
+    window.location.href = data.redirectUrl;
+    return;
+  }
+}</code></pre>
+
+    <h3>7.3 File 3: <code>src/app/(storefront)/payment/result/page.tsx</code></h3>
+    <p>
+      This page already listens for <code>?orderId=G1-XXXXXX</code> and polls <code>/api/orders/{id}/payment-status</code>. When <code>phonePeAdapter.verifyPayment()</code> confirms completion, it updates state to <strong>"Payment Verified"</strong> and directs the user to live order tracking.
+    </p>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 8 -->
+  <div>
+    <h1>8. Testing & Go-Live Activation Checklist</h1>
+    <p>
+      Follow this strict sequential roadmap to test and deploy PhonePe on <strong>g1mart.in</strong>:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Step</th>
+          <th>Action Item</th>
+          <th>Verification Standard</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Phase 1: Sandbox (UAT)</strong></td>
+          <td>1.1</td>
+          <td>Set UAT keys in <code>.env.local</code>: <code>PHONEPE_MERCHANT_ID=PGTESTPAYUAT</code>, <code>PHONEPE_ENV=SANDBOX</code></td>
+          <td>API calls hit <code>api-preprod.phonepe.com</code></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>1.2</td>
+          <td>Run sandbox test checkout from cart on <code>localhost:3000</code></td>
+          <td>PhonePe simulator opens; mock success triggers order placed</td>
+        </tr>
+        <tr>
+          <td><strong>Phase 2: Merchant Portal</strong></td>
+          <td>2.1</td>
+          <td>Complete KYC on PhonePe Merchant Dashboard (business.phonepe.com)</td>
+          <td>KYC approval notification received</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>2.2</td>
+          <td>Obtain Live <strong>Production MID</strong> and <strong>Salt Key</strong></td>
+          <td>Save in encrypted password manager</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>2.3</td>
+          <td>Register Webhook URL: <code>https://g1mart.in/api/payment/webhook</code></td>
+          <td>Webhook configured with HTTP POST and active events</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>2.4</td>
+          <td>Whitelist domain <code>https://g1mart.in</code></td>
+          <td>Domain confirmed in portal</td>
+        </tr>
+        <tr>
+          <td><strong>Phase 3: Production Deployment</strong></td>
+          <td>3.1</td>
+          <td>Update environment variables on Vercel / Production Server</td>
+          <td><code>PHONEPE_ENV=PRODUCTION</code>, Live MID and Salt Key set</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>3.2</td>
+          <td>Publish Compliance Pages: <code>/terms</code>, <code>/privacy</code>, <code>/refund-policy</code></td>
+          <td>Accessible publicly on <code>https://g1mart.in</code></td>
+        </tr>
+        <tr>
+          <td><strong>Phase 4: Live Verification</strong></td>
+          <td>4.1</td>
+          <td>Perform live test order of small item (e.g. ₹10 biscuit/salt)</td>
+          <td>Pay using real PhonePe UPI app on mobile</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>4.2</td>
+          <td>Check S2S Webhook logs on server</td>
+          <td>Returns HTTP 200; Supabase order marked <code>completed</code></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>4.3</td>
+          <td>Verify Bank Payout in PhonePe Dashboard</td>
+          <td>Settlement ledger reflects net transaction amount (T+1)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-green" style="margin-top: 24px;">
+      <div class="callout-title">Support & Developer Contacts</div>
+      <p>
+        • <strong>PhonePe Merchant Support</strong>: merchant-support@phonepe.com<br>
+        • <strong>PhonePe Tech Support</strong>: pgsupport@phonepe.com<br>
+        • <strong>PhonePe Developer Documentation</strong>: https://developer.phonepe.com/v1/docs/standard-checkout-web
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>
