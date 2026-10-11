@@ -1,22 +1,52 @@
 @import "tailwindcss";
 
-/* ---------------------------------------------------------------------------
-   G1 Mart Design Tokens
-   Used as CSS custom properties; the existing Tailwind arbitrary values
-   (bg-[#2E7D32] etc.) are preserved throughout components for compatibility.
-   --------------------------------------------------------------------------- */
+/* ============================================================
+   G1 MART DESIGN TOKENS  — all colours live here, nowhere else
+   ============================================================ */
 @layer base {
   *, ::before, ::after {
     box-sizing: border-box;
   }
 
   :root {
-    --primary: #2E7D32;
-    --primary-hover: #1b5e20;
-    --secondary: #66BB6A;
-    --accent: #FF9800;
-    --background: #FFFFFF;
-    --foreground: #212121;
+    /* ── Primary (deep green, sampled from G1 Mart logo) ── */
+    --g1-primary:       #1E6B2E;   /* logo green */
+    --g1-primary-hover: #155223;   /* darker press */
+    --g1-primary-tint:  #EBF5EC;   /* 6% tint backgrounds */
+
+    /* ── Yellow accent — offer badges ONLY ── */
+    --g1-yellow:        #F5B800;
+    --g1-yellow-bg:     #FFF8E1;
+
+    /* ── Neutral palette ── */
+    --g1-bg:            #FFFFFF;
+    --g1-surface:       #F6F7F8;
+    --g1-border:        #E8EAED;
+    --g1-text:          #1A1A1A;
+    --g1-text-secondary:#5F6368;
+
+    /* ── Semantic ── */
+    --g1-error:         #D32F2F;
+
+    /* ── Elevation shadows ── */
+    --g1-e1: 0 1px 2px rgba(16,24,40,.06), 0 2px 8px rgba(16,24,40,.06);
+    --g1-e2: 0 -2px 12px rgba(16,24,40,.10);
+
+    /* ── Radius ── */
+    --g1-r-card:  12px;
+    --g1-r-tile:  16px;
+    --g1-r-chip:  999px;
+
+    /* ── Motion ── */
+    --g1-motion:  150ms ease-out;
+
+    /* Legacy aliases (kept so old hard-coded refs still work during migration) */
+    --primary:       var(--g1-primary);
+    --primary-hover: var(--g1-primary-hover);
+    --secondary:     #66BB6A;
+    --accent:        var(--g1-yellow);
+    --background:    var(--g1-bg);
+    --foreground:    var(--g1-text);
   }
 
   html {
@@ -31,8 +61,8 @@
     box-sizing: border-box;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont,
       'Segoe UI', Roboto, sans-serif;
-    background-color: var(--background);
-    color: var(--foreground);
+    background-color: var(--g1-bg);
+    color: var(--g1-text);
     margin: 0;
     padding: 0;
     overflow-x: clip;
@@ -49,11 +79,41 @@
   }
 }
 
-/* Carousel / horizontal scroll — hide scrollbar across browsers */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+/* ── Utility: hide scrollbar ── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Search placeholder word animation ── */
+@keyframes g1-word-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
 }
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+@keyframes g1-word-out {
+  from { opacity: 1; transform: translateY(0);   }
+  to   { opacity: 0; transform: translateY(-8px); }
+}
+.g1-word-enter { animation: g1-word-in  250ms ease-out forwards; }
+.g1-word-exit  { animation: g1-word-out 250ms ease-out forwards; }
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .g1-word-enter, .g1-word-exit { animation: none; }
+}
+
+/* ── Bottom-nav active bar ── */
+.g1-nav-bar {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background-color: var(--g1-primary);
+}
+
+/* ── press scale ── */
+.g1-press:active { transform: scale(0.97); }
+@media (prefers-reduced-motion: reduce) {
+  .g1-press:active { transform: none; }
 }

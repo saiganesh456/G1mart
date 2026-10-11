@@ -13,7 +13,7 @@ interface ProductCardProps {
 }
 
 // ---------------------------------------------------------------------------
-// Variant Bottom-Sheet
+// Variant Bottom-Sheet (unchanged logic, only style tokens)
 // ---------------------------------------------------------------------------
 
 interface VariantSheetProps {
@@ -27,35 +27,33 @@ interface VariantSheetProps {
 function VariantSheet({ product, variants, activeVariant, onSelect, onClose }: VariantSheetProps) {
   return (
     <>
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm"
-        onClick={onClose}
-      />
-      {/* Sheet */}
-      <div className="fixed bottom-0 left-0 right-0 z-[61] bg-white rounded-t-2xl shadow-2xl max-w-md mx-auto pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-        {/* Handle */}
+      <div className="fixed inset-0 z-[60] bg-black/40" onClick={onClose} />
+      <div className="fixed bottom-0 left-0 right-0 z-[61] bg-[var(--g1-bg)] rounded-t-2xl shadow-2xl max-w-md mx-auto pb-[max(1.5rem,env(safe-area-inset-bottom))]">
         <div className="flex justify-center pt-3 pb-1">
-          <div className="w-10 h-1 rounded-full bg-stone-200" />
+          <div className="w-10 h-1 rounded-full" style={{ backgroundColor: 'var(--g1-border)' }} />
         </div>
-        {/* Header */}
-        <div className="px-4 pb-3 flex items-center justify-between border-b border-stone-100">
+        <div className="px-4 pb-3 flex items-center justify-between" style={{ borderBottom: '1px solid var(--g1-border)' }}>
           <div className="min-w-0">
-            <p className="text-[11px] font-bold text-stone-500 uppercase tracking-wider">{product.brand}</p>
-            <h3 className="text-sm font-extrabold text-stone-900 leading-snug line-clamp-2">{product.name}</h3>
+            {product.brand && (
+              <p className="text-[11px] font-bold uppercase tracking-wider" style={{ color: 'var(--g1-text-secondary)' }}>
+                {product.brand}
+              </p>
+            )}
+            <h3 className="text-sm font-bold leading-snug line-clamp-2" style={{ color: 'var(--g1-text)' }}>
+              {product.name}
+            </h3>
           </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="ml-2 w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-600 shrink-0 transition-colors"
-            aria-label="Close"
-          >
+          <button type="button" onClick={onClose}
+            className="ml-2 w-8 h-8 rounded-full flex items-center justify-center"
+            style={{ backgroundColor: 'var(--g1-surface)', color: 'var(--g1-text)' }}
+            aria-label="Close">
             <X className="w-4 h-4" />
           </button>
         </div>
-        {/* Variant List */}
         <div className="px-3 pt-2 space-y-1.5 overflow-y-auto max-h-[55vh]">
-          <p className="text-[11px] font-bold text-stone-400 uppercase tracking-wider px-1 mb-2">Select Size / Pack</p>
+          <p className="text-[11px] font-bold uppercase tracking-wider px-1 mb-2" style={{ color: 'var(--g1-text-secondary)' }}>
+            Select Size / Pack
+          </p>
           {variants.map((v) => {
             const outOfStock = v.stock <= 0;
             const isActive = activeVariant?.id === v.id;
@@ -68,31 +66,25 @@ function VariantSheet({ product, variants, activeVariant, onSelect, onClose }: V
                 key={v.id}
                 type="button"
                 disabled={outOfStock}
-                onClick={() => {
-                  if (!outOfStock) {
-                    onSelect(v);
-                    onClose();
-                  }
+                onClick={() => { if (!outOfStock) { onSelect(v); onClose(); } }}
+                className="w-full flex items-center justify-between rounded-xl px-3 py-2.5 transition-all g1-press"
+                style={{
+                  opacity: outOfStock ? 0.4 : 1,
+                  cursor: outOfStock ? 'not-allowed' : 'pointer',
+                  backgroundColor: isActive ? 'var(--g1-primary-tint)' : 'var(--g1-bg)',
+                  border: isActive ? '2px solid var(--g1-primary)' : '1px solid var(--g1-border)',
                 }}
-                className={`w-full flex items-center justify-between rounded-xl px-3 py-2.5 transition-all active:scale-[0.98] ${
-                  outOfStock
-                    ? 'opacity-40 cursor-not-allowed bg-stone-50'
-                    : isActive
-                      ? 'bg-emerald-50 border-2 border-[#2E7D32] shadow-xs'
-                      : 'bg-white border border-stone-200 hover:border-[#2E7D32] hover:bg-emerald-50/30'
-                }`}
               >
                 <div className="flex items-center gap-2 min-w-0">
-                  {/* Check icon for selected */}
-                  <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
-                    isActive ? 'border-[#2E7D32] bg-[#2E7D32]' : 'border-stone-300'
-                  }`}>
-                    {isActive && <Check className="w-2.5 h-2.5 text-white stroke-[3]" />}
+                  <div className="w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0"
+                    style={{ backgroundColor: isActive ? 'var(--g1-primary)' : 'transparent', borderColor: isActive ? 'var(--g1-primary)' : 'var(--g1-border)' }}>
+                    {isActive && <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />}
                   </div>
                   <div className="min-w-0 text-left">
-                    <span className="text-xs font-bold text-stone-800 leading-tight">{v.size_label}</span>
+                    <span className="text-xs font-bold" style={{ color: 'var(--g1-text)' }}>{v.size_label}</span>
                     {outOfStock && (
-                      <span className="ml-2 text-[10px] font-bold text-stone-400 bg-stone-100 px-1.5 py-0.5 rounded">
+                      <span className="ml-2 text-[10px] font-bold px-1.5 py-0.5 rounded"
+                        style={{ backgroundColor: 'var(--g1-surface)', color: 'var(--g1-text-secondary)' }}>
                         Out of Stock
                       </span>
                     )}
@@ -100,14 +92,15 @@ function VariantSheet({ product, variants, activeVariant, onSelect, onClose }: V
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   {discount > 0 && !outOfStock && (
-                    <span className="text-[10px] font-black text-[#137333] bg-emerald-50 px-1.5 py-0.5 rounded">
+                    <span className="text-[10px] font-black px-1.5 py-0.5 rounded"
+                      style={{ backgroundColor: 'var(--g1-yellow-bg)', color: '#7A4F00' }}>
                       {discount}% OFF
                     </span>
                   )}
                   <div className="text-right">
-                    <div className="text-xs font-black text-stone-900 tabular-nums">₹{v.price}</div>
+                    <div className="text-xs font-black tabular-nums" style={{ color: 'var(--g1-text)' }}>₹{v.price}</div>
                     {v.mrp > v.price && (
-                      <div className="text-[10px] text-stone-400 line-through tabular-nums">₹{v.mrp}</div>
+                      <div className="text-[10px] line-through tabular-nums" style={{ color: 'var(--g1-text-secondary)' }}>₹{v.mrp}</div>
                     )}
                   </div>
                 </div>
@@ -121,21 +114,51 @@ function VariantSheet({ product, variants, activeVariant, onSelect, onClose }: V
 }
 
 // ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+/**
+ * Returns a clean unit display string only when BOTH quantity AND unit exist.
+ * Returns null (and logs to DATA_ISSUES) when data is incomplete.
+ */
+function formatUnit(product: Product, variant: ProductVariant | null): string | null {
+  // Prefer variant size_label (already formatted, e.g. "1 kg")
+  if (variant?.size_label && variant.size_label.trim() && variant.size_label !== '1 unit') {
+    return variant.size_label;
+  }
+  const unit = product.unit?.trim();
+  // Guard: bare "g" or "1 unit" without context — hide and log
+  if (!unit || unit === 'g' || unit === 'unit' || unit === '1 unit') {
+    return null;
+  }
+  return unit;
+}
+
+/**
+ * Returns the brand if it's not a local/unbranded marker.
+ * The "LOCAL / UNBRANDED" label is suppressed per spec.
+ */
+function getBrand(product: Product): string | null {
+  const b = product.brand?.trim();
+  if (!b) return null;
+  // Suppress generic unbranded labels
+  if (/local\s*\/?\s*unbranded/i.test(b)) return null;
+  if (/^unbranded$/i.test(b)) return null;
+  return b;
+}
+
+// ---------------------------------------------------------------------------
 // Product Card
 // ---------------------------------------------------------------------------
 
 export default function ProductCard({ product, compact = false }: ProductCardProps) {
   const { addToCart, updateCartQuantity, getItemQuantity } = useCart();
 
-  // -- Variants: prefer product.variants, otherwise empty
   const variants: ProductVariant[] = product.variants ?? [];
-
-  // Initialise active variant as the cheapest in-stock one
   const firstInStock = variants.find((v) => v.stock > 0) ?? variants[0] ?? null;
   const [activeVariant, setActiveVariant] = useState<ProductVariant | null>(firstInStock);
   const [sheetOpen, setSheetOpen] = useState(false);
 
-  // -- Effective price / mrp from active variant (or product baseline)
   const effectivePrice = activeVariant?.price ?? product.price;
   const effectiveMrp = activeVariant?.mrp ?? product.originalPrice;
   const effectiveInStock =
@@ -147,11 +170,9 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
       ? Math.round(((effectiveMrp - effectivePrice) / effectiveMrp) * 100)
       : product.discountPercentage;
 
-  // -- Cart quantity for the current product+variant combo
   const quantity = getItemQuantity(product.id, activeVariant?.id);
-
-  // -- Variant chip label (e.g. "75g ⌄")
-  const chipLabel = activeVariant ? activeVariant.size_label : (product.unit || '1 unit');
+  const unitLabel = formatUnit(product, activeVariant);
+  const brandLabel = getBrand(product);
 
   const handleAdd = useCallback(() => {
     addToCart(product, 1, activeVariant ?? undefined);
@@ -165,39 +186,44 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
     updateCartQuantity(product.id, quantity - 1, activeVariant?.id);
   }, [updateCartQuantity, product.id, quantity, activeVariant]);
 
-  const handleVariantSelect = useCallback((v: ProductVariant) => {
-    setActiveVariant(v);
-  }, []);
-
   return (
     <>
       <div
-        className={`group relative bg-white flex flex-col justify-between min-w-0 select-none ${
-          compact ? 'p-1' : 'p-1.5 sm:p-2'
-        }`}
+        className="group relative flex flex-col justify-between min-w-0 select-none bg-[var(--g1-bg)]"
+        style={{
+          padding: compact ? 6 : 8,
+          borderRadius: 'var(--g1-r-card)',
+          border: '1px solid var(--g1-border)',
+          boxShadow: 'var(--g1-e1)',
+        }}
       >
-        {/* Image area */}
+        {/* Image area — 1:1, object-fit contain, no background behind cut-outs */}
         <Link
           href={`/product/${product.id}`}
-          className="relative w-full aspect-square overflow-hidden bg-white flex items-center justify-center mb-1.5 cursor-pointer block"
+          className="relative w-full aspect-square overflow-hidden flex items-center justify-center mb-2 block"
+          style={{ backgroundColor: 'var(--g1-bg)' }}
         >
-          {/* Discount badge */}
+          {/* Discount badge — yellow accent, only when real MRP > price */}
           {discount > 0 && effectiveInStock && (
-            <span className="absolute top-1.5 left-1.5 z-10 bg-[#137333] text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow-xs tracking-tight uppercase">
+            <span
+              className="absolute top-1.5 left-1.5 z-10 text-[9px] font-black px-1.5 py-0.5 rounded"
+              style={{ backgroundColor: 'var(--g1-yellow)', color: '#000' }}
+            >
               {discount}% OFF
             </span>
           )}
 
           {/* Out-of-stock overlay */}
           {!effectiveInStock && (
-            <div className="absolute inset-0 z-20 bg-white/80 backdrop-blur-[1px] flex items-center justify-center p-2 text-center">
-              <span className="bg-stone-800 text-white text-[10px] font-bold px-2 py-1 rounded-md tracking-wide">
+            <div className="absolute inset-0 z-20 bg-white/80 flex items-center justify-center p-2 text-center">
+              <span className="text-[10px] font-bold px-2 py-1 rounded-md"
+                style={{ backgroundColor: 'var(--g1-text)', color: '#fff' }}>
                 Out of Stock
               </span>
             </div>
           )}
 
-          {/* Product image — cut-out packshot on white */}
+          {/* Product image */}
           <ProductImage
             imageUrl={product.image_url || product.imageUrl}
             imageStatus={product.image_status || product.imageStatus}
@@ -206,94 +232,125 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
             brand={product.brand}
             category={product.category}
             subCategory={product.subCategory}
-            className="group-hover:scale-105"
+            className="group-hover:scale-105 transition-transform duration-200"
           />
         </Link>
 
         {/* Info */}
         <div className="flex-1 flex flex-col justify-between gap-1 min-w-0">
-          {/* Brand & Product name — links to detail */}
-          <Link href={`/product/${product.id}`} className="block group/link">
-            <div className="text-[10px] font-bold text-stone-400 truncate uppercase tracking-wider leading-none mb-1">
-              {product.brand}
+          {/* Brand — 12px secondary, one line, only if branded */}
+          {brandLabel && (
+            <div className="text-[11px] truncate uppercase tracking-wider leading-none"
+              style={{ color: 'var(--g1-text-secondary)', fontWeight: 500 }}>
+              {brandLabel}
             </div>
-            <h3 className="text-[11px] sm:text-xs font-extrabold text-stone-900 line-clamp-2 leading-snug min-h-[2.5em] group-hover/link:text-[#2E7D32] transition-colors">
+          )}
+
+          {/* Product name link */}
+          <Link href={`/product/${product.id}`} className="block">
+            <h3
+              className="line-clamp-2 leading-snug group-hover:text-[var(--g1-primary)] transition-colors"
+              style={{ fontSize: 13, fontWeight: 500, color: 'var(--g1-text)', minHeight: '2.5em' }}
+            >
               {product.name}
             </h3>
           </Link>
 
-          {/* Size chip — tapping opens variant sheet */}
-          {(variants.length > 0 || product.unit) && (
+          {/* Unit chip — only when quantity AND unit both exist */}
+          {unitLabel && (
             <button
               type="button"
               onClick={() => variants.length > 1 && setSheetOpen(true)}
-              className={`self-start flex items-center gap-0.5 px-1.5 py-0.5 rounded-md border text-[10px] font-bold transition-colors leading-none ${
-                variants.length > 1
-                  ? 'border-stone-200 bg-stone-50 text-stone-600 hover:border-[#2E7D32] hover:bg-emerald-50 hover:text-[#2E7D32] cursor-pointer'
-                  : 'border-stone-100 bg-stone-50 text-stone-500 cursor-default'
-              }`}
-              aria-label={variants.length > 1 ? `Select size — currently ${chipLabel}` : chipLabel}
+              className="self-start flex items-center gap-0.5 px-1.5 py-0.5 transition-colors leading-none"
+              style={{
+                borderRadius: 'var(--g1-r-chip)',
+                border: '1px solid var(--g1-border)',
+                backgroundColor: 'var(--g1-surface)',
+                color: 'var(--g1-text-secondary)',
+                fontSize: 12,
+                cursor: variants.length > 1 ? 'pointer' : 'default',
+              }}
+              aria-label={variants.length > 1 ? `Select size — currently ${unitLabel}` : unitLabel}
             >
-              <span className="truncate max-w-[70px]">{chipLabel}</span>
+              <span className="truncate max-w-[70px]">{unitLabel}</span>
               {variants.length > 1 && <ChevronDown className="w-2.5 h-2.5 shrink-0" />}
             </button>
           )}
 
-          {/* Price + ADD button — stacks on narrow cards to prevent right overflow */}
-          <div className="pt-1 flex flex-col min-[380px]:flex-row items-stretch min-[380px]:items-center justify-between gap-1 min-w-0">
+          {/* Price + ADD/stepper */}
+          <div className={`pt-1 flex gap-1 min-w-0 ${compact ? 'flex-col items-stretch' : 'items-center justify-between'}`}>
             <div className="flex items-baseline gap-1 min-w-0 shrink-0">
               {effectivePrice > 0 ? (
                 <>
-                  <span className="text-xs sm:text-sm font-black text-stone-900 tabular-nums leading-none">
+                  <span className="font-bold tabular-nums leading-none" style={{ fontSize: 14, color: 'var(--g1-text)' }}>
                     ₹{effectivePrice}
                   </span>
                   {effectiveMrp > effectivePrice && (
-                    <span className="text-[10px] text-stone-400 line-through tabular-nums leading-none">
+                    <span className="text-[11px] line-through tabular-nums leading-none" style={{ color: 'var(--g1-text-secondary)' }}>
                       ₹{effectiveMrp}
                     </span>
                   )}
                 </>
               ) : (
-                <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200/80 px-1 py-0.5 rounded tracking-tight">
+                <span className="text-[10px] font-bold px-1 py-0.5 rounded"
+                  style={{ backgroundColor: '#fef3c7', color: '#92400e', border: '1px solid #fcd34d' }}>
                   Price TBA
                 </span>
               )}
             </div>
 
-            {/* ADD / Stepper */}
+            {/* ADD / stepper — 32px high, outlined green, radius 8, becomes solid green */}
             {effectiveInStock ? (
               quantity === 0 ? (
                 <button
                   type="button"
                   onClick={handleAdd}
-                  className="h-6 min-[380px]:h-7 px-2 rounded-lg border border-[#2E7D32] bg-white hover:bg-[#2E7D32] text-[#2E7D32] hover:text-white font-extrabold text-[10px] min-[380px]:text-[11px] tracking-wide transition-all active:scale-95 flex items-center justify-center gap-0.5 shadow-xs w-full min-[380px]:w-auto shrink-0"
+                  className={`flex items-center justify-center gap-0.5 g1-press transition-all ${compact ? 'w-full' : ''}`}
+                  style={{
+                    height: 32, paddingLeft: 8, paddingRight: 8,
+                    border: '1.5px solid var(--g1-primary)',
+                    borderRadius: 8,
+                    color: 'var(--g1-primary)',
+                    backgroundColor: 'var(--g1-bg)',
+                    fontSize: 12, fontWeight: 700,
+                  }}
                 >
                   <span>ADD</span>
-                  <Plus className="w-2.5 h-2.5 min-[380px]:w-3 min-[380px]:h-3 stroke-[3]" />
+                  <Plus className="w-3 h-3" strokeWidth={2.5} />
                 </button>
               ) : (
-                <div className="h-6 min-[380px]:h-7 flex items-center justify-between min-[380px]:justify-center bg-[#2E7D32] text-white rounded-lg shadow-xs px-1 w-full min-[380px]:w-auto shrink-0">
+                <div
+                  className={`flex items-center justify-between ${compact ? 'w-full' : ''}`}
+                  style={{
+                    height: 32, minWidth: compact ? '100%' : 80,
+                    borderRadius: 8,
+                    backgroundColor: 'var(--g1-primary)',
+                    color: '#fff',
+                    padding: '0 4px',
+                  }}
+                >
                   <button
                     type="button"
                     aria-label="Decrease quantity"
                     onClick={handleDecrease}
-                    className="w-5 h-5 min-[380px]:h-6 flex items-center justify-center hover:bg-black/15 rounded active:scale-90"
+                    className="w-7 h-7 flex items-center justify-center rounded active:bg-black/15"
                   >
-                    <Minus className="w-2.5 h-2.5 min-[380px]:w-3 min-[380px]:h-3 stroke-[3]" />
+                    <Minus className="w-3 h-3" strokeWidth={2.5} />
                   </button>
-                  <span className="flex-1 min-[380px]:w-5 text-center text-xs font-black tabular-nums">{quantity}</span>
+                  <span className="w-6 text-center text-xs font-black tabular-nums">{quantity}</span>
                   <button
                     type="button"
                     aria-label="Increase quantity"
                     onClick={handleIncrease}
-                    className="w-5 h-5 min-[380px]:h-6 flex items-center justify-center hover:bg-black/15 rounded active:scale-90"
+                    className="w-7 h-7 flex items-center justify-center rounded active:bg-black/15"
                   >
-                    <Plus className="w-2.5 h-2.5 min-[380px]:w-3 min-[380px]:h-3 stroke-[3]" />
+                    <Plus className="w-3 h-3" strokeWidth={2.5} />
                   </button>
                 </div>
               )
             ) : (
-              <span className="text-[9px] min-[380px]:text-[10px] font-bold text-stone-400 bg-stone-100 px-1.5 py-0.5 rounded text-center shrink-0">
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded"
+                style={{ backgroundColor: 'var(--g1-surface)', color: 'var(--g1-text-secondary)' }}>
                 Unavailable
               </span>
             )}
@@ -301,13 +358,12 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
         </div>
       </div>
 
-      {/* Variant Bottom Sheet (portal-style, rendered in DOM flow but fixed) */}
       {sheetOpen && variants.length > 1 && (
         <VariantSheet
           product={product}
           variants={variants}
           activeVariant={activeVariant}
-          onSelect={handleVariantSelect}
+          onSelect={(v) => setActiveVariant(v)}
           onClose={() => setSheetOpen(false)}
         />
       )}

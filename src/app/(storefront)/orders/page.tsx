@@ -4,19 +4,96 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   Package,
-  Clock,
-  ArrowRight,
-  Phone,
   Truck,
   CheckCircle2,
   MapPin,
   RefreshCw,
   ShoppingBag,
-  ExternalLink,
+  ArrowRight,
+  ImageOff,
 } from 'lucide-react';
-import { formatIndianPhoneDisplay } from '@/lib/phone';
 import { useAuth } from '@/context/AuthContext';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
+import InnerPageHeader from '@/components/layout/InnerPageHeader';
+
+// 4-step order progress
+const ORDER_STEPS = [
+  { key: 'placed', label: 'Placed' },
+  { key: 'packed', label: 'Packed' },
+  { key: 'out', label: 'Out for delivery' },
+  { key: 'delivered', label: 'Delivered' },
+] as const;
+
+function getStepIndex(status: string) {
+  if (status === 'Delivered') return 3;
+  if (status === 'Out for Delivery' || status === 'Order Dispatched') return 2;
+  if (status === 'Packed' || status === 'Packed at Store') return 1;
+  return 0;
+}
+
+function StatusChip({ status }: { status: string }) {
+  const step = getStepIndex(status);
+  const isDelivered = step === 3;
+  const isOut = step === 2;
+  const isPacked = step === 1;
+
+  let bg = 'var(--g1-primary-tint)';
+  let color = 'var(--g1-primary)';
+  let border = 'var(--g1-primary)';
+  let dotColor = 'var(--g1-primary)';
+
+  if (isDelivered) { bg = '#ecfdf5'; color = '#065f46'; border = '#6ee7b7'; dotColor = '#10b981'; }
+  else if (isOut)  { bg = '#f5f3ff'; color = '#5b21b6'; border = '#c4b5fd'; dotColor = '#8b5cf6'; }
+  else if (isPacked) { bg = '#eff6ff'; color = '#1e40af'; border = '#93c5fd'; dotColor = '#3b82f6'; }
+
+  return (
+    <span
+      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold shrink-0"
+      style={{ backgroundColor: bg, color, border: `1px solid ${border}` }}
+    >
+      {/* Dot with 6px margin, never overlaps text */}
+      <span className="inline-block w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: dotColor }} />
+      <span>{status}</span>
+    </span>
+  );
+}
+
+function OrderProgress({ status }: { status: string }) {
+  const activeStep = getStepIndex(status);
+
+  return (
+    <div className="flex items-center gap-0 mt-3">
+      {ORDER_STEPS.map((step, idx) => {
+        const done = idx <= activeStep;
+        const isLast = idx === ORDER_STEPS.length - 1;
+
+        return (
+          <div key={step.key} className="flex-1 flex flex-col items-center relative">
+            {/* Connector line */}
+            {!isLast && (
+              <div className="absolute top-[7px] left-1/2 right-0 h-0.5 -mr-px"
+                style={{
+                  width: '100%',
+                  backgroundColor: idx < activeStep ? 'var(--g1-primary)' : 'var(--g1-border)',
+                  left: '50%',
+                }} />
+            )}
+            {/* Dot */}
+            <div className="relative z-10 w-3.5 h-3.5 rounded-full border-2 shrink-0"
+              style={{
+                backgroundColor: done ? 'var(--g1-primary)' : 'var(--g1-bg)',
+                borderColor: done ? 'var(--g1-primary)' : 'var(--g1-border)',
+              }} />
+            {/* Label */}
+            <span className="mt-1 text-[9px] text-center leading-tight"
+              style={{ color: done ? 'var(--g1-primary)' : 'var(--g1-text-secondary)', fontWeight: done ? 700 : 400 }}>
+              {step.label}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function OrdersPage() {
   const { user, supabaseUser, isLoggedIn } = useAuth();
@@ -28,43 +105,33 @@ export default function OrdersPage() {
     setRefreshing(true);
     const orderMap = new Map<string, any>();
 
-    // 1. Load from Supabase Auth user metadata (synced across all devices!)
     try {
       const metaOrders = supabaseUser?.user_metadata?.orders;
       if (Array.isArray(metaOrders)) {
-        for (const o of metaOrders) {
-          if (o && o.id) orderMap.set(o.id, o);
-        }
+        for (const o of metaOrders) { if (o?.id) orderMap.set(o.id, o); }
       }
     } catch {}
 
-    // 2. Load from localStorage cross-device account storage
     try {
       const stored = localStorage.getItem('g1mart_account_orders');
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed)) {
-          for (const o of parsed) {
-            if (o && o.id) orderMap.set(o.id, o);
-          }
+          for (const o of parsed) { if (o?.id) orderMap.set(o.id, o); }
         }
       }
     } catch {}
 
-    // 3. Load from sessionStorage recent session
     try {
       const storedSession = sessionStorage.getItem('g1mart_orders_list');
       if (storedSession) {
         const parsed = JSON.parse(storedSession);
         if (Array.isArray(parsed)) {
-          for (const o of parsed) {
-            if (o && o.id) orderMap.set(o.id, o);
-          }
+          for (const o of parsed) { if (o?.id) orderMap.set(o.id, o); }
         }
       }
     } catch {}
 
-    // 4. Fetch latest status and orders from Cloud API server
     try {
       const userId = supabaseUser?.id || undefined;
       const phone = user?.phone || undefined;
@@ -76,10 +143,7 @@ export default function OrdersPage() {
       const data = await res.json();
       if (data.success && Array.isArray(data.orders)) {
         for (const o of data.orders) {
-          if (o && o.id) {
-            // Server has authoritative status and payment updates
-            orderMap.set(o.id, { ...orderMap.get(o.id), ...o });
-          }
+          if (o?.id) orderMap.set(o.id, { ...orderMap.get(o.id), ...o });
         }
       }
 
@@ -109,217 +173,193 @@ export default function OrdersPage() {
 
   useEffect(() => {
     syncOrders();
-    const interval = setInterval(() => {
-      syncOrders();
-    }, 6000);
+    const interval = setInterval(() => { syncOrders(); }, 6000);
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supabaseUser, user]);
 
   return (
-    <div className="w-full max-w-2xl mx-auto space-y-4 pb-28 pt-2 sm:pt-4 px-3 sm:px-4 box-border">
-      {/* Page Title & Refresh */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-base sm:text-lg font-black text-[#212121]">My Orders</h1>
-          <p className="text-[11px] text-stone-500 font-medium">
-            {isLoggedIn ? `Linked to ${user?.name || user?.phone || 'your account'}` : 'Guest & Local Orders'}
+    <>
+      <InnerPageHeader title="My orders" />
+
+      <div className="w-full max-w-2xl mx-auto pb-28 pt-3 px-4" style={{ boxSizing: 'border-box' }}>
+        {/* Refresh row */}
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-[13px]" style={{ color: 'var(--g1-text-secondary)' }}>
+            {isLoggedIn ? `Linked to ${user?.name || user?.phone || 'your account'}` : 'Recent orders on this device'}
           </p>
-        </div>
-        <button
-          type="button"
-          onClick={syncOrders}
-          disabled={refreshing}
-          className="p-2 rounded-xl bg-white border border-stone-200 text-stone-600 hover:text-[#2E7D32] hover:border-[#2E7D32] text-xs font-bold flex items-center gap-1.5 transition-colors shadow-2xs cursor-pointer"
-          title="Refresh orders"
-        >
-          <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? 'animate-spin text-[#2E7D32]' : ''}`} />
-          <span className="hidden sm:inline text-xs">Sync</span>
-        </button>
-      </div>
-
-      {loaded && orders.length === 0 ? (
-        <div className="bg-white rounded-3xl border border-stone-200/80 p-8 sm:p-10 text-center space-y-4 shadow-2xs">
-          <div className="w-16 h-16 rounded-3xl bg-emerald-50 text-[#2E7D32] flex items-center justify-center mx-auto shadow-xs">
-            <ShoppingBag className="w-8 h-8" />
-          </div>
-          <div className="space-y-1">
-            <h2 className="text-base font-extrabold text-[#212121]">No orders found</h2>
-            <p className="text-xs text-stone-500 max-w-xs mx-auto leading-relaxed">
-              When you place an order on this or any of your devices, your live delivery tracking and receipts will appear here.
-            </p>
-          </div>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl text-xs font-extrabold transition-all shadow-md shadow-[#2E7D32]/20"
+          <button
+            type="button"
+            onClick={syncOrders}
+            disabled={refreshing}
+            aria-label="Refresh orders"
+            className="w-10 h-10 flex items-center justify-center rounded-full g1-press transition-colors"
+            style={{ backgroundColor: 'var(--g1-surface)', border: '1px solid var(--g1-border)', color: 'var(--g1-text-secondary)' }}
           >
-            <span>Start Shopping</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+            <RefreshCw className={`w-[18px] h-[18px] ${refreshing ? 'animate-spin' : ''}`}
+              style={{ color: refreshing ? 'var(--g1-primary)' : undefined }} strokeWidth={1.75} />
+          </button>
         </div>
-      ) : (
-        <div className="space-y-3.5">
-          {orders.map((order) => {
-            const currentStatus = order.status || 'Order Placed';
-            const isDelivered = currentStatus === 'Delivered';
-            const isOutForDelivery = currentStatus === 'Out for Delivery' || currentStatus === 'Order Dispatched';
-            const isPacked = currentStatus === 'Packed';
-            const isFullyPaid = order.paymentStatus === 'completed' || order.isPaid || order.paymentStatus === 'manual_verified';
-            const displayTotal = order.grandTotal || order.total || order.subtotal || 0;
-            const itemsList = order.items || [];
 
-            return (
-              <div
-                key={order.id}
-                className="bg-white rounded-2xl sm:rounded-3xl border border-stone-200/90 shadow-2xs hover:shadow-md transition-all overflow-hidden box-border"
-              >
-                {/* 1. Header Bar: Order ID, Date, and Live Status Badge */}
-                <div className="p-3.5 sm:p-4 bg-gradient-to-r from-stone-50/90 to-white border-b border-stone-100 flex items-center justify-between gap-2">
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="font-mono font-black text-xs text-stone-900">
-                        #{order.id}
+        {/* Empty state */}
+        {loaded && orders.length === 0 ? (
+          <div className="rounded-[var(--g1-r-card)] border p-10 text-center space-y-4"
+            style={{ backgroundColor: 'var(--g1-bg)', borderColor: 'var(--g1-border)' }}>
+            <div className="w-16 h-16 rounded-3xl flex items-center justify-center mx-auto"
+              style={{ backgroundColor: 'var(--g1-primary-tint)' }}>
+              <ShoppingBag className="w-8 h-8" style={{ color: 'var(--g1-primary)' }} />
+            </div>
+            <div>
+              <h2 className="font-bold" style={{ fontSize: 16, color: 'var(--g1-text)' }}>No orders yet</h2>
+              <p className="text-xs mt-1 max-w-xs mx-auto leading-relaxed" style={{ color: 'var(--g1-text-secondary)' }}>
+                When you place an order, your delivery tracking and receipts will appear here.
+              </p>
+            </div>
+            <Link href="/"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold text-white"
+              style={{ backgroundColor: 'var(--g1-primary)' }}>
+              <span>Start Shopping</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {orders.map((order) => {
+              const currentStatus = order.status || 'Order Placed';
+              const displayId = String(order.id || '').replace(/^SLIP-/i, '');
+              const isFullyPaid = order.paymentStatus === 'completed' || order.isPaid || order.paymentStatus === 'manual_verified';
+              const displayTotal = order.grandTotal || order.total || order.subtotal || 0;
+              const itemsList: any[] = order.items || [];
+
+              // Summary line: "4 items · Idhayam Sesame Oil 1L, +3"
+              const firstItem = itemsList[0];
+              const extraCount = itemsList.length > 1 ? itemsList.length - 1 : 0;
+              const summaryLine = itemsList.length > 0
+                ? `${itemsList.length} ${itemsList.length === 1 ? 'item' : 'items'} · ${firstItem?.productName || 'Item'}${extraCount > 0 ? `, +${extraCount}` : ''}`
+                : null;
+
+              return (
+                <div
+                  key={order.id}
+                  className="rounded-[var(--g1-r-card)] overflow-hidden"
+                  style={{ backgroundColor: 'var(--g1-bg)', border: '1px solid var(--g1-border)', boxShadow: 'var(--g1-e1)' }}
+                >
+                  {/* Card header: Order ID + status chip */}
+                  <div className="flex items-center justify-between px-4 py-3"
+                    style={{ backgroundColor: 'var(--g1-surface)', borderBottom: '1px solid var(--g1-border)' }}>
+                    <div className="min-w-0">
+                      <span className="font-bold font-mono" style={{ fontSize: 14, color: 'var(--g1-text)' }}>
+                        Order #{displayId}
                       </span>
-                      <span className="text-[10px] bg-stone-100 text-stone-600 font-bold px-2 py-0.5 rounded-full">
-                        {order.slot || 'Express 30 Mins'}
-                      </span>
+                      <p className="mt-0.5" style={{ fontSize: 11, color: 'var(--g1-text-secondary)' }}>
+                        {order.date || 'Recently placed'}
+                      </p>
                     </div>
-                    <p className="text-[10px] sm:text-[11px] text-stone-500 mt-0.5">
-                      {order.date || 'Recently placed'}
-                    </p>
+                    {/* Status chip — dot has 6px margin, never overlaps text */}
+                    <StatusChip status={currentStatus} />
                   </div>
 
-                  {/* Status Pill */}
-                  <div className="shrink-0">
-                    <span
-                      className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-extrabold shadow-2xs ${
-                        isDelivered
-                          ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
-                          : isOutForDelivery
-                          ? 'bg-purple-100 text-purple-900 border border-purple-300 animate-pulse'
-                          : isPacked
-                          ? 'bg-blue-100 text-blue-900 border border-blue-300'
-                          : 'bg-emerald-50 text-emerald-900 border border-emerald-200'
-                      }`}
-                    >
-                      {isDelivered ? (
-                        <>
-                          <CheckCircle2 className="w-3 h-3 text-emerald-700" />
-                          <span>Delivered</span>
-                        </>
-                      ) : isOutForDelivery ? (
-                        <>
-                          <Truck className="w-3 h-3 text-purple-700" />
-                          <span>Out for Delivery</span>
-                        </>
-                      ) : isPacked ? (
-                        <>
-                          <Package className="w-3 h-3 text-blue-700" />
-                          <span>Packed at Store</span>
-                        </>
-                      ) : (
-                        <>
-                          <span className="w-2 h-2 rounded-full bg-[#2E7D32] animate-ping" />
-                          <span>Order Placed</span>
-                        </>
-                      )}
-                    </span>
-                  </div>
-                </div>
-
-                {/* 2. Middle Body: Item Thumbnails & Names */}
-                <div className="p-3.5 sm:p-4 space-y-3">
-                  {/* Thumbnails Row */}
-                  {itemsList.length > 0 && (
-                    <div className="flex items-center gap-2 overflow-x-auto pb-1">
-                      {itemsList.slice(0, 4).map((item: any, idx: number) => (
-                        <div
-                          key={idx}
-                          className="w-12 h-12 rounded-xl bg-stone-50 border border-stone-200/80 p-1 flex items-center justify-center shrink-0"
-                          title={`${item.productName} (x${item.quantity})`}
-                        >
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={item.image || '/products/placeholder.svg'}
-                            alt={item.productName}
-                            className="w-full h-full object-contain"
-                            onError={(e) => {
-                              (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
-                            }}
-                          />
-                        </div>
-                      ))}
-                      {itemsList.length > 4 && (
-                        <div className="w-12 h-12 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center text-[11px] font-black text-stone-500 shrink-0">
-                          +{itemsList.length - 4}
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Item Names Text */}
-                  <div className="text-xs text-stone-700">
-                    <p className="line-clamp-2 leading-relaxed">
-                      {itemsList.length > 0
-                        ? itemsList.map((it: any) => `${it.productName} (x${it.quantity})`).join(', ')
-                        : 'Grocery essentials and fresh items'}
-                    </p>
-                  </div>
-
-                  {/* Delivery Location & Phone */}
-                  {order.address && (
-                    <div className="flex items-center justify-between text-[11px] text-stone-500 pt-2 border-t border-stone-100">
-                      <div className="flex items-center gap-1 truncate max-w-[240px]">
-                        <MapPin className="w-3.5 h-3.5 text-stone-400 shrink-0" />
-                        <span className="truncate">
-                          {order.address.houseFlat ? `${order.address.houseFlat}, ` : ''}
-                          {order.address.streetArea || order.address.city || 'Nellore'}
-                        </span>
+                  {/* Card body */}
+                  <div className="px-4 py-3 space-y-3">
+                    {/* Thumbnails — max 4, 48px, neutral icon when image missing */}
+                    {itemsList.length > 0 && (
+                      <div className="flex items-center gap-2">
+                        {itemsList.slice(0, 4).map((item: any, idx: number) => (
+                          <div
+                            key={idx}
+                            className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+                            style={{ backgroundColor: 'var(--g1-surface)', border: '1px solid var(--g1-border)' }}
+                            title={item.productName}
+                          >
+                            {item.image ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img
+                                src={item.image}
+                                alt={item.productName || ''}
+                                className="w-full h-full object-contain rounded-xl p-1"
+                                onError={(e) => {
+                                  (e.currentTarget as HTMLImageElement).style.display = 'none';
+                                  (e.currentTarget.parentElement as HTMLElement).querySelector('.g1-img-fallback')
+                                    ?.removeAttribute('hidden');
+                                }}
+                              />
+                            ) : null}
+                            {/* Neutral icon fallback — no text */}
+                            <Package
+                              className="g1-img-fallback w-5 h-5"
+                              style={{ color: 'var(--g1-text-secondary)', display: item.image ? 'none' : 'block' }}
+                              strokeWidth={1.75}
+                            />
+                          </div>
+                        ))}
+                        {itemsList.length > 4 && (
+                          <div
+                            className="w-12 h-12 rounded-xl flex items-center justify-center text-[11px] font-bold shrink-0"
+                            style={{ backgroundColor: 'var(--g1-surface)', border: '1px solid var(--g1-border)', color: 'var(--g1-text-secondary)' }}
+                          >
+                            +{itemsList.length - 4}
+                          </div>
+                        )}
                       </div>
-                      {order.address.phone && (
-                        <span className="font-semibold text-emerald-800 font-mono shrink-0">
-                          {formatIndianPhoneDisplay(order.address.phone)}
-                        </span>
-                      )}
-                    </div>
-                  )}
-                </div>
+                    )}
 
-                {/* 3. Footer Bar: Price, Payment Mode, and Action CTA Buttons */}
-                <div className="px-3.5 sm:px-4 py-3 bg-stone-50/70 border-t border-stone-100 flex items-center justify-between gap-3">
-                  <div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-sm sm:text-base font-black text-stone-900 tabular-nums">
+                    {/* Summary line — one line with ellipsis */}
+                    {summaryLine && (
+                      <p className="truncate" style={{ fontSize: 13, color: 'var(--g1-text)', fontWeight: 500 }}>
+                        {summaryLine}
+                      </p>
+                    )}
+
+                    {/* Address — one line, phone only in order detail */}
+                    {order.address && (
+                      <div className="flex items-center gap-1.5 min-w-0">
+                        <MapPin className="w-[14px] h-[14px] shrink-0" strokeWidth={1.75}
+                          style={{ color: 'var(--g1-text-secondary)' }} />
+                        <p className="truncate" style={{ fontSize: 12, color: 'var(--g1-text-secondary)' }}>
+                          {[order.address.houseFlat, order.address.streetArea || order.address.city]
+                            .filter(Boolean).join(', ')}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* 4-step progress bar */}
+                    <OrderProgress status={currentStatus} />
+                  </div>
+
+                  {/* Card footer: total + payment + Track Order button */}
+                  <div
+                    className="flex items-center justify-between px-4 py-3"
+                    style={{ backgroundColor: 'var(--g1-surface)', borderTop: '1px solid var(--g1-border)' }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="font-black tabular-nums" style={{ fontSize: 16, color: 'var(--g1-text)' }}>
                         ₹{displayTotal}
                       </span>
                       <span
-                        className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
-                          isFullyPaid
-                            ? 'bg-emerald-100 text-emerald-800'
-                            : 'bg-amber-100 text-amber-900'
-                        }`}
+                        className="text-[10px] font-bold px-2 py-0.5 rounded-full"
+                        style={isFullyPaid
+                          ? { backgroundColor: '#ecfdf5', color: '#065f46' }
+                          : { backgroundColor: '#fef3c7', color: '#92400e' }}
                       >
                         {isFullyPaid ? '✓ Paid' : 'Cash on Delivery'}
                       </span>
                     </div>
-                  </div>
 
-                  {/* Actions */}
-                  <div className="flex items-center gap-2">
                     <Link
                       href={`/orders/${order.id}`}
-                      className="px-3.5 py-1.5 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl text-xs font-extrabold flex items-center gap-1.5 shadow-xs transition-all active:scale-95"
+                      className="flex items-center gap-1.5 px-4 h-10 rounded-xl text-sm font-bold text-white g1-press"
+                      style={{ backgroundColor: 'var(--g1-primary)' }}
                     >
-                      <Truck className="w-3.5 h-3.5" />
+                      <Truck className="w-[18px] h-[18px]" strokeWidth={1.75} />
                       <span>Track Order</span>
                     </Link>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </>
   );
 }

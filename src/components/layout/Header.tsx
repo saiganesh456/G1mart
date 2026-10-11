@@ -3,22 +3,60 @@
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { Search, ShoppingBag, User, MapPin, ChevronDown, Camera, Home, Package, LayoutGrid, Bike, ShieldCheck } from 'lucide-react';
+import { Search, Camera, Bike, ShieldCheck, UserRound, ChevronDown } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useLocation } from '@/context/LocationContext';
 import { useAuth } from '@/context/AuthContext';
-import { STORE_CONFIG } from '@/config/store';
 import BarcodeScannerModal from '@/components/common/BarcodeScannerModal';
 import SlipScannerModal from '@/components/storefront/SlipScannerModal';
+
+/** Rotating placeholder words for the home search bar */
+const SEARCH_WORDS = ['soap', 'atta', 'oil', 'milk', 'biscuits', 'rice', 'tea'];
+
+function AnimatedSearchPlaceholder() {
+  const [wordIdx, setWordIdx] = useState(0);
+  const [phase, setPhase] = useState<'visible' | 'exiting' | 'entering'>('visible');
+  const [prefersReduced, setPrefersReduced] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReduced(mq.matches);
+  }, []);
+
+  useEffect(() => {
+    if (prefersReduced) return;
+    const cycle = setInterval(() => {
+      setPhase('exiting');
+      setTimeout(() => {
+        setWordIdx((i) => (i + 1) % SEARCH_WORDS.length);
+        setPhase('entering');
+        setTimeout(() => setPhase('visible'), 260);
+      }, 260);
+    }, 2400);
+    return () => clearInterval(cycle);
+  }, [prefersReduced]);
+
+  const word = SEARCH_WORDS[wordIdx];
+  const cls = phase === 'exiting' ? 'g1-word-exit' : phase === 'entering' ? 'g1-word-enter' : '';
+
+  return (
+    <span className="flex items-center gap-1 pointer-events-none text-[var(--g1-text-secondary)] select-none overflow-hidden h-full">
+      Search for&nbsp;
+      <span className={`inline-block ${cls}`} style={{ minWidth: 32 }}>
+        {word}
+      </span>
+    </span>
+  );
+}
 
 export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const isHomePage = pathname === '/';
-  const { cartItemCount, cartSubtotal } = useCart();
   const { currentLocation, setIsModalOpen } = useLocation();
   const { user, isLoggedIn } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchFocused, setSearchFocused] = useState(false);
   const [isBarcodeModalOpen, setIsBarcodeModalOpen] = useState(false);
   const [isSlipScannerOpen, setIsSlipScannerOpen] = useState(false);
 
@@ -38,383 +76,269 @@ export default function Header() {
   const etaMins = currentLocation.eta_min ?? currentLocation.etaMin;
   const deliveryEta = etaMins
     ? `~${etaMins} min`
-    : (currentLocation.zone?.estimatedDeliveryTimeText || '15–30 mins');
+    : (currentLocation.zone?.estimatedDeliveryTimeText || '~61 min');
 
   const shortAddress =
     currentLocation.area ||
     currentLocation.street ||
-    (currentLocation.formattedAddress ? currentLocation.formattedAddress.split(',')[0] : 'Padarupalli, Nellore');
+    (currentLocation.formattedAddress ? currentLocation.formattedAddress.split(',')[0] : 'Venkatachalam, Nellore');
+
+  // The avatar initial (first char of name)
+  const avatarInitial = user?.name ? user.name.charAt(0).toUpperCase() : null;
 
   return (
     <>
-      <header className="sticky top-0 z-30 bg-white border-b border-stone-200/80 shadow-xs">
-        {/* Rider Banner if user is delivery partner */}
-        {(user?.role === 'delivery_partner' || user?.role === 'rider') && (
-          <div className="bg-[#1A2E1C] text-white px-3 sm:px-4 py-1.5 text-xs font-bold flex items-center justify-between border-b border-emerald-900/40">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>🛵 Delivery Partner Mode Active</span>
+      {/* ═══════════════════════════════════════════
+          MOBILE HEADER (lg:hidden)
+          Only on Home page.
+          Row 1: logo (28px high) + profile avatar (40px circle) — scrolls away
+          Row 2: delivery text ~36px — scrolls away
+          Row 3: search bar 52px, radius 14 — sticky
+          Inner pages render 56px InnerPageHeader with back button + title.
+      ══════════════════════════════════════════ */}
+      {isHomePage && (
+        <header className="lg:hidden w-full bg-[var(--g1-bg)] z-30">
+          {/* Rider / Admin banner */}
+          {(user?.role === 'delivery_partner' || user?.role === 'rider') && (
+            <div className="bg-[#1A2E1C] text-white px-4 py-1.5 text-xs font-bold flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <Bike className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Delivery Partner Mode</span>
+              </div>
+              <Link href="/rider" className="bg-emerald-600 text-white text-[11px] font-black px-3 py-0.5 rounded-full">
+                Open Console →
+              </Link>
             </div>
-            <Link
-              href="/rider"
-              className="bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-black px-3 py-0.5 rounded-full transition-colors shadow-xs"
-            >
-              Open Rider Console →
-            </Link>
-          </div>
-        )}
+          )}
+          {user?.role === 'admin' && (
+            <div className="bg-[#0f172a] text-white px-4 py-1.5 text-xs font-bold flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
+                <span>Store Administrator Mode</span>
+              </div>
+              <Link href="/admin" className="bg-blue-600 text-white text-[11px] font-black px-3 py-0.5 rounded-full">
+                Open Admin →
+              </Link>
+            </div>
+          )}
 
-        {/* Admin Banner if user is admin */}
-        {user?.role === 'admin' && (
-          <div className="bg-[#0f172a] text-white px-3 sm:px-4 py-1.5 text-xs font-bold flex items-center justify-between border-b border-slate-800">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-              <span>🛡️ Store Administrator Mode</span>
-            </div>
-            <Link
-              href="/admin"
-              className="bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-black px-3 py-0.5 rounded-full transition-colors shadow-xs"
-            >
-              Open Admin Console →
-            </Link>
-          </div>
-        )}
-        {/* ── Mobile Header ── */}
-        <div className="lg:hidden">
-          {/* Top row: logo + cart button + profile avatar — scrolls away */}
-          <div className="flex items-center justify-between px-3 pt-3 pb-2 border-b border-stone-100">
-            <Link href="/" className="flex items-center gap-2" aria-label="G1 Mart home">
+          {/* Row 1: logo (28px high) + profile avatar (40px circle) */}
+          <div className="flex items-center justify-between px-4 pt-3 pb-1">
+            <Link href="/" aria-label="G1 Mart home">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/assets/images/g1_mart_banner_transparent.png"
                 alt="G1 Mart"
-                style={{ height: '32px', maxHeight: '32px', width: 'auto', maxWidth: '140px', objectFit: 'contain' }}
-                className="h-8 w-auto object-contain"
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).src = '/logo.png';
-                }}
+                style={{ height: 28, width: 'auto', maxWidth: 130, objectFit: 'contain' }}
+                onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/logo.png'; }}
               />
             </Link>
 
-            <div className="flex items-center gap-2">
-              {/* Cart button */}
-              <Link
-                href="/cart"
-                aria-label={`Cart — ${cartItemCount} items`}
-                className="relative flex items-center gap-1.5 h-9 px-3 rounded-xl bg-[#2E7D32] hover:bg-[#1b5e20] text-white font-bold text-xs shadow-xs transition-colors"
-              >
-                <ShoppingBag className="w-4 h-4" />
-                {cartItemCount > 0 ? (
-                  <>
-                    <span className="tabular-nums">{cartItemCount}</span>
-                    <span className="hidden sm:inline text-white/80 tabular-nums">
-                      · ₹{cartSubtotal}
-                    </span>
-                  </>
-                ) : (
-                  <span>Cart</span>
-                )}
-              </Link>
-
-              {/* Profile avatar */}
-              <Link
-                href={isLoggedIn ? '/account' : '/login'}
-                aria-label={isLoggedIn ? (user?.name || 'My account') : 'Sign In'}
-                className="w-9 h-9 flex items-center justify-center rounded-xl bg-stone-100 text-stone-700 overflow-hidden"
-              >
-                {user?.avatar ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={user.avatar}
-                    alt={user.name || 'User'}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).style.display = 'none';
-                    }}
-                  />
-                ) : (
-                  <User className="w-4.5 h-4.5" />
-                )}
-              </Link>
-            </div>
+            {/* Profile avatar button: 40px circle, surface bg, Lucide user-round */}
+            <Link
+              href={isLoggedIn ? '/account' : '/login'}
+              aria-label={isLoggedIn ? (user?.name || 'My account') : 'Sign in'}
+              className="w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold transition-colors g1-press shrink-0"
+              style={{ backgroundColor: 'var(--g1-surface)', color: 'var(--g1-primary)' }}
+            >
+              {user?.avatar ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={user.avatar} alt={user.name || 'User'} className="w-full h-full object-cover rounded-full" />
+              ) : avatarInitial ? (
+                <span style={{ color: 'var(--g1-primary)' }}>{avatarInitial}</span>
+              ) : (
+                <UserRound className="w-[22px] h-[22px]" strokeWidth={1.75} style={{ color: 'var(--g1-text-secondary)' }} />
+              )}
+            </Link>
           </div>
 
-          {/* Mobile Delivery in ~X min Location Pill */}
-          <div className="px-3 py-1.5 bg-emerald-50/50 border-b border-emerald-900/10 flex items-center justify-between">
+          {/* Row 2: Delivery location — single line ~36px, tap opens location sheet */}
+          <div className="px-4 pb-2" style={{ minHeight: 36, display: 'flex', alignItems: 'center' }}>
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
-              className="flex items-center gap-2 text-left min-w-0 flex-1 group cursor-pointer"
+              className="flex items-center gap-1 text-left cursor-pointer"
+              aria-label="Change delivery location"
             >
-              <div className="w-6 h-6 rounded-lg bg-emerald-100 text-[#1B5E20] flex items-center justify-center shrink-0">
-                <MapPin className="w-3.5 h-3.5 text-[#1B5E20]" />
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-1">
-                  <span className="text-xs font-black text-[#1B5E20]">
-                    Delivery in {deliveryEta}
-                  </span>
-                  <ChevronDown className="w-3 h-3 text-stone-400 group-hover:text-[#1B5E20] transition-colors" />
-                </div>
-                <p className="text-[11px] text-stone-600 font-medium truncate">
-                  {shortAddress}
-                </p>
-              </div>
+              <span className="text-[13px] font-bold" style={{ color: 'var(--g1-text)' }}>
+                Delivery in {deliveryEta} · {shortAddress}
+              </span>
+              <ChevronDown className="w-3.5 h-3.5 shrink-0" strokeWidth={1.75} style={{ color: 'var(--g1-text-secondary)' }} />
             </button>
           </div>
-        </div>
 
-        {/* ── Desktop Header ── */}
-        <div className="hidden lg:block">
-          <div className="w-full px-3 sm:px-6 lg:px-8 xl:px-10 py-2.5 flex items-center justify-between gap-3 xl:gap-4">
-            {/* Left: Logo & Location Selector (Pushed to the left corner) */}
-            <div className="flex items-center gap-3 xl:gap-4 shrink-0">
-              <Link href="/" className="shrink-0" aria-label="G1 Mart home">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/assets/images/g1_mart_banner_transparent.png"
-                  alt="G1 Mart"
-                  style={{ height: '36px', maxHeight: '36px', width: 'auto', maxWidth: '160px', objectFit: 'contain' }}
-                  className="h-9 w-auto object-contain"
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).src = '/logo.png';
-                  }}
+          {/* Row 3: Search bar — 52px, radius 14, surface bg, 1px border. Sticky! */}
+          <div
+            className="sticky top-0 z-30 bg-[var(--g1-bg)]/95 backdrop-blur-md px-4 pb-2.5 pt-1"
+            style={{ boxShadow: '0 1px 0 var(--g1-border)' }}
+          >
+            <form onSubmit={handleSearchSubmit} role="search">
+              <div className="relative flex items-center" style={{ height: 52 }}>
+                {/* Magnifier icon left */}
+                <Search
+                  className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"
+                  style={{ width: 20, height: 20, color: 'var(--g1-text-secondary)', strokeWidth: 1.75 }}
                 />
-              </Link>
 
-              {/* Delivery Location Pill — Visible across all pages so desktop users always see delivery address */}
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(true)}
-                className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl border border-stone-200/90 hover:border-[#2E7D32] hover:bg-stone-50 transition-all text-left shrink-0 max-w-[210px] xl:max-w-[260px] group cursor-pointer"
-              >
-                <div className="w-7 h-7 rounded-lg bg-emerald-100 text-[#2E7D32] flex items-center justify-center shrink-0">
-                  <MapPin className="w-3.5 h-3.5" />
-                </div>
-                <div className="min-w-0 pr-1">
-                  <div className="flex items-center gap-1">
-                    <span className="text-xs font-black text-[#212121]">
-                      Delivery in {deliveryEta}
-                    </span>
-                    <ChevronDown className="w-3 h-3 text-stone-400 group-hover:text-[#2E7D32] transition-colors" />
-                  </div>
-                  <p className="text-[11px] text-stone-500 font-medium truncate" title={currentLocation.formattedAddress}>
-                    {shortAddress}
-                  </p>
-                </div>
-              </button>
-            </div>
-
-            {/* Center: Search Bar (Smooth flexible width with Camera button) */}
-            <form onSubmit={handleSearchSubmit} role="search" className="flex-1 max-w-2xl mx-2 xl:mx-4 min-w-0">
-              <div className="relative flex items-center">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
                 <input
                   type="search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder='Search "sugar", "oil", "soap", "atta"...'
-                  className="w-full h-10 pl-10 pr-24 rounded-xl bg-stone-50 border border-stone-200 text-sm outline-none focus:bg-white focus:border-[#2E7D32] focus:ring-1 focus:ring-[#2E7D32]/20 transition-all placeholder:text-stone-400"
+                  onFocus={() => setSearchFocused(true)}
+                  onBlur={() => setSearchFocused(false)}
+                  placeholder=""
+                  aria-label="Search products"
+                  className="w-full h-full pl-12 pr-12 text-sm outline-none transition-colors"
+                  style={{
+                    borderRadius: 14,
+                    backgroundColor: 'var(--g1-surface)',
+                    border: `1px solid ${searchFocused ? 'var(--g1-primary)' : 'var(--g1-border)'}`,
+                    boxShadow: searchFocused ? `0 0 0 3px var(--g1-primary-tint)` : 'none',
+                    color: 'var(--g1-text)',
+                  }}
                 />
+
+                {/* Animated placeholder without quotes */}
+                {!searchQuery && !searchFocused && (
+                  <div className="absolute left-12 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ right: 52 }}>
+                    <AnimatedSearchPlaceholder />
+                  </div>
+                )}
+                {!searchQuery && searchFocused && (
+                  <div className="absolute left-12 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ right: 52, color: 'var(--g1-text-secondary)' }}>
+                    Search for soap
+                  </div>
+                )}
+
+                {/* Camera / scan icon right */}
                 <button
                   type="button"
                   onClick={() => setIsSlipScannerOpen(true)}
                   aria-label="Scan slip with camera"
-                  title="Scan handwritten slip or grocery list"
-                  className="absolute right-1.5 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-lg text-[#2E7D32] hover:bg-emerald-50 active:scale-95 transition-all cursor-pointer flex items-center gap-1.5 text-xs font-bold"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-xl g1-press transition-colors"
+                  style={{ color: 'var(--g1-primary)' }}
                 >
-                  <Camera className="w-4 h-4 stroke-[2.2]" />
-                  <span>Scan Slip</span>
+                  <Camera className="w-[22px] h-[22px]" strokeWidth={1.75} />
                 </button>
               </div>
             </form>
+          </div>
+        </header>
+      )}
 
-            {/* Right: Desktop Navigation links (Anchored firmly to the right corner) */}
-            <nav className="flex items-center gap-1.5 xl:gap-2 shrink-0 ml-auto">
-              <Link
-                href="/"
-                className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center gap-1.5 ${
-                  isHomePage ? 'text-[#2E7D32] bg-emerald-50 font-bold' : 'text-stone-600 hover:text-[#2E7D32] hover:bg-stone-100'
-                }`}
-              >
-                <Home className="w-4 h-4" />
-                <span>Home</span>
-              </Link>
+      {/* ═══════════════════════════════════════════
+          DESKTOP HEADER (hidden on mobile)
+          Header cart button removed everywhere per Acceptance Criteria 7
+      ══════════════════════════════════════════ */}
+      <header className="hidden lg:block sticky top-0 z-30 w-full bg-[var(--g1-bg)] border-b"
+        style={{ borderColor: 'var(--g1-border)' }}>
+        <div className="max-w-7xl mx-auto px-6 py-2.5 flex items-center gap-4">
+          {/* Logo */}
+          <Link href="/" aria-label="G1 Mart home" className="shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/assets/images/g1_mart_banner_transparent.png"
+              alt="G1 Mart"
+              style={{ height: 36, width: 'auto', maxWidth: 160, objectFit: 'contain' }}
+              onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/logo.png'; }}
+            />
+          </Link>
 
-              <Link
-                href="/categories"
-                className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center gap-1.5 ${
-                  pathname.startsWith('/categor') ? 'text-[#2E7D32] bg-emerald-50 font-bold' : 'text-stone-600 hover:text-[#2E7D32] hover:bg-stone-100'
-                }`}
-              >
-                <LayoutGrid className="w-4 h-4" />
-                <span>Categories</span>
-              </Link>
-
-              {/* Rider Console Direct Button (If user has rider rights) */}
-              {(user?.role === 'delivery_partner' || user?.role === 'rider') && (
-                <Link
-                  href="/rider"
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#1A2E1C] hover:bg-black text-emerald-400 font-extrabold text-xs border border-emerald-500/50 shadow-xs transition-all active:scale-95"
-                  title="Open Rider Delivery Console"
-                >
-                  <Bike className="w-4 h-4 text-emerald-400 animate-pulse" />
-                  <span>Rider Console</span>
-                </Link>
-              )}
-
-              {/* Admin Panel Direct Button (If user has admin rights) */}
-              {user?.role === 'admin' && (
-                <Link
-                  href="/admin"
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#0f172a] hover:bg-black text-blue-400 font-extrabold text-xs border border-blue-500/50 shadow-xs transition-all active:scale-95"
-                  title="Open Admin Management Console"
-                >
-                  <ShieldCheck className="w-4 h-4 text-blue-400" />
-                  <span>Admin Panel</span>
-                </Link>
-              )}
-
-              <Link
-                href="/orders"
-                className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors flex items-center gap-1.5 ${
-                  pathname.startsWith('/orders') ? 'text-[#2E7D32] bg-emerald-50 font-bold' : 'text-stone-600 hover:text-[#2E7D32] hover:bg-stone-100'
-                }`}
-              >
-                <Package className="w-4 h-4" />
-                <span>Orders</span>
-              </Link>
-
-              <Link
-                href={isLoggedIn ? '/account' : '/login'}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-colors ${
-                  pathname.startsWith('/account') ? 'text-[#2E7D32] bg-emerald-50 font-bold' : 'text-stone-600 hover:text-[#2E7D32] hover:bg-stone-100'
-                }`}
-              >
-                {user?.avatar ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={user.avatar}
-                    alt={user.name || 'User'}
-                    className="w-5 h-5 rounded-full object-cover border border-stone-200"
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).style.display = 'none';
-                    }}
-                  />
-                ) : (
-                  <User className="w-4 h-4" />
-                )}
-                <span>{isLoggedIn ? (user?.name ? user.name.split(' ')[0] : 'Account') : 'Sign In'}</span>
-              </Link>
-
-              {/* Cart Button — Anchored at the far right corner */}
-              <Link
-                href="/cart"
-                className="relative ml-1 flex items-center gap-2 h-10 px-4 rounded-xl bg-[#2E7D32] hover:bg-[#1b5e20] text-white font-bold text-sm shadow-sm transition-all active:scale-98 shrink-0"
-              >
-                <ShoppingBag className="w-4 h-4" />
-                <span>Cart</span>
-                {cartItemCount > 0 && (
-                  <span className="flex items-center gap-1 tabular-nums font-black">
-                    <span className="bg-white/20 rounded-md px-1.5 py-0.5 text-xs">
-                      {cartItemCount}
-                    </span>
-                    <span className="text-white/80">·</span>
-                    <span>₹{cartSubtotal}</span>
+          {/* Delivery location pill — only on home */}
+          {isHomePage && (
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl border transition-all text-left shrink-0 cursor-pointer"
+              style={{ borderColor: 'var(--g1-border)', backgroundColor: 'var(--g1-surface)', maxWidth: 240 }}
+            >
+              <div className="min-w-0">
+                <div className="flex items-center gap-1">
+                  <span className="text-xs font-bold" style={{ color: 'var(--g1-text)' }}>
+                    Delivery in {deliveryEta}
                   </span>
-                )}
-              </Link>
-            </nav>
-          </div>
+                  <ChevronDown className="w-3 h-3 shrink-0" style={{ color: 'var(--g1-text-secondary)' }} strokeWidth={1.75} />
+                </div>
+                <p className="text-[11px] truncate" style={{ color: 'var(--g1-text-secondary)' }}>
+                  {shortAddress}
+                </p>
+              </div>
+            </button>
+          )}
 
-          {/* Desktop category nav strip — comprehensive full-width edge-to-edge access */}
-          <div className="border-t border-stone-200/60 bg-stone-50/90">
-            <div className="w-full px-3 sm:px-6 lg:px-8 xl:px-10 py-1.5 flex items-center gap-1 overflow-x-auto no-scrollbar text-xs font-bold">
-              <Link
-                href="/categories"
-                className="whitespace-nowrap px-3 py-1.5 rounded-lg bg-emerald-100 text-[#1B5E20] hover:bg-emerald-200 shadow-2xs font-black shrink-0 transition-colors"
+          {/* Search bar */}
+          <form onSubmit={handleSearchSubmit} role="search" className="flex-1 max-w-2xl">
+            <div className="relative flex items-center" style={{ height: 44 }}>
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
+                style={{ width: 18, height: 18, color: 'var(--g1-text-secondary)', strokeWidth: 1.75 }} />
+              <input
+                type="search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search for groceries, staples, snacks…"
+                aria-label="Search products"
+                className="w-full h-full pl-10 pr-24 text-sm outline-none transition-colors"
+                style={{
+                  borderRadius: 12,
+                  backgroundColor: 'var(--g1-surface)',
+                  border: `1px solid var(--g1-border)`,
+                  color: 'var(--g1-text)',
+                }}
+              />
+              <button
+                type="button"
+                onClick={() => setIsSlipScannerOpen(true)}
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 text-xs font-bold cursor-pointer"
+                style={{ color: 'var(--g1-primary)' }}
               >
-                All Categories
-              </Link>
-
-              <div className="h-4 w-px bg-stone-300 mx-1 shrink-0" />
-
-              {/* Master Department Quick Jump Anchors */}
-              <Link
-                href="/#grocery-kitchen"
-                className="whitespace-nowrap px-2.5 py-1.5 rounded-lg text-stone-700 hover:text-[#2E7D32] hover:bg-white shrink-0 transition-colors"
-              >
-                Grocery & Kitchen
-              </Link>
-              <Link
-                href="/#snacks-drinks"
-                className="whitespace-nowrap px-2.5 py-1.5 rounded-lg text-stone-700 hover:text-[#2E7D32] hover:bg-white shrink-0 transition-colors"
-              >
-                Snacks & Drinks
-              </Link>
-              <Link
-                href="/#household"
-                className="whitespace-nowrap px-2.5 py-1.5 rounded-lg text-stone-700 hover:text-[#2E7D32] hover:bg-white shrink-0 transition-colors"
-              >
-                Household Essentials
-              </Link>
-              <Link
-                href="/#personal-care"
-                className="whitespace-nowrap px-2.5 py-1.5 rounded-lg text-stone-700 hover:text-[#2E7D32] hover:bg-white shrink-0 transition-colors"
-              >
-                Beauty & Personal Care
-              </Link>
-              <Link
-                href="/#local-specials"
-                className="whitespace-nowrap px-2.5 py-1.5 rounded-lg text-emerald-800 hover:text-[#2E7D32] hover:bg-emerald-50 shrink-0 transition-colors font-extrabold"
-              >
-                Local Specials
-              </Link>
-
-              <div className="h-4 w-px bg-stone-300 mx-1 shrink-0" />
-
-              {/* Direct links to categories */}
-              {[
-                { href: '/category/vegetables-fruits', label: 'Vegetables & Fruits' },
-                { href: '/category/atta-rice-dal', label: 'Atta, Rice & Dal' },
-                { href: '/category/oil-ghee-masala', label: 'Oil & Ghee' },
-                { href: '/category/dairy-bread-eggs', label: 'Dairy & Eggs' },
-                { href: '/category/dry-fruits-cereals', label: 'Dry Fruits' },
-                { href: '/category/chips-namkeen', label: 'Chips & Namkeen' },
-                { href: '/category/biscuits-bakery', label: 'Biscuits & Bakery' },
-                { href: '/category/drinks-juices', label: 'Cold Drinks' },
-                { href: '/category/instant-food', label: 'Instant Food' },
-                { href: '/category/laundry-detergents', label: 'Laundry & Cleaning' },
-                { href: '/category/dishwash', label: 'Dishwash' },
-                { href: '/category/pooja-needs', label: 'Pooja Needs' },
-                { href: '/category/soaps-bath', label: 'Soaps & Bath' },
-                { href: '/category/oral-care', label: 'Oral Care' },
-              ].map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="whitespace-nowrap px-2.5 py-1.5 rounded-lg text-stone-500 hover:text-[#2E7D32] hover:bg-white shrink-0 transition-colors"
-                >
-                  {item.label}
-                </Link>
-              ))}
+                <Camera className="w-4 h-4" strokeWidth={1.75} />
+                <span>Scan Slip</span>
+              </button>
             </div>
-          </div>
+          </form>
+
+          {/* Desktop nav links */}
+          <nav className="flex items-center gap-1 shrink-0 ml-auto">
+            {(user?.role === 'delivery_partner' || user?.role === 'rider') && (
+              <Link href="/rider" className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-extrabold border transition-colors"
+                style={{ background: '#1A2E1C', color: '#4ade80', borderColor: 'rgba(74,222,128,.3)' }}>
+                <Bike className="w-4 h-4 animate-pulse" />
+                <span>Rider Console</span>
+              </Link>
+            )}
+            {user?.role === 'admin' && (
+              <Link href="/admin" className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-extrabold border transition-colors"
+                style={{ background: '#0f172a', color: '#60a5fa', borderColor: 'rgba(96,165,250,.3)' }}>
+                <ShieldCheck className="w-4 h-4" />
+                <span>Admin Panel</span>
+              </Link>
+            )}
+            <Link href="/" className={`px-3 py-2 rounded-xl text-sm font-semibold transition-colors ${pathname === '/' ? 'font-bold' : ''}`}
+              style={{ color: pathname === '/' ? 'var(--g1-primary)' : 'var(--g1-text-secondary)', backgroundColor: pathname === '/' ? 'var(--g1-primary-tint)' : 'transparent' }}>
+              Home
+            </Link>
+            <Link href="/categories" className="px-3 py-2 rounded-xl text-sm font-semibold transition-colors"
+              style={{ color: pathname.startsWith('/categor') ? 'var(--g1-primary)' : 'var(--g1-text-secondary)', backgroundColor: pathname.startsWith('/categor') ? 'var(--g1-primary-tint)' : 'transparent' }}>
+              Categories
+            </Link>
+            <Link href="/orders" className="px-3 py-2 rounded-xl text-sm font-semibold transition-colors"
+              style={{ color: pathname.startsWith('/orders') ? 'var(--g1-primary)' : 'var(--g1-text-secondary)', backgroundColor: pathname.startsWith('/orders') ? 'var(--g1-primary-tint)' : 'transparent' }}>
+              Orders
+            </Link>
+            <Link href={isLoggedIn ? '/account' : '/login'}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-colors"
+              style={{ color: pathname.startsWith('/account') ? 'var(--g1-primary)' : 'var(--g1-text-secondary)', backgroundColor: pathname.startsWith('/account') ? 'var(--g1-primary-tint)' : 'transparent' }}>
+              <UserRound className="w-4 h-4" strokeWidth={1.75} />
+              <span>{isLoggedIn ? (user?.name ? user.name.split(' ')[0] : 'Account') : 'Sign In'}</span>
+            </Link>
+          </nav>
         </div>
       </header>
 
-
-      {/* Barcode Scanner Modal */}
-      <BarcodeScannerModal
-        isOpen={isBarcodeModalOpen}
-        onClose={() => setIsBarcodeModalOpen(false)}
-      />
-
-      {/* Slip Scanner Modal */}
-      <SlipScannerModal
-        isOpen={isSlipScannerOpen}
-        onClose={() => setIsSlipScannerOpen(false)}
-      />
+      <BarcodeScannerModal isOpen={isBarcodeModalOpen} onClose={() => setIsBarcodeModalOpen(false)} />
+      <SlipScannerModal isOpen={isSlipScannerOpen} onClose={() => setIsSlipScannerOpen(false)} />
     </>
   );
 }

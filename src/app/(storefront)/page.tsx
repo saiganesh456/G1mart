@@ -22,7 +22,7 @@ export default async function HomePage() {
   ]);
 
   return (
-    <div className="w-full bg-white pb-24 sm:pb-14 pt-0 space-y-4 sm:space-y-5">
+    <div className="w-full bg-[var(--g1-bg)] pb-28 sm:pb-16 pt-0 space-y-4 sm:space-y-5 px-4 sm:px-0">
       {/* 2. Sticky search bar with camera scan */}
       <StickyHomeSearchBar />
 

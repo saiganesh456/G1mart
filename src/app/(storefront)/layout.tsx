@@ -5,13 +5,13 @@ import InstallAppPlacard from '@/components/common/InstallAppPlacard';
 
 /**
  * Storefront layout — wraps all public customer-facing pages.
- * Route group (storefront) does not affect URLs.
+ * Mobile layout is edge-to-edge with 16px page gutter managed per route.
  */
 export default function StorefrontLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col w-full max-w-full overflow-x-clip box-border">
       <Header />
-      <main className="flex-1 flex flex-col max-w-7xl w-full min-w-0 mx-auto px-3 sm:px-4 lg:px-6 box-border overflow-x-clip">
+      <main className="flex-1 flex flex-col max-w-7xl w-full min-w-0 mx-auto px-0 sm:px-4 lg:px-6 box-border overflow-x-clip">
         {children}
       </main>
       <Footer />
