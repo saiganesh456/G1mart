@@ -21,7 +21,6 @@ export default function BottomNav() {
   const { cartItemCount, cartSubtotal } = useCart();
   const { user } = useAuth();
 
-  // Hide on auth, checkout, cart, payment, and product detail pages
   const shouldHide = HIDDEN_PATHS.some((p) => pathname.startsWith(p));
   if (shouldHide) return null;
 
@@ -38,14 +37,13 @@ export default function BottomNav() {
     !pathname.startsWith('/payment');
 
   return (
-    /* Only visible on mobile/tablet — desktop uses the header nav */
-    <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 max-w-lg md:max-w-2xl mx-auto pointer-events-none">
-      {/* Floating Rider Mode switcher pill */}
+    <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 pointer-events-none">
+      {/* Rider Mode pill */}
       {showRiderPill && !showFloatingCart && (
-        <div className="p-3 pointer-events-auto">
+        <div className="px-3 pb-2 pointer-events-auto">
           <Link
             href="/rider"
-            className="w-full h-11 bg-[#1A2E1C] hover:bg-black text-white rounded-2xl px-4 flex items-center justify-between shadow-lg active:scale-[0.99] transition-all border border-emerald-500/30"
+            className="w-full h-11 bg-[#1A2E1C] text-white rounded-2xl px-4 flex items-center justify-between shadow-lg active:scale-[0.99] transition-transform border border-emerald-500/30"
           >
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -60,38 +58,39 @@ export default function BottomNav() {
         </div>
       )}
 
-      {/* Floating green "View cart - N items" pill */}
+      {/* Sticky cart bar — 56px, only when items in cart */}
       {showFloatingCart && (
-        <div className="p-3 pointer-events-auto">
+        <div className="px-3 pb-2 pointer-events-auto">
           <Link
             href="/cart"
-            aria-label={`View cart with ${cartItemCount} items`}
-            className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-2xl px-4 flex items-center justify-between shadow-lg shadow-[#2E7D32]/25 active:scale-[0.99] transition-all"
+            aria-label={`View cart with ${cartItemCount} items, total ₹${cartSubtotal}`}
+            className="w-full h-14 rounded-2xl px-4 flex items-center justify-between shadow-[var(--g1-e2)] active:scale-[0.98] transition-transform"
+            style={{ backgroundColor: 'var(--g1-primary)' }}
           >
             <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-lg bg-white/20 flex items-center justify-center font-bold text-xs">
+              <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center font-bold text-xs text-white shrink-0">
                 {cartItemCount}
               </div>
-              <div className="flex flex-col text-left">
-                <span className="text-xs font-bold leading-tight">
-                  View cart - {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'}
-                </span>
-                <span className="text-[11px] font-medium text-white/80 tabular-nums leading-none mt-0.5">
-                  ₹{cartSubtotal}
-                </span>
-              </div>
+              <span className="text-sm font-bold text-white">
+                {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'} · ₹{cartSubtotal}
+              </span>
             </div>
-            <div className="flex items-center gap-1.5 text-xs font-extrabold tracking-wide">
-              <span>VIEW CART</span>
+            <div className="flex items-center gap-1.5 text-xs font-extrabold tracking-wide text-white">
+              <span>View cart</span>
               <ArrowRight className="w-4 h-4" />
             </div>
           </Link>
         </div>
       )}
 
-      {/* Tab bar (Home, Categories, Orders, Account) */}
+      {/* Tab bar — 64px + safe area */}
       <nav
-        className="pointer-events-auto bg-white/95 backdrop-blur-md border-t border-stone-200/90 shadow-sm px-2 py-1 flex items-center justify-around h-16 pb-[calc(env(safe-area-inset-bottom,0px)+0.25rem)]"
+        className="pointer-events-auto bg-white/95 backdrop-blur-md border-t border-[var(--g1-border)] px-1 flex items-center justify-around"
+        style={{
+          height: 'calc(64px + env(safe-area-inset-bottom, 0px))',
+          paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+          boxShadow: '0 -1px 0 var(--g1-border)',
+        }}
         aria-label="Main navigation"
       >
         {NAV_ITEMS.map((item) => {
@@ -102,26 +101,29 @@ export default function BottomNav() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex-1 min-h-[48px] flex flex-col items-center justify-center relative active:scale-95 transition-transform"
+              className="flex-1 h-full flex flex-col items-center justify-center relative g1-press"
               aria-current={active ? 'page' : undefined}
+              style={{ minWidth: 44, minHeight: 44 }}
             >
-              <div
-                className={`w-9 h-7 flex items-center justify-center rounded-xl transition-colors ${
-                  active ? 'text-[#2E7D32]' : 'text-stone-400 hover:text-stone-600'
-                }`}
-              >
-                <Icon className={`w-5 h-5 ${active ? 'stroke-[2.5]' : 'stroke-[1.8]'}`} />
-              </div>
+              {/* Active indicator bar at top */}
+              {active && <span className="g1-nav-bar" />}
+
+              {/* Icon */}
+              <Icon
+                className="w-6 h-6"
+                style={{
+                  color: active ? 'var(--g1-primary)' : 'var(--g1-text-secondary)',
+                  strokeWidth: active ? 2.2 : 1.75,
+                }}
+              />
+
+              {/* Label — 11px, never overlaps icon */}
               <span
-                className={`text-[10px] tracking-tight font-medium mt-0.5 ${
-                  active ? 'text-[#2E7D32] font-bold' : 'text-stone-500'
-                }`}
+                className="text-[11px] font-medium mt-0.5 leading-none"
+                style={{ color: active ? 'var(--g1-primary)' : 'var(--g1-text-secondary)', fontWeight: active ? 700 : 500 }}
               >
                 {item.label}
               </span>
-              {active && (
-                <span className="absolute bottom-1 w-1 h-1 rounded-full bg-[#2E7D32]" />
-              )}
             </Link>
           );
         })}

@@ -109,20 +109,15 @@ export default function InstallAppPlacard() {
             </div>
 
             <p className="text-xs text-stone-500 line-clamp-1 mt-0.5">
-              10-minute grocery delivery &amp; app exclusive prices
+              Direct APK for supermarket grocery delivery &amp; exclusive offers
             </p>
 
-            {/* Badges / Rating */}
+            {/* Badges */}
             <div className="flex items-center gap-2 mt-1.5 text-[11px] text-stone-600 font-semibold">
-              <span className="flex items-center gap-1 text-amber-600">
-                <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                4.8
-              </span>
-              <span className="text-stone-300">•</span>
               <span>12 MB</span>
               <span className="text-stone-300">•</span>
               <span className="text-emerald-700 font-bold flex items-center gap-0.5">
-                <Sparkles className="w-2.5 h-2.5" /> Fast APK
+                <Sparkles className="w-2.5 h-2.5" /> Android APK
               </span>
             </div>
           </div>

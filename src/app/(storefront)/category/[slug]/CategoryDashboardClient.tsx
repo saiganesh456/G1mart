@@ -1,11 +1,9 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
-import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
 import ProductCard from '@/components/storefront/ProductCard';
-import { getBrandLogo } from '@/lib/brandLogos';
+import InnerPageHeader from '@/components/layout/InnerPageHeader';
 import type { Category, Product } from '@/types';
 
 interface Props {
@@ -14,26 +12,14 @@ interface Props {
   products: Product[];
 }
 
-// Brand monogram background colors
-const MONOGRAM_COLORS = [
-  'bg-emerald-100 text-emerald-800',
-  'bg-amber-100 text-amber-800',
-  'bg-sky-100 text-sky-800',
-  'bg-rose-100 text-rose-800',
-  'bg-indigo-100 text-indigo-800',
-  'bg-teal-100 text-teal-800',
-  'bg-orange-100 text-orange-800',
-];
-
-function getMonogramColor(brand: string): string {
-  let hash = 0;
-  for (let i = 0; i < brand.length; i++) {
-    hash = (hash << 5) - hash + brand.charCodeAt(i);
-    hash |= 0;
-  }
-  const idx = Math.abs(hash) % MONOGRAM_COLORS.length;
-  return MONOGRAM_COLORS[idx];
-}
+/** Blacklisted/mismatched subcategories per category domain */
+const CATEGORY_SUB_BLACKLIST: Record<string, string[]> = {
+  'atta-rice-dal': ['Cleaners', 'Laundry & Detergents', 'Sanitary Pads & Napkins'],
+  'vegetables-fruits': ['Cleaners', 'Detergent Powders & Liquids'],
+  'oil-ghee-masala': ['Detergent Powders & Liquids', 'Chocolates & Sweets'],
+  'soaps-bath': ['Atta, Rice & Dals', 'Edible Oils'],
+  'floor-surface-cleaners': ['Tea & Coffee', 'Sanitary Pads & Napkins', 'Chocolates'],
+};
 
 export default function CategoryDashboardClient({ category, products }: Props) {
   const searchParams = useSearchParams();
@@ -43,130 +29,172 @@ export default function CategoryDashboardClient({ category, products }: Props) {
   const [selectedBrand, setSelectedBrand] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'popular' | 'price-asc' | 'price-desc'>('popular');
 
-  // Sync brand from URL query param
   useEffect(() => {
     if (brandParam) setSelectedBrand(brandParam);
   }, [brandParam]);
 
-  // Extract sub-categories for this category
-  const subCategories = useMemo(() => {
-    const set = new Set<string>();
+  // Extract clean sub-categories for this category (filtering out mismatches like Cleaners in Atta)
+  const subCategoriesWithImage = useMemo(() => {
+    const blacklist = CATEGORY_SUB_BLACKLIST[category.id] || [];
+    const subMap = new Map<string, { name: string; image: string | null; count: number }>();
+
     products.forEach((p) => {
       const sub = p.subCategory || (p as any).sub_category;
-      if (sub && sub !== 'General' && sub !== 'General Essentials') {
-        set.add(sub);
+      if (!sub || sub === 'General' || sub === 'General Essentials' || blacklist.includes(sub)) {
+        return;
+      }
+
+      const existing = subMap.get(sub);
+      const img = p.image_url || p.imageUrl || null;
+      if (!existing) {
+        subMap.set(sub, { name: sub, image: img, count: 1 });
+      } else {
+        existing.count += 1;
+        if (!existing.image && img) existing.image = img;
       }
     });
-    return Array.from(set).sort();
-  }, [products]);
 
-  // Filter products by sub-category first (to feed brand rail counts)
+    return Array.from(subMap.values()).sort((a, b) => b.count - a.count);
+  }, [category.id, products]);
+
+  // Filter products by sub-category first
   const subFilteredProducts = useMemo(() => {
-    if (selectedSubCategory === 'all') return products;
-    return products.filter((p) => {
+    const blacklist = CATEGORY_SUB_BLACKLIST[category.id] || [];
+    let list = products.filter((p) => {
       const sub = p.subCategory || (p as any).sub_category;
-      return sub === selectedSubCategory;
+      return !sub || !blacklist.includes(sub);
     });
-  }, [products, selectedSubCategory]);
 
-  // Build brand list: (brandName → { count, bestVerifiedCutout })
-  // "All" first, "Local brands" last
+    if (selectedSubCategory !== 'all') {
+      list = list.filter((p) => {
+        const sub = p.subCategory || (p as any).sub_category;
+        return sub === selectedSubCategory;
+      });
+    }
+    return list;
+  }, [category.id, products, selectedSubCategory]);
+
+  // Available brands for top chip row: All, Brand names, Local
   const availableBrands = useMemo(() => {
-    const brandMap = new Map<string, { count: number; logoUrl: string | null }>();
+    const brandMap = new Map<string, number>();
     let localCount = 0;
 
     subFilteredProducts.forEach((p) => {
-      const b = p.brand;
-      const isLocal = !b || b === 'G1 Mart' || b === 'G1 Mart Fresh' || b === 'Local / Unbranded';
+      const b = p.brand?.trim();
+      const isLocal = !b || /local\s*\/?\s*unbranded/i.test(b) || /^unbranded$/i.test(b)
+        || b === 'G1 Mart' || b === 'G1 Mart Fresh';
 
       if (isLocal) {
         localCount += 1;
-      } else {
-        const existing = brandMap.get(b);
-        const officialLogo = getBrandLogo(b);
-        if (!existing) {
-          brandMap.set(b, {
-            count: 1,
-            logoUrl: officialLogo,
-          });
-        } else {
-          existing.count += 1;
-          if (!existing.logoUrl && officialLogo) {
-            existing.logoUrl = officialLogo;
-          }
-        }
+      } else if (b) {
+        brandMap.set(b, (brandMap.get(b) || 0) + 1);
       }
     });
 
-    const standardBrands = Array.from(brandMap.entries())
-      .filter(([, data]) => data.count > 0)
-      .sort((a, b) => b[1].count - a[1].count);
+    const brands = Array.from(brandMap.entries())
+      .filter(([, count]) => count > 0)
+      .sort((a, b) => b[1] - a[1]);
 
-    return {
-      brands: standardBrands,
-      localCount,
-    };
+    return { brands, localCount };
   }, [subFilteredProducts]);
 
-  // Final filtered & sorted products
-  // Rule 5: Order products with verified photos first, then by popularity!
-  const filteredProducts = useMemo(() => {
+  // Final filtered products
+  const displayedProducts = useMemo(() => {
     let list = subFilteredProducts;
 
     if (selectedBrand === 'local') {
       list = list.filter((p) => {
-        const b = p.brand;
-        return !b || b === 'G1 Mart' || b === 'G1 Mart Fresh' || b === 'Local / Unbranded';
+        const b = p.brand?.trim();
+        return !b || /local\s*\/?\s*unbranded/i.test(b) || /^unbranded$/i.test(b)
+          || b === 'G1 Mart' || b === 'G1 Mart Fresh';
       });
     } else if (selectedBrand !== 'all') {
-      list = list.filter((p) => p.brand === selectedBrand);
+      list = list.filter((p) => p.brand?.trim() === selectedBrand);
     }
 
-    // Apply sort
-    const sorted = [...list].sort((a, b) => {
+    return [...list].sort((a, b) => {
       if (sortBy === 'price-asc') return a.price - b.price;
       if (sortBy === 'price-desc') return b.price - a.price;
-
-      // Primary: Verified photos first
       const aVer = a.image_status === 'verified' && a.image_url ? 1 : 0;
       const bVer = b.image_status === 'verified' && b.image_url ? 1 : 0;
       if (aVer !== bVer) return bVer - aVer;
-
-      // Secondary: Popularity
       return (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0);
     });
-
-    return sorted;
   }, [subFilteredProducts, selectedBrand, sortBy]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-white pb-24 sm:pb-16 max-w-full overflow-x-hidden">
-      {/* ── 2. Top Bar: back arrow + category name only + sort dropdown ── */}
-      <div className="bg-white sticky top-0 z-20 border-b border-stone-100 px-3 py-2.5 flex items-center justify-between gap-3 shadow-2xs">
-        <div className="flex items-center gap-2.5 min-w-0">
-          <Link
-            href="/categories"
-            className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center transition-colors shrink-0"
-            aria-label="Back to all categories"
+    <div className="flex flex-col min-h-screen bg-[var(--g1-bg)] pb-24 sm:pb-16 max-w-full overflow-x-hidden">
+      {/* 1. Header: 56px inner header (back button + title 18/700) */}
+      <InnerPageHeader title={category.name} />
+
+      {/* 2. Top chip row: Brands ONLY (All, Aashirvaad, Local) */}
+      <div
+        className="shrink-0 flex items-center justify-between px-3 py-2 bg-[var(--g1-bg)] border-b gap-2"
+        style={{ borderColor: 'var(--g1-border)' }}
+      >
+        <div className="flex flex-wrap items-center gap-1.5 min-w-0 flex-1">
+          {/* All Brands chip */}
+          <button
+            type="button"
+            onClick={() => setSelectedBrand('all')}
+            className="shrink-0 px-3 py-1 text-xs font-bold transition-all cursor-pointer g1-press whitespace-nowrap"
+            style={{
+              borderRadius: 'var(--g1-r-chip)',
+              backgroundColor: selectedBrand === 'all' ? 'var(--g1-primary)' : 'var(--g1-surface)',
+              color: selectedBrand === 'all' ? '#FFFFFF' : 'var(--g1-text-secondary)',
+              border: selectedBrand === 'all' ? 'none' : '1px solid var(--g1-border)',
+            }}
           >
-            <ArrowLeft className="w-4 h-4" />
-          </Link>
-          <div className="min-w-0">
-            <h1 className="text-base font-extrabold text-[#212121] tracking-tight truncate">
-              {category.name}
-            </h1>
-            <p className="text-[10px] text-stone-400 font-medium mt-0.5 truncate">
-              {filteredProducts.length} items
-            </p>
-          </div>
+            All Brands
+          </button>
+
+          {/* Individual Brands */}
+          {availableBrands.brands.map(([bName, bCount]) => (
+            <button
+              key={bName}
+              type="button"
+              onClick={() => setSelectedBrand(bName)}
+              className="shrink-0 px-3 py-1 text-xs font-bold transition-all cursor-pointer g1-press whitespace-nowrap"
+              style={{
+                borderRadius: 'var(--g1-r-chip)',
+                backgroundColor: selectedBrand === bName ? 'var(--g1-primary)' : 'var(--g1-surface)',
+                color: selectedBrand === bName ? '#FFFFFF' : 'var(--g1-text-secondary)',
+                border: selectedBrand === bName ? 'none' : '1px solid var(--g1-border)',
+              }}
+            >
+              {bName} ({bCount})
+            </button>
+          ))}
+
+          {/* Local Brands */}
+          {availableBrands.localCount > 0 && (
+            <button
+              type="button"
+              onClick={() => setSelectedBrand('local')}
+              className="shrink-0 px-3 py-1 text-xs font-bold transition-all cursor-pointer g1-press whitespace-nowrap"
+              style={{
+                borderRadius: 'var(--g1-r-chip)',
+                backgroundColor: selectedBrand === 'local' ? 'var(--g1-primary)' : 'var(--g1-surface)',
+                color: selectedBrand === 'local' ? '#FFFFFF' : 'var(--g1-text-secondary)',
+                border: selectedBrand === 'local' ? 'none' : '1px solid var(--g1-border)',
+              }}
+            >
+              Local ({availableBrands.localCount})
+            </button>
+          )}
         </div>
 
         {/* Sort dropdown */}
         <select
-          id="sort-select"
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-          className="text-xs font-bold bg-stone-100 border border-stone-200 text-stone-800 rounded-xl px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#2E7D32] shrink-0"
+          aria-label="Sort products"
+          className="text-xs font-bold rounded-lg px-2 py-1 ml-2 shrink-0 cursor-pointer outline-none"
+          style={{
+            backgroundColor: 'var(--g1-surface)',
+            border: '1px solid var(--g1-border)',
+            color: 'var(--g1-text)',
+          }}
         >
           <option value="popular">Popular</option>
           <option value="price-asc">Price ↑</option>
@@ -174,191 +202,130 @@ export default function CategoryDashboardClient({ category, products }: Props) {
         </select>
       </div>
 
-      {/* ── Under Top Bar: Horizontal Chip Row of Sub-Categories ── */}
-      {subCategories.length > 0 && (
-        <div className="bg-white border-b border-stone-100 px-3 py-2 flex items-center gap-1.5 overflow-x-auto no-scrollbar shrink-0 select-none">
-          <button
-            type="button"
-            onClick={() => {
-              setSelectedSubCategory('all');
-              setSelectedBrand('all');
-            }}
-            className={`shrink-0 px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
-              selectedSubCategory === 'all'
-                ? 'bg-[#2E7D32] text-white shadow-2xs'
-                : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
-            }`}
-          >
-            All
-          </button>
-          {subCategories.map((sub) => (
-            <button
-              key={sub}
-              type="button"
-              onClick={() => {
-                setSelectedSubCategory(sub);
-                setSelectedBrand('all');
-              }}
-              className={`shrink-0 px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                selectedSubCategory === sub
-                  ? 'bg-[#2E7D32] text-white shadow-2xs'
-                  : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
-              }`}
-            >
-              {sub}
-            </button>
-          ))}
-        </div>
-      )}
-
-      {/* ── Body: Left Brand Rail (~76px) + Right Product Grid ── */}
+      {/* 3. Main Body: Left rail 76px (sub-categories) + Right Product Grid */}
       <div className="flex flex-1 items-start min-w-0">
-        {/* ── 3. LEFT RAIL: Brands (~76px wide, no overflow) ── */}
-        <aside className="w-[76px] sm:w-24 md:w-28 shrink-0 bg-stone-50/60 border-r border-stone-200/80 sticky top-[95px] self-start h-[calc(100vh-95px)] overflow-y-auto no-scrollbar flex flex-col py-2 select-none">
-          {/* "All" button first */}
+        {/* Left rail: 76px fixed = Sub-categories (48px circle image + 11px label) */}
+        <aside
+          className="shrink-0 bg-[var(--g1-surface)] border-r sticky top-[56px] self-start overflow-y-auto no-scrollbar flex flex-col py-2 select-none"
+          style={{
+            width: 76,
+            height: 'calc(100vh - 56px - 44px)',
+            borderColor: 'var(--g1-border)',
+          }}
+        >
+          {/* "All" subcategory button */}
           <button
             type="button"
-            onClick={() => setSelectedBrand('all')}
-            className={`relative w-full py-2 px-1 flex flex-col items-center justify-center transition-all cursor-pointer ${
-              selectedBrand === 'all' ? 'bg-white' : 'hover:bg-white/60'
-            }`}
+            onClick={() => setSelectedSubCategory('all')}
+            className="relative w-full py-2 px-1 flex flex-col items-center justify-center transition-all cursor-pointer g1-press"
+            style={{
+              backgroundColor: selectedSubCategory === 'all' ? 'var(--g1-bg)' : 'transparent',
+            }}
           >
-            {selectedBrand === 'all' && (
-              <div className="absolute left-0 top-1 bottom-1 w-1 bg-[#2E7D32] rounded-r-md" />
+            {selectedSubCategory === 'all' && (
+              <div
+                className="absolute left-0 top-1 bottom-1 w-1 rounded-r"
+                style={{ backgroundColor: 'var(--g1-primary)' }}
+              />
             )}
             <div
-              className={`w-[52px] h-[52px] rounded-full border flex items-center justify-center transition-all ${
-                selectedBrand === 'all'
-                  ? 'border-[#2E7D32] bg-emerald-50 text-[#2E7D32] font-black ring-2 ring-[#2E7D32]/20 shadow-2xs'
-                  : 'border-stone-200 bg-white text-stone-600 font-bold'
-              }`}
+              className="w-12 h-12 rounded-full flex items-center justify-center transition-all overflow-hidden"
+              style={{
+                backgroundColor: selectedSubCategory === 'all' ? 'var(--g1-primary-tint)' : 'var(--g1-bg)',
+                border: `1.5px solid ${selectedSubCategory === 'all' ? 'var(--g1-primary)' : 'var(--g1-border)'}`,
+              }}
             >
-              <span className="text-xs">All</span>
+              {category.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={category.image} alt="All" className="w-8 h-8 object-contain" />
+              ) : (
+                <span className="text-xs font-bold" style={{ color: 'var(--g1-primary)' }}>All</span>
+              )}
             </div>
             <span
-              className={`text-[10px] mt-1 font-bold leading-tight ${
-                selectedBrand === 'all' ? 'text-[#2E7D32]' : 'text-stone-600'
-              }`}
+              className="text-[11px] mt-1 text-center leading-tight px-0.5 line-clamp-2"
+              style={{
+                fontWeight: selectedSubCategory === 'all' ? 700 : 500,
+                color: selectedSubCategory === 'all' ? 'var(--g1-primary)' : 'var(--g1-text)',
+              }}
             >
               All
             </span>
-            <span className="text-[9px] text-stone-400 font-medium">
-              {subFilteredProducts.length}
-            </span>
           </button>
 
-          {/* Individual Brands */}
-          {availableBrands.brands.map(([brandName, { count, logoUrl }]) => {
-            const isSelected = selectedBrand === brandName;
-            const initial = (brandName[0] || 'B').toUpperCase();
-            const monogramStyle = getMonogramColor(brandName);
-
+          {/* Sub-categories */}
+          {subCategoriesWithImage.map((sub) => {
+            const isSelected = selectedSubCategory === sub.name;
             return (
               <button
-                key={brandName}
+                key={sub.name}
                 type="button"
-                onClick={() => setSelectedBrand(brandName)}
-                className={`relative w-full py-2 px-1 flex flex-col items-center justify-center transition-all cursor-pointer ${
-                  isSelected ? 'bg-white' : 'hover:bg-white/60'
-                }`}
+                onClick={() => setSelectedSubCategory(sub.name)}
+                className="relative w-full py-2 px-1 flex flex-col items-center justify-center transition-all cursor-pointer g1-press"
+                style={{
+                  backgroundColor: isSelected ? 'var(--g1-bg)' : 'transparent',
+                }}
               >
                 {isSelected && (
-                  <div className="absolute left-0 top-1 bottom-1 w-1 bg-[#2E7D32] rounded-r-md" />
+                  <div
+                    className="absolute left-0 top-1 bottom-1 w-1 rounded-r"
+                    style={{ backgroundColor: 'var(--g1-primary)' }}
+                  />
                 )}
-
-                {/* Round thumbnail (~56px / 52px) */}
+                {/* 48px circle image */}
                 <div
-                  className={`w-[52px] h-[52px] rounded-full border p-1 flex items-center justify-center overflow-hidden transition-all bg-white ${
-                    isSelected
-                      ? 'border-[#2E7D32] ring-2 ring-[#2E7D32]/25 shadow-2xs scale-105'
-                      : 'border-stone-200 hover:border-stone-300'
-                  }`}
+                  className="w-12 h-12 rounded-full p-1 flex items-center justify-center transition-all overflow-hidden"
+                  style={{
+                    backgroundColor: isSelected ? 'var(--g1-primary-tint)' : 'var(--g1-bg)',
+                    border: `1.5px solid ${isSelected ? 'var(--g1-primary)' : 'var(--g1-border)'}`,
+                  }}
                 >
-                  {logoUrl ? (
+                  {sub.image ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={logoUrl}
-                      alt={brandName}
-                      loading="lazy"
-                      className="w-full h-full object-contain p-0.5 select-none"
-                    />
+                    <img src={sub.image} alt={sub.name} className="w-8 h-8 object-contain select-none" />
                   ) : (
-                    // Coloured monogram circle with brand initial
                     <div
-                      className={`w-full h-full rounded-full flex items-center justify-center font-black text-sm select-none ${monogramStyle}`}
+                      className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
+                      style={{ backgroundColor: 'var(--g1-surface)', color: 'var(--g1-text-secondary)' }}
                     >
-                      {initial}
+                      {sub.name.charAt(0)}
                     </div>
                   )}
                 </div>
-
-                {/* Brand name below */}
+                {/* 11px label */}
                 <span
-                  className={`text-[10px] leading-[11px] line-clamp-2 text-center mt-1 w-full px-0.5 break-words font-semibold ${
-                    isSelected ? 'text-[#2E7D32] font-black' : 'text-stone-700'
-                  }`}
+                  className="text-[11px] mt-1 text-center leading-tight px-0.5 line-clamp-2"
+                  style={{
+                    fontWeight: isSelected ? 700 : 500,
+                    color: isSelected ? 'var(--g1-primary)' : 'var(--g1-text)',
+                  }}
                 >
-                  {brandName}
+                  {sub.name}
                 </span>
-                <span className="text-[9px] text-stone-400 font-medium">{count}</span>
               </button>
             );
           })}
-
-          {/* "Local brands" last */}
-          {availableBrands.localCount > 0 && (
-            <button
-              type="button"
-              onClick={() => setSelectedBrand('local')}
-              className={`relative w-full py-2 px-1 flex flex-col items-center justify-center transition-all cursor-pointer ${
-                selectedBrand === 'local' ? 'bg-white' : 'hover:bg-white/60'
-              }`}
-            >
-              {selectedBrand === 'local' && (
-                <div className="absolute left-0 top-1 bottom-1 w-1 bg-[#2E7D32] rounded-r-md" />
-              )}
-              <div
-                className={`w-[52px] h-[52px] rounded-full border p-1 flex items-center justify-center transition-all bg-white ${
-                  selectedBrand === 'local'
-                    ? 'border-[#2E7D32] bg-emerald-50 ring-2 ring-[#2E7D32]/20 shadow-2xs scale-105'
-                    : 'border-stone-200 hover:border-stone-300'
-                }`}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/logo.png"
-                  alt="Jeevan Mart"
-                  className="w-8 h-8 object-contain select-none"
-                />
-              </div>
-              <span
-                className={`text-[10px] leading-[11px] line-clamp-2 text-center mt-1 w-full px-0.5 font-semibold ${
-                  selectedBrand === 'local' ? 'text-[#2E7D32] font-black' : 'text-stone-700'
-                }`}
-              >
-                Local
-              </span>
-              <span className="text-[9px] text-stone-400 font-medium">
-                {availableBrands.localCount}
-              </span>
-            </button>
-          )}
         </aside>
 
-        {/* ── 4. Product Grid: Responsive (2 cols on mobile, 3-6 cols on larger screens) ── */}
-        <main className="flex-1 min-w-0 p-1.5 sm:p-3 lg:p-4">
-          {filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 sm:gap-3 lg:gap-3.5 min-w-0">
-              {filteredProducts.map((p) => (
+        {/* 4. Product grid: 2 columns up to 390px, 3 from 480px */}
+        <main className="flex-1 min-w-0 p-2 sm:p-3">
+          {displayedProducts.length > 0 ? (
+            <div className="grid grid-cols-2 min-[480px]:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-2.5 min-w-0">
+              {displayedProducts.map((p) => (
                 <ProductCard key={`${p.id}::${selectedBrand}`} product={p} compact />
               ))}
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center gap-3 py-14 text-center px-4">
-              <span className="text-3xl">📦</span>
-              <h3 className="text-sm font-bold text-stone-800">No products found</h3>
-              <p className="text-xs text-stone-500 max-w-xs">
-                No products found for the selected brand or sub-category filter.
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center"
+                style={{ backgroundColor: 'var(--g1-surface)' }}
+              >
+                <span className="text-xl">📦</span>
+              </div>
+              <h3 className="text-sm font-bold" style={{ color: 'var(--g1-text)' }}>No products found</h3>
+              <p className="text-xs max-w-xs" style={{ color: 'var(--g1-text-secondary)' }}>
+                No products match the selected brand and sub-category.
               </p>
               <button
                 type="button"
@@ -366,7 +333,8 @@ export default function CategoryDashboardClient({ category, products }: Props) {
                   setSelectedBrand('all');
                   setSelectedSubCategory('all');
                 }}
-                className="px-4 py-2 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl text-xs font-bold transition-colors cursor-pointer"
+                className="px-4 py-2 rounded-xl text-xs font-bold text-white g1-press"
+                style={{ backgroundColor: 'var(--g1-primary)' }}
               >
                 Show All Products
               </button>
