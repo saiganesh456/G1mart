@@ -3,10 +3,10 @@
   "atta-rice-dal": "/categories/collages/atta-rice-dal.webp",
   "oil-ghee-masala": "/categories/collages/oil-ghee-masala.webp",
   "dairy-bread-eggs": "/categories/collages/dairy-bread-eggs.webp",
+  "biscuits-bakery": "/categories/collages/biscuits-bakery.webp",
   "dry-fruits-cereals": "/categories/collages/dry-fruits-cereals.webp",
   "sugar-salt-staples": "/categories/collages/sugar-salt-staples.webp",
   "chips-namkeen": "/categories/collages/chips-namkeen.webp",
-  "biscuits-bakery": "/categories/collages/biscuits-bakery.webp",
   "sweets-chocolates": "/categories/collages/sweets-chocolates.webp",
   "drinks-juices": "/categories/collages/drinks-juices.webp",
   "tea-coffee-milk-drinks": "/categories/collages/tea-coffee-milk-drinks.webp",
@@ -22,5 +22,9 @@
   "hair-care": "/categories/collages/hair-care.webp",
   "skin-care": "/categories/collages/skin-care.webp",
   "baby-care": "/categories/collages/baby-care.webp",
-  "hygiene": "/categories/collages/hygiene.webp"
+  "hygiene": "/categories/collages/hygiene.webp",
+  "local-dals": "/categories/collages/local-dals.svg",
+  "local-flours": "/categories/collages/local-flours.svg",
+  "local-dry-fruits": "/categories/collages/local-dry-fruits.svg",
+  "local-millets": "/categories/collages/local-millets.svg"
 }

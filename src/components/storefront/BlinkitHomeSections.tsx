@@ -19,11 +19,12 @@ const SECTION_TINTS: Record<string, string> = {
   'snacks-drinks': '#E8F4F3',   // soft clean mint
   'household': '#EEF5FB',       // soft sky blue
   'personal-care': '#EDF6F3',   // soft sage
+  'local-specials': '#F7F6EE',  // soft warm golden ivory
 };
 
 /**
  * Individual rounded 16px light-tinted tile with cut-out product collage (no frames or boxes)
- * Fully responsive: compact on mobile, proportioned on tablets, laptops, and ultra-wide desktops.
+ * Fully responsive: fills column width on mobile, 2 lines max 13-14px medium weight label.
  */
 function CategoryTileItem({ cat, sectionId }: { cat: Category; sectionId: string }) {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -31,14 +32,14 @@ function CategoryTileItem({ cat, sectionId }: { cat: Category; sectionId: string
   const tileUrl = (categoryTilesMap as Record<string, string>)[cat.id] || cat.tile_image_url || `/categories/collages/${cat.id}.webp`;
 
   return (
-    <div className="w-full max-w-[105px] sm:max-w-[120px] md:max-w-[125px] lg:max-w-[130px] mx-auto">
+    <div className="w-full">
       <Link
         href={`/category/${cat.id}`}
         data-category-tile="true"
         className="group flex flex-col items-center cursor-pointer focus:outline-hidden active:scale-95 transition-transform"
         aria-label={cat.name}
       >
-        {/* Soft tinted rounded square tile (16px radius, soft shadow, no white box) */}
+        {/* Soft tinted rounded square tile (rounded-2xl/16px radius, soft shadow, no white box) */}
         <div
           style={{ backgroundColor: tint }}
           className="relative w-full aspect-square rounded-[16px] p-2 sm:p-2.5 lg:p-3 flex items-center justify-center overflow-hidden transition-all duration-200 group-hover:scale-[1.04] group-hover:shadow-md border border-stone-200/50 shadow-2xs"
@@ -48,7 +49,7 @@ function CategoryTileItem({ cat, sectionId }: { cat: Category; sectionId: string
             <div className="absolute inset-0 bg-stone-200/50 animate-pulse rounded-[16px]" />
           )}
 
-          {/* Product Collage Cut-Out / SVG Icon */}
+          {/* Product Collage Cut-Out / SVG Icon (front-facing, transparent background cutouts, soft shadow) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={tileUrl}
@@ -60,15 +61,15 @@ function CategoryTileItem({ cat, sectionId }: { cat: Category; sectionId: string
               setImageLoaded(true);
               (e.currentTarget as HTMLImageElement).src = `/categories/collages/${cat.id}.svg`;
             }}
-            className={`w-full h-full object-contain select-none drop-shadow-xs transition-all duration-200 ${
+            className={`w-[82%] h-[82%] object-contain select-none drop-shadow-sm transition-all duration-200 ${
               imageLoaded ? 'opacity-100 scale-100 group-hover:scale-108' : 'opacity-0 scale-95'
             }`}
           />
         </div>
 
-        {/* 2-line centered label below the tile */}
-        <div className="mt-1.5 w-full h-[28px] sm:h-[32px] flex items-start justify-center">
-          <span className="text-[11px] sm:text-xs font-semibold text-stone-800 text-center leading-[13px] sm:leading-[15px] line-clamp-2 w-full px-0.5 group-hover:text-[#2E7D32] transition-colors">
+        {/* Label under tile: 2 lines max, 13–14px, medium weight */}
+        <div className="mt-1.5 w-full min-h-[34px] sm:min-h-[38px] flex items-start justify-center">
+          <span className="text-[13px] sm:text-[14px] font-medium text-stone-800 text-center leading-[16px] sm:leading-[18px] line-clamp-2 w-full px-0.5 group-hover:text-[#2E7D32] transition-colors">
             {cat.name}
           </span>
         </div>
@@ -80,12 +81,14 @@ function CategoryTileItem({ cat, sectionId }: { cat: Category; sectionId: string
 export default function BlinkitHomeSections({ sections, categories }: BlinkitHomeSectionsProps) {
   const { user } = useAuth();
 
-  // Ordered Sections matching Blinkit & Flipkart Minutes specification
+  // Ordered Sections matching Blinkit & Flipkart Minutes specification:
+  // 1. Grocery & Kitchen, 2. Snacks & Drinks, 3. Household Essentials, 4. Beauty & Personal Care, 5. Local Specials
   const orderedSections = [
     { id: 'grocery-kitchen', name: 'Grocery & Kitchen' },
     { id: 'snacks-drinks', name: 'Snacks & Drinks' },
     { id: 'household', name: 'Household Essentials' },
     { id: 'personal-care', name: 'Beauty & Personal Care' },
+    { id: 'local-specials', name: 'Local Specials' },
   ];
 
   // Map categories by section, ensuring only populated categories appear
@@ -186,52 +189,17 @@ export default function BlinkitHomeSections({ sections, categories }: BlinkitHom
         </div>
       )}
 
-      {/* Master Department Quick Jump Pills — Guarantees laptop users immediately see all 4 departments */}
-      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 pt-0.5 border-b border-stone-100">
-        <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider shrink-0 hidden sm:inline">
-          Departments:
-        </span>
-        {sectionsWithCategories.map((sec) => (
-          <a
-            key={sec.id}
-            href={`#${sec.id}`}
-            className="shrink-0 px-3 py-1.5 rounded-xl bg-stone-50 hover:bg-emerald-50 text-stone-700 hover:text-[#2E7D32] border border-stone-200/80 hover:border-emerald-300 text-xs font-bold transition-all shadow-2xs active:scale-95 flex items-center gap-1.5"
-          >
-            <span>{sec.name}</span>
-            <span className="bg-white text-stone-600 text-[10px] px-1.5 py-0.2 rounded-full font-extrabold border border-stone-200/70">
-              {sec.categories.length}
-            </span>
-          </a>
-        ))}
-      </div>
-
       {sectionsWithCategories.map((section) => (
-        <section key={section.id} id={section.id} className="space-y-3 scroll-mt-24">
-          {/* Section heading with category count badge */}
-          <div className="flex items-center justify-between px-0.5">
-            <div className="flex items-center gap-2">
-              <h2 className="text-sm sm:text-base lg:text-lg font-black text-stone-900 tracking-tight">
-                {section.name}
-              </h2>
-              <span className="text-[10px] sm:text-[11px] font-bold text-stone-600 bg-stone-100 px-2 py-0.5 rounded-full">
-                {section.categories.length} departments
-              </span>
-            </div>
-            <Link
-              href="/categories"
-              className="text-xs font-bold text-[#2E7D32] hover:text-[#1b5e20] hover:underline"
-            >
-              See All →
-            </Link>
+        <section key={section.id} id={section.id} className="space-y-3 scroll-mt-20">
+          {/* Plain section heading: no count pill, no See All link */}
+          <div className="px-0.5">
+            <h2 className="text-base sm:text-lg font-bold text-stone-900 tracking-tight">
+              {section.name}
+            </h2>
           </div>
 
-          {/* Responsive Quick-Commerce Grid:
-              - Mobile (<640px): 4 columns
-              - Small & Medium Tablet (sm/md): 6 columns
-              - Laptop (lg): 6 columns (Symmetrically fits 6-department rows without blank gaps)
-              - Large Desktop (xl/2xl): 7-8 columns
-          */}
-          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8 gap-x-2 gap-y-3.5 sm:gap-x-3.5 sm:gap-y-4 lg:gap-x-4 lg:gap-y-5">
+          {/* 4-column grid (2 rows visible on mobile: 4 cols x 2 rows = 8 items) */}
+          <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-x-2.5 gap-y-3.5 sm:gap-x-3.5 sm:gap-y-4 lg:gap-x-4 lg:gap-y-5">
             {section.categories.map((cat) => (
               <CategoryTileItem key={cat.id} cat={cat} sectionId={section.id} />
             ))}
