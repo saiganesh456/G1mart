@@ -20,7 +20,7 @@ export default function InstallAppPlacard() {
   const [installed, setInstalled] = useState(false);
 
   useEffect(() => {
-    if (pathname === '/') {
+    if (pathname === '/' || pathname.startsWith('/product')) {
       setVisible(false);
       return;
     }

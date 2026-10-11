@@ -304,6 +304,65 @@ export default function ProductDetailPage({ params }: Props) {
           </div>
         )}
 
+        {/* Primary In-Page Add to Cart Action Area */}
+        <div className="pt-3 border-t border-stone-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div className="flex flex-col">
+            <span className="text-[11px] font-bold text-stone-500 uppercase tracking-wider">
+              {activeVariant?.label || effectiveProduct.unit || 'Pack'}
+            </span>
+            <span className="text-xs text-stone-400 font-medium">
+              Inclusive of all taxes
+            </span>
+          </div>
+
+          {effectiveProduct.inStock ? (
+            quantity === 0 ? (
+              <button
+                type="button"
+                onClick={() => {
+                  addToCart(effectiveProduct, activeVariant?.multiplier || 1, (activeVariant as any)?.variant);
+                }}
+                className="h-11 px-6 rounded-xl bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-extrabold text-xs sm:text-sm shadow-sm active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
+              >
+                <span>ADD TO CART</span>
+                <Plus className="w-4 h-4 stroke-[3]" />
+              </button>
+            ) : (
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <div className="flex-1 sm:flex-none h-11 flex items-center justify-between bg-[#2E7D32] text-white rounded-xl shadow-xs px-2 gap-3">
+                  <button
+                    type="button"
+                    aria-label="Decrease quantity"
+                    onClick={() => updateCartQuantity(effectiveProduct.id, quantity - 1, (activeVariant as any)?.variant?.id)}
+                    className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-black/15 active:scale-90 cursor-pointer"
+                  >
+                    <Minus className="w-3.5 h-3.5 stroke-[3]" />
+                  </button>
+                  <span className="min-w-6 text-center text-sm font-black tabular-nums">{quantity} in cart</span>
+                  <button
+                    type="button"
+                    aria-label="Increase quantity"
+                    onClick={() => updateCartQuantity(effectiveProduct.id, quantity + 1, (activeVariant as any)?.variant?.id)}
+                    className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-black/15 active:scale-90 cursor-pointer"
+                  >
+                    <Plus className="w-3.5 h-3.5 stroke-[3]" />
+                  </button>
+                </div>
+                <Link
+                  href="/cart"
+                  className="h-11 px-4 bg-stone-900 hover:bg-black text-white font-bold rounded-xl text-xs flex items-center justify-center cursor-pointer shadow-xs active:scale-95 transition-all shrink-0"
+                >
+                  View Cart →
+                </Link>
+              </div>
+            )
+          ) : (
+            <span className="h-11 px-5 rounded-xl bg-stone-100 text-stone-500 font-bold text-xs flex items-center justify-center">
+              Out of Stock
+            </span>
+          )}
+        </div>
+
         {/* Description */}
         <div className="pt-2 border-t border-stone-100">
           <h2 className="text-xs font-bold text-stone-700 uppercase tracking-wider mb-1">
@@ -365,57 +424,72 @@ export default function ProductDetailPage({ params }: Props) {
         </div>
       )}
 
-      {/* Sticky Bottom Add To Cart CTA */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 max-w-lg md:max-w-2xl mx-auto p-3 bg-white/95 backdrop-blur-md border-t border-stone-200">
-        {effectiveProduct.inStock ? (
-          quantity === 0 ? (
-            <button
-              type="button"
-              onClick={() => addToCart(effectiveProduct, activeVariant?.multiplier || 1, (activeVariant as any)?.variant)}
-              className="w-full h-12 bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-bold rounded-xl text-sm shadow-md active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <Plus className="w-4 h-4 stroke-[3]" />
-              <span>
-                Add {activeVariant?.multiplier && activeVariant.multiplier > 1 ? `${activeVariant.multiplier} Units` : 'to Cart'} (₹{displayPrice})
+      {/* Sticky Bottom Add To Cart CTA (Mobile-first, z-50, always visible) */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 max-w-lg md:max-w-2xl mx-auto p-3 sm:p-4 bg-white/95 backdrop-blur-md border-t border-stone-200 shadow-[0_-4px_25px_rgba(0,0,0,0.08)] pb-[max(0.75rem,calc(env(safe-area-inset-bottom,0px)+0.5rem))]">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex flex-col min-w-0">
+            <span className="text-[11px] font-bold text-stone-500 truncate">
+              {activeVariant?.label || effectiveProduct.unit}
+            </span>
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-lg sm:text-xl font-black text-stone-900 tabular-nums">
+                ₹{displayPrice}
               </span>
-            </button>
-          ) : (
-            <div className="flex items-center gap-3">
-              <div className="flex-1 h-12 flex items-center justify-between bg-stone-100 rounded-xl px-4 border border-stone-200">
-                <button
-                  type="button"
-                  onClick={() => updateCartQuantity(effectiveProduct.id, quantity - 1, (activeVariant as any)?.variant?.id)}
-                  className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-2xs active:scale-95 text-stone-800 cursor-pointer"
-                  aria-label="Decrease quantity"
-                >
-                  <Minus className="w-4 h-4 stroke-[3]" />
-                </button>
-                <span className="font-extrabold text-sm text-[#212121] tabular-nums">
-                  {quantity} in cart
+              {displayOriginalPrice && displayOriginalPrice > displayPrice && (
+                <span className="text-xs text-stone-400 line-through tabular-nums">
+                  ₹{displayOriginalPrice}
                 </span>
+              )}
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            {effectiveProduct.inStock ? (
+              quantity === 0 ? (
                 <button
                   type="button"
-                  onClick={() => updateCartQuantity(effectiveProduct.id, quantity + 1, (activeVariant as any)?.variant?.id)}
-                  className="w-8 h-8 rounded-lg bg-[#2E7D32] text-white flex items-center justify-center shadow-2xs active:scale-95 cursor-pointer"
-                  aria-label="Increase quantity"
+                  onClick={() => addToCart(effectiveProduct, activeVariant?.multiplier || 1, (activeVariant as any)?.variant)}
+                  className="h-12 px-6 sm:px-8 bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-extrabold rounded-xl text-sm shadow-md shadow-[#2E7D32]/20 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Plus className="w-4 h-4 stroke-[3]" />
+                  <span>ADD TO CART</span>
                 </button>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <div className="h-12 flex items-center bg-[#2E7D32] text-white rounded-xl shadow-sm px-2 gap-3">
+                    <button
+                      type="button"
+                      aria-label="Decrease quantity"
+                      onClick={() => updateCartQuantity(effectiveProduct.id, quantity - 1, (activeVariant as any)?.variant?.id)}
+                      className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-black/15 active:scale-90 cursor-pointer"
+                    >
+                      <Minus className="w-4 h-4 stroke-[3]" />
+                    </button>
+                    <span className="min-w-6 text-center text-sm font-black tabular-nums">{quantity} in cart</span>
+                    <button
+                      type="button"
+                      aria-label="Increase quantity"
+                      onClick={() => updateCartQuantity(effectiveProduct.id, quantity + 1, (activeVariant as any)?.variant?.id)}
+                      className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-black/15 active:scale-90 cursor-pointer"
+                    >
+                      <Plus className="w-4 h-4 stroke-[3]" />
+                    </button>
+                  </div>
+                  <Link
+                    href="/cart"
+                    className="h-12 px-4 sm:px-5 bg-stone-900 hover:bg-black text-white font-bold rounded-xl text-xs sm:text-sm shadow-md flex items-center justify-center cursor-pointer active:scale-95 transition-all"
+                  >
+                    View Cart →
+                  </Link>
+                </div>
+              )
+            ) : (
+              <div className="h-12 px-5 bg-stone-100 text-stone-500 font-bold rounded-xl text-xs sm:text-sm flex items-center justify-center">
+                Out of Stock
               </div>
-
-              <Link
-                href="/cart"
-                className="h-12 px-6 bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-bold rounded-xl text-sm shadow-md flex items-center justify-center cursor-pointer"
-              >
-                View Cart
-              </Link>
-            </div>
-          )
-        ) : (
-          <div className="w-full h-12 bg-stone-200 text-stone-500 font-bold rounded-xl text-sm flex items-center justify-center">
-            Currently Out of Stock
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

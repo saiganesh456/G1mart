@@ -14,14 +14,14 @@ const NAV_ITEMS = [
 ] as const;
 
 /** Pages where the bottom nav is not shown */
-const HIDDEN_PATHS = ['/login', '/checkout', '/cart', '/payment'];
+const HIDDEN_PATHS = ['/login', '/checkout', '/cart', '/payment', '/product'];
 
 export default function BottomNav() {
   const pathname = usePathname();
   const { cartItemCount, cartSubtotal } = useCart();
   const { user } = useAuth();
 
-  // Hide on auth, checkout, cart, and payment pages
+  // Hide on auth, checkout, cart, payment, and product detail pages
   const shouldHide = HIDDEN_PATHS.some((p) => pathname.startsWith(p));
   if (shouldHide) return null;
 
