@@ -12,38 +12,41 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="min-h-screen bg-[#F4F6F9] text-stone-900 flex flex-col">
       {/* Admin Top Navigation Bar */}
-      <header className="sticky top-0 z-50 bg-[#1A2E1C] text-white border-b border-white/10 shadow-md">
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md text-stone-900 border-b border-stone-200/80 shadow-2xs transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
           {/* Brand & Admin Badge */}
           <div className="flex items-center gap-3">
-            <Link href="/admin" className="flex items-center gap-2">
+            <Link href="/admin" className="flex items-center gap-2.5 group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/logo.png"
+                src="/assets/images/g1_mart_banner_transparent.png"
                 alt="G1 Mart"
-                className="h-8 sm:h-9 w-auto object-contain rounded-md"
+                className="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = '/logo.png';
+                }}
               />
-              <span className="font-extrabold text-white text-base tracking-tight hidden sm:inline">
+              <span className="font-black text-stone-900 text-sm sm:text-base tracking-tight hidden sm:inline">
                 Admin Console
               </span>
             </Link>
-            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
-              <ShieldCheck className="w-3 h-3 text-emerald-400" />
+            <span className="bg-emerald-50 text-emerald-700 border border-emerald-200/90 text-[10px] sm:text-xs font-extrabold px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-2xs">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
               <span>Store Manager</span>
             </span>
           </div>
 
           {/* Quick Nav Links */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-bold text-white/90 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-xl flex items-center gap-1.5 transition-all"
+              className="text-xs font-bold text-stone-700 hover:text-stone-900 bg-stone-50 hover:bg-stone-100 border border-stone-200/90 px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 transition-all shadow-2xs hover:shadow-xs"
             >
-              <Store className="w-3.5 h-3.5 text-emerald-300" />
+              <Store className="w-3.5 h-3.5 text-emerald-600" />
               <span>View Store</span>
-              <ExternalLink className="w-3 h-3 opacity-70" />
+              <ExternalLink className="w-3 h-3 text-stone-400" />
             </Link>
           </div>
         </div>

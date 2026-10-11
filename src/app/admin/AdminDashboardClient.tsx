@@ -60,6 +60,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   // Notifications & Quick-Commerce Alert Engine
   const { notifyWelcome, notifyApkDownloaded, notifyOrderStatus } = useNotification();
   const [audioEnabled, setAudioEnabled] = useState(true);
+  const audioEnabledRef = useRef(true);
+  useEffect(() => {
+    audioEnabledRef.current = audioEnabled;
+  }, [audioEnabled]);
   const [isAlarmRinging, setIsAlarmRinging] = useState(false);
   const [newOrderAlert, setNewOrderAlert] = useState<Order | null>(null);
 
@@ -158,11 +162,11 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     }
   };
 
-  // Repeating loud female voice iteration ("New order! New order!")
+  // Repeating loud voice announcement ("New order! New order! New order!")
+  // Strictly plays ONE clear, single voice without overlapping speech synthesis or chimes
   const playFemaleVoiceLoop = () => {
     if (!alarmActiveRef.current) return;
 
-    // 1. Play recorded female voice audio file (/new_order_voice.wav)
     try {
       if (!alarmAudioRef.current) {
         alarmAudioRef.current = new Audio('/new_order_voice.wav');
@@ -171,51 +175,42 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       alarmAudioRef.current.volume = 1.0;
       const playPromise = alarmAudioRef.current.play();
       if (playPromise !== undefined) {
-        playPromise.catch(() => {});
+        playPromise.catch(() => {
+          // Fallback only if the audio element failed to play (e.g. autoplay restriction)
+          try {
+            if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+              window.speechSynthesis.cancel();
+              const utterance = new SpeechSynthesisUtterance('New order! New order! New order!');
+              utterance.volume = 1.0;
+              utterance.rate = 0.95;
+              utterance.pitch = 1.1;
+
+              const voices = window.speechSynthesis.getVoices();
+              if (voices && voices.length > 0) {
+                const femaleVoice =
+                  voices.find((v) => {
+                    const n = v.name.toLowerCase();
+                    return (
+                      n.includes('female') ||
+                      n.includes('zira') ||
+                      n.includes('samantha') ||
+                      n.includes('karen') ||
+                      (v.lang.startsWith('en') && (n.includes('woman') || n.includes('girl')))
+                    );
+                  }) ||
+                  voices.find((v) => v.lang.startsWith('en')) ||
+                  voices[0];
+                if (femaleVoice) utterance.voice = femaleVoice;
+              }
+
+              window.speechSynthesis.speak(utterance);
+            }
+          } catch {}
+        });
       }
     } catch {}
 
-    // 2. Play Web Speech API loud female voice alongside
-    try {
-      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance('New order! New order!');
-        utterance.volume = 1.0;
-        utterance.rate = 1.0;
-        utterance.pitch = 1.25;
-
-        const voices = window.speechSynthesis.getVoices();
-        if (voices && voices.length > 0) {
-          const femaleVoice =
-            voices.find((v) => {
-              const n = v.name.toLowerCase();
-              return (
-                n.includes('female') ||
-                n.includes('zira') ||
-                n.includes('samantha') ||
-                n.includes('karen') ||
-                n.includes('victoria') ||
-                n.includes('moira') ||
-                n.includes('veena') ||
-                n.includes('google uk english female') ||
-                n.includes('google us english') ||
-                n.includes('microsoft zira') ||
-                (v.lang.startsWith('en') && (n.includes('woman') || n.includes('girl') || n.includes('lady')))
-              );
-            }) ||
-            voices.find((v) => v.lang.startsWith('en')) ||
-            voices[0];
-          if (femaleVoice) utterance.voice = femaleVoice;
-        }
-
-        window.speechSynthesis.speak(utterance);
-      }
-    } catch {}
-
-    // 3. Play chime
-    playWebAudioChime();
-
-    // 4. Repeat every 2.6 seconds while alarmActiveRef.current is true
+    // Repeat cleanly every 5.0 seconds (audio is ~4s, ensuring 1s pause and zero overlapping)
     if (alarmLoopTimerRef.current) {
       clearTimeout(alarmLoopTimerRef.current);
     }
@@ -223,18 +218,24 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       if (alarmActiveRef.current) {
         playFemaleVoiceLoop();
       }
-    }, 2600);
+    }, 5000);
   };
 
   // Start the alarm
   const startAlarm = (order: Order) => {
-    if (!audioEnabled) {
-      setNewOrderAlert(order);
+    setNewOrderAlert(order);
+
+    if (!audioEnabledRef.current) {
       return;
     }
+
+    // Strict guard: if alarm is already ringing, avoid starting concurrent audio loops
+    if (alarmActiveRef.current) {
+      return;
+    }
+
     alarmActiveRef.current = true;
     setIsAlarmRinging(true);
-    setNewOrderAlert(order);
 
     if (alarmLoopTimerRef.current) {
       clearTimeout(alarmLoopTimerRef.current);
@@ -436,10 +437,11 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       setOrders(merged);
 
       // Keep selected order in sync if currently viewed
-      if (selectedOrder) {
-        const updatedSelected = merged.find((o) => o.id === selectedOrder.id);
-        if (updatedSelected) setSelectedOrder(updatedSelected);
-      }
+      setSelectedOrder((prev) => {
+        if (!prev) return null;
+        const updatedSelected = merged.find((o) => o.id === prev.id);
+        return updatedSelected || prev;
+      });
     } catch (err) {
       console.warn('[Admin] Order sync notice:', err);
     }
@@ -576,7 +578,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       }
       stopAlarm();
     };
-  }, [audioEnabled, selectedOrder?.id]);
+  }, []);
 
   // Handle Order Status Update (Confirm, Packing, Packed, Rider Assigned, Out for Delivery, Delivered)
   const handleUpdateOrderStatus = async (
@@ -840,76 +842,6 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             );
           })}
         </nav>
-
-        {/* Audio Alerts & Sound Test in Sidebar */}
-        <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200/80 space-y-2">
-          <div className="flex items-center justify-between text-xs font-bold text-stone-700">
-            <span className="flex items-center gap-1.5">
-              <Bell className="w-3.5 h-3.5 text-emerald-700" />
-              <span>Order Sound</span>
-            </span>
-            <button
-              type="button"
-              onClick={handleToggleAudio}
-              className={`text-[10px] font-black px-2 py-0.5 rounded-md ${
-                audioEnabled ? 'bg-emerald-600 text-white' : 'bg-stone-200 text-stone-600'
-              }`}
-            >
-              {audioEnabled ? 'ENABLED' : 'MUTED'}
-            </button>
-          </div>
-          <button
-            type="button"
-            onClick={handleTestVoiceAlert}
-            className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-[11px] font-black transition-all flex items-center justify-center gap-1.5 shadow-xs"
-          >
-            <span>📢 Test Voice Alert</span>
-          </button>
-
-          {/* Customer Push Notification Simulator */}
-          <div className="pt-2 border-t border-stone-200/80 space-y-1.5">
-            <span className="text-[10px] font-black uppercase text-stone-500 tracking-wider block">
-              Customer Notification Test
-            </span>
-            <div className="grid grid-cols-2 gap-1.5">
-              <button
-                type="button"
-                onClick={() => notifyWelcome('Customer')}
-                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate cursor-pointer"
-              >
-                Welcome Alert
-              </button>
-              <button
-                type="button"
-                onClick={() => notifyApkDownloaded()}
-                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate cursor-pointer"
-              >
-                APK Download
-              </button>
-              <button
-                type="button"
-                onClick={() => notifyOrderStatus('G1-82914', 'Packed', { userId: 'admin' })}
-                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate cursor-pointer"
-              >
-                Order Packed
-              </button>
-              <button
-                type="button"
-                onClick={() => notifyOrderStatus('G1-82914', 'Out for Delivery', { userId: 'admin' })}
-                className="px-2 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-lg text-[10px] font-bold text-center transition-all truncate cursor-pointer"
-              >
-                Out for Delivery
-              </button>
-              <button
-                type="button"
-                onClick={() => notifyOrderStatus('G1-82914', 'Delivered', { userId: 'admin' })}
-                className="col-span-2 px-2 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-[#2E7D32] border border-emerald-200 rounded-lg text-[10px] font-bold text-center transition-all cursor-pointer"
-              >
-                Order Delivered
-              </button>
-            </div>
-          </div>
-        </div>
 
         {/* Store Manager Footer */}
         <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
