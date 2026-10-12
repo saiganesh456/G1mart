@@ -297,6 +297,18 @@ export default function RiderPage() {
     };
   }, [orders]);
 
+  // Active ongoing delivery run in progress
+  const ongoingTrip = useMemo(() => {
+    return orders.find((o) => {
+      const isOut = o.status === 'Out for Delivery' || o.status === 'Order Dispatched';
+      const isMyOrder =
+        o.assignedRider?.email?.toLowerCase().trim() === riderEmail ||
+        (riderName && o.assignedRider?.name?.toLowerCase().includes(riderName)) ||
+        !o.assignedRider;
+      return isOut && isMyOrder;
+    });
+  }, [orders, riderEmail, riderName]);
+
   // Tab Filtering
   const displayedOrders = useMemo(() => {
     return orders.filter((o) => {
@@ -310,8 +322,14 @@ export default function RiderPage() {
         (riderName && o.assignedRider?.name?.toLowerCase().includes(riderName));
 
       if (tab === 'assigned') {
-        // Show active orders assigned to this rider, OR unassigned active if none assigned
         if (isDelivered) return false;
+
+        // SINGLE DELIVERY FOCUS ENFORCER:
+        // If rider has an active delivery in progress, lock view to that trip only!
+        if (ongoingTrip) {
+          return o.id === ongoingTrip.id;
+        }
+
         return assignedToMe || !o.assignedRider;
       }
 
@@ -330,7 +348,7 @@ export default function RiderPage() {
       // 'all' tab
       return true;
     });
-  }, [orders, tab, riderEmail, riderName]);
+  }, [orders, tab, riderEmail, riderName, ongoingTrip]);
 
   const toggleItems = (orderId: string) => {
     setExpandedItems((prev) => ({ ...prev, [orderId]: !prev[orderId] }));
@@ -516,6 +534,29 @@ export default function RiderPage() {
             Delivered ({metrics.deliveredCount})
           </button>
         </div>
+
+        {/* Single Active Delivery Focus Banner */}
+        {ongoingTrip && tab === 'assigned' && (
+          <div className="bg-gradient-to-r from-[#0E2813] via-[#163D1D] to-[#1E6B2E] border-2 border-emerald-400/40 rounded-3xl p-3.5 text-white shadow-lg flex items-center justify-between animate-in fade-in">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-2xl bg-emerald-400/20 text-emerald-300 flex items-center justify-center font-black shrink-0 border border-emerald-400/30">
+                <Navigation className="w-4 h-4 animate-pulse" />
+              </div>
+              <div>
+                <div className="text-xs font-black text-white flex items-center gap-1.5">
+                  <span>SINGLE DELIVERY FOCUS LOCK</span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                </div>
+                <p className="text-[11px] text-emerald-100/80 leading-tight mt-0.5">
+                  Complete #{ongoingTrip.id} with customer OTP before unlocking other deliveries
+                </p>
+              </div>
+            </div>
+            <span className="text-[10px] bg-white/15 text-emerald-200 px-2.5 py-1 rounded-xl font-mono font-bold uppercase tracking-wider border border-white/10 shrink-0">
+              1 of 1 Active
+            </span>
+          </div>
+        )}
 
         {/* Orders Listing */}
         {loading && orders.length === 0 ? (
