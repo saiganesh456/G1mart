@@ -22,9 +22,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 src="/assets/images/g1_mart_banner_transparent.png"
                 alt="G1 Mart"
                 className="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105"
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).src = '/logo.png';
-                }}
               />
               <span className="font-black text-stone-900 text-sm sm:text-base tracking-tight hidden sm:inline">
                 Admin Console
