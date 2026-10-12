@@ -702,5 +702,840 @@
     "name": "Gillette",
     "logo_url": null,
     "product_count": 1
+  },
+  {
+    "id": "brand-fresh-banana",
+    "name": "Fresh banana",
+    "logo_url": null
+  },
+  {
+    "id": "brand-fresh-apple",
+    "name": "Fresh apple",
+    "logo_url": null
+  },
+  {
+    "id": "brand-fresh-orange",
+    "name": "Fresh orange",
+    "logo_url": null
+  },
+  {
+    "id": "brand-fresh-pomegranate",
+    "name": "Fresh pomegranate",
+    "logo_url": null
+  },
+  {
+    "id": "brand-fresh-grapes",
+    "name": "Fresh grapes",
+    "logo_url": null
+  },
+  {
+    "id": "brand-fresh-lemon",
+    "name": "Fresh lemon",
+    "logo_url": null
+  },
+  {
+    "id": "brand-fresh-tomato",
+    "name": "Fresh tomato",
+    "logo_url": null
+  },
+  {
+    "id": "brand-fresh-onion",
+    "name": "Fresh onion",
+    "logo_url": null
+  },
+  {
+    "id": "brand-fresh-potato",
+    "name": "Fresh potato",
+    "logo_url": null
+  },
+  {
+    "id": "brand-fresh-green-chilli",
+    "name": "Fresh green chilli",
+    "logo_url": null
+  },
+  {
+    "id": "brand-fresh-ginger",
+    "name": "Fresh ginger",
+    "logo_url": null
+  },
+  {
+    "id": "brand-fresh-garlic",
+    "name": "Fresh garlic",
+    "logo_url": null
+  },
+  {
+    "id": "brand-coriander-leaves",
+    "name": "Coriander leaves",
+    "logo_url": null
+  },
+  {
+    "id": "brand-curry-leaves",
+    "name": "Curry leaves",
+    "logo_url": null
+  },
+  {
+    "id": "brand-modern",
+    "name": "Modern",
+    "logo_url": null
+  },
+  {
+    "id": "brand-harvest-gold",
+    "name": "Harvest Gold",
+    "logo_url": null
+  },
+  {
+    "id": "brand-local-bakery",
+    "name": "Local Bakery",
+    "logo_url": null
+  },
+  {
+    "id": "brand-kellogg-s",
+    "name": "Kellogg's",
+    "logo_url": null
+  },
+  {
+    "id": "brand-saffola",
+    "name": "Saffola",
+    "logo_url": null
+  },
+  {
+    "id": "brand-quaker",
+    "name": "Quaker",
+    "logo_url": null
+  },
+  {
+    "id": "brand-bagrry-s",
+    "name": "Bagrry's",
+    "logo_url": null
+  },
+  {
+    "id": "brand-yoga-bar",
+    "name": "Yoga Bar",
+    "logo_url": null
+  },
+  {
+    "id": "brand-nestl",
+    "name": "Nestlé",
+    "logo_url": null
+  },
+  {
+    "id": "brand-weikfield",
+    "name": "Weikfield",
+    "logo_url": null
+  },
+  {
+    "id": "brand-blue-bird",
+    "name": "Blue Bird",
+    "logo_url": null
+  },
+  {
+    "id": "brand-dr-oetker",
+    "name": "Dr. Oetker",
+    "logo_url": null
+  },
+  {
+    "id": "brand-morde",
+    "name": "Morde",
+    "logo_url": null
+  },
+  {
+    "id": "brand-local-branded",
+    "name": "Local/Branded",
+    "logo_url": null
+  },
+  {
+    "id": "brand-del-monte",
+    "name": "Del Monte",
+    "logo_url": null
+  },
+  {
+    "id": "brand-ching-s-secret",
+    "name": "Ching's Secret",
+    "logo_url": null
+  },
+  {
+    "id": "brand-veeba",
+    "name": "Veeba",
+    "logo_url": null
+  },
+  {
+    "id": "brand-american-garden",
+    "name": "American Garden",
+    "logo_url": null
+  },
+  {
+    "id": "brand-sundrop",
+    "name": "Sundrop",
+    "logo_url": null
+  },
+  {
+    "id": "brand-mccain",
+    "name": "McCain",
+    "logo_url": null
+  },
+  {
+    "id": "brand-itc-master-chef",
+    "name": "ITC Master Chef",
+    "logo_url": null
+  },
+  {
+    "id": "brand-safal",
+    "name": "Safal",
+    "logo_url": null
+  },
+  {
+    "id": "brand-mother-dairy",
+    "name": "Mother Dairy",
+    "logo_url": null
+  },
+  {
+    "id": "brand-amul",
+    "name": "Amul",
+    "logo_url": null
+  },
+  {
+    "id": "brand-id",
+    "name": "iD",
+    "logo_url": null
+  },
+  {
+    "id": "brand-haldiram-s",
+    "name": "Haldiram's",
+    "logo_url": null
+  },
+  {
+    "id": "brand-epigamia",
+    "name": "Epigamia",
+    "logo_url": null
+  },
+  {
+    "id": "brand-milky-mist",
+    "name": "Milky Mist",
+    "logo_url": null
+  },
+  {
+    "id": "brand-ritebite-max-protein",
+    "name": "RiteBite Max Protein",
+    "logo_url": null
+  },
+  {
+    "id": "brand-the-whole-truth",
+    "name": "The Whole Truth",
+    "logo_url": null
+  },
+  {
+    "id": "brand-pintola",
+    "name": "Pintola",
+    "logo_url": null
+  },
+  {
+    "id": "brand-bournvita",
+    "name": "Bournvita",
+    "logo_url": null
+  },
+  {
+    "id": "brand-simple",
+    "name": "Simple",
+    "logo_url": null
+  },
+  {
+    "id": "brand-pond-s",
+    "name": "Pond's",
+    "logo_url": null
+  },
+  {
+    "id": "brand-nivea-men",
+    "name": "NIVEA Men",
+    "logo_url": null
+  },
+  {
+    "id": "brand-mamaearth",
+    "name": "Mamaearth",
+    "logo_url": null
+  },
+  {
+    "id": "brand-biotique",
+    "name": "Biotique",
+    "logo_url": null
+  },
+  {
+    "id": "brand-clean-clear",
+    "name": "Clean & Clear",
+    "logo_url": null
+  },
+  {
+    "id": "brand-lakm",
+    "name": "Lakmé",
+    "logo_url": null
+  },
+  {
+    "id": "brand-neutrogena",
+    "name": "Neutrogena",
+    "logo_url": null
+  },
+  {
+    "id": "brand-nivea",
+    "name": "NIVEA",
+    "logo_url": null
+  },
+  {
+    "id": "brand-boroplus",
+    "name": "Boroplus",
+    "logo_url": null
+  },
+  {
+    "id": "brand-vicco",
+    "name": "Vicco",
+    "logo_url": null
+  },
+  {
+    "id": "brand-old-spice",
+    "name": "Old Spice",
+    "logo_url": null
+  },
+  {
+    "id": "brand-park-avenue",
+    "name": "Park Avenue",
+    "logo_url": null
+  },
+  {
+    "id": "brand-fogg",
+    "name": "Fogg",
+    "logo_url": null
+  },
+  {
+    "id": "brand-engage",
+    "name": "Engage",
+    "logo_url": null
+  },
+  {
+    "id": "brand-nair",
+    "name": "Nair",
+    "logo_url": null
+  },
+  {
+    "id": "brand-l-or-al-paris",
+    "name": "L'Oréal Paris",
+    "logo_url": null
+  },
+  {
+    "id": "brand-tresemm",
+    "name": "TRESemmé",
+    "logo_url": null
+  },
+  {
+    "id": "brand-head-shoulders",
+    "name": "Head & Shoulders",
+    "logo_url": null
+  },
+  {
+    "id": "brand-indulekha",
+    "name": "Indulekha",
+    "logo_url": null
+  },
+  {
+    "id": "brand-bajaj",
+    "name": "Bajaj",
+    "logo_url": null
+  },
+  {
+    "id": "brand-streax",
+    "name": "Streax",
+    "logo_url": null
+  },
+  {
+    "id": "brand-garnier-color-naturals",
+    "name": "Garnier Color Naturals",
+    "logo_url": null
+  },
+  {
+    "id": "brand-pampers",
+    "name": "Pampers",
+    "logo_url": null
+  },
+  {
+    "id": "brand-mamypoko-pants",
+    "name": "MamyPoko Pants",
+    "logo_url": null
+  },
+  {
+    "id": "brand-johnson-s",
+    "name": "Johnson's",
+    "logo_url": null
+  },
+  {
+    "id": "brand-nestl-cerelac",
+    "name": "Nestlé Cerelac",
+    "logo_url": null
+  },
+  {
+    "id": "brand-nestl-lactogen",
+    "name": "Nestlé Lactogen",
+    "logo_url": null
+  },
+  {
+    "id": "brand-pigeon",
+    "name": "Pigeon",
+    "logo_url": null
+  },
+  {
+    "id": "brand-mothercare-branded",
+    "name": "Mothercare/Branded",
+    "logo_url": null
+  },
+  {
+    "id": "brand-sofy",
+    "name": "Sofy",
+    "logo_url": null
+  },
+  {
+    "id": "brand-sirona",
+    "name": "Sirona",
+    "logo_url": null
+  },
+  {
+    "id": "brand-vwash",
+    "name": "VWash",
+    "logo_url": null
+  },
+  {
+    "id": "brand-friends",
+    "name": "Friends",
+    "logo_url": null
+  },
+  {
+    "id": "brand-colin",
+    "name": "Colin",
+    "logo_url": null
+  },
+  {
+    "id": "brand-mr-muscle",
+    "name": "Mr. Muscle",
+    "logo_url": null
+  },
+  {
+    "id": "brand-pril",
+    "name": "Pril",
+    "logo_url": null
+  },
+  {
+    "id": "brand-scotch-brite",
+    "name": "Scotch-Brite",
+    "logo_url": null
+  },
+  {
+    "id": "brand-good-knight",
+    "name": "Good Knight",
+    "logo_url": null
+  },
+  {
+    "id": "brand-all-out",
+    "name": "All Out",
+    "logo_url": null
+  },
+  {
+    "id": "brand-mortein",
+    "name": "Mortein",
+    "logo_url": null
+  },
+  {
+    "id": "brand-tissue-brand",
+    "name": "Tissue Brand",
+    "logo_url": null
+  },
+  {
+    "id": "brand-origami",
+    "name": "Origami",
+    "logo_url": null
+  },
+  {
+    "id": "brand-clean-dry",
+    "name": "Clean & Dry",
+    "logo_url": null
+  },
+  {
+    "id": "brand-beco",
+    "name": "Beco",
+    "logo_url": null
+  },
+  {
+    "id": "brand-vanish",
+    "name": "Vanish",
+    "logo_url": null
+  },
+  {
+    "id": "brand-freshwrapp",
+    "name": "Freshwrapp",
+    "logo_url": null
+  },
+  {
+    "id": "brand-cello",
+    "name": "Cello",
+    "logo_url": null
+  },
+  {
+    "id": "brand-milton",
+    "name": "Milton",
+    "logo_url": null
+  },
+  {
+    "id": "brand-prestige",
+    "name": "Prestige",
+    "logo_url": null
+  },
+  {
+    "id": "brand-classmate",
+    "name": "Classmate",
+    "logo_url": null
+  },
+  {
+    "id": "brand-apsara",
+    "name": "Apsara",
+    "logo_url": null
+  },
+  {
+    "id": "brand-camlin",
+    "name": "Camlin",
+    "logo_url": null
+  },
+  {
+    "id": "brand-fevicol",
+    "name": "Fevicol",
+    "logo_url": null
+  },
+  {
+    "id": "brand-fevikwik",
+    "name": "Fevikwik",
+    "logo_url": null
+  },
+  {
+    "id": "brand-flair",
+    "name": "Flair",
+    "logo_url": null
+  },
+  {
+    "id": "brand-kangaro",
+    "name": "Kangaro",
+    "logo_url": null
+  },
+  {
+    "id": "brand-pedigree",
+    "name": "Pedigree",
+    "logo_url": null
+  },
+  {
+    "id": "brand-drools",
+    "name": "Drools",
+    "logo_url": null
+  },
+  {
+    "id": "brand-whiskas",
+    "name": "Whiskas",
+    "logo_url": null
+  },
+  {
+    "id": "brand-me-o",
+    "name": "Me-O",
+    "logo_url": null
+  },
+  {
+    "id": "brand-himalaya-erina",
+    "name": "Himalaya Erina",
+    "logo_url": null
+  },
+  {
+    "id": "brand-vicks",
+    "name": "Vicks",
+    "logo_url": null
+  },
+  {
+    "id": "brand-moov",
+    "name": "Moov",
+    "logo_url": null
+  },
+  {
+    "id": "brand-band-aid",
+    "name": "Band-Aid",
+    "logo_url": null
+  },
+  {
+    "id": "brand-savlon",
+    "name": "Savlon",
+    "logo_url": null
+  },
+  {
+    "id": "brand-cotton-brand",
+    "name": "Cotton Brand",
+    "logo_url": null
+  },
+  {
+    "id": "brand-3m-nexcare",
+    "name": "3M Nexcare",
+    "logo_url": null
+  },
+  {
+    "id": "brand-omron",
+    "name": "Omron",
+    "logo_url": null
+  },
+  {
+    "id": "brand-ors-brand",
+    "name": "ORS Brand",
+    "logo_url": null
+  },
+  {
+    "id": "brand-swastiks",
+    "name": "Swastiks",
+    "logo_url": null
+  },
+  {
+    "id": "brand-lijjat",
+    "name": "Lijjat",
+    "logo_url": null
+  },
+  {
+    "id": "brand-appalam-brand",
+    "name": "Appalam Brand",
+    "logo_url": null
+  },
+  {
+    "id": "brand-bisleri",
+    "name": "Bisleri",
+    "logo_url": null
+  },
+  {
+    "id": "brand-paper-boat",
+    "name": "Paper Boat",
+    "logo_url": null
+  },
+  {
+    "id": "brand-real",
+    "name": "Real",
+    "logo_url": null
+  },
+  {
+    "id": "brand-tropicana",
+    "name": "Tropicana",
+    "logo_url": null
+  },
+  {
+    "id": "brand-b-natural",
+    "name": "B Natural",
+    "logo_url": null
+  },
+  {
+    "id": "brand-red-bull",
+    "name": "Red Bull",
+    "logo_url": null
+  },
+  {
+    "id": "brand-sting",
+    "name": "Sting",
+    "logo_url": null
+  },
+  {
+    "id": "brand-gatorade",
+    "name": "Gatorade",
+    "logo_url": null
+  },
+  {
+    "id": "brand-rasna",
+    "name": "Rasna",
+    "logo_url": null
+  },
+  {
+    "id": "brand-tang",
+    "name": "Tang",
+    "logo_url": null
+  },
+  {
+    "id": "brand-hershey-s",
+    "name": "Hershey's",
+    "logo_url": null
+  },
+  {
+    "id": "brand-ferrero",
+    "name": "Ferrero",
+    "logo_url": null
+  },
+  {
+    "id": "brand-kinder",
+    "name": "Kinder",
+    "logo_url": null
+  },
+  {
+    "id": "brand-toblerone",
+    "name": "Toblerone",
+    "logo_url": null
+  },
+  {
+    "id": "brand-pringles",
+    "name": "Pringles",
+    "logo_url": null
+  },
+  {
+    "id": "brand-doritos",
+    "name": "Doritos",
+    "logo_url": null
+  },
+  {
+    "id": "brand-wingreens",
+    "name": "Wingreens",
+    "logo_url": null
+  },
+  {
+    "id": "brand-pillsbury",
+    "name": "Pillsbury",
+    "logo_url": null
+  },
+  {
+    "id": "brand-fortune",
+    "name": "Fortune",
+    "logo_url": null
+  },
+  {
+    "id": "brand-nature-fresh",
+    "name": "Nature Fresh",
+    "logo_url": null
+  },
+  {
+    "id": "brand-patanjali",
+    "name": "Patanjali",
+    "logo_url": null
+  },
+  {
+    "id": "brand-staples",
+    "name": "Staples",
+    "logo_url": null
+  },
+  {
+    "id": "brand-gold-drop",
+    "name": "Gold Drop",
+    "logo_url": null
+  },
+  {
+    "id": "brand-dhara",
+    "name": "Dhara",
+    "logo_url": null
+  },
+  {
+    "id": "brand-sunpure",
+    "name": "Sunpure",
+    "logo_url": null
+  },
+  {
+    "id": "brand-idhayam",
+    "name": "Idhayam",
+    "logo_url": null
+  },
+  {
+    "id": "brand-idhayam-mantra",
+    "name": "Idhayam / Mantra",
+    "logo_url": null
+  },
+  {
+    "id": "brand-checks",
+    "name": "Checks",
+    "logo_url": null
+  },
+  {
+    "id": "brand-pepsi",
+    "name": "Pepsi",
+    "logo_url": null
+  },
+  {
+    "id": "brand-7up",
+    "name": "7UP",
+    "logo_url": null
+  },
+  {
+    "id": "brand-mountain-dew",
+    "name": "Mountain Dew",
+    "logo_url": null
+  },
+  {
+    "id": "brand-campa",
+    "name": "Campa",
+    "logo_url": null
+  },
+  {
+    "id": "brand-frooti",
+    "name": "Frooti",
+    "logo_url": null
+  },
+  {
+    "id": "brand-slice",
+    "name": "Slice",
+    "logo_url": null
+  },
+  {
+    "id": "brand-aquafina",
+    "name": "Aquafina",
+    "logo_url": null
+  },
+  {
+    "id": "brand-bailey",
+    "name": "Bailey",
+    "logo_url": null
+  },
+  {
+    "id": "brand-catch",
+    "name": "Catch",
+    "logo_url": null
+  },
+  {
+    "id": "brand-schweppes",
+    "name": "Schweppes",
+    "logo_url": null
+  },
+  {
+    "id": "brand-monster",
+    "name": "Monster",
+    "logo_url": null
+  },
+  {
+    "id": "brand-electral",
+    "name": "Electral",
+    "logo_url": null
+  },
+  {
+    "id": "brand-enerzal",
+    "name": "Enerzal",
+    "logo_url": null
+  },
+  {
+    "id": "brand-rooh-afza",
+    "name": "Rooh Afza",
+    "logo_url": null
+  },
+  {
+    "id": "brand-mapro",
+    "name": "Mapro",
+    "logo_url": null
+  },
+  {
+    "id": "brand-nescaf",
+    "name": "Nescafé",
+    "logo_url": null
+  },
+  {
+    "id": "brand-caf-style-packaged",
+    "name": "Café-style packaged",
+    "logo_url": null
+  },
+  {
+    "id": "brand-heritage",
+    "name": "Heritage",
+    "logo_url": null
+  },
+  {
+    "id": "brand-g1-mart-regional-staples",
+    "name": "G1 Mart / Regional Staples",
+    "logo_url": null
+  },
+  {
+    "id": "brand-various-brands",
+    "name": "Various brands",
+    "logo_url": null
   }
 ]

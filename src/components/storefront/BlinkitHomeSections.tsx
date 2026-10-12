@@ -49,8 +49,8 @@ function CategoryTileItem({ cat }: { cat: Category }) {
             const t = e.currentTarget as HTMLImageElement;
             if (!t.src.endsWith('.svg')) t.src = `/categories/collages/${cat.id}.svg`;
           }}
-          className="w-[82%] h-[82%] object-contain select-none transition-transform duration-200 group-hover:scale-105"
-          style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,.08))' }}
+          className="w-[90%] h-[90%] object-contain select-none transition-transform duration-200 group-hover:scale-108"
+          style={{ filter: 'drop-shadow(0 2px 5px rgba(0,0,0,.1))' }}
         />
       </div>
 

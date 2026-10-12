@@ -225,7 +225,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
 
           {/* Product image */}
           <ProductImage
-            imageUrl={product.image_url || product.imageUrl}
+            imageUrl={activeVariant?.image_url || product.image_url || product.imageUrl}
             imageStatus={product.image_status || product.imageStatus}
             alt={product.name}
             name={product.name}

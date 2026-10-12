@@ -73,7 +73,7 @@ function mapMigratedProduct(row: typeof MIGRATED_PRODUCTS[number]): Product {
     reviewsCount: 12,
     isPopular: false,
     isBestDeal: false,
-    isActive: true,
+    isActive: (row as any).is_active !== false && (row as any).isActive !== false,
     is_verified: true,
     variants,
   };
@@ -194,7 +194,7 @@ export const productService = {
    * MIGRATED_PRODUCT_LIST is the ONLY product source.
    */
   async getProducts(): Promise<Product[]> {
-    return MIGRATED_PRODUCT_LIST;
+    return MIGRATED_PRODUCT_LIST.filter((p) => p.isActive !== false);
   },
 
   /**
