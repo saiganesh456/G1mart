@@ -1,0 +1,1324 @@
+import json
+import os
+
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+PRODUCTS_59 = [
+    # -------------------------------------------------------------
+    # 1. Hair Oils & Shampoos (hair-care)
+    # -------------------------------------------------------------
+    {
+        "id": "g1-pc101",
+        "name": "Head & Shoulders Anti-Hairfall Anti-Dandruff Shampoo",
+        "slug": "head-shoulders-anti-hairfall-shampoo",
+        "brand": "Head & Shoulders",
+        "brand_id": "brand-head-shoulders",
+        "category_id": "hair-care",
+        "category": "hair-care",
+        "sub_category": "Shampoo & Conditioner",
+        "subCategory": "Shampoo & Conditioner",
+        "description": "Head & Shoulders Anti-Hairfall Shampoo rescues hair from breakage and eliminates up to 100% of visible dandruff flakes.",
+        "image_url": "/products/verified/pc-head-shoulders-anti-hairfall.webp",
+        "queries": [
+            "Head & Shoulders Anti-Hairfall Shampoo bottle packshot amazon india",
+            "Head and Shoulders anti hairfall shampoo packshot white background",
+            "Head Shoulders anti hairfall 180ml packshot"
+        ],
+        "variants": [
+            { "size_label": "72 ml", "mrp": 90, "price": 85, "stock": 45 },
+            { "size_label": "180 ml", "mrp": 190, "price": 175, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc102",
+        "name": "Clear Complete Active Care Anti-Dandruff Shampoo",
+        "slug": "clear-anti-dandruff-shampoo",
+        "brand": "Clear",
+        "brand_id": "brand-clear",
+        "category_id": "hair-care",
+        "category": "hair-care",
+        "sub_category": "Shampoo & Conditioner",
+        "subCategory": "Shampoo & Conditioner",
+        "description": "Clear Complete Active Care Shampoo with Triple Anti-Dandruff Technology and Vitamin B3 deeply purifies scalp and stops recurring dandruff.",
+        "image_url": "/products/verified/pc-clear-anti-dandruff-shampoo.webp",
+        "queries": [
+            "Clear Complete Active Care Shampoo packshot amazon india",
+            "Clear Anti Dandruff Shampoo packshot white background",
+            "Clear shampoo 180ml bottle packshot"
+        ],
+        "variants": [
+            { "size_label": "80 ml", "mrp": 95, "price": 88, "stock": 40 },
+            { "size_label": "180 ml", "mrp": 210, "price": 190, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc103",
+        "name": "Chik Thick & Glossy Black Shampoo",
+        "slug": "chik-thick-glossy-shampoo",
+        "brand": "Chik",
+        "brand_id": "brand-chik",
+        "category_id": "hair-care",
+        "category": "hair-care",
+        "sub_category": "Shampoo & Conditioner",
+        "subCategory": "Shampoo & Conditioner",
+        "description": "Chik Thick & Glossy Shampoo enriched with Badam and Amla provides daily nourishment for visibly thicker, soft, healthy black hair.",
+        "image_url": "/products/verified/pc-chik-shampoo.webp",
+        "queries": [
+            "Chik Thick & Glossy Shampoo bottle packshot amazon india",
+            "Chik shampoo bottle packshot white background",
+            "Chik black shampoo 80ml packshot"
+        ],
+        "variants": [
+            { "size_label": "80 ml", "mrp": 45, "price": 42, "stock": 50 },
+            { "size_label": "175 ml", "mrp": 110, "price": 100, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc104",
+        "name": "Nyle Natural Anti-Hairfall Herbal Shampoo",
+        "slug": "nyle-herbal-shampoo",
+        "brand": "Nyle",
+        "brand_id": "brand-nyle",
+        "category_id": "hair-care",
+        "category": "hair-care",
+        "sub_category": "Shampoo & Conditioner",
+        "subCategory": "Shampoo & Conditioner",
+        "description": "Nyle Natural Anti-Hairfall Shampoo with Onion and Fenugreek extracts delivers gentle pH-balanced herbal hair care to reduce hair fall.",
+        "image_url": "/products/verified/pc-nyle-shampoo.webp",
+        "queries": [
+            "Nyle Anti-Hairfall Shampoo bottle packshot amazon india",
+            "Nyle herbal shampoo packshot white background",
+            "Nyle shampoo 180ml packshot"
+        ],
+        "variants": [
+            { "size_label": "80 ml", "mrp": 50, "price": 46, "stock": 40 },
+            { "size_label": "180 ml", "mrp": 130, "price": 120, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc105",
+        "name": "Meera Shikakai Herbal Hair Cleanser",
+        "slug": "meera-shikakai-shampoo",
+        "brand": "Meera",
+        "brand_id": "brand-meera",
+        "category_id": "hair-care",
+        "category": "hair-care",
+        "sub_category": "Shampoo & Conditioner",
+        "subCategory": "Shampoo & Conditioner",
+        "description": "Meera Shikakai Hair Cleanser formulated with pure shikakai, reetha and coconut cleanses roots gently for strong, traditionally healthy hair.",
+        "image_url": "/products/verified/pc-meera-shikakai-shampoo.webp",
+        "queries": [
+            "Meera Shikakai Shampoo bottle packshot amazon india",
+            "Meera shampoo bottle packshot white background",
+            "Meera shikakai 180ml packshot"
+        ],
+        "variants": [
+            { "size_label": "80 ml", "mrp": 55, "price": 50, "stock": 45 },
+            { "size_label": "180 ml", "mrp": 140, "price": 130, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc106",
+        "name": "Dove Daily Shine Hair Conditioner",
+        "slug": "dove-daily-shine-conditioner",
+        "brand": "Dove",
+        "brand_id": "brand-dove",
+        "category_id": "hair-care",
+        "category": "hair-care",
+        "sub_category": "Shampoo & Conditioner",
+        "subCategory": "Shampoo & Conditioner",
+        "description": "Dove Daily Shine Conditioner with Nutritive Serum detangles dull hair and restores radiant gloss and silky touch from first wash.",
+        "image_url": "/products/verified/pc-dove-daily-shine-conditioner.webp",
+        "queries": [
+            "Dove Daily Shine Conditioner bottle packshot amazon india",
+            "Dove Daily Shine Conditioner packshot white background",
+            "Dove conditioner 175ml packshot"
+        ],
+        "variants": [
+            { "size_label": "80 ml", "mrp": 110, "price": 99, "stock": 35 },
+            { "size_label": "175 ml", "mrp": 230, "price": 205, "stock": 25 }
+        ]
+    },
+    {
+        "id": "g1-pc107",
+        "name": "Sunsilk Soft & Smooth Hair Conditioner",
+        "slug": "sunsilk-soft-smooth-conditioner",
+        "brand": "Sunsilk",
+        "brand_id": "brand-sunsilk",
+        "category_id": "hair-care",
+        "category": "hair-care",
+        "sub_category": "Shampoo & Conditioner",
+        "subCategory": "Shampoo & Conditioner",
+        "description": "Sunsilk Soft & Smooth Conditioner co-created with hair experts contains 5 natural oils to eliminate dryness and manage frizz.",
+        "image_url": "/products/verified/pc-sunsilk-conditioner.webp",
+        "queries": [
+            "Sunsilk Soft & Smooth Conditioner packshot amazon india",
+            "Sunsilk yellow conditioner packshot white background",
+            "Sunsilk conditioner 180ml packshot"
+        ],
+        "variants": [
+            { "size_label": "80 ml", "mrp": 90, "price": 82, "stock": 35 },
+            { "size_label": "180 ml", "mrp": 190, "price": 170, "stock": 25 }
+        ]
+    },
+    {
+        "id": "g1-pc108",
+        "name": "TRESemmé Keratin Smooth Hair Conditioner",
+        "slug": "tresemme-keratin-smooth-conditioner",
+        "brand": "TRESemmé",
+        "brand_id": "brand-tresemme",
+        "category_id": "hair-care",
+        "category": "hair-care",
+        "sub_category": "Shampoo & Conditioner",
+        "subCategory": "Shampoo & Conditioner",
+        "description": "TRESemmé Keratin Smooth Conditioner infused with Argan Oil controls frizz for up to 3 days giving salon-smooth, gorgeously shiny hair.",
+        "image_url": "/products/verified/pc-tresemme-conditioner.webp",
+        "queries": [
+            "TRESemme Keratin Smooth Conditioner bottle packshot amazon india",
+            "Tresemme Keratin Smooth conditioner packshot white background",
+            "Tresemme conditioner 190ml packshot"
+        ],
+        "variants": [
+            { "size_label": "190 ml", "mrp": 260, "price": 230, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc109",
+        "name": "Dabur Vatika Enriched Coconut Hair Oil",
+        "slug": "dabur-vatika-coconut-oil",
+        "brand": "Dabur Vatika",
+        "brand_id": "brand-vatika",
+        "category_id": "hair-care",
+        "category": "hair-care",
+        "sub_category": "Hair Oils",
+        "subCategory": "Hair Oils",
+        "description": "Dabur Vatika Enriched Coconut Oil with 10 Ayurvedic herbs including Henna, Amla and Brahmi gives deep conditioning and stronger hair.",
+        "image_url": "/products/verified/pc-dabur-vatika-coconut-oil.webp",
+        "queries": [
+            "Dabur Vatika Enriched Coconut Hair Oil bottle packshot amazon india",
+            "Dabur Vatika coconut oil packshot white background",
+            "Vatika coconut hair oil 180ml packshot"
+        ],
+        "variants": [
+            { "size_label": "90 ml", "mrp": 55, "price": 50, "stock": 45 },
+            { "size_label": "180 ml", "mrp": 110, "price": 100, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc110",
+        "name": "Nihar Naturals Shanti Amla & Coconut Hair Oil",
+        "slug": "nihar-naturals-coconut-oil",
+        "brand": "Nihar Naturals",
+        "brand_id": "brand-nihar",
+        "category_id": "hair-care",
+        "category": "hair-care",
+        "sub_category": "Hair Oils",
+        "subCategory": "Hair Oils",
+        "description": "Nihar Naturals Shanti Amla Hair Oil blends good old coconut oil and amla goodness to keep hair naturally black, thick and strong.",
+        "image_url": "/products/verified/pc-nihar-coconut-hair-oil.webp",
+        "queries": [
+            "Nihar Naturals Shanti Amla Hair Oil bottle packshot amazon india",
+            "Nihar coconut hair oil packshot white background",
+            "Nihar Naturals 200ml packshot"
+        ],
+        "variants": [
+            { "size_label": "90 ml", "mrp": 45, "price": 40, "stock": 50 },
+            { "size_label": "200 ml", "mrp": 95, "price": 88, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-pc111",
+        "name": "Parachute Advansed Jasmine Coconut Hair Oil",
+        "slug": "parachute-jasmine-hair-oil",
+        "brand": "Parachute",
+        "brand_id": "brand-parachute",
+        "category_id": "hair-care",
+        "category": "hair-care",
+        "sub_category": "Hair Oils",
+        "subCategory": "Hair Oils",
+        "description": "Parachute Advansed Jasmine Hair Oil gives hair a non-sticky, fragrant shine with pure coconut oil and soothing jasmine extracts.",
+        "image_url": "/products/verified/pc-parachute-jasmine-hair-oil.webp",
+        "queries": [
+            "Parachute Advansed Jasmine Coconut Hair Oil bottle packshot amazon india",
+            "Parachute Jasmine hair oil packshot white background",
+            "Parachute Jasmine 190ml packshot"
+        ],
+        "variants": [
+            { "size_label": "90 ml", "mrp": 50, "price": 46, "stock": 50 },
+            { "size_label": "190 ml", "mrp": 105, "price": 96, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-pc112",
+        "name": "Godrej Expert Rich Crème Hair Colour (Natural Black 1.00)",
+        "slug": "godrej-expert-rich-creme",
+        "brand": "Godrej Expert",
+        "brand_id": "brand-godrej-expert",
+        "category_id": "hair-care",
+        "category": "hair-care",
+        "sub_category": "Hair Colour & Styling",
+        "subCategory": "Hair Colour & Styling",
+        "description": "Godrej Expert Rich Crème with Aloe Vera and Milk Protein offers 100% grey coverage with no ammonia and lasting natural softness.",
+        "image_url": "/products/verified/pc-godrej-expert-rich-creme.webp",
+        "queries": [
+            "Godrej Expert Rich Creme Natural Black packshot amazon india",
+            "Godrej Expert Rich Creme packshot white background",
+            "Godrej hair colour sachet packshot"
+        ],
+        "variants": [
+            { "size_label": "20 g + 20 ml", "mrp": 30, "price": 28, "stock": 50 },
+            { "size_label": "Pack of 2", "mrp": 60, "price": 55, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc113",
+        "name": "Indica Easy 10-Minute Hair Colour (Natural Black)",
+        "slug": "indica-easy-hair-colour",
+        "brand": "Indica",
+        "brand_id": "brand-indica",
+        "category_id": "hair-care",
+        "category": "hair-care",
+        "sub_category": "Hair Colour & Styling",
+        "subCategory": "Hair Colour & Styling",
+        "description": "Indica Easy Hair Colour transforms greys into rich black in just 10 quick minutes with Amla, Brahmi, Bhringraj and Hibiscus extracts.",
+        "image_url": "/products/verified/pc-indica-easy-hair-colour.webp",
+        "queries": [
+            "Indica Easy Hair Colour Natural Black packshot amazon india",
+            "Indica Easy hair colour packshot white background",
+            "Indica 10 minute hair colour sachet packshot"
+        ],
+        "variants": [
+            { "size_label": "25 ml", "mrp": 35, "price": 32, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-pc114",
+        "name": "Set Wet Hair Styling Gel (Cool Hold)",
+        "slug": "set-wet-styling-gel",
+        "brand": "Set Wet",
+        "brand_id": "brand-set-wet",
+        "category_id": "hair-care",
+        "category": "hair-care",
+        "sub_category": "Hair Colour & Styling",
+        "subCategory": "Hair Colour & Styling",
+        "description": "Set Wet Cool Hold Hair Gel with Pro-Vitamin B5 locks in your sleek hairstyle with a wet finish and zero flaking throughout the day.",
+        "image_url": "/products/verified/pc-set-wet-styling-gel.webp",
+        "queries": [
+            "Set Wet Styling Gel Cool Hold tub packshot amazon india",
+            "Set Wet Hair Gel packshot white background",
+            "Set Wet gel 100g packshot"
+        ],
+        "variants": [
+            { "size_label": "50 g", "mrp": 45, "price": 40, "stock": 40 },
+            { "size_label": "100 g", "mrp": 85, "price": 75, "stock": 30 }
+        ]
+    },
+
+    # -------------------------------------------------------------
+    # 2. Toothpaste & Oral Care (oral-care)
+    # -------------------------------------------------------------
+    {
+        "id": "g1-pc115",
+        "name": "Colgate Vedshakti Ayurvedic Toothpaste",
+        "slug": "colgate-vedshakti-toothpaste",
+        "brand": "Colgate",
+        "brand_id": "brand-colgate",
+        "category_id": "oral-care",
+        "category": "oral-care",
+        "sub_category": "Toothpaste",
+        "subCategory": "Toothpaste",
+        "description": "Colgate Vedshakti Toothpaste combines natural extracts of clove, neem, basil and camphor to protect teeth and refresh breath.",
+        "image_url": "/products/verified/pc-colgate-vedshakti.webp",
+        "queries": [
+            "Colgate Vedshakti Toothpaste box packshot amazon india",
+            "Colgate Vedshakti packshot white background",
+            "Colgate Vedshakti 200g packshot"
+        ],
+        "variants": [
+            { "size_label": "100 g", "mrp": 60, "price": 55, "stock": 45 },
+            { "size_label": "200 g", "mrp": 120, "price": 108, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc116",
+        "name": "Dabur Meswak Complete Oral Care Toothpaste",
+        "slug": "dabur-meswak-toothpaste",
+        "brand": "Dabur",
+        "brand_id": "brand-dabur",
+        "category_id": "oral-care",
+        "category": "oral-care",
+        "sub_category": "Toothpaste",
+        "subCategory": "Toothpaste",
+        "description": "Dabur Meswak Toothpaste infused with pure Miswak extract fights plaque, protects gums and eliminates bad breath naturally.",
+        "image_url": "/products/verified/pc-dabur-meswak-toothpaste.webp",
+        "queries": [
+            "Dabur Meswak Toothpaste box packshot amazon india",
+            "Dabur Meswak packshot white background",
+            "Meswak toothpaste 200g packshot"
+        ],
+        "variants": [
+            { "size_label": "100 g", "mrp": 65, "price": 60, "stock": 40 },
+            { "size_label": "200 g", "mrp": 125, "price": 115, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc117",
+        "name": "Dabur Babool Ayurvedic Toothpaste",
+        "slug": "dabur-babool-toothpaste",
+        "brand": "Dabur",
+        "brand_id": "brand-dabur",
+        "category_id": "oral-care",
+        "category": "oral-care",
+        "sub_category": "Toothpaste",
+        "subCategory": "Toothpaste",
+        "description": "Dabur Babool Toothpaste powered by natural Babool (Acacia Arabica) bark extract strengthens gums and keeps teeth tightly protected.",
+        "image_url": "/products/verified/pc-dabur-babool-toothpaste.webp",
+        "queries": [
+            "Dabur Babool Toothpaste packshot amazon india",
+            "Dabur Babool toothpaste box packshot white background",
+            "Babool toothpaste 200g packshot"
+        ],
+        "variants": [
+            { "size_label": "100 g", "mrp": 40, "price": 36, "stock": 45 },
+            { "size_label": "200 g", "mrp": 75, "price": 68, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc118",
+        "name": "Vicco Vajradanti Ayurvedic Herbal Toothpaste",
+        "slug": "vicco-vajradanti-toothpaste",
+        "brand": "Vicco",
+        "brand_id": "brand-vicco",
+        "category_id": "oral-care",
+        "category": "oral-care",
+        "sub_category": "Toothpaste",
+        "subCategory": "Toothpaste",
+        "description": "Vicco Vajradanti Toothpaste formulated with 18 pure herbs and barks cures tooth sensitivity, bleeding gums and cleans dental plaque.",
+        "image_url": "/products/verified/pc-vicco-vajradanti-toothpaste.webp",
+        "queries": [
+            "Vicco Vajradanti Toothpaste tube box packshot amazon india",
+            "Vicco Vajradanti toothpaste packshot white background",
+            "Vicco toothpaste 200g packshot"
+        ],
+        "variants": [
+            { "size_label": "100 g", "mrp": 75, "price": 70, "stock": 40 },
+            { "size_label": "200 g", "mrp": 145, "price": 135, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc119",
+        "name": "Lever Ayush Anti-Cavity Clove Oil Toothpaste",
+        "slug": "lever-ayush-toothpaste",
+        "brand": "Lever Ayush",
+        "brand_id": "brand-ayush",
+        "category_id": "oral-care",
+        "category": "oral-care",
+        "sub_category": "Toothpaste",
+        "subCategory": "Toothpaste",
+        "description": "Lever Ayush Anti-Cavity Toothpaste with authentic clove oil formula relieves toothaches, cleans deep crevices and freshens mouth.",
+        "image_url": "/products/verified/pc-lever-ayush-toothpaste.webp",
+        "queries": [
+            "Lever Ayush Anti Cavity Clove Oil Toothpaste packshot amazon india",
+            "Lever Ayush Toothpaste packshot white background",
+            "Ayush clove oil toothpaste 150g packshot"
+        ],
+        "variants": [
+            { "size_label": "80 g", "mrp": 45, "price": 40, "stock": 40 },
+            { "size_label": "150 g", "mrp": 85, "price": 78, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc120",
+        "name": "Colgate Plax Peppermint Fresh Antibacterial Mouthwash",
+        "slug": "colgate-plax-mouthwash",
+        "brand": "Colgate",
+        "brand_id": "brand-colgate",
+        "category_id": "oral-care",
+        "category": "oral-care",
+        "sub_category": "Toothbrushes & Mouthwash",
+        "subCategory": "Toothbrushes & Mouthwash",
+        "description": "Colgate Plax Mouthwash removes over 99% of germs, delivering 24/7 bad breath control and continuous plaque protection.",
+        "image_url": "/products/verified/pc-colgate-plax-mouthwash.webp",
+        "queries": [
+            "Colgate Plax Peppermint Fresh Mouthwash bottle packshot amazon india",
+            "Colgate Plax mouthwash packshot white background",
+            "Colgate Plax 250ml packshot"
+        ],
+        "variants": [
+            { "size_label": "250 ml", "mrp": 150, "price": 135, "stock": 35 },
+            { "size_label": "500 ml", "mrp": 275, "price": 240, "stock": 25 }
+        ]
+    },
+    {
+        "id": "g1-pc121",
+        "name": "Colgate ZigZag Deep Clean Toothbrush (Medium)",
+        "slug": "colgate-zigzag-toothbrush",
+        "brand": "Colgate",
+        "brand_id": "brand-colgate",
+        "category_id": "oral-care",
+        "category": "oral-care",
+        "sub_category": "Toothbrushes & Mouthwash",
+        "subCategory": "Toothbrushes & Mouthwash",
+        "description": "Colgate ZigZag features multi-angle cross bristles that reach deep between teeth to remove food particles and oral bacteria.",
+        "image_url": "/products/verified/pc-colgate-zigzag-toothbrush.webp",
+        "queries": [
+            "Colgate ZigZag Toothbrush packshot amazon india",
+            "Colgate ZigZag medium toothbrush packshot white background",
+            "Colgate Zig Zag toothbrush packshot"
+        ],
+        "variants": [
+            { "size_label": "Single", "mrp": 35, "price": 30, "stock": 50 },
+            { "size_label": "Pack of 3", "mrp": 99, "price": 85, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc122",
+        "name": "Oral-B Cross Action Pro-Health Toothbrush (Medium)",
+        "slug": "oral-b-cross-action-toothbrush",
+        "brand": "Oral-B",
+        "brand_id": "brand-oral-b",
+        "category_id": "oral-care",
+        "category": "oral-care",
+        "sub_category": "Toothbrushes & Mouthwash",
+        "subCategory": "Toothbrushes & Mouthwash",
+        "description": "Oral-B Cross Action features 16-degree angled CrissCross bristles engineered to attack and lift plaque along the gumline.",
+        "image_url": "/products/verified/pc-oral-b-cross-action.webp",
+        "queries": [
+            "Oral-B Cross Action Toothbrush packshot amazon india",
+            "Oral B Cross Action medium toothbrush packshot white background",
+            "Oral-B Pro Health Cross Action toothbrush packshot"
+        ],
+        "variants": [
+            { "size_label": "Single", "mrp": 60, "price": 52, "stock": 45 },
+            { "size_label": "Pack of 2", "mrp": 115, "price": 99, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc123",
+        "name": "Colgate Kids Extra Soft Character Toothbrush",
+        "slug": "colgate-kids-toothbrush",
+        "brand": "Colgate",
+        "brand_id": "brand-colgate",
+        "category_id": "oral-care",
+        "category": "oral-care",
+        "sub_category": "Toothbrushes & Mouthwash",
+        "subCategory": "Toothbrushes & Mouthwash",
+        "description": "Colgate Kids Toothbrush with extra soft bristles protects delicate young gums and encourages fun daily brushing habits.",
+        "image_url": "/products/verified/pc-colgate-kids-toothbrush.webp",
+        "queries": [
+            "Colgate Kids Toothbrush packshot amazon india",
+            "Colgate kids extra soft toothbrush packshot white background",
+            "Colgate kids toothbrush blister packshot"
+        ],
+        "variants": [
+            { "size_label": "Single", "mrp": 45, "price": 40, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-pc124",
+        "name": "G1 Hygienic Plastic Tongue Cleaner (Assorted)",
+        "slug": "plastic-tongue-cleaner",
+        "brand": "G1 Mart Hygiene",
+        "brand_id": "brand-g1",
+        "category_id": "oral-care",
+        "category": "oral-care",
+        "sub_category": "Toothbrushes & Mouthwash",
+        "subCategory": "Toothbrushes & Mouthwash",
+        "description": "Ergonomic flexible plastic tongue cleaner gently clears white coating and bacteria from the tongue to ensure fresh breath.",
+        "image_url": "/products/verified/pc-plastic-tongue-cleaner.webp",
+        "queries": [
+            "Plastic Tongue Cleaner packshot amazon india",
+            "Tongue cleaner plastic packshot white background",
+            "tongue cleaner blister packshot"
+        ],
+        "variants": [
+            { "size_label": "Pack of 2", "mrp": 30, "price": 25, "stock": 60 }
+        ]
+    },
+    {
+        "id": "g1-pc125",
+        "name": "Dabur Red Ayurvedic Tooth Powder (Lal Dant Manjan)",
+        "slug": "dabur-red-tooth-powder",
+        "brand": "Dabur",
+        "brand_id": "brand-dabur",
+        "category_id": "oral-care",
+        "category": "oral-care",
+        "sub_category": "Toothpaste",
+        "subCategory": "Toothpaste",
+        "description": "Dabur Lal Dant Manjan combines Ayurvedic herbs like pudina, tomar and lavanga for traditional, strong tooth polish and gum health.",
+        "image_url": "/products/verified/pc-dabur-red-tooth-powder.webp",
+        "queries": [
+            "Dabur Red Tooth Powder Lal Dant Manjan packshot amazon india",
+            "Dabur Lal Dant Manjan packshot white background",
+            "Dabur Red tooth powder 150g packshot"
+        ],
+        "variants": [
+            { "size_label": "60 g", "mrp": 38, "price": 35, "stock": 45 },
+            { "size_label": "150 g", "mrp": 85, "price": 78, "stock": 35 }
+        ]
+    },
+
+    # -------------------------------------------------------------
+    # 3. Skin Care, Talc & Grooming (skin-care & hygiene)
+    # -------------------------------------------------------------
+    {
+        "id": "g1-pc126",
+        "name": "Vaseline Original Pure Skin Petroleum Jelly",
+        "slug": "vaseline-original-pure-jelly",
+        "brand": "Vaseline",
+        "brand_id": "brand-vaseline",
+        "category_id": "skin-care",
+        "category": "skin-care",
+        "sub_category": "Face Creams & Lotions",
+        "subCategory": "Face Creams & Lotions",
+        "description": "Vaseline Pure Skin Jelly triples-purified 100% white petroleum jelly locks in moisture to heal dry, cracked and chapped skin.",
+        "image_url": "/products/verified/pc-vaseline-original-jelly.webp",
+        "queries": [
+            "Vaseline Original Pure Skin Jelly jar packshot amazon india",
+            "Vaseline petroleum jelly packshot white background",
+            "Vaseline 42g jar packshot"
+        ],
+        "variants": [
+            { "size_label": "20 g", "mrp": 22, "price": 20, "stock": 50 },
+            { "size_label": "42 g", "mrp": 45, "price": 42, "stock": 45 },
+            { "size_label": "85 g", "mrp": 85, "price": 78, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc127",
+        "name": "Vaseline Intensive Care Deep Moisture Body Lotion",
+        "slug": "vaseline-intensive-care-lotion",
+        "brand": "Vaseline",
+        "brand_id": "brand-vaseline",
+        "category_id": "skin-care",
+        "category": "skin-care",
+        "sub_category": "Face Creams & Lotions",
+        "subCategory": "Face Creams & Lotions",
+        "description": "Vaseline Deep Moisture Body Lotion with pure oat extract and micro-droplets of Vaseline jelly delivers 48h non-greasy skin hydration.",
+        "image_url": "/products/verified/pc-vaseline-intensive-care-lotion.webp",
+        "queries": [
+            "Vaseline Intensive Care Deep Moisture Body Lotion bottle packshot amazon india",
+            "Vaseline Deep Moisture lotion packshot white background",
+            "Vaseline yellow body lotion 200ml packshot"
+        ],
+        "variants": [
+            { "size_label": "100 ml", "mrp": 120, "price": 105, "stock": 40 },
+            { "size_label": "200 ml", "mrp": 225, "price": 199, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc128",
+        "name": "Lakmé Sun Expert SPF 50 PA+++ Ultra Matte Sunscreen",
+        "slug": "lakme-sun-expert-sunscreen",
+        "brand": "Lakmé",
+        "brand_id": "brand-lakme",
+        "category_id": "skin-care",
+        "category": "skin-care",
+        "sub_category": "Face Creams & Lotions",
+        "subCategory": "Face Creams & Lotions",
+        "description": "Lakmé Sun Expert SPF 50 blocks 97% harmful UVB rays, prevents dark spots and sunburn with a non-oily ultra matte gel finish.",
+        "image_url": "/products/verified/pc-lakme-sun-expert.webp",
+        "queries": [
+            "Lakme Sun Expert SPF 50 PA Ultra Matte Sunscreen tube packshot amazon india",
+            "Lakme Sun Expert SPF 50 packshot white background",
+            "Lakme sunscreen 50ml packshot"
+        ],
+        "variants": [
+            { "size_label": "50 ml", "mrp": 275, "price": 245, "stock": 35 },
+            { "size_label": "100 ml", "mrp": 499, "price": 440, "stock": 25 }
+        ]
+    },
+    {
+        "id": "g1-pc129",
+        "name": "Dermi Cool Prickly Heat Dycool Talcum Powder",
+        "slug": "dermi-cool-powder",
+        "brand": "Dermi Cool",
+        "brand_id": "brand-dermi-cool",
+        "category_id": "skin-care",
+        "category": "skin-care",
+        "sub_category": "Face Creams & Lotions",
+        "subCategory": "Face Creams & Lotions",
+        "description": "Dermi Cool Prickly Heat Powder provides instant cooling comfort from stinging heat rashes, itchiness and sweat irritation.",
+        "image_url": "/products/verified/pc-dermi-cool-powder.webp",
+        "queries": [
+            "Dermi Cool Prickly Heat Powder bottle packshot amazon india",
+            "Dermi Cool powder packshot white background",
+            "Dermi Cool 100g packshot"
+        ],
+        "variants": [
+            { "size_label": "50 g", "mrp": 55, "price": 50, "stock": 45 },
+            { "size_label": "100 g", "mrp": 105, "price": 95, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc130",
+        "name": "Nycil Cool Classic Prickly Heat Talc",
+        "slug": "nycil-cool-powder",
+        "brand": "Nycil",
+        "brand_id": "brand-nycil",
+        "category_id": "skin-care",
+        "category": "skin-care",
+        "sub_category": "Face Creams & Lotions",
+        "subCategory": "Face Creams & Lotions",
+        "description": "Nycil Cool Prickly Heat Talc with active germ-fighter formula absorbs sweat, soothes prickly heat and prevents summer rashes.",
+        "image_url": "/products/verified/pc-nycil-cool-powder.webp",
+        "queries": [
+            "Nycil Cool Classic Prickly Heat Talc bottle packshot amazon india",
+            "Nycil Cool powder packshot white background",
+            "Nycil 100g packshot"
+        ],
+        "variants": [
+            { "size_label": "50 g", "mrp": 55, "price": 50, "stock": 45 },
+            { "size_label": "100 g", "mrp": 110, "price": 99, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc131",
+        "name": "Pond's Dreamflower Fragrant Pink Talcum Powder",
+        "slug": "ponds-dreamflower-talc",
+        "brand": "Pond's",
+        "brand_id": "brand-ponds",
+        "category_id": "skin-care",
+        "category": "skin-care",
+        "sub_category": "Face Creams & Lotions",
+        "subCategory": "Face Creams & Lotions",
+        "description": "Pond's Dreamflower Talc wraps skin in a delicate pink floral fragrance, absorbing excess oils for long-lasting freshness and softness.",
+        "image_url": "/products/verified/pc-ponds-dreamflower-talc.webp",
+        "queries": [
+            "Ponds Dreamflower Talcum Powder bottle packshot amazon india",
+            "Pond's Dreamflower talc packshot white background",
+            "Ponds dreamflower 100g packshot"
+        ],
+        "variants": [
+            { "size_label": "100 g", "mrp": 105, "price": 95, "stock": 45 },
+            { "size_label": "200 g", "mrp": 195, "price": 175, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc132",
+        "name": "Axe Dark Temptation Deodorant Body Spray",
+        "slug": "axe-dark-temptation-deodorant",
+        "brand": "Axe",
+        "brand_id": "brand-axe",
+        "category_id": "hygiene",
+        "category": "hygiene",
+        "sub_category": "Deodorants & Fragrances",
+        "subCategory": "Deodorants & Fragrances",
+        "description": "Axe Dark Temptation Bodyspray blends sensual dark chocolate notes with 48-hour Dual Action odor protection technology.",
+        "image_url": "/products/verified/pc-axe-dark-temptation-deodorant.webp",
+        "queries": [
+            "Axe Dark Temptation Deodorant can packshot amazon india",
+            "Axe Dark Temptation packshot white background",
+            "Axe dark temptation 150ml can"
+        ],
+        "variants": [
+            { "size_label": "150 ml", "mrp": 240, "price": 215, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-pc133",
+        "name": "Denver Hamilton Deodorant Body Spray for Men",
+        "slug": "denver-hamilton-deodorant",
+        "brand": "Denver",
+        "brand_id": "brand-denver",
+        "category_id": "hygiene",
+        "category": "hygiene",
+        "sub_category": "Deodorants & Fragrances",
+        "subCategory": "Deodorants & Fragrances",
+        "description": "Denver Hamilton Deodorant provides a masculine, magnetic woody fragrance with intense antibacterial sweat control.",
+        "image_url": "/products/verified/pc-denver-hamilton-deodorant.webp",
+        "queries": [
+            "Denver Hamilton Deodorant can packshot amazon india",
+            "Denver Hamilton deodorant packshot white background",
+            "Denver hamilton 150ml packshot"
+        ],
+        "variants": [
+            { "size_label": "150 ml", "mrp": 230, "price": 205, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc134",
+        "name": "Set Wet Global Edition Fresh Cool Deodorant Spray",
+        "slug": "set-wet-deodorant",
+        "brand": "Set Wet",
+        "brand_id": "brand-set-wet",
+        "category_id": "hygiene",
+        "category": "hygiene",
+        "sub_category": "Deodorants & Fragrances",
+        "subCategory": "Deodorants & Fragrances",
+        "description": "Set Wet Global Edition Deodorant Spray keeps men cool and energetic with refreshing citrus and mint undertones.",
+        "image_url": "/products/verified/pc-set-wet-deodorant.webp",
+        "queries": [
+            "Set Wet Cool Avatar Deodorant can packshot amazon india",
+            "Set Wet deodorant spray packshot white background",
+            "Set Wet deo 120ml packshot"
+        ],
+        "variants": [
+            { "size_label": "120 ml", "mrp": 199, "price": 175, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc135",
+        "name": "Nivea Men Fresh Active 48H Roll-on Deodorant",
+        "slug": "nivea-men-fresh-active-roll-on",
+        "brand": "Nivea",
+        "brand_id": "brand-nivea",
+        "category_id": "hygiene",
+        "category": "hygiene",
+        "sub_category": "Deodorants & Fragrances",
+        "subCategory": "Deodorants & Fragrances",
+        "description": "Nivea Men Fresh Active Roll-on with ocean extracts offers 48 hours of reliable underarm anti-perspirant odor protection.",
+        "image_url": "/products/verified/pc-nivea-men-roll-on.webp",
+        "queries": [
+            "Nivea Men Fresh Active Roll on bottle packshot amazon india",
+            "Nivea Men roll on deodorant packshot white background",
+            "Nivea roll on 50ml packshot"
+        ],
+        "variants": [
+            { "size_label": "25 ml", "mrp": 115, "price": 99, "stock": 40 },
+            { "size_label": "50 ml", "mrp": 199, "price": 175, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc136",
+        "name": "Gillette Guard Single Blade Shaving Razor",
+        "slug": "gillette-guard-razor",
+        "brand": "Gillette",
+        "brand_id": "brand-gillette",
+        "category_id": "hygiene",
+        "category": "hygiene",
+        "sub_category": "Shaving & Hair Removal",
+        "subCategory": "Shaving & Hair Removal",
+        "description": "Gillette Guard safety razor features a flexible pivoting head and safety comb to deliver a smooth, nick-free shave comfortably.",
+        "image_url": "/products/verified/pc-gillette-guard-razor.webp",
+        "queries": [
+            "Gillette Guard Razor packshot amazon india",
+            "Gillette Guard single razor packshot white background",
+            "Gillette guard razor card packshot"
+        ],
+        "variants": [
+            { "size_label": "Single", "mrp": 25, "price": 22, "stock": 50 },
+            { "size_label": "Pack of 3", "mrp": 70, "price": 62, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc137",
+        "name": "Gillette Guard Safety Razor Replacement Cartridge Blades",
+        "slug": "gillette-guard-blades",
+        "brand": "Gillette",
+        "brand_id": "brand-gillette",
+        "category_id": "hygiene",
+        "category": "hygiene",
+        "sub_category": "Shaving & Hair Removal",
+        "subCategory": "Shaving & Hair Removal",
+        "description": "Gillette Guard genuine replacement blades with easy water-rinse design keep shaving sharp and clean for weeks.",
+        "image_url": "/products/verified/pc-gillette-guard-blades.webp",
+        "queries": [
+            "Gillette Guard Blades cartridge packshot amazon india",
+            "Gillette Guard replacement blades packshot white background",
+            "Gillette Guard 6 blades packshot"
+        ],
+        "variants": [
+            { "size_label": "Pack of 6", "mrp": 75, "price": 68, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-pc138",
+        "name": "Old Spice Original After Shave Lotion",
+        "slug": "old-spice-after-shave-lotion",
+        "brand": "Old Spice",
+        "brand_id": "brand-old-spice",
+        "category_id": "hygiene",
+        "category": "hygiene",
+        "sub_category": "Shaving & Hair Removal",
+        "subCategory": "Shaving & Hair Removal",
+        "description": "Old Spice Original After Shave Lotion cools, tones and revives shaved skin with the timeless masculine scent of the open sea.",
+        "image_url": "/products/verified/pc-old-spice-after-shave.webp",
+        "queries": [
+            "Old Spice Original After Shave Lotion bottle packshot amazon india",
+            "Old Spice after shave packshot white background",
+            "Old Spice after shave 100ml packshot"
+        ],
+        "variants": [
+            { "size_label": "50 ml", "mrp": 135, "price": 120, "stock": 35 },
+            { "size_label": "100 ml", "mrp": 245, "price": 220, "stock": 25 }
+        ]
+    },
+    {
+        "id": "g1-pc139",
+        "name": "Nivea Essential Lip Care Moisture Balm",
+        "slug": "nivea-lip-care-balm",
+        "brand": "Nivea",
+        "brand_id": "brand-nivea",
+        "category_id": "skin-care",
+        "category": "skin-care",
+        "sub_category": "Face Creams & Lotions",
+        "subCategory": "Face Creams & Lotions",
+        "description": "Nivea Essential Lip Care stick with shea butter and natural jojoba oil provides 24-hour melting moisture for soft, protected lips.",
+        "image_url": "/products/verified/pc-nivea-lip-care.webp",
+        "queries": [
+            "Nivea Essential Lip Care stick packshot amazon india",
+            "Nivea Lip Care moisture packshot white background",
+            "Nivea lip balm 4.8g packshot"
+        ],
+        "variants": [
+            { "size_label": "4.8 g", "mrp": 140, "price": 125, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-pc140",
+        "name": "Nivea Creme All Season Multi-Purpose Cream",
+        "slug": "nivea-creme-tin",
+        "brand": "Nivea",
+        "brand_id": "brand-nivea",
+        "category_id": "skin-care",
+        "category": "skin-care",
+        "sub_category": "Face Creams & Lotions",
+        "subCategory": "Face Creams & Lotions",
+        "description": "Nivea Creme in iconic blue tin contains skin-loving Eucerit for rich, intensive care for hands, face and body.",
+        "image_url": "/products/verified/pc-nivea-creme-tin.webp",
+        "queries": [
+            "Nivea Creme blue tin packshot amazon india",
+            "Nivea Creme tin packshot white background",
+            "Nivea creme 100ml tin packshot"
+        ],
+        "variants": [
+            { "size_label": "50 ml", "mrp": 85, "price": 78, "stock": 45 },
+            { "size_label": "100 ml", "mrp": 165, "price": 148, "stock": 35 }
+        ]
+    },
+
+    # -------------------------------------------------------------
+    # 4. Baby Care (baby-care)
+    # -------------------------------------------------------------
+    {
+        "id": "g1-pc141",
+        "name": "MamyPoko Pants All-in-One Extra Absorb Baby Diapers",
+        "slug": "mamypoko-pants-diapers",
+        "brand": "MamyPoko",
+        "brand_id": "brand-mamypoko",
+        "category_id": "baby-care",
+        "category": "baby-care",
+        "sub_category": "Baby Diapers & Wipes",
+        "subCategory": "Baby Diapers & Wipes",
+        "description": "MamyPoko Pants with Crisscross Absorbent Sheet absorbs up to 7 glasses of urine, preventing leakage and heaviness for 12 hours.",
+        "image_url": "/products/verified/pc-mamypoko-pants.webp",
+        "queries": [
+            "MamyPoko Pants Extra Absorb Diapers packshot amazon india",
+            "MamyPoko Pants baby diapers packshot white background",
+            "Mamypoko pants small packshot"
+        ],
+        "variants": [
+            { "size_label": "Small (20 count)", "mrp": 249, "price": 219, "stock": 35 },
+            { "size_label": "Medium (18 count)", "mrp": 249, "price": 219, "stock": 35 },
+            { "size_label": "Large (16 count)", "mrp": 249, "price": 219, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc142",
+        "name": "Johnson's Baby Gentle Cleansing Wipes",
+        "slug": "johnsons-baby-wipes",
+        "brand": "Johnson's Baby",
+        "brand_id": "brand-johnsons-baby",
+        "category_id": "baby-care",
+        "category": "baby-care",
+        "sub_category": "Baby Diapers & Wipes",
+        "subCategory": "Baby Diapers & Wipes",
+        "description": "Johnson's Baby Wipes with ultra-soft embossed fabric and moisturising lotion cleanse gently without irritating tender baby skin.",
+        "image_url": "/products/verified/pc-johnsons-baby-wipes.webp",
+        "queries": [
+            "Johnson's Baby Wipes flip top lid packshot amazon india",
+            "Johnsons Baby Wipes packshot white background",
+            "Johnsons baby wipes 72s packshot"
+        ],
+        "variants": [
+            { "size_label": "20 wipes", "mrp": 85, "price": 75, "stock": 40 },
+            { "size_label": "72 wipes", "mrp": 240, "price": 210, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc143",
+        "name": "Himalaya Gentle Baby Cleansing Wipes",
+        "slug": "himalaya-baby-wipes",
+        "brand": "Himalaya",
+        "brand_id": "brand-himalaya",
+        "category_id": "baby-care",
+        "category": "baby-care",
+        "sub_category": "Baby Diapers & Wipes",
+        "subCategory": "Baby Diapers & Wipes",
+        "description": "Himalaya Baby Wipes with Aloe Vera and Indian Lotus maintain skin balance while gently cleaning delicate diaper zones.",
+        "image_url": "/products/verified/pc-himalaya-baby-wipes.webp",
+        "queries": [
+            "Himalaya Gentle Baby Wipes packshot amazon india",
+            "Himalaya Baby Wipes packshot white background",
+            "Himalaya baby wipes 72s packshot"
+        ],
+        "variants": [
+            { "size_label": "24 wipes", "mrp": 80, "price": 72, "stock": 45 },
+            { "size_label": "72 wipes", "mrp": 210, "price": 185, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc144",
+        "name": "Johnson's Baby No More Tears Shampoo",
+        "slug": "johnsons-baby-shampoo",
+        "brand": "Johnson's Baby",
+        "brand_id": "brand-johnsons-baby",
+        "category_id": "baby-care",
+        "category": "baby-care",
+        "sub_category": "Baby Bath, Lotion & Powders",
+        "subCategory": "Baby Bath, Lotion & Powders",
+        "description": "Johnson's Baby Shampoo with mild No More Tears formula cleans baby's fine hair and scalp softly without stinging eyes.",
+        "image_url": "/products/verified/pc-johnsons-baby-shampoo.webp",
+        "queries": [
+            "Johnson's Baby Shampoo bottle packshot amazon india",
+            "Johnsons Baby Shampoo packshot white background",
+            "Johnsons baby shampoo 200ml packshot"
+        ],
+        "variants": [
+            { "size_label": "100 ml", "mrp": 110, "price": 99, "stock": 40 },
+            { "size_label": "200 ml", "mrp": 210, "price": 188, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc145",
+        "name": "Himalaya Gentle Baby Wash",
+        "slug": "himalaya-gentle-baby-wash",
+        "brand": "Himalaya",
+        "brand_id": "brand-himalaya",
+        "category_id": "baby-care",
+        "category": "baby-care",
+        "sub_category": "Baby Bath, Lotion & Powders",
+        "subCategory": "Baby Bath, Lotion & Powders",
+        "description": "Himalaya Gentle Baby Wash infused with Chickpea and Fenugreek nourishes and cleanses delicate skin without drying.",
+        "image_url": "/products/verified/pc-himalaya-baby-wash.webp",
+        "queries": [
+            "Himalaya Gentle Baby Wash bottle packshot amazon india",
+            "Himalaya baby wash packshot white background",
+            "Himalaya gentle baby wash 200ml packshot"
+        ],
+        "variants": [
+            { "size_label": "100 ml", "mrp": 105, "price": 95, "stock": 40 },
+            { "size_label": "200 ml", "mrp": 195, "price": 175, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc146",
+        "name": "Himalaya Baby Diaper Rash Soothing Cream",
+        "slug": "himalaya-diaper-rash-cream",
+        "brand": "Himalaya",
+        "brand_id": "brand-himalaya",
+        "category_id": "baby-care",
+        "category": "baby-care",
+        "sub_category": "Baby Bath, Lotion & Powders",
+        "subCategory": "Baby Bath, Lotion & Powders",
+        "description": "Himalaya Diaper Rash Cream with Yashada Bhasma and Nirgundi forms a protective layer to heal and soothe inflamed baby skin.",
+        "image_url": "/products/verified/pc-himalaya-diaper-rash-cream.webp",
+        "queries": [
+            "Himalaya Baby Diaper Rash Cream tube packshot amazon india",
+            "Himalaya diaper rash cream packshot white background",
+            "Himalaya diaper rash cream 50g packshot"
+        ],
+        "variants": [
+            { "size_label": "50 g", "mrp": 115, "price": 102, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc147",
+        "name": "Johnson's Baby Pure Cotton Buds",
+        "slug": "johnsons-baby-cotton-buds",
+        "brand": "Johnson's Baby",
+        "brand_id": "brand-johnsons-baby",
+        "category_id": "baby-care",
+        "category": "baby-care",
+        "sub_category": "Baby Bath, Lotion & Powders",
+        "subCategory": "Baby Bath, Lotion & Powders",
+        "description": "Johnson's Baby Buds made from 100% pure naturally soft cotton gently clean and dry delicate areas around ears and toes.",
+        "image_url": "/products/verified/pc-johnsons-baby-cotton-buds.webp",
+        "queries": [
+            "Johnson's Baby Cotton Buds box packshot amazon india",
+            "Johnsons baby cotton buds packshot white background",
+            "Johnsons baby buds 75 stems packshot"
+        ],
+        "variants": [
+            { "size_label": "75 stems", "mrp": 75, "price": 68, "stock": 50 }
+        ]
+    },
+
+    # -------------------------------------------------------------
+    # 5. Feminine Hygiene (hygiene)
+    # -------------------------------------------------------------
+    {
+        "id": "g1-pc148",
+        "name": "Whisper Ultra Nights XXL Overnight Sanitary Pads",
+        "slug": "whisper-ultra-nights-xxl",
+        "brand": "Whisper",
+        "brand_id": "brand-whisper",
+        "category_id": "hygiene",
+        "category": "hygiene",
+        "sub_category": "Sanitary Pads & Napkins",
+        "subCategory": "Sanitary Pads & Napkins",
+        "description": "Whisper Ultra Nights XXL features an extra wide back and 1000 suction holes for zero overnight leakage and worry-free sleep.",
+        "image_url": "/products/verified/pc-whisper-ultra-nights.webp",
+        "queries": [
+            "Whisper Ultra Nights XXL Sanitary Pads packshot amazon india",
+            "Whisper Ultra Nights XXL packshot white background",
+            "Whisper nights xxl 7 pads packshot"
+        ],
+        "variants": [
+            { "size_label": "7 pads", "mrp": 99, "price": 90, "stock": 45 },
+            { "size_label": "14 pads", "mrp": 195, "price": 175, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc149",
+        "name": "Stayfree Secure Nights Cottony Soft XL Sanitary Pads",
+        "slug": "stayfree-secure-nights-xl",
+        "brand": "Stayfree",
+        "brand_id": "brand-stayfree",
+        "category_id": "hygiene",
+        "category": "hygiene",
+        "sub_category": "Sanitary Pads & Napkins",
+        "subCategory": "Sanitary Pads & Napkins",
+        "description": "Stayfree Secure Nights XL with leak-lock technology and extra length locks fluid away, guaranteeing up to 100% night protection.",
+        "image_url": "/products/verified/pc-stayfree-secure-nights.webp",
+        "queries": [
+            "Stayfree Secure Nights XL Sanitary Pads packshot amazon india",
+            "Stayfree Secure Nights packshot white background",
+            "Stayfree secure nights 7s packshot"
+        ],
+        "variants": [
+            { "size_label": "7 pads", "mrp": 85, "price": 78, "stock": 45 },
+            { "size_label": "20 pads", "mrp": 220, "price": 198, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc150",
+        "name": "Sofy Anti-Bacteria Extra Long Sanitary Pads",
+        "slug": "sofy-anti-bacteria-pads",
+        "brand": "Sofy",
+        "brand_id": "brand-sofy",
+        "category_id": "hygiene",
+        "category": "hygiene",
+        "sub_category": "Sanitary Pads & Napkins",
+        "subCategory": "Sanitary Pads & Napkins",
+        "description": "Sofy Anti-Bacteria sanitary napkins feature a green antibacterial sheet that protects against 99.9% of bacteria and bad odor.",
+        "image_url": "/products/verified/pc-sofy-anti-bacteria.webp",
+        "queries": [
+            "Sofy Anti-Bacteria Sanitary Pads packshot amazon india",
+            "Sofy Anti Bacteria pads packshot white background",
+            "Sofy antibacterial 15 pads packshot"
+        ],
+        "variants": [
+            { "size_label": "7 pads", "mrp": 80, "price": 72, "stock": 40 },
+            { "size_label": "15 pads", "mrp": 165, "price": 148, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc151",
+        "name": "Whisper Clean & Fresh Daily Panty Liners",
+        "slug": "whisper-panty-liners",
+        "brand": "Whisper",
+        "brand_id": "brand-whisper",
+        "category_id": "hygiene",
+        "category": "hygiene",
+        "sub_category": "Sanitary Pads & Napkins",
+        "subCategory": "Sanitary Pads & Napkins",
+        "description": "Whisper Clean & Fresh Panty Liners provide daily invisible discharge protection, keeping you dry, clean and confident all day.",
+        "image_url": "/products/verified/pc-whisper-panty-liners.webp",
+        "queries": [
+            "Whisper Clean & Fresh Panty Liners box packshot amazon india",
+            "Whisper Panty Liners packshot white background",
+            "Whisper panty liners 40s packshot"
+        ],
+        "variants": [
+            { "size_label": "20 liners", "mrp": 110, "price": 98, "stock": 35 },
+            { "size_label": "40 liners", "mrp": 210, "price": 185, "stock": 25 }
+        ]
+    },
+    {
+        "id": "g1-pc152",
+        "name": "V Wash Plus Intimate Hygiene Wash (Lactic Acid & Tea Tree)",
+        "slug": "vwash-plus-intimate-wash",
+        "brand": "V Wash",
+        "brand_id": "brand-vwash",
+        "category_id": "hygiene",
+        "category": "hygiene",
+        "sub_category": "Sanitary Pads & Napkins",
+        "subCategory": "Sanitary Pads & Napkins",
+        "description": "V Wash Plus enriched with Sea Buckthorn Oil and Tea Tree Oil balances intimate pH at 3.5, preventing dryness, itchiness and irritation.",
+        "image_url": "/products/verified/pc-vwash-plus-intimate-wash.webp",
+        "queries": [
+            "V Wash Plus Intimate Hygiene Wash bottle packshot amazon india",
+            "VWash Plus bottle packshot white background",
+            "Vwash 100ml packshot"
+        ],
+        "variants": [
+            { "size_label": "100 ml", "mrp": 190, "price": 168, "stock": 40 },
+            { "size_label": "200 ml", "mrp": 340, "price": 299, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-pc153",
+        "name": "O.B. ProComfort Regular Tampons (SilkTouch Cover)",
+        "slug": "ob-procomfort-tampons",
+        "brand": "O.B.",
+        "brand_id": "brand-ob",
+        "category_id": "hygiene",
+        "category": "hygiene",
+        "sub_category": "Sanitary Pads & Napkins",
+        "subCategory": "Sanitary Pads & Napkins",
+        "description": "O.B. ProComfort Tampons with curved grooves and SilkTouch cover ensure smooth insertion and reliable, active leak-free protection.",
+        "image_url": "/products/verified/pc-ob-procomfort-tampons.webp",
+        "queries": [
+            "OB ProComfort Regular Tampons box packshot amazon india",
+            "O.B. ProComfort Tampons packshot white background",
+            "OB tampons 10s packshot"
+        ],
+        "variants": [
+            { "size_label": "10 tampons", "mrp": 180, "price": 160, "stock": 35 },
+            { "size_label": "20 tampons", "mrp": 330, "price": 295, "stock": 25 }
+        ]
+    },
+
+    # -------------------------------------------------------------
+    # 6. Handwash & Body Cleansing (soaps-bath)
+    # -------------------------------------------------------------
+    {
+        "id": "g1-pc154",
+        "name": "Dettol Original Germ Protection Liquid Handwash",
+        "slug": "dettol-liquid-handwash",
+        "brand": "Dettol",
+        "brand_id": "brand-dettol",
+        "category_id": "soaps-bath",
+        "category": "soaps-bath",
+        "sub_category": "Hand Wash & Body Wash",
+        "subCategory": "Hand Wash & Body Wash",
+        "description": "Dettol Original Liquid Handwash with classic pine scent delivers 100% better protection against illness-causing germs and bacteria.",
+        "image_url": "/products/verified/pc-dettol-liquid-handwash.webp",
+        "queries": [
+            "Dettol Original Liquid Handwash pump bottle packshot amazon india",
+            "Dettol Liquid Handwash pump packshot white background",
+            "Dettol handwash 200ml pump packshot"
+        ],
+        "variants": [
+            { "size_label": "200 ml (Pump)", "mrp": 99, "price": 89, "stock": 50 },
+            { "size_label": "750 ml (Refill Pouch)", "mrp": 130, "price": 115, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-pc155",
+        "name": "Lifebuoy Total 10 Germ Protection Liquid Handwash",
+        "slug": "lifebuoy-liquid-handwash",
+        "brand": "Lifebuoy",
+        "brand_id": "brand-lifebuoy",
+        "category_id": "soaps-bath",
+        "category": "soaps-bath",
+        "sub_category": "Hand Wash & Body Wash",
+        "subCategory": "Hand Wash & Body Wash",
+        "description": "Lifebuoy Total 10 Liquid Handwash powered by Silver Shield formula cleans hands and kills 99.9% germs in just 10 seconds.",
+        "image_url": "/products/verified/pc-lifebuoy-liquid-handwash.webp",
+        "queries": [
+            "Lifebuoy Total 10 Handwash pump bottle packshot amazon india",
+            "Lifebuoy liquid handwash pump packshot white background",
+            "Lifebuoy handwash 190ml pump packshot"
+        ],
+        "variants": [
+            { "size_label": "190 ml (Pump)", "mrp": 95, "price": 85, "stock": 45 },
+            { "size_label": "750 ml (Refill Pouch)", "mrp": 125, "price": 109, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc156",
+        "name": "Savlon Moisture Shield Germ Protection Liquid Handwash",
+        "slug": "savlon-liquid-handwash",
+        "brand": "Savlon",
+        "brand_id": "brand-savlon",
+        "category_id": "soaps-bath",
+        "category": "soaps-bath",
+        "sub_category": "Hand Wash & Body Wash",
+        "subCategory": "Hand Wash & Body Wash",
+        "description": "Savlon Moisture Shield Handwash delivers effective 99.9% germ protection while moisturizing skin to leave hands soft and supple.",
+        "image_url": "/products/verified/pc-savlon-liquid-handwash.webp",
+        "queries": [
+            "Savlon Moisture Shield Handwash pump bottle packshot amazon india",
+            "Savlon Liquid Handwash pump packshot white background",
+            "Savlon handwash 200ml pump packshot"
+        ],
+        "variants": [
+            { "size_label": "200 ml (Pump)", "mrp": 99, "price": 89, "stock": 45 },
+            { "size_label": "725 ml (Refill Pouch)", "mrp": 129, "price": 112, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-pc157",
+        "name": "Dove Deeply Nourishing Moisturising Body Wash",
+        "slug": "dove-deeply-nourishing-body-wash",
+        "brand": "Dove",
+        "brand_id": "brand-dove",
+        "category_id": "soaps-bath",
+        "category": "soaps-bath",
+        "sub_category": "Hand Wash & Body Wash",
+        "subCategory": "Hand Wash & Body Wash",
+        "description": "Dove Deeply Nourishing Body Wash with NutriumMoisture technology penetrates deep into skin layers for softer, smoother skin after just 1 shower.",
+        "image_url": "/products/verified/pc-dove-deeply-nourishing-body-wash.webp",
+        "queries": [
+            "Dove Deeply Nourishing Body Wash bottle packshot amazon india",
+            "Dove body wash deeply nourishing packshot white background",
+            "Dove body wash 500ml packshot"
+        ],
+        "variants": [
+            { "size_label": "190 ml", "mrp": 140, "price": 125, "stock": 35 },
+            { "size_label": "500 ml", "mrp": 349, "price": 299, "stock": 25 }
+        ]
+    },
+    {
+        "id": "g1-pc158",
+        "name": "Nivea Fresh Pure & Lemon & Oil Refreshing Shower Gel",
+        "slug": "nivea-lemon-oil-body-wash",
+        "brand": "Nivea",
+        "brand_id": "brand-nivea",
+        "category_id": "soaps-bath",
+        "category": "soaps-bath",
+        "sub_category": "Hand Wash & Body Wash",
+        "subCategory": "Hand Wash & Body Wash",
+        "description": "Nivea Lemon & Oil Shower Gel enriched with care oil pearls and fresh lemon fragrance invigorates the body with refreshing moisture.",
+        "image_url": "/products/verified/pc-nivea-lemon-oil-body-wash.webp",
+        "queries": [
+            "Nivea Lemon & Oil Shower Gel bottle packshot amazon india",
+            "Nivea Lemon Oil shower gel packshot white background",
+            "Nivea lemon oil body wash 250ml packshot"
+        ],
+        "variants": [
+            { "size_label": "250 ml", "mrp": 249, "price": 219, "stock": 35 },
+            { "size_label": "500 ml", "mrp": 425, "price": 369, "stock": 25 }
+        ]
+    },
+    {
+        "id": "g1-pc159",
+        "name": "Fiama Peach & Avocado Shower Gel with Skin Conditioners",
+        "slug": "fiama-shower-gel",
+        "brand": "Fiama",
+        "brand_id": "brand-fiama",
+        "category_id": "soaps-bath",
+        "category": "soaps-bath",
+        "sub_category": "Hand Wash & Body Wash",
+        "subCategory": "Hand Wash & Body Wash",
+        "description": "Fiama Peach and Avocado Shower Gel gently cleanses with soft, lush foam and moisture lock technology for silky radiant skin.",
+        "image_url": "/products/verified/pc-fiama-shower-gel.webp",
+        "queries": [
+            "Fiama Peach and Avocado Shower Gel bottle packshot amazon india",
+            "Fiama shower gel peach avocado packshot white background",
+            "Fiama shower gel 250ml packshot"
+        ],
+        "variants": [
+            { "size_label": "100 ml", "mrp": 99, "price": 89, "stock": 40 },
+            { "size_label": "250 ml", "mrp": 225, "price": 195, "stock": 30 }
+        ]
+    }
+]
+
+EXPANSION_PATH = os.path.join(ROOT, 'data', 'verified_expansion_59.json')
+with open(EXPANSION_PATH, 'w', encoding='utf-8') as f:
+    json.dump(PRODUCTS_59, f, indent=2)
+print(f"Saved {len(PRODUCTS_59)} items to {EXPANSION_PATH}")

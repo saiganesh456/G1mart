@@ -1,0 +1,886 @@
+[
+  {
+    "id": "g1-pc073",
+    "name": "Santoor Sandal & Almond Milk Bath Soap",
+    "slug": "santoor-sandal-almond-milk-soap",
+    "brand": "Santoor",
+    "brand_id": "brand-santoor",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Santoor Sandal & Almond Milk Soap infuses rich almond milk conditioning and sandalwood nourishment for deeply soft, radiant skin.",
+    "image_url": "/products/verified/pc-santoor-almond-milk-soap.webp",
+    "queries": [
+      "Santoor Sandal & Almond Milk soap packshot amazon india",
+      "Santoor Sandal Almond Milk soap white background",
+      "Santoor almond milk soap 100g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "100 g",
+        "mrp": 40,
+        "price": 38,
+        "stock": 40
+      },
+      {
+        "size_label": "125 g",
+        "mrp": 50,
+        "price": 48,
+        "stock": 35
+      },
+      {
+        "size_label": "150 g",
+        "mrp": 55,
+        "price": 52,
+        "stock": 30
+      }
+    ]
+  },
+  {
+    "id": "g1-pc074",
+    "name": "Santoor White Pure Glow Bath Soap",
+    "slug": "santoor-white-pure-glow-soap",
+    "brand": "Santoor",
+    "brand_id": "brand-santoor",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Santoor White Pure Glow Soap with Sandalwood and Almond milk gives glowing and revitalized skin with deep moisturizing action.",
+    "image_url": "/products/verified/pc-santoor-white-soap.webp",
+    "queries": [
+      "Santoor White Soap packshot amazon india",
+      "Santoor White Pure Glow soap packshot",
+      "Santoor white soap 100g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "100 g",
+        "mrp": 40,
+        "price": 38,
+        "stock": 35
+      },
+      {
+        "size_label": "150 g",
+        "mrp": 55,
+        "price": 52,
+        "stock": 30
+      }
+    ]
+  },
+  {
+    "id": "g1-pc075",
+    "name": "Mysore Sandal Gold Sandalwood Soap",
+    "slug": "mysore-sandal-gold-soap",
+    "brand": "Mysore Sandal",
+    "brand_id": "brand-mysore-sandal",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Mysore Sandal Gold Soap enriched with pure natural sandalwood oil, almond oil and skin moisturizers for premium royal bathing luxury.",
+    "image_url": "/products/verified/pc-mysore-sandal-gold-soap.webp",
+    "queries": [
+      "Mysore Sandal Gold Soap 125g packshot amazon india",
+      "Mysore Sandal Gold soap packshot white background",
+      "Mysore Sandal Gold 125g soap"
+    ],
+    "variants": [
+      {
+        "size_label": "125 g",
+        "mrp": 85,
+        "price": 82,
+        "stock": 40
+      }
+    ]
+  },
+  {
+    "id": "g1-pc076",
+    "name": "Lifebuoy Lemon Fresh Soap",
+    "slug": "lifebuoy-lemon-fresh-soap",
+    "brand": "Lifebuoy",
+    "brand_id": "brand-lifebuoy",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Lifebuoy Lemon Fresh Soap powered by natural lemon juice essence fights 99.9% germs while keeping you feeling cool and energized all day.",
+    "image_url": "/products/verified/pc-lifebuoy-lemon-fresh-soap.webp",
+    "queries": [
+      "Lifebuoy Lemon Fresh Soap 100g packshot amazon india",
+      "Lifebuoy lemon fresh soap packshot white background",
+      "Lifebuoy Lemon Fresh 100g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "100 g",
+        "mrp": 38,
+        "price": 36,
+        "stock": 45
+      },
+      {
+        "size_label": "125 g",
+        "mrp": 48,
+        "price": 45,
+        "stock": 35
+      }
+    ]
+  },
+  {
+    "id": "g1-pc077",
+    "name": "Lifebuoy Neem Germ Protection Soap",
+    "slug": "lifebuoy-neem-soap",
+    "brand": "Lifebuoy",
+    "brand_id": "brand-lifebuoy",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Lifebuoy Neem & Aloe Vera Germ Protection Soap combines the natural antibacterial defense of neem with soothing aloe vera.",
+    "image_url": "/products/verified/pc-lifebuoy-neem-soap.webp",
+    "queries": [
+      "Lifebuoy Neem Soap packshot amazon india",
+      "Lifebuoy Neem and Aloe Vera soap packshot",
+      "Lifebuoy neem 100g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "100 g",
+        "mrp": 38,
+        "price": 36,
+        "stock": 40
+      }
+    ]
+  },
+  {
+    "id": "g1-pc078",
+    "name": "Lux Velvet Touch Jasmine & Vitamin E Bathing Soap",
+    "slug": "lux-velvet-touch-soap",
+    "brand": "Lux",
+    "brand_id": "brand-lux",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Lux Velvet Touch Bathing Soap infused with Jasmine flower essence and nourishing Vitamin E gives velvety soft and fragrant skin.",
+    "image_url": "/products/verified/pc-lux-velvet-touch-soap.webp",
+    "queries": [
+      "Lux Velvet Touch Jasmine Soap 100g packshot amazon india",
+      "Lux Velvet Touch soap packshot white background",
+      "Lux velvet touch jasmine soap packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "100 g",
+        "mrp": 40,
+        "price": 38,
+        "stock": 45
+      },
+      {
+        "size_label": "150 g",
+        "mrp": 58,
+        "price": 54,
+        "stock": 30
+      }
+    ]
+  },
+  {
+    "id": "g1-pc079",
+    "name": "Dove Pink Rosa Beauty Bathing Bar",
+    "slug": "dove-pink-rosa-soap",
+    "brand": "Dove",
+    "brand_id": "brand-dove",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Dove Pink Beauty Bathing Bar with 1/4 moisturising cream and delicate blush tint gives skin radiant glow, silky softness and moisture.",
+    "image_url": "/products/verified/pc-dove-pink-soap.webp",
+    "queries": [
+      "Dove Pink Rosa Beauty Bar soap 100g packshot amazon india",
+      "Dove Pink soap packshot white background",
+      "Dove pink beauty bar 100g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "75 g",
+        "mrp": 68,
+        "price": 65,
+        "stock": 35
+      },
+      {
+        "size_label": "100 g",
+        "mrp": 75,
+        "price": 70,
+        "stock": 40
+      },
+      {
+        "size_label": "125 g",
+        "mrp": 118,
+        "price": 110,
+        "stock": 25
+      }
+    ]
+  },
+  {
+    "id": "g1-pc080",
+    "name": "Dove Fresh Moisture Cucumber & Green Tea Bathing Bar",
+    "slug": "dove-fresh-moisture-soap",
+    "brand": "Dove",
+    "brand_id": "brand-dove",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Dove Go Fresh Moisture Bathing Bar with crisp cucumber and refreshing green tea scent revitalizes skin while locking in natural hydration.",
+    "image_url": "/products/verified/pc-dove-fresh-moisture-soap.webp",
+    "queries": [
+      "Dove Go Fresh Moisture cucumber green tea soap packshot amazon india",
+      "Dove go fresh cucumber soap packshot white background",
+      "Dove Fresh Moisture soap 100g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "75 g",
+        "mrp": 68,
+        "price": 65,
+        "stock": 35
+      },
+      {
+        "size_label": "100 g",
+        "mrp": 92,
+        "price": 85,
+        "stock": 30
+      }
+    ]
+  },
+  {
+    "id": "g1-pc081",
+    "name": "Dettol Skincare Bathing Soap",
+    "slug": "dettol-skincare-soap",
+    "brand": "Dettol",
+    "brand_id": "brand-dettol",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Dettol Skincare Bathing Soap contains added moisturizers to protect sensitive skin from germs while preserving gentle softness.",
+    "image_url": "/products/verified/pc-dettol-skincare-soap.webp",
+    "queries": [
+      "Dettol Skincare Soap packshot amazon india",
+      "Dettol skincare bath soap packshot white background",
+      "Dettol skincare soap 125g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "75 g",
+        "mrp": 42,
+        "price": 40,
+        "stock": 45
+      },
+      {
+        "size_label": "125 g",
+        "mrp": 72,
+        "price": 68,
+        "stock": 35
+      },
+      {
+        "size_label": "150 g",
+        "mrp": 85,
+        "price": 80,
+        "stock": 25
+      }
+    ]
+  },
+  {
+    "id": "g1-pc082",
+    "name": "Dettol Cool Menthol Bathing Soap",
+    "slug": "dettol-cool-soap",
+    "brand": "Dettol",
+    "brand_id": "brand-dettol",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Dettol Cool Bathing Soap infused with crisp menthol provides instant cooling freshness with trusted 99.9% germ protection.",
+    "image_url": "/products/verified/pc-dettol-cool-soap.webp",
+    "queries": [
+      "Dettol Cool Soap 75g packshot amazon india",
+      "Dettol Cool menthol soap packshot white background",
+      "Dettol cool soap 125g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "75 g",
+        "mrp": 42,
+        "price": 40,
+        "stock": 45
+      },
+      {
+        "size_label": "125 g",
+        "mrp": 72,
+        "price": 68,
+        "stock": 35
+      }
+    ]
+  },
+  {
+    "id": "g1-pc083",
+    "name": "Cinthol Cool Bath Soap",
+    "slug": "cinthol-cool-soap",
+    "brand": "Cinthol",
+    "brand_id": "brand-cinthol",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Cinthol Cool Bath Soap with icy menthol crystals gives an intense wave of cooling freshness and 24-hour deodorant skin protection.",
+    "image_url": "/products/verified/pc-cinthol-cool-soap.webp",
+    "queries": [
+      "Cinthol Cool Soap 100g packshot amazon india",
+      "Cinthol Cool menthol soap packshot white background",
+      "Cinthol cool soap 100g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "100 g",
+        "mrp": 42,
+        "price": 39,
+        "stock": 50
+      },
+      {
+        "size_label": "150 g",
+        "mrp": 62,
+        "price": 58,
+        "stock": 35
+      }
+    ]
+  },
+  {
+    "id": "g1-pc084",
+    "name": "Cinthol Lime Bath Soap",
+    "slug": "cinthol-lime-soap",
+    "brand": "Cinthol",
+    "brand_id": "brand-cinthol",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Cinthol Lime Bath Soap with citrus lime freshness revitalizes dull skin and protects against body odor with long-lasting fragrance.",
+    "image_url": "/products/verified/pc-cinthol-lime-soap.webp",
+    "queries": [
+      "Cinthol Lime Soap 100g packshot amazon india",
+      "Cinthol Lime soap packshot white background",
+      "Cinthol lime 100g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "100 g",
+        "mrp": 42,
+        "price": 39,
+        "stock": 45
+      },
+      {
+        "size_label": "150 g",
+        "mrp": 62,
+        "price": 58,
+        "stock": 30
+      }
+    ]
+  },
+  {
+    "id": "g1-pc085",
+    "name": "Pears Oil-Clear & Glow Lemon Flower Bathing Bar",
+    "slug": "pears-oil-clear-soap",
+    "brand": "Pears",
+    "brand_id": "brand-pears",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Pears Oil-Clear & Glow Green Bathing Bar with Lemon Flower extracts gently removes excess oil while preserving natural skin moisture.",
+    "image_url": "/products/verified/pc-pears-oil-clear-soap.webp",
+    "queries": [
+      "Pears Oil Clear & Glow soap 75g packshot amazon india",
+      "Pears Oil Clear green soap packshot white background",
+      "Pears green soap 75g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "75 g",
+        "mrp": 58,
+        "price": 55,
+        "stock": 40
+      },
+      {
+        "size_label": "125 g",
+        "mrp": 95,
+        "price": 88,
+        "stock": 30
+      }
+    ]
+  },
+  {
+    "id": "g1-pc086",
+    "name": "Pears Soft & Fresh Mint Extracts Bathing Bar",
+    "slug": "pears-soft-fresh-soap",
+    "brand": "Pears",
+    "brand_id": "brand-pears",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Pears Soft & Fresh Blue Bathing Bar with pure glycerine and cooling mint extracts keeps skin refreshed, cool and soft.",
+    "image_url": "/products/verified/pc-pears-soft-fresh-soap.webp",
+    "queries": [
+      "Pears Soft & Fresh soap blue 75g packshot amazon india",
+      "Pears Soft and Fresh blue soap packshot white background",
+      "Pears blue soap 75g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "75 g",
+        "mrp": 55,
+        "price": 52,
+        "stock": 35
+      },
+      {
+        "size_label": "125 g",
+        "mrp": 95,
+        "price": 88,
+        "stock": 25
+      }
+    ]
+  },
+  {
+    "id": "g1-pc087",
+    "name": "Godrej No. 1 Lime & Aloe Vera Bath Soap",
+    "slug": "godrej-no-1-lime-soap",
+    "brand": "Godrej No. 1",
+    "brand_id": "brand-godrej-no1",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Godrej No. 1 Lime & Aloe Vera Bath Soap combines fresh lime fragrance and moisturizing aloe vera for soft, radiant Grade 1 skin care.",
+    "image_url": "/products/verified/pc-godrej-no1-lime-soap.webp",
+    "queries": [
+      "Godrej No 1 Lime and Aloe Vera soap 100g packshot amazon india",
+      "Godrej No 1 Lime Aloe Vera soap packshot white background",
+      "Godrej No 1 lime soap 100g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "100 g",
+        "mrp": 30,
+        "price": 28,
+        "stock": 45
+      },
+      {
+        "size_label": "4 x 100 g (Multipack)",
+        "mrp": 115,
+        "price": 105,
+        "stock": 25
+      }
+    ]
+  },
+  {
+    "id": "g1-pc088",
+    "name": "Godrej No. 1 Kesar Milk Cream Bath Soap",
+    "slug": "godrej-no-1-kesar-soap",
+    "brand": "Godrej No. 1",
+    "brand_id": "brand-godrej-no1",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Godrej No. 1 Kesar Milk Cream Bath Soap enriched with saffron and natural milk cream gives fair, soft and luminous skin glow.",
+    "image_url": "/products/verified/pc-godrej-no1-kesar-soap.webp",
+    "queries": [
+      "Godrej No 1 Kesar Milk Cream soap 100g packshot amazon india",
+      "Godrej No 1 Kesar Milk Cream soap packshot white background",
+      "Godrej No 1 kesar milk soap 100g"
+    ],
+    "variants": [
+      {
+        "size_label": "100 g",
+        "mrp": 30,
+        "price": 28,
+        "stock": 45
+      },
+      {
+        "size_label": "4 x 100 g (Multipack)",
+        "mrp": 115,
+        "price": 105,
+        "stock": 25
+      }
+    ]
+  },
+  {
+    "id": "g1-pc089",
+    "name": "Medimix Ayurvedic Sandal with Eladi Oil Soap",
+    "slug": "medimix-sandal-soap",
+    "brand": "Medimix",
+    "brand_id": "brand-medimix",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Medimix Ayurvedic Sandal Soap with traditional Eladi Oil revitalizes skin complexion and enhances natural blemish-free glow.",
+    "image_url": "/products/verified/pc-medimix-sandal-soap.webp",
+    "queries": [
+      "Medimix Ayurvedic Sandal soap 75g packshot amazon india",
+      "Medimix Sandal with Eladi Oil soap packshot white background",
+      "Medimix sandal soap 125g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "75 g",
+        "mrp": 40,
+        "price": 38,
+        "stock": 40
+      },
+      {
+        "size_label": "125 g",
+        "mrp": 60,
+        "price": 55,
+        "stock": 35
+      }
+    ]
+  },
+  {
+    "id": "g1-pc090",
+    "name": "Medimix Ayurvedic Natural Glycerine Soap",
+    "slug": "medimix-glycerine-soap",
+    "brand": "Medimix",
+    "brand_id": "brand-medimix",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Medimix Ayurvedic Natural Glycerine Soap with Lakshadi Oil hydrates dry skin and locks in natural nourishment for lasting softness.",
+    "image_url": "/products/verified/pc-medimix-glycerine-soap.webp",
+    "queries": [
+      "Medimix Ayurvedic Natural Glycerine soap 75g packshot amazon india",
+      "Medimix Glycerine soap packshot white background",
+      "Medimix glycerine soap 125g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "75 g",
+        "mrp": 42,
+        "price": 40,
+        "stock": 35
+      },
+      {
+        "size_label": "125 g",
+        "mrp": 65,
+        "price": 60,
+        "stock": 30
+      }
+    ]
+  },
+  {
+    "id": "g1-pc091",
+    "name": "Margo Original Neem Bathing Soap",
+    "slug": "margo-neem-soap",
+    "brand": "Margo",
+    "brand_id": "brand-margo",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Margo Original Neem Soap made with 100% pure neem oil and Vitamin E deeply cleanses skin with trusted natural antibacterial protection.",
+    "image_url": "/products/verified/pc-margo-neem-soap.webp",
+    "queries": [
+      "Margo Original Neem soap 100g packshot amazon india",
+      "Margo Neem soap packshot white background",
+      "Margo soap 125g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "100 g",
+        "mrp": 38,
+        "price": 36,
+        "stock": 45
+      },
+      {
+        "size_label": "125 g",
+        "mrp": 48,
+        "price": 45,
+        "stock": 35
+      }
+    ]
+  },
+  {
+    "id": "g1-pc092",
+    "name": "Chandrika Ayurvedic Bathing Soap",
+    "slug": "chandrika-ayurvedic-soap",
+    "brand": "Chandrika",
+    "brand_id": "brand-chandrika",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Chandrika Ayurvedic Soap formulated with pure coconut oil, sandalwood, orange and patchouli herbal oils cleanses and clarifies blemishes.",
+    "image_url": "/products/verified/pc-chandrika-soap.webp",
+    "queries": [
+      "Chandrika Ayurvedic soap 75g packshot amazon india",
+      "Chandrika Ayurvedic soap packshot white background",
+      "Chandrika soap 125g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "75 g",
+        "mrp": 35,
+        "price": 32,
+        "stock": 40
+      },
+      {
+        "size_label": "125 g",
+        "mrp": 55,
+        "price": 50,
+        "stock": 30
+      }
+    ]
+  },
+  {
+    "id": "g1-pc093",
+    "name": "Fiama Gel Bar Peach & Avocado Bathing Soap",
+    "slug": "fiama-peach-avocado-soap",
+    "brand": "Fiama",
+    "brand_id": "brand-fiama",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Fiama Gel Bar with Peach and Avocado extracts hydrates skin with gentle conditioners and leaves a long-lasting revitalizing fragrance.",
+    "image_url": "/products/verified/pc-fiama-peach-avocado-soap.webp",
+    "queries": [
+      "Fiama Gel Bar Peach and Avocado soap packshot amazon india",
+      "Fiama Peach Avocado soap packshot white background",
+      "Fiama peach avocado 125g soap"
+    ],
+    "variants": [
+      {
+        "size_label": "125 g",
+        "mrp": 75,
+        "price": 70,
+        "stock": 35
+      }
+    ]
+  },
+  {
+    "id": "g1-pc094",
+    "name": "Fiama Men Cool Burst Gel Bar",
+    "slug": "fiama-men-cool-burst-soap",
+    "brand": "Fiama",
+    "brand_id": "brand-fiama",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Fiama Men Cool Burst Gel Bar formulated with menthol and sea minerals gives skin an invigorating chill with all-day freshness.",
+    "image_url": "/products/verified/pc-fiama-men-cool-soap.webp",
+    "queries": [
+      "Fiama Men Cool Burst Gel Bar soap packshot amazon india",
+      "Fiama Men Cool Burst soap packshot white background",
+      "Fiama Men gel bar 125g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "125 g",
+        "mrp": 75,
+        "price": 70,
+        "stock": 35
+      }
+    ]
+  },
+  {
+    "id": "g1-pc095",
+    "name": "Vivel Aloe Vera & Vitamin E Bath Soap",
+    "slug": "vivel-aloe-vera-soap",
+    "brand": "Vivel",
+    "brand_id": "brand-vivel",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Vivel Aloe Vera Soap enriched with pure Aloe Vera extracts and Vitamin E moisturizes and nourishes skin for a soft satin feel.",
+    "image_url": "/products/verified/pc-vivel-aloe-vera-soap.webp",
+    "queries": [
+      "Vivel Aloe Vera soap 100g packshot amazon india",
+      "Vivel Aloe Vera and Vitamin E soap packshot white background",
+      "Vivel aloe vera soap 100g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "100 g",
+        "mrp": 35,
+        "price": 32,
+        "stock": 45
+      },
+      {
+        "size_label": "4 x 100 g (Multipack)",
+        "mrp": 135,
+        "price": 120,
+        "stock": 25
+      }
+    ]
+  },
+  {
+    "id": "g1-pc096",
+    "name": "Liril Lemon & Tea Tree Oil Bathing Soap",
+    "slug": "liril-lemon-tea-tree-soap",
+    "brand": "Liril",
+    "brand_id": "brand-liril",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Liril Lemon & Tea Tree Oil Soap delivers an iconic bursting blast of lime freshness that awakens the senses and revives tired skin.",
+    "image_url": "/products/verified/pc-liril-lemon-soap.webp",
+    "queries": [
+      "Liril Lemon and Tea Tree Oil soap 75g packshot amazon india",
+      "Liril Lemon Tea Tree Oil soap packshot white background",
+      "Liril soap 125g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "75 g",
+        "mrp": 40,
+        "price": 38,
+        "stock": 40
+      },
+      {
+        "size_label": "125 g",
+        "mrp": 65,
+        "price": 60,
+        "stock": 35
+      }
+    ]
+  },
+  {
+    "id": "g1-pc097",
+    "name": "Rexona Coconut & Olive Oil Bathing Soap",
+    "slug": "rexona-coconut-olive-soap",
+    "brand": "Rexona",
+    "brand_id": "brand-rexona",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Rexona Coconut & Olive Oil Soap crafted with 100% natural oils nourishes skin naturally, keeping it silky soft and smooth.",
+    "image_url": "/products/verified/pc-rexona-soap.webp",
+    "queries": [
+      "Rexona Coconut and Olive Oil soap 100g packshot amazon india",
+      "Rexona soap packshot white background",
+      "Rexona coconut olive oil soap 100g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "100 g",
+        "mrp": 38,
+        "price": 36,
+        "stock": 45
+      },
+      {
+        "size_label": "150 g",
+        "mrp": 55,
+        "price": 50,
+        "stock": 30
+      }
+    ]
+  },
+  {
+    "id": "g1-pc098",
+    "name": "Savlon Moisture Shield Germ Protection Bathing Soap",
+    "slug": "savlon-moisture-shield-soap",
+    "brand": "Savlon",
+    "brand_id": "brand-savlon",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Savlon Moisture Shield Bathing Soap combines trusted 99.9% germ defense with added moisturizers to keep skin protected and soft.",
+    "image_url": "/products/verified/pc-savlon-soap.webp",
+    "queries": [
+      "Savlon Moisture Shield soap 75g packshot amazon india",
+      "Savlon soap packshot white background",
+      "Savlon bathing soap 125g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "75 g",
+        "mrp": 40,
+        "price": 38,
+        "stock": 40
+      },
+      {
+        "size_label": "125 g",
+        "mrp": 65,
+        "price": 60,
+        "stock": 30
+      }
+    ]
+  },
+  {
+    "id": "g1-pc099",
+    "name": "Patanjali Somya Haldi Chandan Bathing Soap",
+    "slug": "patanjali-somya-haldi-chandan-soap",
+    "brand": "Patanjali",
+    "brand_id": "brand-patanjali",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Patanjali Somya Haldi Chandan Bathing Bar with turmeric and sandalwood extracts revitalizes skin, clearing impurities naturally.",
+    "image_url": "/products/verified/pc-patanjali-somya-haldi-soap.webp",
+    "queries": [
+      "Patanjali Somya Haldi Chandan soap 75g packshot amazon india",
+      "Patanjali Somya Haldi Chandan soap packshot white background",
+      "Patanjali Haldi Chandan soap 150g packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "75 g",
+        "mrp": 25,
+        "price": 24,
+        "stock": 50
+      },
+      {
+        "size_label": "150 g",
+        "mrp": 45,
+        "price": 42,
+        "stock": 40
+      }
+    ]
+  },
+  {
+    "id": "g1-pc100",
+    "name": "Patanjali Neem Bathing Soap",
+    "slug": "patanjali-neem-soap",
+    "brand": "Patanjali",
+    "brand_id": "brand-patanjali",
+    "category_id": "soaps-bath",
+    "category": "soaps-bath",
+    "sub_category": "Bathing Soaps",
+    "subCategory": "Bathing Soaps",
+    "description": "Patanjali Neem Bathing Bar made with pure neem extract cleanses body impurities and provides herbal skin protection.",
+    "image_url": "/products/verified/pc-patanjali-neem-soap.webp",
+    "queries": [
+      "Patanjali Neem Bathing soap 75g packshot amazon india",
+      "Patanjali Neem soap packshot white background",
+      "Patanjali neem soap packshot"
+    ],
+    "variants": [
+      {
+        "size_label": "75 g",
+        "mrp": 25,
+        "price": 24,
+        "stock": 50
+      }
+    ]
+  }
+]
