@@ -53,13 +53,13 @@ export const SUPERMARKET_CATEGORIES: Omit<Category, 'itemCount'>[] = [
   },
   {
     "id": "oil-ghee-masala",
-    "name": "Cooking Oils & Ghee",
+    "name": "Oils & Ghee",
     "section_id": "grocery-kitchen",
     "tile_image_url": "/categories/collages/oil-ghee-masala.webp",
     "image": "/categories/collages/oil-ghee-masala.webp",
     "sort_order": 3,
     "icon": "Sparkles",
-    "description": "Freedom sunflower oil, groundnut oil, pure cow ghee (Heritage, Amul) and deepam oil",
+    "description": "Refined sunflower oils, groundnut oils, pure cow ghee (GRB, Amul, Aashirvaad), pooja & castor oils",
     "subcategories": [
       "Sunflower Oil",
       "Groundnut Oil",
@@ -275,12 +275,10 @@ export const SUPERMARKET_CATEGORIES: Omit<Category, 'itemCount'>[] = [
     "image": "/categories/collages/soaps-bath.webp",
     "sort_order": 1,
     "icon": "Sparkles",
-    "description": "Santoor, Lifebuoy, Lux, Medimix, Mysore Sandal, Cinthol, Dettol soap and handwash",
+    "description": "Lifebuoy, Lux, Dove, Santoor, Mysore Sandal, Dettol, Cinthol, Medimix, Pears and Nivea body wash",
     "subcategories": [
-      "Santoor, Lifebuoy & Lux",
-      "Medimix & Mysore Sandal",
-      "Cinthol & Dettol Soap",
-      "Liquid Handwash & Body Wash"
+      "Bathing Soaps",
+      "Hand Wash & Body Wash"
     ]
   },
   {
@@ -291,12 +289,11 @@ export const SUPERMARKET_CATEGORIES: Omit<Category, 'itemCount'>[] = [
     "image": "/categories/collages/hair-care.webp",
     "sort_order": 2,
     "icon": "Sparkles",
-    "description": "Parachute coconut oil, Bajaj almond, Clinic Plus, Head & Shoulders, Sunsilk and Meera",
+    "description": "Clinic Plus, Dove, Head & Shoulders, Sunsilk, Pantene, Parachute, Dabur Amla and Indulekha",
     "subcategories": [
-      "Parachute & Hair Oils",
-      "Clinic Plus & Sunsilk",
-      "Head & Shoulders Shampoo",
-      "Meera Shikakai & Hair Color"
+      "Shampoo & Conditioner",
+      "Hair Oils",
+      "Hair Serum"
     ]
   },
   {
@@ -307,12 +304,10 @@ export const SUPERMARKET_CATEGORIES: Omit<Category, 'itemCount'>[] = [
     "image": "/categories/collages/oral-care.webp",
     "sort_order": 3,
     "icon": "Sparkles",
-    "description": "Colgate, Dabur Red, Close Up, Sensodyne, toothbrushes and tongue cleaners",
+    "description": "Colgate Strong Teeth, MaxFresh, Active Salt, Dabur Red, Closeup, Sensodyne and Listerine",
     "subcategories": [
-      "Colgate & Dabur Red",
-      "Close Up & Sensodyne",
-      "Toothbrushes",
-      "Tongue Cleaners & Mouthwash"
+      "Toothpaste",
+      "Toothbrushes & Mouthwash"
     ]
   },
   {
@@ -323,13 +318,12 @@ export const SUPERMARKET_CATEGORIES: Omit<Category, 'itemCount'>[] = [
     "image": "/categories/collages/skin-care.webp",
     "sort_order": 4,
     "icon": "Heart",
-    "description": "Glow & Lovely, Ponds talc, Vaseline, Nivea, Himalaya neem face wash, deos and razors",
+    "description": "Himalaya neem face wash, Glow & Lovely, Ponds cream, Nivea soft, Lacto Calamine and Boroplus",
     "subcategories": [
-      "Fair & Lovely / Glow & Lovely",
-      "Ponds Talc & Cold Cream",
-      "Vaseline & Nivea Lotions",
-      "Himalaya Neem Face Wash",
-      "Deodorants & Shaving"
+      "Face Wash",
+      "Face Creams & Lotions",
+      "Rose Water & Face Packs",
+      "Skin Gels"
     ]
   },
   {
@@ -340,28 +334,25 @@ export const SUPERMARKET_CATEGORIES: Omit<Category, 'itemCount'>[] = [
     "image": "/categories/collages/baby-care.webp",
     "sort_order": 5,
     "icon": "Baby",
-    "description": "Pampers and MamyPoko diapers, baby wipes, Johnson's baby soap and Cerelac",
+    "description": "Pampers and Huggies diaper pants, Johnson's and Himalaya baby powder, lotion and massage oil",
     "subcategories": [
-      "Pampers & MamyPoko Diapers",
-      "Baby Wipes",
-      "Johnson's Baby Soap & Powder",
-      "Nestle Cerelac & Baby Food"
+      "Baby Diapers & Wipes",
+      "Baby Bath, Lotion & Powders"
     ]
   },
   {
     "id": "hygiene",
-    "name": "Feminine Hygiene",
+    "name": "Hygiene & Grooming",
     "section_id": "personal-care",
     "tile_image_url": "/categories/collages/hygiene.webp",
     "image": "/categories/collages/hygiene.webp",
     "sort_order": 6,
     "icon": "ShieldCheck",
-    "description": "Whisper Choice, Stayfree Secure, Sofy sanitary napkins, panty liners and intimate wash",
+    "description": "Whisper Ultra, Stayfree Secure, Fogg, Engage, Wild Stone, Gillette shaving and Veet",
     "subcategories": [
-      "Whisper Sanitary Pads",
-      "Stayfree Secure",
-      "Sofy Pads",
-      "Panty Liners & Intimate Wash"
+      "Deodorants & Fragrances",
+      "Shaving & Hair Removal",
+      "Sanitary Pads & Napkins"
     ]
   },
   {

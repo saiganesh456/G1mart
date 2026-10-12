@@ -212,7 +212,7 @@ export default function ProductImage({
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
           onError={() => setHasError(true)}
-          className={`w-full h-full object-contain p-1.5 transition-transform duration-200 select-none ${className}`}
+          className={`w-full h-full object-contain p-0.5 sm:p-1 transition-transform duration-200 select-none ${className}`}
         />
       ) : (
         // Blinkit style: tinted square with pack-type icon and brand initial monogram, NO filler text

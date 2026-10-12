@@ -10,10 +10,13 @@ const LEGACY_ID_MAP: Record<string, string> = legacyMapRaw as Record<string, str
 export function resolveLegacyId(id: string): string {
   if (!id) return id;
   const cleaned = id.trim();
-  if (cleaned.startsWith('g1-p') && cleaned.length >= 7) {
-    return cleaned;
+  if (LEGACY_ID_MAP[cleaned]) {
+    return LEGACY_ID_MAP[cleaned];
   }
-  return LEGACY_ID_MAP[cleaned] || LEGACY_ID_MAP[cleaned.toLowerCase()] || cleaned;
+  if (LEGACY_ID_MAP[cleaned.toLowerCase()]) {
+    return LEGACY_ID_MAP[cleaned.toLowerCase()];
+  }
+  return cleaned;
 }
 
 export { LEGACY_ID_MAP };

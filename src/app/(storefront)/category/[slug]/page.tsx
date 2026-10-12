@@ -17,6 +17,10 @@ const CATEGORY_ALIASES: Record<string, string> = {
   'soaps': 'soaps-bath',
   'soap': 'soaps-bath',
   'bath': 'soaps-bath',
+  'oils-ghee': 'oil-ghee-masala',
+  'oil-ghee': 'oil-ghee-masala',
+  'cooking-oils': 'oil-ghee-masala',
+  'cooking-oil-ghee': 'oil-ghee-masala',
 };
 
 export default async function CategoryPage({ params }: Props) {

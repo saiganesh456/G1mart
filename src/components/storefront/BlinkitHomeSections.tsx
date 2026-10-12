@@ -17,9 +17,10 @@ interface BlinkitHomeSectionsProps {
  * No per-section colour overrides.
  */
 function CategoryTileItem({ cat }: { cat: Category }) {
-  const tileUrl = (categoryTilesMap as Record<string, string>)[cat.id]
+  const rawUrl = (categoryTilesMap as Record<string, string>)[cat.id]
     || cat.tile_image_url
     || `/categories/collages/${cat.id}.webp`;
+  const tileUrl = rawUrl.includes('?') ? rawUrl : `${rawUrl}?v=20261013-fmcg`;
 
   return (
     <Link
@@ -47,7 +48,7 @@ function CategoryTileItem({ cat }: { cat: Category }) {
           decoding="async"
           onError={(e) => {
             const t = e.currentTarget as HTMLImageElement;
-            if (!t.src.endsWith('.svg')) t.src = `/categories/collages/${cat.id}.svg`;
+            if (!t.src.includes('.svg')) t.src = `/categories/collages/${cat.id}.svg`;
           }}
           className="w-[90%] h-[90%] object-contain select-none transition-transform duration-200 group-hover:scale-108"
           style={{ filter: 'drop-shadow(0 2px 5px rgba(0,0,0,.1))' }}

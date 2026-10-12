@@ -197,16 +197,15 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           boxShadow: 'var(--g1-e1)',
         }}
       >
-        {/* Image area — 1:1, object-fit contain, no background behind cut-outs */}
+        {/* Image area — enlarged aspect ratio and container for crisp packshot visibility */}
         <Link
           href={`/product/${product.id}`}
-          className="relative w-full aspect-square overflow-hidden flex items-center justify-center mb-2 block"
-          style={{ backgroundColor: 'var(--g1-bg)' }}
+          className="relative w-full aspect-[4/4.4] sm:aspect-[4/4.2] min-h-[160px] sm:min-h-[180px] overflow-hidden flex items-center justify-center mb-2.5 block rounded-2xl bg-white"
         >
           {/* Discount badge — yellow accent, only when real MRP > price */}
           {discount > 0 && effectiveInStock && (
             <span
-              className="absolute top-1.5 left-1.5 z-10 text-[9px] font-black px-1.5 py-0.5 rounded"
+              className="absolute top-1.5 left-1.5 z-10 text-[9px] font-black px-1.5 py-0.5 rounded shadow-2xs"
               style={{ backgroundColor: 'var(--g1-yellow)', color: '#000' }}
             >
               {discount}% OFF
@@ -241,7 +240,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           {/* Brand — 12px secondary, one line, only if branded */}
           {brandLabel && (
             <div className="text-[11px] truncate uppercase tracking-wider leading-none"
-              style={{ color: 'var(--g1-text-secondary)', fontWeight: 500 }}>
+              style={{ color: 'var(--g1-text-secondary)', fontWeight: 600 }}>
               {brandLabel}
             </div>
           )}
@@ -250,7 +249,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           <Link href={`/product/${product.id}`} className="block">
             <h3
               className="line-clamp-2 leading-snug group-hover:text-[var(--g1-primary)] transition-colors"
-              style={{ fontSize: 13, fontWeight: 500, color: 'var(--g1-text)', minHeight: '2.5em' }}
+              style={{ fontSize: 13, fontWeight: 600, color: 'var(--g1-text)', minHeight: '2.5em' }}
             >
               {product.name}
             </h3>
@@ -261,7 +260,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
             <button
               type="button"
               onClick={() => variants.length > 1 && setSheetOpen(true)}
-              className="self-start flex items-center gap-0.5 px-1.5 py-0.5 transition-colors leading-none"
+              className="self-start flex items-center gap-0.5 px-2 py-0.5 transition-colors leading-none"
               style={{
                 borderRadius: 'var(--g1-r-chip)',
                 border: '1px solid var(--g1-border)',
@@ -272,7 +271,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
               }}
               aria-label={variants.length > 1 ? `Select size — currently ${unitLabel}` : unitLabel}
             >
-              <span className="truncate max-w-[70px]">{unitLabel}</span>
+              <span className="truncate max-w-[105px]">{unitLabel}</span>
               {variants.length > 1 && <ChevronDown className="w-2.5 h-2.5 shrink-0" />}
             </button>
           )}

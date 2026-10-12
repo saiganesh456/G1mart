@@ -1537,5 +1537,80 @@
     "id": "brand-various-brands",
     "name": "Various brands",
     "logo_url": null
+  },
+  {
+    "id": "brand-grb",
+    "name": "GRB",
+    "logo_url": "/brands/grb.webp"
+  },
+  {
+    "id": "brand-vijaya",
+    "name": "Vijaya",
+    "logo_url": "/brands/vijaya.webp"
+  },
+  {
+    "id": "brand-g1mart",
+    "name": "G1mart",
+    "logo_url": "/brand/g1mart-logo.svg"
+  },
+  {
+    "id": "brand-godrej-no1",
+    "name": "Godrej No. 1",
+    "logo_url": null
+  },
+  {
+    "id": "brand-vivel",
+    "name": "Vivel",
+    "logo_url": null
+  },
+  {
+    "id": "brand-pantene",
+    "name": "Pantene",
+    "logo_url": null
+  },
+  {
+    "id": "brand-navratna",
+    "name": "Navratna",
+    "logo_url": null
+  },
+  {
+    "id": "brand-livon",
+    "name": "Livon",
+    "logo_url": null
+  },
+  {
+    "id": "brand-garnier-men",
+    "name": "Garnier Men",
+    "logo_url": null
+  },
+  {
+    "id": "brand-everyuth",
+    "name": "Everyuth Naturals",
+    "logo_url": null
+  },
+  {
+    "id": "brand-lacto-calamine",
+    "name": "Lacto Calamine",
+    "logo_url": null
+  },
+  {
+    "id": "brand-banjaras",
+    "name": "Banjara's",
+    "logo_url": null
+  },
+  {
+    "id": "brand-closeup",
+    "name": "Closeup",
+    "logo_url": null
+  },
+  {
+    "id": "brand-listerine",
+    "name": "Listerine",
+    "logo_url": null
+  },
+  {
+    "id": "brand-wild-stone",
+    "name": "Wild Stone",
+    "logo_url": null
   }
 ]

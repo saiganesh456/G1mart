@@ -35,18 +35,18 @@
   },
   {
     "id": "oil-ghee-masala",
-    "name": "Cooking Oils & Ghee",
+    "name": "Oils & Ghee",
     "section_id": "grocery-kitchen",
     "tile_image_url": "/categories/collages/oil-ghee-masala.webp",
     "image": "/categories/collages/oil-ghee-masala.webp",
     "sort_order": 3,
     "icon": "Sparkles",
-    "description": "Freedom sunflower oil, groundnut oil, pure cow ghee (Heritage, Amul) and deepam oil",
+    "description": "Refined sunflower oils, groundnut oils, pure cow ghee (GRB, Amul, Aashirvaad), pooja & castor oils",
     "subcategories": [
       "Sunflower Oil",
-      "Groundnut Oil",
+      "Groundnut & Specialty Oils",
       "Pure Cow Ghee",
-      "Deepam & Pooja Oils"
+      "Pooja & Lamp Oils"
     ]
   },
   {
@@ -259,10 +259,8 @@
     "icon": "Sparkles",
     "description": "Santoor, Lifebuoy, Lux, Medimix, Mysore Sandal, Cinthol, Dettol soap and handwash",
     "subcategories": [
-      "Santoor, Lifebuoy & Lux",
-      "Medimix & Mysore Sandal",
-      "Cinthol & Dettol Soap",
-      "Liquid Handwash & Body Wash"
+      "Bathing Soaps",
+      "Hand Wash & Body Wash"
     ]
   },
   {
@@ -275,10 +273,9 @@
     "icon": "Sparkles",
     "description": "Parachute coconut oil, Bajaj almond, Clinic Plus, Head & Shoulders, Sunsilk and Meera",
     "subcategories": [
-      "Parachute & Hair Oils",
-      "Clinic Plus & Sunsilk",
-      "Head & Shoulders Shampoo",
-      "Meera Shikakai & Hair Color"
+      "Shampoo & Conditioner",
+      "Hair Oils",
+      "Hair Serum"
     ]
   },
   {
@@ -291,10 +288,8 @@
     "icon": "Sparkles",
     "description": "Colgate, Dabur Red, Close Up, Sensodyne, toothbrushes and tongue cleaners",
     "subcategories": [
-      "Colgate & Dabur Red",
-      "Close Up & Sensodyne",
-      "Toothbrushes",
-      "Tongue Cleaners & Mouthwash"
+      "Toothpaste",
+      "Toothbrushes & Mouthwash"
     ]
   },
   {
@@ -307,11 +302,10 @@
     "icon": "Heart",
     "description": "Glow & Lovely, Ponds talc, Vaseline, Nivea, Himalaya neem face wash, deos and razors",
     "subcategories": [
-      "Fair & Lovely / Glow & Lovely",
-      "Ponds Talc & Cold Cream",
-      "Vaseline & Nivea Lotions",
-      "Himalaya Neem Face Wash",
-      "Deodorants & Shaving"
+      "Face Wash",
+      "Face Creams & Lotions",
+      "Rose Water & Face Packs",
+      "Skin Gels"
     ]
   },
   {
@@ -324,10 +318,8 @@
     "icon": "Baby",
     "description": "Pampers and MamyPoko diapers, baby wipes, Johnson's baby soap and Cerelac",
     "subcategories": [
-      "Pampers & MamyPoko Diapers",
-      "Baby Wipes",
-      "Johnson's Baby Soap & Powder",
-      "Nestle Cerelac & Baby Food"
+      "Baby Diapers & Wipes",
+      "Baby Bath, Lotion & Powders"
     ]
   },
   {
@@ -340,10 +332,9 @@
     "icon": "ShieldCheck",
     "description": "Whisper Choice, Stayfree Secure, Sofy sanitary napkins, panty liners and intimate wash",
     "subcategories": [
-      "Whisper Sanitary Pads",
-      "Stayfree Secure",
-      "Sofy Pads",
-      "Panty Liners & Intimate Wash"
+      "Deodorants & Fragrances",
+      "Shaving & Hair Removal",
+      "Sanitary Pads & Napkins"
     ]
   },
   {

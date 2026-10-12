@@ -40,78 +40,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0005-v1",
-    "product_id": "g1-p0005",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0006-v1",
-    "product_id": "g1-p0006",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0006-v2",
-    "product_id": "g1-p0006",
-    "size_label": "1 unit",
-    "price": 70,
-    "mrp": 78,
-    "stock": 70
-  },
-  {
-    "id": "g1-p0006-v3",
-    "product_id": "g1-p0006",
-    "size_label": " g",
-    "price": 20,
-    "mrp": 22,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0006-v4",
-    "product_id": "g1-p0006",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0007-v1",
-    "product_id": "g1-p0007",
-    "size_label": "4+1",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0008-v1",
-    "product_id": "g1-p0008",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0009-v1",
-    "product_id": "g1-p0009",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0010-v1",
-    "product_id": "g1-p0010",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0011-v1",
     "product_id": "g1-p0011",
     "size_label": "1 unit",
@@ -184,14 +112,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0017-v1",
-    "product_id": "g1-p0017",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0018-v1",
     "product_id": "g1-p0018",
     "size_label": " g",
@@ -203,22 +123,6 @@
     "id": "g1-p0019-v1",
     "product_id": "g1-p0019",
     "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0020-v1",
-    "product_id": "g1-p0020",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0021-v1",
-    "product_id": "g1-p0021",
-    "size_label": " g",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -238,46 +142,6 @@
     "price": 45,
     "mrp": 50,
     "stock": 35
-  },
-  {
-    "id": "g1-p0023-v1",
-    "product_id": "g1-p0023",
-    "size_label": " g",
-    "price": 38,
-    "mrp": 42,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0023-v2",
-    "product_id": "g1-p0023",
-    "size_label": " g",
-    "price": 65,
-    "mrp": 72,
-    "stock": 20
-  },
-  {
-    "id": "g1-p0023-v3",
-    "product_id": "g1-p0023",
-    "size_label": "4x75g",
-    "price": 145,
-    "mrp": 165,
-    "stock": 0
-  },
-  {
-    "id": "g1-p0023-v4",
-    "product_id": "g1-p0023",
-    "size_label": "4x125g (Buy 3 Get 1)",
-    "price": 245,
-    "mrp": 285,
-    "stock": 15
-  },
-  {
-    "id": "g1-p0024-v1",
-    "product_id": "g1-p0024",
-    "size_label": "1 unit",
-    "price": 39,
-    "mrp": 44,
-    "stock": 70
   },
   {
     "id": "g1-p0025-v1",
@@ -339,14 +203,6 @@
     "id": "g1-p0032-v1",
     "product_id": "g1-p0032",
     "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0033-v1",
-    "product_id": "g1-p0033",
-    "size_label": " g",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -488,14 +344,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0047-v1",
-    "product_id": "g1-p0047",
-    "size_label": "1 unit",
-    "price": 10,
-    "mrp": 11,
-    "stock": 35
-  },
-  {
     "id": "g1-p0048-v1",
     "product_id": "g1-p0048",
     "size_label": "1 unit",
@@ -565,14 +413,6 @@
     "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0057-v1",
-    "product_id": "g1-p0057",
-    "size_label": "1 unit",
-    "price": 24,
-    "mrp": 27,
     "stock": 35
   },
   {
@@ -669,14 +509,6 @@
     "size_label": "1 unit",
     "price": 10,
     "mrp": 11,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0068-v1",
-    "product_id": "g1-p0068",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
     "stock": 35
   },
   {
@@ -872,30 +704,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0089-v1",
-    "product_id": "g1-p0089",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0090-v1",
-    "product_id": "g1-p0090",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0091-v1",
-    "product_id": "g1-p0091",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0092-v1",
     "product_id": "g1-p0092",
     "size_label": " g",
@@ -976,14 +784,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0097-v1",
-    "product_id": "g1-p0097",
-    "size_label": " ml",
-    "price": 185,
-    "mrp": 207,
-    "stock": 70
-  },
-  {
     "id": "g1-p0098-v1",
     "product_id": "g1-p0098",
     "size_label": " ml",
@@ -992,104 +792,8 @@
     "stock": 35
   },
   {
-    "id": "g1-p0099-v1",
-    "product_id": "g1-p0099",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0100-v1",
-    "product_id": "g1-p0100",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0101-v1",
-    "product_id": "g1-p0101",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0102-v1",
-    "product_id": "g1-p0102",
-    "size_label": "200ml (Pump)",
-    "price": 85,
-    "mrp": 95,
-    "stock": 20
-  },
-  {
-    "id": "g1-p0102-v2",
-    "product_id": "g1-p0102",
-    "size_label": "175ml (Refill)",
-    "price": 48,
-    "mrp": 55,
-    "stock": 18
-  },
-  {
-    "id": "g1-p0102-v3",
-    "product_id": "g1-p0102",
-    "size_label": "750ml (Refill Pack)",
-    "price": 140,
-    "mrp": 165,
-    "stock": 0
-  },
-  {
     "id": "g1-p0103-v1",
     "product_id": "g1-p0103",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0104-v1",
-    "product_id": "g1-p0104",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0104-v2",
-    "product_id": "g1-p0104",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0105-v1",
-    "product_id": "g1-p0105",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 70
-  },
-  {
-    "id": "g1-p0106-v1",
-    "product_id": "g1-p0106",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0107-v1",
-    "product_id": "g1-p0107",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 70
-  },
-  {
-    "id": "g1-p0108-v1",
-    "product_id": "g1-p0108",
     "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
@@ -1106,22 +810,6 @@
   {
     "id": "g1-p0110-v1",
     "product_id": "g1-p0110",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0111-v1",
-    "product_id": "g1-p0111",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0112-v1",
-    "product_id": "g1-p0112",
     "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
@@ -1152,54 +840,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0116-v1",
-    "product_id": "g1-p0116",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0117-v1",
-    "product_id": "g1-p0117",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0117-v2",
-    "product_id": "g1-p0117",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0117-v3",
-    "product_id": "g1-p0117",
-    "size_label": " ml",
-    "price": 110,
-    "mrp": 123,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0117-v4",
-    "product_id": "g1-p0117",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0117-v5",
-    "product_id": "g1-p0117",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0118-v1",
     "product_id": "g1-p0118",
     "size_label": "1 unit",
@@ -1216,147 +856,11 @@
     "stock": 35
   },
   {
-    "id": "g1-p0120-v1",
-    "product_id": "g1-p0120",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0121-v1",
     "product_id": "g1-p0121",
     "size_label": " g",
     "price": 45,
     "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0122-v1",
-    "product_id": "g1-p0122",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0123-v1",
-    "product_id": "g1-p0123",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 70
-  },
-  {
-    "id": "g1-p0124-v1",
-    "product_id": "g1-p0124",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0125-v1",
-    "product_id": "g1-p0125",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0126-v1",
-    "product_id": "g1-p0126",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0127-v1",
-    "product_id": "g1-p0127",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0128-v1",
-    "product_id": "g1-p0128",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0129-v1",
-    "product_id": "g1-p0129",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0130-v1",
-    "product_id": "g1-p0130",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0131-v1",
-    "product_id": "g1-p0131",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0132-v1",
-    "product_id": "g1-p0132",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0133-v1",
-    "product_id": "g1-p0133",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0134-v1",
-    "product_id": "g1-p0134",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0135-v1",
-    "product_id": "g1-p0135",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0136-v1",
-    "product_id": "g1-p0136",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0137-v1",
-    "product_id": "g1-p0137",
-    "size_label": "1 unit",
-    "price": 135,
-    "mrp": 151,
     "stock": 35
   },
   {
@@ -1371,38 +875,6 @@
     "id": "g1-p0139-v1",
     "product_id": "g1-p0139",
     "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0140-v1",
-    "product_id": "g1-p0140",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0141-v1",
-    "product_id": "g1-p0141",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0142-v1",
-    "product_id": "g1-p0142",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0143-v1",
-    "product_id": "g1-p0143",
-    "size_label": " g",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -1480,22 +952,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0153-v1",
-    "product_id": "g1-p0153",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0154-v1",
-    "product_id": "g1-p0154",
-    "size_label": "1 unit",
-    "price": 18,
-    "mrp": 20,
-    "stock": 35
-  },
-  {
     "id": "g1-p0155-v1",
     "product_id": "g1-p0155",
     "size_label": " kg",
@@ -1528,14 +984,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0156-v1",
-    "product_id": "g1-p0156",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0157-v1",
     "product_id": "g1-p0157",
     "size_label": "1 unit",
@@ -1552,41 +1000,9 @@
     "stock": 35
   },
   {
-    "id": "g1-p0159-v1",
-    "product_id": "g1-p0159",
-    "size_label": " g",
-    "price": 40,
-    "mrp": 44,
-    "stock": 25
-  },
-  {
-    "id": "g1-p0159-v2",
-    "product_id": "g1-p0159",
-    "size_label": " g",
-    "price": 68,
-    "mrp": 75,
-    "stock": 18
-  },
-  {
-    "id": "g1-p0159-v3",
-    "product_id": "g1-p0159",
-    "size_label": "4x125g",
-    "price": 255,
-    "mrp": 295,
-    "stock": 10
-  },
-  {
     "id": "g1-p0160-v1",
     "product_id": "g1-p0160",
     "size_label": " kg",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0161-v1",
-    "product_id": "g1-p0161",
-    "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -1632,14 +1048,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0166-v1",
-    "product_id": "g1-p0166",
-    "size_label": " kg",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0167-v1",
     "product_id": "g1-p0167",
     "size_label": "1 unit",
@@ -1659,14 +1067,6 @@
     "id": "g1-p0169-v1",
     "product_id": "g1-p0169",
     "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0170-v1",
-    "product_id": "g1-p0170",
-    "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -1784,14 +1184,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0180-v1",
-    "product_id": "g1-p0180",
-    "size_label": "1 unit",
-    "price": 48,
-    "mrp": 54,
-    "stock": 35
-  },
-  {
     "id": "g1-p0181-v1",
     "product_id": "g1-p0181",
     "size_label": " ml",
@@ -1848,27 +1240,11 @@
     "stock": 70
   },
   {
-    "id": "g1-p0187-v1",
-    "product_id": "g1-p0187",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 70
-  },
-  {
     "id": "g1-p0188-v1",
     "product_id": "g1-p0188",
     "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0189-v1",
-    "product_id": "g1-p0189",
-    "size_label": "1 unit",
-    "price": 205,
-    "mrp": 230,
     "stock": 35
   },
   {
@@ -1885,38 +1261,6 @@
     "size_label": " g",
     "price": 45,
     "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0192-v1",
-    "product_id": "g1-p0192",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0193-v1",
-    "product_id": "g1-p0193",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0193-v2",
-    "product_id": "g1-p0193",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0193-v3",
-    "product_id": "g1-p0193",
-    "size_label": " g",
-    "price": 5,
-    "mrp": 6,
     "stock": 35
   },
   {
@@ -2000,14 +1344,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0201-v1",
-    "product_id": "g1-p0201",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0202-v1",
     "product_id": "g1-p0202",
     "size_label": "1 unit",
@@ -2059,14 +1395,6 @@
     "id": "g1-p0208-v1",
     "product_id": "g1-p0208",
     "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0209-v1",
-    "product_id": "g1-p0209",
-    "size_label": " g",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -2170,14 +1498,6 @@
   {
     "id": "g1-p0221-v1",
     "product_id": "g1-p0221",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0222-v1",
-    "product_id": "g1-p0222",
     "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
@@ -2408,43 +1728,11 @@
     "stock": 35
   },
   {
-    "id": "g1-p0249-v1",
-    "product_id": "g1-p0249",
-    "size_label": " g",
-    "price": 140,
-    "mrp": 157,
-    "stock": 35
-  },
-  {
     "id": "g1-p0250-v1",
     "product_id": "g1-p0250",
     "size_label": "1 unit",
     "price": 100,
     "mrp": 112,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0251-v1",
-    "product_id": "g1-p0251",
-    "size_label": " g",
-    "price": 20,
-    "mrp": 22,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0251-v2",
-    "product_id": "g1-p0251",
-    "size_label": " g",
-    "price": 70,
-    "mrp": 78,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0251-v3",
-    "product_id": "g1-p0251",
-    "size_label": " g",
-    "price": 198,
-    "mrp": 222,
     "stock": 35
   },
   {
@@ -2520,14 +1808,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0261-v1",
-    "product_id": "g1-p0261",
-    "size_label": "1 unit",
-    "price": 95,
-    "mrp": 106,
-    "stock": 35
-  },
-  {
     "id": "g1-p0262-v1",
     "product_id": "g1-p0262",
     "size_label": "Packs",
@@ -2576,14 +1856,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0268-v1",
-    "product_id": "g1-p0268",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0269-v1",
     "product_id": "g1-p0269",
     "size_label": "1 unit",
@@ -2598,14 +1870,6 @@
     "price": 45,
     "mrp": 50,
     "stock": 35
-  },
-  {
-    "id": "g1-p0271-v1",
-    "product_id": "g1-p0271",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 70
   },
   {
     "id": "g1-p0272-v1",
@@ -2637,14 +1901,6 @@
     "size_label": " g",
     "price": 30,
     "mrp": 34,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0274-v1",
-    "product_id": "g1-p0274",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
     "stock": 35
   },
   {
@@ -2680,30 +1936,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0279-v1",
-    "product_id": "g1-p0279",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0279-v2",
-    "product_id": "g1-p0279",
-    "size_label": " L",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0279-v3",
-    "product_id": "g1-p0279",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0280-v1",
     "product_id": "g1-p0280",
     "size_label": " g",
@@ -2730,14 +1962,6 @@
   {
     "id": "g1-p0283-v1",
     "product_id": "g1-p0283",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0284-v1",
-    "product_id": "g1-p0284",
     "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
@@ -2776,24 +2000,8 @@
     "stock": 35
   },
   {
-    "id": "g1-p0289-v1",
-    "product_id": "g1-p0289",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0290-v1",
     "product_id": "g1-p0290",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0292-v1",
-    "product_id": "g1-p0292",
     "size_label": " g",
     "price": 45,
     "mrp": 50,
@@ -2808,24 +2016,8 @@
     "stock": 35
   },
   {
-    "id": "g1-p0294-v1",
-    "product_id": "g1-p0294",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0295-v1",
     "product_id": "g1-p0295",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0296-v1",
-    "product_id": "g1-p0296",
     "size_label": " g",
     "price": 45,
     "mrp": 50,
@@ -2968,14 +2160,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0313-v1",
-    "product_id": "g1-p0313",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0314-v1",
     "product_id": "g1-p0314",
     "size_label": " g",
@@ -3024,30 +2208,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0318-v1",
-    "product_id": "g1-p0318",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0319-v1",
-    "product_id": "g1-p0319",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0320-v1",
-    "product_id": "g1-p0320",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0321-v1",
     "product_id": "g1-p0321",
     "size_label": " ml",
@@ -3078,14 +2238,6 @@
     "price": 52.4,
     "mrp": 59,
     "stock": 105
-  },
-  {
-    "id": "g1-p0324-v1",
-    "product_id": "g1-p0324",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 70
   },
   {
     "id": "g1-p0325-v1",
@@ -3179,14 +2331,6 @@
     "id": "g1-p0330-v1",
     "product_id": "g1-p0330",
     "size_label": " kg",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0331-v1",
-    "product_id": "g1-p0331",
-    "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -3296,14 +2440,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0345-v1",
-    "product_id": "g1-p0345",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0346-v1",
     "product_id": "g1-p0346",
     "size_label": "1 unit",
@@ -3315,22 +2451,6 @@
     "id": "g1-p0347-v1",
     "product_id": "g1-p0347",
     "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0348-v1",
-    "product_id": "g1-p0348",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0349-v1",
-    "product_id": "g1-p0349",
-    "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -3368,46 +2488,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0353-v1",
-    "product_id": "g1-p0353",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0354-v1",
-    "product_id": "g1-p0354",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0355-v1",
-    "product_id": "g1-p0355",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0356-v1",
-    "product_id": "g1-p0356",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0357-v1",
-    "product_id": "g1-p0357",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0358-v1",
     "product_id": "g1-p0358",
     "size_label": " g",
@@ -3440,14 +2520,6 @@
     "stock": 105
   },
   {
-    "id": "g1-p0360-v1",
-    "product_id": "g1-p0360",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0361-v1",
     "product_id": "g1-p0361",
     "size_label": "1 unit",
@@ -3467,30 +2539,6 @@
     "id": "g1-p0363-v1",
     "product_id": "g1-p0363",
     "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0364-v1",
-    "product_id": "g1-p0364",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0364-v2",
-    "product_id": "g1-p0364",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0365-v1",
-    "product_id": "g1-p0365",
-    "size_label": " ml",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -3520,46 +2568,6 @@
     "stock": 70
   },
   {
-    "id": "g1-p0369-v1",
-    "product_id": "g1-p0369",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0370-v1",
-    "product_id": "g1-p0370",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0371-v1",
-    "product_id": "g1-p0371",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0372-v1",
-    "product_id": "g1-p0372",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0372-v2",
-    "product_id": "g1-p0372",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0373-v1",
     "product_id": "g1-p0373",
     "size_label": " ml",
@@ -3582,22 +2590,6 @@
     "price": 45,
     "mrp": 50,
     "stock": 35
-  },
-  {
-    "id": "g1-p0375-v1",
-    "product_id": "g1-p0375",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0376-v1",
-    "product_id": "g1-p0376",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 70
   },
   {
     "id": "g1-p0377-v1",
@@ -4024,14 +3016,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0418-v1",
-    "product_id": "g1-p0418",
-    "size_label": " L",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0419-v1",
     "product_id": "g1-p0419",
     "size_label": "Number",
@@ -4080,14 +3064,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0424-v1",
-    "product_id": "g1-p0424",
-    "size_label": "Bag",
-    "price": 14,
-    "mrp": 16,
-    "stock": 35
-  },
-  {
     "id": "g1-p0425-v1",
     "product_id": "g1-p0425",
     "size_label": "1 unit",
@@ -4128,14 +3104,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0430-v1",
-    "product_id": "g1-p0430",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0431-v1",
     "product_id": "g1-p0431",
     "size_label": " g",
@@ -4144,35 +3112,11 @@
     "stock": 35
   },
   {
-    "id": "g1-p0432-v1",
-    "product_id": "g1-p0432",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0433-v1",
-    "product_id": "g1-p0433",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0434-v1",
     "product_id": "g1-p0434",
     "size_label": " kg",
     "price": 90,
     "mrp": 101,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0435-v1",
-    "product_id": "g1-p0435",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
     "stock": 35
   },
   {
@@ -4205,30 +3149,6 @@
     "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0438-v1",
-    "product_id": "g1-p0438",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0439-v1",
-    "product_id": "g1-p0439",
-    "size_label": "Packs",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0439-v2",
-    "product_id": "g1-p0439",
-    "size_label": " g",
-    "price": 135,
-    "mrp": 151,
     "stock": 35
   },
   {
@@ -4360,14 +3280,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0448-v1",
-    "product_id": "g1-p0448",
-    "size_label": " g",
-    "price": 30,
-    "mrp": 34,
-    "stock": 70
-  },
-  {
     "id": "g1-p0449-v1",
     "product_id": "g1-p0449",
     "size_label": " g",
@@ -4408,14 +3320,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0453-v1",
-    "product_id": "g1-p0453",
-    "size_label": "1 unit",
-    "price": 25,
-    "mrp": 28,
-    "stock": 35
-  },
-  {
     "id": "g1-p0454-v1",
     "product_id": "g1-p0454",
     "size_label": "1 unit",
@@ -4448,22 +3352,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0458-v1",
-    "product_id": "g1-p0458",
-    "size_label": " kg",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0459-v1",
-    "product_id": "g1-p0459",
-    "size_label": "1lt",
-    "price": 188,
-    "mrp": 211,
-    "stock": 35
-  },
-  {
     "id": "g1-p0460-v1",
     "product_id": "g1-p0460",
     "size_label": " g",
@@ -4485,14 +3373,6 @@
     "size_label": " g",
     "price": 12,
     "mrp": 13,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0461-v1",
-    "product_id": "g1-p0461",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
     "stock": 35
   },
   {
@@ -4544,14 +3424,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0467-v1",
-    "product_id": "g1-p0467",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0468-v1",
     "product_id": "g1-p0468",
     "size_label": "Packs",
@@ -4565,14 +3437,6 @@
     "size_label": "Packs",
     "price": 45,
     "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0470-v1",
-    "product_id": "g1-p0470",
-    "size_label": " kg",
-    "price": 155,
-    "mrp": 174,
     "stock": 35
   },
   {
@@ -4640,38 +3504,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0478-v1",
-    "product_id": "g1-p0478",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0478-v2",
-    "product_id": "g1-p0478",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0478-v3",
-    "product_id": "g1-p0478",
-    "size_label": "375 Ml",
-    "price": 95,
-    "mrp": 106,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0479-v1",
-    "product_id": "g1-p0479",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0480-v1",
     "product_id": "g1-p0480",
     "size_label": " g",
@@ -4712,14 +3544,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0485-v1",
-    "product_id": "g1-p0485",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0486-v1",
     "product_id": "g1-p0486",
     "size_label": "Packs",
@@ -4752,22 +3576,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0490-v1",
-    "product_id": "g1-p0490",
-    "size_label": "Packs",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0491-v1",
-    "product_id": "g1-p0491",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0492-v1",
     "product_id": "g1-p0492",
     "size_label": "Pouches",
@@ -4797,14 +3605,6 @@
     "size_label": " g",
     "price": 55,
     "mrp": 62,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0496-v1",
-    "product_id": "g1-p0496",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
     "stock": 35
   },
   {
@@ -4880,137 +3680,9 @@
     "stock": 35
   },
   {
-    "id": "g1-p0504-v1",
-    "product_id": "g1-p0504",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0505-v1",
-    "product_id": "g1-p0505",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0506-v1",
-    "product_id": "g1-p0506",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0507-v1",
     "product_id": "g1-p0507",
     "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0508-v1",
-    "product_id": "g1-p0508",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0509-v1",
-    "product_id": "g1-p0509",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0510-v1",
-    "product_id": "g1-p0510",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0511-v1",
-    "product_id": "g1-p0511",
-    "size_label": " g",
-    "price": 187,
-    "mrp": 209,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0512-v1",
-    "product_id": "g1-p0512",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0513-v1",
-    "product_id": "g1-p0513",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0514-v1",
-    "product_id": "g1-p0514",
-    "size_label": " g",
-    "price": 36,
-    "mrp": 40,
-    "stock": 20
-  },
-  {
-    "id": "g1-p0514-v2",
-    "product_id": "g1-p0514",
-    "size_label": " g",
-    "price": 58,
-    "mrp": 65,
-    "stock": 14
-  },
-  {
-    "id": "g1-p0514-v3",
-    "product_id": "g1-p0514",
-    "size_label": "4x75g",
-    "price": 138,
-    "mrp": 155,
-    "stock": 0
-  },
-  {
-    "id": "g1-p0514-v4",
-    "product_id": "g1-p0514",
-    "size_label": "5x125g (Super Saver)",
-    "price": 275,
-    "mrp": 310,
-    "stock": 8
-  },
-  {
-    "id": "g1-p0515-v1",
-    "product_id": "g1-p0515",
-    "size_label": " g",
-    "price": 40,
-    "mrp": 45,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0516-v1",
-    "product_id": "g1-p0516",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0517-v1",
-    "product_id": "g1-p0517",
-    "size_label": " g",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -5024,22 +3696,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0519-v1",
-    "product_id": "g1-p0519",
-    "size_label": " g",
-    "price": 22,
-    "mrp": 25,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0520-v1",
-    "product_id": "g1-p0520",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0521-v1",
     "product_id": "g1-p0521",
     "size_label": " g",
@@ -5048,57 +3704,9 @@
     "stock": 35
   },
   {
-    "id": "g1-p0522-v1",
-    "product_id": "g1-p0522",
-    "size_label": " g",
-    "price": 42,
-    "mrp": 45,
-    "stock": 25
-  },
-  {
-    "id": "g1-p0522-v2",
-    "product_id": "g1-p0522",
-    "size_label": " g",
-    "price": 60,
-    "mrp": 68,
-    "stock": 18
-  },
-  {
-    "id": "g1-p0522-v3",
-    "product_id": "g1-p0522",
-    "size_label": "4x100g",
-    "price": 162,
-    "mrp": 180,
-    "stock": 0
-  },
-  {
-    "id": "g1-p0522-v4",
-    "product_id": "g1-p0522",
-    "size_label": "4x150g (Value Pack)",
-    "price": 235,
-    "mrp": 270,
-    "stock": 10
-  },
-  {
     "id": "g1-p0523-v1",
     "product_id": "g1-p0523",
     "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0524-v1",
-    "product_id": "g1-p0524",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0525-v1",
-    "product_id": "g1-p0525",
-    "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -5149,38 +3757,6 @@
     "size_label": "1 unit",
     "price": 10,
     "mrp": 11,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0532-v1",
-    "product_id": "g1-p0532",
-    "size_label": " ml",
-    "price": 60,
-    "mrp": 67,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0533-v1",
-    "product_id": "g1-p0533",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0534-v1",
-    "product_id": "g1-p0534",
-    "size_label": " g",
-    "price": 70,
-    "mrp": 78,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0534-v2",
-    "product_id": "g1-p0534",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
     "stock": 35
   },
   {
@@ -5248,113 +3824,9 @@
     "stock": 35
   },
   {
-    "id": "g1-p0543-v1",
-    "product_id": "g1-p0543",
-    "size_label": " g",
-    "price": 48,
-    "mrp": 52,
-    "stock": 30
-  },
-  {
-    "id": "g1-p0543-v2",
-    "product_id": "g1-p0543",
-    "size_label": " g",
-    "price": 78,
-    "mrp": 85,
-    "stock": 18
-  },
-  {
-    "id": "g1-p0543-v3",
-    "product_id": "g1-p0543",
-    "size_label": " g",
-    "price": 92,
-    "mrp": 100,
-    "stock": 12
-  },
-  {
-    "id": "g1-p0543-v4",
-    "product_id": "g1-p0543",
-    "size_label": "3x75g",
-    "price": 138,
-    "mrp": 150,
-    "stock": 0
-  },
-  {
-    "id": "g1-p0544-v1",
-    "product_id": "g1-p0544",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0544-v2",
-    "product_id": "g1-p0544",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0544-v3",
-    "product_id": "g1-p0544",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0545-v1",
     "product_id": "g1-p0545",
     "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0546-v1",
-    "product_id": "g1-p0546",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0547-v1",
-    "product_id": "g1-p0547",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0547-v2",
-    "product_id": "g1-p0547",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0548-v1",
-    "product_id": "g1-p0548",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0549-v1",
-    "product_id": "g1-p0549",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0549-v2",
-    "product_id": "g1-p0549",
-    "size_label": " g",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -5366,54 +3838,6 @@
     "price": 45,
     "mrp": 50,
     "stock": 70
-  },
-  {
-    "id": "g1-p0551-v1",
-    "product_id": "g1-p0551",
-    "size_label": " g",
-    "price": 204,
-    "mrp": 228,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0551-v2",
-    "product_id": "g1-p0551",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0551-v3",
-    "product_id": "g1-p0551",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0552-v1",
-    "product_id": "g1-p0552",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0553-v1",
-    "product_id": "g1-p0553",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0554-v1",
-    "product_id": "g1-p0554",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
   },
   {
     "id": "g1-p0555-v1",
@@ -5736,35 +4160,11 @@
     "stock": 35
   },
   {
-    "id": "g1-p0588-v1",
-    "product_id": "g1-p0588",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0589-v1",
-    "product_id": "g1-p0589",
-    "size_label": "5lt",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0590-v1",
     "product_id": "g1-p0590",
     "size_label": "1 unit",
     "price": 20,
     "mrp": 22,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0591-v1",
-    "product_id": "g1-p0591",
-    "size_label": "1 unit",
-    "price": 35,
-    "mrp": 39,
     "stock": 35
   },
   {
@@ -5794,14 +4194,6 @@
   {
     "id": "g1-p0595-v1",
     "product_id": "g1-p0595",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0596-v1",
-    "product_id": "g1-p0596",
     "size_label": " g",
     "price": 45,
     "mrp": 50,
@@ -5848,14 +4240,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0602-v1",
-    "product_id": "g1-p0602",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0603-v1",
     "product_id": "g1-p0603",
     "size_label": "Packs",
@@ -5888,41 +4272,9 @@
     "stock": 35
   },
   {
-    "id": "g1-p0605-v1",
-    "product_id": "g1-p0605",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0606-v1",
-    "product_id": "g1-p0606",
-    "size_label": " ml",
-    "price": 90,
-    "mrp": 101,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0606-v2",
-    "product_id": "g1-p0606",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0607-v1",
     "product_id": "g1-p0607",
     "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0608-v1",
-    "product_id": "g1-p0608",
-    "size_label": "Packs",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -6008,22 +4360,6 @@
     "stock": 12
   },
   {
-    "id": "g1-p0616-v1",
-    "product_id": "g1-p0616",
-    "size_label": "Packs",
-    "price": 43,
-    "mrp": 48,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0617-v1",
-    "product_id": "g1-p0617",
-    "size_label": "Packs",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0618-v1",
     "product_id": "g1-p0618",
     "size_label": " g",
@@ -6032,35 +4368,11 @@
     "stock": 35
   },
   {
-    "id": "g1-p0619-v1",
-    "product_id": "g1-p0619",
-    "size_label": " ml",
-    "price": 52,
-    "mrp": 58,
-    "stock": 35
-  },
-  {
     "id": "g1-p0620-v1",
     "product_id": "g1-p0620",
     "size_label": "1 unit",
     "price": 5,
     "mrp": 6,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0621-v1",
-    "product_id": "g1-p0621",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0622-v1",
-    "product_id": "g1-p0622",
-    "size_label": "1 unit",
-    "price": 10,
-    "mrp": 11,
     "stock": 35
   },
   {
@@ -6104,54 +4416,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0628-v1",
-    "product_id": "g1-p0628",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0628-v2",
-    "product_id": "g1-p0628",
-    "size_label": "Packs",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0629-v1",
-    "product_id": "g1-p0629",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0630-v1",
-    "product_id": "g1-p0630",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0631-v1",
-    "product_id": "g1-p0631",
-    "size_label": " g",
-    "price": 85,
-    "mrp": 95,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0632-v1",
-    "product_id": "g1-p0632",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0633-v1",
     "product_id": "g1-p0633",
     "size_label": " g",
@@ -6160,59 +4424,11 @@
     "stock": 35
   },
   {
-    "id": "g1-p0634-v1",
-    "product_id": "g1-p0634",
-    "size_label": " ml",
-    "price": 59,
-    "mrp": 66,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0635-v1",
-    "product_id": "g1-p0635",
-    "size_label": "1 unit",
-    "price": 110,
-    "mrp": 123,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0636-v1",
-    "product_id": "g1-p0636",
-    "size_label": " g",
-    "price": 30,
-    "mrp": 34,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0637-v1",
-    "product_id": "g1-p0637",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0638-v1",
     "product_id": "g1-p0638",
     "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0639-v1",
-    "product_id": "g1-p0639",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0640-v1",
-    "product_id": "g1-p0640",
-    "size_label": " ml",
-    "price": 100,
-    "mrp": 112,
     "stock": 35
   },
   {
@@ -6331,30 +4547,6 @@
     "id": "g1-p0654-v1",
     "product_id": "g1-p0654",
     "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0655-v1",
-    "product_id": "g1-p0655",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0655-v2",
-    "product_id": "g1-p0655",
-    "size_label": " ml",
-    "price": 55,
-    "mrp": 62,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0655-v3",
-    "product_id": "g1-p0655",
-    "size_label": " ml",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -6568,25 +4760,9 @@
     "stock": 35
   },
   {
-    "id": "g1-p0676-v1",
-    "product_id": "g1-p0676",
-    "size_label": "1 unit",
-    "price": 5,
-    "mrp": 6,
-    "stock": 35
-  },
-  {
     "id": "g1-p0677-v1",
     "product_id": "g1-p0677",
     "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0678-v1",
-    "product_id": "g1-p0678",
-    "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -6701,14 +4877,6 @@
     "size_label": " g",
     "price": 10,
     "mrp": 11,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0692-v1",
-    "product_id": "g1-p0692",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
     "stock": 35
   },
   {
@@ -6888,46 +5056,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0712-v1",
-    "product_id": "g1-p0712",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0712-v2",
-    "product_id": "g1-p0712",
-    "size_label": " g",
-    "price": 40,
-    "mrp": 45,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0713-v1",
-    "product_id": "g1-p0713",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0714-v1",
-    "product_id": "g1-p0714",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0715-v1",
-    "product_id": "g1-p0715",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0716-v1",
     "product_id": "g1-p0716",
     "size_label": "1 unit",
@@ -6976,14 +5104,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0722-v1",
-    "product_id": "g1-p0722",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0723-v1",
     "product_id": "g1-p0723",
     "size_label": "1 unit",
@@ -6995,22 +5115,6 @@
     "id": "g1-p0724-v1",
     "product_id": "g1-p0724",
     "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0725-v1",
-    "product_id": "g1-p0725",
-    "size_label": "1 unit",
-    "price": 14,
-    "mrp": 16,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0726-v1",
-    "product_id": "g1-p0726",
-    "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -7216,14 +5320,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0751-v1",
-    "product_id": "g1-p0751",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0752-v1",
     "product_id": "g1-p0752",
     "size_label": "Packs",
@@ -7304,14 +5400,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0763-v1",
-    "product_id": "g1-p0763",
-    "size_label": "Pouches",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0764-v1",
     "product_id": "g1-p0764",
     "size_label": "1 unit",
@@ -7325,14 +5413,6 @@
     "size_label": "1 unit",
     "price": 25,
     "mrp": 28,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0766-v1",
-    "product_id": "g1-p0766",
-    "size_label": " ml",
-    "price": 47,
-    "mrp": 53,
     "stock": 35
   },
   {
@@ -7387,14 +5467,6 @@
     "id": "g1-p0772-v1",
     "product_id": "g1-p0772",
     "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0774-v1",
-    "product_id": "g1-p0774",
-    "size_label": " ml",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -7504,54 +5576,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0788-v1",
-    "product_id": "g1-p0788",
-    "size_label": " g",
-    "price": 80,
-    "mrp": 90,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0789-v1",
-    "product_id": "g1-p0789",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0790-v1",
-    "product_id": "g1-p0790",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0791-v1",
-    "product_id": "g1-p0791",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0792-v1",
-    "product_id": "g1-p0792",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0793-v1",
-    "product_id": "g1-p0793",
-    "size_label": "1 unit",
-    "price": 80,
-    "mrp": 90,
-    "stock": 35
-  },
-  {
     "id": "g1-p0794-v1",
     "product_id": "g1-p0794",
     "size_label": " g",
@@ -7573,14 +5597,6 @@
     "size_label": "1 unit",
     "price": 6.18,
     "mrp": 7,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0797-v1",
-    "product_id": "g1-p0797",
-    "size_label": "1 unit",
-    "price": 28,
-    "mrp": 31,
     "stock": 35
   },
   {
@@ -7744,14 +5760,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0814-v1",
-    "product_id": "g1-p0814",
-    "size_label": "1 unit",
-    "price": 50,
-    "mrp": 56,
-    "stock": 35
-  },
-  {
     "id": "g1-p0815-v1",
     "product_id": "g1-p0815",
     "size_label": " g",
@@ -7896,14 +5904,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0833-v1",
-    "product_id": "g1-p0833",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0834-v1",
     "product_id": "g1-p0834",
     "size_label": "1 unit",
@@ -8005,22 +6005,6 @@
     "size_label": "1 unit",
     "price": 100,
     "mrp": 112,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0847-v1",
-    "product_id": "g1-p0847",
-    "size_label": " L",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0848-v1",
-    "product_id": "g1-p0848",
-    "size_label": "1 unit",
-    "price": 38,
-    "mrp": 43,
     "stock": 35
   },
   {
@@ -8224,14 +6208,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0874-v1",
-    "product_id": "g1-p0874",
-    "size_label": " L",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0875-v1",
     "product_id": "g1-p0875",
     "size_label": "1 unit",
@@ -8277,22 +6253,6 @@
     "size_label": " g",
     "price": 12,
     "mrp": 13,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0880-v1",
-    "product_id": "g1-p0880",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0881-v1",
-    "product_id": "g1-p0881",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
     "stock": 35
   },
   {
@@ -8392,14 +6352,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0892-v1",
-    "product_id": "g1-p0892",
-    "size_label": "1 unit",
-    "price": 58,
-    "mrp": 65,
-    "stock": 35
-  },
-  {
     "id": "g1-p0893-v1",
     "product_id": "g1-p0893",
     "size_label": " g",
@@ -8421,14 +6373,6 @@
     "size_label": " g",
     "price": 105,
     "mrp": 118,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0896-v1",
-    "product_id": "g1-p0896",
-    "size_label": "1 unit",
-    "price": 5,
-    "mrp": 6,
     "stock": 35
   },
   {
@@ -8472,14 +6416,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0902-v1",
-    "product_id": "g1-p0902",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0903-v1",
     "product_id": "g1-p0903",
     "size_label": " g",
@@ -8514,14 +6450,6 @@
   {
     "id": "g1-p0907-v1",
     "product_id": "g1-p0907",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0908-v1",
-    "product_id": "g1-p0908",
     "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
@@ -8592,24 +6520,8 @@
     "stock": 35
   },
   {
-    "id": "g1-p0915-v1",
-    "product_id": "g1-p0915",
-    "size_label": "1 unit",
-    "price": 38,
-    "mrp": 43,
-    "stock": 35
-  },
-  {
     "id": "g1-p0916-v1",
     "product_id": "g1-p0916",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0917-v1",
-    "product_id": "g1-p0917",
     "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
@@ -8619,22 +6531,6 @@
     "id": "g1-p0918-v1",
     "product_id": "g1-p0918",
     "size_label": " L",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0919-v1",
-    "product_id": "g1-p0919",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0919-v2",
-    "product_id": "g1-p0919",
-    "size_label": " g",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -8680,70 +6576,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0925-v1",
-    "product_id": "g1-p0925",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0925-v2",
-    "product_id": "g1-p0925",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0926-v1",
-    "product_id": "g1-p0926",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0926-v2",
-    "product_id": "g1-p0926",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0927-v1",
-    "product_id": "g1-p0927",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0928-v1",
-    "product_id": "g1-p0928",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0928-v2",
-    "product_id": "g1-p0928",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0929-v1",
-    "product_id": "g1-p0929",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0930-v1",
     "product_id": "g1-p0930",
     "size_label": "1 unit",
@@ -8752,33 +6584,9 @@
     "stock": 35
   },
   {
-    "id": "g1-p0931-v1",
-    "product_id": "g1-p0931",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0932-v1",
     "product_id": "g1-p0932",
     "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0933-v1",
-    "product_id": "g1-p0933",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0934-v1",
-    "product_id": "g1-p0934",
-    "size_label": " g",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -8824,27 +6632,11 @@
     "stock": 35
   },
   {
-    "id": "g1-p0940-v1",
-    "product_id": "g1-p0940",
-    "size_label": " g",
-    "price": 155,
-    "mrp": 174,
-    "stock": 35
-  },
-  {
     "id": "g1-p0941-v1",
     "product_id": "g1-p0941",
     "size_label": "1 unit",
     "price": 45,
     "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0942-v1",
-    "product_id": "g1-p0942",
-    "size_label": "1 unit",
-    "price": 220,
-    "mrp": 246,
     "stock": 35
   },
   {
@@ -8861,14 +6653,6 @@
     "size_label": "1 unit",
     "price": 10,
     "mrp": 11,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0945-v1",
-    "product_id": "g1-p0945",
-    "size_label": "1 unit",
-    "price": 35,
-    "mrp": 39,
     "stock": 35
   },
   {
@@ -8899,14 +6683,6 @@
     "id": "g1-p0949-v1",
     "product_id": "g1-p0949",
     "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0950-v1",
-    "product_id": "g1-p0950",
-    "size_label": " L",
     "price": 45,
     "mrp": 50,
     "stock": 35
@@ -9037,14 +6813,6 @@
     "size_label": " ml",
     "price": 10,
     "mrp": 11,
-    "stock": 35
-  },
-  {
-    "id": "g1-p0964-v1",
-    "product_id": "g1-p0964",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
     "stock": 35
   },
   {
@@ -9328,14 +7096,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p0997-v1",
-    "product_id": "g1-p0997",
-    "size_label": " L",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p0998-v1",
     "product_id": "g1-p0998",
     "size_label": " g",
@@ -9440,14 +7200,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p1010-v1",
-    "product_id": "g1-p1010",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p1011-v1",
     "product_id": "g1-p1011",
     "size_label": " g",
@@ -9488,30 +7240,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p1016-v1",
-    "product_id": "g1-p1016",
-    "size_label": " ml",
-    "price": 130,
-    "mrp": 146,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1017-v1",
-    "product_id": "g1-p1017",
-    "size_label": "1 unit",
-    "price": 75,
-    "mrp": 84,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1018-v1",
-    "product_id": "g1-p1018",
-    "size_label": "1 unit",
-    "price": 19,
-    "mrp": 21,
-    "stock": 35
-  },
-  {
     "id": "g1-p1019-v1",
     "product_id": "g1-p1019",
     "size_label": "1 unit",
@@ -9528,24 +7256,8 @@
     "stock": 35
   },
   {
-    "id": "g1-p1021-v1",
-    "product_id": "g1-p1021",
-    "size_label": "1 unit",
-    "price": 20,
-    "mrp": 22,
-    "stock": 35
-  },
-  {
     "id": "g1-p1022-v1",
     "product_id": "g1-p1022",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1023-v1",
-    "product_id": "g1-p1023",
     "size_label": " g",
     "price": 45,
     "mrp": 50,
@@ -9565,14 +7277,6 @@
     "size_label": "1 unit",
     "price": 10,
     "mrp": 11,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1026-v1",
-    "product_id": "g1-p1026",
-    "size_label": "1 unit",
-    "price": 68,
-    "mrp": 76,
     "stock": 35
   },
   {
@@ -9648,30 +7352,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p1034-v1",
-    "product_id": "g1-p1034",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1035-v1",
-    "product_id": "g1-p1035",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1036-v1",
-    "product_id": "g1-p1036",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p1037-v1",
     "product_id": "g1-p1037",
     "size_label": "1 unit",
@@ -9680,48 +7360,8 @@
     "stock": 35
   },
   {
-    "id": "g1-p1038-v1",
-    "product_id": "g1-p1038",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1038-v2",
-    "product_id": "g1-p1038",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1039-v1",
-    "product_id": "g1-p1039",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p1040-v1",
     "product_id": "g1-p1040",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1041-v1",
-    "product_id": "g1-p1041",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1041-v2",
-    "product_id": "g1-p1041",
     "size_label": " g",
     "price": 45,
     "mrp": 50,
@@ -9752,14 +7392,6 @@
     "stock": 35
   },
   {
-    "id": "g1-p1044-v1",
-    "product_id": "g1-p1044",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
     "id": "g1-p1045-v1",
     "product_id": "g1-p1045",
     "size_label": "1 unit",
@@ -9773,70 +7405,6 @@
     "size_label": "1 unit",
     "price": 10,
     "mrp": 11,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1047-v1",
-    "product_id": "g1-p1047",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1048-v1",
-    "product_id": "g1-p1048",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1048-v2",
-    "product_id": "g1-p1048",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1048-v3",
-    "product_id": "g1-p1048",
-    "size_label": " ml",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1049-v1",
-    "product_id": "g1-p1049",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1050-v1",
-    "product_id": "g1-p1050",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1051-v1",
-    "product_id": "g1-p1051",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
-    "stock": 35
-  },
-  {
-    "id": "g1-p1052-v1",
-    "product_id": "g1-p1052",
-    "size_label": "1 unit",
-    "price": 45,
-    "mrp": 50,
     "stock": 35
   },
   {
@@ -11336,222 +8904,6 @@
     "stock": 25
   },
   {
-    "id": "g1-p1240-v1",
-    "product_id": "g1-p1240",
-    "size_label": "50 g",
-    "price": 85,
-    "mrp": 85,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1241-v1",
-    "product_id": "g1-p1241",
-    "size_label": "100 g",
-    "price": 165,
-    "mrp": 165,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1242-v1",
-    "product_id": "g1-p1242",
-    "size_label": "150 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1243-v1",
-    "product_id": "g1-p1243",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1244-v1",
-    "product_id": "g1-p1244",
-    "size_label": "50 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1245-v1",
-    "product_id": "g1-p1245",
-    "size_label": "100 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1246-v1",
-    "product_id": "g1-p1246",
-    "size_label": "50 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1247-v1",
-    "product_id": "g1-p1247",
-    "size_label": "100 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1248-v1",
-    "product_id": "g1-p1248",
-    "size_label": "100 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1249-v1",
-    "product_id": "g1-p1249",
-    "size_label": "150 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1250-v1",
-    "product_id": "g1-p1250",
-    "size_label": "100 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1251-v1",
-    "product_id": "g1-p1251",
-    "size_label": "50 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1252-v1",
-    "product_id": "g1-p1252",
-    "size_label": "100 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1253-v1",
-    "product_id": "g1-p1253",
-    "size_label": "150 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1254-v1",
-    "product_id": "g1-p1254",
-    "size_label": "50 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1255-v1",
-    "product_id": "g1-p1255",
-    "size_label": "100 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1256-v1",
-    "product_id": "g1-p1256",
-    "size_label": "100 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1257-v1",
-    "product_id": "g1-p1257",
-    "size_label": "100 ml",
-    "price": 95,
-    "mrp": 95,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1258-v1",
-    "product_id": "g1-p1258",
-    "size_label": "200 ml",
-    "price": 185,
-    "mrp": 185,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1259-v1",
-    "product_id": "g1-p1259",
-    "size_label": "400 ml",
-    "price": 335,
-    "mrp": 335,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1260-v1",
-    "product_id": "g1-p1260",
-    "size_label": "75 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1261-v1",
-    "product_id": "g1-p1261",
-    "size_label": "200 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1262-v1",
-    "product_id": "g1-p1262",
-    "size_label": "400 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1263-v1",
-    "product_id": "g1-p1263",
-    "size_label": "100 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1264-v1",
-    "product_id": "g1-p1264",
-    "size_label": "200 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1265-v1",
-    "product_id": "g1-p1265",
-    "size_label": "40 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1266-v1",
-    "product_id": "g1-p1266",
-    "size_label": "80 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
     "id": "g1-p1267-v1",
     "product_id": "g1-p1267",
     "size_label": "30 g",
@@ -11563,702 +8915,6 @@
     "id": "g1-p1268-v1",
     "product_id": "g1-p1268",
     "size_label": "60 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1269-v1",
-    "product_id": "g1-p1269",
-    "size_label": "50 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1270-v1",
-    "product_id": "g1-p1270",
-    "size_label": "196 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1271-v1",
-    "product_id": "g1-p1271",
-    "size_label": "50 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1272-v1",
-    "product_id": "g1-p1272",
-    "size_label": "100 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1273-v1",
-    "product_id": "g1-p1273",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1274-v1",
-    "product_id": "g1-p1274",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1275-v1",
-    "product_id": "g1-p1275",
-    "size_label": "50 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1276-v1",
-    "product_id": "g1-p1276",
-    "size_label": "100 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1277-v1",
-    "product_id": "g1-p1277",
-    "size_label": "120 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1278-v1",
-    "product_id": "g1-p1278",
-    "size_label": "150 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1279-v1",
-    "product_id": "g1-p1279",
-    "size_label": "120 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1280-v1",
-    "product_id": "g1-p1280",
-    "size_label": "150 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1281-v1",
-    "product_id": "g1-p1281",
-    "size_label": "120 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1282-v1",
-    "product_id": "g1-p1282",
-    "size_label": "150 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1283-v1",
-    "product_id": "g1-p1283",
-    "size_label": "25 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1284-v1",
-    "product_id": "g1-p1284",
-    "size_label": "50 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1285-v1",
-    "product_id": "g1-p1285",
-    "size_label": "25 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1286-v1",
-    "product_id": "g1-p1286",
-    "size_label": "50 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1287-v1",
-    "product_id": "g1-p1287",
-    "size_label": "20 g",
-    "price": 20,
-    "mrp": 20,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1288-v1",
-    "product_id": "g1-p1288",
-    "size_label": "50 g",
-    "price": 45,
-    "mrp": 45,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1289-v1",
-    "product_id": "g1-p1289",
-    "size_label": "100 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1290-v1",
-    "product_id": "g1-p1290",
-    "size_label": "180 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1291-v1",
-    "product_id": "g1-p1291",
-    "size_label": "340 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1292-v1",
-    "product_id": "g1-p1292",
-    "size_label": "180 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1293-v1",
-    "product_id": "g1-p1293",
-    "size_label": "340 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1294-v1",
-    "product_id": "g1-p1294",
-    "size_label": "180 ml",
-    "price": 150,
-    "mrp": 150,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1295-v1",
-    "product_id": "g1-p1295",
-    "size_label": "340 ml",
-    "price": 280,
-    "mrp": 280,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1296-v1",
-    "product_id": "g1-p1296",
-    "size_label": "80 ml",
-    "price": 75,
-    "mrp": 75,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1297-v1",
-    "product_id": "g1-p1297",
-    "size_label": "175 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1298-v1",
-    "product_id": "g1-p1298",
-    "size_label": "190 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1299-v1",
-    "product_id": "g1-p1299",
-    "size_label": "340 ml",
-    "price": 320,
-    "mrp": 320,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1300-v1",
-    "product_id": "g1-p1300",
-    "size_label": "80 ml",
-    "price": 45,
-    "mrp": 45,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1301-v1",
-    "product_id": "g1-p1301",
-    "size_label": "175 ml",
-    "price": 95,
-    "mrp": 95,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1302-v1",
-    "product_id": "g1-p1302",
-    "size_label": "340 ml",
-    "price": 175,
-    "mrp": 175,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1303-v1",
-    "product_id": "g1-p1303",
-    "size_label": "80 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1304-v1",
-    "product_id": "g1-p1304",
-    "size_label": "180 ml",
-    "price": 160,
-    "mrp": 160,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1305-v1",
-    "product_id": "g1-p1305",
-    "size_label": "340 ml",
-    "price": 290,
-    "mrp": 290,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1306-v1",
-    "product_id": "g1-p1306",
-    "size_label": "80 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1307-v1",
-    "product_id": "g1-p1307",
-    "size_label": "180 ml",
-    "price": 110,
-    "mrp": 110,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1308-v1",
-    "product_id": "g1-p1308",
-    "size_label": "340 ml",
-    "price": 210,
-    "mrp": 210,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1309-v1",
-    "product_id": "g1-p1309",
-    "size_label": "50 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1310-v1",
-    "product_id": "g1-p1310",
-    "size_label": "100 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1311-v1",
-    "product_id": "g1-p1311",
-    "size_label": "100 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1312-v1",
-    "product_id": "g1-p1312",
-    "size_label": "200 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1313-v1",
-    "product_id": "g1-p1313",
-    "size_label": "300 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1314-v1",
-    "product_id": "g1-p1314",
-    "size_label": "25 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1315-v1",
-    "product_id": "g1-p1315",
-    "size_label": "45 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1316-v1",
-    "product_id": "g1-p1316",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1317-v1",
-    "product_id": "g1-p1317",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1318-v1",
-    "product_id": "g1-p1318",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1319-v1",
-    "product_id": "g1-p1319",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1320-v1",
-    "product_id": "g1-p1320",
-    "size_label": "4 pieces",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1321-v1",
-    "product_id": "g1-p1321",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1322-v1",
-    "product_id": "g1-p1322",
-    "size_label": "4 pieces",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1323-v1",
-    "product_id": "g1-p1323",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1324-v1",
-    "product_id": "g1-p1324",
-    "size_label": "4 pieces",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1325-v1",
-    "product_id": "g1-p1325",
-    "size_label": "20 pieces",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1326-v1",
-    "product_id": "g1-p1326",
-    "size_label": "72 pieces",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1327-v1",
-    "product_id": "g1-p1327",
-    "size_label": "120 pieces",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1328-v1",
-    "product_id": "g1-p1328",
-    "size_label": "24 pieces",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1329-v1",
-    "product_id": "g1-p1329",
-    "size_label": "72 pieces",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1330-v1",
-    "product_id": "g1-p1330",
-    "size_label": "100 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1331-v1",
-    "product_id": "g1-p1331",
-    "size_label": "200 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1332-v1",
-    "product_id": "g1-p1332",
-    "size_label": "100 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1333-v1",
-    "product_id": "g1-p1333",
-    "size_label": "200 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1334-v1",
-    "product_id": "g1-p1334",
-    "size_label": "100 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1335-v1",
-    "product_id": "g1-p1335",
-    "size_label": "200 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1336-v1",
-    "product_id": "g1-p1336",
-    "size_label": "300 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1337-v1",
-    "product_id": "g1-p1337",
-    "size_label": "600 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1338-v1",
-    "product_id": "g1-p1338",
-    "size_label": "400 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1339-v1",
-    "product_id": "g1-p1339",
-    "size_label": "600 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1340-v1",
-    "product_id": "g1-p1340",
-    "size_label": "125 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1341-v1",
-    "product_id": "g1-p1341",
-    "size_label": "240 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1342-v1",
-    "product_id": "g1-p1342",
-    "size_label": "7 pieces",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1343-v1",
-    "product_id": "g1-p1343",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1344-v1",
-    "product_id": "g1-p1344",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1345-v1",
-    "product_id": "g1-p1345",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1346-v1",
-    "product_id": "g1-p1346",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1347-v1",
-    "product_id": "g1-p1347",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1348-v1",
-    "product_id": "g1-p1348",
-    "size_label": "40 pieces",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1349-v1",
-    "product_id": "g1-p1349",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1350-v1",
-    "product_id": "g1-p1350",
-    "size_label": "100 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1351-v1",
-    "product_id": "g1-p1351",
-    "size_label": "200 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1352-v1",
-    "product_id": "g1-p1352",
-    "size_label": "100 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1353-v1",
-    "product_id": "g1-p1353",
-    "size_label": "200 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1354-v1",
-    "product_id": "g1-p1354",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1355-v1",
-    "product_id": "g1-p1355",
-    "size_label": "10 pieces",
     "price": 50,
     "mrp": 50,
     "stock": 25
@@ -12619,30 +9275,6 @@
     "id": "g1-p1400-v1",
     "product_id": "g1-p1400",
     "size_label": "2 pieces",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1401-v1",
-    "product_id": "g1-p1401",
-    "size_label": "200 ml",
-    "price": 58,
-    "mrp": 58,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1402-v1",
-    "product_id": "g1-p1402",
-    "size_label": "860 ml",
-    "price": 235,
-    "mrp": 235,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1403-v1",
-    "product_id": "g1-p1403",
-    "size_label": "1.8 L",
     "price": 50,
     "mrp": 50,
     "stock": 25
@@ -13208,22 +9840,6 @@
     "stock": 25
   },
   {
-    "id": "g1-p1474-v1",
-    "product_id": "g1-p1474",
-    "size_label": "200 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1475-v1",
-    "product_id": "g1-p1475",
-    "size_label": "200 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
     "id": "g1-p1476-v1",
     "product_id": "g1-p1476",
     "size_label": "Single Pack",
@@ -13243,166 +9859,6 @@
     "id": "g1-p1478-v1",
     "product_id": "g1-p1478",
     "size_label": "5 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1479-v1",
-    "product_id": "g1-p1479",
-    "size_label": "10 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1480-v1",
-    "product_id": "g1-p1480",
-    "size_label": "25 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1481-v1",
-    "product_id": "g1-p1481",
-    "size_label": "50 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1482-v1",
-    "product_id": "g1-p1482",
-    "size_label": "10 pieces",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1483-v1",
-    "product_id": "g1-p1483",
-    "size_label": "20 pieces",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1484-v1",
-    "product_id": "g1-p1484",
-    "size_label": "15 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1485-v1",
-    "product_id": "g1-p1485",
-    "size_label": "50 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1486-v1",
-    "product_id": "g1-p1486",
-    "size_label": "10 pieces",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1487-v1",
-    "product_id": "g1-p1487",
-    "size_label": "20 pieces",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1488-v1",
-    "product_id": "g1-p1488",
-    "size_label": "125 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1489-v1",
-    "product_id": "g1-p1489",
-    "size_label": "250 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1490-v1",
-    "product_id": "g1-p1490",
-    "size_label": "500 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1491-v1",
-    "product_id": "g1-p1491",
-    "size_label": "100 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1492-v1",
-    "product_id": "g1-p1492",
-    "size_label": "200 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1493-v1",
-    "product_id": "g1-p1493",
-    "size_label": "500 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1494-v1",
-    "product_id": "g1-p1494",
-    "size_label": "25 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1495-v1",
-    "product_id": "g1-p1495",
-    "size_label": "50 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1496-v1",
-    "product_id": "g1-p1496",
-    "size_label": "100 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1497-v1",
-    "product_id": "g1-p1497",
-    "size_label": "Single Pack",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1498-v1",
-    "product_id": "g1-p1498",
-    "size_label": "Single Pack",
     "price": 50,
     "mrp": 50,
     "stock": 25
@@ -14224,14 +10680,6 @@
     "stock": 25
   },
   {
-    "id": "g1-p1591-v1",
-    "product_id": "g1-p1591",
-    "size_label": "2 kg",
-    "price": 140,
-    "mrp": 140,
-    "stock": 25
-  },
-  {
     "id": "g1-p1592-v1",
     "product_id": "g1-p1592",
     "size_label": "1 kg",
@@ -14432,520 +10880,6 @@
     "stock": 25
   },
   {
-    "id": "g1-p1622-v1",
-    "product_id": "g1-p1622",
-    "size_label": "500 ml",
-    "price": 72,
-    "mrp": 72,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1623-v1",
-    "product_id": "g1-p1623",
-    "size_label": "1 L",
-    "price": 140,
-    "mrp": 140,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1624-v1",
-    "product_id": "g1-p1624",
-    "size_label": "2 L",
-    "price": 295,
-    "mrp": 295,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1625-v1",
-    "product_id": "g1-p1625",
-    "size_label": "5 L",
-    "price": 720,
-    "mrp": 720,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1626-v1",
-    "product_id": "g1-p1626",
-    "size_label": "10 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1627-v1",
-    "product_id": "g1-p1627",
-    "size_label": "1 L",
-    "price": 145,
-    "mrp": 150,
-    "stock": 25,
-    "image_url": "/products/packshots/fortune-sunlite-clean.jpg"
-  },
-  {
-    "id": "g1-p1627-v2",
-    "product_id": "g1-p1627",
-    "size_label": "5 L",
-    "price": 745,
-    "mrp": 780,
-    "stock": 15,
-    "image_url": "/products/packshots/fortune-sunlite-clean.jpg"
-  },
-  {
-    "id": "g1-p1632-v1",
-    "product_id": "g1-p1632",
-    "size_label": "500 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1633-v1",
-    "product_id": "g1-p1633",
-    "size_label": "1 L",
-    "price": 175,
-    "mrp": 175,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1634-v1",
-    "product_id": "g1-p1634",
-    "size_label": "2 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1635-v1",
-    "product_id": "g1-p1635",
-    "size_label": "5 L",
-    "price": 895,
-    "mrp": 895,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1636-v1",
-    "product_id": "g1-p1636",
-    "size_label": "10 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1637-v1",
-    "product_id": "g1-p1637",
-    "size_label": "500 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1638-v1",
-    "product_id": "g1-p1638",
-    "size_label": "1 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1639-v1",
-    "product_id": "g1-p1639",
-    "size_label": "2 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1640-v1",
-    "product_id": "g1-p1640",
-    "size_label": "5 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1641-v1",
-    "product_id": "g1-p1641",
-    "size_label": "10 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1642-v1",
-    "product_id": "g1-p1642",
-    "size_label": "500 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1643-v1",
-    "product_id": "g1-p1643",
-    "size_label": "1 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1644-v1",
-    "product_id": "g1-p1644",
-    "size_label": "2 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1645-v1",
-    "product_id": "g1-p1645",
-    "size_label": "5 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1646-v1",
-    "product_id": "g1-p1646",
-    "size_label": "10 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1647-v1",
-    "product_id": "g1-p1647",
-    "size_label": "500 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1648-v1",
-    "product_id": "g1-p1648",
-    "size_label": "1 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1649-v1",
-    "product_id": "g1-p1649",
-    "size_label": "2 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1650-v1",
-    "product_id": "g1-p1650",
-    "size_label": "5 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1651-v1",
-    "product_id": "g1-p1651",
-    "size_label": "10 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1652-v1",
-    "product_id": "g1-p1652",
-    "size_label": "500 ml",
-    "price": 72,
-    "mrp": 72,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1653-v1",
-    "product_id": "g1-p1653",
-    "size_label": "1 L",
-    "price": 140,
-    "mrp": 140,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1654-v1",
-    "product_id": "g1-p1654",
-    "size_label": "2 L",
-    "price": 295,
-    "mrp": 295,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1655-v1",
-    "product_id": "g1-p1655",
-    "size_label": "5 L",
-    "price": 720,
-    "mrp": 720,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1656-v1",
-    "product_id": "g1-p1656",
-    "size_label": "10 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1657-v1",
-    "product_id": "g1-p1657",
-    "size_label": "500 ml",
-    "price": 75,
-    "mrp": 75,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1658-v1",
-    "product_id": "g1-p1658",
-    "size_label": "1 L",
-    "price": 135,
-    "mrp": 135,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1659-v1",
-    "product_id": "g1-p1659",
-    "size_label": "2 L",
-    "price": 300,
-    "mrp": 300,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1660-v1",
-    "product_id": "g1-p1660",
-    "size_label": "5 L",
-    "price": 680,
-    "mrp": 680,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1661-v1",
-    "product_id": "g1-p1661",
-    "size_label": "10 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1662-v1",
-    "product_id": "g1-p1662",
-    "size_label": "500 ml",
-    "price": 75,
-    "mrp": 75,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1663-v1",
-    "product_id": "g1-p1663",
-    "size_label": "1 L",
-    "price": 195,
-    "mrp": 195,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1664-v1",
-    "product_id": "g1-p1664",
-    "size_label": "2 L",
-    "price": 300,
-    "mrp": 300,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1665-v1",
-    "product_id": "g1-p1665",
-    "size_label": "5 L",
-    "price": 960,
-    "mrp": 960,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1666-v1",
-    "product_id": "g1-p1666",
-    "size_label": "10 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1667-v1",
-    "product_id": "g1-p1667",
-    "size_label": "500 ml",
-    "price": 180,
-    "mrp": 180,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1668-v1",
-    "product_id": "g1-p1668",
-    "size_label": "1 L",
-    "price": 360,
-    "mrp": 360,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1669-v1",
-    "product_id": "g1-p1669",
-    "size_label": "2 L",
-    "price": 710,
-    "mrp": 710,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1670-v1",
-    "product_id": "g1-p1670",
-    "size_label": "5 L",
-    "price": 1750,
-    "mrp": 1750,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1671-v1",
-    "product_id": "g1-p1671",
-    "size_label": "10 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1672-v1",
-    "product_id": "g1-p1672",
-    "size_label": "200 ml",
-    "price": 145,
-    "mrp": 145,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1673-v1",
-    "product_id": "g1-p1673",
-    "size_label": "500 ml",
-    "price": 340,
-    "mrp": 340,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1674-v1",
-    "product_id": "g1-p1674",
-    "size_label": "1 L",
-    "price": 660,
-    "mrp": 660,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1675-v1",
-    "product_id": "g1-p1675",
-    "size_label": "200 ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1676-v1",
-    "product_id": "g1-p1676",
-    "size_label": "500 ml",
-    "price": 330,
-    "mrp": 330,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1677-v1",
-    "product_id": "g1-p1677",
-    "size_label": "1 L",
-    "price": 640,
-    "mrp": 640,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1678-v1",
-    "product_id": "g1-p1678",
-    "size_label": "100 ml",
-    "price": 42,
-    "mrp": 42,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1679-v1",
-    "product_id": "g1-p1679",
-    "size_label": "200 ml",
-    "price": 80,
-    "mrp": 80,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1680-v1",
-    "product_id": "g1-p1680",
-    "size_label": "500 ml",
-    "price": 205,
-    "mrp": 205,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1681-v1",
-    "product_id": "g1-p1681",
-    "size_label": "1 L",
-    "price": 395,
-    "mrp": 395,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1682-v1",
-    "product_id": "g1-p1682",
-    "size_label": "500 ml",
-    "price": 180,
-    "mrp": 180,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1683-v1",
-    "product_id": "g1-p1683",
-    "size_label": "1 L",
-    "price": 360,
-    "mrp": 360,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1684-v1",
-    "product_id": "g1-p1684",
-    "size_label": "2 L",
-    "price": 710,
-    "mrp": 710,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1685-v1",
-    "product_id": "g1-p1685",
-    "size_label": "5 L",
-    "price": 1750,
-    "mrp": 1750,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1686-v1",
-    "product_id": "g1-p1686",
-    "size_label": "1 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1687-v1",
-    "product_id": "g1-p1687",
-    "size_label": "2 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
-    "id": "g1-p1688-v1",
-    "product_id": "g1-p1688",
-    "size_label": "5 L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 25
-  },
-  {
     "id": "g1-p1689-v1",
     "product_id": "g1-p1689",
     "size_label": "Single Pack",
@@ -15040,60 +10974,6 @@
     "price": 50,
     "mrp": 50,
     "stock": 25
-  },
-  {
-    "id": "g1-p1701-v1",
-    "product_id": "g1-p1701",
-    "size_label": "500 ml",
-    "price": 75,
-    "mrp": 75,
-    "stock": 25,
-    "image_url": "/products/packshots/freedom-oil-1l.jpg"
-  },
-  {
-    "id": "g1-p1701-v2",
-    "product_id": "g1-p1701",
-    "size_label": "1 L",
-    "price": 145,
-    "mrp": 145,
-    "stock": 25,
-    "image_url": "/products/packshots/freedom-oil-1l.jpg"
-  },
-  {
-    "id": "g1-p1701-v3",
-    "product_id": "g1-p1701",
-    "size_label": "2 L",
-    "price": 305,
-    "mrp": 305,
-    "stock": 20,
-    "image_url": "/products/packshots/freedom-oil-1l.jpg"
-  },
-  {
-    "id": "g1-p1701-v4",
-    "product_id": "g1-p1701",
-    "size_label": "5 L",
-    "price": 745,
-    "mrp": 745,
-    "stock": 15,
-    "image_url": "/products/packshots/freedom-oil-5l.jpg"
-  },
-  {
-    "id": "g1-p1701-v5",
-    "product_id": "g1-p1701",
-    "size_label": "15 L",
-    "price": 2250,
-    "mrp": 2250,
-    "stock": 10,
-    "image_url": "/products/packshots/freedom-oil-5l.jpg"
-  },
-  {
-    "id": "g1-p1701-v6",
-    "product_id": "g1-p1701",
-    "size_label": "15 kg",
-    "price": 2450,
-    "mrp": 2450,
-    "stock": 8,
-    "image_url": "/products/packshots/freedom-oil-5l.jpg"
   },
   {
     "id": "g1-p1711-v1",
@@ -16182,5 +12062,2390 @@
     "price": 50,
     "mrp": 50,
     "stock": 25
+  },
+  {
+    "id": "var-g1-p1701-1",
+    "product_id": "g1-p1701",
+    "size_label": "500 ml Pouch",
+    "price": 78,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/packshots/freedom-oil-1l.jpg"
+  },
+  {
+    "id": "var-g1-p1701-2",
+    "product_id": "g1-p1701",
+    "size_label": "1 L Pouch",
+    "price": 148,
+    "mrp": 160,
+    "stock": 75,
+    "image_url": "/products/packshots/freedom-oil-1l.jpg"
+  },
+  {
+    "id": "var-g1-p1701-3",
+    "product_id": "g1-p1701",
+    "size_label": "2 L PET Jar",
+    "price": 310,
+    "mrp": 330,
+    "stock": 30,
+    "image_url": "/products/packshots/freedom-oil-1l.jpg"
+  },
+  {
+    "id": "var-g1-p1701-4",
+    "product_id": "g1-p1701",
+    "size_label": "5 L Can",
+    "price": 765,
+    "mrp": 825,
+    "stock": 25,
+    "image_url": "/products/packshots/freedom-oil-1l.jpg"
+  },
+  {
+    "id": "var-g1-p1701-5",
+    "product_id": "g1-p1701",
+    "size_label": "10 L Can",
+    "price": 1520,
+    "mrp": 1650,
+    "stock": 15,
+    "image_url": "/products/packshots/freedom-oil-1l.jpg"
+  },
+  {
+    "id": "var-g1-p1701-6",
+    "product_id": "g1-p1701",
+    "size_label": "15 L Tin",
+    "price": 2280,
+    "mrp": 2450,
+    "stock": 10,
+    "image_url": "/products/packshots/freedom-oil-1l.jpg"
+  },
+  {
+    "id": "var-g1-p1627-1",
+    "product_id": "g1-p1627",
+    "size_label": "500 ml Pouch",
+    "price": 79,
+    "mrp": 85,
+    "stock": 35,
+    "image_url": "/products/packshots/fortune-sunlite-clean.jpg"
+  },
+  {
+    "id": "var-g1-p1627-2",
+    "product_id": "g1-p1627",
+    "size_label": "1 L Pouch",
+    "price": 149,
+    "mrp": 160,
+    "stock": 60,
+    "image_url": "/products/packshots/fortune-sunlite-clean.jpg"
+  },
+  {
+    "id": "var-g1-p1627-3",
+    "product_id": "g1-p1627",
+    "size_label": "2 L PET Jar",
+    "price": 315,
+    "mrp": 335,
+    "stock": 20,
+    "image_url": "/products/packshots/fortune-sunlite-clean.jpg"
+  },
+  {
+    "id": "var-g1-p1627-4",
+    "product_id": "g1-p1627",
+    "size_label": "5 L Can",
+    "price": 775,
+    "mrp": 835,
+    "stock": 20,
+    "image_url": "/products/packshots/fortune-sunlite-clean.jpg"
+  },
+  {
+    "id": "var-g1-p1627-5",
+    "product_id": "g1-p1627",
+    "size_label": "10 L Can",
+    "price": 1530,
+    "mrp": 1650,
+    "stock": 15,
+    "image_url": "/products/packshots/fortune-sunlite-clean.jpg"
+  },
+  {
+    "id": "var-g1-p1627-6",
+    "product_id": "g1-p1627",
+    "size_label": "15 L Tin",
+    "price": 2290,
+    "mrp": 2450,
+    "stock": 10,
+    "image_url": "/products/packshots/fortune-sunlite-clean.jpg"
+  },
+  {
+    "id": "var-g1-p1622-1",
+    "product_id": "g1-p1622",
+    "size_label": "500 ml Pouch",
+    "price": 76,
+    "mrp": 82,
+    "stock": 30,
+    "image_url": "/products/packshots/gold-drop-sunflower.jpg"
+  },
+  {
+    "id": "var-g1-p1622-2",
+    "product_id": "g1-p1622",
+    "size_label": "1 L Pouch",
+    "price": 144,
+    "mrp": 155,
+    "stock": 50,
+    "image_url": "/products/packshots/gold-drop-sunflower.jpg"
+  },
+  {
+    "id": "var-g1-p1622-3",
+    "product_id": "g1-p1622",
+    "size_label": "2 L PET Jar",
+    "price": 299,
+    "mrp": 320,
+    "stock": 20,
+    "image_url": "/products/packshots/gold-drop-sunflower.jpg"
+  },
+  {
+    "id": "var-g1-p1622-4",
+    "product_id": "g1-p1622",
+    "size_label": "5 L Can",
+    "price": 745,
+    "mrp": 799,
+    "stock": 20,
+    "image_url": "/products/packshots/gold-drop-sunflower.jpg"
+  },
+  {
+    "id": "var-g1-p1622-5",
+    "product_id": "g1-p1622",
+    "size_label": "10 L Can",
+    "price": 1480,
+    "mrp": 1599,
+    "stock": 15,
+    "image_url": "/products/packshots/gold-drop-sunflower.jpg"
+  },
+  {
+    "id": "var-g1-p1622-6",
+    "product_id": "g1-p1622",
+    "size_label": "15 L Tin",
+    "price": 2220,
+    "mrp": 2399,
+    "stock": 10,
+    "image_url": "/products/packshots/gold-drop-sunflower.jpg"
+  },
+  {
+    "id": "var-g1-p1642-1",
+    "product_id": "g1-p1642",
+    "size_label": "500 ml Pouch",
+    "price": 78,
+    "mrp": 85,
+    "stock": 25,
+    "image_url": "/products/packshots/gemini-sunflower-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1642-2",
+    "product_id": "g1-p1642",
+    "size_label": "1 L Pouch",
+    "price": 148,
+    "mrp": 160,
+    "stock": 45,
+    "image_url": "/products/packshots/gemini-sunflower-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1642-3",
+    "product_id": "g1-p1642",
+    "size_label": "2 L PET Jar",
+    "price": 310,
+    "mrp": 330,
+    "stock": 15,
+    "image_url": "/products/packshots/gemini-sunflower-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1642-4",
+    "product_id": "g1-p1642",
+    "size_label": "5 L Can",
+    "price": 765,
+    "mrp": 825,
+    "stock": 15,
+    "image_url": "/products/packshots/gemini-sunflower-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1642-5",
+    "product_id": "g1-p1642",
+    "size_label": "10 L Can",
+    "price": 1520,
+    "mrp": 1640,
+    "stock": 10,
+    "image_url": "/products/packshots/gemini-sunflower-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1637-1",
+    "product_id": "g1-p1637",
+    "size_label": "500 ml Pouch",
+    "price": 78,
+    "mrp": 85,
+    "stock": 25,
+    "image_url": "/products/packshots/dhara-sunflower-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1637-2",
+    "product_id": "g1-p1637",
+    "size_label": "1 L Pouch",
+    "price": 148,
+    "mrp": 160,
+    "stock": 40,
+    "image_url": "/products/packshots/dhara-sunflower-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1637-3",
+    "product_id": "g1-p1637",
+    "size_label": "2 L Jar",
+    "price": 310,
+    "mrp": 330,
+    "stock": 15,
+    "image_url": "/products/packshots/dhara-sunflower-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1637-4",
+    "product_id": "g1-p1637",
+    "size_label": "5 L Can",
+    "price": 760,
+    "mrp": 820,
+    "stock": 15,
+    "image_url": "/products/packshots/dhara-sunflower-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1637-5",
+    "product_id": "g1-p1637",
+    "size_label": "10 L Can",
+    "price": 1510,
+    "mrp": 1640,
+    "stock": 10,
+    "image_url": "/products/packshots/dhara-sunflower-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1647-1",
+    "product_id": "g1-p1647",
+    "size_label": "500 ml Pouch",
+    "price": 76,
+    "mrp": 82,
+    "stock": 25,
+    "image_url": "/products/packshots/sunpure-sunflower-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1647-2",
+    "product_id": "g1-p1647",
+    "size_label": "1 L Pouch",
+    "price": 144,
+    "mrp": 155,
+    "stock": 40,
+    "image_url": "/products/packshots/sunpure-sunflower-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1647-3",
+    "product_id": "g1-p1647",
+    "size_label": "2 L Jar",
+    "price": 299,
+    "mrp": 320,
+    "stock": 15,
+    "image_url": "/products/packshots/sunpure-sunflower-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1647-4",
+    "product_id": "g1-p1647",
+    "size_label": "5 L Can",
+    "price": 740,
+    "mrp": 795,
+    "stock": 15,
+    "image_url": "/products/packshots/sunpure-sunflower-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1647-5",
+    "product_id": "g1-p1647",
+    "size_label": "10 L Can",
+    "price": 1470,
+    "mrp": 1590,
+    "stock": 10,
+    "image_url": "/products/packshots/sunpure-sunflower-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0470-1",
+    "product_id": "g1-p0470",
+    "size_label": "500 ml Pouch",
+    "price": 74,
+    "mrp": 80,
+    "stock": 30,
+    "image_url": "/products/packshots/priya-gold-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0470-2",
+    "product_id": "g1-p0470",
+    "size_label": "1 L Pouch",
+    "price": 142,
+    "mrp": 155,
+    "stock": 50,
+    "image_url": "/products/packshots/priya-gold-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0470-3",
+    "product_id": "g1-p0470",
+    "size_label": "5 L Can",
+    "price": 730,
+    "mrp": 785,
+    "stock": 20,
+    "image_url": "/products/packshots/priya-gold-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0470-4",
+    "product_id": "g1-p0470",
+    "size_label": "10 L Can",
+    "price": 1450,
+    "mrp": 1570,
+    "stock": 10,
+    "image_url": "/products/packshots/priya-gold-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1632-1",
+    "product_id": "g1-p1632",
+    "size_label": "1 L Pouch",
+    "price": 189,
+    "mrp": 210,
+    "stock": 40,
+    "image_url": "/products/packshots/saffola-gold-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1632-2",
+    "product_id": "g1-p1632",
+    "size_label": "2 L Jar",
+    "price": 395,
+    "mrp": 430,
+    "stock": 20,
+    "image_url": "/products/packshots/saffola-gold-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1632-3",
+    "product_id": "g1-p1632",
+    "size_label": "5 L Can",
+    "price": 975,
+    "mrp": 1075,
+    "stock": 20,
+    "image_url": "/products/packshots/saffola-gold-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1632-4",
+    "product_id": "g1-p1632",
+    "size_label": "10 L Can",
+    "price": 1940,
+    "mrp": 2150,
+    "stock": 10,
+    "image_url": "/products/packshots/saffola-gold-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1657-1",
+    "product_id": "g1-p1657",
+    "size_label": "500 ml Bottle",
+    "price": 88,
+    "mrp": 95,
+    "stock": 30,
+    "image_url": "/products/packshots/fortune-kachi-ghani-mustard-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1657-2",
+    "product_id": "g1-p1657",
+    "size_label": "1 L Bottle",
+    "price": 169,
+    "mrp": 185,
+    "stock": 45,
+    "image_url": "/products/packshots/fortune-kachi-ghani-mustard-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1657-3",
+    "product_id": "g1-p1657",
+    "size_label": "2 L Jar",
+    "price": 340,
+    "mrp": 370,
+    "stock": 15,
+    "image_url": "/products/packshots/fortune-kachi-ghani-mustard-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1657-4",
+    "product_id": "g1-p1657",
+    "size_label": "5 L Can",
+    "price": 845,
+    "mrp": 925,
+    "stock": 15,
+    "image_url": "/products/packshots/fortune-kachi-ghani-mustard-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1662-1",
+    "product_id": "g1-p1662",
+    "size_label": "1 L Pouch",
+    "price": 198,
+    "mrp": 215,
+    "stock": 40,
+    "image_url": "/products/packshots/fortune-groundnut-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1662-2",
+    "product_id": "g1-p1662",
+    "size_label": "2 L Jar",
+    "price": 405,
+    "mrp": 440,
+    "stock": 15,
+    "image_url": "/products/packshots/fortune-groundnut-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1662-3",
+    "product_id": "g1-p1662",
+    "size_label": "5 L Can",
+    "price": 985,
+    "mrp": 1080,
+    "stock": 20,
+    "image_url": "/products/packshots/fortune-groundnut-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1662-4",
+    "product_id": "g1-p1662",
+    "size_label": "10 L Can",
+    "price": 1960,
+    "mrp": 2160,
+    "stock": 10,
+    "image_url": "/products/packshots/fortune-groundnut-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1652-1",
+    "product_id": "g1-p1652",
+    "size_label": "1 L Pouch",
+    "price": 152,
+    "mrp": 165,
+    "stock": 35,
+    "image_url": "/products/packshots/freedom-rice-bran-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1652-2",
+    "product_id": "g1-p1652",
+    "size_label": "2 L Jar",
+    "price": 315,
+    "mrp": 340,
+    "stock": 15,
+    "image_url": "/products/packshots/freedom-rice-bran-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1652-3",
+    "product_id": "g1-p1652",
+    "size_label": "5 L Can",
+    "price": 780,
+    "mrp": 845,
+    "stock": 15,
+    "image_url": "/products/packshots/freedom-rice-bran-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1652-4",
+    "product_id": "g1-p1652",
+    "size_label": "10 L Can",
+    "price": 1550,
+    "mrp": 1690,
+    "stock": 10,
+    "image_url": "/products/packshots/freedom-rice-bran-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0997-1",
+    "product_id": "g1-p0997",
+    "size_label": "1 L Pouch",
+    "price": 195,
+    "mrp": 210,
+    "stock": 35,
+    "image_url": "/products/packshots/vijaya-groundnut-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0997-2",
+    "product_id": "g1-p0997",
+    "size_label": "5 L Can",
+    "price": 975,
+    "mrp": 1050,
+    "stock": 20,
+    "image_url": "/products/packshots/vijaya-groundnut-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0997-3",
+    "product_id": "g1-p0997",
+    "size_label": "10 L Can",
+    "price": 1940,
+    "mrp": 2100,
+    "stock": 10,
+    "image_url": "/products/packshots/vijaya-groundnut-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0997-4",
+    "product_id": "g1-p0997",
+    "size_label": "15 kg Tin",
+    "price": 2920,
+    "mrp": 3150,
+    "stock": 10,
+    "image_url": "/products/packshots/vijaya-groundnut-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0166-1",
+    "product_id": "g1-p0166",
+    "size_label": "500 ml Pouch",
+    "price": 62,
+    "mrp": 68,
+    "stock": 40,
+    "image_url": "/products/packshots/ruchi-gold-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0166-2",
+    "product_id": "g1-p0166",
+    "size_label": "1 L Pouch",
+    "price": 118,
+    "mrp": 130,
+    "stock": 60,
+    "image_url": "/products/packshots/ruchi-gold-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0166-3",
+    "product_id": "g1-p0166",
+    "size_label": "5 L Can",
+    "price": 585,
+    "mrp": 645,
+    "stock": 20,
+    "image_url": "/products/packshots/ruchi-gold-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0166-4",
+    "product_id": "g1-p0166",
+    "size_label": "15 kg Tin",
+    "price": 1780,
+    "mrp": 1950,
+    "stock": 10,
+    "image_url": "/products/packshots/ruchi-gold-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1667-1",
+    "product_id": "g1-p1667",
+    "size_label": "200 ml Bottle",
+    "price": 102,
+    "mrp": 110,
+    "stock": 30,
+    "image_url": "/products/packshots/idhayam-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1667-2",
+    "product_id": "g1-p1667",
+    "size_label": "500 ml Bottle",
+    "price": 242,
+    "mrp": 260,
+    "stock": 40,
+    "image_url": "/products/packshots/idhayam-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1667-3",
+    "product_id": "g1-p1667",
+    "size_label": "1 L Bottle",
+    "price": 475,
+    "mrp": 510,
+    "stock": 35,
+    "image_url": "/products/packshots/idhayam-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1667-4",
+    "product_id": "g1-p1667",
+    "size_label": "2 L Jar",
+    "price": 950,
+    "mrp": 1020,
+    "stock": 15,
+    "image_url": "/products/packshots/idhayam-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1667-5",
+    "product_id": "g1-p1667",
+    "size_label": "5 L Can",
+    "price": 2375,
+    "mrp": 2550,
+    "stock": 15,
+    "image_url": "/products/packshots/idhayam-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1667-6",
+    "product_id": "g1-p1667",
+    "size_label": "10 L Can",
+    "price": 4750,
+    "mrp": 5100,
+    "stock": 10,
+    "image_url": "/products/packshots/idhayam-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1678-1",
+    "product_id": "g1-p1678",
+    "size_label": "100 ml Bottle",
+    "price": 42,
+    "mrp": 46,
+    "stock": 40,
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1678-2",
+    "product_id": "g1-p1678",
+    "size_label": "200 ml Bottle",
+    "price": 82,
+    "mrp": 90,
+    "stock": 50,
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1678-3",
+    "product_id": "g1-p1678",
+    "size_label": "500 ml Bottle",
+    "price": 192,
+    "mrp": 210,
+    "stock": 35,
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "var-g1-p1678-4",
+    "product_id": "g1-p1678",
+    "size_label": "1 L Bottle",
+    "price": 375,
+    "mrp": 410,
+    "stock": 20,
+    "image_url": "/products/packshots/parachute-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0634-1",
+    "product_id": "g1-p0634",
+    "size_label": "50 ml Jar",
+    "price": 45,
+    "mrp": 48,
+    "stock": 30,
+    "image_url": "/products/packshots/grb-pure-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p0634-2",
+    "product_id": "g1-p0634",
+    "size_label": "100 ml Jar",
+    "price": 86,
+    "mrp": 92,
+    "stock": 35,
+    "image_url": "/products/packshots/grb-pure-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p0634-3",
+    "product_id": "g1-p0634",
+    "size_label": "200 ml Jar",
+    "price": 162,
+    "mrp": 175,
+    "stock": 40,
+    "image_url": "/products/packshots/grb-pure-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p0634-4",
+    "product_id": "g1-p0634",
+    "size_label": "500 ml Jar",
+    "price": 388,
+    "mrp": 420,
+    "stock": 45,
+    "image_url": "/products/packshots/grb-pure-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p0634-5",
+    "product_id": "g1-p0634",
+    "size_label": "1 L Jar",
+    "price": 765,
+    "mrp": 825,
+    "stock": 25,
+    "image_url": "/products/packshots/grb-pure-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p0634-6",
+    "product_id": "g1-p0634",
+    "size_label": "5 L Tin",
+    "price": 3780,
+    "mrp": 4100,
+    "stock": 10,
+    "image_url": "/products/packshots/grb-pure-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p1672-1",
+    "product_id": "g1-p1672",
+    "size_label": "200 ml Carton",
+    "price": 138,
+    "mrp": 145,
+    "stock": 30,
+    "image_url": "/products/packshots/amul-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p1672-2",
+    "product_id": "g1-p1672",
+    "size_label": "500 ml Tin",
+    "price": 332,
+    "mrp": 350,
+    "stock": 50,
+    "image_url": "/products/packshots/amul-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p1672-3",
+    "product_id": "g1-p1672",
+    "size_label": "1 L Tin",
+    "price": 655,
+    "mrp": 690,
+    "stock": 40,
+    "image_url": "/products/packshots/amul-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p1672-4",
+    "product_id": "g1-p1672",
+    "size_label": "5 L Tin",
+    "price": 3250,
+    "mrp": 3450,
+    "stock": 15,
+    "image_url": "/products/packshots/amul-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p1702-1",
+    "product_id": "g1-p1702",
+    "size_label": "200 ml Jar",
+    "price": 158,
+    "mrp": 170,
+    "stock": 25,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p1702-2",
+    "product_id": "g1-p1702",
+    "size_label": "500 ml Jar",
+    "price": 385,
+    "mrp": 415,
+    "stock": 35,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p1702-3",
+    "product_id": "g1-p1702",
+    "size_label": "1 L Jar",
+    "price": 750,
+    "mrp": 810,
+    "stock": 20,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p1702-4",
+    "product_id": "g1-p1702",
+    "size_label": "5 L Tin",
+    "price": 3740,
+    "mrp": 4050,
+    "stock": 10,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p0279-1",
+    "product_id": "g1-p0279",
+    "size_label": "200 ml Pouch",
+    "price": 148,
+    "mrp": 160,
+    "stock": 25,
+    "image_url": "/products/packshots/hatsun-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p0279-2",
+    "product_id": "g1-p0279",
+    "size_label": "500 ml Pouch",
+    "price": 365,
+    "mrp": 395,
+    "stock": 35,
+    "image_url": "/products/packshots/hatsun-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p0279-3",
+    "product_id": "g1-p0279",
+    "size_label": "1 L Pouch",
+    "price": 715,
+    "mrp": 770,
+    "stock": 20,
+    "image_url": "/products/packshots/hatsun-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p0279-4",
+    "product_id": "g1-p0279",
+    "size_label": "5 L Tin",
+    "price": 3560,
+    "mrp": 3850,
+    "stock": 10,
+    "image_url": "/products/packshots/hatsun-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p1675-1",
+    "product_id": "g1-p1675",
+    "size_label": "200 ml Carton",
+    "price": 140,
+    "mrp": 150,
+    "stock": 25,
+    "image_url": "/products/packshots/patanjali-cow-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p1675-2",
+    "product_id": "g1-p1675",
+    "size_label": "500 ml Carton",
+    "price": 340,
+    "mrp": 365,
+    "stock": 35,
+    "image_url": "/products/packshots/patanjali-cow-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p1675-3",
+    "product_id": "g1-p1675",
+    "size_label": "1 L Carton",
+    "price": 660,
+    "mrp": 710,
+    "stock": 20,
+    "image_url": "/products/packshots/patanjali-cow-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p1675-4",
+    "product_id": "g1-p1675",
+    "size_label": "5 L Tin",
+    "price": 3290,
+    "mrp": 3550,
+    "stock": 10,
+    "image_url": "/products/packshots/patanjali-cow-ghee.jpg"
+  },
+  {
+    "id": "var-g1-p0619-1",
+    "product_id": "g1-p0619",
+    "size_label": "180 ml Bottle",
+    "price": 38,
+    "mrp": 45,
+    "stock": 35,
+    "image_url": "/products/packshots/deepam-pooja-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0619-2",
+    "product_id": "g1-p0619",
+    "size_label": "400 ml Bottle",
+    "price": 82,
+    "mrp": 95,
+    "stock": 40,
+    "image_url": "/products/packshots/deepam-pooja-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0619-3",
+    "product_id": "g1-p0619",
+    "size_label": "500 ml Bottle",
+    "price": 95,
+    "mrp": 110,
+    "stock": 40,
+    "image_url": "/products/packshots/deepam-pooja-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0619-4",
+    "product_id": "g1-p0619",
+    "size_label": "800 ml Bottle",
+    "price": 150,
+    "mrp": 175,
+    "stock": 35,
+    "image_url": "/products/packshots/deepam-pooja-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0619-5",
+    "product_id": "g1-p0619",
+    "size_label": "1 L Bottle",
+    "price": 185,
+    "mrp": 210,
+    "stock": 50,
+    "image_url": "/products/packshots/deepam-pooja-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0619-6",
+    "product_id": "g1-p0619",
+    "size_label": "5 L Can",
+    "price": 880,
+    "mrp": 999,
+    "stock": 20,
+    "image_url": "/products/packshots/deepam-pooja-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0513-1",
+    "product_id": "g1-p0513",
+    "size_label": "100 ml Bottle",
+    "price": 38,
+    "mrp": 45,
+    "stock": 40,
+    "image_url": "/products/packshots/castor-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0513-2",
+    "product_id": "g1-p0513",
+    "size_label": "200 ml Bottle",
+    "price": 72,
+    "mrp": 85,
+    "stock": 45,
+    "image_url": "/products/packshots/castor-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0513-3",
+    "product_id": "g1-p0513",
+    "size_label": "500 ml Bottle",
+    "price": 175,
+    "mrp": 200,
+    "stock": 30,
+    "image_url": "/products/packshots/castor-oil.jpg"
+  },
+  {
+    "id": "var-g1-p0513-4",
+    "product_id": "g1-p0513",
+    "size_label": "1 L Bottle",
+    "price": 340,
+    "mrp": 390,
+    "stock": 20,
+    "image_url": "/products/packshots/castor-oil.jpg"
+  },
+  {
+    "id": "var-g1-pc001-1",
+    "product_id": "g1-pc001",
+    "size_label": "50 g",
+    "price": 10,
+    "mrp": 10,
+    "stock": 40,
+    "image_url": "/products/verified/pc-lifebuoy-total-soap.webp"
+  },
+  {
+    "id": "var-g1-pc001-2",
+    "product_id": "g1-pc001",
+    "size_label": "100 g",
+    "price": 34,
+    "mrp": 36,
+    "stock": 50,
+    "image_url": "/products/verified/pc-lifebuoy-total-soap.webp"
+  },
+  {
+    "id": "var-g1-pc001-3",
+    "product_id": "g1-pc001",
+    "size_label": "4 x 100 g (Multipack)",
+    "price": 125,
+    "mrp": 140,
+    "stock": 25,
+    "image_url": "/products/verified/pc-lifebuoy-total-soap.webp"
+  },
+  {
+    "id": "var-g1-pc002-1",
+    "product_id": "g1-pc002",
+    "size_label": "50 g",
+    "price": 10,
+    "mrp": 10,
+    "stock": 35,
+    "image_url": "/products/verified/pc-lux-soap.webp"
+  },
+  {
+    "id": "var-g1-pc002-2",
+    "product_id": "g1-pc002",
+    "size_label": "100 g",
+    "price": 36,
+    "mrp": 38,
+    "stock": 45,
+    "image_url": "/products/verified/pc-lux-soap.webp"
+  },
+  {
+    "id": "var-g1-pc002-3",
+    "product_id": "g1-pc002",
+    "size_label": "4 x 100 g (Multipack)",
+    "price": 135,
+    "mrp": 150,
+    "stock": 20,
+    "image_url": "/products/verified/pc-lux-soap.webp"
+  },
+  {
+    "id": "var-g1-pc003-1",
+    "product_id": "g1-pc003",
+    "size_label": "75 g",
+    "price": 60,
+    "mrp": 65,
+    "stock": 35,
+    "image_url": "/products/verified/pc-dove-soap.webp"
+  },
+  {
+    "id": "var-g1-pc003-2",
+    "product_id": "g1-pc003",
+    "size_label": "100 g",
+    "price": 82,
+    "mrp": 88,
+    "stock": 30,
+    "image_url": "/products/verified/pc-dove-soap.webp"
+  },
+  {
+    "id": "var-g1-pc003-3",
+    "product_id": "g1-pc003",
+    "size_label": "125 g",
+    "price": 105,
+    "mrp": 115,
+    "stock": 25,
+    "image_url": "/products/verified/pc-dove-soap.webp"
+  },
+  {
+    "id": "var-g1-pc004-1",
+    "product_id": "g1-pc004",
+    "size_label": "100 g",
+    "price": 36,
+    "mrp": 38,
+    "stock": 50,
+    "image_url": "/products/verified/pc-santoor-soap.webp"
+  },
+  {
+    "id": "var-g1-pc004-2",
+    "product_id": "g1-pc004",
+    "size_label": "4 x 100 g (Multipack)",
+    "price": 132,
+    "mrp": 145,
+    "stock": 30,
+    "image_url": "/products/verified/pc-santoor-soap.webp"
+  },
+  {
+    "id": "var-g1-pc005-1",
+    "product_id": "g1-pc005",
+    "size_label": "75 g",
+    "price": 40,
+    "mrp": 42,
+    "stock": 45,
+    "image_url": "/products/verified/pc-mysore-sandal-soap.webp"
+  },
+  {
+    "id": "var-g1-pc005-2",
+    "product_id": "g1-pc005",
+    "size_label": "125 g",
+    "price": 60,
+    "mrp": 63,
+    "stock": 35,
+    "image_url": "/products/verified/pc-mysore-sandal-soap.webp"
+  },
+  {
+    "id": "var-g1-pc005-3",
+    "product_id": "g1-pc005",
+    "size_label": "150 g",
+    "price": 72,
+    "mrp": 75,
+    "stock": 30,
+    "image_url": "/products/verified/pc-mysore-sandal-soap.webp"
+  },
+  {
+    "id": "var-g1-pc006-1",
+    "product_id": "g1-pc006",
+    "size_label": "75 g",
+    "price": 40,
+    "mrp": 42,
+    "stock": 50,
+    "image_url": "/products/verified/pc-dettol-soap.webp"
+  },
+  {
+    "id": "var-g1-pc006-2",
+    "product_id": "g1-pc006",
+    "size_label": "125 g",
+    "price": 64,
+    "mrp": 68,
+    "stock": 40,
+    "image_url": "/products/verified/pc-dettol-soap.webp"
+  },
+  {
+    "id": "var-g1-pc006-3",
+    "product_id": "g1-pc006",
+    "size_label": "4 x 125 g (Multipack)",
+    "price": 235,
+    "mrp": 260,
+    "stock": 25,
+    "image_url": "/products/verified/pc-dettol-soap.webp"
+  },
+  {
+    "id": "var-g1-pc007-1",
+    "product_id": "g1-pc007",
+    "size_label": "100 g",
+    "price": 39,
+    "mrp": 42,
+    "stock": 45,
+    "image_url": "/products/verified/pc-cinthol-soap.webp"
+  },
+  {
+    "id": "var-g1-pc007-2",
+    "product_id": "g1-pc007",
+    "size_label": "4 x 100 g (Multipack)",
+    "price": 150,
+    "mrp": 165,
+    "stock": 25,
+    "image_url": "/products/verified/pc-cinthol-soap.webp"
+  },
+  {
+    "id": "var-g1-pc008-1",
+    "product_id": "g1-pc008",
+    "size_label": "75 g",
+    "price": 33,
+    "mrp": 35,
+    "stock": 40,
+    "image_url": "/products/verified/pc-medimix-soap.webp"
+  },
+  {
+    "id": "var-g1-pc008-2",
+    "product_id": "g1-pc008",
+    "size_label": "125 g",
+    "price": 48,
+    "mrp": 52,
+    "stock": 35,
+    "image_url": "/products/verified/pc-medimix-soap.webp"
+  },
+  {
+    "id": "var-g1-pc008-3",
+    "product_id": "g1-pc008",
+    "size_label": "4 x 125 g (Multipack)",
+    "price": 175,
+    "mrp": 195,
+    "stock": 20,
+    "image_url": "/products/verified/pc-medimix-soap.webp"
+  },
+  {
+    "id": "var-g1-pc009-1",
+    "product_id": "g1-pc009",
+    "size_label": "75 g",
+    "price": 58,
+    "mrp": 62,
+    "stock": 35,
+    "image_url": "/products/verified/pc-pears-soap.webp"
+  },
+  {
+    "id": "var-g1-pc009-2",
+    "product_id": "g1-pc009",
+    "size_label": "125 g",
+    "price": 90,
+    "mrp": 98,
+    "stock": 30,
+    "image_url": "/products/verified/pc-pears-soap.webp"
+  },
+  {
+    "id": "var-g1-pc010-1",
+    "product_id": "g1-pc010",
+    "size_label": "100 g",
+    "price": 36,
+    "mrp": 38,
+    "stock": 45,
+    "image_url": "/products/verified/pc-hamam-soap.webp"
+  },
+  {
+    "id": "var-g1-pc010-2",
+    "product_id": "g1-pc010",
+    "size_label": "4 x 100 g (Multipack)",
+    "price": 135,
+    "mrp": 148,
+    "stock": 25,
+    "image_url": "/products/verified/pc-hamam-soap.webp"
+  },
+  {
+    "id": "var-g1-pc011-1",
+    "product_id": "g1-pc011",
+    "size_label": "100 g",
+    "price": 28,
+    "mrp": 30,
+    "stock": 40,
+    "image_url": "/products/verified/pc-godrej-no1-soap.webp"
+  },
+  {
+    "id": "var-g1-pc011-2",
+    "product_id": "g1-pc011",
+    "size_label": "4 x 100 g (Multipack)",
+    "price": 105,
+    "mrp": 115,
+    "stock": 20,
+    "image_url": "/products/verified/pc-godrej-no1-soap.webp"
+  },
+  {
+    "id": "var-g1-pc012-1",
+    "product_id": "g1-pc012",
+    "size_label": "100 g",
+    "price": 70,
+    "mrp": 75,
+    "stock": 35,
+    "image_url": "/products/verified/pc-fiama-soap.webp"
+  },
+  {
+    "id": "var-g1-pc012-2",
+    "product_id": "g1-pc012",
+    "size_label": "3 x 100 g (Multipack)",
+    "price": 185,
+    "mrp": 210,
+    "stock": 20,
+    "image_url": "/products/verified/pc-fiama-soap.webp"
+  },
+  {
+    "id": "var-g1-pc013-1",
+    "product_id": "g1-pc013",
+    "size_label": "100 g",
+    "price": 32,
+    "mrp": 35,
+    "stock": 40,
+    "image_url": "/products/verified/pc-vivel-soap.webp"
+  },
+  {
+    "id": "var-g1-pc013-2",
+    "product_id": "g1-pc013",
+    "size_label": "4 x 100 g (Multipack)",
+    "price": 120,
+    "mrp": 135,
+    "stock": 20,
+    "image_url": "/products/verified/pc-vivel-soap.webp"
+  },
+  {
+    "id": "var-g1-pc014-1",
+    "product_id": "g1-pc014",
+    "size_label": "250 ml",
+    "price": 199,
+    "mrp": 225,
+    "stock": 30,
+    "image_url": "/products/verified/pc-nivea-body-wash.webp"
+  },
+  {
+    "id": "var-g1-pc014-2",
+    "product_id": "g1-pc014",
+    "size_label": "500 ml",
+    "price": 349,
+    "mrp": 399,
+    "stock": 20,
+    "image_url": "/products/verified/pc-nivea-body-wash.webp"
+  },
+  {
+    "id": "var-g1-pc015-1",
+    "product_id": "g1-pc015",
+    "size_label": "80 ml",
+    "price": 50,
+    "mrp": 55,
+    "stock": 40,
+    "image_url": "/products/verified/pc-clinic-plus-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc015-2",
+    "product_id": "g1-pc015",
+    "size_label": "175 ml",
+    "price": 118,
+    "mrp": 130,
+    "stock": 35,
+    "image_url": "/products/verified/pc-clinic-plus-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc015-3",
+    "product_id": "g1-pc015",
+    "size_label": "340 ml",
+    "price": 215,
+    "mrp": 240,
+    "stock": 25,
+    "image_url": "/products/verified/pc-clinic-plus-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc016-1",
+    "product_id": "g1-pc016",
+    "size_label": "80 ml",
+    "price": 70,
+    "mrp": 75,
+    "stock": 35,
+    "image_url": "/products/verified/pc-dove-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc016-2",
+    "product_id": "g1-pc016",
+    "size_label": "180 ml",
+    "price": 160,
+    "mrp": 180,
+    "stock": 30,
+    "image_url": "/products/verified/pc-dove-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc016-3",
+    "product_id": "g1-pc016",
+    "size_label": "340 ml",
+    "price": 285,
+    "mrp": 325,
+    "stock": 20,
+    "image_url": "/products/verified/pc-dove-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc017-1",
+    "product_id": "g1-pc017",
+    "size_label": "100 ml",
+    "price": 115,
+    "mrp": 125,
+    "stock": 30,
+    "image_url": "/products/verified/pc-head-shoulders-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc017-2",
+    "product_id": "g1-pc017",
+    "size_label": "180 ml",
+    "price": 195,
+    "mrp": 218,
+    "stock": 30,
+    "image_url": "/products/verified/pc-head-shoulders-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc017-3",
+    "product_id": "g1-pc017",
+    "size_label": "340 ml",
+    "price": 340,
+    "mrp": 385,
+    "stock": 20,
+    "image_url": "/products/verified/pc-head-shoulders-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc018-1",
+    "product_id": "g1-pc018",
+    "size_label": "80 ml",
+    "price": 60,
+    "mrp": 65,
+    "stock": 35,
+    "image_url": "/products/verified/pc-sunsilk-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc018-2",
+    "product_id": "g1-pc018",
+    "size_label": "180 ml",
+    "price": 140,
+    "mrp": 155,
+    "stock": 30,
+    "image_url": "/products/verified/pc-sunsilk-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc018-3",
+    "product_id": "g1-pc018",
+    "size_label": "350 ml",
+    "price": 250,
+    "mrp": 285,
+    "stock": 20,
+    "image_url": "/products/verified/pc-sunsilk-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc019-1",
+    "product_id": "g1-pc019",
+    "size_label": "90 ml",
+    "price": 88,
+    "mrp": 95,
+    "stock": 35,
+    "image_url": "/products/verified/pc-pantene-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc019-2",
+    "product_id": "g1-pc019",
+    "size_label": "180 ml",
+    "price": 170,
+    "mrp": 190,
+    "stock": 30,
+    "image_url": "/products/verified/pc-pantene-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc019-3",
+    "product_id": "g1-pc019",
+    "size_label": "340 ml",
+    "price": 299,
+    "mrp": 340,
+    "stock": 20,
+    "image_url": "/products/verified/pc-pantene-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc020-1",
+    "product_id": "g1-pc020",
+    "size_label": "185 ml",
+    "price": 179,
+    "mrp": 199,
+    "stock": 30,
+    "image_url": "/products/verified/pc-tresemme-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc020-2",
+    "product_id": "g1-pc020",
+    "size_label": "340 ml",
+    "price": 315,
+    "mrp": 360,
+    "stock": 20,
+    "image_url": "/products/verified/pc-tresemme-shampoo.webp"
+  },
+  {
+    "id": "var-g1-pc021-1",
+    "product_id": "g1-pc021",
+    "size_label": "100 ml",
+    "price": 385,
+    "mrp": 430,
+    "stock": 25,
+    "image_url": "/products/verified/pc-indulekha-oil.webp"
+  },
+  {
+    "id": "var-g1-pc021-2",
+    "product_id": "g1-pc021",
+    "size_label": "250 ml",
+    "price": 750,
+    "mrp": 849,
+    "stock": 15,
+    "image_url": "/products/verified/pc-indulekha-oil.webp"
+  },
+  {
+    "id": "var-g1-pc022-1",
+    "product_id": "g1-pc022",
+    "size_label": "100 ml",
+    "price": 42,
+    "mrp": 44,
+    "stock": 50,
+    "image_url": "/products/verified/pc-parachute-oil.webp"
+  },
+  {
+    "id": "var-g1-pc022-2",
+    "product_id": "g1-pc022",
+    "size_label": "200 ml",
+    "price": 82,
+    "mrp": 88,
+    "stock": 45,
+    "image_url": "/products/verified/pc-parachute-oil.webp"
+  },
+  {
+    "id": "var-g1-pc022-3",
+    "product_id": "g1-pc022",
+    "size_label": "500 ml",
+    "price": 195,
+    "mrp": 210,
+    "stock": 30,
+    "image_url": "/products/verified/pc-parachute-oil.webp"
+  },
+  {
+    "id": "var-g1-pc023-1",
+    "product_id": "g1-pc023",
+    "size_label": "90 ml",
+    "price": 50,
+    "mrp": 55,
+    "stock": 40,
+    "image_url": "/products/verified/pc-dabur-amla-oil.webp"
+  },
+  {
+    "id": "var-g1-pc023-2",
+    "product_id": "g1-pc023",
+    "size_label": "180 ml",
+    "price": 95,
+    "mrp": 105,
+    "stock": 35,
+    "image_url": "/products/verified/pc-dabur-amla-oil.webp"
+  },
+  {
+    "id": "var-g1-pc023-3",
+    "product_id": "g1-pc023",
+    "size_label": "275 ml",
+    "price": 140,
+    "mrp": 155,
+    "stock": 25,
+    "image_url": "/products/verified/pc-dabur-amla-oil.webp"
+  },
+  {
+    "id": "var-g1-pc024-1",
+    "product_id": "g1-pc024",
+    "size_label": "50 ml",
+    "price": 45,
+    "mrp": 47,
+    "stock": 40,
+    "image_url": "/products/verified/pc-navratna-oil.webp"
+  },
+  {
+    "id": "var-g1-pc024-2",
+    "product_id": "g1-pc024",
+    "size_label": "100 ml",
+    "price": 85,
+    "mrp": 92,
+    "stock": 35,
+    "image_url": "/products/verified/pc-navratna-oil.webp"
+  },
+  {
+    "id": "var-g1-pc024-3",
+    "product_id": "g1-pc024",
+    "size_label": "300 ml",
+    "price": 220,
+    "mrp": 245,
+    "stock": 20,
+    "image_url": "/products/verified/pc-navratna-oil.webp"
+  },
+  {
+    "id": "var-g1-pc025-1",
+    "product_id": "g1-pc025",
+    "size_label": "100 ml",
+    "price": 68,
+    "mrp": 75,
+    "stock": 40,
+    "image_url": "/products/verified/pc-bajaj-almond-oil.webp"
+  },
+  {
+    "id": "var-g1-pc025-2",
+    "product_id": "g1-pc025",
+    "size_label": "200 ml",
+    "price": 130,
+    "mrp": 145,
+    "stock": 35,
+    "image_url": "/products/verified/pc-bajaj-almond-oil.webp"
+  },
+  {
+    "id": "var-g1-pc025-3",
+    "product_id": "g1-pc025",
+    "size_label": "375 ml",
+    "price": 235,
+    "mrp": 260,
+    "stock": 20,
+    "image_url": "/products/verified/pc-bajaj-almond-oil.webp"
+  },
+  {
+    "id": "var-g1-pc026-1",
+    "product_id": "g1-pc026",
+    "size_label": "20 ml",
+    "price": 60,
+    "mrp": 65,
+    "stock": 35,
+    "image_url": "/products/verified/pc-livon-serum.webp"
+  },
+  {
+    "id": "var-g1-pc026-2",
+    "product_id": "g1-pc026",
+    "size_label": "50 ml",
+    "price": 145,
+    "mrp": 160,
+    "stock": 30,
+    "image_url": "/products/verified/pc-livon-serum.webp"
+  },
+  {
+    "id": "var-g1-pc026-3",
+    "product_id": "g1-pc026",
+    "size_label": "100 ml",
+    "price": 275,
+    "mrp": 315,
+    "stock": 20,
+    "image_url": "/products/verified/pc-livon-serum.webp"
+  },
+  {
+    "id": "var-g1-pc027-1",
+    "product_id": "g1-pc027",
+    "size_label": "50 ml",
+    "price": 88,
+    "mrp": 95,
+    "stock": 45,
+    "image_url": "/products/verified/pc-himalaya-neem-fw.webp"
+  },
+  {
+    "id": "var-g1-pc027-2",
+    "product_id": "g1-pc027",
+    "size_label": "100 ml",
+    "price": 148,
+    "mrp": 165,
+    "stock": 40,
+    "image_url": "/products/verified/pc-himalaya-neem-fw.webp"
+  },
+  {
+    "id": "var-g1-pc027-3",
+    "product_id": "g1-pc027",
+    "size_label": "150 ml",
+    "price": 205,
+    "mrp": 230,
+    "stock": 25,
+    "image_url": "/products/verified/pc-himalaya-neem-fw.webp"
+  },
+  {
+    "id": "var-g1-pc028-1",
+    "product_id": "g1-pc028",
+    "size_label": "100 ml",
+    "price": 165,
+    "mrp": 189,
+    "stock": 35,
+    "image_url": "/products/verified/pc-himalaya-aloe-fw.webp"
+  },
+  {
+    "id": "var-g1-pc029-1",
+    "product_id": "g1-pc029",
+    "size_label": "50 ml",
+    "price": 82,
+    "mrp": 90,
+    "stock": 35,
+    "image_url": "/products/verified/pc-clean-clear-berry.webp"
+  },
+  {
+    "id": "var-g1-pc029-2",
+    "product_id": "g1-pc029",
+    "size_label": "100 ml",
+    "price": 155,
+    "mrp": 175,
+    "stock": 25,
+    "image_url": "/products/verified/pc-clean-clear-berry.webp"
+  },
+  {
+    "id": "var-g1-pc030-1",
+    "product_id": "g1-pc030",
+    "size_label": "50 g",
+    "price": 110,
+    "mrp": 125,
+    "stock": 35,
+    "image_url": "/products/verified/pc-garnier-acno-fight.webp"
+  },
+  {
+    "id": "var-g1-pc030-2",
+    "product_id": "g1-pc030",
+    "size_label": "100 g",
+    "price": 195,
+    "mrp": 225,
+    "stock": 25,
+    "image_url": "/products/verified/pc-garnier-acno-fight.webp"
+  },
+  {
+    "id": "var-g1-pc031-1",
+    "product_id": "g1-pc031",
+    "size_label": "150 g",
+    "price": 165,
+    "mrp": 185,
+    "stock": 30,
+    "image_url": "/products/verified/pc-everyuth-lemon-cherry.webp"
+  },
+  {
+    "id": "var-g1-pc032-1",
+    "product_id": "g1-pc032",
+    "size_label": "50 g",
+    "price": 80,
+    "mrp": 89,
+    "stock": 40,
+    "image_url": "/products/verified/pc-glow-lovely-fw.webp"
+  },
+  {
+    "id": "var-g1-pc032-2",
+    "product_id": "g1-pc032",
+    "size_label": "100 g",
+    "price": 148,
+    "mrp": 165,
+    "stock": 30,
+    "image_url": "/products/verified/pc-glow-lovely-fw.webp"
+  },
+  {
+    "id": "var-g1-pc033-1",
+    "product_id": "g1-pc033",
+    "size_label": "15 g",
+    "price": 23,
+    "mrp": 25,
+    "stock": 40,
+    "image_url": "/products/verified/pc-ponds-facial-foam.webp"
+  },
+  {
+    "id": "var-g1-pc033-2",
+    "product_id": "g1-pc033",
+    "size_label": "50 g",
+    "price": 89,
+    "mrp": 99,
+    "stock": 35,
+    "image_url": "/products/verified/pc-ponds-facial-foam.webp"
+  },
+  {
+    "id": "var-g1-pc033-3",
+    "product_id": "g1-pc033",
+    "size_label": "100 g",
+    "price": 165,
+    "mrp": 185,
+    "stock": 25,
+    "image_url": "/products/verified/pc-ponds-facial-foam.webp"
+  },
+  {
+    "id": "var-g1-pc034-1",
+    "product_id": "g1-pc034",
+    "size_label": "35 g",
+    "price": 225,
+    "mrp": 249,
+    "stock": 30,
+    "image_url": "/products/verified/pc-ponds-cream.webp"
+  },
+  {
+    "id": "var-g1-pc034-2",
+    "product_id": "g1-pc034",
+    "size_label": "50 g",
+    "price": 320,
+    "mrp": 359,
+    "stock": 25,
+    "image_url": "/products/verified/pc-ponds-cream.webp"
+  },
+  {
+    "id": "var-g1-pc035-1",
+    "product_id": "g1-pc035",
+    "size_label": "15 g",
+    "price": 25,
+    "mrp": 27,
+    "stock": 45,
+    "image_url": "/products/verified/pc-glow-lovely-cream.webp"
+  },
+  {
+    "id": "var-g1-pc035-2",
+    "product_id": "g1-pc035",
+    "size_label": "50 g",
+    "price": 108,
+    "mrp": 120,
+    "stock": 35,
+    "image_url": "/products/verified/pc-glow-lovely-cream.webp"
+  },
+  {
+    "id": "var-g1-pc035-3",
+    "product_id": "g1-pc035",
+    "size_label": "110 g",
+    "price": 215,
+    "mrp": 240,
+    "stock": 20,
+    "image_url": "/products/verified/pc-glow-lovely-cream.webp"
+  },
+  {
+    "id": "var-g1-pc036-1",
+    "product_id": "g1-pc036",
+    "size_label": "100 ml",
+    "price": 199,
+    "mrp": 225,
+    "stock": 30,
+    "image_url": "/products/verified/pc-nivea-soft-cream.webp"
+  },
+  {
+    "id": "var-g1-pc036-2",
+    "product_id": "g1-pc036",
+    "size_label": "200 ml",
+    "price": 349,
+    "mrp": 399,
+    "stock": 25,
+    "image_url": "/products/verified/pc-nivea-soft-cream.webp"
+  },
+  {
+    "id": "var-g1-pc036-3",
+    "product_id": "g1-pc036",
+    "size_label": "300 ml",
+    "price": 620,
+    "mrp": 725,
+    "stock": 15,
+    "image_url": "/products/verified/pc-nivea-soft-cream.webp"
+  },
+  {
+    "id": "var-g1-pc037-1",
+    "product_id": "g1-pc037",
+    "size_label": "60 ml",
+    "price": 145,
+    "mrp": 160,
+    "stock": 35,
+    "image_url": "/products/verified/pc-lacto-calamine.webp"
+  },
+  {
+    "id": "var-g1-pc037-2",
+    "product_id": "g1-pc037",
+    "size_label": "120 ml",
+    "price": 265,
+    "mrp": 295,
+    "stock": 25,
+    "image_url": "/products/verified/pc-lacto-calamine.webp"
+  },
+  {
+    "id": "var-g1-pc038-1",
+    "product_id": "g1-pc038",
+    "size_label": "40 ml",
+    "price": 78,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/pc-boroplus-cream.webp"
+  },
+  {
+    "id": "var-g1-pc038-2",
+    "product_id": "g1-pc038",
+    "size_label": "80 ml",
+    "price": 145,
+    "mrp": 160,
+    "stock": 35,
+    "image_url": "/products/verified/pc-boroplus-cream.webp"
+  },
+  {
+    "id": "var-g1-pc039-1",
+    "product_id": "g1-pc039",
+    "size_label": "59 ml",
+    "price": 28,
+    "mrp": 30,
+    "stock": 45,
+    "image_url": "/products/verified/pc-dabur-gulabari.webp"
+  },
+  {
+    "id": "var-g1-pc039-2",
+    "product_id": "g1-pc039",
+    "size_label": "120 ml",
+    "price": 50,
+    "mrp": 55,
+    "stock": 40,
+    "image_url": "/products/verified/pc-dabur-gulabari.webp"
+  },
+  {
+    "id": "var-g1-pc039-3",
+    "product_id": "g1-pc039",
+    "size_label": "250 ml",
+    "price": 90,
+    "mrp": 100,
+    "stock": 25,
+    "image_url": "/products/verified/pc-dabur-gulabari.webp"
+  },
+  {
+    "id": "var-g1-pc040-1",
+    "product_id": "g1-pc040",
+    "size_label": "120 ml",
+    "price": 48,
+    "mrp": 52,
+    "stock": 35,
+    "image_url": "/products/verified/pc-banjaras-rose-water.webp"
+  },
+  {
+    "id": "var-g1-pc041-1",
+    "product_id": "g1-pc041",
+    "size_label": "100 g",
+    "price": 45,
+    "mrp": 50,
+    "stock": 40,
+    "image_url": "/products/verified/pc-banjaras-multani-mitti.webp"
+  },
+  {
+    "id": "var-g1-pc042-1",
+    "product_id": "g1-pc042",
+    "size_label": "100 g",
+    "price": 90,
+    "mrp": 100,
+    "stock": 35,
+    "image_url": "/products/verified/pc-banjaras-aloe-gel.webp"
+  },
+  {
+    "id": "var-g1-pc043-1",
+    "product_id": "g1-pc043",
+    "size_label": "150 ml",
+    "price": 100,
+    "mrp": 110,
+    "stock": 45,
+    "image_url": "/products/verified/pc-patanjali-aloe-gel.webp"
+  },
+  {
+    "id": "var-g1-pc044-1",
+    "product_id": "g1-pc044",
+    "size_label": "50 g",
+    "price": 28,
+    "mrp": 30,
+    "stock": 45,
+    "image_url": "/products/verified/pc-colgate-strong-teeth.webp"
+  },
+  {
+    "id": "var-g1-pc044-2",
+    "product_id": "g1-pc044",
+    "size_label": "100 g",
+    "price": 60,
+    "mrp": 65,
+    "stock": 50,
+    "image_url": "/products/verified/pc-colgate-strong-teeth.webp"
+  },
+  {
+    "id": "var-g1-pc044-3",
+    "product_id": "g1-pc044",
+    "size_label": "200 g",
+    "price": 115,
+    "mrp": 125,
+    "stock": 35,
+    "image_url": "/products/verified/pc-colgate-strong-teeth.webp"
+  },
+  {
+    "id": "var-g1-pc045-1",
+    "product_id": "g1-pc045",
+    "size_label": "80 g",
+    "price": 60,
+    "mrp": 65,
+    "stock": 40,
+    "image_url": "/products/verified/pc-colgate-maxfresh.webp"
+  },
+  {
+    "id": "var-g1-pc045-2",
+    "product_id": "g1-pc045",
+    "size_label": "150 g",
+    "price": 110,
+    "mrp": 120,
+    "stock": 35,
+    "image_url": "/products/verified/pc-colgate-maxfresh.webp"
+  },
+  {
+    "id": "var-g1-pc045-3",
+    "product_id": "g1-pc045",
+    "size_label": "300 g (Pack of 2)",
+    "price": 195,
+    "mrp": 220,
+    "stock": 20,
+    "image_url": "/products/verified/pc-colgate-maxfresh.webp"
+  },
+  {
+    "id": "var-g1-pc046-1",
+    "product_id": "g1-pc046",
+    "size_label": "100 g",
+    "price": 60,
+    "mrp": 65,
+    "stock": 40,
+    "image_url": "/products/verified/pc-colgate-active-salt.webp"
+  },
+  {
+    "id": "var-g1-pc046-2",
+    "product_id": "g1-pc046",
+    "size_label": "200 g",
+    "price": 110,
+    "mrp": 120,
+    "stock": 30,
+    "image_url": "/products/verified/pc-colgate-active-salt.webp"
+  },
+  {
+    "id": "var-g1-pc047-1",
+    "product_id": "g1-pc047",
+    "size_label": "100 g",
+    "price": 60,
+    "mrp": 65,
+    "stock": 45,
+    "image_url": "/products/verified/pc-dabur-red-paste.webp"
+  },
+  {
+    "id": "var-g1-pc047-2",
+    "product_id": "g1-pc047",
+    "size_label": "200 g",
+    "price": 115,
+    "mrp": 125,
+    "stock": 35,
+    "image_url": "/products/verified/pc-dabur-red-paste.webp"
+  },
+  {
+    "id": "var-g1-pc047-3",
+    "product_id": "g1-pc047",
+    "size_label": "300 g",
+    "price": 190,
+    "mrp": 213,
+    "stock": 30,
+    "image_url": "/products/verified/pc-dabur-red-paste.webp"
+  },
+  {
+    "id": "var-g1-pc048-1",
+    "product_id": "g1-pc048",
+    "size_label": "100 g",
+    "price": 55,
+    "mrp": 60,
+    "stock": 40,
+    "image_url": "/products/verified/pc-pepsodent-germicheck.webp"
+  },
+  {
+    "id": "var-g1-pc048-2",
+    "product_id": "g1-pc048",
+    "size_label": "200 g",
+    "price": 105,
+    "mrp": 115,
+    "stock": 30,
+    "image_url": "/products/verified/pc-pepsodent-germicheck.webp"
+  },
+  {
+    "id": "var-g1-pc049-1",
+    "product_id": "g1-pc049",
+    "size_label": "80 g",
+    "price": 60,
+    "mrp": 65,
+    "stock": 40,
+    "image_url": "/products/verified/pc-closeup-toothpaste.webp"
+  },
+  {
+    "id": "var-g1-pc049-2",
+    "product_id": "g1-pc049",
+    "size_label": "150 g",
+    "price": 115,
+    "mrp": 125,
+    "stock": 35,
+    "image_url": "/products/verified/pc-closeup-toothpaste.webp"
+  },
+  {
+    "id": "var-g1-pc050-1",
+    "product_id": "g1-pc050",
+    "size_label": "40 g",
+    "price": 80,
+    "mrp": 85,
+    "stock": 35,
+    "image_url": "/products/verified/pc-sensodyne-toothpaste.webp"
+  },
+  {
+    "id": "var-g1-pc050-2",
+    "product_id": "g1-pc050",
+    "size_label": "70 g",
+    "price": 142,
+    "mrp": 155,
+    "stock": 30,
+    "image_url": "/products/verified/pc-sensodyne-toothpaste.webp"
+  },
+  {
+    "id": "var-g1-pc050-3",
+    "product_id": "g1-pc050",
+    "size_label": "100 g",
+    "price": 195,
+    "mrp": 215,
+    "stock": 20,
+    "image_url": "/products/verified/pc-sensodyne-toothpaste.webp"
+  },
+  {
+    "id": "var-g1-pc051-1",
+    "product_id": "g1-pc051",
+    "size_label": "Single (1 Unit)",
+    "price": 23,
+    "mrp": 25,
+    "stock": 50,
+    "image_url": "/products/verified/pc-oral-b-toothbrush.webp"
+  },
+  {
+    "id": "var-g1-pc051-2",
+    "product_id": "g1-pc051",
+    "size_label": "Pack of 3",
+    "price": 62,
+    "mrp": 70,
+    "stock": 30,
+    "image_url": "/products/verified/pc-oral-b-toothbrush.webp"
+  },
+  {
+    "id": "var-g1-pc052-1",
+    "product_id": "g1-pc052",
+    "size_label": "Single (1 Unit)",
+    "price": 27,
+    "mrp": 30,
+    "stock": 50,
+    "image_url": "/products/verified/pc-colgate-toothbrush.webp"
+  },
+  {
+    "id": "var-g1-pc052-2",
+    "product_id": "g1-pc052",
+    "size_label": "Pack of 3",
+    "price": 75,
+    "mrp": 85,
+    "stock": 30,
+    "image_url": "/products/verified/pc-colgate-toothbrush.webp"
+  },
+  {
+    "id": "var-g1-pc053-1",
+    "product_id": "g1-pc053",
+    "size_label": "250 ml",
+    "price": 145,
+    "mrp": 160,
+    "stock": 30,
+    "image_url": "/products/verified/pc-listerine-mouthwash.webp"
+  },
+  {
+    "id": "var-g1-pc053-2",
+    "product_id": "g1-pc053",
+    "size_label": "500 ml",
+    "price": 260,
+    "mrp": 290,
+    "stock": 20,
+    "image_url": "/products/verified/pc-listerine-mouthwash.webp"
+  },
+  {
+    "id": "var-g1-pc054-1",
+    "product_id": "g1-pc054",
+    "size_label": "120 ml",
+    "price": 199,
+    "mrp": 225,
+    "stock": 35,
+    "image_url": "/products/verified/pc-fogg-deo.webp"
+  },
+  {
+    "id": "var-g1-pc054-2",
+    "product_id": "g1-pc054",
+    "size_label": "150 ml",
+    "price": 239,
+    "mrp": 275,
+    "stock": 30,
+    "image_url": "/products/verified/pc-fogg-deo.webp"
+  },
+  {
+    "id": "var-g1-pc055-1",
+    "product_id": "g1-pc055",
+    "size_label": "120 ml",
+    "price": 145,
+    "mrp": 160,
+    "stock": 35,
+    "image_url": "/products/verified/pc-engage-deo.webp"
+  },
+  {
+    "id": "var-g1-pc055-2",
+    "product_id": "g1-pc055",
+    "size_label": "150 ml",
+    "price": 185,
+    "mrp": 210,
+    "stock": 30,
+    "image_url": "/products/verified/pc-engage-deo.webp"
+  },
+  {
+    "id": "var-g1-pc056-1",
+    "product_id": "g1-pc056",
+    "size_label": "120 ml",
+    "price": 155,
+    "mrp": 175,
+    "stock": 35,
+    "image_url": "/products/verified/pc-wild-stone-deo.webp"
+  },
+  {
+    "id": "var-g1-pc056-2",
+    "product_id": "g1-pc056",
+    "size_label": "150 ml",
+    "price": 195,
+    "mrp": 225,
+    "stock": 30,
+    "image_url": "/products/verified/pc-wild-stone-deo.webp"
+  },
+  {
+    "id": "var-g1-pc057-1",
+    "product_id": "g1-pc057",
+    "size_label": "150 ml",
+    "price": 195,
+    "mrp": 225,
+    "stock": 35,
+    "image_url": "/products/verified/pc-nivea-deo.webp"
+  },
+  {
+    "id": "var-g1-pc058-1",
+    "product_id": "g1-pc058",
+    "size_label": "150 ml",
+    "price": 205,
+    "mrp": 240,
+    "stock": 30,
+    "image_url": "/products/verified/pc-park-avenue-deo.webp"
+  },
+  {
+    "id": "var-g1-pc059-1",
+    "product_id": "g1-pc059",
+    "size_label": "50 g",
+    "price": 78,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/pc-gillette-foam.webp"
+  },
+  {
+    "id": "var-g1-pc059-2",
+    "product_id": "g1-pc059",
+    "size_label": "196 g",
+    "price": 199,
+    "mrp": 225,
+    "stock": 30,
+    "image_url": "/products/verified/pc-gillette-foam.webp"
+  },
+  {
+    "id": "var-g1-pc060-1",
+    "product_id": "g1-pc060",
+    "size_label": "70 g",
+    "price": 72,
+    "mrp": 80,
+    "stock": 40,
+    "image_url": "/products/verified/pc-gillette-cream.webp"
+  },
+  {
+    "id": "var-g1-pc061-1",
+    "product_id": "g1-pc061",
+    "size_label": "70 g",
+    "price": 78,
+    "mrp": 85,
+    "stock": 35,
+    "image_url": "/products/verified/pc-old-spice-cream.webp"
+  },
+  {
+    "id": "var-g1-pc062-1",
+    "product_id": "g1-pc062",
+    "size_label": "25 g",
+    "price": 68,
+    "mrp": 75,
+    "stock": 40,
+    "image_url": "/products/verified/pc-veet-cream.webp"
+  },
+  {
+    "id": "var-g1-pc062-2",
+    "product_id": "g1-pc062",
+    "size_label": "50 g",
+    "price": 130,
+    "mrp": 145,
+    "stock": 35,
+    "image_url": "/products/verified/pc-veet-cream.webp"
+  },
+  {
+    "id": "var-g1-pc063-1",
+    "product_id": "g1-pc063",
+    "size_label": "30 g",
+    "price": 50,
+    "mrp": 55,
+    "stock": 40,
+    "image_url": "/products/verified/pc-ponds-cold-cream.webp"
+  },
+  {
+    "id": "var-g1-pc063-2",
+    "product_id": "g1-pc063",
+    "size_label": "100 g",
+    "price": 145,
+    "mrp": 160,
+    "stock": 35,
+    "image_url": "/products/verified/pc-ponds-cold-cream.webp"
+  },
+  {
+    "id": "var-g1-pc064-1",
+    "product_id": "g1-pc064",
+    "size_label": "Pack of 7 (7s)",
+    "price": 50,
+    "mrp": 55,
+    "stock": 45,
+    "image_url": "/products/verified/pc-whisper-ultra.webp"
+  },
+  {
+    "id": "var-g1-pc064-2",
+    "product_id": "g1-pc064",
+    "size_label": "Pack of 15 (15s)",
+    "price": 95,
+    "mrp": 105,
+    "stock": 40,
+    "image_url": "/products/verified/pc-whisper-ultra.webp"
+  },
+  {
+    "id": "var-g1-pc064-3",
+    "product_id": "g1-pc064",
+    "size_label": "Pack of 30 (30s)",
+    "price": 175,
+    "mrp": 199,
+    "stock": 25,
+    "image_url": "/products/verified/pc-whisper-ultra.webp"
+  },
+  {
+    "id": "var-g1-pc065-1",
+    "product_id": "g1-pc065",
+    "size_label": "Pack of 7 (7s)",
+    "price": 42,
+    "mrp": 45,
+    "stock": 45,
+    "image_url": "/products/verified/pc-stayfree-secure.webp"
+  },
+  {
+    "id": "var-g1-pc065-2",
+    "product_id": "g1-pc065",
+    "size_label": "Pack of 20 (20s)",
+    "price": 112,
+    "mrp": 125,
+    "stock": 35,
+    "image_url": "/products/verified/pc-stayfree-secure.webp"
+  },
+  {
+    "id": "var-g1-pc066-1",
+    "product_id": "g1-pc066",
+    "size_label": "Small (S) - 22 pcs",
+    "price": 225,
+    "mrp": 249,
+    "stock": 30,
+    "image_url": "/products/verified/pc-pampers-diapers.webp"
+  },
+  {
+    "id": "var-g1-pc066-2",
+    "product_id": "g1-pc066",
+    "size_label": "Medium (M) - 20 pcs",
+    "price": 225,
+    "mrp": 249,
+    "stock": 30,
+    "image_url": "/products/verified/pc-pampers-diapers.webp"
+  },
+  {
+    "id": "var-g1-pc066-3",
+    "product_id": "g1-pc066",
+    "size_label": "Large (L) - 18 pcs",
+    "price": 225,
+    "mrp": 249,
+    "stock": 30,
+    "image_url": "/products/verified/pc-pampers-diapers.webp"
+  },
+  {
+    "id": "var-g1-pc067-1",
+    "product_id": "g1-pc067",
+    "size_label": "Small (S) - 22 pcs",
+    "price": 225,
+    "mrp": 249,
+    "stock": 30,
+    "image_url": "/products/verified/pc-huggies-diapers.webp"
+  },
+  {
+    "id": "var-g1-pc067-2",
+    "product_id": "g1-pc067",
+    "size_label": "Medium (M) - 20 pcs",
+    "price": 225,
+    "mrp": 249,
+    "stock": 30,
+    "image_url": "/products/verified/pc-huggies-diapers.webp"
+  },
+  {
+    "id": "var-g1-pc067-3",
+    "product_id": "g1-pc067",
+    "size_label": "Large (L) - 18 pcs",
+    "price": 225,
+    "mrp": 249,
+    "stock": 30,
+    "image_url": "/products/verified/pc-huggies-diapers.webp"
+  },
+  {
+    "id": "var-g1-pc068-1",
+    "product_id": "g1-pc068",
+    "size_label": "100 g",
+    "price": 95,
+    "mrp": 105,
+    "stock": 40,
+    "image_url": "/products/verified/pc-johnsons-powder.webp"
+  },
+  {
+    "id": "var-g1-pc068-2",
+    "product_id": "g1-pc068",
+    "size_label": "200 g",
+    "price": 170,
+    "mrp": 190,
+    "stock": 30,
+    "image_url": "/products/verified/pc-johnsons-powder.webp"
+  },
+  {
+    "id": "var-g1-pc069-1",
+    "product_id": "g1-pc069",
+    "size_label": "100 ml",
+    "price": 105,
+    "mrp": 115,
+    "stock": 35,
+    "image_url": "/products/verified/pc-johnsons-lotion.webp"
+  },
+  {
+    "id": "var-g1-pc069-2",
+    "product_id": "g1-pc069",
+    "size_label": "200 ml",
+    "price": 188,
+    "mrp": 210,
+    "stock": 25,
+    "image_url": "/products/verified/pc-johnsons-lotion.webp"
+  },
+  {
+    "id": "var-g1-pc070-1",
+    "product_id": "g1-pc070",
+    "size_label": "100 ml",
+    "price": 118,
+    "mrp": 130,
+    "stock": 35,
+    "image_url": "/products/verified/pc-johnsons-oil.webp"
+  },
+  {
+    "id": "var-g1-pc070-2",
+    "product_id": "g1-pc070",
+    "size_label": "200 ml",
+    "price": 215,
+    "mrp": 240,
+    "stock": 25,
+    "image_url": "/products/verified/pc-johnsons-oil.webp"
+  },
+  {
+    "id": "var-g1-pc071-1",
+    "product_id": "g1-pc071",
+    "size_label": "100 ml",
+    "price": 100,
+    "mrp": 110,
+    "stock": 35,
+    "image_url": "/products/verified/pc-himalaya-baby-lotion.webp"
+  },
+  {
+    "id": "var-g1-pc071-2",
+    "product_id": "g1-pc071",
+    "size_label": "200 ml",
+    "price": 180,
+    "mrp": 200,
+    "stock": 25,
+    "image_url": "/products/verified/pc-himalaya-baby-lotion.webp"
+  },
+  {
+    "id": "var-g1-pc072-1",
+    "product_id": "g1-pc072",
+    "size_label": "100 g",
+    "price": 90,
+    "mrp": 100,
+    "stock": 40,
+    "image_url": "/products/verified/pc-himalaya-baby-powder.webp"
+  },
+  {
+    "id": "var-g1-pc072-2",
+    "product_id": "g1-pc072",
+    "size_label": "200 g",
+    "price": 165,
+    "mrp": 185,
+    "stock": 30,
+    "image_url": "/products/verified/pc-himalaya-baby-powder.webp"
   }
 ]
