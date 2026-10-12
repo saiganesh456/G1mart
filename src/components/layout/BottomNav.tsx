@@ -14,7 +14,7 @@ const NAV_ITEMS = [
 ] as const;
 
 /** Pages where the bottom nav is not shown */
-const HIDDEN_PATHS = ['/login', '/checkout', '/cart', '/payment', '/product'];
+const HIDDEN_PATHS = ['/login', '/checkout', '/cart', '/payment', '/product', '/rider'];
 
 export default function BottomNav() {
   const pathname = usePathname();

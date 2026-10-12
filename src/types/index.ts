@@ -245,6 +245,11 @@ export interface Order {
     vehicleNumber?: string;
     assignedAt?: string;
   };
+  deliveryOtp?: string;
+  arrivedAtDoorstep?: boolean;
+  arrivedAt?: string;
+  deliveredAt?: string;
+  otpAttempts?: number;
   timeline: {
     status: OrderStatus;
     time: string;

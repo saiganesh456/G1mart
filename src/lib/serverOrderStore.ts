@@ -530,6 +530,9 @@ export const serverOrderStore = {
     });
 
     order.status = status;
+    if (!order.deliveryOtp && (status === 'Out for Delivery' || status === 'Order Dispatched' || status === 'Rider Assigned')) {
+      order.deliveryOtp = Math.floor(1000 + Math.random() * 9000).toString();
+    }
     if (assignedRider) {
       order.assignedRider = {
         ...assignedRider,

@@ -83,6 +83,12 @@ export interface SlipOrder {
   admin_notes?: string | null;
   cancel_reason?: string | null;
 
+  delivery_otp?: string | null;
+  arrived_at_doorstep?: boolean;
+  arrived_at?: string | null;
+  delivered_at?: string | null;
+  otp_attempts?: number;
+
   images?: SlipImage[];
   items?: SlipItem[];
   status_history?: OrderStatusHistoryItem[];

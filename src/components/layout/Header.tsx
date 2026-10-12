@@ -52,6 +52,9 @@ function AnimatedSearchPlaceholder() {
 export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
+  if (pathname.startsWith('/rider')) {
+    return null;
+  }
   const isHomePage = pathname === '/';
   const { currentLocation, setIsModalOpen } = useLocation();
   const { user, isLoggedIn } = useAuth();

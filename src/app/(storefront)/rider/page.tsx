@@ -41,6 +41,141 @@ export default function RiderPage() {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
   const [confirmDeliveryOrder, setConfirmDeliveryOrder] = useState<Order | null>(null);
 
+  // Doorstep Handover & OTP State
+  const [otpModalOrder, setOtpModalOrder] = useState<Order | null>(null);
+  const [otpDigits, setOtpDigits] = useState('');
+  const [otpError, setOtpError] = useState<string | null>(null);
+  const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
+  const [isArriving, setIsArriving] = useState(false);
+  const [cashCollectedChecked, setCashCollectedChecked] = useState(false);
+  const [deliverySuccessOrder, setDeliverySuccessOrder] = useState<Order | null>(null);
+  const [resendCooldown, setResendCooldown] = useState(0);
+
+  const handleRiderArrived = async (order: Order) => {
+    setIsArriving(true);
+    try {
+      const res = await fetch(`/api/rider/orders/${order.id}/arrived`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          riderName: user?.name || 'Express Rider',
+          orderFallback: order,
+        }),
+      });
+      const data = await res.json();
+      if (data.success && data.order) {
+        setOrders((prev) =>
+          prev.map((o) => (o.id === order.id ? { ...o, ...data.order } : o))
+        );
+      }
+    } catch (err) {
+      console.warn('Failed to notify arrival:', err);
+    } finally {
+      setIsArriving(false);
+      setOtpModalOrder(order);
+      setOtpDigits('');
+      setOtpError(null);
+      setCashCollectedChecked(false);
+    }
+  };
+
+  const handlePressOtpDigit = (digit: string) => {
+    if (otpDigits.length < 4) {
+      const next = otpDigits + digit;
+      setOtpDigits(next);
+      setOtpError(null);
+      if (next.length === 4) {
+        triggerOtpVerification(next);
+      }
+    }
+  };
+
+  const handleDeleteOtpDigit = () => {
+    if (otpDigits.length > 0) {
+      setOtpDigits(otpDigits.slice(0, -1));
+      setOtpError(null);
+    }
+  };
+
+  const triggerOtpVerification = async (codeToVerify?: string) => {
+    const code = codeToVerify || otpDigits;
+    if (!otpModalOrder) return;
+    if (code.length !== 4) {
+      setOtpError('Please enter the complete 4-digit OTP');
+      return;
+    }
+    if (!otpModalOrder.isPaid && otpModalOrder.paymentMethod === 'Cash on Delivery' && !cashCollectedChecked) {
+      setOtpError('Please collect cash from customer and tick the confirmation box');
+      return;
+    }
+
+    setIsVerifyingOtp(true);
+    setOtpError(null);
+
+    try {
+      const res = await fetch(`/api/rider/orders/${otpModalOrder.id}/verify-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          otp: code,
+          riderIdentifier: user?.name ? `Rider: ${user.name}` : 'Rider',
+          cashCollected: cashCollectedChecked,
+          orderFallback: otpModalOrder,
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        soundAlerts.playRiderAssignmentChime();
+        try {
+          if (typeof navigator !== 'undefined' && navigator.vibrate) {
+            navigator.vibrate([100, 50, 100]);
+          }
+        } catch {}
+
+        const completed = { ...otpModalOrder, status: 'Delivered' as any, isPaid: true };
+        setOrders((prev) =>
+          prev.map((o) => (o.id === otpModalOrder.id ? { ...o, status: 'Delivered' as any, isPaid: true } : o))
+        );
+        setOtpModalOrder(null);
+        setDeliverySuccessOrder(completed);
+      } else {
+        setOtpError(data.error || 'Incorrect OTP. Ask customer to check their screen.');
+        setOtpDigits('');
+      }
+    } catch (err: any) {
+      setOtpError(err.message || 'Error verifying OTP');
+    } finally {
+      setIsVerifyingOtp(false);
+    }
+  };
+
+  const handleResendOtp = async () => {
+    if (!otpModalOrder || resendCooldown > 0) return;
+    setResendCooldown(30);
+    const timer = setInterval(() => {
+      setResendCooldown((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    try {
+      await fetch(`/api/rider/orders/${otpModalOrder.id}/arrived`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          riderName: user?.name || 'Express Rider',
+          orderFallback: otpModalOrder,
+        }),
+      });
+      alert('Alert resent! Customer tracking screen has been updated with the 4-digit PIN.');
+    } catch {}
+  };
+
   // Duty status (stored locally for shift continuity)
   const [isOnDuty, setIsOnDuty] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
@@ -204,54 +339,72 @@ export default function RiderPage() {
   return (
     <RiderAuthGuard>
       <div className="max-w-2xl mx-auto space-y-4 pb-24 pt-2 sm:pt-4 px-3 sm:px-0">
-        {/* Top Header Card — Blinkit Quick-Commerce Style */}
-        <div className="bg-gradient-to-br from-[#122214] via-[#1A2E1C] to-emerald-950 text-white p-4 sm:p-5 rounded-3xl shadow-xl space-y-4 border border-emerald-900/60">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <Link
-                href="/account"
-                className="w-9 h-9 rounded-2xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors text-white border border-white/10 shrink-0"
-              >
-                <ArrowLeft className="w-4 h-4" />
-              </Link>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="font-extrabold text-sm sm:text-base tracking-tight">
-                    {user?.name || 'Express Rider'}
-                  </span>
-                  <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-black uppercase tracking-wider border border-emerald-400/30">
-                    Fleet Partner
-                  </span>
-                </div>
-                <p className="text-[11px] text-emerald-200/70 flex items-center gap-1.5 mt-0.5">
-                  <MapPin className="w-3 h-3 text-emerald-400" />
-                  <span>Nellore Darkstore Hub #01</span>
-                  <span>·</span>
-                  <span>Vehicle: AP 26 EQ 4589</span>
-                </p>
+        {/* Top Header Card — Official G1 Mart Fleet Branding */}
+        <div className="bg-gradient-to-br from-[#0E2813] via-[#163D1D] to-[#1E6B2E] text-white p-4 sm:p-5 rounded-3xl shadow-xl space-y-4 border border-emerald-900/60">
+          {/* Row 1: G1 Mart Official Logo & Fleet Badge */}
+          <div className="flex items-center justify-between pb-2 border-b border-white/10">
+            <div className="flex items-center gap-2.5">
+              <div className="bg-white px-2.5 py-1 rounded-xl shadow-xs flex items-center border border-white/20">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/images/g1_mart_banner_transparent.png"
+                  alt="G1 Mart"
+                  className="h-6 w-auto object-contain"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/logo.png'; }}
+                />
               </div>
+              <span className="text-[10px] bg-white/15 text-emerald-200 px-2.5 py-1 rounded-xl font-black uppercase tracking-wider border border-white/15">
+                Rider Fleet
+              </span>
             </div>
 
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => soundAlerts.playRiderAssignmentChime()}
-                className="h-9 px-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5 text-xs font-bold transition-all border border-white/10 cursor-pointer active:scale-95"
+                className="h-8 px-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-emerald-300 flex items-center gap-1.5 text-xs font-bold transition-all border border-white/10 cursor-pointer active:scale-95"
                 title="Test notification alert chime"
               >
                 <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="hidden sm:inline">Test</span>
-                <span>Alert</span>
+                <span className="hidden sm:inline">Test Alert</span>
               </button>
               <button
                 type="button"
                 onClick={fetchOrders}
                 disabled={loading}
-                className="w-9 h-9 rounded-2xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all border border-white/10 cursor-pointer active:scale-95"
+                className="w-8 h-8 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all border border-white/10 cursor-pointer active:scale-95"
                 title="Refresh dispatch queue"
               >
-                <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
               </button>
+            </div>
+          </div>
+
+          {/* Row 2: Rider Name & Hub Vehicle Details */}
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <Link
+                href="/account"
+                className="w-10 h-10 rounded-2xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors text-white border border-white/10 shrink-0"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </Link>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-extrabold text-sm sm:text-base tracking-tight text-white">
+                    {user?.name || 'Sai Ganesh'}
+                  </span>
+                  <span className="text-[10px] bg-[#F5B800] text-stone-950 px-2 py-0.5 rounded-full font-black uppercase tracking-wider">
+                    Partner
+                  </span>
+                </div>
+                <p className="text-[11px] text-emerald-100/80 flex items-center gap-1.5 mt-0.5">
+                  <MapPin className="w-3 h-3 text-emerald-300" />
+                  <span>Nellore Darkstore Hub #01</span>
+                  <span>·</span>
+                  <span className="font-mono text-white font-bold">AP 26 EQ 1589</span>
+                </p>
+              </div>
             </div>
           </div>
 
@@ -503,14 +656,22 @@ export default function RiderPage() {
                     )}
 
                     {((o as any).distance_km !== undefined || (o as any).eta_min !== undefined) && (
-                      <div className="flex items-center justify-between text-xs font-extrabold text-stone-800 bg-emerald-50/80 px-2.5 py-1.5 rounded-xl border border-emerald-200">
-                        <span className="flex items-center gap-1 text-stone-800">
-                          <Navigation className="w-3 h-3 text-[#2E7D32]" />
-                          <span>{(o as any).distance_km || 0} km road distance</span>
+                      <div className="flex items-center justify-between text-xs font-extrabold text-[#1E6B2E] bg-[#EBF5EC] px-3 py-1.5 rounded-xl border border-[#1E6B2E]/25">
+                        <span className="flex items-center gap-1.5">
+                          <Navigation className="w-3 h-3 text-[#1E6B2E]" />
+                          <span>
+                            {Number((o as any).distance_km || 0) <= 0
+                              ? 'At Darkstore Hub'
+                              : `${(o as any).distance_km} km road distance`}
+                          </span>
                         </span>
-                        <span className="flex items-center gap-1 text-[#2E7D32]">
+                        <span className="flex items-center gap-1 text-[#155223]">
                           <Clock className="w-3 h-3" />
-                          <span>~{(o as any).eta_min || 20} min ETA</span>
+                          <span>
+                            {Number((o as any).distance_km || 0) <= 0
+                              ? 'Ready for dispatch'
+                              : `~${(o as any).eta_min || 15} min ETA`}
+                          </span>
                         </span>
                       </div>
                     )}
@@ -568,9 +729,9 @@ export default function RiderPage() {
                       href={riderMapsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="py-2.5 px-3 bg-[#1A2E1C] hover:bg-black text-white font-black rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-[0.99]"
+                      className="py-2.5 px-3 bg-[#0E2813] hover:bg-black text-white font-black rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-[0.99]"
                     >
-                      <Navigation className="w-3.5 h-3.5 text-emerald-400 fill-emerald-400" />
+                      <Navigation className="w-3.5 h-3.5 text-[#66BB6A] fill-[#66BB6A]" />
                       <span>Start GPS Route</span>
                     </a>
 
@@ -579,13 +740,13 @@ export default function RiderPage() {
                       isOutForDelivery ? (
                         <button
                           type="button"
-                          onClick={() => setConfirmDeliveryOrder(o)}
-                          disabled={updatingId === o.id}
-                          className="py-2.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-[0.99]"
+                          onClick={() => handleRiderArrived(o)}
+                          disabled={isArriving}
+                          className="py-2.5 px-3 bg-[#1E6B2E] hover:bg-[#155223] text-white font-black rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-[0.99]"
                         >
-                          <CheckCircle2 className="w-3.5 h-3.5" />
+                          <MapPin className="w-3.5 h-3.5 text-[#F5B800]" />
                           <span>
-                            {updatingId === o.id ? 'Updating...' : 'Mark Delivered'}
+                            {isArriving ? 'Connecting...' : 'At Customer Door'}
                           </span>
                         </button>
                       ) : isPacked ? (
@@ -593,7 +754,7 @@ export default function RiderPage() {
                           type="button"
                           onClick={() => handleUpdateStatus(o.id, 'Out for Delivery', true)}
                           disabled={updatingId === o.id}
-                          className="py-2.5 px-3 bg-purple-600 hover:bg-purple-700 text-white font-black rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-[0.99]"
+                          className="py-2.5 px-3 bg-[#1E6B2E] hover:bg-[#155223] text-white font-black rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-[0.99]"
                         >
                           <Truck className="w-3.5 h-3.5" />
                           <span>
@@ -605,7 +766,7 @@ export default function RiderPage() {
                           type="button"
                           onClick={() => handleUpdateStatus(o.id, 'Packed', true)}
                           disabled={updatingId === o.id}
-                          className="py-2.5 px-3 bg-[#2E7D32] hover:bg-[#1b5e20] text-white font-black rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-[0.99]"
+                          className="py-2.5 px-3 bg-[#1E6B2E] hover:bg-[#155223] text-white font-black rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-[0.99]"
                         >
                           <Bike className="w-3.5 h-3.5" />
                           <span>
@@ -614,8 +775,8 @@ export default function RiderPage() {
                         </button>
                       )
                     ) : (
-                      <div className="py-2.5 px-3 bg-emerald-50 text-emerald-800 font-bold rounded-xl text-xs text-center flex items-center justify-center gap-1 border border-emerald-200">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                      <div className="py-2.5 px-3 bg-[#EBF5EC] text-[#1E6B2E] font-bold rounded-xl text-xs text-center flex items-center justify-center gap-1 border border-[#1E6B2E]/30">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#1E6B2E]" />
                         <span>Completed</span>
                       </div>
                     )}
@@ -643,52 +804,198 @@ export default function RiderPage() {
           </div>
         )}
 
-        {/* Confirmation Modal for Delivery Completion */}
-        {confirmDeliveryOrder && (
-          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-            <div className="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
-                <CheckCircle2 className="w-7 h-7" />
-              </div>
+        {/* ================= DOORSTEP OTP VERIFICATION SHEET / MODAL ================= */}
+        {otpModalOrder && (
+          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex flex-col justify-end sm:items-center sm:justify-center p-0 sm:p-4 animate-in fade-in duration-200">
+            <div className="bg-white rounded-t-[36px] sm:rounded-3xl max-w-sm w-full p-5 sm:p-6 shadow-2xl space-y-4 border-t sm:border border-stone-200 animate-in slide-in-from-bottom duration-200">
+              
+              {/* Handle indicator for mobile sheet */}
+              <div className="w-12 h-1 bg-stone-300 rounded-full mx-auto sm:hidden" />
 
+              {/* Header */}
               <div className="text-center space-y-1">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100 text-amber-900 rounded-full text-[11px] font-black uppercase tracking-wider">
+                  <ShieldCheck className="w-3.5 h-3.5 text-amber-700" />
+                  <span>DOORSTEP OTP VERIFICATION</span>
+                </div>
                 <h3 className="text-base font-black text-stone-900">
-                  Confirm Doorstep Delivery?
+                  Ask Customer for 4-Digit PIN
                 </h3>
                 <p className="text-xs text-stone-500">
-                  Order #{confirmDeliveryOrder.id} for {confirmDeliveryOrder.address?.fullName || 'Customer'}
+                  Order #{otpModalOrder.id} · <span className="font-bold text-stone-700">{otpModalOrder.address?.fullName || 'Customer'}</span>
                 </p>
               </div>
 
-              {/* Cash collection reminder */}
-              {!confirmDeliveryOrder.isPaid && (
-                <div className="bg-rose-50 border border-rose-200 rounded-2xl p-3 text-center">
-                  <span className="text-[11px] font-bold text-rose-800 uppercase block">
-                    Cash on Delivery Collection
-                  </span>
-                  <span className="text-lg font-black text-rose-900">
-                    Collect ₹{confirmDeliveryOrder.grandTotal} Cash
-                  </span>
+              {/* Cash Collection Requirement (if COD) */}
+              {(!otpModalOrder.isPaid || otpModalOrder.paymentMethod === 'Cash on Delivery') && (
+                <div className="bg-rose-50 border border-rose-200 rounded-2xl p-3 space-y-2">
+                  <div className="flex items-center justify-between text-xs font-black text-rose-900">
+                    <span className="flex items-center gap-1">
+                      <DollarSign className="w-4 h-4 text-rose-600" />
+                      <span>CASH ON DELIVERY</span>
+                    </span>
+                    <span className="text-base font-mono font-black text-rose-700">
+                      Collect ₹{otpModalOrder.grandTotal}
+                    </span>
+                  </div>
+                  <label className="flex items-center gap-2 text-xs font-bold text-stone-800 cursor-pointer pt-1 border-t border-rose-200/60">
+                    <input
+                      type="checkbox"
+                      checked={cashCollectedChecked}
+                      onChange={(e) => setCashCollectedChecked(e.target.checked)}
+                      className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-stone-300"
+                    />
+                    <span>I have received ₹{otpModalOrder.grandTotal} cash in hand</span>
+                  </label>
                 </div>
               )}
 
-              <div className="grid grid-cols-2 gap-2 pt-2">
+              {/* 4 Digit Boxes */}
+              <div className="flex justify-center items-center gap-3 py-1">
+                {[0, 1, 2, 3].map((idx) => {
+                  const digit = otpDigits[idx] || '';
+                  return (
+                    <div
+                      key={idx}
+                      className={`w-12 h-14 rounded-2xl border-2 flex items-center justify-center font-mono text-2xl font-black shadow-inner transition-all ${
+                        digit
+                          ? 'border-[#1E6B2E] bg-white text-[#1E6B2E]'
+                          : otpError
+                          ? 'border-rose-400 bg-rose-50 text-rose-700'
+                          : 'border-stone-300 bg-stone-50 text-stone-900'
+                      }`}
+                    >
+                      {digit}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Feedback / Error Message */}
+              {otpError ? (
+                <div className="text-center text-xs font-black text-rose-600 animate-pulse">
+                  ⚠️ {otpError}
+                </div>
+              ) : (
+                <div className="text-center text-[11px] text-stone-400">
+                  Customer has the 4-digit PIN on their order screen
+                </div>
+              )}
+
+              {/* Custom Large Mobile Number Pad */}
+              <div className="grid grid-cols-3 gap-2 px-1">
+                {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((num) => (
+                  <button
+                    key={num}
+                    type="button"
+                    onClick={() => handlePressOtpDigit(num)}
+                    disabled={isVerifyingOtp}
+                    className="h-12 bg-stone-100 hover:bg-stone-200 active:scale-95 text-stone-900 rounded-2xl font-black text-xl shadow-xs transition-all"
+                  >
+                    {num}
+                  </button>
+                ))}
                 <button
                   type="button"
-                  onClick={() => setConfirmDeliveryOrder(null)}
-                  className="py-2.5 px-3 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs font-bold transition-colors"
+                  onClick={() => {
+                    setOtpModalOrder(null);
+                    setOtpDigits('');
+                    setOtpError(null);
+                  }}
+                  className="h-12 bg-rose-50 hover:bg-rose-100 active:scale-95 text-rose-700 rounded-2xl font-bold text-xs shadow-xs transition-all flex items-center justify-center"
                 >
                   Cancel
                 </button>
                 <button
                   type="button"
-                  onClick={() => handleUpdateStatus(confirmDeliveryOrder.id, 'Delivered')}
-                  disabled={updatingId === confirmDeliveryOrder.id}
-                  className="py-2.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-black transition-colors shadow-xs"
+                  onClick={() => handlePressOtpDigit('0')}
+                  disabled={isVerifyingOtp}
+                  className="h-12 bg-stone-100 hover:bg-stone-200 active:scale-95 text-stone-900 rounded-2xl font-black text-xl shadow-xs transition-all"
                 >
-                  {updatingId === confirmDeliveryOrder.id ? 'Completing...' : 'Yes, Delivered!'}
+                  0
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDeleteOtpDigit}
+                  disabled={isVerifyingOtp || otpDigits.length === 0}
+                  className="h-12 bg-stone-200 hover:bg-stone-300 active:scale-95 text-stone-800 rounded-2xl font-black text-lg shadow-xs transition-all flex items-center justify-center"
+                >
+                  ⌫
                 </button>
               </div>
+
+              {/* Primary Submit Button */}
+              <button
+                type="button"
+                onClick={() => triggerOtpVerification()}
+                disabled={isVerifyingOtp || otpDigits.length !== 4}
+                className="w-full py-3 bg-[#1E6B2E] hover:bg-[#155223] disabled:opacity-50 text-white rounded-2xl font-black text-sm transition-all shadow-md active:scale-98 flex items-center justify-center gap-2"
+              >
+                {isVerifyingOtp ? (
+                  <span>Verifying PIN...</span>
+                ) : (
+                  <>
+                    <CheckCircle2 className="w-4 h-4" />
+                    <span>Verify &amp; Complete Handover</span>
+                  </>
+                )}
+              </button>
+
+              {/* Footer Utilities: Resend / Call Customer */}
+              <div className="flex items-center justify-between text-xs pt-1 border-t border-stone-100">
+                <button
+                  type="button"
+                  onClick={handleResendOtp}
+                  disabled={resendCooldown > 0}
+                  className="text-[#1E6B2E] font-bold hover:underline disabled:text-stone-400"
+                >
+                  {resendCooldown > 0 ? `Resend Alert (${resendCooldown}s)` : '🔄 Resend Alert to Customer'}
+                </button>
+                {otpModalOrder.address?.mobileNumber && (
+                  <a
+                    href={`tel:${otpModalOrder.address.mobileNumber}`}
+                    className="text-stone-700 font-bold hover:underline flex items-center gap-1"
+                  >
+                    <Phone className="w-3 h-3 text-[#1E6B2E]" />
+                    <span>Call Customer</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ================= CELEBRATION SUCCESS MODAL ================= */}
+        {deliverySuccessOrder && (
+          <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-6 animate-in fade-in duration-200">
+            <div className="bg-white rounded-3xl p-6 text-center space-y-4 max-w-xs w-full shadow-2xl animate-in zoom-in duration-200">
+              <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl shadow-inner">
+                <Check className="w-8 h-8 stroke-[3]" />
+              </div>
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                  VERIFIED &amp; DELIVERED
+                </span>
+                <h3 className="text-lg font-black text-stone-900 mt-2">
+                  Delivery Completed!
+                </h3>
+                <p className="text-xs text-stone-500 mt-1">
+                  Order #{deliverySuccessOrder.id} safely handed over to {deliverySuccessOrder.address?.fullName || 'Customer'}.
+                </p>
+              </div>
+
+              <div className="bg-stone-50 rounded-2xl p-3 border border-stone-200 text-xs flex justify-between">
+                <span className="text-stone-500 font-medium">Trip Status</span>
+                <span className="font-black text-[#1E6B2E]">✓ Shift Updated</span>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setDeliverySuccessOrder(null)}
+                className="w-full py-3 bg-[#0E2813] hover:bg-black text-white font-black rounded-2xl text-xs shadow-md transition-all active:scale-95"
+              >
+                Back to Dispatch Queue
+              </button>
             </div>
           </div>
         )}

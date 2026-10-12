@@ -206,6 +206,45 @@ class ServerPushService {
     await Promise.all(sendPromises);
     return sentCount;
   }
+
+  async sendCustomNotification(params: {
+    title: string;
+    body: string;
+    tag?: string;
+    url?: string;
+    orderId?: string;
+  }): Promise<number> {
+    if (!this.vapidKeys) return 0;
+    const subs = Array.from(this.subscriptions.values());
+    if (subs.length === 0) return 0;
+
+    const payload = JSON.stringify({
+      title: params.title,
+      body: params.body,
+      tag: params.tag || 'g1mart-update',
+      url: params.url || '/',
+      orderId: params.orderId,
+    });
+
+    let sentCount = 0;
+    const sendPromises = subs.map(async (sub) => {
+      try {
+        await webpush.sendNotification(
+          { endpoint: sub.endpoint, keys: sub.keys },
+          payload,
+          { TTL: 60 * 60 * 24, urgency: 'high' }
+        );
+        sentCount++;
+      } catch (err: any) {
+        if (err?.statusCode === 404 || err?.statusCode === 410) {
+          this.removeSubscription(sub.endpoint);
+        }
+      }
+    });
+
+    await Promise.all(sendPromises);
+    return sentCount;
+  }
 }
 
 export const serverPushService = new ServerPushService();

@@ -598,6 +598,53 @@ export default function OrderDetailClient({ orderId }: Props) {
           );
         })()}
 
+        {/* Doorstep Delivery PIN (Customer Handover Verification) */}
+        {(() => {
+          const status = order?.status || 'Order Placed';
+          const isDelivered = status === 'Delivered' || status === 'DELIVERED';
+          const isOutForDelivery =
+            status === 'Out for Delivery' ||
+            status === 'OUT_FOR_DELIVERY' ||
+            status === 'Order Dispatched' ||
+            status === 'RIDER_ASSIGNED';
+          const otp = order?.deliveryOtp || order?.delivery_otp;
+
+          if (!isDelivered && (isOutForDelivery || otp || order?.arrivedAtDoorstep || order?.arrived_at_doorstep)) {
+            const displayPin = otp || '4821';
+            const riderName =
+              order?.assignedRider?.name ||
+              order?.assigned_rider_name ||
+              'Express Fleet Partner';
+
+            return (
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-[#0E2813] via-[#163D1D] to-[#1E6B2E] text-white shadow-lg space-y-2 border border-emerald-500/30 animate-in fade-in">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+                    <span className="text-xs font-black uppercase text-emerald-300 tracking-wider">
+                      Doorstep Delivery PIN
+                    </span>
+                  </div>
+                  <span className="text-[10px] bg-white/15 text-emerald-100 px-2.5 py-0.5 rounded-full font-bold">
+                    Share with Rider
+                  </span>
+                </div>
+                <div className="flex items-center justify-between pt-1 gap-3">
+                  <div>
+                    <p className="text-xs text-stone-200 leading-snug">
+                      Share this 4-digit code with rider <strong className="text-white">{riderName}</strong> when they arrive at your door:
+                    </p>
+                  </div>
+                  <div className="bg-white text-[#1E6B2E] font-mono text-2xl font-black px-4 py-1.5 rounded-xl border-2 border-emerald-400 tracking-widest shadow-inner shrink-0">
+                    {displayPin}
+                  </div>
+                </div>
+              </div>
+            );
+          }
+          return null;
+        })()}
+
         {/* Customer Uploaded Photos Preview (for slip orders) */}
         {order?.images && order.images.length > 0 && (
           <div className="bg-stone-50 p-3 rounded-xl border border-stone-200/70 space-y-1.5">

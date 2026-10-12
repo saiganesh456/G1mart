@@ -575,6 +575,9 @@ export const serverSlipOrders = {
     order.assigned_rider_name = params.riderName;
     order.assigned_rider_phone = params.riderPhone;
     order.status = 'RIDER_ASSIGNED';
+    if (!order.delivery_otp) {
+      order.delivery_otp = Math.floor(1000 + Math.random() * 9000).toString();
+    }
     order.updated_at = new Date().toISOString();
 
     this.addStatusHistory(
