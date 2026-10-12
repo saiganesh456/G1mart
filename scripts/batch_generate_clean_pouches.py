@@ -129,7 +129,9 @@ def create_g1_clean_packshot(product_title, telugu_title, search_query, net_weig
     clean_title = product_title
     try:
         font_large = ImageFont.truetype("arialbd.ttf", 20)
-        font_sub = ImageFont.truetype("arial.ttf", 15)
+        # Use Nirmala.ttf for Telugu text on Windows
+        nirmala_path = "C:/Windows/Fonts/Nirmala.ttf"
+        font_sub = ImageFont.truetype(nirmala_path, 16) if os.path.exists(nirmala_path) else ImageFont.truetype("arial.ttf", 15)
         font_wt = ImageFont.truetype("arialbd.ttf", 13)
     except:
         font_large = ImageFont.load_default()

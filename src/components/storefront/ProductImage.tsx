@@ -54,7 +54,25 @@ function getPackType(name: string, subCategory?: string | null, category?: strin
     text.includes('phenyl') ||
     text.includes('honey') ||
     text.includes('sauce') ||
-    text.includes('ketchup')
+    text.includes('ketchup') ||
+    // Oils and ghee
+    text.includes('sunflower oil') ||
+    text.includes('groundnut oil') ||
+    text.includes('refined oil') ||
+    text.includes('cooking oil') ||
+    text.includes('mustard oil') ||
+    text.includes('sesame oil') ||
+    text.includes('gingelly oil') ||
+    text.includes('coconut oil') ||
+    text.includes('soya oil') ||
+    text.includes('palm oil') ||
+    text.includes('rice bran oil') ||
+    text.includes('deepam oil') ||
+    text.includes('palmolein') ||
+    (text.includes(' oil') && (text.includes('refin') || text.includes('filter') || text.includes('edible') || text.includes('pooja') || text.includes('deepam'))) ||
+    text.includes('ghee') ||
+    text.includes('dalda') ||
+    text.includes('vanaspati')
   ) {
     return 'bottle';
   }
@@ -196,13 +214,22 @@ export default function ProductImage({
     !hasError;
 
   const displayName = name || alt || 'Product';
-  const displayBrand = brand && brand !== 'Other' ? brand : 'Local';
-  const initialChar = (displayBrand.trim()[0] || 'G').toUpperCase();
+  const displayBrand = brand && brand !== 'Other' && !/local\s*\/?unbranded/i.test(brand || '') && !/^unbranded$/i.test(brand || '') ? brand : null;
   const packType = getPackType(displayName, subCategory, category);
+
+  // Background tint by category/pack type for a more product-like appearance
+  const bgStyle: React.CSSProperties = (() => {
+    if (packType === 'bottle') return { backgroundColor: '#f0f9f0' }; // light green for oils/drinks
+    if (packType === 'jar') return { backgroundColor: '#fefce8' }; // warm yellow for ghee/jams
+    if (packType === 'box') return { backgroundColor: '#f0f4ff' }; // blue tint for boxed items
+    if (packType === 'bar') return { backgroundColor: '#fff5f0' }; // warm for soaps
+    if (packType === 'pouch') return { backgroundColor: '#faf5ff' }; // light purple for pouches
+    return { backgroundColor: '#f8f8f8' }; // neutral fallback
+  })();
 
   return (
     <div
-      className={`relative w-full h-full flex items-center justify-center bg-white overflow-hidden ${containerClassName}`}
+      className={`relative w-full h-full flex items-center justify-center overflow-hidden ${containerClassName}`}
     >
       {shouldRenderImage ? (
         // eslint-disable-next-line @next/next/no-img-element
@@ -215,29 +242,25 @@ export default function ProductImage({
           className={`w-full h-full object-contain p-0.5 sm:p-1 transition-transform duration-200 select-none ${className}`}
         />
       ) : (
-        // Blinkit style: tinted square with pack-type icon and brand initial monogram, NO filler text
-        <div className="w-full h-full flex flex-col items-center justify-between p-2.5 rounded-2xl bg-stone-50/90 border border-stone-200/60 select-none transition-all group-hover:bg-stone-100/70">
-          {/* Top row: brand monogram */}
-          <div className="w-full flex items-center justify-between">
-            <span className="text-[9px] font-black uppercase tracking-wider text-stone-500 truncate max-w-[70%]">
+        // Tasteful placeholder: colored tint + pack-type icon + brand name (if any)
+        <div
+          className="w-full h-full flex flex-col items-center justify-center gap-1 select-none transition-all group-hover:brightness-95 p-2"
+          style={bgStyle}
+        >
+          {/* Pack-type icon centered */}
+          <div className="flex items-center justify-center text-stone-400 group-hover:text-stone-500 transition-colors">
+            <PackIcon type={packType} className="w-10 h-10 sm:w-12 sm:h-12 stroke-[1.6]" />
+          </div>
+
+          {/* Brand name only if branded — small, understated */}
+          {displayBrand && (
+            <span
+              className="text-[9px] font-bold uppercase tracking-wider text-center leading-tight line-clamp-1 px-1"
+              style={{ color: '#6b7280' }}
+            >
               {displayBrand}
             </span>
-            <div className="w-5 h-5 rounded-full bg-emerald-100/80 text-[#2E7D32] text-[10px] font-black flex items-center justify-center shrink-0 shadow-2xs">
-              {initialChar}
-            </div>
-          </div>
-
-          {/* Center: clean pack-type icon */}
-          <div className="my-auto py-1 text-stone-400 group-hover:text-stone-600 transition-colors flex items-center justify-center">
-            <PackIcon type={packType} className="w-10 h-10 sm:w-11 sm:h-11 stroke-[1.8]" />
-          </div>
-
-          {/* Bottom row: pack type indicator */}
-          <div className="w-full text-center">
-            <span className="text-[9px] font-bold text-stone-400 uppercase tracking-wider">
-              {packType}
-            </span>
-          </div>
+          )}
         </div>
       )}
     </div>

@@ -211,7 +211,7 @@ export default function ProductDetailPage({ params }: Props) {
       >
         <div className="w-56 h-56 sm:w-64 sm:h-64 flex items-center justify-center">
           <ProductImage
-            imageUrl={activeVariant?.variant?.image_url || effectiveProduct.image_url || (effectiveProduct as any).imageUrl}
+            imageUrl={(activeVariant as any)?.variant?.image_url || effectiveProduct.image_url || (effectiveProduct as any).imageUrl}
             imageStatus={effectiveProduct.image_status || (effectiveProduct as any).imageStatus}
             alt={effectiveProduct.name}
             name={effectiveProduct.name}

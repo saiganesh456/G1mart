@@ -2,6 +2,9 @@ import { notFound } from 'next/navigation';
 import { productService } from '@/services/productService';
 import CategoryDashboardClient from './CategoryDashboardClient';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
@@ -17,10 +20,9 @@ const CATEGORY_ALIASES: Record<string, string> = {
   'soaps': 'soaps-bath',
   'soap': 'soaps-bath',
   'bath': 'soaps-bath',
-  'oils-ghee': 'oil-ghee-masala',
-  'oil-ghee': 'oil-ghee-masala',
-  'cooking-oils': 'oil-ghee-masala',
-  'cooking-oil-ghee': 'oil-ghee-masala',
+  'breakfast-cereals': 'instant-food',
+  'hair-shampoos': 'hair-care',
+  'shaving-grooming': 'skin-care',
 };
 
 export default async function CategoryPage({ params }: Props) {

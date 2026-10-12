@@ -197,15 +197,16 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           boxShadow: 'var(--g1-e1)',
         }}
       >
-        {/* Image area — enlarged aspect ratio and container for crisp packshot visibility */}
+        {/* Image area — 1:1, object-fit contain, no background behind cut-outs */}
         <Link
           href={`/product/${product.id}`}
-          className="relative w-full aspect-[4/4.4] sm:aspect-[4/4.2] min-h-[160px] sm:min-h-[180px] overflow-hidden flex items-center justify-center mb-2.5 block rounded-2xl bg-white"
+          className="relative w-full aspect-square overflow-hidden flex items-center justify-center mb-2 block"
+          style={{ backgroundColor: 'var(--g1-bg)' }}
         >
           {/* Discount badge — yellow accent, only when real MRP > price */}
           {discount > 0 && effectiveInStock && (
             <span
-              className="absolute top-1.5 left-1.5 z-10 text-[9px] font-black px-1.5 py-0.5 rounded shadow-2xs"
+              className="absolute top-1.5 left-1.5 z-10 text-[9px] font-black px-1.5 py-0.5 rounded"
               style={{ backgroundColor: 'var(--g1-yellow)', color: '#000' }}
             >
               {discount}% OFF
@@ -240,7 +241,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           {/* Brand — 12px secondary, one line, only if branded */}
           {brandLabel && (
             <div className="text-[11px] truncate uppercase tracking-wider leading-none"
-              style={{ color: 'var(--g1-text-secondary)', fontWeight: 600 }}>
+              style={{ color: 'var(--g1-text-secondary)', fontWeight: 500 }}>
               {brandLabel}
             </div>
           )}
@@ -249,32 +250,69 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           <Link href={`/product/${product.id}`} className="block">
             <h3
               className="line-clamp-2 leading-snug group-hover:text-[var(--g1-primary)] transition-colors"
-              style={{ fontSize: 13, fontWeight: 600, color: 'var(--g1-text)', minHeight: '2.5em' }}
+              style={{ fontSize: 13, fontWeight: 500, color: 'var(--g1-text)', minHeight: '2.5em' }}
             >
               {product.name}
             </h3>
           </Link>
 
-          {/* Unit chip — only when quantity AND unit both exist */}
-          {unitLabel && (
-            <button
-              type="button"
-              onClick={() => variants.length > 1 && setSheetOpen(true)}
-              className="self-start flex items-center gap-0.5 px-2 py-0.5 transition-colors leading-none"
+          {/* Unit / Variant Selector */}
+          {variants.length > 1 ? (
+            <div className="flex flex-wrap items-center gap-1 my-0.5">
+              {variants.slice(0, 2).map((v) => {
+                const isSelected = activeVariant?.id === v.id;
+                return (
+                  <button
+                    key={v.id}
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setActiveVariant(v);
+                    }}
+                    className="px-1.5 py-0.5 text-[11px] font-bold rounded transition-all g1-press whitespace-nowrap"
+                    style={{
+                      backgroundColor: isSelected ? 'var(--g1-primary)' : 'var(--g1-surface)',
+                      color: isSelected ? '#FFFFFF' : 'var(--g1-text-secondary)',
+                      border: isSelected ? '1px solid var(--g1-primary)' : '1px solid var(--g1-border)',
+                    }}
+                  >
+                    {v.size_label}
+                  </button>
+                );
+              })}
+              {variants.length > 2 && (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setSheetOpen(true);
+                  }}
+                  className="px-1.5 py-0.5 text-[11px] font-semibold rounded transition-all flex items-center gap-0.5"
+                  style={{
+                    backgroundColor: 'var(--g1-surface)',
+                    color: 'var(--g1-primary)',
+                    border: '1px dashed var(--g1-primary)',
+                  }}
+                >
+                  +{variants.length - 2} more <ChevronDown className="w-2.5 h-2.5" />
+                </button>
+              )}
+            </div>
+          ) : unitLabel ? (
+            <div
+              className="self-start px-1.5 py-0.5 leading-none text-[11px] font-medium"
               style={{
                 borderRadius: 'var(--g1-r-chip)',
-                border: '1px solid var(--g1-border)',
                 backgroundColor: 'var(--g1-surface)',
                 color: 'var(--g1-text-secondary)',
-                fontSize: 12,
-                cursor: variants.length > 1 ? 'pointer' : 'default',
+                border: '1px solid var(--g1-border)',
               }}
-              aria-label={variants.length > 1 ? `Select size — currently ${unitLabel}` : unitLabel}
             >
-              <span className="truncate max-w-[105px]">{unitLabel}</span>
-              {variants.length > 1 && <ChevronDown className="w-2.5 h-2.5 shrink-0" />}
-            </button>
-          )}
+              {unitLabel}
+            </div>
+          ) : null}
 
           {/* Price + ADD/stepper */}
           <div className={`pt-1 flex gap-1 min-w-0 ${compact ? 'flex-col items-stretch' : 'items-center justify-between'}`}>

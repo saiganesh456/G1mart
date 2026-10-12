@@ -12,22 +12,20 @@ interface Props {
   products: Product[];
 }
 
-/** Blacklisted/mismatched subcategories per category domain */
-const CATEGORY_SUB_BLACKLIST: Record<string, string[]> = {
-  'sweets-chocolates': ['Cleaners', 'Laundry & Detergents', 'Milk & Curd', 'Sanitary Pads & Napkins', 'Tea & Coffee', 'Detergent Powders & Liquids'],
-  'atta-rice-dal': ['Cleaners', 'Laundry & Detergents', 'Sanitary Pads & Napkins', 'Detergent Powders & Liquids'],
-  'vegetables-fruits': ['Cleaners', 'Detergent Powders & Liquids', 'Laundry & Detergents'],
-  'oil-ghee-masala': ['Detergent Powders & Liquids', 'Chocolates & Sweets', 'Cleaners'],
-  'soaps-bath': ['Atta, Rice & Dals', 'Edible Oils', 'Pulses & Dal'],
-  'floor-surface-cleaners': ['Tea & Coffee', 'Sanitary Pads & Napkins', 'Chocolates', 'Chocolates & Sweets'],
-  'biscuits-bakery': ['Milk & Curd', 'Dry Fruits & Nuts', 'Laundry & Detergents'],
-  'drinks-juices': ['Detergent Powders & Liquids', 'Cleaners', 'Laundry & Detergents'],
-  'dairy-bread-eggs': ['Laundry & Detergents', 'Detergent Powders & Liquids', 'Chocolates'],
-  'sugar-salt-staples': ['Sanitary Pads & Napkins', 'Detergent Powders & Liquids', 'Edible Oils'],
-  'pooja-needs': ['Candies & Gums', 'Sanitary Pads & Napkins', 'Pulses & Dal'],
-  'hair-care': ['Eggs', 'Spices & Oils', 'Edible Oils'],
-  'oral-care': ['Tea & Coffee'],
-};
+/**
+ * STRICT CATEGORY ENFORCEMENT
+ * Products are pre-filtered by category_id in page.tsx (server-side).
+ * This client component applies an additional guard to guarantee no
+ * cross-category leakage happens, regardless of sub_category label mismatches.
+ *
+ * Rule: A product belongs to this category page if and only if its
+ * category_id OR category field equals the current category's id.
+ * Sub-category labels are never used for category membership decisions.
+ */
+function isProductInCategory(p: Product, categoryId: string): boolean {
+  const catId = p.category_id || p.category;
+  return catId === categoryId;
+}
 
 export default function CategoryDashboardClient({ category, products }: Props) {
   const searchParams = useSearchParams();
@@ -41,19 +39,28 @@ export default function CategoryDashboardClient({ category, products }: Props) {
     if (brandParam) setSelectedBrand(brandParam);
   }, [brandParam]);
 
-  // Extract clean sub-categories for this category (filtering out mismatches like Cleaners in Atta)
+
+  // Base list: enforce strict category membership (category_id must match)
+  const categoryProducts = useMemo(
+    () => products.filter((p) => isProductInCategory(p, category.id)),
+    [category.id, products]
+  );
+
+  // Extract clean sub-categories for this category only
   const subCategoriesWithImage = useMemo(() => {
-    const blacklist = CATEGORY_SUB_BLACKLIST[category.id] || [];
     const subMap = new Map<string, { name: string; image: string | null; count: number }>();
 
-    products.forEach((p) => {
+    categoryProducts.forEach((p) => {
       const sub = p.subCategory || (p as any).sub_category;
-      if (!sub || sub === 'General' || sub === 'General Essentials' || blacklist.includes(sub)) {
+      if (!sub || sub === 'General' || sub === 'General Essentials') {
         return;
       }
 
       const existing = subMap.get(sub);
-      const img = p.image_url || p.imageUrl || null;
+      // Prefer non-placeholder image for the sub-category tile
+      const img = (p.image_url && !p.image_url.includes('placeholder')) ? p.image_url
+        : (p.imageUrl && !p.imageUrl.includes('placeholder')) ? p.imageUrl
+        : null;
       if (!existing) {
         subMap.set(sub, { name: sub, image: img, count: 1 });
       } else {
@@ -63,24 +70,17 @@ export default function CategoryDashboardClient({ category, products }: Props) {
     });
 
     return Array.from(subMap.values()).sort((a, b) => b.count - a.count);
-  }, [category.id, products]);
+  }, [category.id, categoryProducts]);
 
-  // Filter products by sub-category first
+  // Filter by selected sub-category
   const subFilteredProducts = useMemo(() => {
-    const blacklist = CATEGORY_SUB_BLACKLIST[category.id] || [];
-    let list = products.filter((p) => {
+    if (selectedSubCategory === 'all') return categoryProducts;
+    return categoryProducts.filter((p) => {
       const sub = p.subCategory || (p as any).sub_category;
-      return !sub || !blacklist.includes(sub);
+      return sub === selectedSubCategory;
     });
+  }, [categoryProducts, selectedSubCategory]);
 
-    if (selectedSubCategory !== 'all') {
-      list = list.filter((p) => {
-        const sub = p.subCategory || (p as any).sub_category;
-        return sub === selectedSubCategory;
-      });
-    }
-    return list;
-  }, [category.id, products, selectedSubCategory]);
 
   // Available brands for top chip row: All, Brand names, Local
   const availableBrands = useMemo(() => {
