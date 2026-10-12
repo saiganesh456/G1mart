@@ -101,7 +101,11 @@ export default function CategoryDashboardClient({ category, products }: Props) {
 
     const brands = Array.from(brandMap.entries())
       .filter(([, count]) => count > 0)
-      .sort((a, b) => b[1] - a[1]);
+      .sort((a, b) => {
+        if (a[0].toLowerCase() === 'aashirvaad') return -1;
+        if (b[0].toLowerCase() === 'aashirvaad') return 1;
+        return b[1] - a[1];
+      });
 
     return { brands, localCount };
   }, [subFilteredProducts]);
