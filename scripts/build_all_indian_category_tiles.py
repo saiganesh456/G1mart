@@ -31,7 +31,7 @@ def create_ground_shadow(width, height=14, opacity=50):
     draw.ellipse([cx - rx, cy - ry, cx + rx, cy + ry], fill=(15, 20, 25, opacity))
     return shadow.filter(ImageFilter.GaussianBlur(radius=6))
 
-def prepare_item(img_path, max_h=340, max_w=240):
+def prepare_item(img_path, max_h=370, max_w=250):
     img = Image.open(img_path).convert('RGBA')
     bbox = img.getbbox()
     if not bbox:
@@ -42,7 +42,7 @@ def prepare_item(img_path, max_h=340, max_w=240):
     new_h = max(10, int(cropped.height * scale))
     return cropped.resize((new_w, new_h), Image.Resampling.LANCZOS)
 
-def compose_tight_pair(left_file, right_file, out_name, max_h=340, max_w=235, overlap_px=55, left_in_front=False):
+def compose_tight_pair(left_file, right_file, out_name, max_h=370, max_w=250, overlap_px=60, left_in_front=False):
     left_path = find_asset(left_file)
     right_path = find_asset(right_file)
 
@@ -58,10 +58,10 @@ def compose_tight_pair(left_file, right_file, out_name, max_h=340, max_w=235, ov
         return False
 
     # 1. Arrange on initial canvas
-    canvas_w = 600
-    canvas_h = 600
+    canvas_w = 700
+    canvas_h = 700
     canvas = Image.new('RGBA', (canvas_w, canvas_h), (0, 0, 0, 0))
-    y_base = 480
+    y_base = 560
 
     total_w = item_left.width + item_right.width - overlap_px
     start_x = (canvas_w - total_w) // 2
@@ -93,9 +93,9 @@ def compose_tight_pair(left_file, right_file, out_name, max_h=340, max_w=235, ov
     cropped_composite = canvas.crop(bbox)
     cw, ch = cropped_composite.size
 
-    # 3. Uniform target scale: fill ~345px height or ~355px width of 400x400 canvas
-    target_max_h = 345
-    target_max_w = 355
+    # 3. Maximum box-fitting scale: fill 375px height or 380px width of 400x400 canvas
+    target_max_h = 375
+    target_max_w = 380
     scale = min(target_max_h / ch, target_max_w / cw)
     final_w = max(10, int(cw * scale))
     final_h = max(10, int(ch * scale))
@@ -110,100 +110,100 @@ def compose_tight_pair(left_file, right_file, out_name, max_h=340, max_w=235, ov
     out_path = os.path.join(OUT_DIR, f"{out_name}.webp")
     final_canvas.save(out_path, "WEBP", quality=95)
     final_bbox = final_canvas.getbbox()
-    print(f"  [TIGHT LOGO] {out_name:24s} -> bbox={final_bbox} size={final_bbox[2]-final_bbox[0]}x{final_bbox[3]-final_bbox[1]}")
+    print(f"  [BOX-FITTED LOGO] {out_name:24s} -> bbox={final_bbox} size={final_bbox[2]-final_bbox[0]}x{final_bbox[3]-final_bbox[1]}")
     return True
 
-# Complete, verified catalog with tight logo pairing (45-65px overlap) and NO white background artifacts
+# Upgraded configurations with ultra-bright assets, snug logo overlap, and box-filling scales
 TILES_CONFIG = [
     # GROCERY & KITCHEN
-    # 1. Atta, Rice & Flours -> India Gate Basmati + Aashirvaad Shudh Chakki Atta
-    ("basmati-rice.png", "aashirvaad-atta-1kg.png", "atta-rice-dal", 340, 240, 60, False),
+    # 1. Atta, Rice & Flours -> India Gate Basmati + Ultra-HD Bright Aashirvaad Shudh Chakki Atta (Official BB Packshot)
+    ("basmati-rice.png", "hd_aashirvaad_atta.png", "atta-rice-dal", 370, 250, 65, False),
 
     # 2. Dals & Pulses -> Tata Sampann Toor Dal + Tata Sampann Chana Dal
-    ("tata_sampann_toor_dal.png", "tata_sampann_chana_dal.png", "local-dals", 340, 230, 55, False),
+    ("tata_sampann_toor_dal.png", "tata_sampann_chana_dal.png", "local-dals", 370, 250, 60, False),
 
     # 3. Cooking Oils & Ghee -> Fortune Sunlite Sunflower Oil + Amul Pure Ghee Tin
-    ("fortune_sunlite_oil.png", "amul_pure_ghee.png", "oil-ghee-masala", 340, 230, 60, False),
+    ("fortune_sunlite_oil.png", "amul_pure_ghee.png", "oil-ghee-masala", 370, 250, 65, False),
 
-    # 4. Spices, Masalas & Pickles -> Real Everest Tikhalal Red Chilli + Priya Mango Pickle (NO brown bread!)
-    ("real_everest_tikhalal.png", "priya_mango_pickle.png", "spices-masalas", 340, 240, 50, False),
+    # 4. Spices, Masalas & Pickles -> Ultra-HD Bright Red Everest Tikhalal Box + Priya Mango Pickle
+    ("hd_everest_tikhalal_box.png", "priya_mango_pickle.png", "spices-masalas", 370, 250, 55, False),
 
-    # 5. Salt, Sugar & Jaggery -> Madhur Sugar + Tata Salt (Desh Ka Namak)
-    ("madhur-sugar-clean.png", "tata-salt.png", "sugar-salt-staples", 340, 230, 55, False),
+    # 5. Salt, Sugar & Jaggery -> Madhur Sugar + Ultra-HD Tata Salt (Desh Ka Namak)
+    ("madhur-sugar-clean.png", "hd_tata_salt_bright.png", "sugar-salt-staples", 370, 250, 60, False),
 
     # 6. Dry Fruits & Nuts -> Happilo Almonds + Happilo Cashews
-    ("happilo_almonds.png", "happilo_cashews.png", "dry-fruits-cereals", 340, 230, 55, False),
+    ("happilo_almonds.png", "happilo_cashews.png", "dry-fruits-cereals", 370, 250, 60, False),
 
     # SNACKS & DRINKS
     # 7. Namkeen, Mixture & Chips -> Haldiram's Aloo Bhujia + Lay's India's Magic Masala
-    ("haldirams_aloo_bhujia.png", "lays-magic-masala.png", "chips-namkeen", 340, 230, 55, False),
+    ("haldirams_aloo_bhujia.png", "lays-magic-masala.png", "chips-namkeen", 370, 250, 60, False),
 
-    # 8. Chocolates, Candies & Sweets -> Real KitKat Standing Bar + Cadbury Dairy Milk Silk
-    ("real_kitkat_vertical.png", "cadbury_silk.png", "sweets-chocolates", 340, 230, 55, False),
+    # 8. Chocolates, Candies & Sweets -> Amul Ice Cream Tub + Cadbury Dairy Milk Silk (Blinkit style!)
+    ("hd_amul_icecream_tub.png", "cadbury_silk.png", "sweets-chocolates", 370, 250, 60, False),
 
     # 9. Tea, Coffee & Health Drinks -> Brooke Bond Red Label + Cadbury Bournvita
-    ("red-label-tea.png", "cadbury_bournvita.png", "tea-coffee-milk-drinks", 340, 230, 55, False),
+    ("red-label-tea.png", "cadbury_bournvita.png", "tea-coffee-milk-drinks", 370, 250, 60, False),
 
-    # 10. Cold Drinks, Juices & Soda -> Real Fruit Power Juice + Thums Up
-    ("real_fruit_juice.png", "thums-up.png", "drinks-juices", 340, 230, 50, False),
+    # 10. Cold Drinks, Juices & Soda -> Frooti Mango Drink + Tall Thums Up Bottle
+    ("frooti.png", "hd_thums_up_bottle.png", "drinks-juices", 370, 250, 50, False),
 
     # HOUSEHOLD ESSENTIALS
-    # 11. Detergents & Laundry -> Ariel Matic Detergent + Clean Surf Excel (NO white card!)
-    ("ariel_matic_detergent.png", "clean_surf-excel.png", "laundry-detergents", 340, 230, 55, False),
+    # 11. Detergents & Laundry -> Ariel Matic Detergent + Clean Surf Excel Matic
+    ("ariel_matic_detergent.png", "clean_surf-excel.png", "laundry-detergents", 370, 250, 60, False),
 
     # 12. Dishwash & Scrubbers -> Vim Dishwash Gel Lemon + Scotch-Brite Scrub Sponge
-    ("vim_dishwash_gel.png", "scotch_brite_sponge.png", "dishwash", 340, 230, 50, False),
+    ("vim_dishwash_gel.png", "scotch_brite_sponge.png", "dishwash", 370, 250, 55, False),
 
-    # 13. Cleaners & Pest Control -> Lizol Floor Cleaner + Real Harpic Power Plus 10X (NO biscuit box!)
-    ("lizol_floor_cleaner.png", "real_harpic_power_plus.png", "floor-surface-cleaners", 340, 230, 55, False),
+    # 13. Cleaners & Pest Control -> Lizol Floor Cleaner + Real Harpic Power Plus 10X
+    ("lizol_floor_cleaner.png", "real_harpic_power_plus.png", "floor-surface-cleaners", 370, 250, 60, False),
 
     # 14. Pooja Essentials -> Cycle Three in One Agarbatti + Mangalam Pure Camphor
-    ("cycle_three_in_one.png", "mangalam_camphor.png", "pooja-needs", 340, 230, 50, False),
+    ("cycle_three_in_one.png", "mangalam_camphor.png", "pooja-needs", 370, 250, 55, False),
 
     # 15. Kitchen Utility & Hardware -> Prestige Pressure Cooker + Milton Thermosteel Bottle
-    ("prestige_pressure_cooker.png", "milton_steel_bottle.png", "kitchenware", 340, 230, 55, False),
+    ("prestige_pressure_cooker.png", "milton_steel_bottle.png", "kitchenware", 370, 250, 55, False),
 
     # BEAUTY & PERSONAL CARE
-    # 16. Bathing Soaps & Handwash -> Dettol Handwash Pump + Clean Dettol Soap Bar (NO white box!)
-    ("dettol_handwash_pump.png", "clean_dettol-soap.png", "soaps-bath", 340, 230, 55, False),
+    # 16. Bathing Soaps & Handwash -> Dettol Handwash Pump + 3D Green Dettol Soap Bar
+    ("dettol_handwash_pump.png", "hd_dettol_soap_bar.png", "soaps-bath", 370, 250, 60, False),
 
-    # 17. Hair Oils & Shampoos -> Clean Parachute Pure Coconut Oil (NO white box!) + Head & Shoulders Shampoo
-    ("clean_parachute-oil.png", "head_and_shoulders.png", "hair-care", 345, 240, 18, False),
+    # 17. Hair Oils & Shampoos -> Clean Parachute Pure Coconut Oil + Head & Shoulders Shampoo
+    ("clean_parachute-oil.png", "head_and_shoulders.png", "hair-care", 370, 250, 25, False),
 
     # 18. Toothpaste & Oral Care -> Colgate Strong Teeth + Listerine Cool Mint
-    ("pc-colgate-strong-teeth.png", "listerine_bottle.png", "oral-care", 340, 230, 55, False),
+    ("pc-colgate-strong-teeth.png", "listerine_bottle.png", "oral-care", 370, 250, 60, False),
 
     # 19. Skin Care, Talc & Grooming -> Vaseline Deep Moisture + Nivea Soft Cream
-    ("vaseline_body_lotion.png", "nivea_soft_cream.png", "skin-care", 340, 230, 55, False),
+    ("vaseline_body_lotion.png", "nivea_soft_cream.png", "skin-care", 370, 250, 60, False),
 
     # 20. Baby Care -> Pampers All-round Diaper Pants + Johnson's Baby Lotion
-    ("pampers_diaper_pants.png", "johnsons_baby_lotion.png", "baby-care", 340, 230, 55, False),
+    ("pampers_diaper_pants.png", "johnsons_baby_lotion.png", "baby-care", 370, 250, 60, False),
 
     # 21. Feminine Hygiene -> Whisper Ultra Clean XL + V-Wash Plus Intimate Wash
-    ("whisper_vertical_pack.png", "vwash_plus_bottle.png", "hygiene", 340, 230, 55, False),
+    ("whisper_vertical_pack.png", "vwash_plus_bottle.png", "hygiene", 370, 250, 60, False),
 
     # PANTRY & BREAKFAST
     # 22. Dairy, Bread & Ice Cream -> Amul Taaza Milk + Britannia White Bread
-    ("amul_taaza_milk.png", "britannia_white_bread.png", "dairy-bread-eggs", 340, 230, 55, False),
+    ("amul_taaza_milk.png", "britannia_white_bread.png", "dairy-bread-eggs", 370, 250, 60, False),
 
     # 23. Biscuits, Cookies & Rusks -> Parle-G + Britannia Good Day
-    ("parle-g.png", "good-day.png", "biscuits-bakery", 340, 230, 55, False),
+    ("parle-g.png", "good-day.png", "biscuits-bakery", 370, 250, 60, False),
 
     # 24. Sauces & Spreads -> Kissan Tomato Ketchup + Nutella Hazelnut Spread
-    ("tomato-ketchup.png", "nutella_hazelnut_jar.png", "sauces-spreads", 340, 230, 55, False),
+    ("tomato-ketchup.png", "nutella_hazelnut_jar.png", "sauces-spreads", 370, 250, 60, False),
 
     # 25. Noodles & Instant Food -> Maggi 2-Minute Noodles + Kellogg's Corn Flakes
-    ("maggi-noodles.png", "kelloggs_corn_flakes.png", "instant-food", 340, 230, 55, False),
+    ("maggi-noodles.png", "kelloggs_corn_flakes.png", "instant-food", 370, 250, 60, False),
 ]
 
 def main():
-    print("=== Composing All Category Tiles with Tight Logo Layout & Uniform Size ===")
+    print("=== Composing All Category Tiles Fitted to Box with Ultra Clarity ===")
     count = 0
     for cfg in TILES_CONFIG:
         left, right, name, mh, mw, ov, l_front = cfg
         if compose_tight_pair(left, right, name, max_h=mh, max_w=mw, overlap_px=ov, left_in_front=l_front):
             count += 1
-    print(f"\nSuccessfully generated {count}/{len(TILES_CONFIG)} tight, uniform category logo tiles!")
+    print(f"\nSuccessfully generated {count}/{len(TILES_CONFIG)} box-fitted logo tiles!")
 
 if __name__ == "__main__":
     main()

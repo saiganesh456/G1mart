@@ -20,7 +20,7 @@ function CategoryTileItem({ cat }: { cat: Category }) {
   const rawUrl = (categoryTilesMap as Record<string, string>)[cat.id]
     || cat.tile_image_url
     || `/categories/collages/${cat.id}.webp`;
-  const tileUrl = rawUrl.includes('?') ? rawUrl : `${rawUrl}?v=20261013-fmcg3`;
+  const tileUrl = rawUrl.includes('?') ? rawUrl : `${rawUrl}?v=20261013-fmcg4`;
 
   return (
     <Link
@@ -50,7 +50,7 @@ function CategoryTileItem({ cat }: { cat: Category }) {
             const t = e.currentTarget as HTMLImageElement;
             if (!t.src.includes('.svg')) t.src = `/categories/collages/${cat.id}.svg`;
           }}
-          className="w-[90%] h-[90%] object-contain select-none transition-transform duration-200 group-hover:scale-108"
+          className="w-[96%] h-[96%] object-contain select-none transition-transform duration-200 group-hover:scale-108"
           style={{ filter: 'drop-shadow(0 2px 5px rgba(0,0,0,.1))' }}
         />
       </div>
