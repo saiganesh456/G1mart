@@ -2,24 +2,12 @@ import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
 import { getAuth, Auth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey:
-    process.env.NEXT_PUBLIC_FIREBASE_API_KEY ||
-    'AIzaSyABxGnA9z9FP_VHiMHajC0ZV0Jp9Sj-S_I',
-  authDomain:
-    process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ||
-    'g1mart-1dc5b.firebaseapp.com',
-  projectId:
-    process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ||
-    'g1mart-1dc5b',
-  storageBucket:
-    process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET ||
-    'g1mart-1dc5b.firebasestorage.app',
-  messagingSenderId:
-    process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ||
-    '244425173116',
-  appId:
-    process.env.NEXT_PUBLIC_FIREBASE_APP_ID ||
-    '1:244425173116:web:1800919dbc41ea51c081f9',
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || '',
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || '',
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || '',
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || '',
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || '',
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || '',
 };
 
 export function isFirebaseConfigured(): boolean {
