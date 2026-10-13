@@ -175,6 +175,29 @@ export async function POST(req: NextRequest) {
       callbackUrl,
     });
 
+    const activeKeyId = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+
+    // Guard: Prevent launching Razorpay checkout with missing credentials or unverified dummy fallback orders
+    if (!paymentResult.success || !paymentResult.providerOrderId || paymentResult.providerOrderId.startsWith('order_test_') || !activeKeyId || activeKeyId.includes('g1mart_dev')) {
+      if (!activeKeyId || activeKeyId.includes('g1mart_dev')) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Razorpay credentials not configured on server. Please set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET in environment variables and redeploy.',
+          },
+          { status: 500 }
+        );
+      }
+
+      return NextResponse.json(
+        {
+          success: false,
+          error: paymentResult.error || 'Failed to initialize payment with Razorpay. Please retry or choose Cash on Delivery.',
+        },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json({
       success: true,
       orderId,
@@ -184,7 +207,7 @@ export async function POST(req: NextRequest) {
       subtotal: calculated.subtotal,
       codFee: 0,
       grandTotal: finalGrandTotal,
-      keyId: process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_g1mart_dev',
+      keyId: activeKeyId,
       currency: 'INR',
       redirectUrl: paymentResult.redirectUrl,
       paymentMethod: 'Pay Online',
