@@ -851,4 +851,39 @@ export default function CheckoutPage() {
             <button
               type="button"
               disabled
-              className="h-
+              className="h-11 sm:h-12 px-4 sm:px-5 bg-stone-200 text-stone-500 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-1.5 cursor-not-allowed opacity-80 shrink-0 whitespace-nowrap"
+              title={`Add ₹${shortfallAmount} more to meet the ₹${activeMinOrder} minimum for your area`}
+            >
+              <span>Add ₹{shortfallAmount} More</span>
+            </button>
+          ) : !isAddressServiceable && orderType === 'delivery' ? (
+            <button
+              type="button"
+              disabled
+              className="h-11 sm:h-12 px-4 sm:px-5 bg-rose-100 text-rose-700 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-1.5 cursor-not-allowed shrink-0 whitespace-nowrap"
+            >
+              <span>Outside 30 km Area</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={handlePlaceOrder}
+              className="h-11 sm:h-12 px-5 sm:px-6 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all cursor-pointer shrink-0 whitespace-nowrap"
+            >
+              <span>Proceed to Payment</span>
+              <ChevronRight className="w-4 h-4 shrink-0" />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* 6. Slide-Up Bottom Sheet for Doorstep Address */}
+      <AddressBottomSheet
+        isOpen={isAddressSheetOpen}
+        onClose={() => setIsAddressSheetOpen(false)}
+        onAddressSaved={handleAddressSaved}
+        initialAddress={savedAddress}
+      />
+    </div>
+  );
+}

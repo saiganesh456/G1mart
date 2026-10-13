@@ -20,6 +20,8 @@ export interface CreatePaymentResult {
   redirectUrl?: string;
   error?: string;
   raw?: any;
+  isTestFallback?: boolean;
+  authFailed?: boolean;
 }
 
 export interface VerifyPaymentResult {
