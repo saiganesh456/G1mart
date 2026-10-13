@@ -7,7 +7,7 @@ import { Phone, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
 import { authService } from '@/services/authService';
 import { useAuth } from '@/context/AuthContext';
 import { sanitizeIndianPhone, isValidIndianPhone } from '@/lib/phone';
-import { sendFirebaseOtp } from '@/lib/firebase/phoneAuth';
+import { sendFirebaseOtp, initRecaptchaVerifier } from '@/lib/firebase/phoneAuth';
 
 function LoginForm() {
   const router = useRouter();
@@ -20,6 +20,11 @@ function LoginForm() {
 
   const nextParam = searchParams.get('next');
   const roleParam = searchParams.get('role');
+
+  // Pre-initialize reCAPTCHA on component mount
+  useEffect(() => {
+    initRecaptchaVerifier('recaptcha-container');
+  }, []);
 
   useEffect(() => {
     if (!authLoading && isLoggedIn) {
@@ -57,12 +62,17 @@ function LoginForm() {
 
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isValidIndianPhone(phoneNumber)) return;
+    const clean = sanitizeIndianPhone(phoneNumber);
+    if (!clean || clean.length !== 10) {
+      setAuthError('Please enter a valid 10-digit mobile number.');
+      return;
+    }
+
     setLoading(true);
     setAuthError('');
 
     try {
-      const res = await sendFirebaseOtp(phoneNumber, 'recaptcha-container');
+      const res = await sendFirebaseOtp(clean, 'recaptcha-container');
       if (!res.success) {
         setAuthError(res.error || 'Failed to send OTP. Please try again.');
         setLoading(false);
@@ -70,8 +80,8 @@ function LoginForm() {
       }
 
       const otpUrl = nextParam
-        ? `/otp?phone=${encodeURIComponent(phoneNumber)}&next=${encodeURIComponent(nextParam)}`
-        : `/otp?phone=${encodeURIComponent(phoneNumber)}`;
+        ? `/otp?phone=${encodeURIComponent(clean)}&next=${encodeURIComponent(nextParam)}`
+        : `/otp?phone=${encodeURIComponent(clean)}`;
       router.push(otpUrl);
     } catch (err: any) {
       setAuthError(err?.message || 'An error occurred while sending OTP.');
@@ -194,11 +204,20 @@ function LoginForm() {
               className="w-full h-12 pl-12 pr-4 rounded-xl bg-stone-50 border border-stone-300 text-sm font-bold tracking-wider outline-none focus:border-[#2E7D32] focus:bg-white transition-colors"
             />
           </div>
-          {phoneNumber.length > 0 && !isValidIndianPhone(phoneNumber) && (
-            <p className="text-[11px] text-amber-700 mt-1 font-semibold">
-              Please enter a valid 10-digit mobile number (starts with 6, 7, 8, or 9)
-            </p>
-          )}
+          <div className="flex items-center justify-between mt-1">
+            {phoneNumber.length > 0 && !isValidIndianPhone(phoneNumber) ? (
+              <p className="text-[11px] text-amber-700 font-semibold">
+                Must be 10 digits starting with 6, 7, 8, or 9
+              </p>
+            ) : (
+              <span />
+            )}
+            {phoneNumber.length > 0 && (
+              <span className={`text-[10px] font-bold ${phoneNumber.length === 10 ? 'text-[#2E7D32]' : 'text-stone-400'}`}>
+                {phoneNumber.length}/10 digits
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Invisible reCAPTCHA container for Firebase Phone Auth */}
@@ -206,8 +225,8 @@ function LoginForm() {
 
         <button
           type="submit"
-          disabled={!isValidIndianPhone(phoneNumber) || loading}
-          className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-bold text-sm shadow-md active:scale-[0.99] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none"
+          disabled={loading}
+          className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-bold text-sm shadow-md active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:cursor-wait"
         >
           {loading ? (
             <>

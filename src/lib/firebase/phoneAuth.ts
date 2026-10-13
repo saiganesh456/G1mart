@@ -4,13 +4,14 @@ import {
   ConfirmationResult,
   UserCredential,
 } from 'firebase/auth';
-import { auth, isFirebaseConfigured } from './client';
+import { getFirebaseAuth, isFirebaseConfigured } from './client';
 
 // Global stores to survive Next.js client-side route transitions
 declare global {
   interface Window {
     recaptchaVerifier?: RecaptchaVerifier;
     confirmationResult?: ConfirmationResult;
+    grecaptcha?: any;
   }
 }
 
@@ -32,74 +33,123 @@ export function setStoredConfirmation(res: ConfirmationResult | null) {
 }
 
 export function clearRecaptcha() {
-  if (typeof window !== 'undefined' && window.recaptchaVerifier) {
-    try {
-      window.recaptchaVerifier.clear();
-    } catch {}
-    window.recaptchaVerifier = undefined;
+  if (typeof window !== 'undefined') {
+    if (window.recaptchaVerifier) {
+      try {
+        window.recaptchaVerifier.clear();
+      } catch {}
+      window.recaptchaVerifier = undefined;
+    }
   }
 }
 
-export function getOrCreateRecaptcha(containerId: string): RecaptchaVerifier {
-  if (!auth) {
-    throw new Error('Firebase Auth is not initialized. Please configure Firebase credentials.');
-  }
+export function initRecaptchaVerifier(containerId = 'recaptcha-container'): RecaptchaVerifier | null {
+  if (typeof window === 'undefined') return null;
 
-  if (typeof window !== 'undefined' && window.recaptchaVerifier) {
+  const firebaseAuth = getFirebaseAuth();
+  if (!firebaseAuth) return null;
+
+  if (window.recaptchaVerifier) {
     return window.recaptchaVerifier;
   }
 
-  const verifier = new RecaptchaVerifier(auth, containerId, {
-    size: 'invisible',
-    callback: () => {
-      // reCAPTCHA solved
-    },
-    'expired-callback': () => {
-      clearRecaptcha();
-    },
-  });
-
-  if (typeof window !== 'undefined') {
-    window.recaptchaVerifier = verifier;
+  const el = document.getElementById(containerId);
+  if (!el) {
+    console.warn(`[Firebase Phone Auth] Container #${containerId} not found in DOM yet.`);
+    return null;
   }
 
-  return verifier;
+  try {
+    const verifier = new RecaptchaVerifier(firebaseAuth, containerId, {
+      size: 'invisible',
+      callback: () => {
+        // reCAPTCHA solved
+      },
+      'expired-callback': () => {
+        clearRecaptcha();
+      },
+    });
+
+    window.recaptchaVerifier = verifier;
+    return verifier;
+  } catch (err) {
+    console.warn('[Firebase Phone Auth] Failed to initialize RecaptchaVerifier:', err);
+    return null;
+  }
 }
 
 /**
- * Sends OTP to a given 10-digit Indian phone number (or full E.164 phone number)
+ * Sends OTP to a given 10-digit Indian phone number with a 20s safety timeout
  */
 export async function sendFirebaseOtp(
   phone: string,
   recaptchaContainerId = 'recaptcha-container'
 ): Promise<{ success: boolean; error?: string }> {
-  if (!isFirebaseConfigured() || !auth) {
+  const firebaseAuth = getFirebaseAuth();
+  if (!isFirebaseConfigured() || !firebaseAuth) {
     return {
       success: false,
-      error: 'Firebase is not yet configured. Please add Firebase keys to .env.local.',
+      error: 'Firebase is not yet configured. Please check your credentials.',
     };
   }
 
   try {
-    const formattedPhone = phone.startsWith('+')
-      ? phone
-      : `+91${phone.replace(/\D/g, '').slice(-10)}`;
+    const cleanDigits = phone.replace(/\D/g, '').slice(-10);
+    if (cleanDigits.length !== 10) {
+      return {
+        success: false,
+        error: 'Please enter a valid 10-digit Indian mobile number.',
+      };
+    }
 
-    const appVerifier = getOrCreateRecaptcha(recaptchaContainerId);
-    const confirmationResult = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
+    const formattedPhone = `+91${cleanDigits}`;
+
+    // Get or initialize verifier
+    let appVerifier = window.recaptchaVerifier;
+    if (!appVerifier) {
+      appVerifier = initRecaptchaVerifier(recaptchaContainerId) || undefined;
+    }
+
+    if (!appVerifier) {
+      // Fallback: create fresh verifier directly on container
+      appVerifier = new RecaptchaVerifier(firebaseAuth, recaptchaContainerId, {
+        size: 'invisible',
+      });
+      window.recaptchaVerifier = appVerifier;
+    }
+
+    // Safety timeout to prevent hanging on network or reCAPTCHA blockage
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(
+        () => reject(new Error('OTP request timed out. Please check your internet connection or disable ad blockers and try again.')),
+        25000
+      )
+    );
+
+    const confirmationResult = await Promise.race([
+      signInWithPhoneNumber(firebaseAuth, formattedPhone, appVerifier),
+      timeoutPromise,
+    ]);
+
     setStoredConfirmation(confirmationResult);
-
     return { success: true };
   } catch (err: any) {
-    clearRecaptcha();
     console.error('[Firebase Phone Auth] Send OTP Error:', err);
+
+    // Reset reCAPTCHA on failure so subsequent attempts succeed
+    clearRecaptcha();
+
     let message = err?.message || 'Failed to send OTP.';
     if (err?.code === 'auth/invalid-phone-number') {
       message = 'Invalid phone number format.';
     } else if (err?.code === 'auth/too-many-requests') {
       message = 'Too many requests. Please wait a few moments and try again.';
     } else if (err?.code === 'auth/captcha-check-failed') {
-      message = 'reCAPTCHA check failed. Please refresh the page and try again.';
+      message = 'reCAPTCHA verification failed. Please refresh the page and try again.';
+    } else if (err?.code === 'auth/unauthorized-domain') {
+      message = 'This domain is not authorized in Firebase Console. Please add localhost and your domain in Firebase Authentication Settings.';
+    } else if (err?.code === 'auth/quota-exceeded') {
+      message = 'SMS quota exceeded for today. Please try again tomorrow or use testing numbers.';
     }
     return { success: false, error: message };
   }
@@ -115,7 +165,7 @@ export async function verifyFirebaseOtp(
   if (!confirmation) {
     return {
       success: false,
-      error: 'Session expired or missing. Please request a new OTP.',
+      error: 'Session expired or missing. Please go back and enter your mobile number again.',
     };
   }
 
@@ -126,9 +176,9 @@ export async function verifyFirebaseOtp(
     console.error('[Firebase Phone Auth] Verify OTP Error:', err);
     let message = 'Invalid or expired OTP. Please check and try again.';
     if (err?.code === 'auth/invalid-verification-code') {
-      message = 'Incorrect 6-digit OTP code. Please try again.';
+      message = 'Incorrect 6-digit OTP code. Please enter the correct code.';
     } else if (err?.code === 'auth/code-expired') {
-      message = 'The OTP code has expired. Please request a new one.';
+      message = 'The OTP code has expired. Please request a new code.';
     }
     return { success: false, error: message };
   }
