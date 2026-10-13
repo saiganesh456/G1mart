@@ -25,9 +25,13 @@ if (!global.__g1SlipOrdersMap) {
 const slipsMap = global.__g1SlipOrdersMap;
 
 function ensureDataDir(): void {
-  const dir = path.dirname(SLIP_ORDERS_FILE_PATH);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+  try {
+    const dir = path.dirname(SLIP_ORDERS_FILE_PATH);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+  } catch (err) {
+    // Read-only filesystem in serverless environments
   }
 }
 

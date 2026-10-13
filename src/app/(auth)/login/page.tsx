@@ -7,6 +7,7 @@ import { Phone, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
 import { authService } from '@/services/authService';
 import { useAuth } from '@/context/AuthContext';
 import { sanitizeIndianPhone, isValidIndianPhone } from '@/lib/phone';
+import { sendFirebaseOtp } from '@/lib/firebase/phoneAuth';
 
 function LoginForm() {
   const router = useRouter();
@@ -47,12 +48,26 @@ function LoginForm() {
 
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (phoneNumber.length !== 10) return;
+    if (!isValidIndianPhone(phoneNumber)) return;
     setLoading(true);
-    const otpUrl = nextParam
-      ? `/otp?phone=${encodeURIComponent(phoneNumber)}&next=${encodeURIComponent(nextParam)}`
-      : `/otp?phone=${encodeURIComponent(phoneNumber)}`;
-    router.push(otpUrl);
+    setAuthError('');
+
+    try {
+      const res = await sendFirebaseOtp(phoneNumber, 'recaptcha-container');
+      if (!res.success) {
+        setAuthError(res.error || 'Failed to send OTP. Please try again.');
+        setLoading(false);
+        return;
+      }
+
+      const otpUrl = nextParam
+        ? `/otp?phone=${encodeURIComponent(phoneNumber)}&next=${encodeURIComponent(nextParam)}`
+        : `/otp?phone=${encodeURIComponent(phoneNumber)}`;
+      router.push(otpUrl);
+    } catch (err: any) {
+      setAuthError(err?.message || 'An error occurred while sending OTP.');
+      setLoading(false);
+    }
   };
 
   const handleGoogleSignIn = async () => {
@@ -177,13 +192,25 @@ function LoginForm() {
           )}
         </div>
 
+        {/* Invisible reCAPTCHA container for Firebase Phone Auth */}
+        <div id="recaptcha-container" />
+
         <button
           type="submit"
           disabled={!isValidIndianPhone(phoneNumber) || loading}
           className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-bold text-sm shadow-md active:scale-[0.99] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none"
         >
-          <span>Continue with Phone</span>
-          <ArrowRight className="w-4 h-4" />
+          {loading ? (
+            <>
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              <span>Sending OTP...</span>
+            </>
+          ) : (
+            <>
+              <span>Continue with Phone</span>
+              <ArrowRight className="w-4 h-4" />
+            </>
+          )}
         </button>
       </form>
 

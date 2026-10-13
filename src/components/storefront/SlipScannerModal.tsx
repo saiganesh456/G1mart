@@ -15,6 +15,7 @@ import {
   Phone,
   User,
   Plus,
+  MapPin,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
@@ -51,11 +52,34 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
   const streamRef = useRef<MediaStream | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Sync user details if available
+  // Sync user details if available, with fallback to previously saved customer details
   useEffect(() => {
     if (user?.name) setCustomerName(user.name);
     if (user?.phone) setCustomerPhone(user.phone);
-  }, [user]);
+
+    try {
+      if (typeof window !== 'undefined') {
+        if (!user?.phone) {
+          const savedPhone =
+            localStorage.getItem('g1mart_customer_phone') ||
+            JSON.parse(localStorage.getItem('g1mart_user_session') || '{}')?.phone ||
+            JSON.parse(localStorage.getItem('g1mart_last_used_address') || '{}')?.mobileNumber ||
+            JSON.parse(localStorage.getItem('g1mart_recent_order') || '{}')?.address?.mobileNumber ||
+            '';
+          if (savedPhone) setCustomerPhone(savedPhone);
+        }
+        if (!user?.name) {
+          const savedName =
+            localStorage.getItem('g1mart_customer_name') ||
+            JSON.parse(localStorage.getItem('g1mart_user_session') || '{}')?.name ||
+            JSON.parse(localStorage.getItem('g1mart_last_used_address') || '{}')?.fullName ||
+            JSON.parse(localStorage.getItem('g1mart_recent_order') || '{}')?.address?.fullName ||
+            '';
+          if (savedName) setCustomerName(savedName);
+        }
+      }
+    } catch {}
+  }, [user, isOpen]);
 
   // Clean up camera stream
   const stopCamera = () => {
@@ -336,6 +360,12 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
         grandTotal: 0,
         total: 0,
         items: [],
+        images: capturedPhotos.map((p, idx) => ({
+          storagePath: `slips/${cleanPhone}/slip_${idx + 1}.jpg`,
+          imageUrl: p.previewUrl,
+          image_url: p.previewUrl,
+          sort_order: idx,
+        })),
         address: {
           fullName: customerName,
           phone: cleanPhone,
@@ -354,12 +384,22 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
         const accPrev = JSON.parse(localStorage.getItem('g1mart_account_orders') || '[]');
         localStorage.setItem('g1mart_account_orders', JSON.stringify([slipOrderRecord, ...accPrev]));
         localStorage.setItem('g1mart_recent_order', JSON.stringify(slipOrderRecord));
+
+        // Save phone and name for seamless future orders
+        localStorage.setItem('g1mart_customer_phone', cleanPhone);
+        if (customerName.trim()) {
+          localStorage.setItem('g1mart_customer_name', customerName.trim());
+        }
       } catch {}
 
       setStep('success');
     } catch (err: any) {
       console.error('[SlipScanner] Upload error:', err);
-      setUploadError(err.message || 'Network error while sending slip. Please try again.');
+      let friendlyError = err.message || 'Network error while sending slip. Please try again.';
+      if (friendlyError.includes('ENOENT') || friendlyError.includes('mkdir')) {
+        friendlyError = 'Server temporarily unable to store file. Please try again.';
+      }
+      setUploadError(friendlyError);
     } finally {
       setIsUploading(false);
     }
@@ -525,12 +565,45 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
 
         {/* ── STEP 3: CUSTOMER PHONE/NAME DETAILS ── */}
         {step === 'details' && (
-          <div className="w-full max-w-sm px-4 py-6 bg-stone-900 rounded-3xl border border-stone-800 mx-4 space-y-4">
+          <div className="w-full max-w-sm px-4 py-5 bg-stone-900 rounded-3xl border border-stone-800 mx-4 space-y-3.5 max-h-[88vh] overflow-y-auto">
             <div className="text-center">
               <h3 className="text-base font-extrabold text-white">Your Contact Information</h3>
               <p className="text-xs text-stone-400 mt-1">
                 Store staff will contact you via Phone/WhatsApp once your {capturedPhotos.length} slip {capturedPhotos.length === 1 ? 'page is' : 'pages are'} reviewed.
               </p>
+            </div>
+
+            {/* Captured Pages Strip */}
+            {capturedPhotos.length > 0 && (
+              <div className="flex items-center justify-center gap-2 py-0.5">
+                {capturedPhotos.map((photo, idx) => (
+                  <div
+                    key={photo.id}
+                    className="relative w-12 h-16 rounded-lg overflow-hidden border border-emerald-500/80 shadow-md bg-black"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={photo.previewUrl}
+                      alt={`Slip Page ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                    <span className="absolute bottom-0 inset-x-0 bg-black/80 text-[8px] text-white font-bold text-center py-0.5">
+                      p.{idx + 1}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Delivery Address Pill */}
+            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-stone-800/80 border border-stone-700/60 text-xs">
+              <MapPin className="w-3.5 h-3.5 text-[#4CAF50] shrink-0" />
+              <div className="min-w-0 flex-1">
+                <span className="text-[10px] text-stone-400 block leading-tight">Deliver to</span>
+                <span className="text-[11px] text-stone-200 font-semibold truncate block">
+                  {currentLocation.formattedAddress || 'Nellore'}
+                </span>
+              </div>
             </div>
 
             <div className="space-y-3">
@@ -555,14 +628,17 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
                   Mobile Number <span className="text-red-400">*</span>
                 </label>
                 <div className="relative">
-                  <Phone className="w-4 h-4 text-stone-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-stone-400 text-xs font-bold pointer-events-none">
+                    <Phone className="w-3.5 h-3.5 text-stone-500" />
+                    <span>+91</span>
+                  </div>
                   <input
                     type="tel"
                     value={customerPhone}
-                    onChange={(e) => setCustomerPhone(e.target.value)}
+                    onChange={(e) => setCustomerPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
                     placeholder="10-digit mobile number"
                     maxLength={10}
-                    className="w-full h-11 pl-9 pr-3 rounded-xl bg-stone-800 border border-stone-700 text-white text-sm outline-none focus:border-[#4CAF50]"
+                    className="w-full h-11 pl-16 pr-3 rounded-xl bg-stone-800 border border-stone-700 text-white text-sm outline-none focus:border-[#4CAF50]"
                   />
                 </div>
               </div>

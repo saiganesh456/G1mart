@@ -84,11 +84,22 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const fs = await import('fs');
-    const path = await import('path');
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'slips');
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
+    let uploadDir = '';
+    // Serverless platforms like Vercel have a read-only filesystem (/var/task).
+    // Only attempt local filesystem directory preparation when not on Vercel and in dev environments.
+    if (!process.env.VERCEL) {
+      try {
+        const fs = await import('fs');
+        const path = await import('path');
+        const targetDir = path.join(process.cwd(), 'public', 'uploads', 'slips');
+        if (!fs.existsSync(targetDir)) {
+          fs.mkdirSync(targetDir, { recursive: true });
+        }
+        uploadDir = targetDir;
+      } catch (dirErr) {
+        console.warn('[Slip Upload] Local uploads directory not writable (serverless environment):', dirErr);
+        uploadDir = '';
+      }
     }
 
     const uploadedUrls: string[] = [];
@@ -103,18 +114,22 @@ export async function POST(req: NextRequest) {
       const storagePath = `slips/${customerPhone.replace(/\D/g, '')}/${fileName}`;
 
       let localPublicUrl = '';
-      try {
-        const localFilePath = path.join(uploadDir, fileName);
-        fs.writeFileSync(localFilePath, buffer);
-        localPublicUrl = `/uploads/slips/${fileName}`;
-      } catch (fsErr) {
-        console.warn('[Slip Upload] Could not write to public folder:', fsErr);
+      if (uploadDir) {
+        try {
+          const fs = await import('fs');
+          const path = await import('path');
+          const localFilePath = path.join(uploadDir, fileName);
+          fs.writeFileSync(localFilePath, buffer);
+          localPublicUrl = `/uploads/slips/${fileName}`;
+        } catch (fsErr) {
+          console.warn('[Slip Upload] Could not write to public folder:', fsErr);
+        }
       }
 
       let fileUrl = localPublicUrl;
       let filePath = storagePath;
 
-      // Upload to Supabase private bucket 'slips'
+      // Upload to Supabase private bucket 'slips' if available
       try {
         const { data, error } = await supabase.storage
           .from('slips')
@@ -136,6 +151,7 @@ export async function POST(req: NextRequest) {
         console.warn('[Slip Upload] Private storage upload notice:', storageErr);
       }
 
+      // Universal zero-fail fallback: base64 Data URI works on all environments including Vercel
       if (!fileUrl) {
         fileUrl = `data:${file.type};base64,${buffer.toString('base64')}`;
       }

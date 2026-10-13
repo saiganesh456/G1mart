@@ -44,9 +44,13 @@ if (!global.__g1Slips) {
 const RATE_LIMIT_CACHE = new Map<string, number[]>();
 
 function ensureDataDir(): void {
-  const dir = path.dirname(SLIPS_FILE_PATH);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+  try {
+    const dir = path.dirname(SLIPS_FILE_PATH);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+  } catch (err) {
+    // Read-only filesystem in serverless environments
   }
 }
 
