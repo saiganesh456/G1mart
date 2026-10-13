@@ -1,75 +1,120 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { searchNelloreLocations } from '@/data/nelloreLocations';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get('q');
 
-  if (!query || query.trim().length < 2) {
+  if (!query || query.trim().length < 1) {
     return NextResponse.json({ success: true, data: [] });
   }
 
-  try {
-    const googleApiKey = process.env.GOOGLE_MAPS_API_KEY;
+  const cleanQuery = query.trim();
 
-    // 1. Google Places Autocomplete if configured
+  try {
+    // 1. Instant local database search (Nellore localities, colonies, landmarks)
+    const localMatches = searchNelloreLocations(cleanQuery, 8);
+    const localSuggestions = localMatches.map((loc) => ({
+      id: `local-${loc.id}`,
+      title: loc.name,
+      subtitle: [loc.landmark, loc.area, `Nellore - ${loc.pincode}`].filter(Boolean).join(', '),
+      fullAddress: `${loc.name}, ${loc.area}, Nellore, Andhra Pradesh - ${loc.pincode}`,
+      area: loc.area,
+      city: loc.city,
+      pincode: loc.pincode,
+      lat: loc.lat,
+      lng: loc.lng,
+      isLocalNellore: true,
+    }));
+
+    // If we got strong local matches, return them directly for ultra-fast response
+    if (localSuggestions.length >= 3) {
+      return NextResponse.json({ success: true, data: localSuggestions });
+    }
+
+    // 2. Google Places Autocomplete if configured
+    const googleApiKey = process.env.GOOGLE_MAPS_API_KEY;
     if (googleApiKey && !googleApiKey.includes('your-google-maps-api-key')) {
       try {
         const googleUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(
-          query
-        )}&components=country:in&key=${googleApiKey}`;
+          cleanQuery
+        )}&components=country:in&location=14.4329,79.9680&radius=30000&strictbounds=false&key=${googleApiKey}`;
         const res = await fetch(googleUrl);
         const data = await res.json();
 
-        if (data.status === 'OK' && data.predictions) {
-          const suggestions = data.predictions.map((p: any) => ({
+        if (data.status === 'OK' && Array.isArray(data.predictions)) {
+          const googleSuggestions = data.predictions.map((p: any) => ({
             id: p.place_id,
             title: p.structured_formatting?.main_text || p.description,
             subtitle: p.structured_formatting?.secondary_text || '',
             fullAddress: p.description,
           }));
-          return NextResponse.json({ success: true, data: suggestions });
+
+          const combined = [...localSuggestions, ...googleSuggestions];
+          return NextResponse.json({ success: true, data: combined.slice(0, 8) });
         }
       } catch (err) {
-        console.warn('[LocationSearch] Google Places fallback to Nominatim:', err);
+        console.warn('[LocationSearch] Google Places error:', err);
       }
     }
 
-    // 2. OpenStreetMap / Nominatim search fallback (Free)
-    const osmUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
-      query
-    )}&format=json&countrycodes=in&limit=6&addressdetails=1`;
+    // 3. OpenStreetMap / Nominatim fallback biased strictly to Nellore Region
+    try {
+      const searchTerms = cleanQuery.toLowerCase().includes('nellore')
+        ? cleanQuery
+        : `${cleanQuery}, Nellore, Andhra Pradesh`;
 
-    const res = await fetch(osmUrl, {
-      headers: {
-        'User-Agent': 'G1Mart-GroceryDelivery/1.0',
-        'Accept-Language': 'en',
-      },
-    });
+      // Bounding box for Nellore and surrounding mandals within ~35 km
+      const osmUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+        searchTerms
+      )}&format=json&countrycodes=in&viewbox=79.6,14.7,80.3,14.2&bounded=0&limit=6&addressdetails=1`;
 
-    if (!res.ok) {
-      throw new Error(`Nominatim search error: ${res.statusText}`);
+      const res = await fetch(osmUrl, {
+        headers: {
+          'User-Agent': 'G1Mart-GroceryDelivery/1.0',
+          'Accept-Language': 'en',
+        },
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        const osmSuggestions = (data || []).map((item: any) => {
+          const addr = item.address || {};
+          const title =
+            addr.road || addr.suburb || addr.neighbourhood || addr.city || item.name;
+          const subtitle = [addr.suburb || addr.neighbourhood, addr.city || addr.town || 'Nellore', addr.postcode]
+            .filter(Boolean)
+            .join(', ');
+
+          return {
+            id: String(item.place_id),
+            title,
+            subtitle: subtitle || item.display_name,
+            fullAddress: item.display_name,
+            lat: Number(item.lat),
+            lng: Number(item.lon),
+          };
+        });
+
+        // Deduplicate and combine local + osm
+        const seen = new Set<string>();
+        const combined = [];
+        for (const item of [...localSuggestions, ...osmSuggestions]) {
+          const key = (item.title || '').toLowerCase();
+          if (!seen.has(key)) {
+            seen.add(key);
+            combined.push(item);
+          }
+        }
+
+        return NextResponse.json({ success: true, data: combined.slice(0, 8) });
+      }
+    } catch (err) {
+      console.warn('[LocationSearch] Nominatim error:', err);
     }
 
-    const data = await res.json();
-    const suggestions = (data || []).map((item: any) => {
-      const addr = item.address || {};
-      const title =
-        addr.road || addr.suburb || addr.neighbourhood || addr.city || item.name;
-      const subtitle = [addr.city || addr.town, addr.state, addr.postcode]
-        .filter(Boolean)
-        .join(', ');
-
-      return {
-        id: String(item.place_id),
-        title,
-        subtitle: subtitle || item.display_name,
-        fullAddress: item.display_name,
-        lat: Number(item.lat),
-        lng: Number(item.lon),
-      };
-    });
-
-    return NextResponse.json({ success: true, data: suggestions });
+    // Default to whatever local matches we found
+    return NextResponse.json({ success: true, data: localSuggestions });
   } catch (error: any) {
     console.error('[LocationSearch] Error:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });

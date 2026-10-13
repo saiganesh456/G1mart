@@ -33,7 +33,7 @@ export default function LocationModal() {
 
   // Debounced search query
   useEffect(() => {
-    if (searchQuery.trim().length < 2) {
+    if (searchQuery.trim().length < 1) {
       setSuggestions([]);
       return;
     }

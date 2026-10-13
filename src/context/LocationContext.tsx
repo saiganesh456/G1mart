@@ -55,6 +55,8 @@ interface LocationContextType {
   distanceData: DistanceServiceResult | null;
   isGateReady: boolean;
   permissionState: 'granted' | 'prompt' | 'denied' | 'unknown';
+  hasConfirmedLocation: boolean;
+  setHasConfirmedLocation: (confirmed: boolean) => void;
   // Actions
   detectLocation: () => Promise<DeliveryLocation | null>;
   setLocation: (location: DeliveryLocation) => void;
@@ -201,6 +203,7 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
   const [distanceData, setDistanceData] = useState<DistanceServiceResult | null>(null);
   const [isGateReady, setIsGateReady] = useState(false);
   const [permissionState, setPermissionState] = useState<'granted' | 'prompt' | 'denied' | 'unknown'>('unknown');
+  const [hasConfirmedLocation, setHasConfirmedLocation] = useState(false);
 
   /**
    * Server-side distance service caller
@@ -286,6 +289,7 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
         }
       } catch {}
 
+      setHasConfirmedLocation(true);
       return enriched;
     },
     [verifyCoordinatesDistance]
@@ -296,6 +300,7 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
    */
   const setLocation = useCallback(
     (loc: DeliveryLocation) => {
+      setHasConfirmedLocation(true);
       setShowDeniedPopup(false);
       setShowPrePromptModal(false);
       setMovedLocationAlert(null);
@@ -402,6 +407,9 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
         if (rawSaved) savedLoc = JSON.parse(rawSaved);
         if (rawManual) savedManualLoc = JSON.parse(rawManual);
       } catch {}
+
+      const hasSaved = Boolean((savedManualLoc && savedManualLoc.lat) || (savedLoc && savedLoc.lat));
+      setHasConfirmedLocation(hasSaved);
 
       // Check current browser permission state
       let pState: 'granted' | 'prompt' | 'denied' | 'unknown' = 'unknown';
@@ -554,6 +562,8 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
         distanceData,
         isGateReady,
         permissionState,
+        hasConfirmedLocation,
+        setHasConfirmedLocation,
         detectLocation,
         setLocation,
         requestDeviceLocationPermission,

@@ -35,6 +35,7 @@ export default function LocationGate({ children }: Props) {
     isServiceable,
     isGateReady,
     savedLocation = null as any,
+    hasConfirmedLocation = false,
   } = useLocation() as any;
 
   // Shopping routes that must be gated when unserviceable
@@ -77,13 +78,23 @@ export default function LocationGate({ children }: Props) {
           setShowPrePromptModal(false);
           setIsModalOpen(true);
         }}
-        onClose={() => setShowPrePromptModal(false)}
+        isMandatory={!hasConfirmedLocation}
+        onClose={hasConfirmedLocation ? () => setShowPrePromptModal(false) : undefined}
       />
 
       {/* 3. Select Location Manually Modal (Search box + Draggable Map Pin + Confirm) */}
       <ManualLocationModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isMandatory={!hasConfirmedLocation}
+        onClose={() => {
+          if (!hasConfirmedLocation) {
+            // Cannot dismiss location without selection: return to pre-prompt
+            setIsModalOpen(false);
+            setShowPrePromptModal(true);
+          } else {
+            setIsModalOpen(false);
+          }
+        }}
       />
 
       {/* 4. GPS Re-detection movement confirmation (> 500m moved) */}
