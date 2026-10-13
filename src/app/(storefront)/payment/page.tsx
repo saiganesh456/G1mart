@@ -21,6 +21,8 @@ import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import { addressService } from '@/services/addressService';
+import Script from 'next/script';
+import { loadRazorpayScript } from '@/components/payment/RazorpayCheckoutButton';
 
 export default function PaymentPage() {
   const router = useRouter();
@@ -211,8 +213,7 @@ export default function PaymentPage() {
         return;
       }
 
-      // --- Option A: Pay Online via Razorpay TEST Mode Adapter ---
-      // Order becomes PAID only after server-side verification of payment signature (Phase 5 Rule 1)
+      // --- Option A: Pay Online via Razorpay Standard Checkout ---
       setPendingPaymentData({
         orderId: data.orderId,
         razorpayOrderId: data.providerOrderId,
@@ -221,7 +222,59 @@ export default function PaymentPage() {
         keyId: data.keyId,
       });
 
-      setShowRazorpayModal(true);
+      // Load official Razorpay checkout.js script
+      const scriptReady = await loadRazorpayScript();
+      if (!scriptReady || !(window as any).Razorpay) {
+        // Fallback to manual simulator modal if external script fails to load
+        setShowRazorpayModal(true);
+        setProcessing(false);
+        return;
+      }
+
+      const options = {
+        key: data.keyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        amount: data.amountInPaise,
+        currency: data.currency || 'INR',
+        name: 'G1 Mart Supermarket',
+        description: `Order #${data.orderId}`,
+        order_id: data.providerOrderId,
+        prefill: {
+          name: effectiveAddress.fullName || user?.name || '',
+          contact: effectiveAddress.phone || effectiveAddress.mobileNumber || user?.phone || '',
+          email: user?.email || supabaseUser?.email || '',
+        },
+        theme: {
+          color: '#2E7D32',
+        },
+        modal: {
+          ondismiss: () => {
+            setProcessing(false);
+            setErrorMessage('Online payment was cancelled. You can retry or choose Pay on delivery.');
+          },
+        },
+        handler: async (response: {
+          razorpay_payment_id: string;
+          razorpay_order_id: string;
+          razorpay_signature: string;
+        }) => {
+          await handleVerifyRazorpaySuccess({
+            orderId: data.orderId,
+            razorpayOrderId: response.razorpay_order_id,
+            razorpayPaymentId: response.razorpay_payment_id,
+            razorpaySignature: response.razorpay_signature,
+            grandTotal: data.grandTotal,
+          });
+        },
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on('payment.failed', (failResp: any) => {
+        setProcessing(false);
+        const desc = failResp?.error?.description || failResp?.error?.reason || 'Payment transaction failed.';
+        setErrorMessage(`Payment failed: ${desc}`);
+      });
+
+      rzp.open();
       setProcessing(false);
     } catch (err: any) {
       setErrorMessage(err?.message || 'Server connection error during payment initiation');
@@ -230,25 +283,36 @@ export default function PaymentPage() {
   };
 
   // Complete Razorpay Online Payment with Server-Side Verification
-  const handleVerifyRazorpaySuccess = async (simulated: boolean = true) => {
-    if (!pendingPaymentData) return;
+  const handleVerifyRazorpaySuccess = async (verifyParams?: {
+    orderId: string;
+    razorpayOrderId: string;
+    razorpayPaymentId: string;
+    razorpaySignature: string;
+    grandTotal: number;
+  }) => {
+    const params = verifyParams || (pendingPaymentData ? {
+      orderId: pendingPaymentData.orderId,
+      razorpayOrderId: pendingPaymentData.razorpayOrderId,
+      razorpayPaymentId: `pay_test_${Date.now().toString().slice(-8)}`,
+      razorpaySignature: `test_sig_${pendingPaymentData.razorpayOrderId}_pay_test`,
+      grandTotal: pendingPaymentData.grandTotal,
+    } : null);
+
+    if (!params) return;
 
     setProcessing(true);
     setErrorMessage(null);
 
     try {
-      const paymentId = `pay_test_${Date.now().toString().slice(-8)}`;
-      const signature = `test_sig_${pendingPaymentData.razorpayOrderId}_${paymentId}`;
-
-      // Call server verification API (never trust client amounts or status)
-      const verifyRes = await fetch('/api/payment/verify', {
+      // Call server verification API (HMAC SHA-256 verification)
+      const verifyRes = await fetch('/api/verify-payment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          orderId: pendingPaymentData.orderId,
-          razorpayOrderId: pendingPaymentData.razorpayOrderId,
-          razorpayPaymentId: paymentId,
-          razorpaySignature: signature,
+          order_id: params.razorpayOrderId,
+          payment_id: params.razorpayPaymentId,
+          razorpay_signature: params.razorpaySignature,
+          internalOrderId: params.orderId,
         }),
       });
 
@@ -262,8 +326,8 @@ export default function PaymentPage() {
 
       // Server verified payment signature successfully! Order is now PAID
       const paidOrderRecord = {
-        id: pendingPaymentData.orderId,
-        orderNumber: pendingPaymentData.orderId,
+        id: params.orderId,
+        orderNumber: params.orderId,
         date: new Date().toLocaleDateString('en-IN', {
           day: 'numeric',
           month: 'short',
@@ -272,16 +336,16 @@ export default function PaymentPage() {
           minute: '2-digit',
         }),
         status: 'Order Placed',
-        paymentMethod: 'Razorpay UPI/Card (Online)',
+        paymentMethod: 'Razorpay Standard Checkout',
         paymentStatus: 'paid',
         isPaid: true,
-        paidAmount: pendingPaymentData.grandTotal,
-        transactionId: paymentId,
+        paidAmount: params.grandTotal,
+        transactionId: params.razorpayPaymentId,
         subtotal: cartSubtotal,
         deliveryFee: 0,
         codFee: 0,
-        grandTotal: pendingPaymentData.grandTotal,
-        total: pendingPaymentData.grandTotal,
+        grandTotal: params.grandTotal,
+        total: params.grandTotal,
         items: cart.map((i) => ({
           productId: i.product.id,
           productName: i.product.name,
@@ -313,14 +377,14 @@ export default function PaymentPage() {
 
         try {
           const bc = new BroadcastChannel('g1mart_order_channel');
-          bc.postMessage({ type: 'ORDER_PAID', orderId: pendingPaymentData.orderId, order: paidOrderRecord });
+          bc.postMessage({ type: 'ORDER_PAID', orderId: params.orderId, order: paidOrderRecord });
           bc.close();
         } catch {}
       } catch {}
 
       clearCart();
       setShowRazorpayModal(false);
-      router.push(`/orders/${pendingPaymentData.orderId}?paid=true`);
+      router.push(`/orders/${params.orderId}?paid=true`);
     } catch (err: any) {
       setErrorMessage(err?.message || 'Error completing server payment verification');
       setProcessing(false);
@@ -506,10 +570,23 @@ export default function PaymentPage() {
         </div>
       </div>
 
+      {/* Official Razorpay Standard Checkout SDK */}
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
+
       {/* Trust Notice */}
-      <div className="flex items-center justify-center gap-1.5 text-[11px] text-stone-500">
-        <ShieldCheck className="w-4 h-4 text-[#2E7D32]" />
-        <span>Razorpay TEST Gateway Mode · Safe &amp; Verified</span>
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-[11px] text-stone-500">
+        <div className="flex items-center gap-1.5">
+          <ShieldCheck className="w-4 h-4 text-[#2E7D32]" />
+          <span>Razorpay Standard Web Checkout · Safe &amp; Verified</span>
+        </div>
+        <span className="hidden sm:inline">·</span>
+        <Link
+          href="/payment/demo"
+          className="text-emerald-700 hover:text-emerald-800 font-bold underline inline-flex items-center gap-1"
+        >
+          <span>Test Standard Checkout Demo</span>
+          <ExternalLink className="w-3 h-3" />
+        </Link>
       </div>
 
       {/* Sticky Bottom Action */}
@@ -584,7 +661,7 @@ export default function PaymentPage() {
             <div className="space-y-2 pt-1">
               <button
                 type="button"
-                onClick={() => handleVerifyRazorpaySuccess(true)}
+                onClick={() => handleVerifyRazorpaySuccess()}
                 disabled={processing}
                 className="w-full h-11 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
               >

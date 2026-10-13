@@ -1,14 +1,11 @@
 import crypto from 'crypto';
+import Razorpay from 'razorpay';
 import type {
   PaymentAdapter,
   CreatePaymentParams,
   CreatePaymentResult,
   VerifyPaymentResult,
 } from './types';
-
-const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_g1mart_dev';
-const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || 'rzp_test_secret_key_g1mart';
-const RAZORPAY_WEBHOOK_SECRET = process.env.RAZORPAY_WEBHOOK_SECRET || 'rzp_test_webhook_secret';
 
 export interface RazorpayOrderDetails {
   id: string;
@@ -24,59 +21,64 @@ export interface RazorpayOrderDetails {
 export class RazorpayAdapter implements PaymentAdapter {
   readonly name = 'razorpay';
 
-  private get authHeader(): string {
-    return 'Basic ' + Buffer.from(`${RAZORPAY_KEY_ID}:${RAZORPAY_KEY_SECRET}`).toString('base64');
-  }
-
-  private isLiveCredentials(): boolean {
-    return Boolean(
-      process.env.RAZORPAY_KEY_ID &&
-      process.env.RAZORPAY_KEY_SECRET &&
-      !process.env.RAZORPAY_KEY_ID.includes('_dev')
+  private getKeyId(): string {
+    return (
+      process.env.RAZORPAY_KEY_ID ||
+      process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ||
+      ''
     );
   }
 
+  private getKeySecret(): string {
+    return process.env.RAZORPAY_KEY_SECRET || '';
+  }
+
+  private getWebhookSecret(): string {
+    return process.env.RAZORPAY_WEBHOOK_SECRET || this.getKeySecret();
+  }
+
+  private getClient(): Razorpay | null {
+    const key_id = this.getKeyId();
+    const key_secret = this.getKeySecret();
+    if (!key_id || !key_secret) return null;
+    return new Razorpay({ key_id, key_secret });
+  }
+
+  private isConfigured(): boolean {
+    const keyId = this.getKeyId();
+    const keySecret = this.getKeySecret();
+    return Boolean(keyId && keySecret && !keyId.includes('g1mart_dev'));
+  }
+
   /**
-   * Initializes a Razorpay order session (TEST or Live Mode)
+   * Initializes a Razorpay order session
    */
   async createPayment(params: CreatePaymentParams): Promise<CreatePaymentResult> {
     try {
-      // 1. If valid live/test API keys are set in environment, call Razorpay Orders API
-      if (this.isLiveCredentials()) {
-        const response = await fetch('https://api.razorpay.com/v1/orders', {
-          method: 'POST',
-          headers: {
-            Authorization: this.authHeader,
-            'Content-Type': 'application/json',
+      const client = this.getClient();
+
+      // If valid Razorpay API keys are configured, use official SDK to create the order
+      if (client && this.isConfigured()) {
+        const order = await client.orders.create({
+          amount: params.amountInPaise,
+          currency: 'INR',
+          receipt: params.orderId.slice(0, 40),
+          notes: {
+            merchantOrderId: params.merchantOrderId,
+            customerPhone: params.customerPhone || '',
+            customerName: params.customerName || '',
           },
-          body: JSON.stringify({
-            amount: params.amountInPaise,
-            currency: 'INR',
-            receipt: params.orderId,
-            notes: {
-              merchantOrderId: params.merchantOrderId,
-              customerPhone: params.customerPhone || '',
-              customerName: params.customerName || '',
-            },
-          }),
         });
 
-        if (response.ok) {
-          const data: RazorpayOrderDetails = await response.json();
-          return {
-            success: true,
-            providerOrderId: data.id,
-            redirectUrl: `${params.redirectUrl}&providerOrderId=${encodeURIComponent(data.id)}`,
-            raw: data,
-          };
-        } else {
-          const errData = await response.json().catch(() => ({}));
-          console.warn('[RazorpayAdapter] Live order creation failed, falling back to test simulator:', errData);
-        }
+        return {
+          success: true,
+          providerOrderId: order.id,
+          redirectUrl: `${params.redirectUrl}&providerOrderId=${encodeURIComponent(order.id)}`,
+          raw: order,
+        };
       }
 
-      // 2. Deterministic TEST / Sandbox mode order generation
-      // Format: order_test_<safeOrderId>_<timestamp>
+      // Fallback for offline development / sandbox when credentials are not yet set
       const cleanId = params.orderId.replace(/[^a-zA-Z0-9]/g, '');
       const testRazorpayOrderId = `order_test_${cleanId}_${Date.now().toString().slice(-6)}`;
 
@@ -98,7 +100,7 @@ export class RazorpayAdapter implements PaymentAdapter {
       return {
         success: false,
         providerOrderId: '',
-        error: err.message || 'Razorpay order creation failed',
+        error: err?.error?.description || err?.message || 'Razorpay order creation failed',
       };
     }
   }
@@ -118,21 +120,26 @@ export class RazorpayAdapter implements PaymentAdapter {
       return false;
     }
 
-    // In test simulated flow:
-    if (
-      razorpaySignature.startsWith('test_sig_') ||
-      razorpayPaymentId.startsWith('pay_test_sim_')
-    ) {
-      return true;
+    const keySecret = this.getKeySecret();
+    if (!keySecret) {
+      console.error('[RazorpayAdapter] RAZORPAY_KEY_SECRET is not configured');
+      return false;
     }
 
     try {
-      const generated = crypto
-        .createHmac('sha256', RAZORPAY_KEY_SECRET)
+      const expectedSignature = crypto
+        .createHmac('sha256', keySecret)
         .update(`${razorpayOrderId}|${razorpayPaymentId}`)
         .digest('hex');
 
-      return generated === razorpaySignature;
+      if (expectedSignature.length !== razorpaySignature.length) {
+        return false;
+      }
+
+      return crypto.timingSafeEqual(
+        Buffer.from(expectedSignature, 'utf-8'),
+        Buffer.from(razorpaySignature, 'utf-8')
+      );
     } catch (err) {
       console.error('[RazorpayAdapter] Signature verification error:', err);
       return false;
@@ -144,23 +151,23 @@ export class RazorpayAdapter implements PaymentAdapter {
    */
   async verifyPayment(providerOrderId: string): Promise<VerifyPaymentResult> {
     try {
-      if (this.isLiveCredentials()) {
-        const response = await fetch(`https://api.razorpay.com/v1/orders/${providerOrderId}`, {
-          method: 'GET',
-          headers: { Authorization: this.authHeader },
-        });
+      const client = this.getClient();
+      if (client && this.isConfigured()) {
+        const order = (await client.orders.fetch(providerOrderId)) as any;
+        const state =
+          order.status === 'paid'
+            ? 'COMPLETED'
+            : order.status === 'attempted'
+            ? 'PENDING'
+            : 'FAILED';
 
-        if (response.ok) {
-          const data: RazorpayOrderDetails = await response.json();
-          const state = data.status === 'paid' ? 'COMPLETED' : data.status === 'attempted' ? 'PENDING' : 'FAILED';
-          return {
-            success: state === 'COMPLETED',
-            state,
-            amountInPaise: data.amount,
-            providerOrderId: data.id,
-            raw: data,
-          };
-        }
+        return {
+          success: state === 'COMPLETED',
+          state,
+          amountInPaise: typeof order.amount === 'number' ? order.amount : Number(order.amount),
+          providerOrderId: order.id,
+          raw: order,
+        };
       }
 
       // Test sandbox fallback
@@ -174,7 +181,7 @@ export class RazorpayAdapter implements PaymentAdapter {
       return {
         success: false,
         state: 'FAILED',
-        error: err.message || 'Razorpay status verification failed',
+        error: err?.error?.description || err?.message || 'Razorpay status verification failed',
       };
     }
   }
@@ -189,16 +196,19 @@ export class RazorpayAdapter implements PaymentAdapter {
     try {
       const signatureHeader = headers['x-razorpay-signature'];
       const signature = Array.isArray(signatureHeader) ? signatureHeader[0] : signatureHeader;
+      const webhookSecret = this.getWebhookSecret();
 
-      // Verify webhook HMAC signature if secret is present
-      if (signature && RAZORPAY_WEBHOOK_SECRET) {
+      if (signature && webhookSecret) {
         const bodyString = typeof rawBody === 'string' ? rawBody : JSON.stringify(rawBody);
         const expected = crypto
-          .createHmac('sha256', RAZORPAY_WEBHOOK_SECRET)
+          .createHmac('sha256', webhookSecret)
           .update(bodyString)
           .digest('hex');
 
-        if (expected !== signature && !signature.startsWith('test_sig_')) {
+        if (
+          expected.length !== signature.length ||
+          !crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature))
+        ) {
           return {
             success: false,
             state: 'FAILED',
