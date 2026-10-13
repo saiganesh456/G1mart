@@ -11,7 +11,8 @@ import { serverStaffStore } from '@/lib/serverStaffStore';
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
-  const rawNext = searchParams.get('next') ?? '/account';
+  const cookieNext = request.cookies.get('g1mart_auth_next')?.value;
+  const rawNext = searchParams.get('next') || cookieNext || '/checkout';
   const error = searchParams.get('error');
   const errorDescription = searchParams.get('error_description');
 
@@ -101,6 +102,9 @@ export async function GET(request: NextRequest) {
       cookiesToSetOnRedirect.forEach(({ name, value, options }) => {
         response.cookies.set(name, value, options);
       });
+
+      // Clear the temporary redirect cookie
+      response.cookies.delete('g1mart_auth_next');
 
       return response;
     }

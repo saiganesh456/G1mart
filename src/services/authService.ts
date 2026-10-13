@@ -113,6 +113,14 @@ export const authService = {
           ? window.location.origin
           : 'http://localhost:3000';
 
+      // Persist intended destination in cookie and localStorage so it survives OAuth redirect even if query params are stripped
+      if (typeof document !== 'undefined') {
+        document.cookie = `g1mart_auth_next=${encodeURIComponent(nextUrl)}; path=/; max-age=1800; SameSite=Lax`;
+        try {
+          localStorage.setItem('g1mart_auth_next', nextUrl);
+        } catch {}
+      }
+
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
