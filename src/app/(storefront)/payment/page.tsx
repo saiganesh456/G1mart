@@ -412,33 +412,33 @@ export default function PaymentPage() {
   }
 
   return (
-    <div className="max-w-xl mx-auto space-y-3.5 pb-36 pt-2 sm:pt-4 px-3 sm:px-0">
+    <div className="w-full max-w-xl mx-auto space-y-3.5 pb-36 pt-2 sm:pt-4 px-3 sm:px-4 box-border min-w-0 overflow-x-hidden">
       {/* Header */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 min-w-0">
         <Link
           href="/checkout"
-          className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50"
+          className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50 shrink-0"
           aria-label="Back to Checkout"
         >
           <ArrowLeft className="w-4 h-4" />
         </Link>
-        <div>
-          <h1 className="text-base sm:text-lg font-black text-[#212121]">Payment Options</h1>
-          <p className="text-[11px] text-stone-500">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-base sm:text-lg font-black text-[#212121] truncate">Payment Options</h1>
+          <p className="text-[11px] text-stone-500 truncate">
             {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'} · Secure 256-bit checkout
           </p>
         </div>
       </div>
 
       {errorMessage && (
-        <div className="p-3 bg-rose-50 border border-rose-200 rounded-2xl text-xs text-rose-700 flex items-start gap-2 animate-in fade-in">
+        <div className="p-3 bg-rose-50 border border-rose-200 rounded-2xl text-xs text-rose-700 flex items-start gap-2 animate-in fade-in min-w-0 w-full box-border">
           <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-600" />
-          <span>{errorMessage}</span>
+          <span className="truncate flex-1">{errorMessage}</span>
         </div>
       )}
 
       {/* PHASE 5: Payment Step with Two Options */}
-      <div className="space-y-2.5">
+      <div className="space-y-2.5 min-w-0 w-full box-border">
         <label className="text-[11px] font-extrabold text-stone-500 uppercase tracking-wider block px-1">
           Select Payment Method
         </label>
@@ -446,15 +446,15 @@ export default function PaymentPage() {
         {/* Option 1: Pay online (UPI / Card via Razorpay TEST mode) */}
         <label
           onClick={() => setSelectedMethod('online')}
-          className={`bg-white rounded-2xl border p-3.5 shadow-2xs cursor-pointer flex items-center justify-between transition-all ${
+          className={`bg-white rounded-2xl border p-3 sm:p-3.5 shadow-2xs cursor-pointer flex items-center justify-between gap-2.5 transition-all min-w-0 w-full box-border ${
             selectedMethod === 'online'
               ? 'border-[#2E7D32] ring-2 ring-[#2E7D32]/20 bg-emerald-50/30'
               : 'border-stone-200 hover:border-stone-300'
           }`}
         >
-          <div className="flex items-center gap-3 min-w-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
             <div
-              className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0 ${
                 selectedMethod === 'online'
                   ? 'bg-[#2E7D32] text-white'
                   : 'bg-stone-100 text-stone-600'
@@ -462,17 +462,17 @@ export default function PaymentPage() {
             >
               <Smartphone className="w-5 h-5" />
             </div>
-            <div className="min-w-0">
-              <div className="flex items-center gap-2 flex-wrap">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="font-extrabold text-xs sm:text-sm text-[#212121]">
-                  Pay online (UPI / Cards / NetBanking)
+                  Pay online (UPI / Cards)
                 </span>
-                <span className="text-[10px] font-black uppercase px-2 py-0.2 rounded-full bg-emerald-100 text-[#1B5E20]">
+                <span className="text-[10px] font-black uppercase px-1.5 py-0.2 rounded-full bg-emerald-100 text-[#1B5E20] shrink-0">
                   ZERO FEE
                 </span>
               </div>
               <p className="text-[11px] text-stone-500 mt-0.5 truncate">
-                Instant confirmation via Google Pay, PhonePe, Paytm, or Debit/Credit Cards
+                GPay, PhonePe, Paytm, UPI, Cards &amp; NetBanking
               </p>
             </div>
           </div>
@@ -481,22 +481,22 @@ export default function PaymentPage() {
             name="paymentOption"
             checked={selectedMethod === 'online'}
             onChange={() => setSelectedMethod('online')}
-            className="accent-[#2E7D32] w-4 h-4 shrink-0"
+            className="accent-[#2E7D32] w-4 h-4 shrink-0 cursor-pointer"
           />
         </label>
 
         {/* Option 2: Pay on delivery (Cash on Delivery) */}
         <label
           onClick={() => setSelectedMethod('cod')}
-          className={`bg-white rounded-2xl border p-3.5 shadow-2xs cursor-pointer flex items-center justify-between transition-all ${
+          className={`bg-white rounded-2xl border p-3 sm:p-3.5 shadow-2xs cursor-pointer flex items-center justify-between gap-2.5 transition-all min-w-0 w-full box-border ${
             selectedMethod === 'cod'
               ? 'border-[#2E7D32] ring-2 ring-[#2E7D32]/20 bg-emerald-50/30'
               : 'border-stone-200 hover:border-stone-300'
           }`}
         >
-          <div className="flex items-center gap-3 min-w-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
             <div
-              className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0 ${
                 selectedMethod === 'cod'
                   ? 'bg-[#2E7D32] text-white'
                   : 'bg-stone-100 text-stone-600'
@@ -504,17 +504,17 @@ export default function PaymentPage() {
             >
               <Banknote className="w-5 h-5" />
             </div>
-            <div className="min-w-0">
-              <div className="flex items-center gap-2 flex-wrap">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="font-extrabold text-xs sm:text-sm text-[#212121]">
-                  Pay on delivery (Cash / QR on Delivery)
+                  Pay on delivery
                 </span>
-                <span className="text-[10px] font-black uppercase px-2 py-0.2 rounded-full bg-amber-100 text-amber-900">
+                <span className="text-[10px] font-black uppercase px-1.5 py-0.2 rounded-full bg-amber-100 text-amber-900 shrink-0">
                   +₹{codFee} FEE
                 </span>
               </div>
               <p className="text-[11px] text-stone-500 mt-0.5 truncate">
-                Pay cash or scan rider&apos;s UPI QR code upon arrival at your doorstep
+                Cash or QR code scan on arrival at doorstep
               </p>
             </div>
           </div>
@@ -523,49 +523,49 @@ export default function PaymentPage() {
             name="paymentOption"
             checked={selectedMethod === 'cod'}
             onChange={() => setSelectedMethod('cod')}
-            className="accent-[#2E7D32] w-4 h-4 shrink-0"
+            className="accent-[#2E7D32] w-4 h-4 shrink-0 cursor-pointer"
           />
         </label>
       </div>
 
       {/* PHASE 5: The Bill Summary Card (Updates live when option changes) */}
-      <div className="bg-white rounded-2xl border border-stone-200/90 p-3.5 shadow-2xs space-y-2.5">
+      <div className="bg-white rounded-2xl border border-stone-200/90 p-3 sm:p-3.5 shadow-2xs space-y-2.5 min-w-0 w-full box-border">
         <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider border-b border-stone-100 pb-2">
           Bill Details ({cartItemCount} items)
         </h2>
 
-        <div className="space-y-1.5 text-xs text-stone-600">
-          <div className="flex justify-between">
-            <span>Items Subtotal</span>
-            <span className="font-bold text-[#212121] tabular-nums">₹{cartSubtotal}</span>
+        <div className="space-y-2 text-xs text-stone-600 min-w-0">
+          <div className="flex justify-between items-center gap-2">
+            <span className="truncate">Items Subtotal</span>
+            <span className="font-bold text-[#212121] tabular-nums shrink-0">₹{cartSubtotal}</span>
           </div>
 
-          <div className="flex justify-between">
-            <span>Store Packing &amp; Bag</span>
-            <span className="font-bold text-[#2E7D32]">FREE</span>
+          <div className="flex justify-between items-center gap-2">
+            <span className="truncate">Store Packing &amp; Bag</span>
+            <span className="font-bold text-[#2E7D32] shrink-0">FREE</span>
           </div>
 
-          <div className="flex justify-between">
-            <span>Delivery Fee</span>
-            <span className="font-bold text-[#2E7D32]">FREE</span>
+          <div className="flex justify-between items-center gap-2">
+            <span className="truncate">Delivery Fee</span>
+            <span className="font-bold text-[#2E7D32] shrink-0">FREE</span>
           </div>
 
           {/* COD handling fee clearly labelled (only when Pay on Delivery is selected) */}
           {selectedMethod === 'cod' ? (
-            <div className="flex justify-between text-amber-900 bg-amber-50/70 p-2 rounded-xl">
-              <span className="font-bold">Pay on delivery fee</span>
-              <span className="font-black tabular-nums">+₹{codFee}</span>
+            <div className="flex justify-between items-center gap-2 text-amber-900 bg-amber-50/70 p-2 rounded-xl min-w-0">
+              <span className="font-bold truncate">Pay on delivery fee</span>
+              <span className="font-black tabular-nums shrink-0">+₹{codFee}</span>
             </div>
           ) : (
-            <div className="flex justify-between text-emerald-800 bg-emerald-50/60 p-2 rounded-xl">
-              <span className="font-bold">Online payment discount / handling</span>
-              <span className="font-black">₹0 (FREE)</span>
+            <div className="flex justify-between items-center gap-2 text-emerald-800 bg-emerald-50/60 p-2 rounded-xl min-w-0">
+              <span className="font-bold truncate">Online payment fee</span>
+              <span className="font-black shrink-0">₹0 (FREE)</span>
             </div>
           )}
 
-          <div className="pt-2 border-t border-stone-100 flex justify-between font-black text-sm text-[#212121]">
+          <div className="pt-2 border-t border-stone-100 flex justify-between items-center gap-2 font-black text-sm text-[#212121]">
             <span>To Pay</span>
-            <span className="tabular-nums text-base text-[#1B5E20]">₹{grandTotal}</span>
+            <span className="tabular-nums text-base text-[#1B5E20] shrink-0">₹{grandTotal}</span>
           </div>
         </div>
       </div>
@@ -576,13 +576,13 @@ export default function PaymentPage() {
       {/* Trust Notice */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-[11px] text-stone-500">
         <div className="flex items-center gap-1.5">
-          <ShieldCheck className="w-4 h-4 text-[#2E7D32]" />
-          <span>Razorpay Standard Web Checkout · Safe &amp; Verified</span>
+          <ShieldCheck className="w-4 h-4 text-[#2E7D32] shrink-0" />
+          <span className="truncate">Razorpay Standard Web Checkout · Safe &amp; Verified</span>
         </div>
         <span className="hidden sm:inline">·</span>
         <Link
           href="/payment/demo"
-          className="text-emerald-700 hover:text-emerald-800 font-bold underline inline-flex items-center gap-1"
+          className="text-emerald-700 hover:text-emerald-800 font-bold underline inline-flex items-center gap-1 shrink-0"
         >
           <span>Test Standard Checkout Demo</span>
           <ExternalLink className="w-3 h-3" />
@@ -590,9 +590,9 @@ export default function PaymentPage() {
       </div>
 
       {/* Sticky Bottom Action */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-3 py-3 shadow-lg">
-        <div className="max-w-xl mx-auto flex items-center justify-between gap-3">
-          <div className="flex flex-col text-left min-w-0">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-3 py-3 shadow-lg box-border">
+        <div className="max-w-xl mx-auto flex items-center justify-between gap-3 min-w-0 w-full box-border">
+          <div className="flex flex-col text-left min-w-0 shrink-0">
             <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">TOTAL TO PAY</span>
             <span className="text-base sm:text-lg font-black text-[#212121] tabular-nums">₹{grandTotal}</span>
           </div>
@@ -601,19 +601,19 @@ export default function PaymentPage() {
             type="button"
             onClick={handleProceed}
             disabled={processing}
-            className="h-11 sm:h-12 px-6 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all disabled:opacity-60 cursor-pointer"
+            className="h-11 sm:h-12 px-5 sm:px-6 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all disabled:opacity-60 cursor-pointer shrink-0 whitespace-nowrap"
           >
             {processing && (
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin shrink-0" />
             )}
-            <span>
+            <span className="truncate">
               {processing
                 ? 'Processing...'
                 : selectedMethod === 'cod'
                 ? `Confirm Order (₹${grandTotal})`
                 : `Pay Online (₹${grandTotal})`}
             </span>
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4 shrink-0" />
           </button>
         </div>
       </div>

@@ -283,19 +283,19 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="max-w-xl mx-auto space-y-3.5 pb-28 pt-2 sm:pt-4 px-2.5 sm:px-0">
+    <div className="w-full max-w-xl mx-auto space-y-3.5 pb-32 pt-2 sm:pt-4 px-3 sm:px-4 box-border min-w-0 overflow-x-hidden">
       {/* Top Header */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 min-w-0">
         <Link
           href="/cart"
-          className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50"
+          className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50 shrink-0"
           aria-label="Back to Cart"
         >
           <ArrowLeft className="w-4 h-4" />
         </Link>
-        <div>
-          <h1 className="text-base sm:text-lg font-black text-[#212121]">Checkout</h1>
-          <p className="text-[11px] text-stone-500">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-base sm:text-lg font-black text-[#212121] truncate">Checkout</h1>
+          <p className="text-[11px] text-stone-500 truncate">
             {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'} · ₹{cartSubtotal}
           </p>
         </div>
@@ -303,15 +303,15 @@ export default function CheckoutPage() {
 
       {/* Account Verification Gate - ONLY if not logged in */}
       {!isLoggedIn && (
-        <div className="bg-white rounded-2xl border-2 border-[#2E7D32]/40 p-4 shadow-sm space-y-3 animate-in fade-in">
-          <div className="flex items-center justify-between border-b border-stone-100 pb-2">
-            <div className="flex items-center gap-2">
-              <UserCheck className="w-4 h-4 text-[#2E7D32]" />
-              <h2 className="text-xs font-extrabold text-stone-900 uppercase tracking-wider">
+        <div className="bg-white rounded-2xl border-2 border-[#2E7D32]/40 p-3.5 sm:p-4 shadow-sm space-y-3 animate-in fade-in min-w-0 w-full box-border">
+          <div className="flex items-center justify-between border-b border-stone-100 pb-2 gap-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <UserCheck className="w-4 h-4 text-[#2E7D32] shrink-0" />
+              <h2 className="text-xs font-extrabold text-stone-900 uppercase tracking-wider truncate">
                 Account Sign-In
               </h2>
             </div>
-            <span className="text-[10px] font-black bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full">
+            <span className="text-[10px] font-black bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">
               Required to Book
             </span>
           </div>
@@ -329,15 +329,15 @@ export default function CheckoutPage() {
 
           {/* Quick Mobile Form */}
           <form onSubmit={handleQuickAuth} className="space-y-2">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 min-w-0">
               <input
                 type="text"
                 value={quickName}
                 onChange={(e) => setQuickName(e.target.value)}
                 placeholder="Full Name"
-                className="w-full h-10 px-3 rounded-xl bg-stone-50 border border-stone-300 text-xs font-bold outline-none focus:border-[#2E7D32] focus:bg-white"
+                className="w-full h-10 px-3 rounded-xl bg-stone-50 border border-stone-300 text-xs font-bold outline-none focus:border-[#2E7D32] focus:bg-white box-border"
               />
-              <div className="relative">
+              <div className="relative min-w-0">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-stone-500">
                   +91
                 </span>
@@ -347,7 +347,7 @@ export default function CheckoutPage() {
                   value={quickPhone}
                   onChange={(e) => setQuickPhone(sanitizeIndianPhone(e.target.value))}
                   placeholder="98765 43210"
-                  className="w-full h-10 pl-11 pr-3 rounded-xl bg-stone-50 border border-stone-300 text-xs font-bold outline-none focus:border-[#2E7D32] focus:bg-white"
+                  className="w-full h-10 pl-11 pr-3 rounded-xl bg-stone-50 border border-stone-300 text-xs font-bold outline-none focus:border-[#2E7D32] focus:bg-white box-border"
                 />
               </div>
             </div>
@@ -357,7 +357,7 @@ export default function CheckoutPage() {
               disabled={quickPhone.length !== 10}
               className="w-full h-10 bg-[#1A2E1C] hover:bg-black text-white rounded-xl text-xs font-extrabold transition-all active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-1.5 cursor-pointer"
             >
-              <UserCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <UserCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
               <span>Verify Mobile &amp; Continue</span>
             </button>
           </form>
@@ -383,15 +383,15 @@ export default function CheckoutPage() {
       )}
 
       {/* 1. Fulfillment Toggle: Home Delivery vs Store Pickup */}
-      <div className="bg-white rounded-2xl border border-stone-200/90 p-3 shadow-2xs space-y-2">
+      <div className="bg-white rounded-2xl border border-stone-200/90 p-3 shadow-2xs space-y-2 min-w-0 w-full box-border">
         <label className="text-[11px] font-extrabold text-stone-500 uppercase tracking-wider block">
           Order Fulfillment Type
         </label>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-2 min-w-0">
           <button
             type="button"
             onClick={() => setOrderType('delivery')}
-            className={`p-2.5 rounded-xl border text-left transition-all flex items-center gap-2.5 cursor-pointer ${
+            className={`p-2 sm:p-2.5 rounded-xl border text-left transition-all flex items-center gap-2 sm:gap-2.5 cursor-pointer min-w-0 ${
               orderType === 'delivery'
                 ? 'border-[#2E7D32] bg-emerald-50/50 text-[#1B5E20] ring-1 ring-[#2E7D32]'
                 : 'border-stone-200 hover:border-stone-300 text-stone-600'
@@ -404,16 +404,16 @@ export default function CheckoutPage() {
             >
               <Truck className="w-4 h-4" />
             </div>
-            <div className="min-w-0">
-              <span className="font-extrabold text-xs block leading-tight">Home Delivery</span>
-              <span className="text-[10px] text-stone-500 font-medium">To doorstep</span>
+            <div className="min-w-0 flex-1">
+              <span className="font-extrabold text-xs block leading-tight truncate">Home Delivery</span>
+              <span className="text-[10px] text-stone-500 font-medium block truncate">To doorstep</span>
             </div>
           </button>
 
           <button
             type="button"
             onClick={() => setOrderType('pickup')}
-            className={`p-2.5 rounded-xl border text-left transition-all flex items-center gap-2.5 cursor-pointer ${
+            className={`p-2 sm:p-2.5 rounded-xl border text-left transition-all flex items-center gap-2 sm:gap-2.5 cursor-pointer min-w-0 ${
               orderType === 'pickup'
                 ? 'border-[#2E7D32] bg-emerald-50/50 text-[#1B5E20] ring-1 ring-[#2E7D32]'
                 : 'border-stone-200 hover:border-stone-300 text-stone-600'
@@ -426,9 +426,9 @@ export default function CheckoutPage() {
             >
               <Store className="w-4 h-4" />
             </div>
-            <div className="min-w-0">
-              <span className="font-extrabold text-xs block leading-tight">Store Pickup</span>
-              <span className="text-[10px] text-stone-500 font-medium">Free at G1 Mart (No min order)</span>
+            <div className="min-w-0 flex-1">
+              <span className="font-extrabold text-xs block leading-tight truncate">Store Pickup</span>
+              <span className="text-[10px] text-stone-500 font-medium block truncate">Free at G1 Mart</span>
             </div>
           </button>
         </div>
@@ -436,7 +436,7 @@ export default function CheckoutPage() {
 
       {/* 2. Small Line Address in Checkout */}
       {orderType === 'delivery' ? (
-        <div className="space-y-1.5">
+        <div className="space-y-1.5 min-w-0 w-full box-border">
           <div className="flex items-center justify-between px-1">
             <span className="text-[11px] font-extrabold text-stone-500 uppercase tracking-wider">
               Doorstep Delivery Address
@@ -456,22 +456,22 @@ export default function CheckoutPage() {
             /* Show the saved address as a small line in checkout */
             <div
               onClick={() => setIsAddressSheetOpen(true)}
-              className="p-3 rounded-2xl bg-white border border-stone-200/90 hover:border-[#2E7D32] transition-colors flex items-center justify-between gap-2 shadow-2xs cursor-pointer group"
+              className="p-3 rounded-2xl bg-white border border-stone-200/90 hover:border-[#2E7D32] transition-colors flex items-center justify-between gap-2 shadow-2xs cursor-pointer group min-w-0 w-full box-border"
             >
-              <div className="flex items-center gap-2.5 min-w-0">
+              <div className="flex items-center gap-2.5 min-w-0 flex-1">
                 <div className="w-7 h-7 rounded-xl bg-emerald-50 text-[#2E7D32] flex items-center justify-center shrink-0">
                   <MapPin className="w-4 h-4" />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1.5 flex-wrap">
                     <span className="font-extrabold text-stone-900 text-xs truncate">
                       {savedAddress.houseFlat}, {savedAddress.streetArea}
                     </span>
-                    <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-stone-100 text-stone-600 uppercase">
+                    <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-stone-100 text-stone-600 uppercase shrink-0">
                       {savedAddress.type || 'Home'}
                     </span>
                     {activeDistanceKm > 0 && (
-                      <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-[#1B5E20]">
+                      <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-[#1B5E20] shrink-0">
                         {activeDistanceKm} km
                       </span>
                     )}
@@ -492,17 +492,17 @@ export default function CheckoutPage() {
             /* No address saved yet — small line prompt */
             <div
               onClick={() => setIsAddressSheetOpen(true)}
-              className="p-3 rounded-2xl bg-white border border-dashed border-stone-300 hover:border-[#2E7D32] hover:bg-emerald-50/20 flex items-center justify-between gap-2 transition-all cursor-pointer shadow-2xs"
+              className="p-3 rounded-2xl bg-white border border-dashed border-stone-300 hover:border-[#2E7D32] hover:bg-emerald-50/20 flex items-center justify-between gap-2 transition-all cursor-pointer shadow-2xs min-w-0 w-full box-border"
             >
-              <div className="flex items-center gap-2.5 min-w-0">
+              <div className="flex items-center gap-2.5 min-w-0 flex-1">
                 <div className="w-7 h-7 rounded-xl bg-stone-100 text-stone-400 flex items-center justify-center shrink-0">
                   <MapPin className="w-4 h-4" />
                 </div>
-                <div className="min-w-0">
-                  <span className="font-bold text-stone-800 text-xs block leading-tight">
+                <div className="min-w-0 flex-1">
+                  <span className="font-bold text-stone-800 text-xs block leading-tight truncate">
                     No delivery address added
                   </span>
-                  <span className="text-[11px] text-stone-500">Tap to set your doorstep address</span>
+                  <span className="text-[11px] text-stone-500 truncate block">Tap to set your doorstep address</span>
                 </div>
               </div>
               <button
@@ -520,7 +520,7 @@ export default function CheckoutPage() {
 
           {/* Unserviceable Warning if address is over 30 km */}
           {!isAddressServiceable && orderType === 'delivery' && (
-            <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl space-y-1.5 animate-in fade-in">
+            <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl space-y-1.5 animate-in fade-in min-w-0 w-full box-border">
               <div className="flex items-center gap-1.5 text-rose-800 text-xs font-black">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>Delivery Not Available ({activeDistanceKm} km from store)</span>
@@ -540,17 +540,17 @@ export default function CheckoutPage() {
         </div>
       ) : (
         /* Store Pickup Small Line (skip address requirement for pickup) */
-        <div className="space-y-1.5">
+        <div className="space-y-1.5 min-w-0 w-full box-border">
           <span className="text-[11px] font-extrabold text-stone-500 uppercase tracking-wider px-1 block">
             Pickup Location
           </span>
-          <div className="p-3 rounded-2xl bg-white border border-stone-200/90 flex items-center justify-between gap-2 shadow-2xs">
-            <div className="flex items-center gap-2.5 min-w-0">
+          <div className="p-3 rounded-2xl bg-white border border-stone-200/90 flex items-center justify-between gap-2 shadow-2xs min-w-0 w-full box-border">
+            <div className="flex items-center gap-2.5 min-w-0 flex-1">
               <div className="w-7 h-7 rounded-xl bg-emerald-50 text-[#2E7D32] flex items-center justify-center shrink-0">
                 <Store className="w-4 h-4" />
               </div>
-              <div className="min-w-0">
-                <span className="font-extrabold text-stone-900 text-xs block leading-tight">
+              <div className="min-w-0 flex-1">
+                <span className="font-extrabold text-stone-900 text-xs block leading-tight truncate">
                   G1 Mart Supermarket
                 </span>
                 <p className="text-[11px] text-stone-500 font-medium truncate mt-0.5">
@@ -558,7 +558,7 @@ export default function CheckoutPage() {
                 </p>
               </div>
             </div>
-            <span className="text-[10px] font-black uppercase text-emerald-800 bg-emerald-100/70 px-2 py-0.5 rounded-md shrink-0">
+            <span className="text-[10px] font-black uppercase text-emerald-800 bg-emerald-100/70 px-2 py-0.5 rounded-md shrink-0 whitespace-nowrap">
               FREE PICKUP
             </span>
           </div>
@@ -567,25 +567,25 @@ export default function CheckoutPage() {
 
       {/* PHASE 4: Distance-Based Minimum Order Banner (Shown ONLY at Checkout when below minimum) */}
       {isBelowMinOrder && (
-        <div className="bg-gradient-to-r from-amber-50 to-emerald-50/60 border-2 border-amber-400/90 rounded-2xl p-4 shadow-xs space-y-3 animate-in fade-in">
-          <div className="flex items-start justify-between gap-2.5">
-            <div className="flex items-start gap-2.5">
+        <div className="bg-gradient-to-r from-amber-50 to-emerald-50/60 border-2 border-amber-400/90 rounded-2xl p-3 sm:p-4 shadow-xs space-y-3 animate-in fade-in min-w-0 w-full box-border">
+          <div className="flex items-start justify-between gap-2.5 min-w-0">
+            <div className="flex items-start gap-2.5 min-w-0 flex-1">
               <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-900 flex items-center justify-center shrink-0 mt-0.5">
                 <ShoppingBag className="w-4 h-4" />
               </div>
-              <div>
+              <div className="min-w-0 flex-1">
                 <h3 className="text-xs sm:text-sm font-black text-amber-950 leading-tight">
-                  Add ₹{shortfallAmount} more to get free delivery to your location
+                  Add ₹{shortfallAmount} more for free delivery
                 </h3>
                 <p className="text-[11px] text-stone-600 font-medium mt-1 leading-relaxed">
-                  Minimum order for your area ({activeDistanceKm > 0 ? `${activeDistanceKm} km` : 'distance'}) is{' '}
-                  <strong className="text-stone-900">₹{activeMinOrder}</strong>. Delivery is 100% FREE once met!
+                  Min order for your area ({activeDistanceKm > 0 ? `${activeDistanceKm} km` : 'zone'}) is{' '}
+                  <strong className="text-stone-900">₹{activeMinOrder}</strong>. Delivery is 100% FREE!
                 </p>
               </div>
             </div>
             <Link
               href="/"
-              className="px-3.5 py-2 bg-[#2E7D32] hover:bg-[#1B5E20] text-white text-xs font-black rounded-xl shrink-0 flex items-center gap-1 shadow-sm active:scale-95 transition-all cursor-pointer"
+              className="px-3 py-1.5 sm:px-3.5 sm:py-2 bg-[#2E7D32] hover:bg-[#1B5E20] text-white text-xs font-black rounded-xl shrink-0 flex items-center gap-1 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
             >
               <Plus className="w-3.5 h-3.5 stroke-[3]" />
               <span>Add items</span>
@@ -593,11 +593,11 @@ export default function CheckoutPage() {
           </div>
 
           {/* Live Progress Bar (Updates live as cart changes) */}
-          <div className="space-y-1">
-            <div className="flex justify-between text-[10px] font-black uppercase tracking-wider text-amber-900">
-              <span>Delivery Threshold Progress</span>
-              <span>
-                ₹{cartSubtotal} of ₹{activeMinOrder} ({minOrderProgress}%)
+          <div className="space-y-1 min-w-0">
+            <div className="flex justify-between text-[10px] font-black uppercase tracking-wider text-amber-900 gap-2">
+              <span className="truncate">Delivery Threshold Progress</span>
+              <span className="shrink-0 tabular-nums">
+                ₹{cartSubtotal} / ₹{activeMinOrder} ({minOrderProgress}%)
               </span>
             </div>
             <div className="h-2 w-full bg-stone-200/80 rounded-full overflow-hidden">
@@ -612,17 +612,17 @@ export default function CheckoutPage() {
 
       {/* PHASE 4: At or Above Minimum: Delivery ETA and Free Delivery Banner */}
       {!isBelowMinOrder && (
-        <div className="bg-emerald-50/90 border border-[#2E7D32]/30 rounded-2xl p-3.5 shadow-2xs flex items-center justify-between gap-3 animate-in fade-in">
-          <div className="flex items-center gap-2.5 min-w-0">
+        <div className="bg-emerald-50/90 border border-[#2E7D32]/30 rounded-2xl p-3 sm:p-3.5 shadow-2xs flex items-center justify-between gap-2.5 animate-in fade-in min-w-0 w-full box-border">
+          <div className="flex items-center gap-2.5 min-w-0 flex-1">
             <div className="w-8 h-8 rounded-xl bg-[#2E7D32] text-white flex items-center justify-center shrink-0">
               {orderType === 'pickup' ? <Store className="w-4 h-4" /> : <Truck className="w-4 h-4" />}
             </div>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="text-xs font-black text-emerald-950">
+                <span className="text-xs font-black text-emerald-950 truncate">
                   {orderType === 'pickup' ? 'Ready for Store Pickup' : `Delivery in ~${activeEtaMins} mins`}
                 </span>
-                <span className="text-[10px] font-black uppercase px-2 py-0.2 bg-emerald-600 text-white rounded-full">
+                <span className="text-[10px] font-black uppercase px-2 py-0.2 bg-emerald-600 text-white rounded-full shrink-0">
                   100% FREE
                 </span>
               </div>
@@ -633,22 +633,22 @@ export default function CheckoutPage() {
               </p>
             </div>
           </div>
-          <span className="text-xs font-black text-[#2E7D32] shrink-0">
+          <span className="text-xs font-black text-[#2E7D32] shrink-0 whitespace-nowrap">
             ₹0 Delivery Fee
           </span>
         </div>
       )}
 
       {/* Quick Basket Adjuster (Allows customer to adjust quantities right on checkout to meet minimum) */}
-      <div className="bg-white rounded-2xl border border-stone-200/90 p-3.5 shadow-2xs space-y-2.5">
-        <div className="flex items-center justify-between border-b border-stone-100 pb-2">
-          <div className="flex items-center gap-2">
-            <ShoppingBag className="w-4 h-4 text-[#2E7D32]" />
-            <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider">
+      <div className="bg-white rounded-2xl border border-stone-200/90 p-3 sm:p-3.5 shadow-2xs space-y-2.5 min-w-0 w-full box-border">
+        <div className="flex items-center justify-between border-b border-stone-100 pb-2 gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <ShoppingBag className="w-4 h-4 text-[#2E7D32] shrink-0" />
+            <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider truncate">
               Basket Items ({cartItemCount})
             </h2>
           </div>
-          <Link href="/cart" className="text-[11px] font-bold text-[#2E7D32] hover:underline">
+          <Link href="/cart" className="text-[11px] font-bold text-[#2E7D32] hover:underline shrink-0 whitespace-nowrap">
             Edit Full Cart
           </Link>
         </div>
@@ -659,13 +659,13 @@ export default function CheckoutPage() {
             return (
               <div
                 key={`${item.product.id}-${item.variantId || ''}`}
-                className="py-2 flex items-center justify-between gap-2 text-xs"
+                className="py-2 flex items-center justify-between gap-2 text-xs min-w-0"
               >
                 <div className="min-w-0 flex-1">
                   <p className="font-bold text-stone-900 truncate text-[11px] sm:text-xs">
                     {item.product.name}
                   </p>
-                  <p className="text-[10px] text-stone-500">
+                  <p className="text-[10px] text-stone-500 truncate">
                     {item.variant?.size_label || item.product.unit} · ₹{linePrice} each
                   </p>
                 </div>
@@ -685,7 +685,7 @@ export default function CheckoutPage() {
                     >
                       <Minus className="w-3 h-3" />
                     </button>
-                    <span className="w-6 text-center font-black text-xs tabular-nums text-stone-900">
+                    <span className="w-5 text-center font-black text-xs tabular-nums text-stone-900">
                       {item.quantity}
                     </span>
                     <button
@@ -699,7 +699,7 @@ export default function CheckoutPage() {
                       <Plus className="w-3 h-3 stroke-[2.5]" />
                     </button>
                   </div>
-                  <span className="font-bold text-stone-900 text-xs tabular-nums min-w-[42px] text-right">
+                  <span className="font-bold text-stone-900 text-xs tabular-nums min-w-[38px] text-right shrink-0">
                     ₹{linePrice * item.quantity}
                   </span>
                 </div>
@@ -710,16 +710,16 @@ export default function CheckoutPage() {
       </div>
 
       {/* 3. Delivery / Pickup Window Selection */}
-      <div className="bg-white rounded-2xl border border-stone-200/90 p-3.5 shadow-2xs space-y-2.5">
+      <div className="bg-white rounded-2xl border border-stone-200/90 p-3 sm:p-3.5 shadow-2xs space-y-2.5 min-w-0 w-full box-border">
         <div className="flex items-center gap-2 border-b border-stone-100 pb-2">
-          <Clock className="w-4 h-4 text-[#2E7D32]" />
-          <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider">
+          <Clock className="w-4 h-4 text-[#2E7D32] shrink-0" />
+          <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider truncate">
             {orderType === 'pickup' ? 'Pickup Window' : 'Delivery Slot'}
           </h2>
         </div>
 
         {orderType === 'delivery' ? (
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs min-w-0">
             {[
               {
                 id: 'Standard Delivery',
@@ -731,80 +731,80 @@ export default function CheckoutPage() {
             ].map((slot) => (
               <label
                 key={slot.id}
-                className={`p-2.5 rounded-xl border cursor-pointer flex flex-col justify-between transition-all ${
+                className={`p-2.5 rounded-xl border cursor-pointer flex flex-col justify-between transition-all min-w-0 ${
                   selectedSlot === slot.id
                     ? 'border-[#2E7D32] bg-[#2E7D32]/5 ring-1 ring-[#2E7D32]'
                     : 'border-stone-200 hover:border-stone-300'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-[#212121]">{slot.title}</span>
+                <div className="flex items-center justify-between gap-1">
+                  <span className="font-bold text-[#212121] truncate">{slot.title}</span>
                   <input
                     type="radio"
                     name="deliverySlot"
                     checked={selectedSlot === slot.id}
                     onChange={() => setSelectedSlot(slot.id)}
-                    className="accent-[#2E7D32]"
+                    className="accent-[#2E7D32] shrink-0"
                   />
                 </div>
-                <span className="text-[10px] text-stone-500 mt-0.5">{slot.subtitle}</span>
+                <span className="text-[10px] text-stone-500 mt-0.5 truncate">{slot.subtitle}</span>
               </label>
             ))}
           </div>
         ) : (
-          <div className="p-2.5 rounded-xl bg-stone-50 border border-stone-100 text-xs text-stone-700 flex items-center justify-between">
-            <span className="font-bold">Store Packaging Window:</span>
-            <span className="text-emerald-700 font-extrabold">Ready in 30–45 mins</span>
+          <div className="p-2.5 rounded-xl bg-stone-50 border border-stone-100 text-xs text-stone-700 flex items-center justify-between gap-2 min-w-0">
+            <span className="font-bold truncate">Store Packaging Window:</span>
+            <span className="text-emerald-700 font-extrabold shrink-0 whitespace-nowrap">Ready in 30–45 mins</span>
           </div>
         )}
       </div>
 
       {/* 4. Bill Summary Card */}
-      <div className="bg-white rounded-2xl border border-stone-200/90 p-3.5 shadow-2xs space-y-2.5">
+      <div className="bg-white rounded-2xl border border-stone-200/90 p-3 sm:p-3.5 shadow-2xs space-y-2.5 min-w-0 w-full box-border">
         <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider border-b border-stone-100 pb-2">
           Bill Details ({cartItemCount} items)
         </h2>
 
-        <div className="space-y-1.5 text-xs text-stone-600">
-          <div className="flex justify-between">
-            <span>Items Subtotal</span>
-            <span className="font-bold text-[#212121] tabular-nums">₹{cartSubtotal}</span>
+        <div className="space-y-2 text-xs text-stone-600 min-w-0">
+          <div className="flex justify-between items-center gap-2">
+            <span className="truncate">Items Subtotal</span>
+            <span className="font-bold text-[#212121] tabular-nums shrink-0">₹{cartSubtotal}</span>
           </div>
-          <div className="flex justify-between">
-            <span>Packing &amp; Bag</span>
-            <span className="font-bold text-[#2E7D32]">FREE</span>
+          <div className="flex justify-between items-center gap-2">
+            <span className="truncate">Packing &amp; Bag</span>
+            <span className="font-bold text-[#2E7D32] shrink-0">FREE</span>
           </div>
-          <div className="flex justify-between">
-            <span>Delivery Fee</span>
-            <span className="font-bold text-[#2E7D32]">FREE</span>
+          <div className="flex justify-between items-center gap-2">
+            <span className="truncate">Delivery Fee</span>
+            <span className="font-bold text-[#2E7D32] shrink-0">FREE</span>
           </div>
 
           {orderType === 'delivery' && (
-            <div className="flex justify-between text-[11px] pt-1 text-stone-500 border-t border-dashed border-stone-100">
-              <span>Zone Minimum Order ({activeDistanceKm > 0 ? `${activeDistanceKm} km` : 'distance'})</span>
-              <span className={`font-bold ${isBelowMinOrder ? 'text-amber-700' : 'text-emerald-700'}`}>
+            <div className="flex justify-between items-center gap-2 text-[11px] pt-1 text-stone-500 border-t border-dashed border-stone-100 min-w-0">
+              <span className="truncate">Zone Min Order ({activeDistanceKm > 0 ? `${activeDistanceKm} km` : 'distance'})</span>
+              <span className={`font-bold shrink-0 whitespace-nowrap ${isBelowMinOrder ? 'text-amber-700' : 'text-emerald-700'}`}>
                 ₹{activeMinOrder} {isBelowMinOrder ? `(Need ₹${shortfallAmount} more)` : '(Met ✓)'}
               </span>
             </div>
           )}
 
-          <div className="pt-2 border-t border-stone-100 flex justify-between font-black text-sm text-[#212121]">
+          <div className="pt-2 border-t border-stone-100 flex justify-between items-center gap-2 font-black text-sm text-[#212121]">
             <span>To Pay</span>
-            <span className="tabular-nums">₹{grandTotal}</span>
+            <span className="tabular-nums shrink-0">₹{grandTotal}</span>
           </div>
         </div>
       </div>
 
       {/* Trust Notice */}
       <div className="flex items-center justify-center gap-1.5 text-[11px] text-stone-500">
-        <ShieldCheck className="w-4 h-4 text-[#2E7D32]" />
-        <span>Authentic in-store billing &amp; verified FMCG stock</span>
+        <ShieldCheck className="w-4 h-4 text-[#2E7D32] shrink-0" />
+        <span className="truncate">Authentic in-store billing &amp; verified FMCG stock</span>
       </div>
 
       {/* 5. Sticky Bottom CTA: Place Order / Proceed to Payment (Phase 4) */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-3 py-3 shadow-lg">
-        <div className="max-w-xl mx-auto flex items-center justify-between gap-3">
-          <div className="flex flex-col text-left min-w-0">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-3 py-3 shadow-lg box-border">
+        <div className="max-w-xl mx-auto flex items-center justify-between gap-3 min-w-0 w-full box-border">
+          <div className="flex flex-col text-left min-w-0 shrink-0">
             <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">TOTAL</span>
             <span className="text-base sm:text-lg font-black text-[#212121] tabular-nums">₹{grandTotal}</span>
           </div>
@@ -813,7 +813,7 @@ export default function CheckoutPage() {
             <button
               type="button"
               disabled
-              className="h-11 sm:h-12 px-5 bg-stone-200 text-stone-500 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-1.5 cursor-not-allowed opacity-80"
+              className="h-11 sm:h-12 px-4 sm:px-5 bg-stone-200 text-stone-500 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-1.5 cursor-not-allowed opacity-80 shrink-0 whitespace-nowrap"
               title={`Add ₹${shortfallAmount} more to meet the ₹${activeMinOrder} minimum for your area`}
             >
               <span>Add ₹{shortfallAmount} More</span>
@@ -822,7 +822,7 @@ export default function CheckoutPage() {
             <button
               type="button"
               disabled
-              className="h-11 sm:h-12 px-5 bg-rose-100 text-rose-700 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-1.5 cursor-not-allowed"
+              className="h-11 sm:h-12 px-4 sm:px-5 bg-rose-100 text-rose-700 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-1.5 cursor-not-allowed shrink-0 whitespace-nowrap"
             >
               <span>Outside 30 km Area</span>
             </button>
@@ -830,10 +830,10 @@ export default function CheckoutPage() {
             <button
               type="button"
               onClick={handlePlaceOrder}
-              className="h-11 sm:h-12 px-6 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all cursor-pointer"
+              className="h-11 sm:h-12 px-5 sm:px-6 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all cursor-pointer shrink-0 whitespace-nowrap"
             >
               <span>Proceed to Payment</span>
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-4 h-4 shrink-0" />
             </button>
           )}
         </div>
