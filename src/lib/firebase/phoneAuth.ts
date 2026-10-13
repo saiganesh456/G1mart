@@ -148,6 +148,12 @@ export async function sendFirebaseOtp(
       message = 'reCAPTCHA verification failed. Please refresh the page and try again.';
     } else if (err?.code === 'auth/unauthorized-domain') {
       message = 'This domain is not authorized in Firebase Console. Please add localhost and your domain in Firebase Authentication Settings.';
+    } else if (
+      err?.code === 'auth/operation-not-allowed' ||
+      err?.message?.includes('region enabled') ||
+      err?.message?.includes('OPERATION_NOT_ALLOWED')
+    ) {
+      message = 'SMS Region Restriction: Please enable India (+91) in Firebase Console -> Authentication -> Settings -> SMS region policy.';
     } else if (err?.code === 'auth/quota-exceeded') {
       message = 'SMS quota exceeded for today. Please try again tomorrow or use testing numbers.';
     }
