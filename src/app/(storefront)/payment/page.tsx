@@ -144,7 +144,18 @@ export default function PaymentPage() {
       const data = await res.json();
 
       if (!res.ok || !data.success) {
-        setErrorMessage(data.error || 'Failed to initiate checkout. Please check minimum order and try again.');
+        const isAuthFailure =
+          data?.error?.toLowerCase().includes('authentication') ||
+          data?.error?.toLowerCase().includes('auth') ||
+          res.status === 401;
+
+        if (isAuthFailure) {
+          setErrorMessage(
+            'Razorpay API Authentication Failed (merchant Key ID/Secret in dashboard/env is invalid). You can complete with Test Simulation or choose Pay on Delivery.'
+          );
+        } else {
+          setErrorMessage(data?.error || 'Failed to initiate checkout. Please check minimum order and try again.');
+        }
         setProcessing(false);
         return;
       }
@@ -209,7 +220,7 @@ export default function PaymentPage() {
         } catch {}
 
         clearCart();
-        router.push(`/orders/${data.orderId}?placed=true`);
+        router.replace(`/orders/${data.orderId}?placed=true`);
         return;
       }
 
@@ -221,6 +232,13 @@ export default function PaymentPage() {
         grandTotal: data.grandTotal,
         keyId: data.keyId,
       });
+
+      // If server returned test fallback (e.g. invalid merchant keys) or simulator mode:
+      if (data.isTestFallback) {
+        setShowRazorpayModal(true);
+        setProcessing(false);
+        return;
+      }
 
       // Load official Razorpay checkout.js script
       const scriptReady = await loadRazorpayScript();
@@ -249,7 +267,7 @@ export default function PaymentPage() {
         modal: {
           ondismiss: () => {
             setProcessing(false);
-            setErrorMessage('Online payment was cancelled. You can retry or choose Pay on delivery.');
+            setErrorMessage('Online payment was cancelled. You can retry, use Test Simulation, or choose Pay on delivery.');
           },
         },
         handler: async (response: {
@@ -267,15 +285,21 @@ export default function PaymentPage() {
         },
       };
 
-      const rzp = new (window as any).Razorpay(options);
-      rzp.on('payment.failed', (failResp: any) => {
-        setProcessing(false);
-        const desc = failResp?.error?.description || failResp?.error?.reason || 'Payment transaction failed.';
-        setErrorMessage(`Payment failed: ${desc}`);
-      });
+      try {
+        const rzp = new (window as any).Razorpay(options);
+        rzp.on('payment.failed', (failResp: any) => {
+          setProcessing(false);
+          const desc = failResp?.error?.description || failResp?.error?.reason || 'Payment transaction failed.';
+          setErrorMessage(`Payment failed: ${desc}`);
+        });
 
-      rzp.open();
-      setProcessing(false);
+        rzp.open();
+        setProcessing(false);
+      } catch (rzpErr) {
+        console.warn('[Payment] Error opening Razorpay popup, opening simulator modal instead:', rzpErr);
+        setShowRazorpayModal(true);
+        setProcessing(false);
+      }
     } catch (err: any) {
       setErrorMessage(err?.message || 'Server connection error during payment initiation');
       setProcessing(false);
@@ -384,7 +408,7 @@ export default function PaymentPage() {
 
       clearCart();
       setShowRazorpayModal(false);
-      router.push(`/orders/${params.orderId}?paid=true`);
+      router.replace(`/orders/${params.orderId}?paid=true`);
     } catch (err: any) {
       setErrorMessage(err?.message || 'Error completing server payment verification');
       setProcessing(false);
@@ -415,13 +439,20 @@ export default function PaymentPage() {
     <div className="w-full max-w-xl mx-auto space-y-3.5 pb-36 pt-2 sm:pt-4 px-3 sm:px-4 box-border min-w-0 overflow-x-hidden">
       {/* Header */}
       <div className="flex items-center gap-3 min-w-0">
-        <Link
-          href="/checkout"
-          className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50 shrink-0"
+        <button
+          type="button"
+          onClick={() => {
+            if (typeof window !== 'undefined' && window.history.length > 1) {
+              router.back();
+            } else {
+              router.replace('/checkout');
+            }
+          }}
+          className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50 shrink-0 cursor-pointer"
           aria-label="Back to Checkout"
         >
           <ArrowLeft className="w-4 h-4" />
-        </Link>
+        </button>
         <div className="min-w-0 flex-1">
           <h1 className="text-base sm:text-lg font-black text-[#212121] truncate">Payment Options</h1>
           <p className="text-[11px] text-stone-500 truncate">
@@ -431,9 +462,37 @@ export default function PaymentPage() {
       </div>
 
       {errorMessage && (
-        <div className="p-3 bg-rose-50 border border-rose-200 rounded-2xl text-xs text-rose-700 flex items-start gap-2 animate-in fade-in min-w-0 w-full box-border">
-          <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-600" />
-          <span className="truncate flex-1">{errorMessage}</span>
+        <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-2xl text-xs text-rose-800 space-y-2 animate-in fade-in min-w-0 w-full box-border">
+          <div className="flex items-start gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-600" />
+            <span className="flex-1 font-medium leading-relaxed">{errorMessage}</span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 pt-1">
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedMethod('cod');
+                setErrorMessage(null);
+              }}
+              className="px-3 py-1.5 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl text-[11px] font-extrabold transition-all active:scale-95 cursor-pointer shadow-xs"
+            >
+              Switch to Pay on Delivery (+₹{codFee})
+            </button>
+
+            {pendingPaymentData && (
+              <button
+                type="button"
+                onClick={() => {
+                  setShowRazorpayModal(true);
+                  setErrorMessage(null);
+                }}
+                className="px-3 py-1.5 bg-stone-900 hover:bg-black text-white rounded-xl text-[11px] font-extrabold transition-all active:scale-95 cursor-pointer"
+              >
+                Use Test Payment Simulator
+              </button>
+            )}
+          </div>
         </div>
       )}
 
