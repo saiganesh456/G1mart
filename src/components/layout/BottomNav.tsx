@@ -14,15 +14,12 @@ const NAV_ITEMS = [
 ] as const;
 
 /** Pages where the bottom nav is not shown */
-const HIDDEN_PATHS = ['/login', '/checkout', '/cart', '/payment', '/product', '/rider'];
+const HIDDEN_PATHS = ['/login', '/checkout', '/cart', '/payment', '/rider'];
 
 export default function BottomNav() {
   const pathname = usePathname();
   const { cartItemCount, cartSubtotal } = useCart();
   const { user } = useAuth();
-
-  const shouldHide = HIDDEN_PATHS.some((p) => pathname.startsWith(p));
-  if (shouldHide) return null;
 
   const isRider = user?.role === 'delivery_partner' || user?.role === 'rider';
   const showRiderPill = isRider && !pathname.startsWith('/rider');
@@ -34,54 +31,71 @@ export default function BottomNav() {
     cartItemCount > 0 &&
     !pathname.startsWith('/cart') &&
     !pathname.startsWith('/checkout') &&
-    !pathname.startsWith('/payment');
+    !pathname.startsWith('/payment') &&
+    !pathname.startsWith('/login') &&
+    !pathname.startsWith('/rider');
+
+  const shouldHideBottomNav = HIDDEN_PATHS.some((p) => pathname.startsWith(p)) || pathname.startsWith('/product');
 
   return (
-    <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 pointer-events-none">
-      {/* Rider Mode pill */}
-      {showRiderPill && !showFloatingCart && (
-        <div className="px-3 pb-2 pointer-events-auto">
-          <Link
-            href="/rider"
-            className="w-full h-11 bg-[#1A2E1C] text-white rounded-2xl px-4 flex items-center justify-between shadow-lg active:scale-[0.99] transition-transform border border-emerald-500/30"
-          >
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <Truck className="w-4 h-4 text-emerald-400" />
-              <span className="text-xs font-bold">Rider Mode Active</span>
-            </div>
-            <div className="flex items-center gap-1 text-[11px] font-black text-emerald-400">
-              <span>OPEN CONSOLE</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </div>
-          </Link>
-        </div>
+    <>
+      {/* Floating cart banner — mobile only (on desktop, top header cart button is used) */}
+      {showFloatingCart && (
+        <aside
+          aria-label="Floating cart action"
+          className="lg:hidden fixed bottom-[calc(64px+env(safe-area-inset-bottom,0px)+8px)] left-0 right-0 z-40 pointer-events-none flex justify-center px-4 animate-in fade-in slide-in-from-bottom-2 duration-200"
+        >
+          <div className="w-full max-w-xl pointer-events-auto">
+            <Link
+              href="/cart"
+              aria-label={`View cart with ${cartItemCount} items, total ₹${cartSubtotal}`}
+              className="w-full h-14 rounded-2xl px-4 sm:px-5 flex items-center justify-between shadow-2xl active:scale-[0.98] transition-transform g1-press cursor-pointer border border-emerald-600/30"
+              style={{ backgroundColor: 'var(--g1-primary)' }}
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center font-black text-xs text-white shrink-0">
+                  {cartItemCount}
+                </div>
+                <div className="flex flex-col text-left">
+                  <span className="text-sm font-black text-white leading-tight">
+                    {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'} in cart
+                  </span>
+                  <span className="text-xs font-bold text-white/90 leading-tight">
+                    ₹{cartSubtotal} total
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-white bg-white/15 hover:bg-white/25 px-3.5 py-1.5 rounded-xl transition-colors">
+                <span>View Cart</span>
+                <ArrowRight className="w-4 h-4" />
+              </div>
+            </Link>
+          </div>
+        </aside>
       )}
 
-      {/* Sticky cart bar — 56px, only when items in cart */}
-      {showFloatingCart && (
-        <div className="px-3 pb-2 pointer-events-auto">
-          <Link
-            href="/cart"
-            aria-label={`View cart with ${cartItemCount} items, total ₹${cartSubtotal}`}
-            className="w-full h-14 rounded-2xl px-4 flex items-center justify-between shadow-[var(--g1-e2)] active:scale-[0.98] transition-transform"
-            style={{ backgroundColor: 'var(--g1-primary)' }}
-          >
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center font-bold text-xs text-white shrink-0">
-                {cartItemCount}
-              </div>
-              <span className="text-sm font-bold text-white">
-                {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'} · ₹{cartSubtotal}
-              </span>
+      {/* Tab bar — mobile only (lg:hidden) */}
+      {!shouldHideBottomNav && (
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 pointer-events-none">
+          {/* Rider Mode pill */}
+          {showRiderPill && !showFloatingCart && (
+            <div className="px-3 pb-2 pointer-events-auto">
+              <Link
+                href="/rider"
+                className="w-full h-11 bg-[#1A2E1C] text-white rounded-2xl px-4 flex items-center justify-between shadow-lg active:scale-[0.99] transition-transform border border-emerald-500/30"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <Truck className="w-4 h-4 text-emerald-400" />
+                  <span className="text-xs font-bold">Rider Mode Active</span>
+                </div>
+                <div className="flex items-center gap-1 text-[11px] font-black text-emerald-400">
+                  <span>OPEN CONSOLE</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </div>
+              </Link>
             </div>
-            <div className="flex items-center gap-1.5 text-xs font-extrabold tracking-wide text-white">
-              <span>View cart</span>
-              <ArrowRight className="w-4 h-4" />
-            </div>
-          </Link>
-        </div>
-      )}
+          )}
 
       {/* Tab bar — 64px + safe area */}
       <nav
@@ -117,17 +131,19 @@ export default function BottomNav() {
                 }}
               />
 
-              {/* Label — 11px, never overlaps icon */}
-              <span
-                className="text-[11px] font-medium mt-0.5 leading-none"
-                style={{ color: active ? 'var(--g1-primary)' : 'var(--g1-text-secondary)', fontWeight: active ? 700 : 500 }}
-              >
-                {item.label}
-              </span>
-            </Link>
-          );
-        })}
-      </nav>
-    </div>
-  );
+                <span
+                  className="text-[11px] font-medium mt-0.5 leading-none"
+                  style={{ color: active ? 'var(--g1-primary)' : 'var(--g1-text-secondary)', fontWeight: active ? 700 : 500 }}
+                >
+                  {item.label}
+                </span>
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
+    )}
+  </>
+);
 }
+

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { Search, Camera, Bike, ShieldCheck, UserRound, ChevronDown } from 'lucide-react';
+import { Search, Camera, Bike, ShieldCheck, UserRound, ChevronDown, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useLocation } from '@/context/LocationContext';
 import { useAuth } from '@/context/AuthContext';
@@ -58,6 +58,7 @@ export default function Header() {
   const isHomePage = pathname === '/';
   const { currentLocation, setIsModalOpen } = useLocation();
   const { user, isLoggedIn } = useAuth();
+  const { cartItemCount, cartSubtotal } = useCart();
   const [searchQuery, setSearchQuery] = useState('');
   const [searchFocused, setSearchFocused] = useState(false);
   const [isBarcodeModalOpen, setIsBarcodeModalOpen] = useState(false);
@@ -127,7 +128,7 @@ export default function Header() {
             </div>
           )}
 
-          {/* Row 1: logo (28px high) + profile avatar (40px circle) */}
+          {/* Row 1: logo (28px high) + profile avatar + cart button */}
           <div className="flex items-center justify-between px-4 pt-3 pb-1">
             <Link href="/" aria-label="G1 Mart home">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -139,22 +140,42 @@ export default function Header() {
               />
             </Link>
 
-            {/* Profile avatar button: 40px circle, surface bg, Lucide user-round */}
-            <Link
-              href={isLoggedIn ? '/account' : '/login'}
-              aria-label={isLoggedIn ? (user?.name || 'My account') : 'Sign in'}
-              className="w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold transition-colors g1-press shrink-0"
-              style={{ backgroundColor: 'var(--g1-surface)', color: 'var(--g1-primary)' }}
-            >
-              {user?.avatar ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={user.avatar} alt={user.name || 'User'} className="w-full h-full object-cover rounded-full" />
-              ) : avatarInitial ? (
-                <span style={{ color: 'var(--g1-primary)' }}>{avatarInitial}</span>
-              ) : (
-                <UserRound className="w-[22px] h-[22px]" strokeWidth={1.75} style={{ color: 'var(--g1-text-secondary)' }} />
-              )}
-            </Link>
+            <div className="flex items-center gap-2">
+              {/* Profile avatar button: 40px circle, surface bg, Lucide user-round */}
+              <Link
+                href={isLoggedIn ? '/account' : '/login'}
+                aria-label={isLoggedIn ? (user?.name || 'My account') : 'Sign in'}
+                className="w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold transition-colors g1-press shrink-0"
+                style={{ backgroundColor: 'var(--g1-surface)', color: 'var(--g1-primary)' }}
+              >
+                {user?.avatar ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={user.avatar} alt={user.name || 'User'} className="w-full h-full object-cover rounded-full" />
+                ) : avatarInitial ? (
+                  <span style={{ color: 'var(--g1-primary)' }}>{avatarInitial}</span>
+                ) : (
+                  <UserRound className="w-[22px] h-[22px]" strokeWidth={1.75} style={{ color: 'var(--g1-text-secondary)' }} />
+                )}
+              </Link>
+
+              {/* Mobile Cart button */}
+              <Link
+                href="/cart"
+                aria-label={`View cart with ${cartItemCount} items`}
+                className="relative w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold transition-all g1-press shrink-0"
+                style={{
+                  backgroundColor: cartItemCount > 0 ? 'var(--g1-primary)' : 'var(--g1-surface)',
+                  color: cartItemCount > 0 ? '#FFFFFF' : 'var(--g1-primary)',
+                }}
+              >
+                <ShoppingCart className="w-[20px] h-[20px]" strokeWidth={1.8} />
+                {cartItemCount > 0 && (
+                  <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-black bg-red-500 text-white flex items-center justify-center shadow-xs">
+                    {cartItemCount}
+                  </span>
+                )}
+              </Link>
+            </div>
           </div>
 
           {/* Row 2: Delivery location — single line ~36px, tap opens location sheet */}
@@ -335,6 +356,28 @@ export default function Header() {
               style={{ color: pathname.startsWith('/account') ? 'var(--g1-primary)' : 'var(--g1-text-secondary)', backgroundColor: pathname.startsWith('/account') ? 'var(--g1-primary-tint)' : 'transparent' }}>
               <UserRound className="w-4 h-4" strokeWidth={1.75} />
               <span>{isLoggedIn ? (user?.name ? user.name.split(' ')[0] : 'Account') : 'Sign In'}</span>
+            </Link>
+
+            {/* Desktop Cart Button */}
+            <Link
+              href="/cart"
+              aria-label={`View cart with ${cartItemCount} items`}
+              className="relative flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-bold transition-all g1-press cursor-pointer border"
+              style={{
+                backgroundColor: cartItemCount > 0 ? 'var(--g1-primary)' : 'var(--g1-surface)',
+                color: cartItemCount > 0 ? '#FFFFFF' : 'var(--g1-text)',
+                borderColor: cartItemCount > 0 ? 'var(--g1-primary)' : 'var(--g1-border)',
+                boxShadow: cartItemCount > 0 ? 'var(--g1-e1)' : 'none',
+              }}
+            >
+              <ShoppingCart className="w-4 h-4" strokeWidth={2} />
+              <span>Cart</span>
+              {cartItemCount > 0 && (
+                <span className="flex items-center gap-1 font-black text-xs bg-white text-[var(--g1-primary)] px-2 py-0.5 rounded-full shadow-xs">
+                  <span>{cartItemCount}</span>
+                  {cartSubtotal > 0 && <span className="opacity-90">· ₹{cartSubtotal}</span>}
+                </span>
+              )}
             </Link>
           </nav>
         </div>

@@ -3,7 +3,7 @@
 import React, { use, useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Heart, Plus, Minus, ShieldCheck, Truck, Check } from 'lucide-react';
+import { ArrowLeft, Heart, Plus, Minus, ShieldCheck, Truck, Check, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { resolveLegacyId } from '@/lib/legacyIdMap';
 import { productService, MIGRATED_PRODUCT_LIST } from '@/services/productService';
@@ -19,7 +19,7 @@ interface Props {
 export default function ProductDetailPage({ params }: Props) {
   const { slug } = use(params);
   const router = useRouter();
-  const { cart, addToCart, updateCartQuantity, getItemQuantity, toggleWishlist, isWishlisted } = useCart();
+  const { cart, addToCart, updateCartQuantity, getItemQuantity, toggleWishlist, isWishlisted, cartItemCount } = useCart();
 
   const canonicalId = resolveLegacyId(slug) || slug;
   const [product, setProduct] = useState<Product | null>(() => 
@@ -47,7 +47,7 @@ export default function ProductDetailPage({ params }: Props) {
     if (product.variants && product.variants.length > 0) {
       return product.variants.map((v) => ({
         id: v.id,
-        label: v.size_label,
+        label: v.size_label || (v as any).name || (v as any).unit || 'Standard Pack',
         price: v.price > 0 ? v.price : v.mrp || 0,
         originalPrice: v.mrp,
         discountText: v.mrp > v.price && v.mrp > 0 ? `${Math.round(((v.mrp - v.price) / v.mrp) * 100)}% OFF` : null,
@@ -55,7 +55,7 @@ export default function ProductDetailPage({ params }: Props) {
         variant: v,
         multiplier: 1,
         isSibling: false,
-        stock: v.stock,
+        stock: v.stock !== undefined ? v.stock : ((v as any).in_stock !== false ? 50 : 0),
       }));
     }
 
@@ -174,34 +174,54 @@ export default function ProductDetailPage({ params }: Props) {
 
   return (
     <div className="w-full max-w-2xl mx-auto space-y-4 pb-28 pt-2 px-4 sm:px-0">
-      {/* 56px Top Header: 40px circle back button + wishlist button */}
+      {/* 56px Top Header: 40px circle back button + wishlist + cart buttons */}
       <div className="flex items-center justify-between" style={{ height: 56 }}>
         <button
           type="button"
           onClick={() => router.back()}
-          className="w-10 h-10 rounded-full flex items-center justify-center transition-colors g1-press shrink-0"
+          className="w-10 h-10 rounded-full flex items-center justify-center transition-colors g1-press shrink-0 cursor-pointer"
           style={{ backgroundColor: 'var(--g1-surface)', border: '1px solid var(--g1-border)' }}
           aria-label="Back"
         >
           <ArrowLeft className="w-[22px] h-[22px]" strokeWidth={1.75} style={{ color: 'var(--g1-text)' }} />
         </button>
 
-        <button
-          type="button"
-          onClick={() => toggleWishlist(effectiveProduct.id)}
-          className="w-10 h-10 rounded-full flex items-center justify-center transition-colors g1-press shrink-0"
-          style={{ backgroundColor: 'var(--g1-surface)', border: '1px solid var(--g1-border)' }}
-          aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
-        >
-          <Heart
-            className="w-[20px] h-[20px]"
-            strokeWidth={1.75}
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => toggleWishlist(effectiveProduct.id)}
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors g1-press shrink-0 cursor-pointer"
+            style={{ backgroundColor: 'var(--g1-surface)', border: '1px solid var(--g1-border)' }}
+            aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+          >
+            <Heart
+              className="w-[20px] h-[20px]"
+              strokeWidth={1.75}
+              style={{
+                color: wishlisted ? 'var(--g1-error)' : 'var(--g1-text-secondary)',
+                fill: wishlisted ? 'var(--g1-error)' : 'none',
+              }}
+            />
+          </button>
+
+          <Link
+            href="/cart"
+            aria-label={`View cart with ${cartItemCount} items`}
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors g1-press shrink-0 relative cursor-pointer"
             style={{
-              color: wishlisted ? 'var(--g1-error)' : 'var(--g1-text-secondary)',
-              fill: wishlisted ? 'var(--g1-error)' : 'none',
+              backgroundColor: cartItemCount > 0 ? 'var(--g1-primary)' : 'var(--g1-surface)',
+              border: `1px solid ${cartItemCount > 0 ? 'var(--g1-primary)' : 'var(--g1-border)'}`,
+              color: cartItemCount > 0 ? '#FFFFFF' : 'var(--g1-text)',
             }}
-          />
-        </button>
+          >
+            <ShoppingCart className="w-[19px] h-[19px]" strokeWidth={1.75} />
+            {cartItemCount > 0 && (
+              <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-black bg-red-500 text-white flex items-center justify-center shadow-xs">
+                {cartItemCount}
+              </span>
+            )}
+          </Link>
+        </div>
       </div>
 
       {/* Main Image Card: 1:1 clean packshot */}

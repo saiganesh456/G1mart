@@ -79,7 +79,48 @@ function mapMigratedProduct(row: typeof MIGRATED_PRODUCTS[number]): Product {
   };
 }
 
-export const MIGRATED_PRODUCT_LIST: Product[] = MIGRATED_PRODUCTS.map(mapMigratedProduct);
+function isJeevanMartOrLocalBrand(brand?: string | null): boolean {
+  if (!brand) return true;
+  const b = brand.trim().toLowerCase();
+  return (
+    b === 'g1 mart' ||
+    b === 'g1mart' ||
+    b === 'g1 mart fresh' ||
+    b === 'g1 mart loose staples' ||
+    b === 'g1 mart hygiene' ||
+    b === 'g1 mart utility' ||
+    b === 'g1 mart puja' ||
+    b === 'g1 mart puja essentials' ||
+    b === 'g1 mart kitchenware' ||
+    b === 'jeevan mart' ||
+    b === 'jeevan mart fresh' ||
+    b === 'local / unbranded' ||
+    b === 'unbranded' ||
+    b === 'staples' ||
+    b.startsWith('g1 mart') ||
+    b.startsWith('jeevan mart')
+  );
+}
+
+export const MIGRATED_PRODUCT_LIST: Product[] = MIGRATED_PRODUCTS.map(mapMigratedProduct).sort((a, b) => {
+  const aCat = a.category_id || a.category;
+  const bCat = b.category_id || b.category;
+  if (aCat && bCat && aCat === bCat) {
+    const aSub = a.subCategory || (a as any).sub_category || '';
+    const bSub = b.subCategory || (b as any).sub_category || '';
+    if (aSub === bSub) {
+      const aIsJeevan = isJeevanMartOrLocalBrand(a.brand);
+      const bIsJeevan = isJeevanMartOrLocalBrand(b.brand);
+      if (aIsJeevan !== bIsJeevan) {
+        return aIsJeevan ? 1 : -1;
+      }
+      const aHasImg = a.image_url && !a.image_url.includes('placeholder') ? 1 : 0;
+      const bHasImg = b.image_url && !b.image_url.includes('placeholder') ? 1 : 0;
+      if (aHasImg !== bHasImg) return bHasImg - aHasImg;
+    }
+  }
+  return 0;
+});
 
 function mapDbRowToProduct(row: any, fallback?: Product): Product {
   const priceNum = (row.price !== null && row.price !== undefined && Number(row.price) > 0) 

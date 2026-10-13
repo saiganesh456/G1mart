@@ -27,6 +27,32 @@ function isProductInCategory(p: Product, categoryId: string): boolean {
   return catId === categoryId;
 }
 
+/**
+ * Checks if a brand is Jeevan Mart / G1 Mart private label or generic unbranded.
+ */
+function isJeevanMartOrLocal(brand?: string | null): boolean {
+  if (!brand) return true;
+  const b = brand.trim().toLowerCase();
+  return (
+    b === 'g1 mart' ||
+    b === 'g1mart' ||
+    b === 'g1 mart fresh' ||
+    b === 'g1 mart loose staples' ||
+    b === 'g1 mart hygiene' ||
+    b === 'g1 mart utility' ||
+    b === 'g1 mart puja' ||
+    b === 'g1 mart puja essentials' ||
+    b === 'g1 mart kitchenware' ||
+    b === 'jeevan mart' ||
+    b === 'jeevan mart fresh' ||
+    b === 'local / unbranded' ||
+    b === 'unbranded' ||
+    b === 'staples' ||
+    b.startsWith('g1 mart') ||
+    b.startsWith('jeevan mart')
+  );
+}
+
 export default function CategoryDashboardClient({ category, products }: Props) {
   const searchParams = useSearchParams();
   const brandParam = searchParams.get('brand');
@@ -48,7 +74,13 @@ export default function CategoryDashboardClient({ category, products }: Props) {
 
   // Extract clean sub-categories for this category only
   const subCategoriesWithImage = useMemo(() => {
-    const subMap = new Map<string, { name: string; image: string | null; count: number }>();
+    interface SubInfo {
+      name: string;
+      image: string | null;
+      count: number;
+      isBrandedImage: boolean;
+    }
+    const subMap = new Map<string, SubInfo>();
 
     categoryProducts.forEach((p) => {
       const sub = p.subCategory || (p as any).sub_category;
@@ -57,15 +89,26 @@ export default function CategoryDashboardClient({ category, products }: Props) {
       }
 
       const existing = subMap.get(sub);
-      // Prefer non-placeholder image for the sub-category tile
+      const isBranded = !isJeevanMartOrLocal(p.brand);
+      const hasVerifiedImg = Boolean(
+        (p.image_status === 'verified' || (p as any).imageStatus === 'verified' || (p as any).imageStatus === 'VERIFIED') &&
+        ((p.image_url && !p.image_url.includes('placeholder')) || (p.imageUrl && !p.imageUrl.includes('placeholder')))
+      );
       const img = (p.image_url && !p.image_url.includes('placeholder')) ? p.image_url
         : (p.imageUrl && !p.imageUrl.includes('placeholder')) ? p.imageUrl
         : null;
+
       if (!existing) {
-        subMap.set(sub, { name: sub, image: img, count: 1 });
+        subMap.set(sub, { name: sub, image: img, count: 1, isBrandedImage: isBranded && hasVerifiedImg });
       } else {
         existing.count += 1;
-        if (!existing.image && img) existing.image = img;
+        // Prioritize branded visual packshots for subcategory tiles
+        if (isBranded && hasVerifiedImg && (!existing.isBrandedImage || !existing.image)) {
+          existing.image = img;
+          existing.isBrandedImage = true;
+        } else if (!existing.image && img) {
+          existing.image = img;
+        }
       }
     });
 
@@ -81,24 +124,27 @@ export default function CategoryDashboardClient({ category, products }: Props) {
     });
   }, [categoryProducts, selectedSubCategory]);
 
-
-  // Available brands for top chip row: All, Brand names, Local
+  // Available brands for top chip row: All Brands, Branded Brands, Jeevan Mart, Local
   const availableBrands = useMemo(() => {
     const brandMap = new Map<string, number>();
+    let jeevanMartCount = 0;
     let localCount = 0;
 
     subFilteredProducts.forEach((p) => {
       const b = p.brand?.trim();
-      const isLocal = !b || /local\s*\/?\s*unbranded/i.test(b) || /^unbranded$/i.test(b)
-        || b === 'G1 Mart' || b === 'G1 Mart Fresh';
+      const isJeevan = b && (b.toLowerCase().includes('g1') || b.toLowerCase().includes('jeevan'));
+      const isLocal = !b || /local\s*\/?\s*unbranded/i.test(b) || /^unbranded$/i.test(b);
 
-      if (isLocal) {
+      if (isJeevan) {
+        jeevanMartCount += 1;
+      } else if (isLocal) {
         localCount += 1;
       } else if (b) {
         brandMap.set(b, (brandMap.get(b) || 0) + 1);
       }
     });
 
+    // Sort branded brands: Aashirvaad first, then by count descending
     const brands = Array.from(brandMap.entries())
       .filter(([, count]) => count > 0)
       .sort((a, b) => {
@@ -107,29 +153,58 @@ export default function CategoryDashboardClient({ category, products }: Props) {
         return b[1] - a[1];
       });
 
-    return { brands, localCount };
+    return { brands, jeevanMartCount, localCount };
   }, [subFilteredProducts]);
 
-  // Final filtered products
+  // Final filtered products:
+  // "Keep the branded items first and Jeevan Mart branded give the next.
+  // First we need all branded images visual first after need Jeevan Mart brand also."
   const displayedProducts = useMemo(() => {
     let list = subFilteredProducts;
 
-    if (selectedBrand === 'local') {
+    if (selectedBrand === 'jeevan-mart') {
       list = list.filter((p) => {
         const b = p.brand?.trim();
-        return !b || /local\s*\/?\s*unbranded/i.test(b) || /^unbranded$/i.test(b)
-          || b === 'G1 Mart' || b === 'G1 Mart Fresh';
+        return b && (b.toLowerCase().includes('g1') || b.toLowerCase().includes('jeevan'));
+      });
+    } else if (selectedBrand === 'local') {
+      list = list.filter((p) => {
+        const b = p.brand?.trim();
+        return !b || /local\s*\/?\s*unbranded/i.test(b) || /^unbranded$/i.test(b);
       });
     } else if (selectedBrand !== 'all') {
       list = list.filter((p) => p.brand?.trim() === selectedBrand);
     }
 
     return [...list].sort((a, b) => {
+      // 1. Explicit user price sorting
       if (sortBy === 'price-asc') return a.price - b.price;
       if (sortBy === 'price-desc') return b.price - a.price;
-      const aVer = a.image_status === 'verified' && a.image_url ? 1 : 0;
-      const bVer = b.image_status === 'verified' && b.image_url ? 1 : 0;
-      if (aVer !== bVer) return bVer - aVer;
+
+      // 2. Branded vs Jeevan Mart hierarchy:
+      // Branded items ALWAYS come FIRST, Jeevan Mart / G1 Mart branded items come NEXT
+      const aIsJeevan = isJeevanMartOrLocal(a.brand);
+      const bIsJeevan = isJeevanMartOrLocal(b.brand);
+
+      if (aIsJeevan !== bIsJeevan) {
+        // false (branded) comes before true (Jeevan Mart)
+        return aIsJeevan ? 1 : -1;
+      }
+
+      // 3. Visual Packshot Priority: Products with verified authentic visual images come first
+      const aHasImg = (a.image_status === 'verified' || (a as any).imageStatus === 'verified' || (a as any).imageStatus === 'VERIFIED') &&
+        ((a.image_url && !a.image_url.includes('placeholder')) || (a.imageUrl && !a.imageUrl.includes('placeholder'))) ? 1 : 0;
+      const bHasImg = (b.image_status === 'verified' || (b as any).imageStatus === 'verified' || (b as any).imageStatus === 'VERIFIED') &&
+        ((b.image_url && !b.image_url.includes('placeholder')) || (b.imageUrl && !b.imageUrl.includes('placeholder'))) ? 1 : 0;
+      if (aHasImg !== bHasImg) return bHasImg - aHasImg;
+
+      // 4. Special brand priority among branded items (e.g., Aashirvaad at top of flours)
+      const aBrand = (a.brand || '').toLowerCase();
+      const bBrand = (b.brand || '').toLowerCase();
+      if (aBrand === 'aashirvaad' && bBrand !== 'aashirvaad') return -1;
+      if (bBrand === 'aashirvaad' && aBrand !== 'aashirvaad') return 1;
+
+      // 5. Popularity rank
       return (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0);
     });
   }, [subFilteredProducts, selectedBrand, sortBy]);
@@ -177,6 +252,23 @@ export default function CategoryDashboardClient({ category, products }: Props) {
               {bName} ({bCount})
             </button>
           ))}
+
+          {/* Jeevan Mart Brand Chip */}
+          {availableBrands.jeevanMartCount > 0 && (
+            <button
+              type="button"
+              onClick={() => setSelectedBrand('jeevan-mart')}
+              className="shrink-0 px-3 py-1 text-xs font-bold transition-all cursor-pointer g1-press whitespace-nowrap"
+              style={{
+                borderRadius: 'var(--g1-r-chip)',
+                backgroundColor: selectedBrand === 'jeevan-mart' ? 'var(--g1-primary)' : 'var(--g1-surface)',
+                color: selectedBrand === 'jeevan-mart' ? '#FFFFFF' : 'var(--g1-text-secondary)',
+                border: selectedBrand === 'jeevan-mart' ? 'none' : '1px solid var(--g1-border)',
+              }}
+            >
+              Jeevan Mart ({availableBrands.jeevanMartCount})
+            </button>
+          )}
 
           {/* Local Brands */}
           {availableBrands.localCount > 0 && (

@@ -29,7 +29,12 @@ function VariantSheet({ product, variants, activeVariant, onSelect, onClose, onA
   return (
     <>
       <div className="fixed inset-0 z-[60] bg-black/40" onClick={onClose} />
-      <div className="fixed bottom-0 left-0 right-0 z-[61] bg-[var(--g1-bg)] rounded-t-2xl shadow-2xl max-w-md mx-auto pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Select variant for ${product.name}`}
+        className="fixed bottom-0 left-0 right-0 z-[61] bg-[var(--g1-bg)] rounded-t-2xl shadow-2xl max-w-md mx-auto pb-[max(1.5rem,env(safe-area-inset-bottom))]"
+      >
         <div className="flex justify-center pt-3 pb-1">
           <div className="w-10 h-1 rounded-full" style={{ backgroundColor: 'var(--g1-border)' }} />
         </div>
@@ -56,11 +61,12 @@ function VariantSheet({ product, variants, activeVariant, onSelect, onClose, onA
             Select Size / Pack
           </p>
           {variants.map((v) => {
-            const outOfStock = v.stock <= 0;
+            const outOfStock = v.stock !== undefined && v.stock !== null ? v.stock <= 0 : (v as any).in_stock === false;
             const isActive = activeVariant?.id === v.id;
             const discount = v.mrp > v.price && v.mrp > 0
               ? Math.round(((v.mrp - v.price) / v.mrp) * 100)
               : 0;
+            const vLabel = v.size_label || (v as any).name || (v as any).unit || 'Standard Pack';
 
             return (
               <button
@@ -82,7 +88,7 @@ function VariantSheet({ product, variants, activeVariant, onSelect, onClose, onA
                     {isActive && <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />}
                   </div>
                   <div className="min-w-0 text-left">
-                    <span className="text-xs font-bold" style={{ color: 'var(--g1-text)' }}>{v.size_label}</span>
+                    <span className="text-xs font-bold" style={{ color: 'var(--g1-text)' }}>{vLabel}</span>
                     {outOfStock && (
                       <span className="ml-2 text-[10px] font-bold px-1.5 py-0.5 rounded"
                         style={{ backgroundColor: 'var(--g1-surface)', color: 'var(--g1-text-secondary)' }}>
@@ -113,7 +119,7 @@ function VariantSheet({ product, variants, activeVariant, onSelect, onClose, onA
           <div className="px-4 pt-3 border-t flex items-center justify-between gap-3 mt-1" style={{ borderColor: 'var(--g1-border)' }}>
             <div className="min-w-0">
               <span className="text-[11px] truncate block" style={{ color: 'var(--g1-text-secondary)' }}>
-                {activeVariant.size_label}
+                {activeVariant.size_label || (activeVariant as any).name || (activeVariant as any).unit || 'Selected'}
               </span>
               <span className="text-base font-black tabular-nums" style={{ color: 'var(--g1-text)' }}>
                 ₹{activeVariant.price}
@@ -121,9 +127,12 @@ function VariantSheet({ product, variants, activeVariant, onSelect, onClose, onA
             </div>
             <button
               type="button"
-              disabled={activeVariant.stock <= 0}
+              data-testid="variant-sheet-add-btn"
+              aria-label="Add selected variant to cart"
+              disabled={activeVariant.stock !== undefined && activeVariant.stock !== null ? activeVariant.stock <= 0 : (activeVariant as any).in_stock === false}
               onClick={() => {
-                if (activeVariant.stock > 0) {
+                const stockOk = activeVariant.stock !== undefined && activeVariant.stock !== null ? activeVariant.stock > 0 : (activeVariant as any).in_stock !== false;
+                if (stockOk) {
                   onAddToCart(activeVariant);
                   onClose();
                 }
@@ -150,9 +159,9 @@ function VariantSheet({ product, variants, activeVariant, onSelect, onClose, onA
  * Returns null (and logs to DATA_ISSUES) when data is incomplete.
  */
 function formatUnit(product: Product, variant: ProductVariant | null): string | null {
-  // Prefer variant size_label (already formatted, e.g. "1 kg")
-  if (variant?.size_label && variant.size_label.trim() && variant.size_label !== '1 unit') {
-    return variant.size_label;
+  const vLabel = variant?.size_label || (variant as any)?.name || (variant as any)?.unit;
+  if (vLabel && vLabel.trim() && vLabel !== '1 unit') {
+    return vLabel;
   }
   const unit = product.unit?.trim();
   // Guard: bare "g" or "1 unit" without context — hide and log
@@ -183,7 +192,12 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
   const { addToCart, updateCartQuantity, getItemQuantity } = useCart();
 
   const variants: ProductVariant[] = product.variants ?? [];
-  const firstInStock = variants.find((v) => v.stock > 0) ?? variants[0] ?? null;
+  const isVariantInStock = (v: ProductVariant | null | undefined): boolean => {
+    if (!v) return false;
+    if (v.stock !== undefined && v.stock !== null) return v.stock > 0;
+    return Boolean((v as any).in_stock ?? true);
+  };
+  const firstInStock = variants.find(isVariantInStock) ?? variants[0] ?? null;
   const [activeVariant, setActiveVariant] = useState<ProductVariant | null>(firstInStock);
   const [sheetOpen, setSheetOpen] = useState(false);
 
@@ -191,7 +205,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
   const effectiveMrp = activeVariant?.mrp ?? product.originalPrice;
   const effectiveInStock =
     variants.length > 0
-      ? Boolean(activeVariant && activeVariant.stock > 0)
+      ? isVariantInStock(activeVariant)
       : product.inStock;
   const discount =
     effectiveMrp > effectivePrice && effectiveMrp > 0
@@ -305,7 +319,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
                       border: isSelected ? '1px solid var(--g1-primary)' : '1px solid var(--g1-border)',
                     }}
                   >
-                    {v.size_label}
+                    {v.size_label || (v as any).name || (v as any).unit || 'Pack'}
                   </button>
                 );
               })}
@@ -364,24 +378,25 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
               )}
             </div>
 
-            {/* ADD / stepper — 32px high, outlined green, radius 8, becomes solid green */}
+            {/* ADD TO CART / stepper */}
             {effectiveInStock ? (
               quantity === 0 ? (
                 <button
                   type="button"
                   onClick={handleAdd}
-                  className={`flex items-center justify-center gap-0.5 g1-press transition-all ${compact ? 'w-full' : ''}`}
+                  aria-label={`Add ${product.name} to cart`}
+                  className={`flex items-center justify-center gap-1 g1-press transition-all cursor-pointer ${compact ? 'w-full' : ''}`}
                   style={{
                     height: 32, paddingLeft: 8, paddingRight: 8,
                     border: '1.5px solid var(--g1-primary)',
                     borderRadius: 8,
                     color: 'var(--g1-primary)',
                     backgroundColor: 'var(--g1-bg)',
-                    fontSize: 12, fontWeight: 700,
+                    fontSize: 11, fontWeight: 800,
                   }}
                 >
-                  <span>ADD</span>
-                  <Plus className="w-3 h-3" strokeWidth={2.5} />
+                  <Plus className="w-3.5 h-3.5" strokeWidth={2.5} />
+                  <span>ADD TO CART</span>
                 </button>
               ) : (
                 <div

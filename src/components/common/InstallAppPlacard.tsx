@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Download, X, Star, CheckCircle2, ShieldCheck, Sparkles } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
+import { useCart } from '@/context/CartContext';
 import {
   isAppInstalled,
   isInstallDismissed,
@@ -15,6 +16,7 @@ import {
 export default function InstallAppPlacard() {
   const pathname = usePathname();
   const { user } = useAuth();
+  const { cartItemCount } = useCart();
   const [visible, setVisible] = useState(false);
   const [installing, setInstalling] = useState(false);
   const [installed, setInstalled] = useState(false);
@@ -61,13 +63,13 @@ export default function InstallAppPlacard() {
     setVisible(false);
   };
 
-  if (pathname === '/' || pathname.startsWith('/product') || pathname.startsWith('/rider') || !visible) return null;
+  if (pathname === '/' || pathname.startsWith('/product') || pathname.startsWith('/rider') || pathname.startsWith('/cart') || pathname.startsWith('/checkout') || !visible || cartItemCount > 0) return null;
 
   return (
     <div
       role="dialog"
       aria-label="Install G1 Mart App"
-      className="fixed bottom-20 left-3 right-3 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-md z-50 pointer-events-auto transition-all duration-300 ease-out animate-in fade-in slide-in-from-bottom-8"
+      className="fixed bottom-[calc(68px+env(safe-area-inset-bottom,0px))] left-3 right-3 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-md z-30 pointer-events-auto transition-all duration-300 ease-out animate-in fade-in slide-in-from-bottom-8"
     >
       <div className="relative bg-white/95 backdrop-blur-md rounded-3xl p-4 sm:p-5 shadow-2xl border border-stone-200/90 shadow-[#2E7D32]/10 overflow-hidden">
         {/* Decorative Top Accent Bar */}

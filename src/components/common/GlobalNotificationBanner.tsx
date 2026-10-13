@@ -167,7 +167,7 @@ export default function GlobalNotificationBanner() {
         <div
           role="dialog"
           aria-label="Enable delivery notifications"
-          className="fixed bottom-20 left-3 right-3 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-md z-50 pointer-events-auto transition-all duration-300 ease-out animate-in fade-in slide-in-from-bottom-6"
+          className="fixed top-16 left-3 right-3 sm:top-auto sm:left-auto sm:right-6 sm:bottom-24 sm:max-w-md z-50 pointer-events-auto transition-all duration-300 ease-out animate-in fade-in slide-in-from-top-4 sm:slide-in-from-bottom-6"
         >
           <div className="relative bg-white rounded-3xl p-4 sm:p-5 shadow-2xl border border-stone-200/90 shadow-[#2E7D32]/10 overflow-hidden">
             <div className="absolute top-0 left-0 right-0 h-1 bg-[#2E7D32]" />
