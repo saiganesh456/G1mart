@@ -35,7 +35,7 @@ export default function CheckoutPage() {
   const router = useRouter();
   const { cart, cartItemCount, cartSubtotal, updateCartQuantity, removeFromCart } = useCart();
   const { currentLocation } = useLocation();
-  const { user, supabaseUser, isLoggedIn, setLocalUser } = useAuth();
+  const { user, supabaseUser, isLoggedIn, setLocalUser, signOut } = useAuth();
 
   // Fulfillment selector: Delivery vs Pickup
   const [orderType, setOrderType] = useState<'delivery' | 'pickup'>('delivery');
@@ -174,6 +174,9 @@ export default function CheckoutPage() {
       memberSince: new Date().toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }),
     });
     setAuthError(null);
+    if (!savedAddress && orderType === 'delivery') {
+      setIsAddressSheetOpen(true);
+    }
   };
 
   // Callback when address is saved in bottom sheet
@@ -286,13 +289,20 @@ export default function CheckoutPage() {
     <div className="w-full max-w-xl mx-auto space-y-3.5 pb-32 pt-2 sm:pt-4 px-3 sm:px-4 box-border min-w-0 overflow-x-hidden">
       {/* Top Header */}
       <div className="flex items-center gap-3 min-w-0">
-        <Link
-          href="/cart"
-          className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50 shrink-0"
+        <button
+          type="button"
+          onClick={() => {
+            if (typeof window !== 'undefined' && window.history.length > 1) {
+              router.back();
+            } else {
+              router.replace('/cart');
+            }
+          }}
+          className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50 shrink-0 cursor-pointer"
           aria-label="Back to Cart"
         >
           <ArrowLeft className="w-4 h-4" />
-        </Link>
+        </button>
         <div className="min-w-0 flex-1">
           <h1 className="text-base sm:text-lg font-black text-[#212121] truncate">Checkout</h1>
           <p className="text-[11px] text-stone-500 truncate">
@@ -302,13 +312,13 @@ export default function CheckoutPage() {
       </div>
 
       {/* Account Verification Gate - ONLY if not logged in */}
-      {!isLoggedIn && (
+      {!isLoggedIn ? (
         <div className="bg-white rounded-2xl border-2 border-[#2E7D32]/40 p-3.5 sm:p-4 shadow-sm space-y-3 animate-in fade-in min-w-0 w-full box-border">
           <div className="flex items-center justify-between border-b border-stone-100 pb-2 gap-2">
             <div className="flex items-center gap-2 min-w-0">
               <UserCheck className="w-4 h-4 text-[#2E7D32] shrink-0" />
               <h2 className="text-xs font-extrabold text-stone-900 uppercase tracking-wider truncate">
-                Account Sign-In
+                Step 1: Account Sign-In / Register
               </h2>
             </div>
             <span className="text-[10px] font-black bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">
@@ -317,7 +327,7 @@ export default function CheckoutPage() {
           </div>
 
           <p className="text-xs text-stone-600 leading-relaxed">
-            Enter your mobile number or sign in with Google for live order tracking and rider verification.
+            Sign in with Google or enter your mobile number. Your cart items are preserved.
           </p>
 
           {authError && (
@@ -358,7 +368,7 @@ export default function CheckoutPage() {
               className="w-full h-10 bg-[#1A2E1C] hover:bg-black text-white rounded-xl text-xs font-extrabold transition-all active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <UserCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-              <span>Verify Mobile &amp; Continue</span>
+              <span>Sign In with Mobile &amp; Continue</span>
             </button>
           </form>
 
@@ -370,15 +380,43 @@ export default function CheckoutPage() {
               disabled={googleLoading}
               className="w-full h-10 rounded-xl border border-stone-300 hover:border-stone-400 bg-white hover:bg-stone-50 text-stone-700 text-xs font-bold flex items-center justify-center gap-2.5 transition-colors active:scale-[0.99] cursor-pointer"
             >
-              <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" />
-                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z" />
-                <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.15z" />
-                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
-              </svg>
+              {googleLoading ? (
+                <div className="w-4 h-4 border-2 border-[#2E7D32] border-t-transparent rounded-full animate-spin shrink-0" />
+              ) : (
+                <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" />
+                  <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z" />
+                  <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.15z" />
+                  <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
+                </svg>
+              )}
               <span>Continue with Google</span>
             </button>
           </div>
+        </div>
+      ) : (
+        /* Verified Account Badge - shown when signed in */
+        <div className="bg-emerald-50/70 border border-emerald-200/80 rounded-2xl p-3 flex items-center justify-between gap-2 shadow-2xs animate-in fade-in">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-7 h-7 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0">
+              <UserCheck className="w-4 h-4" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <span className="text-xs font-bold text-stone-900 block truncate">
+                Signed in as {user?.name || 'Customer'}
+              </span>
+              <span className="text-[11px] text-emerald-800 font-medium block truncate">
+                {user?.phone ? `+91 ${user.phone}` : user?.email || 'Verified Account'}
+              </span>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => signOut()}
+            className="text-[11px] font-bold text-stone-500 hover:text-stone-700 underline shrink-0 cursor-pointer"
+          >
+            Switch Account
+          </button>
         </div>
       )}
 
@@ -813,39 +851,4 @@ export default function CheckoutPage() {
             <button
               type="button"
               disabled
-              className="h-11 sm:h-12 px-4 sm:px-5 bg-stone-200 text-stone-500 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-1.5 cursor-not-allowed opacity-80 shrink-0 whitespace-nowrap"
-              title={`Add ₹${shortfallAmount} more to meet the ₹${activeMinOrder} minimum for your area`}
-            >
-              <span>Add ₹{shortfallAmount} More</span>
-            </button>
-          ) : !isAddressServiceable && orderType === 'delivery' ? (
-            <button
-              type="button"
-              disabled
-              className="h-11 sm:h-12 px-4 sm:px-5 bg-rose-100 text-rose-700 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-1.5 cursor-not-allowed shrink-0 whitespace-nowrap"
-            >
-              <span>Outside 30 km Area</span>
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={handlePlaceOrder}
-              className="h-11 sm:h-12 px-5 sm:px-6 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all cursor-pointer shrink-0 whitespace-nowrap"
-            >
-              <span>Proceed to Payment</span>
-              <ChevronRight className="w-4 h-4 shrink-0" />
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* 6. Slide-Up Bottom Sheet for Doorstep Address */}
-      <AddressBottomSheet
-        isOpen={isAddressSheetOpen}
-        onClose={() => setIsAddressSheetOpen(false)}
-        onAddressSaved={handleAddressSaved}
-        initialAddress={savedAddress}
-      />
-    </div>
-  );
-}
+              className="h-

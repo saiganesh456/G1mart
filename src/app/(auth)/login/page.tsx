@@ -23,8 +23,17 @@ function LoginForm() {
 
   useEffect(() => {
     if (!authLoading && isLoggedIn) {
-      if (nextParam) {
-        router.replace(nextParam);
+      let target = nextParam;
+      if (!target && typeof window !== 'undefined') {
+        const saved = localStorage.getItem('g1mart_auth_next');
+        if (saved) {
+          target = saved;
+          localStorage.removeItem('g1mart_auth_next');
+        }
+      }
+
+      if (target) {
+        router.replace(target);
       } else if (user?.role === 'admin') {
         router.replace('/admin');
       } else if (user?.role === 'delivery_partner' || user?.role === 'rider') {
