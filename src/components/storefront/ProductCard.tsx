@@ -22,9 +22,10 @@ interface VariantSheetProps {
   activeVariant: ProductVariant | null;
   onSelect: (v: ProductVariant) => void;
   onClose: () => void;
+  onAddToCart?: (v: ProductVariant) => void;
 }
 
-function VariantSheet({ product, variants, activeVariant, onSelect, onClose }: VariantSheetProps) {
+function VariantSheet({ product, variants, activeVariant, onSelect, onClose, onAddToCart }: VariantSheetProps) {
   return (
     <>
       <div className="fixed inset-0 z-[60] bg-black/40" onClick={onClose} />
@@ -44,13 +45,13 @@ function VariantSheet({ product, variants, activeVariant, onSelect, onClose }: V
             </h3>
           </div>
           <button type="button" onClick={onClose}
-            className="ml-2 w-8 h-8 rounded-full flex items-center justify-center"
+            className="ml-2 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer"
             style={{ backgroundColor: 'var(--g1-surface)', color: 'var(--g1-text)' }}
             aria-label="Close">
             <X className="w-4 h-4" />
           </button>
         </div>
-        <div className="px-3 pt-2 space-y-1.5 overflow-y-auto max-h-[55vh]">
+        <div className="px-3 pt-2 space-y-1.5 overflow-y-auto max-h-[50vh]">
           <p className="text-[11px] font-bold uppercase tracking-wider px-1 mb-2" style={{ color: 'var(--g1-text-secondary)' }}>
             Select Size / Pack
           </p>
@@ -66,8 +67,8 @@ function VariantSheet({ product, variants, activeVariant, onSelect, onClose }: V
                 key={v.id}
                 type="button"
                 disabled={outOfStock}
-                onClick={() => { if (!outOfStock) { onSelect(v); onClose(); } }}
-                className="w-full flex items-center justify-between rounded-xl px-3 py-2.5 transition-all g1-press"
+                onClick={() => { if (!outOfStock) { onSelect(v); } }}
+                className="w-full flex items-center justify-between rounded-xl px-3 py-2.5 transition-all g1-press cursor-pointer"
                 style={{
                   opacity: outOfStock ? 0.4 : 1,
                   cursor: outOfStock ? 'not-allowed' : 'pointer',
@@ -108,6 +109,33 @@ function VariantSheet({ product, variants, activeVariant, onSelect, onClose }: V
             );
           })}
         </div>
+        {onAddToCart && activeVariant && (
+          <div className="px-4 pt-3 border-t flex items-center justify-between gap-3 mt-1" style={{ borderColor: 'var(--g1-border)' }}>
+            <div className="min-w-0">
+              <span className="text-[11px] truncate block" style={{ color: 'var(--g1-text-secondary)' }}>
+                {activeVariant.size_label}
+              </span>
+              <span className="text-base font-black tabular-nums" style={{ color: 'var(--g1-text)' }}>
+                ₹{activeVariant.price}
+              </span>
+            </div>
+            <button
+              type="button"
+              disabled={activeVariant.stock <= 0}
+              onClick={() => {
+                if (activeVariant.stock > 0) {
+                  onAddToCart(activeVariant);
+                  onClose();
+                }
+              }}
+              className="h-10 px-5 rounded-xl font-extrabold text-xs text-white g1-press flex items-center gap-1.5 cursor-pointer shadow-md disabled:opacity-50"
+              style={{ backgroundColor: 'var(--g1-primary)' }}
+            >
+              <Plus className="w-3.5 h-3.5" strokeWidth={2.5} />
+              <span>ADD TO CART</span>
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
@@ -401,6 +429,7 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
           variants={variants}
           activeVariant={activeVariant}
           onSelect={(v) => setActiveVariant(v)}
+          onAddToCart={(v) => addToCart(product, 1, v)}
           onClose={() => setSheetOpen(false)}
         />
       )}

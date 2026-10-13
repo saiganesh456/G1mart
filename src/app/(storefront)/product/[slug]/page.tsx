@@ -327,6 +327,80 @@ export default function ProductDetailPage({ params }: Props) {
           </div>
         )}
 
+        {/* In-Card Primary Add To Cart / Stepper Action (Directly in product card) */}
+        <div className="pt-3 border-t flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3" style={{ borderColor: 'var(--g1-border)' }}>
+          <div className="flex flex-col">
+            <span className="text-[11px] font-semibold" style={{ color: 'var(--g1-text-secondary)' }}>
+              Selected: {activeVariant?.label || effectiveProduct.unit}
+            </span>
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-2xl font-black tabular-nums" style={{ color: 'var(--g1-text)' }}>
+                ₹{displayPrice}
+              </span>
+              {displayOriginalPrice && displayOriginalPrice > displayPrice && (
+                <span className="text-xs line-through tabular-nums" style={{ color: 'var(--g1-text-secondary)' }}>
+                  ₹{displayOriginalPrice}
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {effectiveProduct.inStock ? (
+              quantity === 0 ? (
+                <button
+                  type="button"
+                  onClick={() => addToCart(effectiveProduct, activeVariant?.multiplier || 1, (activeVariant as any)?.variant)}
+                  className="w-full sm:w-auto h-12 px-8 rounded-xl font-extrabold text-sm text-white g1-press flex items-center justify-center gap-2 shadow-md cursor-pointer transition-all active:scale-[0.98]"
+                  style={{ backgroundColor: 'var(--g1-primary)' }}
+                >
+                  <Plus className="w-4 h-4" strokeWidth={2.5} />
+                  <span>ADD TO CART</span>
+                </button>
+              ) : (
+                <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <div
+                    className="h-12 flex-1 sm:flex-initial flex items-center justify-between rounded-xl px-3 gap-3 text-white shadow-sm"
+                    style={{ backgroundColor: 'var(--g1-primary)' }}
+                  >
+                    <button
+                      type="button"
+                      aria-label="Decrease quantity"
+                      onClick={() => updateCartQuantity(effectiveProduct.id, quantity - 1, (activeVariant as any)?.variant?.id)}
+                      className="w-8 h-8 rounded-lg flex items-center justify-center active:bg-black/15 cursor-pointer"
+                    >
+                      <Minus className="w-4 h-4" strokeWidth={2.5} />
+                    </button>
+                    <span className="min-w-6 text-center text-sm font-black tabular-nums">{quantity} in cart</span>
+                    <button
+                      type="button"
+                      aria-label="Increase quantity"
+                      onClick={() => updateCartQuantity(effectiveProduct.id, quantity + 1, (activeVariant as any)?.variant?.id)}
+                      className="w-8 h-8 rounded-lg flex items-center justify-center active:bg-black/15 cursor-pointer"
+                    >
+                      <Plus className="w-4 h-4" strokeWidth={2.5} />
+                    </button>
+                  </div>
+                  <Link
+                    href="/cart"
+                    className="h-12 px-5 rounded-xl text-xs font-bold flex items-center justify-center g1-press transition-colors cursor-pointer"
+                    style={{ backgroundColor: 'var(--g1-surface)', border: '1px solid var(--g1-border)', color: 'var(--g1-text)' }}
+                  >
+                    View Cart →
+                  </Link>
+                </div>
+              )
+            ) : (
+              <div
+                className="w-full sm:w-auto h-12 px-6 rounded-xl text-xs font-bold flex items-center justify-center"
+                style={{ backgroundColor: 'var(--g1-surface)', color: 'var(--g1-text-secondary)', border: '1px solid var(--g1-border)' }}
+              >
+                Out of Stock
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Feature Highlights */}
         <div className="grid grid-cols-2 gap-2 pt-3 text-xs" style={{ borderTop: '1px solid var(--g1-border)' }}>
           <div className="flex items-center gap-2 p-2.5 rounded-xl" style={{ backgroundColor: 'var(--g1-surface)', border: '1px solid var(--g1-border)' }}>

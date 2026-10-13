@@ -38,7 +38,7 @@ export default function InstallAppPlacard() {
     }, 1500);
 
     return () => clearTimeout(timer);
-  }, [user]);
+  }, [user, pathname]);
 
   const handleInstall = async () => {
     setInstalling(true);
@@ -61,7 +61,7 @@ export default function InstallAppPlacard() {
     setVisible(false);
   };
 
-  if (pathname === '/' || !visible) return null;
+  if (pathname === '/' || pathname.startsWith('/product') || pathname.startsWith('/rider') || !visible) return null;
 
   return (
     <div

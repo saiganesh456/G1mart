@@ -144,6 +144,18 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
     };
   }, [isOpen]);
 
+  // Handle ESC key to dismiss modal
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   // Client-side image compression: max 1600px on long side, max ~1.5MB JPEG
   const compressImage = async (imageSource: HTMLImageElement | HTMLVideoElement): Promise<Blob> => {
     return new Promise((resolve, reject) => {
@@ -405,9 +417,16 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
     }
   };
 
+  if (!isOpen) return null;
+
   if (step === 'details' || step === 'success') {
     return (
-      <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto animate-in fade-in duration-200">
+      <div
+        onClick={(e) => {
+          if (e.target === e.currentTarget) onClose();
+        }}
+        className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto animate-in fade-in duration-200"
+      >
         <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col my-auto animate-in zoom-in-95 duration-200">
           {step === 'details' ? (
             <>
