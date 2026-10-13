@@ -78,8 +78,6 @@ export default function LocationGate({ children }: Props) {
           setShowPrePromptModal(false);
           setIsModalOpen(true);
         }}
-        isMandatory={!hasConfirmedLocation}
-        onClose={hasConfirmedLocation ? () => setShowPrePromptModal(false) : undefined}
       />
 
       {/* 3. Select Location Manually Modal (Search box + Draggable Map Pin + Confirm) */}

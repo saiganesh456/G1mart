@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { findNearestNelloreLocality } from '@/data/nelloreLocations';
 
 interface ReverseGeocodeResult {
   formattedAddress: string;
@@ -16,15 +17,17 @@ export async function POST(request: NextRequest) {
   let lng: any = 0;
   try {
     const body = await request.json();
-    lat = body.lat;
-    lng = body.lng;
+    lat = Number(body.lat);
+    lng = Number(body.lng);
 
-    if (!lat || !lng) {
+    if (!lat || !lng || isNaN(lat) || isNaN(lng)) {
       return NextResponse.json(
-        { error: 'Latitude and Longitude are required' },
+        { error: 'Valid Latitude and Longitude are required' },
         { status: 400 }
       );
     }
+
+    const nearestLocality = findNearestNelloreLocality(lat, lng);
 
     const googleApiKey = process.env.GOOGLE_MAPS_API_KEY;
 
@@ -39,9 +42,9 @@ export async function POST(request: NextRequest) {
           const first = data.results[0];
           let street = '';
           let area = '';
-          let city = '';
-          let pincode = '';
-          let state = '';
+          let city = 'Nellore';
+          let pincode = nearestLocality?.locality.pincode || '524001';
+          let state = 'Andhra Pradesh';
 
           for (const comp of first.address_components) {
             if (comp.types.includes('route') || comp.types.includes('street_number')) {
@@ -65,15 +68,24 @@ export async function POST(request: NextRequest) {
             }
           }
 
+          if (nearestLocality && nearestLocality.distanceKm <= 1.5) {
+            if (!area || area.toLowerCase().includes('urban')) {
+              area = nearestLocality.locality.area;
+            }
+            if (!street) {
+              street = nearestLocality.locality.name;
+            }
+          }
+
           const result: ReverseGeocodeResult = {
             formattedAddress: first.formatted_address,
-            street: street || area,
-            area: area || city,
-            city: city || 'Nellore',
+            street: street || area || nearestLocality?.locality.name || 'Doorstep Delivery Location',
+            area: area || nearestLocality?.locality.area || city,
+            city,
             pincode,
             state,
-            lat: Number(lat),
-            lng: Number(lng),
+            lat,
+            lng,
           };
 
           return NextResponse.json({ success: true, data: result });
@@ -83,95 +95,105 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 2. OpenStreetMap / Nominatim fallback (Free, 0 setup required)
-    const osmUrl = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1`;
-    const osmRes = await fetch(osmUrl, {
-      headers: {
-        'User-Agent': 'G1Mart-GroceryDelivery/1.0',
-        'Accept-Language': 'en',
-      },
-    });
+    // 2. OpenStreetMap / Nominatim fallback
+    try {
+      const osmUrl = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1`;
+      const osmRes = await fetch(osmUrl, {
+        headers: {
+          'User-Agent': 'G1Mart-GroceryDelivery/1.0',
+          'Accept-Language': 'en',
+        },
+      });
 
-    if (!osmRes.ok) {
-      throw new Error(`Nominatim error: ${osmRes.statusText}`);
+      if (osmRes.ok) {
+        const osmData = await osmRes.json();
+        const addr = osmData.address || {};
+
+        const rawRoad = (addr.road || addr.residential || '').trim();
+        const village = (addr.village || addr.hamlet || '').trim();
+        const suburb = (addr.suburb || addr.neighbourhood || addr.quarter || '').trim();
+        const mandal = (addr.county || addr.subdistrict || addr.district || '').trim();
+        const city = (addr.city || addr.town || addr.municipality || 'Nellore').trim();
+        const pincode = (addr.postcode || nearestLocality?.locality.pincode || '524001').trim();
+        const state = (addr.state || 'Andhra Pradesh').trim();
+
+        let street = rawRoad || village || suburb;
+        let area = suburb || village || mandal;
+
+        // If Nominatim returns technical words like "Nellore Urban", replace with matched Nellore locality
+        if (nearestLocality && (!area || area.toLowerCase().includes('urban') || area.toLowerCase() === 'nellore')) {
+          area = nearestLocality.locality.area;
+          if (!street || street.toLowerCase().includes('urban') || /^(MDR|SH|NH)/i.test(street)) {
+            street = nearestLocality.locality.name;
+          }
+        }
+
+        const cleanStreet = street || nearestLocality?.locality.name || 'Doorstep Location';
+        const cleanArea = area || nearestLocality?.locality.area || 'Nellore';
+        const cleanAddress = `${cleanStreet}, ${cleanArea}, ${city}, Andhra Pradesh - ${pincode}`;
+
+        const result: ReverseGeocodeResult = {
+          formattedAddress: cleanAddress,
+          street: cleanStreet,
+          area: cleanArea,
+          city,
+          pincode,
+          state,
+          lat,
+          lng,
+        };
+
+        return NextResponse.json({ success: true, data: result });
+      }
+    } catch (osmErr) {
+      console.warn('[ReverseGeocode] Nominatim request error:', osmErr);
     }
 
-    const osmData = await osmRes.json();
-    const addr = osmData.address || {};
-
-    const rawRoad = (addr.road || addr.residential || '').trim();
-    const village = (addr.village || addr.hamlet || '').trim();
-    const suburb = (addr.suburb || addr.neighbourhood || addr.quarter || '').trim();
-    const mandal = (addr.county || addr.subdistrict || addr.district || '').trim();
-    const city = (addr.city || addr.town || addr.municipality || 'Nellore').trim();
-    const pincode = (addr.postcode || '').trim();
-    const state = (addr.state || 'Andhra Pradesh').trim();
-
-    // Check if road is a highway or district road code (e.g. MDR032, SH57, NH16) or unnamed
-    const isTechnicalRoadCode =
-      !rawRoad ||
-      /^(MDR|SH|NH|ODR|VR|AH)[\s\-0-9]*/i.test(rawRoad) ||
-      /^[A-Z]{2,4}[0-9]+/i.test(rawRoad) ||
-      /^Unnamed/i.test(rawRoad) ||
-      /Road\s*[0-9]+$/i.test(rawRoad);
-
-    let street = '';
-    let area = '';
-
-    if (isTechnicalRoadCode) {
-      // Highway / district road codes (like MDR032) are technical navigation IDs, not delivery doorstep streets.
-      // Use village / hamlet / suburb / locality as the primary street address.
-      street = village || suburb || mandal || city;
-      area = [
-        mandal && mandal !== street ? mandal : '',
-        city && city !== mandal && city !== street ? city : '',
-      ]
-        .filter(Boolean)
-        .join(', ');
-    } else {
-      street = rawRoad;
-      area = [
-        village && village !== rawRoad ? village : '',
-        suburb && suburb !== village && suburb !== rawRoad ? suburb : '',
-        mandal && mandal !== village ? mandal : '',
-      ]
-        .filter(Boolean)
-        .join(', ');
+    // 3. Robust Nellore Local Database Match Fallback (Zero Network Dependency)
+    if (nearestLocality) {
+      const loc = nearestLocality.locality;
+      return NextResponse.json({
+        success: true,
+        data: {
+          formattedAddress: `${loc.name}, ${loc.area}, Nellore, Andhra Pradesh - ${loc.pincode}`,
+          street: loc.name,
+          area: loc.area,
+          city: 'Nellore',
+          pincode: loc.pincode,
+          state: 'Andhra Pradesh',
+          lat,
+          lng,
+        },
+      });
     }
 
-    if (!street) street = village || suburb || mandal || city;
-    if (!area) area = mandal || city;
-
-    const cleanDisplayAddress = [street, area && area !== street ? area : '', city, pincode]
-      .filter(Boolean)
-      .join(', ');
-
-    const result: ReverseGeocodeResult = {
-      formattedAddress: cleanDisplayAddress || osmData.display_name || `${city}, ${state}`,
-      street,
-      area,
-      city,
-      pincode,
-      state,
-      lat: Number(lat),
-      lng: Number(lng),
-    };
-
-    return NextResponse.json({ success: true, data: result });
-  } catch (error: any) {
-    console.error('[ReverseGeocode] API Error:', error);
-    // Graceful fallback: preserve exact user coordinates so GPS coordinates are never dropped
+    // Generic Nellore doorstep fallback
     return NextResponse.json({
       success: true,
       data: {
-        formattedAddress: `Detected GPS Location (${Number(lat || 0).toFixed(4)}, ${Number(lng || 0).toFixed(4)})`,
-        street: 'Current GPS Location',
+        formattedAddress: `GPS Location (${lat.toFixed(4)}, ${lng.toFixed(4)}), Nellore`,
+        street: 'Doorstep GPS Location',
         area: 'Nellore',
         city: 'Nellore',
-        pincode: '524003',
+        pincode: '524001',
         state: 'Andhra Pradesh',
-        lat: Number(lat || 0),
-        lng: Number(lng || 0),
+        lat,
+        lng,
+      },
+    });
+  } catch (error: any) {
+    console.error('[ReverseGeocode] Fatal API Error:', error);
+    return NextResponse.json({
+      success: true,
+      data: {
+        formattedAddress: `Doorstep GPS Location (${lat || 14.4485}, ${lng || 79.9792}), Nellore`,
+        street: 'Doorstep GPS Location',
+        area: 'Nellore',
+        city: 'Nellore',
+        pincode: '524001',
+        state: 'Andhra Pradesh',
+        lat: Number(lat || 14.4485),
+        lng: Number(lng || 79.9792),
       },
     });
   }

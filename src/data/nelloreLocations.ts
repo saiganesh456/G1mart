@@ -21,7 +21,15 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'padarupalli-hub',
     name: 'Padarupalli (Near G1 Mart Hub)',
-    aliases: ['padarupalli', 'padurupalli', 'govt hospital padarupalli', 'padarupally'],
+    aliases: [
+      'padarupalli',
+      'padara palli',
+      'padarapalli',
+      'padarupally',
+      'padaripalli',
+      'govt hospital padarupalli',
+      'govt hospital',
+    ],
     area: 'Padarupalli',
     city: 'Nellore',
     pincode: '524004',
@@ -31,9 +39,36 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
     zoneId: 'zone-0-5',
   },
   {
+    id: 'balaji-nagar',
+    name: 'Balaji Nagar',
+    aliases: [
+      'balaji',
+      'balaji nagar',
+      'balaji nellore',
+      'balajinagar',
+      'balaji nagar nellore',
+      'balaji nagar main road',
+      'ramji nagar',
+    ],
+    area: 'Balaji Nagar',
+    city: 'Nellore',
+    pincode: '524002',
+    lat: 14.4485,
+    lng: 79.9792,
+    landmark: 'Balaji Nagar 1st Lane to 4th Lane',
+    zoneId: 'zone-0-5',
+  },
+  {
     id: 'magunta-layout',
     name: 'Magunta Layout',
-    aliases: ['magunta', 'magunta layout', 'magunta statue', 'magunta nagar'],
+    aliases: [
+      'magunta',
+      'magunta layout',
+      'magunta nellore',
+      'magunta statue',
+      'magunta nagar',
+      'magunta layout nellore',
+    ],
     area: 'Magunta Layout',
     city: 'Nellore',
     pincode: '524003',
@@ -45,7 +80,13 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'pogathota',
     name: 'Pogathota',
-    aliases: ['pogathota', 'poga thota', 'pogathota main road'],
+    aliases: [
+      'pogathota',
+      'poga thota',
+      'pogathota nellore',
+      'pogathota main road',
+      'gandhi statue',
+    ],
     area: 'Pogathota',
     city: 'Nellore',
     pincode: '524001',
@@ -57,7 +98,16 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'vrc-centre',
     name: 'VRC Centre / Trunk Road',
-    aliases: ['vrc', 'vrc centre', 'vrc center', 'trunk road', 'vrc circle'],
+    aliases: [
+      'vrc',
+      'vrc centre',
+      'vrc center',
+      'vrc nellore',
+      'trunk road',
+      'trunk road nellore',
+      'vrc circle',
+      'vr college',
+    ],
     area: 'VRC Centre',
     city: 'Nellore',
     pincode: '524001',
@@ -67,21 +117,9 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
     zoneId: 'zone-0-5',
   },
   {
-    id: 'balaji-nagar',
-    name: 'Balaji Nagar',
-    aliases: ['balaji', 'balaji nagar', 'balajinagar', 'balaji nagar main road'],
-    area: 'Balaji Nagar',
-    city: 'Nellore',
-    pincode: '524002',
-    lat: 14.4485,
-    lng: 79.9792,
-    landmark: 'Balaji Nagar 1st Lane to 4th Lane',
-    zoneId: 'zone-0-5',
-  },
-  {
     id: 'haranathapuram',
     name: 'Haranathapuram',
-    aliases: ['haranathapuram', 'haranadhapuram', 'harinathapuram'],
+    aliases: ['haranathapuram', 'haranadhapuram', 'harinathapuram', 'haranathapuram nellore'],
     area: 'Haranathapuram',
     city: 'Nellore',
     pincode: '524003',
@@ -93,7 +131,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'dargamitta',
     name: 'Dargamitta',
-    aliases: ['dargamitta', 'darga mitta', 'collector office'],
+    aliases: ['dargamitta', 'darga mitta', 'collector office', 'dargamitta nellore'],
     area: 'Dargamitta',
     city: 'Nellore',
     pincode: '524003',
@@ -105,7 +143,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'vedayapalem',
     name: 'Vedayapalem',
-    aliases: ['vedayapalem', 'vedayapalem bypass', 'vedayapalam'],
+    aliases: ['vedayapalem', 'vedayapalem bypass', 'vedayapalam', 'vedayapalem nellore'],
     area: 'Vedayapalem',
     city: 'Nellore',
     pincode: '524004',
@@ -117,7 +155,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'bv-nagar',
     name: 'BV Nagar (Babu Jagjivan Ram Nagar)',
-    aliases: ['bv nagar', 'b.v. nagar', 'bhavani nagar', 'bvnagar'],
+    aliases: ['bv nagar', 'b.v. nagar', 'bhavani nagar', 'bvnagar', 'bv nagar nellore'],
     area: 'BV Nagar',
     city: 'Nellore',
     pincode: '524004',
@@ -129,7 +167,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'stonehousepet',
     name: 'Stonehousepet',
-    aliases: ['stonehousepet', 'stonehouse pet', 'stone house pet'],
+    aliases: ['stonehousepet', 'stonehouse pet', 'stone house pet', 'stonehousepet nellore'],
     area: 'Stonehousepet',
     city: 'Nellore',
     pincode: '524002',
@@ -141,7 +179,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'santhapet',
     name: 'Santhapet',
-    aliases: ['santhapet', 'shanthapet', 'santha pet'],
+    aliases: ['santhapet', 'shanthapet', 'santha pet', 'santhapet nellore'],
     area: 'Santhapet',
     city: 'Nellore',
     pincode: '524001',
@@ -153,7 +191,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'childrens-park',
     name: 'Childrens Park Road',
-    aliases: ['childrens park', 'children park', 'children park road'],
+    aliases: ['childrens park', 'children park', 'children park road', 'childrens park nellore'],
     area: 'Childrens Park Road',
     city: 'Nellore',
     pincode: '524003',
@@ -165,7 +203,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'ramalingapuram',
     name: 'Ramalingapuram',
-    aliases: ['ramalingapuram', 'ramalinga puram'],
+    aliases: ['ramalingapuram', 'ramalinga puram', 'ramalingapuram nellore'],
     area: 'Ramalingapuram',
     city: 'Nellore',
     pincode: '524003',
@@ -177,7 +215,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'podalakur-road',
     name: 'Podalakur Road',
-    aliases: ['podalakur road', 'podalakuru road'],
+    aliases: ['podalakur road', 'podalakuru road', 'podalakur road nellore'],
     area: 'Podalakur Road',
     city: 'Nellore',
     pincode: '524004',
@@ -189,7 +227,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'fathekhanpet',
     name: 'Fathekhanpet',
-    aliases: ['fathekhanpet', 'fateh khan pet'],
+    aliases: ['fathekhanpet', 'fateh khan pet', 'fathekhanpet nellore'],
     area: 'Fathekhanpet',
     city: 'Nellore',
     pincode: '524003',
@@ -201,7 +239,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'nawabpet',
     name: 'Nawabpet',
-    aliases: ['nawabpet', 'nawab pet'],
+    aliases: ['nawabpet', 'nawab pet', 'nawabpet nellore'],
     area: 'Nawabpet',
     city: 'Nellore',
     pincode: '524002',
@@ -213,7 +251,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'mini-bypass',
     name: 'Mini Bypass Road',
-    aliases: ['mini bypass', 'mini bypass road', 'current office'],
+    aliases: ['mini bypass', 'mini bypass road', 'current office', 'mini bypass nellore'],
     area: 'Mini Bypass Road',
     city: 'Nellore',
     pincode: '524003',
@@ -225,7 +263,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'kallurpalli',
     name: 'Kallurpalli',
-    aliases: ['kallurpalli', 'kalluru palli', 'kallurpally'],
+    aliases: ['kallurpalli', 'kalluru palli', 'kallurpally', 'kallurpalli nellore'],
     area: 'Kallurpalli',
     city: 'Nellore',
     pincode: '524004',
@@ -236,8 +274,14 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   },
   {
     id: 'chinthareddypalem',
-    name: 'Chinthareddypalem',
-    aliases: ['chinthareddypalem', 'chintha reddy palem', 'narayana hospital'],
+    name: 'Chinthareddypalem (Narayana Hospital)',
+    aliases: [
+      'chinthareddypalem',
+      'chintha reddy palem',
+      'narayana hospital',
+      'narayana medical college',
+      'chinthareddypalem nellore',
+    ],
     area: 'Chinthareddypalem',
     city: 'Nellore',
     pincode: '524002',
@@ -249,7 +293,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'nellore-railway-station',
     name: 'Nellore Railway Station',
-    aliases: ['railway station', 'nellore station', 'station road'],
+    aliases: ['railway station', 'nellore station', 'station road', 'railway station nellore'],
     area: 'Station Road',
     city: 'Nellore',
     pincode: '524001',
@@ -261,7 +305,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'rtc-bus-stand',
     name: 'RTC Bus Stand (Nellore Central)',
-    aliases: ['bus stand', 'rtc bus stand', 'atmaram bus stand'],
+    aliases: ['bus stand', 'rtc bus stand', 'atmaram bus stand', 'central bus stand nellore'],
     area: 'Central Bus Stand Area',
     city: 'Nellore',
     pincode: '524001',
@@ -275,7 +319,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'kovur',
     name: 'Kovur',
-    aliases: ['kovur', 'kovuru', 'kovur toll plaza'],
+    aliases: ['kovur', 'kovuru', 'kovur toll plaza', 'kovur nellore'],
     area: 'Kovur',
     city: 'Nellore',
     pincode: '524137',
@@ -287,7 +331,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'damaramadugu',
     name: 'Damaramadugu',
-    aliases: ['damaramadugu', 'dhamaramadugu'],
+    aliases: ['damaramadugu', 'dhamaramadugu', 'damaramadugu nellore'],
     area: 'Damaramadugu',
     city: 'Nellore',
     pincode: '524137',
@@ -301,7 +345,12 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'venkatachalam',
     name: 'Venkatachalam',
-    aliases: ['venkatachalam', 'venkata chalam', 'swarna bharathi institute'],
+    aliases: [
+      'venkatachalam',
+      'venkata chalam',
+      'swarna bharathi institute',
+      'venkatachalam nellore',
+    ],
     area: 'Venkatachalam',
     city: 'Nellore',
     pincode: '524320',
@@ -313,7 +362,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'indukurpet',
     name: 'Indukurpet',
-    aliases: ['indukurpet', 'indukurupeta', 'indukurupet'],
+    aliases: ['indukurpet', 'indukurupeta', 'indukurupet', 'indukurpet nellore'],
     area: 'Indukurpet',
     city: 'Nellore',
     pincode: '524314',
@@ -325,7 +374,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'kakupalli',
     name: 'Kakupalli',
-    aliases: ['kakupalli', 'kaku palli'],
+    aliases: ['kakupalli', 'kaku palli', 'kakupalli nellore'],
     area: 'Kakupalli',
     city: 'Nellore',
     pincode: '524320',
@@ -337,7 +386,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'kodavalur',
     name: 'Kodavalur',
-    aliases: ['kodavalur', 'kodavaluru'],
+    aliases: ['kodavalur', 'kodavaluru', 'kodavalur nellore'],
     area: 'Kodavalur',
     city: 'Nellore',
     pincode: '524316',
@@ -351,7 +400,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'buchireddypalem',
     name: 'Buchireddypalem',
-    aliases: ['buchireddypalem', 'buchi', 'buchireddy palem'],
+    aliases: ['buchireddypalem', 'buchi', 'buchireddy palem', 'buchireddypalem nellore'],
     area: 'Buchireddypalem',
     city: 'Nellore',
     pincode: '524305',
@@ -363,7 +412,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'muthukur',
     name: 'Muthukur',
-    aliases: ['muthukur', 'muthukuru', 'krishnapatnam port road'],
+    aliases: ['muthukur', 'muthukuru', 'krishnapatnam port road', 'muthukur nellore'],
     area: 'Muthukur',
     city: 'Nellore',
     pincode: '524344',
@@ -375,7 +424,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'podalakur-town',
     name: 'Podalakur (Mandal)',
-    aliases: ['podalakur', 'podalakuru', 'podalukur'],
+    aliases: ['podalakur', 'podalakuru', 'podalukur', 'podalakur nellore'],
     area: 'Podalakur',
     city: 'Nellore',
     pincode: '524345',
@@ -387,7 +436,7 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   {
     id: 'allur',
     name: 'Allur',
-    aliases: ['allur', 'alluru'],
+    aliases: ['allur', 'alluru', 'allur nellore'],
     area: 'Allur',
     city: 'Nellore',
     pincode: '524315',
@@ -399,42 +448,94 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
 ];
 
 /**
- * Instant in-memory search for Nellore locations.
- * Works even with 1 single character or word.
+ * Intelligent token-based search for Nellore locations.
+ * Matches multi-word queries like "Balaji Nellore", "Padara Palli", "Magunta Layout", etc.
  */
 export function searchNelloreLocations(query: string, limit = 8): NelloreAreaItem[] {
   const clean = query.trim().toLowerCase();
   if (!clean) return [];
 
-  // 1. Exact or prefix matches on name / aliases
-  const prefixMatches: NelloreAreaItem[] = [];
-  const substringMatches: NelloreAreaItem[] = [];
+  const tokens = clean.split(/\s+/).filter(Boolean);
+
+  // Exact or prefix matches on entire phrase
+  const topMatches: NelloreAreaItem[] = [];
+  const tokenMatches: NelloreAreaItem[] = [];
+  const partialMatches: NelloreAreaItem[] = [];
 
   for (const item of NELLORE_LOCALITIES) {
     const nameLower = item.name.toLowerCase();
     const areaLower = item.area.toLowerCase();
     const landmarkLower = (item.landmark || '').toLowerCase();
+    const aliasStr = item.aliases.join(' ').toLowerCase();
+    const fullText = `${nameLower} ${areaLower} ${landmarkLower} ${aliasStr} nellore`;
 
-    const isPrefix =
-      nameLower.startsWith(clean) ||
-      areaLower.startsWith(clean) ||
-      item.aliases.some((a) => a.startsWith(clean));
+    // 1. Direct exact/prefix match
+    if (nameLower.startsWith(clean) || areaLower.startsWith(clean) || item.aliases.some((a) => a.startsWith(clean))) {
+      topMatches.push(item);
+      continue;
+    }
 
-    if (isPrefix) {
-      prefixMatches.push(item);
-    } else {
-      const isSubstring =
-        nameLower.includes(clean) ||
-        areaLower.includes(clean) ||
-        landmarkLower.includes(clean) ||
-        item.aliases.some((a) => a.includes(clean)) ||
-        item.pincode.startsWith(clean);
+    // 2. All tokens match (e.g. "Balaji" + "Nellore")
+    const allTokensMatch = tokens.every((tok) => fullText.includes(tok));
+    if (allTokensMatch) {
+      tokenMatches.push(item);
+      continue;
+    }
 
-      if (isSubstring) {
-        substringMatches.push(item);
-      }
+    // 3. Any token matches (excluding generic 'nellore' if query has other tokens)
+    const substantiveTokens = tokens.filter((t) => t !== 'nellore');
+    const searchTokens = substantiveTokens.length > 0 ? substantiveTokens : tokens;
+    const someTokenMatches = searchTokens.some((tok) => fullText.includes(tok));
+    if (someTokenMatches) {
+      partialMatches.push(item);
     }
   }
 
-  return [...prefixMatches, ...substringMatches].slice(0, limit);
+  const combined = [...topMatches, ...tokenMatches, ...partialMatches];
+  // Deduplicate by ID
+  const seen = new Set<string>();
+  const unique: NelloreAreaItem[] = [];
+  for (const item of combined) {
+    if (!seen.has(item.id)) {
+      seen.add(item.id);
+      unique.push(item);
+    }
+  }
+
+  return unique.slice(0, limit);
+}
+
+/**
+ * Find the closest Nellore locality from given GPS coordinates
+ */
+export function findNearestNelloreLocality(lat: number, lng: number): { locality: NelloreAreaItem; distanceKm: number } | null {
+  if (!lat || !lng) return null;
+
+  let closest: NelloreAreaItem | null = null;
+  let minDistance = Infinity;
+
+  for (const item of NELLORE_LOCALITIES) {
+    const R = 6371;
+    const dLat = (lat - item.lat) * (Math.PI / 180);
+    const dLon = (lng - item.lng) * (Math.PI / 180);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(item.lat * (Math.PI / 180)) *
+        Math.cos(lat * (Math.PI / 180)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const dist = R * c;
+
+    if (dist < minDistance) {
+      minDistance = dist;
+      closest = item;
+    }
+  }
+
+  if (closest && minDistance <= 35) {
+    return { locality: closest, distanceKm: Math.round(minDistance * 10) / 10 };
+  }
+
+  return null;
 }

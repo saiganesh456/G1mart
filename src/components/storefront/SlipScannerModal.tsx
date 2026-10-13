@@ -405,7 +405,235 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
     }
   };
 
-  if (!isOpen) return null;
+  if (step === 'details' || step === 'success') {
+    return (
+      <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto animate-in fade-in duration-200">
+        <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col my-auto animate-in zoom-in-95 duration-200">
+          {step === 'details' ? (
+            <>
+              {/* Header */}
+              <div className="px-5 py-4 bg-gradient-to-r from-emerald-50 via-white to-white border-b border-stone-100 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-emerald-100 text-[#2E7D32] flex items-center justify-center shrink-0 shadow-2xs">
+                    <FileText className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h2 className="text-base font-black text-stone-900 leading-tight">
+                      Your Contact Information
+                    </h2>
+                    <p className="text-xs text-stone-500 font-medium mt-0.5">
+                      Store staff will call you once your {capturedPhotos.length} slip {capturedPhotos.length === 1 ? 'page is' : 'pages are'} reviewed
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors cursor-pointer"
+                  aria-label="Close"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Form & Content */}
+              <div className="p-5 space-y-4 max-h-[78vh] overflow-y-auto">
+                {/* Captured Pages Strip */}
+                {capturedPhotos.length > 0 && (
+                  <div className="flex items-center gap-2.5 p-2 rounded-2xl bg-stone-50 border border-stone-200/70 overflow-x-auto">
+                    {capturedPhotos.map((photo, idx) => (
+                      <div
+                        key={photo.id}
+                        className="relative w-14 h-20 rounded-xl overflow-hidden border-2 border-emerald-500/80 shadow-xs bg-white shrink-0"
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={photo.previewUrl}
+                          alt={`Slip Page ${idx + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                        <span className="absolute bottom-0 inset-x-0 bg-black/75 text-[9px] text-white font-black text-center py-0.5">
+                          Page {idx + 1}
+                        </span>
+                      </div>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={handleAddAnother}
+                      className="h-20 px-3 rounded-xl border border-dashed border-stone-300 hover:border-emerald-500 text-stone-500 hover:text-emerald-700 flex flex-col items-center justify-center gap-1 text-[10px] font-bold shrink-0 transition-colors cursor-pointer"
+                    >
+                      <Plus className="w-4 h-4" />
+                      <span>Add Page</span>
+                    </button>
+                  </div>
+                )}
+
+                {/* Delivery Address Pill */}
+                <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 text-xs text-stone-800">
+                  <div className="w-6 h-6 rounded-lg bg-emerald-100 text-[#2E7D32] flex items-center justify-center shrink-0">
+                    <MapPin className="w-3.5 h-3.5" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <span className="text-[10px] text-emerald-800 font-extrabold uppercase tracking-wide block">
+                      Delivering to
+                    </span>
+                    <span className="text-xs text-stone-900 font-bold truncate block">
+                      {currentLocation.formattedAddress || 'Padarupalli, Nellore'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Form Fields */}
+                <div className="space-y-3.5">
+                  <div>
+                    <label className="text-xs font-bold text-stone-700 block mb-1">
+                      Full Name <span className="text-stone-400 font-normal">(Optional)</span>
+                    </label>
+                    <div className="relative">
+                      <User className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                      <input
+                        type="text"
+                        value={customerName}
+                        onChange={(e) => setCustomerName(e.target.value)}
+                        placeholder="e.g. Ramesh / Lakshmi"
+                        className="w-full h-11 pl-10 pr-3.5 rounded-xl bg-stone-50 border border-stone-300 text-stone-900 text-sm outline-none transition-colors focus:bg-white focus:border-[#2E7D32] focus:ring-2 focus:ring-emerald-500/20"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-bold text-stone-700 block mb-1">
+                      Mobile Number <span className="text-rose-500 font-bold">*</span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-stone-600 text-xs font-extrabold pointer-events-none pr-2 border-r border-stone-300">
+                        <Phone className="w-3.5 h-3.5 text-stone-500" />
+                        <span>+91</span>
+                      </div>
+                      <input
+                        type="tel"
+                        value={customerPhone}
+                        onChange={(e) => setCustomerPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
+                        placeholder="10-digit mobile number"
+                        maxLength={10}
+                        className="w-full h-11 pl-20 pr-3.5 rounded-xl bg-stone-50 border border-stone-300 text-stone-900 text-sm font-medium tracking-wide outline-none transition-colors focus:bg-white focus:border-[#2E7D32] focus:ring-2 focus:ring-emerald-500/20"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-bold text-stone-700 block mb-1">
+                      Special Notes for Store <span className="text-stone-400 font-normal">(Optional)</span>
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={deliveryNote}
+                      onChange={(e) => setDeliveryNote(e.target.value)}
+                      placeholder="e.g. Please deliver by 6 PM, include only Tata brand pulses"
+                      className="w-full p-3 rounded-xl bg-stone-50 border border-stone-300 text-stone-900 text-xs outline-none transition-colors focus:bg-white focus:border-[#2E7D32] focus:ring-2 focus:ring-emerald-500/20 resize-none"
+                    />
+                  </div>
+
+                  {uploadError && (
+                    <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 flex items-start gap-2">
+                      <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-600" />
+                      <span>{uploadError}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Buttons */}
+                <div className="flex gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setStep('preview')}
+                    className="flex-1 py-3 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs sm:text-sm rounded-xl transition-all cursor-pointer"
+                  >
+                    Back to Preview
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleUpload}
+                    disabled={isUploading}
+                    className="flex-1 py-3 bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+                  >
+                    {isUploading ? (
+                      <>
+                        <RefreshCw className="w-4 h-4 animate-spin" />
+                        <span>Sending List...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Confirm &amp; Send</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </>
+          ) : (
+            /* Success confirmation */
+            <div className="p-6 text-center space-y-4">
+              <div className="w-16 h-16 rounded-full bg-emerald-100 text-[#2E7D32] flex items-center justify-center mx-auto shadow-xs">
+                <CheckCircle2 className="w-10 h-10" />
+              </div>
+
+              <div className="space-y-1.5">
+                <h3 className="text-base sm:text-lg font-black text-stone-900 leading-snug">
+                  We received your list. Our team will call you to confirm
+                </h3>
+                <p className="text-xs text-stone-600 leading-relaxed max-w-sm mx-auto">
+                  Our store staff has received your handwritten grocery list. We will prepare your bill and call you on{' '}
+                  <span className="text-stone-900 font-bold">+91 {customerPhone}</span> to confirm items and pricing.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-stone-50 border border-stone-200 text-left text-xs space-y-2">
+                <div className="flex justify-between items-center text-stone-500">
+                  <span>Slip Order ID:</span>
+                  <span className="font-mono text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md font-bold">
+                    {uploadedSlipId}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center text-stone-500">
+                  <span>Live Status:</span>
+                  <span className="text-emerald-700 font-bold flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
+                    <span>SLIP_RECEIVED (In Queue)</span>
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-2.5 pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    if (uploadedSlipId) {
+                      router.push(`/orders/${uploadedSlipId}`);
+                    }
+                  }}
+                  className="w-full py-3 bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-extrabold text-xs sm:text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 active:scale-[0.99]"
+                >
+                  <span>Track Live Status in Orders</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="w-full py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs rounded-xl transition-all cursor-pointer"
+                >
+                  Continue Shopping
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex flex-col justify-between overflow-hidden touch-none select-none">
@@ -559,190 +787,6 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
                   <span className="text-[9px] font-bold mt-0.5">Add</span>
                 </button>
               )}
-            </div>
-          </div>
-        )}
-
-        {/* ── STEP 3: CUSTOMER PHONE/NAME DETAILS ── */}
-        {step === 'details' && (
-          <div className="w-full max-w-sm px-4 py-5 bg-stone-900 rounded-3xl border border-stone-800 mx-4 space-y-3.5 max-h-[88vh] overflow-y-auto">
-            <div className="text-center">
-              <h3 className="text-base font-extrabold text-white">Your Contact Information</h3>
-              <p className="text-xs text-stone-400 mt-1">
-                Store staff will contact you via Phone/WhatsApp once your {capturedPhotos.length} slip {capturedPhotos.length === 1 ? 'page is' : 'pages are'} reviewed.
-              </p>
-            </div>
-
-            {/* Captured Pages Strip */}
-            {capturedPhotos.length > 0 && (
-              <div className="flex items-center justify-center gap-2 py-0.5">
-                {capturedPhotos.map((photo, idx) => (
-                  <div
-                    key={photo.id}
-                    className="relative w-12 h-16 rounded-lg overflow-hidden border border-emerald-500/80 shadow-md bg-black"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={photo.previewUrl}
-                      alt={`Slip Page ${idx + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                    <span className="absolute bottom-0 inset-x-0 bg-black/80 text-[8px] text-white font-bold text-center py-0.5">
-                      p.{idx + 1}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Delivery Address Pill */}
-            <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-stone-800/80 border border-stone-700/60 text-xs">
-              <MapPin className="w-3.5 h-3.5 text-[#4CAF50] shrink-0" />
-              <div className="min-w-0 flex-1">
-                <span className="text-[10px] text-stone-400 block leading-tight">Deliver to</span>
-                <span className="text-[11px] text-stone-200 font-semibold truncate block">
-                  {currentLocation.formattedAddress || 'Nellore'}
-                </span>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <div>
-                <label className="text-[11px] font-bold text-stone-400 block mb-1">
-                  Full Name (Optional)
-                </label>
-                <div className="relative">
-                  <User className="w-4 h-4 text-stone-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="text"
-                    value={customerName}
-                    onChange={(e) => setCustomerName(e.target.value)}
-                    placeholder="e.g. Ramesh"
-                    className="w-full h-11 pl-9 pr-3 rounded-xl bg-stone-800 border border-stone-700 text-white text-sm outline-none focus:border-[#4CAF50]"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="text-[11px] font-bold text-stone-400 block mb-1">
-                  Mobile Number <span className="text-red-400">*</span>
-                </label>
-                <div className="relative">
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-stone-400 text-xs font-bold pointer-events-none">
-                    <Phone className="w-3.5 h-3.5 text-stone-500" />
-                    <span>+91</span>
-                  </div>
-                  <input
-                    type="tel"
-                    value={customerPhone}
-                    onChange={(e) => setCustomerPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                    placeholder="10-digit mobile number"
-                    maxLength={10}
-                    className="w-full h-11 pl-16 pr-3 rounded-xl bg-stone-800 border border-stone-700 text-white text-sm outline-none focus:border-[#4CAF50]"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="text-[11px] font-bold text-stone-400 block mb-1">
-                  Special Notes for Store (Optional)
-                </label>
-                <textarea
-                  rows={2}
-                  value={deliveryNote}
-                  onChange={(e) => setDeliveryNote(e.target.value)}
-                  placeholder="e.g. Please deliver by 6 PM, include only Tata brand pulses"
-                  className="w-full p-2.5 rounded-xl bg-stone-800 border border-stone-700 text-white text-xs outline-none focus:border-[#4CAF50]"
-                />
-              </div>
-
-              {uploadError && (
-                <p className="text-xs text-rose-400 font-semibold bg-rose-950/40 p-2.5 rounded-xl border border-rose-800/60">
-                  {uploadError}
-                </p>
-              )}
-            </div>
-
-            <div className="flex gap-2.5 pt-2">
-              <button
-                type="button"
-                onClick={() => setStep('preview')}
-                className="flex-1 py-3 bg-stone-800 hover:bg-stone-700 text-stone-300 font-bold text-xs rounded-xl transition-all cursor-pointer"
-              >
-                Back to Preview
-              </button>
-              <button
-                type="button"
-                onClick={handleUpload}
-                disabled={isUploading}
-                className="flex-1 py-3 bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
-              >
-                {isUploading ? (
-                  <>
-                    <RefreshCw className="w-4 h-4 animate-spin" />
-                    <span>Sending...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Confirm &amp; Send</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* ── STEP 4: SUCCESS CONFIRMATION ── */}
-        {step === 'success' && (
-          <div className="w-full max-w-sm px-6 py-8 bg-stone-900 rounded-3xl border border-stone-800 mx-4 text-center space-y-4 shadow-2xl">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-[#4CAF50] flex items-center justify-center mx-auto">
-              <CheckCircle2 className="w-10 h-10" />
-            </div>
-
-            <div className="space-y-1.5">
-              <h3 className="text-base sm:text-lg font-black text-white leading-snug">
-                We received your list. Our team will call you to confirm
-              </h3>
-              <p className="text-xs text-stone-300 leading-relaxed">
-                Our store staff has received your handwritten grocery list. We will prepare your bill and call you on{' '}
-                <span className="text-white font-bold">{customerPhone}</span> to confirm items and pricing.
-              </p>
-            </div>
-
-            <div className="p-3 rounded-2xl bg-stone-800/80 border border-stone-700/80 text-left text-xs space-y-1.5">
-              <div className="flex justify-between text-stone-400">
-                <span>Slip Order ID:</span>
-                <span className="font-mono text-emerald-400 font-bold">{uploadedSlipId}</span>
-              </div>
-              <div className="flex justify-between text-stone-400">
-                <span>Live Status:</span>
-                <span className="text-emerald-400 font-bold">SLIP_RECEIVED (In Queue)</span>
-              </div>
-            </div>
-
-            <div className="space-y-2 pt-1">
-              <button
-                type="button"
-                onClick={() => {
-                  onClose();
-                  if (uploadedSlipId) {
-                    router.push(`/orders/${uploadedSlipId}`);
-                  }
-                }}
-                className="w-full py-3 bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-extrabold text-xs sm:text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
-              >
-                <span>Track Live Status in Orders</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-
-              <button
-                type="button"
-                onClick={onClose}
-                className="w-full py-2.5 bg-stone-800 hover:bg-stone-700 text-stone-300 font-bold text-xs rounded-xl transition-all cursor-pointer"
-              >
-                Continue Shopping
-              </button>
             </div>
           </div>
         )}

@@ -12,10 +12,9 @@ import {
   AlertTriangle,
   ArrowLeft,
   ChevronRight,
-  ShieldCheck,
 } from 'lucide-react';
 import { useLocation, DeliveryLocation } from '@/context/LocationContext';
-import { NELLORE_AREAS } from '@/services/deliveryZoneService';
+import { searchNelloreLocations } from '@/data/nelloreLocations';
 
 interface Props {
   isOpen: boolean;
@@ -24,7 +23,7 @@ interface Props {
 }
 
 /**
- * Store hub coordinates (Beside Govt Hospital, Padarupalli, Nellore)
+ * Store hub coordinates (Govt Hospital, Beside Padarupalli, Nellore)
  */
 const STORE_LAT = 14.4329;
 const STORE_LNG = 79.9680;
@@ -100,15 +99,15 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
   const [isLocatingDevice, setIsLocatingDevice] = useState(false);
 
   // Selected Pin Coordinates & Resolved Address
-  const [pinLat, setPinLat] = useState<number>(() => currentLocation.lat || STORE_LAT);
-  const [pinLng, setPinLng] = useState<number>(() => currentLocation.lng || STORE_LNG);
+  const [pinLat, setPinLat] = useState<number>(() => currentLocation.lat || 14.4447);
+  const [pinLng, setPinLng] = useState<number>(() => currentLocation.lng || 79.9882);
   const [resolvedAddress, setResolvedAddress] = useState<string>(
-    () => currentLocation.formattedAddress || 'Padarupalli, Beside Govt Hospital, Nellore'
+    () => currentLocation.formattedAddress || 'VRC Centre, Trunk Road, Nellore'
   );
-  const [resolvedStreet, setResolvedStreet] = useState<string>(() => currentLocation.street || '');
-  const [resolvedArea, setResolvedArea] = useState<string>(() => currentLocation.area || 'Padarupalli');
+  const [resolvedStreet, setResolvedStreet] = useState<string>(() => currentLocation.street || 'VRC Centre');
+  const [resolvedArea, setResolvedArea] = useState<string>(() => currentLocation.area || 'Nellore');
   const [resolvedCity, setResolvedCity] = useState<string>(() => currentLocation.city || 'Nellore');
-  const [resolvedPincode, setResolvedPincode] = useState<string>(() => currentLocation.pincode || '524004');
+  const [resolvedPincode, setResolvedPincode] = useState<string>(() => currentLocation.pincode || '524001');
 
   const [leafletReady, setLeafletReady] = useState(false);
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -133,7 +132,7 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
     }
   }, [isOpen, currentLocation]);
 
-  // Dynamically load Leaflet assets if not already available
+  // Dynamically load Leaflet assets
   useEffect(() => {
     if (typeof window === 'undefined' || !isOpen) return;
 
@@ -189,23 +188,23 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
     }
   }, []);
 
-  // Initialize and maintain the Leaflet map and pin
+  // Initialize Leaflet map and pin
   useEffect(() => {
     if (!isOpen || !leafletReady || !mapContainerRef.current) return;
     const L = (window as any).L;
     if (!L) return;
 
-    const lat = Number(pinLat || STORE_LAT);
-    const lng = Number(pinLng || STORE_LNG);
+    const lat = Number(pinLat || 14.4447);
+    const lng = Number(pinLng || 79.9882);
 
-    // Destroy any existing map instance to prevent leaks and detached container bugs
+    // Destroy existing instance to prevent detached container bugs
     if (mapInstanceRef.current) {
       mapInstanceRef.current.remove();
       mapInstanceRef.current = null;
       markerInstanceRef.current = null;
     }
 
-    // Clean custom pin SVG icon with needle pointing precisely to coordinates
+    // Custom needle pin SVG icon
     const customPin = L.divIcon({
       className: 'g1-map-marker-pin',
       html: `
@@ -220,7 +219,6 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
       iconAnchor: [18, 44],
     });
 
-    // Create fresh Leaflet map
     const map = L.map(mapContainerRef.current, {
       zoomControl: true,
       attributionControl: false,
@@ -230,21 +228,18 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
       maxZoom: 19,
     }).addTo(map);
 
-    // Create draggable marker
     const marker = L.marker([lat, lng], {
       draggable: true,
       icon: customPin,
       riseOnHover: true,
     }).addTo(map);
 
-    // When pin is dragged, update coordinates and reverse-geocode
     marker.on('dragend', () => {
       const pos = marker.getLatLng();
       reverseGeocodeCoordinates(pos.lat, pos.lng);
       map.panTo([pos.lat, pos.lng]);
     });
 
-    // When map is clicked anywhere, move pin there and center map
     map.on('click', (e: any) => {
       marker.setLatLng(e.latlng);
       map.panTo(e.latlng);
@@ -254,7 +249,6 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
     mapInstanceRef.current = map;
     markerInstanceRef.current = marker;
 
-    // Invalidate map size after render to fix tile alignment & container geometry
     const t1 = setTimeout(() => map.invalidateSize(), 100);
     const t2 = setTimeout(() => map.invalidateSize(), 300);
 
@@ -269,7 +263,14 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
     };
   }, [isOpen, leafletReady, reverseGeocodeCoordinates]);
 
-  // Live address autocomplete search (triggers from 1 character/word)
+  // Sync marker position if pinLat / pinLng changes
+  useEffect(() => {
+    if (mapInstanceRef.current && markerInstanceRef.current && pinLat && pinLng) {
+      markerInstanceRef.current.setLatLng([pinLat, pinLng]);
+    }
+  }, [pinLat, pinLng]);
+
+  // Live address autocomplete search
   useEffect(() => {
     const trimmed = searchQuery.trim();
     if (!trimmed) {
@@ -278,12 +279,30 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
       return;
     }
 
+    // First do immediate local search for instant feedback
+    const instantLocal = searchNelloreLocations(trimmed, 6).map((loc) => ({
+      id: `local-${loc.id}`,
+      title: loc.name,
+      subtitle: [loc.landmark, loc.area, `Nellore - ${loc.pincode}`].filter(Boolean).join(', '),
+      fullAddress: `${loc.name}, ${loc.area}, Nellore, Andhra Pradesh - ${loc.pincode}`,
+      area: loc.area,
+      city: loc.city,
+      pincode: loc.pincode,
+      lat: loc.lat,
+      lng: loc.lng,
+      isLocalNellore: true,
+    }));
+
+    if (instantLocal.length > 0) {
+      setSuggestions(instantLocal);
+    }
+
     const timer = setTimeout(async () => {
       setIsSearching(true);
       try {
         const res = await fetch(`/api/location/search?q=${encodeURIComponent(trimmed)}`);
         const json = await res.json();
-        if (res.ok && json.success && Array.isArray(json.data)) {
+        if (res.ok && json.success && Array.isArray(json.data) && json.data.length > 0) {
           setSuggestions(json.data);
         }
       } catch (err) {
@@ -291,12 +310,12 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
       } finally {
         setIsSearching(false);
       }
-    }, 200);
+    }, 150);
 
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  // When user clicks a suggestion: pin moves immediately to that location
+  // When user selects a suggestion: PIN MOVES IMMEDIATELY
   const handleSelectSuggestion = (item: any) => {
     const lat = Number(item.lat || STORE_LAT);
     const lng = Number(item.lng || STORE_LNG);
@@ -312,10 +331,38 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
     setSearchQuery(item.title || '');
     setSuggestions([]);
 
-    // Move map and marker smoothly
-    if (mapInstanceRef.current && markerInstanceRef.current) {
-      markerInstanceRef.current.setLatLng([lat, lng]);
-      mapInstanceRef.current.flyTo([lat, lng], 16, { animate: true, duration: 0.8 });
+    // Move map and marker directly
+    if (mapInstanceRef.current) {
+      mapInstanceRef.current.setView([lat, lng], 16);
+      if (markerInstanceRef.current) {
+        markerInstanceRef.current.setLatLng([lat, lng]);
+      }
+    }
+  };
+
+  // Handle Enter key on search input (e.g. typing "Balaji Nellore" + Enter)
+  const handleSearchSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const query = searchQuery.trim();
+    if (!query) return;
+
+    if (suggestions.length > 0) {
+      handleSelectSuggestion(suggestions[0]);
+    } else {
+      // Check local dataset directly
+      const matches = searchNelloreLocations(query, 1);
+      if (matches.length > 0) {
+        const loc = matches[0];
+        handleSelectSuggestion({
+          title: loc.name,
+          fullAddress: `${loc.name}, ${loc.area}, Nellore, Andhra Pradesh - ${loc.pincode}`,
+          area: loc.area,
+          city: loc.city,
+          pincode: loc.pincode,
+          lat: loc.lat,
+          lng: loc.lng,
+        });
+      }
     }
   };
 
@@ -323,6 +370,19 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
   const handleSelectPresetArea = (areaString: string) => {
     const areaName = areaString.split(',')[0].trim();
     setSearchQuery(areaName);
+    const matches = searchNelloreLocations(areaName, 1);
+    if (matches.length > 0) {
+      const loc = matches[0];
+      handleSelectSuggestion({
+        title: loc.name,
+        fullAddress: `${loc.name}, ${loc.area}, Nellore, Andhra Pradesh - ${loc.pincode}`,
+        area: loc.area,
+        city: loc.city,
+        pincode: loc.pincode,
+        lat: loc.lat,
+        lng: loc.lng,
+      });
+    }
   };
 
   // "Locate Me / GPS" button inside the map
@@ -339,9 +399,11 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
         setResolvedCity(loc.city || 'Nellore');
         setResolvedPincode(loc.pincode || '');
 
-        if (mapInstanceRef.current && markerInstanceRef.current) {
-          markerInstanceRef.current.setLatLng([loc.lat, loc.lng]);
-          mapInstanceRef.current.flyTo([loc.lat, loc.lng], 16, { animate: true, duration: 0.8 });
+        if (mapInstanceRef.current) {
+          mapInstanceRef.current.setView([loc.lat, loc.lng], 16);
+          if (markerInstanceRef.current) {
+            markerInstanceRef.current.setLatLng([loc.lat, loc.lng]);
+          }
         }
       }
     } catch (err) {
@@ -378,7 +440,6 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      {/* Global CSS to strip Leaflet default white borders from custom divIcon */}
       <style jsx global>{`
         .g1-map-marker-pin {
           background: transparent !important;
@@ -398,7 +459,7 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
                 Choose Delivery Location
               </h2>
               <p className="text-[11px] text-stone-500 font-medium">
-                {isMandatory ? 'Required to view nearby products & order' : 'Nellore delivery zone'}
+                Nellore Delivery Service
               </p>
             </div>
           </div>
@@ -407,36 +468,39 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
             type="button"
             onClick={onClose}
             className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors cursor-pointer"
-            aria-label="Close"
+            aria-label="Back"
           >
             {isMandatory ? <ArrowLeft className="w-4 h-4" /> : <X className="w-4 h-4" />}
           </button>
         </div>
 
-        {/* Search Bar with live autocomplete */}
+        {/* Search Bar with live autocomplete & Enter key submission */}
         <div className="p-3 sm:p-4 pb-2 border-b border-stone-100 shrink-0 relative bg-stone-50/50">
-          <div className="relative">
+          <form onSubmit={handleSearchSubmit} className="relative">
             <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Type area name (e.g. Magunta, Balaji Nagar, Kovur)..."
-              className="w-full h-11 pl-10 pr-10 rounded-2xl bg-white border border-stone-200 text-xs sm:text-sm font-medium text-stone-900 outline-none focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32]/10 transition-all placeholder:text-stone-400"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleSearchSubmit();
+                }
+              }}
+              placeholder="Search area (e.g. Balaji Nellore, Magunta, Kovur)..."
+              className="w-full h-11 pl-10 pr-16 rounded-2xl bg-white border border-stone-200 text-xs sm:text-sm font-medium text-stone-900 outline-none focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32]/10 transition-all placeholder:text-stone-400"
             />
             {isSearching && (
-              <RefreshCw className="w-3.5 h-3.5 text-[#2E7D32] animate-spin absolute right-3.5 top-1/2 -translate-y-1/2" />
+              <RefreshCw className="w-3.5 h-3.5 text-[#2E7D32] animate-spin absolute right-10 top-1/2 -translate-y-1/2" />
             )}
-            {searchQuery && !isSearching && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery('')}
-                className="w-5 h-5 rounded-full bg-stone-200 text-stone-600 hover:bg-stone-300 flex items-center justify-center absolute right-3 top-1/2 -translate-y-1/2 text-[10px] cursor-pointer"
-              >
-                ×
-              </button>
-            )}
-          </div>
+            <button
+              type="submit"
+              className="absolute right-2 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-[#1B5E20] text-white text-[11px] font-bold rounded-xl cursor-pointer hover:bg-[#154a19] transition-colors"
+            >
+              Go
+            </button>
+          </form>
 
           {/* Autocomplete Suggestions Dropdown */}
           {suggestions.length > 0 && (
@@ -461,8 +525,8 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
 
           {/* Popular quick areas tags */}
           <div className="flex items-center gap-1.5 overflow-x-auto py-2 no-scrollbar text-[11px]">
-            <span className="text-stone-400 font-semibold shrink-0">Quick:</span>
-            {['Magunta Layout', 'Balaji Nagar', 'Pogathota', 'VRC Centre', 'Kovur', 'Padarupalli'].map(
+            <span className="text-stone-400 font-semibold shrink-0">Popular:</span>
+            {['Balaji Nagar', 'Magunta Layout', 'Pogathota', 'VRC Centre', 'Kovur', 'Padarupalli'].map(
               (area) => (
                 <button
                   key={area}
@@ -484,7 +548,7 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
           {/* Map Top Helper Badge */}
           <div className="absolute top-2.5 left-2.5 z-10 bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-xl shadow-xs border border-stone-200 text-[10px] font-bold text-stone-700 flex items-center gap-1.5 pointer-events-none">
             <Navigation className="w-3 h-3 text-[#2E7D32]" />
-            <span>Tap map or drag pin to your exact doorstep</span>
+            <span>Tap map or drag pin to exact doorstep</span>
           </div>
 
           {/* Floating "Locate Me / GPS" Button */}
@@ -493,7 +557,7 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
             onClick={handleSnapToDeviceGps}
             disabled={isLocatingDevice || isDetecting}
             className="absolute bottom-3 right-3 z-10 bg-white hover:bg-emerald-50 text-[#1B5E20] font-bold text-[11px] px-3 py-2 rounded-xl shadow-lg border border-stone-200 flex items-center gap-1.5 transition-all active:scale-95 cursor-pointer disabled:opacity-60"
-            title="Snap pin to my current GPS location"
+            title="Snap pin to my device GPS"
           >
             {isLocatingDevice || isDetecting ? (
               <RefreshCw className="w-3.5 h-3.5 animate-spin" />
@@ -507,14 +571,13 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
           {isReverseGeocoding && (
             <div className="absolute bottom-3 left-3 z-10 bg-black/75 text-white px-2.5 py-1 rounded-lg text-[10px] font-medium flex items-center gap-1.5 animate-in fade-in">
               <RefreshCw className="w-3 h-3 animate-spin" />
-              <span>Fetching street address...</span>
+              <span>Fetching Nellore address...</span>
             </div>
           )}
         </div>
 
         {/* Bottom Section: Resolved Address & Delivery Details & Confirm Button */}
         <div className="p-3.5 sm:p-4 bg-white border-t border-stone-100 space-y-3 shrink-0">
-          {/* Selected Address Display */}
           <div className="flex items-start gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-emerald-50 text-[#1B5E20] flex items-center justify-center shrink-0 mt-0.5">
               <MapPin className="w-4 h-4 stroke-[2]" />
@@ -534,7 +597,7 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
             </div>
           </div>
 
-          {/* Delivery Zone & Related ETA / Min Order Summary */}
+          {/* Delivery Zone Summary */}
           <div
             className={`p-2.5 rounded-xl border flex items-center justify-between text-xs transition-colors ${
               deliveryInfo.serviceable
@@ -552,12 +615,12 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
                 <p className="font-extrabold leading-tight">
                   {deliveryInfo.serviceable
                     ? `Delivery in ${deliveryInfo.etaText}`
-                    : 'Location outside 30 km serviceable radius'}
+                    : 'Location outside 30 km radius'}
                 </p>
                 <p className="text-[10px] text-stone-600 font-medium">
                   {deliveryInfo.serviceable
                     ? `${deliveryInfo.zoneName} · Min order ₹${deliveryInfo.minOrder} · Free Delivery`
-                    : 'Please select an address within 30 km of Padarupalli, Nellore'}
+                    : 'Please select an address within 30 km of Nellore'}
                 </p>
               </div>
             </div>

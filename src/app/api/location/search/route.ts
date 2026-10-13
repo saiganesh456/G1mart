@@ -27,8 +27,8 @@ export async function GET(request: NextRequest) {
       isLocalNellore: true,
     }));
 
-    // If we got strong local matches, return them directly for ultra-fast response
-    if (localSuggestions.length >= 3) {
+    // If we got local Nellore matches, return them directly for ultra-fast response
+    if (localSuggestions.length >= 1) {
       return NextResponse.json({ success: true, data: localSuggestions });
     }
 

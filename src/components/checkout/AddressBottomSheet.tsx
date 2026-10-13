@@ -76,14 +76,17 @@ export default function AddressBottomSheet({
         setFullName(user?.name || '');
         setPhone(user?.phone ? sanitizeIndianPhone(user.phone) : '');
         setHouseFlat('');
-        setStreetArea('');
-        setLandmark('');
-        setCity(STORE_CONFIG.address.city || 'Nellore');
-        setPincode('');
+        setStreetArea(currentLocation.street || currentLocation.area || '');
+        setLandmark(currentLocation.area !== currentLocation.street ? currentLocation.area : '');
+        setCity(currentLocation.city || STORE_CONFIG.address.city || 'Nellore');
+        setPincode(currentLocation.pincode || '');
         setAddressType('Home');
-        setLatitude(undefined);
-        setLongitude(undefined);
-        setAccuracy(undefined);
+        setLatitude(currentLocation.lat);
+        setLongitude(currentLocation.lng);
+        setAccuracy(currentLocation.accuracy);
+        if (currentLocation.lat && currentLocation.lng) {
+          setGpsSuccess(true);
+        }
       }
     }
   }, [isOpen, initialAddress, user]);
