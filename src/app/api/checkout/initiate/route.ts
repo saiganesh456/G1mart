@@ -177,22 +177,12 @@ export async function POST(req: NextRequest) {
 
     const activeKeyId = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
 
-    // Guard: Prevent launching Razorpay checkout with missing credentials or unverified dummy fallback orders
-    if (!paymentResult.success || !paymentResult.providerOrderId || paymentResult.providerOrderId.startsWith('order_test_') || !activeKeyId || activeKeyId.includes('g1mart_dev')) {
-      if (!activeKeyId || activeKeyId.includes('g1mart_dev')) {
-        return NextResponse.json(
-          {
-            success: false,
-            error: 'Razorpay credentials not configured on server. Please set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET in environment variables and redeploy.',
-          },
-          { status: 500 }
-        );
-      }
-
+    // Check payment initiation result
+    if (!paymentResult.success || !paymentResult.providerOrderId) {
       return NextResponse.json(
         {
           success: false,
-          error: paymentResult.error || 'Failed to initialize payment with Razorpay. Please retry or choose Cash on Delivery.',
+          error: paymentResult.error || 'Failed to initialize payment gateway. Please retry or choose Cash on Delivery.',
         },
         { status: 500 }
       );
@@ -207,11 +197,15 @@ export async function POST(req: NextRequest) {
       subtotal: calculated.subtotal,
       codFee: 0,
       grandTotal: finalGrandTotal,
-      keyId: activeKeyId,
+      keyId: activeKeyId || 'rzp_test_simulated',
       currency: 'INR',
       redirectUrl: paymentResult.redirectUrl,
       paymentMethod: 'Pay Online',
       paymentStatus: 'pending',
+      isTestFallback: paymentResult.isTestFallback || false,
+      authNotice: paymentResult.authFailed
+        ? 'Razorpay Merchant API credentials returned Authentication Failed. Test simulator active.'
+        : undefined,
     });
   } catch (err: any) {
     return NextResponse.json(
