@@ -7,15 +7,16 @@ import { useCart } from '@/context/CartContext';
 
 interface InnerPageHeaderProps {
   title: string;
+  subtitle?: string;
   onSearchClick?: () => void;
   showSearch?: boolean;
 }
 
 /**
- * Inner-page header — 56px, back arrow + title + optional search icon + Cart button.
+ * Inner-page header — 56px, back arrow + title + optional subtitle + optional search icon + Cart button.
  * Used on /categories, /category/[slug], /account, /orders.
  */
-export default function InnerPageHeader({ title, onSearchClick, showSearch }: InnerPageHeaderProps) {
+export default function InnerPageHeader({ title, subtitle, onSearchClick, showSearch }: InnerPageHeaderProps) {
   const router = useRouter();
   const { cartItemCount } = useCart();
 
@@ -36,13 +37,20 @@ export default function InnerPageHeader({ title, onSearchClick, showSearch }: In
         <ArrowLeft className="w-[22px] h-[22px]" strokeWidth={1.75} style={{ color: 'var(--g1-text)' }} />
       </button>
 
-      {/* Title */}
-      <h1
-        className="flex-1 text-center font-bold px-2 truncate"
-        style={{ fontSize: 17, color: 'var(--g1-text)', fontWeight: 700 }}
-      >
-        {title}
-      </h1>
+      {/* Title & Subtitle */}
+      <div className="flex-1 text-center px-2 min-w-0">
+        <h1
+          className="font-bold truncate leading-tight"
+          style={{ fontSize: subtitle ? 15 : 17, color: 'var(--g1-text)', fontWeight: 700 }}
+        >
+          {title}
+        </h1>
+        {subtitle && (
+          <p className="text-[11px] text-[var(--g1-text-secondary)] truncate leading-tight mt-0.5 font-medium">
+            {subtitle}
+          </p>
+        )}
+      </div>
 
       {/* Right side: Search + Cart icon */}
       <div className="flex items-center gap-1 shrink-0">
