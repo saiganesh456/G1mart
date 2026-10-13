@@ -234,7 +234,12 @@ export default function PaymentPage() {
       });
 
       // If server returned test fallback (e.g. invalid merchant keys) or simulator mode:
-      if (data.isTestFallback) {
+      if (
+        data.isTestFallback ||
+        data.providerOrderId?.startsWith('order_test_') ||
+        !data.keyId ||
+        data.keyId.includes('simulated')
+      ) {
         setShowRazorpayModal(true);
         setProcessing(false);
         return;
