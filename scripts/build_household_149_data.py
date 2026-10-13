@@ -1,0 +1,3257 @@
+import json
+import os
+
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+PRODUCTS_149 = [
+    # -------------------------------------------------------------------------
+    # 1. DISHWASHING PRODUCTS (dishwash)
+    # -------------------------------------------------------------------------
+    {
+        "id": "g1-hh001",
+        "name": "Exo Ginger Twist Anti-Bacterial Dishwash Bar",
+        "slug": "exo-ginger-twist-dishwash-bar",
+        "brand": "Exo",
+        "brand_id": "brand-exo",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Dishwash Bars",
+        "subCategory": "Dishwash Bars",
+        "description": "Exo Ginger Twist Dishwash Bar with active cyclozan kills 99.9% of bacteria and cuts through burnt food and heavy oil with ease.",
+        "image_url": "/products/verified/hh-exo-ginger-twist-bar.webp",
+        "queries": [
+            "Exo Ginger Twist Dishwash Bar packshot amazon india",
+            "Exo Ginger Twist soap bar packshot white background",
+            "Exo dishwash bar 90g packshot"
+        ],
+        "variants": [
+            { "size_label": "90 g (1 Bar)", "mrp": 10, "price": 10, "stock": 60 },
+            { "size_label": "4 x 90 g (Multipack)", "mrp": 40, "price": 38, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh002",
+        "name": "Exo Touch & Shine Anti-Bacterial Dishwash Bar",
+        "slug": "exo-touch-shine-dishwash-bar",
+        "brand": "Exo",
+        "brand_id": "brand-exo",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Dishwash Bars",
+        "subCategory": "Dishwash Bars",
+        "description": "Exo Touch & Shine Dishwash Bar prevents soggy melting in water and gives sparkling shine to glassware and stainless steel.",
+        "image_url": "/products/verified/hh-exo-touch-shine-bar.webp",
+        "queries": [
+            "Exo Touch & Shine Dishwash Bar 250g packshot amazon india",
+            "Exo dishwash bar packshot white background",
+            "Exo dishwash bar 200g packshot"
+        ],
+        "variants": [
+            { "size_label": "200 g", "mrp": 20, "price": 20, "stock": 50 },
+            { "size_label": "250 g", "mrp": 25, "price": 24, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh003",
+        "name": "Exo Dishwash Round Container Tub with Free Scrubber",
+        "slug": "exo-dishwash-round-tub",
+        "brand": "Exo",
+        "brand_id": "brand-exo",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Dishwash Bars",
+        "subCategory": "Dishwash Bars",
+        "description": "Exo Round in a durable plastic container tub prevents bar wastage and includes a free scrubber for easy daily grease cleaning.",
+        "image_url": "/products/verified/hh-exo-dishwash-round.webp",
+        "queries": [
+            "Exo Dishwash Round 500g tub packshot amazon india",
+            "Exo Dishwash Round tub packshot white background",
+            "Exo round 700g packshot"
+        ],
+        "variants": [
+            { "size_label": "500 g Tub", "mrp": 60, "price": 55, "stock": 40 },
+            { "size_label": "700 g Tub", "mrp": 85, "price": 78, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh004",
+        "name": "Exo Neem & Lime Anti-Bacterial Dishwash Liquid",
+        "slug": "exo-neem-lime-dishwash-liquid",
+        "brand": "Exo",
+        "brand_id": "brand-exo",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Dishwash Liquids",
+        "subCategory": "Dishwash Liquids",
+        "description": "Exo Neem & Lime Dishwash Liquid powers through stubborn tadka stains with natural neem hygiene and refreshing lime sparkle.",
+        "image_url": "/products/verified/hh-exo-neem-lime-liquid.webp",
+        "queries": [
+            "Exo Neem & Lime Dishwash Liquid bottle packshot amazon india",
+            "Exo dishwash liquid packshot white background",
+            "Exo liquid 115ml packshot"
+        ],
+        "variants": [
+            { "size_label": "115 ml", "mrp": 25, "price": 24, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh005",
+        "name": "Exo Ginger & Lemon Concentrated Dishwash Liquid",
+        "slug": "exo-ginger-lemon-dishwash-liquid",
+        "brand": "Exo",
+        "brand_id": "brand-exo",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Dishwash Liquids",
+        "subCategory": "Dishwash Liquids",
+        "description": "Exo Ginger & Lemon Dishwash Gel breaks down heavy burnt grease with just one drop and rinses completely clean without residue.",
+        "image_url": "/products/verified/hh-exo-ginger-lemon-liquid.webp",
+        "queries": [
+            "Exo Ginger & Lemon Dishwash Liquid bottle packshot amazon india",
+            "Exo Ginger Lemon dishwash liquid packshot white background",
+            "Exo dishwash liquid 500ml packshot"
+        ],
+        "variants": [
+            { "size_label": "500 ml", "mrp": 115, "price": 99, "stock": 40 },
+            { "size_label": "750 ml", "mrp": 165, "price": 145, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-hh006",
+        "name": "Vim Lemon Dishwash Bar with Degreasing Power",
+        "slug": "vim-lemon-dishwash-bar",
+        "brand": "Vim",
+        "brand_id": "brand-vim",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Dishwash Bars",
+        "subCategory": "Dishwash Bars",
+        "description": "Vim Lemon Bar powered with the degreasing action of 100 lemons easily removes tough oil and food crusts from pots and pans.",
+        "image_url": "/products/verified/hh-vim-lemon-dishwash-bar.webp",
+        "queries": [
+            "Vim Lemon Dishwash Bar packshot amazon india",
+            "Vim dishwash bar packshot white background",
+            "Vim bar 130g packshot"
+        ],
+        "variants": [
+            { "size_label": "130 g (1 Bar)", "mrp": 10, "price": 10, "stock": 70 },
+            { "size_label": "5 x 110 g (Multipack)", "mrp": 50, "price": 48, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh007",
+        "name": "Vim Neem Clean Anti-Germ Dishwash Bar",
+        "slug": "vim-neem-dishwash-bar",
+        "brand": "Vim",
+        "brand_id": "brand-vim",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Dishwash Bars",
+        "subCategory": "Dishwash Bars",
+        "description": "Vim Neem Clean Dishwash Bar combines the antibacterial benefits of pure neem extract with powerful lime degreasers.",
+        "image_url": "/products/verified/hh-vim-neem-dishwash-bar.webp",
+        "queries": [
+            "Vim Neem Clean Dishwash Bar packshot amazon india",
+            "Vim Neem dishwash bar packshot white background",
+            "Vim neem bar 150g packshot"
+        ],
+        "variants": [
+            { "size_label": "150 g", "mrp": 20, "price": 20, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh008",
+        "name": "Vim Pudina Anti-Smell Odour Removal Dishwash Bar",
+        "slug": "vim-pudina-dishwash-bar",
+        "brand": "Vim",
+        "brand_id": "brand-vim",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Dishwash Bars",
+        "subCategory": "Dishwash Bars",
+        "description": "Vim Pudina Anti-Smell Bar effectively eliminates strong lingering kitchen odours like egg, fish and garlic from utensils.",
+        "image_url": "/products/verified/hh-vim-pudina-dishwash-bar.webp",
+        "queries": [
+            "Vim Anti Smell Pudina Dishwash Bar packshot amazon india",
+            "Vim Pudina dishwash bar packshot white background",
+            "Vim anti smell bar packshot"
+        ],
+        "variants": [
+            { "size_label": "150 g", "mrp": 20, "price": 20, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh009",
+        "name": "Vim Lemon Concentrated Dishwash Gel Liquid",
+        "slug": "vim-lemon-dishwash-gel",
+        "brand": "Vim",
+        "brand_id": "brand-vim",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Dishwash Liquids",
+        "subCategory": "Dishwash Liquids",
+        "description": "Vim Dishwash Gel with lemon extracts cleans whole sink of utensils with one spoonful and leaves zero white scratch marks.",
+        "image_url": "/products/verified/hh-vim-lemon-dishwash-gel.webp",
+        "queries": [
+            "Vim Lemon Dishwash Gel bottle packshot amazon india",
+            "Vim dishwash gel green bottle packshot white background",
+            "Vim gel 500ml packshot"
+        ],
+        "variants": [
+            { "size_label": "250 ml", "mrp": 65, "price": 58, "stock": 50 },
+            { "size_label": "500 ml", "mrp": 125, "price": 105, "stock": 40 },
+            { "size_label": "750 ml", "mrp": 180, "price": 155, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh010",
+        "name": "Vim Lemon Dishwash Gel Liquid Refill Pouch",
+        "slug": "vim-lemon-dishwash-refill-pouch",
+        "brand": "Vim",
+        "brand_id": "brand-vim",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Dishwash Liquids",
+        "subCategory": "Dishwash Liquids",
+        "description": "Economical 900 ml spout refill pouch of Vim Lemon Gel to easily refill dispenser bottles with zero mess.",
+        "image_url": "/products/verified/hh-vim-gel-refill-pouch.webp",
+        "queries": [
+            "Vim Dishwash Gel 900ml refill pouch packshot amazon india",
+            "Vim gel refill pouch packshot white background",
+            "Vim 900ml pouch packshot"
+        ],
+        "variants": [
+            { "size_label": "900 ml Refill Pouch", "mrp": 175, "price": 149, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh011",
+        "name": "Pril Lime Active Degreasing Dishwash Liquid",
+        "slug": "pril-lime-dishwash-liquid",
+        "brand": "Pril",
+        "brand_id": "brand-pril",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Dishwash Liquids",
+        "subCategory": "Dishwash Liquids",
+        "description": "Pril Lime Active with active booster molecules dissolves invisible oily films and delivers brilliant shine to non-stick and steel cookware.",
+        "image_url": "/products/verified/hh-pril-lime-dishwash-liquid.webp",
+        "queries": [
+            "Pril Lime Dishwash Liquid bottle packshot amazon india",
+            "Pril Lime Active dishwash liquid packshot white background",
+            "Pril dishwash 425ml packshot"
+        ],
+        "variants": [
+            { "size_label": "225 ml", "mrp": 60, "price": 54, "stock": 40 },
+            { "size_label": "425 ml", "mrp": 110, "price": 98, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh012",
+        "name": "Pitambari Dishwash Scourer Bar",
+        "slug": "pitambari-dishwash-bar",
+        "brand": "Pitambari",
+        "brand_id": "brand-pitambari",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Dishwash Bars",
+        "subCategory": "Dishwash Bars",
+        "description": "Pitambari Dishwash Bar features specialized scrubbing minerals that effortlessly lift burnt residues from aluminium and steel vessels.",
+        "image_url": "/products/verified/hh-pitambari-dishwash-bar.webp",
+        "queries": [
+            "Pitambari Dishwash Bar packshot amazon india",
+            "Pitambari dishwash bar packshot white background",
+            "Pitambari bar 200g packshot"
+        ],
+        "variants": [
+            { "size_label": "200 g (1 Bar)", "mrp": 20, "price": 19, "stock": 45 },
+            { "size_label": "3 x 200 g (Multipack)", "mrp": 60, "price": 55, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh013",
+        "name": "Pitambari Shining Dishwash Cleaning Powder",
+        "slug": "pitambari-shining-dishwash-powder",
+        "brand": "Pitambari",
+        "brand_id": "brand-pitambari",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Dishwash Powders",
+        "subCategory": "Dishwash Powders",
+        "description": "Pitambari Shining Powder with special cleaning agents cleans, shines and polishes copper, brass, aluminium and silver cookware naturally.",
+        "image_url": "/products/verified/hh-pitambari-dishwash-powder.webp",
+        "queries": [
+            "Pitambari Shining Powder 200g pouch packshot amazon india",
+            "Pitambari Shining Powder packshot white background",
+            "Pitambari powder pouch packshot"
+        ],
+        "variants": [
+            { "size_label": "200 g", "mrp": 35, "price": 32, "stock": 50 },
+            { "size_label": "500 g", "mrp": 75, "price": 68, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh014",
+        "name": "Sabena Traditional Dishwash Cleaning Powder",
+        "slug": "sabena-dishwash-powder",
+        "brand": "Sabena",
+        "brand_id": "brand-sabena",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Dishwash Powders",
+        "subCategory": "Dishwash Powders",
+        "description": "Sabena Dishwash Powder is the trusted heavy-duty scrubbing powder for greasy kadhais, tea pans and aluminium pressure cookers.",
+        "image_url": "/products/verified/hh-sabena-dishwash-powder.webp",
+        "queries": [
+            "Sabena Dishwash Powder packshot amazon india",
+            "Sabena cleaning powder packshot white background",
+            "Sabena dishwash powder 400g packshot"
+        ],
+        "variants": [
+            { "size_label": "400 g", "mrp": 30, "price": 28, "stock": 45 },
+            { "size_label": "900 g", "mrp": 60, "price": 55, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh015",
+        "name": "Dettol Kitchen Dish & Slab Cleansing Gel (Lime Fresh)",
+        "slug": "dettol-kitchen-dishwash-gel",
+        "brand": "Dettol",
+        "brand_id": "brand-dettol",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Dishwash Liquids",
+        "subCategory": "Dishwash Liquids",
+        "description": "Dettol Kitchen Dish & Slab Gel provides 100% better germ kill on kitchen utensils, kitchen slabs and cooking counters.",
+        "image_url": "/products/verified/hh-dettol-kitchen-gel.webp",
+        "queries": [
+            "Dettol Kitchen Dishwash Gel bottle packshot amazon india",
+            "Dettol kitchen dish and slab gel packshot white background",
+            "Dettol kitchen gel 400ml packshot"
+        ],
+        "variants": [
+            { "size_label": "400 ml", "mrp": 95, "price": 85, "stock": 40 },
+            { "size_label": "1.5 L Refill Pouch", "mrp": 260, "price": 225, "stock": 25 }
+        ]
+    },
+    {
+        "id": "g1-hh016",
+        "name": "Heavy Duty Stainless Steel Utensil Scrubber",
+        "slug": "steel-utensil-scrubber",
+        "brand": "Scotch-Brite",
+        "brand_id": "brand-scotch-brite",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Scrubbers & Sponges",
+        "subCategory": "Scrubbers & Sponges",
+        "description": "Rust-free magnetic stainless steel curly wire scrubber cuts through stubborn burnt food on iron tawas and heavy kadhais.",
+        "image_url": "/products/verified/hh-steel-scrubber.webp",
+        "queries": [
+            "Steel Utensil Scrubber packshot amazon india",
+            "Stainless steel wire scrubber packshot white background",
+            "Scotch Brite steel scrubber packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Piece", "mrp": 15, "price": 12, "stock": 80 },
+            { "size_label": "Pack of 3", "mrp": 40, "price": 32, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh017",
+        "name": "Scotch-Brite Heavy Duty Scrub Pad",
+        "slug": "scotch-brite-scrub-pad",
+        "brand": "Scotch-Brite",
+        "brand_id": "brand-scotch-brite",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Scrubbers & Sponges",
+        "subCategory": "Scrubbers & Sponges",
+        "description": "Scotch-Brite Scrub Pad with uniform mineral distribution cleans grease quickly without tearing or losing its shape.",
+        "image_url": "/products/verified/hh-scotch-brite-scrub-pad.webp",
+        "queries": [
+            "Scotch-Brite Scrub Pad packshot amazon india",
+            "Scotch Brite green scrub pad packshot white background",
+            "Scotch Brite scrub pad pack of 3 packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Pad", "mrp": 15, "price": 15, "stock": 70 },
+            { "size_label": "Pack of 3", "mrp": 45, "price": 40, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh018",
+        "name": "Kitchen Scrub Sponge (Dual Action Sponge Wipe)",
+        "slug": "kitchen-scrub-sponge",
+        "brand": "Scotch-Brite",
+        "brand_id": "brand-scotch-brite",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Scrubbers & Sponges",
+        "subCategory": "Scrubbers & Sponges",
+        "description": "Dual action dishwashing sponge with green scrub pad on one side and absorbent yellow sponge on the other for gentle glassware washing.",
+        "image_url": "/products/verified/hh-kitchen-scrub-sponge.webp",
+        "queries": [
+            "Kitchen Scrub Sponge packshot amazon india",
+            "Scotch-Brite Sponge Scrub packshot white background",
+            "kitchen sponge wipe packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Sponge", "mrp": 25, "price": 22, "stock": 60 },
+            { "size_label": "Pack of 3", "mrp": 70, "price": 60, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh019",
+        "name": "Ergonomic Long Handle Dishwashing Utensil Brush",
+        "slug": "dishwashing-brush",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Scrubbers & Sponges",
+        "subCategory": "Scrubbers & Sponges",
+        "description": "Sturdy nylon bristle brush with non-slip handle reaches deep inside tall bottles, mixer jars and deep pots comfortably.",
+        "image_url": "/products/verified/hh-dishwashing-brush.webp",
+        "queries": [
+            "Dishwashing Brush kitchen utensil brush packshot amazon india",
+            "kitchen bottle cleaning brush packshot white background",
+            "Gala dishwashing brush packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Brush", "mrp": 49, "price": 39, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh020",
+        "name": "Heavy Duty Kitchen Sink & Counter Cleaning Brush",
+        "slug": "sink-cleaning-brush",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "dishwash",
+        "category": "dishwash",
+        "sub_category": "Scrubbers & Sponges",
+        "subCategory": "Scrubbers & Sponges",
+        "description": "Curved dense bristles easily clean greasy corners of kitchen stainless steel sinks, drain outlets and countertop edges.",
+        "image_url": "/products/verified/hh-sink-cleaning-brush.webp",
+        "queries": [
+            "Kitchen Sink Cleaning Brush packshot amazon india",
+            "sink cleaning brush packshot white background",
+            "Gala sink cleaning brush packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Brush", "mrp": 45, "price": 35, "stock": 40 }
+        ]
+    },
+
+    # -------------------------------------------------------------------------
+    # 2. LAUNDRY DETERGENT AND FABRIC CARE (laundry-detergents)
+    # -------------------------------------------------------------------------
+    {
+        "id": "g1-hh021",
+        "name": "Surf Excel Easy Wash Detergent Powder",
+        "slug": "surf-excel-easy-wash-powder",
+        "brand": "Surf Excel",
+        "brand_id": "brand-surf-excel",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Detergent Powders",
+        "subCategory": "Detergent Powders",
+        "description": "Surf Excel Easy Wash with advanced power particles removes tough dried stains like oil, curry and ink in half the time.",
+        "image_url": "/products/verified/hh-surf-excel-easy-wash.webp",
+        "queries": [
+            "Surf Excel Easy Wash Detergent Powder packshot amazon india",
+            "Surf Excel Easy Wash packshot white background",
+            "Surf Excel 1kg packshot"
+        ],
+        "variants": [
+            { "size_label": "500 g", "mrp": 75, "price": 70, "stock": 55 },
+            { "size_label": "1 kg", "mrp": 145, "price": 135, "stock": 50 },
+            { "size_label": "2 kg", "mrp": 280, "price": 260, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh022",
+        "name": "Surf Excel Matic Top Load Detergent Powder",
+        "slug": "surf-excel-matic-top-load-powder",
+        "brand": "Surf Excel",
+        "brand_id": "brand-surf-excel",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Detergent Powders",
+        "subCategory": "Detergent Powders",
+        "description": "Specially designed for top loading washing machines, Surf Excel Matic delivers superior stain removal in high water environments.",
+        "image_url": "/products/verified/hh-surf-excel-matic-top-powder.webp",
+        "queries": [
+            "Surf Excel Matic Top Load Powder box packshot amazon india",
+            "Surf Excel Matic Top Load powder packshot white background",
+            "Surf Excel Matic 1kg packshot"
+        ],
+        "variants": [
+            { "size_label": "1 kg", "mrp": 240, "price": 215, "stock": 40 },
+            { "size_label": "2 kg", "mrp": 460, "price": 410, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-hh023",
+        "name": "Surf Excel Matic Front Load Detergent Powder",
+        "slug": "surf-excel-matic-front-load-powder",
+        "brand": "Surf Excel",
+        "brand_id": "brand-surf-excel",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Detergent Powders",
+        "subCategory": "Detergent Powders",
+        "description": "Engineered for front load machines with low suds technology to protect machine pipes while removing deep collar and cuff grime.",
+        "image_url": "/products/verified/hh-surf-excel-matic-front-powder.webp",
+        "queries": [
+            "Surf Excel Matic Front Load Powder box packshot amazon india",
+            "Surf Excel Matic Front Load powder packshot white background",
+            "Surf Excel Front Load 1kg packshot"
+        ],
+        "variants": [
+            { "size_label": "1 kg", "mrp": 265, "price": 235, "stock": 35 },
+            { "size_label": "2 kg", "mrp": 510, "price": 450, "stock": 25 }
+        ]
+    },
+    {
+        "id": "g1-hh024",
+        "name": "Surf Excel Matic Top Load Liquid Detergent",
+        "slug": "surf-excel-matic-top-load-liquid",
+        "brand": "Surf Excel",
+        "brand_id": "brand-surf-excel",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Liquid Detergents",
+        "subCategory": "Liquid Detergents",
+        "description": "Surf Excel Matic Top Load Liquid dissolves instantly, preventing powder residue on dark clothes and delivering powerful stain lift.",
+        "image_url": "/products/verified/hh-surf-excel-matic-top-liquid.webp",
+        "queries": [
+            "Surf Excel Matic Top Load Liquid Detergent pouch bottle packshot amazon india",
+            "Surf Excel Matic Liquid top load packshot white background",
+            "Surf Excel liquid 1L packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Litre", "mrp": 230, "price": 205, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh025",
+        "name": "Surf Excel Matic Front Load Liquid Detergent",
+        "slug": "surf-excel-matic-front-load-liquid",
+        "brand": "Surf Excel",
+        "brand_id": "brand-surf-excel",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Liquid Detergents",
+        "subCategory": "Liquid Detergents",
+        "description": "Surf Excel Matic Front Load Liquid offers 100% stain removal in washing machines with balanced low-foaming enzyme formula.",
+        "image_url": "/products/verified/hh-surf-excel-matic-front-liquid.webp",
+        "queries": [
+            "Surf Excel Matic Front Load Liquid Detergent bottle packshot amazon india",
+            "Surf Excel Matic Front Load Liquid packshot white background",
+            "Surf Excel front load liquid 1L packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Litre", "mrp": 250, "price": 220, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh026",
+        "name": "Surf Excel Stain Eraser Detergent Bar",
+        "slug": "surf-excel-detergent-bar",
+        "brand": "Surf Excel",
+        "brand_id": "brand-surf-excel",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Detergent Bars",
+        "subCategory": "Detergent Bars",
+        "description": "Surf Excel Detergent Bar with vinegar power lifts tough collar dirt, mud and grease easily during hand wash.",
+        "image_url": "/products/verified/hh-surf-excel-bar.webp",
+        "queries": [
+            "Surf Excel Detergent Bar packshot amazon india",
+            "Surf Excel soap bar packshot white background",
+            "Surf Excel bar 150g packshot"
+        ],
+        "variants": [
+            { "size_label": "150 g (1 Bar)", "mrp": 15, "price": 15, "stock": 70 },
+            { "size_label": "4 x 150 g (Multipack)", "mrp": 60, "price": 55, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh027",
+        "name": "Tide Plus Extra Power Detergent Powder (Jasmine & Rose)",
+        "slug": "tide-plus-detergent-powder",
+        "brand": "Tide",
+        "brand_id": "brand-tide",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Detergent Powders",
+        "subCategory": "Detergent Powders",
+        "description": "Tide Plus Extra Power delivers outstanding whiteness and refreshing floral fragrance on white and coloured clothes without extra scrubbing.",
+        "image_url": "/products/verified/hh-tide-plus-powder.webp",
+        "queries": [
+            "Tide Plus Extra Power Detergent Powder packshot amazon india",
+            "Tide Plus Jasmine & Rose packshot white background",
+            "Tide powder 1kg packshot"
+        ],
+        "variants": [
+            { "size_label": "500 g", "mrp": 65, "price": 60, "stock": 50 },
+            { "size_label": "1 kg", "mrp": 130, "price": 118, "stock": 45 },
+            { "size_label": "2 kg", "mrp": 255, "price": 229, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh028",
+        "name": "Active Wheel 2-in-1 Detergent Powder (Lemon & Jasmine)",
+        "slug": "wheel-2in1-detergent-powder",
+        "brand": "Wheel",
+        "brand_id": "brand-wheel",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Detergent Powders",
+        "subCategory": "Detergent Powders",
+        "description": "Active Wheel 2-in-1 with thousands of micro-cleansers gives bright, fresh-smelling clothes with easy dirt release.",
+        "image_url": "/products/verified/hh-wheel-detergent-powder.webp",
+        "queries": [
+            "Active Wheel 2 in 1 Detergent Powder packshot amazon india",
+            "Wheel detergent powder packshot white background",
+            "Wheel powder 1kg packshot"
+        ],
+        "variants": [
+            { "size_label": "500 g", "mrp": 42, "price": 39, "stock": 50 },
+            { "size_label": "1 kg", "mrp": 80, "price": 74, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh029",
+        "name": "Rin Advanced Detergent Powder with Bright Clean Technology",
+        "slug": "rin-advanced-detergent-powder",
+        "brand": "Rin",
+        "brand_id": "brand-rin",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Detergent Powders",
+        "subCategory": "Detergent Powders",
+        "description": "Rin Advanced Detergent Powder penetrates deep into fabric fibres to deliver crisp white and vivid coloured clothes that shine like new.",
+        "image_url": "/products/verified/hh-rin-detergent-powder.webp",
+        "queries": [
+            "Rin Advanced Detergent Powder packshot amazon india",
+            "Rin detergent powder packshot white background",
+            "Rin powder 1kg packshot"
+        ],
+        "variants": [
+            { "size_label": "500 g", "mrp": 52, "price": 48, "stock": 50 },
+            { "size_label": "1 kg", "mrp": 102, "price": 94, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh030",
+        "name": "Rin Advanced Detergent Bar",
+        "slug": "rin-detergent-bar",
+        "brand": "Rin",
+        "brand_id": "brand-rin",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Detergent Bars",
+        "subCategory": "Detergent Bars",
+        "description": "Rin Bar makes white clothes dazzling white with just one stroke on collars, cuffs and underarms.",
+        "image_url": "/products/verified/hh-rin-detergent-bar.webp",
+        "queries": [
+            "Rin Detergent Bar packshot amazon india",
+            "Rin soap bar packshot white background",
+            "Rin bar 250g packshot"
+        ],
+        "variants": [
+            { "size_label": "250 g (1 Bar)", "mrp": 20, "price": 19, "stock": 70 },
+            { "size_label": "4 x 250 g (Multipack)", "mrp": 80, "price": 74, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh031",
+        "name": "Ghadi Detergent Powder (Pehle Istemaal Kare Phir Vishwas Kare)",
+        "slug": "ghadi-detergent-powder",
+        "brand": "Ghadi",
+        "brand_id": "brand-ghadi",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Detergent Powders",
+        "subCategory": "Detergent Powders",
+        "description": "Ghadi Detergent Powder cleans hard water laundry effortlessly, dissolving dirt quickly for bright, clean everyday clothes.",
+        "image_url": "/products/verified/hh-ghadi-detergent-powder.webp",
+        "queries": [
+            "Ghadi Detergent Powder packshot amazon india",
+            "Ghadi detergent powder packshot white background",
+            "Ghadi powder 1kg packshot"
+        ],
+        "variants": [
+            { "size_label": "500 g", "mrp": 38, "price": 36, "stock": 55 },
+            { "size_label": "1 kg", "mrp": 75, "price": 69, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh032",
+        "name": "Ariel Complete Detergent Powder",
+        "slug": "ariel-complete-detergent-powder",
+        "brand": "Ariel",
+        "brand_id": "brand-ariel",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Detergent Powders",
+        "subCategory": "Detergent Powders",
+        "description": "Ariel Complete gives impeccable stain removal in 1 wash, preserving fabric softness and freshness for formal and casual clothing.",
+        "image_url": "/products/verified/hh-ariel-complete-powder.webp",
+        "queries": [
+            "Ariel Complete Detergent Powder packshot amazon india",
+            "Ariel detergent powder packshot white background",
+            "Ariel 1kg powder packshot"
+        ],
+        "variants": [
+            { "size_label": "500 g", "mrp": 115, "price": 105, "stock": 45 },
+            { "size_label": "1 kg", "mrp": 225, "price": 200, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh033",
+        "name": "Ariel Matic 2x Power Liquid Detergent",
+        "slug": "ariel-matic-liquid-detergent",
+        "brand": "Ariel",
+        "brand_id": "brand-ariel",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Liquid Detergents",
+        "subCategory": "Liquid Detergents",
+        "description": "Ariel Matic Liquid with 2x stain removal power penetrates deep into machine-washed clothes to clear greying and tough stains.",
+        "image_url": "/products/verified/hh-ariel-matic-liquid.webp",
+        "queries": [
+            "Ariel Matic Liquid Detergent bottle packshot amazon india",
+            "Ariel Matic liquid packshot white background",
+            "Ariel liquid 1L packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Litre", "mrp": 240, "price": 210, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh034",
+        "name": "Godrej Fab Liquid Detergent for Machine & Bucket Wash",
+        "slug": "godrej-fab-liquid-detergent",
+        "brand": "Godrej Fab",
+        "brand_id": "brand-godrej-fab",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Liquid Detergents",
+        "subCategory": "Liquid Detergents",
+        "description": "Godrej Fab Liquid with dual action formulation leaves clothes fresh and clean without harsh bleaching effects.",
+        "image_url": "/products/verified/hh-godrej-fab-liquid.webp",
+        "queries": [
+            "Godrej Fab Liquid Detergent pouch packshot amazon india",
+            "Godrej Fab liquid packshot white background",
+            "Godrej fab detergent 800g packshot"
+        ],
+        "variants": [
+            { "size_label": "800 g Refill Pouch", "mrp": 130, "price": 115, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh035",
+        "name": "Godrej Ezee 2-in-1 Liquid Detergent & Sanitizer (Woollens & Silks)",
+        "slug": "godrej-ezee-liquid-detergent",
+        "brand": "Godrej Ezee",
+        "brand_id": "brand-godrej-ezee",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Liquid Detergents",
+        "subCategory": "Liquid Detergents",
+        "description": "Godrej Ezee with micro-conditioners prevents shrinkage and fading on delicate fabrics, winter woollens, sweaters and silks.",
+        "image_url": "/products/verified/hh-godrej-ezee-liquid.webp",
+        "queries": [
+            "Godrej Ezee Liquid Detergent bottle packshot amazon india",
+            "Godrej Ezee liquid packshot white background",
+            "Godrej Ezee 1kg packshot"
+        ],
+        "variants": [
+            { "size_label": "500 g", "mrp": 110, "price": 98, "stock": 45 },
+            { "size_label": "1 kg", "mrp": 210, "price": 185, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh036",
+        "name": "Comfort After Wash Morning Fresh Fabric Conditioner",
+        "slug": "comfort-fabric-conditioner",
+        "brand": "Comfort",
+        "brand_id": "brand-comfort",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Fabric Care & Additives",
+        "subCategory": "Fabric Care & Additives",
+        "description": "Comfort Fabric Conditioner locks in long-lasting floral fragrance, smooths cloth fibres and keeps garments soft and easy to iron.",
+        "image_url": "/products/verified/hh-comfort-fabric-conditioner.webp",
+        "queries": [
+            "Comfort Fabric Conditioner bottle packshot amazon india",
+            "Comfort Morning Fresh bottle packshot white background",
+            "Comfort fabric conditioner 860ml packshot"
+        ],
+        "variants": [
+            { "size_label": "220 ml", "mrp": 62, "price": 55, "stock": 45 },
+            { "size_label": "860 ml", "mrp": 235, "price": 205, "stock": 35 },
+            { "size_label": "2 Litre", "mrp": 499, "price": 435, "stock": 25 }
+        ]
+    },
+    {
+        "id": "g1-hh037",
+        "name": "Ujala Supreme Fabric Whitener Liquid",
+        "slug": "ujala-supreme-fabric-whitener",
+        "brand": "Ujala",
+        "brand_id": "brand-ujala",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Fabric Care & Additives",
+        "subCategory": "Fabric Care & Additives",
+        "description": "Ujala Supreme with Ultra Radiance Molecules brings 4 drops of ultra-whiteness to dull cotton shirts, kurtas and school uniforms.",
+        "image_url": "/products/verified/hh-ujala-supreme-whitener.webp",
+        "queries": [
+            "Ujala Supreme Fabric Whitener bottle packshot amazon india",
+            "Ujala Supreme 250ml packshot white background",
+            "Ujala 4 drops whitener packshot"
+        ],
+        "variants": [
+            { "size_label": "100 ml", "mrp": 25, "price": 24, "stock": 55 },
+            { "size_label": "250 ml", "mrp": 58, "price": 54, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh038",
+        "name": "Revive Instant Cold Water Fabric Stiffener",
+        "slug": "revive-fabric-stiffener",
+        "brand": "Revive",
+        "brand_id": "brand-revive",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Fabric Care & Additives",
+        "subCategory": "Fabric Care & Additives",
+        "description": "Revive Instant Starch dissolves directly in cold water, giving crisp salon-like starch finish to cotton sarees, shirts and linens.",
+        "image_url": "/products/verified/hh-revive-fabric-stiffener.webp",
+        "queries": [
+            "Revive Instant Cold Water Starch packshot amazon india",
+            "Revive Fabric Stiffener packshot white background",
+            "Revive powder 200g packshot"
+        ],
+        "variants": [
+            { "size_label": "200 g Powder", "mrp": 65, "price": 58, "stock": 40 },
+            { "size_label": "400 g Liquid", "mrp": 120, "price": 108, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-hh039",
+        "name": "Traditional 555 Economy Laundry Soap Bar",
+        "slug": "economy-laundry-soap-bar",
+        "brand": "Local / Unbranded",
+        "brand_id": "brand-local",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Detergent Bars",
+        "subCategory": "Detergent Bars",
+        "description": "Pure vegetable oil economy laundry bar soap for washing heavy doormats, cotton bedsheets and daily kitchen rags.",
+        "image_url": "/products/verified/hh-laundry-soap-bar.webp",
+        "queries": [
+            "Laundry Soap Bar 250g packshot amazon india",
+            "yellow washing soap bar packshot white background",
+            "555 washing soap bar packshot"
+        ],
+        "variants": [
+            { "size_label": "250 g (1 Bar)", "mrp": 15, "price": 14, "stock": 60 }
+        ]
+    },
+    {
+        "id": "g1-hh040",
+        "name": "Vanish Oxi Action Fabric Stain Remover Powder",
+        "slug": "vanish-oxi-action-stain-remover",
+        "brand": "Vanish",
+        "brand_id": "brand-vanish",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Fabric Care & Additives",
+        "subCategory": "Fabric Care & Additives",
+        "description": "Vanish Oxi Action lifts tough stains from whites and colours while retaining fabric vitality without chlorine bleach damage.",
+        "image_url": "/products/verified/hh-vanish-oxi-action.webp",
+        "queries": [
+            "Vanish Oxi Action Stain Remover Powder tub packshot amazon india",
+            "Vanish Oxi Action pink tub packshot white background",
+            "Vanish 400g tub packshot"
+        ],
+        "variants": [
+            { "size_label": "400 g Tub", "mrp": 225, "price": 199, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh041",
+        "name": "IFB Essentials Washing Machine Descaler Tub Cleaner",
+        "slug": "washing-machine-descaler",
+        "brand": "IFB",
+        "brand_id": "brand-ifb",
+        "category_id": "laundry-detergents",
+        "category": "laundry-detergents",
+        "sub_category": "Fabric Care & Additives",
+        "subCategory": "Fabric Care & Additives",
+        "description": "Removes hard water limescale deposits, detergent sludge and bacteria from washing machine drums and heating elements.",
+        "image_url": "/products/verified/hh-washing-machine-descaler.webp",
+        "queries": [
+            "IFB Essentials Washing Machine Descaler packshot amazon india",
+            "Washing Machine Descaler packshot white background",
+            "IFB descal 100g packshot"
+        ],
+        "variants": [
+            { "size_label": "100 g Pack", "mrp": 150, "price": 125, "stock": 35 }
+        ]
+    },
+
+    # -------------------------------------------------------------------------
+    # 3. FLOOR AND MULTIPURPOSE CLEANERS (floor-surface-cleaners)
+    # -------------------------------------------------------------------------
+    {
+        "id": "g1-hh042",
+        "name": "Lizol Disinfectant Floor Cleaner (Citrus Fresh)",
+        "slug": "lizol-disinfectant-floor-cleaner",
+        "brand": "Lizol",
+        "brand_id": "brand-lizol",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Floor Cleaners",
+        "subCategory": "Floor Cleaners",
+        "description": "Lizol Disinfectant Surface Cleaner kills 99.9% germs, removes 100 types of stains and leaves a sparkling streak-free citrus glow.",
+        "image_url": "/products/verified/hh-lizol-floor-cleaner.webp",
+        "queries": [
+            "Lizol Disinfectant Floor Cleaner Citrus bottle packshot amazon india",
+            "Lizol floor cleaner bottle packshot white background",
+            "Lizol yellow bottle 500ml packshot"
+        ],
+        "variants": [
+            { "size_label": "200 ml", "mrp": 42, "price": 38, "stock": 50 },
+            { "size_label": "500 ml", "mrp": 107, "price": 95, "stock": 45 },
+            { "size_label": "625 ml", "mrp": 130, "price": 115, "stock": 35 },
+            { "size_label": "1 Litre", "mrp": 199, "price": 175, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-hh043",
+        "name": "Nimyle Herbal Floor Cleaner (Pine & Neem Extract)",
+        "slug": "nimyle-herbal-floor-cleaner",
+        "brand": "Nimyle",
+        "brand_id": "brand-nimyle",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Floor Cleaners",
+        "subCategory": "Floor Cleaners",
+        "description": "Nimyle 100% natural action herbal floor cleaner with neem extracts naturally repels insects, flies and pet odors.",
+        "image_url": "/products/verified/hh-nimyle-floor-cleaner.webp",
+        "queries": [
+            "Nimyle Herbal Floor Cleaner bottle packshot amazon india",
+            "Nimyle floor cleaner packshot white background",
+            "Nimyle 1L bottle packshot"
+        ],
+        "variants": [
+            { "size_label": "500 ml", "mrp": 85, "price": 75, "stock": 45 },
+            { "size_label": "1 Litre", "mrp": 160, "price": 140, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh044",
+        "name": "Domex Multi-Surface Disinfectant Floor Cleaner",
+        "slug": "domex-multi-surface-cleaner",
+        "brand": "Domex",
+        "brand_id": "brand-domex",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Floor Cleaners",
+        "subCategory": "Floor Cleaners",
+        "description": "Domex Multi-Surface Cleaner kills viruses and illness-causing bacteria while deodorizing tiled and marble floors.",
+        "image_url": "/products/verified/hh-domex-multi-surface.webp",
+        "queries": [
+            "Domex Multi Surface Floor Cleaner bottle packshot amazon india",
+            "Domex floor cleaner packshot white background",
+            "Domex multi surface 1L packshot"
+        ],
+        "variants": [
+            { "size_label": "500 ml", "mrp": 95, "price": 85, "stock": 40 },
+            { "size_label": "1 Litre", "mrp": 180, "price": 155, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-hh045",
+        "name": "Spick n Span Concentrated Surface Floor Cleaner",
+        "slug": "spick-n-span-floor-cleaner",
+        "brand": "Spick n Span",
+        "brand_id": "brand-spick-n-span",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Floor Cleaners",
+        "subCategory": "Floor Cleaners",
+        "description": "Economical concentrated floor cleaner formulated to dissolve foot grimes and dust, leaving living areas fresh.",
+        "image_url": "/products/verified/hh-spick-n-span-cleaner.webp",
+        "queries": [
+            "Spick n Span Floor Cleaner bottle packshot amazon india",
+            "Spick n Span floor cleaner packshot white background",
+            "Spick n span 500ml packshot"
+        ],
+        "variants": [
+            { "size_label": "500 ml", "mrp": 65, "price": 55, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh046",
+        "name": "White Phenyl Concentrated Disinfectant Liquid",
+        "slug": "white-phenyl-cleaner",
+        "brand": "Local / Unbranded",
+        "brand_id": "brand-local",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Floor Cleaners",
+        "subCategory": "Floor Cleaners",
+        "description": "Classic white phenyl disinfectant liquid with pine fragrance for daily mopping in verandas, bathrooms and entrance passages.",
+        "image_url": "/products/verified/hh-white-phenyl.webp",
+        "queries": [
+            "White Phenyl Floor Cleaner bottle packshot amazon india",
+            "white phenyl bottle packshot white background",
+            "White phenyl 1L packshot"
+        ],
+        "variants": [
+            { "size_label": "500 ml", "mrp": 45, "price": 38, "stock": 50 },
+            { "size_label": "1 Litre", "mrp": 80, "price": 68, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh047",
+        "name": "G1 Pine Herbal Economy Floor Cleaner Liquid",
+        "slug": "economy-pine-floor-cleaner",
+        "brand": "G1 Mart Hygiene",
+        "brand_id": "brand-g1",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Floor Cleaners",
+        "subCategory": "Floor Cleaners",
+        "description": "Value-for-money concentrated pine floor cleaner that easily lifts dirt and keeps insects and flies away.",
+        "image_url": "/products/verified/hh-pine-floor-cleaner.webp",
+        "queries": [
+            "Pine Floor Cleaner bottle packshot amazon india",
+            "pine liquid floor cleaner packshot white background",
+            "green pine floor cleaner 1L packshot"
+        ],
+        "variants": [
+            { "size_label": "500 ml", "mrp": 40, "price": 35, "stock": 45 },
+            { "size_label": "1 Litre", "mrp": 75, "price": 65, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh048",
+        "name": "Dettol Disinfectant Liquid for Personal & Surface Hygiene",
+        "slug": "dettol-disinfectant-liquid",
+        "brand": "Dettol",
+        "brand_id": "brand-dettol",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Surface Cleaners",
+        "subCategory": "Surface Cleaners",
+        "description": "Dettol Disinfectant Liquid with Lime Fresh fragrance provides trusted 99.9% germ defense for laundry rinsing, floor mopping and surface wiping.",
+        "image_url": "/products/verified/hh-dettol-disinfectant-liquid.webp",
+        "queries": [
+            "Dettol Disinfectant Liquid Lime Fresh bottle packshot amazon india",
+            "Dettol Disinfectant Liquid packshot white background",
+            "Dettol disinfectant 500ml packshot"
+        ],
+        "variants": [
+            { "size_label": "250 ml", "mrp": 125, "price": 110, "stock": 45 },
+            { "size_label": "500 ml", "mrp": 225, "price": 198, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh049",
+        "name": "Cif Multipurpose Surface Cleaner Cream with Micro-Crystals",
+        "slug": "cif-surface-cleaner-cream",
+        "brand": "Cif",
+        "brand_id": "brand-cif",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Surface Cleaners",
+        "subCategory": "Surface Cleaners",
+        "description": "Cif Cream with natural micro-crystals removes 100% of tough kitchen dirt, encrusted grease and bathroom water marks without scratching.",
+        "image_url": "/products/verified/hh-cif-surface-cleaner.webp",
+        "queries": [
+            "Cif Cream Surface Cleaner bottle packshot amazon india",
+            "Cif multipurpose surface cleaner packshot white background",
+            "Cif cream 500ml packshot"
+        ],
+        "variants": [
+            { "size_label": "500 ml", "mrp": 120, "price": 105, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh050",
+        "name": "Colin Kitchen Surface Cleaner Degreaser Spray",
+        "slug": "colin-kitchen-surface-cleaner-spray",
+        "brand": "Colin",
+        "brand_id": "brand-colin",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Surface Cleaners",
+        "subCategory": "Surface Cleaners",
+        "description": "Colin Kitchen Cleaner Spray instantly cuts through heavy stove grease, chimney grime and sticky tiled walls with quick spray-and-wipe.",
+        "image_url": "/products/verified/hh-colin-kitchen-spray.webp",
+        "queries": [
+            "Colin Kitchen Cleaner Spray bottle packshot amazon india",
+            "Colin kitchen spray packshot white background",
+            "Colin kitchen 500ml spray packshot"
+        ],
+        "variants": [
+            { "size_label": "500 ml Spray", "mrp": 165, "price": 145, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh051",
+        "name": "Mr Muscle Wooden Furniture Cleaner Polish Spray",
+        "slug": "mr-muscle-furniture-cleaner",
+        "brand": "Mr Muscle",
+        "brand_id": "brand-mr-muscle",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Surface Cleaners",
+        "subCategory": "Surface Cleaners",
+        "description": "Restores shine and nourishes wooden dining tables, doors, cabinets and laminates, repelling dust accumulation.",
+        "image_url": "/products/verified/hh-furniture-cleaner-spray.webp",
+        "queries": [
+            "Mr Muscle Furniture Cleaner Polish spray packshot amazon india",
+            "wood furniture cleaner spray packshot white background",
+            "pronto furniture polish spray packshot"
+        ],
+        "variants": [
+            { "size_label": "300 ml Spray", "mrp": 185, "price": 160, "stock": 30 }
+        ]
+    },
+
+    # -------------------------------------------------------------------------
+    # 4. TOILET AND BATHROOM CLEANING (floor-surface-cleaners)
+    # -------------------------------------------------------------------------
+    {
+        "id": "g1-hh052",
+        "name": "Harpic Power Plus Disinfectant Toilet Cleaner (Original 10x Max)",
+        "slug": "harpic-power-plus-toilet-cleaner",
+        "brand": "Harpic",
+        "brand_id": "brand-harpic",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "description": "Harpic Power Plus thick liquid formula clings below the rim, eliminating yellow stains, hard water deposits and 99.9% germs.",
+        "image_url": "/products/verified/hh-harpic-toilet-cleaner.webp",
+        "queries": [
+            "Harpic Power Plus Toilet Cleaner red bottle packshot amazon india",
+            "Harpic toilet cleaner bottle packshot white background",
+            "Harpic Power Plus 500ml packshot"
+        ],
+        "variants": [
+            { "size_label": "200 ml", "mrp": 44, "price": 40, "stock": 60 },
+            { "size_label": "500 ml", "mrp": 105, "price": 95, "stock": 50 },
+            { "size_label": "1 Litre", "mrp": 205, "price": 185, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh053",
+        "name": "Domex Fresh Guard Disinfectant Toilet Cleaner",
+        "slug": "domex-fresh-guard-toilet-cleaner",
+        "brand": "Domex",
+        "brand_id": "brand-domex",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "description": "Domex Fresh Guard Toilet Cleaner forms a protective anti-stain layer that prevents lime scale and keeps the bowl fresh.",
+        "image_url": "/products/verified/hh-domex-toilet-cleaner.webp",
+        "queries": [
+            "Domex Fresh Guard Toilet Cleaner bottle packshot amazon india",
+            "Domex toilet cleaner bottle packshot white background",
+            "Domex toilet cleaner 500ml packshot"
+        ],
+        "variants": [
+            { "size_label": "500 ml", "mrp": 99, "price": 88, "stock": 45 },
+            { "size_label": "1 Litre", "mrp": 190, "price": 168, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh054",
+        "name": "Harpic Bathroom Cleaner Liquid (Lemon Fresh / Floral)",
+        "slug": "harpic-bathroom-cleaner",
+        "brand": "Harpic",
+        "brand_id": "brand-harpic",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "description": "Thick bleach-free bathroom cleaner that removes soap scum, yellow water stains and grime from bathroom tiles and sinks.",
+        "image_url": "/products/verified/hh-harpic-bathroom-cleaner.webp",
+        "queries": [
+            "Harpic Bathroom Cleaner bottle packshot amazon india",
+            "Harpic red bathroom cleaner packshot white background",
+            "Harpic bathroom cleaner 500ml packshot"
+        ],
+        "variants": [
+            { "size_label": "500 ml", "mrp": 105, "price": 95, "stock": 45 },
+            { "size_label": "1 Litre", "mrp": 199, "price": 178, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh055",
+        "name": "Harpic Hygienic Toilet Rim Block Freshener",
+        "slug": "harpic-toilet-rim-block",
+        "brand": "Harpic",
+        "brand_id": "brand-harpic",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "description": "Clips easily onto the toilet rim, releasing anti-limescale cleansing foam and continuous fragrance with every flush.",
+        "image_url": "/products/verified/hh-harpic-rim-block.webp",
+        "queries": [
+            "Harpic Hygienic Toilet Rim Block packshot amazon india",
+            "Harpic toilet rim block packshot white background",
+            "Harpic rim block packshot"
+        ],
+        "variants": [
+            { "size_label": "26 g Block", "mrp": 75, "price": 68, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh056",
+        "name": "Angular Heavy Duty Toilet Cleaning Brush",
+        "slug": "toilet-cleaning-brush",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "description": "Double hockey-stick curved head with firm bristles designed to scrub thoroughly under toilet rims and traps.",
+        "image_url": "/products/verified/hh-toilet-brush.webp",
+        "queries": [
+            "Gala Toilet Cleaning Brush packshot amazon india",
+            "hockey toilet brush packshot white background",
+            "toilet cleaning brush packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Brush", "mrp": 75, "price": 60, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh057",
+        "name": "Toilet Brush with Standing Caddy Holder Set",
+        "slug": "toilet-brush-with-holder",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "description": "Hygienic enclosed standing plastic container keeps wet toilet brush upright and bathroom floor dry.",
+        "image_url": "/products/verified/hh-toilet-brush-holder.webp",
+        "queries": [
+            "Toilet Brush with Holder set packshot amazon india",
+            "toilet brush with caddy packshot white background",
+            "Gala toilet brush with holder packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Set", "mrp": 149, "price": 120, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh058",
+        "name": "Heavy Duty Bathroom Floor & Wall Tile Scrub Brush",
+        "slug": "bathroom-scrub-brush",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "description": "Stiff crimped bristles remove hard water stains and moss from wet bathroom floors and ceramic tiles.",
+        "image_url": "/products/verified/hh-bathroom-scrub-brush.webp",
+        "queries": [
+            "Bathroom Tile Floor Scrub Brush packshot amazon india",
+            "bathroom floor scrub brush packshot white background",
+            "Gala scrub brush packshot"
+        ],
+        "variants": [
+            { "size_label": "Handheld Scrub Brush", "mrp": 65, "price": 50, "stock": 45 },
+            { "size_label": "Long-Handle Floor Brush", "mrp": 149, "price": 119, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh059",
+        "name": "Kiwi Drainex Clog Remover Drain Cleaner Powder",
+        "slug": "drainex-drain-cleaner",
+        "brand": "Kiwi Drainex",
+        "brand_id": "brand-drainex",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "description": "Heavy-duty drain unblocker powder melts hair, grease and food clogs in washbasins and bathroom drains in 30 minutes.",
+        "image_url": "/products/verified/hh-drain-cleaner.webp",
+        "queries": [
+            "Kiwi Drainex Drain Cleaner packshot amazon india",
+            "Drainex drain cleaner sachet packshot white background",
+            "Drainex 50g packshot"
+        ],
+        "variants": [
+            { "size_label": "50 g Sachet", "mrp": 35, "price": 30, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh060",
+        "name": "Prestige Sanitary Bathroom Cleaning Acid (Labelled Retail)",
+        "slug": "bathroom-cleaning-acid",
+        "brand": "Prestige",
+        "brand_id": "brand-prestige",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "description": "Officially formulated and labelled consumer sanitary liquid for deep stubborn scale clearing on outdoor and toilet tiles.",
+        "image_url": "/products/verified/hh-cleaning-acid.webp",
+        "queries": [
+            "Bathroom Cleaning Acid bottle packshot amazon india",
+            "sanitary toilet cleaning acid bottle packshot white background",
+            "cleaning acid 500ml packshot"
+        ],
+        "variants": [
+            { "size_label": "500 ml Bottle", "mrp": 45, "price": 38, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh061",
+        "name": "Household Bleaching Powder Disinfectant",
+        "slug": "household-bleaching-powder",
+        "brand": "Local / Unbranded",
+        "brand_id": "brand-local",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "description": "Chlorine bleaching powder for deep outdoor sanitization, moss removal from drains and clean septic hygiene.",
+        "image_url": "/products/verified/hh-bleaching-powder.webp",
+        "queries": [
+            "Bleaching Powder pouch packshot amazon india",
+            "bleaching powder disinfectant packshot white background",
+            "bleaching powder 200g packshot"
+        ],
+        "variants": [
+            { "size_label": "200 g", "mrp": 30, "price": 25, "stock": 50 },
+            { "size_label": "500 g", "mrp": 65, "price": 55, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh062",
+        "name": "Pure White Naphthalene Moth Balls",
+        "slug": "naphthalene-balls",
+        "brand": "Local / Unbranded",
+        "brand_id": "brand-local",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "description": "High purity white camphor naphthalene balls protect wardrobes, sink drains and woollens from insects and bad odors.",
+        "image_url": "/products/verified/hh-naphthalene-balls.webp",
+        "queries": [
+            "Naphthalene Balls packshot amazon india",
+            "white naphthalene balls packshot white background",
+            "moth balls 100g packshot"
+        ],
+        "variants": [
+            { "size_label": "100 g Pack", "mrp": 40, "price": 32, "stock": 60 }
+        ]
+    },
+    {
+        "id": "g1-hh063",
+        "name": "Sanitary Urinal Deodorizer Freshener Cubes",
+        "slug": "urinal-deodorizer-cubes",
+        "brand": "Odonil",
+        "brand_id": "brand-odonil",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "description": "Long lasting fragrance cakes designed for washroom urinals, preventing foul smells and neutralizing bacteria.",
+        "image_url": "/products/verified/hh-urinal-cubes.webp",
+        "queries": [
+            "Urinal Deodorizer Cubes packshot amazon india",
+            "urinal fragrance cakes packshot white background",
+            "urinal blocks 200g packshot"
+        ],
+        "variants": [
+            { "size_label": "200 g Pack", "mrp": 75, "price": 65, "stock": 40 }
+        ]
+    },
+
+    # -------------------------------------------------------------------------
+    # 5. GLASS AND SPECIALTY CLEANING (floor-surface-cleaners)
+    # -------------------------------------------------------------------------
+    {
+        "id": "g1-hh064",
+        "name": "Colin Glass and Multi-Surface Cleaner Spray",
+        "slug": "colin-glass-cleaner-spray",
+        "brand": "Colin",
+        "brand_id": "brand-colin",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Glass & Surface Cleaners",
+        "subCategory": "Glass & Surface Cleaners",
+        "description": "Colin with Shine Boosters removes dust, fingerprint smudges and grease streaks from mirrors, windows, TVs and car windscreens.",
+        "image_url": "/products/verified/hh-colin-glass-cleaner.webp",
+        "queries": [
+            "Colin Glass Cleaner spray bottle packshot amazon india",
+            "Colin glass cleaner bottle packshot white background",
+            "Colin blue spray 500ml packshot"
+        ],
+        "variants": [
+            { "size_label": "250 ml Spray", "mrp": 65, "price": 58, "stock": 50 },
+            { "size_label": "500 ml Spray", "mrp": 115, "price": 102, "stock": 45 },
+            { "size_label": "500 ml Refill Pouch", "mrp": 85, "price": 75, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh065",
+        "name": "Pitambari Traditional Metal Shining Powder (Brass & Copper)",
+        "slug": "pitambari-metal-cleaner-powder",
+        "brand": "Pitambari",
+        "brand_id": "brand-pitambari",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Specialty Cleaners",
+        "subCategory": "Specialty Cleaners",
+        "description": "Famous metal cleaner cleans oxidation and tarnishing from brass lamps, puja vessels and copper pots with minimal scrubbing.",
+        "image_url": "/products/verified/hh-pitambari-metal-powder.webp",
+        "queries": [
+            "Pitambari Shining Powder brass copper packshot amazon india",
+            "Pitambari metal cleaner packshot white background",
+            "Pitambari 50g packshot"
+        ],
+        "variants": [
+            { "size_label": "20 g Sachet", "mrp": 10, "price": 10, "stock": 80 },
+            { "size_label": "50 g Pack", "mrp": 22, "price": 20, "stock": 60 },
+            { "size_label": "100 g Pack", "mrp": 38, "price": 35, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh066",
+        "name": "Pitambari Rooperi Silver Shining Polish Liquid",
+        "slug": "pitambari-rooperi-silver-polish",
+        "brand": "Pitambari",
+        "brand_id": "brand-pitambari",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Specialty Cleaners",
+        "subCategory": "Specialty Cleaners",
+        "description": "Specially formulated solution to instantly restore brilliant gleam to black-tarnished silver jewellery and puja items without scratching.",
+        "image_url": "/products/verified/hh-pitambari-rooperi.webp",
+        "queries": [
+            "Pitambari Rooperi Silver Polish bottle packshot amazon india",
+            "Pitambari Rooperi silver cleaner packshot white background",
+            "Rooperi 50ml packshot"
+        ],
+        "variants": [
+            { "size_label": "50 ml", "mrp": 45, "price": 40, "stock": 45 },
+            { "size_label": "100 ml", "mrp": 85, "price": 75, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh067",
+        "name": "Stainless Steel & Chrome Fixture Shining Cleaner Cream",
+        "slug": "stainless-steel-cleaner",
+        "brand": "Cif",
+        "brand_id": "brand-cif",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Specialty Cleaners",
+        "subCategory": "Specialty Cleaners",
+        "description": "Lifts hard water calcium spots, water rings and dullness from bathroom chrome faucets and stainless steel railings.",
+        "image_url": "/products/verified/hh-stainless-steel-cleaner.webp",
+        "queries": [
+            "Stainless Steel Cleaner Cream packshot amazon india",
+            "chrome tap cleaner packshot white background",
+            "stainless steel polish cream packshot"
+        ],
+        "variants": [
+            { "size_label": "250 g Pack", "mrp": 95, "price": 80, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh068",
+        "name": "Traditional Cotton Yellow Flannel Dusting Cloth",
+        "slug": "cotton-dusting-cloth",
+        "brand": "G1 Mart Utility",
+        "brand_id": "brand-g1",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Cleaning Cloths & Wipes",
+        "subCategory": "Cleaning Cloths & Wipes",
+        "description": "Soft pure cotton flannel cloth for dusting wooden furniture, electronics, car dashboards and glass tops.",
+        "image_url": "/products/verified/hh-dusting-cloth.webp",
+        "queries": [
+            "Yellow Cotton Dusting Cloth packshot amazon india",
+            "cotton cleaning duster cloth packshot white background",
+            "yellow duster cloth pack of 3 packshot"
+        ],
+        "variants": [
+            { "size_label": "Pack of 3 Cloths", "mrp": 60, "price": 45, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh069",
+        "name": "Premium Microfiber Multipurpose Cleaning Cloth (Non-Scratch)",
+        "slug": "microfiber-cleaning-cloth",
+        "brand": "Scotch-Brite",
+        "brand_id": "brand-scotch-brite",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Cleaning Cloths & Wipes",
+        "subCategory": "Cleaning Cloths & Wipes",
+        "description": "High density microfiber cloth traps micro-dust particles and cleans glass surfaces lint-free with or without water.",
+        "image_url": "/products/verified/hh-microfiber-cloth.webp",
+        "queries": [
+            "Scotch-Brite Microfiber Cleaning Cloth packshot amazon india",
+            "Microfiber cloth for cleaning packshot white background",
+            "microfiber duster cloth packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Cloth", "mrp": 50, "price": 38, "stock": 55 },
+            { "size_label": "Pack of 3 Cloths", "mrp": 140, "price": 105, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh070",
+        "name": "Multipurpose Household Cleaning Sponge",
+        "slug": "cleaning-sponge",
+        "brand": "Scotch-Brite",
+        "brand_id": "brand-scotch-brite",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Cleaning Cloths & Wipes",
+        "subCategory": "Cleaning Cloths & Wipes",
+        "description": "Highly absorbent foam sponge absorbs spills up to 10x its weight, ideal for kitchen counters and tabletop wiping.",
+        "image_url": "/products/verified/hh-cleaning-sponge.webp",
+        "queries": [
+            "Household Cleaning Sponge packshot amazon india",
+            "cellulose cleaning sponge packshot white background",
+            "kitchen sponge packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Sponge", "mrp": 25, "price": 18, "stock": 60 }
+        ]
+    },
+    {
+        "id": "g1-hh071",
+        "name": "Round Bristle Utility Scrub Brush",
+        "slug": "round-cleaning-brush",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Specialty Cleaners",
+        "subCategory": "Specialty Cleaners",
+        "description": "Circular dense bristle brush for scrubbing bathroom drain corners, kitchen sinks and greasy tiles.",
+        "image_url": "/products/verified/hh-round-cleaning-brush.webp",
+        "queries": [
+            "Round Scrub Brush cleaning brush packshot amazon india",
+            "round cleaning brush packshot white background",
+            "utility round scrub brush packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Brush", "mrp": 45, "price": 35, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh072",
+        "name": "Handheld Hard Utility Scrub Brush with Grip Handle",
+        "slug": "hand-scrub-brush",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Specialty Cleaners",
+        "subCategory": "Specialty Cleaners",
+        "description": "Comfortable top grip handle gives maximum leverage for scrubbing hard patio floors, mud stains and verandas.",
+        "image_url": "/products/verified/hh-hand-cleaning-brush.webp",
+        "queries": [
+            "Handheld Scrub Brush with Handle packshot amazon india",
+            "hand scrub brush packshot white background",
+            "floor scrub brush hand grip packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Brush", "mrp": 50, "price": 38, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh073",
+        "name": "Cherry Blossom Premium Shoe Polish Tin",
+        "slug": "cherry-blossom-shoe-polish",
+        "brand": "Cherry Blossom",
+        "brand_id": "brand-cherry-blossom",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Specialty Cleaners",
+        "subCategory": "Specialty Cleaners",
+        "description": "Enriched with carnauba wax to nourish leather, conceal scuffs and give a long lasting mirror shine to formal shoes.",
+        "image_url": "/products/verified/hh-shoe-polish.webp",
+        "queries": [
+            "Cherry Blossom Shoe Polish tin packshot amazon india",
+            "Cherry Blossom black shoe polish packshot white background",
+            "Cherry Blossom 40g tin packshot"
+        ],
+        "variants": [
+            { "size_label": "Black (40 g Tin)", "mrp": 45, "price": 42, "stock": 50 },
+            { "size_label": "Brown / Dark Tan (40 g Tin)", "mrp": 45, "price": 42, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh074",
+        "name": "Wooden Handle Horsehair Shoe Shine Buffing Brush",
+        "slug": "shoe-brush",
+        "brand": "Cherry Blossom",
+        "brand_id": "brand-cherry-blossom",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Specialty Cleaners",
+        "subCategory": "Specialty Cleaners",
+        "description": "Natural soft dense bristles buff leather shoes easily without scratching, creating an instant high gloss shine.",
+        "image_url": "/products/verified/hh-shoe-brush.webp",
+        "queries": [
+            "Shoe Shine Brush wooden handle packshot amazon india",
+            "Cherry Blossom shoe brush packshot white background",
+            "wooden shoe brush packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Brush", "mrp": 75, "price": 60, "stock": 40 }
+        ]
+    },
+
+    # -------------------------------------------------------------------------
+    # 6. MOSQUITO AND INSECT CONTROL (floor-surface-cleaners)
+    # -------------------------------------------------------------------------
+    {
+        "id": "g1-hh075",
+        "name": "Goodknight Gold Flash Mosquito Liquid Vaporizer Refill",
+        "slug": "goodknight-liquid-refill",
+        "brand": "Goodknight",
+        "brand_id": "brand-goodknight",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Mosquito & Pest Repellents",
+        "subCategory": "Mosquito & Pest Repellents",
+        "description": "Goodknight Gold Flash liquid refill features Flash Mode to clear mosquitoes within 30 minutes of activation.",
+        "image_url": "/products/verified/hh-goodknight-liquid-refill.webp",
+        "queries": [
+            "Goodknight Gold Flash Liquid Vaporizer Refill packshot amazon india",
+            "Goodknight liquid refill bottle packshot white background",
+            "Goodknight 45ml refill packshot"
+        ],
+        "variants": [
+            { "size_label": "45 ml (1 Refill)", "mrp": 85, "price": 78, "stock": 60 },
+            { "size_label": "2 x 45 ml (Twin Pack)", "mrp": 160, "price": 145, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh076",
+        "name": "Goodknight Gold Flash Machine + Refill Starter Kit",
+        "slug": "goodknight-starter-kit",
+        "brand": "Goodknight",
+        "brand_id": "brand-goodknight",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Mosquito & Pest Repellents",
+        "subCategory": "Mosquito & Pest Repellents",
+        "description": "Complete mosquito protection starter pack containing 1 Goodknight Gold Flash heater machine plus 1 45ml liquid refill.",
+        "image_url": "/products/verified/hh-goodknight-starter-kit.webp",
+        "queries": [
+            "Goodknight Gold Flash Machine and Refill Kit packshot amazon india",
+            "Goodknight machine starter packshot white background",
+            "Goodknight machine and refill packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Machine + 45 ml Refill", "mrp": 120, "price": 105, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh077",
+        "name": "Goodknight Jumbo Low Smoke Mosquito Repellent Coils",
+        "slug": "goodknight-mosquito-coils",
+        "brand": "Goodknight",
+        "brand_id": "brand-goodknight",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Mosquito & Pest Repellents",
+        "subCategory": "Mosquito & Pest Repellents",
+        "description": "Goodknight Jumbo Coils provide up to 12 hours of protection against hidden mosquitoes with low smoke technology.",
+        "image_url": "/products/verified/hh-goodknight-coils.webp",
+        "queries": [
+            "Goodknight Jumbo Mosquito Coil packshot amazon india",
+            "Goodknight mosquito coil box packshot white background",
+            "Goodknight 10 coils packshot"
+        ],
+        "variants": [
+            { "size_label": "10 Coils Pack", "mrp": 40, "price": 36, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh078",
+        "name": "All Out Ultra Power+ Liquid Vaporizer Refill",
+        "slug": "all-out-liquid-refill",
+        "brand": "All Out",
+        "brand_id": "brand-all-out",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Mosquito & Pest Repellents",
+        "subCategory": "Mosquito & Pest Repellents",
+        "description": "All Out Ultra Power+ features dynamic thermal action that spreads repellent to every corner for peaceful sleep.",
+        "image_url": "/products/verified/hh-all-out-refill.webp",
+        "queries": [
+            "All Out Ultra Power Plus Liquid Refill packshot amazon india",
+            "All Out mosquito refill bottle packshot white background",
+            "All Out 45ml refill packshot"
+        ],
+        "variants": [
+            { "size_label": "45 ml (1 Refill)", "mrp": 85, "price": 78, "stock": 55 },
+            { "size_label": "2 x 45 ml (Twin Pack)", "mrp": 160, "price": 145, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh079",
+        "name": "All Out Ultra Power+ Machine + Refill Starter Kit",
+        "slug": "all-out-starter-kit",
+        "brand": "All Out",
+        "brand_id": "brand-all-out",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Mosquito & Pest Repellents",
+        "subCategory": "Mosquito & Pest Repellents",
+        "description": "Complete electronic mosquito defense kit with All Out heater machine and 1 45ml long lasting liquid refill.",
+        "image_url": "/products/verified/hh-all-out-starter-kit.webp",
+        "queries": [
+            "All Out Ultra Power Plus Machine and Refill Kit packshot amazon india",
+            "All Out starter kit packshot white background",
+            "All Out machine packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Machine + 45 ml Refill", "mrp": 120, "price": 105, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh080",
+        "name": "Mortein PowerGard 12-Hour Mosquito Repellent Coils",
+        "slug": "mortein-mosquito-coils",
+        "brand": "Mortein",
+        "brand_id": "brand-mortein",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Mosquito & Pest Repellents",
+        "subCategory": "Mosquito & Pest Repellents",
+        "description": "Mortein PowerGard coils with deep reach formula eliminate mosquitoes carrying dengue and malaria quickly.",
+        "image_url": "/products/verified/hh-mortein-coils.webp",
+        "queries": [
+            "Mortein PowerGard Mosquito Coil packshot amazon india",
+            "Mortein mosquito coil box packshot white background",
+            "Mortein 10 coils packshot"
+        ],
+        "variants": [
+            { "size_label": "10 Coils Pack", "mrp": 40, "price": 36, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh081",
+        "name": "Mortein 2x Power Liquid Vaporizer Mosquito Refill",
+        "slug": "mortein-liquid-refill",
+        "brand": "Mortein",
+        "brand_id": "brand-mortein",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Mosquito & Pest Repellents",
+        "subCategory": "Mosquito & Pest Repellents",
+        "description": "Mortein 2x liquid refill fits all standard machines and begins knocking down flying mosquitoes within 5 minutes.",
+        "image_url": "/products/verified/hh-mortein-liquid-refill.webp",
+        "queries": [
+            "Mortein 2x Power Liquid Vaporizer Refill packshot amazon india",
+            "Mortein mosquito liquid refill packshot white background",
+            "Mortein 45ml refill packshot"
+        ],
+        "variants": [
+            { "size_label": "45 ml (1 Refill)", "mrp": 85, "price": 78, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh082",
+        "name": "Goodknight Silver Mosquito Repellent Mats",
+        "slug": "goodknight-repellent-mats",
+        "brand": "Goodknight",
+        "brand_id": "brand-goodknight",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Mosquito & Pest Repellents",
+        "subCategory": "Mosquito & Pest Repellents",
+        "description": "Classic mosquito repellent mats for electronic mat heaters, providing all night dependable mosquito defense.",
+        "image_url": "/products/verified/hh-goodknight-mats.webp",
+        "queries": [
+            "Goodknight Mosquito Repellent Mats box packshot amazon india",
+            "Goodknight mats packshot white background",
+            "Goodknight 30 mats packshot"
+        ],
+        "variants": [
+            { "size_label": "30 Mats Pack", "mrp": 80, "price": 72, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh083",
+        "name": "HIT Cockroach Killer Spray (Red HIT with Deep Reach Nozzle)",
+        "slug": "red-hit-cockroach-spray",
+        "brand": "HIT",
+        "brand_id": "brand-hit",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Mosquito & Pest Repellents",
+        "subCategory": "Mosquito & Pest Repellents",
+        "description": "Red HIT with specialized narrow nozzle reaches deep into kitchen sink corners, cabinets and cracks to kill hidden cockroaches instantly.",
+        "image_url": "/products/verified/hh-red-hit-spray.webp",
+        "queries": [
+            "Red HIT Cockroach Killer Spray can packshot amazon india",
+            "Red HIT spray can packshot white background",
+            "Red HIT 400ml packshot"
+        ],
+        "variants": [
+            { "size_label": "200 ml Can", "mrp": 130, "price": 115, "stock": 45 },
+            { "size_label": "400 ml Can", "mrp": 240, "price": 210, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh084",
+        "name": "HIT Flying Insect Killer Mosquito Spray (Black HIT)",
+        "slug": "black-hit-mosquito-spray",
+        "brand": "HIT",
+        "brand_id": "brand-hit",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Mosquito & Pest Repellents",
+        "subCategory": "Mosquito & Pest Repellents",
+        "description": "Black HIT aerosol spray drops mosquitoes, flies and gnats instantly upon contact with fresh lime scent.",
+        "image_url": "/products/verified/hh-black-hit-spray.webp",
+        "queries": [
+            "Black HIT Flying Insect Killer Spray can packshot amazon india",
+            "Black HIT spray can packshot white background",
+            "Black HIT 400ml packshot"
+        ],
+        "variants": [
+            { "size_label": "200 ml Can", "mrp": 130, "price": 115, "stock": 45 },
+            { "size_label": "400 ml Can", "mrp": 240, "price": 210, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh085",
+        "name": "Baygon Multi Insect Killer Household Aerosol Spray",
+        "slug": "baygon-insect-spray",
+        "brand": "Baygon",
+        "brand_id": "brand-baygon",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Mosquito & Pest Repellents",
+        "subCategory": "Mosquito & Pest Repellents",
+        "description": "Dual action spray that knocks down both crawling insects and flying pests around doors, windows and trash cans.",
+        "image_url": "/products/verified/hh-baygon-insect-spray.webp",
+        "queries": [
+            "Baygon Insect Killer Spray can packshot amazon india",
+            "Baygon spray can packshot white background",
+            "Baygon aerosol spray packshot"
+        ],
+        "variants": [
+            { "size_label": "250 ml Can", "mrp": 140, "price": 125, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh086",
+        "name": "HIT Rat & Mouse Super Glue Trap Pad (Non-Toxic Household)",
+        "slug": "hit-rat-glue-trap",
+        "brand": "HIT",
+        "brand_id": "brand-hit",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Mosquito & Pest Repellents",
+        "subCategory": "Mosquito & Pest Repellents",
+        "description": "Poison-free extra strong glue board trap with peanut scent lures and traps rodents safely without toxic poisons.",
+        "image_url": "/products/verified/hh-rat-glue-trap.webp",
+        "queries": [
+            "HIT Rat Glue Trap Pad packshot amazon india",
+            "mouse glue trap pad packshot white background",
+            "HIT rat trap packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Trap Pad", "mrp": 75, "price": 65, "stock": 40 }
+        ]
+    },
+
+    # -------------------------------------------------------------------------
+    # 7. AIR FRESHENERS AND ODOUR CONTROL (floor-surface-cleaners)
+    # -------------------------------------------------------------------------
+    {
+        "id": "g1-hh087",
+        "name": "Odonil Bathroom Air Freshener Block (Mystic Jasmine / Lavender)",
+        "slug": "odonil-air-freshener-block",
+        "brand": "Odonil",
+        "brand_id": "brand-odonil",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Air Fresheners",
+        "subCategory": "Air Fresheners",
+        "description": "Odonil Air Freshener Block with specialized nature fragrance crystals continuously neutralizes washroom odors for up to 30 days.",
+        "image_url": "/products/verified/hh-odonil-block.webp",
+        "queries": [
+            "Odonil Bathroom Air Freshener Block packshot amazon india",
+            "Odonil air freshener packshot white background",
+            "Odonil block 50g packshot"
+        ],
+        "variants": [
+            { "size_label": "50 g (1 Block)", "mrp": 42, "price": 38, "stock": 60 },
+            { "size_label": "4 x 50 g (Multipack)", "mrp": 160, "price": 140, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh088",
+        "name": "Odonil Smile Gel Pocket Bathroom Air Freshener",
+        "slug": "odonil-gel-pocket-freshener",
+        "brand": "Odonil",
+        "brand_id": "brand-odonil",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Air Fresheners",
+        "subCategory": "Air Fresheners",
+        "description": "Slim gel pocket with ventilation membrane hangs anywhere to deliver intense floral freshness in enclosed bathrooms.",
+        "image_url": "/products/verified/hh-odonil-gel-pocket.webp",
+        "queries": [
+            "Odonil Smile Gel Pocket Air Freshener packshot amazon india",
+            "Odonil gel pocket packshot white background",
+            "Odonil gel pocket 10g packshot"
+        ],
+        "variants": [
+            { "size_label": "10 g Pocket", "mrp": 25, "price": 22, "stock": 60 },
+            { "size_label": "Pack of 3 Pockets", "mrp": 70, "price": 60, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh089",
+        "name": "Godrej aer Room Freshener Spray (Morning Misty Meadows)",
+        "slug": "godrej-aer-room-spray",
+        "brand": "Godrej aer",
+        "brand_id": "brand-godrej-aer",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Air Fresheners",
+        "subCategory": "Air Fresheners",
+        "description": "Godrej aer Room Freshener Spray releases fine aromatic mist that transforms your living room and bedrooms with lush natural freshness.",
+        "image_url": "/products/verified/hh-godrej-aer-spray.webp",
+        "queries": [
+            "Godrej aer Room Freshener Spray can packshot amazon india",
+            "Godrej aer spray can packshot white background",
+            "Godrej aer 220ml spray packshot"
+        ],
+        "variants": [
+            { "size_label": "220 ml Can", "mrp": 169, "price": 145, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh090",
+        "name": "Godrej aer Power Pocket Bathroom Air Freshener",
+        "slug": "godrej-aer-power-pocket",
+        "brand": "Godrej aer",
+        "brand_id": "brand-godrej-aer",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Air Fresheners",
+        "subCategory": "Air Fresheners",
+        "description": "Godrej aer Power Pocket with power gel technology keeps bathroom smelling refreshing every time you enter, lasting up to 30 days.",
+        "image_url": "/products/verified/hh-godrej-aer-pocket.webp",
+        "queries": [
+            "Godrej aer Power Pocket Bathroom Air Freshener packshot amazon india",
+            "Godrej aer power pocket packshot white background",
+            "Godrej aer pocket 10g packshot"
+        ],
+        "variants": [
+            { "size_label": "10 g Pocket", "mrp": 55, "price": 48, "stock": 60 },
+            { "size_label": "Pack of 3 Pockets", "mrp": 155, "price": 135, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh091",
+        "name": "Godrej aer Matic Automatic Room Freshener Machine + Refill Kit",
+        "slug": "godrej-aer-matic-kit",
+        "brand": "Godrej aer",
+        "brand_id": "brand-godrej-aer",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Air Fresheners",
+        "subCategory": "Air Fresheners",
+        "description": "Battery-operated automatic room fragrance dispenser sprays fresh scent at scheduled 10, 20 or 40-minute intervals (up to 2200 sprays).",
+        "image_url": "/products/verified/hh-godrej-aer-matic-kit.webp",
+        "queries": [
+            "Godrej aer Matic Automatic Room Freshener Kit packshot amazon india",
+            "Godrej aer matic machine and refill packshot white background",
+            "Godrej aer matic kit packshot"
+        ],
+        "variants": [
+            { "size_label": "Machine + 225 ml Refill", "mrp": 550, "price": 480, "stock": 25 }
+        ]
+    },
+    {
+        "id": "g1-hh092",
+        "name": "Godrej aer Matic Automatic Room Freshener Refill Can",
+        "slug": "godrej-aer-matic-refill",
+        "brand": "Godrej aer",
+        "brand_id": "brand-godrej-aer",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Air Fresheners",
+        "subCategory": "Air Fresheners",
+        "description": "Standard aerosol refill canister compatible with Godrej aer Matic and other automatic fragrance dispensers (up to 2200 sprays).",
+        "image_url": "/products/verified/hh-godrej-aer-matic-refill.webp",
+        "queries": [
+            "Godrej aer Matic Refill Can packshot amazon india",
+            "Godrej aer matic refill 225ml packshot white background",
+            "Godrej aer refill can packshot"
+        ],
+        "variants": [
+            { "size_label": "225 ml Refill Can", "mrp": 275, "price": 240, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh093",
+        "name": "Airwick Freshmatic Automatic Room Spray Refill",
+        "slug": "airwick-freshmatic-refill",
+        "brand": "Airwick",
+        "brand_id": "brand-airwick",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Air Fresheners",
+        "subCategory": "Air Fresheners",
+        "description": "Airwick Freshmatic refill with natural essential oils neutralizes odors and keeps rooms fragrant for up to 70 days.",
+        "image_url": "/products/verified/hh-airwick-refill.webp",
+        "queries": [
+            "Airwick Freshmatic Automatic Spray Refill can packshot amazon india",
+            "Airwick refill can packshot white background",
+            "Airwick 250ml refill packshot"
+        ],
+        "variants": [
+            { "size_label": "250 ml Refill Can", "mrp": 299, "price": 260, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-hh094",
+        "name": "Ambi Pur Mood Escapes Room Air Freshener Gel",
+        "slug": "ambi-pur-room-gel",
+        "brand": "Ambi Pur",
+        "brand_id": "brand-ambi-pur",
+        "category_id": "floor-surface-cleaners",
+        "category": "floor-surface-cleaners",
+        "sub_category": "Air Fresheners",
+        "subCategory": "Air Fresheners",
+        "description": "Adjustable aromatic gel tub releases subtle calming scent, ideal for study tables, shoe racks and bedrooms.",
+        "image_url": "/products/verified/hh-ambi-pur-gel.webp",
+        "queries": [
+            "Ambi Pur Room Air Freshener Gel tub packshot amazon india",
+            "Ambi Pur air freshener gel packshot white background",
+            "Ambi pur gel tub 180g packshot"
+        ],
+        "variants": [
+            { "size_label": "180 g Tub", "mrp": 149, "price": 129, "stock": 35 }
+        ]
+    },
+
+    # -------------------------------------------------------------------------
+    # 8. BROOMS, MOPS AND FLOOR TOOLS (kitchenware)
+    # -------------------------------------------------------------------------
+    {
+        "id": "g1-hh095",
+        "name": "Natural Soft Grass Broom (Phool Jhadu / Assam Grass)",
+        "slug": "soft-grass-broom",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "Dense natural mountain grass broom with comfortable grip handle sweeps micro-dust from marble and vitrified tiles cleanly.",
+        "image_url": "/products/verified/hh-grass-broom.webp",
+        "queries": [
+            "Phool Jhadu Grass Broom packshot amazon india",
+            "soft grass broom packshot white background",
+            "Gala grass broom packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Broom", "mrp": 99, "price": 79, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh096",
+        "name": "Natural Coconut Stick Hard Broom (Seekh Jhadu / Kharata)",
+        "slug": "coconut-hard-broom",
+        "brand": "G1 Mart Utility",
+        "brand_id": "brand-g1",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "Heavy-duty stiff coconut palm leaf sticks broom designed for washing wet bathroom floors, verandas and outdoor yards.",
+        "image_url": "/products/verified/hh-coconut-broom.webp",
+        "queries": [
+            "Coconut Stick Broom Kharata packshot amazon india",
+            "seekh jhadu broom packshot white background",
+            "coconut broom packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Broom", "mrp": 60, "price": 48, "stock": 60 }
+        ]
+    },
+    {
+        "id": "g1-hh097",
+        "name": "Heavy Duty Steel Handle Plastic Bristle Floor Broom",
+        "slug": "steel-handle-broom",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "Washable plastic bristle broom with long steel handle cleans wet balconies and rough terrace floors without decaying.",
+        "image_url": "/products/verified/hh-steel-handle-broom.webp",
+        "queries": [
+            "Steel Handle Plastic Broom packshot amazon india",
+            "plastic bristle broom steel handle packshot white background",
+            "Gala plastic broom packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Broom", "mrp": 199, "price": 159, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh098",
+        "name": "Scotch-Brite No-Dust Synthetic Fibre Broom",
+        "slug": "scotch-brite-no-dust-broom",
+        "brand": "Scotch-Brite",
+        "brand_id": "brand-scotch-brite",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "Scotch-Brite No Dust Broom made from synthetic special grass fibres sheds zero bhusa (dust) and lasts 3x longer than traditional grass.",
+        "image_url": "/products/verified/hh-scotch-brite-broom.webp",
+        "queries": [
+            "Scotch-Brite No Dust Broom packshot amazon india",
+            "Scotch Brite No Dust broom packshot white background",
+            "Scotch Brite broom packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Broom", "mrp": 299, "price": 249, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh099",
+        "name": "Prince 5G Heavy Duty Long Handle Plastic Broom",
+        "slug": "prince-5g-steel-broom",
+        "brand": "Prince",
+        "brand_id": "brand-prince",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "Lightweight ergonomic 5-finger wide sweeping broom with stainless steel rod for effortless household sweeping.",
+        "image_url": "/products/verified/hh-prince-5g-broom.webp",
+        "queries": [
+            "Prince 5G Plastic Broom packshot amazon india",
+            "plastic broom long handle packshot white background",
+            "5G steel broom packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Broom", "mrp": 220, "price": 180, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-hh100",
+        "name": "Heavy Duty Floor Wiper (14-Inch Durable Rubber Blade)",
+        "slug": "floor-wiper-14-inch",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "High density flexible EVA rubber blade wipes water off bathroom tiles and kitchen floors in a single smooth sweep.",
+        "image_url": "/products/verified/hh-floor-wiper-14inch.webp",
+        "queries": [
+            "Gala Floor Wiper 14 inch packshot amazon india",
+            "floor wiper rubber blade packshot white background",
+            "Gala floor wiper packshot"
+        ],
+        "variants": [
+            { "size_label": "14-Inch Wiper", "mrp": 149, "price": 119, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh101",
+        "name": "Extra Wide Bathroom & Balcony Floor Wiper (18-Inch Blade)",
+        "slug": "floor-wiper-extra-wide",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "Extra wide 18-inch wiper covers large floor areas quickly, with rust-proof stainless steel handle pipe.",
+        "image_url": "/products/verified/hh-floor-wiper-wide.webp",
+        "queries": [
+            "Floor Wiper large 18 inch packshot amazon india",
+            "bathroom floor wiper large packshot white background",
+            "Gala large floor wiper packshot"
+        ],
+        "variants": [
+            { "size_label": "18-Inch Large Wiper", "mrp": 199, "price": 159, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh102",
+        "name": "Compact Handheld Bathroom Platform & Mirror Wiper",
+        "slug": "bathroom-platform-wiper",
+        "brand": "Scotch-Brite",
+        "brand_id": "brand-scotch-brite",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "Short handle mini squeegee wiper cleans shower glass, mirrors, marble vanity counters and kitchen sink slabs.",
+        "image_url": "/products/verified/hh-bathroom-wiper.webp",
+        "queries": [
+            "Kitchen Platform Wiper bathroom glass squeegee packshot amazon india",
+            "small hand wiper packshot white background",
+            "Scotch Brite platform wiper packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Piece", "mrp": 75, "price": 55, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh103",
+        "name": "Gala Twist Self-Wringing Microfiber Floor Mop",
+        "slug": "gala-twist-mop",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "Self-wringing ratchet mechanism squeezes excess water out without bending or getting hands wet; microfiber threads absorb deep dirt.",
+        "image_url": "/products/verified/hh-gala-twist-mop.webp",
+        "queries": [
+            "Gala Twist Mop packshot amazon india",
+            "Gala twist self wringing mop packshot white background",
+            "twist mop packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Twist Mop", "mrp": 399, "price": 329, "stock": 30 }
+        ]
+    },
+    {
+        "id": "g1-hh104",
+        "name": "Traditional Looped Cotton Thread Floor Mop with Handle",
+        "slug": "cotton-floor-mop",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "High absorption looped cotton yarn floor mop with sturdy steel pipe handle for everyday house mopping.",
+        "image_url": "/products/verified/hh-cotton-floor-mop.webp",
+        "queries": [
+            "Cotton Floor Mop with handle packshot amazon india",
+            "cotton thread mop packshot white background",
+            "Gala cotton mop packshot"
+        ],
+        "variants": [
+            { "size_label": "Mop + Steel Handle", "mrp": 149, "price": 119, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh105",
+        "name": "Round Looped Cotton Floor Mop Replacement Refill Head",
+        "slug": "cotton-mop-refill",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "Screw-in circular cotton yarn mop head refill, fits all standard household threaded mop handles.",
+        "image_url": "/products/verified/hh-mop-refill.webp",
+        "queries": [
+            "Cotton Floor Mop Refill head packshot amazon india",
+            "mop refill thread packshot white background",
+            "Gala mop refill packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Refill Head", "mrp": 75, "price": 59, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh106",
+        "name": "Stainless Steel Threaded Mop Stick / Handle Rod",
+        "slug": "mop-stick-handle",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "Rust-proof durable metal extension handle rod with universal threaded tip, fits wipers and mop refills.",
+        "image_url": "/products/verified/hh-mop-handle.webp",
+        "queries": [
+            "Mop Handle Rod steel pipe packshot amazon india",
+            "mop stick threaded packshot white background",
+            "steel mop handle packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Handle Rod", "mrp": 99, "price": 79, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh107",
+        "name": "Heavy Duty Plastic Household Floor Mopping Bucket",
+        "slug": "floor-mop-bucket",
+        "brand": "Prince",
+        "brand_id": "brand-prince",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "Sturdy rectangular plastic bucket with strong metal handle, designed for comfortable floor cleaning and water carrying.",
+        "image_url": "/products/verified/hh-mop-bucket.webp",
+        "queries": [
+            "Plastic Mop Bucket packshot amazon india",
+            "rectangular mop bucket packshot white background",
+            "cleaning mop bucket packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Bucket", "mrp": 199, "price": 159, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh108",
+        "name": "Gala Quick Spin 360 Mop Set with Twin Bucket & 2 Refills",
+        "slug": "spin-mop-set",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "Complete 360-degree spin mopping system with stainless steel wringer bucket, flexible swivel head and 2 absorbent microfiber refills.",
+        "image_url": "/products/verified/hh-spin-mop-set.webp",
+        "queries": [
+            "Gala Spin Mop Set with Bucket packshot amazon india",
+            "Gala Quick Spin Mop packshot white background",
+            "spin mop set packshot"
+        ],
+        "variants": [
+            { "size_label": "Complete Set (Bucket + Mop + 2 Refills)", "mrp": 1299, "price": 999, "stock": 20 }
+        ]
+    },
+    {
+        "id": "g1-hh109",
+        "name": "Heavy Duty Plastic Dustpan with Flexible Rubber Lip Edge",
+        "slug": "plastic-dustpan",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "Durable wide plastic dustpan with flexible rubber lip edge that hugs the floor so fine dust does not sweep underneath.",
+        "image_url": "/products/verified/hh-dustpan.webp",
+        "queries": [
+            "Plastic Dustpan with rubber lip packshot amazon india",
+            "dustpan packshot white background",
+            "Gala dustpan packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Dustpan", "mrp": 49, "price": 39, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh110",
+        "name": "Ergonomic Dustpan and Hand Brush Cleaning Set",
+        "slug": "dustpan-and-brush-set",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "Handy clip-on mini brush and dustpan set for quickly clearing kitchen crumbs, study desk dust and small messes.",
+        "image_url": "/products/verified/hh-dustpan-brush-set.webp",
+        "queries": [
+            "Dustpan and Brush Set packshot amazon india",
+            "dustpan and small brush set packshot white background",
+            "Gala dustpan brush set packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Set", "mrp": 99, "price": 79, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh111",
+        "name": "Telescopic Long Handle Cobweb Cleaning Brush (Jala Duster)",
+        "slug": "cobweb-cleaning-brush",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Brooms, Mops & Wipers",
+        "subCategory": "Brooms, Mops & Wipers",
+        "description": "Expandable long handle with electro-static round bristle head reaches high ceiling fans, corners and walls to clear cobwebs effortlessly.",
+        "image_url": "/products/verified/hh-cobweb-brush.webp",
+        "queries": [
+            "Cobweb Cleaning Brush long handle packshot amazon india",
+            "ceiling jala duster brush packshot white background",
+            "Gala cobweb brush packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Brush", "mrp": 199, "price": 159, "stock": 35 }
+        ]
+    },
+
+    # -------------------------------------------------------------------------
+    # 9. BUCKETS, BATHROOM AND HOUSEHOLD ACCESSORIES (kitchenware)
+    # -------------------------------------------------------------------------
+    {
+        "id": "g1-hh112",
+        "name": "Heavy Duty Virgin Plastic Bath Bucket (18 Litre Capacity)",
+        "slug": "plastic-bath-bucket-18l",
+        "brand": "Prince",
+        "brand_id": "brand-prince",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Bathroom & Home Accessories",
+        "subCategory": "Bathroom & Home Accessories",
+        "description": "Sturdy virgin plastic bathroom bucket with comfortable grip handle and graduated internal measuring markings.",
+        "image_url": "/products/verified/hh-plastic-bucket.webp",
+        "queries": [
+            "Plastic Bath Bucket 18 Litre packshot amazon india",
+            "plastic bucket 18L packshot white background",
+            "bathroom bucket packshot"
+        ],
+        "variants": [
+            { "size_label": "18 Litre Bucket", "mrp": 199, "price": 160, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh113",
+        "name": "Heavy Plastic Bath & Washing Mug (1 Litre Capacity)",
+        "slug": "plastic-bath-mug-1l",
+        "brand": "Prince",
+        "brand_id": "brand-prince",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Bathroom & Home Accessories",
+        "subCategory": "Bathroom & Home Accessories",
+        "description": "Durable BPA-free plastic bath mug with smooth rounded rim and solid comfortable handle grip.",
+        "image_url": "/products/verified/hh-plastic-mug.webp",
+        "queries": [
+            "Plastic Bath Mug 1 Litre packshot amazon india",
+            "plastic bath mug packshot white background",
+            "bathroom mug 1000ml packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Litre Mug", "mrp": 35, "price": 28, "stock": 60 }
+        ]
+    },
+    {
+        "id": "g1-hh114",
+        "name": "Self-Draining Double Layer Plastic Soap Dish Case",
+        "slug": "plastic-soap-case",
+        "brand": "G1 Mart Utility",
+        "brand_id": "brand-g1",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Bathroom & Home Accessories",
+        "subCategory": "Bathroom & Home Accessories",
+        "description": "Double tray design allows water to drain into base, keeping bathing bar dry, firm and non-mushy.",
+        "image_url": "/products/verified/hh-soap-case.webp",
+        "queries": [
+            "Plastic Soap Dish Case drain packshot amazon india",
+            "soap case for bathroom packshot white background",
+            "plastic soap holder packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Piece", "mrp": 30, "price": 24, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh115",
+        "name": "Wall Mount Bathroom Toothbrush & Toothpaste Tumbler Holder",
+        "slug": "toothbrush-holder",
+        "brand": "G1 Mart Utility",
+        "brand_id": "brand-g1",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Bathroom & Home Accessories",
+        "subCategory": "Bathroom & Home Accessories",
+        "description": "Adhesive wall-mounted plastic tumbler neatly holds 4 toothbrushes, tongue cleaner and toothpaste tube.",
+        "image_url": "/products/verified/hh-toothbrush-holder.webp",
+        "queries": [
+            "Wall Mount Toothbrush Holder bathroom packshot amazon india",
+            "toothbrush tumbler holder packshot white background",
+            "plastic toothbrush stand packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Piece", "mrp": 75, "price": 55, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh116",
+        "name": "Corner Wall Mounted Bathroom Utility Shelf Rack",
+        "slug": "bathroom-shelf-holder",
+        "brand": "G1 Mart Utility",
+        "brand_id": "brand-g1",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Bathroom & Home Accessories",
+        "subCategory": "Bathroom & Home Accessories",
+        "description": "Rust-proof plastic corner caddy organizes shampoo bottles, body washes and soaps cleanly without drilling.",
+        "image_url": "/products/verified/hh-bathroom-shelf.webp",
+        "queries": [
+            "Bathroom Corner Shelf Rack adhesive packshot amazon india",
+            "bathroom wall shelf packshot white background",
+            "plastic bathroom caddy shelf packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Piece", "mrp": 149, "price": 115, "stock": 35 }
+        ]
+    },
+    {
+        "id": "g1-hh117",
+        "name": "Heavy Duty Laundry Cloth Washing Brush with Grip",
+        "slug": "cloth-washing-brush",
+        "brand": "Gala",
+        "brand_id": "brand-gala",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Bathroom & Home Accessories",
+        "subCategory": "Bathroom & Home Accessories",
+        "description": "Stiff synthetic bristles scrub dirt out of denim jeans, heavy bedsheets and shirt collars without fraying thread.",
+        "image_url": "/products/verified/hh-cloth-brush.webp",
+        "queries": [
+            "Cloth Washing Brush laundry scrub packshot amazon india",
+            "cloth washing brush packshot white background",
+            "Gala cloth washing brush packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Brush", "mrp": 45, "price": 35, "stock": 55 }
+        ]
+    },
+    {
+        "id": "g1-hh118",
+        "name": "Long Handled Body Bath Brush with Exfoliating Loofah",
+        "slug": "body-bath-brush",
+        "brand": "G1 Mart Utility",
+        "brand_id": "brand-g1",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Bathroom & Home Accessories",
+        "subCategory": "Bathroom & Home Accessories",
+        "description": "Curved long plastic handle with soft mesh loofah reaches the back easily to gently cleanse and exfoliate skin.",
+        "image_url": "/products/verified/hh-bath-brush.webp",
+        "queries": [
+            "Long Handle Bath Brush with Loofah packshot amazon india",
+            "body wash brush long handle packshot white background",
+            "bath scrubber brush packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Brush", "mrp": 99, "price": 79, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh119",
+        "name": "Heavy Duty Plastic Cloth Drying Pegs / Laundry Clips",
+        "slug": "plastic-cloth-clips",
+        "brand": "G1 Mart Utility",
+        "brand_id": "brand-g1",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Bathroom & Home Accessories",
+        "subCategory": "Bathroom & Home Accessories",
+        "description": "Rust-proof stainless steel springs secure clothes onto clothesline ropes firmly even against strong balcony wind.",
+        "image_url": "/products/verified/hh-cloth-clips.webp",
+        "queries": [
+            "Plastic Cloth Clips laundry pegs packshot amazon india",
+            "cloth drying clips pack of 12 packshot white background",
+            "laundry pegs packshot"
+        ],
+        "variants": [
+            { "size_label": "Pack of 12 Clips", "mrp": 49, "price": 39, "stock": 60 }
+        ]
+    },
+    {
+        "id": "g1-hh120",
+        "name": "Durable Plastic Clothes Hangers Set for Wardrobe",
+        "slug": "plastic-clothes-hangers",
+        "brand": "G1 Mart Utility",
+        "brand_id": "brand-g1",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Bathroom & Home Accessories",
+        "subCategory": "Bathroom & Home Accessories",
+        "description": "Slim space-saving plastic coat hangers with anti-slip shoulder notches for shirts, sarees, trousers and jackets.",
+        "image_url": "/products/verified/hh-clothes-hangers.webp",
+        "queries": [
+            "Plastic Clothes Hangers set packshot amazon india",
+            "clothes hangers pack of 6 packshot white background",
+            "wardrobe hangers packshot"
+        ],
+        "variants": [
+            { "size_label": "Pack of 6 Hangers", "mrp": 99, "price": 79, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh121",
+        "name": "High Strength Braided Nylon Clothesline Rope (20 Metres)",
+        "slug": "nylon-clothesline-rope",
+        "brand": "G1 Mart Utility",
+        "brand_id": "brand-g1",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Bathroom & Home Accessories",
+        "subCategory": "Bathroom & Home Accessories",
+        "description": "Weather-proof braided nylon rope designed to withstand heavy wet quilts and laundry drying without sagging.",
+        "image_url": "/products/verified/hh-clothesline-rope.webp",
+        "queries": [
+            "Nylon Clothesline Rope 20 metres packshot amazon india",
+            "cloth drying rope roll packshot white background",
+            "nylon rope 20m packshot"
+        ],
+        "variants": [
+            { "size_label": "20 Metres Roll", "mrp": 45, "price": 35, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh122",
+        "name": "Pedal / Swing Lid Plastic Household Dustbin",
+        "slug": "plastic-household-dustbin",
+        "brand": "Prince",
+        "brand_id": "brand-prince",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Bathroom & Home Accessories",
+        "subCategory": "Bathroom & Home Accessories",
+        "description": "Hygienic foot pedal / swing lid plastic waste basket keeps household and bathroom rubbish out of sight and odor-free.",
+        "image_url": "/products/verified/hh-plastic-dustbin.webp",
+        "queries": [
+            "Plastic Pedal Dustbin 10L packshot amazon india",
+            "plastic dustbin with lid packshot white background",
+            "bathroom trash can dustbin packshot"
+        ],
+        "variants": [
+            { "size_label": "Medium (10 Litre)", "mrp": 175, "price": 140, "stock": 35 },
+            { "size_label": "Large (15 Litre)", "mrp": 249, "price": 199, "stock": 25 }
+        ]
+    },
+    {
+        "id": "g1-hh123",
+        "name": "Oxo-Biodegradable Heavy Duty Black Garbage Bags",
+        "slug": "biodegradable-garbage-bags",
+        "brand": "G1 Mart Utility",
+        "brand_id": "brand-g1",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Bathroom & Home Accessories",
+        "subCategory": "Bathroom & Home Accessories",
+        "description": "Leak-proof star bottom sealed trash can liners for wet and dry kitchen waste disposal with tie string closure.",
+        "image_url": "/products/verified/hh-garbage-bags.webp",
+        "queries": [
+            "Oxo-Biodegradable Garbage Bags roll packshot amazon india",
+            "black trash bags roll packshot white background",
+            "garbage bags medium 30 packshot"
+        ],
+        "variants": [
+            { "size_label": "Medium (19x21 in, 30 Bags)", "mrp": 99, "price": 79, "stock": 50 },
+            { "size_label": "Large (24x32 in, 30 Bags)", "mrp": 149, "price": 119, "stock": 40 }
+        ]
+    },
+
+    # -------------------------------------------------------------------------
+    # 10. KITCHEN DISPOSABLES AND PAPER PRODUCTS (kitchenware)
+    # -------------------------------------------------------------------------
+    {
+        "id": "g1-hh124",
+        "name": "Food Grade Aluminium Foil Roll for Cooking & Packing",
+        "slug": "aluminium-foil-roll",
+        "brand": "Freshwrapp",
+        "brand_id": "brand-freshwrapp",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Disposables & Paper Products",
+        "subCategory": "Disposables & Paper Products",
+        "description": "11-micron food grade pure aluminium foil keeps rotis, sandwiches and parathas fresh, warm and hygienic for hours.",
+        "image_url": "/products/verified/hh-aluminium-foil.webp",
+        "queries": [
+            "Hindalco Freshwrapp Aluminium Foil roll box packshot amazon india",
+            "aluminium foil roll packshot white background",
+            "Freshwrapp foil 9m packshot"
+        ],
+        "variants": [
+            { "size_label": "9 Metres", "mrp": 85, "price": 75, "stock": 55 },
+            { "size_label": "18 Metres", "mrp": 160, "price": 139, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh125",
+        "name": "Food Grade Transparent Cling Wrap Film Roll (30 Metres)",
+        "slug": "food-cling-film-roll",
+        "brand": "Freshwrapp",
+        "brand_id": "brand-freshwrapp",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Disposables & Paper Products",
+        "subCategory": "Disposables & Paper Products",
+        "description": "Microwave-safe stretchable cling film seals bowls, cut fruits and leftovers tightly to lock in moisture and flavor.",
+        "image_url": "/products/verified/hh-cling-film.webp",
+        "queries": [
+            "Food Grade Cling Wrap Film roll box packshot amazon india",
+            "cling film roll packshot white background",
+            "cling wrap 30m packshot"
+        ],
+        "variants": [
+            { "size_label": "30 Metres Roll", "mrp": 120, "price": 99, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh126",
+        "name": "Origami 2-Ply Absorbent Kitchen Towel Tissue Roll",
+        "slug": "kitchen-tissue-towel-roll",
+        "brand": "Origami",
+        "brand_id": "brand-origami",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Disposables & Paper Products",
+        "subCategory": "Disposables & Paper Products",
+        "description": "Food contact certified ultra-absorbent paper towels absorb excess oil from puris, pakoras and wipe cooking spills instantly.",
+        "image_url": "/products/verified/hh-kitchen-tissue-roll.webp",
+        "queries": [
+            "Origami Kitchen Towel Tissue Roll packshot amazon india",
+            "kitchen tissue roll packshot white background",
+            "Origami kitchen roll 2 in 1 packshot"
+        ],
+        "variants": [
+            { "size_label": "Single Roll", "mrp": 60, "price": 50, "stock": 50 },
+            { "size_label": "Twin Pack (2 Rolls)", "mrp": 115, "price": 95, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh127",
+        "name": "Soft 2-Ply Bathroom Toilet Tissue Paper Roll",
+        "slug": "toilet-tissue-roll",
+        "brand": "Origami",
+        "brand_id": "brand-origami",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Disposables & Paper Products",
+        "subCategory": "Disposables & Paper Products",
+        "description": "Dermatologically safe 100% virgin pulp embossed toilet paper dissolves safely in water, preventing pipe blockages.",
+        "image_url": "/products/verified/hh-toilet-tissue-roll.webp",
+        "queries": [
+            "Origami Toilet Paper Tissue Roll packshot amazon india",
+            "toilet tissue roll packshot white background",
+            "Origami toilet roll pack of 4 packshot"
+        ],
+        "variants": [
+            { "size_label": "Single Roll", "mrp": 40, "price": 32, "stock": 55 },
+            { "size_label": "Pack of 4 Rolls", "mrp": 150, "price": 120, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh128",
+        "name": "Soft Pure Cellulose Everyday Paper Napkins (100 Count)",
+        "slug": "paper-napkins-100s",
+        "brand": "Origami",
+        "brand_id": "brand-origami",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Disposables & Paper Products",
+        "subCategory": "Disposables & Paper Products",
+        "description": "Soft absorbent paper napkins for dining tables, tea parties and packed lunchboxes.",
+        "image_url": "/products/verified/hh-paper-napkins.webp",
+        "queries": [
+            "Origami Paper Napkins 100 packshot amazon india",
+            "table paper napkins 100s packshot white background",
+            "paper napkins packshot"
+        ],
+        "variants": [
+            { "size_label": "100 Napkins Pack", "mrp": 55, "price": 45, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh129",
+        "name": "Origami 3-Ply Premium Dinner Table Napkins (50 Count)",
+        "slug": "premium-paper-napkins-50s",
+        "brand": "Origami",
+        "brand_id": "brand-origami",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Disposables & Paper Products",
+        "subCategory": "Disposables & Paper Products",
+        "description": "Extra thick 3-ply embossed luxury napkins for dining hospitality with super-soft velvety texture.",
+        "image_url": "/products/verified/hh-premium-napkins.webp",
+        "queries": [
+            "Origami 3 Ply Table Napkins 50 packshot amazon india",
+            "premium dinner napkins packshot white background",
+            "Origami 3 ply napkins packshot"
+        ],
+        "variants": [
+            { "size_label": "50 Napkins Pack", "mrp": 65, "price": 55, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh130",
+        "name": "Soft 2-Ply Facial Tissue Box (100 Pulls)",
+        "slug": "facial-tissue-box",
+        "brand": "Origami",
+        "brand_id": "brand-origami",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Disposables & Paper Products",
+        "subCategory": "Disposables & Paper Products",
+        "description": "Gentle, non-irritating facial tissues in decorative pop-up dispenser box for dressing tables, cars and living rooms.",
+        "image_url": "/products/verified/hh-facial-tissue-box.webp",
+        "queries": [
+            "Origami Facial Tissue Box 100 pulls packshot amazon india",
+            "facial tissue box packshot white background",
+            "face tissue box packshot"
+        ],
+        "variants": [
+            { "size_label": "100 Pulls Box", "mrp": 85, "price": 72, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh131",
+        "name": "Reusable Non-Woven Disposable Kitchen Cleaning Wipes Roll (80 Pulls)",
+        "slug": "reusable-kitchen-wipes-roll",
+        "brand": "G1 Mart Utility",
+        "brand_id": "brand-g1",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Disposables & Paper Products",
+        "subCategory": "Disposables & Paper Products",
+        "description": "Perforated non-woven kitchen wipes can be rinsed and reused multiple times to wipe oil spills and kitchen counters cleanly.",
+        "image_url": "/products/verified/hh-kitchen-wipes-roll.webp",
+        "queries": [
+            "Reusable Non Woven Kitchen Wipes Roll packshot amazon india",
+            "kitchen cleaning roll 80 wipes packshot white background",
+            "kitchen wipe roll packshot"
+        ],
+        "variants": [
+            { "size_label": "80 Pulls Roll", "mrp": 149, "price": 119, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh132",
+        "name": "Heavy Duty Household Dishwashing & Cleaning Rubber Gloves",
+        "slug": "rubber-cleaning-gloves",
+        "brand": "Scotch-Brite",
+        "brand_id": "brand-scotch-brite",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Disposables & Paper Products",
+        "subCategory": "Disposables & Paper Products",
+        "description": "Cotton flocked inner lining protects delicate hands from harsh detergents and scalding dish water with textured grip palm.",
+        "image_url": "/products/verified/hh-rubber-gloves.webp",
+        "queries": [
+            "Scotch-Brite Heavy Duty Rubber Gloves packshot amazon india",
+            "dishwashing rubber gloves packshot white background",
+            "kitchen rubber gloves packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Pair (Medium/Large)", "mrp": 85, "price": 68, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh133",
+        "name": "Food Safe Reusable Airtight Zip Lock Storage Bags (Medium)",
+        "slug": "zip-lock-storage-bags",
+        "brand": "Freshwrapp",
+        "brand_id": "brand-freshwrapp",
+        "category_id": "kitchenware",
+        "category": "kitchenware",
+        "sub_category": "Disposables & Paper Products",
+        "subCategory": "Disposables & Paper Products",
+        "description": "Heavy gauge freezer safe zip lock pouches keep chopped vegetables, paneer and spices fresh and dry without leaks.",
+        "image_url": "/products/verified/hh-zip-lock-bags.webp",
+        "queries": [
+            "Food Storage Zip Lock Bags packshot amazon india",
+            "zip lock bags pack of 20 packshot white background",
+            "reusable ziplock food bags packshot"
+        ],
+        "variants": [
+            { "size_label": "Pack of 20 Bags", "mrp": 99, "price": 79, "stock": 50 }
+        ]
+    },
+
+    # -------------------------------------------------------------------------
+    # 11. POOJA AND EVERYDAY HOME UTILITIES (pooja-needs)
+    # -------------------------------------------------------------------------
+    {
+        "id": "g1-hh134",
+        "name": "Cycle Pure Agarbathies (Three in One / Parampara)",
+        "slug": "cycle-pure-agarbatti",
+        "brand": "Cycle Pure",
+        "brand_id": "brand-cycle-pure",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Agarbatti & Dhoop",
+        "subCategory": "Agarbatti & Dhoop",
+        "description": "India's trusted puja incense sticks made with natural essential oils to create a serene, spiritually uplifting atmosphere.",
+        "image_url": "/products/verified/hh-cycle-agarbatti.webp",
+        "queries": [
+            "Cycle Pure Agarbatti Three in One packshot amazon india",
+            "Cycle Agarbatti box packshot white background",
+            "Cycle Pure Three in One packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Pack", "mrp": 50, "price": 45, "stock": 60 }
+        ]
+    },
+    {
+        "id": "g1-hh135",
+        "name": "ITC Mangaldeep Temple Fragrance Puja Agarbatti",
+        "slug": "mangaldeep-agarbatti",
+        "brand": "Mangaldeep",
+        "brand_id": "brand-mangaldeep",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Agarbatti & Dhoop",
+        "subCategory": "Agarbatti & Dhoop",
+        "description": "Mangaldeep Agarbatti crafted with sacred temple flower and sandal extracts fills your home with divine positivity.",
+        "image_url": "/products/verified/hh-mangaldeep-agarbatti.webp",
+        "queries": [
+            "Mangaldeep Puja Agarbatti packshot amazon india",
+            "ITC Mangaldeep agarbatti packshot white background",
+            "Mangaldeep agarbatti box packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Pack", "mrp": 50, "price": 45, "stock": 60 },
+            { "size_label": "Multipack", "mrp": 100, "price": 89, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh136",
+        "name": "Zed Black Manthan Dhoop & Agarbatti Sticks",
+        "slug": "zed-black-agarbatti",
+        "brand": "Zed Black",
+        "brand_id": "brand-zed-black",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Agarbatti & Dhoop",
+        "subCategory": "Agarbatti & Dhoop",
+        "description": "Zed Black Manthan incense sticks emit long-lasting purifying aroma that calms the mind and enhances meditation.",
+        "image_url": "/products/verified/hh-zed-black-agarbatti.webp",
+        "queries": [
+            "Zed Black Manthan Agarbatti packshot amazon india",
+            "Zed Black incense sticks packshot white background",
+            "Zed Black agarbatti box packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Pack", "mrp": 30, "price": 27, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh137",
+        "name": "Maya Sugandhi Traditional Agarbatti",
+        "slug": "maya-agarbatti",
+        "brand": "Maya",
+        "brand_id": "brand-maya",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Agarbatti & Dhoop",
+        "subCategory": "Agarbatti & Dhoop",
+        "description": "Traditional South Indian fragrant incense sticks crafted with natural herbs, resins and soothing floral extracts.",
+        "image_url": "/products/verified/hh-maya-agarbatti.webp",
+        "queries": [
+            "Maya Agarbathi packshot amazon india",
+            "Maya Sugandhi agarbatti packshot white background",
+            "Maya agarbatti packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Pack", "mrp": 35, "price": 30, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh138",
+        "name": "Natural Loban & Guggul Cup Sambrani / Dhoop Cups",
+        "slug": "natural-cup-sambrani",
+        "brand": "Mangalam",
+        "brand_id": "brand-mangalam",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Agarbatti & Dhoop",
+        "subCategory": "Agarbatti & Dhoop",
+        "description": "Charcoal-free pure cow dung base cups filled with natural Sambrani resin create pure temple smoke and clear negative energy.",
+        "image_url": "/products/verified/hh-sambrani-cups.webp",
+        "queries": [
+            "Sambrani Dhoop Cups with burner packshot amazon india",
+            "cup sambrani box packshot white background",
+            "dhoop cups 12 packshot"
+        ],
+        "variants": [
+            { "size_label": "Pack of 12 Cups + Burner Plate", "mrp": 75, "price": 65, "stock": 45 },
+            { "size_label": "Sambrani Sticks Pack", "mrp": 40, "price": 35, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh139",
+        "name": "Mangalam Pure Bhimseni Camphor Tablets (Karpooram)",
+        "slug": "pure-camphor-karpooram",
+        "brand": "Mangalam",
+        "brand_id": "brand-mangalam",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Puja Essentials",
+        "subCategory": "Puja Essentials",
+        "description": "100% pure pine extract Bhimseni Kapoor burns completely with zero black residue and gives divine soothing fragrance.",
+        "image_url": "/products/verified/hh-camphor-karpooram.webp",
+        "queries": [
+            "Mangalam Pure Bhimseni Camphor jar packshot amazon india",
+            "Mangalam Camphor jar packshot white background",
+            "Mangalam karpooram 100g packshot"
+        ],
+        "variants": [
+            { "size_label": "50 g Jar", "mrp": 65, "price": 58, "stock": 55 },
+            { "size_label": "100 g Jar", "mrp": 120, "price": 105, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh140",
+        "name": "Pure Handcrafted Round Cotton Puja Wicks (Phool Batti)",
+        "slug": "cotton-puja-wicks",
+        "brand": "G1 Mart Puja",
+        "brand_id": "brand-g1",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Puja Essentials",
+        "subCategory": "Puja Essentials",
+        "description": "Handmade from 100% pure cotton, these round flower wicks soak oil evenly and burn steady and bright in brass diyas.",
+        "image_url": "/products/verified/hh-cotton-wicks.webp",
+        "queries": [
+            "Cotton Puja Wicks Phool Batti packshot amazon india",
+            "round cotton wicks for diya packshot white background",
+            "phool batti 100 wicks packshot"
+        ],
+        "variants": [
+            { "size_label": "Pack of 100 Wicks", "mrp": 30, "price": 25, "stock": 70 }
+        ]
+    },
+    {
+        "id": "g1-hh141",
+        "name": "Deepam Til Sesame & Pancha Deepam Puja Lamp Oil",
+        "slug": "deepam-puja-oil",
+        "brand": "Deepam",
+        "brand_id": "brand-deepam",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Puja Essentials",
+        "subCategory": "Puja Essentials",
+        "description": "Blended with 5 pure sacred oils and refined sesame oil for clean smokeless diya burning and positive vibration.",
+        "image_url": "/products/verified/hh-deepam-puja-oil.webp",
+        "queries": [
+            "Deepam Puja Oil bottle packshot amazon india",
+            "Deepam lamp oil bottle packshot white background",
+            "Deepam puja oil 500ml packshot"
+        ],
+        "variants": [
+            { "size_label": "500 ml Bottle", "mrp": 110, "price": 98, "stock": 50 },
+            { "size_label": "1 Litre Bottle", "mrp": 210, "price": 185, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh142",
+        "name": "Pure Auspicious Roli Kumkum Powder (Sindoor)",
+        "slug": "pure-roli-kumkum",
+        "brand": "G1 Mart Puja",
+        "brand_id": "brand-g1",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Puja Essentials",
+        "subCategory": "Puja Essentials",
+        "description": "Traditional pure turmeric-derived maroon kumkum for daily tilak, temple rituals and festive puja offerings.",
+        "image_url": "/products/verified/hh-kumkum-powder.webp",
+        "queries": [
+            "Pure Roli Kumkum packshot amazon india",
+            "kumkum powder for puja packshot white background",
+            "kumkum packet 50g packshot"
+        ],
+        "variants": [
+            { "size_label": "50 g Packet", "mrp": 20, "price": 18, "stock": 60 }
+        ]
+    },
+    {
+        "id": "g1-hh143",
+        "name": "Pure Kasturi Turmeric Powder for Puja (Haldi)",
+        "slug": "pure-puja-turmeric-haldi",
+        "brand": "G1 Mart Puja",
+        "brand_id": "brand-g1",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Puja Essentials",
+        "subCategory": "Puja Essentials",
+        "description": "Fragrant sacred turmeric powder for abhishek, idol decoration and auspicious house warming ceremonies.",
+        "image_url": "/products/verified/hh-puja-turmeric.webp",
+        "queries": [
+            "Puja Turmeric Haldi packet packshot amazon india",
+            "haldi for puja packshot white background",
+            "puja turmeric 50g packshot"
+        ],
+        "variants": [
+            { "size_label": "50 g Packet", "mrp": 20, "price": 18, "stock": 60 }
+        ]
+    },
+    {
+        "id": "g1-hh144",
+        "name": "Safety Matchbox (Chavi / Homelite / Aim)",
+        "slug": "safety-matchbox",
+        "brand": "Homelite",
+        "brand_id": "brand-homelite",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Home Utilities",
+        "subCategory": "Home Utilities",
+        "description": "Karborized moisture resistant safety match splints with long burning head for daily puja and kitchen lighting.",
+        "image_url": "/products/verified/hh-matchbox.webp",
+        "queries": [
+            "Safety Matchbox bundle packshot amazon india",
+            "Homelite matchbox bundle packshot white background",
+            "Chavi matchbox packshot"
+        ],
+        "variants": [
+            { "size_label": "Single Box", "mrp": 2, "price": 2, "stock": 100 },
+            { "size_label": "Bundle of 10 Boxes", "mrp": 20, "price": 18, "stock": 60 }
+        ]
+    },
+    {
+        "id": "g1-hh145",
+        "name": "Duracell Chota Power AA Alkaline Batteries",
+        "slug": "duracell-aa-batteries",
+        "brand": "Duracell",
+        "brand_id": "brand-duracell",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Home Utilities",
+        "subCategory": "Home Utilities",
+        "description": "Up to 10x longer lasting alkaline AA batteries with Duralock Power Preserve technology for wall clocks and remotes.",
+        "image_url": "/products/verified/hh-duracell-aa-batteries.webp",
+        "queries": [
+            "Duracell AA Alkaline Batteries packshot amazon india",
+            "Duracell AA battery packshot white background",
+            "Duracell AA 4 pack packshot"
+        ],
+        "variants": [
+            { "size_label": "Pack of 2 Batteries", "mrp": 80, "price": 72, "stock": 50 },
+            { "size_label": "Pack of 4 Batteries", "mrp": 155, "price": 139, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh146",
+        "name": "Duracell Chota Power AAA Alkaline Batteries",
+        "slug": "duracell-aaa-batteries",
+        "brand": "Duracell",
+        "brand_id": "brand-duracell",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Home Utilities",
+        "subCategory": "Home Utilities",
+        "description": "Dependable AAA alkaline batteries for AC and TV remotes, BP monitors and electronic digital toys.",
+        "image_url": "/products/verified/hh-duracell-aaa-batteries.webp",
+        "queries": [
+            "Duracell AAA Alkaline Batteries packshot amazon india",
+            "Duracell AAA battery packshot white background",
+            "Duracell AAA 4 pack packshot"
+        ],
+        "variants": [
+            { "size_label": "Pack of 2 Batteries", "mrp": 80, "price": 72, "stock": 50 },
+            { "size_label": "Pack of 4 Batteries", "mrp": 155, "price": 139, "stock": 40 }
+        ]
+    },
+    {
+        "id": "g1-hh147",
+        "name": "Philips 9W Cool Day Light B22 LED Bulb (6500K)",
+        "slug": "philips-9w-led-bulb",
+        "brand": "Philips",
+        "brand_id": "brand-philips",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Home Utilities",
+        "subCategory": "Home Utilities",
+        "description": "Energy efficient 9W B22 base LED bulb delivers crisp, glare-free daylight illumination and lasts up to 15,000 hours.",
+        "image_url": "/products/verified/hh-philips-led-bulb.webp",
+        "queries": [
+            "Philips 9W LED Bulb B22 packshot amazon india",
+            "Philips 9W LED bulb box packshot white background",
+            "Philips LED bulb 9W packshot"
+        ],
+        "variants": [
+            { "size_label": "9W B22 (1 Bulb)", "mrp": 110, "price": 89, "stock": 45 }
+        ]
+    },
+    {
+        "id": "g1-hh148",
+        "name": "Scotch Transparent Clear Adhesive Packaging Tape",
+        "slug": "scotch-adhesive-tape",
+        "brand": "Scotch",
+        "brand_id": "brand-scotch",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Home Utilities",
+        "subCategory": "Home Utilities",
+        "description": "High tack clear transparent adhesive tape for carton sealing, parcel shipping, craft and everyday household repairs.",
+        "image_url": "/products/verified/hh-scotch-tape.webp",
+        "queries": [
+            "Scotch Transparent Adhesive Tape roll packshot amazon india",
+            "clear packing tape roll packshot white background",
+            "Scotch tape roll packshot"
+        ],
+        "variants": [
+            { "size_label": "1 Roll", "mrp": 35, "price": 28, "stock": 50 }
+        ]
+    },
+    {
+        "id": "g1-hh149",
+        "name": "Heavy Duty Multi-Purpose Braided Plastic Utility Rope",
+        "slug": "utility-household-rope",
+        "brand": "G1 Mart Utility",
+        "brand_id": "brand-g1",
+        "category_id": "pooja-needs",
+        "category": "pooja-needs",
+        "sub_category": "Home Utilities",
+        "subCategory": "Home Utilities",
+        "description": "High tensile strength plastic braided multi-strand utility cord for packing luggage, tying boxes and household fastening.",
+        "image_url": "/products/verified/hh-utility-rope.webp",
+        "queries": [
+            "Braided Plastic Utility Rope roll packshot amazon india",
+            "plastic packing rope roll packshot white background",
+            "utility rope roll packshot"
+        ],
+        "variants": [
+            { "size_label": "10 Metres Roll", "mrp": 40, "price": 30, "stock": 50 }
+        ]
+    }
+]
+
+EXPANSION_PATH = os.path.join(ROOT, 'data', 'verified_household_149.json')
+with open(EXPANSION_PATH, 'w', encoding='utf-8') as f:
+    json.dump(PRODUCTS_149, f, indent=2)
+
+print(f"Saved {len(PRODUCTS_149)} canonical household products to {EXPANSION_PATH}")

@@ -298,22 +298,96 @@ TILES_CONFIG = [
 
     # 21. Feminine Hygiene -> Whisper Ultra Clean XL + V-Wash Plus Intimate Wash (Tightly overlapping!)
     ("whisper_vertical_pack.png", "vwash_plus_bottle.png", "hygiene", 370, 250, 370, 250, 72, False),
-
-    # 22. Dairy, Bread & Ice Cream -> Amul Taaza Milk + Britannia White Bread
-    ("amul_taaza_milk.png", "britannia_white_bread.png", "dairy-bread-eggs", 370, 250, 370, 250, 65, False),
-
-    # 23. Biscuits, Cookies & Rusks -> Parle-G + Britannia Good Day
-    ("parle-g.png", "good-day.png", "biscuits-bakery", 370, 250, 370, 250, 65, False),
-
-    # 24. Sauces & Spreads -> Kissan Tomato Ketchup + Nutella Hazelnut Spread
-    ("tomato-ketchup.png", "nutella_hazelnut_jar.png", "sauces-spreads", 370, 250, 370, 250, 65, False),
-
-    # 25. Noodles & Instant Food -> Maggi 2-Minute Noodles + Kellogg's Corn Flakes
-    ("maggi-noodles.png", "kelloggs_corn_flakes.png", "instant-food", 370, 250, 370, 250, 65, False),
 ]
 
+def compose_dairy_category():
+    # Authentic Arokya Toned Milk (left) + Arokya Fresh Curd (right) - Nellore household staple!
+    milk_path = find_asset("rembg_arokya_toned_milk.png")
+    curd_path = find_asset("rembg_arokya_curd.png")
+
+    milk = Image.open(milk_path).convert('RGBA')
+    curd = Image.open(curd_path).convert('RGBA')
+
+    milk = milk.crop(milk.getbbox())
+    curd = curd.crop(curd.getbbox())
+
+    milk = milk.resize((int(milk.width * (365 / milk.height)), 365), Image.Resampling.LANCZOS)
+    curd = curd.resize((int(curd.width * (335 / curd.height)), 335), Image.Resampling.LANCZOS)
+
+    canvas = Image.new('RGBA', (700, 700), (0, 0, 0, 0))
+    y_base = 560
+
+    s_milk = create_ground_shadow(milk.width, 14, 45)
+    s_curd = create_ground_shadow(curd.width, 14, 45)
+
+    canvas.paste(s_milk, (130, y_base - 10), s_milk)
+    canvas.paste(s_curd, (130 + milk.width - 95, y_base - 10), s_curd)
+
+    canvas.paste(milk, (130, y_base - milk.height), milk)
+    canvas.paste(curd, (130 + milk.width - 95, y_base - curd.height), curd)
+
+    bbox = canvas.getbbox()
+    cropped = canvas.crop(bbox)
+    cw, ch = cropped.size
+
+    scale = min(375 / ch, 380 / cw)
+    final_w = int(cw * scale)
+    final_h = int(ch * scale)
+    resized = cropped.resize((final_w, final_h), Image.Resampling.LANCZOS)
+
+    final_canvas = Image.new('RGBA', (400, 400), (0, 0, 0, 0))
+    final_canvas.paste(resized, ((400 - final_w) // 2, (400 - final_h) // 2), resized)
+
+    out_path = os.path.join(OUT_DIR, "dairy-bread-eggs.webp")
+    final_canvas.save(out_path, "WEBP", quality=95)
+    fb = final_canvas.getbbox()
+    print(f"  [REFINED PAIR] dairy-bread-eggs     -> bbox={fb} size={fb[2]-fb[0]}x{fb[3]-fb[1]}")
+
+def compose_ice_creams():
+    # Cornetto Cone (left) + LARGE, BOLD Amul Vanilla Magic 1L Ice Cream Tub (right)
+    cone_path = find_asset("rembg_cornetto_cone.png")
+    tub_path = find_asset("rembg_amul_icecream_tub.png")
+
+    cone = Image.open(cone_path).convert('RGBA')
+    tub = Image.open(tub_path).convert('RGBA')
+
+    cone = cone.crop(cone.getbbox())
+    tub = tub.crop(tub.getbbox())
+
+    cone = cone.resize((int(cone.width * (365 / cone.height)), 365), Image.Resampling.LANCZOS)
+    tub = tub.resize((int(tub.width * (335 / tub.height)), 335), Image.Resampling.LANCZOS)
+
+    canvas = Image.new('RGBA', (700, 700), (0, 0, 0, 0))
+    y_base = 560
+
+    s_cone = create_ground_shadow(cone.width, 12, 40)
+    s_tub = create_ground_shadow(tub.width, 14, 50)
+
+    canvas.paste(s_cone, (130, y_base - 10), s_cone)
+    canvas.paste(s_tub, (130 + cone.width - 45, y_base - 10), s_tub)
+
+    canvas.paste(cone, (130, y_base - cone.height), cone)
+    canvas.paste(tub, (130 + cone.width - 45, y_base - tub.height), tub)
+
+    bbox = canvas.getbbox()
+    cropped = canvas.crop(bbox)
+    cw, ch = cropped.size
+
+    scale = min(375 / ch, 380 / cw)
+    final_w = int(cw * scale)
+    final_h = int(ch * scale)
+    resized = cropped.resize((final_w, final_h), Image.Resampling.LANCZOS)
+
+    final_canvas = Image.new('RGBA', (400, 400), (0, 0, 0, 0))
+    final_canvas.paste(resized, ((400 - final_w) // 2, (400 - final_h) // 2), resized)
+
+    out_path = os.path.join(OUT_DIR, "ice-creams.webp")
+    final_canvas.save(out_path, "WEBP", quality=95)
+    fb = final_canvas.getbbox()
+    print(f"  [REFINED PAIR] ice-creams           -> bbox={fb} size={fb[2]-fb[0]}x{fb[3]-fb[1]}")
+
 def main():
-    print("=== Composing All Category Tiles: Aachi Masala, Santoor+Mysore Sandal, Big Aashirvaad, Clean Thums Up+Frooti ===")
+    print("=== Composing All Category Tiles: Aachi Masala, Santoor+Mysore Sandal, Arokya Milk+Curd, Amul Ice Cream ===")
     count = 0
     for cfg in TILES_CONFIG:
         left, right, name, mhl, mwl, mhr, mwr, ov, l_front = cfg
@@ -324,6 +398,10 @@ def main():
     compose_drinks_pair()
     count += 1
     compose_oral_care()
+    count += 1
+    compose_dairy_category()
+    count += 1
+    compose_ice_creams()
     count += 1
     print(f"\nSuccessfully generated {count} tight, box-fitted category logo tiles!")
 

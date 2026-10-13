@@ -135,20 +135,35 @@ export const SUPERMARKET_CATEGORIES: Omit<Category, 'itemCount'>[] = [
   },
   {
     "id": "dairy-bread-eggs",
-    "name": "Dairy, Bread & Ice Cream",
+    "name": "Dairy, Bread & Eggs",
     "section_id": "dairy-breakfast",
     "tile_image_url": "/categories/collages/dairy-bread-eggs.webp",
     "image": "/categories/collages/dairy-bread-eggs.webp",
     "sort_order": 1,
     "icon": "Milk",
-    "description": "Fresh milk, curd, paneer, fresh bread, farm eggs, idli batter and Arun ice creams",
+    "description": "Fresh milk (Arokya, Heritage, Dodla, Amul), curd pouches, buttermilk, paneer, butter and fresh bread",
     "subcategories": [
       "Fresh Milk & Curd",
-      "Paneer & Butter",
-      "Fresh Bread & Pav",
-      "Farm Eggs",
-      "Idli/Dosa Batter",
-      "Arun Ice Creams"
+      "Paneer, Butter & Cheese",
+      "Chilled Buttermilk & Shakes",
+      "Fresh Bread"
+    ]
+  },
+  {
+    "id": "ice-creams",
+    "name": "Ice Creams & Frozen Desserts",
+    "section_id": "dairy-breakfast",
+    "tile_image_url": "/categories/collages/ice-creams.webp",
+    "image": "/categories/collages/ice-creams.webp",
+    "sort_order": 2,
+    "icon": "Sparkles",
+    "description": "Arun Icecreams cones, cups, chocobars, kulfi, family tubs and Amul ice creams",
+    "subcategories": [
+      "Arun Icecreams Sticks & Bars",
+      "Cones & Sundaes",
+      "Cups & Kulfi Treats",
+      "Sandwiches & Bites",
+      "Family Tubs (750ml & 1L)"
     ]
   },
   {

@@ -1,0 +1,3249 @@
+{
+  "atta-rice-dal": {
+    "total": 26,
+    "missingImages": 0,
+    "dummyMrp": 2,
+    "mismatchedPrice": 0,
+    "items": [
+      {
+        "id": "g1-p1572",
+        "name": "Aashirvaad Superior MP Whole Wheat Chakki Atta",
+        "brand": "Aashirvaad",
+        "subCategory": "Atta & Wheat Flour",
+        "unit": "1 kg",
+        "mrp": 65,
+        "price": 65,
+        "image": "/products/packshots/aashirvaad-atta-5kg.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0457",
+        "name": "Aashirvaad Double Roasted Suji Rava",
+        "brand": "Aashirvaad",
+        "subCategory": "Idli & Bombay Rava",
+        "mrp": 42,
+        "price": 42,
+        "image": "/products/packshots/aashirvaad-suji-rava.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0219",
+        "name": "Sona Masoori Raw Rice (సోనా మసూరి బియ్యం)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Sonamasuri & Basmati Rice",
+        "mrp": 62,
+        "price": 62,
+        "image": "/products/generated_pouches/g1_rice_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0411",
+        "name": "India Gate Basmati Rice Feast Rozzana",
+        "brand": "India Gate",
+        "subCategory": "Sonamasuri & Basmati Rice",
+        "mrp": 125,
+        "price": 125,
+        "image": "/products/packshots/basmati-rice.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0417",
+        "name": "Flattened Rice / Thick Poha (అటుకులు)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Sonamasuri & Basmati Rice",
+        "mrp": 35,
+        "price": 35,
+        "image": "/products/generated_pouches/g1_poha_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0728",
+        "name": "Saggubiyyam / Sabudana (సగ్గుబియ్యం)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Sonamasuri & Basmati Rice",
+        "mrp": 48,
+        "price": 48,
+        "image": "/products/generated_pouches/g1_sabudana_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0063",
+        "name": "Rice Flour (బియ్యం పిండి)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Atta & Wheat Flour",
+        "mrp": 28,
+        "price": 28,
+        "image": "/products/generated_pouches/g1_rice_flour_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0198",
+        "name": "Chakki Fresh Whole Wheat Atta (గోధుమ పిండి)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Atta & Wheat Flour",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_atta_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1030",
+        "name": "Maida Pindi / Refined Wheat Flour (మైదా)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Maida & Besan",
+        "mrp": 28,
+        "price": 28,
+        "image": "/products/generated_pouches/g1_maida_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0197",
+        "name": "Pure Corn Flour (మొక్కజొన్న పిండి)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Atta & Wheat Flour",
+        "mrp": 32,
+        "price": 32,
+        "image": "/products/generated_pouches/g1_corn_flour_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0704",
+        "name": "Pure Ragi Flour / Powder (రాగి పిండి)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Atta & Wheat Flour",
+        "mrp": 38,
+        "price": 38,
+        "image": "/products/generated_pouches/g1_ragi_flour_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1028",
+        "name": "Fortune Chana Besan (Pure Gram Flour)",
+        "brand": "Fortune",
+        "subCategory": "Maida & Besan",
+        "mrp": 62,
+        "price": 62,
+        "image": "/products/packshots/fortune-besan.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1140",
+        "name": "Weikfield Corn Starch / Corn Flour",
+        "brand": "Weikfield",
+        "subCategory": "Atta & Wheat Flour",
+        "mrp": 22,
+        "price": 22,
+        "image": "/products/packshots/weikfield-corn-flour.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0196",
+        "name": "Bansi Ravva / Wheat Rava (బాన్సీ రవ్వ)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Idli & Bombay Rava",
+        "mrp": 32,
+        "price": 32,
+        "image": "/products/generated_pouches/g1_bansi_rava_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0427",
+        "name": "Upma Ravva / Bombay Rava (ఉప్మా రవ్వ)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Idli & Bombay Rava",
+        "mrp": 32,
+        "price": 32,
+        "image": "/products/generated_pouches/g1_upma_rava_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0428",
+        "name": "Sri Lalitha Idli Rava (ఇడ్లీ రవ్వ)",
+        "brand": "Sri Lalitha",
+        "subCategory": "Idli & Bombay Rava",
+        "mrp": 36,
+        "price": 36,
+        "image": "/products/packshots/lalitha-idli-rava.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1581",
+        "name": "Pillsbury Chakki Fresh Whole Wheat Atta",
+        "brand": "Pillsbury",
+        "subCategory": "Atta & Wheat Flour",
+        "unit": "1 kg",
+        "mrp": 60,
+        "price": 60,
+        "image": "/products/packshots/pillsbury-atta-5kg.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1585",
+        "name": "Nature Fresh Sampoorna Chakki Atta",
+        "brand": "Nature Fresh",
+        "subCategory": "Atta & Wheat Flour",
+        "unit": "5 kg",
+        "mrp": 58,
+        "price": 58,
+        "image": "/products/packshots/nature-fresh-atta-5kg.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1586",
+        "name": "Fortune Chakki Fresh Atta 100% Whole Wheat",
+        "brand": "Fortune",
+        "subCategory": "Atta & Wheat Flour",
+        "mrp": 56,
+        "price": 56,
+        "image": "/products/packshots/fortune-atta-5kg.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1590",
+        "name": "Patanjali Traditional Whole Wheat Chakki Atta",
+        "brand": "Patanjali",
+        "subCategory": "Atta & Wheat Flour",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/patanjali-atta-5kg.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0080",
+        "name": "Korralu / Foxtail Millet (కొర్రలు)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Millets & Poha",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_korralu_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0203",
+        "name": "Sajjalu / Pearl Millet (సజ్జలు)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Millets & Poha",
+        "mrp": 40,
+        "price": 40,
+        "image": "/products/generated_pouches/g1_sajjalu_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0407",
+        "name": "Sorghum / Jowar Grains (జొన్నలు)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Millets & Poha",
+        "mrp": 40,
+        "price": 40,
+        "image": "/products/generated_pouches/g1_jowar_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0409",
+        "name": "Finger Millet / Whole Ragi (రాగులు)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Millets & Poha",
+        "mrp": 35,
+        "price": 35,
+        "image": "/products/generated_pouches/g1_whole_ragi_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0406",
+        "name": "Whole Wheat Grains (గోధుమలు)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Atta & Wheat Flour",
+        "mrp": 48,
+        "price": 48,
+        "image": "/products/generated_pouches/g1_wheat_grains_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1613",
+        "name": "Double Horse Roasted Vermicelli (సేమియా)",
+        "brand": "Staples",
+        "subCategory": "Atta & Wheat Flour",
+        "mrp": 48,
+        "price": 48,
+        "image": "/products/packshots/vermicelli.jpg",
+        "imgOk": true
+      }
+    ]
+  },
+  "local-dals": {
+    "total": 20,
+    "missingImages": 0,
+    "dummyMrp": 10,
+    "mismatchedPrice": 0,
+    "items": [
+      {
+        "id": "g1-p0081",
+        "name": "Pottu Minapappu (Urad Dal with Husk)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Minapappu (Urad Dal)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_urad_dal_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0082",
+        "name": "Rajma Seeds",
+        "brand": "Local / Unbranded",
+        "subCategory": "Senaga Pappu (Chana Dal)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_rajma_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0190",
+        "name": "Kabuli Senagalu",
+        "brand": "Local / Unbranded",
+        "subCategory": "Senaga Pappu (Chana Dal)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_kabuli_chana_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0191",
+        "name": "Nalla Senagalu",
+        "brand": "Local / Unbranded",
+        "subCategory": "Senaga Pappu (Chana Dal)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_kabuli_chana_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0195",
+        "name": "Tella Bataneelu",
+        "brand": "Local / Unbranded",
+        "subCategory": "Senaga Pappu (Chana Dal)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0195.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0327",
+        "name": "Kandi Pappu (Premium Toor Dal)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Kandi Pappu (Toor Dal)",
+        "mrp": 95,
+        "price": 95,
+        "image": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0388",
+        "name": "Pachisenaga Pappu (Bengal Gram / Chana Dal)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Senaga Pappu (Chana Dal)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_chana_dal_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0391",
+        "name": "Minapappu (Urad Gota / Whole Black Gram)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Minapappu (Urad Dal)",
+        "mrp": 85,
+        "price": 85,
+        "image": "/products/generated_pouches/g1_urad_dal_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0393",
+        "name": "Verusenaga Pappu (Peanuts / Groundnuts)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Senaga Pappu (Chana Dal)",
+        "mrp": 85,
+        "price": 85,
+        "image": "/products/generated_pouches/g1_groundnuts_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0405",
+        "name": "RED Lentils",
+        "brand": "Local / Unbranded",
+        "subCategory": "Senaga Pappu (Chana Dal)",
+        "mrp": 56,
+        "price": 56,
+        "image": "/products/verified/g1-p0405.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0408",
+        "name": "Mung Bean",
+        "brand": "Local / Unbranded",
+        "subCategory": "Pesara Pappu (Moong)",
+        "mrp": 62,
+        "price": 62,
+        "image": "/products/verified/g1-p0408.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0412",
+        "name": "Pesara Pappu (Yellow Moong Dal)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Pesara Pappu (Moong)",
+        "mrp": 75,
+        "price": 75,
+        "image": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0415",
+        "name": "Soya Small",
+        "brand": "Local / Unbranded",
+        "subCategory": "Senaga Pappu (Chana Dal)",
+        "mrp": 17,
+        "price": 17,
+        "image": "/products/verified/g1-p0415.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0416",
+        "name": "Soya BIG",
+        "brand": "Local / Unbranded",
+        "subCategory": "Senaga Pappu (Chana Dal)",
+        "mrp": 17,
+        "price": 17,
+        "image": "/products/verified/g1-p0416.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0460",
+        "name": "Telagapindi / Telagadalu (sesame Press",
+        "brand": "Local / Unbranded",
+        "subCategory": "Senaga Pappu (Chana Dal)",
+        "mrp": 90,
+        "price": 90,
+        "image": "/products/generated_pouches/g1_telagapindi_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0698",
+        "name": "Soya Mini Chunks",
+        "brand": "Local / Unbranded",
+        "subCategory": "Senaga Pappu (Chana Dal)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0698.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0705",
+        "name": "Soya Chunks",
+        "brand": "Local / Unbranded",
+        "subCategory": "Senaga Pappu (Chana Dal)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0705.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1011",
+        "name": "Alasandalu",
+        "brand": "Local / Unbranded",
+        "subCategory": "Senaga Pappu (Chana Dal)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_alasandalu_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1012",
+        "name": "RED Alasandalu",
+        "brand": "Local / Unbranded",
+        "subCategory": "Senaga Pappu (Chana Dal)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_rajma_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1190",
+        "name": "Safal Green Peas",
+        "brand": "Safal",
+        "subCategory": "Senaga Pappu (Chana Dal)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/safal-green-peas.jpg",
+        "imgOk": true
+      }
+    ]
+  },
+  "oil-ghee-masala": {
+    "total": 22,
+    "missingImages": 0,
+    "dummyMrp": 0,
+    "mismatchedPrice": 0,
+    "items": [
+      {
+        "id": "g1-p0156",
+        "name": "SUN Gold Refined Sunflower Oil",
+        "brand": "Sun Gold",
+        "subCategory": "Sunflower Oil",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/gold-drop-oil.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0166",
+        "name": "Ruchi Gold Refined Palmolein Oil",
+        "brand": "Ruchi Gold",
+        "subCategory": "Sunflower Oil",
+        "mrp": 120,
+        "price": 120,
+        "image": "/products/packshots/ruchi-gold-oil.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0279",
+        "name": "Hatsun Pure Ghee",
+        "brand": "Hatsun",
+        "subCategory": "Pure Cow Ghee",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/hatsun-ghee.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0440",
+        "name": "Aashirvaad Svasti Pure Cow Ghee",
+        "brand": "Aashirvaad",
+        "subCategory": "Pure Cow Ghee",
+        "mrp": 73,
+        "price": 73,
+        "image": "/products/packshots/aashirvaad-svasti-ghee.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0619",
+        "name": "JS Refined Cooking Oil",
+        "brand": "JS",
+        "subCategory": "Sunflower Oil",
+        "mrp": 58,
+        "price": 58,
+        "image": "/products/packshots/freedom-oil-zepto.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0635",
+        "name": "GRB Pure Ghee",
+        "brand": "GRB",
+        "subCategory": "Pure Cow Ghee",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/grb-ghee.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0788",
+        "name": "Priya Gold Refined Sunflower Oil",
+        "brand": "Priya",
+        "subCategory": "Sunflower Oil",
+        "mrp": 150,
+        "price": 150,
+        "image": "/products/packshots/priya-gold-oil.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0874",
+        "name": "Freedom Double Filtered Groundnut Oil",
+        "brand": "Freedom",
+        "subCategory": "Groundnut Oil",
+        "mrp": 190,
+        "price": 190,
+        "image": "/products/verified/g1-p0874.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0952",
+        "name": "Freedom Physically Refined Rice Bran Oil",
+        "brand": "Freedom",
+        "subCategory": "Sunflower Oil",
+        "mrp": 75,
+        "price": 75,
+        "image": "/products/verified/g1-p0952.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0997",
+        "name": "Vijaya Double Filtered Groundnut Oil",
+        "brand": "Vijaya",
+        "subCategory": "Groundnut Oil",
+        "mrp": 190,
+        "price": 190,
+        "image": "/products/packshots/vijaya-groundnut-oil.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1622",
+        "name": "Gold Drop Refined Sunflower Oil",
+        "brand": "Gold Drop",
+        "subCategory": "Sunflower Oil",
+        "mrp": 160,
+        "price": 160,
+        "image": "/products/packshots/gold-drop-sunflower-clean.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1627",
+        "name": "Fortune Sunlite Refined Sunflower Oil",
+        "brand": "Fortune",
+        "subCategory": "Sunflower Oil",
+        "mrp": 165,
+        "price": 165,
+        "image": "/products/packshots/fortune-sunlite-clean.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1632",
+        "name": "Saffola Gold Pro Healthy Edible Oil",
+        "brand": "Saffola",
+        "subCategory": "Sunflower Oil",
+        "mrp": 195,
+        "price": 195,
+        "image": "/products/packshots/saffola-gold-oil.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1637",
+        "name": "Dhara Refined Sunflower Oil",
+        "brand": "Dhara",
+        "subCategory": "Sunflower Oil",
+        "mrp": 155,
+        "price": 155,
+        "image": "/products/packshots/dhara-sunflower-oil.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1642",
+        "name": "Gemini Sunflower Oil",
+        "brand": "Gemini",
+        "subCategory": "Sunflower Oil",
+        "mrp": 158,
+        "price": 158,
+        "image": "/products/packshots/gemini-sunflower-oil.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1647",
+        "name": "Sunpure Refined Sunflower Oil",
+        "brand": "Sunpure",
+        "subCategory": "Sunflower Oil",
+        "mrp": 155,
+        "price": 155,
+        "image": "/products/packshots/sunpure-sunflower-oil.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1657",
+        "name": "Fortune Soya Health Refined Soyabean Oil",
+        "brand": "Fortune",
+        "subCategory": "Sunflower Oil",
+        "mrp": 145,
+        "price": 145,
+        "image": "/products/packshots/fortune-soya-oil.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1662",
+        "name": "Fortune Filtered Groundnut Oil",
+        "brand": "Fortune",
+        "subCategory": "Groundnut Oil",
+        "mrp": 195,
+        "price": 195,
+        "image": "/products/packshots/fortune-groundnut-oil.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1667",
+        "name": "Idhayam Pure Sesame / Gingelly Oil",
+        "brand": "Idhayam",
+        "subCategory": "Deepam & Pooja Oils",
+        "mrp": 105,
+        "price": 105,
+        "image": "/products/packshots/idhayam-oil.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1672",
+        "name": "Amul Pure Ghee",
+        "brand": "Amul",
+        "subCategory": "Pure Cow Ghee",
+        "mrp": 140,
+        "price": 140,
+        "image": "/products/packshots/amul-ghee.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1675",
+        "name": "Patanjali Cow Ghee",
+        "brand": "Patanjali",
+        "subCategory": "Pure Cow Ghee",
+        "mrp": 135,
+        "price": 135,
+        "image": "/products/packshots/patanjali-cow-ghee.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1701",
+        "name": "Freedom Refined Sunflower Oil",
+        "brand": "Freedom",
+        "subCategory": "Sunflower Oil",
+        "mrp": 85,
+        "price": 85,
+        "image": "/products/packshots/freedom-oil-1l.jpg",
+        "imgOk": true
+      }
+    ]
+  },
+  "spices-masalas": {
+    "total": 126,
+    "missingImages": 0,
+    "dummyMrp": 37,
+    "mismatchedPrice": 0,
+    "items": [
+      {
+        "id": "g1-p0003",
+        "name": "Pepper Powder",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_pepper_powder_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0014",
+        "name": "Turmeric Powder",
+        "brand": "Local / Unbranded",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 22,
+        "price": 22,
+        "image": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0016",
+        "name": "3 Roses Elaichi",
+        "brand": "3 Roses",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0016.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0019",
+        "name": "Aachi Ginger Garlic Paste",
+        "brand": "Aachi",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0019.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0042",
+        "name": "Elachi",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 11,
+        "price": 11,
+        "image": "/products/generated_pouches/g1_elaichi_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0064",
+        "name": "MTR Rasam",
+        "brand": "MTR",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0064.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0065",
+        "name": "MTR Sambar",
+        "brand": "MTR",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0065.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0066",
+        "name": "Aachi Rasam Powder",
+        "brand": "Aachi",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0066.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0069",
+        "name": "Aacsi Chaat Masale 10rs",
+        "brand": "Aachi",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 11,
+        "price": 11,
+        "image": "/products/verified/g1-p0069.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0070",
+        "name": "Aachi Mutton 5 RS",
+        "brand": "Aachi",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 6,
+        "price": 6,
+        "image": "/products/verified/g1-p0070.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0071",
+        "name": "Aachi Biryani",
+        "brand": "Aachi",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0071.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0072",
+        "name": "Aachi Fish Masala",
+        "brand": "Aachi",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0072.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0073",
+        "name": "Aachi Muttan Masala",
+        "brand": "Aachi",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0073.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0074",
+        "name": "Aachi Chicken Masala",
+        "brand": "Aachi",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0074.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0075",
+        "name": "Aachi Biryani Masala",
+        "brand": "Aachi",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0075.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0076",
+        "name": "Aachi Garam Masala",
+        "brand": "Aachi",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0076.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0088",
+        "name": "Endu Mirchi (Dried Red Chillies)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0088.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0096",
+        "name": "Nalla Karam",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0096.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0163",
+        "name": "Dalchini",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0163.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0184",
+        "name": "Nuvvulu",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0184.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0280",
+        "name": "Lavangalu10g",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_lavangalu_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0286",
+        "name": "Vamu Wather",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0286.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0290",
+        "name": "Endu Marchi",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0290.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0333",
+        "name": "Hatsun Jeera (cumin Seeds) Buttermilk",
+        "brand": "Hatsun",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0333.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0336",
+        "name": "Jilakara 10rupees",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0336.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0337",
+        "name": "Anasa Puvvu 10rupees",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0337.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0338",
+        "name": "Jathipatri 10rupees",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0338.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0341",
+        "name": "Lavangalu (whole Cloves) 10rupees",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_lavangalu_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0342",
+        "name": "Miriyalu10rupees",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0342.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0367",
+        "name": "Something Something",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0367.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0396",
+        "name": "Jeera (cumin Seeds",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 81,
+        "price": 81,
+        "image": "/products/generated_pouches/g1_jeera_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0413",
+        "name": "Coriander Seeds",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 62,
+        "price": 62,
+        "image": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0414",
+        "name": "Coriander",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 26,
+        "price": 26,
+        "image": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0431",
+        "name": "Vt Avalu",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 22,
+        "price": 22,
+        "image": "/products/verified/g1-p0431.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0444",
+        "name": "Pepper",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 78,
+        "price": 78,
+        "image": "/products/generated_pouches/g1_pepper_powder_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0466",
+        "name": "Gelakara",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 22,
+        "price": 22,
+        "image": "/products/verified/g1-p0466.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0480",
+        "name": "Sompu100g",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 22,
+        "price": 22,
+        "image": "/products/verified/g1-p0480.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0502",
+        "name": "Gopuram Turmeric Powder 50",
+        "brand": "Local / Unbranded",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0503",
+        "name": "Gopuram Turmeric Powder",
+        "brand": "Local / Unbranded",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0539",
+        "name": "Jeera100g",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_jeera_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0587",
+        "name": "Elaichi",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 24,
+        "price": 24,
+        "image": "/products/generated_pouches/g1_elaichi_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0592",
+        "name": "Avalu",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 45,
+        "price": 45,
+        "image": "/products/verified/g1-p0592.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0593",
+        "name": "Avalu50g",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 11,
+        "price": 11,
+        "image": "/products/verified/g1-p0593.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0594",
+        "name": "Gilakara",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 40,
+        "price": 40,
+        "image": "/products/verified/g1-p0594.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0599",
+        "name": "Yippee Noodles Magic Masala",
+        "brand": "Sunfeast Yippee",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0599.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0641",
+        "name": "Sri Durga Lemon Pickle",
+        "brand": "Sri Durga",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0641.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0643",
+        "name": "Sri Durga Pulihora Pk",
+        "brand": "Sri Durga",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0643.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0644",
+        "name": "Sri Durga Green Tamarind Pickleb",
+        "brand": "Sri Durga",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0644.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0645",
+        "name": "Sri Durga Ginger Pickle",
+        "brand": "Sri Durga",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0645.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0647",
+        "name": "Sri Durga Mango Sut Pickle",
+        "brand": "Sri Durga",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0647.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0648",
+        "name": "SRI Durga Ginger Garlic Paste",
+        "brand": "Sri Durga",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0648.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0649",
+        "name": "SRI Durga Leman",
+        "brand": "Sri Durga",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0649.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0650",
+        "name": "SRI Durga Mango CUT Pickle",
+        "brand": "Sri Durga",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0650.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0651",
+        "name": "Sri Durga Tomato Pickle",
+        "brand": "Sri Durga",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0651.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0653",
+        "name": "SRI Durga Gongura Pickle",
+        "brand": "Sri Durga",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0653.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0654",
+        "name": "SRI Durga Amla Pickle",
+        "brand": "Dabur",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0654.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0656",
+        "name": "SRI Durga RED Chilli Pickle",
+        "brand": "Sri Durga",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0656.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0657",
+        "name": "SRI Durga Mango Avakai",
+        "brand": "Sri Durga",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0657.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0658",
+        "name": "SRI Durga Mango Thokku",
+        "brand": "Sri Durga",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0658.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0661",
+        "name": "Miriyalu",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 56,
+        "price": 56,
+        "image": "/products/verified/g1-p0661.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0672",
+        "name": "Fried Rice Masala",
+        "brand": "Local / Unbranded",
+        "subCategory": "Sambar & Rasam Powders",
+        "mrp": 11,
+        "price": 11,
+        "image": "/products/verified/g1-p0673.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0673",
+        "name": "Biriyani Masala",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 11,
+        "price": 11,
+        "image": "/products/verified/g1-p0673.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0674",
+        "name": "Pasta Masala",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0674.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0675",
+        "name": "Noodlles Masala",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0675.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0679",
+        "name": "Pani Puri Masala",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0679.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0681",
+        "name": "Chatpat Masala Noodles",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0681.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0691",
+        "name": "Kasuri Methi",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 11,
+        "price": 11,
+        "image": "/products/verified/g1-p0691.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0693",
+        "name": "Ginger Garlic Paste",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0693.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0694",
+        "name": "RED Chilli Pickel",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 11,
+        "price": 11,
+        "image": "/products/verified/g1-p0694.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0695",
+        "name": "Mango Pickel",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0695.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0696",
+        "name": "Tomato Pickle",
+        "brand": "Local / Unbranded",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0696.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0697",
+        "name": "Lemon Pickel",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0697.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0699",
+        "name": "Gongura Pickels",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 11,
+        "price": 11,
+        "image": "/products/verified/g1-p0699.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0706",
+        "name": "Pappula Podi",
+        "brand": "Local / Unbranded",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0706.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0707",
+        "name": "Nalla Karam Podi",
+        "brand": "Local / Unbranded",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0707.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0709",
+        "name": "Kobbari Karam Podi",
+        "brand": "Local / Unbranded",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0709.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0730",
+        "name": "Masala Noodels",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0730.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0739",
+        "name": "SRI Durga Chilli Powder",
+        "brand": "Sri Durga",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0739.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0740",
+        "name": "SRI Durga Chilli",
+        "brand": "Sri Durga",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0740.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0741",
+        "name": "SRI Durga Tarmarik",
+        "brand": "Sri Durga",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0741.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0742",
+        "name": "SRI Durga Dania Powder",
+        "brand": "Sri Durga",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0742.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0778",
+        "name": "Gopuram Pasupu (pure Turmeric Powder",
+        "brand": "Local / Unbranded",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0782",
+        "name": "Aachi Sambar Powder",
+        "brand": "Aachi",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0782.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0795",
+        "name": "Swastiks Mango Pickle200g",
+        "brand": "Local / Unbranded",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0795.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0804",
+        "name": "Hing",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0804.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0827",
+        "name": "Yippee WOW Masala",
+        "brand": "Sunfeast",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 6,
+        "price": 6,
+        "image": "/products/verified/g1-p0827.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0849",
+        "name": "Elashi",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0849.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0852",
+        "name": "SRI Durga Papula Podi150g",
+        "brand": "Sri Durga",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0852.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0866",
+        "name": "Yippee Magic Masala",
+        "brand": "Sunfeast",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0866.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0872",
+        "name": "Pepper Bols",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 56,
+        "price": 56,
+        "image": "/products/generated_pouches/g1_pepper_powder_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0873",
+        "name": "SRI Durga Singer Garlic",
+        "brand": "Sri Durga",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0873.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0877",
+        "name": "Gasagasaalu (Poppy Seeds)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 11,
+        "price": 11,
+        "image": "/products/verified/g1-p0877.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0878",
+        "name": "Sompu (sweet Fennel Seeds",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 11,
+        "price": 11,
+        "image": "/products/verified/g1-p0878.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0879",
+        "name": "Menthulu (fenugreek Seeds",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 39,
+        "price": 39,
+        "image": "/products/verified/g1-p0879.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0906",
+        "name": "Waghb Bakri Elaichi",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_elaichi_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0920",
+        "name": "Swastiks RED Chilli Pickle",
+        "brand": "Local / Unbranded",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0920.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0951",
+        "name": "Chilly Powder",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_chilli_powder_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0955",
+        "name": "Rimzim Jeera (cumin Seeds",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 11,
+        "price": 11,
+        "image": "/products/generated_pouches/g1_jeera_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0990",
+        "name": "Coriander Powder",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 17,
+        "price": 17,
+        "image": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1001",
+        "name": "Aashirvaad Chilli Powder",
+        "brand": "Aashirvaad",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_chilli_powder_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1004",
+        "name": "LG Engiva",
+        "brand": "Vandevi",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 106,
+        "price": 106,
+        "image": "/products/verified/g1-p1004.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1006",
+        "name": "Endu Merchi",
+        "brand": "Local / Unbranded",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 87,
+        "price": 87,
+        "image": "/products/verified/g1-p1006.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1014",
+        "name": "Subha Lakshmi Turmeric 100",
+        "brand": "Local / Unbranded",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1020",
+        "name": "Aachhi Garam Masala",
+        "brand": "Aachi",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 6,
+        "price": 6,
+        "image": "/products/verified/g1-p1020.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1022",
+        "name": "SRI Durga Coriander",
+        "brand": "Sri Durga",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1032",
+        "name": "ITC Garam Masala",
+        "brand": "Local / Unbranded",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 54,
+        "price": 54,
+        "image": "/products/verified/g1-p1032.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1042",
+        "name": "Gemini",
+        "brand": "Gemini",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p1042.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1055",
+        "name": "Aachi Rasam 10rs",
+        "brand": "Aachi",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/biryani-masala.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1056",
+        "name": "Endu Mirchi 1KG",
+        "brand": "G1 Mart Fresh",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/aachi-chilli.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1058",
+        "name": "Gasagasaalu 10rs",
+        "brand": "G1 Mart Fresh",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/fennel-seeds.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1169",
+        "name": "Ching's Secret Schezwan Chutney",
+        "brand": "Ching's Secret",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1170",
+        "name": "Ching's Secret Green Chilli Sauce",
+        "brand": "Ching's Secret",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1171",
+        "name": "Ching's Secret Red Chilli Sauce",
+        "brand": "Ching's Secret",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1172",
+        "name": "Ching's Secret Soy Sauce",
+        "brand": "Ching's Secret",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1239",
+        "name": "Simple Kind to Skin Refreshing Facial Wash",
+        "brand": "Simple",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1267",
+        "name": "Vicco Turmeric Skin Cream",
+        "brand": "Vicco",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1500",
+        "name": "Aachi Pulihora Paste",
+        "brand": "Aachi",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1506",
+        "name": "Aachi Gongura Pickle",
+        "brand": "Aachi",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1508",
+        "name": "Priya Avakaya Pickle",
+        "brand": "Priya",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1510",
+        "name": "Priya Gongura Pickle",
+        "brand": "Priya",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1512",
+        "name": "Swastiks Gongura Pickle",
+        "brand": "Swastiks",
+        "subCategory": "Chilli & Turmeric Powder",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1524",
+        "name": "Aachi Fish Fry Masala",
+        "brand": "Aachi",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1690",
+        "name": "Checks Catch",
+        "brand": "Checks",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1691",
+        "name": "Checks Tata Sampann",
+        "brand": "Checks",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1694",
+        "name": "Checks Everest",
+        "brand": "Checks",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1696",
+        "name": "Checks MDH",
+        "brand": "Checks",
+        "subCategory": "Masala Powders, Whole Spices & Pickles",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      }
+    ]
+  },
+  "sugar-salt-staples": {
+    "total": 31,
+    "missingImages": 0,
+    "dummyMrp": 13,
+    "mismatchedPrice": 0,
+    "items": [
+      {
+        "id": "g1-p0028",
+        "name": "Tata RA Salt",
+        "brand": "Tata",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 22,
+        "price": 22,
+        "image": "/products/verified/g1-p0028.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0138",
+        "name": "Dabur Honey",
+        "brand": "Dabur",
+        "subCategory": "Salt, Sugar, Jaggery & Honey",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0138.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0160",
+        "name": "Real Salt",
+        "brand": "Local / Unbranded",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0160.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0185",
+        "name": "Thati Bellam (natural Sweet Jaggery",
+        "brand": "Local / Unbranded",
+        "subCategory": "Salt, Sugar, Jaggery & Honey",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0185.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0200",
+        "name": "Rock Salt",
+        "brand": "Local / Unbranded",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0200.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0202",
+        "name": "Tata Salt",
+        "brand": "Tata Salt",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0202.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0223",
+        "name": "Salt Rice",
+        "brand": "Local / Unbranded",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_rice_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0350",
+        "name": "Patikan Bellam (natural Sweet Jaggery",
+        "brand": "Local / Unbranded",
+        "subCategory": "Salt, Sugar, Jaggery & Honey",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0350.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0377",
+        "name": "Sugar 50kgs Bag",
+        "brand": "Local / Unbranded",
+        "subCategory": "Salt, Sugar, Jaggery & Honey",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0377.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0379",
+        "name": "Sugar",
+        "brand": "Local / Unbranded",
+        "subCategory": "Salt, Sugar, Jaggery & Honey",
+        "mrp": 34,
+        "price": 34,
+        "image": "/products/verified/g1-p0379.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0401",
+        "name": "Salt Mirchi",
+        "brand": "Local / Unbranded",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 22,
+        "price": 22,
+        "image": "/products/verified/g1-p0401.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0402",
+        "name": "Jaggery",
+        "brand": "Local / Unbranded",
+        "subCategory": "Salt, Sugar, Jaggery & Honey",
+        "mrp": 45,
+        "price": 45,
+        "image": "/products/verified/g1-p0402.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0482",
+        "name": "Aashirvaad Crystal Salt",
+        "brand": "Aashirvaad",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/tata-salt.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0556",
+        "name": "Pepsodent Clove Salt",
+        "brand": "Pepsodent",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0556.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0716",
+        "name": "Aashirvaad Salt",
+        "brand": "Aashirvaad",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 31,
+        "price": 31,
+        "image": "/products/packshots/tata-salt.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0769",
+        "name": "Lion Honey SET",
+        "brand": "Local / Unbranded",
+        "subCategory": "Salt, Sugar, Jaggery & Honey",
+        "mrp": 146,
+        "price": 146,
+        "image": "/products/verified/g1-p0769.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0811",
+        "name": "Sunfeast Sweet&salty",
+        "brand": "Sunfeast",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0811.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0855",
+        "name": "Lion Honey",
+        "brand": "Local / Unbranded",
+        "subCategory": "Salt, Sugar, Jaggery & Honey",
+        "mrp": 86,
+        "price": 86,
+        "image": "/products/verified/g1-p0855.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0959",
+        "name": "Kinley Salty Lemon Soda",
+        "brand": "Kinley",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0959.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0965",
+        "name": "Broen Sugar",
+        "brand": "Local / Unbranded",
+        "subCategory": "Salt, Sugar, Jaggery & Honey",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0965.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0976",
+        "name": "Honey",
+        "brand": "Local / Unbranded",
+        "subCategory": "Salt, Sugar, Jaggery & Honey",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0976.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0977",
+        "name": "Nattu Sakkarai",
+        "brand": "Local / Unbranded",
+        "subCategory": "Salt, Sugar, Jaggery & Honey",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0977.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0978",
+        "name": "Salt Bisckit",
+        "brand": "Local / Unbranded",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0978.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0992",
+        "name": "Makhana Seasalt&pepper",
+        "brand": "Makhana",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0992.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0998",
+        "name": "Organic Jaggery Candy",
+        "brand": "Local / Unbranded",
+        "subCategory": "Salt, Sugar, Jaggery & Honey",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0998.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0999",
+        "name": "Organic Jaggery &ginger500g",
+        "brand": "Local / Unbranded",
+        "subCategory": "Salt, Sugar, Jaggery & Honey",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0999.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1008",
+        "name": "Salt Pista",
+        "brand": "Local / Unbranded",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_pista_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1046",
+        "name": "50-50 Sweet&salty",
+        "brand": "Britannia",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 11,
+        "price": 11,
+        "image": "/products/verified/g1-p1046.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1150",
+        "name": "Local/Branded Icing Sugar",
+        "brand": "Local/Branded",
+        "subCategory": "Salt, Sugar, Jaggery & Honey",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/madhur-sugar.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1499",
+        "name": "ORS Brand Oral Rehydration Salts",
+        "brand": "ORS Brand",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1689",
+        "name": "Checks Tata Salt",
+        "brand": "Checks",
+        "subCategory": "Tata & Crystal Salt",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/tata-salt.jpg",
+        "imgOk": true
+      }
+    ]
+  },
+  "dry-fruits-cereals": {
+    "total": 41,
+    "missingImages": 0,
+    "dummyMrp": 13,
+    "mismatchedPrice": 0,
+    "items": [
+      {
+        "id": "g1-p0041",
+        "name": "DRY Nuts BOL",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 196,
+        "price": 196,
+        "image": "/products/generated_pouches/g1_dry_nuts_bowl.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0077",
+        "name": "Endu Kharjuram",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_dates_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0238",
+        "name": "Jeedi Pappu A1",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_cashews_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0295",
+        "name": "Badam A1",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_almonds_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0340",
+        "name": "Endu Draksha 10rupees",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0340.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0344",
+        "name": "Endu Draksha",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0344.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0394",
+        "name": "Gokulam Dates",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 252,
+        "price": 252,
+        "image": "/products/generated_pouches/g1_dates_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0422",
+        "name": "VT Jeedipappu (Premium Cashews)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_cashews_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0423",
+        "name": "VT Draksha",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0423.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0492",
+        "name": "Gkl Black Dates",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 123,
+        "price": 123,
+        "image": "/products/generated_pouches/g1_dates_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0493",
+        "name": "GKL Seeded",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 67,
+        "price": 67,
+        "image": "/products/verified/g1-p0493.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0494",
+        "name": "Badam 100gr",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 129,
+        "price": 129,
+        "image": "/products/generated_pouches/g1_almonds_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0495",
+        "name": "Kismis",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 62,
+        "price": 62,
+        "image": "/products/generated_pouches/g1_kismis_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0581",
+        "name": "Jeedi Pappu (Cashew Nuts)",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 11,
+        "price": 11,
+        "image": "/products/generated_pouches/g1_cashews_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0583",
+        "name": "Badam",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 314,
+        "price": 314,
+        "image": "/products/generated_pouches/g1_almonds_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0677",
+        "name": "Corn Flakes",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0677.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0776",
+        "name": "SP Badam",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_almonds_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0805",
+        "name": "Moms Magic Cashew&almond",
+        "brand": "Sunfeast",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0805.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0820",
+        "name": "Sunfeast Fantastik Choco Almond",
+        "brand": "Sunfeast",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0820.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0822",
+        "name": "Sunfeast Fantastik Roast & Almond",
+        "brand": "Sunfeast",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0822.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0893",
+        "name": "Pumpkin Seeds",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 73,
+        "price": 73,
+        "image": "/products/verified/g1-p0893.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0894",
+        "name": "Sunflower Seeds",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 28,
+        "price": 28,
+        "image": "/products/verified/g1-p0894.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0895",
+        "name": "Muskmelon Seeds",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 118,
+        "price": 118,
+        "image": "/products/verified/g1-p0895.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0898",
+        "name": "Watermelon Seeds",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 78,
+        "price": 78,
+        "image": "/products/verified/g1-p0898.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0909",
+        "name": "Gokilam Dates",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 174,
+        "price": 174,
+        "image": "/products/generated_pouches/g1_dates_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0938",
+        "name": "Moms Magic Cashew& Almond",
+        "brand": "Sunfeast",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0938.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0979",
+        "name": "Mayur Makhana",
+        "brand": "Makhana",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0979.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0982",
+        "name": "Kaju Butter",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_cashews_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0984",
+        "name": "Almond Roasted",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_almonds_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0985",
+        "name": "Pistachio",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_pista_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0987",
+        "name": "Barari Dattes",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/generated_pouches/g1_dates_pouch.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0994",
+        "name": "Makhana Tomata",
+        "brand": "Makhana",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0994.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1000",
+        "name": "Oats",
+        "brand": "Local / Unbranded",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 92,
+        "price": 92,
+        "image": "/products/verified/g1-p1000.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1007",
+        "name": "Makhana Seeds",
+        "brand": "Makhana",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p1007.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1057",
+        "name": "Jeedi Pappu 10rs",
+        "brand": "G1 Mart Fresh",
+        "subCategory": "Cashews (Jeedi Pappu)",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/cashew-nuts.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1227",
+        "name": "Yoga Bar Protein Bar",
+        "brand": "Yoga Bar",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/unibic-choco-ripple.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1229",
+        "name": "RiteBite Max Protein Protein Bar",
+        "brand": "RiteBite Max Protein",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/unibic-choco-ripple.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1231",
+        "name": "The Whole Truth Protein Bar",
+        "brand": "The Whole Truth",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/unibic-choco-ripple.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1232",
+        "name": "Yoga Bar Multigrain Energy Bar",
+        "brand": "Yoga Bar",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/unibic-choco-ripple.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1234",
+        "name": "Saffola Peanut Butter",
+        "brand": "Saffola",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/saffola-oats.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1236",
+        "name": "Pintola All Natural Peanut Butter",
+        "brand": "Pintola",
+        "subCategory": "Cashews, Almonds & Dates",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      }
+    ]
+  },
+  "sauces-spreads": {
+    "total": 19,
+    "missingImages": 0,
+    "dummyMrp": 3,
+    "mismatchedPrice": 0,
+    "items": [
+      {
+        "id": "g1-p0293",
+        "name": "Kissan Mixed Fruit Jam",
+        "brand": "Kissan",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 2,
+        "price": 2,
+        "image": "/products/verified/g1-p0293.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0309",
+        "name": "Hellmanns Mayonnaise",
+        "brand": "Local / Unbranded",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0309.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0310",
+        "name": "Kissam Tomato Ketchup",
+        "brand": "Local / Unbranded",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0310.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0311",
+        "name": "Kissan Tomato Ketchup",
+        "brand": "Kissan",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0311.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0314",
+        "name": "Kissan Tomaato Ketchup",
+        "brand": "Kissan",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0314.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0486",
+        "name": "Kisan Tomota Ketchup",
+        "brand": "Kissan",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 16,
+        "price": 16,
+        "image": "/products/verified/g1-p0486.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0597",
+        "name": "Kisan Mixed Fuuit",
+        "brand": "Kissan",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0597.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0688",
+        "name": "Gulab JAM",
+        "brand": "Local / Unbranded",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 151,
+        "price": 151,
+        "image": "/products/verified/g1-p0688.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0690",
+        "name": "JAM Ojam",
+        "brand": "Local / Unbranded",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 6,
+        "price": 6,
+        "image": "/products/verified/g1-p0690.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0780",
+        "name": "Jimjam Bisccuit",
+        "brand": "Local / Unbranded",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/g1-p0780.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p0826",
+        "name": "Kisan JAM",
+        "brand": "Kissan",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 26,
+        "price": 26,
+        "image": "/products/verified/g1-p0826.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1019",
+        "name": "Gulab Jamum MIX",
+        "brand": "Local / Unbranded",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 75,
+        "price": 75,
+        "image": "/products/verified/g1-p1019.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1173",
+        "name": "Veeba Mayonnaise",
+        "brand": "Veeba",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/ginger-garlic-paste.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1175",
+        "name": "Veeba Burger Mayonnaise",
+        "brand": "Veeba",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/ginger-garlic-paste.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1177",
+        "name": "Del Monte Tomato Ketchup",
+        "brand": "Del Monte",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/packshots/tomato-ketchup.jpg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1183",
+        "name": "Dr. Oetker FunFoods Sandwich Spread",
+        "brand": "Dr. Oetker",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1561",
+        "name": "Wingreens Hummus",
+        "brand": "Wingreens",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1562",
+        "name": "Wingreens Salsa Dip",
+        "brand": "Wingreens",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      },
+      {
+        "id": "g1-p1563",
+        "name": "Veeba Peri Peri Sauce",
+        "brand": "Veeba",
+        "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/placeholder.svg",
+        "imgOk": true
+      }
+    ]
+  },
+  "instant-food": {
+    "total": 30,
+    "missingImages": 0,
+    "dummyMrp": 0,
+    "mismatchedPrice": 0,
+    "items": [
+      {
+        "id": "g1-ins001",
+        "name": "Maggi 2-Minute Masala Instant Noodles (4-Pack)",
+        "brand": "Nestlé Maggi",
+        "subCategory": "Instant & Hakka Noodles",
+        "unit": "280 g (4-Pack)",
+        "mrp": 56,
+        "price": 56,
+        "image": "/products/verified/ins-maggi-masala-4pack.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins002",
+        "name": "Sunfeast YiPPee! Magic Masala Noodles (4-Pack)",
+        "brand": "Sunfeast",
+        "subCategory": "Instant & Hakka Noodles",
+        "unit": "240 g (4-Pack)",
+        "mrp": 48,
+        "price": 48,
+        "image": "/products/verified/ins-yippee-noodles-4pack.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins003",
+        "name": "Top Ramen Curry Veg Instant Noodles (4-Pack)",
+        "brand": "Nissin",
+        "subCategory": "Instant & Hakka Noodles",
+        "unit": "280 g (4-Pack)",
+        "mrp": 58,
+        "price": 58,
+        "image": "/products/verified/ins-top-ramen-curry.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins004",
+        "name": "Ching's Secret Just Soak Veg Hakka Noodles",
+        "brand": "Ching's Secret",
+        "subCategory": "Instant & Hakka Noodles",
+        "unit": "140 g",
+        "mrp": 35,
+        "price": 35,
+        "image": "/products/verified/ins-chings-hakka-noodles.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins005",
+        "name": "Ching's Secret Desi Chinese Manchow Instant Soup",
+        "brand": "Ching's Secret",
+        "subCategory": "Instant Soups",
+        "unit": "55 g",
+        "mrp": 15,
+        "price": 15,
+        "image": "/products/verified/ins-chings-manchow-soup.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins006",
+        "name": "Knorr Classic Thick Tomato Instant Soup",
+        "brand": "Knorr",
+        "subCategory": "Instant Soups",
+        "unit": "53 g",
+        "mrp": 60,
+        "price": 60,
+        "image": "/products/verified/ins-knorr-tomato-soup.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins007",
+        "name": "Maggi Cuppa Masala Instant Cup Noodles (With Fork)",
+        "brand": "Nestlé Maggi",
+        "subCategory": "Instant & Hakka Noodles",
+        "unit": "70 g",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/ins-maggi-cuppa-noodles.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins008",
+        "name": "Bambino Roasted Short Cut Vermicelli (Semiya)",
+        "brand": "Bambino",
+        "subCategory": "Vermicelli & Semiya",
+        "unit": "400 g",
+        "mrp": 40,
+        "price": 40,
+        "image": "/products/verified/ins-bambino-vermicelli.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins009",
+        "name": "Bambino Roasted Vermicelli Payasam Mix",
+        "brand": "Bambino",
+        "subCategory": "Vermicelli & Semiya",
+        "unit": "200 g",
+        "mrp": 50,
+        "price": 50,
+        "image": "/products/verified/ins-bambino-payasam.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins010",
+        "name": "Maggi 2-Minute Masala Instant Noodles (Single Pack 70 g)",
+        "brand": "Nestle Maggi",
+        "subCategory": "Instant & Hakka Noodles",
+        "unit": "70 g",
+        "mrp": 14,
+        "price": 14,
+        "image": "/products/verified/ins-maggi-masala-70g.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins011",
+        "name": "Maggi 2-Minute Special Masala Instant Noodles (73 g)",
+        "brand": "Nestle Maggi",
+        "subCategory": "Instant & Hakka Noodles",
+        "unit": "73 g",
+        "mrp": 20,
+        "price": 20,
+        "image": "/products/verified/ins-maggi-special-masala.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins012",
+        "name": "Maggi Veg Atta Instant Noodles (72.5 g)",
+        "brand": "Nestle Maggi",
+        "subCategory": "Instant & Hakka Noodles",
+        "unit": "72.5 g",
+        "mrp": 25,
+        "price": 25,
+        "image": "/products/verified/ins-maggi-atta-noodles.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins013",
+        "name": "Sunfeast YiPPee! Magic Masala Noodles (Single Pack 60 g)",
+        "brand": "Sunfeast",
+        "subCategory": "Instant & Hakka Noodles",
+        "unit": "60 g",
+        "mrp": 14,
+        "price": 14,
+        "image": "/products/verified/ins-yippee-noodles-single.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins014",
+        "name": "Sunfeast YiPPee! Mood Masala Instant Noodles (70 g)",
+        "brand": "Sunfeast",
+        "subCategory": "Instant & Hakka Noodles",
+        "unit": "70 g",
+        "mrp": 20,
+        "price": 20,
+        "image": "/products/verified/ins-yippee-mood-masala.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins015",
+        "name": "Bambino Roasted Short Cut Vermicelli (Semiya 200 g)",
+        "brand": "Bambino",
+        "subCategory": "Vermicelli & Semiya",
+        "unit": "200 g",
+        "mrp": 20,
+        "price": 20,
+        "image": "/products/verified/ins-bambino-vermicelli-200g.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins016",
+        "name": "Bambino Roasted Short Cut Vermicelli (Semiya 450 g)",
+        "brand": "Bambino",
+        "subCategory": "Vermicelli & Semiya",
+        "unit": "450 g",
+        "mrp": 45,
+        "price": 45,
+        "image": "/products/verified/ins-bambino-vermicelli-450g.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins017",
+        "name": "Bambino Macaroni Pasta (400 g)",
+        "brand": "Bambino",
+        "subCategory": "Vermicelli & Semiya",
+        "unit": "400 g",
+        "mrp": 35,
+        "price": 35,
+        "image": "/products/verified/ins-bambino-macaroni.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins018",
+        "name": "MTR 3-Minute Instant Poha Cup / Pouch (60 g)",
+        "brand": "MTR",
+        "subCategory": "Breakfast Cereals & Instant Mixes",
+        "unit": "60 g",
+        "mrp": 25,
+        "price": 25,
+        "image": "/products/verified/ins-mtr-poha.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins019",
+        "name": "MTR 3-Minute Instant Upma Cup / Pouch (60 g)",
+        "brand": "MTR",
+        "subCategory": "Breakfast Cereals & Instant Mixes",
+        "unit": "60 g",
+        "mrp": 25,
+        "price": 25,
+        "image": "/products/verified/ins-mtr-upma.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins020",
+        "name": "MTR Rava Idli Breakfast Mix (500 g)",
+        "brand": "MTR",
+        "subCategory": "Breakfast Cereals & Instant Mixes",
+        "unit": "500 g",
+        "mrp": 85,
+        "price": 85,
+        "image": "/products/verified/ins-mtr-rava-idli.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins021",
+        "name": "MTR Dosa Breakfast Mix (500 g)",
+        "brand": "MTR",
+        "subCategory": "Breakfast Cereals & Instant Mixes",
+        "unit": "500 g",
+        "mrp": 90,
+        "price": 90,
+        "image": "/products/verified/ins-mtr-dosa.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins022",
+        "name": "Kellogg's Corn Flakes Original (250 g)",
+        "brand": "Kellogg's",
+        "subCategory": "Breakfast Cereals & Instant Mixes",
+        "unit": "250 g",
+        "mrp": 110,
+        "price": 110,
+        "image": "/products/verified/ins-kelloggs-corn-flakes-250g.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins023",
+        "name": "Kellogg's Corn Flakes Original Family Pack (475 g)",
+        "brand": "Kellogg's",
+        "subCategory": "Breakfast Cereals & Instant Mixes",
+        "unit": "475 g",
+        "mrp": 195,
+        "price": 195,
+        "image": "/products/verified/ins-kelloggs-corn-flakes-475g.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins024",
+        "name": "Kellogg's Chocos Chocolate Moons & Stars (250 g)",
+        "brand": "Kellogg's",
+        "subCategory": "Breakfast Cereals & Instant Mixes",
+        "unit": "250 g",
+        "mrp": 115,
+        "price": 115,
+        "image": "/products/verified/ins-kelloggs-chocos-250g.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins025",
+        "name": "Kellogg's Chocos Single Pocket Pack (26 g)",
+        "brand": "Kellogg's",
+        "subCategory": "Breakfast Cereals & Instant Mixes",
+        "unit": "26 g",
+        "mrp": 10,
+        "price": 10,
+        "image": "/products/verified/ins-kelloggs-chocos-10rs.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins026",
+        "name": "Quaker Rolled Oats 100% Wholegrain (400 g)",
+        "brand": "Quaker",
+        "subCategory": "Breakfast Cereals & Instant Mixes",
+        "unit": "400 g",
+        "mrp": 99,
+        "price": 99,
+        "image": "/products/verified/ins-quaker-oats-400g.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins027",
+        "name": "Quaker Rolled Oats 100% Wholegrain (1 kg)",
+        "brand": "Quaker",
+        "subCategory": "Breakfast Cereals & Instant Mixes",
+        "unit": "1 kg",
+        "mrp": 199,
+        "price": 199,
+        "image": "/products/verified/ins-quaker-oats-1kg.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins028",
+        "name": "Saffola Classic Masala Oats (38 g Pocket)",
+        "brand": "Saffola",
+        "subCategory": "Breakfast Cereals & Instant Mixes",
+        "unit": "38 g",
+        "mrp": 15,
+        "price": 15,
+        "image": "/products/verified/ins-saffola-oats-38g.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins029",
+        "name": "Saffola Classic Masala Oats (400 g)",
+        "brand": "Saffola",
+        "subCategory": "Breakfast Cereals & Instant Mixes",
+        "unit": "400 g",
+        "mrp": 165,
+        "price": 165,
+        "image": "/products/verified/ins-saffola-oats-classic-400g.webp",
+        "imgOk": true
+      },
+      {
+        "id": "g1-ins030",
+        "name": "Saffola Veggie Twist Masala Oats (400 g)",
+        "brand": "Saffola",
+        "subCategory": "Breakfast Cereals & Instant Mixes",
+        "unit": "400 g",
+        "mrp": 165,
+        "price": 165,
+        "image": "/products/verified/ins-saffola-oats-veggie-400g.webp",
+        "imgOk": true
+      }
+    ]
+  }
+}

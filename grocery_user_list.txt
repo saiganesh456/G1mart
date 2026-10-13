@@ -1,0 +1,628 @@
+<USER_REQUEST>
+G1 MART — Grocery & Kitchen
+1. Rice and rice products
+- India Gate Classic Basmati Rice — 1 kg, 5 kg, 10 kg bags
+- India Gate Feast Rozzana Basmati Rice — 1 kg, 5 kg bags
+- India Gate Dubar Basmati Rice — 1 kg, 5 kg bags
+- Daawat Traditional Basmati Rice — 1 kg, 5 kg bags
+- Daawat Rozana Super Basmati Rice — 1 kg, 5 kg bags
+- Fortune Biryani Special Basmati Rice — 1 kg, 5 kg bags
+- Kohinoor Basmati Rice — 1 kg, 5 kg bags
+- Lal Qilla Basmati Rice — 1 kg, 5 kg bags
+- bb Royal Basmati Rice — 1 kg, 5 kg bags
+- Aashirvaad Nature’s Super Foods — rice products, if stocked
+- G1 MART Kurnool Special Rice — actual store bag and pack size to confirm
+- Sri Lakshmi Rice — actual store bag and pack size to confirm
+- Sona Masuri Rice — branded pack only where a specific brand is confirmed
+2. Atta, flour, maida, rava and vermicelli
+- Aashirvaad Whole Wheat Atta — 1 kg, 5 kg, 10 kg bags
+- Aashirvaad Select Sharbati Atta — 5 kg bag
+- Pillsbury Chakki Fresh Atta — 1 kg, 5 kg, 10 kg bags
+- Fortune Chakki Fresh Atta — 1 kg, 5 kg bags
+- Annapurna Farm Fresh Atta — 1 kg, 5 kg bags
+- Tata Sampann Multigrain Atta — 1 kg, 5 kg bags
+- Nature Fresh Sampoorna Chakki Atta — 1 kg, 5 kg bags
+- Fortune Maida — 500 g, 1 kg bags
+- Pillsbury Maida — 500 g, 1 kg bags
+- Fortune Besan / Chana Besan — 500 g, 1 kg bags
+- Tata Sampann Besan — 500 g, 1 kg bags
+- Aashirvaad Besan — pack size to verify
+- Bombay Rava / Sooji branded packs — 500 g, 1 kg
+- Fortune Sooji / Rava — 500 g, 1 kg
+- MTR Rava Idli Mix — 500 g pack
+- MTR Rava Dosa Mix — pack size to verify
+- Bambino Roasted Vermicelli — 150 g, 400 g, 850 g packs
+- Bambino Plain Vermicelli — 150 g, 400 g packs
+- Bambino Roasted Semiya — pack size to verify
+- Anil Roasted Vermicelli / Semiya — 150 g, 400 g packs
+- Anil Rice Vermicelli — pack size to verify
+- MTR Vermicelli — pack size to verify
+3. Cooking oils — pouches, bottles, tins and cans
+Each pack configuration must be treated as a separate SKU. A 1 L pouch, 1 L bottle and 5 L can are not interchangeable.
+- Fortune Sunlite Refined Sunflower Oil — 500 ml, 1 L, 2 L, 5 L pouch/can
+- Fortune Sunflower Oil — bottle/pouch sizes to verify separately
+- Freedom Refined Sunflower Oil — 1 L pouch, 1 L bottle, 5 L can
+- Freedom Rice Bran Oil — 1 L, 5 L packs, if stocked
+- Gold Winner Refined Sunflower Oil — 500 ml, 1 L, 2 L, 5 L
+- Gemini Refined Sunflower Oil — 500 ml, 1 L, 5 L
+- Sunpure Refined Sunflower Oil — 1 L, 5 L
+- Sundrop Super Lite Advanced Sunflower Oil — 1 L, 5 L
+- Sundrop Heart — 1 L, 5 L, if stocked
+- Saffola Gold — 1 L, 5 L
+- Saffola Active — 1 L, 5 L
+- Saffola Tasty — 1 L, 5 L
+- Dhara Refined Sunflower Oil — 1 L, 5 L, if stocked
+- Engine Soyabean Oil — 1 L, 5 L, if stocked
+- Fortune Soyabean Oil — 1 L, 5 L
+- Fortune Kachi Ghani Mustard Oil — 500 ml, 1 L
+- Fortune Groundnut Oil — 1 L, 5 L, if stocked
+- Gold Winner Groundnut Oil — 1 L, 5 L, if stocked
+- Idhayam Sesame / Gingelly Oil — 200 ml, 500 ml, 1 L
+- Anjali Gingelly Oil — pack sizes to verify
+- KLF Coconad Coconut Oil — 100 ml, 200 ml, 500 ml, 1 L
+- Parachute Coconut Oil — 100 ml, 200 ml, 500 ml, 1 L
+- Dabur Anmol Gold Coconut Oil — pack sizes to verify
+- Patanjali Mustard Oil — pack sizes to verify
+- Figaro Olive Oil — 250 ml, 500 ml, if stocked
+- Borges Olive Oil — 250 ml, 500 ml, if stocked
+Oil cans and bulk packs to include: Fortune 5 L can, Freedom 5 L can, Gold Winner 5 L can, Gemini 5 L can, Saffola 5 L tin/can, and any 5 L or larger branded oil container physically stocked by G1 MART. Verify the exact brand and package before generating its image.
+4. Ghee, butter and cooking fats
+- Amul Pure Ghee — 100 ml, 200 ml, 500 ml, 1 L
+- Nandini Pure Ghee — 200 ml, 500 ml, 1 L
+- Heritage Cow Ghee — 200 ml, 500 ml, 1 L
+- Dodla Ghee — 200 ml, 500 ml, 1 L, if stocked
+- Aashirvaad Svasti Ghee — pack sizes to verify
+- Patanjali Cow Ghee — 200 ml, 500 ml, 1 L
+- Britannia Butter — 100 g, 200 g, 500 g
+- Amul Butter — 100 g, 200 g, 500 g
+- Amul Cooking Butter — pack size to verify
+5. Salt, sugar and jaggery — branded packs
+- Tata Salt Iodised Salt — 1 kg
+- Tata Salt Lite — 1 kg
+- Tata Rock Salt / Sendha Namak — pack size to verify
+- Aashirvaad Iodised Salt — 1 kg, if stocked
+- Aashirvaad Salt — variant and pack size to verify
+- Catch Sprinkler Table Salt — pack size to verify
+- Annapurna Iodised Salt — 1 kg, if stocked
+- Tata Sampann Pink Rock Salt — pack size to verify
+- Tata Sugar / packaged sugar — pack size to verify
+- Madhur Pure & Hygienic Sugar — 1 kg, 5 kg
+- Dhampur Green Sugar — pack sizes to verify
+- Trust / local branded sugar — exact brand to verify
+- Organic Tattva Jaggery Powder — pack size to verify
+- 24 Mantra Organic Jaggery — pack size to verify
+- Patanjali Jaggery — pack size to verify
+6. Dal, pulses and beans — branded packs
+- Tata Sampann Toor Dal — 500 g, 1 kg
+- Tata Sampann Chana Dal — 500 g, 1 kg
+- Tata Sampann Moong Dal — 500 g, 1 kg
+- Tata Sampann Urad Dal Split — 500 g, 1 kg
+- Tata Sampann Urad Whole — 500 g, 1 kg
+- Tata Sampann Masoor Dal — 500 g, 1 kg
+- Tata Sampann Kabuli Chana — 500 g, 1 kg
+- Tata Sampann Kala Chana — 500 g, 1 kg
+- Tata Sampann Rajma — 500 g, 1 kg
+- Tata Sampann Green Moong — 500 g, 1 kg
+- Tata Sampann Black Urad — 500 g, 1 kg
+- Tata Sampann White Peas — pack size to verify
+- Tata Sampann Soya Chunks — 200 g, 500 g
+- Fortune Toor Dal — 500 g, 1 kg, if stocked
+- Fortune Chana Dal — 500 g, 1 kg
+- Fortune Moong Dal — 500 g, 1 kg
+- Fortune Urad Dal — 500 g, 1 kg
+- Fortune Masoor Dal — 500 g, 1 kg
+- Fortune Kabuli Chana — 500 g, 1 kg, if stocked
+- Aashirvaad dals/pulses — list only exact branded packs stocked
+- 24 Mantra Organic dals — individual varieties and packs to verify
+- Organic Tattva dals — individual varieties and packs to verify
+7. Spices and masala powders
+Turmeric, chilli and coriander
+- Everest Turmeric Powder — 50 g, 100 g, 200 g, 500 g
+- Tata Sampann Turmeric Powder — 100 g, 200 g, 500 g
+- Aashirvaad Turmeric Powder — pack sizes to verify
+- Catch Turmeric Powder — pack sizes to verify
+- Everest Kashmiri Lal Mirch Powder — 100 g, 200 g
+- Everest Red Chilli Powder — 100 g, 200 g, 500 g
+- Tata Sampann Kashmiri Red Chilli Powder — 100 g, 200 g
+- Aashirvaad Chilli Powder — pack sizes to verify
+- Catch Red Chilli Powder — pack sizes to verify
+- Everest Coriander Powder — 100 g, 200 g
+- Tata Sampann Coriander Powder — 100 g, 200 g
+- Catch Coriander Powder — pack sizes to verify
+Whole spices and powdered spices
+- Everest Cumin / Jeera Powder — 50 g, 100 g
+- Catch Jeera Powder — 50 g, 100 g
+- Everest Black Pepper Powder — 50 g, 100 g
+- Catch Black Pepper Powder — pack sizes to verify
+- Everest Garam Masala — 50 g, 100 g
+- Catch Garam Masala — 50 g, 100 g
+- Tata Sampann Garam Masala — pack sizes to verify
+- Everest Kitchen King Masala — 50 g, 100 g
+- Catch Kitchen King Masala — pack sizes to verify
+- Everest Cumin Seeds / Jeera — 50 g, 100 g
+- Everest Mustard Seeds / Rai — pack sizes to verify
+- Catch Mustard Seeds — pack sizes to verify
+- Everest Fennel Seeds / Saunf — pack sizes to verify
+- Catch Fennel Seeds — pack sizes to verify
+- Everest Ajwain — pack sizes to verify
+- Everest Hing / Asafoetida — small boxes/packs
+- Catch Hing — small packs
+- Everest Cardamom / Elaichi — pack sizes to verify
+- Everest Cloves / Lavang — pack sizes to verify
+- Everest Cinnamon / Dalchini — pack sizes to verify
+- Everest Bay Leaf / Tej Patta — pack sizes to verify
+- Everest Biryani Pulav Masala — pack sizes to verify
+South Indian and Andhra cooking masalas
+- MTR Sambar Powder — 100 g, 200 g
+- MTR Rasam Powder — 100 g, 200 g
+- MTR Puliyogare Powder — pack size to verify
+- MTR Bisibele Bath Powder — pack size to verify
+- MTR Vangi Bath Powder — pack size to verify
+- Aachi Sambar Powder — 100 g, 200 g
+- Aachi Rasam Powder — 100 g, 200 g
+- Aachi Chicken Masala — 50 g, 100 g
+- Aachi Mutton Masala — 50 g, 100 g
+- Aachi Fish Fry Masala — pack size to verify
+- Aachi Biryani Masala — pack size to verify
+- Sakthi Sambar Powder — pack sizes to verify
+- Sakthi Rasam Powder — pack sizes to verify
+- Sakthi Chicken Masala — pack sizes to verify
+- Everest Chicken Masala — 50 g, 100 g
+- Everest Meat Masala — 50 g, 100 g
+- Everest Shahi Biryani Masala — pack sizes to verify
+- Everest Pav Bhaji Masala — pack sizes to verify
+- Catch Chaat Masala — 50 g, 100 g
+- Catch Jaljeera Masala — pack sizes to verify
+8. Ready mixes and cooking aids
+- MTR Idli Mix — pack size to verify
+- MTR Dosa Mix — pack size to verify
+- MTR Rava Idli Mix — 500 g, if stocked
+- MTR Gulab Jamun Mix — pack size to verify
+- MTR Badam Drink Mix — pack size to verify
+- Gits Gulab Jamun Mix — pack size to verify
+- Gits Dhokla Mix — pack size to verify
+- Gits Khaman Mix — pack size to verify
+- Aachi Idli/Dosa batter mix — exact product to verify
+- Aachi Appam Mix — pack size to verify
+- Aachi Bajji Bonda Mix — pack size to verify
+- Eastern Sambar Powder — pack size to verify
+- Eastern Rasam Powder — pack size to verify
+- Eastern Chicken Masala — pack size to verify
+- Eastern Meat Masala — pack size to verify
+- Knorr Soup Mix — individual flavours and pack sizes to verify
+- Maggi Coconut Milk Powder — if stocked
+- Ching’s Secret Manchurian Masala — pack size to verify
+9. Pickles, papad, sauces and cooking condiments
+- Priya Mango Pickle — 300 g, 500 g, 1 kg
+- Priya Gongura Pickle — 300 g, 500 g
+- Priya Tomato Pickle — 300 g, 500 g
+- Priya Lemon Pickle — 300 g, 500 g
+- Priya Chicken Pickle — only if stocked
+- Aachi Mango Pickle — pack sizes to verify
+- Aachi Gongura Pickle — pack sizes to verify
+- Mother's Recipe Mango Pickle — pack sizes to verify
+- MTR Papad — pack sizes to verify
+- Lijjat Papad — 100 g, 200 g
+- Kitchen Xpress Papad — pack sizes to verify
+- Kissan Fresh Tomato Ketchup — 200 g, 500 g, 1 kg
+- Maggi Tomato Ketchup — pack sizes to verify
+- Veeba Tomato Ketchup — pack sizes to verify
+- Ching’s Secret Schezwan Chutney — pack sizes to verify
+- Ching’s Secret Soy Sauce — pack sizes to verify
+- Ching’s Secret Green Chilli Sauce — pack sizes to verify
+- Del Monte Pasta Sauce — pack sizes to verify
+- Heinz Tomato Ketchup — if stocked
+- FunFoods Mayonnaise — pack sizes to verify
+- Veeba Mayonnaise — pack sizes to verify
+- American Garden Mustard Sauce — if stocked
+10. Noodles, pasta and vermicelli meals
+- Maggi 2-Minute Masala Noodles — 70 g, 140 g, multipacks
+- Maggi Special Masala Noodles — pack sizes to verify
+- Maggi Atta Noodles — pack sizes to verify
+- Sunfeast YiPPee! Magic Masala — 70 g, multipacks
+- Sunfeast YiPPee! Mood Masala — pack sizes to verify
+- Top Ramen Curry Noodles — pack sizes to verify
+- Top Ramen Fiery Chilli Noodles — if stocked
+- Ching’s Secret Hakka Noodles — pack sizes to verify
+- Wai Wai Instant Noodles — pack sizes to verify
+- Bambino Macaroni — 400 g, if stocked
+- Bambino Pasta — 400 g, if stocked
+- Sunfeast Pasta Treat — pack sizes to verify
+- Del Monte Penne Pasta — 500 g, if stocked
+- Del Monte Fusilli Pasta — 500 g, if stocked
+- Weikfield Pasta — pack sizes to verify
+11. Breakfast, baking and kitchen essentials
+- Kellogg’s Corn Flakes — 250 g, 500 g
+- Kellogg’s Chocos — 250 g, 500 g
+- Bagrry’s Oats — 400 g, 1 kg
+- Saffola Oats — 400 g, 1 kg
+- Quaker Oats — 400 g, 1 kg
+- Weikfield Baking Powder — small packs
+- Weikfield Baking Soda — small packs
+- Weikfield Corn Flour — 100 g, 200 g
+- Brown & Polson Custard Powder — 100 g, 200 g
+- Weikfield Custard Powder — 100 g, 200 g
+- Blue Bird Jelly Crystals — individual flavours, pack size to verify
+- Blue Bird Cake Mix — if stocked
+- Pillsbury Cake Mix — if stocked
+- Dr. Oetker FunFoods dessert mixes — exact items to verify
+- Keya Oregano — if stocked
+- Keya Chilli Flakes — if stocked
+- Keya Mixed Herbs — if stocked
+12. Branded dry fruits and nuts
+- Happilo Almonds — 100 g, 200 g, 500 g
+- Happilo Cashews — 100 g, 200 g, 500 g
+- Happilo Pistachios — pack sizes to verify
+- Happilo Raisins — pack sizes to verify
+- Nutraj Almonds — pack sizes to verify
+- Nutraj Cashews — pack sizes to verify
+- Nutraj Raisins — pack sizes to verify
+- Tata Sampann Almonds — if stocked
+- Tata Sampann Cashews — if stocked
+- Farmley Mixed Dry Fruits — if stocked
+- Farmley Dates — if stocked
+- Lion Dates — pack sizes to verify
+- GKL Dates — source inventory mentions dates; exact product and pack to verify
+
+13. Loose products — keep separate from the branded catalog
+These are not branded-pack SKUs if G1 MART sells them loose. We should create separate product entries and then use the G1 MART-branded white-packaging prompt.
+Loose rice and grains
+- Sona Masuri Rice
+- Kurnool Special Rice
+- Raw Rice
+- Boiled Rice
+- Basmati Rice
+- Brown Rice
+- Idli Rice
+- Broken Rice
+- Wheat
+- Jowar
+- Bajra
+- Ragi
+- Foxtail Millet
+- Other millets actually stocked
+Loose dals and pulses
+- Toor Dal / Kandi Pappu
+- Chana Dal / Senaga Pappu
+- Moong Dal / Pesara Pappu
+- Split Moong Dal / Pesara Pappu (split variety)
+- Urad Dal / Minapa Pappu
+- Split Urad Dal
+- Masoor Dal
+- Red Lentils
+- Whole Green Moong
+- Whole Black Urad
+- Kabuli Chana
+- Kala Chana
+- Rajma
+- Dry Green Peas
+- White Peas
+- Roasted Gram / Putnala Pappu
+- Fried Gram Dal
+- Peanuts / Verusenagalu
+- Soya Chunks — only if sold loose
+Loose spices and cooking essentials
+- Red Chilli / Endu Mirchi
+- Turmeric Fingers
+- Turmeric Powder
+- Coriander Seeds
+- Coriander Powder
+- Cumin / Jeera
+- Mustard Seeds / Aavalu
+- Fenugreek Seeds / Menthulu
+- Fennel Seeds / Saunf
+- Black Pepper
+- Cloves
+- Cinnamon
+- Cardamom
+- Bay Leaves
+- Dry Ginger
+- Tamarind / Chintapandu
+- Dry Coconut
+- Sesame Seeds / Nuvvulu
+- Poppy Seeds, if legally sold and stocked
+- Hing, if sold loose
+- Whole dried chillies, with variety recorded separately
+Loose sweeteners and other staples
+- White Sugar / Sakkarai
+- Jaggery / Bellam
+- Jaggery Powder
+- Rock Sugar / Kalkandam, if stocked
+- Salt, if sold loose
+- Poha / Atukulu
+- Flattened Rice varieties
+- Sabudana / Saggubiyyam
+- Roasted Gram
+- Peanuts
+- Dry Coconut Pieces
+- Vermicelli / Semiya, if sold loose
+- Rava / Sooji, if sold loose
+- Maida, if sold loose
+- Besan, if sold loose
+- India Gate Classic Basmati Rice — 1 kg, 5 kg, 10 kg
+- India Gate Feast Rozzana — 1 kg, 5 kg, 10 kg
+- India Gate Dubar Basmati Rice — 1 kg, 5 kg
+- India Gate Tibar Basmati Rice — 1 kg, 5 kg
+- Daawat Traditional Basmati Rice — 1 kg, 5 kg, 10 kg
+- Daawat Rozana Super Basmati Rice — 1 kg, 5 kg
+- Kohinoor Traditional Basmati Rice — 1 kg, 5 kg
+- Lal Qilla Basmati Rice — 1 kg, 5 kg
+- Fortune Biryani Special Basmati Rice — 1 kg, 5 kg
+- bb Royal Basmati Rice — 1 kg, 5 kg
+- Double Diamond / local branded rice — exact brand and variety to verify
+- HMT Raw Rice — 5 kg, 10 kg, 25 kg sacks, where stocked
+- HMT Boiled Rice — 5 kg, 10 kg, 25 kg sacks, where stocked
+- Ponni Raw Rice — 5 kg, 10 kg
+- Ponni Boiled Rice — 5 kg, 10 kg
+- Idli Rice — 1 kg, 5 kg
+- Brown Rice — 500 g, 1 kg
+- Broken Rice — 1 kg, 5 kg, only if sold in branded packs
+- Rice flour — 500 g, 1 kg
+- Idli rice rava — 500 g, 1 kg
+- Bansi rava — 500 g, 1 kg
+2. Atta, maida, besan, rava and regional flours
+- Aashirvaad Whole Wheat Atta — 1 kg, 2 kg, 5 kg, 10 kg
+- Aashirvaad Select Sharbati Atta — 5 kg
+- Aashirvaad Multigrain Atta — 1 kg, 5 kg
+- Pillsbury Chakki Fresh Atta — 1 kg, 5 kg, 10 kg
+- Fortune Chakki Fresh Atta — 1 kg, 5 kg
+- Annapurna Atta — 1 kg, 5 kg, if stocked
+- Tata Sampann Multigrain Atta — 1 kg, 5 kg
+- Fortune Maida — 500 g, 1 kg
+- Bhagyalakshmi Maida — 500 g, 1 kg
+- Daily Good Maida — 500 g, 1 kg, where stocked
+- Fortune Besan — 500 g, 1 kg
+- Tata Sampann Fine Besan — 500 g, 1 kg
+- Aashirvaad Besan — 500 g, 1 kg, if stocked
+- Rajdhani Besan — 500 g, 1 kg, if stocked
+- Vijay Bombay Sooji — 500 g, 1 kg
+- Sri Bhagyalakshmi Bansi Sooji — 500 g, 1 kg
+- Double Horse Double Roasted Rava — 500 g, 1 kg
+- Aashirvaad Double Roasted Suji/Rava — 500 g, 1 kg
+- Fortune Sooji/Rava — 500 g, 1 kg
+- Vijay Idli Rava — 500 g, 1 kg
+- Sri Lalitha Idli Sooji/Rava — 500 g, 1 kg
+- Bambino Roasted Vermicelli — 150 g, 400 g, 850 g
+- Anil Roasted Vermicelli — 150 g, 400 g
+- Bambino Macaroni — 400 g
+- Fortune Ragi Flour — pack sizes to verify
+- Tata Sampann Ragi Flour — pack sizes to verify
+- Aashirvaad Multigrain Flour — pack sizes to verify
+- Jowar Flour — branded 500 g and 1 kg packs, if stocked
+- Bajra Flour — branded 500 g and 1 kg packs, if stocked
+- Corn Flour — 100 g, 200 g, 500 g
+- Chana Sattu — 500 g, 1 kg
+- Roasted Gram Flour — pack size to verify
+3. Oils — add missing types and separate large packs
+Keep Freedom Refined Sunflower Oil as a known G1 MART product. The previous research register has a 1 L pouch and 5 L can; larger packs should be confirmed from the actual store pack before listing. 
+- Freedom Sunflower Oil — 500 ml, 1 L pouch, 1 L bottle, 5 L can
+- Fortune Sunlite Sunflower Oil — 500 ml, 1 L, 2 L, 5 L
+- Gold Winner Sunflower Oil — 500 ml, 1 L, 2 L, 5 L
+- Gold Drop Sunflower Oil — 1 L, 5 L, if stocked
+- Gemini Sunflower Oil — 500 ml, 1 L, 5 L
+- Sunpure Sunflower Oil — 1 L, 5 L
+- Sundrop Super Lite Advanced — 1 L, 5 L
+- Saffola Gold — 1 L, 5 L
+- Saffola Active — 1 L, 5 L
+- Saffola Tasty — 1 L, 5 L
+- Fortune Rice Bran Oil — 1 L, 5 L
+- Freedom Rice Bran Oil — 1 L, 5 L, if stocked
+- Fortune Soyabean Oil — 1 L, 5 L
+- Engine Soyabean Oil — 1 L, 5 L, if stocked
+- Gold Nut Groundnut Oil — 1 L, 5 L, if stocked
+- Fortune Groundnut Oil — 1 L, 5 L
+- Idhayam Sesame/Gingelly Oil — 200 ml, 500 ml, 1 L
+- Anjali Gingelly Oil — pack sizes to verify
+- KLF Coconad Coconut Oil — 100 ml, 200 ml, 500 ml, 1 L
+- Parachute Coconut Oil — 100 ml, 200 ml, 500 ml, 1 L
+- Fortune Kachi Ghani Mustard Oil — 500 ml, 1 L
+- Patanjali Mustard Oil — 500 ml, 1 L, if stocked
+- Figaro Olive Oil — 250 ml, 500 ml
+- Borges Extra Virgin Olive Oil — 250 ml, 500 ml, if stocked
+- Cold-pressed Groundnut Oil — 500 ml, 1 L, only if a named brand is stocked
+- Cold-pressed Sesame Oil — 500 ml, 1 L, only if a named brand is stocked
+- Cold-pressed Coconut Oil — 200 ml, 500 ml, only if a named brand is stocked
+Oil can rule: create separate SKUs for 1 L pouch, 1 L bottle, 5 L can and 10 L can when the exact package exists. Do not assume a 10 L can is available just because the brand sells bulk oil elsewhere.
+4. Ghee, vanaspati and cooking fats
+- Amul Pure Ghee — 100 ml, 200 ml, 500 ml, 1 L
+- Heritage Ghee — 200 ml, 500 ml, 1 L
+- Nandini Ghee — 200 ml, 500 ml, 1 L, if stocked
+- Patanjali Cow Ghee — 200 ml, 500 ml, 1 L
+- Aashirvaad Svasti Ghee — pack sizes to verify
+- Dodla Ghee — 200 ml, 500 ml, 1 L, if stocked
+- Amul Butter — 100 g, 200 g, 500 g
+- Britannia Butter — 100 g, 200 g, 500 g
+- Dalda Vanaspati — 500 g, 1 kg, if stocked
+- Rath Vanaspati — 500 g, 1 kg, if stocked
+5. Packaged salt, sugar and sweeteners
+No loose salt is included.
+- Tata Salt Iodised — 1 kg
+- Tata Salt Lite — 1 kg
+- Aashirvaad Iodised Salt — 1 kg, if stocked
+- Annapurna Iodised Salt — 1 kg, if stocked
+- Catch Table Salt — pack size to verify
+- Tata Rock Salt — pack size to verify
+- Tata Sampann Pink Rock Salt — pack size to verify
+- Madhur Sugar — 1 kg, 5 kg
+- Packaged sugar from a confirmed local brand — 500 g, 1 kg, 5 kg
+- Dhampur Green Sugar — pack sizes to verify
+- Organic Tattva Jaggery — pack sizes to verify
+- Patanjali Jaggery — pack sizes to verify
+- Organic jaggery powder — 250 g, 500 g, 1 kg, if stocked
+- Sugar cubes — 250 g, 500 g, if stocked
+- Sugar sachets — individual sachet SKU only if stocked
+6. More branded dals, beans and pulses
+- Tata Sampann Toor Dal — 500 g, 1 kg
+- Tata Sampann Chana Dal — 500 g, 1 kg
+- Tata Sampann Moong Dal — 500 g, 1 kg
+- Tata Sampann Urad Dal Split — 500 g, 1 kg
+- Tata Sampann Urad Whole — 500 g, 1 kg
+- Tata Sampann Masoor Dal — 500 g, 1 kg
+- Tata Sampann Kala Chana — 500 g, 1 kg
+- Tata Sampann Kabuli Chana — 500 g, 1 kg
+- Tata Sampann Rajma — 500 g, 1 kg
+- Tata Sampann Green Moong — 500 g, 1 kg
+- Tata Sampann Soya Chunks — 200 g, 500 g
+- Fortune Toor Dal — 500 g, 1 kg, if stocked
+- Fortune Chana Dal — 500 g, 1 kg
+- Fortune Moong Dal — 500 g, 1 kg
+- Fortune Urad Dal — 500 g, 1 kg
+- Fortune Masoor Dal — 500 g, 1 kg
+- Rajdhani Chana Dal — pack sizes to verify
+- Rajdhani Kabuli Chana — pack sizes to verify
+- 24 Mantra Organic Toor Dal — pack sizes to verify
+- 24 Mantra Organic Moong Dal — pack sizes to verify
+- Organic Tattva Chana Dal — pack sizes to verify
+- Patanjali Unpolished Moong Dal Dhuli — pack sizes to verify
+- Patanjali Unpolished Moong Dal Chilka — pack sizes to verify
+- Patanjali Unpolished Urad Dhuli — pack sizes to verify
+- Patanjali Unpolished Urad Chilka — pack sizes to verify
+- Patanjali Unpolished Arhar Dal — pack sizes to verify
+- Patanjali Unpolished Rajma — pack sizes to verify
+- Patanjali Unpolished White Peas — pack sizes to verify
+7. Missing whole spices and powders
+Whole spices
+- Everest Jeera/Cumin Seeds — 50 g, 100 g
+- Catch Jeera/Cumin Seeds — 50 g, 100 g
+- Everest Mustard Seeds — 50 g, 100 g
+- Catch Mustard Seeds — 50 g, 100 g
+- Everest Fenugreek Seeds — 50 g, 100 g
+- Catch Fenugreek Seeds — pack sizes to verify
+- Everest Fennel Seeds — 50 g, 100 g
+- Catch Fennel Seeds — pack sizes to verify
+- Everest Ajwain — 50 g, 100 g
+- Everest Black Pepper Whole — 50 g, 100 g
+- Catch Black Pepper Whole — pack sizes to verify
+- Everest Cardamom — small packs, 10 g, 25 g
+- Everest Cloves — small packs, 20 g, 50 g
+- Everest Cinnamon — small packs, 20 g, 50 g
+- Everest Bay Leaves — small packs
+- Kasuri Methi — 25 g, 50 g
+- Everest Hing — small packs
+- Catch Hing — small packs
+- Dry mango powder / Amchur — 50 g, 100 g
+- Black sesame seeds — branded pack if stocked
+- White sesame seeds — branded pack if stocked
+Additional masalas
+- Everest Chana Masala — 50 g, 100 g
+- Everest Chhole Masala — 50 g, 100 g
+- Everest Pav Bhaji Masala — 50 g, 100 g
+- Everest Shahi Paneer Masala — 50 g, 100 g
+- Everest Sabzi Masala — 50 g, 100 g
+- Everest Pani Puri Masala — 50 g
+- Everest Chaat Masala — 50 g, 100 g
+- Catch Chhole Masala — 50 g, 100 g
+- Catch Kitchen King Masala — 50 g, 100 g
+- Catch Pav Bhaji Masala — 50 g, 100 g
+- Catch Sabzi Masala — 50 g, 100 g
+- Aachi Sambar Powder — 100 g, 200 g
+- Aachi Rasam Powder — 100 g, 200 g
+- Aachi Chicken Masala — 50 g, 100 g
+- Aachi Mutton Masala — 50 g, 100 g
+- Aachi Fish Fry Masala — pack sizes to verify
+- Aachi Biryani Masala — pack sizes to verify
+- Sakthi Sambar Powder — pack sizes to verify
+- Sakthi Rasam Powder — pack sizes to verify
+- Sakthi Chicken Masala — pack sizes to verify
+- Eastern Sambar Powder — pack sizes to verify
+- Eastern Rasam Powder — pack sizes to verify
+- Eastern Chicken Masala — pack sizes to verify
+- Eastern Meat Masala — pack sizes to verify
+- MTR Puliyogare Powder — pack size to verify
+- MTR Bisibele Bath Powder — pack size to verify
+- MTR Vangi Bath Powder — pack size to verify
+- MTR Chutney Powder — pack size to verify
+8. Pickles, papad, tamarind and cooking pastes
+- Priya Mango Pickle — 300 g, 500 g, 1 kg
+- Priya Gongura Pickle — 300 g, 500 g
+- Priya Tomato Pickle — 300 g, 500 g
+- Priya Lemon Pickle — 300 g, 500 g
+- Priya Mixed Pickle — pack sizes to verify
+- Aachi Mango Pickle — pack sizes to verify
+- Aachi Gongura Pickle — pack sizes to verify
+- Mother's Recipe Mango Pickle — pack sizes to verify
+- Lijjat Papad — 100 g, 200 g
+- MTR Papad — pack sizes to verify
+- Appalam/Papad from a confirmed local brand — pack size to verify
+- Dabur Hommade Tamarind Paste — pack sizes to verify
+- Mother’s Recipe Tamarind Paste — if stocked
+- Ginger-Garlic Paste from a confirmed brand — 100 g, 200 g, 300 g
+- Kissan Tomato Ketchup — 200 g, 500 g, 1 kg
+- Maggi Tomato Ketchup — pack sizes to verify
+- Ching’s Secret Soy Sauce — pack sizes to verify
+- Ching’s Secret Green Chilli Sauce — pack sizes to verify
+- Ching’s Secret Red Chilli Sauce — pack sizes to verify
+- Ching’s Secret Schezwan Chutney — pack sizes to verify
+- Weikfield Vinegar — 180 ml, 350 ml, if stocked
+- Synthetic vinegar from a confirmed brand — pack size to verify
+- FunFoods Mayonnaise — pack sizes to verify
+- Veeba Mayonnaise — pack sizes to verify
+9. Vermicelli, breakfast and instant cooking products
+- Bambino Roasted Vermicelli — 150 g, 400 g, 850 g
+- Anil Roasted Vermicelli — 150 g, 400 g
+- Anil Rice Vermicelli — pack size to verify
+- MTR Vermicelli — pack size to verify
+- Maggi 2-Minute Masala Noodles — 70 g, 140 g, multipacks
+- Maggi Special Masala Noodles — pack sizes to verify
+- Maggi Atta Noodles — pack sizes to verify
+- Sunfeast YiPPee! Magic Masala — 70 g, multipacks
+- Sunfeast YiPPee! Mood Masala — pack sizes to verify
+- Top Ramen Curry Noodles — pack sizes to verify
+- Wai Wai Instant Noodles — pack sizes to verify
+- Ching’s Secret Hakka Noodles — pack sizes to verify
+- Kellogg’s Corn Flakes — 250 g, 500 g
+- Kellogg’s Chocos — 250 g, 500 g
+- Quaker Oats — 400 g, 1 kg
+- Saffola Oats — 400 g, 1 kg
+- Bagrry’s Oats — 400 g, 1 kg
+- MTR Idli Mix — pack size to verify
+- MTR Dosa Mix — pack size to verify
+- MTR Rava Idli Mix — pack size to verify
+- MTR Gulab Jamun Mix — pack size to verify
+- Gits Dhokla Mix — pack size to verify
+- Gits Gulab Jamun Mix — pack size to verify
+10. Baking and dessert essentials
+- Weikfield Baking Powder — small packs
+- Weikfield Baking Soda — small packs
+- Weikfield Corn Flour — 100 g, 200 g, 500 g
+- Brown & Polson Custard Powder — 100 g, 200 g
+- Weikfield Custard Powder — 100 g, 200 g
+- Blue Bird Jelly Crystals — individual flavours and pack sizes
+- Blue Bird Cake Mix — pack size to verify
+- Pillsbury Cake Mix — pack size to verify
+- Dr. Oetker FunFoods dessert mixes — exact products to verify
+- Vanilla essence — branded bottle, 20 ml, 28 ml, or other verified pack
+- Baking chocolate — branded pack, if stocked
+- Chocolate chips — branded pack, if stocked
+- Desiccated coconut — 100 g, 200 g, if stocked
+- Falooda mix — branded sachet/pack, if stocked
+11. Dry fruits, nuts, seeds and dates
+- Happilo Almonds — 100 g, 200 g, 500 g
+- Happilo Cashews — 100 g, 200 g, 500 g
+- Happilo Raisins — pack sizes to verify
+- Happilo Pistachios — pack sizes to verify
+- Nutraj Almonds — pack sizes to verify
+- Nutraj Cashews — pack sizes to verify
+- Nutraj Raisins — pack sizes to verify
+- Farmley Mixed Dry Fruits — pack sizes to verify
+- Farmley Dates — pack sizes to verify
+- Lion Dates — pack sizes to verify
+- GKL Dates — source inventory mentions dates; verify exact pack
+- Branded pumpkin seeds — pack size to verify
+- Branded sunflower seeds — pack size to verify
+- Branded flax seeds — pack size to verify
+- Branded chia seeds — pack size to verify
+- Branded peanuts — 200 g, 500 g, if sold in grocery rather than snack category
+12. Loose goods — G1 MART packaging, excluding salt
+Keep these as separate loose-product entries, not branded packs:
+- Rice: Kurnool Special, Sona Masuri, Sri Lakshmi, raw rice, boiled rice, idli rice, basmati rice, broken rice
+- Dals: toor dal, chana dal, moong dal, split moong, urad dal, masoor dal
+- Pulses: whole green gram, whole black gram, Kabuli chana, kala chana, rajma, dry peas, roasted gram
+- Other staples: wheat, ragi, jowar, bajra, poha/atukulu, sabudana/saggubiyyam, rava, maida, besan
+- Spices: whole dried chillies, cumin, coriander seeds, mustard seeds, fenugreek, sesame, pepper, cloves, cinnamon, cardamom
+- Sweeteners: white sugar and jaggery/bellam
+- Other: tamarind, dry coconut, peanuts and dry grains that G1 MART actually sells looseNext category, we need to develop the groceries and kitchen category. I have given the product list. Go through the product item name and based on the product and quantity, give the exact image for that. Any missing products are there in this category, go through and analyze the internet and give commonly used Indians and commonly in every local supermarkets commonly available products. Go through that and analyze that any products are missing, that also you can do. Give the exact product URL, give the best image URL, give the best image and quality image and do this category. Any duplicates have, please remove the duplicate. Previously, we have done work on the products on this category. Any duplicates have, remove the duplicates. Give the good and quality photo. Give the good and quality photo. Please analyze every product in this list. Go through every product and give the exact product image and analyze the printed MRP. Give the only printed MRP in our app. Do this. 
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-13T13:10:19+05:30.
+</ADDITIONAL_METADATA>

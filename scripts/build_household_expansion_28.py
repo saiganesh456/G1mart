@@ -1,0 +1,608 @@
+import json
+import os
+
+products = [
+    # A. Toilet & Bathroom Cleaners (floor-surface-cleaners)
+    {
+        "id": "g1-hh185",
+        "name": "Dabur Sanifresh Shine Toilet Cleaner",
+        "brand_id": "brand-dabur",
+        "brand": "Dabur",
+        "category_id": "floor-surface-cleaners",
+        "category": "Cleaners & Pest Control",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "image_url": "/products/verified/hh-185-dabur-sanifresh-shine.webp",
+        "description": "Dabur Sanifresh Shine specialized toilet cleaner with advanced germ-kill formula that leaves toilet bowls 2x shinier with a fresh ocean fragrance.",
+        "queries": [
+            "Dabur Sanifresh Shine toilet cleaner bottle pack",
+            "Dabur Sanifresh Shine 500ml packshot",
+            "Sanifresh toilet cleaner bottle"
+        ],
+        "variants": [
+            {"size_label": "500 ml", "mrp": 99, "price": 99, "stock": 50},
+            {"size_label": "750 ml", "mrp": 145, "price": 145, "stock": 50}
+        ]
+    },
+    {
+        "id": "g1-hh186",
+        "name": "Harpic Power Plus Citrus Toilet Cleaner",
+        "brand_id": "brand-harpic",
+        "brand": "Harpic",
+        "category_id": "floor-surface-cleaners",
+        "category": "Cleaners & Pest Control",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "image_url": "/products/verified/hh-186-harpic-citrus-toilet-cleaner.webp",
+        "description": "Harpic Power Plus Citrus liquid toilet cleaner eliminates 99.9% of germs and powers through tough yellow stains with an invigorating citrus scent.",
+        "queries": [
+            "Harpic Power Plus Citrus toilet cleaner bottle pack",
+            "Harpic Citrus toilet cleaner 500ml 1L",
+            "Harpic orange citrus toilet cleaner packshot"
+        ],
+        "variants": [
+            {"size_label": "500 ml", "mrp": 110, "price": 110, "stock": 50},
+            {"size_label": "1 L", "mrp": 225, "price": 225, "stock": 50}
+        ]
+    },
+    {
+        "id": "g1-hh187",
+        "name": "Harpic Drain Xpert Rapid Clog Remover",
+        "brand_id": "brand-harpic",
+        "brand": "Harpic",
+        "category_id": "floor-surface-cleaners",
+        "category": "Cleaners & Pest Control",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "image_url": "/products/verified/hh-187-harpic-drain-xpert.webp",
+        "description": "Rapid action drain and pipe declogger powder that dissolves grease, hair, and food build-up in kitchen sinks and bathroom drains in 30 minutes.",
+        "queries": [
+            "Harpic Drain Xpert drain cleaner sachet pack",
+            "Harpic Drain Xpert rapid clog remover powder",
+            "Harpic Drain Xpert packshot"
+        ],
+        "variants": [
+            {"size_label": "50 g Sachet", "mrp": 30, "price": 30, "stock": 60},
+            {"size_label": "500 ml Liquid", "mrp": 140, "price": 140, "stock": 40}
+        ]
+    },
+    {
+        "id": "g1-hh188",
+        "name": "Domex Fresh Guard Toilet Cleaner (Ocean Fresh)",
+        "brand_id": "brand-domex",
+        "brand": "Domex",
+        "category_id": "floor-surface-cleaners",
+        "category": "Cleaners & Pest Control",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "image_url": "/products/verified/hh-188-domex-ocean-fresh.webp",
+        "description": "Domex Fresh Guard disinfectant toilet cleaner with anti-stain technology that repels dirt and lime scale while leaving an intense ocean fresh fragrance.",
+        "queries": [
+            "Domex Fresh Guard Ocean Fresh toilet cleaner bottle",
+            "Domex Ocean Fresh toilet cleaner packshot",
+            "Domex blue bottle toilet cleaner 500ml"
+        ],
+        "variants": [
+            {"size_label": "500 ml", "mrp": 95, "price": 95, "stock": 50},
+            {"size_label": "1 L", "mrp": 180, "price": 180, "stock": 50}
+        ]
+    },
+    {
+        "id": "g1-hh189",
+        "name": "Gainda Black Disinfectant Phenyl Liquid",
+        "brand_id": "brand-gainda",
+        "brand": "Gainda",
+        "category_id": "floor-surface-cleaners",
+        "category": "Cleaners & Pest Control",
+        "sub_category": "Toilet & Bathroom Cleaners",
+        "subCategory": "Toilet & Bathroom Cleaners",
+        "image_url": "/products/verified/hh-189-gainda-black-phenyl.webp",
+        "description": "Heavy-duty Grade 3 coal tar black disinfectant phenyl liquid formulated for deep sanitization of drains, gutters, hospitals, and outdoor yards.",
+        "queries": [
+            "Gainda Black Disinfectant Phenyl bottle",
+            "Gainda black phenyl 450ml bottle packshot",
+            "Black phenyl disinfectant liquid bottle"
+        ],
+        "variants": [
+            {"size_label": "450 ml", "mrp": 65, "price": 65, "stock": 50},
+            {"size_label": "1 L", "mrp": 130, "price": 130, "stock": 50}
+        ]
+    },
+
+    # B. Floor & Surface Cleaners (floor-surface-cleaners)
+    {
+        "id": "g1-hh190",
+        "name": "Lizol Disinfectant Floor Cleaner Floral (Pink)",
+        "brand_id": "brand-lizol",
+        "brand": "Lizol",
+        "category_id": "floor-surface-cleaners",
+        "category": "Cleaners & Pest Control",
+        "sub_category": "Floor Cleaners",
+        "subCategory": "Floor Cleaners",
+        "image_url": "/products/verified/hh-190-lizol-floral-pink.webp",
+        "description": "India's #1 bestselling floral pink floor cleaner kills 99.9% germs, lifts tough grease, and infuses rooms with an enchanting 24-hour floral perfume.",
+        "queries": [
+            "Lizol Disinfectant Floor Cleaner Floral pink bottle pack",
+            "Lizol Floral 1L pink bottle packshot",
+            "Lizol Floral floor cleaner 500ml"
+        ],
+        "variants": [
+            {"size_label": "500 ml", "mrp": 118, "price": 118, "stock": 60},
+            {"size_label": "1 L", "mrp": 230, "price": 230, "stock": 60},
+            {"size_label": "2 L", "mrp": 420, "price": 420, "stock": 40}
+        ]
+    },
+    {
+        "id": "g1-hh191",
+        "name": "Lizol Disinfectant Floor Cleaner Neem (Green)",
+        "brand_id": "brand-lizol",
+        "brand": "Lizol",
+        "category_id": "floor-surface-cleaners",
+        "category": "Cleaners & Pest Control",
+        "sub_category": "Floor Cleaners",
+        "subCategory": "Floor Cleaners",
+        "image_url": "/products/verified/hh-191-lizol-neem-green.webp",
+        "description": "Herbal neem-enriched floor cleaner combining nature's antibacterial power with Lizol's 10x germ kill for sparkling hygienic floors.",
+        "queries": [
+            "Lizol Disinfectant Floor Cleaner Neem green bottle pack",
+            "Lizol Neem 1L green bottle packshot",
+            "Lizol Neem floor cleaner bottle"
+        ],
+        "variants": [
+            {"size_label": "500 ml", "mrp": 118, "price": 118, "stock": 50},
+            {"size_label": "1 L", "mrp": 230, "price": 230, "stock": 50}
+        ]
+    },
+    {
+        "id": "g1-hh192",
+        "name": "Lizol Disinfectant Floor Cleaner Lavender",
+        "brand_id": "brand-lizol",
+        "brand": "Lizol",
+        "category_id": "floor-surface-cleaners",
+        "category": "Cleaners & Pest Control",
+        "sub_category": "Floor Cleaners",
+        "subCategory": "Floor Cleaners",
+        "image_url": "/products/verified/hh-192-lizol-lavender.webp",
+        "description": "Relaxing French Lavender scented floor cleaner liquid that neutralizes odors, dissolves dirt, and repels insects on marble and tiles.",
+        "queries": [
+            "Lizol Disinfectant Floor Cleaner Lavender purple bottle pack",
+            "Lizol Lavender 1L bottle packshot",
+            "Lizol Lavender floor cleaner bottle"
+        ],
+        "variants": [
+            {"size_label": "500 ml", "mrp": 118, "price": 118, "stock": 50},
+            {"size_label": "1 L", "mrp": 230, "price": 230, "stock": 50}
+        ]
+    },
+    {
+        "id": "g1-hh193",
+        "name": "Dettol Disinfectant Surface Cleaner Trigger Spray",
+        "brand_id": "brand-dettol",
+        "brand": "Dettol",
+        "category_id": "floor-surface-cleaners",
+        "category": "Cleaners & Pest Control",
+        "sub_category": "Surface Cleaners",
+        "subCategory": "Surface Cleaners",
+        "image_url": "/products/verified/hh-193-dettol-surface-spray.webp",
+        "description": "All-in-one antibacterial surface disinfectant trigger spray suitable for food prep surfaces, kitchen counters, dining tables, and high-touch areas.",
+        "queries": [
+            "Dettol Disinfectant Surface Cleaner trigger spray 500ml",
+            "Dettol surface cleaner spray bottle packshot",
+            "Dettol antibacterial surface cleaner spray"
+        ],
+        "variants": [
+            {"size_label": "500 ml Trigger Spray", "mrp": 199, "price": 199, "stock": 40}
+        ]
+    },
+    {
+        "id": "g1-hh194",
+        "name": "Gainda Concentrated White Phenyl",
+        "brand_id": "brand-gainda",
+        "brand": "Gainda",
+        "category_id": "floor-surface-cleaners",
+        "category": "Cleaners & Pest Control",
+        "sub_category": "Floor Cleaners",
+        "subCategory": "Floor Cleaners",
+        "image_url": "/products/verified/hh-194-gainda-white-phenyl.webp",
+        "description": "Authentic pine oil concentrated white phenyl that turns milky white in water, providing deodorization and insect deterrence for everyday home mopping.",
+        "queries": [
+            "Gainda White Phenyl concentrated bottle pack",
+            "Gainda white phenyl 1L bottle packshot",
+            "Gainda pine white phenyl bottle"
+        ],
+        "variants": [
+            {"size_label": "500 ml", "mrp": 55, "price": 55, "stock": 50},
+            {"size_label": "1 L", "mrp": 95, "price": 95, "stock": 50}
+        ]
+    },
+
+    # C. Dishwashing Liquids & Scrubs (dishwash)
+    {
+        "id": "g1-hh195",
+        "name": "Vim Pure Anti-Bacterial Neem Dishwash Gel (Green)",
+        "brand_id": "brand-vim",
+        "brand": "Vim",
+        "category_id": "dishwash",
+        "category": "Dishwash & Scrubbers",
+        "sub_category": "Dishwash Liquids",
+        "subCategory": "Dishwash Liquids",
+        "image_url": "/products/verified/hh-195-vim-neem-gel.webp",
+        "description": "Green concentrated dishwash gel enriched with neem and active lemon power that washes away 99.9% bacteria without scratching fine cookware.",
+        "queries": [
+            "Vim Neem Dishwash Gel green bottle pack",
+            "Vim Pure anti bacterial neem gel 500ml packshot",
+            "Vim Neem dishwash gel bottle"
+        ],
+        "variants": [
+            {"size_label": "250 ml", "mrp": 65, "price": 65, "stock": 50},
+            {"size_label": "500 ml", "mrp": 125, "price": 125, "stock": 50},
+            {"size_label": "750 ml", "mrp": 185, "price": 185, "stock": 50}
+        ]
+    },
+    {
+        "id": "g1-hh196",
+        "name": "Vim Shuddhham Gel for Brass & Copper Pooja Utensils",
+        "brand_id": "brand-vim",
+        "brand": "Vim",
+        "category_id": "dishwash",
+        "category": "Dishwash & Scrubbers",
+        "sub_category": "Dishwash Liquids",
+        "subCategory": "Dishwash Liquids",
+        "image_url": "/products/verified/hh-196-vim-shuddhham-gel.webp",
+        "description": "Formulated specifically by Vim for brass and copper pooja vessels; natural tamarind power strips tarnish instantly and leaves a sacred sandalwood aroma.",
+        "queries": [
+            "Vim Shuddhham Gel brass and copper cleaning gel pack",
+            "Vim Shuddhham 250ml bottle packshot",
+            "Vim Shuddhham pooja vessel cleaning gel"
+        ],
+        "variants": [
+            {"size_label": "250 ml", "mrp": 80, "price": 80, "stock": 50},
+            {"size_label": "500 ml", "mrp": 150, "price": 150, "stock": 50}
+        ]
+    },
+    {
+        "id": "g1-hh197",
+        "name": "Exo Safed Anti-Bacterial Scrub Pad",
+        "brand_id": "brand-exo",
+        "brand": "Exo",
+        "category_id": "dishwash",
+        "category": "Dishwash & Scrubbers",
+        "sub_category": "Scrubbers & Sponges",
+        "subCategory": "Scrubbers & Sponges",
+        "image_url": "/products/verified/hh-197-exo-safed-scrub-pad.webp",
+        "description": "Exo Safed anti-bacterial white scrub pad stays odor-free, prevents germ build-up, and scours tough burnt-on residue on steel and non-stick pans.",
+        "queries": [
+            "Exo Safed scrub pad pack",
+            "Exo Safed anti bacterial scrubber pack of 3 packshot",
+            "Exo Safed white scrub pad"
+        ],
+        "variants": [
+            {"size_label": "1 Pad", "mrp": 15, "price": 15, "stock": 60},
+            {"size_label": "Pack of 3 Pads", "mrp": 40, "price": 40, "stock": 60}
+        ]
+    },
+    {
+        "id": "g1-hh198",
+        "name": "Scotch-Brite Stainless Steel Spiral Metallic Scrubber",
+        "brand_id": "brand-scotch-brite",
+        "brand": "Scotch-Brite",
+        "category_id": "dishwash",
+        "category": "Dishwash & Scrubbers",
+        "sub_category": "Scrubbers & Sponges",
+        "subCategory": "Scrubbers & Sponges",
+        "image_url": "/products/verified/hh-198-scotch-brite-spiral-scrubber.webp",
+        "description": "High-grade rust-free curly stainless steel spiral metallic scrubber engineered for effortless removal of burnt milk, curry, and grease from heavy kadai.",
+        "queries": [
+            "Scotch-Brite Stainless Steel spiral scrubber pack",
+            "Scotch Brite metallic scrubber 2 pack packshot",
+            "Scotch-Brite steel wire scrubber"
+        ],
+        "variants": [
+            {"size_label": "Pack of 2", "mrp": 45, "price": 45, "stock": 50},
+            {"size_label": "Pack of 3", "mrp": 65, "price": 65, "stock": 50}
+        ]
+    },
+    {
+        "id": "g1-hh199",
+        "name": "Finish All-in-1 Automatic Dishwasher Tablets",
+        "brand_id": "brand-finish",
+        "brand": "Finish",
+        "category_id": "dishwash",
+        "category": "Dishwash & Scrubbers",
+        "sub_category": "Scrubbers & Sponges",
+        "subCategory": "Scrubbers & Sponges",
+        "image_url": "/products/verified/hh-199-finish-dishwasher-tablets.webp",
+        "description": "Powerball technology cuts through 24-hour dried-on food, delivering spot-free sparkling shine and limescale protection for automatic dishwashers.",
+        "queries": [
+            "Finish All in 1 Dishwasher detergent tablets pack",
+            "Finish Powerball dishwasher tablets packshot",
+            "Finish dishwasher tablets 10 pack"
+        ],
+        "variants": [
+            {"size_label": "Pack of 10 Tablets", "mrp": 249, "price": 249, "stock": 40},
+            {"size_label": "Pack of 30 Tablets", "mrp": 699, "price": 699, "stock": 30}
+        ]
+    },
+
+    # D. Laundry & Fabric Care (laundry-detergents)
+    {
+        "id": "g1-hh200",
+        "name": "Wipro Softouch After Wash Fabric Conditioner",
+        "brand_id": "brand-softouch",
+        "brand": "Softouch",
+        "category_id": "laundry-detergents",
+        "category": "Detergents & Laundry",
+        "sub_category": "Fabric Care & Additives",
+        "subCategory": "Fabric Care & Additives",
+        "image_url": "/products/verified/hh-200-softouch-fabric-conditioner.webp",
+        "description": "French perfume micro-encapsulated fragrance pearls condition clothing fibers, eliminating detergent harshness and ensuring long-lasting freshness.",
+        "queries": [
+            "Wipro Softouch Fabric Conditioner French Perfume bottle pack",
+            "Softouch Fabric Conditioner 800ml packshot",
+            "Wipro Softouch bottle"
+        ],
+        "variants": [
+            {"size_label": "800 ml Bottle", "mrp": 210, "price": 210, "stock": 40},
+            {"size_label": "2 L Bottle", "mrp": 450, "price": 450, "stock": 30}
+        ]
+    },
+    {
+        "id": "g1-hh201",
+        "name": "Rin Ala Liquid Fabric Bleach for Whites",
+        "brand_id": "brand-rin",
+        "brand": "Rin",
+        "category_id": "laundry-detergents",
+        "category": "Detergents & Laundry",
+        "sub_category": "Fabric Care & Additives",
+        "subCategory": "Fabric Care & Additives",
+        "image_url": "/products/verified/hh-201-rin-ala-fabric-bleach.webp",
+        "description": "Liquid chlorine fabric whitener and stain buster specially formulated to restore brilliant white brightness to cotton shirts, vests, and school uniforms.",
+        "queries": [
+            "Rin Ala Fabric Bleach bottle pack",
+            "Rin Ala liquid bleach 500ml packshot",
+            "Rin Ala fabric whitener bottle"
+        ],
+        "variants": [
+            {"size_label": "500 ml", "mrp": 45, "price": 45, "stock": 50},
+            {"size_label": "1 L", "mrp": 85, "price": 85, "stock": 50}
+        ]
+    },
+    {
+        "id": "g1-hh202",
+        "name": "Tide Double Power Detergent Powder (Lemon & Mint)",
+        "brand_id": "brand-tide",
+        "brand": "Tide",
+        "category_id": "laundry-detergents",
+        "category": "Detergents & Laundry",
+        "sub_category": "Detergent Powders",
+        "subCategory": "Detergent Powders",
+        "image_url": "/products/verified/hh-202-tide-double-power-lemon.webp",
+        "description": "Tide Double Power with refreshing lemon and mint fragrance lifts dirt and dullness effortlessly from collars, cuffs, and everyday garments.",
+        "queries": [
+            "Tide Double Power Lemon and Mint detergent powder pouch pack",
+            "Tide Lemon Mint detergent powder 1kg packshot",
+            "Tide Double Power Lemon Mint pouch"
+        ],
+        "variants": [
+            {"size_label": "500 g", "mrp": 65, "price": 65, "stock": 50},
+            {"size_label": "1 kg", "mrp": 130, "price": 130, "stock": 50},
+            {"size_label": "2 kg", "mrp": 250, "price": 250, "stock": 40}
+        ]
+    },
+
+    # E. Pooja Essentials (pooja-needs)
+    {
+        "id": "g1-hh203",
+        "name": "Long Cotton Pooja Wicks (Lambi Batti / Geeta Vathulu)",
+        "brand_id": "brand-g1",
+        "brand": "G1 Mart Puja Essentials",
+        "category_id": "pooja-needs",
+        "category": "Pooja Essentials",
+        "sub_category": "Puja Essentials",
+        "subCategory": "Puja Essentials",
+        "image_url": "/products/verified/hh-203-long-cotton-wicks.webp",
+        "description": "Hand-twisted pure natural long cotton batti (Lambi Vathulu) essential for daily brass oil deepams and temple oil lamps.",
+        "queries": [
+            "Long cotton pooja wicks lambi batti packet",
+            "Lambi batti cotton wicks for diya packshot",
+            "Long cotton wicks pooja batti pack"
+        ],
+        "variants": [
+            {"size_label": "Pack of 100 Wicks", "mrp": 25, "price": 25, "stock": 60},
+            {"size_label": "Pack of 200 Wicks", "mrp": 45, "price": 45, "stock": 60}
+        ]
+    },
+    {
+        "id": "g1-hh204",
+        "name": "Whole Dried Coconut for Pooja (Yendu Kobbari / Copra)",
+        "brand_id": "brand-g1",
+        "brand": "G1 Mart Puja Essentials",
+        "category_id": "pooja-needs",
+        "category": "Pooja Essentials",
+        "sub_category": "Puja Essentials",
+        "subCategory": "Puja Essentials",
+        "image_url": "/products/verified/hh-204-yendu-kobbari-copra.webp",
+        "description": "Pure dried auspicious whole coconut halves (Yendu Kobbari / Copra) essential for Kalasham offering, homam, wedding tamboolam, and deity naivedyam.",
+        "queries": [
+            "Dry coconut pooja yendu kobbari copra pack",
+            "Whole dried coconut copra for puja packshot",
+            "Yendu kobbari dry coconut packet"
+        ],
+        "variants": [
+            {"size_label": "1 Piece (Approx 125 g)", "mrp": 40, "price": 40, "stock": 50},
+            {"size_label": "250 g Pack", "mrp": 95, "price": 95, "stock": 50}
+        ]
+    },
+    {
+        "id": "g1-hh205",
+        "name": "Gangotri Pure Gangajal (Holy Ganga Water)",
+        "brand_id": "brand-gangotri",
+        "brand": "Gangotri",
+        "category_id": "pooja-needs",
+        "category": "Pooja Essentials",
+        "sub_category": "Puja Essentials",
+        "subCategory": "Puja Essentials",
+        "image_url": "/products/verified/hh-205-gangotri-gangajal.webp",
+        "description": "Sealed holy water directly from the pristine origins of River Ganga; used for deity abhishekam, purification of puja items, and sanctifying home spaces.",
+        "queries": [
+            "Gangotri Pure Gangajal holy ganga water bottle pack",
+            "Gangajal bottle 250ml packshot",
+            "Patanjali Gangotri Gangajal bottle"
+        ],
+        "variants": [
+            {"size_label": "100 ml Bottle", "mrp": 25, "price": 25, "stock": 50},
+            {"size_label": "250 ml Bottle", "mrp": 45, "price": 45, "stock": 50}
+        ]
+    },
+    {
+        "id": "g1-hh206",
+        "name": "Mangalam Hawan Samagri Herbal Pouch",
+        "brand_id": "brand-mangalam",
+        "brand": "Mangalam",
+        "category_id": "pooja-needs",
+        "category": "Pooja Essentials",
+        "sub_category": "Puja Essentials",
+        "subCategory": "Puja Essentials",
+        "image_url": "/products/verified/hh-206-hawan-samagri.webp",
+        "description": "Authentic sacred blend of Ayurvedic herbs, dry fruits, aromatic woods, and natural resins for auspicious yajna, homam, and daily pooja havan.",
+        "queries": [
+            "Mangalam Hawan Samagri herbal pouch pack",
+            "Patanjali Hawan Samagri packet packshot",
+            "Havan Samagri 500g pouch"
+        ],
+        "variants": [
+            {"size_label": "200 g", "mrp": 50, "price": 50, "stock": 50},
+            {"size_label": "500 g", "mrp": 115, "price": 115, "stock": 50}
+        ]
+    },
+    {
+        "id": "g1-hh207",
+        "name": "Patanjali Pure Gomutra Ark Purifier",
+        "brand_id": "brand-patanjali",
+        "brand": "Patanjali",
+        "category_id": "pooja-needs",
+        "category": "Pooja Essentials",
+        "sub_category": "Puja Essentials",
+        "subCategory": "Puja Essentials",
+        "image_url": "/products/verified/hh-207-patanjali-gomutra-ark.webp",
+        "description": "Pure distilled cow urine extract (Gomutra Ark) recognized in sacred Vedic traditions for spiritual home cleansing and purification during Griha Pravesh.",
+        "queries": [
+            "Patanjali Gomutra Ark bottle pack",
+            "Patanjali Divya Gomutra Ark 500ml packshot",
+            "Gomutra Ark Patanjali bottle"
+        ],
+        "variants": [
+            {"size_label": "100 ml", "mrp": 35, "price": 35, "stock": 40},
+            {"size_label": "500 ml", "mrp": 110, "price": 110, "stock": 40}
+        ]
+    },
+    {
+        "id": "g1-hh208",
+        "name": "Brass Diya Kundulu (Traditional Pooja Deepam)",
+        "brand_id": "brand-g1",
+        "brand": "G1 Mart Puja Essentials",
+        "category_id": "pooja-needs",
+        "category": "Pooja Essentials",
+        "sub_category": "Puja Essentials",
+        "subCategory": "Puja Essentials",
+        "image_url": "/products/verified/hh-208-brass-diya-kundulu.webp",
+        "description": "Solid handcrafted pure brass oil lamp (Kundulu / Diya) with stable base and wick groove for daily evening devotional prayers.",
+        "queries": [
+            "Brass Diya Kundulu traditional pooja deepam single pair",
+            "Brass oil lamp diya for puja packshot",
+            "Pooja brass deepam kundulu"
+        ],
+        "variants": [
+            {"size_label": "1 Piece", "mrp": 75, "price": 75, "stock": 40},
+            {"size_label": "Pair (2 Pieces)", "mrp": 140, "price": 140, "stock": 40}
+        ]
+    },
+    {
+        "id": "g1-hh209",
+        "name": "Pooja Kalasham Lota (Pure Brass)",
+        "brand_id": "brand-g1",
+        "brand": "G1 Mart Puja Essentials",
+        "category_id": "pooja-needs",
+        "category": "Pooja Essentials",
+        "sub_category": "Puja Essentials",
+        "subCategory": "Puja Essentials",
+        "image_url": "/products/verified/hh-209-pooja-kalasham-lota.webp",
+        "description": "Traditional embossed pure brass pooja lota / kalash pot essential for holding sacred theertham and performing Kalasha Sthapana in all Hindu rituals.",
+        "queries": [
+            "Pure brass pooja kalasham lota pot pack",
+            "Brass pooja kalash lota packshot",
+            "Pooja brass kalash pot"
+        ],
+        "variants": [
+            {"size_label": "1 Piece (350 ml Capacity)", "mrp": 125, "price": 125, "stock": 40}
+        ]
+    },
+    {
+        "id": "g1-hh210",
+        "name": "Pooja Supari Whole (Betel Nuts for Pooja)",
+        "brand_id": "brand-g1",
+        "brand": "G1 Mart Puja Essentials",
+        "category_id": "pooja-needs",
+        "category": "Pooja Essentials",
+        "sub_category": "Puja Essentials",
+        "subCategory": "Puja Essentials",
+        "image_url": "/products/verified/hh-210-pooja-supari.webp",
+        "description": "Whole sacred dry areca betel nuts (Pooja Supari) traditionally used as deity representations and offerings in Ganesha and Satyanarayan rituals.",
+        "queries": [
+            "Whole pooja supari betel nuts packet",
+            "Pooja supari pack 100g packshot",
+            "Puja supari packet"
+        ],
+        "variants": [
+            {"size_label": "100 g Pack", "mrp": 45, "price": 45, "stock": 50}
+        ]
+    },
+    {
+        "id": "g1-hh211",
+        "name": "Janeu Sacred Cotton Thread (Yajnopavita)",
+        "brand_id": "brand-g1",
+        "brand": "G1 Mart Puja Essentials",
+        "category_id": "pooja-needs",
+        "category": "Pooja Essentials",
+        "sub_category": "Puja Essentials",
+        "subCategory": "Puja Essentials",
+        "image_url": "/products/verified/hh-211-janeu-sacred-thread.webp",
+        "description": "Pure consecrated cotton sacred thread (Janeu / Yajnopavita / Jandhyam) required for offering to Lord Ganesha, Shiva, and during auspicious Sanskar rituals.",
+        "queries": [
+            "Janeu sacred cotton thread yajnopavita pack",
+            "Janeu thread 3 pack packshot",
+            "Pooja Janeu thread packet"
+        ],
+        "variants": [
+            {"size_label": "Pack of 3 Threads", "mrp": 30, "price": 30, "stock": 50}
+        ]
+    },
+    {
+        "id": "g1-hh212",
+        "name": "Mangaldeep Treya 3-in-1 Agarbatti",
+        "brand_id": "brand-mangaldeep",
+        "brand": "Mangaldeep",
+        "category_id": "pooja-needs",
+        "category": "Pooja Essentials",
+        "sub_category": "Agarbatti & Dhoop",
+        "subCategory": "Agarbatti & Dhoop",
+        "image_url": "/products/verified/hh-212-mangaldeep-treya-agarbatti.webp",
+        "description": "Mangaldeep Treya incense pack combines three heavenly fragrances—Rose, Sandalwood, and Mogra—in one value pack for daily divine worship.",
+        "queries": [
+            "ITC Mangaldeep Treya 3 in 1 agarbatti pack",
+            "Mangaldeep Treya agarbatti box packshot",
+            "Mangaldeep Treya 3in1 agarbatti"
+        ],
+        "variants": [
+            {"size_label": "1 Pack (90 Sticks)", "mrp": 50, "price": 50, "stock": 50}
+        ]
+    }
+]
+
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+DATA_PATH = os.path.join(ROOT, 'data', 'verified_household_expansion_28.json')
+
+with open(DATA_PATH, 'w', encoding='utf-8') as f:
+    json.dump(products, f, indent=2, ensure_ascii=False)
+
+print(f"Successfully generated {len(products)} expansion products in {DATA_PATH}")

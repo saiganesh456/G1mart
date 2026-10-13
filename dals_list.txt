@@ -1,0 +1,49 @@
+g1-p0081 | Pottu Minapappu (Urad Dal with Husk) | /products/generated_pouches/g1_urad_dal_pouch.webp
+g1-p0082 | Rajma Seeds | /products/generated_pouches/g1_rajma_pouch.webp
+g1-p0190 | Kabuli Senagalu | /products/generated_pouches/g1_kabuli_chana_pouch.webp
+g1-p0191 | Nalla Senagalu | /products/generated_pouches/g1_kabuli_chana_pouch.webp
+g1-p0195 | Tella Bataneelu | /products/verified/g1-p0195.webp
+g1-p0327 | Kandi Pappu (Premium Toor Dal) | /products/generated_pouches/g1_kandi_pappu_pouch.webp
+g1-p0388 | Pachisenaga Pappu (Bengal Gram / Chana Dal) | /products/generated_pouches/g1_chana_dal_pouch.webp
+g1-p0391 | Minapappu (Urad Gota / Whole Black Gram) | /products/generated_pouches/g1_urad_dal_pouch.webp
+g1-p0393 | Verusenaga Pappu (Peanuts / Groundnuts) | /products/generated_pouches/g1_groundnuts_pouch.webp
+g1-p0405 | RED Lentils | /products/verified/g1-p0405.webp
+g1-p0408 | Mung Bean | /products/verified/g1-p0408.webp
+g1-p0412 | Pesara Pappu (Yellow Moong Dal) | /products/generated_pouches/g1_yellow_moong_dal_pouch.webp
+g1-p0460 | Telagapindi / Telagadalu (sesame Press | /products/generated_pouches/g1_telagapindi_pouch.webp
+g1-p1011 | Alasandalu | /products/generated_pouches/g1_alasandalu_pouch.webp
+g1-p1012 | RED Alasandalu | /products/generated_pouches/g1_rajma_pouch.webp
+g1-dal001 | Tata Sampann Unpolished Toor Dal | /products/packshots/tata-sampann-toor-dal-1kg.webp
+g1-dal002 | Tata Sampann Unpolished Toor Dal | /products/packshots/tata-sampann-toor-dal-500g.webp
+g1-dal003 | Tata Sampann Unpolished Chana Dal | /products/packshots/tata-sampann-chana-dal-1kg.webp
+g1-dal004 | Tata Sampann Unpolished Chana Dal | /products/packshots/tata-sampann-chana-dal-500g.webp
+g1-dal005 | Tata Sampann Unpolished Moong Dal (Split Yellow) | /products/packshots/tata-sampann-moong-dal-1kg.webp
+g1-dal006 | Tata Sampann Unpolished Moong Dal (Split Yellow) | /products/packshots/tata-sampann-moong-dal-500g.webp
+g1-dal007 | Tata Sampann Unpolished Urad Dal Split | /products/packshots/tata-sampann-urad-dal-1kg.webp
+g1-dal008 | Tata Sampann Unpolished Urad Whole (Gota) | /products/packshots/tata-sampann-urad-whole-1kg.webp
+g1-dal009 | Tata Sampann Unpolished Masoor Dal (Red Lentils) | /products/packshots/tata-sampann-masoor-dal-1kg.webp
+g1-dal010 | Tata Sampann Unpolished Kabuli Chana | /products/packshots/tata-sampann-kabuli-chana-1kg.webp
+g1-dal011 | Tata Sampann Unpolished Kala Chana | /products/packshots/tata-sampann-kala-chana-1kg.webp
+g1-dal012 | Tata Sampann Unpolished Rajma (Red Kidney Beans) | /products/packshots/tata-sampann-rajma-1kg.webp
+g1-dal013 | Tata Sampann Unpolished Green Moong Whole | /products/packshots/tata-sampann-green-moong-1kg.webp
+g1-dal014 | Tata Sampann 100% Soya Chunks | /products/packshots/tata-sampann-soya-chunks-200g.webp
+g1-dal015 | Nutrela High Protein Soya Chunks | /products/packshots/nutrela-soya-chunks-200g.webp
+g1-dal016 | G1 Mart Kandi Pappu (Premium Toor Dal / కందిపప్పు) | /products/generated_pouches/g1_kandi_pappu_pouch.webp
+g1-dal017 | G1 Mart Kandi Pappu (Premium Toor Dal / కందిపప్పు) | /products/generated_pouches/g1_kandi_pappu_pouch.webp
+g1-dal018 | G1 Mart Senaga Pappu (Bengal Gram / Chana Dal / శనగపప్పు) | /products/generated_pouches/g1_chana_dal_pouch.webp
+g1-dal019 | G1 Mart Senaga Pappu (Bengal Gram / Chana Dal / శనగపప్పు) | /products/generated_pouches/g1_chana_dal_pouch.webp
+g1-dal020 | G1 Mart Pesara Pappu (Yellow Moong Dal / పెసరపప్పు) | /products/generated_pouches/g1_yellow_moong_dal_pouch.webp
+g1-dal021 | G1 Mart Pesara Pappu (Yellow Moong Dal / పెసరపప్పు) | /products/generated_pouches/g1_yellow_moong_dal_pouch.webp
+g1-dal022 | G1 Mart Minapappu Gota (Urad Whole Gota / మినపగుళ్లు) | /products/generated_pouches/g1_urad_dal_pouch.webp
+g1-dal023 | G1 Mart Minapappu Gota (Urad Whole Gota / మినపగుళ్లు) | /products/generated_pouches/g1_urad_dal_pouch.webp
+g1-dal024 | G1 Mart Pottu Minapappu (Urad Dal with Husk / పొట్టు మినపప్పు) | /products/generated_pouches/g1_urad_dal_pouch.webp
+g1-dal025 | G1 Mart Pottu Minapappu (Urad Dal with Husk / పొట్టు మినపప్పు) | /products/generated_pouches/g1_urad_dal_pouch.webp
+g1-dal026 | G1 Mart Masoor Dal (Red Lentils / మసూర్ పప్పు) | /products/generated_pouches/g1_moong_dal_pouch.webp
+g1-dal027 | G1 Mart Masoor Dal (Red Lentils / మసూర్ పప్పు) | /products/generated_pouches/g1_moong_dal_pouch.webp
+g1-dal028 | G1 Mart Putnala Pappu (Roasted Gram / పుట్నాల పప్పు) | /products/generated_pouches/g1_chana_dal_pouch.webp
+g1-dal029 | G1 Mart Putnala Pappu (Roasted Gram / పుట్నాల పప్పు) | /products/generated_pouches/g1_chana_dal_pouch.webp
+g1-dal030 | G1 Mart Verusenaga Pappu (Raw Peanuts / వేరుశనగ గుళ్లు) | /products/generated_pouches/g1_groundnuts_pouch.webp
+g1-dal031 | G1 Mart Verusenaga Pappu (Raw Peanuts / వేరుశనగ గుళ్లు) | /products/generated_pouches/g1_groundnuts_pouch.webp
+g1-dal032 | G1 Mart Kabuli Senagalu (Large Chickpeas / కాబూలీ శనగలు) | /products/generated_pouches/g1_kabuli_chana_pouch.webp
+g1-dal033 | G1 Mart Nalla Senagalu (Desi Kala Chana / నల్ల శనగలు) | /products/generated_pouches/g1_kabuli_chana_pouch.webp
+g1-dal034 | G1 Mart Rajma Seeds (Kidney Beans / రాజ్మా) | /products/generated_pouches/g1_rajma_pouch.webp

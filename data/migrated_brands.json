@@ -1612,5 +1612,540 @@
     "id": "brand-wild-stone",
     "name": "Wild Stone",
     "logo_url": null
+  },
+  {
+    "id": "brand-pitambari",
+    "name": "Pitambari",
+    "logo_url": null
+  },
+  {
+    "id": "brand-sabena",
+    "name": "Sabena",
+    "logo_url": null
+  },
+  {
+    "id": "brand-gala",
+    "name": "Gala",
+    "logo_url": null
+  },
+  {
+    "id": "brand-ghadi",
+    "name": "Ghadi",
+    "logo_url": null
+  },
+  {
+    "id": "brand-godrej-fab",
+    "name": "Godrej Fab",
+    "logo_url": null
+  },
+  {
+    "id": "brand-godrej-ezee",
+    "name": "Godrej Ezee",
+    "logo_url": null
+  },
+  {
+    "id": "brand-revive",
+    "name": "Revive",
+    "logo_url": null
+  },
+  {
+    "id": "brand-ifb",
+    "name": "IFB",
+    "logo_url": null
+  },
+  {
+    "id": "brand-nimyle",
+    "name": "Nimyle",
+    "logo_url": null
+  },
+  {
+    "id": "brand-spick-n-span",
+    "name": "Spick n Span",
+    "logo_url": null
+  },
+  {
+    "id": "brand-cif",
+    "name": "Cif",
+    "logo_url": null
+  },
+  {
+    "id": "brand-mr-muscle",
+    "name": "Mr Muscle",
+    "logo_url": null
+  },
+  {
+    "id": "brand-drainex",
+    "name": "Kiwi Drainex",
+    "logo_url": null
+  },
+  {
+    "id": "brand-cherry-blossom",
+    "name": "Cherry Blossom",
+    "logo_url": null
+  },
+  {
+    "id": "brand-goodknight",
+    "name": "Goodknight",
+    "logo_url": null
+  },
+  {
+    "id": "brand-hit",
+    "name": "HIT",
+    "logo_url": null
+  },
+  {
+    "id": "brand-baygon",
+    "name": "Baygon",
+    "logo_url": null
+  },
+  {
+    "id": "brand-godrej-aer",
+    "name": "Godrej aer",
+    "logo_url": null
+  },
+  {
+    "id": "brand-airwick",
+    "name": "Airwick",
+    "logo_url": null
+  },
+  {
+    "id": "brand-ambi-pur",
+    "name": "Ambi Pur",
+    "logo_url": null
+  },
+  {
+    "id": "brand-prince",
+    "name": "Prince",
+    "logo_url": null
+  },
+  {
+    "id": "brand-cycle-pure",
+    "name": "Cycle Pure",
+    "logo_url": null
+  },
+  {
+    "id": "brand-maya",
+    "name": "Maya",
+    "logo_url": null
+  },
+  {
+    "id": "brand-mangalam",
+    "name": "Mangalam",
+    "logo_url": null
+  },
+  {
+    "id": "brand-deepam",
+    "name": "Deepam",
+    "logo_url": null
+  },
+  {
+    "id": "brand-homelite",
+    "name": "Homelite",
+    "logo_url": null
+  },
+  {
+    "id": "brand-duracell",
+    "name": "Duracell",
+    "logo_url": null
+  },
+  {
+    "id": "brand-philips",
+    "name": "Philips",
+    "logo_url": null
+  },
+  {
+    "id": "brand-scotch",
+    "name": "Scotch",
+    "logo_url": null
+  },
+  {
+    "id": "brand-g1",
+    "name": "G1 Mart Hygiene",
+    "logo_url": null
+  },
+  {
+    "id": "brand-ambica",
+    "name": "Ambica",
+    "logo_url": null
+  },
+  {
+    "id": "brand-gopuram",
+    "name": "Gopuram",
+    "logo_url": null
+  },
+  {
+    "id": "brand-laxman-rekha",
+    "name": "Laxman Rekha",
+    "logo_url": null
+  },
+  {
+    "id": "brand-odomos",
+    "name": "Odomos",
+    "logo_url": null
+  },
+  {
+    "id": "brand-henko",
+    "name": "Henko",
+    "logo_url": null
+  },
+  {
+    "id": "brand-robin",
+    "name": "Robin",
+    "logo_url": null
+  },
+  {
+    "id": "brand-g1",
+    "name": "G1 Mart Puja Essentials",
+    "logo_url": null
+  },
+  {
+    "id": "brand-gainda",
+    "name": "Gainda",
+    "logo_url": null
+  },
+  {
+    "id": "brand-softouch",
+    "name": "Softouch",
+    "logo_url": null
+  },
+  {
+    "id": "brand-gangotri",
+    "name": "Gangotri",
+    "logo_url": null
+  },
+  {
+    "id": "brand-finish",
+    "name": "Finish",
+    "logo_url": null
+  },
+  {
+    "id": "brand-margo",
+    "name": "Margo",
+    "logo_url": null
+  },
+  {
+    "id": "brand-chandrika",
+    "name": "Chandrika",
+    "logo_url": null
+  },
+  {
+    "id": "brand-rexona",
+    "name": "Rexona",
+    "logo_url": null
+  },
+  {
+    "id": "brand-clear",
+    "name": "Clear",
+    "logo_url": null
+  },
+  {
+    "id": "brand-chik",
+    "name": "Chik",
+    "logo_url": null
+  },
+  {
+    "id": "brand-nyle",
+    "name": "Nyle",
+    "logo_url": null
+  },
+  {
+    "id": "brand-vatika",
+    "name": "Dabur Vatika",
+    "logo_url": null
+  },
+  {
+    "id": "brand-nihar",
+    "name": "Nihar Naturals",
+    "logo_url": null
+  },
+  {
+    "id": "brand-godrej-expert",
+    "name": "Godrej Expert",
+    "logo_url": null
+  },
+  {
+    "id": "brand-indica",
+    "name": "Indica",
+    "logo_url": null
+  },
+  {
+    "id": "brand-set-wet",
+    "name": "Set Wet",
+    "logo_url": null
+  },
+  {
+    "id": "brand-ayush",
+    "name": "Lever Ayush",
+    "logo_url": null
+  },
+  {
+    "id": "brand-dermi-cool",
+    "name": "Dermi Cool",
+    "logo_url": null
+  },
+  {
+    "id": "brand-nycil",
+    "name": "Nycil",
+    "logo_url": null
+  },
+  {
+    "id": "brand-axe",
+    "name": "Axe",
+    "logo_url": null
+  },
+  {
+    "id": "brand-denver",
+    "name": "Denver",
+    "logo_url": null
+  },
+  {
+    "id": "brand-mamypoko",
+    "name": "MamyPoko",
+    "logo_url": null
+  },
+  {
+    "id": "brand-ob",
+    "name": "O.B.",
+    "logo_url": null
+  },
+  {
+    "id": "brand-lays",
+    "name": "Lay's",
+    "logo_url": null
+  },
+  {
+    "id": "brand-kurkure",
+    "name": "Kurkure",
+    "logo_url": null
+  },
+  {
+    "id": "brand-bingo",
+    "name": "Bingo!",
+    "logo_url": null
+  },
+  {
+    "id": "brand-uncle-chipps",
+    "name": "Uncle Chipps",
+    "logo_url": null
+  },
+  {
+    "id": "brand-too-yumm",
+    "name": "Too Yumm!",
+    "logo_url": null
+  },
+  {
+    "id": "brand-crax",
+    "name": "Crax",
+    "logo_url": null
+  },
+  {
+    "id": "brand-act-ii",
+    "name": "Act II",
+    "logo_url": null
+  },
+  {
+    "id": "brand-bikaji",
+    "name": "Bikaji",
+    "logo_url": null
+  },
+  {
+    "id": "brand-balaji",
+    "name": "Balaji",
+    "logo_url": null
+  },
+  {
+    "id": "brand-a1-chips",
+    "name": "A1 Chips",
+    "logo_url": null
+  },
+  {
+    "id": "brand-swastiks",
+    "name": "Swastik / Regional",
+    "logo_url": null
+  },
+  {
+    "id": "brand-farmley",
+    "name": "Farmley",
+    "logo_url": null
+  },
+  {
+    "id": "brand-cadbury-oreo",
+    "name": "Cadbury Oreo",
+    "logo_url": null
+  },
+  {
+    "id": "brand-mcvities",
+    "name": "McVitie's",
+    "logo_url": null
+  },
+  {
+    "id": "brand-dukes",
+    "name": "Dukes",
+    "logo_url": null
+  },
+  {
+    "id": "brand-malkist",
+    "name": "Malkist",
+    "logo_url": null
+  },
+  {
+    "id": "brand-karachi-bakery",
+    "name": "Karachi Bakery",
+    "logo_url": null
+  },
+  {
+    "id": "brand-bournvita",
+    "name": "Cadbury Bournvita",
+    "logo_url": null
+  },
+  {
+    "id": "brand-brooke-bond",
+    "name": "Brooke Bond",
+    "logo_url": null
+  },
+  {
+    "id": "brand-taj-mahal",
+    "name": "Taj Mahal",
+    "logo_url": null
+  },
+  {
+    "id": "brand-tata-tea",
+    "name": "Tata Tea",
+    "logo_url": null
+  },
+  {
+    "id": "brand-lipton",
+    "name": "Lipton",
+    "logo_url": null
+  },
+  {
+    "id": "brand-tetley",
+    "name": "Tetley",
+    "logo_url": null
+  },
+  {
+    "id": "brand-nescafe",
+    "name": "Nescafé",
+    "logo_url": null
+  },
+  {
+    "id": "brand-complan",
+    "name": "Complan",
+    "logo_url": null
+  },
+  {
+    "id": "brand-limca",
+    "name": "Limca",
+    "logo_url": null
+  },
+  {
+    "id": "brand-maaza",
+    "name": "Maaza",
+    "logo_url": null
+  },
+  {
+    "id": "brand-appy-fizz",
+    "name": "Appy Fizz",
+    "logo_url": null
+  },
+  {
+    "id": "brand-kinley",
+    "name": "Kinley",
+    "logo_url": null
+  },
+  {
+    "id": "brand-snickers",
+    "name": "Snickers",
+    "logo_url": null
+  },
+  {
+    "id": "brand-pulse",
+    "name": "Pass Pass",
+    "logo_url": null
+  },
+  {
+    "id": "brand-kopiko",
+    "name": "Kopiko",
+    "logo_url": null
+  },
+  {
+    "id": "brand-center-fresh",
+    "name": "Center Fresh",
+    "logo_url": null
+  },
+  {
+    "id": "brand-haldirams",
+    "name": "Haldiram's",
+    "logo_url": null
+  },
+  {
+    "id": "brand-mtr",
+    "name": "MTR",
+    "logo_url": null
+  },
+  {
+    "id": "brand-nissin",
+    "name": "Nissin",
+    "logo_url": null
+  },
+  {
+    "id": "brand-chings",
+    "name": "Ching's Secret",
+    "logo_url": null
+  },
+  {
+    "id": "brand-knorr",
+    "name": "Knorr",
+    "logo_url": null
+  },
+  {
+    "id": "brand-dodla",
+    "name": "Dodla",
+    "logo_url": null
+  },
+  {
+    "id": "brand-cavins",
+    "name": "Cavin's",
+    "logo_url": null
+  },
+  {
+    "id": "brand-yakult",
+    "name": "Yakult",
+    "logo_url": null
+  },
+  {
+    "id": "brand-kwality-walls",
+    "name": "Kwality Wall's",
+    "logo_url": null
+  },
+  {
+    "id": "brand-ferrero-rocher",
+    "name": "Ferrero Rocher",
+    "logo_url": null
+  },
+  {
+    "id": "brand-alpenliebe",
+    "name": "Alpenliebe",
+    "logo_url": null
+  },
+  {
+    "id": "brand-mentos",
+    "name": "Mentos",
+    "logo_url": null
+  },
+  {
+    "id": "brand-happydent",
+    "name": "Happydent",
+    "logo_url": null
+  },
+  {
+    "id": "brand-boomer",
+    "name": "Boomer",
+    "logo_url": null
+  },
+  {
+    "id": "brand-center-fruit",
+    "name": "Center Fruit",
+    "logo_url": null
   }
 ]

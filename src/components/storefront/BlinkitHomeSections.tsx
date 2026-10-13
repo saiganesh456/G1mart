@@ -20,7 +20,7 @@ function CategoryTileItem({ cat }: { cat: Category }) {
   const rawUrl = (categoryTilesMap as Record<string, string>)[cat.id]
     || cat.tile_image_url
     || `/categories/collages/${cat.id}.webp`;
-  const tileUrl = rawUrl.includes('?') ? rawUrl : `${rawUrl}?v=20261013-fmcg5`;
+  const tileUrl = rawUrl.includes('?') ? rawUrl : `${rawUrl}?v=20261013-dairy-staples2`;
 
   return (
     <Link
@@ -73,6 +73,7 @@ export default function BlinkitHomeSections({ sections, categories }: BlinkitHom
 
   const orderedSections = [
     { id: 'grocery-kitchen', name: 'Grocery & Kitchen' },
+    { id: 'dairy-breakfast', name: 'Dairy, Breakfast & Instant Food' },
     { id: 'snacks-drinks', name: 'Snacks & Drinks' },
     { id: 'household', name: 'Household Essentials' },
     { id: 'personal-care', name: 'Beauty & Personal Care' },

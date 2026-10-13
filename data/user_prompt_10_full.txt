@@ -1,0 +1,640 @@
+<USER_REQUEST>
+# G1 MART — FINAL BRANDED SNACKS, DRINKS, CHOCOLATES, ICE CREAM & REFRIGERATED PRODUCTS CATALOG AUDIT
+
+## 1. Your task
+
+Act as a supermarket product catalog researcher, inventory auditor, and Indian FMCG product specialist for G1 MART, Nellore, Andhra Pradesh.
+
+Review **all previously provided product lists, charts, prompts, PDFs, spreadsheets, existing inventory records, and the current G1 MART database/catalog** before making any additions.
+
+Combine the previous Snacks & Drinks prompt with the additional branded products and missing categories listed below.
+
+**The goal is to create one consolidated, category-wise catalog of branded, packaged products commonly sold in Indian supermarkets.**
+
+Do not simply create another generic product list. First compare the existing inventory and previous catalog against the requested categories, identify missing categories and missing SKUs, and then prepare the final consolidated result.
+
+## 2. Strict product rules
+
+1. Include branded, packaged, commercially identifiable products only.
+2. Do not include loose namkeen, homemade snacks, unbranded products, loose sweets, loose milk, loose curd, or loose grocery items.
+3. Do not duplicate products already present in the inventory.
+4. Preserve existing product IDs, item codes, and database relationships.
+5. Different flavours, variants, and pack sizes must be treated as separate SKUs when they are genuinely different retail products.
+6. Do not invent brands, product variants, pack sizes, MRPs, barcodes, image URLs, or stock quantities.
+7. Add products that are commonly available in Indian supermarkets and relevant to G1 MART.
+8. Products that may not be locally available in Nellore must be marked `REVIEW_REQUIRED`, not automatically treated as stocked products.
+9. Distinguish an existing product, a missing product, a duplicate, and a candidate product requiring verification.
+10. Keep the catalog limited to branded products in the categories covered by this task. Do not expand into personal care, cleaning, pooja items, pharmacy, or unrelated grocery categories.
+
+## 3. Category A — Branded chips, wafers and packaged snacks
+
+Audit existing products and add genuinely missing variants from these brands where available:
+
+- Lay's
+- Kurkure
+- Bingo!
+- Uncle Chipps
+- Pringles
+- Doritos
+- Too Yumm!
+- Haldiram's
+- Balaji Wafers
+- Yellow Diamond
+- Act II
+- Too Yumm! Foxnuts and packaged snacks, where available
+
+Include appropriate retail variants such as:
+
+- Salted potato chips
+- Masala potato chips
+- Cream-and-onion chips
+- Tomato-flavoured chips
+- Chilli and spicy chips
+- Banana chips, only when sold as a branded packaged product
+- Extruded snacks and cheese puffs
+- Corn puffs
+- Masala rings
+- Triangle and other shaped snacks
+- Nachos and tortilla chips
+- Packaged popcorn
+- Microwave popcorn
+- Packaged makhana
+- Branded roasted nuts and packaged snack mixes
+
+Record each verified flavour and pack size separately.
+
+## 4. Category B — Branded namkeen and savoury snacks
+
+Check existing stock and add missing packaged variants from relevant brands, including:
+
+- Haldiram's
+- Bikaji
+- Balaji
+- Gopal
+- A1 Chips and other verified regional brands
+- Other established packaged namkeen brands actually available to the store
+
+Audit the following product types:
+
+- Aloo bhujia
+- Plain bhujia
+- Sev and spicy sev
+- Mixture and Bombay mixture
+- Navratan mixture
+- Moong dal
+- Chana dal
+- Masala peanuts
+- Roasted and salted peanuts
+- Dal moth
+- Khatta meetha
+- Garlic sev
+- Boondi
+- Bhel and packaged bhel mixes
+- Masala murmura
+- Cornflakes mixture
+- Packaged Andhra-style murukulu
+- Packaged jantikalu
+- Packaged chegodi
+- Packaged ribbon pakodi
+- Packaged chakli
+- Packaged appalu or chekkalu
+- Packaged Andhra karam snacks
+- Packaged regional banana chips and other regional savouries
+
+Only include the above regional products when a genuine commercial brand and retail package can be identified. Do not invent a brand for a homemade or loose product.
+
+## 5. Category C — Branded biscuits, cookies and bakery snacks
+
+Audit and add missing products from:
+
+- Parle
+- Britannia
+- Sunfeast
+- Oreo
+- Unibic
+- McVitie's
+- Cremica
+- Dukes
+- Priyagold
+- Bonn
+- Other verified packaged bakery brands sold in Indian supermarkets
+
+Include relevant products such as:
+
+- Parle-G
+- Hide & Seek
+- Monaco
+- KrackJack
+- 20-20 Cookies
+- Good Day
+- Marie Gold
+- NutriChoice
+- Bourbon
+- Milk Bikis
+- Little Hearts
+- Dark Fantasy
+- Mom's Magic
+- Dream Cream
+- Oreo cream biscuits
+- Unibic cookies
+- Digestive biscuits
+- Glucose biscuits
+- Marie biscuits
+- Cream biscuits
+- Chocolate biscuits
+- Coconut biscuits
+- Jeera biscuits
+- Milk biscuits
+- Salted crackers
+- Cheese crackers
+- Fruit cookies
+- Premium cookies
+- Khari
+- Branded toast and rusk
+- Packaged cakes
+- Packaged cupcakes
+- Packaged cream rolls
+- Other branded shelf-stable bakery snacks
+
+Verify the actual product name, flavour, and pack size. Do not add every possible variant unless it is a genuine product.
+
+## 6. Category D — Chocolates, candy, toffees and confectionery
+
+This category is mandatory. Review existing chocolates and candy records before adding missing SKUs.
+
+### Chocolate brands
+
+- Cadbury
+- Nestlé
+- Kinder
+- Ferrero Rocher
+- Hershey's
+- Mars
+- Snickers
+- Galaxy
+- Amul
+- Lotte
+- Other verified chocolate brands available locally
+
+### Chocolate products and variants
+
+- Dairy Milk
+- Dairy Milk Silk
+- 5 Star
+- Perk
+- Fuse
+- Gems
+- Bournville
+- Temptations
+- KitKat
+- Munch
+- Milkybar
+- Bar One
+- Snickers
+- Galaxy chocolate bars
+- Kinder Joy
+- Kinder Bueno, if locally available
+- Ferrero Rocher packs
+- Chocolate-coated wafers
+- Chocolate multipacks
+- Assorted chocolate gift boxes
+- Chocolate-coated confectionery
+
+### Candies, gums and toffees
+
+- Alpenliebe
+- Eclairs
+- Melody
+- Kismi
+- Pulse
+- Center Fresh
+- Center Fruit
+- Boomer
+- Happydent
+- Orbit
+- Mentos
+- Chupa Chups
+- Tic Tac
+- Kopiko
+- Candyman
+- Lotte candies
+- Other verified packaged candy brands
+
+Include individual retail packs, jars, boxes, rolls, multipacks, and family packs where these are actual products sold by the brand.
+
+## 7. Category E — Branded Indian sweets and packaged sweet snacks
+
+Include only commercially packaged branded products, not loose sweets sold by weight.
+
+Audit relevant products from brands such as Haldiram's, Bikaji, Bikanervala, MTR, Gits, and other verified brands available locally.
+
+Check for:
+
+- Soan papdi
+- Packaged laddu
+- Kaju katli
+- Packaged Mysore Pak
+- Gulab jamun tins or ready-to-eat packs
+- Packaged rasgulla
+- Packaged peda
+- Chikki
+- Peanut chikki
+- Sesame chikki
+- Dry-fruit chikki
+- Packaged sweet snack boxes
+- Festival sweet gift boxes
+- Other branded, shelf-stable Indian sweets
+
+Add only genuine packaged SKUs. Refrigerated or short-shelf-life sweets must be assigned to the correct storage category if stocked.
+
+## 8. Category F — Soft drinks and carbonated beverages
+
+This is a priority category. Explicitly audit the following brands:
+
+- Coca-Cola
+- Thums Up
+- Sprite
+- Limca
+- Pepsi
+- 7UP
+- Mountain Dew
+- Fanta
+- Mirinda
+- Maaza
+- Slice
+- Frooti
+- Appy Fizz
+- Campa Cola
+- Campa Orange
+- Sting
+- Other verified carbonated drinks and packaged fruit beverages
+
+Include actual available variants and retail package sizes, such as:
+
+- Small single-serve bottles
+- Medium bottles
+- 750 ml bottles, where offered
+- 1 L bottles, where offered
+- 1.25 L bottles, where offered
+- 1.5 L bottles, where offered
+- 2 L bottles, where offered
+- Cans, where sold
+- Multipacks, where sold
+- Returnable or reusable bottle SKUs only when actually part of the store's range
+
+Do not assume every brand has every size. Verify the manufacturer's or retailer's actual variants.
+
+## 9. Category G — Packaged drinking water and soda
+
+Audit these bottled water brands:
+
+- Bisleri
+- Kinley
+- Aquafina
+- Bailley
+- Rail Neer, where relevant
+- Other verified packaged drinking water brands sold locally
+
+Check available pack sizes, including:
+
+- 250 ml
+- 500 ml
+- 1 L
+- 2 L
+- 5 L
+- Multipacks, where available
+
+Also check:
+
+- Packaged soda water
+- Club soda
+- Carbonated water
+- Other branded packaged water products
+
+Keep drinking water separate from flavoured drinks. Do not invent pack sizes or list a brand that cannot be verified.
+
+## 10. Category H — Packaged fruit juices and fruit drinks
+
+Audit these brands:
+
+- Real
+- Tropicana
+- B Natural
+- Paper Boat
+- Minute Maid
+- Maaza
+- Slice
+- Frooti
+- Appy
+- Other verified packaged beverage brands
+
+Check actual available products and variants, including:
+
+- Mango
+- Orange
+- Apple
+- Mixed fruit
+- Guava
+- Pineapple
+- Litchi
+- Other verified fruit flavours
+- Coconut water
+- Aam panna
+- Jaljeera
+- Other traditional packaged drinks
+
+Record the actual container type and size: carton, tetra pack, pouch, can, or bottle, as applicable.
+
+Do not assume every flavour or package exists for every brand.
+
+## 11. Category I — Tea, coffee, health drinks and drink mixes
+
+### Tea brands
+
+- Tata Tea
+- Red Label
+- Taj Mahal
+- 3 Roses
+- Wagh Bakri
+- Brooke Bond
+- Other verified tea brands
+
+### Coffee brands
+
+- Nescafé
+- Bru
+- Continental
+- Other verified packaged coffee brands
+
+### Health and malted drinks
+
+- Horlicks
+- Bournvita
+- Boost
+- Complan
+- Milo, where available
+- Other verified branded malted or health drink products
+
+### Drink mixes and ready-to-mix beverages
+
+- Tang
+- Rasna
+- Other verified instant drink mixes
+- Tea premixes
+- Coffee premixes
+- Cold coffee premixes
+- Branded sachets and multipacks
+
+Include genuine pack variants such as sachets, jars, refill packs, and family packs. Do not confuse a drink-mix powder with a ready-to-drink beverage.
+
+## 12. Category J — Ice creams, frozen desserts, kulfi and ice pops
+
+**Create a separate Ice Creams & Frozen Desserts category.** These products need freezer storage and must not be mixed with ordinary shelf-stable snacks.
+
+Audit these brands where stocked or verified for local availability:
+
+- Arun Icecreams
+- Amul
+- Kwality Wall's
+- Havmor
+- Creambell
+- Vadilal
+- Dairy Day
+- Mother Dairy
+- Naturals
+- Other verified ice cream brands available in the local market
+
+Check product types including:
+
+- Ice cream cups
+- Cones
+- Chocolate-coated ice cream sticks
+- Ice cream bars
+- Sandwich ice creams
+- Family packs
+- Tubs
+- Sundaes
+- Kulfi sticks
+- Matka kulfi
+- Dry-fruit kulfi
+- Ice pops
+- Frozen dessert multipacks
+- Party packs and larger tubs, where available
+
+Audit flavours such as vanilla, chocolate, strawberry, butterscotch, mango, pista, blackcurrant, cookies and cream, and other genuine brand variants.
+
+For Arun Icecreams in particular, check actual retail products and locally relevant packs. Do not invent Arun flavours, names, or sizes.
+
+Record the exact product name, flavour, product type, net quantity, and printed MRP.
+
+## 13. Category K — Refrigerated milk, curd and dairy products
+
+**Create a separate Chilled Dairy category.** These are refrigerated supermarket products, not ordinary shelf-stable drinks.
+
+Audit these brands where locally available:
+
+- Heritage
+- Dodla
+- Amul
+- Milky Mist
+- Mother Dairy
+- Nandini
+- Britannia
+- Cavin's
+- Hatsun
+- Other verified dairy brands sold in the store's area
+
+### Milk
+
+- Full-cream milk
+- Toned milk
+- Double-toned milk
+- Standardised milk
+- Pasteurised milk
+- Flavoured milk
+- Chocolate milk
+- Coffee-flavoured milk
+- Other verified branded milk variants
+
+Include the actual pouch, bottle, and carton sizes sold by each brand.
+
+### Curd and yogurt
+
+- Plain curd packets
+- Set curd cups
+- Family-size curd packs
+- Branded yogurt cups
+- Flavoured yogurt
+- Greek yogurt, if locally available
+- Shrikhand, if stocked
+
+### Other chilled dairy
+
+- Buttermilk
+- Masala chaas
+- Lassi
+- Flavoured lassi
+- Paneer
+- Cheese slices
+- Cheese cubes
+- Cheese blocks
+- Cheese spreads
+- Butter
+- Cream
+- Other relevant branded chilled dairy products
+
+Verify whether each item requires refrigeration and record its proper storage type.
+
+**Important:** A milk or curd pouch is not automatically the same SKU as another pack size or variant. Do not add duplicate products just because the spelling or description differs.
+
+## 14. Category L — Refrigerated and ready-to-drink beverages
+
+Check whether the store's chilled refrigerator range includes:
+
+- Packaged buttermilk
+- Packaged lassi
+- Flavoured milk
+- Ready-to-drink cold coffee
+- Branded milkshakes
+- Packaged probiotic drinks
+- Other verified refrigerated drinks
+
+Audit relevant products from Amul, Cavin's, Britannia Winkin' Cow, Milky Mist, Heritage, and other verified brands.
+
+Keep refrigerated beverages separate from ambient-temperature juice cartons and soft drinks when the storage requirement differs.
+
+## 15. Category M — Instant snacks and convenience foods
+
+Audit branded products that are commonly sold alongside snacks and beverages:
+
+- Maggi noodles
+- Sunfeast YiPPee!
+- Top Ramen
+- Nissin
+- Ching's Secret
+- Knorr instant soups
+- Ready-to-eat packaged snacks
+- Packaged cup noodles
+- Branded ready-to-eat popcorn and snack products
+- Other verified packaged convenience snacks
+
+Do not add unrelated cooking ingredients or loose staples under this category.
+
+## 16. Required audit against existing G1 MART inventory
+
+Use the original inventory and all previous catalog drafts as the comparison baseline. The previously identified inventory includes product descriptions such as:
+
+- KITKAT
+- KITKAT BOX
+- MUNCH
+- MILKY BAR
+- PERK
+- DARK FANTASY
+- BINGO MASALA
+- MILK BIKIS
+- MY-MELODY
+- KOPIKO
+- UNIBIC WAFER
+- UNIBIC CASHEW
+- UNIBIC CHOCO RIPPLE
+- ARUN TRINGO
+- ARUN 60ML
+- ARUN SANDWICH
+- ARUN VANILLA 500ML
+- BUTTER MILK
+- GLUCON-D 200G
+
+These are comparison examples, not a complete inventory. Search the actual source records and database for all matching products before making additions.
+
+Also compare all previous catalog lists containing chocolates, soft drinks, packaged water, ice creams, milk, curd, buttermilk, lassi, butter, paneer, cheese, and other dairy products.
+
+Do not treat an existing ambiguous description as a fully verified SKU. Preserve the original record and mark the missing variant details for review.
+
+## 17. Required product fields
+
+For every confirmed product, provide:
+
+1. Existing product ID or item code, if present
+2. Product status: `EXISTING`, `MISSING_CANDIDATE`, `DUPLICATE`, or `REVIEW_REQUIRED`
+3. Category
+4. Subcategory
+5. Brand
+6. Exact product name
+7. Flavour or variant
+8. Net quantity and unit
+9. Pack type
+10. Printed MRP in INR
+11. Storage type: `AMBIENT`, `REFRIGERATED`, or `FROZEN`
+12. Direct product image URL
+13. Source page URL
+14. Verification status
+15. Notes explaining any unresolved mismatch
+
+MRP must be the actual printed MRP for the exact SKU, not the current online selling price. If the printed MRP cannot be verified, leave it blank and mark it `MRP_PENDING_VERIFICATION`.
+
+Image URLs must point to the actual product image, not a Google search results page. The image must match the product, brand, flavour, and pack size. If only a retailer product page is available, record it as `SOURCE_PAGE_ONLY`.
+
+## 18. Final deliverables
+
+Prepare the result in this order:
+
+### Deliverable 1 — Category audit report
+
+Show every category reviewed, whether the category already exists, whether it is missing, and what is missing from it.
+
+### Deliverable 2 — Existing versus missing product comparison
+
+List the products already present and the genuinely missing branded SKUs separately. Do not count existing products again as new additions.
+
+### Deliverable 3 — Consolidated branded product catalog
+
+Provide one clean, category-wise catalog containing the verified existing products plus approved missing products, with duplicates removed.
+
+### Deliverable 4 — Verification report
+
+Show counts for:
+
+- Existing products matched
+- Missing products identified
+- New products verified
+- Duplicate candidates
+- Products needing brand or variant verification
+- Products needing MRP verification
+- Products needing image verification
+- Refrigerated products
+- Frozen products
+
+### Deliverable 5 — Import-ready output
+
+Prepare a clean CSV or spreadsheet with the required fields, preserving existing product IDs and avoiding destructive changes to the live database.
+
+Do not import candidate products into the live catalog before the audit and verification are complete.
+
+## 19. Final quality rules
+
+- Do not claim the catalog is complete unless every relevant source row and category has been checked.
+- Do not claim that a product is stocked at G1 MART merely because it appears on an online supermarket.
+- Use online supermarket listings and official brand sources to discover and verify genuine product variants; then confirm local availability where possible.
+- Keep verified facts separate from assumptions and unverified candidates.
+- Avoid adding every theoretical flavour or pack size. Include genuine SKUs relevant to an Indian supermarket in Nellore.
+- Make the final report clear enough for a store owner to review and approve before importing.
+
+**Final objective:** Build a reliable, duplicate-free, branded Snacks & Drinks, Chocolates & Candies, Packaged Sweets, Ice Creams & Frozen Desserts, and Chilled Dairy catalog for G1 MART, based on the existing inventory and verified missing products.  ategory	Brand	Product item description	Variant / flavour	Product quantity	Pack type	Printed MRP	Inventory status
+Soft Drinks	Coca-Cola	Carbonated soft drink	Original	Verify exact SKU	Bottle/can	Verify	Compare inventory
+Soft Drinks	Thums Up	Carbonated soft drink	Original	Verify exact SKU	Bottle/can	Verify	Compare inventory
+Soft Drinks	Sprite	Lemon-lime carbonated drink	Original	Verify exact SKU	Bottle/can	Verify	Compare inventory
+Soft Drinks	Limca	Lemon-lime carbonated drink	Original	Verify exact SKU	Bottle/can	Verify	Compare inventory
+Soft Drinks	Pepsi	Carbonated soft drink	Original	Verify exact SKU	Bottle/can	Verify	Compare inventory
+Soft Drinks	7UP	Lemon-lime carbonated drink	Original	Verify exact SKU	Bottle/can	Verify	Compare inventory
+Soft Drinks	Mountain Dew	Citrus-flavoured carbonated drink	Original	Verify exact SKU	Bottle/can	Verify	Compare inventory
+Packaged Water	Bisleri	Packaged drinking water	Regular	Verify exact SKU	Bottle	Verify	Compare inventory
+Packaged Water	Kinley	Packaged drinking water	Regular	Verify exact SKU	Bottle	Verify	Compare inventory
+Chocolates	Cadbury	Dairy Milk chocolate	Exact variant to verify	Verify exact SKU	Bar/multipack	Verify	Compare inventory
+Chocolates	Nestlé	KitKat chocolate wafer	Exact variant to verify	Verify exact SKU	Bar/multipack	Verify	Existing records found; match SKU
+Ice Creams	Arun Icecreams	Packaged frozen ice cream	Exact flavour to verify	Verify exact SKU	Cup/cone/stick/tub	Verify	Compare inventory
+Chilled Dairy	Heritage	Packaged milk or curd	Exact variant to verify	Verify exact SKU	Pouch/cup/container	Verify	Compare inventory
+Important: “Product quantity” means the net quantity of each retail pack, sucGo to the Snacks and Biscuits category. In this category, we need all products which are most available in Indian supermarkets as snacks. I have given some item descriptions. Based on these item descriptions, analyze the item descriptions and give the exact product URL and give the MRP printed rate in our app. Go through every product and variations in every chocolate variations and cold drinks also. What are available in Indian markets, supermarkets, what cold drinks and soft drinks are available in the supermarket? Any missed one also, you go and analyze that. If you see one also, give the product branded exact item description and the exact product visual also. Like any snacks, branded snacks, commonly used in Indian supermarket, okay? Give that. I have given some products. I think any missed, you go through that, analyze that. Any missed products are there, go through that and give an analysis and grab that. You can pick, you can search in research, research in internet, any common products are missing. I have shared a previous inventory document also, which is inventory document I have previously shared to you. In that also, we have some products. Analyze that PDF also if any missing products are there and do that. Delete duplicate, that's the main issue. Already we have given some products in our localhost. Delete that, delete that. Okay, delete that also. Now, go and go through the previously sent all the category products. It contains 1,900 products. Go through that products also and analyze any missed products are there and inventory products also and analyze. You analyze in internet also, any missed one or any common products are missed out of this. Go through that also and analyze and grab them into our app. You know the Snacks and Biscuits commonly used and search for, now we take on one brand, any variations, variant variants and any in this brand, any variants are there, go through that also, give that products also, okay? Go through that. 
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-13T10:37:11+05:30.
+</ADDITIONAL_METADATA>

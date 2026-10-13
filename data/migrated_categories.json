@@ -10,8 +10,8 @@
     "description": "Chakki fresh atta, Sonamasuri & Basmati rice, idli rava, maida and millets",
     "subcategories": [
       "Atta & Wheat Flour",
-      "Sonamasuri & Basmati Rice",
       "Idli & Bombay Rava",
+      "Sonamasuri & Basmati Rice",
       "Maida & Besan",
       "Millets & Poha"
     ]
@@ -26,11 +26,10 @@
     "icon": "Wheat",
     "description": "Kandi pappu (Toor dal), minapappu (Urad dal), pesara pappu (Moong), senagalu and peanuts",
     "subcategories": [
-      "Kandi Pappu (Toor Dal)",
       "Minapappu (Urad Dal)",
-      "Pesara Pappu (Moong)",
       "Senaga Pappu (Chana Dal)",
-      "Peanuts & Fried Gram"
+      "Kandi Pappu (Toor Dal)",
+      "Pesara Pappu (Moong)"
     ]
   },
   {
@@ -44,9 +43,9 @@
     "description": "Refined sunflower oils, groundnut oils, pure cow ghee (GRB, Amul, Aashirvaad), pooja & castor oils",
     "subcategories": [
       "Sunflower Oil",
-      "Groundnut & Specialty Oils",
       "Pure Cow Ghee",
-      "Pooja & Lamp Oils"
+      "Groundnut Oil",
+      "Deepam & Pooja Oils"
     ]
   },
   {
@@ -59,11 +58,10 @@
     "icon": "Sparkles",
     "description": "Turmeric, chilli powder, whole jeera, mustard, sambar/rasam powders and Andhra pickles",
     "subcategories": [
+      "Masala Powders, Whole Spices & Pickles",
       "Chilli & Turmeric Powder",
-      "Whole Spices & Jeera",
       "Sambar & Rasam Powders",
-      "Ginger Garlic Paste",
-      "Andhra Avakaya & Pickles"
+      "Soft Drinks, Juices & Soda"
     ]
   },
   {
@@ -77,9 +75,7 @@
     "description": "Tata salt, crystal kallu uppu, sulphur-free sugar, country bellam (jaggery) and pure honey",
     "subcategories": [
       "Tata & Crystal Salt",
-      "Sugar & Sulphur-Free",
-      "Country Bellam (Jaggery)",
-      "Pure Honey & Tamarind"
+      "Salt, Sugar, Jaggery & Honey"
     ]
   },
   {
@@ -92,11 +88,8 @@
     "icon": "Cookie",
     "description": "Premium jeedi pappu (cashews), badam (almonds), kismis, pista and Lion dates",
     "subcategories": [
-      "Cashews (Jeedi Pappu)",
-      "Almonds (Badam)",
-      "Kismis & Raisins",
-      "Pistachios & Walnuts",
-      "Lion Dates & Anjeer"
+      "Cashews, Almonds & Dates",
+      "Cashews (Jeedi Pappu)"
     ]
   },
   {
@@ -109,28 +102,23 @@
     "icon": "Apple",
     "description": "Farm-fresh onions, potatoes, tomatoes, fresh chillies, garlic and fruits",
     "subcategories": [
-      "Fresh Onions & Potatoes",
-      "Fresh Tomatoes & Chillies",
-      "Ginger & Garlic",
-      "Fresh Farm Fruits"
+      "Fresh Farm Vegetables & Fruits"
     ]
   },
   {
     "id": "dairy-bread-eggs",
-    "name": "Dairy, Bread & Ice Cream",
+    "name": "Dairy, Bread & Eggs",
     "section_id": "dairy-breakfast",
     "tile_image_url": "/categories/collages/dairy-bread-eggs.webp",
     "image": "/categories/collages/dairy-bread-eggs.webp",
-    "sort_order": 1,
+    "sort_order": 2,
     "icon": "Milk",
-    "description": "Fresh milk, curd, paneer, fresh bread, farm eggs, idli batter and Arun ice creams",
+    "description": "Fresh milk pouches, curd, paneer, butter, cheese slices, buttermilk, lassi and fresh bread",
     "subcategories": [
       "Fresh Milk & Curd",
-      "Paneer & Butter",
-      "Fresh Bread & Pav",
-      "Farm Eggs",
-      "Idli/Dosa Batter",
-      "Arun Ice Creams"
+      "Paneer, Butter & Cheese",
+      "Chilled Buttermilk & Shakes",
+      "Fresh Bread"
     ]
   },
   {
@@ -139,15 +127,14 @@
     "section_id": "dairy-breakfast",
     "tile_image_url": "/categories/collages/instant-food.webp",
     "image": "/categories/collages/instant-food.webp",
-    "sort_order": 2,
+    "sort_order": 3,
     "icon": "Sparkles",
     "description": "Maggi 2-minute noodles, Yippee, Bambino semiya, pasta and MTR breakfast mixes",
     "subcategories": [
-      "Maggi & Instant Noodles",
-      "Bambino Semiya & Vermicelli",
-      "Pasta & Macaroni",
-      "MTR Breakfast Mixes",
-      "Oats & Cornflakes"
+      "Instant & Hakka Noodles",
+      "Instant Soups",
+      "Vermicelli & Semiya",
+      "Breakfast Cereals & Instant Mixes"
     ]
   },
   {
@@ -156,15 +143,17 @@
     "section_id": "dairy-breakfast",
     "tile_image_url": "/categories/collages/biscuits-bakery.webp",
     "image": "/categories/collages/biscuits-bakery.webp",
-    "sort_order": 3,
+    "sort_order": 4,
     "icon": "Cookie",
     "description": "Parle-G, Good Day, Marie Gold, Oreo, Bourbon, tea rusks and bakery cakes",
     "subcategories": [
-      "Parle-G & Glucose",
-      "Good Day & Cookies",
-      "Marie Gold & Rusks",
-      "Oreo & Cream Biscuits",
-      "Bakery Cakes"
+      "Glucose & Marie Biscuits",
+      "Cream Biscuits & Choco Fills",
+      "Crackers & Salted Biscuits",
+      "Cookies & Butter Biscuits",
+      "Rusks & Bakery Cakes",
+      "Digestive & Health Biscuits",
+      "Wafers & Light Bites"
     ]
   },
   {
@@ -177,10 +166,7 @@
     "icon": "Sparkles",
     "description": "Tomato ketchup, mayonnaise, fruit jams, dips and peanut butter",
     "subcategories": [
-      "Tomato Ketchup & Sauces",
-      "Mayonnaise & Dips",
-      "Fruit Jams",
-      "Peanut Butter & Spreads"
+      "Ketchup, Mayonnaise, Jams & Dips"
     ]
   },
   {
@@ -193,11 +179,12 @@
     "icon": "Cookie",
     "description": "Haldiram's mixture, murukku, chekkalu, puffed rice (borugulu), Lays and Kurkure",
     "subcategories": [
-      "Haldiram Mixture & Sev",
-      "Murukku & Chekkalu",
-      "Puffed Rice (Borugulu)",
-      "Potato Chips (Lays, Kurkure)",
-      "Pani Puri Papad & Fryums"
+      "Lay's & Potato Chips",
+      "Kurkure & Extruded Snacks",
+      "Bingo! Mad Angles & Tedhe Medhe",
+      "Nachos & Popcorn",
+      "Haldiram's & Namkeen",
+      "Papads & Makhana"
     ]
   },
   {
@@ -211,9 +198,9 @@
     "description": "Cadbury Dairy Milk, 5 Star, KitKat, Choclairs, Center Fresh, peanut chikki and traditional sweets",
     "subcategories": [
       "Cadbury Dairy Milk & Silk",
-      "5 Star, Perk & KitKat",
-      "Choclairs, Candies & Gums",
-      "Peanut Chikki & Soan Papdi"
+      "Chocolate Bars & Wafers",
+      "Candies, Toffees & Gums",
+      "Packaged Traditional Sweets"
     ]
   },
   {
@@ -226,10 +213,11 @@
     "icon": "Coffee",
     "description": "Gemini tea, Red Label, Bru coffee, Sunrise, Nescafe, Horlicks, Boost and Bournvita",
     "subcategories": [
-      "Gemini Tea & Red Label",
-      "Bru & Sunrise Coffee",
-      "Filter Coffee & Nescafe",
-      "Horlicks, Boost & Bournvita"
+      "Packaged Tea",
+      "Green & Herbal Tea",
+      "Instant Coffee",
+      "Health & Malt Drinks",
+      "Instant Drink Mixes"
     ]
   },
   {
@@ -242,11 +230,10 @@
     "icon": "Coffee",
     "description": "Thums Up, Sprite, Maaza, Slice, Real fruit juices, Kinley soda and drinking water",
     "subcategories": [
-      "Thums Up, Sprite & Colas",
-      "Maaza, Slice & Mango",
-      "Real Fruit Juices",
-      "Kinley Soda & Water",
-      "Energy Drinks & Glucon-D"
+      "Thums Up, Coca-Cola & Soft Drinks",
+      "Maaza & Fruit Beverages",
+      "Energy Drinks & Juices",
+      "Packaged Drinking Water & Soda"
     ]
   },
   {
@@ -275,7 +262,8 @@
     "subcategories": [
       "Shampoo & Conditioner",
       "Hair Oils",
-      "Hair Serum"
+      "Hair Serum",
+      "Hair Colour & Styling"
     ]
   },
   {
@@ -347,10 +335,10 @@
     "icon": "ShieldCheck",
     "description": "Surf Excel, Rin, Tide, Ariel, Wheel detergent bars, Comfort conditioner and Ala bleach",
     "subcategories": [
-      "Surf Excel, Rin & Tide Powder",
-      "Detergent Bars & Soaps",
-      "Comfort Fabric Conditioner",
-      "Ala Bleach & Ujala"
+      "Detergent Powders",
+      "Liquid Detergents",
+      "Detergent Bars",
+      "Fabric Care & Additives"
     ]
   },
   {
@@ -363,10 +351,10 @@
     "icon": "ShieldCheck",
     "description": "Vim bar, Vim liquid gel, Pril, Exo bar, Scotch-Brite scrub pads and steel scrubbers",
     "subcategories": [
-      "Vim Bar & Dishwash Gel",
-      "Pril & Exo Bar",
-      "Scotch-Brite Scrub Pads",
-      "Steel Scrubbers"
+      "Dishwash Bars",
+      "Dishwash Liquids",
+      "Dishwash Powders",
+      "Scrubbers & Sponges"
     ]
   },
   {
@@ -379,11 +367,14 @@
     "icon": "Home",
     "description": "Lizol floor cleaner, Harpic, Colin, Good Knight, All Out, Hit spray, brooms and mops",
     "subcategories": [
-      "Lizol Floor Cleaner",
-      "Harpic Toilet Cleaner",
-      "Good Knight & All Out Refills",
-      "Hit Mosquito Spray",
-      "Brooms, Wipers & Mops"
+      "Floor Cleaners",
+      "Surface Cleaners",
+      "Toilet & Bathroom Cleaners",
+      "Glass & Surface Cleaners",
+      "Specialty Cleaners",
+      "Cleaning Cloths & Wipes",
+      "Mosquito & Pest Repellents",
+      "Air Fresheners"
     ]
   },
   {
@@ -396,11 +387,9 @@
     "icon": "Flame",
     "description": "Cycle Pure agarbatti, Mangaldeep, camphor (karpooram), deepam oil, cotton wicks and sambrani",
     "subcategories": [
-      "Cycle Pure & Agarbatti",
-      "Mangaldeep Dhoop & Cones",
-      "Camphor (Karpooram)",
-      "Deepam Oil & Cotton Wicks",
-      "Sambrani & Pooja Essentials"
+      "Agarbatti & Dhoop",
+      "Puja Essentials",
+      "Home Utilities"
     ]
   },
   {
@@ -413,11 +402,27 @@
     "icon": "Home",
     "description": "Matchboxes, Freshwrapp aluminium foil, containers, water bottles, stationery and pet food",
     "subcategories": [
-      "Matchboxes & Lighters",
-      "Freshwrapp Aluminium Foil",
-      "Food Storage Containers",
-      "Water Bottles & Lunch Boxes",
-      "Stationery & Pet Food"
+      "Brooms, Mops & Wipers",
+      "Bathroom & Home Accessories",
+      "Disposables & Paper Products"
+    ]
+  },
+  {
+    "id": "ice-creams",
+    "name": "Ice Creams & Frozen Desserts",
+    "section_id": "dairy-breakfast",
+    "tile_image_url": "/categories/collages/ice-creams.webp",
+    "image": "/categories/collages/ice-creams.webp",
+    "sort_order": 1,
+    "icon": "Sparkles",
+    "description": "Arun ice cream cones, chocobars, family tubs, kulfi, Amul Tricone and Kwality Wall's",
+    "subcategories": [
+      "Arun Icecreams Sticks & Bars",
+      "Sandwiches & Bites",
+      "Family Tubs (750ml & 1L)",
+      "Kulfi & Traditional Treats",
+      "Cones & Sundaes",
+      "Cups & Kulfi Treats"
     ]
   }
 ]
