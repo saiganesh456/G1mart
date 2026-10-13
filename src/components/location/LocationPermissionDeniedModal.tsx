@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { RefreshCw, ExternalLink, HelpCircle } from 'lucide-react';
+import { RefreshCw, ExternalLink, HelpCircle, X } from 'lucide-react';
 
 interface Props {
   isOpen: boolean;
   onEnableDeviceLocation: () => Promise<void>;
   onSelectManually: () => void;
+  onClose?: () => void;
 }
 
 /**
@@ -17,6 +18,7 @@ export default function LocationPermissionDeniedModal({
   isOpen,
   onEnableDeviceLocation,
   onSelectManually,
+  onClose,
 }: Props) {
   const [retrying, setRetrying] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
@@ -36,7 +38,17 @@ export default function LocationPermissionDeniedModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl max-w-sm w-full shadow-2xl border border-stone-200/90 overflow-hidden text-center transform transition-all animate-in zoom-in-95 duration-200">
+      <div className="relative bg-white rounded-3xl max-w-sm w-full shadow-2xl border border-stone-200/90 overflow-hidden text-center transform transition-all animate-in zoom-in-95 duration-200">
+        {onClose && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute top-3.5 right-3.5 w-7 h-7 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 hover:text-stone-800 flex items-center justify-center transition-colors cursor-pointer z-10"
+            aria-label="Close"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
         <div className="p-6 pt-7 sm:p-7 sm:pt-8 flex flex-col items-center">
           {/* Crossed-out Location Pin Icon (matches location-popup.png) */}
           <div className="relative w-20 h-20 mb-4 flex items-center justify-center">

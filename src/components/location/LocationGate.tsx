@@ -68,6 +68,7 @@ export default function LocationGate({ children }: Props) {
           setShowDeniedPopup(false);
           setIsModalOpen(true);
         }}
+        onClose={() => setShowDeniedPopup(false)}
       />
 
       {/* 2. Short Friendly Pre-Prompt Screen before browser prompt */}
@@ -78,20 +79,17 @@ export default function LocationGate({ children }: Props) {
           setShowPrePromptModal(false);
           setIsModalOpen(true);
         }}
+        onClose={() => {
+          setShowPrePromptModal(false);
+        }}
       />
 
-      {/* 3. Select Location Manually Modal (Search box + Draggable Map Pin + Confirm) */}
+      {/* 3. Select Location Manually Modal (Search box + Centered Map Pin + Confirm) */}
       <ManualLocationModal
         isOpen={isModalOpen}
-        isMandatory={!hasConfirmedLocation}
+        isMandatory={false}
         onClose={() => {
-          if (!hasConfirmedLocation) {
-            // Cannot dismiss location without selection: return to pre-prompt
-            setIsModalOpen(false);
-            setShowPrePromptModal(true);
-          } else {
-            setIsModalOpen(false);
-          }
+          setIsModalOpen(false);
         }}
       />
 

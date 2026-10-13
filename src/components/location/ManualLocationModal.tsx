@@ -10,7 +10,6 @@ import {
   RefreshCw,
   Clock,
   AlertTriangle,
-  ArrowLeft,
   ChevronRight,
 } from 'lucide-react';
 import { useLocation, DeliveryLocation } from '@/context/LocationContext';
@@ -109,10 +108,11 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
   const [resolvedCity, setResolvedCity] = useState<string>(() => currentLocation.city || 'Nellore');
   const [resolvedPincode, setResolvedPincode] = useState<string>(() => currentLocation.pincode || '524001');
 
+  const [isPanning, setIsPanning] = useState(false);
   const [leafletReady, setLeafletReady] = useState(false);
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
-  const markerInstanceRef = useRef<any>(null);
+  const geocodeDebounceRef = useRef<NodeJS.Timeout | null>(null);
 
   // Computed delivery metrics
   const deliveryInfo = calculateDeliveryDetails(pinLat, pinLng);
@@ -188,7 +188,7 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
     }
   }, []);
 
-  // Initialize Leaflet map and pin
+  // Initialize Leaflet map with fixed center pin tracking
   useEffect(() => {
     if (!isOpen || !leafletReady || !mapContainerRef.current) return;
     const L = (window as any).L;
@@ -201,23 +201,7 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
     if (mapInstanceRef.current) {
       mapInstanceRef.current.remove();
       mapInstanceRef.current = null;
-      markerInstanceRef.current = null;
     }
-
-    // Custom needle pin SVG icon
-    const customPin = L.divIcon({
-      className: 'g1-map-marker-pin',
-      html: `
-        <div style="position: relative; width: 36px; height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; cursor: grab; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.45));">
-          <svg width="36" height="44" viewBox="0 0 36 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 0C8.06 0 0 8.06 0 18C0 28.5 15.6 42.4 16.3 43C16.8 43.4 17.4 43.7 18 43.7C18.6 43.7 19.2 43.4 19.7 43C20.4 42.4 36 28.5 36 18C36 8.06 27.94 0 18 0Z" fill="#1B5E20" stroke="#FFFFFF" stroke-width="2.5"/>
-            <circle cx="18" cy="18" r="6" fill="#FFFFFF"/>
-          </svg>
-        </div>
-      `,
-      iconSize: [36, 44],
-      iconAnchor: [18, 44],
-    });
 
     const map = L.map(mapContainerRef.current, {
       zoomControl: true,
@@ -228,26 +212,44 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
       maxZoom: 19,
     }).addTo(map);
 
-    const marker = L.marker([lat, lng], {
-      draggable: true,
-      icon: customPin,
-      riseOnHover: true,
-    }).addTo(map);
+    map.on('movestart', () => {
+      setIsPanning(true);
+    });
 
-    marker.on('dragend', () => {
-      const pos = marker.getLatLng();
-      reverseGeocodeCoordinates(pos.lat, pos.lng);
-      map.panTo([pos.lat, pos.lng]);
+    const syncCenter = () => {
+      const center = map.getCenter();
+      const rLat = Number(center.lat.toFixed(6));
+      const rLng = Number(center.lng.toFixed(6));
+      setPinLat(rLat);
+      setPinLng(rLng);
+      return { rLat, rLng };
+    };
+
+    map.on('move', () => {
+      syncCenter();
+    });
+
+    map.on('moveend', () => {
+      setIsPanning(false);
+      const { rLat, rLng } = syncCenter();
+      if (geocodeDebounceRef.current) {
+        clearTimeout(geocodeDebounceRef.current);
+      }
+      geocodeDebounceRef.current = setTimeout(() => {
+        reverseGeocodeCoordinates(rLat, rLng);
+      }, 350);
+    });
+
+    map.on('zoomend', () => {
+      setIsPanning(false);
+      syncCenter();
     });
 
     map.on('click', (e: any) => {
-      marker.setLatLng(e.latlng);
-      map.panTo(e.latlng);
-      reverseGeocodeCoordinates(e.latlng.lat, e.latlng.lng);
+      map.panTo(e.latlng, { animate: true });
     });
 
     mapInstanceRef.current = map;
-    markerInstanceRef.current = marker;
 
     const t1 = setTimeout(() => map.invalidateSize(), 100);
     const t2 = setTimeout(() => map.invalidateSize(), 300);
@@ -255,20 +257,13 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
+      if (geocodeDebounceRef.current) clearTimeout(geocodeDebounceRef.current);
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
-        markerInstanceRef.current = null;
       }
     };
   }, [isOpen, leafletReady, reverseGeocodeCoordinates]);
-
-  // Sync marker position if pinLat / pinLng changes
-  useEffect(() => {
-    if (mapInstanceRef.current && markerInstanceRef.current && pinLat && pinLng) {
-      markerInstanceRef.current.setLatLng([pinLat, pinLng]);
-    }
-  }, [pinLat, pinLng]);
 
   // Live address autocomplete search
   useEffect(() => {
@@ -331,12 +326,9 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
     setSearchQuery(item.title || '');
     setSuggestions([]);
 
-    // Move map and marker directly
+    // Move map directly to centered coordinates
     if (mapInstanceRef.current) {
-      mapInstanceRef.current.setView([lat, lng], 16);
-      if (markerInstanceRef.current) {
-        markerInstanceRef.current.setLatLng([lat, lng]);
-      }
+      mapInstanceRef.current.setView([lat, lng], 16, { animate: true });
     }
   };
 
@@ -400,10 +392,7 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
         setResolvedPincode(loc.pincode || '');
 
         if (mapInstanceRef.current) {
-          mapInstanceRef.current.setView([loc.lat, loc.lng], 16);
-          if (markerInstanceRef.current) {
-            markerInstanceRef.current.setLatLng([loc.lat, loc.lng]);
-          }
+          mapInstanceRef.current.setView([loc.lat, loc.lng], 16, { animate: true });
         }
       }
     } catch (err) {
@@ -468,9 +457,9 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
             type="button"
             onClick={onClose}
             className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors cursor-pointer"
-            aria-label="Back"
+            aria-label="Close"
           >
-            {isMandatory ? <ArrowLeft className="w-4 h-4" /> : <X className="w-4 h-4" />}
+            <X className="w-4 h-4" />
           </button>
         </div>
 
@@ -542,13 +531,42 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
         </div>
 
         {/* Map Container */}
-        <div className="relative flex-1 min-h-[220px] sm:min-h-[260px] bg-stone-100">
+        <div className="relative flex-1 min-h-[220px] sm:min-h-[260px] bg-stone-100 overflow-hidden">
           <div ref={mapContainerRef} className="w-full h-full min-h-[220px] sm:min-h-[260px]" />
+
+          {/* Fixed Stationary Center Pin Overlay — Always pinned to exact center of map */}
+          <div className="absolute inset-0 pointer-events-none z-[400] flex items-center justify-center">
+            <div className="relative flex flex-col items-center justify-center -translate-y-1/2">
+              {/* Floating needle pin with interactive lift on pan */}
+              <div
+                className={`transition-all duration-200 ease-out origin-bottom ${
+                  isPanning ? '-translate-y-3 scale-110 drop-shadow-2xl' : 'translate-y-0 scale-100 drop-shadow-md'
+                }`}
+              >
+                <svg width="38" height="46" viewBox="0 0 36 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M18 0C8.06 0 0 8.06 0 18C0 28.5 15.6 42.4 16.3 43C16.8 43.4 17.4 43.7 18 43.7C18.6 43.7 19.2 43.4 19.7 43C20.4 42.4 36 28.5 36 18C36 8.06 27.94 0 18 0Z"
+                    fill="#1B5E20"
+                    stroke="#FFFFFF"
+                    strokeWidth="2.5"
+                  />
+                  <circle cx="18" cy="18" r="6" fill="#FFFFFF" />
+                </svg>
+              </div>
+
+              {/* Pin Target Base Ground Shadow Point directly at tip */}
+              <div
+                className={`w-3.5 h-1.5 rounded-full bg-stone-900/40 transition-all duration-200 -mt-0.5 ${
+                  isPanning ? 'scale-75 opacity-40' : 'scale-100 opacity-90'
+                }`}
+              />
+            </div>
+          </div>
 
           {/* Map Top Helper Badge */}
           <div className="absolute top-2.5 left-2.5 z-10 bg-white/95 backdrop-blur-xs px-2.5 py-1 rounded-xl shadow-xs border border-stone-200 text-[10px] font-bold text-stone-700 flex items-center gap-1.5 pointer-events-none">
             <Navigation className="w-3 h-3 text-[#2E7D32]" />
-            <span>Tap map or drag pin to exact doorstep</span>
+            <span>Drag or zoom map to pinpoint exact doorstep</span>
           </div>
 
           {/* Floating "Locate Me / GPS" Button */}

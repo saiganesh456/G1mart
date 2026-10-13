@@ -12,8 +12,6 @@ import {
   Smartphone,
   ShoppingBag,
   ChevronRight,
-  Bell,
-  ShieldCheck,
 } from 'lucide-react';
 import { useNotification, AppNotification } from '@/context/NotificationContext';
 
@@ -22,9 +20,6 @@ export default function GlobalNotificationBanner() {
   const {
     activeNotification,
     dismissNotification,
-    showPermissionPrompt,
-    dismissPermissionPrompt,
-    requestPushPermission,
   } = useNotification();
   const [progress, setProgress] = useState(100);
 
@@ -162,66 +157,6 @@ export default function GlobalNotificationBanner() {
         </div>
       )}
 
-      {/* 2. Push Notification Permission Card (Prompted on APK Download or Initial Visit) */}
-      {showPermissionPrompt && !activeNotification && (
-        <div
-          role="dialog"
-          aria-label="Enable delivery notifications"
-          className="fixed top-16 left-3 right-3 sm:top-auto sm:left-auto sm:right-6 sm:bottom-24 sm:max-w-md z-50 pointer-events-auto transition-all duration-300 ease-out animate-in fade-in slide-in-from-top-4 sm:slide-in-from-bottom-6"
-        >
-          <div className="relative bg-white rounded-3xl p-4 sm:p-5 shadow-2xl border border-stone-200/90 shadow-[#2E7D32]/10 overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-[#2E7D32]" />
-
-            <button
-              onClick={dismissPermissionPrompt}
-              type="button"
-              aria-label="Dismiss prompt"
-              className="absolute top-3 right-3 w-7 h-7 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 flex items-center justify-center transition-colors cursor-pointer"
-            >
-              <X className="w-4 h-4" />
-            </button>
-
-            <div className="flex items-start gap-3.5 pr-6">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200/80 p-2 shrink-0 flex items-center justify-center shadow-xs">
-                <Bell className="w-6 h-6 text-[#2E7D32]" />
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1.5 mb-0.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#2E7D32]" />
-                  <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wide">
-                    Live Order Updates
-                  </span>
-                </div>
-
-                <h4 className="text-sm font-black text-stone-900 leading-tight">
-                  Enable Order Tracking Notifications
-                </h4>
-                <p className="text-xs text-stone-600 mt-1 leading-relaxed">
-                  Get real-time alerts when your order is confirmed, packed, and out for delivery even when the app is closed.
-                </p>
-
-                <div className="mt-3.5 flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={requestPushPermission}
-                    className="flex-1 py-2 px-3.5 rounded-xl bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-extrabold text-xs shadow-xs transition-transform active:scale-95 text-center cursor-pointer"
-                  >
-                    Allow Notifications
-                  </button>
-                  <button
-                    type="button"
-                    onClick={dismissPermissionPrompt}
-                    className="py-2 px-3 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-600 font-bold text-xs transition-colors cursor-pointer"
-                  >
-                    Not Now
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

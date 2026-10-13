@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { MapPin, Navigation, Search } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { MapPin, Navigation, Search, X } from 'lucide-react';
 
 interface Props {
   isOpen: boolean;
@@ -14,28 +14,54 @@ interface Props {
 /**
  * Blinkit-style clean & minimal delivery location prompt popup.
  * Positioned under the header location bar.
- * No close / removal (X) button, completely preventing accidental closing before location is selected.
+ * Includes close (X) button so users can explore and use products without forced location selection.
  */
 export default function PrePromptModal({
   isOpen,
   onContinueToGps,
   onSelectManually,
+  onClose,
 }: Props) {
+  // Dismiss on Escape key
+  useEffect(() => {
+    if (!isOpen || !onClose) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px] animate-in fade-in duration-150 flex items-start justify-center lg:justify-start p-3 sm:p-4 pointer-events-auto">
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget && onClose) onClose();
+      }}
+      className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px] animate-in fade-in duration-150 flex items-start justify-center lg:justify-start p-3 sm:p-4 pointer-events-auto"
+    >
       {/* 
         Card container:
         - Mobile: Anchored near the top under the mobile header (top-24 / top-28), centered horizontally
         - Desktop (lg+): Anchored directly under the header location area (top-[72px], left-20 / left-28)
       */}
-      <div className="w-full max-w-md sm:max-w-[480px] bg-white rounded-2xl shadow-[0_16px_50px_rgba(0,0,0,0.22)] border border-stone-200 p-4 sm:p-5 text-left transform transition-all animate-in zoom-in-95 duration-150 mt-24 sm:mt-24 lg:mt-16 lg:ml-20 xl:ml-32">
-        {/* Header row: Clean "Welcome to g1mart" - NO close / removal X symbol */}
+      <div className="w-full max-w-md sm:max-w-[480px] bg-white rounded-2xl shadow-[0_16px_50px_rgba(0,0,0,0.22)] border border-stone-200 p-4 sm:p-5 text-left transform transition-all animate-in zoom-in-95 duration-150 mt-24 sm:mt-24 lg:mt-16 lg:ml-20 xl:ml-32 relative">
+        {/* Header row: "Welcome to g1mart" + Close (X) button */}
         <div className="flex items-center justify-between mb-3 sm:mb-3.5">
           <p className="text-xs sm:text-[13px] font-semibold text-stone-600 tracking-tight">
             Welcome to <span className="font-extrabold text-[#1B5E20]">g1mart</span>
           </p>
+          {onClose && (
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-7 h-7 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 hover:text-stone-800 flex items-center justify-center transition-colors cursor-pointer"
+              aria-label="Close location prompt"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
         </div>
 
         {/* Body row: Location Pin outline + Prompt text */}

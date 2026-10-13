@@ -211,44 +211,44 @@ export default function AccountPage() {
           </div>
         )}
 
-        {/* ── App install — secondary styled row near bottom ── */}
-        <div
-          className="mx-4 mt-4 rounded-[var(--g1-r-card)] bg-[var(--g1-bg)] overflow-hidden"
-          style={{ border: '1px solid var(--g1-border)', boxShadow: 'var(--g1-e1)' }}
-        >
-          <div className="flex items-center justify-between px-4" style={{ height: 56 }}>
-            <div className="flex items-center gap-3 min-w-0">
-              <div className="w-9 h-9 rounded-xl overflow-hidden border shrink-0"
-                style={{ borderColor: 'var(--g1-border)' }}>
-                <Image src="/logo.png" alt="G1 Mart App" width={36} height={36} className="w-full h-full object-contain" />
+        {/* ── App install — only show if not already downloaded/installed ── */}
+        {!appInstalled && (
+          <div
+            className="mx-4 mt-4 rounded-[var(--g1-r-card)] bg-[var(--g1-bg)] overflow-hidden"
+            style={{ border: '1px solid var(--g1-border)', boxShadow: 'var(--g1-e1)' }}
+          >
+            <div className="flex items-center justify-between px-4" style={{ height: 56 }}>
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-9 h-9 rounded-xl overflow-hidden border shrink-0"
+                  style={{ borderColor: 'var(--g1-border)' }}>
+                  <Image src="/logo.png" alt="G1 Mart App" width={36} height={36} className="w-full h-full object-contain" />
+                </div>
+                <div className="min-w-0">
+                  <span className="font-medium truncate block" style={{ fontSize: 14, color: 'var(--g1-text)' }}>
+                    Install G1 Mart App
+                  </span>
+                  <span className="text-[11px] block" style={{ color: 'var(--g1-text-secondary)' }}>
+                    Android APK · 12 MB
+                  </span>
+                </div>
               </div>
-              <div className="min-w-0">
-                <span className="font-medium truncate block" style={{ fontSize: 14, color: 'var(--g1-text)' }}>
-                  {appInstalled ? 'G1 Mart App (Installed)' : 'Install G1 Mart App'}
-                </span>
-                <span className="text-[11px] block" style={{ color: 'var(--g1-text-secondary)' }}>
-                  Android APK · 12 MB
-                </span>
-              </div>
+              <button
+                type="button"
+                onClick={handleInstallApp}
+                disabled={isInstalling}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 g1-press"
+                style={{ backgroundColor: 'var(--g1-primary-tint)', color: 'var(--g1-primary)', border: '1px solid var(--g1-primary)' }}
+              >
+                {isInstalling ? (
+                  <div className="w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <Download className="w-[18px] h-[18px]" strokeWidth={1.75} />
+                )}
+                <span>{isInstalling ? 'Downloading…' : 'Download'}</span>
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={handleInstallApp}
-              disabled={isInstalling}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 g1-press"
-              style={appInstalled
-                ? { backgroundColor: 'var(--g1-surface)', color: 'var(--g1-text-secondary)', border: '1px solid var(--g1-border)' }
-                : { backgroundColor: 'var(--g1-primary-tint)', color: 'var(--g1-primary)', border: '1px solid var(--g1-primary)' }}
-            >
-              {isInstalling ? (
-                <div className="w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin" />
-              ) : (
-                <Download className="w-[18px] h-[18px]" strokeWidth={1.75} />
-              )}
-              <span>{isInstalling ? 'Downloading…' : appInstalled ? 'Re-download' : 'Download'}</span>
-            </button>
           </div>
-        </div>
+        )}
 
         {/* ── Footer ── */}
         <div className="mt-6 text-center" style={{ fontSize: 12, color: 'var(--g1-text-secondary)' }}>

@@ -79,19 +79,14 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
     };
   }, []);
 
-  // Check initial notification permission
+  // Check initial notification permission without prompting in browser
   useEffect(() => {
     if (typeof window !== 'undefined' && 'Notification' in window) {
       if (Notification.permission === 'granted') {
         setIsPermissionGranted(true);
-      } else if (Notification.permission === 'default') {
-        // Show gentle permission banner if user hasn't dismissed it
-        const dismissed = localStorage.getItem('g1mart_notif_prompt_dismissed');
-        if (!dismissed) {
-          const t = setTimeout(() => setShowPermissionPrompt(true), 2500);
-          return () => clearTimeout(t);
-        }
       }
+      // Note: Do not show permission prompts in the web browser.
+      // Real push notification permission is requested natively inside the Android app.
     }
   }, []);
 
@@ -472,10 +467,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
   useEffect(() => {
     const handleApkDownloadedEvent = () => {
       notifyApkDownloaded();
-      // Prompt user to enable push tracking right as they download the APK
-      if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'default') {
-        setShowPermissionPrompt(true);
-      }
+      // Browser notification prompt omitted: native permissions are handled directly in the Android app.
     };
     window.addEventListener('g1mart:apk-downloaded', handleApkDownloadedEvent);
     return () => {

@@ -36,6 +36,27 @@ export function isAppInstalled(userId?: string | null): boolean {
     if (window.matchMedia('(display-mode: standalone)').matches) {
       return true;
     }
+
+    // Check if running in minimal-ui mode
+    if (window.matchMedia('(display-mode: minimal-ui)').matches) {
+      return true;
+    }
+
+    // iOS standalone check
+    if ((navigator as any).standalone) {
+      return true;
+    }
+
+    // Android app WebView / TWA / referrer
+    const ua = navigator.userAgent || '';
+    if (
+      ua.includes('wv') ||
+      ua.includes('G1Mart') ||
+      ua.includes('g1mart') ||
+      (typeof document !== 'undefined' && document.referrer.includes('android-app://'))
+    ) {
+      return true;
+    }
   } catch {}
 
   return false;
