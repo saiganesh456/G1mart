@@ -1550,7 +1550,7 @@
   },
   {
     "id": "brand-g1mart",
-    "name": "G1mart",
+    "name": "Jeevan Mart",
     "logo_url": "/brand/g1mart-logo.svg"
   },
   {
@@ -2146,6 +2146,46 @@
   {
     "id": "brand-center-fruit",
     "name": "Center Fruit",
+    "logo_url": null
+  },
+  {
+    "id": "brand-puro",
+    "name": "Puro",
+    "logo_url": null
+  },
+  {
+    "id": "brand-madhur",
+    "name": "Madhur",
+    "logo_url": null
+  },
+  {
+    "id": "brand-trust",
+    "name": "Trust",
+    "logo_url": null
+  },
+  {
+    "id": "brand-parrys",
+    "name": "Parry's",
+    "logo_url": null
+  },
+  {
+    "id": "brand-sugar-free",
+    "name": "Sugar Free",
+    "logo_url": null
+  },
+  {
+    "id": "brand-24-mantra",
+    "name": "24 Mantra Organic",
+    "logo_url": null
+  },
+  {
+    "id": "brand-organic-tattva",
+    "name": "Organic Tattva",
+    "logo_url": null
+  },
+  {
+    "id": "brand-lion",
+    "name": "Lion",
     "logo_url": null
   }
 ]
