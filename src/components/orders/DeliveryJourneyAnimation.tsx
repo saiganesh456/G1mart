@@ -88,17 +88,204 @@ export default function DeliveryJourneyAnimation({ status, orderType }: Props) {
 
   return (
     <section aria-label="Order tracking journey" className="w-full space-y-3">
-      {/* 1. EXACT MASTER HERO BANNER — Matching User's Approved Reference Image */}
+      {/* 1. MASTER HERO BANNER WITH CURVED TRACKING SYSTEM */}
       <div className="relative w-full rounded-2xl overflow-hidden border border-stone-200/90 shadow-2xs bg-white">
         {!imgError ? (
-          <div className="relative w-full aspect-[1792/1024] overflow-hidden select-none bg-stone-50">
+          <div className="relative w-full select-none bg-white">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/images/g1_delivery_hd_panorama.jpg"
-              alt="G1 Mart illustrated delivery journey: store, employee packing fresh items, express scooter delivery, and doorstep handover"
-              className="w-full h-full object-cover object-center"
+              src="/assets/images/g1_delivery_master_banner.png"
+              alt="G1 Mart illustrated delivery journey: store, employee packing fresh groceries, express scooter delivery, and doorstep handover"
+              className="w-full h-auto object-cover object-top block"
               onError={() => setImgError(true)}
             />
+
+            {/* CURVED TRACKING SYSTEM — Flowing naturally along the bottom plain background */}
+            <div className="relative w-full px-1 sm:px-3 pt-2 pb-3.5 bg-gradient-to-b from-white/70 via-white to-white -mt-4 sm:-mt-7 z-10">
+              {/* SVG Curved Wave Track */}
+              <div className="relative w-full h-11 sm:h-14 overflow-visible">
+                <svg
+                  className="w-full h-full overflow-visible"
+                  viewBox="0 0 1000 80"
+                  preserveAspectRatio="none"
+                >
+                  <defs>
+                    <style>{`
+                      @keyframes dashFlow {
+                        from { stroke-dashoffset: 24; }
+                        to { stroke-dashoffset: 0; }
+                      }
+                      .animate-dash-flow {
+                        animation: dashFlow 1.2s linear infinite;
+                      }
+                    `}</style>
+                  </defs>
+
+                  {/* Base Inactive Track (Full Wave) */}
+                  <path
+                    d="M 170 38 C 240 18, 320 16, 390 20 C 480 24, 570 52, 660 44 C 730 38, 810 24, 880 30"
+                    fill="none"
+                    stroke="#E2E8F0"
+                    strokeWidth="2.5"
+                    strokeDasharray="6 5"
+                  />
+
+                  {/* Segment 1: Store -> Packing Station */}
+                  <path
+                    d="M 170 38 C 240 18, 320 16, 390 20"
+                    fill="none"
+                    stroke="#1E6B2E"
+                    strokeWidth="3"
+                    strokeDasharray="6 5"
+                    className={journey.stepNumber === 1 ? "animate-dash-flow" : ""}
+                    strokeOpacity={journey.stepNumber >= 1 ? 1 : 0}
+                  />
+
+                  {/* Segment 2: Packing Station -> Scooter */}
+                  <path
+                    d="M 390 20 C 480 24, 570 52, 660 44"
+                    fill="none"
+                    stroke="#1E6B2E"
+                    strokeWidth="3"
+                    strokeDasharray="6 5"
+                    className={journey.stepNumber === 2 ? "animate-dash-flow" : ""}
+                    strokeOpacity={journey.stepNumber >= 2 ? 1 : 0}
+                  />
+
+                  {/* Segment 3: Scooter -> Doorstep Handover */}
+                  <path
+                    d="M 660 44 C 730 38, 810 24, 880 30"
+                    fill="none"
+                    stroke="#1E6B2E"
+                    strokeWidth="3"
+                    strokeDasharray="6 5"
+                    className={journey.stepNumber === 3 ? "animate-dash-flow" : ""}
+                    strokeOpacity={journey.stepNumber >= 3 ? 1 : 0}
+                  />
+                </svg>
+
+                {/* 4 Milestone Interactive Badges placed along the curve */}
+                {/* Node 1: Storefront (17%, y ~ 38) */}
+                <div
+                  className="absolute -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center"
+                  style={{ left: '17%', top: '48%' }}
+                >
+                  <div
+                    className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
+                      journey.stepNumber >= 1
+                        ? 'bg-[#1E6B2E] text-white shadow-xs ring-4 ring-[#DCFCE7]/90'
+                        : 'bg-white border-2 border-stone-200 text-stone-400'
+                    }`}
+                  >
+                    <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                  </div>
+                </div>
+
+                {/* Node 2: Packing Station (39%, y ~ 20) */}
+                <div
+                  className="absolute -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center"
+                  style={{ left: '39%', top: '25%' }}
+                >
+                  <div
+                    className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
+                      journey.stepNumber > 2
+                        ? 'bg-[#1E6B2E] text-white shadow-xs'
+                        : journey.stepNumber === 2
+                        ? 'bg-[#1E6B2E] text-white shadow-md ring-4 ring-[#DCFCE7] animate-pulse'
+                        : 'bg-white border-2 border-stone-200 text-stone-400'
+                    }`}
+                  >
+                    {journey.stepNumber > 2 ? (
+                      <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                    ) : (
+                      <Package className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2]" />
+                    )}
+                  </div>
+                </div>
+
+                {/* Node 3: Out for Delivery (66%, y ~ 44) */}
+                <div
+                  className="absolute -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center"
+                  style={{ left: '66%', top: '55%' }}
+                >
+                  <div
+                    className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
+                      journey.stepNumber > 3
+                        ? 'bg-[#1E6B2E] text-white shadow-xs'
+                        : journey.stepNumber === 3
+                        ? 'bg-[#1E6B2E] text-white shadow-md ring-4 ring-[#DCFCE7] animate-pulse'
+                        : 'bg-white border-2 border-stone-200 text-stone-400'
+                    }`}
+                  >
+                    {journey.stepNumber > 3 ? (
+                      <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                    ) : (
+                      <Bike className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2]" />
+                    )}
+                  </div>
+                </div>
+
+                {/* Node 4: Delivered at Doorstep (88%, y ~ 30) */}
+                <div
+                  className="absolute -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center"
+                  style={{ left: '88%', top: '38%' }}
+                >
+                  <div
+                    className={`w-7 h-7 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
+                      journey.stepNumber === 4
+                        ? 'bg-[#1E6B2E] text-white shadow-md ring-4 ring-[#DCFCE7]'
+                        : 'bg-white border-2 border-stone-200 text-stone-400'
+                    }`}
+                  >
+                    {journey.stepNumber === 4 ? (
+                      <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                    ) : (
+                      <Home className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2]" />
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Milestone Labels Row */}
+              <div className="relative w-full flex justify-between mt-2.5 px-0.5 text-center select-none">
+                <div className="w-[23%] flex flex-col items-center">
+                  <p
+                    className={`text-[10px] sm:text-xs leading-tight ${
+                      journey.stepNumber >= 1 ? 'font-bold text-stone-900' : 'font-medium text-stone-500'
+                    }`}
+                  >
+                    Order<br />Placed
+                  </p>
+                </div>
+                <div className="w-[25%] flex flex-col items-center">
+                  <p
+                    className={`text-[10px] sm:text-xs leading-tight ${
+                      journey.stepNumber >= 2 ? 'font-bold text-stone-900' : 'font-medium text-stone-500'
+                    }`}
+                  >
+                    Packing<br />Fresh Items
+                  </p>
+                </div>
+                <div className="w-[25%] flex flex-col items-center">
+                  <p
+                    className={`text-[10px] sm:text-xs leading-tight ${
+                      journey.stepNumber >= 3 ? 'font-bold text-stone-900' : 'font-medium text-stone-500'
+                    }`}
+                  >
+                    Out for<br />Delivery
+                  </p>
+                </div>
+                <div className="w-[23%] flex flex-col items-center">
+                  <p
+                    className={`text-[10px] sm:text-xs leading-tight ${
+                      journey.stepNumber >= 4 ? 'font-bold text-stone-900' : 'font-medium text-stone-500'
+                    }`}
+                  >
+                    Delivered<br />at Doorstep
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         ) : (
           <div className="w-full p-6 text-center bg-emerald-50/70 space-y-2">
@@ -106,166 +293,6 @@ export default function DeliveryJourneyAnimation({ status, orderType }: Props) {
             <p className="text-xs font-bold text-emerald-950">G1 Mart Fresh Grocery Journey</p>
           </div>
         )}
-
-        {/* 4-STAGE MILESTONE TIMELINE — Directly inside the card matching Reference C */}
-        <div className="px-2.5 sm:px-4 pt-3 pb-3.5 bg-white border-t border-stone-100 select-none">
-          <div className="flex items-start justify-between">
-            {/* Step 1: Order Placed */}
-            <div className="flex flex-col items-center text-center w-14 sm:w-20 shrink-0">
-              <div
-                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
-                  journey.stepNumber > 1
-                    ? 'bg-[#1E6B2E] text-white shadow-xs'
-                    : journey.stepNumber === 1
-                    ? 'bg-[#1E6B2E] text-white shadow-sm ring-4 ring-[#DCFCE7] ring-offset-1'
-                    : 'bg-stone-50 border-2 border-stone-200 text-stone-400'
-                }`}
-              >
-                <Check className="w-4 h-4 stroke-[2.5]" />
-              </div>
-              <p
-                className={`mt-1.5 text-[10px] sm:text-xs leading-tight ${
-                  journey.stepNumber >= 1 ? 'font-bold text-stone-900' : 'font-medium text-stone-500'
-                }`}
-              >
-                Order<br />Placed
-              </p>
-            </div>
-
-            {/* Connector 1 -> 2 */}
-            <div className="flex-1 flex items-center justify-center px-0.5 pt-3 sm:pt-3.5 min-w-[16px]">
-              <svg className="w-full h-2.5 overflow-visible" viewBox="0 0 36 10" preserveAspectRatio="none">
-                <line
-                  x1="0"
-                  y1="5"
-                  x2="30"
-                  y2="5"
-                  stroke={journey.stepNumber >= 2 ? '#1E6B2E' : '#D6D3D1'}
-                  strokeWidth="2"
-                  strokeDasharray="3 3"
-                />
-                <polygon
-                  points="28,2 34,5 28,8"
-                  fill={journey.stepNumber >= 2 ? '#1E6B2E' : '#D6D3D1'}
-                />
-              </svg>
-            </div>
-
-            {/* Step 2: Packing Fresh Items */}
-            <div className="flex flex-col items-center text-center w-14 sm:w-20 shrink-0">
-              <div
-                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
-                  journey.stepNumber > 2
-                    ? 'bg-[#1E6B2E] text-white shadow-xs'
-                    : journey.stepNumber === 2
-                    ? 'bg-[#1E6B2E] text-white shadow-sm ring-4 ring-[#DCFCE7] ring-offset-1'
-                    : 'bg-stone-50 border-2 border-stone-200 text-stone-400'
-                }`}
-              >
-                {journey.stepNumber > 2 ? (
-                  <Check className="w-4 h-4 stroke-[2.5]" />
-                ) : (
-                  <Package className="w-4 h-4 stroke-[2]" />
-                )}
-              </div>
-              <p
-                className={`mt-1.5 text-[10px] sm:text-xs leading-tight ${
-                  journey.stepNumber >= 2 ? 'font-bold text-stone-900' : 'font-medium text-stone-500'
-                }`}
-              >
-                Packing<br />Fresh Items
-              </p>
-            </div>
-
-            {/* Connector 2 -> 3 */}
-            <div className="flex-1 flex items-center justify-center px-0.5 pt-3 sm:pt-3.5 min-w-[16px]">
-              <svg className="w-full h-2.5 overflow-visible" viewBox="0 0 36 10" preserveAspectRatio="none">
-                <line
-                  x1="0"
-                  y1="5"
-                  x2="30"
-                  y2="5"
-                  stroke={journey.stepNumber >= 3 ? '#1E6B2E' : '#D6D3D1'}
-                  strokeWidth="2"
-                  strokeDasharray="3 3"
-                />
-                <polygon
-                  points="28,2 34,5 28,8"
-                  fill={journey.stepNumber >= 3 ? '#1E6B2E' : '#D6D3D1'}
-                />
-              </svg>
-            </div>
-
-            {/* Step 3: Out for Delivery */}
-            <div className="flex flex-col items-center text-center w-14 sm:w-20 shrink-0">
-              <div
-                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
-                  journey.stepNumber > 3
-                    ? 'bg-[#1E6B2E] text-white shadow-xs'
-                    : journey.stepNumber === 3
-                    ? 'bg-[#1E6B2E] text-white shadow-sm ring-4 ring-[#DCFCE7] ring-offset-1'
-                    : 'bg-stone-50 border-2 border-stone-200 text-stone-400'
-                }`}
-              >
-                {journey.stepNumber > 3 ? (
-                  <Check className="w-4 h-4 stroke-[2.5]" />
-                ) : (
-                  <Bike className="w-4 h-4 stroke-[2]" />
-                )}
-              </div>
-              <p
-                className={`mt-1.5 text-[10px] sm:text-xs leading-tight ${
-                  journey.stepNumber >= 3 ? 'font-bold text-stone-900' : 'font-medium text-stone-500'
-                }`}
-              >
-                Out for<br />Delivery
-              </p>
-            </div>
-
-            {/* Connector 3 -> 4 */}
-            <div className="flex-1 flex items-center justify-center px-0.5 pt-3 sm:pt-3.5 min-w-[16px]">
-              <svg className="w-full h-2.5 overflow-visible" viewBox="0 0 36 10" preserveAspectRatio="none">
-                <line
-                  x1="0"
-                  y1="5"
-                  x2="30"
-                  y2="5"
-                  stroke={journey.stepNumber >= 4 ? '#1E6B2E' : '#D6D3D1'}
-                  strokeWidth="2"
-                  strokeDasharray="3 3"
-                />
-                <polygon
-                  points="28,2 34,5 28,8"
-                  fill={journey.stepNumber >= 4 ? '#1E6B2E' : '#D6D3D1'}
-                />
-              </svg>
-            </div>
-
-            {/* Step 4: Delivered at Doorstep */}
-            <div className="flex flex-col items-center text-center w-14 sm:w-20 shrink-0">
-              <div
-                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
-                  journey.stepNumber === 4
-                    ? 'bg-[#1E6B2E] text-white shadow-sm ring-4 ring-[#DCFCE7] ring-offset-1'
-                    : 'bg-stone-50 border-2 border-stone-200 text-stone-400'
-                }`}
-              >
-                {journey.stepNumber === 4 ? (
-                  <Check className="w-4 h-4 stroke-[2.5]" />
-                ) : (
-                  <Home className="w-4 h-4 stroke-[2]" />
-                )}
-              </div>
-              <p
-                className={`mt-1.5 text-[10px] sm:text-xs leading-tight ${
-                  journey.stepNumber === 4 ? 'font-bold text-stone-900' : 'font-medium text-stone-500'
-                }`}
-              >
-                Delivered<br />at Doorstep
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* 2. ACTIVE STAGE HIGHLIGHT CARD — Reference Image Pale Mint Surface */}
