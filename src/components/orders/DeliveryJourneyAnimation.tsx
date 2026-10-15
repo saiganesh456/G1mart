@@ -91,12 +91,12 @@ export default function DeliveryJourneyAnimation({ status, orderType }: Props) {
       {/* 1. EXACT MASTER HERO BANNER — Matching User's Approved Reference Image */}
       <div className="relative w-full rounded-2xl overflow-hidden border border-stone-200/90 shadow-2xs bg-white">
         {!imgError ? (
-          <div className="relative w-full aspect-[475/274] overflow-hidden select-none bg-white">
+          <div className="relative w-full aspect-[1792/1024] overflow-hidden select-none bg-stone-50">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/images/g1_delivery_banner_clean.png"
+              src="/assets/images/g1_delivery_hd_panorama.jpg"
               alt="G1 Mart illustrated delivery journey: store, employee packing fresh items, express scooter delivery, and doorstep handover"
-              className="w-full h-full object-contain object-center"
+              className="w-full h-full object-cover object-center"
               onError={() => setImgError(true)}
             />
           </div>
