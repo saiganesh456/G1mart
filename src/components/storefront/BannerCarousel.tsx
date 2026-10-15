@@ -14,6 +14,11 @@ interface BannerItem {
   image_url?: string;
   products?: string[];
   badge?: string;
+  badge_bg?: string;
+  badge_color?: string;
+  cta_bg?: string;
+  cta_color?: string;
+  scrim_gradient?: string;
   sort_order?: number;
   active?: boolean;
 }
@@ -117,39 +122,44 @@ export default function BannerCarousel() {
                   />
                 )}
 
-                {/* Text panel — solid light scrim ONLY behind text (max 35% alpha if dark) */}
-                {/* We use a solid white/tinted panel for guaranteed contrast >= 4.5:1 */}
+                {/* Text panel — adaptive scrim behind text for guaranteed contrast >= 4.5:1 */}
                 <div
                   className="absolute left-0 top-0 bottom-0 flex flex-col justify-center p-4 sm:p-6"
                   style={{
-                    width: '55%',
+                    width: '56%',
                     background: hasImage
-                      ? 'linear-gradient(90deg, rgba(255,255,255,0.92) 60%, rgba(255,255,255,0) 100%)'
+                      ? (b.scrim_gradient || 'linear-gradient(90deg, rgba(255,255,255,0.92) 55%, rgba(255,255,255,0) 100%)')
                       : 'transparent',
                   }}
                 >
                   {b.badge && (
                     <span
-                      className="inline-block text-[10px] font-black px-2 py-0.5 rounded-full mb-1.5 w-fit"
-                      style={{ backgroundColor: 'var(--g1-yellow-bg)', color: '#7A4F00' }}
+                      className="inline-block text-[10px] font-black tracking-wide px-2 py-0.5 rounded-full mb-1.5 w-fit uppercase"
+                      style={{
+                        backgroundColor: b.badge_bg || 'var(--g1-yellow-bg)',
+                        color: b.badge_color || '#7A4F00',
+                      }}
                     >
                       {b.badge}
                     </span>
                   )}
                   <h3
                     className="font-black leading-tight"
-                    style={{ fontSize: 22, color: 'var(--g1-text)', maxWidth: 180 }}
+                    style={{ fontSize: 20, color: 'var(--g1-text)', maxWidth: 195 }}
                   >
                     {b.title}
                   </h3>
                   {b.subtitle && (
-                    <p className="text-xs mt-1 line-clamp-2" style={{ color: 'var(--g1-text-secondary)', maxWidth: 160 }}>
+                    <p className="text-xs mt-1 line-clamp-2 leading-relaxed" style={{ color: 'var(--g1-text-secondary)', maxWidth: 180 }}>
                       {b.subtitle}
                     </p>
                   )}
                   <div
-                    className="mt-3 inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-bold w-fit"
-                    style={{ backgroundColor: 'var(--g1-primary)', color: '#fff' }}
+                    className="mt-2.5 inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-bold w-fit shadow-sm"
+                    style={{
+                      backgroundColor: b.cta_bg || 'var(--g1-primary)',
+                      color: b.cta_color || '#fff',
+                    }}
                   >
                     {b.cta}
                   </div>
