@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import {
@@ -23,6 +23,7 @@ import {
   Sparkles,
   FileText,
 } from 'lucide-react';
+import DeliveryJourneyAnimation from '@/components/orders/DeliveryJourneyAnimation';
 import { formatIndianPhoneDisplay } from '@/lib/phone';
 import { STORE_CONFIG } from '@/config/store';
 import { useNotification } from '@/context/NotificationContext';
@@ -32,16 +33,17 @@ import type { Product } from '@/types';
 
 interface Props {
   orderId: string;
+  initialOrder?: any;
 }
 
-export default function OrderDetailClient({ orderId }: Props) {
+export default function OrderDetailClient({ orderId, initialOrder }: Props) {
   const searchParams = useSearchParams();
   const isJustPlaced = searchParams.get('placed') === 'true';
   const isPaid = searchParams.get('paid') === 'true';
   const { notifyOrderStatus } = useNotification();
   const { clearCart } = useCart();
 
-  const [order, setOrder] = useState<any>(null);
+  const [order, setOrder] = useState<any>(initialOrder || null);
 
   // Phase 5 & 6 Payment state for slip orders
   const [paymentMethod, setPaymentMethod] = useState<'online' | 'cod'>('online');
@@ -92,6 +94,9 @@ export default function OrderDetailClient({ orderId }: Props) {
     return () => clearTimeout(searchTimer);
   }, [itemSearchQuery, showAddItemsModal]);
 
+  const notifyRef = useRef(notifyOrderStatus);
+  notifyRef.current = notifyOrderStatus;
+
   useEffect(() => {
     let found = false;
     try {
@@ -124,7 +129,7 @@ export default function OrderDetailClient({ orderId }: Props) {
         if (data.success && data.order) {
           setOrder((prev: any) => {
             if (prev && prev.status && prev.status !== data.order.status) {
-              notifyOrderStatus(orderId, data.order.status, data.order);
+              notifyRef.current(orderId, data.order.status, data.order);
             }
             return { ...prev, ...data.order };
           });
@@ -140,7 +145,7 @@ export default function OrderDetailClient({ orderId }: Props) {
         if (payData.success && payData.order) {
           setOrder((prev: any) => {
             if (prev && prev.status && prev.status !== payData.order.status) {
-              notifyOrderStatus(orderId, payData.order.status, payData.order);
+              notifyRef.current(orderId, payData.order.status, payData.order);
             }
             return { ...prev, ...payData.order };
           });
@@ -181,7 +186,7 @@ export default function OrderDetailClient({ orderId }: Props) {
       window.removeEventListener('storage', handleStorageChange);
       if (bc) bc.close();
     };
-  }, [orderId, notifyOrderStatus]);
+  }, [orderId]);
 
   useEffect(() => {
     if (isJustPlaced || isPaid) {
@@ -386,242 +391,137 @@ export default function OrderDetailClient({ orderId }: Props) {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-4 pb-24 pt-2 sm:pt-4 px-3 sm:px-0">
-      {/* Top Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Link
-            href="/orders"
-            className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50"
-          >
-            <ArrowLeft className="w-4 h-4" />
-          </Link>
-          <div>
-            <h1 className="text-base sm:text-lg font-black text-[#212121] flex items-center gap-2">
-              <span>Order #{orderId}</span>
-              {isSlipOrder && (
-                <span className="text-[10px] font-black uppercase bg-emerald-100 text-[#1B5E20] px-2 py-0.5 rounded-full border border-emerald-300">
-                  Slip Order
-                </span>
-              )}
-            </h1>
-            <span className="text-[11px] text-stone-500 font-medium">
-              {order?.date || 'Today'} · {isPickup ? 'Store Pickup' : 'Express Doorstep Delivery'}
-            </span>
-          </div>
+    <div className="min-h-screen bg-[#F6F7F8] pb-48">
+      {/* Top Header — Reference C: Deep Green Bar */}
+      <header
+        className="sticky top-0 z-30 flex items-center justify-between px-4 text-white shadow-xs"
+        style={{ height: 56, backgroundColor: 'var(--g1-primary)' }}
+      >
+        <Link
+          href="/orders"
+          aria-label="Back to orders"
+          className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-white/10 active:scale-95 transition-all text-white cursor-pointer shrink-0"
+        >
+          <ArrowLeft className="w-5 h-5 text-white" strokeWidth={2.2} />
+        </Link>
+
+        <div className="flex-1 text-center px-2 min-w-0">
+          <h1 className="font-bold text-sm sm:text-base text-white truncate flex items-center justify-center gap-1.5">
+            <span>Order #{orderId}</span>
+            {isSlipOrder && (
+              <span className="text-[9px] font-black uppercase bg-emerald-800 text-white px-2 py-0.5 rounded-full border border-emerald-600">
+                Slip
+              </span>
+            )}
+          </h1>
+          <p className="text-[11px] text-emerald-100 truncate mt-0.5 font-medium">
+            {order?.date || 'Today'} · {isPickup ? 'Store Pickup' : 'Express Doorstep Delivery'}
+          </p>
         </div>
 
-        {order?.eta_min && (
-          <div className="text-right">
-            <span className="text-[10px] font-bold text-stone-400 block uppercase">ETA</span>
-            <span className="text-xs font-black text-[#2E7D32]">~{order.eta_min} mins</span>
+        <div className="w-9 flex items-center justify-end shrink-0">
+          {order?.eta_min ? (
+            <span className="text-[10px] font-bold bg-white/20 text-white px-2 py-0.5 rounded-full whitespace-nowrap">
+              ~{order.eta_min}m
+            </span>
+          ) : (
+            <div className="w-9" />
+          )}
+        </div>
+      </header>
+
+      {/* Main Page Content */}
+      <main className="max-w-2xl mx-auto px-3 sm:px-4 pt-3 space-y-3.5">
+        {/* Just Placed / Paid Congratulations Pill */}
+        {(isJustPlaced || isPaid) && (
+          <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 flex items-start gap-3 shadow-xs animate-in fade-in">
+            <CheckCircle2 className="w-6 h-6 text-[#1E6B2E] shrink-0 mt-0.5" />
+            <div>
+              <h2 className="text-sm font-extrabold text-emerald-900">
+                {isPaid
+                  ? 'Payment Confirmed & Order Placed!'
+                  : isSlipOrder
+                  ? 'We received your list. Our team will call you to confirm!'
+                  : 'Order Confirmed & Dispatched to Hub!'}
+              </h2>
+              <p className="text-xs text-emerald-700 mt-0.5 leading-relaxed">
+                {isPaid
+                  ? `We received your payment of ₹${order?.paidAmount || order?.finalTotal || order?.grandTotal || '—'}. Our store team is packing your groceries fresh.`
+                  : isSlipOrder
+                  ? 'Our Nellore store manager is transcribing your list. Once confirmed and packed fresh, your verified final bill will appear here.'
+                  : 'We received your order. Our store team is packing your groceries fresh.'}
+              </p>
+            </div>
           </div>
         )}
-      </div>
 
-      {/* Just Placed / Paid Congratulations Pill */}
-      {(isJustPlaced || isPaid) && (
-        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 flex items-start gap-3 shadow-xs animate-in fade-in">
-          <CheckCircle2 className="w-6 h-6 text-[#2E7D32] shrink-0 mt-0.5" />
-          <div>
-            <h2 className="text-sm font-extrabold text-emerald-900">
-              {isPaid
-                ? 'Payment Confirmed & Order Placed!'
-                : isSlipOrder
-                ? 'We received your list. Our team will call you to confirm!'
-                : 'Order Confirmed & Dispatched to Hub!'}
-            </h2>
-            <p className="text-xs text-emerald-700 mt-0.5 leading-relaxed">
-              {isPaid
-                ? `We received your payment of ₹${order?.paidAmount || order?.finalTotal || order?.grandTotal || '—'}. Our store team is packing your groceries fresh.`
-                : isSlipOrder
-                ? 'Our Nellore store manager is transcribing your list. Once confirmed and packed fresh, your verified final bill will appear here.'
-                : 'We received your order. Our store team is packing your groceries fresh.'}
-            </p>
+        {/* Error alert */}
+        {paymentError && (
+          <div className="p-3 bg-rose-50 border border-rose-200 rounded-2xl text-rose-900 text-xs font-bold flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
+            <span>{paymentError}</span>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Error alert */}
-      {paymentError && (
-        <div className="p-3 bg-rose-50 border border-rose-200 rounded-2xl text-rose-900 text-xs font-bold flex items-center gap-2">
-          <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
-          <span>{paymentError}</span>
-        </div>
-      )}
+        {/* Illustrated Delivery Journey Component — Reference C Primary Visual Feature */}
+        <DeliveryJourneyAnimation
+          status={order?.status || 'Order Placed'}
+          orderType={order?.orderType}
+          orderId={orderId}
+          etaMin={order?.eta_min}
+        />
 
-      {/* Main Order Card */}
-      <div className="bg-white rounded-2xl border border-stone-200/80 p-4 shadow-2xs space-y-4">
-        {/* Status Header */}
-        <div className="flex items-center justify-between border-b border-stone-100 pb-3">
-          <div>
-            <span className="text-xs text-stone-400 font-semibold block">Order Status</span>
-            <span className="text-sm sm:text-base font-black text-[#2E7D32] flex items-center gap-1.5">
-              <span>
-                {order?.status === 'SLIP_RECEIVED'
-                  ? 'List Received by Store'
-                  : order?.status === 'BILLING'
-                  ? 'Bill in Preparation'
-                  : order?.status === 'AWAITING_CUSTOMER_CONFIRMATION'
-                  ? 'Awaiting Store Confirmation Call'
-                  : order?.status === 'CONFIRMED'
-                  ? 'Confirmed · Preparing Packing'
-                  : order?.status === 'PACKING'
-                  ? 'Packing Fresh Items'
-                  : order?.status === 'PACKED' || order?.status === 'AWAITING_PAYMENT'
-                  ? 'Packed · Awaiting Bill Payment'
-                  : order?.status === 'COD_PENDING'
-                  ? 'Pay on Delivery Confirmed'
-                  : order?.status === 'PAID'
-                  ? 'Paid Online · Ready for Dispatch'
-                  : order?.status || 'Order Placed'}
-              </span>
-              {(order?.status === 'PACKING' || order?.status === 'AWAITING_PAYMENT' || order?.status === 'Out for Delivery') && (
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              )}
-            </span>
-          </div>
-
-          <div className="text-right">
-            <span className="text-xs text-stone-400 font-semibold block">Payment Status</span>
-            <span
-              className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-black ${
-                isFullyPaid
-                  ? 'bg-emerald-100 text-[#1B5E20] border border-emerald-300'
-                  : isCodPending
-                  ? 'bg-orange-100 text-orange-900 border border-orange-300'
-                  : 'bg-amber-100 text-amber-900 border border-amber-300'
-              }`}
-            >
-              {isFullyPaid
-                ? '✓ Paid & Confirmed'
-                : isCodPending
-                ? 'Cash on Delivery (Pending)'
-                : 'Payment Pending'}
-            </span>
-          </div>
-        </div>
-
-        {/* Live Tracking Timeline */}
-        {(() => {
-          const status = order?.status || 'Order Placed';
-          const isConfirmed =
-            status === 'CONFIRMED' ||
-            status === 'PACKING' ||
-            status === 'PACKED' ||
-            status === 'AWAITING_PAYMENT' ||
-            status === 'PAID' ||
-            status === 'COD_PENDING' ||
-            status === 'RIDER_ASSIGNED' ||
-            status === 'OUT_FOR_DELIVERY' ||
-            status === 'Delivered';
-
-          const isPacked =
-            status === 'PACKED' ||
-            status === 'AWAITING_PAYMENT' ||
-            status === 'PAID' ||
-            status === 'COD_PENDING' ||
-            status === 'RIDER_ASSIGNED' ||
-            status === 'OUT_FOR_DELIVERY' ||
-            status === 'Delivered';
-
-          const isDispatched =
-            status === 'RIDER_ASSIGNED' ||
-            status === 'OUT_FOR_DELIVERY' ||
-            status === 'Order Dispatched' ||
-            status === 'Delivered';
-
-          const isDelivered = status === 'Delivered' || status === 'DELIVERED';
-
-          return (
-            <div className="space-y-3 py-1 text-xs">
-              {/* Step 1: Placed / Received */}
-              <div className="flex items-center gap-3 text-emerald-800">
-                <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
-                <span className="font-bold">
-                  {isSlipOrder ? 'Grocery List Received at Hub' : 'Order Placed & Confirmed'}
+        {/* Main Order Card */}
+        <div className="bg-white rounded-2xl border border-stone-200/90 p-4 shadow-2xs space-y-4">
+          {/* Order Status & Payment Status row — Reference C */}
+          <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+            <div>
+              <span className="text-[11px] text-stone-400 font-semibold block">Order Status</span>
+              <span className="text-sm sm:text-base font-bold text-[#1E6B2E] flex items-center gap-1.5">
+                <span>
+                  {order?.status === 'SLIP_RECEIVED'
+                    ? 'List Received by Store'
+                    : order?.status === 'BILLING'
+                    ? 'Bill in Preparation'
+                    : order?.status === 'AWAITING_CUSTOMER_CONFIRMATION'
+                    ? 'Awaiting Store Confirmation Call'
+                    : order?.status === 'CONFIRMED'
+                    ? 'Confirmed · Preparing Packing'
+                    : order?.status === 'PACKING'
+                    ? 'Packing Fresh Items'
+                    : order?.status === 'PACKED' || order?.status === 'AWAITING_PAYMENT'
+                    ? 'Packed · Awaiting Bill Payment'
+                    : order?.status === 'COD_PENDING'
+                    ? 'Pay on Delivery Confirmed'
+                    : order?.status === 'PAID'
+                    ? 'Paid Online · Ready for Dispatch'
+                    : order?.status || 'Order Placed'}
                 </span>
-              </div>
-
-              {/* Step 2: Confirmed with Store */}
-              <div className="flex items-center gap-3">
-                {isConfirmed ? (
-                  <>
-                    <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
-                    <span className="font-bold text-stone-800">Confirmed by Store Manager</span>
-                  </>
-                ) : (
-                  <>
-                    <div className="w-4 h-4 rounded-full border-2 border-[#2E7D32] border-t-transparent animate-spin" />
-                    <span className="font-bold text-[#2E7D32]">
-                      Store team reviewing your list &amp; pricing...
-                    </span>
-                  </>
+                {(order?.status === 'PACKING' || order?.status === 'AWAITING_PAYMENT' || order?.status === 'Out for Delivery') && (
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 )}
-              </div>
-
-              {/* Step 3: Packing */}
-              <div className="flex items-center gap-3">
-                {isPacked ? (
-                  <>
-                    <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
-                    <span className="font-bold text-stone-800">Packed &amp; Weighed Fresh</span>
-                  </>
-                ) : isConfirmed ? (
-                  <>
-                    <div className="w-4 h-4 rounded-full border-2 border-[#2E7D32] border-t-transparent animate-spin" />
-                    <span className="font-bold text-[#2E7D32]">Packing &amp; preparing fresh items...</span>
-                  </>
-                ) : (
-                  <>
-                    <Clock className="w-4 h-4 text-stone-400" />
-                    <span className="text-stone-400">Packing fresh groceries</span>
-                  </>
-                )}
-              </div>
-
-              {/* Step 4: Dispatch & Express Rider */}
-              <div className="flex items-center gap-3">
-                {isDispatched ? (
-                  <>
-                    <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
-                    <span className="font-bold text-stone-800">
-                      Out for Express Delivery 🛵
-                      {order?.assignedRider?.name && ` (${order.assignedRider.name})`}
-                    </span>
-                  </>
-                ) : isPacked ? (
-                  <>
-                    <Clock className="w-4 h-4 text-stone-400" />
-                    <span className="text-stone-500 font-medium">
-                      Assigning rider after bill payment
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <Clock className="w-4 h-4 text-stone-400" />
-                    <span className="text-stone-400">Out for Express Delivery</span>
-                  </>
-                )}
-              </div>
-
-              {/* Step 5: Delivered */}
-              <div className="flex items-center gap-3">
-                {isDelivered ? (
-                  <>
-                    <CheckCircle2 className="w-4 h-4 text-[#2E7D32]" />
-                    <span className="font-bold text-emerald-800">Delivered at Doorstep 🎉</span>
-                  </>
-                ) : (
-                  <>
-                    <Clock className="w-4 h-4 text-stone-400" />
-                    <span className="text-stone-400">Delivered at Doorstep</span>
-                  </>
-                )}
-              </div>
+              </span>
             </div>
-          );
-        })()}
+
+            <div className="text-right">
+              <span className="text-[11px] text-stone-400 font-semibold block">Payment Status</span>
+              <span
+                className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-bold ${
+                  isFullyPaid
+                    ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                    : isCodPending
+                    ? 'bg-amber-50 text-amber-900 border border-amber-200'
+                    : 'bg-amber-50 text-amber-900 border border-amber-200'
+                }`}
+              >
+                {isFullyPaid
+                  ? '✓ Paid & Confirmed'
+                  : isCodPending
+                  ? 'Cash on Delivery (Pending)'
+                  : 'Payment Pending'}
+              </span>
+            </div>
+          </div>
 
         {/* Doorstep Delivery PIN (Customer Handover Verification) */}
         {(() => {
@@ -763,9 +663,9 @@ export default function OrderDetailClient({ orderId }: Props) {
         {items.length > 0 && (
           <div className="space-y-2.5 border-t border-stone-100 pt-3">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5 text-xs font-black text-stone-800 uppercase tracking-wider">
-                <Package className="w-3.5 h-3.5 text-[#2E7D32]" />
-                <span>Final Billed Items ({items.length})</span>
+              <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-stone-900">
+                <Package className="w-4 h-4 text-[#1E6B2E]" />
+                <span>Items ({items.length})</span>
               </div>
 
               {/* Add items top-up button if awaiting payment */}
@@ -773,7 +673,7 @@ export default function OrderDetailClient({ orderId }: Props) {
                 <button
                   type="button"
                   onClick={() => setShowAddItemsModal(true)}
-                  className="inline-flex items-center gap-1 text-xs font-black text-[#2E7D32] hover:underline"
+                  className="inline-flex items-center gap-1 text-xs font-black text-[#1E6B2E] hover:underline"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>+ Add Items</span>
@@ -850,16 +750,21 @@ export default function OrderDetailClient({ orderId }: Props) {
               })}
             </div>
 
-            {/* Bill Summary */}
-            <div className="bg-stone-50 p-3.5 rounded-2xl border border-stone-200/80 space-y-1.5 text-xs">
+            {/* Bill Summary — Reference C */}
+            <div className="bg-stone-50 p-3.5 rounded-2xl border border-stone-200/80 space-y-2 text-xs">
+              <div className="flex items-center gap-2 font-bold text-stone-900 text-xs sm:text-sm pb-1 border-b border-stone-200/60">
+                <FileText className="w-4 h-4 text-[#1E6B2E]" />
+                <span>Bill Summary</span>
+              </div>
+
               <div className="flex justify-between items-center text-stone-600">
                 <span>Items Subtotal:</span>
                 <span className="font-bold text-stone-900">₹{currentSubtotal}</span>
               </div>
 
               <div className="flex justify-between items-center text-stone-600">
-                <span>Delivery:</span>
-                <span className="font-black text-emerald-700">FREE (₹0)</span>
+                <span>Delivery Charge:</span>
+                <span className="font-bold text-[#1E6B2E]">FREE (₹0)</span>
               </div>
 
               {/* Pay on Delivery Fee row (Phase 5 Rule 2) */}
@@ -871,8 +776,8 @@ export default function OrderDetailClient({ orderId }: Props) {
               )}
 
               <div className="border-t border-stone-200 pt-2 flex justify-between items-center">
-                <span className="font-black text-stone-800 text-sm">Final Bill Total:</span>
-                <span className="text-base font-black text-[#2E7D32]">
+                <span className="font-bold text-stone-900 text-sm">Final Bill Total:</span>
+                <span className="text-base font-black text-[#1E6B2E]">
                   ₹{order?.finalTotal || slipFinalTotal}
                 </span>
               </div>
@@ -986,34 +891,38 @@ export default function OrderDetailClient({ orderId }: Props) {
           </div>
         )}
 
-        {/* Customer Help & Support */}
-        <div className="bg-stone-50 p-4 rounded-xl border border-stone-200/70 space-y-2.5">
+        {/* Customer Help & Support — Reference C */}
+        <div className="bg-stone-50 p-3.5 sm:p-4 rounded-2xl border border-stone-200/70 space-y-2.5">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-stone-800">Need Help with your Order?</span>
-            <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
-              <ShieldCheck className="w-3 h-3 text-[#2E7D32]" />
+            <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+              <ShieldCheck className="w-3 h-3 text-[#1E6B2E]" />
               <span>G1 Mart Care</span>
             </span>
           </div>
-          <div className="flex items-center gap-2 pt-1">
+          <div className="flex items-center gap-2.5 pt-1">
             <a
               href={`tel:${(STORE_CONFIG.contact.phone || '+919876543210').replace(/\s+/g, '')}`}
-              className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-white hover:bg-stone-100 text-stone-800 font-bold rounded-xl text-xs border border-stone-200 transition-colors shadow-2xs"
+              className="flex-1 h-11 inline-flex items-center justify-center gap-2 px-3 bg-white hover:bg-stone-100 active:scale-95 text-stone-800 font-bold rounded-xl text-xs sm:text-sm border border-stone-200 transition-all shadow-2xs cursor-pointer"
             >
-              <Phone className="w-3.5 h-3.5 text-[#2E7D32]" />
+              <Phone className="w-4 h-4 text-[#1E6B2E]" />
               <span>Call Store</span>
             </a>
             <a
               href={`https://wa.me/${(STORE_CONFIG.contact.whatsapp || '919876543210').replace(/\D/g, '')}?text=${encodeURIComponent(`Hi G1 Mart Team, I have an inquiry regarding Order #${orderId}`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-[#25D366] hover:bg-[#20ba59] text-white font-bold rounded-xl text-xs transition-colors shadow-2xs"
+              className="flex-1 h-11 inline-flex items-center justify-center gap-2 px-3 bg-[#1E6B2E] hover:bg-[#155223] active:scale-95 text-white font-bold rounded-xl text-xs sm:text-sm transition-all shadow-xs cursor-pointer"
             >
+              <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.077-2.079-.496-1.637-.679-2.684-2.348-2.766-2.456-.081-.109-.652-.868-.652-1.652 0-.784.412-1.17.558-1.328.146-.159.32-.198.428-.198.107 0 .214.002.308.006.098.005.231-.038.36.273.134.323.456 1.111.496 1.192.04.081.067.176.014.283-.053.107-.08.175-.16.27-.08.095-.169.213-.241.286-.081.082-.166.17-.071.332.094.163.42 1.002 1.018 1.533.771.686 1.42.898 1.62.998.2.1.317.087.435-.048.118-.135.508-.59.643-.792.135-.202.27-.168.455-.1.185.068 1.172.553 1.374.654.202.101.337.151.386.236.049.085.049.493-.095.898z" />
+              </svg>
               <span>WhatsApp Store</span>
             </a>
           </div>
         </div>
       </div>
+    </main>
 
       {/* MODAL 1: ADD TOP-UP ITEMS TO MEET ZONE MINIMUM */}
       {showAddItemsModal && (

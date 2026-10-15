@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { serverOrderStore } from '@/lib/serverOrderStore';
+import { serverSlipOrders } from '@/lib/serverSlipOrders';
 import { sanitizeIndianPhone } from '@/lib/phone';
 
 export async function GET(req: NextRequest) {
@@ -7,18 +8,104 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get('userId') || undefined;
     const phone = searchParams.get('phone') || undefined;
+    const cleanPhone = phone ? phone.replace(/\D/g, '').slice(-10) : '';
 
-    let orders = [];
-    if (userId || phone) {
-      orders = serverOrderStore.getUserOrders(userId, phone);
+    let standardOrders: any[] = [];
+    if (userId || cleanPhone) {
+      standardOrders = serverOrderStore.getUserOrders(userId, cleanPhone);
     } else {
-      orders = serverOrderStore.getAllOrders();
+      standardOrders = serverOrderStore.getAllOrders();
     }
+
+    let slipOrdersFormatted: any[] = [];
+    try {
+      const allSlips = await serverSlipOrders.getSlipOrders();
+      const matchedSlips = allSlips.filter((s) => {
+        if (cleanPhone) {
+          const sPhone = (s.customer_phone || '').replace(/\D/g, '').slice(-10);
+          return sPhone === cleanPhone;
+        }
+        return !userId;
+      });
+
+      slipOrdersFormatted = matchedSlips.map((slipOrder) => ({
+        id: slipOrder.id,
+        orderNumber: slipOrder.id,
+        date: new Date(slipOrder.created_at).toLocaleDateString('en-IN', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
+        status: slipOrder.status,
+        type: 'slip',
+        orderType: slipOrder.order_type,
+        subtotal: slipOrder.subtotal,
+        estimatedTotal: slipOrder.estimated_total,
+        finalTotal: slipOrder.final_total,
+        grandTotal: slipOrder.final_total || slipOrder.estimated_total,
+        total: slipOrder.final_total || slipOrder.estimated_total,
+        deliveryFee: slipOrder.delivery_fee,
+        codFee: slipOrder.cod_fee,
+        paymentMethod: slipOrder.payment_method || 'Cash on Delivery',
+        paymentStatus: slipOrder.payment_status,
+        isPaid: slipOrder.payment_status === 'paid' || slipOrder.payment_status === 'completed',
+        items: (slipOrder.items || []).map((it) => ({
+          id: it.id,
+          productId: it.product_id,
+          productName: it.name,
+          unit: it.unit,
+          price: it.price,
+          quantity: it.packed_qty || it.requested_qty,
+          requestedQty: it.requested_qty,
+          packedQty: it.packed_qty,
+          available: it.available,
+          substituteNote: it.substitute_note,
+          image: '/products/placeholder.svg',
+        })),
+        images: slipOrder.images,
+        address: {
+          fullName: slipOrder.customer_name,
+          phone: slipOrder.customer_phone,
+          mobileNumber: slipOrder.customer_phone,
+          streetArea: slipOrder.address,
+          city: 'Nellore',
+        },
+        distance_km: slipOrder.distance_km,
+        eta_min: slipOrder.eta_min,
+        zone_min_order: slipOrder.zone_min_order,
+        customerNote: slipOrder.customer_note,
+        assignedRider: slipOrder.assigned_rider_name
+          ? {
+              id: slipOrder.assigned_rider_id,
+              name: slipOrder.assigned_rider_name,
+              phone: slipOrder.assigned_rider_phone,
+            }
+          : undefined,
+      }));
+    } catch (slipErr) {
+      console.warn('[api/orders] Slip orders fetch error:', slipErr);
+    }
+
+    const mergedMap = new Map<string, any>();
+    for (const order of standardOrders) {
+      if (order?.id) mergedMap.set(order.id, order);
+    }
+    for (const slip of slipOrdersFormatted) {
+      if (slip?.id && !mergedMap.has(slip.id)) {
+        mergedMap.set(slip.id, slip);
+      }
+    }
+
+    const merged = Array.from(mergedMap.values()).sort(
+      (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
+    );
 
     return NextResponse.json({
       success: true,
-      orders,
-      count: orders.length,
+      orders: merged,
+      count: merged.length,
     });
   } catch (err: any) {
     return NextResponse.json(
