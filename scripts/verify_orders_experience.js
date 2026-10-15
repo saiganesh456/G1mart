@@ -45,6 +45,7 @@ async function run() {
       cwd: path.resolve(__dirname, '..'),
       stdio: ['ignore', 'pipe', 'pipe'],
       detached: false,
+      shell: true,
     });
 
     serverProc.stdout.on('data', (d) => process.stdout.write(`[dev] ${d}`));

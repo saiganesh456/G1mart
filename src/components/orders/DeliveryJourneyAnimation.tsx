@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Package, CheckCircle2, Bike, Home } from 'lucide-react';
+import { Package, CheckCircle2, Bike, Home, Check } from 'lucide-react';
 
 export type JourneyStage = 'received' | 'reviewing' | 'packing' | 'out_for_delivery' | 'delivered';
 
@@ -106,6 +106,166 @@ export default function DeliveryJourneyAnimation({ status, orderType }: Props) {
             <p className="text-xs font-bold text-emerald-950">G1 Mart Fresh Grocery Journey</p>
           </div>
         )}
+
+        {/* 4-STAGE MILESTONE TIMELINE — Directly inside the card matching Reference C */}
+        <div className="px-2.5 sm:px-4 pt-3 pb-3.5 bg-white border-t border-stone-100 select-none">
+          <div className="flex items-start justify-between">
+            {/* Step 1: Order Placed */}
+            <div className="flex flex-col items-center text-center w-14 sm:w-20 shrink-0">
+              <div
+                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
+                  journey.stepNumber > 1
+                    ? 'bg-[#1E6B2E] text-white shadow-xs'
+                    : journey.stepNumber === 1
+                    ? 'bg-[#1E6B2E] text-white shadow-sm ring-4 ring-[#DCFCE7] ring-offset-1'
+                    : 'bg-stone-50 border-2 border-stone-200 text-stone-400'
+                }`}
+              >
+                <Check className="w-4 h-4 stroke-[2.5]" />
+              </div>
+              <p
+                className={`mt-1.5 text-[10px] sm:text-xs leading-tight ${
+                  journey.stepNumber >= 1 ? 'font-bold text-stone-900' : 'font-medium text-stone-500'
+                }`}
+              >
+                Order<br />Placed
+              </p>
+            </div>
+
+            {/* Connector 1 -> 2 */}
+            <div className="flex-1 flex items-center justify-center px-0.5 pt-3 sm:pt-3.5 min-w-[16px]">
+              <svg className="w-full h-2.5 overflow-visible" viewBox="0 0 36 10" preserveAspectRatio="none">
+                <line
+                  x1="0"
+                  y1="5"
+                  x2="30"
+                  y2="5"
+                  stroke={journey.stepNumber >= 2 ? '#1E6B2E' : '#D6D3D1'}
+                  strokeWidth="2"
+                  strokeDasharray="3 3"
+                />
+                <polygon
+                  points="28,2 34,5 28,8"
+                  fill={journey.stepNumber >= 2 ? '#1E6B2E' : '#D6D3D1'}
+                />
+              </svg>
+            </div>
+
+            {/* Step 2: Packing Fresh Items */}
+            <div className="flex flex-col items-center text-center w-14 sm:w-20 shrink-0">
+              <div
+                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
+                  journey.stepNumber > 2
+                    ? 'bg-[#1E6B2E] text-white shadow-xs'
+                    : journey.stepNumber === 2
+                    ? 'bg-[#1E6B2E] text-white shadow-sm ring-4 ring-[#DCFCE7] ring-offset-1'
+                    : 'bg-stone-50 border-2 border-stone-200 text-stone-400'
+                }`}
+              >
+                {journey.stepNumber > 2 ? (
+                  <Check className="w-4 h-4 stroke-[2.5]" />
+                ) : (
+                  <Package className="w-4 h-4 stroke-[2]" />
+                )}
+              </div>
+              <p
+                className={`mt-1.5 text-[10px] sm:text-xs leading-tight ${
+                  journey.stepNumber >= 2 ? 'font-bold text-stone-900' : 'font-medium text-stone-500'
+                }`}
+              >
+                Packing<br />Fresh Items
+              </p>
+            </div>
+
+            {/* Connector 2 -> 3 */}
+            <div className="flex-1 flex items-center justify-center px-0.5 pt-3 sm:pt-3.5 min-w-[16px]">
+              <svg className="w-full h-2.5 overflow-visible" viewBox="0 0 36 10" preserveAspectRatio="none">
+                <line
+                  x1="0"
+                  y1="5"
+                  x2="30"
+                  y2="5"
+                  stroke={journey.stepNumber >= 3 ? '#1E6B2E' : '#D6D3D1'}
+                  strokeWidth="2"
+                  strokeDasharray="3 3"
+                />
+                <polygon
+                  points="28,2 34,5 28,8"
+                  fill={journey.stepNumber >= 3 ? '#1E6B2E' : '#D6D3D1'}
+                />
+              </svg>
+            </div>
+
+            {/* Step 3: Out for Delivery */}
+            <div className="flex flex-col items-center text-center w-14 sm:w-20 shrink-0">
+              <div
+                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
+                  journey.stepNumber > 3
+                    ? 'bg-[#1E6B2E] text-white shadow-xs'
+                    : journey.stepNumber === 3
+                    ? 'bg-[#1E6B2E] text-white shadow-sm ring-4 ring-[#DCFCE7] ring-offset-1'
+                    : 'bg-stone-50 border-2 border-stone-200 text-stone-400'
+                }`}
+              >
+                {journey.stepNumber > 3 ? (
+                  <Check className="w-4 h-4 stroke-[2.5]" />
+                ) : (
+                  <Bike className="w-4 h-4 stroke-[2]" />
+                )}
+              </div>
+              <p
+                className={`mt-1.5 text-[10px] sm:text-xs leading-tight ${
+                  journey.stepNumber >= 3 ? 'font-bold text-stone-900' : 'font-medium text-stone-500'
+                }`}
+              >
+                Out for<br />Delivery
+              </p>
+            </div>
+
+            {/* Connector 3 -> 4 */}
+            <div className="flex-1 flex items-center justify-center px-0.5 pt-3 sm:pt-3.5 min-w-[16px]">
+              <svg className="w-full h-2.5 overflow-visible" viewBox="0 0 36 10" preserveAspectRatio="none">
+                <line
+                  x1="0"
+                  y1="5"
+                  x2="30"
+                  y2="5"
+                  stroke={journey.stepNumber >= 4 ? '#1E6B2E' : '#D6D3D1'}
+                  strokeWidth="2"
+                  strokeDasharray="3 3"
+                />
+                <polygon
+                  points="28,2 34,5 28,8"
+                  fill={journey.stepNumber >= 4 ? '#1E6B2E' : '#D6D3D1'}
+                />
+              </svg>
+            </div>
+
+            {/* Step 4: Delivered at Doorstep */}
+            <div className="flex flex-col items-center text-center w-14 sm:w-20 shrink-0">
+              <div
+                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all ${
+                  journey.stepNumber === 4
+                    ? 'bg-[#1E6B2E] text-white shadow-sm ring-4 ring-[#DCFCE7] ring-offset-1'
+                    : 'bg-stone-50 border-2 border-stone-200 text-stone-400'
+                }`}
+              >
+                {journey.stepNumber === 4 ? (
+                  <Check className="w-4 h-4 stroke-[2.5]" />
+                ) : (
+                  <Home className="w-4 h-4 stroke-[2]" />
+                )}
+              </div>
+              <p
+                className={`mt-1.5 text-[10px] sm:text-xs leading-tight ${
+                  journey.stepNumber === 4 ? 'font-bold text-stone-900' : 'font-medium text-stone-500'
+                }`}
+              >
+                Delivered<br />at Doorstep
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* 2. ACTIVE STAGE HIGHLIGHT CARD — Reference Image Pale Mint Surface */}
