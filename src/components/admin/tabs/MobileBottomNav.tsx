@@ -1,5 +1,6 @@
 import React from 'react';
 import { LayoutDashboard, Package, Layers, Users, Camera, Settings, FileText } from 'lucide-react';
+import { triggerNavHaptic } from '@/lib/haptics';
 
 interface Props {
   activeTab: string;
@@ -26,7 +27,10 @@ export default function MobileBottomNav({ activeTab, onChangeTab, orderBadge, sl
           <button
             key={item.id}
             type="button"
-            onClick={() => onChangeTab(item.id)}
+            onClick={() => {
+              triggerNavHaptic();
+              onChangeTab(item.id);
+            }}
             className={`relative flex flex-col items-center justify-center py-1 px-3 rounded-2xl transition-all ${
               isActive ? 'text-[#1B5E20]' : 'text-stone-500 hover:text-stone-800'
             }`}

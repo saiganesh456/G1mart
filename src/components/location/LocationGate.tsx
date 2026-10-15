@@ -6,7 +6,6 @@ import { useLocation } from '@/context/LocationContext';
 import LocationPermissionDeniedModal from './LocationPermissionDeniedModal';
 import PrePromptModal from './PrePromptModal';
 import ManualLocationModal from './ManualLocationModal';
-import LocationMovedBanner from './LocationMovedBanner';
 import UnserviceablePage from './UnserviceablePage';
 
 interface Props {
@@ -60,27 +59,41 @@ export default function LocationGate({ children }: Props) {
         children
       )}
 
-      {/* 1. Location Permission Denied Popup (Modelled on location-popup.png) */}
+      {/* 1. Location Permission Denied Popup */}
       <LocationPermissionDeniedModal
         isOpen={showDeniedPopup}
         onEnableDeviceLocation={requestDeviceLocationPermission}
         onSelectManually={() => {
           setShowDeniedPopup(false);
+          try {
+            localStorage.setItem('g1mart_location_prompt_dismissed_v1', 'true');
+          } catch {}
           setIsModalOpen(true);
         }}
-        onClose={() => setShowDeniedPopup(false)}
+        onClose={() => {
+          setShowDeniedPopup(false);
+          try {
+            localStorage.setItem('g1mart_location_prompt_dismissed_v1', 'true');
+          } catch {}
+        }}
       />
 
-      {/* 2. Short Friendly Pre-Prompt Screen before browser prompt */}
+      {/* 2. Short Friendly Pre-Prompt Screen for brand new visitors */}
       <PrePromptModal
         isOpen={showPrePromptModal}
         onContinueToGps={requestDeviceLocationPermission}
         onSelectManually={() => {
           setShowPrePromptModal(false);
+          try {
+            localStorage.setItem('g1mart_location_prompt_dismissed_v1', 'true');
+          } catch {}
           setIsModalOpen(true);
         }}
         onClose={() => {
           setShowPrePromptModal(false);
+          try {
+            localStorage.setItem('g1mart_location_prompt_dismissed_v1', 'true');
+          } catch {}
         }}
       />
 
@@ -92,18 +105,6 @@ export default function LocationGate({ children }: Props) {
           setIsModalOpen(false);
         }}
       />
-
-      {/* 4. GPS Re-detection movement confirmation (> 500m moved) */}
-      {movedLocationAlert && (
-        <LocationMovedBanner
-          isOpen={Boolean(movedLocationAlert)}
-          savedLocation={movedLocationAlert.savedLoc}
-          detectedLocation={movedLocationAlert.detectedLoc}
-          distanceMovedMeters={movedLocationAlert.distanceMovedMeters}
-          onConfirmNew={() => confirmMovedLocation(true)}
-          onKeepSaved={() => confirmMovedLocation(false)}
-        />
-      )}
     </>
   );
 }

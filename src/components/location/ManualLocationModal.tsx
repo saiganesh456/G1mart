@@ -113,6 +113,7 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
   const geocodeDebounceRef = useRef<NodeJS.Timeout | null>(null);
+  const skipNextReverseGeocodeRef = useRef<boolean>(false);
 
   // Computed delivery metrics
   const deliveryInfo = calculateDeliveryDetails(pinLat, pinLng);
@@ -232,6 +233,10 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
     map.on('moveend', () => {
       setIsPanning(false);
       const { rLat, rLng } = syncCenter();
+      if (skipNextReverseGeocodeRef.current) {
+        skipNextReverseGeocodeRef.current = false;
+        return;
+      }
       if (geocodeDebounceRef.current) {
         clearTimeout(geocodeDebounceRef.current);
       }
@@ -315,6 +320,7 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
     const lat = Number(item.lat || STORE_LAT);
     const lng = Number(item.lng || STORE_LNG);
 
+    skipNextReverseGeocodeRef.current = true;
     setPinLat(lat);
     setPinLng(lng);
     setResolvedAddress(item.fullAddress || item.title);
@@ -329,6 +335,9 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
     // Move map directly to centered coordinates
     if (mapInstanceRef.current) {
       mapInstanceRef.current.setView([lat, lng], 16, { animate: true });
+      setTimeout(() => {
+        mapInstanceRef.current?.invalidateSize();
+      }, 150);
     }
   };
 
@@ -464,7 +473,7 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
         </div>
 
         {/* Search Bar with live autocomplete & Enter key submission */}
-        <div className="p-3 sm:p-4 pb-2 border-b border-stone-100 shrink-0 relative bg-stone-50/50">
+        <div className="p-3 sm:p-4 pb-2 border-b border-stone-100 shrink-0 relative bg-white z-[1100]">
           <form onSubmit={handleSearchSubmit} className="relative">
             <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
@@ -477,11 +486,24 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
                   handleSearchSubmit();
                 }
               }}
-              placeholder="Search area (e.g. Balaji Nellore, Magunta, Kovur)..."
-              className="w-full h-11 pl-10 pr-16 rounded-2xl bg-white border border-stone-200 text-xs sm:text-sm font-medium text-stone-900 outline-none focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32]/10 transition-all placeholder:text-stone-400"
+              placeholder="Search area (e.g. Molapeta, Harnadhapuram, Balaji Nagar)..."
+              className="w-full h-11 pl-10 pr-24 rounded-2xl bg-stone-50 hover:bg-white focus:bg-white border border-stone-200 text-xs sm:text-sm font-medium text-stone-900 outline-none focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32]/10 transition-all placeholder:text-stone-400"
             />
             {isSearching && (
-              <RefreshCw className="w-3.5 h-3.5 text-[#2E7D32] animate-spin absolute right-10 top-1/2 -translate-y-1/2" />
+              <RefreshCw className="w-3.5 h-3.5 text-[#2E7D32] animate-spin absolute right-16 top-1/2 -translate-y-1/2" />
+            )}
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchQuery('');
+                  setSuggestions([]);
+                }}
+                className="w-6 h-6 rounded-full bg-stone-200 hover:bg-stone-300 text-stone-600 flex items-center justify-center absolute right-11 top-1/2 -translate-y-1/2 cursor-pointer transition-colors"
+                aria-label="Clear search"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
             )}
             <button
               type="submit"
@@ -491,19 +513,29 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
             </button>
           </form>
 
-          {/* Autocomplete Suggestions Dropdown */}
+          {/* Autocomplete Suggestions Dropdown — High z-index overlay directly above map */}
           {suggestions.length > 0 && (
-            <div className="absolute left-3 sm:left-4 right-3 sm:right-4 top-16 z-30 bg-white rounded-2xl shadow-2xl border border-stone-200 overflow-hidden divide-y divide-stone-100 max-h-60 overflow-y-auto animate-in fade-in duration-150">
+            <div className="absolute left-3 sm:left-4 right-3 sm:right-4 top-[62px] z-[1200] bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.35)] border border-stone-200 overflow-hidden divide-y divide-stone-100 max-h-72 overflow-y-auto animate-in fade-in duration-150">
+              <div className="px-3 py-1.5 bg-stone-50 border-b border-stone-100 flex items-center justify-between text-[10px] font-extrabold text-stone-500 uppercase tracking-wider">
+                <span>Select Location ({suggestions.length} found)</span>
+                <button
+                  type="button"
+                  onClick={() => setSuggestions([])}
+                  className="text-stone-400 hover:text-stone-700 cursor-pointer text-xs font-bold"
+                >
+                  ✕
+                </button>
+              </div>
               {suggestions.map((item, idx) => (
                 <button
                   key={idx}
                   type="button"
                   onClick={() => handleSelectSuggestion(item)}
-                  className="w-full p-3 text-left text-xs hover:bg-emerald-50/80 flex items-start gap-2.5 transition-colors cursor-pointer group"
+                  className="w-full p-3 text-left text-xs hover:bg-emerald-50/90 flex items-start gap-2.5 transition-colors cursor-pointer group"
                 >
                   <MapPin className="w-4 h-4 text-[#2E7D32] shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                   <div className="min-w-0 flex-1">
-                    <p className="font-bold text-stone-900">{item.title}</p>
+                    <p className="font-bold text-stone-900 group-hover:text-[#1B5E20] transition-colors">{item.title}</p>
                     <p className="text-[11px] text-stone-500 truncate">{item.subtitle}</p>
                   </div>
                   <ChevronRight className="w-3.5 h-3.5 text-stone-300 group-hover:text-[#2E7D32] shrink-0 self-center" />
@@ -515,13 +547,13 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
           {/* Popular quick areas tags */}
           <div className="flex items-center gap-1.5 overflow-x-auto py-2 no-scrollbar text-[11px]">
             <span className="text-stone-400 font-semibold shrink-0">Popular:</span>
-            {['Balaji Nagar', 'Magunta Layout', 'Pogathota', 'VRC Centre', 'Kovur', 'Padarupalli'].map(
+            {['Molapeta', 'Harnadhapuram', 'Balaji Nagar', 'Magunta Layout', 'Pogathota', 'VRC Centre', 'Padarupalli'].map(
               (area) => (
                 <button
                   key={area}
                   type="button"
                   onClick={() => handleSelectPresetArea(area)}
-                  className="px-2.5 py-1 rounded-lg bg-white border border-stone-200 hover:border-[#2E7D32] hover:text-[#2E7D32] text-stone-600 font-medium whitespace-nowrap transition-colors cursor-pointer shadow-2xs"
+                  className="px-2.5 py-1 rounded-lg bg-stone-50 border border-stone-200 hover:border-[#2E7D32] hover:text-[#2E7D32] hover:bg-emerald-50/50 text-stone-700 font-medium whitespace-nowrap transition-colors cursor-pointer shadow-2xs"
                 >
                   {area}
                 </button>
@@ -531,7 +563,7 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
         </div>
 
         {/* Map Container */}
-        <div className="relative flex-1 min-h-[220px] sm:min-h-[260px] bg-stone-100 overflow-hidden">
+        <div className="relative flex-1 min-h-[220px] sm:min-h-[260px] bg-stone-100 overflow-hidden z-0">
           <div ref={mapContainerRef} className="w-full h-full min-h-[220px] sm:min-h-[260px]" />
 
           {/* Fixed Stationary Center Pin Overlay — Always pinned to exact center of map */}

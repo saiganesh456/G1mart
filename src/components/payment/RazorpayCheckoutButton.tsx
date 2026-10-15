@@ -114,6 +114,8 @@ export default function RazorpayCheckoutButton({
       }
 
       // 4. Step 2: Open Razorpay Standard Checkout Modal
+      const callbackUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/api/payment/callback?orderId=${encodeURIComponent(order_id)}`;
+
       const options = {
         key: razorpayKey,
         amount: orderData.amount,
@@ -121,6 +123,8 @@ export default function RazorpayCheckoutButton({
         name: orderName,
         description: orderDescription || `Order Payment #${order_id}`,
         order_id: order_id,
+        callback_url: callbackUrl,
+        redirect: true,
         prefill: {
           name: customerName,
           email: customerEmail,

@@ -68,13 +68,19 @@ export async function POST(request: NextRequest) {
             }
           }
 
+          const isTechCode = (str: string) => /^(MDR|SH|NH|\d+)/i.test(str.trim()) || /\bMDR\d*/i.test(str.trim());
+
           if (nearestLocality && nearestLocality.distanceKm <= 1.5) {
             if (!area || area.toLowerCase().includes('urban')) {
               area = nearestLocality.locality.area;
             }
-            if (!street) {
-              street = nearestLocality.locality.name;
+            if (!street || isTechCode(street)) {
+              street = nearestLocality.locality.landmark || nearestLocality.locality.name;
             }
+          }
+
+          if (isTechCode(street)) {
+            street = nearestLocality?.locality.name || 'Doorstep Delivery Location';
           }
 
           const result: ReverseGeocodeResult = {
@@ -117,19 +123,35 @@ export async function POST(request: NextRequest) {
         const pincode = (addr.postcode || nearestLocality?.locality.pincode || '524001').trim();
         const state = (addr.state || 'Andhra Pradesh').trim();
 
+        // Helper to detect and replace cryptic highway codes (MDR085, SH, NH, pure road numbers)
+        const isTechnicalHighwayCode = (str: string) => {
+          if (!str) return false;
+          const s = str.trim();
+          return /^(MDR|SH|NH|\d+)/i.test(s) || /\bMDR\d*/i.test(s) || s.toLowerCase().includes('urban');
+        };
+
         let street = rawRoad || village || suburb;
         let area = suburb || village || mandal;
 
-        // If Nominatim returns technical words like "Nellore Urban", replace with matched Nellore locality
-        if (nearestLocality && (!area || area.toLowerCase().includes('urban') || area.toLowerCase() === 'nellore')) {
-          area = nearestLocality.locality.area;
-          if (!street || street.toLowerCase().includes('urban') || /^(MDR|SH|NH)/i.test(street)) {
-            street = nearestLocality.locality.name;
-          }
+        // If street or area has technical highway codes (e.g. MDR085, NH16, Nellore Urban), clean them
+        if (isTechnicalHighwayCode(street)) {
+          street = nearestLocality?.locality.landmark || nearestLocality?.locality.name || area || 'Doorstep Location';
         }
 
-        const cleanStreet = street || nearestLocality?.locality.name || 'Doorstep Location';
-        const cleanArea = area || nearestLocality?.locality.area || 'Nellore';
+        if (isTechnicalHighwayCode(area) || !area || area.toLowerCase().includes('urban') || area.toLowerCase() === 'nellore') {
+          area = nearestLocality?.locality.area || 'Nellore';
+        }
+
+        let cleanStreet = street || nearestLocality?.locality.name || 'Doorstep Location';
+        if (isTechnicalHighwayCode(cleanStreet)) {
+          cleanStreet = nearestLocality?.locality.name || 'Doorstep Location';
+        }
+
+        let cleanArea = area || nearestLocality?.locality.area || 'Nellore';
+        if (isTechnicalHighwayCode(cleanArea)) {
+          cleanArea = nearestLocality?.locality.area || 'Nellore';
+        }
+
         const cleanAddress = `${cleanStreet}, ${cleanArea}, ${city}, Andhra Pradesh - ${pincode}`;
 
         const result: ReverseGeocodeResult = {

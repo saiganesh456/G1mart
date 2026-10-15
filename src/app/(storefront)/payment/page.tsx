@@ -39,6 +39,7 @@ export default function PaymentPage() {
 
   // Razorpay Test Simulation Modal State
   const [showRazorpayModal, setShowRazorpayModal] = useState(false);
+  const [recentOrder, setRecentOrder] = useState<any>(null);
   const [pendingPaymentData, setPendingPaymentData] = useState<{
     orderId: string;
     razorpayOrderId: string;
@@ -46,6 +47,25 @@ export default function PaymentPage() {
     grandTotal: number;
     keyId: string;
   } | null>(null);
+
+  // If user arrives at /payment with ?paid=true and ?orderId=, redirect to order detail page immediately
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const paid = params.get('paid');
+      const orderId = params.get('orderId');
+      if (orderId && paid === 'true') {
+        router.replace(`/orders/${orderId}?paid=true`);
+      }
+      try {
+        const raw = localStorage.getItem('g1mart_recent_order');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          setRecentOrder(parsed);
+        }
+      } catch {}
+    }
+  }, [router]);
 
   // Fetch store settings for configured COD fee (Rule 3)
   useEffect(() => {
@@ -225,6 +245,46 @@ export default function PaymentPage() {
       }
 
       // --- Option A: Pay Online via Razorpay Standard Checkout ---
+      // Cache pending order so if mobile UPI switches app or tab reloads, items and details are preserved
+      const pendingOrderRecord = {
+        id: data.orderId,
+        orderNumber: data.orderId,
+        date: new Date().toLocaleDateString('en-IN', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        }),
+        status: 'Order Placed',
+        paymentMethod: 'Pay Online (Razorpay)',
+        paymentStatus: 'pending',
+        subtotal: data.subtotal || cartSubtotal,
+        deliveryFee: 0,
+        codFee: 0,
+        grandTotal: data.grandTotal,
+        total: data.grandTotal,
+        items: cart.map((i) => ({
+          productId: i.product.id,
+          productName: i.product.name,
+          unit: i.variant?.size_label || i.product.unit,
+          price: i.variant?.price || i.product.price,
+          quantity: i.quantity,
+          image: i.product.image || '/products/placeholder.svg',
+          variantId: i.variantId,
+          sizeLabel: i.variant?.size_label,
+        })),
+        address: effectiveAddress,
+        slot: addressData?.selectedSlot || (isPickup ? 'Store Pickup' : 'Standard Delivery'),
+        userId: supabaseUser?.id || undefined,
+        userEmail: user?.email || supabaseUser?.email || undefined,
+      };
+
+      try {
+        sessionStorage.setItem('g1mart_latest_order', JSON.stringify(pendingOrderRecord));
+        localStorage.setItem('g1mart_recent_order', JSON.stringify(pendingOrderRecord));
+      } catch {}
+
       setPendingPaymentData({
         orderId: data.orderId,
         razorpayOrderId: data.providerOrderId,
@@ -254,6 +314,9 @@ export default function PaymentPage() {
         return;
       }
 
+      // Explicit callback link for Razorpay redirection upon UPI completion (as instructed by Razorpay support)
+      const callbackUrl = `${window.location.origin}/api/payment/callback?orderId=${encodeURIComponent(data.orderId)}`;
+
       const options = {
         key: data.keyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: data.amountInPaise,
@@ -261,6 +324,8 @@ export default function PaymentPage() {
         name: 'G1 Mart Supermarket',
         description: `Order #${data.orderId}`,
         order_id: data.providerOrderId,
+        callback_url: callbackUrl,
+        redirect: true,
         prefill: {
           name: effectiveAddress.fullName || user?.name || '',
           contact: effectiveAddress.phone || effectiveAddress.mobileNumber || user?.phone || '',
@@ -421,6 +486,35 @@ export default function PaymentPage() {
   };
 
   if (cartItemCount === 0) {
+    if (recentOrder) {
+      return (
+        <div className="max-w-md mx-auto py-16 text-center space-y-4 px-4 animate-in fade-in">
+          <div className="w-16 h-16 bg-emerald-100 text-[#2E7D32] rounded-2xl flex items-center justify-center mx-auto">
+            <CheckCircle2 className="w-9 h-9" />
+          </div>
+          <h2 className="text-xl font-black text-stone-900">Order Placed Successfully!</h2>
+          <p className="text-stone-600 text-xs">
+            Your order <strong className="text-stone-900">#{recentOrder.id}</strong> has been received and confirmed.
+          </p>
+          <div className="pt-2 space-y-2">
+            <Link
+              href={`/orders/${recentOrder.id}?paid=true`}
+              className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl text-xs font-bold transition-all shadow-md active:scale-[0.98]"
+            >
+              <span>View Order Details &amp; Track Items</span>
+              <ChevronRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/"
+              className="w-full inline-block px-5 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl text-xs font-bold transition-all"
+            >
+              Return to Store
+            </Link>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="max-w-md mx-auto py-20 text-center space-y-4 px-4">
         <div className="w-16 h-16 bg-stone-100 rounded-2xl flex items-center justify-center mx-auto text-stone-400">

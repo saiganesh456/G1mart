@@ -98,7 +98,7 @@ export async function POST(req: NextRequest, { params }: Props) {
       customerPhone: order.customer_phone,
       customerName: order.customer_name,
       redirectUrl: `${baseUrl}/orders/${order.id}?paid=true`,
-      callbackUrl: `${baseUrl}/api/payment/webhook`,
+      callbackUrl: `${baseUrl}/api/payment/callback?orderId=${encodeURIComponent(order.id)}`,
     });
 
     return NextResponse.json({

@@ -76,8 +76,11 @@ export default function AddressBottomSheet({
         setFullName(user?.name || '');
         setPhone(user?.phone ? sanitizeIndianPhone(user.phone) : '');
         setHouseFlat('');
-        setStreetArea(currentLocation.street || currentLocation.area || '');
-        setLandmark(currentLocation.area !== currentLocation.street ? currentLocation.area : '');
+        const isTechCode = (s?: string) => !s || /^(MDR|SH|NH|\d+)/i.test(s.trim()) || /\bMDR\b/i.test(s.trim());
+        const cleanSt = !isTechCode(currentLocation.street) ? currentLocation.street : '';
+        const cleanAr = !isTechCode(currentLocation.area) ? currentLocation.area : '';
+        setStreetArea(cleanSt || cleanAr || 'Padarupalli');
+        setLandmark(cleanAr && cleanAr !== cleanSt ? cleanAr : '');
         setCity(currentLocation.city || STORE_CONFIG.address.city || 'Nellore');
         setPincode(currentLocation.pincode || '');
         setAddressType('Home');
@@ -106,6 +109,8 @@ export default function AddressBottomSheet({
             const trimmed = sub.trim();
             if (
               trimmed &&
+              !/^(MDR|SH|NH|\d+)/i.test(trimmed) &&
+              !/\bMDR\b/i.test(trimmed) &&
               !uniqueParts.some((p) => p.toLowerCase() === trimmed.toLowerCase()) &&
               trimmed.toLowerCase() !== (loc.city || '').toLowerCase()
             ) {
@@ -114,7 +119,7 @@ export default function AddressBottomSheet({
           });
         });
         const cleanStreetArea = uniqueParts.join(', ');
-        setStreetArea(cleanStreetArea || loc.street || loc.area || 'Trunk Road Area');
+        setStreetArea(cleanStreetArea || (loc.area && !/^(MDR|SH|NH|\d+)/i.test(loc.area) ? loc.area : 'Padarupalli'));
         setCity(loc.city || STORE_CONFIG.address.city || 'Nellore');
         if (loc.pincode) setPincode(loc.pincode);
         if (loc.lat && loc.lng) {

@@ -67,6 +67,7 @@ interface LocationContextType {
 
 const STORAGE_KEY = 'g1mart_delivery_location_v1';
 const MANUAL_STORAGE_KEY = 'g1mart_saved_manual_location_v1';
+export const PROMPT_DISMISSED_KEY = 'g1mart_location_prompt_dismissed_v1';
 
 const DEFAULT_LOCATION: DeliveryLocation = {
   formattedAddress: `${STORE_CONFIG.address.area || 'Padarupalli'}, ${STORE_CONFIG.address.city || 'Nellore'}`,
@@ -284,9 +285,8 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
 
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(enriched));
-        if (saveAsManual) {
-          localStorage.setItem(MANUAL_STORAGE_KEY, JSON.stringify(enriched));
-        }
+        localStorage.setItem(MANUAL_STORAGE_KEY, JSON.stringify(enriched));
+        localStorage.setItem(PROMPT_DISMISSED_KEY, 'true');
       } catch {}
 
       setHasConfirmedLocation(true);
@@ -392,7 +392,8 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
   }, [detectLocation]);
 
   /**
-   * Phase 3: Location Gate (Runs on EVERY app open / launch)
+   * Phase 3: Location Gate (Runs on app open / launch)
+   * Non-intrusive: Once user sets/confirms their location, never nag them with popups.
    */
   useEffect(() => {
     let active = true;
@@ -400,16 +401,18 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
     const runLocationGateOnAppOpen = async () => {
       let savedLoc: DeliveryLocation | null = null;
       let savedManualLoc: DeliveryLocation | null = null;
+      let isPromptDismissed = false;
 
       try {
         const rawSaved = localStorage.getItem(STORAGE_KEY);
         const rawManual = localStorage.getItem(MANUAL_STORAGE_KEY);
         if (rawSaved) savedLoc = JSON.parse(rawSaved);
         if (rawManual) savedManualLoc = JSON.parse(rawManual);
+        isPromptDismissed = localStorage.getItem(PROMPT_DISMISSED_KEY) === 'true';
       } catch {}
 
-      const hasSaved = Boolean((savedManualLoc && savedManualLoc.lat) || (savedLoc && savedLoc.lat));
-      setHasConfirmedLocation(hasSaved);
+      const activeSaved =
+        savedManualLoc && savedManualLoc.lat ? savedManualLoc : savedLoc && savedLoc.lat ? savedLoc : null;
 
       // Check current browser permission state
       let pState: 'granted' | 'prompt' | 'denied' | 'unknown' = 'unknown';
@@ -426,53 +429,36 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
       if (!active) return;
       setPermissionState(pState);
 
-      // Case 1: Permission Granted -> Silently acquire GPS position
+      // Case 1: User ALREADY has a saved location.
+      // ALWAYS respect and keep it. NEVER show nagging popups or movement alerts!
+      if (activeSaved) {
+        setHasConfirmedLocation(true);
+        setShowPrePromptModal(false);
+        setShowDeniedPopup(false);
+        setMovedLocationAlert(null);
+        await applyLocation(activeSaved, false);
+        setIsGateReady(true);
+        return;
+      }
+
+      // Case 2: No saved location, but user already dismissed location modal before.
+      // Respect their dismissal and load default location without interrupting.
+      if (isPromptDismissed) {
+        setHasConfirmedLocation(true);
+        setShowPrePromptModal(false);
+        setShowDeniedPopup(false);
+        setMovedLocationAlert(null);
+        await applyLocation(DEFAULT_LOCATION, false);
+        setIsGateReady(true);
+        return;
+      }
+
+      // Case 3: First-time visitor with permission already granted -> silently acquire GPS
       if (pState === 'granted') {
         try {
           setIsDetecting(true);
           const position = await acquireHighAccuracyGPS(4000);
           const { latitude, longitude, accuracy } = position.coords;
-
-          // Check if user has a saved manual location from before and moved > 500m
-          if (savedManualLoc && savedManualLoc.lat && savedManualLoc.lng) {
-            const movedMeters = computeDistanceMeters(
-              savedManualLoc.lat,
-              savedManualLoc.lng,
-              latitude,
-              longitude
-            );
-
-            if (movedMeters > 500) {
-              const geoData = await reverseGeocode(latitude, longitude);
-              const detectedLoc: DeliveryLocation = {
-                formattedAddress:
-                  geoData?.formattedAddress ||
-                  `GPS Location (${latitude.toFixed(4)}, ${longitude.toFixed(4)})`,
-                street: geoData?.street || 'Current GPS Location',
-                area: geoData?.area || geoData?.city || 'Nellore',
-                city: geoData?.city || 'Nellore',
-                pincode: geoData?.pincode || '',
-                state: geoData?.state || 'Andhra Pradesh',
-                lat: latitude,
-                lng: longitude,
-                accuracy: Math.round(accuracy),
-              };
-
-              setMovedLocationAlert({
-                savedLoc: savedManualLoc,
-                detectedLoc,
-                distanceMovedMeters: movedMeters,
-              });
-
-              // Apply saved manual until user confirms choice
-              await applyLocation(savedManualLoc, false);
-              setIsGateReady(true);
-              setIsDetecting(false);
-              return;
-            }
-          }
-
-          // Move is <= 500m or no saved manual -> use fresh GPS directly
           const geoData = await reverseGeocode(latitude, longitude);
           const freshGpsLoc: DeliveryLocation = {
             formattedAddress:
@@ -488,7 +474,7 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
             accuracy: Math.round(accuracy),
           };
 
-          await applyLocation(freshGpsLoc, false);
+          await applyLocation(freshGpsLoc, true);
           setIsGateReady(true);
           setIsDetecting(false);
           return;
@@ -498,42 +484,8 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
         }
       }
 
-      // Case 2: Permission not yet asked (prompt)
-      if (pState === 'prompt') {
-        if (savedManualLoc && savedManualLoc.lat && savedManualLoc.lng) {
-          // Reuse saved manual address on next open
-          await applyLocation(savedManualLoc, false);
-          setIsGateReady(true);
-        } else {
-          // Preceded by short friendly screen
-          setShowPrePromptModal(true);
-          setIsGateReady(true);
-        }
-        return;
-      }
-
-      // Case 3: Permission Denied/Blocked
-      if (pState === 'denied') {
-        if (savedManualLoc && savedManualLoc.lat && savedManualLoc.lng) {
-          // Reuse saved manual address
-          await applyLocation(savedManualLoc, false);
-          setIsGateReady(true);
-        } else {
-          // Show centered popup modelled on location-popup.png
-          setShowDeniedPopup(true);
-          setIsGateReady(true);
-        }
-        return;
-      }
-
-      // Fallback for browsers without Permissions API
-      if (savedManualLoc && savedManualLoc.lat) {
-        await applyLocation(savedManualLoc, false);
-      } else if (savedLoc && savedLoc.lat) {
-        await applyLocation(savedLoc, false);
-      } else {
-        setShowPrePromptModal(true);
-      }
+      // Case 4: Brand new visitor with no saved location and not dismissed
+      setShowPrePromptModal(true);
       setIsGateReady(true);
     };
 

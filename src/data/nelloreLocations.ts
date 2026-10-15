@@ -118,14 +118,56 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
   },
   {
     id: 'haranathapuram',
-    name: 'Haranathapuram',
-    aliases: ['haranathapuram', 'haranadhapuram', 'harinathapuram', 'haranathapuram nellore'],
+    name: 'Haranathapuram (Harnadhapuram)',
+    aliases: [
+      'harnadhapuram',
+      'harnathapuram',
+      'harnadapuram',
+      'harnatapuram',
+      'harnadha puram',
+      'harnatha puram',
+      'harnath puram',
+      'harnadhapuram nellore',
+      'haranathapuram',
+      'haranadhapuram',
+      'harinathapuram',
+      'harinadhapuram',
+      'haranatha puram',
+      'haranadha puram',
+      'haranathapuram nellore',
+    ],
     area: 'Haranathapuram',
     city: 'Nellore',
     pincode: '524003',
     lat: 14.4361,
     lng: 79.9715,
-    landmark: 'Haranathapuram Main Road',
+    landmark: 'Haranathapuram Main Road / Near Childrens Park',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'molapeta',
+    name: 'Molapeta (Mulapet)',
+    aliases: [
+      'molapeta',
+      'molapet',
+      'mola peta',
+      'mulapeta',
+      'mulapet',
+      'mula peta',
+      'moolapeta',
+      'moolapet',
+      'moola peta',
+      'molapeta nellore',
+      'mulapet nellore',
+      'moolapeta nellore',
+      'mulapeta area',
+    ],
+    area: 'Molapeta',
+    city: 'Nellore',
+    pincode: '524003',
+    lat: 14.4224,
+    lng: 79.9803,
+    landmark: 'Near Mulapet Sub-Post Office / Ranganayakulapet',
     zoneId: 'zone-0-5',
   },
   {
@@ -314,6 +356,198 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
     landmark: 'Nellore APSRTC Complex',
     zoneId: 'zone-0-5',
   },
+  {
+    id: 'ranganayakulapet',
+    name: 'Ranganayakulapet',
+    aliases: ['ranganayakulapet', 'ranganayakula pet', 'ranganayakulapeta', 'ranganayaka pet'],
+    area: 'Ranganayakulapet',
+    city: 'Nellore',
+    pincode: '524001',
+    lat: 14.4410,
+    lng: 79.9920,
+    landmark: 'Near Sri Ranganayaka Swamy Temple',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'saraswathi-nagar',
+    name: 'Saraswathi Nagar',
+    aliases: ['saraswathi nagar', 'saraswati nagar', 'saraswathinagar'],
+    area: 'Saraswathi Nagar',
+    city: 'Nellore',
+    pincode: '524003',
+    lat: 14.4370,
+    lng: 79.9760,
+    landmark: 'Near Saraswathi Temple / Beside Magunta Layout',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'chinna-bazar',
+    name: 'Chinna Bazar',
+    aliases: ['chinna bazar', 'chinnabazar', 'small bazaar', 'chinna bazaar'],
+    area: 'Chinna Bazar',
+    city: 'Nellore',
+    pincode: '524001',
+    lat: 14.4470,
+    lng: 79.9890,
+    landmark: 'Trunk Road, Chinna Bazar',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'pedda-bazar',
+    name: 'Pedda Bazar',
+    aliases: ['pedda bazar', 'peddabazar', 'big bazaar nellore', 'pedda bazaar'],
+    area: 'Pedda Bazar',
+    city: 'Nellore',
+    pincode: '524001',
+    lat: 14.4490,
+    lng: 79.9910,
+    landmark: 'Near Vegetable Market / Big Mosque',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'ac-nagar',
+    name: 'AC Nagar (A.C. Nagar)',
+    aliases: ['ac nagar', 'a c nagar', 'acnagar', 'a.c. nagar', 'ac nagar nellore'],
+    area: 'AC Nagar',
+    city: 'Nellore',
+    pincode: '524002',
+    lat: 14.4415,
+    lng: 79.9780,
+    landmark: 'Near Balaji Nagar & Current Office Road',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'subedarpet',
+    name: 'Subedarpet',
+    aliases: ['subedarpet', 'subedar pet', 'subedarpeta'],
+    area: 'Subedarpet',
+    city: 'Nellore',
+    pincode: '524001',
+    lat: 14.4455,
+    lng: 79.9840,
+    landmark: 'Near Subedarpet Police Station / Trunk Road',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'kisan-nagar',
+    name: 'Kisan Nagar',
+    aliases: ['kisan nagar', 'kisannagar', 'kisan nagar nellore'],
+    area: 'Kisan Nagar',
+    city: 'Nellore',
+    pincode: '524002',
+    lat: 14.4520,
+    lng: 79.9750,
+    landmark: 'Near Podalakur Road / Kisan Nagar',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'chandramouli-nagar',
+    name: 'Chandramouli Nagar',
+    aliases: ['chandramouli nagar', 'chandramoulinagar'],
+    area: 'Chandramouli Nagar',
+    city: 'Nellore',
+    pincode: '524002',
+    lat: 14.4510,
+    lng: 79.9820,
+    landmark: 'Beside Balaji Nagar Main Road',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'mansoor-nagar',
+    name: 'Mansoor Nagar',
+    aliases: ['mansoor nagar', 'mansoornagar'],
+    area: 'Mansoor Nagar',
+    city: 'Nellore',
+    pincode: '524002',
+    lat: 14.4460,
+    lng: 79.9730,
+    landmark: 'Near Balaji Nagar Arch',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'wood-complex',
+    name: 'Wood Complex / AK Nagar',
+    aliases: ['wood complex', 'ak nagar', 'ashok nagar', 'a k nagar', 'wood complex nellore'],
+    area: 'Wood Complex',
+    city: 'Nellore',
+    pincode: '524004',
+    lat: 14.4250,
+    lng: 79.9650,
+    landmark: 'Beside Mini Bypass / Padarupalli',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'auto-nagar',
+    name: 'Auto Nagar',
+    aliases: ['auto nagar', 'autonagar', 'industrial estate nellore'],
+    area: 'Auto Nagar',
+    city: 'Nellore',
+    pincode: '524004',
+    lat: 14.4180,
+    lng: 79.9590,
+    landmark: 'Industrial Estate, Auto Nagar',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'dhanalakshmi-puram',
+    name: 'Dhanalakshmi Puram',
+    aliases: ['dhanalakshmi puram', 'dhanalakshmipuram', 'dhanalakshmi nagar'],
+    area: 'Dhanalakshmi Puram',
+    city: 'Nellore',
+    pincode: '524002',
+    lat: 14.4560,
+    lng: 79.9700,
+    landmark: 'Near Podalakur Road',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'ngo-colony',
+    name: 'NGO Colony',
+    aliases: ['ngo colony', 'n.g.o. colony', 'ngocolony'],
+    area: 'NGO Colony',
+    city: 'Nellore',
+    pincode: '524004',
+    lat: 14.4310,
+    lng: 79.9700,
+    landmark: 'Near Padarupalli / Magunta Layout',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'postal-colony',
+    name: 'Postal Colony',
+    aliases: ['postal colony', 'postalcolony'],
+    area: 'Postal Colony',
+    city: 'Nellore',
+    pincode: '524004',
+    lat: 14.4270,
+    lng: 79.9690,
+    landmark: 'Near Vedayapalem Road',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'teachers-colony',
+    name: 'Teachers Colony',
+    aliases: ['teachers colony', 'teacher colony', 'teacherscolony'],
+    area: 'Teachers Colony',
+    city: 'Nellore',
+    pincode: '524003',
+    lat: 14.4380,
+    lng: 79.9680,
+    landmark: 'Near Dargamitta',
+    zoneId: 'zone-0-5',
+  },
+  {
+    id: 'venkateswarapuram',
+    name: 'Venkateswarapuram',
+    aliases: ['venkateswarapuram', 'venkateswara puram', 'venkataswarapuram'],
+    area: 'Venkateswarapuram',
+    city: 'Nellore',
+    pincode: '524005',
+    lat: 14.4670,
+    lng: 79.9800,
+    landmark: 'Near Penna Bridge / NH16',
+    zoneId: 'zone-0-5',
+  },
 
   // 5 - 10 km City Zone
   {
@@ -448,17 +682,32 @@ export const NELLORE_LOCALITIES: NelloreAreaItem[] = [
 ];
 
 /**
- * Intelligent token-based search for Nellore locations.
- * Matches multi-word queries like "Balaji Nellore", "Padara Palli", "Magunta Layout", etc.
+ * Helper to normalize string for lenient Indian address search
+ */
+function normalizeLoc(str: string): string {
+  return str.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+/**
+ * Intelligent token-based & fuzzy phonetic search for Nellore locations.
+ * Matches:
+ * - Multi-word queries ("Balaji Nellore", "Mola Peta", "Padara Palli")
+ * - Transliteration variations ("Harnadhapuram" vs "Haranathapuram", "Molapeta" vs "Mulapet")
+ * - Substrings, prefixes, and normalized compact strings
  */
 export function searchNelloreLocations(query: string, limit = 8): NelloreAreaItem[] {
   const clean = query.trim().toLowerCase();
   if (!clean) return [];
 
+  const cleanNorm = normalizeLoc(clean);
+  const cleanConsonants = cleanNorm.replace(/[aeiou]/g, '').replace(/dh/g, 'th');
   const tokens = clean.split(/\s+/).filter(Boolean);
 
-  // Exact or prefix matches on entire phrase
-  const topMatches: NelloreAreaItem[] = [];
+  // Match buckets with strict priority
+  const exactMatches: NelloreAreaItem[] = [];
+  const prefixMatches: NelloreAreaItem[] = [];
+  const substringMatches: NelloreAreaItem[] = [];
+  const phoneticMatches: NelloreAreaItem[] = [];
   const tokenMatches: NelloreAreaItem[] = [];
   const partialMatches: NelloreAreaItem[] = [];
 
@@ -466,32 +715,79 @@ export function searchNelloreLocations(query: string, limit = 8): NelloreAreaIte
     const nameLower = item.name.toLowerCase();
     const areaLower = item.area.toLowerCase();
     const landmarkLower = (item.landmark || '').toLowerCase();
-    const aliasStr = item.aliases.join(' ').toLowerCase();
+    const aliasArr = item.aliases.map((a) => a.toLowerCase());
+    const aliasStr = aliasArr.join(' ');
     const fullText = `${nameLower} ${areaLower} ${landmarkLower} ${aliasStr} nellore`;
 
-    // 1. Direct exact/prefix match
-    if (nameLower.startsWith(clean) || areaLower.startsWith(clean) || item.aliases.some((a) => a.startsWith(clean))) {
-      topMatches.push(item);
+    const nameNorm = normalizeLoc(item.name);
+    const areaNorm = normalizeLoc(item.area);
+    const aliasesNorm = aliasArr.map(normalizeLoc);
+
+    // 1. Exact match on name, area or any alias
+    if (nameLower === clean || areaLower === clean || aliasArr.includes(clean) || nameNorm === cleanNorm || aliasesNorm.includes(cleanNorm)) {
+      exactMatches.push(item);
       continue;
     }
 
-    // 2. All tokens match (e.g. "Balaji" + "Nellore")
+    // 2. Direct prefix match
+    if (
+      nameLower.startsWith(clean) ||
+      areaLower.startsWith(clean) ||
+      aliasArr.some((a) => a.startsWith(clean)) ||
+      nameNorm.startsWith(cleanNorm) ||
+      aliasesNorm.some((a) => a.startsWith(cleanNorm))
+    ) {
+      prefixMatches.push(item);
+      continue;
+    }
+
+    // 3. Substring match
+    if (
+      nameLower.includes(clean) ||
+      areaLower.includes(clean) ||
+      aliasArr.some((a) => a.includes(clean)) ||
+      nameNorm.includes(cleanNorm) ||
+      aliasesNorm.some((a) => a.includes(cleanNorm))
+    ) {
+      substringMatches.push(item);
+      continue;
+    }
+
+    // 4. Phonetic / Transliteration match (e.g. Harnadhapuram <-> Haranathapuram, Molapeta <-> Mulapeta)
+    if (cleanConsonants.length >= 3) {
+      const itemConsonants = [nameNorm, areaNorm, ...aliasesNorm]
+        .map((s) => s.replace(/[aeiou]/g, '').replace(/dh/g, 'th'));
+      if (itemConsonants.some((c) => c.includes(cleanConsonants) || cleanConsonants.includes(c))) {
+        phoneticMatches.push(item);
+        continue;
+      }
+    }
+
+    // 5. All tokens match (e.g. "Balaji" + "Nellore")
     const allTokensMatch = tokens.every((tok) => fullText.includes(tok));
     if (allTokensMatch) {
       tokenMatches.push(item);
       continue;
     }
 
-    // 3. Any token matches (excluding generic 'nellore' if query has other tokens)
+    // 6. Substantive tokens match
     const substantiveTokens = tokens.filter((t) => t !== 'nellore');
     const searchTokens = substantiveTokens.length > 0 ? substantiveTokens : tokens;
-    const someTokenMatches = searchTokens.some((tok) => fullText.includes(tok));
+    const someTokenMatches = searchTokens.some((tok) => tok.length >= 2 && fullText.includes(tok));
     if (someTokenMatches) {
       partialMatches.push(item);
     }
   }
 
-  const combined = [...topMatches, ...tokenMatches, ...partialMatches];
+  const combined = [
+    ...exactMatches,
+    ...prefixMatches,
+    ...substringMatches,
+    ...phoneticMatches,
+    ...tokenMatches,
+    ...partialMatches,
+  ];
+
   // Deduplicate by ID
   const seen = new Set<string>();
   const unique: NelloreAreaItem[] = [];

@@ -78,17 +78,21 @@ export async function GET(request: NextRequest) {
 
       if (res.ok) {
         const data = await res.json();
+        const isTechCode = (s: string) => /^(MDR|SH|NH|\d+)/i.test((s || '').trim()) || /\bMDR\d*/i.test(s || '');
         const osmSuggestions = (data || []).map((item: any) => {
           const addr = item.address || {};
-          const title =
-            addr.road || addr.suburb || addr.neighbourhood || addr.city || item.name;
+          let rawTitle =
+            addr.suburb || addr.neighbourhood || addr.road || addr.city || item.name;
+          if (isTechCode(rawTitle)) {
+            rawTitle = addr.suburb || addr.neighbourhood || addr.city || 'Nellore Location';
+          }
           const subtitle = [addr.suburb || addr.neighbourhood, addr.city || addr.town || 'Nellore', addr.postcode]
             .filter(Boolean)
             .join(', ');
 
           return {
             id: String(item.place_id),
-            title,
+            title: rawTitle,
             subtitle: subtitle || item.display_name,
             fullAddress: item.display_name,
             lat: Number(item.lat),

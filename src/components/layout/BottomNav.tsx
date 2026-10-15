@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Home, LayoutGrid, Package, User, ArrowRight, Truck } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
+import { triggerNavHaptic } from '@/lib/haptics';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Home', icon: Home, matchPaths: ['/'] },
@@ -48,6 +49,7 @@ export default function BottomNav() {
           <div className="w-full max-w-xl pointer-events-auto">
             <Link
               href="/cart"
+              onClick={() => triggerNavHaptic()}
               aria-label={`View cart with ${cartItemCount} items, total ₹${cartSubtotal}`}
               className="w-full h-14 rounded-2xl px-4 sm:px-5 flex items-center justify-between shadow-2xl active:scale-[0.98] transition-transform g1-press cursor-pointer border border-emerald-600/30"
               style={{ backgroundColor: 'var(--g1-primary)' }}
@@ -115,7 +117,8 @@ export default function BottomNav() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex-1 h-full flex flex-col items-center justify-center relative g1-press"
+              onClick={() => triggerNavHaptic()}
+              className="flex-1 h-full flex flex-col items-center justify-center relative g1-press cursor-pointer"
               aria-current={active ? 'page' : undefined}
               style={{ minWidth: 44, minHeight: 44 }}
             >

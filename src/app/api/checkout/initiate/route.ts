@@ -162,8 +162,8 @@ export async function POST(req: NextRequest) {
     const protocol = req.headers.get('x-forwarded-proto') || (host.includes('localhost') ? 'http' : 'https');
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || `${protocol}://${host}`;
 
-    const redirectUrl = `${baseUrl}/payment/result?orderId=${encodeURIComponent(orderId)}`;
-    const callbackUrl = `${baseUrl}/api/payment/webhook`;
+    const redirectUrl = `${baseUrl}/orders/${encodeURIComponent(orderId)}?paid=true`;
+    const callbackUrl = `${baseUrl}/api/payment/callback?orderId=${encodeURIComponent(orderId)}`;
 
     const paymentResult = await razorpayAdapter.createPayment({
       orderId,

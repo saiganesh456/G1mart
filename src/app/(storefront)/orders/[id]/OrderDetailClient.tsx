@@ -26,6 +26,8 @@ import {
 import { formatIndianPhoneDisplay } from '@/lib/phone';
 import { STORE_CONFIG } from '@/config/store';
 import { useNotification } from '@/context/NotificationContext';
+import { useCart } from '@/context/CartContext';
+import { triggerSuccessHaptic } from '@/lib/haptics';
 import type { Product } from '@/types';
 
 interface Props {
@@ -35,7 +37,9 @@ interface Props {
 export default function OrderDetailClient({ orderId }: Props) {
   const searchParams = useSearchParams();
   const isJustPlaced = searchParams.get('placed') === 'true';
+  const isPaid = searchParams.get('paid') === 'true';
   const { notifyOrderStatus } = useNotification();
+  const { clearCart } = useCart();
 
   const [order, setOrder] = useState<any>(null);
 
@@ -180,10 +184,17 @@ export default function OrderDetailClient({ orderId }: Props) {
   }, [orderId, notifyOrderStatus]);
 
   useEffect(() => {
+    if (isJustPlaced || isPaid) {
+      clearCart();
+      triggerSuccessHaptic();
+      if (typeof document !== 'undefined') {
+        document.cookie = 'g1mart_order_just_paid=; path=/; max-age=0;';
+      }
+    }
     if (isJustPlaced) {
       notifyOrderStatus(orderId, 'Order Placed');
     }
-  }, [isJustPlaced, orderId, notifyOrderStatus]);
+  }, [isJustPlaced, isPaid, orderId, notifyOrderStatus, clearCart]);
 
   const isSlipOrder =
     order?.type === 'slip' ||
@@ -364,6 +375,16 @@ export default function OrderDetailClient({ orderId }: Props) {
     order?.status === 'PACKED' ||
     (isSlipOrder && !isFullyPaid && !isCodPending && (order?.items || []).length > 0 && order?.status !== 'SLIP_RECEIVED' && order?.status !== 'BILLING');
 
+  if (!order) {
+    return (
+      <div className="max-w-2xl mx-auto space-y-4 pb-24 pt-16 px-4 text-center">
+        <div className="w-12 h-12 rounded-full border-4 border-[#2E7D32] border-t-transparent animate-spin mx-auto" />
+        <h2 className="text-base font-bold text-stone-800">Loading your order details...</h2>
+        <p className="text-xs text-stone-500">Order #{orderId}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-2xl mx-auto space-y-4 pb-24 pt-2 sm:pt-4 px-3 sm:px-0">
       {/* Top Header */}
@@ -398,18 +419,22 @@ export default function OrderDetailClient({ orderId }: Props) {
         )}
       </div>
 
-      {/* Just Placed Congratulations Pill */}
-      {isJustPlaced && (
+      {/* Just Placed / Paid Congratulations Pill */}
+      {(isJustPlaced || isPaid) && (
         <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 flex items-start gap-3 shadow-xs animate-in fade-in">
           <CheckCircle2 className="w-6 h-6 text-[#2E7D32] shrink-0 mt-0.5" />
           <div>
             <h2 className="text-sm font-extrabold text-emerald-900">
-              {isSlipOrder
+              {isPaid
+                ? 'Payment Confirmed & Order Placed!'
+                : isSlipOrder
                 ? 'We received your list. Our team will call you to confirm!'
                 : 'Order Confirmed & Dispatched to Hub!'}
             </h2>
             <p className="text-xs text-emerald-700 mt-0.5 leading-relaxed">
-              {isSlipOrder
+              {isPaid
+                ? `We received your payment of ₹${order?.paidAmount || order?.finalTotal || order?.grandTotal || '—'}. Our store team is packing your groceries fresh.`
+                : isSlipOrder
                 ? 'Our Nellore store manager is transcribing your list. Once confirmed and packed fresh, your verified final bill will appear here.'
                 : 'We received your order. Our store team is packing your groceries fresh.'}
             </p>

@@ -7,7 +7,7 @@ import { Phone, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
 import { authService } from '@/services/authService';
 import { useAuth } from '@/context/AuthContext';
 import { sanitizeIndianPhone, isValidIndianPhone } from '@/lib/phone';
-import { sendFirebaseOtp, initRecaptchaVerifier } from '@/lib/firebase/phoneAuth';
+import { sendFirebaseOtp } from '@/lib/firebase/phoneAuth';
 
 function LoginForm() {
   const router = useRouter();
@@ -20,11 +20,6 @@ function LoginForm() {
 
   const nextParam = searchParams.get('next');
   const roleParam = searchParams.get('role');
-
-  // Pre-initialize reCAPTCHA on component mount
-  useEffect(() => {
-    initRecaptchaVerifier('recaptcha-container');
-  }, []);
 
   useEffect(() => {
     if (!authLoading && isLoggedIn) {
