@@ -90,10 +90,9 @@ export default function BannerCarousel() {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Banner — 150–170px on mobile, taller on desktop */}
+      {/* Banner container: responsive height for mobile & desktop with zero cut-off */}
       <div
-        className="relative w-full overflow-hidden bg-[var(--g1-surface)]"
-        style={{ height: 160, borderRadius: 20 }}
+        className="relative w-full overflow-hidden bg-[var(--g1-surface)] rounded-[20px] sm:rounded-[24px] shadow-sm h-[180px] sm:h-[210px] md:h-[235px] lg:h-[250px]"
       >
         {banners.map((b, idx) => {
           const isActive = idx === current;
@@ -108,33 +107,33 @@ export default function BannerCarousel() {
               <Link
                 href={b.link}
                 onClick={(e) => handleBannerClick(e, b)}
-                className="block w-full h-full relative"
+                className="block w-full h-full relative group"
                 aria-label={b.title}
               >
-                {/* Background image — NO dark overlay over the whole image */}
+                {/* Background image — anchored to the right so products stay 100% in-frame */}
                 {hasImage && (
                   <img
                     src={b.bg_image || b.image_url}
                     alt=""
                     loading={idx === 0 ? 'eager' : 'lazy'}
                     decoding="async"
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover object-right"
                   />
                 )}
 
                 {/* Text panel — adaptive scrim behind text for guaranteed contrast >= 4.5:1 */}
                 <div
-                  className="absolute left-0 top-0 bottom-0 flex flex-col justify-center p-4 sm:p-6"
+                  className="absolute left-0 top-0 bottom-0 flex flex-col justify-center px-4 py-3 sm:px-7 sm:py-6"
                   style={{
-                    width: '56%',
+                    width: '52%',
                     background: hasImage
-                      ? (b.scrim_gradient || 'linear-gradient(90deg, rgba(255,255,255,0.92) 55%, rgba(255,255,255,0) 100%)')
+                      ? (b.scrim_gradient || 'linear-gradient(90deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 50%, rgba(255,255,255,0) 100%)')
                       : 'transparent',
                   }}
                 >
                   {b.badge && (
                     <span
-                      className="inline-block text-[10px] font-black tracking-wide px-2 py-0.5 rounded-full mb-1.5 w-fit uppercase"
+                      className="inline-block text-[9px] sm:text-[11px] font-black tracking-wider px-2 sm:px-2.5 py-0.5 rounded-full mb-1 sm:mb-1.5 w-fit uppercase"
                       style={{
                         backgroundColor: b.badge_bg || 'var(--g1-yellow-bg)',
                         color: b.badge_color || '#7A4F00',
@@ -144,24 +143,28 @@ export default function BannerCarousel() {
                     </span>
                   )}
                   <h3
-                    className="font-black leading-tight"
-                    style={{ fontSize: 20, color: 'var(--g1-text)', maxWidth: 195 }}
+                    className="font-black tracking-tight leading-[1.15] text-[17px] sm:text-[22px] md:text-[24px]"
+                    style={{ color: 'var(--g1-text)', maxWidth: 220 }}
                   >
                     {b.title}
                   </h3>
                   {b.subtitle && (
-                    <p className="text-xs mt-1 line-clamp-2 leading-relaxed" style={{ color: 'var(--g1-text-secondary)', maxWidth: 180 }}>
+                    <p
+                      className="text-[11px] sm:text-xs md:text-sm mt-1 sm:mt-1.5 line-clamp-2 leading-[1.3]"
+                      style={{ color: 'var(--g1-text-secondary)', maxWidth: 210 }}
+                    >
                       {b.subtitle}
                     </p>
                   )}
                   <div
-                    className="mt-2.5 inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-bold w-fit shadow-sm"
+                    className="mt-2.5 sm:mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold w-fit shadow-sm transition-transform group-hover:scale-105"
                     style={{
                       backgroundColor: b.cta_bg || 'var(--g1-primary)',
                       color: b.cta_color || '#fff',
                     }}
                   >
-                    {b.cta}
+                    <span>{b.cta}</span>
+                    <span aria-hidden="true" className="text-sm font-normal">→</span>
                   </div>
                 </div>
 
