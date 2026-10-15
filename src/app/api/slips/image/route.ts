@@ -1,0 +1,49 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
+
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const path = searchParams.get('path');
+    const bucket = searchParams.get('bucket') || 'slips';
+
+    if (!path) {
+      return NextResponse.json({ error: 'Missing path parameter' }, { status: 400 });
+    }
+
+    // Clean leading slash or bucket name if passed
+    const cleanPath = path.replace(/^slips\//, '').replace(/^\/+/, '');
+
+    if (isSupabaseConfigured()) {
+      try {
+        // Try download first for direct stream
+        const { data, error } = await supabase.storage.from(bucket).download(cleanPath);
+        if (!error && data) {
+          const buffer = await data.arrayBuffer();
+          const contentType = data.type || (cleanPath.endsWith('.pdf') ? 'application/pdf' : 'image/jpeg');
+          return new NextResponse(buffer, {
+            headers: {
+              'Content-Type': contentType,
+              'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+            },
+          });
+        }
+
+        // Fallback: create fresh signed URL
+        const { data: signedData } = await supabase.storage
+          .from(bucket)
+          .createSignedUrl(cleanPath, 3600);
+
+        if (signedData?.signedUrl) {
+          return NextResponse.redirect(signedData.signedUrl);
+        }
+      } catch (storageErr) {
+        console.warn('[api/slips/image] Storage fetch error:', storageErr);
+      }
+    }
+
+    return NextResponse.json({ error: 'Image not found' }, { status: 404 });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message || 'Internal server error' }, { status: 500 });
+  }
+}
