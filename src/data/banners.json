@@ -1,9 +1,9 @@
 [
   {
     "id": "banner-monthly-list",
-    "title": "Send your monthly grocery list — we pack it",
-    "subtitle": "Upload handwritten slip or WhatsApp photo, our store packs everything with zero markup",
-    "cta": "Upload List",
+    "title": "Your List. Our Delivery.",
+    "subtitle": "Scan once. Shop faster.",
+    "cta": "Upload List →",
     "link": "#scan-slip",
     "bg_image": "/banners/bg_monthly_list.jpg",
     "image_url": "/banners/bg_monthly_list.jpg",
