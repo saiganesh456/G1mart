@@ -9,6 +9,7 @@ import { useLocation } from '@/context/LocationContext';
 import { useAuth } from '@/context/AuthContext';
 import BarcodeScannerModal from '@/components/common/BarcodeScannerModal';
 import SlipScannerModal from '@/components/storefront/SlipScannerModal';
+import CameraMascotPeeker from '@/components/storefront/CameraMascotPeeker';
 
 /** Rotating placeholder words for the home search bar */
 const SEARCH_WORDS = ['soap', 'atta', 'oil', 'milk', 'biscuits', 'rice', 'tea'];
@@ -235,6 +236,9 @@ export default function Header() {
                     Search for soap
                   </div>
                 )}
+
+                {/* 3D Mascot Peeking above the Camera Scan Button */}
+                {isHomePage && <CameraMascotPeeker />}
 
                 {/* Camera / scan icon right */}
                 <button

@@ -78,7 +78,7 @@ async function handleRazorpayCallback(req: NextRequest) {
           orderId: resolvedOrderId,
           providerOrderId: razorpayOrderId,
           transactionId: razorpayPaymentId,
-          error: (errorDescription || errorCode) ?? undefined,
+          error: (errorDescription || errorCode) || undefined,
         });
       }
 
