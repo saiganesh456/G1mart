@@ -88,8 +88,6 @@ export default function Header() {
     currentLocation.street ||
     (currentLocation.formattedAddress ? currentLocation.formattedAddress.split(',')[0] : 'Venkatachalam, Nellore');
 
-  // The avatar initial (first char of name)
-  const avatarInitial = user?.name ? user.name.charAt(0).toUpperCase() : null;
 
   return (
     <>
@@ -142,23 +140,6 @@ export default function Header() {
             </Link>
 
             <div className="flex items-center gap-2">
-              {/* Profile avatar button: 40px circle, surface bg, Lucide user-round */}
-              <Link
-                href={isLoggedIn ? '/account' : '/login'}
-                aria-label={isLoggedIn ? (user?.name || 'My account') : 'Sign in'}
-                className="w-10 h-10 flex items-center justify-center rounded-full text-sm font-bold transition-colors g1-press shrink-0"
-                style={{ backgroundColor: 'var(--g1-surface)', color: 'var(--g1-primary)' }}
-              >
-                {user?.avatar ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={user.avatar} alt={user.name || 'User'} className="w-full h-full object-cover rounded-full" />
-                ) : avatarInitial ? (
-                  <span style={{ color: 'var(--g1-primary)' }}>{avatarInitial}</span>
-                ) : (
-                  <UserRound className="w-[22px] h-[22px]" strokeWidth={1.75} style={{ color: 'var(--g1-text-secondary)' }} />
-                )}
-              </Link>
-
               {/* Mobile Cart button */}
               <Link
                 href="/cart"

@@ -23,7 +23,6 @@ import Image from 'next/image';
 export default function CameraMascotPeeker() {
   const [phase, setPhase] = useState<'hidden' | 'look' | 'wink' | 'hold' | 'scan' | 'rest' | 'duck'>('hidden');
   const [cameraFlash, setCameraFlash] = useState(false);
-  const [textStep, setTextStep] = useState(1);
 
   useEffect(() => {
     let tLook: NodeJS.Timeout;
@@ -45,7 +44,6 @@ export default function CameraMascotPeeker() {
       // 0.8s: Hands on search bar, looking at customer
       tLook = setTimeout(() => {
         setPhase('look');
-        setTextStep(1);
       }, 800);
 
       // 2.2s: Winks at customer 😉
@@ -54,13 +52,11 @@ export default function CameraMascotPeeker() {
       // 3.2s: Shows both hands with slip and phone
       tHold = setTimeout(() => {
         setPhase('hold');
-        setTextStep(2);
       }, 3200);
 
       // 4.8s: Aims phone back camera at slip to scan
       tScan = setTimeout(() => {
         setPhase('scan');
-        setTextStep(3);
       }, 4800);
 
       // 5.4s: Shutter flash on phone back camera
@@ -70,7 +66,6 @@ export default function CameraMascotPeeker() {
       // 7.0s: Resting pose & arrow pointing directly to camera button
       tRest = setTimeout(() => {
         setPhase('rest');
-        setTextStep(4);
       }, 7000);
 
       // 7.2s: Snap flash on the search bar camera button when arrow appears
@@ -130,32 +125,7 @@ export default function CameraMascotPeeker() {
           aria-label="3D Mascot — Scan grocery slip for 15-min delivery"
           style={{ width: 72, height: 58 }}
         >
-          {/* Animated side text pill in Row 2 — lowered slightly */}
-          {phase !== 'hidden' && phase !== 'duck' && (
-            <div className="absolute right-[76px] bottom-1 pointer-events-none whitespace-nowrap z-30 peeker-fade-in">
-              {textStep === 1 && (
-                <div className="bg-emerald-600/95 backdrop-blur-xs text-white text-[8.5px] font-black px-2 py-0.5 rounded-full shadow-xs border border-emerald-400/50 flex items-center gap-1 animate-pulse">
-                  <span>👋 Have a grocery list?</span>
-                </div>
-              )}
-              {textStep === 2 && (
-                <div className="bg-amber-500/95 backdrop-blur-xs text-white text-[8.5px] font-black px-2 py-0.5 rounded-full shadow-xs border border-amber-300/60 flex items-center gap-1 animate-bounce">
-                  <span>📝 Snap your slip!</span>
-                </div>
-              )}
-              {textStep === 3 && (
-                <div className="bg-emerald-600/95 backdrop-blur-xs text-white text-[8.5px] font-black px-2 py-0.5 rounded-full shadow-xs border border-emerald-400/50 flex items-center gap-1 animate-pulse">
-                  <span>📸 Scanning slip...</span>
-                </div>
-              )}
-              {textStep === 4 && (
-                <div className="bg-gray-900/90 backdrop-blur-xs text-white text-[8.5px] font-black px-2 py-0.5 rounded-full shadow-xs border border-emerald-400/50 flex items-center gap-1">
-                  <span className="text-emerald-400">⚡</span>
-                  <span>15-min auto-pack!</span>
-                </div>
-              )}
-            </div>
-          )}
+
 
           {/* Green acoustic / motion ripple lines ((( */}
           {(phase === 'scan' || phase === 'rest') && (
