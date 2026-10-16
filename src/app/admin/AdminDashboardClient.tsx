@@ -58,7 +58,13 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   });
 
   // Notifications & Quick-Commerce Alert Engine
-  const { notifyWelcome, notifyApkDownloaded, notifyOrderStatus } = useNotification();
+  const {
+    notifyWelcome,
+    notifyApkDownloaded,
+    notifyOrderStatus,
+    requestPushPermission,
+    isPermissionGranted,
+  } = useNotification();
   const [audioEnabled, setAudioEnabled] = useState(true);
   const audioEnabledRef = useRef(true);
   useEffect(() => {
@@ -66,6 +72,41 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   }, [audioEnabled]);
   const [isAlarmRinging, setIsAlarmRinging] = useState(false);
   const [newOrderAlert, setNewOrderAlert] = useState<Order | null>(null);
+  const [pushStatusMessage, setPushStatusMessage] = useState<string | null>(null);
+  const [testingPush, setTestingPush] = useState(false);
+
+  const handleEnablePush = async () => {
+    try {
+      const ok = await requestPushPermission();
+      if (ok) {
+        setPushStatusMessage('Background alerts enabled! Your phone will alert you when orders arrive.');
+        setTimeout(() => setPushStatusMessage(null), 5000);
+      } else {
+        alert('Notification permission was not granted. Please allow notifications in your browser settings.');
+      }
+    } catch (e: any) {
+      alert('Error enabling notifications: ' + e.message);
+    }
+  };
+
+  const handleTestBackgroundPush = async () => {
+    try {
+      setTestingPush(true);
+      const res = await fetch('/api/notifications/test-admin-push', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        setPushStatusMessage(data.message || 'Sent test alert!');
+        setTimeout(() => setPushStatusMessage(null), 6000);
+      } else {
+        alert(data.error || 'Failed to send test alert');
+      }
+    } catch (e: any) {
+      alert('Error testing alert: ' + e.message);
+    } finally {
+      setTestingPush(false);
+    }
+  };
+
 
   const audioCtxRef = useRef<AudioContext | null>(null);
   const alarmAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -942,6 +983,62 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
 
       {/* 3. MAIN CONTENT WORKSPACE AREA */}
       <main className="flex-1 w-full min-w-0">
+        {/* Real-time Background Push Status Banner for Store Admins */}
+        {!isPermissionGranted ? (
+          <div className="bg-gradient-to-r from-[#1B5E20] via-emerald-800 to-green-700 text-white rounded-3xl p-4 sm:p-5 mb-4 shadow-sm border border-emerald-600/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center shrink-0">
+                <Bell className="w-5 h-5 text-white animate-bounce" />
+              </div>
+              <div>
+                <h4 className="text-xs font-black tracking-wider uppercase text-emerald-200">
+                  Enable Background Order Notifications
+                </h4>
+                <p className="text-xs text-white/90 mt-0.5">
+                  Get sound &amp; vibration alerts when orders arrive — even when your phone screen is OFF or locked!
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={handleEnablePush}
+              className="px-4 py-2.5 bg-white text-emerald-950 hover:bg-emerald-50 rounded-xl text-xs font-black uppercase tracking-wider shrink-0 transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-emerald-700" />
+              <span>Enable Alerts on this Phone</span>
+            </button>
+          </div>
+        ) : (
+          <div className="bg-white rounded-2xl px-4 py-2.5 mb-4 border border-emerald-200/90 shadow-2xs flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="font-extrabold text-stone-900">
+                Background Push Alerts Active
+              </span>
+              <span className="text-stone-300 hidden sm:inline">•</span>
+              <span className="text-stone-500 hidden sm:inline">
+                This phone will ring when screen is locked or another app is open
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={handleTestBackgroundPush}
+              disabled={testingPush}
+              className="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 rounded-xl text-[11px] font-black border border-emerald-200 transition-colors flex items-center gap-1 disabled:opacity-50"
+            >
+              <Bell className="w-3 h-3 text-emerald-600" />
+              <span>{testingPush ? 'Sending...' : 'Test Background Alert'}</span>
+            </button>
+          </div>
+        )}
+
+        {pushStatusMessage && (
+          <div className="bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-xl mb-4 shadow-sm flex items-center justify-between">
+            <span>{pushStatusMessage}</span>
+            <button onClick={() => setPushStatusMessage(null)} className="text-white/80 hover:text-white ml-2">✕</button>
+          </div>
+        )}
+
         {selectedOrder ? (
           <OrderDetailsPanel
             order={selectedOrder}
