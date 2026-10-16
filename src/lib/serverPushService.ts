@@ -12,8 +12,11 @@ export interface PushSubscriptionData {
   userId?: string;
   userEmail?: string;
   userPhone?: string;
+  role?: 'admin' | 'staff' | 'customer';
+  isAdmin?: boolean;
   createdAt?: string;
 }
+
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const VAPID_FILE = path.join(DATA_DIR, 'vapid.json');
@@ -245,6 +248,64 @@ class ServerPushService {
     await Promise.all(sendPromises);
     return sentCount;
   }
+
+  /**
+   * Broadcast high-priority background Web Push notification to all logged-in store Admins / Managers
+   * when any customer places a new order (even if phone screen is off or another app is running).
+   */
+  async notifyAdminsNewOrder(order: Order): Promise<number> {
+    if (!order || !order.id || !this.vapidKeys) return 0;
+
+    const knownAdminEmails = new Set([
+      'g1mart@gmail.com',
+      'lingalamahendra0@gmail.com',
+      'orders@g1mart.com',
+    ]);
+
+    const adminSubs = Array.from(this.subscriptions.values()).filter((sub) => {
+      if (sub.isAdmin || sub.role === 'admin') return true;
+      if (sub.userEmail && knownAdminEmails.has(sub.userEmail.toLowerCase().trim())) return true;
+      return false;
+    });
+
+    if (adminSubs.length === 0) return 0;
+
+    const shortId = order.id.startsWith('G1-') ? order.id : `#${order.id.slice(-6)}`;
+    const itemCount = order.items?.length || 1;
+    const area = order.address?.streetArea || order.address?.city || 'Nellore';
+
+    const payload = JSON.stringify({
+      title: `🚨 NEW ORDER RECEIVED: ${shortId}`,
+      body: `₹${order.grandTotal} • ${itemCount} items • ${area} • Tap to accept & pack`,
+      tag: `admin_new_order_${order.id}`,
+      url: `/admin`,
+      orderId: order.id,
+      timestamp: Date.now(),
+    });
+
+    let sentCount = 0;
+    const sendPromises = adminSubs.map(async (sub) => {
+      try {
+        await webpush.sendNotification(
+          { endpoint: sub.endpoint, keys: sub.keys },
+          payload,
+          {
+            TTL: 60 * 60 * 24, // 24 hours
+            urgency: 'high',
+          }
+        );
+        sentCount++;
+      } catch (err: any) {
+        if (err?.statusCode === 404 || err?.statusCode === 410) {
+          this.removeSubscription(sub.endpoint);
+        }
+      }
+    });
+
+    await Promise.all(sendPromises);
+    return sentCount;
+  }
 }
+
 
 export const serverPushService = new ServerPushService();

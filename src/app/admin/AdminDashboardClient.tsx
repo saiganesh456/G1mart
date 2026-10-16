@@ -778,7 +778,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       icon: Layers,
       badge: products.length > 0 ? products.length : undefined,
     },
-    { id: 'shoot-list' as const, label: 'Shoot List', icon: Camera },
+    { id: 'shoot-list' as const, label: 'Product Photos (Shoot List)', icon: Camera },
     { id: 'staff' as const, label: 'Staff & Fleet', icon: Users },
     { id: 'settings' as const, label: 'Store Settings & Zones', icon: Settings },
   ];

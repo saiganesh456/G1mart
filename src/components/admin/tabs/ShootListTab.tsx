@@ -235,14 +235,14 @@ export default function ShootListTab({ products, categories, onProductUpdated }:
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Camera className="w-5 h-5" />
-            <h2 className="text-base font-extrabold tracking-tight">Product Shoot List</h2>
+            <h2 className="text-base font-extrabold tracking-tight">Product Photoshoot (Shoot List)</h2>
           </div>
           <span className="text-xs font-bold bg-white/20 px-2 py-0.5 rounded-full">
-            {totalVerifiedHeroes}/{totalHeroes} Hero Shots
+            {totalVerifiedHeroes}/{totalHeroes} Photos Ready
           </span>
         </div>
-        <p className="text-xs text-white/80 leading-relaxed">
-          Tap any product to open your phone camera. Photos are automatically cut out onto an 800x800 transparent canvas and published live to store collages.
+        <p className="text-xs text-white/90 leading-relaxed">
+          <strong>What is the Shoot List:</strong> It is your supermarket camera tool. Walk the store aisles with your phone, tap &ldquo;Reshoot&rdquo; on any item to snap a real shelf packshot. Photos are automatically cut out onto clean white canvases and published live to the storefront.
         </p>
 
         {/* Action Buttons */}

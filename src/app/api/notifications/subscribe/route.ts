@@ -13,12 +13,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const normalizedEmail = (userEmail || '').toLowerCase().trim();
+    const isAdmin =
+      body.isAdmin === true ||
+      body.role === 'admin' ||
+      normalizedEmail === 'g1mart@gmail.com' ||
+      normalizedEmail === 'lingalamahendra0@gmail.com' ||
+      normalizedEmail === 'orders@g1mart.com';
+
     serverPushService.saveSubscription({
       endpoint: subscription.endpoint,
       keys: subscription.keys,
       userId: userId || undefined,
       userEmail: userEmail || undefined,
       userPhone: userPhone || undefined,
+      role: isAdmin ? 'admin' : (body.role || 'customer'),
+      isAdmin,
     });
 
     return NextResponse.json({

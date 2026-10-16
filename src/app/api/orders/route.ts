@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { serverOrderStore } from '@/lib/serverOrderStore';
 import { serverSlipOrders } from '@/lib/serverSlipOrders';
+import { serverPushService } from '@/lib/serverPushService';
 import { sanitizeIndianPhone } from '@/lib/phone';
 
 export async function GET(req: NextRequest) {
@@ -126,6 +127,16 @@ export async function POST(req: NextRequest) {
     }
 
     const registered = serverOrderStore.registerOrder(body);
+
+    // Asynchronously notify all registered store managers / admins via Web Push
+    // (Wakes up mobile phones even if screen is OFF or app is closed)
+    try {
+      serverPushService.notifyAdminsNewOrder(registered).catch((pushErr) => {
+        console.warn('[api/orders] Admin push notify notice:', pushErr);
+      });
+      serverPushService.sendOrderPushNotification(registered, 'Order Placed').catch(() => {});
+    } catch {}
+
     return NextResponse.json({
       success: true,
       order: registered,

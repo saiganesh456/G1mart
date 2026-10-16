@@ -121,6 +121,11 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
           userId: user?.id,
           userEmail: user?.email,
           userPhone: user?.phone,
+          isAdmin:
+            user?.role === 'admin' ||
+            user?.email?.toLowerCase().trim() === 'g1mart@gmail.com' ||
+            user?.email?.toLowerCase().trim() === 'lingalamahendra0@gmail.com',
+          role: user?.role === 'admin' ? 'admin' : 'customer',
         }),
       });
 
