@@ -215,7 +215,7 @@ export default function Header() {
                   onBlur={() => setSearchFocused(false)}
                   placeholder=""
                   aria-label="Search products"
-                  className="w-full h-full pl-12 pr-12 text-sm outline-none transition-colors"
+                  className="relative z-20 w-full h-full pl-12 pr-12 text-sm outline-none transition-colors"
                   style={{
                     borderRadius: 14,
                     backgroundColor: 'var(--g1-surface)',
@@ -227,12 +227,12 @@ export default function Header() {
 
                 {/* Animated placeholder without quotes */}
                 {!searchQuery && !searchFocused && (
-                  <div className="absolute left-12 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ right: 52 }}>
+                  <div className="absolute left-12 top-1/2 -translate-y-1/2 pointer-events-none text-sm z-20" style={{ right: 52 }}>
                     <AnimatedSearchPlaceholder />
                   </div>
                 )}
                 {!searchQuery && searchFocused && (
-                  <div className="absolute left-12 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ right: 52, color: 'var(--g1-text-secondary)' }}>
+                  <div className="absolute left-12 top-1/2 -translate-y-1/2 pointer-events-none text-sm z-20" style={{ right: 52, color: 'var(--g1-text-secondary)' }}>
                     Search for soap
                   </div>
                 )}
@@ -245,7 +245,7 @@ export default function Header() {
                   type="button"
                   onClick={() => setIsSlipScannerOpen(true)}
                   aria-label="Scan slip with camera"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-xl g1-press transition-colors"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-xl g1-press transition-colors z-30"
                   style={{ color: 'var(--g1-primary)' }}
                 >
                   <Camera className="w-[22px] h-[22px]" strokeWidth={1.75} />
