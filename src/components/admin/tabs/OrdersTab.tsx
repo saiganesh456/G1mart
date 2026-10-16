@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Order } from '@/types';
 import {
   Search,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
   Phone,
   MessageSquare,
   MapPin,
@@ -13,8 +15,11 @@ import {
   Truck,
   Sparkles,
   Check,
-  Circle,
   ExternalLink,
+  X,
+  CreditCard,
+  Banknote,
+  AlertCircle,
 } from 'lucide-react';
 
 interface Props {
@@ -35,6 +40,55 @@ const STATUS_FILTERS = [
   'Delivered',
 ];
 
+function getRelativeTime(dateStr?: string) {
+  if (!dateStr) return { text: 'Just now', badge: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
+  try {
+    const timestamp = new Date(dateStr).getTime();
+    if (isNaN(timestamp)) {
+      return { text: dateStr, badge: 'bg-stone-50 text-stone-600 border-stone-200' };
+    }
+    const diffMs = Date.now() - timestamp;
+    if (diffMs < 0) return { text: 'Just now', badge: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
+    const diffMin = Math.floor(diffMs / 60000);
+    if (diffMin < 1) return { text: 'Just now', badge: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
+    if (diffMin < 10) return { text: `${diffMin}m ago`, badge: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
+    if (diffMin < 25) return { text: `${diffMin}m ago`, badge: 'bg-amber-50 text-amber-700 border-amber-200' };
+    if (diffMin < 60) return { text: `${diffMin}m ago`, badge: 'bg-rose-50 text-rose-700 border-rose-200' };
+    const diffHr = Math.floor(diffMin / 60);
+    if (diffHr < 24) return { text: `${diffHr}h ago`, badge: 'bg-rose-50 text-rose-700 border-rose-200' };
+    const diffDay = Math.floor(diffHr / 24);
+    return { text: `${diffDay}d ago`, badge: 'bg-stone-50 text-stone-600 border-stone-200' };
+  } catch {
+    return { text: dateStr || 'Recent', badge: 'bg-stone-50 text-stone-600 border-stone-200' };
+  }
+}
+
+function getStatusBadge(status?: string) {
+  const s = status || 'Order Placed';
+  switch (s) {
+    case 'Order Placed':
+    case 'New':
+      return { label: 'ORDER PLACED', bg: 'bg-blue-50 text-blue-700 border-blue-200' };
+    case 'Confirmed':
+      return { label: 'CONFIRMED', bg: 'bg-sky-50 text-sky-700 border-sky-200' };
+    case 'Packing':
+      return { label: 'PACKING', bg: 'bg-amber-50 text-amber-700 border-amber-200' };
+    case 'Packed':
+      return { label: 'PACKED', bg: 'bg-indigo-50 text-indigo-700 border-indigo-200' };
+    case 'Rider Assigned':
+      return { label: 'RIDER ASSIGNED', bg: 'bg-purple-50 text-purple-700 border-purple-200' };
+    case 'Out for Delivery':
+    case 'Order Dispatched':
+      return { label: 'OUT FOR DELIVERY', bg: 'bg-purple-50 text-purple-700 border-purple-200' };
+    case 'Delivered':
+      return { label: 'DELIVERED', bg: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
+    case 'Cancelled':
+      return { label: 'CANCELLED', bg: 'bg-rose-50 text-rose-700 border-rose-200' };
+    default:
+      return { label: s.toUpperCase(), bg: 'bg-stone-50 text-stone-700 border-stone-200' };
+  }
+}
+
 export default function OrdersTab({
   orders,
   onViewOrder,
@@ -44,154 +98,232 @@ export default function OrdersTab({
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState(initialFilter);
   const [paymentFilter, setPaymentFilter] = useState<'all' | 'cod' | 'paid'>('all');
+  const [expandedOrders, setExpandedOrders] = useState<Record<string, boolean>>({});
 
-  const filteredOrders = orders.filter((o) => {
-    // 1. Search Query
-    if (search.trim()) {
-      const q = search.trim().toLowerCase();
-      const matchId = (o.id || '').toLowerCase().includes(q);
-      const matchName = (o.address?.fullName || '').toLowerCase().includes(q);
-      const matchPhone = (o.address?.mobileNumber || o.address?.phone || '').includes(q);
-      const matchItem = o.items?.some((it: any) =>
-        (it.productName || '').toLowerCase().includes(q)
-      );
-      if (!matchId && !matchName && !matchPhone && !matchItem) return false;
-    }
+  const toggleExpand = (orderId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setExpandedOrders((prev) => ({ ...prev, [orderId]: !prev[orderId] }));
+  };
 
-    // 2. Payment Filter
-    const isPaid =
-      o.isPaid ||
-      o.paymentStatus === 'completed' ||
-      o.paymentStatus === 'manual_verified';
-    if (paymentFilter === 'cod' && (isPaid || o.paymentMethod !== 'Cash on Delivery'))
-      return false;
-    if (paymentFilter === 'paid' && !isPaid) return false;
-
-    // 3. Status Filter
-    if (statusFilter !== 'All') {
+  // Dynamic live status counts
+  const statusCounts = useMemo(() => {
+    const c: Record<string, number> = { All: orders.length };
+    orders.forEach((o) => {
       const s = o.status || 'Order Placed';
-      if (statusFilter === 'New / Placed' && (s === 'Order Placed' || s === 'New')) return true;
-      if (statusFilter === 'Confirmed' && s === 'Confirmed') return true;
-      if (statusFilter === 'Packing' && s === 'Packing') return true;
-      if (statusFilter === 'Packed' && s === 'Packed') return true;
-      if (statusFilter === 'Rider Assigned' && s === 'Rider Assigned') return true;
-      if (
-        statusFilter === 'Out for Delivery' &&
-        (s === 'Out for Delivery' || s === 'Order Dispatched')
-      )
-        return true;
-      if (statusFilter === 'Delivered' && s === 'Delivered') return true;
-      if (s !== statusFilter) return false;
-    }
+      if (s === 'Order Placed' || s === 'New') c['New / Placed'] = (c['New / Placed'] || 0) + 1;
+      else if (s === 'Confirmed') c['Confirmed'] = (c['Confirmed'] || 0) + 1;
+      else if (s === 'Packing') c['Packing'] = (c['Packing'] || 0) + 1;
+      else if (s === 'Packed') c['Packed'] = (c['Packed'] || 0) + 1;
+      else if (s === 'Rider Assigned') c['Rider Assigned'] = (c['Rider Assigned'] || 0) + 1;
+      else if (s === 'Out for Delivery' || s === 'Order Dispatched') c['Out for Delivery'] = (c['Out for Delivery'] || 0) + 1;
+      else if (s === 'Delivered') c['Delivered'] = (c['Delivered'] || 0) + 1;
+    });
+    return c;
+  }, [orders]);
 
-    return true;
-  });
+  const filteredOrders = useMemo(() => {
+    return orders.filter((o) => {
+      // 1. Search Query
+      if (search.trim()) {
+        const q = search.trim().toLowerCase();
+        const matchId = (o.id || '').toLowerCase().includes(q);
+        const matchName = (o.address?.fullName || '').toLowerCase().includes(q);
+        const matchPhone = (o.address?.mobileNumber || o.address?.phone || '').includes(q);
+        const matchItem = o.items?.some((it: any) =>
+          (it.productName || '').toLowerCase().includes(q)
+        );
+        if (!matchId && !matchName && !matchPhone && !matchItem) return false;
+      }
+
+      // 2. Payment Filter
+      const isPaid =
+        o.isPaid ||
+        o.paymentStatus === 'completed' ||
+        o.paymentStatus === 'manual_verified';
+      if (paymentFilter === 'cod' && (isPaid || o.paymentMethod !== 'Cash on Delivery'))
+        return false;
+      if (paymentFilter === 'paid' && !isPaid) return false;
+
+      // 3. Status Filter
+      if (statusFilter !== 'All') {
+        const s = o.status || 'Order Placed';
+        if (statusFilter === 'New / Placed' && (s === 'Order Placed' || s === 'New')) return true;
+        if (statusFilter === 'Confirmed' && s === 'Confirmed') return true;
+        if (statusFilter === 'Packing' && s === 'Packing') return true;
+        if (statusFilter === 'Packed' && s === 'Packed') return true;
+        if (statusFilter === 'Rider Assigned' && s === 'Rider Assigned') return true;
+        if (
+          statusFilter === 'Out for Delivery' &&
+          (s === 'Out for Delivery' || s === 'Order Dispatched')
+        )
+          return true;
+        if (statusFilter === 'Delivered' && s === 'Delivered') return true;
+        if (s !== statusFilter) return false;
+      }
+
+      return true;
+    });
+  }, [orders, search, paymentFilter, statusFilter]);
 
   const getNextAction = (status: string) => {
     const s = status || 'Order Placed';
     if (s === 'Order Placed' || s === 'New')
-      return { label: 'Confirm Order', next: 'Confirmed', icon: CheckCircle2, color: 'bg-blue-600 hover:bg-blue-700' };
+      return {
+        label: 'Confirm Order',
+        next: 'Confirmed',
+        icon: CheckCircle2,
+        color: 'bg-blue-600 hover:bg-blue-700 text-white',
+      };
     if (s === 'Confirmed')
-      return { label: 'Start Packing', next: 'Packing', icon: Package, color: 'bg-amber-600 hover:bg-amber-700' };
+      return {
+        label: 'Start Packing',
+        next: 'Packing',
+        icon: Package,
+        color: 'bg-amber-600 hover:bg-amber-700 text-white',
+      };
     if (s === 'Packing')
-      return { label: 'Mark Packed', next: 'Packed', icon: Sparkles, color: 'bg-indigo-600 hover:bg-indigo-700' };
+      return {
+        label: 'Mark as Packed',
+        next: 'Packed',
+        icon: Sparkles,
+        color: 'bg-indigo-600 hover:bg-indigo-700 text-white',
+      };
     if (s === 'Packed')
-      return { label: 'Assign Rider', next: 'Rider Assigned', icon: Bike, color: 'bg-purple-600 hover:bg-purple-700' };
+      return {
+        label: 'Assign Rider',
+        next: 'Rider Assigned',
+        icon: Bike,
+        color: 'bg-purple-600 hover:bg-purple-700 text-white',
+      };
     if (s === 'Rider Assigned')
-      return { label: 'Handover to Rider', next: 'Out for Delivery', icon: Truck, color: 'bg-purple-700 hover:bg-purple-800' };
+      return {
+        label: 'Dispatch to Rider',
+        next: 'Out for Delivery',
+        icon: Truck,
+        color: 'bg-purple-700 hover:bg-purple-800 text-white',
+      };
     if (s === 'Out for Delivery' || s === 'Order Dispatched')
-      return { label: 'Mark Delivered', next: 'Delivered', icon: Check, color: 'bg-emerald-700 hover:bg-emerald-800' };
+      return {
+        label: 'Mark Delivered',
+        next: 'Delivered',
+        icon: Check,
+        color: 'bg-emerald-600 hover:bg-emerald-700 text-white',
+      };
     return null;
   };
 
   return (
-    <div className="max-w-7xl mx-auto flex flex-col h-full bg-[#F4F6F9] p-3 sm:p-6 pb-24">
-      {/* Search & Filter Header */}
-      <div className="bg-white rounded-3xl p-4 sm:p-5 border border-stone-200/90 shadow-2xs space-y-4 mb-4 sm:mb-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <h1 className="text-xl sm:text-2xl font-black text-stone-900 tracking-tight">
-              Order Fulfillment Console
-            </h1>
-            <p className="text-xs text-stone-500 font-medium">
-              Showing {filteredOrders.length} of {orders.length} total orders
-            </p>
+    <div className="max-w-7xl mx-auto flex flex-col h-full bg-[#F4F6F9] p-2.5 sm:p-6 pb-24">
+      {/* 1. SLIM & UNIFIED CONTROL HEADER (Zero Wasted Space) */}
+      <div className="bg-white rounded-2xl p-3.5 sm:p-5 border border-stone-200/90 shadow-2xs space-y-3 mb-3 sm:mb-5">
+        {/* Top Control Bar: Title + Payment Pills + Search */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+          <div className="flex items-center justify-between sm:justify-start gap-3">
+            <div className="flex items-center gap-2">
+              <h1 className="text-lg sm:text-xl font-black text-stone-900 tracking-tight">
+                Live Orders
+              </h1>
+              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
+                {filteredOrders.length}
+              </span>
+            </div>
+
+            {/* Payment Segmented Toggle */}
+            <div className="flex items-center bg-stone-100 p-0.5 rounded-xl text-[11px] font-bold">
+              <button
+                type="button"
+                onClick={() => setPaymentFilter('all')}
+                className={`px-2.5 py-1 rounded-lg transition-all ${
+                  paymentFilter === 'all'
+                    ? 'bg-white text-stone-900 shadow-2xs'
+                    : 'text-stone-600 hover:text-stone-900'
+                }`}
+              >
+                All
+              </button>
+              <button
+                type="button"
+                onClick={() => setPaymentFilter('cod')}
+                className={`px-2.5 py-1 rounded-lg transition-all ${
+                  paymentFilter === 'cod'
+                    ? 'bg-amber-600 text-white shadow-2xs'
+                    : 'text-stone-600 hover:text-stone-900'
+                }`}
+              >
+                COD
+              </button>
+              <button
+                type="button"
+                onClick={() => setPaymentFilter('paid')}
+                className={`px-2.5 py-1 rounded-lg transition-all ${
+                  paymentFilter === 'paid'
+                    ? 'bg-emerald-600 text-white shadow-2xs'
+                    : 'text-stone-600 hover:text-stone-900'
+                }`}
+              >
+                Paid
+              </button>
+            </div>
           </div>
 
-          {/* Payment filter pills */}
-          <div className="flex items-center gap-1.5 bg-stone-100 p-1 rounded-2xl self-start sm:self-auto text-xs font-bold">
-            <button
-              type="button"
-              onClick={() => setPaymentFilter('all')}
-              className={`px-3 py-1.5 rounded-xl transition-all ${
-                paymentFilter === 'all'
-                  ? 'bg-white text-stone-900 shadow-2xs'
-                  : 'text-stone-600 hover:text-stone-900'
-              }`}
-            >
-              All Payments
-            </button>
-            <button
-              type="button"
-              onClick={() => setPaymentFilter('cod')}
-              className={`px-3 py-1.5 rounded-xl transition-all ${
-                paymentFilter === 'cod'
-                  ? 'bg-amber-600 text-white shadow-2xs'
-                  : 'text-stone-600 hover:text-stone-900'
-              }`}
-            >
-              COD Only
-            </button>
-            <button
-              type="button"
-              onClick={() => setPaymentFilter('paid')}
-              className={`px-3 py-1.5 rounded-xl transition-all ${
-                paymentFilter === 'paid'
-                  ? 'bg-emerald-600 text-white shadow-2xs'
-                  : 'text-stone-600 hover:text-stone-900'
-              }`}
-            >
-              Paid Online
-            </button>
+          {/* Search Bar */}
+          <div className="relative flex-1 sm:max-w-xs">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-stone-400" />
+            <input
+              type="text"
+              placeholder="Search order ID, customer, phone..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-8 pr-7 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#1B5E20] focus:bg-white transition-all"
+            />
+            {search && (
+              <button
+                type="button"
+                onClick={() => setSearch('')}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
         </div>
 
-        {/* Search Input */}
-        <div className="relative">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
-          <input
-            type="text"
-            placeholder="Search by order ID, customer name, mobile number or product..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-stone-50 border border-stone-200 rounded-2xl text-xs sm:text-sm font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#1B5E20] focus:bg-white transition-all"
-          />
-        </div>
-
-        {/* Status Stepper Filters (Horizontal Scroll on Mobile) */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-2 px-2">
+        {/* Status Filter Scroller with Live Counts */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-hide -mx-1 px-1">
           {STATUS_FILTERS.map((f) => {
             const isSelected = statusFilter === f;
+            const count = statusCounts[f] || 0;
             return (
               <button
                 key={f}
                 type="button"
                 onClick={() => setStatusFilter(f)}
-                className={`whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 ${
+                className={`whitespace-nowrap px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 flex items-center gap-1.5 ${
                   isSelected
                     ? 'bg-[#1B5E20] text-white shadow-2xs'
                     : 'bg-stone-100 text-stone-600 hover:bg-stone-200 hover:text-stone-900'
                 }`}
               >
-                {f}
+                <span>{f}</span>
+                {count > 0 && (
+                  <span
+                    className={`text-[10px] px-1.5 py-0.2 rounded-full font-black ${
+                      isSelected
+                        ? 'bg-white/25 text-white'
+                        : 'bg-stone-200 text-stone-700'
+                    }`}
+                  >
+                    {count}
+                  </span>
+                )}
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Orders Grid (Mobile: 1-col, Tablet: 2-col, Desktop: 3-col) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* 2. FLAT & CLEAN ORDER CARDS (Zero Clumsy Layers) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
         {filteredOrders.map((order) => {
           const isPaid =
             order.isPaid ||
@@ -201,137 +333,155 @@ export default function OrdersTab({
           const action = getNextAction(s);
           const phone = order.address?.mobileNumber || order.address?.phone || '';
           const cleanPhone = phone.replace(/\D/g, '').slice(-10);
+          const relativeTime = getRelativeTime(order.date);
+          const statusBadge = getStatusBadge(s);
+          const isExpanded = Boolean(expandedOrders[order.id]);
 
-          let statusBg = 'bg-stone-100 text-stone-800 border-stone-200';
-          if (s === 'Order Placed' || s === 'New')
-            statusBg = 'bg-blue-100 text-blue-900 border-blue-300';
-          else if (s === 'Confirmed')
-            statusBg = 'bg-sky-100 text-sky-900 border-sky-300';
-          else if (s === 'Packing')
-            statusBg = 'bg-amber-100 text-amber-900 border-amber-300';
-          else if (s === 'Packed')
-            statusBg = 'bg-indigo-100 text-indigo-900 border-indigo-300';
-          else if (s === 'Rider Assigned')
-            statusBg = 'bg-purple-100 text-purple-900 border-purple-300';
-          else if (s === 'Out for Delivery' || s === 'Order Dispatched')
-            statusBg = 'bg-purple-100 text-purple-900 border-purple-300';
-          else if (s === 'Delivered')
-            statusBg = 'bg-emerald-100 text-emerald-900 border-emerald-300';
+          const distance = (order as any).distance_km !== undefined ? (order as any).distance_km : 0.3;
+          const eta = (order as any).eta_min !== undefined ? (order as any).eta_min : 20;
+
+          // Item preview summary
+          const itemCount = order.items?.length || 0;
+          const previewNames = (order.items || [])
+            .slice(0, 2)
+            .map((it: any) => `${it.quantity}x ${it.productName}`)
+            .join(', ');
+          const remainingCount = itemCount > 2 ? itemCount - 2 : 0;
 
           return (
             <div
               key={order.id}
-              className="bg-white rounded-3xl p-5 border border-stone-200/90 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between gap-4 group"
+              onClick={() => onViewOrder(order)}
+              className="bg-white rounded-2xl p-4 border border-stone-200/90 shadow-2xs hover:shadow-xs transition-all flex flex-col justify-between gap-3 group cursor-pointer"
             >
-              {/* Card Header: Order ID & Status */}
-              <div>
-                <div className="flex items-start justify-between gap-2 mb-2.5">
-                  <div>
-                    <span className="text-xs font-black text-stone-400 uppercase tracking-wider block">
-                      Order ID
-                    </span>
-                    <span className="text-base font-black text-stone-900 group-hover:text-emerald-800 transition-colors">
+              <div className="space-y-2.5">
+                {/* Line 1: Order ID, Age Timer & Status */}
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="text-base font-black text-stone-900 group-hover:text-emerald-800 transition-colors truncate">
                       #{order.id}
+                    </span>
+                    <span
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${relativeTime.badge} shrink-0`}
+                      title={`Placed at: ${order.date || 'Recently'}`}
+                    >
+                      ⏱️ {relativeTime.text}
                     </span>
                   </div>
 
                   <span
-                    className={`text-[10px] font-black px-2.5 py-1 rounded-full border uppercase tracking-wider ${statusBg}`}
+                    className={`text-[10px] font-black px-2.5 py-0.5 rounded-full border tracking-wide uppercase shrink-0 ${statusBadge.bg}`}
                   >
-                    {s}
+                    {statusBadge.label}
                   </span>
                 </div>
 
-                {/* Customer Details & Contact Actions */}
-                <div className="bg-stone-50 rounded-2xl p-3 border border-stone-200/70 space-y-1.5 mb-3">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm font-bold text-stone-900 truncate">
-                      {order.address?.fullName || 'Customer'}
-                    </p>
-                    <div className="flex items-center gap-1.5">
-                      {cleanPhone && (
-                        <>
-                          <a
-                            href={`tel:${cleanPhone}`}
-                            title="Call customer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="w-7 h-7 rounded-xl bg-white hover:bg-emerald-100 text-emerald-700 border border-stone-200 flex items-center justify-center transition-colors shadow-2xs"
-                          >
-                            <Phone className="w-3.5 h-3.5" />
-                          </a>
-                          <a
-                            href={`https://wa.me/91${cleanPhone}?text=Hello%20${encodeURIComponent(
-                              order.address?.fullName || 'Customer'
-                            )},%20your%20G1%20MART%20order%20%23${order.id}%20is%20${s}.`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            title="WhatsApp customer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="w-7 h-7 rounded-xl bg-white hover:bg-emerald-100 text-emerald-700 border border-stone-200 flex items-center justify-center transition-colors shadow-2xs"
-                          >
-                            <MessageSquare className="w-3.5 h-3.5" />
-                          </a>
-                        </>
-                      )}
+                {/* Line 2: Customer Name, One-Tap Contact & Clean Location */}
+                <div className="flex items-start justify-between gap-2 pt-0.5">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2">
+                      <p className="text-sm font-bold text-stone-900 truncate">
+                        {order.address?.fullName || 'Customer'}
+                      </p>
                     </div>
+                    <p className="text-xs text-stone-500 truncate flex items-center gap-1 mt-0.5">
+                      <MapPin className="w-3 h-3 text-stone-400 shrink-0" />
+                      <span className="truncate">
+                        {order.address?.streetArea || order.address?.city || 'Nellore'}
+                      </span>
+                      <span className="text-stone-300">•</span>
+                      <span className="text-stone-600 font-semibold shrink-0">{distance} km</span>
+                      <span className="text-stone-300">•</span>
+                      <span className="text-emerald-700 font-semibold shrink-0">~{eta}m ETA</span>
+                    </p>
                   </div>
 
-                  <p className="text-xs text-stone-500 truncate flex items-center gap-1">
-                    <MapPin className="w-3 h-3 text-stone-400 shrink-0" />
-                    <span>
-                      {order.address?.houseFlat ? `${order.address.houseFlat}, ` : ''}
-                      {order.address?.streetArea || order.address?.city || 'Nellore'}
-                    </span>
-                  </p>
-
-                  {((order as any).distance_km !== undefined || (order as any).eta_min !== undefined) && (
-                    <div className="flex items-center justify-between text-[11px] font-bold text-stone-700 bg-white/80 px-2 py-1 rounded-lg border border-stone-200/60 mt-1">
-                      <span>🛣️ {(order as any).distance_km || 0} km road distance</span>
-                      <span className="text-[#2E7D32]">⏱️ ~{(order as any).eta_min || 20} min ETA</span>
+                  {/* One-Tap Quick Call / WhatsApp */}
+                  {cleanPhone && (
+                    <div className="flex items-center gap-1 shrink-0" onClick={(e) => e.stopPropagation()}>
+                      <a
+                        href={`tel:${cleanPhone}`}
+                        title="Call customer"
+                        className="w-7 h-7 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 flex items-center justify-center transition-colors shadow-2xs"
+                      >
+                        <Phone className="w-3.5 h-3.5" />
+                      </a>
+                      <a
+                        href={`https://wa.me/91${cleanPhone}?text=Hello%20${encodeURIComponent(
+                          order.address?.fullName || 'Customer'
+                        )},%20your%20G1%20MART%20order%20%23${order.id}%20is%20${s}.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="WhatsApp customer"
+                        className="w-7 h-7 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 flex items-center justify-center transition-colors shadow-2xs"
+                      >
+                        <MessageSquare className="w-3.5 h-3.5" />
+                      </a>
                     </div>
                   )}
                 </div>
 
-                {/* Product Items Breakdown preview */}
-                <div className="space-y-2 mb-3">
-                  <span className="text-[10px] font-black text-stone-400 uppercase tracking-wider block">
-                    Ordered Items ({order.items?.length || 0})
-                  </span>
-                  <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
-                    {order.items?.map((it: any, idx: number) => (
-                      <div
-                        key={idx}
-                        className="flex items-center justify-between gap-2 text-xs py-1 border-b border-stone-100 last:border-none"
-                      >
-                        <div className="flex items-center gap-2 min-w-0">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={it.image || '/products/placeholder.svg'}
-                            alt={it.productName}
-                            className="w-7 h-7 object-contain rounded-md bg-white border border-stone-200 shrink-0 p-0.5"
-                          />
-                          <p className="text-stone-800 font-medium truncate">
-                            <span className="font-bold text-stone-900">{it.quantity}×</span>{' '}
-                            {it.productName}
-                          </p>
-                        </div>
-                        <span className="font-bold text-stone-900 shrink-0">
-                          ₹{(it.quantity * it.price) || 0}
-                        </span>
-                      </div>
-                    ))}
+                {/* Line 3: Flat Items Summary & Collapsible Item List (No Scroll Traps!) */}
+                <div className="pt-2 border-t border-stone-100">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-stone-800">
+                      📦 {itemCount} {itemCount === 1 ? 'item' : 'items'}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={(e) => toggleExpand(order.id, e)}
+                      className="text-[11px] font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-0.5"
+                    >
+                      <span>{isExpanded ? 'Hide items' : 'View items'}</span>
+                      {isExpanded ? (
+                        <ChevronUp className="w-3.5 h-3.5" />
+                      ) : (
+                        <ChevronDown className="w-3.5 h-3.5" />
+                      )}
+                    </button>
                   </div>
+
+                  {!isExpanded ? (
+                    <p className="text-xs text-stone-500 truncate mt-0.5 font-medium">
+                      {previewNames || 'Catalog Items'}
+                      {remainingCount > 0 && (
+                        <span className="text-stone-700 font-semibold"> + {remainingCount} more</span>
+                      )}
+                    </p>
+                  ) : (
+                    <div className="mt-2 space-y-1.5 pt-1.5 border-t border-stone-100">
+                      {order.items?.map((it: any, idx: number) => (
+                        <div
+                          key={idx}
+                          className="flex items-center justify-between gap-2 text-xs py-0.5"
+                        >
+                          <div className="flex items-center gap-1.5 min-w-0">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={it.image || '/products/placeholder.svg'}
+                              alt={it.productName}
+                              className="w-5 h-5 object-contain rounded bg-stone-50 border border-stone-200 shrink-0 p-0.5"
+                            />
+                            <span className="text-stone-800 truncate font-medium">
+                              <span className="font-bold text-stone-900">{it.quantity}×</span>{' '}
+                              {it.productName}
+                            </span>
+                          </div>
+                          <span className="font-bold text-stone-900 shrink-0">
+                            ₹{(it.quantity * it.price) || 0}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
-                {/* Payment & Rider Info Row */}
-                <div className="pt-2 border-t border-stone-100 space-y-1.5 text-xs">
-                  <div className="flex items-center justify-between">
-                    <span className="text-stone-500 font-medium">Total Bill:</span>
-                    <span className="text-base font-black text-stone-900">₹{order.grandTotal}</span>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-stone-500 font-medium">Payment:</span>
+                {/* Line 4: Clean Payment Badge & Rider Status */}
+                <div className="pt-2 border-t border-stone-100 flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-black text-stone-900 text-sm">
+                      ₹{order.grandTotal}
+                    </span>
                     <span
                       className={`font-black text-[10px] px-2 py-0.5 rounded-full ${
                         isPaid
@@ -339,40 +489,51 @@ export default function OrdersTab({
                           : 'bg-amber-100 text-amber-900 border border-amber-300'
                       }`}
                     >
-                      {isPaid ? '✓ PAID ONLINE' : `COD: COLLECT ₹${order.grandTotal}`}
+                      {isPaid ? '✓ PAID' : 'COD'}
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between pt-1">
-                    <span className="text-stone-500 font-medium">Rider:</span>
-                    <span className="font-bold text-stone-800 flex items-center gap-1">
-                      <Bike className="w-3.5 h-3.5 text-emerald-700" />
-                      <span>{order.assignedRider?.name || 'Unassigned'}</span>
+                  <div className="flex items-center gap-1 text-[11px] font-bold text-stone-600">
+                    <Bike className="w-3.5 h-3.5 text-emerald-700" />
+                    <span className="truncate max-w-[120px]">
+                      {order.assignedRider?.name || 'Unassigned'}
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="space-y-2 pt-2 border-t border-stone-100">
-                {action && onUpdateStatus && (
+              {/* 3. ALWAYS-VISIBLE ACTION BUTTONS (Above the fold!) */}
+              <div
+                className="pt-2.5 border-t border-stone-100 flex items-center gap-2"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {action && onUpdateStatus ? (
                   <button
                     type="button"
                     onClick={() => onUpdateStatus(order.id, action.next)}
-                    className={`w-full py-2.5 text-white rounded-xl text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all shadow-2xs ${action.color}`}
+                    className={`flex-1 py-2 px-3 rounded-xl text-xs font-black tracking-wide uppercase flex items-center justify-center gap-1.5 transition-all shadow-2xs hover:shadow-xs active:scale-[0.98] ${action.color}`}
                   >
-                    <action.icon className="w-4 h-4" />
+                    <action.icon className="w-3.5 h-3.5" />
                     <span>{action.label}</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => onViewOrder(order)}
+                    className="flex-1 py-2 px-3 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition-colors"
+                  >
+                    <span>View Order Details</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
                   </button>
                 )}
 
                 <button
                   type="button"
                   onClick={() => onViewOrder(order)}
-                  className="w-full py-2 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-bold flex items-center justify-center gap-1 transition-colors"
+                  title="Open full order details"
+                  className="p-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl transition-colors shrink-0"
                 >
-                  <span>Open Full Order &amp; Route</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
+                  <ExternalLink className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
@@ -380,12 +541,13 @@ export default function OrdersTab({
         })}
       </div>
 
+      {/* Empty State */}
       {filteredOrders.length === 0 && (
-        <div className="bg-white rounded-3xl p-12 text-center border border-stone-200 max-w-md mx-auto my-8">
-          <Package className="w-12 h-12 text-stone-300 mx-auto mb-3" />
-          <h3 className="text-base font-black text-stone-800">No Orders Found</h3>
+        <div className="bg-white rounded-2xl p-10 text-center border border-stone-200 max-w-sm mx-auto my-8">
+          <Package className="w-10 h-10 text-stone-300 mx-auto mb-2.5" />
+          <h3 className="text-sm font-black text-stone-800">No Orders Match Filter</h3>
           <p className="text-xs text-stone-500 mt-1">
-            Try adjusting your search query or status filter to see other orders.
+            Try switching the status tab or clearing your search term.
           </p>
         </div>
       )}

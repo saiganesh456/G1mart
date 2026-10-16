@@ -26,9 +26,9 @@ function isProductInCategory(p: Product, categoryId: string): boolean {
 }
 
 /**
- * Checks if a brand is Jeevan Mart / G1 Mart private label or generic unbranded.
+ * Checks if a brand is G1Mart private label or generic unbranded.
  */
-function isJeevanMartOrLocal(brand?: string | null): boolean {
+function isG1MartOrLocal(brand?: string | null): boolean {
   if (!brand) return true;
   const b = brand.trim().toLowerCase();
   return (
@@ -41,13 +41,11 @@ function isJeevanMartOrLocal(brand?: string | null): boolean {
     b === 'g1 mart puja' ||
     b === 'g1 mart puja essentials' ||
     b === 'g1 mart kitchenware' ||
-    b === 'jeevan mart' ||
-    b === 'jeevan mart fresh' ||
     b === 'local / unbranded' ||
     b === 'unbranded' ||
     b === 'staples' ||
     b.startsWith('g1 mart') ||
-    b.startsWith('jeevan mart')
+    b.startsWith('g1mart')
   );
 }
 
@@ -98,7 +96,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
       }
 
       const existing = subMap.get(sub);
-      const isBranded = !isJeevanMartOrLocal(p.brand);
+      const isBranded = !isG1MartOrLocal(p.brand);
       const hasVerifiedImg = Boolean(
         (p.image_status === 'verified' || (p as any).imageStatus === 'verified' || (p as any).imageStatus === 'VERIFIED') &&
         ((p.image_url && !p.image_url.includes('placeholder')) || (p.imageUrl && !p.imageUrl.includes('placeholder')))
@@ -135,16 +133,16 @@ export default function CategoryDashboardClient({ category, products }: Props) {
   // Available brands in the currently selected subcategory
   const availableBrands = useMemo(() => {
     const brandMap = new Map<string, number>();
-    let jeevanMartCount = 0;
+    let g1MartCount = 0;
     let localCount = 0;
 
     subFilteredProducts.forEach((p) => {
       const b = p.brand?.trim();
-      const isJeevan = b && (b.toLowerCase().includes('g1') || b.toLowerCase().includes('jeevan'));
+      const isG1 = b && (b.toLowerCase().includes('g1') || b.toLowerCase().includes('g1mart'));
       const isLocal = !b || /local\s*\/?\s*unbranded/i.test(b) || /^unbranded$/i.test(b);
 
-      if (isJeevan) {
-        jeevanMartCount += 1;
+      if (isG1) {
+        g1MartCount += 1;
       } else if (isLocal) {
         localCount += 1;
       } else if (b) {
@@ -160,7 +158,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
         return b[1] - a[1];
       });
 
-    return { brands, jeevanMartCount, localCount };
+    return { brands, g1MartCount, localCount };
   }, [subFilteredProducts]);
 
   // Final filtered products
@@ -168,10 +166,10 @@ export default function CategoryDashboardClient({ category, products }: Props) {
     let list = subFilteredProducts;
 
     // 1. Brand filtering
-    if (selectedBrand === 'jeevan-mart') {
+    if (selectedBrand === 'g1-mart' || selectedBrand === 'jeevan-mart') {
       list = list.filter((p) => {
         const b = p.brand?.trim();
-        return b && (b.toLowerCase().includes('g1') || b.toLowerCase().includes('jeevan'));
+        return b && (b.toLowerCase().includes('g1') || b.toLowerCase().includes('g1mart'));
       });
     } else if (selectedBrand === 'local') {
       list = list.filter((p) => {
@@ -196,11 +194,11 @@ export default function CategoryDashboardClient({ category, products }: Props) {
       if (sortBy === 'price-asc') return a.price - b.price;
       if (sortBy === 'price-desc') return b.price - a.price;
 
-      const aIsJeevan = isJeevanMartOrLocal(a.brand);
-      const bIsJeevan = isJeevanMartOrLocal(b.brand);
+      const aIsG1 = isG1MartOrLocal(a.brand);
+      const bIsG1 = isG1MartOrLocal(b.brand);
 
-      if (aIsJeevan !== bIsJeevan) {
-        return aIsJeevan ? 1 : -1;
+      if (aIsG1 !== bIsG1) {
+        return aIsG1 ? 1 : -1;
       }
 
       const aHasImg = (a.image_status === 'verified' || (a as any).imageStatus === 'verified' || (a as any).imageStatus === 'VERIFIED') &&
@@ -252,7 +250,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
 
   const currentBrandLabel = useMemo(() => {
     if (selectedBrand === 'all') return null;
-    if (selectedBrand === 'jeevan-mart') return 'Jeevan Mart';
+    if (selectedBrand === 'g1-mart' || selectedBrand === 'jeevan-mart') return 'G1Mart';
     if (selectedBrand === 'local') return 'Local';
     return selectedBrand;
   }, [selectedBrand]);
@@ -653,14 +651,14 @@ export default function CategoryDashboardClient({ category, products }: Props) {
                 </button>
               )}
 
-              {/* Option: Jeevan Mart Private Label */}
-              {availableBrands.jeevanMartCount > 0 &&
-                (!brandSearchQuery || 'jeevan mart'.includes(brandSearchQuery.toLowerCase())) && (
+              {/* Option: G1Mart Private Label */}
+              {availableBrands.g1MartCount > 0 &&
+                (!brandSearchQuery || 'g1mart'.includes(brandSearchQuery.toLowerCase()) || 'g1 mart'.includes(brandSearchQuery.toLowerCase())) && (
                   <button
                     type="button"
-                    onClick={() => handleBrandSelect('jeevan-mart')}
+                    onClick={() => handleBrandSelect('g1-mart')}
                     className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left transition-colors cursor-pointer ${
-                      selectedBrand === 'jeevan-mart'
+                      selectedBrand === 'g1-mart'
                         ? 'bg-[var(--g1-primary-tint)] font-bold text-[var(--g1-primary)]'
                         : 'hover:bg-stone-50 text-stone-800'
                     }`}
@@ -668,17 +666,17 @@ export default function CategoryDashboardClient({ category, products }: Props) {
                     <div className="flex items-center gap-2.5">
                       <div
                         className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                          selectedBrand === 'jeevan-mart'
+                          selectedBrand === 'g1-mart'
                             ? 'border-[var(--g1-primary)] bg-[var(--g1-primary)]'
                             : 'border-stone-300'
                         }`}
                       >
-                        {selectedBrand === 'jeevan-mart' && <Check className="w-2.5 h-2.5 text-white" />}
+                        {selectedBrand === 'g1-mart' && <Check className="w-2.5 h-2.5 text-white" />}
                       </div>
-                      <span className="text-xs">Jeevan Mart</span>
+                      <span className="text-xs">G1Mart</span>
                     </div>
                     <span className="text-[11px] text-stone-400 font-medium">
-                      {availableBrands.jeevanMartCount} items
+                      {availableBrands.g1MartCount} items
                     </span>
                   </button>
                 )}
