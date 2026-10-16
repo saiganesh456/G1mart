@@ -130,7 +130,7 @@ export default function Header() {
           )}
 
           {/* Row 1: logo (28px high) + profile avatar + cart button */}
-          <div className="flex items-center justify-between px-4 pt-3 pb-1">
+          <div className="relative z-40 flex items-center justify-between px-4 pt-3 pb-1">
             <Link href="/" aria-label="G1 Mart home">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img

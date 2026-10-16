@@ -6,36 +6,49 @@ import Image from 'next/image';
 /**
  * CameraMascotPeeker
  * 
- * 3D Mascot peeking out from behind the search bar's camera scan button,
- * exactly matching the user's reference photo.
+ * Compact 3D mascot peeking out from behind the search bar's camera button.
+ * Scaled down to prevent any overlap with the Cart and Account icons in Row 1.
  * 
- * Animation & Customer Education Flow:
- * 1. Hide & Rise: Mascot starts tucked behind the camera button and rises up on app open.
- * 2. Snap Photo: Phone camera flashes (📸) and green laser sweeps down the handwritten slip.
- * 3. Fast Delivery Cue: Speed pill flashes "⚡ 15-Min Delivery" + flying grocery items
- *    zipping into the cart, proving that slip scanning is the fastest way to get groceries packed!
- * 4. Bouncing Pointer: Animated green cue pointing directly down at the Camera button.
+ * Animation Choreography:
+ * 1. Hide: Tucked behind search bar rim on initial load.
+ * 2. Sneak Peek: Eyes and backwards red cap emerge first, glancing around.
+ * 3. Pop Up & Aim: Mascot springs up playfully, holds out the handwritten slip
+ *    and tilts the phone camera to scan it.
+ * 4. Scan & Flash: Green laser sweeps the receipt followed by a camera shutter flash.
+ * 5. Educational micro-pill docked cleanly to the left in the empty Row 2 space.
  */
 export default function CameraMascotPeeker() {
-  const [step, setStep] = useState(1);
+  const [hasEntered, setHasEntered] = useState(false);
+  const [cycleStep, setCycleStep] = useState(1);
   const [cameraFlash, setCameraFlash] = useState(false);
 
-  // 6-second synchronized cycle
+  // Entrance sequence: start sneak-peek then full emerge
   useEffect(() => {
-    const interval = setInterval(() => {
-      setStep((prev) => (prev % 4) + 1);
-    }, 1500);
-    return () => clearInterval(interval);
+    const entranceTimer = setTimeout(() => {
+      setHasEntered(true);
+    }, 2400);
+    return () => clearTimeout(entranceTimer);
   }, []);
 
-  // Shutter flash on step 2
+  // Recurring 4.5s cycle for laser, shutter flash & education pill
   useEffect(() => {
-    if (step === 2) {
+    if (!hasEntered) return;
+
+    const interval = setInterval(() => {
+      setCycleStep((prev) => (prev % 3) + 1);
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, [hasEntered]);
+
+  // Trigger camera shutter flash on cycleStep 2
+  useEffect(() => {
+    if (cycleStep === 2) {
       setCameraFlash(true);
-      const timer = setTimeout(() => setCameraFlash(false), 400);
+      const timer = setTimeout(() => setCameraFlash(false), 350);
       return () => clearTimeout(timer);
     }
-  }, [step]);
+  }, [cycleStep]);
 
   const handleOpenScanner = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -45,8 +58,8 @@ export default function CameraMascotPeeker() {
   return (
     <div
       aria-hidden="true"
-      className="absolute right-0 bottom-[44px] sm:bottom-[46px] pointer-events-none select-none z-20 overflow-visible peeker-entrance-rise"
-      style={{ width: 105 }}
+      className="absolute right-1 bottom-[42px] pointer-events-none select-none z-20 overflow-visible"
+      style={{ width: 46 }}
     >
       {/* Clickable interactive wrapper */}
       <div
@@ -61,111 +74,131 @@ export default function CameraMascotPeeker() {
         }}
         className="relative pointer-events-auto cursor-pointer group flex flex-col items-center focus:outline-none"
         title="Tap camera to scan handwritten grocery slip"
-        aria-label="3D Mascot — Scan your grocery slip for 15-min delivery"
+        aria-label="3D Mascot — Scan handwritten grocery slip"
       >
         {/* ============================================================== */}
-        {/* 1. FAST PROCESS EDUCATION CUE (Floating pill above mascot)     */}
-        {/* Teaches customer: Scan Slip -> 15-Min Delivery!                */}
+        {/* 1. COMPACT MICRO-PILL CUE (Docked to the left in Row 2 space)  */}
+        {/* Keeps Row 1 (Cart & Account) 100% free and unobstructed       */}
         {/* ============================================================== */}
-        <div className="absolute -top-6 right-0 z-30 transition-all duration-300">
-          {step === 1 && (
-            <div className="bg-emerald-600 text-white text-[8px] font-black px-2 py-0.5 rounded-full shadow-md border border-white/80 whitespace-nowrap flex items-center gap-1 animate-pulse">
-              <span>⚡ 15-Min Delivery</span>
+        <div className="absolute right-[50px] top-2 pointer-events-none whitespace-nowrap z-20">
+          {cycleStep === 1 && (
+            <div className="bg-emerald-600/95 backdrop-blur-xs text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-sm border border-emerald-400/50 flex items-center gap-1 animate-pulse">
+              <span>⚡ 15m Delivery</span>
             </div>
           )}
-          {step === 2 && (
-            <div className="bg-amber-500 text-white text-[8px] font-black px-2 py-0.5 rounded-full shadow-md border border-white/80 whitespace-nowrap flex items-center gap-1 animate-bounce">
+          {cycleStep === 2 && (
+            <div className="bg-amber-500/95 backdrop-blur-xs text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-sm border border-amber-300/60 flex items-center gap-1 animate-bounce">
               <span>📸 Snap Slip</span>
             </div>
           )}
-          {step === 3 && (
-            <div className="bg-emerald-600 text-white text-[8px] font-black px-2 py-0.5 rounded-full shadow-md border border-white/80 whitespace-nowrap flex items-center gap-1">
-              <span>⚡ Auto-Pack!</span>
-            </div>
-          )}
-          {step === 4 && (
-            <div className="bg-gray-900/90 text-white text-[8px] font-black px-2 py-0.5 rounded-full shadow-md border border-emerald-400/60 whitespace-nowrap flex items-center gap-1">
-              <span className="text-amber-300">👇</span>
-              <span>Tap Camera</span>
+          {cycleStep === 3 && (
+            <div className="bg-gray-900/90 backdrop-blur-xs text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-sm border border-emerald-400/50 flex items-center gap-1">
+              <span className="text-emerald-400">⚡</span>
+              <span>Auto-Pack!</span>
             </div>
           )}
         </div>
 
         {/* ============================================================== */}
-        {/* 2. 3D CARTOON CHARACTER PEEKING FROM BEHIND THE CAMERA BUTTON  */}
+        {/* 2. 3D CARTOON CHARACTER (Peek from behind camera button)       */}
         {/* ============================================================== */}
-        <div className="relative peeker-bob-anim flex items-end justify-center">
-          {/* Subtle Ambient green glow */}
-          <div className="absolute inset-0 bg-emerald-400/20 blur-lg rounded-full pointer-events-none" />
+        <div
+          className={`relative ${
+            hasEntered ? 'peeker-idle-bob' : 'peeker-curious-entrance'
+          } flex items-end justify-center`}
+        >
+          {/* Ambient soft glow */}
+          <div className="absolute inset-0 bg-emerald-400/15 blur-md rounded-full pointer-events-none" />
 
-          {/* Character Render (Masked at bottom to emerge cleanly from behind search bar) */}
+          {/* Masked character (emerging from behind search bar top border) */}
           <div
-            className="relative w-[92px] sm:w-[102px] aspect-[480/684] overflow-visible"
+            className="relative w-[44px] aspect-[480/684] overflow-visible"
             style={{
-              WebkitMaskImage: 'linear-gradient(to bottom, black 78%, transparent 98%)',
-              maskImage: 'linear-gradient(to bottom, black 78%, transparent 98%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
             }}
           >
             <Image
               src="/images/character_scanning.webp"
-              alt="3D mascot peeking above camera button photographing grocery slip"
+              alt="3D mascot peeking above camera button scanning slip"
               width={480}
               height={684}
               priority
-              className="w-full h-auto object-contain drop-shadow-lg select-none pointer-events-none transition-transform group-hover:scale-105"
+              className="w-full h-auto object-contain drop-shadow-md select-none pointer-events-none transition-transform group-hover:scale-105"
             />
 
-            {/* Camera Shutter Flash (Step 2) */}
+            {/* Camera Shutter Flash Lens Pulse */}
             {cameraFlash && (
-              <div className="absolute top-[48%] left-[42%] w-10 h-10 rounded-full bg-white shadow-[0_0_28px_16px_rgba(255,255,255,0.98)] animate-ping pointer-events-none z-30" />
+              <div className="absolute top-[48%] left-[44%] w-6 h-6 rounded-full bg-white shadow-[0_0_18px_10px_rgba(255,255,255,0.95)] animate-ping pointer-events-none z-30" />
             )}
 
-            {/* Green Laser Scan on Slip (Step 3) */}
-            {step === 3 && (
-              <div className="absolute left-[10%] w-[32%] h-[2px] bg-emerald-400 shadow-[0_0_8px_#10b981,0_0_16px_#34d399] rounded-full peeker-laser-sweep pointer-events-none z-30" />
-            )}
-
-            {/* Flying Mini Groceries Zipping to Cart (Step 3 & 4) */}
-            {step >= 3 && (
-              <div className="absolute -top-3 left-0 pointer-events-none flex gap-0.5 peeker-zip-cart z-30">
-                <span className="text-[10px] bg-white rounded-full p-0.5 shadow-sm border border-amber-200">🌾</span>
-                <span className="text-[10px] bg-white rounded-full p-0.5 shadow-sm border border-sky-200">🥛</span>
-                <span className="text-[10px] bg-white rounded-full p-0.5 shadow-sm border border-emerald-200">🥕</span>
-              </div>
+            {/* Green Laser Scan on Slip */}
+            {cycleStep === 1 && (
+              <div className="absolute left-[8%] w-[34%] h-[1.5px] bg-emerald-400 shadow-[0_0_6px_#10b981] rounded-full peeker-laser-sweep pointer-events-none z-30" />
             )}
           </div>
         </div>
 
         {/* ============================================================== */}
-        {/* 3. SUBTLE GREEN POINTER ARROW TO CAMERA BUTTON                 */}
-        {/* Guides customer eyes directly to the camera button below       */}
+        {/* 3. TINY BOUNCING GREEN POINTER ARROW TO CAMERA BUTTON          */}
         {/* ============================================================== */}
-        <div className="absolute -bottom-1 right-3 z-30 pointer-events-none animate-bounce">
-          <svg className="w-3.5 h-3.5 text-emerald-600 drop-shadow-sm fill-current" viewBox="0 0 20 20">
+        <div className="absolute -bottom-1.5 right-2.5 z-30 pointer-events-none animate-bounce">
+          <svg className="w-3 h-3 text-emerald-600 drop-shadow-xs fill-current" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-.707-4.293a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3z" clipRule="evenodd" />
           </svg>
         </div>
       </div>
 
-      {/* Synchronized Keyframes */}
+      {/* Animation Keyframes */}
       <style jsx>{`
-        /* Slow entrance rise: rises from behind search bar on load */
-        .peeker-entrance-rise {
-          animation: peekerRise 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        /* Multi-step entrance:
+           1. Hidden behind camera rim (0-15%)
+           2. Peeks cap & eyes looking around (25-45%)
+           3. Playfully springs up into view (60-75%)
+           4. Aims phone at slip to scan (80-100%)
+        */
+        .peeker-curious-entrance {
+          animation: peekerCurious 2.4s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+          transform-origin: bottom center;
         }
-        @keyframes peekerRise {
+
+        @keyframes peekerCurious {
           0% {
             opacity: 0;
-            transform: translateY(35px) scale(0.9);
+            transform: translateY(42px) scale(0.75);
+          }
+          15% {
+            opacity: 1;
+            transform: translateY(28px) scale(0.82);
+          }
+          30% {
+            opacity: 1;
+            transform: translateY(22px) rotate(-5deg) scale(0.88);
+          }
+          45% {
+            opacity: 1;
+            transform: translateY(20px) rotate(4deg) scale(0.9);
+          }
+          65% {
+            opacity: 1;
+            transform: translateY(-4px) rotate(-2deg) scale(1.05);
+          }
+          80% {
+            opacity: 1;
+            transform: translateY(0px) rotate(0deg) scale(1);
+          }
+          90% {
+            opacity: 1;
+            transform: translateY(-2px) rotate(-3deg) scale(1.02);
           }
           100% {
             opacity: 1;
-            transform: translateY(0px) scale(1);
+            transform: translateY(0px) rotate(0deg) scale(1);
           }
         }
 
-        /* Gentle idle bobbing */
-        .peeker-bob-anim {
+        /* Gentle breathing idle float after entrance completes */
+        .peeker-idle-bob {
           animation: peekerBob 3.5s ease-in-out infinite;
           transform-origin: bottom center;
         }
@@ -174,50 +207,30 @@ export default function CameraMascotPeeker() {
             transform: translateY(0px);
           }
           50% {
-            transform: translateY(-3px);
+            transform: translateY(-2.5px);
           }
         }
 
         /* Laser sweep down receipt */
         .peeker-laser-sweep {
-          animation: laserSweep 1.1s ease-in-out infinite alternate;
+          animation: laserSweep 1s ease-in-out infinite alternate;
         }
         @keyframes laserSweep {
           0% {
-            top: 52%;
-            opacity: 0.4;
+            top: 50%;
+            opacity: 0.3;
           }
           100% {
-            top: 72%;
+            top: 74%;
             opacity: 1;
-          }
-        }
-
-        /* Mini items zipping upward towards cart */
-        .peeker-zip-cart {
-          animation: zipCart 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
-        }
-        @keyframes zipCart {
-          0% {
-            opacity: 0;
-            transform: translate(0, 0) scale(0.5);
-          }
-          40% {
-            opacity: 1;
-            transform: translate(6px, -12px) scale(1);
-          }
-          100% {
-            opacity: 0;
-            transform: translate(14px, -24px) scale(0.3);
           }
         }
 
         /* Reduced motion support */
         @media (prefers-reduced-motion: reduce) {
-          .peeker-entrance-rise,
-          .peeker-bob-anim,
-          .peeker-laser-sweep,
-          .peeker-zip-cart {
+          .peeker-curious-entrance,
+          .peeker-idle-bob,
+          .peeker-laser-sweep {
             animation: none !important;
             transform: none !important;
           }
