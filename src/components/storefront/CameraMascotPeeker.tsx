@@ -6,17 +6,18 @@ import Image from 'next/image';
 /**
  * CameraMascotPeeker
  * 
- * Compact 3D mascot peeking directly above the search bar's camera button.
- * Scaled down so his face and hands are 100% uncovered by the Account and Cart icons.
+ * Living 3D mascot peeking directly above the search bar's camera button.
+ * Scaled down so his face and hands are 100% clear with zero overlap.
  * 
  * Choreography:
- * 1. Peek: Hands on search bar, smiling at customer. (anim_look.webp)
+ * 1. Peek: Hands on search bar rim, smiling at customer. (anim_look.webp)
  * 2. Wink: Playfully winks right eye 😉 at customer. (anim_wink.webp)
  * 3. Flip & Show: Shows handwritten slip and phone in both hands. (anim_hold.webp)
- * 4. Back-Camera Scan: Aims phone's back camera lenses at the slip (Rice, Milk, Oil, Sugar),
- *    laser line sweeps down receipt, shutter flash fires. (anim_scan.webp)
- * 5. Camera Button Flash & Pointer: Bright flash pulses directly on the search bar camera icon,
- *    with a compact "Snap Slip 👇" badge sitting right on top of the camera button.
+ * 4. Accurate Back-Camera Scan: Phone's back camera lenses aimed directly down at the
+ *    handwritten slip (Rice, Milk, Oil, Sugar), green laser sweeps down receipt,
+ *    camera lens shutter flashes. (anim_scan.webp)
+ * 5. Camera Button Flash & Direct Arrow: Prominent downward arrow pointing straight
+ *    into the search bar camera icon [📷] with camera snap flash effect. No text badge.
  * 6. Smooth Duck: Slides cleanly down behind search bar (strictly clipped, zero lower bleed).
  */
 export default function CameraMascotPeeker() {
@@ -32,6 +33,8 @@ export default function CameraMascotPeeker() {
     let tFlash: NodeJS.Timeout;
     let tFlashEnd: NodeJS.Timeout;
     let tRest: NodeJS.Timeout;
+    let tRestFlash: NodeJS.Timeout;
+    let tRestFlashEnd: NodeJS.Timeout;
     let tDuck: NodeJS.Timeout;
     let tLoop: NodeJS.Timeout;
 
@@ -54,21 +57,25 @@ export default function CameraMascotPeeker() {
         setTextStep(2);
       }, 3200);
 
-      // 4.8s: Actively aims phone back camera at slip to scan
+      // 4.8s: Aims phone back camera at slip to scan
       tScan = setTimeout(() => {
         setPhase('scan');
         setTextStep(3);
       }, 4800);
 
-      // 5.4s: Shutter flash pulse on phone AND search camera button
+      // 5.4s: Shutter flash on phone back camera
       tFlash = setTimeout(() => setCameraFlash(true), 5400);
       tFlashEnd = setTimeout(() => setCameraFlash(false), 5900);
 
-      // 7.0s: Resting pose with pointer arrow & fast pack badge
+      // 7.0s: Resting pose & arrow pointing directly to camera button
       tRest = setTimeout(() => {
         setPhase('rest');
         setTextStep(4);
       }, 7000);
+
+      // 7.2s: Snap flash on the search bar camera button when arrow appears
+      tRestFlash = setTimeout(() => setCameraFlash(true), 7200);
+      tRestFlashEnd = setTimeout(() => setCameraFlash(false), 7700);
 
       // 8.8s: Smooth duck down behind rim
       tDuck = setTimeout(() => setPhase('duck'), 8800);
@@ -87,6 +94,8 @@ export default function CameraMascotPeeker() {
       clearTimeout(tFlash);
       clearTimeout(tFlashEnd);
       clearTimeout(tRest);
+      clearTimeout(tRestFlash);
+      clearTimeout(tRestFlashEnd);
       clearTimeout(tDuck);
       clearTimeout(tLoop);
     };
@@ -223,12 +232,12 @@ export default function CameraMascotPeeker() {
 
               {/* POSE 4 & 5: Scanning with BACK CAMERA pointing at handwritten slip */}
               {(phase === 'scan' || phase === 'rest') && (
-                <div className="relative w-[64px] aspect-[480/452] peeker-active-scan-motion">
+                <div className="relative w-[64px] aspect-[480/447] peeker-active-scan-motion">
                   <Image
                     src="/images/anim_scan.webp"
                     alt="3D mascot scanning grocery slip with phone back camera"
                     width={480}
-                    height={452}
+                    height={447}
                     priority
                     className="w-full h-auto object-contain drop-shadow-sm select-none pointer-events-none"
                   />
@@ -250,36 +259,35 @@ export default function CameraMascotPeeker() {
       </div>
 
       {/* ============================================================== */}
-      {/* 2. SNAP SLIP BADGE & ARROW (KEPT DOWN AT THE TOP OF CAMERA)    */}
+      {/* 2. ONLY ARROW MARK (NO TEXT) BOUNCING DIRECTLY ON TOP OF CAMERA*/}
       {/* Aligned directly over the camera button (right: 8px, width: 40px) */}
       {/* ============================================================== */}
       {(phase === 'scan' || phase === 'rest') && (
         <div
           aria-hidden="true"
-          className="absolute right-2 top-0 pointer-events-none select-none z-40 -translate-y-[15px] w-10 flex flex-col items-center peeker-arrow-bounce"
+          className="absolute right-2 top-0 pointer-events-none select-none z-40 -translate-y-[8px] w-10 flex flex-col items-center peeker-arrow-bounce"
         >
-          {/* Snap Slip Badge sitting down right at the top of camera */}
-          <div className="bg-emerald-600 text-white text-[7.5px] font-black px-1.5 py-0.5 rounded-full shadow-md border border-white flex items-center gap-0.5 whitespace-nowrap">
-            <span>Snap Slip</span>
-          </div>
           {/* Downward pointer arrow pointing straight into the camera lens */}
-          <svg className="w-3.5 h-3.5 text-emerald-600 -mt-0.5 drop-shadow-sm fill-current" viewBox="0 0 20 20">
+          <svg className="w-5 h-5 text-emerald-600 drop-shadow-md fill-current" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-.707-4.293a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3z" clipRule="evenodd" />
           </svg>
         </div>
       )}
 
       {/* ============================================================== */}
-      {/* 3. CAMERA BUTTON FLASH PULSE (Clicks search bar camera button) */}
+      {/* 3. SNAP FLASH ON THE SEARCH BAR CAMERA BUTTON                  */}
+      {/* Triggers bright camera flash effect directly on camera button  */}
       {/* ============================================================== */}
-      {cameraFlash && (
+      {(phase === 'scan' || phase === 'rest') && (
         <div
           aria-hidden="true"
-          className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 pointer-events-none z-40 flex items-center justify-center"
+          className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 pointer-events-none z-35 flex items-center justify-center"
         >
           {/* White camera snap flash flare */}
-          <div className="absolute inset-0 rounded-xl bg-white shadow-[0_0_24px_12px_rgba(255,255,255,0.98)] animate-ping" />
-          {/* Green highlight ring */}
+          {cameraFlash && (
+            <div className="absolute inset-0 rounded-xl bg-white shadow-[0_0_32px_18px_rgba(255,255,255,0.98)] animate-ping" />
+          )}
+          {/* Glowing emerald ring pulse around camera button */}
           <div className="absolute -inset-1 rounded-xl border-2 border-emerald-400 shadow-[0_0_12px_#10b981] animate-pulse" />
         </div>
       )}
@@ -418,16 +426,16 @@ export default function CameraMascotPeeker() {
           }
         }
 
-        /* Camera Pointer Bounce Animation - kept down near the top of camera */
+        /* Camera Arrow Bounce Animation - kept down near the top of camera */
         .peeker-arrow-bounce {
           animation: arrowBounce 1s ease-in-out infinite;
         }
         @keyframes arrowBounce {
           0%, 100% {
-            transform: translateY(-15px);
+            transform: translateY(-8px);
           }
           50% {
-            transform: translateY(-10px);
+            transform: translateY(-3px);
           }
         }
 
