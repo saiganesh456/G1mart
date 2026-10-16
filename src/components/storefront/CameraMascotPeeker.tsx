@@ -188,7 +188,7 @@ export default function CameraMascotPeeker() {
 
               {/* POSE 3: Shows handwritten slip & phone in both hands */}
               {phase === 'hold' && (
-                <div className="relative w-full aspect-[480/325] peeker-flip-in">
+                <div className="relative w-full aspect-[480/325] peeker-flip-in" style={{ marginBottom: 5 }}>
                   <Image
                     src="/images/anim_hold.webp"
                     alt="3D mascot holding phone and handwritten slip"
@@ -202,7 +202,10 @@ export default function CameraMascotPeeker() {
 
               {/* POSE 4 & 5: Scanning with BACK CAMERA pointing at handwritten slip */}
               {(phase === 'scan' || phase === 'rest') && (
-                <div className="relative w-[64px] aspect-[480/447] peeker-active-scan-motion">
+                <div
+                  className="relative aspect-[480/447] peeker-active-scan-motion"
+                  style={{ width: 53 }}
+                >
                   <Image
                     src="/images/anim_scan.webp"
                     alt="3D mascot scanning grocery slip with phone back camera"
