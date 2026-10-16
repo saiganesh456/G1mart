@@ -6,25 +6,25 @@ import Image from 'next/image';
 /**
  * CameraMascotPeeker
  * 
- * 3D Mascot positioned directly above the camera button in the search bar,
- * faithfully replicating the user's reference photo (media_1792111887353.jpg).
+ * Living 3D mascot peeking directly above the search bar's camera button.
  * 
- * True Hide-and-Peek Choreography (8-second continuous loop):
- * - Phase 1 (0.0s - 1.0s): Tucked completely behind the search bar (hidden by z-20 input).
- * - Phase 2 (1.0s - 2.0s): Sneak peek! Only red cap and eyes emerge, glancing around.
- * - Phase 3 (2.0s - 2.8s): Full rise! Pops up to rest elbows and chest flush on search bar rim.
- * - Phase 4 (2.8s - 3.8s): Aims phone at slip, green laser sweeps receipt, camera shutter flash pulses (📸).
- * - Phase 5 (3.8s - 6.8s): Resting on search bar with gentle bob, acoustic pulse lines ((( by cap, pointer arrow 👇.
- * - Phase 6 (6.8s - 8.0s): Playfully ducks back down behind the search bar, then repeats.
+ * Storyboard & Choreography (8-second continuous loop):
+ * - Act 1 (0.0s - 1.2s): Sneak up! Slowly peeks over the search bar rim, hands gripping the top edge. (anim_look.webp)
+ * - Act 2 (1.2s - 2.2s): Playful Wink! Winks at the customer ("beat an eye on eye" 😉) while gripping the bar. (anim_wink.webp)
+ * - Act 3 (2.2s - 3.2s): 3D Phone Flip & Catch! Spins phone into view and catches the handwritten slip. (anim_hold.webp)
+ * - Act 4 (3.2s - 4.2s): Laser Scan & Shutter Flash! Green laser sweeps receipt items, phone flash fires (📸).
+ * - Act 5 (4.2s - 6.8s): Resting Pose! Gentle idle breathing, green acoustic waves ((( pulse, bouncing arrow 👇.
+ * - Act 6 (6.8s - 8.0s): Smooth Duck! Slides smoothly down behind the search bar (strictly clipped at rim: zero bleed below!).
  */
 export default function CameraMascotPeeker() {
-  const [phase, setPhase] = useState<'hidden' | 'peek' | 'rise' | 'scan' | 'rest' | 'duck'>('hidden');
+  const [phase, setPhase] = useState<'hidden' | 'look' | 'wink' | 'hold' | 'scan' | 'rest' | 'duck'>('hidden');
   const [shutterFlash, setShutterFlash] = useState(false);
+  const [textStep, setTextStep] = useState(1);
 
-  // Synchronized 8-second cycle with React state for laser, flash, and soundwaves
   useEffect(() => {
-    let tPeek: NodeJS.Timeout;
-    let tRise: NodeJS.Timeout;
+    let tLook: NodeJS.Timeout;
+    let tWink: NodeJS.Timeout;
+    let tHold: NodeJS.Timeout;
     let tScan: NodeJS.Timeout;
     let tFlash: NodeJS.Timeout;
     let tFlashEnd: NodeJS.Timeout;
@@ -32,38 +32,51 @@ export default function CameraMascotPeeker() {
     let tDuck: NodeJS.Timeout;
     let tLoop: NodeJS.Timeout;
 
-    const runCycle = () => {
-      // 0.0s: Hidden behind search bar
+    const runStory = () => {
+      // 0.0s: Hidden behind rim
       setPhase('hidden');
 
-      // 1.0s: Sneak peek cap & eyes
-      tPeek = setTimeout(() => setPhase('peek'), 1000);
+      // 0.8s: Hands on search bar, peeking at customer
+      tLook = setTimeout(() => {
+        setPhase('look');
+        setTextStep(1);
+      }, 800);
 
-      // 2.0s: Rise up and rest elbows on rim
-      tRise = setTimeout(() => setPhase('rise'), 2000);
+      // 1.8s: Winks at customer 😉
+      tWink = setTimeout(() => setPhase('wink'), 1800);
 
-      // 2.8s: Aim phone & start laser scan
-      tScan = setTimeout(() => setPhase('scan'), 2800);
+      // 2.6s: Phone flip & slip catch
+      tHold = setTimeout(() => {
+        setPhase('hold');
+        setTextStep(2);
+      }, 2600);
 
-      // 3.3s: Shutter flash pulse
-      tFlash = setTimeout(() => setShutterFlash(true), 3300);
-      tFlashEnd = setTimeout(() => setShutterFlash(false), 3700);
+      // 3.4s: Laser scan down slip
+      tScan = setTimeout(() => setPhase('scan'), 3400);
 
-      // 3.8s: Resting pose with sparkle waves
-      tRest = setTimeout(() => setPhase('rest'), 3800);
+      // 3.8s: Camera shutter flash
+      tFlash = setTimeout(() => setShutterFlash(true), 3800);
+      tFlashEnd = setTimeout(() => setShutterFlash(false), 4200);
 
-      // 6.8s: Duck down behind search bar
+      // 4.3s: Resting pose with pointer arrow & acoustic waves
+      tRest = setTimeout(() => {
+        setPhase('rest');
+        setTextStep(3);
+      }, 4300);
+
+      // 6.8s: Smooth duck down behind rim
       tDuck = setTimeout(() => setPhase('duck'), 6800);
 
       // 8.0s: Loop
-      tLoop = setTimeout(() => runCycle(), 8000);
+      tLoop = setTimeout(() => runStory(), 8000);
     };
 
-    runCycle();
+    runStory();
 
     return () => {
-      clearTimeout(tPeek);
-      clearTimeout(tRise);
+      clearTimeout(tLook);
+      clearTimeout(tWink);
+      clearTimeout(tHold);
       clearTimeout(tScan);
       clearTimeout(tFlash);
       clearTimeout(tFlashEnd);
@@ -78,13 +91,18 @@ export default function CameraMascotPeeker() {
     window.dispatchEvent(new CustomEvent('g1mart:open-slip-scan'));
   };
 
+  const isHolding = phase === 'hold' || phase === 'scan' || phase === 'rest';
+
   return (
     <div
       aria-hidden="true"
-      className="absolute right-2 bottom-[18px] pointer-events-none select-none z-10 overflow-visible"
-      style={{ width: 56, height: 80 }}
+      className="absolute right-0 bottom-[48px] pointer-events-none select-none z-20 overflow-visible"
+      style={{
+        // Strictly clip below the search bar top edge: ZERO bleed can ever show below!
+        clipPath: 'polygon(-200% -200%, 200% -200%, 200% 100%, -200% 100%)',
+      }}
     >
-      {/* Clickable interactive wrapper */}
+      {/* Clickable interactive container */}
       <div
         role="button"
         tabIndex={0}
@@ -95,17 +113,42 @@ export default function CameraMascotPeeker() {
             handleOpenScanner(e as unknown as React.MouseEvent);
           }
         }}
-        className="relative w-full h-full pointer-events-auto cursor-pointer group flex flex-col items-center justify-end focus:outline-none"
+        className="relative pointer-events-auto cursor-pointer group flex items-end justify-end focus:outline-none"
         title="Tap camera to scan handwritten grocery slip"
-        aria-label="3D Mascot — Scan grocery slip"
+        aria-label="3D Mascot — Scan grocery slip for 15-min delivery"
+        style={{ width: 88, height: 72 }}
       >
         {/* ============================================================== */}
-        {/* GREEN ACOUSTIC / MOTION RIPPLE LINES ((( (as in reference photo) */}
+        {/* ANIMATED SIDE TEXT (Positioned cleanly to the left in Row 2)   */}
+        {/* ============================================================== */}
+        {phase !== 'hidden' && phase !== 'duck' && (
+          <div className="absolute right-[92px] bottom-3 pointer-events-none whitespace-nowrap z-30 peeker-fade-in">
+            {textStep === 1 && (
+              <div className="bg-emerald-600/95 backdrop-blur-xs text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-xs border border-emerald-400/50 flex items-center gap-1 animate-pulse">
+                <span>👋 Hi! Have a list?</span>
+              </div>
+            )}
+            {textStep === 2 && (
+              <div className="bg-amber-500/95 backdrop-blur-xs text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-xs border border-amber-300/60 flex items-center gap-1 animate-bounce">
+                <span>📸 Snap your slip!</span>
+              </div>
+            )}
+            {textStep === 3 && (
+              <div className="bg-gray-900/90 backdrop-blur-xs text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-xs border border-emerald-400/50 flex items-center gap-1">
+                <span className="text-emerald-400">⚡</span>
+                <span>15-min auto-pack!</span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ============================================================== */}
+        {/* GREEN ACOUSTIC / MOTION RIPPLE LINES (((                       */}
         {/* ============================================================== */}
         {(phase === 'scan' || phase === 'rest') && (
-          <div className="absolute top-1 left-[-10px] flex items-center pointer-events-none z-20">
+          <div className="absolute top-1 left-[-6px] flex items-center pointer-events-none z-20">
             <svg
-              className="w-4 h-6 text-emerald-500 drop-shadow-xs peeker-soundwave-anim"
+              className="w-3.5 h-5 text-emerald-500 drop-shadow-xs peeker-soundwave-anim"
               viewBox="0 0 24 36"
               fill="none"
               stroke="currentColor"
@@ -120,35 +163,65 @@ export default function CameraMascotPeeker() {
         )}
 
         {/* ============================================================== */}
-        {/* 3D CARTOON CHARACTER (Emerging from behind search bar top rim) */}
+        {/* 3D CHARACTER ACTOR (Multi-pose state engine)                    */}
         {/* ============================================================== */}
         <div
-          className={`relative w-[56px] aspect-[480/684] flex items-end justify-center peeker-cycle-motion phase-${phase}`}
+          className={`relative w-[86px] flex items-end justify-center peeker-motion-actor actor-${phase}`}
         >
           {/* Ambient soft glow */}
-          <div className="absolute inset-0 bg-emerald-400/20 blur-md rounded-full pointer-events-none" />
+          <div className="absolute inset-0 bg-emerald-400/15 blur-sm rounded-full pointer-events-none" />
 
-          {/* Character Render (No gradient mask: lower body is physically behind search bar) */}
-          <div className="relative w-full h-full overflow-visible">
-            <Image
-              src="/images/character_scanning.webp"
-              alt="3D mascot peeking above camera button scanning slip"
-              width={480}
-              height={684}
-              priority
-              className="w-full h-auto object-contain drop-shadow-md select-none pointer-events-none transition-transform group-hover:scale-105"
-            />
+          {/* POSE 1: Hands gripping the search bar, looking at customer */}
+          {phase === 'look' && (
+            <div className="relative w-full aspect-[480/368]">
+              <Image
+                src="/images/anim_look.webp"
+                alt="3D mascot hands on search bar looking at customer"
+                width={480}
+                height={368}
+                priority
+                className="w-full h-auto object-contain drop-shadow-sm select-none pointer-events-none"
+              />
+            </div>
+          )}
 
-            {/* Camera Shutter Flash Lens Pulse */}
-            {shutterFlash && (
-              <div className="absolute top-[48%] left-[44%] w-7 h-7 rounded-full bg-white shadow-[0_0_22px_12px_rgba(255,255,255,0.98)] animate-ping pointer-events-none z-30" />
-            )}
+          {/* POSE 2: Playful wink at customer 😉 */}
+          {phase === 'wink' && (
+            <div className="relative w-full aspect-[480/368]">
+              <Image
+                src="/images/anim_wink.webp"
+                alt="3D mascot winking eye playfully"
+                width={480}
+                height={368}
+                priority
+                className="w-full h-auto object-contain drop-shadow-sm select-none pointer-events-none"
+              />
+            </div>
+          )}
 
-            {/* Green Laser Scan down receipt */}
-            {phase === 'scan' && (
-              <div className="absolute left-[8%] w-[34%] h-[2px] bg-emerald-400 shadow-[0_0_8px_#10b981] rounded-full peeker-laser-sweep pointer-events-none z-30" />
-            )}
-          </div>
+          {/* POSE 3, 4, 5: Holding phone & slip high up, scanning */}
+          {isHolding && (
+            <div className="relative w-full aspect-[480/325] peeker-flip-in">
+              <Image
+                src="/images/anim_hold.webp"
+                alt="3D mascot holding phone and handwritten slip"
+                width={480}
+                height={325}
+                priority
+                className="w-full h-auto object-contain drop-shadow-sm select-none pointer-events-none transition-transform group-hover:scale-105"
+              />
+
+              {/* Camera Shutter Flash Lens Pulse */}
+              {shutterFlash && (
+                <div className="absolute top-[35%] right-[12%] w-6 h-6 rounded-full bg-white shadow-[0_0_20px_10px_rgba(255,255,255,0.98)] animate-ping pointer-events-none z-30" />
+              )}
+
+              {/* Green Laser Scan down receipt */}
+              {phase === 'scan' && (
+                <div className="absolute left-[8%] w-[38%] h-[2px] bg-emerald-400 shadow-[0_0_8px_#10b981] rounded-full peeker-laser-sweep pointer-events-none z-30" />
+              )}
+            </div>
+          )}
         </div>
 
         {/* ============================================================== */}
@@ -163,71 +236,91 @@ export default function CameraMascotPeeker() {
         )}
       </div>
 
-      {/* Synchronized Cycle Styles */}
+      {/* Synchronized Styles & Keyframes */}
       <style jsx>{`
-        /* Continuous 8-second motion mapping */
-        .peeker-cycle-motion {
-          transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.25, 1), opacity 0.5s ease;
+        .peeker-motion-actor {
+          transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.25, 1), opacity 0.4s ease;
           transform-origin: bottom center;
         }
 
-        /* Phase 1: Hidden completely behind search bar */
-        .phase-hidden {
-          transform: translateY(52px) scale(0.85);
+        /* Hidden: pulled down below the search bar rim (clipped strictly) */
+        .actor-hidden {
+          transform: translateY(100%);
           opacity: 0;
         }
 
-        /* Phase 2: Sneak peek (cap and eyes only) */
-        .phase-peek {
-          transform: translateY(28px) rotate(-4deg) scale(0.92);
+        /* Look: risen up, hands gripping search bar */
+        .actor-look {
+          transform: translateY(0px) rotate(0deg);
           opacity: 1;
         }
 
-        /* Phase 3: Rises up and rests elbows on rim */
-        .phase-rise {
-          transform: translateY(0px) rotate(0deg) scale(1);
+        /* Wink: subtle playful tilt while winking */
+        .actor-wink {
+          transform: translateY(-1px) rotate(-1.5deg);
           opacity: 1;
         }
 
-        /* Phase 4: Aims phone at slip to scan */
-        .phase-scan {
-          transform: translateY(-2px) rotate(-3deg) scale(1.02);
+        /* Hold: 3D phone flip & slip catch */
+        .actor-hold {
+          transform: translateY(0px) rotate(0deg);
           opacity: 1;
         }
 
-        /* Phase 5: Resting state with gentle breathing bob */
-        .phase-rest {
+        /* Scan: slightly leans forward to scan */
+        .actor-scan {
+          transform: translateY(-2px) rotate(-2deg);
+          opacity: 1;
+        }
+
+        /* Rest: gentle breathing bob */
+        .actor-rest {
           animation: gentleRestBob 2.5s ease-in-out infinite;
           opacity: 1;
         }
 
-        /* Phase 6: Ducks back down */
-        .phase-duck {
-          transform: translateY(52px) scale(0.85);
+        /* Duck: slides smoothly down behind search bar */
+        .actor-duck {
+          transform: translateY(100%);
           opacity: 0;
-          transition: transform 0.8s cubic-bezier(0.4, 0, 0.6, 1), opacity 0.6s ease;
+          transition: transform 0.6s cubic-bezier(0.4, 0, 0.6, 1), opacity 0.4s ease;
+        }
+
+        /* 3D Phone Flip Spin when drawing phone & slip */
+        .peeker-flip-in {
+          animation: phoneFlipIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes phoneFlipIn {
+          0% {
+            transform: scale(0.8) rotateY(180deg);
+            opacity: 0.5;
+          }
+          100% {
+            transform: scale(1) rotateY(0deg);
+            opacity: 1;
+          }
         }
 
         @keyframes gentleRestBob {
           0%, 100% {
-            transform: translateY(0px) rotate(0deg);
+            transform: translateY(0px);
           }
           50% {
-            transform: translateY(-2px) rotate(1deg);
+            transform: translateY(-2px);
           }
         }
 
         /* Laser sweep down receipt */
         .peeker-laser-sweep {
-          animation: laserSweep 0.9s ease-in-out infinite alternate;
+          animation: laserSweep 0.8s ease-in-out infinite alternate;
         }
         @keyframes laserSweep {
           0% {
-            top: 48%;
+            top: 25%;
             opacity: 0.3;
           }
           100% {
-            top: 74%;
+            top: 70%;
             opacity: 1;
           }
         }
@@ -247,11 +340,27 @@ export default function CameraMascotPeeker() {
           }
         }
 
+        .peeker-fade-in {
+          animation: fadeIn 0.3s ease-out forwards;
+        }
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateX(6px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
         /* Reduced motion support */
         @media (prefers-reduced-motion: reduce) {
-          .peeker-cycle-motion,
+          .peeker-motion-actor,
+          .peeker-flip-in,
           .peeker-laser-sweep,
-          .peeker-soundwave-anim {
+          .peeker-soundwave-anim,
+          .peeker-fade-in {
             animation: none !important;
             transition: none !important;
           }
