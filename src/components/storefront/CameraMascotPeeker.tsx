@@ -6,21 +6,22 @@ import Image from 'next/image';
 /**
  * CameraMascotPeeker
  * 
- * Living 3D mascot peeking directly above the search bar's camera button.
+ * Compact 3D mascot peeking directly above the search bar's camera button.
+ * Scaled down so his face and hands are 100% uncovered by the Account and Cart icons.
  * 
- * Full Storyboard (10-second continuous cycle):
- * - Act 1 (0.8s - 2.2s): Sneak up! Hands grip search bar rim, looking at customer. (anim_look.webp)
- * - Act 2 (2.2s - 3.2s): Playful Wink! Winks right eye at customer while gripping bar. (anim_wink.webp)
- * - Act 3 (3.2s - 4.8s): 3D Phone Flip & Show! Shows slip in left hand and phone in right hand. (anim_hold.webp)
- * - Act 4 (4.8s - 7.2s): Active Manual Scan Motion! Character turns and scans the slip with his phone camera,
- *   green laser sweeps receipt, phone shutter flashes (📸), digital viewfinder brackets pulse. (anim_scan.webp)
- * - Act 5 (7.2s - 8.8s): Result & Camera Pointer! "⚡ 15-min auto-pack!" badge + glowing downward arrow
- *   DEAD-CENTERED directly over the camera button [📷].
- * - Act 6 (8.8s - 10.0s): Smooth Duck! Slides smoothly down behind search bar (strictly clipped: zero bleed!).
+ * Choreography:
+ * 1. Peek: Hands on search bar, smiling at customer. (anim_look.webp)
+ * 2. Wink: Playfully winks right eye 😉 at customer. (anim_wink.webp)
+ * 3. Flip & Show: Shows handwritten slip and phone in both hands. (anim_hold.webp)
+ * 4. Back-Camera Scan: Aims phone's back camera lenses at the slip (Rice, Milk, Oil, Sugar),
+ *    laser line sweeps down receipt, shutter flash fires. (anim_scan.webp)
+ * 5. Camera Button Flash & Pointer: Bright flash pulses directly on the search bar camera icon,
+ *    with a compact "Snap Slip 👇" badge sitting right on top of the camera button.
+ * 6. Smooth Duck: Slides cleanly down behind search bar (strictly clipped, zero lower bleed).
  */
 export default function CameraMascotPeeker() {
   const [phase, setPhase] = useState<'hidden' | 'look' | 'wink' | 'hold' | 'scan' | 'rest' | 'duck'>('hidden');
-  const [shutterFlash, setShutterFlash] = useState(false);
+  const [cameraFlash, setCameraFlash] = useState(false);
   const [textStep, setTextStep] = useState(1);
 
   useEffect(() => {
@@ -53,21 +54,21 @@ export default function CameraMascotPeeker() {
         setTextStep(2);
       }, 3200);
 
-      // 4.8s: Actively aims phone camera at slip to scan
+      // 4.8s: Actively aims phone back camera at slip to scan
       tScan = setTimeout(() => {
         setPhase('scan');
         setTextStep(3);
       }, 4800);
 
-      // 5.6s: Camera shutter flash
-      tFlash = setTimeout(() => setShutterFlash(true), 5600);
-      tFlashEnd = setTimeout(() => setShutterFlash(false), 6100);
+      // 5.4s: Shutter flash pulse on phone AND search camera button
+      tFlash = setTimeout(() => setCameraFlash(true), 5400);
+      tFlashEnd = setTimeout(() => setCameraFlash(false), 5900);
 
-      // 7.2s: Resting pose with pointer arrow & fast pack badge
+      // 7.0s: Resting pose with pointer arrow & fast pack badge
       tRest = setTimeout(() => {
         setPhase('rest');
         setTextStep(4);
-      }, 7200);
+      }, 7000);
 
       // 8.8s: Smooth duck down behind rim
       tDuck = setTimeout(() => setPhase('duck'), 8800);
@@ -99,13 +100,12 @@ export default function CameraMascotPeeker() {
   return (
     <>
       {/* ============================================================== */}
-      {/* 1. 3D MASCOT PEEKER CONTAINER (Confined above search bar rim)   */}
+      {/* 1. 3D MASCOT CONTAINER (Compact 64px width, head below Cart)   */}
       {/* ============================================================== */}
       <div
         aria-hidden="true"
-        className="absolute right-0 bottom-[48px] pointer-events-none select-none z-20 overflow-visible"
+        className="absolute right-1 bottom-[48px] pointer-events-none select-none z-20 overflow-visible"
       >
-        {/* Clickable interactive wrapper */}
         <div
           role="button"
           tabIndex={0}
@@ -119,28 +119,28 @@ export default function CameraMascotPeeker() {
           className="relative pointer-events-auto cursor-pointer group flex items-end justify-end focus:outline-none"
           title="Tap camera to scan handwritten grocery slip"
           aria-label="3D Mascot — Scan grocery slip for 15-min delivery"
-          style={{ width: 88, height: 76 }}
+          style={{ width: 72, height: 58 }}
         >
-          {/* Animated side text pill in Row 2 */}
+          {/* Animated side text pill in Row 2 — lowered slightly */}
           {phase !== 'hidden' && phase !== 'duck' && (
-            <div className="absolute right-[92px] bottom-3 pointer-events-none whitespace-nowrap z-30 peeker-fade-in">
+            <div className="absolute right-[76px] bottom-1 pointer-events-none whitespace-nowrap z-30 peeker-fade-in">
               {textStep === 1 && (
-                <div className="bg-emerald-600/95 backdrop-blur-xs text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-xs border border-emerald-400/50 flex items-center gap-1 animate-pulse">
-                  <span>👋 Hi! Have a list?</span>
+                <div className="bg-emerald-600/95 backdrop-blur-xs text-white text-[8.5px] font-black px-2 py-0.5 rounded-full shadow-xs border border-emerald-400/50 flex items-center gap-1 animate-pulse">
+                  <span>👋 Have a grocery list?</span>
                 </div>
               )}
               {textStep === 2 && (
-                <div className="bg-amber-500/95 backdrop-blur-xs text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-xs border border-amber-300/60 flex items-center gap-1 animate-bounce">
+                <div className="bg-amber-500/95 backdrop-blur-xs text-white text-[8.5px] font-black px-2 py-0.5 rounded-full shadow-xs border border-amber-300/60 flex items-center gap-1 animate-bounce">
                   <span>📝 Snap your slip!</span>
                 </div>
               )}
               {textStep === 3 && (
-                <div className="bg-emerald-600/95 backdrop-blur-xs text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-xs border border-emerald-400/50 flex items-center gap-1 animate-pulse">
+                <div className="bg-emerald-600/95 backdrop-blur-xs text-white text-[8.5px] font-black px-2 py-0.5 rounded-full shadow-xs border border-emerald-400/50 flex items-center gap-1 animate-pulse">
                   <span>📸 Scanning slip...</span>
                 </div>
               )}
               {textStep === 4 && (
-                <div className="bg-gray-900/90 backdrop-blur-xs text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-xs border border-emerald-400/50 flex items-center gap-1">
+                <div className="bg-gray-900/90 backdrop-blur-xs text-white text-[8.5px] font-black px-2 py-0.5 rounded-full shadow-xs border border-emerald-400/50 flex items-center gap-1">
                   <span className="text-emerald-400">⚡</span>
                   <span>15-min auto-pack!</span>
                 </div>
@@ -150,9 +150,9 @@ export default function CameraMascotPeeker() {
 
           {/* Green acoustic / motion ripple lines ((( */}
           {(phase === 'scan' || phase === 'rest') && (
-            <div className="absolute top-1 left-[-6px] flex items-center pointer-events-none z-20">
+            <div className="absolute top-0.5 left-[-4px] flex items-center pointer-events-none z-20">
               <svg
-                className="w-3.5 h-5 text-emerald-500 drop-shadow-xs peeker-soundwave-anim"
+                className="w-3 h-4.5 text-emerald-500 drop-shadow-xs peeker-soundwave-anim"
                 viewBox="0 0 24 36"
                 fill="none"
                 stroke="currentColor"
@@ -174,10 +174,10 @@ export default function CameraMascotPeeker() {
             }}
           >
             <div
-              className={`relative w-[86px] flex items-end justify-center peeker-motion-actor actor-${phase}`}
+              className={`relative w-[64px] flex items-end justify-center peeker-motion-actor actor-${phase}`}
             >
               {/* Ambient soft glow */}
-              <div className="absolute inset-0 bg-emerald-400/15 blur-sm rounded-full pointer-events-none" />
+              <div className="absolute inset-0 bg-emerald-400/15 blur-xs rounded-full pointer-events-none" />
 
               {/* POSE 1: Hands gripping the search bar, looking at customer */}
               {phase === 'look' && (
@@ -216,41 +216,31 @@ export default function CameraMascotPeeker() {
                     width={480}
                     height={325}
                     priority
-                    className="w-full h-auto object-contain drop-shadow-sm select-none pointer-events-none transition-transform group-hover:scale-105"
+                    className="w-full h-auto object-contain drop-shadow-sm select-none pointer-events-none"
                   />
                 </div>
               )}
 
-              {/* POSE 4 & 5: Actively scanning slip with phone camera */}
+              {/* POSE 4 & 5: Scanning with BACK CAMERA pointing at handwritten slip */}
               {(phase === 'scan' || phase === 'rest') && (
-                <div className="relative w-[80px] aspect-[480/460] peeker-active-scan-motion">
+                <div className="relative w-[64px] aspect-[480/452] peeker-active-scan-motion">
                   <Image
                     src="/images/anim_scan.webp"
-                    alt="3D mascot actively scanning handwritten slip with phone camera"
+                    alt="3D mascot scanning grocery slip with phone back camera"
                     width={480}
-                    height={460}
+                    height={452}
                     priority
                     className="w-full h-auto object-contain drop-shadow-sm select-none pointer-events-none"
                   />
 
-                  {/* Digital Viewfinder Targeting Brackets around slip */}
-                  {phase === 'scan' && (
-                    <div className="absolute left-[3%] bottom-[12%] w-[38%] h-[32%] border border-emerald-400/80 rounded-xs pointer-events-none animate-pulse">
-                      <div className="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 border-t-2 border-l-2 border-emerald-400" />
-                      <div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 border-t-2 border-r-2 border-emerald-400" />
-                      <div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 border-b-2 border-l-2 border-emerald-400" />
-                      <div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 border-b-2 border-r-2 border-emerald-400" />
-                    </div>
+                  {/* Shutter Flash Pulse on Phone Camera Lens */}
+                  {cameraFlash && (
+                    <div className="absolute top-[52%] left-[53%] w-7 h-7 rounded-full bg-white shadow-[0_0_24px_14px_rgba(255,255,255,0.98)] animate-ping pointer-events-none z-30" />
                   )}
 
-                  {/* Camera Shutter Flash Lens Pulse on Phone */}
-                  {shutterFlash && (
-                    <div className="absolute top-[48%] left-[38%] w-8 h-8 rounded-full bg-white shadow-[0_0_28px_16px_rgba(255,255,255,0.98)] animate-ping pointer-events-none z-30" />
-                  )}
-
-                  {/* Green Laser Scan down receipt */}
+                  {/* Green Laser Scan line sweeping down the handwritten slip */}
                   {phase === 'scan' && (
-                    <div className="absolute left-[5%] w-[34%] h-[2px] bg-emerald-400 shadow-[0_0_8px_#10b981] rounded-full peeker-laser-sweep pointer-events-none z-30" />
+                    <div className="absolute right-[8%] w-[32%] h-[2px] bg-emerald-400 shadow-[0_0_8px_#10b981] rounded-full peeker-laser-sweep pointer-events-none z-30" />
                   )}
                 </div>
               )}
@@ -260,22 +250,37 @@ export default function CameraMascotPeeker() {
       </div>
 
       {/* ============================================================== */}
-      {/* 2. CAMERA POINTER ARROW (DEAD-CENTERED DIRECTLY OVER CAMERA)   */}
-      {/* Anchored at right: 8px, width: 40px (exact camera button span) */}
+      {/* 2. SNAP SLIP BADGE & ARROW (KEPT DOWN AT THE TOP OF CAMERA)    */}
+      {/* Aligned directly over the camera button (right: 8px, width: 40px) */}
       {/* ============================================================== */}
       {(phase === 'scan' || phase === 'rest') && (
         <div
           aria-hidden="true"
-          className="absolute right-2 top-0 pointer-events-none select-none z-40 -translate-y-[26px] w-10 flex flex-col items-center peeker-arrow-bounce"
+          className="absolute right-2 top-0 pointer-events-none select-none z-40 -translate-y-[15px] w-10 flex flex-col items-center peeker-arrow-bounce"
         >
-          {/* Snap Slip Badge */}
-          <div className="bg-emerald-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded-full shadow-md border border-white flex items-center gap-0.5 whitespace-nowrap">
+          {/* Snap Slip Badge sitting down right at the top of camera */}
+          <div className="bg-emerald-600 text-white text-[7.5px] font-black px-1.5 py-0.5 rounded-full shadow-md border border-white flex items-center gap-0.5 whitespace-nowrap">
             <span>Snap Slip</span>
           </div>
-          {/* Bouncing Pointer Arrow pointing down into camera button */}
-          <svg className="w-4 h-4 text-emerald-600 -mt-1 drop-shadow-sm fill-current" viewBox="0 0 20 20">
+          {/* Downward pointer arrow pointing straight into the camera lens */}
+          <svg className="w-3.5 h-3.5 text-emerald-600 -mt-0.5 drop-shadow-sm fill-current" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-.707-4.293a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3z" clipRule="evenodd" />
           </svg>
+        </div>
+      )}
+
+      {/* ============================================================== */}
+      {/* 3. CAMERA BUTTON FLASH PULSE (Clicks search bar camera button) */}
+      {/* ============================================================== */}
+      {cameraFlash && (
+        <div
+          aria-hidden="true"
+          className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 pointer-events-none z-40 flex items-center justify-center"
+        >
+          {/* White camera snap flash flare */}
+          <div className="absolute inset-0 rounded-xl bg-white shadow-[0_0_24px_12px_rgba(255,255,255,0.98)] animate-ping" />
+          {/* Green highlight ring */}
+          <div className="absolute -inset-1 rounded-xl border-2 border-emerald-400 shadow-[0_0_12px_#10b981] animate-pulse" />
         </div>
       )}
 
@@ -310,7 +315,7 @@ export default function CameraMascotPeeker() {
           opacity: 1;
         }
 
-        /* Scan: character aims camera at slip */
+        /* Scan: character aims back camera at slip */
         .actor-scan {
           transform: translateY(-1px) rotate(-1deg);
           opacity: 1;
@@ -353,10 +358,10 @@ export default function CameraMascotPeeker() {
             transform: rotate(-1deg) scale(0.98);
           }
           50% {
-            transform: rotate(-4deg) translateX(-2px) scale(1.02);
+            transform: rotate(-3deg) translateX(-1px) scale(1.02);
           }
           100% {
-            transform: rotate(-2deg) scale(1);
+            transform: rotate(-1deg) scale(1);
           }
         }
 
@@ -365,21 +370,21 @@ export default function CameraMascotPeeker() {
             transform: translateY(0px);
           }
           50% {
-            transform: translateY(-2px);
+            transform: translateY(-1.5px);
           }
         }
 
-        /* Laser sweep down receipt */
+        /* Laser sweep down the handwritten grocery list */
         .peeker-laser-sweep {
           animation: laserSweep 0.9s ease-in-out infinite alternate;
         }
         @keyframes laserSweep {
           0% {
-            top: 60%;
+            top: 55%;
             opacity: 0.3;
           }
           100% {
-            top: 86%;
+            top: 85%;
             opacity: 1;
           }
         }
@@ -405,7 +410,7 @@ export default function CameraMascotPeeker() {
         @keyframes fadeIn {
           from {
             opacity: 0;
-            transform: translateX(6px);
+            transform: translateX(4px);
           }
           to {
             opacity: 1;
@@ -413,16 +418,16 @@ export default function CameraMascotPeeker() {
           }
         }
 
-        /* Dedicated Camera Pointer Bounce Animation */
+        /* Camera Pointer Bounce Animation - kept down near the top of camera */
         .peeker-arrow-bounce {
           animation: arrowBounce 1s ease-in-out infinite;
         }
         @keyframes arrowBounce {
           0%, 100% {
-            transform: translateY(-26px);
+            transform: translateY(-15px);
           }
           50% {
-            transform: translateY(-20px);
+            transform: translateY(-10px);
           }
         }
 
