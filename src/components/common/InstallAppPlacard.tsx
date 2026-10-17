@@ -45,7 +45,7 @@ export default function InstallAppPlacard() {
   const handleInstall = async () => {
     setInstalling(true);
     try {
-      await executeInstallFlow(user?.id, '/downloads/g1mart.apk');
+      await executeInstallFlow(user?.id, '/downloads/g1mart.apk?v=1.2.1');
       setInstalled(true);
       // Auto-hide after success
       setTimeout(() => {

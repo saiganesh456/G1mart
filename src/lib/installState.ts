@@ -93,7 +93,7 @@ export function markInstallDismissed(): void {
 
 export async function executeInstallFlow(
   userId?: string | null,
-  apkUrl: string = '/downloads/g1mart.apk'
+  apkUrl: string = '/downloads/g1mart.apk?v=1.2.1'
 ): Promise<'pwa' | 'apk'> {
   markAppInstalled(userId);
 

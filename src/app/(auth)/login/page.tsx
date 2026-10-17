@@ -85,7 +85,7 @@ function LoginForm() {
             ? 'Administrator Sign In'
             : roleParam === 'rider'
             ? 'Rider Portal Sign In'
-            : 'Sign In / Register'}
+            : 'Sign In to G1 Mart'}
         </h1>
         <p className="text-xs text-stone-500">
           {roleParam === 'admin'

@@ -63,7 +63,7 @@ export default function AccountPage() {
   const handleInstallApp = async () => {
     setIsInstalling(true);
     try {
-      await executeInstallFlow(user?.id, '/downloads/g1mart.apk');
+      await executeInstallFlow(user?.id, '/downloads/g1mart.apk?v=1.2.1');
       setAppInstalled(true);
     } catch (err) {
       console.error('Failed to install app:', err);
@@ -115,11 +115,11 @@ export default function AccountPage() {
             {/* Name/email */}
             <div className="min-w-0 flex-1">
               <h1 className="font-bold truncate" style={{ fontSize: 16, color: 'var(--g1-text)' }}>
-                {isLoggedIn ? (user?.name || 'Your Account') : 'Sign in or sign up'}
+                {isLoggedIn ? (user?.name || 'Your Account') : 'Sign in to G1 Mart'}
               </h1>
               <p className="truncate mt-0.5" style={{ fontSize: 13, color: 'var(--g1-text-secondary)' }}>
                 {isLoggedIn
-                  ? (user?.email || user?.phone || 'Logged in')
+                  ? (user?.email || 'Logged in')
                   : 'Access orders, wishlist & saved addresses'}
               </p>
             </div>
@@ -144,7 +144,7 @@ export default function AccountPage() {
                 style={{ backgroundColor: 'var(--g1-primary)' }}
               >
                 <LogIn className="w-[18px] h-[18px]" strokeWidth={1.75} />
-                <span>Sign in</span>
+                <span>Sign in with Google</span>
               </Link>
             )}
           </div>
@@ -188,10 +188,10 @@ export default function AccountPage() {
 
           <div className="mt-3.5 pt-3 border-t border-emerald-200/60 flex items-center justify-between gap-2">
             <span className="text-[11px] font-medium" style={{ color: 'var(--g1-text-secondary)' }}>
-              Direct Android APK (v1.2.0)
+              Direct Android APK (v1.2.1)
             </span>
             <a
-              href="/downloads/g1mart.apk"
+              href="/downloads/g1mart.apk?v=1.2.1"
               download="G1Mart.apk"
               onClick={handleInstallApp}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white shadow-md transition-all shrink-0 g1-press"

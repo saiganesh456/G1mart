@@ -241,7 +241,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
     let list = subFilteredProducts;
 
     // 1. Brand filtering
-    if (selectedBrand === 'g1-mart' || selectedBrand === 'jeevan-mart') {
+    if (selectedBrand === 'g1-mart') {
       list = list.filter((p) => isG1MartProduct(p));
     } else if (selectedBrand === 'local') {
       list = list.filter((p) => {
@@ -337,7 +337,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
 
   const currentBrandLabel = useMemo(() => {
     if (selectedBrand === 'all') return null;
-    if (selectedBrand === 'g1-mart' || selectedBrand === 'jeevan-mart') return 'G1Mart';
+    if (selectedBrand === 'g1-mart') return 'G1Mart';
     if (selectedBrand === 'local') return 'Local';
     return selectedBrand;
   }, [selectedBrand]);
