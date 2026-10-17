@@ -3,18 +3,14 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Phone, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
+import { ShieldCheck, AlertCircle } from 'lucide-react';
 import { authService } from '@/services/authService';
 import { useAuth } from '@/context/AuthContext';
-import { sanitizeIndianPhone, isValidIndianPhone } from '@/lib/phone';
-import { sendFirebaseOtp } from '@/lib/firebase/phoneAuth';
 
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { user, isLoggedIn, isLoading: authLoading } = useAuth();
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [authError, setAuthError] = useState('');
 
@@ -54,35 +50,6 @@ function LoginForm() {
       }
     }
   }, [searchParams]);
-
-  const handleSendOtp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const clean = sanitizeIndianPhone(phoneNumber);
-    if (!clean || clean.length !== 10) {
-      setAuthError('Please enter a valid 10-digit mobile number.');
-      return;
-    }
-
-    setLoading(true);
-    setAuthError('');
-
-    try {
-      const res = await sendFirebaseOtp(clean, 'recaptcha-container');
-      if (!res.success) {
-        setAuthError(res.error || 'Failed to send OTP. Please try again.');
-        setLoading(false);
-        return;
-      }
-
-      const otpUrl = nextParam
-        ? `/otp?phone=${encodeURIComponent(clean)}&next=${encodeURIComponent(nextParam)}`
-        : `/otp?phone=${encodeURIComponent(clean)}`;
-      router.push(otpUrl);
-    } catch (err: any) {
-      setAuthError(err?.message || 'An error occurred while sending OTP.');
-      setLoading(false);
-    }
-  };
 
   const handleGoogleSignIn = async () => {
     try {
@@ -125,7 +92,7 @@ function LoginForm() {
             ? 'Sign in with your authorized admin Google account (e.g. g1mart@gmail.com)'
             : roleParam === 'rider'
             ? 'Sign in with your registered delivery partner account'
-            : 'Sign in with Google or enter your mobile number'}
+            : 'Sign in with Google to continue'}
         </p>
       </div>
 
@@ -139,9 +106,9 @@ function LoginForm() {
       {/* Google Sign-In Option */}
       <button
         type="button"
-        disabled={googleLoading || loading}
+        disabled={googleLoading}
         onClick={handleGoogleSignIn}
-        className="w-full h-12 rounded-xl border border-stone-300 hover:border-stone-400 bg-white hover:bg-stone-50 text-stone-700 text-xs sm:text-sm font-semibold flex items-center justify-center gap-3 transition-colors active:scale-[0.99] disabled:opacity-75 disabled:cursor-not-allowed shadow-sm"
+        className="w-full h-12 rounded-xl border border-stone-300 hover:border-stone-400 bg-white hover:bg-stone-50 text-stone-700 text-xs sm:text-sm font-semibold flex items-center justify-center gap-3 transition-colors active:scale-[0.99] disabled:opacity-75 disabled:cursor-not-allowed shadow-sm cursor-pointer"
       >
         {googleLoading ? (
           <div className="w-5 h-5 border-2 border-[#2E7D32] border-t-transparent rounded-full animate-spin" />
@@ -169,73 +136,6 @@ function LoginForm() {
           </>
         )}
       </button>
-
-      {/* Divider */}
-      <div className="relative my-4 text-center">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-stone-200" />
-        </div>
-        <span className="relative bg-white px-3 text-[11px] font-bold text-stone-400 uppercase tracking-wider">
-          OR MOBILE NUMBER
-        </span>
-      </div>
-
-      <form onSubmit={handleSendOtp} className="space-y-4">
-        <div>
-          <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">
-            Phone Number
-          </label>
-          <div className="relative">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-stone-500">
-              +91
-            </span>
-            <input
-              type="tel"
-              required
-              maxLength={16}
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(sanitizeIndianPhone(e.target.value))}
-              placeholder="98765 43210"
-              className="w-full h-12 pl-12 pr-4 rounded-xl bg-stone-50 border border-stone-300 text-sm font-bold tracking-wider outline-none focus:border-[#2E7D32] focus:bg-white transition-colors"
-            />
-          </div>
-          <div className="flex items-center justify-between mt-1">
-            {phoneNumber.length > 0 && !isValidIndianPhone(phoneNumber) ? (
-              <p className="text-[11px] text-amber-700 font-semibold">
-                Must be 10 digits starting with 6, 7, 8, or 9
-              </p>
-            ) : (
-              <span />
-            )}
-            {phoneNumber.length > 0 && (
-              <span className={`text-[10px] font-bold ${phoneNumber.length === 10 ? 'text-[#2E7D32]' : 'text-stone-400'}`}>
-                {phoneNumber.length}/10 digits
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Invisible reCAPTCHA container for Firebase Phone Auth */}
-        <div id="recaptcha-container" />
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full h-12 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl font-bold text-sm shadow-md active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:cursor-wait"
-        >
-          {loading ? (
-            <>
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              <span>Sending OTP...</span>
-            </>
-          ) : (
-            <>
-              <span>Continue with Phone</span>
-              <ArrowRight className="w-4 h-4" />
-            </>
-          )}
-        </button>
-      </form>
 
       <div className="flex items-center justify-center gap-1.5 text-[11px] text-stone-400">
         <ShieldCheck className="w-3.5 h-3.5 text-[#2E7D32]" />

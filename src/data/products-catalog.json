@@ -8720,24 +8720,24 @@
     "name": "Weikfield Baking Soda",
     "brand_id": "brand-weikfield",
     "brand": "Weikfield",
-    "category_id": "spices-masalas",
-    "category": "drinks-juices",
-    "sub_category": "Soft Drinks, Juices & Soda",
-    "subCategory": "Soft Drinks, Juices & Soda",
-    "image_url": "/products/packshots/weikfield-corn-flour.jpg",
+    "category_id": "instant-food",
+    "category": "instant-food",
+    "sub_category": "Baking & Dessert Mixes",
+    "subCategory": "Baking & Dessert Mixes",
+    "image_url": "/products/packshots/weikfield-baking-soda-100g.webp",
     "image_status": "verified",
     "barcode": "8902000001113",
     "image_source": "placeholder",
     "image_license": null,
     "image_check_reason": "Verified Master FMCG SKU",
     "imageStatus": "verified",
-    "imageUrl": "https://www.bigbasket.com/media/uploads/p/l/10000494_6-weikfield-cornflour.jpg",
-    "image": "https://www.bigbasket.com/media/uploads/p/l/10000494_6-weikfield-cornflour.jpg",
-    "category_name": "Cold Drinks & Juices",
+    "imageUrl": "/products/packshots/weikfield-baking-soda-100g.webp",
+    "image": "/products/packshots/weikfield-baking-soda-100g.webp",
+    "category_name": "Instant & Frozen Food",
     "is_active": false,
     "isActive": false,
-    "price": 50,
-    "mrp": 50,
+    "price": 28,
+    "mrp": 28,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -8745,21 +8745,15 @@
         "id": "g1-p1138-v1",
         "name": "100 g",
         "unit": "100 g",
-        "price": 50,
-        "mrp": 50,
+        "price": 28,
+        "mrp": 28,
         "in_stock": true,
-        "image": "/products/packshots/weikfield-corn-flour.jpg"
-      },
-      {
-        "id": "g1-p1138-v2",
-        "name": "200 g",
-        "unit": "200 g",
-        "price": 50,
-        "mrp": 50,
-        "in_stock": true,
-        "image": "/products/packshots/weikfield-corn-flour.jpg"
+        "image": "/products/packshots/weikfield-baking-soda-100g.webp"
       }
-    ]
+    ],
+    "image_path": "/products/packshots/weikfield-baking-soda-100g.webp",
+    "unit": "100 g",
+    "originalPrice": 28
   },
   {
     "id": "g1-p1173",
@@ -33471,9 +33465,27 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-tea001-1",
-        "name": "500 g (Pouch)",
-        "unit": "500 g (Pouch)",
+        "id": "g1-tea001-v1",
+        "name": "100 g",
+        "unit": "100 g",
+        "price": 40,
+        "mrp": 40,
+        "in_stock": true,
+        "image": "/products/verified/tea-3-roses-dust.webp"
+      },
+      {
+        "id": "g1-tea001-v2",
+        "name": "250 g",
+        "unit": "250 g",
+        "price": 150,
+        "mrp": 150,
+        "in_stock": true,
+        "image": "/products/verified/tea-3-roses-dust.webp"
+      },
+      {
+        "id": "g1-tea001-v3",
+        "name": "500 g",
+        "unit": "500 g",
         "price": 315,
         "mrp": 315,
         "in_stock": true,
@@ -33643,9 +33655,27 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-tea005-1",
-        "name": "500 g (Pouch)",
-        "unit": "500 g (Pouch)",
+        "id": "g1-tea005-v1",
+        "name": "100 g",
+        "unit": "100 g",
+        "price": 65,
+        "mrp": 65,
+        "in_stock": true,
+        "image": "/products/verified/tea-taj-mahal.webp"
+      },
+      {
+        "id": "g1-tea005-v2",
+        "name": "250 g",
+        "unit": "250 g",
+        "price": 175,
+        "mrp": 175,
+        "in_stock": true,
+        "image": "/products/verified/tea-taj-mahal.webp"
+      },
+      {
+        "id": "g1-tea005-v3",
+        "name": "500 g",
+        "unit": "500 g",
         "price": 375,
         "mrp": 375,
         "in_stock": true,
@@ -33729,11 +33759,47 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-tea007-1",
-        "name": "500 g (Pouch)",
-        "unit": "500 g (Pouch)",
+        "id": "g1-tea007-v1",
+        "name": "50 g",
+        "unit": "50 g",
+        "price": 25,
+        "mrp": 25,
+        "in_stock": true,
+        "image": "/products/verified/tea-tata-gemini.webp"
+      },
+      {
+        "id": "g1-tea007-v2",
+        "name": "100 g",
+        "unit": "100 g",
+        "price": 45,
+        "mrp": 45,
+        "in_stock": true,
+        "image": "/products/verified/tea-tata-gemini.webp"
+      },
+      {
+        "id": "g1-tea007-v3",
+        "name": "250 g",
+        "unit": "250 g",
+        "price": 140,
+        "mrp": 140,
+        "in_stock": true,
+        "image": "/products/verified/tea-tata-gemini.webp"
+      },
+      {
+        "id": "g1-tea007-v4",
+        "name": "500 g",
+        "unit": "500 g",
         "price": 275,
         "mrp": 275,
+        "in_stock": true,
+        "image": "/products/verified/tea-tata-gemini.webp"
+      },
+      {
+        "id": "g1-tea007-v5",
+        "name": "1 kg",
+        "unit": "1 kg",
+        "price": 540,
+        "mrp": 540,
         "in_stock": true,
         "image": "/products/verified/tea-tata-gemini.webp"
       }
@@ -33987,13 +34053,40 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-tea013-1",
-        "name": "50 g (Glass Jar)",
-        "unit": "50 g (Glass Jar)",
+        "id": "g1-tea013-v1",
+        "name": "25 g",
+        "unit": "25 g",
+        "price": 35,
+        "mrp": 35,
+        "in_stock": true,
+        "image": "/products/verified/tea-bru-instant.webp"
+      },
+      {
+        "id": "g1-tea013-v2",
+        "name": "50 g",
+        "unit": "50 g",
+        "price": 75,
+        "mrp": 75,
+        "in_stock": true,
+        "image": "/products/verified/tea-bru-instant.webp"
+      },
+      {
+        "id": "g1-tea013-v3",
+        "name": "100 g",
+        "unit": "100 g",
         "price": 180,
         "mrp": 180,
         "in_stock": true,
-        "image": "/products/verified/tea-bru-gold.webp"
+        "image": "/products/verified/tea-bru-instant.webp"
+      },
+      {
+        "id": "g1-tea013-v4",
+        "name": "200 g",
+        "unit": "200 g",
+        "price": 350,
+        "mrp": 350,
+        "in_stock": true,
+        "image": "/products/verified/tea-bru-instant.webp"
       }
     ]
   },
@@ -34288,13 +34381,31 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-tea020-1",
-        "name": "500 g (Refill Pouch)",
-        "unit": "500 g (Refill Pouch)",
-        "price": 245,
-        "mrp": 245,
+        "id": "g1-tea020-v1",
+        "name": "200 g",
+        "unit": "200 g",
+        "price": 110,
+        "mrp": 110,
         "in_stock": true,
-        "image": "/products/verified/tea-bournvita-refill.webp"
+        "image": "/products/verified/tea-horlicks-classic.webp"
+      },
+      {
+        "id": "g1-tea020-v2",
+        "name": "500 g",
+        "unit": "500 g",
+        "price": 255,
+        "mrp": 255,
+        "in_stock": true,
+        "image": "/products/verified/tea-horlicks-classic.webp"
+      },
+      {
+        "id": "g1-tea020-v3",
+        "name": "1 kg",
+        "unit": "1 kg",
+        "price": 480,
+        "mrp": 480,
+        "in_stock": true,
+        "image": "/products/verified/tea-horlicks-classic.webp"
       }
     ]
   },
@@ -34331,13 +34442,31 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-tea021-1",
-        "name": "500 g (Refill Box)",
-        "unit": "500 g (Refill Box)",
-        "price": 320,
-        "mrp": 320,
+        "id": "g1-tea021-v1",
+        "name": "200 g",
+        "unit": "200 g",
+        "price": 115,
+        "mrp": 115,
         "in_stock": true,
-        "image": "/products/verified/tea-complan-chocolate.webp"
+        "image": "/products/verified/tea-boost-health-drink.webp"
+      },
+      {
+        "id": "g1-tea021-v2",
+        "name": "500 g",
+        "unit": "500 g",
+        "price": 265,
+        "mrp": 265,
+        "in_stock": true,
+        "image": "/products/verified/tea-boost-health-drink.webp"
+      },
+      {
+        "id": "g1-tea021-v3",
+        "name": "1 kg",
+        "unit": "1 kg",
+        "price": 490,
+        "mrp": 490,
+        "in_stock": true,
+        "image": "/products/verified/tea-boost-health-drink.webp"
       }
     ]
   },
@@ -34589,11 +34718,38 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-bev001-1",
-        "name": "750 ml (PET Bottle)",
-        "unit": "750 ml (PET Bottle)",
+        "id": "g1-bev001-v1",
+        "name": "250 ml (Can/PET)",
+        "unit": "250 ml",
+        "price": 20,
+        "mrp": 20,
+        "in_stock": true,
+        "image": "/products/verified/bev-thums-up-750ml.webp"
+      },
+      {
+        "id": "g1-bev001-v2",
+        "name": "750 ml (Standard)",
+        "unit": "750 ml",
         "price": 40,
         "mrp": 40,
+        "in_stock": true,
+        "image": "/products/verified/bev-thums-up-750ml.webp"
+      },
+      {
+        "id": "g1-bev001-v3",
+        "name": "1 L (Large Bottle)",
+        "unit": "1 L",
+        "price": 50,
+        "mrp": 50,
+        "in_stock": true,
+        "image": "/products/verified/bev-thums-up-750ml.webp"
+      },
+      {
+        "id": "g1-bev001-v4",
+        "name": "2.25 L (Party Pack)",
+        "unit": "2.25 L",
+        "price": 99,
+        "mrp": 99,
         "in_stock": true,
         "image": "/products/verified/bev-thums-up-750ml.webp"
       }
@@ -34632,11 +34788,29 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-bev002-1",
-        "name": "750 ml (PET Bottle)",
-        "unit": "750 ml (PET Bottle)",
+        "id": "g1-bev002-v1",
+        "name": "250 ml",
+        "unit": "250 ml",
+        "price": 20,
+        "mrp": 20,
+        "in_stock": true,
+        "image": "/products/verified/bev-coca-cola-750ml.webp"
+      },
+      {
+        "id": "g1-bev002-v2",
+        "name": "750 ml",
+        "unit": "750 ml",
         "price": 40,
         "mrp": 40,
+        "in_stock": true,
+        "image": "/products/verified/bev-coca-cola-750ml.webp"
+      },
+      {
+        "id": "g1-bev002-v3",
+        "name": "2.25 L",
+        "unit": "2.25 L",
+        "price": 99,
+        "mrp": 99,
         "in_stock": true,
         "image": "/products/verified/bev-coca-cola-750ml.webp"
       }
@@ -34675,11 +34849,38 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-bev003-1",
-        "name": "750 ml (PET Bottle)",
-        "unit": "750 ml (PET Bottle)",
+        "id": "g1-bev003-v1",
+        "name": "250 ml",
+        "unit": "250 ml",
+        "price": 20,
+        "mrp": 20,
+        "in_stock": true,
+        "image": "/products/verified/bev-sprite-750ml.webp"
+      },
+      {
+        "id": "g1-bev003-v2",
+        "name": "750 ml",
+        "unit": "750 ml",
         "price": 40,
         "mrp": 40,
+        "in_stock": true,
+        "image": "/products/verified/bev-sprite-750ml.webp"
+      },
+      {
+        "id": "g1-bev003-v3",
+        "name": "1 L",
+        "unit": "1 L",
+        "price": 50,
+        "mrp": 50,
+        "in_stock": true,
+        "image": "/products/verified/bev-sprite-750ml.webp"
+      },
+      {
+        "id": "g1-bev003-v4",
+        "name": "2.25 L",
+        "unit": "2.25 L",
+        "price": 99,
+        "mrp": 99,
         "in_stock": true,
         "image": "/products/verified/bev-sprite-750ml.webp"
       }
@@ -34933,11 +35134,29 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-bev009-1",
-        "name": "600 ml (PET Bottle)",
-        "unit": "600 ml (PET Bottle)",
+        "id": "g1-bev009-v1",
+        "name": "250 ml",
+        "unit": "250 ml",
+        "price": 20,
+        "mrp": 20,
+        "in_stock": true,
+        "image": "/products/verified/bev-maaza-600ml.webp"
+      },
+      {
+        "id": "g1-bev009-v2",
+        "name": "600 ml",
+        "unit": "600 ml",
         "price": 42,
         "mrp": 42,
+        "in_stock": true,
+        "image": "/products/verified/bev-maaza-600ml.webp"
+      },
+      {
+        "id": "g1-bev009-v3",
+        "name": "1.2 L",
+        "unit": "1.2 L",
+        "price": 75,
+        "mrp": 75,
         "in_stock": true,
         "image": "/products/verified/bev-maaza-600ml.webp"
       }
@@ -35621,9 +35840,27 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-swt001-1",
-        "name": "50 g (Bar)",
-        "unit": "50 g (Bar)",
+        "id": "g1-swt001-v1",
+        "name": "13 g (₹5 Pack)",
+        "unit": "13 g",
+        "price": 5,
+        "mrp": 5,
+        "in_stock": true,
+        "image": "/products/verified/swt-cadbury-dairy-milk.webp"
+      },
+      {
+        "id": "g1-swt001-v2",
+        "name": "24 g (₹10 Pack)",
+        "unit": "24 g",
+        "price": 10,
+        "mrp": 10,
+        "in_stock": true,
+        "image": "/products/verified/swt-cadbury-dairy-milk.webp"
+      },
+      {
+        "id": "g1-swt001-v3",
+        "name": "50 g (Regular Bar)",
+        "unit": "50 g",
         "price": 45,
         "mrp": 45,
         "in_stock": true,
@@ -35836,9 +36073,27 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-swt006-1",
-        "name": "40 g (Bar)",
-        "unit": "40 g (Bar)",
+        "id": "g1-swt006-v1",
+        "name": "10 g (₹5 Pack)",
+        "unit": "10 g",
+        "price": 5,
+        "mrp": 5,
+        "in_stock": true,
+        "image": "/products/verified/swt-cadbury-5-star.webp"
+      },
+      {
+        "id": "g1-swt006-v2",
+        "name": "20 g (₹10 Pack)",
+        "unit": "20 g",
+        "price": 10,
+        "mrp": 10,
+        "in_stock": true,
+        "image": "/products/verified/swt-cadbury-5-star.webp"
+      },
+      {
+        "id": "g1-swt006-v3",
+        "name": "40 g (Classic Bar)",
+        "unit": "40 g",
         "price": 20,
         "mrp": 20,
         "in_stock": true,
@@ -35965,11 +36220,29 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-swt009-1",
-        "name": "27.5 g (Bar)",
-        "unit": "27.5 g (Bar)",
-        "price": 20,
-        "mrp": 20,
+        "id": "g1-swt009-v1",
+        "name": "12.8 g (₹10 Pack)",
+        "unit": "12.8 g",
+        "price": 10,
+        "mrp": 10,
+        "in_stock": true,
+        "image": "/products/verified/swt-nestle-kitkat.webp"
+      },
+      {
+        "id": "g1-swt009-v2",
+        "name": "27.5 g (2-Finger)",
+        "unit": "27.5 g",
+        "price": 25,
+        "mrp": 25,
+        "in_stock": true,
+        "image": "/products/verified/swt-nestle-kitkat.webp"
+      },
+      {
+        "id": "g1-swt009-v3",
+        "name": "38.5 g (4-Finger)",
+        "unit": "38.5 g",
+        "price": 40,
+        "mrp": 40,
         "in_stock": true,
         "image": "/products/verified/swt-nestle-kitkat.webp"
       }
@@ -36008,9 +36281,18 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-swt010-1",
-        "name": "18 g (Bar)",
-        "unit": "18 g (Bar)",
+        "id": "g1-swt010-v1",
+        "name": "9 g (₹5 Pack)",
+        "unit": "9 g",
+        "price": 5,
+        "mrp": 5,
+        "in_stock": true,
+        "image": "/products/verified/swt-nestle-munch.webp"
+      },
+      {
+        "id": "g1-swt010-v2",
+        "name": "18 g (₹10 Pack)",
+        "unit": "18 g",
         "price": 10,
         "mrp": 10,
         "in_stock": true,
@@ -37961,13 +38243,22 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-bev045-1",
-        "name": "500 ml (Bottle)",
-        "unit": "500 ml (Bottle)",
+        "id": "g1-bev045-v1",
+        "name": "500 ml",
+        "unit": "500 ml",
         "price": 10,
         "mrp": 10,
         "in_stock": true,
-        "image": "/products/verified/bev-bisleri-500ml.webp"
+        "image": "/products/verified/bev-kinley-500ml.webp"
+      },
+      {
+        "id": "g1-bev045-v2",
+        "name": "1 L",
+        "unit": "1 L",
+        "price": 20,
+        "mrp": 20,
+        "in_stock": true,
+        "image": "/products/verified/bev-kinley-water-1l.webp"
       }
     ]
   },
@@ -43704,10 +43995,19 @@
     "variants": [
       {
         "id": "g1-swt053-v1",
-        "name": "28 g",
+        "name": "28 g (Single)",
         "unit": "28 g",
         "price": 15,
         "mrp": 15,
+        "in_stock": true,
+        "image": "/products/verified/swt-lotte-choco-pie.webp"
+      },
+      {
+        "id": "g1-swt053-v2",
+        "name": "168 g (6-Pack Box)",
+        "unit": "168 g",
+        "price": 90,
+        "mrp": 90,
         "in_stock": true,
         "image": "/products/verified/swt-lotte-choco-pie.webp"
       }
@@ -57210,6 +57510,323 @@
         "mrp": 30,
         "in_stock": true,
         "image": "/products/verified/bsc-peanut-chikki.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-1054",
+    "itemNumber": 1054,
+    "name": "Minute Maid Pulpy Orange Juice",
+    "brand": "Minute Maid",
+    "brand_id": "brand-minute-maid",
+    "category": "drinks-juices",
+    "category_id": "drinks-juices",
+    "category_name": "Cold Drinks & Juices",
+    "subCategory": "Fruit Juices & Pulps",
+    "sub_category": "Fruit Juices & Pulps",
+    "unit": "1 L",
+    "price": 75,
+    "mrp": 75,
+    "originalPrice": 75,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/bev-pulpy-orange-1l.webp",
+    "imageUrl": "/products/verified/bev-pulpy-orange-1l.webp",
+    "image_url": "/products/verified/bev-pulpy-orange-1l.webp",
+    "image_path": "/products/verified/bev-pulpy-orange-1l.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Deliciously refreshing orange fruit drink with real chewy orange pulp.",
+    "rating": 4.8,
+    "reviewsCount": 38,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-1054-v1",
+        "name": "1 L",
+        "unit": "1 L",
+        "price": 75,
+        "mrp": 75,
+        "in_stock": true,
+        "image": "/products/verified/bev-pulpy-orange-1l.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-1429",
+    "itemNumber": 1429,
+    "name": "Kinley Club Soda",
+    "brand": "Kinley",
+    "brand_id": "brand-kinley",
+    "category": "drinks-juices",
+    "category_id": "drinks-juices",
+    "category_name": "Cold Drinks & Juices",
+    "subCategory": "Sodas & Mixers",
+    "sub_category": "Sodas & Mixers",
+    "unit": "750 ml",
+    "price": 20,
+    "mrp": 20,
+    "originalPrice": 20,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/bev-kinley-soda-750ml.webp",
+    "imageUrl": "/products/verified/bev-kinley-soda-750ml.webp",
+    "image_url": "/products/verified/bev-kinley-soda-750ml.webp",
+    "image_path": "/products/verified/bev-kinley-soda-750ml.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Extra bubbly club soda with high carbonation for refreshments and mixed drinks.",
+    "rating": 4.7,
+    "reviewsCount": 24,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-1429-v1",
+        "name": "750 ml",
+        "unit": "750 ml",
+        "price": 20,
+        "mrp": 20,
+        "in_stock": true,
+        "image": "/products/verified/bev-kinley-soda-750ml.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-0412",
+    "itemNumber": 412,
+    "name": "Haldiram's Nagpur Tasty Soya Chips",
+    "brand": "Haldiram's",
+    "brand_id": "brand-haldirams",
+    "category": "chips-namkeen",
+    "category_id": "chips-namkeen",
+    "category_name": "Chips, Namkeen & Snacks",
+    "subCategory": "Chips & Crisps",
+    "sub_category": "Chips & Crisps",
+    "unit": "42 g",
+    "price": 10,
+    "mrp": 10,
+    "originalPrice": 10,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/snk-haldiram-soya-sticks.webp",
+    "imageUrl": "/products/verified/snk-haldiram-soya-sticks.webp",
+    "image_url": "/products/verified/snk-haldiram-soya-sticks.webp",
+    "image_path": "/products/verified/snk-haldiram-soya-sticks.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Crispy protein-rich soya chips tossed in aromatic Indian spices.",
+    "rating": 4.7,
+    "reviewsCount": 20,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-0412-v1",
+        "name": "42 g",
+        "unit": "42 g",
+        "price": 10,
+        "mrp": 10,
+        "in_stock": true,
+        "image": "/products/verified/snk-haldiram-soya-sticks.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-0050",
+    "itemNumber": 50,
+    "name": "Andhra Special Spicy Garlic Mixture (Vellulli Mixture)",
+    "brand": "G1 Mart Snacks",
+    "brand_id": "brand-g1mart",
+    "category": "chips-namkeen",
+    "category_id": "chips-namkeen",
+    "category_name": "Chips, Namkeen & Snacks",
+    "subCategory": "South Indian Namkeen & Mixtures",
+    "sub_category": "South Indian Namkeen & Mixtures",
+    "unit": "100 g",
+    "price": 30,
+    "mrp": 30,
+    "originalPrice": 30,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/snk-andhra-garlic-mixture.webp",
+    "imageUrl": "/products/verified/snk-andhra-garlic-mixture.webp",
+    "image_url": "/products/verified/snk-andhra-garlic-mixture.webp",
+    "image_path": "/products/verified/snk-andhra-garlic-mixture.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Traditional crunchy South Indian mixture packed with fried garlic pods, crispy sev, boondi, and curry leaves.",
+    "rating": 4.9,
+    "reviewsCount": 42,
+    "isPopular": true,
+    "isBestDeal": true,
+    "variants": [
+      {
+        "id": "g1-pos-0050-v1",
+        "name": "100 g",
+        "unit": "100 g",
+        "price": 30,
+        "mrp": 30,
+        "in_stock": true,
+        "image": "/products/verified/snk-andhra-garlic-mixture.webp"
+      },
+      {
+        "id": "g1-pos-0050-v2",
+        "name": "200 g",
+        "unit": "200 g",
+        "price": 55,
+        "mrp": 55,
+        "in_stock": true,
+        "image": "/products/verified/snk-andhra-garlic-mixture.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-1082",
+    "itemNumber": 1082,
+    "name": "Premium Crisp Borugulu (Murmura / Puffed Rice)",
+    "brand": "G1 Mart Staples",
+    "brand_id": "brand-g1mart",
+    "category": "chips-namkeen",
+    "category_id": "chips-namkeen",
+    "category_name": "Chips, Namkeen & Snacks",
+    "subCategory": "South Indian Namkeen & Mixtures",
+    "sub_category": "South Indian Namkeen & Mixtures",
+    "unit": "500 g",
+    "price": 35,
+    "mrp": 35,
+    "originalPrice": 35,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/snk-g1-borugulu.webp",
+    "imageUrl": "/products/verified/snk-g1-borugulu.webp",
+    "image_url": "/products/verified/snk-g1-borugulu.webp",
+    "image_path": "/products/verified/snk-g1-borugulu.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Double-cleaned crispy puffed rice (బొరుగులు / మరమరాలు) ideal for bhel puri and evening uggani.",
+    "rating": 4.8,
+    "reviewsCount": 35,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-1082-v1",
+        "name": "500 g",
+        "unit": "500 g",
+        "price": 35,
+        "mrp": 35,
+        "in_stock": true,
+        "image": "/products/verified/snk-g1-borugulu.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-1009",
+    "itemNumber": 1009,
+    "name": "Nirmala Sweet Betel Nut (Scented Supari)",
+    "brand": "Nirmala",
+    "brand_id": "brand-nirmala",
+    "category": "sweets-chocolates",
+    "category_id": "sweets-chocolates",
+    "category_name": "Sweets & Chocolates",
+    "subCategory": "Candies, Toffees & Gums",
+    "sub_category": "Candies, Toffees & Gums",
+    "unit": "50 g",
+    "price": 20,
+    "mrp": 20,
+    "originalPrice": 20,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/swt-nirmala-sweet-supari.webp",
+    "imageUrl": "/products/verified/swt-nirmala-sweet-supari.webp",
+    "image_url": "/products/verified/swt-nirmala-sweet-supari.webp",
+    "image_path": "/products/verified/swt-nirmala-sweet-supari.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Iconic Andhra sweet scented supari mouth freshener prepared with select betel nuts and fragrant spices.",
+    "rating": 4.8,
+    "reviewsCount": 31,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-1009-v1",
+        "name": "50 g",
+        "unit": "50 g",
+        "price": 20,
+        "mrp": 20,
+        "in_stock": true,
+        "image": "/products/verified/swt-nirmala-sweet-supari.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-0998",
+    "itemNumber": 998,
+    "name": "Tata Tea Chakra Gold Strong Blend",
+    "brand": "Tata Tea",
+    "brand_id": "brand-tata-tea",
+    "category": "tea-coffee-milk-drinks",
+    "category_id": "tea-coffee-milk-drinks",
+    "category_name": "Tea, Coffee & Health Drinks",
+    "subCategory": "Tea & Chai",
+    "sub_category": "Tea & Chai",
+    "unit": "250 g",
+    "price": 135,
+    "mrp": 135,
+    "originalPrice": 135,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/tea-tata-chakra-gold.webp",
+    "imageUrl": "/products/verified/tea-tata-chakra-gold.webp",
+    "image_url": "/products/verified/tea-tata-chakra-gold.webp",
+    "image_path": "/products/verified/tea-tata-chakra-gold.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Strong and golden fragrant tea blend crafted specially for South Indian tea lovers.",
+    "rating": 4.8,
+    "reviewsCount": 29,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-0998-v1",
+        "name": "250 g",
+        "unit": "250 g",
+        "price": 135,
+        "mrp": 135,
+        "in_stock": true,
+        "image": "/products/verified/tea-tata-chakra-gold.webp"
       }
     ]
   }

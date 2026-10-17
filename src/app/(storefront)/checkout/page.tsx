@@ -220,7 +220,7 @@ export default function CheckoutPage() {
   // Place Order / Proceed to Payment Handler
   const handlePlaceOrder = () => {
     if (!isLoggedIn) {
-      setAuthError('Account registration is required before placing order. Please sign in with Google or enter your mobile number.');
+      setAuthError('Account registration is required before placing order. Please sign in with Google to continue.');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -327,7 +327,7 @@ export default function CheckoutPage() {
           </div>
 
           <p className="text-xs text-stone-600 leading-relaxed">
-            Sign in with Google or enter your mobile number. Your cart items are preserved.
+            Sign in with your Google account to proceed with your order. Your cart items are preserved.
           </p>
 
           {authError && (
@@ -337,53 +337,18 @@ export default function CheckoutPage() {
             </div>
           )}
 
-          {/* Quick Mobile Form */}
-          <form onSubmit={handleQuickAuth} className="space-y-2">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 min-w-0">
-              <input
-                type="text"
-                value={quickName}
-                onChange={(e) => setQuickName(e.target.value)}
-                placeholder="Full Name"
-                className="w-full h-10 px-3 rounded-xl bg-stone-50 border border-stone-300 text-xs font-bold outline-none focus:border-[#2E7D32] focus:bg-white box-border"
-              />
-              <div className="relative min-w-0">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-stone-500">
-                  +91
-                </span>
-                <input
-                  type="tel"
-                  maxLength={10}
-                  value={quickPhone}
-                  onChange={(e) => setQuickPhone(sanitizeIndianPhone(e.target.value))}
-                  placeholder="98765 43210"
-                  className="w-full h-10 pl-11 pr-3 rounded-xl bg-stone-50 border border-stone-300 text-xs font-bold outline-none focus:border-[#2E7D32] focus:bg-white box-border"
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={quickPhone.length !== 10}
-              className="w-full h-10 bg-[#1A2E1C] hover:bg-black text-white rounded-xl text-xs font-extrabold transition-all active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-1.5 cursor-pointer"
-            >
-              <UserCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-              <span>Sign In with Mobile &amp; Continue</span>
-            </button>
-          </form>
-
           {/* Google Sign In Option */}
           <div className="pt-1">
             <button
               type="button"
               onClick={handleGoogleSignIn}
               disabled={googleLoading}
-              className="w-full h-10 rounded-xl border border-stone-300 hover:border-stone-400 bg-white hover:bg-stone-50 text-stone-700 text-xs font-bold flex items-center justify-center gap-2.5 transition-colors active:scale-[0.99] cursor-pointer"
+              className="w-full h-11 rounded-xl border border-stone-300 hover:border-stone-400 bg-white hover:bg-stone-50 text-stone-700 text-xs sm:text-sm font-bold flex items-center justify-center gap-2.5 transition-colors active:scale-[0.99] cursor-pointer shadow-sm"
             >
               {googleLoading ? (
                 <div className="w-4 h-4 border-2 border-[#2E7D32] border-t-transparent rounded-full animate-spin shrink-0" />
               ) : (
-                <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" />
                   <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z" />
                   <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.99 0 12s.45 3.83 1.25 5.42l4.03-3.15z" />

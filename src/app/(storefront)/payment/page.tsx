@@ -93,7 +93,7 @@ export default function PaymentPage() {
     setErrorMessage(null);
 
     if (!isLoggedIn) {
-      alert('Account required for ordering. Please log in or verify your mobile number first.');
+      alert('Account required for ordering. Please sign in with Google first.');
       router.push('/checkout');
       return;
     }
