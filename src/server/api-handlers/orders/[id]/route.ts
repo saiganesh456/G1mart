@@ -11,7 +11,7 @@ export async function GET(req: NextRequest, { params }: Props) {
   try {
     const rawParams = await params;
     const id = decodeURIComponent(rawParams.id || '').trim();
-    let order: any = serverOrderStore.getOrder(id);
+    let order: any = await serverOrderStore.getOrderAsync(id);
 
     if (!order) {
       const slipOrder = await serverSlipOrders.getSlipOrderById(id);

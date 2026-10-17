@@ -387,7 +387,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         hour: '2-digit',
         minute: '2-digit',
       }),
-      items: Array.isArray(row.order_items)
+      items: Array.isArray(row.order_items) && row.order_items.length > 0
         ? row.order_items.map((oi: any) => ({
             productId: oi.product_id || oi.productId || 'p-1',
             productName: oi.product_name || oi.productName || 'Catalog Item',
@@ -396,8 +396,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             quantity: Number(oi.quantity || 1),
             image: oi.image_url || oi.image || '/products/placeholder.svg',
           }))
-        : Array.isArray(row.items)
+        : Array.isArray(row.items) && row.items.length > 0
         ? row.items
+        : Array.isArray(row.address?._items)
+        ? row.address._items
         : [],
       address,
       slot: row.slot || row.delivery_slot || 'Standard Delivery',

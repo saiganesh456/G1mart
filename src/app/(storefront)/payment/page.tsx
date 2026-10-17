@@ -230,7 +230,46 @@ export default function PaymentPage() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(orderRecord),
+            keepalive: true,
           }).catch(() => {});
+
+          // Sync to Supabase auth user metadata across devices
+          if (supabaseUser && isSupabaseConfigured()) {
+            const existingOrders = supabaseUser.user_metadata?.orders || [];
+            supabase.auth.updateUser({
+              data: { orders: [orderRecord, ...existingOrders] },
+            }).catch(() => {});
+          }
+
+          // Direct client upsert to Supabase database (valid schema columns only)
+          if (isSupabaseConfigured()) {
+            try {
+              await supabase.from('orders').upsert({
+                id: orderRecord.id,
+                user_id: supabaseUser?.id || null,
+                date: orderRecord.date,
+                slot: orderRecord.slot || 'Standard Delivery',
+                payment_method: 'Cash on Delivery',
+                is_paid: false,
+                status: 'Order Placed',
+                subtotal: orderRecord.subtotal || orderRecord.total || 0,
+                discount: 0,
+                delivery_fee: 0,
+                taxes: 0,
+                grand_total: orderRecord.grandTotal || orderRecord.total || 0,
+                address: {
+                  ...effectiveAddress,
+                  _items: orderRecord.items,
+                  _paymentStatus: 'COD_PENDING',
+                  _userId: supabaseUser?.id,
+                  _userEmail: user?.email || supabaseUser?.email,
+                },
+                updated_at: new Date().toISOString(),
+              });
+            } catch (sbErr) {
+              console.warn('[Checkout] Supabase COD client upsert note:', sbErr);
+            }
+          }
 
           try {
             const bc = new BroadcastChannel('g1mart_order_channel');
@@ -418,6 +457,29 @@ export default function PaymentPage() {
         return;
       }
 
+      let addressData: any = null;
+      try {
+        const raw = sessionStorage.getItem('g1mart_checkout_address');
+        if (raw) addressData = JSON.parse(raw);
+        if (!addressData || !addressData.phone) {
+          const lastUsed = localStorage.getItem('g1mart_last_used_address');
+          if (lastUsed) addressData = JSON.parse(lastUsed);
+        }
+      } catch {}
+
+      const effectiveAddress = addressData || {
+        fullName: user?.name || 'Customer',
+        phone: user?.phone || '9876543210',
+        mobileNumber: user?.phone || '9876543210',
+        houseFlat: 'Flat 101',
+        streetArea: 'Nellore',
+        city: 'Nellore',
+        state: 'Andhra Pradesh',
+        pincode: '524004',
+        type: 'Home',
+        isDefault: true,
+      };
+
       // Server verified payment signature successfully! Order is now PAID
       const paidOrderRecord = {
         id: params.orderId,
@@ -450,6 +512,8 @@ export default function PaymentPage() {
           variantId: i.variantId,
           sizeLabel: i.variant?.size_label,
         })),
+        address: effectiveAddress,
+        slot: addressData?.selectedSlot || 'Standard Delivery',
         userId: supabaseUser?.id || undefined,
         userEmail: user?.email || supabaseUser?.email || undefined,
       };
@@ -467,7 +531,46 @@ export default function PaymentPage() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(paidOrderRecord),
+          keepalive: true,
         }).catch(() => {});
+
+        // Sync to Supabase auth user metadata across devices
+        if (supabaseUser && isSupabaseConfigured()) {
+          const existingOrders = supabaseUser.user_metadata?.orders || [];
+          supabase.auth.updateUser({
+            data: { orders: [paidOrderRecord, ...existingOrders] },
+          }).catch(() => {});
+        }
+
+        // Direct client upsert to Supabase database (valid schema columns only)
+        if (isSupabaseConfigured()) {
+          try {
+            await supabase.from('orders').upsert({
+              id: paidOrderRecord.id,
+              user_id: supabaseUser?.id || null,
+              date: paidOrderRecord.date,
+              slot: paidOrderRecord.slot || 'Standard Delivery',
+              payment_method: 'Razorpay Standard Checkout',
+              is_paid: true,
+              status: 'Order Placed',
+              subtotal: paidOrderRecord.subtotal || paidOrderRecord.total || 0,
+              discount: 0,
+              delivery_fee: 0,
+              taxes: 0,
+              grand_total: paidOrderRecord.grandTotal || paidOrderRecord.total || 0,
+              address: {
+                ...effectiveAddress,
+                _items: paidOrderRecord.items,
+                _paymentStatus: 'paid',
+                _userId: supabaseUser?.id,
+                _userEmail: user?.email || supabaseUser?.email,
+              },
+              updated_at: new Date().toISOString(),
+            });
+          } catch (sbErr) {
+            console.warn('[Checkout] Supabase Razorpay client upsert note:', sbErr);
+          }
+        }
 
         try {
           const bc = new BroadcastChannel('g1mart_order_channel');

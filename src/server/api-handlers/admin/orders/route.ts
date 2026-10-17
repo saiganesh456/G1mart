@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const orders = serverOrderStore.getAllOrders();
+    const orders = await serverOrderStore.getAllOrdersAsync();
 
     if (isSupabaseConfigured()) {
       try {
@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
                 deliveryFee: Number(row.delivery_fee || 0),
                 taxes: Number(row.taxes || 0),
                 grandTotal: Number(row.grand_total || 0),
-                items: Array.isArray(row.order_items)
+                items: Array.isArray(row.order_items) && row.order_items.length > 0
                   ? row.order_items.map((oi: any) => ({
                       productId: oi.product_id,
                       productName: oi.product_name || 'Product',
@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
                       quantity: Number(oi.quantity || 1),
                       image: oi.image_url || '/products/placeholder.svg',
                     }))
-                  : [],
+                  : (row.address?._items || []),
                 address: row.address,
                 timeline: [
                   { status: 'Order Placed', time: 'Confirmed', completed: true },
@@ -147,7 +147,7 @@ export async function GET(request: NextRequest) {
       console.warn('[Admin Orders] Slip sync notice:', slipErr);
     }
 
-    const finalOrders = serverOrderStore.getAllOrders();
+    const finalOrders = await serverOrderStore.getAllOrdersAsync();
     return NextResponse.json({ success: true, orders: finalOrders });
   } catch (err: any) {
     return NextResponse.json(

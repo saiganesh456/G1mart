@@ -11,7 +11,7 @@ export async function GET(req: NextRequest, { params }: Props) {
   try {
     const { id: orderId } = await params;
 
-    const order = serverOrderStore.getOrder(orderId);
+    const order = await serverOrderStore.getOrderAsync(orderId);
     if (!order) {
       return NextResponse.json(
         { success: false, error: `Order ${orderId} not found` },

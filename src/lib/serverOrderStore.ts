@@ -7,6 +7,7 @@ import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import type { Order, OrderItem, PaymentRecord, PaymentStatus, OrderStatus } from '@/types';
 import migratedVariantsData from '../../data/migrated_product_variants.json';
 
+const PRIMARY_ORDERS_PATH = path.join(process.cwd(), 'src', 'data', 'orders_store.json');
 const ORDERS_FILE_PATH = path.join(process.cwd(), 'data', 'g1mart_orders.json');
 const LEGACY_CACHE_PATH = path.join(process.cwd(), '.next', 'g1mart_orders_dev.json');
 
@@ -229,7 +230,7 @@ export const serverOrderStore = {
     };
     paymentsMap.set(params.merchantOrderId, paymentRecord);
 
-    // Persist to Supabase if configured
+    // Persist to Supabase if configured (valid schema columns only)
     if (isSupabaseConfigured()) {
       try {
         await supabase.from('orders').upsert({
@@ -238,29 +239,26 @@ export const serverOrderStore = {
           date: order.date,
           slot: order.slot,
           payment_method: order.paymentMethod,
-          payment_status: 'pending',
           is_paid: false,
           status: 'Order Placed',
           subtotal: order.subtotal,
+          discount: 0,
           delivery_fee: order.deliveryFee,
           taxes: order.taxes,
           grand_total: order.grandTotal,
-          final_total: finalTotal,
-          distance_km: distanceKm,
-          zone_min_order: zoneMinOrder,
-          cod_fee: codFee,
-          type: orderType,
-          address: order.address,
-          provider_order_id: params.merchantOrderId,
-        });
-
-        await supabase.from('payments').insert({
-          id: paymentRecord.id,
-          order_id: order.id,
-          provider: paymentRecord.provider,
-          provider_order_id: params.merchantOrderId,
-          amount: paymentRecord.amount,
-          status: 'PENDING',
+          address: {
+            ...order.address,
+            _items: order.items,
+            _paymentStatus: 'pending',
+            _providerOrderId: params.merchantOrderId,
+            _userId: params.userId,
+            _userEmail: params.userEmail,
+            _distanceKm: distanceKm,
+            _zoneMinOrder: zoneMinOrder,
+            _codFee: codFee,
+            _finalTotal: finalTotal,
+          },
+          updated_at: new Date().toISOString(),
         });
       } catch (err) {
         console.warn('[serverOrderStore] Supabase insert fallback to memory:', err);
@@ -341,31 +339,24 @@ export const serverOrderStore = {
       }
     }
 
-    // Update Supabase if configured
+    // Update Supabase if configured (valid schema columns only)
     if (isSupabaseConfigured()) {
       try {
         await supabase
           .from('orders')
           .update({
-            payment_status: 'completed',
             is_paid: true,
-            paid_amount: order.grandTotal,
-            paid_at: nowIso,
-            transaction_id: params.transactionId,
+            address: {
+              ...(order.address || {}),
+              _items: order.items,
+              _paymentStatus: 'completed',
+              _paidAmount: order.grandTotal,
+              _paidAt: nowIso,
+              _transactionId: params.transactionId,
+            },
+            updated_at: nowIso,
           })
           .eq('id', order.id);
-
-        if (payment && pId) {
-          await supabase
-            .from('payments')
-            .update({
-              status: 'COMPLETED',
-              transaction_id: params.transactionId,
-              verified_at: nowIso,
-              raw_response: params.rawResponse,
-            })
-            .eq('provider_order_id', pId);
-        }
       } catch (err) {
         console.warn('[serverOrderStore] Supabase update fallback to memory:', err);
       }
@@ -457,11 +448,16 @@ export const serverOrderStore = {
         await supabase
           .from('orders')
           .update({
-            payment_status: 'manual_verified',
             is_paid: true,
-            paid_amount: order.grandTotal,
-            paid_at: nowIso,
-            marked_paid_by: staffIdentifier,
+            address: {
+              ...(order.address || {}),
+              _items: order.items,
+              _paymentStatus: 'manual_verified',
+              _paidAmount: order.grandTotal,
+              _paidAt: nowIso,
+              _markedPaidBy: staffIdentifier,
+            },
+            updated_at: nowIso,
           })
           .eq('id', orderId);
       } catch {}
@@ -627,8 +623,13 @@ export const serverOrderStore = {
       supabase
         .from('orders')
         .update({
-          payment_status: 'COD_PENDING',
+          is_paid: false,
           status: 'Order Placed',
+          address: {
+            ...(order.address || {}),
+            _paymentStatus: 'COD_PENDING',
+          },
+          updated_at: new Date().toISOString(),
         })
         .eq('id', orderId)
         .then(() => {})
@@ -641,65 +642,78 @@ export const serverOrderStore = {
   persistToDisk() {
     try {
       const orders = Array.from(ordersMap.values());
-      const dir = path.dirname(ORDERS_FILE_PATH);
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-      }
-      fs.writeFileSync(ORDERS_FILE_PATH, JSON.stringify(orders, null, 2), 'utf-8');
+      const dataStr = JSON.stringify(orders, null, 2);
+
+      // Primary repository path (src/data/orders_store.json)
+      try {
+        const pDir = path.dirname(PRIMARY_ORDERS_PATH);
+        if (!fs.existsSync(pDir)) fs.mkdirSync(pDir, { recursive: true });
+        fs.writeFileSync(PRIMARY_ORDERS_PATH, dataStr, 'utf-8');
+      } catch {}
+
+      // Secondary root data path (data/g1mart_orders.json)
+      try {
+        const dir = path.dirname(ORDERS_FILE_PATH);
+        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+        fs.writeFileSync(ORDERS_FILE_PATH, dataStr, 'utf-8');
+      } catch {}
+
+      // Ephemeral OS /tmp fallback for serverless
+      try {
+        const tmpPath = path.join(os.tmpdir(), 'g1mart_orders.json');
+        fs.writeFileSync(tmpPath, dataStr, 'utf-8');
+      } catch {}
     } catch (err) {
       console.warn('[serverOrderStore] persistToDisk error:', err);
     }
-
-    try {
-      const tmpPath = path.join(os.tmpdir(), 'g1mart_orders.json');
-      fs.writeFileSync(tmpPath, JSON.stringify(Array.from(ordersMap.values()), null, 2), 'utf-8');
-    } catch {}
   },
 
   loadFromDisk() {
     try {
-      let filePathToRead = ORDERS_FILE_PATH;
-      if (!fs.existsSync(filePathToRead) && fs.existsSync(LEGACY_CACHE_PATH)) {
-        filePathToRead = LEGACY_CACHE_PATH;
-      }
-      if (!fs.existsSync(filePathToRead)) {
-        const tmpPath = path.join(os.tmpdir(), 'g1mart_orders.json');
-        if (fs.existsSync(tmpPath)) {
-          filePathToRead = tmpPath;
-        }
-      }
+      const pathsToCheck = [
+        PRIMARY_ORDERS_PATH,
+        ORDERS_FILE_PATH,
+        LEGACY_CACHE_PATH,
+        path.join(os.tmpdir(), 'g1mart_orders.json'),
+      ];
 
-      if (fs.existsSync(filePathToRead)) {
-        const raw = fs.readFileSync(filePathToRead, 'utf-8');
-        const diskOrders: Order[] = JSON.parse(raw);
-        if (Array.isArray(diskOrders)) {
-          for (const d of diskOrders) {
-            if (d && d.id) {
-              const current = ordersMap.get(d.id);
-              if (!current) {
-                ordersMap.set(d.id, d);
-              } else {
-                const curRank = STATUS_RANK[current.status] || 0;
-                const diskRank = STATUS_RANK[d.status] || 0;
-                const winningStatus = curRank >= diskRank ? current.status : d.status;
-                const winningIsPaid = Boolean(current.isPaid || d.isPaid);
-                const winningTimeline = (current.timeline && current.timeline.some((t: any) => t.completed && t.status !== 'Order Placed'))
-                  ? current.timeline
-                  : (d.timeline || current.timeline);
+      for (const filePathToRead of pathsToCheck) {
+        if (fs.existsSync(filePathToRead)) {
+          try {
+            const raw = fs.readFileSync(filePathToRead, 'utf-8');
+            const diskOrders: Order[] = JSON.parse(raw);
+            if (Array.isArray(diskOrders) && diskOrders.length > 0) {
+              for (const d of diskOrders) {
+                if (d && d.id) {
+                  const current = ordersMap.get(d.id);
+                  if (!current) {
+                    ordersMap.set(d.id, d);
+                  } else {
+                    const curRank = STATUS_RANK[current.status] || 0;
+                    const diskRank = STATUS_RANK[d.status] || 0;
+                    const winningStatus = curRank >= diskRank ? current.status : d.status;
+                    const winningIsPaid = Boolean(current.isPaid || d.isPaid);
+                    const winningTimeline = (current.timeline && current.timeline.some((t: any) => t.completed && t.status !== 'Order Placed'))
+                      ? current.timeline
+                      : (d.timeline || current.timeline);
 
-                ordersMap.set(d.id, {
-                  ...d,
-                  ...current,
-                  status: winningStatus,
-                  isPaid: winningIsPaid,
-                  paymentStatus: winningIsPaid
-                    ? (current.paymentStatus === 'manual_verified' ? 'manual_verified' : 'completed')
-                    : (current.paymentStatus || d.paymentStatus),
-                  timeline: winningTimeline,
-                });
+                    ordersMap.set(d.id, {
+                      ...d,
+                      ...current,
+                      items: (current.items && current.items.length > 0) ? current.items : (d.items || []),
+                      address: current.address || d.address,
+                      status: winningStatus,
+                      isPaid: winningIsPaid,
+                      paymentStatus: winningIsPaid
+                        ? (current.paymentStatus === 'manual_verified' ? 'manual_verified' : 'completed')
+                        : (current.paymentStatus || d.paymentStatus),
+                      timeline: winningTimeline,
+                    });
+                  }
+                }
               }
             }
-          }
+          } catch {}
         }
       }
     } catch (err) {
@@ -731,19 +745,54 @@ export const serverOrderStore = {
       : (order.timeline || existing.timeline);
 
     const merged: Order = {
-      ...order,
       ...existing,
-      items: (order.items && order.items.length > 0) ? order.items : existing.items,
-      address: order.address || existing.address,
+      ...order,
+      items: (order.items && order.items.length > 0) ? order.items : (existing?.items || []),
+      address: order.address || existing?.address,
       status: finalStatus,
       isPaid: finalIsPaid,
       paymentStatus: finalPaymentStatus,
-      paidAmount: Math.max(existing.paidAmount || 0, order.paidAmount || 0),
+      paidAmount: Math.max(existing?.paidAmount || 0, order.paidAmount || 0),
       timeline: finalTimeline,
-      providerOrderId: existing.providerOrderId || order.providerOrderId || `MT_${order.id}`,
+      providerOrderId: existing?.providerOrderId || order.providerOrderId || `MT_${order.id}`,
     };
     ordersMap.set(order.id, merged);
     this.persistToDisk();
+    return merged;
+  },
+
+  async registerOrderAsync(order: Order): Promise<Order> {
+    const merged = this.registerOrder(order);
+
+    if (isSupabaseConfigured()) {
+      try {
+        await supabase.from('orders').upsert({
+          id: merged.id,
+          user_id: merged.userId || null,
+          date: merged.date,
+          slot: merged.slot || 'Standard Delivery',
+          payment_method: merged.paymentMethod || 'Cash on Delivery',
+          is_paid: Boolean(merged.isPaid),
+          status: merged.status || 'Order Placed',
+          subtotal: merged.subtotal || merged.grandTotal || 0,
+          discount: merged.discount || 0,
+          delivery_fee: merged.deliveryFee || 0,
+          taxes: merged.taxes || 0,
+          grand_total: merged.grandTotal || 0,
+          address: {
+            ...merged.address,
+            _items: merged.items,
+            _paymentStatus: merged.paymentStatus,
+            _userId: merged.userId,
+            _userEmail: merged.userEmail,
+          },
+          updated_at: new Date().toISOString(),
+        });
+      } catch (err) {
+        console.warn('[serverOrderStore] Supabase async register note:', err);
+      }
+    }
+
     return merged;
   },
 
@@ -752,6 +801,20 @@ export const serverOrderStore = {
    */
   getUserOrders(userId?: string, phone?: string): Order[] {
     const all = this.getAllOrders();
+    const cleanPhone = phone ? phone.replace(/\D/g, '').slice(-10) : '';
+
+    return all.filter((o) => {
+      if (userId && o.userId && o.userId === userId) return true;
+      if (cleanPhone) {
+        const oPhone = (o.address?.phone || o.address?.mobileNumber || '').replace(/\D/g, '').slice(-10);
+        if (oPhone && oPhone === cleanPhone) return true;
+      }
+      return false;
+    });
+  },
+
+  async getUserOrdersAsync(userId?: string, phone?: string): Promise<Order[]> {
+    const all = await this.getAllOrdersAsync();
     const cleanPhone = phone ? phone.replace(/\D/g, '').slice(-10) : '';
 
     return all.filter((o) => {
@@ -785,6 +848,49 @@ export const serverOrderStore = {
     return undefined;
   },
 
+  async getOrderAsync(orderId: string): Promise<Order | undefined> {
+    this.loadFromDisk();
+    let order = this.getOrder(orderId);
+    if (!order && isSupabaseConfigured()) {
+      try {
+        const { data } = await supabase.from('orders').select('*').eq('id', orderId).maybeSingle();
+        if (data) {
+          const addr = data.address || {};
+          order = {
+            id: data.id,
+            orderNumber: data.id,
+            date: data.date,
+            slot: data.slot,
+            paymentMethod: data.payment_method,
+            paymentStatus: data.is_paid ? 'completed' : (addr._paymentStatus || (data.payment_method === 'Cash on Delivery' ? 'cash_on_delivery' : 'pending')),
+            isPaid: Boolean(data.is_paid),
+            paidAmount: addr._paidAmount || (data.is_paid ? Number(data.grand_total) : 0),
+            paidAt: addr._paidAt,
+            status: data.status,
+            subtotal: Number(data.subtotal),
+            discount: Number(data.discount || 0),
+            deliveryFee: Number(data.delivery_fee || 0),
+            taxes: Number(data.taxes || 0),
+            grandTotal: Number(data.grand_total),
+            items: addr._items || [],
+            address: addr,
+            userId: data.user_id || addr._userId,
+            userEmail: addr._userEmail,
+            timeline: [
+              { status: 'Order Placed', time: 'Confirmed', completed: true },
+              { status: 'Packed', time: 'Pending', completed: data.status === 'Packed' || data.status === 'Out for Delivery' || data.status === 'Delivered' },
+              { status: 'Out for Delivery', time: 'Pending', completed: data.status === 'Out for Delivery' || data.status === 'Delivered' },
+              { status: 'Delivered', time: 'Pending', completed: data.status === 'Delivered' },
+            ],
+          };
+          ordersMap.set(data.id, order);
+          this.persistToDisk();
+        }
+      } catch {}
+    }
+    return order;
+  },
+
   /**
    * Retrieve order by provider order ID (merchantOrderId)
    */
@@ -804,7 +910,69 @@ export const serverOrderStore = {
   getAllOrders(): Order[] {
     this.loadFromDisk();
     return Array.from(ordersMap.values()).sort(
-      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
+    );
+  },
+
+  /**
+   * Get all orders with async Supabase remote database synchronization
+   */
+  async getAllOrdersAsync(): Promise<Order[]> {
+    this.loadFromDisk();
+
+    if (isSupabaseConfigured()) {
+      try {
+        const { data, error } = await supabase
+          .from('orders')
+          .select('*')
+          .order('date', { ascending: false });
+
+        if (!error && Array.isArray(data) && data.length > 0) {
+          for (const row of data) {
+            if (!row || !row.id) continue;
+            const existing = ordersMap.get(row.id);
+            const addr = row.address || {};
+            const items = existing?.items?.length ? existing.items : (addr._items || []);
+
+            const syncedOrder: Order = {
+              id: row.id,
+              orderNumber: existing?.orderNumber || row.id,
+              date: row.date || existing?.date || new Date().toISOString(),
+              slot: row.slot || existing?.slot || 'Standard Delivery',
+              paymentMethod: (row.payment_method as any) || existing?.paymentMethod || 'Cash on Delivery',
+              paymentStatus: row.is_paid
+                ? 'completed'
+                : (addr._paymentStatus || existing?.paymentStatus || (row.payment_method === 'Cash on Delivery' ? 'cash_on_delivery' : 'pending')),
+              isPaid: Boolean(row.is_paid ?? existing?.isPaid ?? false),
+              status: (row.status as any) || existing?.status || 'Order Placed',
+              subtotal: Number(row.subtotal || existing?.subtotal || 0),
+              discount: Number(row.discount || existing?.discount || 0),
+              deliveryFee: Number(row.delivery_fee || existing?.deliveryFee || 0),
+              taxes: Number(row.taxes || existing?.taxes || 0),
+              grandTotal: Number(row.grand_total || existing?.grandTotal || 0),
+              items: items,
+              address: existing?.address || addr,
+              userId: row.user_id || existing?.userId || addr._userId,
+              userEmail: existing?.userEmail || addr._userEmail,
+              timeline: existing?.timeline || [
+                { status: 'Order Placed', time: 'Confirmed', completed: true },
+                { status: 'Packed', time: 'Pending', completed: row.status === 'Packed' || row.status === 'Out for Delivery' || row.status === 'Delivered' },
+                { status: 'Out for Delivery', time: 'Pending', completed: row.status === 'Out for Delivery' || row.status === 'Delivered' },
+                { status: 'Delivered', time: 'Pending', completed: row.status === 'Delivered' },
+              ],
+            };
+
+            ordersMap.set(row.id, syncedOrder);
+          }
+          this.persistToDisk();
+        }
+      } catch (err) {
+        console.warn('[serverOrderStore] Supabase remote sync note in getAllOrdersAsync:', err);
+      }
+    }
+
+    return Array.from(ordersMap.values()).sort(
+      (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
     );
   },
 

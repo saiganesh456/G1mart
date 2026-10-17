@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    const standardOrders = serverOrderStore.getUserOrders(userId, cleanPhone);
+    const standardOrders = await serverOrderStore.getUserOrdersAsync(userId, cleanPhone);
 
     let slipOrdersFormatted: any[] = [];
     try {
@@ -132,7 +132,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const registered = serverOrderStore.registerOrder(body);
+    const registered = await serverOrderStore.registerOrderAsync(body);
 
     // Asynchronously notify all registered store managers / admins via Web Push
     // (Wakes up mobile phones even if screen is OFF or app is closed)
