@@ -159,5 +159,16 @@ if __name__ == "__main__":
         ["g1_pesalu_pouch.webp", "g1-p0408.webp"]
     )
 
-    print("\nAll 5 Jeevan Mart pouches built and synchronized successfully!")
+    # 6. Nalla Senagalu (Brown Kala Chana / నల్ల శనగలు)
+    build_jeevan_mart_pack(
+        os.path.join(BASE_DIR, "..", "scratch_perfect_kala_base.png"),
+        "Nalla Senagalu",
+        "(Brown Kala Chana)",
+        "నల్ల శనగలు",
+        "NET WT: 1 KG",
+        "g1_kala_chana_pouch.webp",
+        ["g1-p0191.webp"]
+    )
+
+    print("\nAll 6 Jeevan Mart pouches built and synchronized successfully!")
 
