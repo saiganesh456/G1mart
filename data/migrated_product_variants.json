@@ -924,7 +924,9 @@
     "price": 65,
     "mrp": 65,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_alasandalu_pouch.webp"
+    "image_url": "/products/generated_pouches/g1_red_alasandalu_pouch.webp",
+    "imageUrl": "/products/generated_pouches/g1_red_alasandalu_pouch.webp",
+    "image": "/products/generated_pouches/g1_red_alasandalu_pouch.webp"
   },
   {
     "id": "g1-p0460-v250",
@@ -960,7 +962,9 @@
     "price": 45,
     "mrp": 45,
     "stock": 60,
-    "image_url": "/products/generated_pouches/g1_coriander_powder_pouch.webp"
+    "image_url": "/products/generated_pouches/g1_pappula_podi_pouch.webp",
+    "imageUrl": "/products/generated_pouches/g1_pappula_podi_pouch.webp",
+    "image": "/products/generated_pouches/g1_pappula_podi_pouch.webp"
   },
   {
     "id": "g1-dal015-v1",
