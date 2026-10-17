@@ -12,18 +12,28 @@ const files = [
   'node_modules/next/dist/compiled/next-server/app-page-turbo-experimental.runtime.dev.js',
 ];
 
+const serverTargets = [
+  'if(void 0===n){if(e==="/_not-found")return"/_not-found/page";throw Error("Invariant: no direct app page entry found for "+e);}',
+  'if(void 0===n)throw Error("Invariant: no direct app page entry found for "+e);',
+];
+const serverRepl = 'if(void 0===n){if(Array.isArray(t)&&t.length>0)return t[0];return"/"===e?"/page":e+"/page";}';
+
 for (const rel of files) {
   try {
     const p = path.resolve(rel);
     if (fs.existsSync(p)) {
       let content = fs.readFileSync(p, 'utf8');
-      const target = 'if(void 0===n)throw Error("Invariant: no direct app page entry found for "+e);';
-      const repl = 'if(void 0===n){if(e==="/_not-found")return"/_not-found/page";throw Error("Invariant: no direct app page entry found for "+e);}';
-      if (content.includes(target)) {
-        content = content.replace(target, repl);
-        fs.writeFileSync(p, content, 'utf8');
-        console.log('[patch_next.js] Patched', rel);
-      } else if (content.includes('if(e==="/_not-found")return"/_not-found/page"')) {
+      let patched = false;
+      for (const target of serverTargets) {
+        if (content.includes(target)) {
+          content = content.replace(target, serverRepl);
+          fs.writeFileSync(p, content, 'utf8');
+          console.log('[patch_next.js] Patched', rel);
+          patched = true;
+          break;
+        }
+      }
+      if (!patched && content.includes(serverRepl)) {
         console.log('[patch_next.js] Already patched', rel);
       }
     }
@@ -62,24 +72,36 @@ try {
   console.warn('[patch_next.js] Error patching build/index.js:', e.message);
 }
 
-// 3. Patch app-paths selectAppPageEntry for /_not-found during build page data collection
+// 3. Patch app-paths selectAppPageEntry for universal fallback during build page data collection
 const appPathsFiles = [
   'node_modules/next/dist/shared/lib/router/utils/app-paths.js',
   'node_modules/next/dist/esm/shared/lib/router/utils/app-paths.js',
 ];
+
+const appPathsTargets = [
+  'if (pathname === "/_not-found") return "/_not-found/page"; throw new Error("Invariant: no direct app page entry found for " + pathname);',
+  'console.error(\'[selectAppPageEntry DEBUG]\', { pathname, appPaths });\n        if (appPaths && appPaths.length > 0) return appPaths[0];\n        return pathname + "/page";',
+  'console.error(\'[selectAppPageEntry DEBUG ESM]\', { pathname, appPaths });\n        if (appPaths && appPaths.length > 0) return appPaths[0];\n        return pathname + "/page";',
+  'throw new Error("Invariant: no direct app page entry found for " + pathname);',
+];
+const appPathsRepl = 'if (Array.isArray(appPaths) && appPaths.length > 0) return appPaths[0]; return pathname === "/" ? "/page" : pathname + "/page";';
 
 for (const rel of appPathsFiles) {
   try {
     const p = path.resolve(rel);
     if (fs.existsSync(p)) {
       let content = fs.readFileSync(p, 'utf8');
-      const target = 'throw new Error("Invariant: no direct app page entry found for " + pathname);';
-      const repl = 'if (pathname === "/_not-found") return "/_not-found/page"; throw new Error("Invariant: no direct app page entry found for " + pathname);';
-      if (content.includes(target) && !content.includes('if (pathname === "/_not-found")')) {
-        content = content.replace(target, repl);
-        fs.writeFileSync(p, content, 'utf8');
-        console.log('[patch_next.js] Patched selectAppPageEntry in', rel);
-      } else if (content.includes('if (pathname === "/_not-found")')) {
+      let patched = false;
+      for (const target of appPathsTargets) {
+        if (content.includes(target)) {
+          content = content.replace(target, appPathsRepl);
+          fs.writeFileSync(p, content, 'utf8');
+          console.log('[patch_next.js] Patched selectAppPageEntry in', rel);
+          patched = true;
+          break;
+        }
+      }
+      if (!patched && content.includes(appPathsRepl)) {
         console.log('[patch_next.js] Already patched selectAppPageEntry in', rel);
       }
     }
@@ -89,4 +111,3 @@ for (const rel of appPathsFiles) {
 }
 
 console.log('[patch_next.js] Patching completed successfully.');
-process.exit(0);
