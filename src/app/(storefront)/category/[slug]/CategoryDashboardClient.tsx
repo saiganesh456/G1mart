@@ -134,9 +134,9 @@ export default function CategoryDashboardClient({ category, products }: Props) {
     if (brandParam) setSelectedBrand(brandParam);
   }, [brandParam]);
 
-  // Base list: enforce strict category membership
+  // Base list: enforce strict category membership and active status
   const categoryProducts = useMemo(
-    () => products.filter((p) => isProductInCategory(p, category.id)),
+    () => products.filter((p) => isProductInCategory(p, category.id) && (p as any).isActive !== false && (p as any).is_active !== false),
     [category.id, products]
   );
 

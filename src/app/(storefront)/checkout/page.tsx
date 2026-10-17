@@ -700,9 +700,13 @@ export default function CheckoutPage() {
                 className="py-2 flex items-center justify-between gap-2 text-xs min-w-0"
               >
                 <div className="min-w-0 flex-1">
-                  <p className="font-bold text-stone-900 truncate text-[11px] sm:text-xs">
+                  <Link
+                    href={`/product/${item.product.id}`}
+                    className="font-bold text-stone-900 hover:text-[#2E7D32] transition-colors truncate text-[11px] sm:text-xs block"
+                    title={`View ${item.product.name}`}
+                  >
                     {item.product.name}
-                  </p>
+                  </Link>
                   <p className="text-[10px] text-stone-500 truncate">
                     {item.variant?.size_label || item.product.unit} · ₹{linePrice} each
                   </p>

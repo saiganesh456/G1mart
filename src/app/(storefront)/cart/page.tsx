@@ -217,23 +217,30 @@ export default function CartPage() {
                   return (
                     <div key={`${product.id}::${variantId ?? 'base'}`} className="py-3 flex items-center gap-3">
                       {/* 1:1 Packshot */}
-                      <div
-                        className="w-14 h-14 sm:w-16 sm:h-16 shrink-0 flex items-center justify-center p-0.5 rounded-xl"
+                      <Link
+                        href={`/product/${product.id}`}
+                        className="w-14 h-14 sm:w-16 sm:h-16 shrink-0 flex items-center justify-center p-0.5 rounded-xl hover:opacity-90 transition-opacity block cursor-pointer"
                         style={{ backgroundColor: 'var(--g1-surface)', border: '1px solid var(--g1-border)' }}
+                        title={`View ${product.name}`}
                       >
                         <ProductImage
                           imageUrl={product.image_url || (product as any).imageUrl || product.image}
                           imageStatus={product.image_status}
                           alt={product.name}
                         />
-                      </div>
+                      </Link>
 
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2">
                           <div className="min-w-0">
-                            <h3 className="text-xs font-bold line-clamp-2 leading-snug" style={{ color: 'var(--g1-text)' }}>
+                            <Link
+                              href={`/product/${product.id}`}
+                              className="text-xs font-bold line-clamp-2 leading-snug hover:text-[var(--g1-primary)] transition-colors block cursor-pointer"
+                              style={{ color: 'var(--g1-text)' }}
+                              title={`View ${product.name}`}
+                            >
                               {product.name}
-                            </h3>
+                            </Link>
                             {sizeLabel && (
                               <span
                                 className="inline-block mt-0.5 text-[10px] font-bold px-1.5 py-0.5 rounded"

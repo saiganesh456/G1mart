@@ -2,14 +2,32 @@ import { Suspense } from 'react';
 import OrderDetailClient from './OrderDetailClient';
 import { serverOrderStore } from '@/lib/serverOrderStore';
 import { serverSlipOrders } from '@/lib/serverSlipOrders';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 export default async function OrderDetailPage({ params }: Props) {
-  const { id } = await params;
+  const rawParams = await params;
+  const id = decodeURIComponent(rawParams.id || '').trim();
   let initialOrder: any = serverOrderStore.getOrder(id);
+
+  if (!initialOrder && isSupabaseConfigured()) {
+    try {
+      const cleanId = id.replace(/^SLIP-/i, '');
+      const { data: dbOrder } = await supabase
+        .from('orders')
+        .select('*')
+        .or(`id.eq.${id},id.eq.${cleanId},provider_order_id.eq.${id}`)
+        .maybeSingle();
+
+      if (dbOrder) {
+        initialOrder = dbOrder;
+        serverOrderStore.registerOrder(dbOrder);
+      }
+    } catch {}
+  }
 
   if (!initialOrder) {
     try {

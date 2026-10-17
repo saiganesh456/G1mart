@@ -39,17 +39,17 @@ export default function AnimatedSplashScreen({
         sessionStorage.setItem('g1mart_splash_shown', 'true');
       }
 
-      // Step 1: Trigger shimmer sweep at 300ms
+      // Step 1: Trigger shimmer sweep at 320ms
       const shimmerTimer = setTimeout(() => {
         setShimmerActive(true);
-      }, 350);
+      }, 320);
 
-      // Step 2: Begin exit dissolve at 1350ms
+      // Step 2: Begin exit dissolve at 1400ms
       const exitTimer = setTimeout(() => {
         setAnimatingOut(true);
       }, 1400);
 
-      // Step 3: Unmount completely at 1800ms
+      // Step 3: Unmount completely at 1850ms
       const unmountTimer = setTimeout(() => {
         setVisible(false);
         if (onComplete) onComplete();
@@ -70,7 +70,7 @@ export default function AnimatedSplashScreen({
       setShimmerActive(false);
       setVisible(true);
 
-      setTimeout(() => setShimmerActive(true), 350);
+      setTimeout(() => setShimmerActive(true), 320);
       setTimeout(() => setAnimatingOut(true), 1400);
       setTimeout(() => setVisible(false), 1850);
     };
@@ -100,47 +100,47 @@ export default function AnimatedSplashScreen({
           : 'opacity-100 scale-100 pointer-events-auto'
       }`}
       style={{
-        background: 'radial-gradient(circle at 50% 45%, #ffffff 45%, #f2fbf4 85%, #e8f7ec 100%)',
+        background: 'radial-gradient(circle at 50% 45%, #185e2b 0%, #0d481c 55%, #06260e 100%)',
       }}
     >
       {/* Top ambient brand light accent */}
-      <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-400 via-[#1E6B2E] to-amber-400" />
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 via-emerald-300 to-amber-400 opacity-80" />
 
-      {/* Decorative subtle background radial pulse */}
+      {/* Decorative central radial emerald glow behind C Logo */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[460px] sm:h-[460px] rounded-full pointer-events-none opacity-40 blur-3xl animate-pulse"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[460px] sm:h-[460px] rounded-full pointer-events-none blur-3xl"
         style={{
-          background: 'radial-gradient(circle, rgba(74,222,128,0.25) 0%, rgba(30,107,46,0.12) 60%, transparent 80%)',
+          background: 'radial-gradient(circle, rgba(74,222,128,0.3) 0%, rgba(30,107,46,0.15) 60%, transparent 80%)',
         }}
       />
 
       {/* Header spacing */}
       <div className="w-full pt-12 sm:pt-16 flex items-center justify-center">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase text-emerald-800 bg-emerald-50 border border-emerald-200/80 shadow-xs">
-          <Sparkles className="w-3 h-3 text-emerald-600 animate-spin" style={{ animationDuration: '4s' }} />
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase text-emerald-200 bg-white/10 border border-white/15 backdrop-blur-md shadow-xs">
+          <Sparkles className="w-3 h-3 text-emerald-300 animate-spin" style={{ animationDuration: '4s' }} />
           Jeevan Mart · Nellore
         </span>
       </div>
 
-      {/* Center Hero: Authentic Animated Brand Logo */}
+      {/* Center Hero: Official Stacked Emerald C-Logo with Spring Motion */}
       <div className="relative flex flex-col items-center justify-center px-6">
-        <div className="relative group">
+        <div className="relative flex flex-col items-center">
           {/* Main Logo Container with Entrance Spring */}
           <div
-            className="relative w-[240px] sm:w-[310px] h-[95px] sm:h-[120px] transition-transform duration-700 ease-out"
+            className="relative w-[190px] sm:w-[230px] h-[190px] sm:h-[230px] transition-transform duration-700 ease-out"
             style={{
               animation: 'splashLogoSpring 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
             }}
           >
             <Image
-              src="/assets/images/g1_mart_banner_transparent.png"
-              alt="Jeevan Mart Official Logo"
+              src="/assets/images/g1_mart_logo_stacked_transparent.png"
+              alt="Jeevan Mart Official App Logo"
               fill
               priority
-              className="object-contain drop-shadow-[0_12px_24px_rgba(20,83,45,0.18)]"
+              className="object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.4)]"
             />
 
-            {/* Shimmer / Metallic Gleam Sweep across Gold 1 & Silver MART */}
+            {/* Shimmer / Metallic Gleam Sweep across Golden 1 & Silver MART */}
             <div
               className={`absolute inset-0 pointer-events-none overflow-hidden transition-opacity duration-300 ${
                 shimmerActive ? 'opacity-100' : 'opacity-0'
@@ -150,7 +150,7 @@ export default function AnimatedSplashScreen({
                 className="w-full h-full"
                 style={{
                   background:
-                    'linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.7) 48%, rgba(255,255,255,0.9) 52%, transparent 65%)',
+                    'linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.7) 48%, rgba(255,255,255,0.95) 52%, transparent 65%)',
                   transform: shimmerActive ? 'translateX(160%)' : 'translateX(-160%)',
                   transition: 'transform 0.85s cubic-bezier(0.4, 0, 0.2, 1)',
                 }}
@@ -160,15 +160,15 @@ export default function AnimatedSplashScreen({
 
           {/* Micro Tagline beneath Logo */}
           <div
-            className="mt-4 text-center transition-all duration-500 delay-300"
+            className="mt-3 text-center transition-all duration-500 delay-300"
             style={{
               animation: 'splashFadeUp 0.6s ease-out 0.35s both',
             }}
           >
-            <p className="text-sm font-semibold tracking-wide text-stone-700">
+            <p className="text-sm font-bold tracking-wide text-white drop-shadow-sm">
               Everyday Essentials at Your Doorstep
             </p>
-            <p className="text-xs font-medium text-emerald-700/80 mt-0.5">
+            <p className="text-xs font-semibold text-emerald-300/90 mt-0.5">
               Supermarket Groceries · Express Delivery
             </p>
           </div>
@@ -180,11 +180,11 @@ export default function AnimatedSplashScreen({
         {/* Breathing 3-dot pulse */}
         <div className="flex items-center gap-1.5">
           <span
-            className="w-2 h-2 rounded-full bg-emerald-600 animate-bounce"
+            className="w-2 h-2 rounded-full bg-emerald-400 animate-bounce"
             style={{ animationDelay: '0ms' }}
           />
           <span
-            className="w-2 h-2 rounded-full bg-emerald-500 animate-bounce"
+            className="w-2 h-2 rounded-full bg-emerald-300 animate-bounce"
             style={{ animationDelay: '150ms' }}
           />
           <span
@@ -193,7 +193,7 @@ export default function AnimatedSplashScreen({
           />
         </div>
 
-        <span className="text-[11px] font-medium text-stone-400 tracking-tight">
+        <span className="text-[11px] font-medium text-emerald-200/60 tracking-tight">
           Tap anywhere to enter
         </span>
       </div>

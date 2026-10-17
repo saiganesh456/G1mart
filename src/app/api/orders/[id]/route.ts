@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { serverOrderStore } from '@/lib/serverOrderStore';
 import { serverSlipOrders } from '@/lib/serverSlipOrders';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -8,8 +9,25 @@ interface Props {
 
 export async function GET(req: NextRequest, { params }: Props) {
   try {
-    const { id } = await params;
+    const rawParams = await params;
+    const id = decodeURIComponent(rawParams.id || '').trim();
     let order: any = serverOrderStore.getOrder(id);
+
+    if (!order && isSupabaseConfigured()) {
+      try {
+        const cleanId = id.replace(/^SLIP-/i, '');
+        const { data: dbOrder } = await supabase
+          .from('orders')
+          .select('*')
+          .or(`id.eq.${id},id.eq.${cleanId},provider_order_id.eq.${id}`)
+          .maybeSingle();
+
+        if (dbOrder) {
+          order = dbOrder;
+          serverOrderStore.registerOrder(dbOrder);
+        }
+      } catch {}
+    }
 
     if (!order) {
       const slipOrder = await serverSlipOrders.getSlipOrderById(id);
