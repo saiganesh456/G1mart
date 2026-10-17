@@ -6,7 +6,7 @@ import { Search as SearchIcon, X, Clock, ArrowRight } from 'lucide-react';
 import ProductCard from '@/components/storefront/ProductCard';
 import InnerPageHeader from '@/components/layout/InnerPageHeader';
 import { productService, MIGRATED_PRODUCT_LIST } from '@/services/productService';
-import { DEFAULT_SEARCH_SYNONYMS } from '@/data/searchSynonyms';
+import { rankAndFilterProducts } from '@/utils/searchEngine';
 import type { Product } from '@/types';
 
 const RECENT_SEARCHES_KEY = 'g1mart_recent_searches';
@@ -49,42 +49,7 @@ function SearchContent() {
   };
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return [];
-
-    const expandedTokens = new Set<string>();
-    expandedTokens.add(q);
-    q.split(/\s+/).forEach((tok) => tok && expandedTokens.add(tok));
-
-    DEFAULT_SEARCH_SYNONYMS.forEach((item) => {
-      if (q.includes(item.term) || item.synonyms.some((s) => q.includes(s))) {
-        expandedTokens.add(item.term);
-        item.synonyms.forEach((s) => expandedTokens.add(s));
-      }
-    });
-
-    const tokens = Array.from(expandedTokens);
-
-    return products.filter((p) => {
-      const name = p.name.toLowerCase();
-      const brand = (p.brand || '').toLowerCase();
-      const cat = (p.category || '').toLowerCase();
-      const sub = (p.subCategory || '').toLowerCase();
-      const unit = (p.unit || '').toLowerCase();
-      const raw = (p.rawName || '').toLowerCase();
-
-      if (name.includes(q) || brand.includes(q) || cat.includes(q) || sub.includes(q) || raw.includes(q)) {
-        return true;
-      }
-
-      return tokens.some((token) =>
-        name.includes(token) ||
-        brand.includes(token) ||
-        cat.includes(token) ||
-        sub.includes(token) ||
-        unit.includes(token)
-      );
-    });
+    return rankAndFilterProducts(query, products);
   }, [query, products]);
 
   return (
