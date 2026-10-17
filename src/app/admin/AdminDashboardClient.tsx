@@ -1127,9 +1127,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                   stopAlarm();
                   setSelectedOrder(order);
                 }}
-                onUpdateStatus={(id, nextStatus) => {
-                  handleUpdateOrderStatus(id, nextStatus);
+                onUpdateStatus={(id, nextStatus, assignedRider) => {
+                  handleUpdateOrderStatus(id, nextStatus, assignedRider);
                 }}
+                availableRiders={staffMembers.riders}
               />
             )}
 

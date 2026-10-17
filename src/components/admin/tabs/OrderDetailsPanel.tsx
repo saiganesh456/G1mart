@@ -22,13 +22,15 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 
+import RiderAssignmentModal from '@/components/admin/RiderAssignmentModal';
+
 interface Props {
   order: Order;
   onBack: () => void;
   onUpdateStatus: (
     orderId: string,
     status: string,
-    assignedRider?: { id?: string; name: string; phone?: string; vehicleNumber?: string }
+    assignedRider?: { id?: string; email?: string; name: string; phone?: string; vehicleNumber?: string }
   ) => void;
   onMarkPaid?: (orderId: string) => void;
   availableRiders?: StaffMember[];
@@ -48,7 +50,8 @@ export default function OrderDetailsPanel({
 
   const s = order.status || 'Order Placed';
 
-  // Selected rider state
+  // Rider selection modal state
+  const [showRiderModal, setShowRiderModal] = useState(false);
   const [selectedRiderEmail, setSelectedRiderEmail] = useState(
     order.assignedRider?.id || availableRiders[0]?.email || ''
   );
@@ -149,7 +152,7 @@ export default function OrderDetailsPanel({
   const handleExecutePrimary = () => {
     if (!primaryAction) return;
     if (primaryAction.next === 'Rider Assigned') {
-      handleAssignRiderClick();
+      setShowRiderModal(true);
     } else {
       onUpdateStatus(order.id, primaryAction.next);
     }
@@ -381,67 +384,126 @@ export default function OrderDetailsPanel({
         </div>
 
         {/* 3. RIDER ASSIGNMENT SECTION */}
-        <div className="bg-white rounded-3xl p-5 border border-stone-200/90 shadow-2xs space-y-3">
+        <div className="bg-white rounded-3xl p-5 border border-stone-200/90 shadow-2xs space-y-3.5">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-black uppercase text-stone-400 tracking-wider">
-              Assigned Delivery Rider
-            </h3>
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center">
+                <Bike className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="text-xs font-black uppercase text-stone-700 tracking-wider">
+                  Assigned Delivery Partner
+                </h3>
+              </div>
+            </div>
             <span
-              className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+              className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
                 order.assignedRider
-                  ? 'bg-purple-100 text-purple-800'
-                  : 'bg-amber-100 text-amber-800'
+                  ? 'bg-purple-100 text-purple-900 border border-purple-300'
+                  : 'bg-amber-100 text-amber-900 border border-amber-300'
               }`}
             >
-              {order.assignedRider ? '🛵 Rider Assigned' : '⚠️ Rider Not Assigned'}
+              {order.assignedRider ? '🛵 Rider Appointed' : '⚠️ Unassigned'}
             </span>
           </div>
 
           {order.assignedRider ? (
-            <div className="p-3 bg-purple-50/60 rounded-2xl border border-purple-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="p-4 bg-gradient-to-br from-purple-50/80 to-indigo-50/50 rounded-2xl border border-purple-200 space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="relative">
+                    <div className="w-12 h-12 rounded-2xl bg-purple-700 text-white flex items-center justify-center font-black shadow-xs">
+                      <Bike className="w-6 h-6" />
+                    </div>
+                    <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-white" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <p className="font-black text-stone-900 text-base">{order.assignedRider.name}</p>
+                      <span className="text-[10px] font-black uppercase bg-purple-200 text-purple-900 px-2 py-0.5 rounded-full">
+                        Fleet Partner
+                      </span>
+                    </div>
+                    <p className="text-xs text-stone-600 mt-0.5">
+                      🏍️ {order.assignedRider.vehicleNumber || 'AP 26 EQ 4589'} • 📞 {order.assignedRider.phone || '9876543210'}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 flex-wrap self-start sm:self-auto">
+                  {order.assignedRider.phone && (
+                    <>
+                      <a
+                        href={`tel:${order.assignedRider.phone}`}
+                        className="px-3.5 py-2 bg-white hover:bg-purple-50 text-purple-800 border border-purple-200 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 shadow-2xs"
+                      >
+                        <Phone className="w-3.5 h-3.5 text-purple-600" />
+                        <span>Call</span>
+                      </a>
+                      <a
+                        href={`https://wa.me/91${order.assignedRider.phone.replace(/\D/g, '').slice(-10)}?text=Hello%20${encodeURIComponent(
+                          order.assignedRider.name
+                        )},%20order%20%23${order.id}%20is%20ready%20for%20delivery%20to%20${encodeURIComponent(
+                          order.address?.fullName || 'customer'
+                        )}.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 shadow-2xs"
+                      >
+                        <MessageSquare className="w-3.5 h-3.5" />
+                        <span>WhatsApp</span>
+                      </a>
+                    </>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={() => setShowRiderModal(true)}
+                    className="px-3.5 py-2 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-bold transition-colors flex items-center gap-1"
+                    title="Change or reassign this order to another delivery rider"
+                  >
+                    <span>🔄 Reassign Rider</span>
+                  </button>
+                </div>
+              </div>
+
+              {s === 'Rider Assigned' && (
+                <div className="pt-2 border-t border-purple-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <span className="text-[11px] text-purple-800 font-medium">
+                    Order is ready for pickup by {order.assignedRider.name}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => onUpdateStatus(order.id, 'Out for Delivery')}
+                    className="px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-colors shadow-xs flex items-center justify-center gap-1.5"
+                  >
+                    <Truck className="w-3.5 h-3.5" />
+                    <span>Handover &amp; Dispatch (Out for Delivery)</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="p-4 bg-amber-50/60 rounded-2xl border border-amber-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-purple-600 text-white flex items-center justify-center font-black">
-                  <Bike className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-black shrink-0">
+                  <AlertCircle className="w-5 h-5 text-amber-700" />
                 </div>
                 <div>
-                  <p className="font-bold text-stone-900 text-sm">{order.assignedRider.name}</p>
-                  <p className="text-xs text-stone-600">
-                    Vehicle: {order.assignedRider.vehicleNumber || 'AP 26 EQ 4589'} • Phone: {order.assignedRider.phone || '9876543210'}
+                  <p className="text-xs font-bold text-amber-950">No delivery partner appointed yet</p>
+                  <p className="text-[11px] text-amber-800 font-medium">
+                    Appoint an available fleet rider to pick up and deliver this order to the customer.
                   </p>
                 </div>
               </div>
 
-              {order.assignedRider.phone && (
-                <a
-                  href={`tel:${order.assignedRider.phone}`}
-                  className="px-3 py-1.5 bg-white border border-purple-200 text-purple-800 hover:bg-purple-100 rounded-xl text-xs font-bold transition-colors flex items-center gap-1 self-start sm:self-auto"
-                >
-                  <Phone className="w-3 h-3" />
-                  <span>Call Rider</span>
-                </a>
-              )}
-            </div>
-          ) : (
-            <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200 flex flex-col sm:flex-row sm:items-center gap-3">
-              <select
-                value={selectedRiderEmail}
-                onChange={(e) => setSelectedRiderEmail(e.target.value)}
-                className="flex-1 bg-white border border-stone-300 rounded-xl px-3 py-2 text-xs font-bold text-stone-800 focus:outline-none focus:ring-2 focus:ring-purple-600"
-              >
-                <option value="">Select a registered rider from fleet...</option>
-                {availableRiders.map((r) => (
-                  <option key={r.id || r.email} value={r.email}>
-                    {r.name || 'Rider'} ({r.email}) - {r.vehicleNumber || 'Bike'}
-                  </option>
-                ))}
-              </select>
-
               <button
                 type="button"
-                onClick={handleAssignRiderClick}
-                className="px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-colors shadow-2xs"
+                onClick={() => setShowRiderModal(true)}
+                className="px-5 py-2.5 bg-purple-700 hover:bg-purple-800 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-xs flex items-center justify-center gap-1.5 shrink-0 active:scale-98"
               >
-                Confirm Rider
+                <Bike className="w-4 h-4" />
+                <span>Appoint Delivery Rider ➔</span>
               </button>
             </div>
           )}
@@ -544,6 +606,17 @@ export default function OrderDetailsPanel({
           </div>
         </div>
       </div>
+
+      {/* Rider Appointment Modal */}
+      <RiderAssignmentModal
+        isOpen={showRiderModal}
+        onClose={() => setShowRiderModal(false)}
+        order={order}
+        availableRiders={availableRiders}
+        onAssignRider={(orderId, riderInfo) => {
+          onUpdateStatus(orderId, 'Rider Assigned', riderInfo);
+        }}
+      />
     </div>
   );
 }

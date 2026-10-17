@@ -21,11 +21,18 @@ import {
   Banknote,
   AlertCircle,
 } from 'lucide-react';
+import type { StaffMember } from '@/types';
+import RiderAssignmentModal from '@/components/admin/RiderAssignmentModal';
 
 interface Props {
   orders: Order[];
   onViewOrder: (order: Order) => void;
-  onUpdateStatus?: (orderId: string, status: string) => void;
+  onUpdateStatus?: (
+    orderId: string,
+    status: string,
+    assignedRider?: { id?: string; email?: string; name: string; phone?: string; vehicleNumber?: string }
+  ) => void;
+  availableRiders?: StaffMember[];
   initialFilter?: string;
 }
 
@@ -93,12 +100,14 @@ export default function OrdersTab({
   orders,
   onViewOrder,
   onUpdateStatus,
+  availableRiders = [],
   initialFilter = 'All',
 }: Props) {
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState(initialFilter);
   const [paymentFilter, setPaymentFilter] = useState<'all' | 'cod' | 'paid'>('all');
   const [expandedOrders, setExpandedOrders] = useState<Record<string, boolean>>({});
+  const [riderModalOrder, setRiderModalOrder] = useState<Order | null>(null);
 
   const toggleExpand = (orderId: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -190,10 +199,11 @@ export default function OrdersTab({
       };
     if (s === 'Packed')
       return {
-        label: 'Assign Rider',
+        label: 'Appoint Rider',
         next: 'Rider Assigned',
         icon: Bike,
         color: 'bg-purple-600 hover:bg-purple-700 text-white',
+        requiresRiderModal: true,
       };
     if (s === 'Rider Assigned')
       return {
@@ -493,12 +503,32 @@ export default function OrdersTab({
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-1 text-[11px] font-bold text-stone-600">
-                    <Bike className="w-3.5 h-3.5 text-emerald-700" />
-                    <span className="truncate max-w-[120px]">
-                      {order.assignedRider?.name || 'Unassigned'}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setRiderModalOrder(order);
+                    }}
+                    className={`flex items-center gap-1.5 text-[11px] font-bold px-2 py-0.5 rounded-lg transition-all ${
+                      order.assignedRider
+                        ? 'bg-purple-50 hover:bg-purple-100 text-purple-900 border border-purple-200'
+                        : 'bg-stone-100 hover:bg-purple-50 text-stone-600 hover:text-purple-800 border border-stone-200'
+                    }`}
+                    title={
+                      order.assignedRider
+                        ? 'Click to reassign or change rider'
+                        : 'Click to appoint a delivery rider'
+                    }
+                  >
+                    <Bike
+                      className={`w-3.5 h-3.5 ${
+                        order.assignedRider ? 'text-purple-600' : 'text-stone-400'
+                      }`}
+                    />
+                    <span className="truncate max-w-[110px]">
+                      {order.assignedRider?.name || 'Appoint Rider +'}
                     </span>
-                  </div>
+                  </button>
                 </div>
               </div>
 
@@ -510,7 +540,13 @@ export default function OrdersTab({
                 {action && onUpdateStatus ? (
                   <button
                     type="button"
-                    onClick={() => onUpdateStatus(order.id, action.next)}
+                    onClick={() => {
+                      if (action.requiresRiderModal) {
+                        setRiderModalOrder(order);
+                      } else {
+                        onUpdateStatus(order.id, action.next);
+                      }
+                    }}
                     className={`flex-1 py-2 px-3 rounded-xl text-xs font-black tracking-wide uppercase flex items-center justify-center gap-1.5 transition-all shadow-2xs hover:shadow-xs active:scale-[0.98] ${action.color}`}
                   >
                     <action.icon className="w-3.5 h-3.5" />
@@ -551,6 +587,20 @@ export default function OrdersTab({
           </p>
         </div>
       )}
+
+      {/* Appoint Delivery Rider Modal */}
+      <RiderAssignmentModal
+        isOpen={Boolean(riderModalOrder)}
+        onClose={() => setRiderModalOrder(null)}
+        order={riderModalOrder}
+        availableRiders={availableRiders}
+        onAssignRider={(orderId, riderInfo) => {
+          if (onUpdateStatus) {
+            onUpdateStatus(orderId, 'Rider Assigned', riderInfo);
+          }
+          setRiderModalOrder(null);
+        }}
+      />
     </div>
   );
 }
