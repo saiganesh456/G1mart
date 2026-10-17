@@ -76,8 +76,44 @@ export async function GET(request: NextRequest) {
         },
       });
 
+      let data = [];
       if (res.ok) {
-        const data = await res.json();
+        data = await res.json();
+      }
+
+      // If initial search returned 0 results, retry with relaxed village & compound queries within Nellore viewbox
+      if (!Array.isArray(data) || data.length === 0) {
+        const relaxedTerms = [
+          cleanQuery,
+          cleanQuery.replace(/\s+/g, ''),
+          cleanQuery.replace(/\bth/gi, 't').replace(/patri/gi, 'parti').replace(/\s+/g, ''),
+          cleanQuery.replace(/\bth/gi, 't'),
+        ];
+
+        for (const term of relaxedTerms) {
+          if (!term || term.toLowerCase() === searchTerms.toLowerCase()) continue;
+          try {
+            const fallbackUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+              term
+            )}&format=json&countrycodes=in&viewbox=79.6,14.8,80.3,14.1&bounded=0&limit=6&addressdetails=1`;
+            const fbRes = await fetch(fallbackUrl, {
+              headers: {
+                'User-Agent': 'G1Mart-GroceryDelivery/1.0',
+                'Accept-Language': 'en',
+              },
+            });
+            if (fbRes.ok) {
+              const fbData = await fbRes.json();
+              if (Array.isArray(fbData) && fbData.length > 0) {
+                data = fbData;
+                break;
+              }
+            }
+          } catch {}
+        }
+      }
+
+      if (Array.isArray(data) && data.length > 0) {
         const isTechCode = (s: string) => /^(MDR|SH|NH|\d+)/i.test((s || '').trim()) || /\bMDR\d*/i.test(s || '');
         const osmSuggestions = (data || []).map((item: any) => {
           const addr = item.address || {};
