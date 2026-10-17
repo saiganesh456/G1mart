@@ -79,17 +79,6 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
     };
   }, []);
 
-  // Check initial notification permission without prompting in browser
-  useEffect(() => {
-    if (typeof window !== 'undefined' && 'Notification' in window) {
-      if (Notification.permission === 'granted') {
-        setIsPermissionGranted(true);
-      }
-      // Note: Do not show permission prompts in the web browser.
-      // Real push notification permission is requested natively inside the Android app.
-    }
-  }, []);
-
   // Register Service Worker and subscribe to Background Web Push
   const registerServiceWorkerAndSubscribe = useCallback(async () => {
     if (typeof window === 'undefined' || !('serviceWorker' in navigator) || !('PushManager' in window)) {
@@ -113,6 +102,15 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
       });
 
       // 4. Send subscription to server with user account credentials
+      const isOnAdminRoute = typeof window !== 'undefined' && window.location.pathname.startsWith('/admin');
+      const normalizedEmail = (user?.email || '').toLowerCase().trim();
+      const isAdminUser =
+        user?.role === 'admin' ||
+        isOnAdminRoute ||
+        normalizedEmail === 'g1mart@gmail.com' ||
+        normalizedEmail === 'lingalamahendra0@gmail.com' ||
+        normalizedEmail === 'orders@g1mart.com';
+
       await fetch('/api/notifications/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -121,11 +119,8 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
           userId: user?.id,
           userEmail: user?.email,
           userPhone: user?.phone,
-          isAdmin:
-            user?.role === 'admin' ||
-            user?.email?.toLowerCase().trim() === 'g1mart@gmail.com' ||
-            user?.email?.toLowerCase().trim() === 'lingalamahendra0@gmail.com',
-          role: user?.role === 'admin' ? 'admin' : 'customer',
+          isAdmin: isAdminUser,
+          role: isAdminUser ? 'admin' : 'customer',
         }),
       });
 
@@ -135,6 +130,16 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
       return false;
     }
   }, [user]);
+
+  // Check initial notification permission and automatically sync subscription
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      if (Notification.permission === 'granted') {
+        setIsPermissionGranted(true);
+        registerServiceWorkerAndSubscribe();
+      }
+    }
+  }, [registerServiceWorkerAndSubscribe]);
 
   // Request Push Permission from Browser
   const requestPushPermission = useCallback(async (): Promise<boolean> => {

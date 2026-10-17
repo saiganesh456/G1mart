@@ -63,7 +63,7 @@ export function scoreProduct(
   const brand = normalizeSearchText(product.brand || '');
   const category = normalizeSearchText(product.category || '');
   const subCategory = normalizeSearchText(product.subCategory || '');
-  const rawName = normalizeSearchText((product as Record<string, unknown>).rawName as string || '');
+  const rawName = normalizeSearchText(((product as unknown) as Record<string, unknown>).rawName as string || '');
   const desc = normalizeSearchText(product.description || '');
 
   const nameWords = name.split(' ').map(stemWord);

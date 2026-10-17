@@ -21,36 +21,59 @@ self.addEventListener('push', (event) => {
     const body = data.body || 'Order status updated';
     const orderId = data.orderId;
     const url = data.url || (orderId ? `/orders/${orderId}` : '/');
+    const isAdminAlert = Boolean(
+      url === '/admin' ||
+      url?.startsWith('/admin') ||
+      data.tag?.includes('admin_new_order') ||
+      data.isAdminOrder
+    );
 
     const options = {
       body: body,
       icon: '/icons/icon-192x192.png',
       badge: '/icons/icon-192x192.png',
-      vibrate: [200, 100, 200, 100, 200],
+      vibrate: isAdminAlert ? [600, 200, 600, 200, 600, 200, 600] : [200, 100, 200, 100, 200],
       tag: orderId ? `g1mart_order_${orderId}` : 'g1mart_notification',
       renotify: true,
+      requireInteraction: isAdminAlert, // Keeps the new order notification on screen until admin responds
       data: {
         url: url,
         orderId: orderId,
+        isAdminAlert: isAdminAlert,
       },
       actions: [
         {
           action: 'open_order',
-          title: orderId ? 'Track Order' : 'Open G1 Mart',
+          title: isAdminAlert ? 'Open Admin Order' : (orderId ? 'Track Order' : 'Open G1 Mart'),
         },
       ],
     };
 
     event.waitUntil(
       clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+        // If an admin has /admin open, notify the page so it can also trigger in-app sound
+        if (isAdminAlert) {
+          clientList.forEach((client) => {
+            if (client.url && client.url.includes('/admin')) {
+              client.postMessage({
+                type: 'NEW_ORDER_PUSH_RECEIVED',
+                orderId: orderId,
+                data: data,
+              });
+            }
+          });
+        }
+
         // If customer is already actively viewing this order's live tracking page in a focused tab,
         // do not display redundant background push notification
-        const isViewingThisOrder = clientList.some((client) => {
-          return client.focused && orderId && client.url && client.url.includes(`/orders/${orderId}`);
-        });
+        if (!isAdminAlert) {
+          const isViewingThisOrder = clientList.some((client) => {
+            return client.focused && orderId && client.url && client.url.includes(`/orders/${orderId}`);
+          });
 
-        if (isViewingThisOrder) {
-          return;
+          if (isViewingThisOrder) {
+            return;
+          }
         }
 
         return self.registration.showNotification(title, options);

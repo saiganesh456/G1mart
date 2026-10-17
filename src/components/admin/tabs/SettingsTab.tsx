@@ -19,6 +19,9 @@ import {
   Info,
   Check,
   RotateCcw,
+  Bell,
+  Volume2,
+  Sparkles,
 } from 'lucide-react';
 import type { StoreSettings, DeliveryZone } from '@/types/deliveryZone';
 import { DEFAULT_STORE_SETTINGS, DEFAULT_DELIVERY_ZONES } from '@/lib/storeSettingsConstants';
@@ -30,6 +33,28 @@ export default function SettingsTab() {
   const [saving, setSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
+
+  // Push Notification & Diagnostics state
+  const [testingPush, setTestingPush] = useState(false);
+  const [pushTestResult, setPushTestResult] = useState<string | null>(null);
+
+  const handleTestPushNotification = async () => {
+    try {
+      setTestingPush(true);
+      setPushTestResult(null);
+      const res = await fetch('/api/notifications/test-admin-push', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        setPushTestResult(data.message || 'Test background alert sent! Check your notification center or lock screen.');
+      } else {
+        setPushTestResult(`Notice: ${data.error || 'Failed to dispatch alert'}`);
+      }
+    } catch (e: any) {
+      setPushTestResult(`Error: ${e.message}`);
+    } finally {
+      setTestingPush(false);
+    }
+  };
 
   // Search & Map interactive state
   const [searchQuery, setSearchQuery] = useState('');
@@ -849,6 +874,90 @@ export default function SettingsTab() {
             )}
           </div>
         </div>
+      </div>
+
+      {/* Section 5: Store Alert & Push Notification Diagnostics */}
+      <div className="bg-white rounded-3xl p-5 sm:p-6 border border-stone-200/90 shadow-2xs space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-100 pb-3">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
+              <Bell className="w-4 h-4" />
+            </div>
+            <div>
+              <h3 className="text-xs font-black uppercase tracking-wider text-stone-900">
+                Order Sound &amp; Background Push Diagnostics
+              </h3>
+              <p className="text-[11px] text-stone-500">
+                Test lock-screen push alerts and audible announcements for store managers
+              </p>
+            </div>
+          </div>
+          <span className="text-[10px] font-black uppercase px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 self-start sm:self-auto">
+            Production Ready
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div className="p-3.5 rounded-2xl bg-stone-50 border border-stone-200/80 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-stone-700">Background Push Broadcast:</span>
+              <span className="font-mono text-[10px] text-stone-500">Web Push / APNs</span>
+            </div>
+            <p className="text-[11px] text-stone-600">
+              Sends a high-priority push notification to all logged-in store managers when screen is off or another app is open.
+            </p>
+            <button
+              type="button"
+              onClick={handleTestPushNotification}
+              disabled={testingPush}
+              className="w-full mt-1 px-3 py-2 bg-[#1B5E20] hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition-all shadow-2xs flex items-center justify-center gap-1.5 disabled:opacity-50 cursor-pointer"
+            >
+              <Bell className="w-3.5 h-3.5" />
+              <span>{testingPush ? 'Dispatching Push...' : 'Send Test Lock-Screen Push'}</span>
+            </button>
+          </div>
+
+          <div className="p-3.5 rounded-2xl bg-stone-50 border border-stone-200/80 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-stone-700">In-Store Voice Alert:</span>
+              <span className="font-mono text-[10px] text-stone-500">Female Voice Chime</span>
+            </div>
+            <p className="text-[11px] text-stone-600">
+              Plays the audible alert loop (&quot;New order! New order! New order!&quot;) through the device speaker.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                try {
+                  const audio = new Audio('/new_order_voice.wav');
+                  audio.play().catch(() => {
+                    if ('speechSynthesis' in window) {
+                      const u = new SpeechSynthesisUtterance('New order! New order! New order!');
+                      window.speechSynthesis.speak(u);
+                    }
+                  });
+                } catch {}
+              }}
+              className="w-full mt-1 px-3 py-2 bg-stone-800 hover:bg-stone-900 text-white rounded-xl text-xs font-bold transition-all shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <Volume2 className="w-3.5 h-3.5" />
+              <span>Test Speaker Voice Alarm</span>
+            </button>
+          </div>
+        </div>
+
+        {pushTestResult && (
+          <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl text-xs flex items-center justify-between font-medium">
+            <span>{pushTestResult}</span>
+            <button
+              type="button"
+              onClick={() => setPushTestResult(null)}
+              className="text-emerald-700 font-bold hover:text-emerald-900 ml-2"
+            >
+              ✕
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

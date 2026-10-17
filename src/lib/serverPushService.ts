@@ -281,6 +281,8 @@ class ServerPushService {
       url: `/admin`,
       orderId: order.id,
       timestamp: Date.now(),
+      isAdminOrder: true,
+      sound: '/new_order_voice.wav',
     });
 
     let sentCount = 0;

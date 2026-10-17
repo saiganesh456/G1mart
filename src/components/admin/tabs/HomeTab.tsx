@@ -79,27 +79,27 @@ export default function HomeTab({
   const recentOrders = orders.slice(0, 5);
 
   return (
-    <div className="space-y-6 max-w-6xl mx-auto p-3 sm:p-6 pb-24">
-      {/* Header Banner - Premium Brand Ribbon */}
-      <div className="bg-gradient-to-r from-[#1A2E1C] via-[#1B5E20] to-[#2E7D32] text-white rounded-3xl p-5 sm:p-6 border border-emerald-800/40 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
+    <div className="space-y-5 max-w-6xl mx-auto p-3 sm:p-6 pb-32">
+      {/* Header Banner - Compact Quick-Commerce Brand Ribbon */}
+      <div className="bg-gradient-to-r from-[#1A2E1C] via-[#1B5E20] to-[#2E7D32] text-white rounded-3xl p-4 sm:p-6 border border-emerald-800/40 shadow-md flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3.5 min-w-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.png"
             alt="G1mart"
-            className="w-12 h-12 sm:w-16 sm:h-16 object-contain shrink-0"
+            className="w-10 h-10 sm:w-14 sm:h-14 object-contain shrink-0 hidden sm:block"
           />
-          <div>
+          <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-black tracking-wider uppercase text-emerald-200 bg-emerald-500/25 border border-emerald-400/30 px-2.5 py-0.5 rounded-full flex items-center gap-1.5">
+              <span className="text-[10px] sm:text-[11px] font-black tracking-wider uppercase text-emerald-200 bg-emerald-500/25 border border-emerald-400/30 px-2 py-0.5 rounded-full flex items-center gap-1.5 shrink-0">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse" />
                 Live Store Hub
               </span>
-              <span className="text-xs text-emerald-100/70 font-semibold hidden sm:inline">
+              <span className="text-xs text-emerald-100/70 font-semibold truncate hidden sm:inline">
                 Nellore Main Supermarket
               </span>
             </div>
-            <h1 className="text-lg sm:text-2xl font-black text-white mt-1 tracking-tight">
+            <h1 className="text-base sm:text-2xl font-black text-white mt-1 tracking-tight truncate">
               G1mart Operations Dashboard
             </h1>
             <p className="text-xs text-emerald-100/90 font-medium hidden sm:block">
@@ -109,18 +109,19 @@ export default function HomeTab({
         </div>
 
         {/* Audio Alert Status Toggle */}
-        <div className="flex items-center gap-2 bg-black/20 p-2 rounded-2xl border border-white/10 backdrop-blur-xs self-start md:self-auto">
+        <div className="flex items-center gap-2 bg-black/20 p-1.5 sm:p-2 rounded-2xl border border-white/10 backdrop-blur-xs shrink-0">
           <button
             type="button"
             onClick={onToggleAudio}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
               audioEnabled
                 ? 'bg-emerald-500 text-white shadow-xs'
                 : 'bg-white/15 text-white/90 hover:bg-white/25'
             }`}
+            title="Toggle audible voice alert for incoming orders"
           >
-            {audioEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-            <span>{audioEnabled ? 'Sound: ON' : 'Sound: OFF'}</span>
+            {audioEnabled ? <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
+            <span className="text-[11px] sm:text-xs">{audioEnabled ? 'Sound: ON' : 'Sound: OFF'}</span>
           </button>
         </div>
       </div>
@@ -145,18 +146,31 @@ export default function HomeTab({
           {/* 1. New Orders */}
           <div
             onClick={() => onNavigateToOrders('New')}
-            className="bg-white p-4 rounded-2xl border border-blue-200/80 shadow-2xs hover:shadow-md hover:border-blue-500 cursor-pointer transition-all active:scale-[0.98] group"
+            className={`bg-white p-4 rounded-2xl border transition-all active:scale-[0.98] group cursor-pointer ${
+              newOrdersCount > 0
+                ? 'border-blue-500 shadow-md ring-2 ring-blue-400/20'
+                : 'border-blue-200/80 shadow-2xs hover:shadow-md hover:border-blue-500'
+            }`}
           >
             <div className="flex justify-between items-start">
               <span className="text-[11px] font-black text-blue-700 uppercase tracking-wider">
                 New Orders
               </span>
               <div className="w-7 h-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Circle className="w-3.5 h-3.5 fill-current" />
+                {newOrdersCount > 0 ? (
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-600"></span>
+                  </span>
+                ) : (
+                  <Circle className="w-3.5 h-3.5 text-blue-300 stroke-[2]" />
+                )}
               </div>
             </div>
             <p className="text-2xl sm:text-3xl font-black text-stone-900 mt-2">{newOrdersCount}</p>
-            <span className="text-[10px] font-bold text-blue-600 block mt-1">Requires confirmation</span>
+            <span className={`text-[10px] block mt-1 ${newOrdersCount > 0 ? 'text-blue-700 font-black animate-pulse' : 'text-stone-400 font-semibold'}`}>
+              {newOrdersCount > 0 ? 'Requires confirmation' : 'No new orders'}
+            </span>
           </div>
 
           {/* 2. Packing */}
@@ -176,24 +190,24 @@ export default function HomeTab({
             <span className="text-[10px] font-bold text-amber-700 block mt-1">At packing table</span>
           </div>
 
-          {/* 3. Packed / Ready */}
+          {/* 3. Packed / Ready (Teal / Cyan theme) */}
           <div
             onClick={() => onNavigateToOrders('Ready')}
-            className="bg-white p-4 rounded-2xl border border-indigo-200/80 shadow-2xs hover:shadow-md hover:border-indigo-500 cursor-pointer transition-all active:scale-[0.98] group"
+            className="bg-white p-4 rounded-2xl border border-teal-200/80 shadow-2xs hover:shadow-md hover:border-teal-500 cursor-pointer transition-all active:scale-[0.98] group"
           >
             <div className="flex justify-between items-start">
-              <span className="text-[11px] font-black text-indigo-700 uppercase tracking-wider">
+              <span className="text-[11px] font-black text-teal-700 uppercase tracking-wider">
                 Ready / Packed
               </span>
-              <div className="w-7 h-7 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <div className="w-7 h-7 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Sparkles className="w-3.5 h-3.5" />
               </div>
             </div>
             <p className="text-2xl sm:text-3xl font-black text-stone-900 mt-2">{readyPackedCount}</p>
-            <span className="text-[10px] font-bold text-indigo-600 block mt-1">Assign delivery rider</span>
+            <span className="text-[10px] font-bold text-teal-600 block mt-1">Assign delivery rider</span>
           </div>
 
-          {/* 4. Out for Delivery */}
+          {/* 4. Out for Delivery (Purple / Violet theme) */}
           <div
             onClick={() => onNavigateToOrders('Out for Delivery')}
             className="bg-white p-4 rounded-2xl border border-purple-200/80 shadow-2xs hover:shadow-md hover:border-purple-500 cursor-pointer transition-all active:scale-[0.98] group"
