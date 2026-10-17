@@ -43,6 +43,11 @@ const CATEGORY_ALIASES: Record<string, string> = {
   'dairy': 'dairy-bread-eggs',
   'milk': 'dairy-bread-eggs',
   'noodles': 'instant-food',
+  'pickle': 'pickles',
+  'pickles-chutneys': 'pickles',
+  'spices': 'spices-masalas',
+  'masalas': 'spices-masalas',
+  'masala': 'spices-masalas',
 };
 
 export default async function CategoryPage({ params }: Props) {

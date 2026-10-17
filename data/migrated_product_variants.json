@@ -15635,7 +15635,7 @@
     "price": 20,
     "mrp": 20,
     "stock": 50,
-    "image_url": "/products/verified/bev-thums-up-250ml.webp"
+    "image_url": "/products/verified/bev-thums-up-250ml-single.webp"
   },
   {
     "id": "g1-bev001-v2",
@@ -15644,7 +15644,7 @@
     "price": 40,
     "mrp": 40,
     "stock": 50,
-    "image_url": "/products/verified/bev-thums-up-750ml.webp"
+    "image_url": "/products/verified/bev-thums-up-750ml-single.webp"
   },
   {
     "id": "g1-bev001-v3",
@@ -15653,7 +15653,7 @@
     "price": 65,
     "mrp": 65,
     "stock": 50,
-    "image_url": "/products/verified/bev-thums-up-1l.webp"
+    "image_url": "/products/verified/bev-thums-up-1l-single.webp"
   },
   {
     "id": "g1-bev001-v4",
@@ -15662,7 +15662,7 @@
     "price": 100,
     "mrp": 100,
     "stock": 50,
-    "image_url": "/products/verified/bev-thums-up-2l.webp"
+    "image_url": "/products/verified/bev-thums-up-2l-single.webp"
   },
   {
     "id": "g1-freedom-oil-15l-tin-v1",

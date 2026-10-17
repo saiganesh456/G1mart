@@ -11,7 +11,7 @@ const TILE_MAP = {
   'atta-rice-dal': ['g1-p0457', 'g1-p0411', 'g1-p0428', 'g1-p0859'],
   'local-dals': ['g1-p0190', 'g1-p0081', 'g1-p0082', 'g1-p0195'],
   'oil-ghee-masala': ['g1-p0418', 'g1-p1627', 'g1-p0279', 'g1-p0459'],
-  'spices-masalas': ['g1-p0066', 'g1-p0064', 'g1-p0019', 'g1-p0069'],
+  'spices-masalas': ['g1-p0074', 'g1-p0076', 'g1-p0739', 'g1-p0064'],
   'sauces-spreads': ['g1-p0311', 'g1-p0293', 'g1-p0314', 'g1-p0315'],
   'sugar-salt-staples': ['g1-p0202', 'g1-p1150', 'g1-p0185', 'g1-p0028'],
   'dry-fruits-cereals': ['g1-p0238', 'g1-p0077', 'g1-p0210', 'g1-p0323'],
@@ -23,6 +23,7 @@ const TILE_MAP = {
   'breakfast-cereals': ['g1-p1112', 'g1-p0660', 'g1-p0273'],
   'biscuits-bakery': ['g1-bsc031', 'g1-bsc041', 'g1-bsc011', 'g1-bsc001'],
   'instant-food': ['g1-ins001', 'g1-ins004', 'g1-ins002', 'g1-ins005'],
+  'pickles': ['g1-spc037', 'g1-spc038', 'g1-spc039', 'g1-p0650'],
 
   // SNACKS & DRINKS
   'chips-namkeen': ['g1-p0862', 'g1-p0861', 'g1-p1517', 'g1-p0541'],
@@ -56,7 +57,7 @@ const TILE_LABELS = {
   'local-dals': 'Dals & Pulses',
   'oil-ghee-masala': 'Cooking Oils & Ghee',
   'spices-masalas': 'Spices & Masalas',
-  'sauces-spreads': 'Pickles & Sauces',
+  'sauces-spreads': 'Sauces & Spreads',
   'sugar-salt-staples': 'Salt, Sugar & Jaggery',
   'dry-fruits-cereals': 'Dry Fruits & Nuts',
   'vegetables-fruits': 'Fresh Vegetables',
@@ -66,6 +67,7 @@ const TILE_LABELS = {
   'breakfast-cereals': 'Breakfast & Cereals',
   'biscuits-bakery': 'Biscuits & Cookies',
   'instant-food': 'Noodles & Pasta',
+  'pickles': 'Pickles & Chutneys',
 
   'chips-namkeen': 'Namkeen & Chips',
   'sweets-chocolates': 'Chocolates & Sweets',

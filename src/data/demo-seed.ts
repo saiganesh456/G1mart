@@ -70,19 +70,20 @@ export const SUPERMARKET_CATEGORIES: Omit<Category, 'itemCount'>[] = [
   },
   {
     "id": "spices-masalas",
-    "name": "Spices, Masalas & Pickles",
+    "name": "Spices & Masalas",
     "section_id": "grocery-kitchen",
     "tile_image_url": "/categories/collages/spices-masalas.webp",
     "image": "/categories/collages/spices-masalas.webp",
     "sort_order": 4,
     "icon": "Sparkles",
-    "description": "Turmeric, chilli powder, whole jeera, mustard, sambar/rasam powders and Andhra pickles",
+    "description": "Turmeric, chilli powder, whole jeera, mustard, chicken & mutton masalas, sambar and rasam powders",
     "subcategories": [
       "Chilli & Turmeric Powder",
+      "Chicken & Meat Masalas",
+      "Garam & Biryani Masalas",
       "Whole Spices & Jeera",
       "Sambar & Rasam Powders",
-      "Ginger Garlic Paste",
-      "Andhra Avakaya & Pickles"
+      "Ginger Garlic Paste"
     ]
   },
   {
@@ -232,6 +233,22 @@ export const SUPERMARKET_CATEGORIES: Omit<Category, 'itemCount'>[] = [
       "Mayonnaise & Dips",
       "Fruit Jams",
       "Peanut Butter & Spreads"
+    ]
+  },
+  {
+    "id": "pickles",
+    "name": "Pickles & Chutneys",
+    "section_id": "dairy-breakfast",
+    "tile_image_url": "/categories/collages/pickles.webp",
+    "image": "/categories/collages/pickles.webp",
+    "sort_order": 5,
+    "icon": "Sparkles",
+    "description": "Authentic Andhra avakaya, mango pickles, gongura pachadi, tomato and lemon pickles",
+    "subcategories": [
+      "Andhra Avakaya & Mango Pickles",
+      "Gongura & Tomato Pachadi",
+      "Lemon & Red Chilli Pickles",
+      "Chutneys & Podis"
     ]
   },
   {

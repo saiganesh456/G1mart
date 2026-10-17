@@ -53,6 +53,8 @@ backup_*/
 *.backup*.json
 scratch_check/
 public/categories/collages_backup/
+image_backups_pre_compress/
+*_backup.*
 
 # Reference & Quarantine folders
 reference/
