@@ -1,0 +1,6 @@
+scratch_*
+*.log
+*.tmp
+tests/
+playwright/
+.git/
