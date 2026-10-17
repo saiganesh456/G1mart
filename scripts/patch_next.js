@@ -36,8 +36,10 @@ if (fs.existsSync(buildIndexPath)) {
   // Patch writeFileUtf8 to mkdir recursively
   const writeTarget = 'async function writeFileUtf8(filePath, content) {\n    await _fs.promises.writeFile(filePath, content, \'utf-8\');\n}';
   const writeRepl = 'async function writeFileUtf8(filePath, content) {\n    await _fs.promises.mkdir(_path.default.dirname(filePath), { recursive: true });\n    await _fs.promises.writeFile(filePath, content, \'utf-8\');\n}';
+  let changed = false;
   if (content.includes(writeTarget)) {
     content = content.replace(writeTarget, writeRepl);
+    changed = true;
     console.log('Patched writeFileUtf8 in next/dist/build/index.js');
   }
 
@@ -46,10 +48,13 @@ if (fs.existsSync(buildIndexPath)) {
   const manifestRepl = 'let pagesManifest = await readManifest(pagesManifestPath).catch(() => ({}));';
   if (content.includes(manifestTarget)) {
     content = content.replace(manifestTarget, manifestRepl);
+    changed = true;
     console.log('Patched pagesManifest in next/dist/build/index.js');
   }
 
-  fs.writeFileSync(buildIndexPath, content, 'utf8');
+  if (changed) {
+    fs.writeFileSync(buildIndexPath, content, 'utf8');
+  }
 }
 
 // 3. Patch app-paths selectAppPageEntry for /_not-found during build page data collection

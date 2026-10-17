@@ -4,7 +4,8 @@
   "version": "0.1.2",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "prebuild": "node scripts/patch_next.js",
+    "build": "node scripts/patch_next.js && next build",
     "postinstall": "node scripts/patch_next.js",
     "start": "next start",
     "lint": "next lint"
