@@ -17,6 +17,9 @@ import {
   KeyRound,
   Shield,
   Info,
+  X,
+  PhoneCall,
+  Users,
 } from 'lucide-react';
 import type { StaffMember } from '@/types';
 import { soundAlerts } from '@/lib/soundAlerts';
@@ -29,6 +32,11 @@ export default function StaffManagementTab() {
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(
     null
   );
+
+  // Active role tab: 'admins' | 'riders'
+  const [activeRoleTab, setActiveRoleTab] = useState<'admins' | 'riders'>('admins');
+  // Collapsible add form toggle
+  const [showAddForm, setShowAddForm] = useState(false);
 
   // Admin form state
   const [adminEmail, setAdminEmail] = useState('');
@@ -114,6 +122,7 @@ export default function StaffManagementTab() {
         });
         setAdminEmail('');
         setAdminName('');
+        setShowAddForm(false);
         if (data.staffDirectory) {
           setAdmins(data.staffDirectory.admins || []);
           setRiders(data.staffDirectory.riders || []);
@@ -193,6 +202,7 @@ export default function StaffManagementTab() {
         setRiderName('');
         setRiderPhone('');
         setRiderVehicle('');
+        setShowAddForm(false);
         if (data.staffDirectory) {
           setAdmins(data.staffDirectory.admins || []);
           setRiders(data.staffDirectory.riders || []);
@@ -245,47 +255,56 @@ export default function StaffManagementTab() {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Banner / Instructions */}
-      <div className="bg-gradient-to-r from-[#1A2E1C] to-emerald-950 text-white rounded-3xl p-5 sm:p-6 shadow-md">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <KeyRound className="w-5 h-5 text-emerald-400" />
-              <h2 className="text-lg font-black tracking-tight">Staff &amp; Role Management</h2>
-            </div>
-            <p className="text-xs text-stone-300 max-w-2xl leading-relaxed">
-              Authorize staff emails as <b>Admins</b> or <b>Delivery Riders</b>. When authorized staff sign in with their designated email, G1 Mart automatically assigns their role and routes them directly to their dedicated console.
-            </p>
+    <div className="space-y-4 max-w-5xl mx-auto pb-28">
+      {/* 1. Compact Brand Header (Mobile Optimized) */}
+      <div className="bg-gradient-to-r from-[#1A2E1C] via-[#1B5E20] to-[#2E7D32] text-white rounded-3xl p-4 sm:p-5 border border-emerald-800/40 shadow-sm flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="w-10 h-10 rounded-2xl bg-white/15 flex items-center justify-center shrink-0">
+            <KeyRound className="w-5 h-5 text-emerald-300" />
           </div>
-          <button
-            type="button"
-            onClick={fetchStaff}
-            disabled={loading}
-            className="self-start sm:self-auto px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold transition-all flex items-center gap-1.5 shrink-0"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-            <span>Refresh Staff</span>
-          </button>
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] sm:text-[11px] font-black tracking-wider uppercase text-emerald-200 bg-emerald-500/25 border border-emerald-400/30 px-2 py-0.5 rounded-full">
+                Role Management
+              </span>
+              <span className="text-xs text-emerald-100/70 font-semibold hidden sm:inline">
+                Access Security
+              </span>
+            </div>
+            <h2 className="text-base sm:text-xl font-black tracking-tight truncate mt-0.5">
+              Staff &amp; Fleet Access
+            </h2>
+          </div>
         </div>
+
+        <button
+          type="button"
+          onClick={fetchStaff}
+          disabled={loading}
+          className="px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-xs font-bold transition-all flex items-center gap-1.5 shrink-0"
+          title="Refresh staff directory"
+        >
+          <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+          <span className="text-xs">Refresh</span>
+        </button>
       </div>
 
-      {/* Feedback Toast */}
+      {/* 2. Feedback Toast */}
       {feedback && (
         <div
-          className={`p-4 rounded-2xl border text-xs font-semibold flex items-center justify-between gap-3 animate-in fade-in ${
+          className={`p-3.5 rounded-2xl border text-xs font-semibold flex items-center justify-between gap-3 animate-in fade-in ${
             feedback.type === 'success'
               ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
               : 'bg-rose-50 border-rose-200 text-rose-800'
           }`}
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 min-w-0">
             {feedback.type === 'success' ? (
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
             ) : (
               <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
             )}
-            <span>{feedback.message}</span>
+            <span className="truncate">{feedback.message}</span>
           </div>
           <button
             type="button"
@@ -297,274 +316,444 @@ export default function StaffManagementTab() {
         </div>
       )}
 
-      {/* Two Column Grid: Admins & Riders */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* ========================================================================= */}
-        {/* COLUMN 1: ADMINISTRATORS */}
-        {/* ========================================================================= */}
-        <div className="bg-white rounded-3xl border border-stone-200 p-5 sm:p-6 shadow-sm space-y-5">
-          <div className="flex items-center justify-between pb-3 border-b border-stone-100">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-emerald-100 text-[#2E7D32] flex items-center justify-center font-black">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <div>
-                <h3 className="text-sm font-extrabold text-stone-900">Store Administrators</h3>
-                <p className="text-[11px] text-stone-500">Full access to catalog, inventory, and orders</p>
-              </div>
-            </div>
-            <span className="text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 rounded-full">
-              {admins.length} Active
-            </span>
-          </div>
+      {/* 3. Segmented Role Switcher Tabs (Admins vs Riders) */}
+      <div className="p-1.5 bg-stone-100 rounded-2xl border border-stone-200/80 flex items-center gap-1.5">
+        <button
+          type="button"
+          onClick={() => {
+            setActiveRoleTab('admins');
+            setShowAddForm(false);
+          }}
+          className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 cursor-pointer ${
+            activeRoleTab === 'admins'
+              ? 'bg-[#1B5E20] text-white shadow-xs'
+              : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
+          }`}
+        >
+          <ShieldCheck className="w-4 h-4" />
+          <span>Store Administrators</span>
+          <span
+            className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
+              activeRoleTab === 'admins'
+                ? 'bg-white/20 text-white'
+                : 'bg-stone-200 text-stone-700'
+            }`}
+          >
+            {admins.length}
+          </span>
+        </button>
 
-          {/* Add Admin Form */}
-          <form onSubmit={handleAddAdmin} className="p-4 bg-stone-50 rounded-2xl border border-stone-200/80 space-y-3">
-            <div className="flex items-center gap-1.5 text-xs font-bold text-stone-800">
-              <UserPlus className="w-4 h-4 text-emerald-600" />
-              <span>Grant New Admin Access</span>
-            </div>
+        <button
+          type="button"
+          onClick={() => {
+            setActiveRoleTab('riders');
+            setShowAddForm(false);
+          }}
+          className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 cursor-pointer ${
+            activeRoleTab === 'riders'
+              ? 'bg-amber-600 text-white shadow-xs'
+              : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
+          }`}
+        >
+          <Truck className="w-4 h-4" />
+          <span>Delivery Fleet</span>
+          <span
+            className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
+              activeRoleTab === 'riders'
+                ? 'bg-white/20 text-white'
+                : 'bg-stone-200 text-stone-700'
+            }`}
+          >
+            {riders.length}
+          </span>
+        </button>
+      </div>
 
-            <div className="space-y-2">
-              <div>
-                <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider mb-1">
-                  Admin Email Address *
-                </label>
-                <div className="relative">
-                  <Mail className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
-                  <input
-                    type="email"
-                    required
-                    value={adminEmail}
-                    onChange={(e) => setAdminEmail(e.target.value)}
-                    placeholder="manager@gmail.com"
-                    className="w-full h-10 pl-9 pr-3 text-xs font-semibold rounded-xl bg-white border border-stone-300 focus:border-emerald-600 outline-none"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider mb-1">
-                  Admin Name / Role Title (Optional)
-                </label>
-                <div className="relative">
-                  <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
-                  <input
-                    type="text"
-                    value={adminName}
-                    onChange={(e) => setAdminName(e.target.value)}
-                    placeholder="e.g. Co-Manager / Warehouse Lead"
-                    className="w-full h-10 pl-9 pr-3 text-xs font-semibold rounded-xl bg-white border border-stone-300 focus:border-emerald-600 outline-none"
-                  />
-                </div>
-              </div>
+      {/* 4. TAB CONTENT AREA */}
+      {activeRoleTab === 'admins' ? (
+        /* ======================== TAB 1: STORE ADMINISTRATORS ======================== */
+        <div className="space-y-4">
+          {/* Header & Toggle Button */}
+          <div className="flex items-center justify-between px-1">
+            <div>
+              <h3 className="text-xs font-black uppercase tracking-wider text-stone-700">
+                Store Administrators ({admins.length})
+              </h3>
+              <p className="text-[11px] text-stone-500">
+                Full console access to inventory, orders &amp; supermarket management
+              </p>
             </div>
 
             <button
-              type="submit"
-              disabled={actionLoading || !adminEmail.trim()}
-              className="w-full h-10 bg-[#2E7D32] hover:bg-[#1b5e20] text-white text-xs font-bold rounded-xl shadow-xs flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+              type="button"
+              onClick={() => setShowAddForm(!showAddForm)}
+              className={`px-3.5 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer ${
+                showAddForm
+                  ? 'bg-stone-200 hover:bg-stone-300 text-stone-700'
+                  : 'bg-[#1B5E20] hover:bg-[#154a19] text-white active:scale-95'
+              }`}
             >
-              <PlusCircle className="w-4 h-4" />
-              <span>Grant Administrator Access</span>
+              {showAddForm ? <X className="w-3.5 h-3.5" /> : <UserPlus className="w-3.5 h-3.5" />}
+              <span>{showAddForm ? 'Cancel' : '+ Add Admin'}</span>
             </button>
-          </form>
+          </div>
 
-          {/* Current Admins List */}
-          <div className="space-y-2 pt-1">
-            <h4 className="text-[11px] font-black uppercase tracking-wider text-stone-400">
-              Authorized Admin Accounts
-            </h4>
-            <div className="divide-y divide-stone-100 max-h-80 overflow-y-auto pr-1">
-              {admins.map((admin) => {
-                const isRoot =
-                  admin.email.toLowerCase() === 'g1mart@gmail.com' ||
-                  admin.email.toLowerCase() === 'lingalamahendra0@gmail.com';
-                return (
-                  <div key={admin.id || admin.email} className="py-2.5 flex items-center justify-between gap-3">
+          {/* Collapsible Add Admin Form */}
+          {showAddForm && (
+            <form
+              onSubmit={handleAddAdmin}
+              className="p-4 sm:p-5 bg-white rounded-3xl border-2 border-emerald-500/40 shadow-md space-y-3.5 animate-in fade-in duration-200"
+            >
+              <div className="flex items-center justify-between pb-2 border-b border-stone-100">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center">
+                    <UserPlus className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-black text-stone-900 uppercase tracking-wider">
+                    Grant New Admin Access
+                  </span>
+                </div>
+                <span className="text-[10px] text-stone-400 font-semibold">Immediate access</span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider mb-1">
+                    Admin Email Address *
+                  </label>
+                  <div className="relative">
+                    <Mail className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+                    <input
+                      type="email"
+                      required
+                      value={adminEmail}
+                      onChange={(e) => setAdminEmail(e.target.value)}
+                      placeholder="manager@gmail.com"
+                      className="w-full h-10 pl-9 pr-3 text-xs font-semibold rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:border-emerald-600 outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider mb-1">
+                    Admin Name / Role Title (Optional)
+                  </label>
+                  <div className="relative">
+                    <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+                    <input
+                      type="text"
+                      value={adminName}
+                      onChange={(e) => setAdminName(e.target.value)}
+                      placeholder="e.g. Co-Manager / Warehouse Lead"
+                      className="w-full h-10 pl-9 pr-3 text-xs font-semibold rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:border-emerald-600 outline-none"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => setShowAddForm(false)}
+                  className="px-4 py-2 text-xs font-bold text-stone-500 hover:text-stone-800 rounded-xl"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={actionLoading || !adminEmail.trim()}
+                  className="px-5 py-2.5 bg-[#1B5E20] hover:bg-[#154a19] text-white text-xs font-black rounded-xl shadow-xs flex items-center gap-1.5 transition-all disabled:opacity-50 active:scale-95 cursor-pointer"
+                >
+                  <PlusCircle className="w-4 h-4" />
+                  <span>{actionLoading ? 'Granting...' : 'Grant Admin Access'}</span>
+                </button>
+              </div>
+            </form>
+          )}
+
+          {/* Admin Directory List */}
+          <div className="bg-white rounded-3xl border border-stone-200/90 shadow-2xs divide-y divide-stone-100 overflow-hidden">
+            {admins.map((admin) => {
+              const cleanEmail = admin.email.toLowerCase();
+              const isRoot =
+                cleanEmail === 'g1mart@gmail.com' ||
+                cleanEmail === 'lingalamahendra0@gmail.com' ||
+                cleanEmail === 'orders@g1mart.com';
+              const initials = (admin.name || admin.email)
+                .slice(0, 2)
+                .toUpperCase();
+
+              return (
+                <div
+                  key={admin.id || admin.email}
+                  className="p-3.5 sm:p-4 flex items-center justify-between gap-3 hover:bg-stone-50/60 transition-colors"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-xs shrink-0 shadow-2xs">
+                      {initials}
+                    </div>
                     <div className="min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-stone-900 truncate">
-                          {admin.email}
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-xs font-black text-stone-900 truncate">
+                          {admin.name || 'Store Administrator'}
                         </span>
-                        {isRoot && (
+                        {isRoot ? (
                           <span className="text-[10px] font-extrabold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-300">
                             Root Superadmin
                           </span>
+                        ) : (
+                          <span className="text-[10px] font-semibold bg-stone-100 text-stone-600 px-2 py-0.5 rounded-full">
+                            Store Admin
+                          </span>
                         )}
+                        <span className="flex items-center gap-1 text-[10px] text-emerald-700 font-bold">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          Active
+                        </span>
                       </div>
-                      <div className="text-[11px] text-stone-500">
-                        {admin.name || 'Store Administrator'} · Active
-                      </div>
+                      <p className="text-[11px] text-stone-500 truncate font-mono mt-0.5">
+                        {admin.email}
+                      </p>
                     </div>
+                  </div>
 
+                  <div>
                     {!isRoot ? (
                       <button
                         type="button"
                         onClick={() => handleRemoveAdmin(admin.email)}
                         disabled={actionLoading}
-                        className="text-stone-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 transition-colors"
+                        className="w-8 h-8 rounded-xl text-stone-400 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition-colors cursor-pointer"
                         title="Revoke Admin Access"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     ) : (
-                      <span className="text-[11px] font-bold text-emerald-600 pr-1">Protected</span>
+                      <span className="text-[10px] font-black uppercase text-emerald-700 bg-emerald-50 px-2 py-1 rounded-lg">
+                        Protected
+                      </span>
                     )}
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
           </div>
         </div>
-
-        {/* ========================================================================= */}
-        {/* COLUMN 2: DELIVERY RIDERS */}
-        {/* ========================================================================= */}
-        <div className="bg-white rounded-3xl border border-stone-200 p-5 sm:p-6 shadow-sm space-y-5">
-          <div className="flex items-center justify-between pb-3 border-b border-stone-100">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-black">
-                <Truck className="w-5 h-5" />
-              </div>
-              <div>
-                <h3 className="text-sm font-extrabold text-stone-900">Delivery Fleet &amp; Riders</h3>
-                <p className="text-[11px] text-stone-500">Express delivery dispatch &amp; turn-by-turn navigation</p>
-              </div>
-            </div>
-            <span className="text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200 px-2.5 py-0.5 rounded-full">
-              {riders.length} Active
-            </span>
-          </div>
-
-          {/* Add Rider Form */}
-          <form onSubmit={handleAddRider} className="p-4 bg-stone-50 rounded-2xl border border-stone-200/80 space-y-3">
-            <div className="flex items-center gap-1.5 text-xs font-bold text-stone-800">
-              <UserPlus className="w-4 h-4 text-amber-600" />
-              <span>Register New Delivery Rider</span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <div>
-                <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider mb-1">
-                  Rider Email *
-                </label>
-                <div className="relative">
-                  <Mail className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
-                  <input
-                    type="email"
-                    required
-                    value={riderEmail}
-                    onChange={(e) => setRiderEmail(e.target.value)}
-                    placeholder="rider@gmail.com"
-                    className="w-full h-10 pl-9 pr-3 text-xs font-semibold rounded-xl bg-white border border-stone-300 focus:border-amber-600 outline-none"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider mb-1">
-                  Rider Full Name *
-                </label>
-                <div className="relative">
-                  <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
-                  <input
-                    type="text"
-                    required
-                    value={riderName}
-                    onChange={(e) => setRiderName(e.target.value)}
-                    placeholder="e.g. S. Mahesh"
-                    className="w-full h-10 pl-9 pr-3 text-xs font-semibold rounded-xl bg-white border border-stone-300 focus:border-amber-600 outline-none"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider mb-1">
-                  Mobile Number
-                </label>
-                <div className="relative">
-                  <Phone className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
-                  <input
-                    type="tel"
-                    value={riderPhone}
-                    onChange={(e) => setRiderPhone(e.target.value)}
-                    placeholder="98765 43210"
-                    className="w-full h-10 pl-9 pr-3 text-xs font-semibold rounded-xl bg-white border border-stone-300 focus:border-amber-600 outline-none"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider mb-1">
-                  Vehicle Reg Number
-                </label>
-                <div className="relative">
-                  <Bike className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
-                  <input
-                    type="text"
-                    value={riderVehicle}
-                    onChange={(e) => setRiderVehicle(e.target.value)}
-                    placeholder="AP 26 EQ 4589"
-                    className="w-full h-10 pl-9 pr-3 text-xs font-semibold rounded-xl bg-white border border-stone-300 focus:border-amber-600 outline-none"
-                  />
-                </div>
-              </div>
+      ) : (
+        /* ======================== TAB 2: DELIVERY FLEET & RIDERS ======================== */
+        <div className="space-y-4">
+          {/* Header & Toggle Button */}
+          <div className="flex items-center justify-between px-1">
+            <div>
+              <h3 className="text-xs font-black uppercase tracking-wider text-stone-700">
+                Delivery Fleet &amp; Riders ({riders.length})
+              </h3>
+              <p className="text-[11px] text-stone-500">
+                Express delivery dispatch &amp; mobile delivery partner console
+              </p>
             </div>
 
             <button
-              type="submit"
-              disabled={actionLoading || !riderEmail.trim() || !riderName.trim()}
-              className="w-full h-10 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-xl shadow-xs flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+              type="button"
+              onClick={() => setShowAddForm(!showAddForm)}
+              className={`px-3.5 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer ${
+                showAddForm
+                  ? 'bg-stone-200 hover:bg-stone-300 text-stone-700'
+                  : 'bg-amber-600 hover:bg-amber-700 text-white active:scale-95'
+              }`}
             >
-              <PlusCircle className="w-4 h-4" />
-              <span>Register Delivery Rider</span>
+              {showAddForm ? <X className="w-3.5 h-3.5" /> : <PlusCircle className="w-3.5 h-3.5" />}
+              <span>{showAddForm ? 'Cancel' : '+ Register Rider'}</span>
             </button>
-          </form>
+          </div>
 
-          {/* Current Riders List */}
-          <div className="space-y-2 pt-1">
-            <h4 className="text-[11px] font-black uppercase tracking-wider text-stone-400">
-              Registered Delivery Partners
-            </h4>
-            <div className="divide-y divide-stone-100 max-h-80 overflow-y-auto pr-1">
-              {riders.length === 0 ? (
-                <div className="text-center py-6 text-xs text-stone-400">
-                  No delivery riders added yet. Add a rider above to authorize their email.
+          {/* Collapsible Register Rider Form */}
+          {showAddForm && (
+            <form
+              onSubmit={handleAddRider}
+              className="p-4 sm:p-5 bg-white rounded-3xl border-2 border-amber-500/40 shadow-md space-y-3.5 animate-in fade-in duration-200"
+            >
+              <div className="flex items-center justify-between pb-2 border-b border-stone-100">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center">
+                    <Truck className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-black text-stone-900 uppercase tracking-wider">
+                    Register New Delivery Partner
+                  </span>
                 </div>
-              ) : (
-                riders.map((rider) => (
-                  <div key={rider.id || rider.email} className="py-2.5 flex items-center justify-between gap-3">
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-stone-900 truncate">
-                          {rider.name}
-                        </span>
-                        <span className="text-[10px] font-semibold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">
-                          {rider.vehicleNumber || 'Bike Delivery'}
-                        </span>
+                <span className="text-[10px] text-stone-400 font-semibold">Instant fleet login</span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider mb-1">
+                    Rider Full Name *
+                  </label>
+                  <div className="relative">
+                    <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+                    <input
+                      type="text"
+                      required
+                      value={riderName}
+                      onChange={(e) => setRiderName(e.target.value)}
+                      placeholder="e.g. S. Mahesh"
+                      className="w-full h-10 pl-9 pr-3 text-xs font-semibold rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:border-amber-600 outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider mb-1">
+                    Rider Email Address *
+                  </label>
+                  <div className="relative">
+                    <Mail className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+                    <input
+                      type="email"
+                      required
+                      value={riderEmail}
+                      onChange={(e) => setRiderEmail(e.target.value)}
+                      placeholder="rider@gmail.com"
+                      className="w-full h-10 pl-9 pr-3 text-xs font-semibold rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:border-amber-600 outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider mb-1">
+                    Mobile Number (For dispatch &amp; calls)
+                  </label>
+                  <div className="relative">
+                    <Phone className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+                    <input
+                      type="tel"
+                      value={riderPhone}
+                      onChange={(e) => setRiderPhone(e.target.value)}
+                      placeholder="98765 43210"
+                      className="w-full h-10 pl-9 pr-3 text-xs font-semibold rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:border-amber-600 outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-stone-600 uppercase tracking-wider mb-1">
+                    Vehicle Reg Number (Bike / Scooter)
+                  </label>
+                  <div className="relative">
+                    <Bike className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+                    <input
+                      type="text"
+                      value={riderVehicle}
+                      onChange={(e) => setRiderVehicle(e.target.value)}
+                      placeholder="AP 26 EQ 4589"
+                      className="w-full h-10 pl-9 pr-3 text-xs font-semibold rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:border-amber-600 outline-none"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => setShowAddForm(false)}
+                  className="px-4 py-2 text-xs font-bold text-stone-500 hover:text-stone-800 rounded-xl"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={actionLoading || !riderEmail.trim() || !riderName.trim()}
+                  className="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-black rounded-xl shadow-xs flex items-center gap-1.5 transition-all disabled:opacity-50 active:scale-95 cursor-pointer"
+                >
+                  <PlusCircle className="w-4 h-4" />
+                  <span>{actionLoading ? 'Registering...' : 'Register Rider Partner'}</span>
+                </button>
+              </div>
+            </form>
+          )}
+
+          {/* Riders Directory List */}
+          <div className="bg-white rounded-3xl border border-stone-200/90 shadow-2xs divide-y divide-stone-100 overflow-hidden">
+            {riders.length === 0 ? (
+              <div className="text-center py-10 px-4">
+                <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-2">
+                  <Truck className="w-6 h-6" />
+                </div>
+                <p className="text-xs font-bold text-stone-800">No Delivery Partners Added Yet</p>
+                <p className="text-[11px] text-stone-400 mt-0.5">
+                  Register delivery riders above to grant them access to the live delivery console.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setShowAddForm(true)}
+                  className="mt-3 px-4 py-2 rounded-xl bg-amber-600 text-white text-xs font-bold shadow-xs cursor-pointer"
+                >
+                  + Add First Rider
+                </button>
+              </div>
+            ) : (
+              riders.map((rider) => {
+                const initials = (rider.name || 'Rider')
+                  .slice(0, 2)
+                  .toUpperCase();
+
+                return (
+                  <div
+                    key={rider.id || rider.email}
+                    className="p-3.5 sm:p-4 flex items-center justify-between gap-3 hover:bg-stone-50/60 transition-colors"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-black text-xs shrink-0 shadow-2xs">
+                        {initials}
                       </div>
-                      <div className="text-[11px] text-stone-500">
-                        {rider.email} {rider.phone ? `· ${rider.phone}` : ''}
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-xs font-black text-stone-900 truncate">
+                            {rider.name}
+                          </span>
+                          <span className="text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full flex items-center gap-1">
+                            <Bike className="w-3 h-3 text-amber-600" />
+                            <span>{rider.vehicleNumber || 'Bike Partner'}</span>
+                          </span>
+                          <span className="flex items-center gap-1 text-[10px] text-emerald-700 font-bold">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            Ready for Dispatch
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-stone-500 truncate mt-0.5 font-mono">
+                          {rider.email} {rider.phone ? `• ${rider.phone}` : ''}
+                        </p>
                       </div>
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveRider(rider.email)}
-                      disabled={actionLoading}
-                      className="text-stone-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 transition-colors"
-                      title="Remove Rider"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      {rider.phone && (
+                        <a
+                          href={`tel:${rider.phone.replace(/\D/g, '')}`}
+                          className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 flex items-center justify-center transition-colors shadow-2xs"
+                          title={`Call ${rider.name}`}
+                        >
+                          <PhoneCall className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveRider(rider.email)}
+                        disabled={actionLoading}
+                        className="w-8 h-8 rounded-xl text-stone-400 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition-colors cursor-pointer"
+                        title="Remove Rider Access"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
-                ))
-              )}
-            </div>
+                );
+              })
+            )}
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
