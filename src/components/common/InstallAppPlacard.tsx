@@ -22,32 +22,32 @@ export default function InstallAppPlacard() {
   const [installed, setInstalled] = useState(false);
 
   useEffect(() => {
-    if (pathname === '/' || pathname.startsWith('/product') || pathname.startsWith('/rider')) {
+    if (pathname.startsWith('/rider') || pathname.startsWith('/checkout') || pathname.startsWith('/cart')) {
       setVisible(false);
       return;
     }
-    // Check if the app is already installed or previously dismissed
-    if (isAppInstalled(user?.id) || isInstallDismissed()) {
+    // Check if previously dismissed
+    if (isInstallDismissed()) {
       setVisible(false);
       return;
     }
 
-    // Delay slight display for smooth UX when opening a new view
+    // Delay display for smooth UX when browsing
     const timer = setTimeout(() => {
-      if (!isAppInstalled(user?.id) && !isInstallDismissed()) {
+      if (!isInstallDismissed()) {
         setVisible(true);
       }
-    }, 1500);
+    }, 2500);
 
     return () => clearTimeout(timer);
-  }, [user, pathname]);
+  }, [pathname]);
 
   const handleInstall = async () => {
     setInstalling(true);
     try {
       await executeInstallFlow(user?.id, '/downloads/g1mart.apk');
       setInstalled(true);
-      // Auto-hide and never show again
+      // Auto-hide after success
       setTimeout(() => {
         setVisible(false);
       }, 2000);
@@ -63,7 +63,7 @@ export default function InstallAppPlacard() {
     setVisible(false);
   };
 
-  if (pathname === '/' || pathname.startsWith('/product') || pathname.startsWith('/rider') || pathname.startsWith('/cart') || pathname.startsWith('/checkout') || !visible || cartItemCount > 0) return null;
+  if (pathname.startsWith('/rider') || pathname.startsWith('/cart') || pathname.startsWith('/checkout') || !visible || cartItemCount > 0) return null;
 
   return (
     <div

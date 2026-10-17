@@ -150,6 +150,59 @@ export default function AccountPage() {
           </div>
         </div>
 
+        {/* ── Prominent Jeevan Mart APK Download Banner ── */}
+        <div
+          className="mx-4 mt-4 rounded-[var(--g1-r-card)] overflow-hidden border p-4 shadow-sm"
+          style={{
+            borderColor: 'rgba(30,107,46,0.35)',
+            background: 'linear-gradient(135deg, rgba(236,253,245,0.95) 0%, rgba(255,255,255,1) 50%, rgba(240,253,244,0.95) 100%)',
+          }}
+        >
+          <div className="flex items-center gap-3.5">
+            <div
+              className="w-13 h-13 rounded-2xl overflow-hidden border shrink-0 shadow-md flex items-center justify-center p-0.5"
+              style={{ backgroundColor: '#0D481C', borderColor: 'rgba(16,185,129,0.3)' }}
+            >
+              <Image
+                src="/icons/icon-512x512.png"
+                alt="Jeevan Mart App Icon"
+                width={52}
+                height={52}
+                className="w-full h-full object-cover rounded-xl"
+              />
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <h2 className="font-extrabold text-[15px] tracking-tight" style={{ color: 'var(--g1-text)' }}>
+                  Jeevan Mart Android App
+                </h2>
+                <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-[#1E6B2E] border border-emerald-300">
+                  Official APK
+                </span>
+              </div>
+              <p className="text-xs mt-0.5 line-clamp-1" style={{ color: 'var(--g1-text-secondary)' }}>
+                Direct APK for supermarket grocery delivery &amp; live tracking
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-3.5 pt-3 border-t border-emerald-200/60 flex items-center justify-between gap-2">
+            <span className="text-[11px] font-medium" style={{ color: 'var(--g1-text-secondary)' }}>
+              Direct Android APK (v1.2.0)
+            </span>
+            <a
+              href="/downloads/g1mart.apk"
+              download="JeevanMart.apk"
+              onClick={handleInstallApp}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white shadow-md transition-all shrink-0 g1-press"
+              style={{ backgroundColor: '#1E6B2E' }}
+            >
+              <Download className="w-4 h-4" strokeWidth={2.2} />
+              <span>Download APK</span>
+            </a>
+          </div>
+        </div>
+
         {/* ── Account menu rows ── */}
         <div
           className="mx-4 mt-4 rounded-[var(--g1-r-card)] bg-[var(--g1-bg)] overflow-hidden"
@@ -208,45 +261,6 @@ export default function AccountPage() {
               <Navigation className="w-3.5 h-3.5" />
               <span>Console</span>
             </Link>
-          </div>
-        )}
-
-        {/* ── App install — only show if not already downloaded/installed ── */}
-        {!appInstalled && (
-          <div
-            className="mx-4 mt-4 rounded-[var(--g1-r-card)] bg-[var(--g1-bg)] overflow-hidden"
-            style={{ border: '1px solid var(--g1-border)', boxShadow: 'var(--g1-e1)' }}
-          >
-            <div className="flex items-center justify-between px-4" style={{ height: 56 }}>
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="w-9 h-9 rounded-xl overflow-hidden border shrink-0 bg-white"
-                  style={{ borderColor: 'var(--g1-border)' }}>
-                  <Image src="/icons/icon-192x192.png" alt="Jeevan Mart App" width={36} height={36} className="w-full h-full object-contain" />
-                </div>
-                <div className="min-w-0">
-                  <span className="font-medium truncate block" style={{ fontSize: 14, color: 'var(--g1-text)' }}>
-                    Install Jeevan Mart App
-                  </span>
-                  <span className="text-[11px] block" style={{ color: 'var(--g1-text-secondary)' }}>
-                    Official Android App · 12 MB
-                  </span>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={handleInstallApp}
-                disabled={isInstalling}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 g1-press"
-                style={{ backgroundColor: 'var(--g1-primary-tint)', color: 'var(--g1-primary)', border: '1px solid var(--g1-primary)' }}
-              >
-                {isInstalling ? (
-                  <div className="w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                ) : (
-                  <Download className="w-[18px] h-[18px]" strokeWidth={1.75} />
-                )}
-                <span>{isInstalling ? 'Downloading…' : 'Download'}</span>
-              </button>
-            </div>
           </div>
         )}
 

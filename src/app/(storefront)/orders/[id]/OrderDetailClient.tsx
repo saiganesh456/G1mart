@@ -581,7 +581,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
           <div className="space-y-1.5">
             <h2 className="text-base sm:text-lg font-black text-stone-900">Order #{orderId} Details Not Found</h2>
             <p className="text-xs text-stone-500 max-w-xs mx-auto leading-relaxed">
-              We couldn't retrieve the live details for this order. It may have expired or was placed in a different browser session.
+              We couldn&apos;t retrieve the live details for this order. It may have expired or was placed in a different browser session.
             </p>
           </div>
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2.5">
