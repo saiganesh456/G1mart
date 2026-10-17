@@ -21,7 +21,7 @@ const TILE_MAP = {
   // DAIRY & BREAKFAST
   'dairy-bread-eggs': ['g1-p0048', 'g1-p0022', 'g1-p1096', 'g1-p0032'],
   'breakfast-cereals': ['g1-p1112', 'g1-p0660', 'g1-p0273'],
-  'biscuits-bakery': ['g1-p0026', 'g1-p0061', 'g1-p0175', 'g1-p0179'],
+  'biscuits-bakery': ['g1-bsc031', 'g1-bsc041', 'g1-bsc011', 'g1-bsc001'],
   'instant-food': ['g1-ins001', 'g1-ins004', 'g1-ins002', 'g1-ins005'],
 
   // SNACKS & DRINKS
