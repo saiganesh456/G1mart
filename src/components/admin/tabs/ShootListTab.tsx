@@ -124,6 +124,7 @@ export default function ShootListTab({ products, categories, onProductUpdated, o
 
         const heroes = heroCandidates.slice(0, 4);
         const verifiedHeroes = heroes.filter((p) => p.image_status === 'verified');
+        const verifiedAll = catProds.filter((p) => p.image_status === 'verified');
         const tileUrl =
           (categoryTilesMap as Record<string, string>)[cat.id] ||
           `/categories/collages/${cat.id}.webp`;
@@ -134,6 +135,8 @@ export default function ShootListTab({ products, categories, onProductUpdated, o
           heroes,
           verifiedHeroesCount: verifiedHeroes.length,
           totalHeroesCount: heroes.length,
+          verifiedCount: verifiedAll.length,
+          totalCount: catProds.length,
           tileUrl,
         };
       })
@@ -308,39 +311,36 @@ export default function ShootListTab({ products, categories, onProductUpdated, o
       />
 
       {/* 1. Compact, Professional Studio Header */}
-      <div className="bg-gradient-to-br from-[#14532D] via-[#1B5E20] to-[#2E7D32] rounded-3xl p-4 sm:p-5 text-white shadow-sm transition-all">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
+      <div className="bg-gradient-to-br from-[#14532D] via-[#1B5E20] to-[#2E7D32] rounded-3xl p-4 sm:p-5 text-white shadow-sm transition-all space-y-3">
+        <div className="flex items-center justify-between gap-2.5">
+          <div className="flex items-center gap-2.5 min-w-0">
             {onBackToDashboard && (
               <button
                 type="button"
                 onClick={onBackToDashboard}
-                className="w-10 h-10 rounded-2xl bg-white/10 hover:bg-white/20 active:scale-95 flex items-center justify-center text-white transition-all shrink-0 border border-white/15 cursor-pointer"
+                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 flex items-center justify-center text-white transition-all shrink-0 border border-white/15 cursor-pointer"
                 title="Back to Dashboard"
               >
-                <ArrowLeft className="w-5 h-5" />
+                <ArrowLeft className="w-4 h-4" />
               </button>
             )}
-            <div className="w-10 h-10 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/20">
-              <Camera className="w-5 h-5 text-white" />
+            <div className="w-9 h-9 rounded-xl bg-white/15 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/20">
+              <Camera className="w-4 h-4 text-white" />
             </div>
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <h2 className="text-base sm:text-lg font-black tracking-tight">Product Studio</h2>
-                <span className="bg-emerald-400/20 text-emerald-200 border border-emerald-300/30 text-[10px] font-black px-2 py-0.5 rounded-full">
+                <h2 className="text-base sm:text-lg font-black tracking-tight whitespace-nowrap">Product Studio</h2>
+                <span className="bg-emerald-400/20 text-emerald-200 border border-emerald-300/30 text-[10px] font-black px-2 py-0.5 rounded-full whitespace-nowrap">
                   Shelf Packshots
                 </span>
               </div>
-              <p className="text-xs text-white/80 font-medium">
-                Snap or upload shelf items · Auto-cutout onto clean white background
-              </p>
             </div>
           </div>
 
           {/* Live Progress Pill */}
-          <div className="text-right shrink-0">
-            <div className="inline-flex items-center gap-1.5 bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-2xl border border-white/15">
-              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="shrink-0">
+            <div className="inline-flex items-center gap-1.5 bg-black/20 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/15 shadow-2xs">
+              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
               <span className="text-xs font-black text-white">
                 {verifiedCount}/{totalProducts}
               </span>
@@ -348,6 +348,11 @@ export default function ShootListTab({ products, categories, onProductUpdated, o
             </div>
           </div>
         </div>
+
+        {/* Subtitle - Full Width */}
+        <p className="text-xs text-emerald-100/90 font-medium">
+          Snap or upload shelf packshots · Auto-cutout onto clean white background
+        </p>
 
         {/* Quick Utility Chips */}
         <div className="flex items-center gap-2 mt-3 pt-3 border-t border-white/10">
@@ -511,7 +516,7 @@ export default function ShootListTab({ products, categories, onProductUpdated, o
             const isShowingAll = showAllProductsCats[group.category.id] || Boolean(searchQuery.trim());
             const displayProducts = isShowingAll ? group.allProds : group.heroes;
             const isComplete =
-              group.verifiedHeroesCount === group.totalHeroesCount && group.totalHeroesCount > 0;
+              group.verifiedCount === group.totalCount && group.totalCount > 0;
 
             return (
               <div
@@ -541,13 +546,13 @@ export default function ShootListTab({ products, categories, onProductUpdated, o
                       <div className="flex items-center gap-2 mt-0.5">
                         <span
                           className={`text-xs font-black ${
-                            isComplete ? 'text-[#2E7D32]' : 'text-stone-600'
+                            isComplete ? 'text-[#2E7D32]' : 'text-amber-700'
                           }`}
                         >
-                          {group.verifiedHeroesCount}/{group.totalHeroesCount} verified
+                          {group.verifiedCount}/{group.totalCount} packshots verified
                         </span>
                         <span className="text-[10px] text-stone-400">
-                          ({group.allProds.length} items total)
+                          {isComplete ? '(100% complete)' : `(${group.totalCount - group.verifiedCount} need shoot)`}
                         </span>
                       </div>
                     </div>
@@ -561,7 +566,7 @@ export default function ShootListTab({ products, categories, onProductUpdated, o
                       </span>
                     ) : (
                       <span className="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 text-[10px] font-bold border border-amber-200">
-                        Need {group.totalHeroesCount - group.verifiedHeroesCount}
+                        Need {group.totalCount - group.verifiedCount}
                       </span>
                     )}
                     {isExpanded ? (
