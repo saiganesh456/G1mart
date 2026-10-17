@@ -122,7 +122,7 @@ export default function PaymentPage() {
           fullName: addressData?.fullName || user?.name || 'Customer',
           mobileNumber: addressData?.phone || addressData?.mobileNumber || user?.phone || '9876543210',
           phone: addressData?.phone || addressData?.mobileNumber || user?.phone || '9876543210',
-          houseFlat: 'G1 Mart Supermarket',
+          houseFlat: 'G1mart Supermarket',
           streetArea: 'Govt Hospital, beside Padarupalli',
           landmark: 'In-Store Customer Pickup',
           city: 'Nellore',
@@ -321,7 +321,7 @@ export default function PaymentPage() {
         key: data.keyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: data.amountInPaise,
         currency: data.currency || 'INR',
-        name: 'G1 Mart Supermarket',
+        name: 'G1mart Supermarket',
         description: `Order #${data.orderId}`,
         order_id: data.providerOrderId,
         callback_url: callbackUrl,
@@ -799,7 +799,7 @@ export default function PaymentPage() {
             </div>
 
             <div className="space-y-1.5 text-xs text-stone-600">
-              <p className="font-bold text-stone-800">G1 Mart Supermarket</p>
+              <p className="font-bold text-stone-800">G1mart Supermarket</p>
               <p className="text-[11px] text-stone-500">Order Ref: {pendingPaymentData.orderId}</p>
               <p className="text-[11px] text-stone-500">Razorpay ID: {pendingPaymentData.razorpayOrderId}</p>
             </div>

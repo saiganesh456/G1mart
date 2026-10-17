@@ -278,7 +278,7 @@ export default function LocationModal() {
 
         {/* Modal Footer */}
         <div className="px-5 py-3.5 bg-stone-50 border-t border-stone-200/80 flex items-center justify-between text-xs text-stone-500">
-          <span>G1 Mart Doorstep Delivery</span>
+          <span>G1mart Doorstep Delivery</span>
           <span className="text-[11px] text-emerald-800 font-bold">
             Live GPS Enabled
           </span>

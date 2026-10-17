@@ -115,7 +115,7 @@ export default function AccountPage() {
             {/* Name/email */}
             <div className="min-w-0 flex-1">
               <h1 className="font-bold truncate" style={{ fontSize: 16, color: 'var(--g1-text)' }}>
-                {isLoggedIn ? (user?.name || 'Your Account') : 'Sign in to G1 Mart'}
+                {isLoggedIn ? (user?.name || 'Your Account') : 'Sign in to G1mart'}
               </h1>
               <p className="truncate mt-0.5" style={{ fontSize: 13, color: 'var(--g1-text-secondary)' }}>
                 {isLoggedIn
@@ -165,7 +165,7 @@ export default function AccountPage() {
             >
               <Image
                 src="/icons/icon-512x512.png"
-                alt="G1 Mart App Icon"
+                alt="G1mart App Icon"
                 width={52}
                 height={52}
                 className="w-full h-full object-cover rounded-xl"
@@ -266,7 +266,7 @@ export default function AccountPage() {
 
         {/* ── Footer ── */}
         <div className="mt-6 text-center" style={{ fontSize: 12, color: 'var(--g1-text-secondary)' }}>
-          G1 Mart · Delivering in {STORE_CONFIG.address.city || 'Nellore'}
+          G1mart · Delivering in {STORE_CONFIG.address.city || 'Nellore'}
         </div>
       </div>
     </>

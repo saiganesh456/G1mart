@@ -45,7 +45,7 @@ export default function InstallAppPlacard() {
   const handleInstall = async () => {
     setInstalling(true);
     try {
-      await executeInstallFlow(user?.id, '/downloads/g1mart.apk?v=1.2.1');
+      await executeInstallFlow(user?.id, '/downloads/g1mart.apk?v=1.2.2');
       setInstalled(true);
       // Auto-hide after success
       setTimeout(() => {
@@ -68,7 +68,7 @@ export default function InstallAppPlacard() {
   return (
     <div
       role="dialog"
-      aria-label="Install G1 Mart App"
+      aria-label="Install G1mart App"
       className="fixed bottom-[calc(68px+env(safe-area-inset-bottom,0px))] left-3 right-3 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-md z-30 pointer-events-auto transition-all duration-300 ease-out animate-in fade-in slide-in-from-bottom-8"
     >
       <div className="relative bg-white/95 backdrop-blur-md rounded-3xl p-4 sm:p-5 shadow-2xl border border-stone-200/90 shadow-[#2E7D32]/10 overflow-hidden">

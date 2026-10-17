@@ -7,8 +7,8 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: 'All Categories | G1 Mart',
-  description: 'Browse all supermarket grocery departments and daily essentials at G1 Mart, Nellore.',
+  title: 'All Categories | G1mart',
+  description: 'Browse all supermarket grocery departments and daily essentials at G1mart, Nellore.',
 };
 
 /**

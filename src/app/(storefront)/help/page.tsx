@@ -8,7 +8,7 @@ export default function HelpPage() {
 
   const faqs = [
     {
-      q: 'How does G1 Mart deliver groceries?',
+      q: 'How does G1mart deliver groceries?',
       a: `We offer direct doorstep grocery delivery from our local store hub. Operating hours: ${STORE_CONFIG.hours.open} to ${STORE_CONFIG.hours.close}.`,
     },
     {
@@ -118,7 +118,7 @@ export default function HelpPage() {
 
       <div className="flex items-center justify-center gap-1.5 text-[11px] text-stone-400 pt-2">
         <ShieldCheck className="w-4 h-4 text-[#2E7D32]" />
-        <span>Official G1 Mart Neighbourhood Store Customer Support</span>
+        <span>Official G1mart Neighbourhood Store Customer Support</span>
       </div>
     </div>
   );

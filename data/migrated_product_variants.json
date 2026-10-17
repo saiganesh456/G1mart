@@ -6,7 +6,7 @@
     "price": 65,
     "mrp": 70,
     "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-atta-5kg.jpg",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.168Z",
     "updated_at": "2026-10-17T05:01:01.169Z"
   },
@@ -17,7 +17,7 @@
     "price": 125,
     "mrp": 135,
     "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-atta-5kg.jpg",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.169Z",
     "updated_at": "2026-10-17T05:01:01.169Z"
   },
@@ -28,7 +28,7 @@
     "price": 295,
     "mrp": 320,
     "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-atta-5kg.jpg",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.169Z",
     "updated_at": "2026-10-17T05:01:01.169Z"
   },
@@ -39,7 +39,7 @@
     "price": 540,
     "mrp": 590,
     "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-atta-5kg.jpg",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.169Z",
     "updated_at": "2026-10-17T05:01:01.169Z"
   },
@@ -68,7 +68,7 @@
     "price": 62,
     "mrp": 70,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_rice_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.170Z",
     "updated_at": "2026-10-17T05:01:01.170Z"
   },
@@ -79,7 +79,7 @@
     "price": 295,
     "mrp": 325,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_rice_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.170Z",
     "updated_at": "2026-10-17T05:01:01.170Z"
   },
@@ -90,7 +90,7 @@
     "price": 575,
     "mrp": 630,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_rice_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.170Z",
     "updated_at": "2026-10-17T05:01:01.170Z"
   },
@@ -101,7 +101,7 @@
     "price": 1380,
     "mrp": 1500,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_rice_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.170Z",
     "updated_at": "2026-10-17T05:01:01.170Z"
   },
@@ -184,7 +184,7 @@
     "price": 50,
     "mrp": 58,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_atta_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.172Z",
     "updated_at": "2026-10-17T05:01:01.172Z"
   },
@@ -195,7 +195,7 @@
     "price": 240,
     "mrp": 275,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_atta_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.172Z",
     "updated_at": "2026-10-17T05:01:01.172Z"
   },
@@ -206,7 +206,7 @@
     "price": 28,
     "mrp": 35,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_maida_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.172Z",
     "updated_at": "2026-10-17T05:01:01.172Z"
   },
@@ -217,7 +217,7 @@
     "price": 50,
     "mrp": 60,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_maida_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.172Z",
     "updated_at": "2026-10-17T05:01:01.172Z"
   },
@@ -228,7 +228,7 @@
     "price": 32,
     "mrp": 38,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_corn_flour_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.172Z",
     "updated_at": "2026-10-17T05:01:01.172Z"
   },
@@ -239,7 +239,7 @@
     "price": 60,
     "mrp": 70,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_corn_flour_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.172Z",
     "updated_at": "2026-10-17T05:01:01.172Z"
   },
@@ -646,7 +646,7 @@
     "price": 75,
     "mrp": 85,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_minapa_gundu_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.172Z",
     "updated_at": "2026-10-17T05:01:01.172Z"
   },
@@ -657,7 +657,7 @@
     "price": 145,
     "mrp": 160,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_minapa_gundu_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.172Z",
     "updated_at": "2026-10-17T05:01:01.172Z"
   },
@@ -668,7 +668,7 @@
     "price": 285,
     "mrp": 315,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_minapa_gundu_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.172Z",
     "updated_at": "2026-10-17T05:01:01.172Z"
   },
@@ -679,7 +679,7 @@
     "price": 695,
     "mrp": 775,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_minapa_gundu_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.172Z",
     "updated_at": "2026-10-17T05:01:01.172Z"
   },
@@ -2110,9 +2110,9 @@
     "product_id": "g1-p1701",
     "size_label": "15 L Tin (13.65 kg)",
     "price": 1899,
-    "mrp": 2350,
+    "mrp": 2150,
     "stock": 25,
-    "image_url": "/products/verified/freedom-sunflower-oil-15l-tin.webp"
+    "image_url": "/products/packshots/freedom-sunflower-oil-15l-tin.webp"
   },
   {
     "id": "var-g1-hh001-1",
@@ -10001,7 +10001,7 @@
   {
     "id": "g1-swt007-v1",
     "product_id": "g1-swt007",
-    "size_label": "13 g (\u20b95 Pack)",
+    "size_label": "13 g (₹5 Pack)",
     "price": 5,
     "mrp": 5,
     "stock": 50,
@@ -11508,7 +11508,7 @@
     "price": 85,
     "mrp": 95,
     "stock": 50,
-    "image_url": "/products/packshots/tata-sampann-multigrain-atta-5kg.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.169Z",
     "updated_at": "2026-10-17T05:01:01.169Z"
   },
@@ -11519,7 +11519,7 @@
     "price": 390,
     "mrp": 430,
     "stock": 50,
-    "image_url": "/products/packshots/tata-sampann-multigrain-atta-5kg.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.169Z",
     "updated_at": "2026-10-17T05:01:01.169Z"
   },
@@ -11665,7 +11665,7 @@
     "price": 32,
     "mrp": 38,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_upma_rava_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.171Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -11676,7 +11676,7 @@
     "price": 45,
     "mrp": 52,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_upma_rava_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.171Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -11687,7 +11687,7 @@
     "price": 32,
     "mrp": 38,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_bansi_rava_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.170Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -11698,7 +11698,7 @@
     "price": 48,
     "mrp": 55,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_bansi_rava_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.171Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -11709,7 +11709,7 @@
     "price": 28,
     "mrp": 35,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_rice_flour_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.171Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -11720,7 +11720,7 @@
     "price": 45,
     "mrp": 55,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_rice_flour_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.171Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -11731,7 +11731,7 @@
     "price": 38,
     "mrp": 45,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_ragi_flour_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.171Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -11742,7 +11742,7 @@
     "price": 50,
     "mrp": 60,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_ragi_flour_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.171Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -11762,7 +11762,7 @@
     "price": 40,
     "mrp": 48,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jowar_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.171Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -11773,7 +11773,7 @@
     "price": 55,
     "mrp": 65,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jowar_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.171Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -11784,7 +11784,7 @@
     "price": 40,
     "mrp": 48,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_sajjalu_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.171Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -11795,7 +11795,7 @@
     "price": 45,
     "mrp": 55,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_sajjalu_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.171Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -11806,7 +11806,7 @@
     "price": 35,
     "mrp": 42,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_whole_ragi_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.171Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -11817,7 +11817,7 @@
     "price": 45,
     "mrp": 55,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_whole_ragi_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.171Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -11828,7 +11828,7 @@
     "price": 50,
     "mrp": 58,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_korralu_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.171Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -11839,7 +11839,7 @@
     "price": 75,
     "mrp": 88,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_korralu_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.171Z",
     "updated_at": "2026-10-17T05:01:01.171Z"
   },
@@ -12444,7 +12444,7 @@
     "price": 35,
     "mrp": 40,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_poha_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.170Z",
     "updated_at": "2026-10-17T05:01:01.170Z"
   },
@@ -12455,7 +12455,7 @@
     "price": 65,
     "mrp": 75,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_poha_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.170Z",
     "updated_at": "2026-10-17T05:01:01.170Z"
   },
@@ -12475,7 +12475,7 @@
     "price": 48,
     "mrp": 55,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_sabudana_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.170Z",
     "updated_at": "2026-10-17T05:01:01.170Z"
   },
@@ -12486,7 +12486,7 @@
     "price": 92,
     "mrp": 105,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_sabudana_pouch.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.170Z",
     "updated_at": "2026-10-17T05:01:01.170Z"
   },
@@ -13523,7 +13523,7 @@
     "price": 115,
     "mrp": 130,
     "stock": 50,
-    "image_url": "/products/packshots/india-gate-rozzana-5kg.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.170Z",
     "updated_at": "2026-10-17T05:01:01.170Z"
   },
@@ -13534,7 +13534,7 @@
     "price": 525,
     "mrp": 590,
     "stock": 50,
-    "image_url": "/products/packshots/india-gate-rozzana-5kg.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.170Z",
     "updated_at": "2026-10-17T05:01:01.170Z"
   },
@@ -13545,7 +13545,7 @@
     "price": 240,
     "mrp": 270,
     "stock": 50,
-    "image_url": "/products/packshots/india-gate-classic-5kg.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.170Z",
     "updated_at": "2026-10-17T05:01:01.170Z"
   },
@@ -13556,7 +13556,7 @@
     "price": 1150,
     "mrp": 1250,
     "stock": 50,
-    "image_url": "/products/packshots/india-gate-classic-5kg.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.170Z",
     "updated_at": "2026-10-17T05:01:01.170Z"
   },
@@ -13567,7 +13567,7 @@
     "price": 115,
     "mrp": 130,
     "stock": 50,
-    "image_url": "/products/packshots/daawat-rozana-super-5kg.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.170Z",
     "updated_at": "2026-10-17T05:01:01.170Z"
   },
@@ -13578,7 +13578,7 @@
     "price": 545,
     "mrp": 600,
     "stock": 50,
-    "image_url": "/products/packshots/daawat-rozana-super-5kg.webp",
+    "image_url": null,
     "created_at": "2026-10-17T05:01:01.170Z",
     "updated_at": "2026-10-17T05:01:01.170Z"
   },
@@ -14414,7 +14414,7 @@
   {
     "id": "g1-p0003-v1",
     "product_id": "g1-p0003",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
@@ -14424,7 +14424,7 @@
   {
     "id": "g1-p0014-v1",
     "product_id": "g1-p0014",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 22,
     "mrp": 22,
     "stock": 50,
@@ -14438,8 +14438,7 @@
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0019.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0042-v1",
@@ -14452,14 +14451,52 @@
     "in_stock": true
   },
   {
+    "id": "g1-p0064-v1",
+    "product_id": "g1-p0064",
+    "size_label": "100 g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "in_stock": true,
+    "image_url": "/products/packshots/mtr-rasam-powder-200g.webp"
+  },
+  {
+    "id": "g1-p0065-v1",
+    "product_id": "g1-p0065",
+    "size_label": " g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0066-v1",
+    "product_id": "g1-p0066",
+    "size_label": "100 g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "in_stock": true,
+    "image_url": "/products/packshots/aachi-rasam-powder-200g.webp"
+  },
+  {
+    "id": "g1-p0067-v1",
+    "product_id": "g1-p0066",
+    "size_label": "1 unit",
+    "price": 11,
+    "mrp": 11,
+    "stock": 50,
+    "in_stock": true,
+    "image_url": "/products/packshots/aachi-rasam-powder-200g.webp"
+  },
+  {
     "id": "g1-p0069-v1",
     "product_id": "g1-p0069",
     "size_label": "1 unit",
     "price": 11,
     "mrp": 11,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0069.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0070-v1",
@@ -14494,7 +14531,7 @@
   {
     "id": "g1-p0073-v1",
     "product_id": "g1-p0073",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
@@ -14502,9 +14539,29 @@
     "in_stock": true
   },
   {
+    "id": "g1-p0074-v1",
+    "product_id": "g1-p0074",
+    "size_label": "100 g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0074.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0074-v2",
+    "product_id": "g1-p0074",
+    "size_label": "1 unit",
+    "price": 6,
+    "mrp": 6,
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0074.webp",
+    "in_stock": true
+  },
+  {
     "id": "g1-p0075-v1",
     "product_id": "g1-p0075",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
@@ -14514,7 +14571,7 @@
   {
     "id": "g1-p0076-v1",
     "product_id": "g1-p0076",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
@@ -14522,14 +14579,33 @@
     "in_stock": true
   },
   {
-    "id": "g1-p0096-v1",
-    "product_id": "g1-p0096",
-    "size_label": "100 g",
+    "id": "g1-p0088-v1",
+    "product_id": "g1-p0088",
+    "size_label": " kg",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0096.webp"
+    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p1005-v1",
+    "product_id": "g1-p0088",
+    "size_label": " g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0096-v1",
+    "product_id": "g1-p0096",
+    "size_label": " g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "in_stock": true
   },
   {
     "id": "g1-p0163-v1",
@@ -14544,11 +14620,21 @@
   {
     "id": "g1-p0184-v1",
     "product_id": "g1-p0184",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0280-v1",
+    "product_id": "g1-p0280",
+    "size_label": " g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_lavangalu_pouch.webp",
     "in_stock": true
   },
   {
@@ -14559,6 +14645,16 @@
     "mrp": 50,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_vamu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0290-v1",
+    "product_id": "g1-p0290",
+    "size_label": " g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
     "in_stock": true
   },
   {
@@ -14602,6 +14698,16 @@
     "in_stock": true
   },
   {
+    "id": "g1-p0336-v1",
+    "product_id": "g1-p0336",
+    "size_label": "Packs",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
+    "in_stock": true
+  },
+  {
     "id": "g1-p0337-v1",
     "product_id": "g1-p0337",
     "size_label": "Packs",
@@ -14622,6 +14728,16 @@
     "in_stock": true
   },
   {
+    "id": "g1-p0341-v1",
+    "product_id": "g1-p0341",
+    "size_label": "Packs",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_lavangalu_pouch.webp",
+    "in_stock": true
+  },
+  {
     "id": "g1-p0342-v1",
     "product_id": "g1-p0342",
     "size_label": "Packs",
@@ -14629,6 +14745,115 @@
     "mrp": 50,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0367-v1",
+    "product_id": "g1-p0367",
+    "size_label": " ml",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0396-v1",
+    "product_id": "g1-p0396",
+    "size_label": " g",
+    "price": 81,
+    "mrp": 81,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0413-v1",
+    "product_id": "g1-p0413",
+    "size_label": " g",
+    "price": 62,
+    "mrp": 62,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0414-v1",
+    "product_id": "g1-p0414",
+    "size_label": " g",
+    "price": 26,
+    "mrp": 26,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0431-v1",
+    "product_id": "g1-p0431",
+    "size_label": " g",
+    "price": 22,
+    "mrp": 22,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_avalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "var-g1-spc048-100g",
+    "product_id": "g1-p0431",
+    "size_label": "100g",
+    "price": 20,
+    "mrp": 20,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_avalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "var-g1-spc048-250g",
+    "product_id": "g1-p0431",
+    "size_label": "250g",
+    "price": 45,
+    "mrp": 45,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_avalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "var-g1-spc048-500g",
+    "product_id": "g1-p0431",
+    "size_label": "500g",
+    "price": 85,
+    "mrp": 85,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_avalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0444-v1",
+    "product_id": "g1-p0444",
+    "size_label": " g",
+    "price": 78,
+    "mrp": 78,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0466-v1",
+    "product_id": "g1-p0466",
+    "size_label": " g",
+    "price": 22,
+    "mrp": 22,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0480-v1",
+    "product_id": "g1-p0480",
+    "size_label": " g",
+    "price": 22,
+    "mrp": 22,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_sompu_pouch.webp",
     "in_stock": true
   },
   {
@@ -14642,9 +14867,28 @@
     "in_stock": true
   },
   {
+    "id": "g1-p0503-v1",
+    "product_id": "g1-p0503",
+    "size_label": " g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0539-v1",
+    "product_id": "g1-p0539",
+    "size_label": " g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
+    "in_stock": true
+  },
+  {
     "id": "g1-p0587-v1",
     "product_id": "g1-p0587",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 24,
     "mrp": 24,
     "stock": 50,
@@ -14652,129 +14896,220 @@
     "in_stock": true
   },
   {
+    "id": "g1-p0592-v1",
+    "product_id": "g1-p0592",
+    "size_label": " g",
+    "price": 45,
+    "mrp": 45,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_avalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0593-v1",
+    "product_id": "g1-p0593",
+    "size_label": " g",
+    "price": 11,
+    "mrp": 11,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_avalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0594-v1",
+    "product_id": "g1-p0594",
+    "size_label": " g",
+    "price": 40,
+    "mrp": 40,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
+    "in_stock": true
+  },
+  {
     "id": "g1-p0641-v1",
     "product_id": "g1-p0641",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0641.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0643-v1",
     "product_id": "g1-p0643",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0643.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0644-v1",
     "product_id": "g1-p0644",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0644.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0645-v1",
     "product_id": "g1-p0645",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0645.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0648-v1",
     "product_id": "g1-p0648",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0648.webp"
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0649-v1",
+    "product_id": "g1-p0649",
+    "size_label": " g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "in_stock": true
   },
   {
     "id": "g1-p0650-v1",
     "product_id": "g1-p0650",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0650.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0651-v1",
     "product_id": "g1-p0651",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0651.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0653-v1",
     "product_id": "g1-p0653",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0653.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0654-v1",
     "product_id": "g1-p0654",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0654.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0656-v1",
     "product_id": "g1-p0656",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0656.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0657-v1",
     "product_id": "g1-p0657",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0657.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0658-v1",
     "product_id": "g1-p0658",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0658.webp"
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0661-v1",
+    "product_id": "g1-p0661",
+    "size_label": " g",
+    "price": 56,
+    "mrp": 56,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0673-v1",
+    "product_id": "g1-p0673",
+    "size_label": "1 unit",
+    "price": 11,
+    "mrp": 11,
+    "stock": 50,
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0691-v1",
+    "product_id": "g1-p0691",
+    "size_label": " g",
+    "price": 11,
+    "mrp": 11,
+    "stock": 50,
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0693-v1",
+    "product_id": "g1-p0693",
+    "size_label": " g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0695-v1",
+    "product_id": "g1-p0695",
+    "size_label": " g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0696-v1",
+    "product_id": "g1-p0696",
+    "size_label": " g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0697-v1",
+    "product_id": "g1-p0697",
+    "size_label": " g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "in_stock": true
   },
   {
     "id": "g1-p0706-v1",
     "product_id": "g1-p0706",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
@@ -14784,17 +15119,16 @@
   {
     "id": "g1-p0707-v1",
     "product_id": "g1-p0707",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0707.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0709-v1",
     "product_id": "g1-p0709",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
@@ -14804,67 +15138,89 @@
   {
     "id": "g1-p0739-v1",
     "product_id": "g1-p0739",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0739.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0741-v1",
     "product_id": "g1-p0741",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0741.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0742-v1",
     "product_id": "g1-p0742",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0742.webp"
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0778-v1",
+    "product_id": "g1-p0778",
+    "size_label": "1 unit",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0782-v1",
+    "product_id": "g1-p0782",
+    "size_label": "1 unit",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "in_stock": true
   },
   {
     "id": "g1-p0795-v1",
     "product_id": "g1-p0795",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0795.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0804-v1",
     "product_id": "g1-p0804",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0804.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p0852-v1",
     "product_id": "g1-p0852",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0852.webp"
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0872-v1",
+    "product_id": "g1-p0872",
+    "size_label": " g",
+    "price": 56,
+    "mrp": 56,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
+    "in_stock": true
   },
   {
     "id": "g1-p0879-v1",
     "product_id": "g1-p0879",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 39,
     "mrp": 39,
     "stock": 50,
@@ -14874,17 +15230,25 @@
   {
     "id": "g1-p0920-v1",
     "product_id": "g1-p0920",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p0920.webp"
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0951-v1",
+    "product_id": "g1-p0951",
+    "size_label": " g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 50,
+    "in_stock": true
   },
   {
     "id": "g1-p0990-v1",
     "product_id": "g1-p0990",
-    "size_label": "50 g",
+    "size_label": " g",
     "price": 17,
     "mrp": 17,
     "stock": 50,
@@ -14894,7 +15258,7 @@
   {
     "id": "g1-p1001-v1",
     "product_id": "g1-p1001",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
@@ -14904,12 +15268,21 @@
   {
     "id": "g1-p1004-v1",
     "product_id": "g1-p1004",
-    "size_label": "500 g",
+    "size_label": " g",
     "price": 106,
     "mrp": 106,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p1004.webp"
+    "in_stock": true
+  },
+  {
+    "id": "g1-p1006-v1",
+    "product_id": "g1-p1006",
+    "size_label": " g",
+    "price": 87,
+    "mrp": 87,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
+    "in_stock": true
   },
   {
     "id": "g1-p1014-v1",
@@ -14918,28 +15291,25 @@
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/generated_pouches/g1_turmeric_powder_pouch.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p1022-v1",
     "product_id": "g1-p1022",
-    "size_label": "100 g",
+    "size_label": " g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p1032-v1",
     "product_id": "g1-p1032",
-    "size_label": "250 g",
+    "size_label": " g",
     "price": 54,
     "mrp": 54,
     "stock": 50,
-    "in_stock": true,
-    "image_url": "/products/verified/g1-p1032.webp"
+    "in_stock": true
   },
   {
     "id": "g1-p1138-v1",
@@ -14959,6 +15329,16 @@
     "mrp": 50,
     "stock": 50,
     "image_url": "/products/packshots/weikfield-corn-flour.jpg",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc001-v1",
+    "product_id": "g1-spc001",
+    "size_label": "200 g",
+    "price": 68,
+    "mrp": 68,
+    "stock": 50,
+    "image_url": "/products/packshots/everest-turmeric-powder-200g.webp",
     "in_stock": true
   },
   {
@@ -15192,6 +15572,26 @@
     "in_stock": true
   },
   {
+    "id": "g1-spc025-v1",
+    "product_id": "g1-spc025",
+    "size_label": "200 g",
+    "price": 88,
+    "mrp": 88,
+    "stock": 50,
+    "image_url": "/products/packshots/mtr-sambar-powder-200g.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc026-v1",
+    "product_id": "g1-spc026",
+    "size_label": "200 g",
+    "price": 88,
+    "mrp": 88,
+    "stock": 50,
+    "image_url": "/products/packshots/mtr-rasam-powder-200g.webp",
+    "in_stock": true
+  },
+  {
     "id": "g1-spc027-v1",
     "product_id": "g1-spc027",
     "size_label": "100 g",
@@ -15219,6 +15619,26 @@
     "mrp": 80,
     "stock": 50,
     "image_url": "/products/packshots/aachi-sambar-powder-200g.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc030-v1",
+    "product_id": "g1-spc030",
+    "size_label": "200 g",
+    "price": 80,
+    "mrp": 80,
+    "stock": 50,
+    "image_url": "/products/packshots/aachi-rasam-powder-200g.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc031-v1",
+    "product_id": "g1-spc031",
+    "size_label": "100 g",
+    "price": 48,
+    "mrp": 48,
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0074.webp",
     "in_stock": true
   },
   {
@@ -15329,6 +15749,16 @@
     "mrp": 80,
     "stock": 50,
     "image_url": "/products/packshots/lijjat-urad-papad-200g.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc043-v1",
+    "product_id": "g1-spc043",
+    "size_label": "500 g",
+    "price": 165,
+    "mrp": 165,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
     "in_stock": true
   },
   {
@@ -15598,174 +16028,13 @@
     "image_url": "/products/verified/bev-thums-up-2l.webp"
   },
   {
-    "id": "g1-p0066-v50g",
-    "product_id": "g1-p0066",
-    "size_label": "50 g",
-    "price": 25,
-    "mrp": 28,
-    "stock": 60,
-    "image_url": "/products/verified/g1-p0066.webp"
-  },
-  {
-    "id": "g1-p0066-v100g",
-    "product_id": "g1-p0066",
-    "size_label": "100 g",
-    "price": 48,
-    "mrp": 52,
-    "stock": 50,
-    "image_url": "/products/verified/g1-p0066.webp"
-  },
-  {
-    "id": "g1-p0066-v200g",
-    "product_id": "g1-p0066",
-    "size_label": "200 g",
-    "price": 94,
-    "mrp": 100,
-    "stock": 40,
-    "image_url": "/products/verified/g1-p0066.webp"
-  },
-  {
-    "id": "g1-spc030-v100g",
-    "product_id": "g1-spc030",
-    "size_label": "100 g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 40,
-    "image_url": "/products/packshots/aachi-rasam-powder-200g.webp"
-  },
-  {
-    "id": "g1-spc030-v200g",
-    "product_id": "g1-spc030",
-    "size_label": "200 g",
-    "price": 80,
-    "mrp": 88,
-    "stock": 40,
-    "image_url": "/products/packshots/aachi-rasam-powder-200g.webp"
-  },
-  {
-    "id": "g1-p0064-v100g",
-    "product_id": "g1-p0064",
-    "size_label": "100 g",
-    "price": 48,
-    "mrp": 52,
-    "stock": 50,
-    "image_url": "/products/packshots/mtr-rasam-powder-200g.webp"
-  },
-  {
-    "id": "g1-p0064-v200g",
-    "product_id": "g1-p0064",
-    "size_label": "200 g",
-    "price": 88,
-    "mrp": 95,
-    "stock": 50,
-    "image_url": "/products/packshots/mtr-rasam-powder-200g.webp"
-  },
-  {
-    "id": "g1-p0065-v100g",
-    "product_id": "g1-p0065",
-    "size_label": "100 g",
-    "price": 48,
-    "mrp": 52,
-    "stock": 50,
-    "image_url": "/products/packshots/mtr-sambar-powder-200g.webp"
-  },
-  {
-    "id": "g1-p0065-v200g",
-    "product_id": "g1-p0065",
-    "size_label": "200 g",
-    "price": 88,
-    "mrp": 95,
-    "stock": 50,
-    "image_url": "/products/packshots/mtr-sambar-powder-200g.webp"
-  },
-  {
-    "id": "g1-p0074-v50g",
-    "product_id": "g1-p0074",
-    "size_label": "50 g",
-    "price": 25,
-    "mrp": 28,
-    "stock": 60,
-    "image_url": "/products/verified/g1-p0074.webp"
-  },
-  {
-    "id": "g1-p0074-v100g",
-    "product_id": "g1-p0074",
-    "size_label": "100 g",
-    "price": 48,
-    "mrp": 52,
-    "stock": 50,
-    "image_url": "/products/verified/g1-p0074.webp"
-  },
-  {
-    "id": "g1-aachi-chicken-65-v50g",
-    "product_id": "g1-aachi-chicken-65-masala",
-    "size_label": "50 g",
-    "price": 28,
-    "mrp": 30,
-    "stock": 40,
-    "image_url": "/products/verified/aachi-chicken-kabab-65-masala.webp"
-  },
-  {
     "id": "g1-freedom-oil-15l-tin-v1",
     "product_id": "g1-freedom-oil-15l-tin",
     "size_label": "15 L Tin (13.65 kg)",
     "price": 1899,
     "mrp": 2350,
     "stock": 25,
+    "in_stock": true,
     "image_url": "/products/verified/freedom-sunflower-oil-15l-tin.webp"
-  },
-  {
-    "id": "g1-p0782-v100g",
-    "product_id": "g1-p0782",
-    "size_label": "100 g",
-    "price": 45,
-    "mrp": 50,
-    "stock": 40,
-    "image_url": "/products/verified/g1-p0782.webp"
-  },
-  {
-    "id": "g1-p0782-v200g",
-    "product_id": "g1-p0782",
-    "size_label": "200 g",
-    "price": 80,
-    "mrp": 88,
-    "stock": 40,
-    "image_url": "/products/verified/g1-p0782.webp"
-  },
-  {
-    "id": "g1-spc001-v200g",
-    "product_id": "g1-spc001",
-    "size_label": "200 g",
-    "price": 65,
-    "mrp": 70,
-    "stock": 50,
-    "image_url": "/products/packshots/everest-turmeric-powder-200g.webp"
-  },
-  {
-    "id": "g1-spc001-v500g",
-    "product_id": "g1-spc001",
-    "size_label": "500 g",
-    "price": 155,
-    "mrp": 165,
-    "stock": 40,
-    "image_url": "/products/packshots/everest-turmeric-powder-500g.webp"
-  },
-  {
-    "id": "g1-spc043-v100g",
-    "product_id": "g1-spc043",
-    "size_label": "100 g",
-    "price": 40,
-    "mrp": 45,
-    "stock": 40,
-    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp"
-  },
-  {
-    "id": "g1-spc043-v250g",
-    "product_id": "g1-spc043",
-    "size_label": "250 g",
-    "price": 95,
-    "mrp": 110,
-    "stock": 40,
-    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp"
   }
 ]

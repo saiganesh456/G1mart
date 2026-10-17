@@ -151,7 +151,7 @@ export default function RazorpayStandardDemoPage() {
               customerName={customerName}
               customerEmail={customerEmail}
               customerPhone={customerPhone}
-              orderName="G1 Mart Supermarket"
+              orderName="G1mart Supermarket"
               orderDescription={`Standard Checkout Demo - ₹${amountRupees}`}
               buttonText={`Pay ₹${amountRupees} with Razorpay`}
               onSuccess={(result) => {

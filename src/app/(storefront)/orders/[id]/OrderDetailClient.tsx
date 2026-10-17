@@ -834,7 +834,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
                 <p className="text-xs font-black text-emerald-950">
                   {order.assignedRider.name || 'Express Rider'}
                 </p>
-                <p className="text-[10px] text-emerald-700">G1 Mart Delivery Partner</p>
+                <p className="text-[10px] text-emerald-700">G1mart Delivery Partner</p>
               </div>
             </div>
 
@@ -1143,7 +1143,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
             <span className="text-xs font-bold text-stone-800">Need Help with your Order?</span>
             <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
               <ShieldCheck className="w-3 h-3 text-[#1E6B2E]" />
-              <span>G1 Mart Care</span>
+              <span>G1mart Care</span>
             </span>
           </div>
           <div className="flex items-center gap-2.5 pt-1">
@@ -1155,7 +1155,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
               <span>Call Store</span>
             </a>
             <a
-              href={`https://wa.me/${(STORE_CONFIG.contact.whatsapp || '919876543210').replace(/\D/g, '')}?text=${encodeURIComponent(`Hi G1 Mart Team, I have an inquiry regarding Order #${orderId}`)}`}
+              href={`https://wa.me/${(STORE_CONFIG.contact.whatsapp || '919876543210').replace(/\D/g, '')}?text=${encodeURIComponent(`Hi G1mart Team, I have an inquiry regarding Order #${orderId}`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 h-11 inline-flex items-center justify-center gap-2 px-3 bg-[#1E6B2E] hover:bg-[#155223] active:scale-95 text-white font-bold rounded-xl text-xs sm:text-sm transition-all shadow-xs cursor-pointer"

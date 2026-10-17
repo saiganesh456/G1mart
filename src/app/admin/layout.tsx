@@ -4,8 +4,8 @@ import { Store, ShieldCheck, ExternalLink } from 'lucide-react';
 import AdminAuthGuard from '@/components/admin/AdminAuthGuard';
 
 export const metadata = {
-  title: 'Admin Console | G1 Mart',
-  description: 'G1 Mart Store Manager & Inventory Dashboard',
+  title: 'Admin Console | G1mart',
+  description: 'G1mart Store Manager & Inventory Dashboard',
 };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

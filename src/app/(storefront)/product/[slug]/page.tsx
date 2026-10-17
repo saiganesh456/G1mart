@@ -442,7 +442,7 @@ export default function ProductDetailPage({ params }: Props) {
             Product Details
           </h2>
           <p className="text-xs leading-relaxed" style={{ color: 'var(--g1-text)' }}>
-            {effectiveProduct.description || 'Authentic FMCG supermarket item fulfilling from G1 Mart darkstore.'}
+            {effectiveProduct.description || 'Authentic FMCG supermarket item fulfilling from G1mart darkstore.'}
           </p>
         </div>
       </div>

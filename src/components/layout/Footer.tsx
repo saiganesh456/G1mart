@@ -69,12 +69,12 @@ export default function Footer() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/assets/images/g1_mart_banner_transparent.png"
-              alt="G1 Mart"
+              alt="G1mart"
               style={{ height: '36px', maxHeight: '36px', width: 'auto', maxWidth: '160px', objectFit: 'contain' }}
               className="h-9 w-auto object-contain"
             />
             <p className="text-xs text-stone-500 leading-relaxed max-w-sm">
-              G1 Mart — your trusted local grocery supermarket. Authentic packaged goods,
+              G1mart — your trusted local grocery supermarket. Authentic packaged goods,
               cleaning essentials, pooja supplies, and daily household needs.
             </p>
             <div className="pt-1 flex flex-col space-y-1.5 text-xs text-stone-600">
@@ -148,7 +148,7 @@ export default function Footer() {
       {/* Legal strip */}
       <div className="border-t border-stone-200/80 bg-stone-50 py-4 pb-20 lg:pb-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-500">
-          <span>© {new Date().getFullYear()} G1 Mart. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} G1mart. All rights reserved.</span>
           <div className="flex items-center gap-4 font-medium">
             <span>Privacy Policy</span>
             <span>·</span>

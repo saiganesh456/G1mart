@@ -318,7 +318,7 @@ export default function CheckoutPage() {
             <div className="flex items-center gap-2 min-w-0">
               <UserCheck className="w-4 h-4 text-[#2E7D32] shrink-0" />
               <h2 className="text-xs font-extrabold text-stone-900 uppercase tracking-wider truncate">
-                Step 1: Account Sign-In / Register
+                Step 1: Sign in with Google to G1mart
               </h2>
             </div>
             <span className="text-[10px] font-black bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">
@@ -431,7 +431,7 @@ export default function CheckoutPage() {
             </div>
             <div className="min-w-0 flex-1">
               <span className="font-extrabold text-xs block leading-tight truncate">Store Pickup</span>
-              <span className="text-[10px] text-stone-500 font-medium block truncate">Free at G1 Mart</span>
+              <span className="text-[10px] text-stone-500 font-medium block truncate">Free at G1mart</span>
             </div>
           </button>
         </div>
@@ -554,7 +554,7 @@ export default function CheckoutPage() {
               </div>
               <div className="min-w-0 flex-1">
                 <span className="font-extrabold text-stone-900 text-xs block leading-tight truncate">
-                  G1 Mart Supermarket
+                  G1mart Supermarket
                 </span>
                 <p className="text-[11px] text-stone-500 font-medium truncate mt-0.5">
                   {STORE_CONFIG.address.line1}, {STORE_CONFIG.address.city} · Ready in 30 mins
@@ -631,7 +631,7 @@ export default function CheckoutPage() {
               </div>
               <p className="text-[11px] text-emerald-800 font-medium truncate mt-0.5">
                 {orderType === 'pickup'
-                  ? 'Packaged at G1 Mart Padarupalli within 30 mins'
+                  ? 'Packaged at G1mart Padarupalli within 30 mins'
                   : `Free doorstep delivery to your location (${activeDistanceKm} km zone)`}
               </p>
             </div>

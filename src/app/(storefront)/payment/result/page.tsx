@@ -371,7 +371,7 @@ function PaymentResultContent() {
             </span>
             <h1 className="text-xl font-black text-[#212121] mt-2">Order Confirmed!</h1>
             <p className="text-xs text-stone-500 mt-1">
-              We received your payment of <strong className="text-stone-800">₹{orderDetails?.grandTotal || orderDetails?.paidAmount || '—'}</strong>. Your groceries are being packed fresh at G1 Mart Hub.
+              We received your payment of <strong className="text-stone-800">₹{orderDetails?.grandTotal || orderDetails?.paidAmount || '—'}</strong>. Your groceries are being packed fresh at G1mart Hub.
             </p>
           </div>
 

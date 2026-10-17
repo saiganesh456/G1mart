@@ -7,8 +7,8 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export const metadata = {
-  title: 'G1 Mart Supermarket — Fresh Groceries & Daily Essentials',
-  description: 'Shop fresh groceries, staples, snacks, household care and personal essentials at G1 Mart.',
+  title: 'G1mart — Fresh Groceries & Daily Essentials',
+  description: 'Shop fresh groceries, staples, snacks, household care and personal essentials at G1mart.',
 };
 
 /**
