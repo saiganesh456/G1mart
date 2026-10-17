@@ -157,7 +157,8 @@ export default function CategoryDashboardClient({ category, products }: Props) {
       }
 
       const existing = subMap.get(sub);
-      const isG1 = isG1MartProduct(p);
+      const isDal = category.id === 'local-dals' || category.id === 'dals-pulses';
+      const isPreferred = isDal ? isG1MartProduct(p) : !isG1MartProduct(p);
       const hasVerifiedImg = Boolean(
         (p.image_status === 'verified' || (p as any).imageStatus === 'verified' || (p as any).imageStatus === 'VERIFIED') &&
         ((p.image_url && !p.image_url.includes('placeholder')) || (p.imageUrl && !p.imageUrl.includes('placeholder')))
@@ -167,11 +168,10 @@ export default function CategoryDashboardClient({ category, products }: Props) {
         : null;
 
       if (!existing) {
-        subMap.set(sub, { name: sub, image: img, count: 1, isG1Image: isG1 && hasVerifiedImg });
+        subMap.set(sub, { name: sub, image: img, count: 1, isG1Image: isPreferred && hasVerifiedImg });
       } else {
         existing.count += 1;
-        // Prioritize G1Mart product images for subcategory thumbnails
-        if (isG1 && hasVerifiedImg && (!existing.isG1Image || !existing.image)) {
+        if (isPreferred && hasVerifiedImg && (!existing.isG1Image || !existing.image)) {
           existing.image = img;
           existing.isG1Image = true;
         } else if (!existing.image && img) {
@@ -265,19 +265,26 @@ export default function CategoryDashboardClient({ category, products }: Props) {
       if (sortBy === 'price-asc') return a.price - b.price;
       if (sortBy === 'price-desc') return b.price - a.price;
 
-      // Brand Priority: G1Mart products first (Tier 1), other brands (Tier 2), Tata brands below list (Tier 3)
-      const tierA = getBrandPriorityTier(a);
-      const tierB = getBrandPriorityTier(b);
-      if (tierA !== tierB) {
-        return tierA - tierB;
-      }
-
-      // Within the same brand tier in dal categories, sort by staple importance (Toor, Chana, Moong, Urad...)
       const isDalCategory = category.id === 'local-dals' || category.id === 'dals-pulses';
+
       if (isDalCategory) {
+        // ONLY in Dals & Pulses: G1Mart is top priority (Tier 1), Tata brands below list (Tier 3)
+        const tierA = getBrandPriorityTier(a);
+        const tierB = getBrandPriorityTier(b);
+        if (tierA !== tierB) {
+          return tierA - tierB;
+        }
+
         const dalA = getDalScore(a.name);
         const dalB = getDalScore(b.name);
         if (dalA !== dalB) return dalA - dalB;
+      } else {
+        // In all other categories: Top national brands are top priority (private label is placed below top brands)
+        const aIsG1 = isG1MartProduct(a);
+        const bIsG1 = isG1MartProduct(b);
+        if (aIsG1 !== bIsG1) {
+          return aIsG1 ? 1 : -1;
+        }
       }
 
       const aHasImg = (a.image_status === 'verified' || (a as any).imageStatus === 'verified' || (a as any).imageStatus === 'VERIFIED') &&

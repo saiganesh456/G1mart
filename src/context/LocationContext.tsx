@@ -114,11 +114,11 @@ export function computeDistanceMeters(
 }
 
 /**
- * Strict Doorstep GPS Acquisition Engine
+ * Strict Doorstep GPS Acquisition Engine with Mobile-Optimized Fallbacks
  */
 function acquireHighAccuracyGPS(
-  maxWaitMs: number = 4500,
-  targetDoorstepAccuracyMeters: number = 15
+  maxWaitMs: number = 8000,
+  targetDoorstepAccuracyMeters: number = 25
 ): Promise<GeolocationPosition> {
   return new Promise((resolve, reject) => {
     if (typeof window === 'undefined' || !navigator.geolocation) {
@@ -132,7 +132,9 @@ function acquireHighAccuracyGPS(
 
     const cleanup = () => {
       if (watchId !== null) {
-        navigator.geolocation.clearWatch(watchId);
+        try {
+          navigator.geolocation.clearWatch(watchId);
+        } catch {}
         watchId = null;
       }
       if (timer !== null) {
@@ -162,26 +164,43 @@ function acquireHighAccuracyGPS(
       if (err.code === err.PERMISSION_DENIED) {
         cleanup();
         reject(err);
+        return;
       }
+
+      // If position unavailable or initial timeout, immediately try low-accuracy / network cell location
+      cleanup();
+      navigator.geolocation.getCurrentPosition(
+        (pos) => resolve(pos),
+        (fallbackErr) => reject(fallbackErr),
+        { enableHighAccuracy: false, maximumAge: 30000, timeout: 8000 }
+      );
     };
 
     try {
       watchId = navigator.geolocation.watchPosition(onPosition, onError, {
         enableHighAccuracy: true,
-        maximumAge: 0,
-        timeout: 12000,
+        maximumAge: 10000,
+        timeout: 10000,
       });
-    } catch {}
+    } catch {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => resolve(pos),
+        (err) => reject(err),
+        { enableHighAccuracy: false, maximumAge: 30000, timeout: 8000 }
+      );
+      return;
+    }
 
     timer = setTimeout(() => {
       cleanup();
       if (bestPosition) {
         resolve(bestPosition);
       } else {
+        // Fallback: fast network/cell tower location if high accuracy GPS satellite timed out
         navigator.geolocation.getCurrentPosition(
           (pos) => resolve(pos),
           (err) => reject(err),
-          { enableHighAccuracy: true, maximumAge: 0, timeout: 6000 }
+          { enableHighAccuracy: false, maximumAge: 30000, timeout: 6000 }
         );
       }
     }, maxWaitMs);

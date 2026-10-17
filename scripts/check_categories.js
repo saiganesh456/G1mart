@@ -1,16 +1,23 @@
-const prods = require('../data/migrated_products.json');
-const cats = require('../data/migrated_categories.json');
-const catMap = new Map(cats.map(c => [c.id, c.name]));
+const fs = require('fs');
 
-const map = {};
-prods.forEach(p => {
-  const cat = p.category_id || p.category;
-  const sub = p.sub_category || p.subCategory;
-  if (!map[cat]) map[cat] = new Set();
-  if (sub) map[cat].add(sub);
-});
-
-for (const [cat, subs] of Object.entries(map)) {
-  console.log(`=== ${cat} (${catMap.get(cat) || 'unknown'}) ===`);
-  console.log(Array.from(subs).join(', '));
+const prods = JSON.parse(fs.readFileSync('./data/migrated_products.json', 'utf8'));
+const seedContent = fs.readFileSync('./src/data/demo-seed.ts', 'utf8');
+const demoCatsPart = seedContent.split('export const SUPERMARKET_CATEGORIES')[1].split('export const DEMO_CATEGORIES')[0];
+const catRegex = /"id":\s*"([^"]+)",\s*"name":\s*"([^"]+)"/g;
+let m;
+const categories = [];
+while ((m = catRegex.exec(demoCatsPart)) !== null) {
+  categories.push({ id: m[1], name: m[2] });
 }
+
+console.log(`Found ${categories.length} categories:`);
+categories.forEach((cat, idx) => {
+  const catProds = prods.filter(p => (p.category_id === cat.id || p.category === cat.id));
+  const g1Items = catProds.filter(p => {
+    const b = (p.brand || '').toLowerCase();
+    const n = (p.name || '').toLowerCase();
+    const isG1 = b.includes('g1') || b.includes('jeevan') || n.startsWith('g1 mart') || n.startsWith('jeevan mart') || (p.image_url && p.image_url.includes('g1_'));
+    return isG1;
+  });
+  console.log(`${idx + 1}. [${cat.id}] "${cat.name}" -> ${catProds.length} products, ${g1Items.length} private label items`);
+});

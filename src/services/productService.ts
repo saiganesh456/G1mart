@@ -132,10 +132,20 @@ export const MIGRATED_PRODUCT_LIST: Product[] = MIGRATED_PRODUCTS.map(mapMigrate
     const aSub = a.subCategory || (a as any).sub_category || '';
     const bSub = b.subCategory || (b as any).sub_category || '';
     if (aSub === bSub) {
-      const tierA = getProductBrandTier(a.brand, a.name);
-      const tierB = getProductBrandTier(b.brand, b.name);
-      if (tierA !== tierB) {
-        return tierA - tierB;
+      const isDal = aCat === 'local-dals' || aCat === 'dals-pulses';
+      if (isDal) {
+        const tierA = getProductBrandTier(a.brand, a.name);
+        const tierB = getProductBrandTier(b.brand, b.name);
+        if (tierA !== tierB) {
+          return tierA - tierB;
+        }
+      } else {
+        // In all other categories, top brands are top priority (private label is placed below top brands)
+        const aIsG1 = isG1MartOrLocalBrand(a.brand) || (a.name || '').toLowerCase().startsWith('g1 mart');
+        const bIsG1 = isG1MartOrLocalBrand(b.brand) || (b.name || '').toLowerCase().startsWith('g1 mart');
+        if (aIsG1 !== bIsG1) {
+          return aIsG1 ? 1 : -1;
+        }
       }
       const aHasImg = a.image_url && !a.image_url.includes('placeholder') ? 1 : 0;
       const bHasImg = b.image_url && !b.image_url.includes('placeholder') ? 1 : 0;

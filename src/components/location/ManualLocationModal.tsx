@@ -96,6 +96,7 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
   const [isSearching, setIsSearching] = useState(false);
   const [isReverseGeocoding, setIsReverseGeocoding] = useState(false);
   const [isLocatingDevice, setIsLocatingDevice] = useState(false);
+  const [gpsError, setGpsError] = useState<string | null>(null);
 
   // Selected Pin Coordinates & Resolved Address
   const [pinLat, setPinLat] = useState<number>(() => currentLocation.lat || 14.4447);
@@ -407,9 +408,10 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
     }
   };
 
-  // "Locate Me / GPS" button inside the map
-  const handleSnapToDeviceGps = async () => {
+  // "Locate Me / GPS" button inside the map and search bar
+  const handleSnapToDeviceGps = useCallback(async () => {
     setIsLocatingDevice(true);
+    setGpsError(null);
     try {
       const loc = await detectLocation();
       if (loc && loc.lat && loc.lng) {
@@ -423,14 +425,38 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
 
         if (mapInstanceRef.current) {
           mapInstanceRef.current.setView([loc.lat, loc.lng], 16, { animate: true });
+          setTimeout(() => {
+            mapInstanceRef.current?.invalidateSize();
+          }, 150);
         }
+      } else {
+        setGpsError('Could not detect location. Please enable GPS in device settings or search your area.');
+        setTimeout(() => setGpsError(null), 5000);
       }
     } catch (err) {
       console.warn('[ManualLocationModal] GPS snap error:', err);
+      setGpsError('Location permission required. Please allow location access in your browser settings.');
+      setTimeout(() => setGpsError(null), 5000);
     } finally {
       setIsLocatingDevice(false);
     }
-  };
+  }, [detectLocation]);
+
+  // Check permission state when modal opens; if already granted, auto-detect live location immediately
+  useEffect(() => {
+    if (!isOpen) return;
+
+    if (typeof window !== 'undefined' && (navigator as any)?.permissions?.query) {
+      (navigator as any).permissions
+        .query({ name: 'geolocation' as PermissionName })
+        .then((perm: any) => {
+          if (perm.state === 'granted') {
+            handleSnapToDeviceGps();
+          }
+        })
+        .catch(() => {});
+    }
+  }, [isOpen, handleSnapToDeviceGps]);
 
   // Confirm and save chosen delivery location
   const handleConfirmLocation = () => {
@@ -507,32 +533,92 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
                   handleSearchSubmit();
                 }
               }}
-              placeholder="Search area (e.g. Molapeta, Harnadhapuram, Balaji Nagar)..."
-              className="w-full h-11 pl-10 pr-24 rounded-2xl bg-stone-50 hover:bg-white focus:bg-white border border-stone-200 text-xs sm:text-sm font-medium text-stone-900 outline-none focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32]/10 transition-all placeholder:text-stone-400"
+              placeholder="Search area (e.g. Molapeta, MGB Mall, Balaji Nagar)..."
+              className="w-full h-11 pl-10 pr-28 rounded-2xl bg-stone-50 hover:bg-white focus:bg-white border border-stone-200 text-xs sm:text-sm font-medium text-stone-900 outline-none focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32]/10 transition-all placeholder:text-stone-400"
             />
             {isSearching && (
-              <RefreshCw className="w-3.5 h-3.5 text-[#2E7D32] animate-spin absolute right-16 top-1/2 -translate-y-1/2" />
+              <RefreshCw className="w-3.5 h-3.5 text-[#2E7D32] animate-spin absolute right-24 top-1/2 -translate-y-1/2" />
             )}
-            {searchQuery && (
+            {!searchQuery ? (
               <button
                 type="button"
-                onClick={() => {
-                  setSearchQuery('');
-                  setSuggestions([]);
-                }}
-                className="w-6 h-6 rounded-full bg-stone-200 hover:bg-stone-300 text-stone-600 flex items-center justify-center absolute right-11 top-1/2 -translate-y-1/2 cursor-pointer transition-colors"
-                aria-label="Clear search"
+                onClick={handleSnapToDeviceGps}
+                disabled={isLocatingDevice || isDetecting}
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 px-2.5 sm:px-3 py-1.5 bg-[#1B5E20] hover:bg-[#154a19] active:bg-[#0e3512] text-white text-[11px] font-extrabold rounded-xl flex items-center gap-1.5 shadow-xs transition-all active:scale-95 cursor-pointer disabled:opacity-60"
+                title="Auto Detect Location via GPS"
               >
-                <X className="w-3.5 h-3.5" />
+                {isLocatingDevice || isDetecting ? (
+                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                ) : (
+                  <Navigation className="w-3.5 h-3.5 fill-white" />
+                )}
+                <span>Auto Detect</span>
               </button>
+            ) : (
+              <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery('');
+                    setSuggestions([]);
+                  }}
+                  className="w-6 h-6 rounded-full bg-stone-200 hover:bg-stone-300 text-stone-600 flex items-center justify-center cursor-pointer transition-colors"
+                  aria-label="Clear search"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  type="submit"
+                  className="px-2.5 py-1 bg-[#1B5E20] text-white text-[11px] font-bold rounded-xl cursor-pointer hover:bg-[#154a19] transition-colors"
+                >
+                  Go
+                </button>
+              </div>
             )}
-            <button
-              type="submit"
-              className="absolute right-2 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-[#1B5E20] text-white text-[11px] font-bold rounded-xl cursor-pointer hover:bg-[#154a19] transition-colors"
-            >
-              Go
-            </button>
           </form>
+
+          {/* Quick Auto-Detect GPS Banner (Especially prominent on Mobile) */}
+          <button
+            type="button"
+            onClick={handleSnapToDeviceGps}
+            disabled={isLocatingDevice || isDetecting}
+            className="w-full mt-2 py-2 px-3 rounded-xl bg-gradient-to-r from-emerald-50 via-green-50 to-emerald-50 border border-emerald-200 hover:border-emerald-300 active:scale-[0.99] transition-all flex items-center justify-between group cursor-pointer shadow-2xs"
+          >
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-7 h-7 rounded-lg bg-[#1B5E20] text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                {isLocatingDevice || isDetecting ? (
+                  <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                ) : (
+                  <Navigation className="w-3.5 h-3.5 fill-white" />
+                )}
+              </div>
+              <div className="text-left min-w-0">
+                <p className="text-xs font-bold text-stone-900 flex items-center gap-1.5">
+                  <span>Auto Detect Current Location</span>
+                  <span className="text-[10px] font-extrabold px-1.5 py-0.2 rounded-full bg-emerald-100 text-[#1B5E20] uppercase tracking-wider">
+                    GPS
+                  </span>
+                </p>
+                <p className="text-[10px] text-stone-500 truncate">
+                  {isLocatingDevice || isDetecting
+                    ? 'Acquiring high-accuracy GPS coordinates...'
+                    : 'Tap to pinpoint your exact doorstep location automatically'}
+                </p>
+              </div>
+            </div>
+            <div className="shrink-0 flex items-center gap-1 text-[11px] font-bold text-[#1B5E20] group-hover:text-emerald-800">
+              <span>{isLocatingDevice || isDetecting ? 'Detecting...' : 'Detect'}</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </div>
+          </button>
+
+          {/* GPS Error notification if user denied permission or GPS unavailable */}
+          {gpsError && (
+            <div className="mt-1.5 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-[11px] font-medium flex items-center gap-1.5 animate-in fade-in">
+              <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+              <span>{gpsError}</span>
+            </div>
+          )}
 
           {/* Autocomplete Suggestions Dropdown — High z-index overlay directly above map */}
           {suggestions.length > 0 && (
