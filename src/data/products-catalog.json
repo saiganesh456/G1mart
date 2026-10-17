@@ -35774,7 +35774,8 @@
         "price": 20,
         "mrp": 20,
         "in_stock": true,
-        "image": "/products/verified/bev-sprite-250ml.webp"
+        "image": "/products/verified/bev-sprite-250ml.webp",
+        "image_url": "/products/verified/bev-sprite-250ml.webp"
       },
       {
         "id": "g1-bev003-v2",
@@ -35783,7 +35784,8 @@
         "price": 40,
         "mrp": 40,
         "in_stock": true,
-        "image": "/products/verified/bev-sprite-750ml.webp"
+        "image": "/products/verified/bev-sprite-750ml.webp",
+        "image_url": "/products/verified/bev-sprite-750ml.webp"
       },
       {
         "id": "g1-bev003-v3",
@@ -35792,7 +35794,8 @@
         "price": 50,
         "mrp": 50,
         "in_stock": true,
-        "image": "/products/verified/bev-sprite-1l.webp"
+        "image": "/products/verified/bev-sprite-1l.webp",
+        "image_url": "/products/verified/bev-sprite-1l.webp"
       },
       {
         "id": "g1-bev003-v4",
@@ -35801,7 +35804,8 @@
         "price": 99,
         "mrp": 100,
         "in_stock": true,
-        "image": "/products/verified/bev-sprite-2l.webp"
+        "image": "/products/verified/bev-sprite-2l.webp",
+        "image_url": "/products/verified/bev-sprite-2l.webp"
       }
     ],
     "unitLabel": "250 ml",
