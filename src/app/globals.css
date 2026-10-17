@@ -117,3 +117,64 @@
 @media (prefers-reduced-motion: reduce) {
   .g1-press:active { transform: none; }
 }
+
+/* ── Fullscreen Scanner Sweeping & Analyzing Animations ── */
+@keyframes scanner-sweep {
+  0% {
+    top: 5%;
+    opacity: 0.85;
+  }
+  50% {
+    top: calc(100% - 130px);
+    opacity: 1;
+  }
+  100% {
+    top: 5%;
+    opacity: 0.85;
+  }
+}
+
+@keyframes scanner-pulse-glow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes scanner-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes scanner-radar-sweep {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-scanner-sweep {
+  animation: scanner-sweep 3.2s ease-in-out infinite;
+}
+
+.animate-scanner-float {
+  animation: scanner-float 2.8s ease-in-out infinite;
+}
+
+.animate-scanner-pulse {
+  animation: scanner-pulse-glow 2.4s ease-in-out infinite;
+}
+
+.animate-radar-sweep {
+  animation: scanner-radar-sweep 4s linear infinite;
+}

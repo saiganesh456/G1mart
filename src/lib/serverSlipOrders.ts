@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import { serverStoreSettings } from '@/lib/serverStoreSettings';
 import { serverOrderStore } from '@/lib/serverOrderStore';
@@ -38,8 +39,14 @@ function ensureDataDir(): void {
 function loadDiskSlipOrders(): SlipOrder[] {
   try {
     ensureDataDir();
-    if (fs.existsSync(SLIP_ORDERS_FILE_PATH)) {
-      const raw = fs.readFileSync(SLIP_ORDERS_FILE_PATH, 'utf-8');
+    let filePath = SLIP_ORDERS_FILE_PATH;
+    if (!fs.existsSync(filePath)) {
+      const tmpPath = path.join(os.tmpdir(), 'g1mart_slip_orders.json');
+      if (fs.existsSync(tmpPath)) filePath = tmpPath;
+    }
+
+    if (fs.existsSync(filePath)) {
+      const raw = fs.readFileSync(filePath, 'utf-8');
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed)) {
         return parsed;
@@ -59,8 +66,16 @@ function persistDiskSlipOrders(): void {
     );
     fs.writeFileSync(SLIP_ORDERS_FILE_PATH, JSON.stringify(list, null, 2), 'utf-8');
   } catch (err) {
-    console.error('[serverSlipOrders] Error writing to disk:', err);
+    // Read-only filesystem fallback
   }
+
+  try {
+    const tmpPath = path.join(os.tmpdir(), 'g1mart_slip_orders.json');
+    const list = Array.from(slipsMap.values()).sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+    fs.writeFileSync(tmpPath, JSON.stringify(list, null, 2), 'utf-8');
+  } catch {}
 }
 
 // Initial hydration from disk
@@ -259,19 +274,48 @@ export const serverSlipOrders = {
   },
 
   /**
-   * Get slip order by ID
+   * Get slip order by ID with flexible prefix matching
    */
   async getSlipOrderById(id: string): Promise<SlipOrder | null> {
-    const order = slipsMap.get(id);
+    if (!id) return null;
+    let order = slipsMap.get(id);
     if (order) return order;
+
+    const cleanTarget = String(id).replace(/^SLIP-/i, '').trim().toLowerCase();
+
+    // Check memory with flexible matching
+    for (const s of slipsMap.values()) {
+      const sId = String(s.id || '').replace(/^SLIP-/i, '').trim().toLowerCase();
+      if (sId === cleanTarget) return s;
+    }
 
     // Check disk
     const disk = loadDiskSlipOrders();
-    const match = disk.find((o) => o.id === id);
+    const match = disk.find((o) => {
+      const oId = String(o.id || '').replace(/^SLIP-/i, '').trim().toLowerCase();
+      return oId === cleanTarget;
+    });
     if (match) {
       slipsMap.set(match.id, match);
       return match;
     }
+
+    // Check Supabase if configured
+    if (isSupabaseConfigured()) {
+      try {
+        const { data } = await supabase
+          .from('slip_orders')
+          .select('*, slip_items(*)')
+          .or(`id.eq.${id},id.eq.SLIP-${cleanTarget}`)
+          .maybeSingle();
+
+        if (data) {
+          slipsMap.set(data.id, data);
+          return data;
+        }
+      } catch {}
+    }
+
     return null;
   },
 

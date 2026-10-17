@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import { resolveLegacyId } from '@/lib/legacyIdMap';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
@@ -648,6 +649,11 @@ export const serverOrderStore = {
     } catch (err) {
       console.warn('[serverOrderStore] persistToDisk error:', err);
     }
+
+    try {
+      const tmpPath = path.join(os.tmpdir(), 'g1mart_orders.json');
+      fs.writeFileSync(tmpPath, JSON.stringify(Array.from(ordersMap.values()), null, 2), 'utf-8');
+    } catch {}
   },
 
   loadFromDisk() {
@@ -655,6 +661,12 @@ export const serverOrderStore = {
       let filePathToRead = ORDERS_FILE_PATH;
       if (!fs.existsSync(filePathToRead) && fs.existsSync(LEGACY_CACHE_PATH)) {
         filePathToRead = LEGACY_CACHE_PATH;
+      }
+      if (!fs.existsSync(filePathToRead)) {
+        const tmpPath = path.join(os.tmpdir(), 'g1mart_orders.json');
+        if (fs.existsSync(tmpPath)) {
+          filePathToRead = tmpPath;
+        }
       }
 
       if (fs.existsSync(filePathToRead)) {
@@ -753,11 +765,24 @@ export const serverOrderStore = {
   },
 
   /**
-   * Retrieve order by ID
+   * Retrieve order by ID with flexible prefix and orderNumber matching
    */
   getOrder(orderId: string): Order | undefined {
     this.loadFromDisk();
-    return ordersMap.get(orderId);
+    if (!orderId) return undefined;
+
+    let order = ordersMap.get(orderId);
+    if (order) return order;
+
+    const cleanTarget = String(orderId).replace(/^SLIP-/i, '').trim().toLowerCase();
+    for (const o of ordersMap.values()) {
+      const oId = String(o.id || '').replace(/^SLIP-/i, '').trim().toLowerCase();
+      const oNum = String(o.orderNumber || '').replace(/^SLIP-/i, '').trim().toLowerCase();
+      if (oId === cleanTarget || oNum === cleanTarget || o.providerOrderId === orderId) {
+        return o;
+      }
+    }
+    return undefined;
   },
 
   /**

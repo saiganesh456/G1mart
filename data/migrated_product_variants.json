@@ -1,41 +1,5 @@
 [
   {
-    "id": "g1-p0219-v1",
-    "product_id": "g1-p0219",
-    "size_label": "1 kg",
-    "price": 62,
-    "mrp": 62,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_rice_pouch.webp"
-  },
-  {
-    "id": "g1-p0219-v2",
-    "product_id": "g1-p0219",
-    "size_label": "5 kg",
-    "price": 295,
-    "mrp": 295,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_rice_pouch.webp"
-  },
-  {
-    "id": "g1-p0219-v3",
-    "product_id": "g1-p0219",
-    "size_label": "10 kg",
-    "price": 575,
-    "mrp": 575,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_rice_pouch.webp"
-  },
-  {
-    "id": "g1-p0219-v4",
-    "product_id": "g1-p0219",
-    "size_label": "25 kg",
-    "price": 1380,
-    "mrp": 1380,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_rice_pouch.webp"
-  },
-  {
     "id": "g1-p0411-v1",
     "product_id": "g1-p0411",
     "size_label": "1 kg",
@@ -106,60 +70,6 @@
     "mrp": 50,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_rice_flour_pouch.webp"
-  },
-  {
-    "id": "g1-p0198-v1",
-    "product_id": "g1-p0198",
-    "size_label": "1 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_atta_pouch.webp"
-  },
-  {
-    "id": "g1-p0198-v2",
-    "product_id": "g1-p0198",
-    "size_label": "5 kg",
-    "price": 240,
-    "mrp": 240,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_atta_pouch.webp"
-  },
-  {
-    "id": "g1-p1030-v1",
-    "product_id": "g1-p1030",
-    "size_label": "500 g",
-    "price": 28,
-    "mrp": 28,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_maida_pouch.webp"
-  },
-  {
-    "id": "g1-p1030-v2",
-    "product_id": "g1-p1030",
-    "size_label": "1 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_maida_pouch.webp"
-  },
-  {
-    "id": "g1-p0197-v1",
-    "product_id": "g1-p0197",
-    "size_label": "500 g",
-    "price": 32,
-    "mrp": 32,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_corn_flour_pouch.webp"
-  },
-  {
-    "id": "g1-p0197-v2",
-    "product_id": "g1-p0197",
-    "size_label": "1 kg",
-    "price": 60,
-    "mrp": 60,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_corn_flour_pouch.webp"
   },
   {
     "id": "g1-p0704-v1",
@@ -11313,24 +11223,6 @@
     "image_url": "/products/packshots/daawat-traditional-5kg.webp"
   },
   {
-    "id": "g1-daawat-rozana-v-1kg",
-    "product_id": "g1-daawat-rozana",
-    "size_label": "1 kg",
-    "price": 115,
-    "mrp": 115,
-    "stock": 50,
-    "image_url": "/products/packshots/daawat-rozana-super-1kg.webp"
-  },
-  {
-    "id": "g1-daawat-rozana-v-5kg",
-    "product_id": "g1-daawat-rozana",
-    "size_label": "5 kg",
-    "price": 545,
-    "mrp": 545,
-    "stock": 50,
-    "image_url": "/products/packshots/daawat-rozana-super-5kg.webp"
-  },
-  {
     "id": "g1-ric010-v1",
     "product_id": "g1-ric010",
     "size_label": "1 kg",
@@ -11374,24 +11266,6 @@
     "mrp": 345,
     "stock": 50,
     "image_url": "/products/packshots/aashirvaad-select-sharbati-5kg.webp"
-  },
-  {
-    "id": "g1-ric023-v1",
-    "product_id": "g1-ric023",
-    "size_label": "1 kg",
-    "price": 85,
-    "mrp": 85,
-    "stock": 50,
-    "image_url": "/products/packshots/tata-sampann-multigrain-atta-1kg.webp"
-  },
-  {
-    "id": "g1-ric023-v-5kg",
-    "product_id": "g1-ric023",
-    "size_label": "5 kg",
-    "price": 395,
-    "mrp": 395,
-    "stock": 50,
-    "image_url": "/products/packshots/tata-sampann-multigrain-atta-5kg.webp"
   },
   {
     "id": "g1-ric025-v1",
@@ -11520,42 +11394,6 @@
     "image_url": "/products/generated_pouches/g1_rice_pouch.webp"
   },
   {
-    "id": "g1-ric042-v1",
-    "product_id": "g1-ric042",
-    "size_label": "1 kg",
-    "price": 45,
-    "mrp": 45,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_upma_rava_pouch.webp"
-  },
-  {
-    "id": "g1-ric043-v1",
-    "product_id": "g1-ric043",
-    "size_label": "1 kg",
-    "price": 48,
-    "mrp": 48,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_bansi_rava_pouch.webp"
-  },
-  {
-    "id": "g1-ric044-v1",
-    "product_id": "g1-ric044",
-    "size_label": "1 kg",
-    "price": 45,
-    "mrp": 45,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_rice_flour_pouch.webp"
-  },
-  {
-    "id": "g1-ric045-v1",
-    "product_id": "g1-ric045",
-    "size_label": "1 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_ragi_flour_pouch.webp"
-  },
-  {
     "id": "g1-ric046-v1",
     "product_id": "g1-ric046",
     "size_label": "1 kg",
@@ -11563,42 +11401,6 @@
     "mrp": 48,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_wheat_grains_pouch.webp"
-  },
-  {
-    "id": "g1-ric047-v1",
-    "product_id": "g1-ric047",
-    "size_label": "1 kg",
-    "price": 55,
-    "mrp": 55,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jowar_pouch.webp"
-  },
-  {
-    "id": "g1-ric048-v1",
-    "product_id": "g1-ric048",
-    "size_label": "1 kg",
-    "price": 45,
-    "mrp": 45,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_sajjalu_pouch.webp"
-  },
-  {
-    "id": "g1-ric049-v1",
-    "product_id": "g1-ric049",
-    "size_label": "1 kg",
-    "price": 45,
-    "mrp": 45,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_whole_ragi_pouch.webp"
-  },
-  {
-    "id": "g1-ric050-v1",
-    "product_id": "g1-ric050",
-    "size_label": "1 kg",
-    "price": 75,
-    "mrp": 75,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_korralu_pouch.webp"
   },
   {
     "id": "g1-oil004-v1",
@@ -12094,24 +11896,6 @@
     "mrp": 50,
     "stock": 50,
     "image_url": "/products/packshots/nutrela-soya-chunks-200g.webp"
-  },
-  {
-    "id": "g1-dal022-v1",
-    "product_id": "g1-dal022",
-    "size_label": "500 g",
-    "price": 75,
-    "mrp": 75,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_minapa_gundu_pouch.webp"
-  },
-  {
-    "id": "g1-dal023-v1",
-    "product_id": "g1-dal022",
-    "size_label": "1 kg",
-    "price": 145,
-    "mrp": 145,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_minapa_gundu_pouch.webp"
   },
   {
     "id": "g1-dal024-v1",
@@ -12888,24 +12672,6 @@
     "image_url": "/products/generated_pouches/g1_patika_bellam_pouch.webp"
   },
   {
-    "id": "g1-sug020-v1",
-    "product_id": "g1-sug020",
-    "size_label": "500 g",
-    "price": 35,
-    "mrp": 35,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_poha_pouch.webp"
-  },
-  {
-    "id": "g1-sug021-v1",
-    "product_id": "g1-sug020",
-    "size_label": "1 kg",
-    "price": 68,
-    "mrp": 68,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_poha_pouch.webp"
-  },
-  {
     "id": "g1-sug022-v1",
     "product_id": "g1-sug022",
     "size_label": "500 g",
@@ -12913,24 +12679,6 @@
     "mrp": 38,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_poha_pouch.webp"
-  },
-  {
-    "id": "g1-sug023-v1",
-    "product_id": "g1-sug023",
-    "size_label": "500 g",
-    "price": 48,
-    "mrp": 48,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_sabudana_pouch.webp"
-  },
-  {
-    "id": "g1-sug024-v1",
-    "product_id": "g1-sug023",
-    "size_label": "1 kg",
-    "price": 92,
-    "mrp": 92,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_sabudana_pouch.webp"
   },
   {
     "id": "var-g1-sug025-1",
@@ -13509,42 +13257,6 @@
     "image_url": "/products/verified/lion-honey-500g.webp"
   },
   {
-    "id": "g1-p1572-v1",
-    "product_id": "g1-p1572",
-    "size_label": "1 kg",
-    "price": 65,
-    "mrp": 65,
-    "stock": 100,
-    "image_url": "/products/packshots/aashirvaad-atta-1kg.jpg"
-  },
-  {
-    "id": "g1-p1572-v2",
-    "product_id": "g1-p1572",
-    "size_label": "2 kg",
-    "price": 125,
-    "mrp": 125,
-    "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-atta-1kg.jpg"
-  },
-  {
-    "id": "g1-p1572-v3",
-    "product_id": "g1-p1572",
-    "size_label": "5 kg",
-    "price": 295,
-    "mrp": 295,
-    "stock": 100,
-    "image_url": "/products/packshots/aashirvaad-atta-5kg.jpg"
-  },
-  {
-    "id": "g1-p1572-v4",
-    "product_id": "g1-p1572",
-    "size_label": "10 kg",
-    "price": 540,
-    "mrp": 540,
-    "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-atta-10kg.jpg"
-  },
-  {
     "id": "g1-p0457-v1",
     "product_id": "g1-p0457",
     "size_label": "500 g",
@@ -13750,42 +13462,6 @@
     "mrp": 65,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_borugulu_pouch.webp"
-  },
-  {
-    "id": "g1-indiagate-rozana-v1",
-    "product_id": "g1-indiagate-rozana",
-    "size_label": "1 kg",
-    "price": 115,
-    "mrp": 115,
-    "stock": 60,
-    "image_url": "/products/packshots/india-gate-rozzana-1kg.webp"
-  },
-  {
-    "id": "g1-indiagate-rozana-v2",
-    "product_id": "g1-indiagate-rozana",
-    "size_label": "5 kg",
-    "price": 525,
-    "mrp": 525,
-    "stock": 40,
-    "image_url": "/products/packshots/india-gate-rozzana-5kg.webp"
-  },
-  {
-    "id": "g1-indiagate-classic-v1",
-    "product_id": "g1-indiagate-classic",
-    "size_label": "1 kg",
-    "price": 245,
-    "mrp": 245,
-    "stock": 40,
-    "image_url": "/products/packshots/india-gate-classic-1kg.webp"
-  },
-  {
-    "id": "g1-indiagate-classic-v2",
-    "product_id": "g1-indiagate-classic",
-    "size_label": "5 kg",
-    "price": 1150,
-    "mrp": 1150,
-    "stock": 30,
-    "image_url": "/products/packshots/india-gate-classic-5kg.webp"
   },
   {
     "id": "g1-tatasampann-multi-atta-v1",
@@ -15559,5 +15235,511 @@
     "mrp": 200,
     "stock": 50,
     "image_url": "/products/packshots/fresh-onion.webp"
+  },
+  {
+    "id": "g1-p1572-v1",
+    "product_id": "g1-p1572",
+    "size_label": "1 kg",
+    "price": 65,
+    "mrp": 70,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.168Z",
+    "updated_at": "2026-10-17T05:01:01.169Z"
+  },
+  {
+    "id": "g1-p1572-v2",
+    "product_id": "g1-p1572",
+    "size_label": "2 kg",
+    "price": 125,
+    "mrp": 135,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.169Z",
+    "updated_at": "2026-10-17T05:01:01.169Z"
+  },
+  {
+    "id": "g1-p1572-v3",
+    "product_id": "g1-p1572",
+    "size_label": "5 kg",
+    "price": 295,
+    "mrp": 320,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.169Z",
+    "updated_at": "2026-10-17T05:01:01.169Z"
+  },
+  {
+    "id": "g1-p1572-v4",
+    "product_id": "g1-p1572",
+    "size_label": "10 kg",
+    "price": 540,
+    "mrp": 590,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.169Z",
+    "updated_at": "2026-10-17T05:01:01.169Z"
+  },
+  {
+    "id": "g1-ric023-v1",
+    "product_id": "g1-ric023",
+    "size_label": "1 kg",
+    "price": 85,
+    "mrp": 95,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.169Z",
+    "updated_at": "2026-10-17T05:01:01.169Z"
+  },
+  {
+    "id": "g1-ric023-v2",
+    "product_id": "g1-ric023",
+    "size_label": "5 kg",
+    "price": 390,
+    "mrp": 430,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.169Z",
+    "updated_at": "2026-10-17T05:01:01.169Z"
+  },
+  {
+    "id": "g1-indiagate-rozana-v1",
+    "product_id": "g1-indiagate-rozana",
+    "size_label": "1 kg",
+    "price": 115,
+    "mrp": 130,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.170Z",
+    "updated_at": "2026-10-17T05:01:01.170Z"
+  },
+  {
+    "id": "g1-indiagate-rozana-v2",
+    "product_id": "g1-indiagate-rozana",
+    "size_label": "5 kg",
+    "price": 525,
+    "mrp": 590,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.170Z",
+    "updated_at": "2026-10-17T05:01:01.170Z"
+  },
+  {
+    "id": "g1-indiagate-classic-v1",
+    "product_id": "g1-indiagate-classic",
+    "size_label": "1 kg",
+    "price": 240,
+    "mrp": 270,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.170Z",
+    "updated_at": "2026-10-17T05:01:01.170Z"
+  },
+  {
+    "id": "g1-indiagate-classic-v2",
+    "product_id": "g1-indiagate-classic",
+    "size_label": "5 kg",
+    "price": 1150,
+    "mrp": 1250,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.170Z",
+    "updated_at": "2026-10-17T05:01:01.170Z"
+  },
+  {
+    "id": "g1-daawat-rozana-v1",
+    "product_id": "g1-daawat-rozana",
+    "size_label": "1 kg",
+    "price": 115,
+    "mrp": 130,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.170Z",
+    "updated_at": "2026-10-17T05:01:01.170Z"
+  },
+  {
+    "id": "g1-daawat-rozana-v2",
+    "product_id": "g1-daawat-rozana",
+    "size_label": "5 kg",
+    "price": 545,
+    "mrp": 600,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.170Z",
+    "updated_at": "2026-10-17T05:01:01.170Z"
+  },
+  {
+    "id": "g1-p0219-v1",
+    "product_id": "g1-p0219",
+    "size_label": "1 kg",
+    "price": 62,
+    "mrp": 70,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.170Z",
+    "updated_at": "2026-10-17T05:01:01.170Z"
+  },
+  {
+    "id": "g1-p0219-v2",
+    "product_id": "g1-p0219",
+    "size_label": "5 kg",
+    "price": 295,
+    "mrp": 325,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.170Z",
+    "updated_at": "2026-10-17T05:01:01.170Z"
+  },
+  {
+    "id": "g1-p0219-v3",
+    "product_id": "g1-p0219",
+    "size_label": "10 kg",
+    "price": 575,
+    "mrp": 630,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.170Z",
+    "updated_at": "2026-10-17T05:01:01.170Z"
+  },
+  {
+    "id": "g1-p0219-v4",
+    "product_id": "g1-p0219",
+    "size_label": "25 kg",
+    "price": 1380,
+    "mrp": 1500,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.170Z",
+    "updated_at": "2026-10-17T05:01:01.170Z"
+  },
+  {
+    "id": "g1-sug020-v1",
+    "product_id": "g1-sug020",
+    "size_label": "500 g",
+    "price": 35,
+    "mrp": 40,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.170Z",
+    "updated_at": "2026-10-17T05:01:01.170Z"
+  },
+  {
+    "id": "g1-sug020-v2",
+    "product_id": "g1-sug020",
+    "size_label": "1 kg",
+    "price": 65,
+    "mrp": 75,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.170Z",
+    "updated_at": "2026-10-17T05:01:01.170Z"
+  },
+  {
+    "id": "g1-sug023-v1",
+    "product_id": "g1-sug023",
+    "size_label": "500 g",
+    "price": 48,
+    "mrp": 55,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.170Z",
+    "updated_at": "2026-10-17T05:01:01.170Z"
+  },
+  {
+    "id": "g1-sug023-v2",
+    "product_id": "g1-sug023",
+    "size_label": "1 kg",
+    "price": 92,
+    "mrp": 105,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.170Z",
+    "updated_at": "2026-10-17T05:01:01.170Z"
+  },
+  {
+    "id": "g1-ric043-v1",
+    "product_id": "g1-ric043",
+    "size_label": "500 g",
+    "price": 32,
+    "mrp": 38,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.170Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-ric043-v2",
+    "product_id": "g1-ric043",
+    "size_label": "1 kg",
+    "price": 48,
+    "mrp": 55,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.171Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-ric042-v1",
+    "product_id": "g1-ric042",
+    "size_label": "500 g",
+    "price": 32,
+    "mrp": 38,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.171Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-ric042-v2",
+    "product_id": "g1-ric042",
+    "size_label": "1 kg",
+    "price": 45,
+    "mrp": 52,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.171Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-ric044-v1",
+    "product_id": "g1-ric044",
+    "size_label": "500 g",
+    "price": 28,
+    "mrp": 35,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.171Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-ric044-v2",
+    "product_id": "g1-ric044",
+    "size_label": "1 kg",
+    "price": 45,
+    "mrp": 55,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.171Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-ric045-v1",
+    "product_id": "g1-ric045",
+    "size_label": "500 g",
+    "price": 38,
+    "mrp": 45,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.171Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-ric045-v2",
+    "product_id": "g1-ric045",
+    "size_label": "1 kg",
+    "price": 50,
+    "mrp": 60,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.171Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-ric050-v1",
+    "product_id": "g1-ric050",
+    "size_label": "500 g",
+    "price": 50,
+    "mrp": 58,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.171Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-ric050-v2",
+    "product_id": "g1-ric050",
+    "size_label": "1 kg",
+    "price": 75,
+    "mrp": 88,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.171Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-ric048-v1",
+    "product_id": "g1-ric048",
+    "size_label": "500 g",
+    "price": 40,
+    "mrp": 48,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.171Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-ric048-v2",
+    "product_id": "g1-ric048",
+    "size_label": "1 kg",
+    "price": 45,
+    "mrp": 55,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.171Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-ric047-v1",
+    "product_id": "g1-ric047",
+    "size_label": "500 g",
+    "price": 40,
+    "mrp": 48,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.171Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-ric047-v2",
+    "product_id": "g1-ric047",
+    "size_label": "1 kg",
+    "price": 55,
+    "mrp": 65,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.171Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-ric049-v1",
+    "product_id": "g1-ric049",
+    "size_label": "500 g",
+    "price": 35,
+    "mrp": 42,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.171Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-ric049-v2",
+    "product_id": "g1-ric049",
+    "size_label": "1 kg",
+    "price": 45,
+    "mrp": 55,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.171Z",
+    "updated_at": "2026-10-17T05:01:01.171Z"
+  },
+  {
+    "id": "g1-p0197-v1",
+    "product_id": "g1-p0197",
+    "size_label": "500 g",
+    "price": 32,
+    "mrp": 38,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.172Z",
+    "updated_at": "2026-10-17T05:01:01.172Z"
+  },
+  {
+    "id": "g1-p0197-v2",
+    "product_id": "g1-p0197",
+    "size_label": "1 kg",
+    "price": 60,
+    "mrp": 70,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.172Z",
+    "updated_at": "2026-10-17T05:01:01.172Z"
+  },
+  {
+    "id": "g1-dal022-v1",
+    "product_id": "g1-dal022",
+    "size_label": "500 g",
+    "price": 75,
+    "mrp": 85,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.172Z",
+    "updated_at": "2026-10-17T05:01:01.172Z"
+  },
+  {
+    "id": "g1-dal022-v2",
+    "product_id": "g1-dal022",
+    "size_label": "1 kg",
+    "price": 145,
+    "mrp": 160,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.172Z",
+    "updated_at": "2026-10-17T05:01:01.172Z"
+  },
+  {
+    "id": "g1-dal022-v3",
+    "product_id": "g1-dal022",
+    "size_label": "2 kg",
+    "price": 285,
+    "mrp": 315,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.172Z",
+    "updated_at": "2026-10-17T05:01:01.172Z"
+  },
+  {
+    "id": "g1-dal022-v4",
+    "product_id": "g1-dal022",
+    "size_label": "5 kg",
+    "price": 695,
+    "mrp": 775,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.172Z",
+    "updated_at": "2026-10-17T05:01:01.172Z"
+  },
+  {
+    "id": "g1-p0198-v1",
+    "product_id": "g1-p0198",
+    "size_label": "1 kg",
+    "price": 50,
+    "mrp": 58,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.172Z",
+    "updated_at": "2026-10-17T05:01:01.172Z"
+  },
+  {
+    "id": "g1-p0198-v2",
+    "product_id": "g1-p0198",
+    "size_label": "5 kg",
+    "price": 240,
+    "mrp": 275,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.172Z",
+    "updated_at": "2026-10-17T05:01:01.172Z"
+  },
+  {
+    "id": "g1-p1030-v1",
+    "product_id": "g1-p1030",
+    "size_label": "500 g",
+    "price": 28,
+    "mrp": 35,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.172Z",
+    "updated_at": "2026-10-17T05:01:01.172Z"
+  },
+  {
+    "id": "g1-p1030-v2",
+    "product_id": "g1-p1030",
+    "size_label": "1 kg",
+    "price": 50,
+    "mrp": 60,
+    "stock": 50,
+    "image_url": null,
+    "created_at": "2026-10-17T05:01:01.172Z",
+    "updated_at": "2026-10-17T05:01:01.172Z"
   }
 ]

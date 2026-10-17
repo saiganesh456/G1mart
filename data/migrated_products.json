@@ -82,7 +82,8 @@
         "in_stock": true,
         "image": "/products/packshots/aashirvaad-atta-10kg.jpg"
       }
-    ]
+    ],
+    "isActive": true
   },
   {
     "id": "g1-p0457",
@@ -107,9 +108,9 @@
   },
   {
     "id": "g1-p0219",
-    "name": "Sona Masoori Raw Rice (సోనా మసూరి బియ్యం)",
+    "name": "G1 Mart Premium Sona Masoori Raw Rice (సోనా మసూరి బియ్యం)",
     "brand_id": null,
-    "brand": "Local / Unbranded",
+    "brand": "G1 Mart",
     "category_id": "atta-rice-dal",
     "category": "atta-rice-dal",
     "sub_category": "Sonamasuri & Basmati Rice",
@@ -124,7 +125,8 @@
     "imageUrl": "/products/generated_pouches/g1_rice_pouch.webp",
     "image": "/products/generated_pouches/g1_rice_pouch.webp",
     "category_name": "Rice, Atta & Flours",
-    "is_active": true
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0411",
@@ -145,7 +147,8 @@
     "imageUrl": "/products/packshots/basmati-rice.jpg",
     "image": "/products/packshots/basmati-rice.jpg",
     "category_name": "Rice, Atta & Flours",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0417",
@@ -166,7 +169,8 @@
     "imageUrl": "/products/generated_pouches/g1_poha_pouch.webp",
     "image": "/products/generated_pouches/g1_poha_pouch.webp",
     "category_name": "Rice, Atta & Flours",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0728",
@@ -187,7 +191,8 @@
     "imageUrl": "/products/generated_pouches/g1_sabudana_pouch.webp",
     "image": "/products/generated_pouches/g1_sabudana_pouch.webp",
     "category_name": "Rice, Atta & Flours",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0063",
@@ -208,13 +213,14 @@
     "imageUrl": "/products/generated_pouches/g1_rice_flour_pouch.webp",
     "image": "/products/generated_pouches/g1_rice_flour_pouch.webp",
     "category_name": "Rice, Atta & Flours",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0198",
-    "name": "Chakki Fresh Whole Wheat Atta (గోధుమ పిండి)",
+    "name": "G1 Mart Chakki Fresh Whole Wheat Atta (గోధుమ పిండి)",
     "brand_id": null,
-    "brand": "Local / Unbranded",
+    "brand": "G1 Mart",
     "category_id": "atta-rice-dal",
     "category": "atta-rice-dal",
     "sub_category": "Atta & Wheat Flour",
@@ -233,9 +239,9 @@
   },
   {
     "id": "g1-p1030",
-    "name": "Maida Pindi / Refined Wheat Flour (మైదా)",
+    "name": "G1 Mart Maida Pindi / Refined Wheat Flour (మైదా)",
     "brand_id": null,
-    "brand": "Local / Unbranded",
+    "brand": "G1 Mart",
     "category_id": "atta-rice-dal",
     "category": "atta-rice-dal",
     "sub_category": "Maida & Besan",
@@ -254,9 +260,9 @@
   },
   {
     "id": "g1-p0197",
-    "name": "Pure Corn Flour (మొక్కజొన్న పిండి)",
+    "name": "G1 Mart Pure Corn Flour (మొక్కజొన్న పిండి)",
     "brand_id": null,
-    "brand": "Local / Unbranded",
+    "brand": "G1 Mart",
     "category_id": "atta-rice-dal",
     "category": "atta-rice-dal",
     "sub_category": "Atta & Wheat Flour",
@@ -271,7 +277,8 @@
     "imageUrl": "/products/generated_pouches/g1_corn_flour_pouch.webp",
     "image": "/products/generated_pouches/g1_corn_flour_pouch.webp",
     "category_name": "Rice, Atta & Flours",
-    "is_active": true
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0704",
@@ -292,7 +299,8 @@
     "imageUrl": "/products/generated_pouches/g1_ragi_flour_pouch.webp",
     "image": "/products/generated_pouches/g1_ragi_flour_pouch.webp",
     "category_name": "Rice, Atta & Flours",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p1028",
@@ -355,7 +363,8 @@
     "imageUrl": "/products/generated_pouches/g1_bansi_rava_pouch.webp",
     "image": "/products/generated_pouches/g1_bansi_rava_pouch.webp",
     "category_name": "Rice, Atta & Flours",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0427",
@@ -376,7 +385,8 @@
     "imageUrl": "/products/generated_pouches/g1_upma_rava_pouch.webp",
     "image": "/products/generated_pouches/g1_upma_rava_pouch.webp",
     "category_name": "Rice, Atta & Flours",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0428",
@@ -483,7 +493,8 @@
     "imageUrl": "/products/generated_pouches/g1_korralu_pouch.webp",
     "image": "/products/generated_pouches/g1_korralu_pouch.webp",
     "category_name": "Rice, Atta & Flours",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0203",
@@ -504,7 +515,8 @@
     "imageUrl": "/products/generated_pouches/g1_sajjalu_pouch.webp",
     "image": "/products/generated_pouches/g1_sajjalu_pouch.webp",
     "category_name": "Rice, Atta & Flours",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0407",
@@ -525,7 +537,8 @@
     "imageUrl": "/products/generated_pouches/g1_jowar_pouch.webp",
     "image": "/products/generated_pouches/g1_jowar_pouch.webp",
     "category_name": "Rice, Atta & Flours",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0409",
@@ -546,7 +559,8 @@
     "imageUrl": "/products/generated_pouches/g1_whole_ragi_pouch.webp",
     "image": "/products/generated_pouches/g1_whole_ragi_pouch.webp",
     "category_name": "Rice, Atta & Flours",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0327",
@@ -661,7 +675,8 @@
     "image": "/products/generated_pouches/g1_minapa_gundu_pouch.webp",
     "category_name": "Dals & Pulses",
     "unit": "1 KG",
-    "is_active": true
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0081",
@@ -3105,14 +3120,14 @@
     "category": "spices-masalas",
     "sub_category": "Chilli & Turmeric Powder",
     "subCategory": "Chilli & Turmeric Powder",
-    "image_url": "/products/generated_pouches/g1_chilli_powder_pouch.webp",
+    "image_url": "/products/packshots/aashirvaad-chilli-powder.webp",
     "image_status": "verified",
     "barcode": null,
     "image_source": null,
     "image_license": null,
     "image_check_reason": "Passes revised quality gate (front-facing single pack, transparent 800x800)",
     "category_name": "Spices, Masalas & Pickles",
-    "imageUrl": "/products/generated_pouches/g1_chilli_powder_pouch.webp",
+    "imageUrl": "/products/packshots/aashirvaad-chilli-powder.webp",
     "image": "/products/generated_pouches/g1_chilli_powder_pouch.webp",
     "imageStatus": "verified"
   },
@@ -3185,14 +3200,14 @@
     "category": "spices-masalas",
     "sub_category": "Masala Powders, Whole Spices & Pickles",
     "subCategory": "Masala Powders, Whole Spices & Pickles",
-    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
+    "image_url": "/products/packshots/sri-durga-coriander.webp",
     "image_status": "verified",
     "barcode": null,
     "image_source": null,
     "image_license": null,
     "image_check_reason": "No passing packshot image",
     "imageStatus": "verified",
-    "imageUrl": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
+    "imageUrl": "/products/packshots/sri-durga-coriander.webp",
     "image": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
     "category_name": "Spices & Masalas"
   },
@@ -22530,7 +22545,8 @@
     "image": "/products/packshots/india-gate-classic-1kg.webp",
     "category_name": "atta-rice-dal",
     "unit": "1 kg",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-ric003",
@@ -22552,7 +22568,8 @@
     "image": "/products/packshots/india-gate-rozzana-1kg.webp",
     "category_name": "atta-rice-dal",
     "unit": "1 kg",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-ric005",
@@ -22596,7 +22613,8 @@
     "image": "/products/packshots/daawat-traditional-1kg.webp",
     "category_name": "atta-rice-dal",
     "unit": "1 kg",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-ric010",
@@ -22684,29 +22702,31 @@
     "image": "/products/packshots/aashirvaad-select-sharbati-5kg.webp",
     "category_name": "atta-rice-dal",
     "unit": "5 kg",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-ric023",
-    "name": "Tata Sampann 100% Multigrain Atta",
+    "name": "Tata Sampann 100% Multigrain Atta with 6 Natural Grains",
     "brand_id": "brand-tata",
     "brand": "Tata Sampann",
     "category_id": "atta-rice-dal",
     "category": "atta-rice-dal",
     "sub_category": "Atta & Wheat Flour",
     "subCategory": "Atta & Wheat Flour",
-    "image_url": "/products/packshots/tata-sampann-multigrain-atta-1kg.webp",
+    "image_url": "/products/packshots/tata-sampann-multigrain-atta-5kg.webp",
     "image_status": "verified",
     "barcode": "8901030010017",
     "image_source": "verified_cdn",
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "imageStatus": "verified",
-    "imageUrl": "/products/packshots/tata-sampann-multigrain-atta-1kg.webp",
+    "imageUrl": "/products/packshots/tata-sampann-multigrain-atta-5kg.webp",
     "image": "/products/packshots/tata-sampann-multigrain-atta-1kg.webp",
     "category_name": "atta-rice-dal",
     "unit": "1 kg",
-    "is_active": true
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-ric025",
@@ -22909,7 +22929,8 @@
     "image": "/products/generated_pouches/g1_rice_pouch.webp",
     "category_name": "atta-rice-dal",
     "unit": "1 kg",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-ric039",
@@ -22981,7 +23002,7 @@
     "id": "g1-ric042",
     "name": "G1 Mart Upma Ravva / Bombay Rava (ఉప్మా రవ్వ)",
     "brand_id": "brand-g1mart-loose",
-    "brand": "G1 Mart Loose Staples",
+    "brand": "G1 Mart",
     "category_id": "atta-rice-dal",
     "category": "atta-rice-dal",
     "sub_category": "Idli & Bombay Rava",
@@ -22997,13 +23018,14 @@
     "image": "/products/generated_pouches/g1_upma_rava_pouch.webp",
     "category_name": "atta-rice-dal",
     "unit": "1 kg",
-    "is_active": true
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-ric043",
     "name": "G1 Mart Bansi Ravva / Wheat Rava (బాన్సీ రవ్వ)",
     "brand_id": "brand-g1mart-loose",
-    "brand": "G1 Mart Loose Staples",
+    "brand": "G1 Mart",
     "category_id": "atta-rice-dal",
     "category": "atta-rice-dal",
     "sub_category": "Idli & Bombay Rava",
@@ -23019,13 +23041,14 @@
     "image": "/products/generated_pouches/g1_bansi_rava_pouch.webp",
     "category_name": "atta-rice-dal",
     "unit": "1 kg",
-    "is_active": true
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-ric044",
     "name": "G1 Mart Rice Flour / Biyyapu Pindi (బియ్యం పిండి)",
     "brand_id": "brand-g1mart-loose",
-    "brand": "G1 Mart Loose Staples",
+    "brand": "G1 Mart",
     "category_id": "atta-rice-dal",
     "category": "atta-rice-dal",
     "sub_category": "Maida & Besan",
@@ -23041,13 +23064,14 @@
     "image": "/products/generated_pouches/g1_rice_flour_pouch.webp",
     "category_name": "atta-rice-dal",
     "unit": "1 kg",
-    "is_active": true
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-ric045",
     "name": "G1 Mart Pure Ragi Flour / Ragi Pindi (రాగి పిండి)",
     "brand_id": "brand-g1mart-loose",
-    "brand": "G1 Mart Loose Staples",
+    "brand": "G1 Mart",
     "category_id": "atta-rice-dal",
     "category": "atta-rice-dal",
     "sub_category": "Millets & Poha",
@@ -23063,7 +23087,8 @@
     "image": "/products/generated_pouches/g1_ragi_flour_pouch.webp",
     "category_name": "atta-rice-dal",
     "unit": "1 kg",
-    "is_active": true
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-ric046",
@@ -23091,7 +23116,7 @@
     "id": "g1-ric047",
     "name": "G1 Mart Sorghum / Jowar Grains (జొన్నలు)",
     "brand_id": "brand-g1mart-loose",
-    "brand": "G1 Mart Loose Staples",
+    "brand": "G1 Mart",
     "category_id": "atta-rice-dal",
     "category": "atta-rice-dal",
     "sub_category": "Millets & Poha",
@@ -23107,13 +23132,14 @@
     "image": "/products/generated_pouches/g1_jowar_pouch.webp",
     "category_name": "atta-rice-dal",
     "unit": "1 kg",
-    "is_active": true
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-ric048",
     "name": "G1 Mart Pearl Millet / Sajjalu (సజ్జలు)",
     "brand_id": "brand-g1mart-loose",
-    "brand": "G1 Mart Loose Staples",
+    "brand": "G1 Mart",
     "category_id": "atta-rice-dal",
     "category": "atta-rice-dal",
     "sub_category": "Millets & Poha",
@@ -23129,13 +23155,14 @@
     "image": "/products/generated_pouches/g1_sajjalu_pouch.webp",
     "category_name": "atta-rice-dal",
     "unit": "1 kg",
-    "is_active": true
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-ric049",
     "name": "G1 Mart Finger Millet / Whole Ragi (రాగులు)",
     "brand_id": "brand-g1mart-loose",
-    "brand": "G1 Mart Loose Staples",
+    "brand": "G1 Mart",
     "category_id": "atta-rice-dal",
     "category": "atta-rice-dal",
     "sub_category": "Millets & Poha",
@@ -23151,13 +23178,14 @@
     "image": "/products/generated_pouches/g1_whole_ragi_pouch.webp",
     "category_name": "atta-rice-dal",
     "unit": "1 kg",
-    "is_active": true
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-ric050",
     "name": "G1 Mart Foxtail Millet / Korralu (కొర్రలు)",
     "brand_id": "brand-g1mart-loose",
-    "brand": "G1 Mart Loose Staples",
+    "brand": "G1 Mart",
     "category_id": "atta-rice-dal",
     "category": "atta-rice-dal",
     "sub_category": "Millets & Poha",
@@ -23173,7 +23201,8 @@
     "image": "/products/generated_pouches/g1_korralu_pouch.webp",
     "category_name": "atta-rice-dal",
     "unit": "1 kg",
-    "is_active": true
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-oil004",
@@ -25176,7 +25205,7 @@
     "id": "g1-sug020",
     "name": "G1 Mart Doddu Atukulu (Thick Poha / దొడ్డు అటుకులు)",
     "brand_id": "brand-g1mart-loose",
-    "brand": "G1 Mart Loose Staples",
+    "brand": "G1 Mart",
     "category_id": "atta-rice-dal",
     "category": "sugar-salt-staples",
     "sub_category": "Millets & Poha",
@@ -25192,7 +25221,8 @@
     "image": "/products/generated_pouches/g1_poha_pouch.webp",
     "category_name": "sugar-salt-staples",
     "unit": "500 g",
-    "is_active": true
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-sug022",
@@ -25220,7 +25250,7 @@
     "id": "g1-sug023",
     "name": "G1 Mart Saggubiyyam (Medium Sabudana / సగ్గుబియ్యం)",
     "brand_id": "brand-g1mart-loose",
-    "brand": "G1 Mart Loose Staples",
+    "brand": "G1 Mart",
     "category_id": "atta-rice-dal",
     "category": "sugar-salt-staples",
     "sub_category": "Millets & Poha",
@@ -25236,7 +25266,8 @@
     "image": "/products/generated_pouches/g1_sabudana_pouch.webp",
     "category_name": "sugar-salt-staples",
     "unit": "500 g",
-    "is_active": true
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-sug025",
@@ -27346,8 +27377,8 @@
     "imageStatus": "verified",
     "description": "Finely milled premium corn flour for soups, crispy batters, baking, and culinary thickening.",
     "inStock": true,
-    "is_active": true,
-    "isActive": true,
+    "is_active": false,
+    "isActive": false,
     "is_verified": true
   },
   {
@@ -27366,8 +27397,8 @@
     "imageStatus": "verified",
     "description": "Superior quality granulated wheat sooji rava for homestyle upma, khichdi, and ravva dosa.",
     "inStock": true,
-    "is_active": true,
-    "isActive": true,
+    "is_active": false,
+    "isActive": false,
     "is_verified": true
   },
   {
@@ -27406,8 +27437,8 @@
     "imageStatus": "verified",
     "description": "Pure broken javva wheat rava processed for nutritious South Indian breakfast upma and diabetic diet staple.",
     "inStock": true,
-    "is_active": true,
-    "isActive": true,
+    "is_active": false,
+    "isActive": false,
     "is_verified": true
   },
   {
@@ -27546,8 +27577,8 @@
     "imageStatus": "verified",
     "description": "Nutrient-rich multigrain flour combining wheat, jowar, ragi, oats, soya, and chana dal for supreme wholesome nutrition and energy.",
     "inStock": true,
-    "is_active": true,
-    "isActive": true,
+    "is_active": false,
+    "isActive": false,
     "is_verified": true
   },
   {
@@ -27759,8 +27790,8 @@
     "category": "spices-masalas",
     "sub_category": "Chilli & Turmeric Powder",
     "subCategory": "Chilli & Turmeric Powder",
-    "image_url": "/products/generated_pouches/g1_chilli_powder_pouch.webp",
-    "imageUrl": "/products/generated_pouches/g1_chilli_powder_pouch.webp",
+    "image_url": "/products/packshots/mdh-deggi-mirch.webp",
+    "imageUrl": "/products/packshots/mdh-deggi-mirch.webp",
     "image": "/products/generated_pouches/g1_chilli_powder_pouch.webp",
     "image_status": "verified",
     "imageStatus": "verified",
@@ -27839,8 +27870,8 @@
     "category": "dry-fruits-cereals",
     "sub_category": "Dates & Dry Fruits",
     "subCategory": "Dates & Dry Fruits",
-    "image_url": "/products/generated_pouches/g1_dates_pouch.webp",
-    "imageUrl": "/products/generated_pouches/g1_dates_pouch.webp",
+    "image_url": "/products/packshots/lion-dates-500g.webp",
+    "imageUrl": "/products/packshots/lion-dates-500g.webp",
     "image": "/products/generated_pouches/g1_dates_pouch.webp",
     "image_status": "verified",
     "imageStatus": "verified",

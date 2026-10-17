@@ -11,11 +11,14 @@ import {
   FileText,
   Upload,
   ArrowRight,
+  ArrowLeft,
+  SwitchCamera,
   ShieldCheck,
   Phone,
   User,
   Plus,
   MapPin,
+  Sparkles,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
@@ -39,6 +42,8 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
   const [step, setStep] = useState<'camera' | 'preview' | 'details' | 'success'>('camera');
   const [cameraActive, setCameraActive] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
+  const [facingMode, setFacingMode] = useState<'environment' | 'user'>('environment');
+  const [isSwitchingCamera, setIsSwitchingCamera] = useState(false);
   const [capturedPhotos, setCapturedPhotos] = useState<CapturedPhoto[]>([]);
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [customerName, setCustomerName] = useState(user?.name || '');
@@ -51,6 +56,40 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const isClosingRef = useRef(false);
+  const historyPushedRef = useRef(false);
+
+  // Stop camera, close scanner, and reliably navigate to home section ('/')
+  const handleExitToHome = () => {
+    if (isClosingRef.current) return;
+    isClosingRef.current = true;
+    stopCamera();
+    onClose();
+    router.push('/');
+    if (historyPushedRef.current) {
+      historyPushedRef.current = false;
+      try {
+        if (typeof window !== 'undefined' && window.history.state?.g1modal === 'slip-scanner') {
+          window.history.back();
+        }
+      } catch {}
+    }
+    setTimeout(() => {
+      isClosingRef.current = false;
+    }, 400);
+  };
+
+  // Step-aware Back Button in header: details -> preview -> camera -> home
+  const handleHeaderBack = () => {
+    if (step === 'details') {
+      setStep('preview');
+    } else if (step === 'preview') {
+      setStep('camera');
+      startCamera(facingMode);
+    } else {
+      handleExitToHome();
+    }
+  };
 
   // Sync user details if available, with fallback to previously saved customer details
   useEffect(() => {
@@ -90,8 +129,8 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
     setCameraActive(false);
   };
 
-  // Start rear camera
-  const startCamera = async () => {
+  // Start camera with configurable facingMode ('environment' or 'user')
+  const startCamera = async (targetFacingMode: 'environment' | 'user' = facingMode) => {
     setCameraError(null);
     stopCamera();
 
@@ -99,7 +138,7 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
       if (typeof navigator !== 'undefined' && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         const constraints: MediaStreamConstraints = {
           video: {
-            facingMode: { ideal: 'environment' },
+            facingMode: { ideal: targetFacingMode },
             width: { ideal: 1920 },
             height: { ideal: 1080 },
           },
@@ -110,7 +149,11 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
 
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
-          videoRef.current.play();
+          try {
+            await videoRef.current.play();
+          } catch (pErr) {
+            console.warn('[SlipScanner] Video play warning:', pErr);
+          }
         }
         setCameraActive(true);
       } else {
@@ -118,13 +161,36 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
       }
     } catch (err: any) {
       console.warn('[SlipScanner] Camera access error:', err);
+      // Fallback to basic video stream if ideal facing mode failed
+      if (targetFacingMode === 'user') {
+        try {
+          const fallbackStream = await navigator.mediaDevices.getUserMedia({ video: true });
+          streamRef.current = fallbackStream;
+          if (videoRef.current) {
+            videoRef.current.srcObject = fallbackStream;
+            await videoRef.current.play();
+          }
+          setCameraActive(true);
+          return;
+        } catch {}
+      }
       if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
-        setCameraError('Camera permission was denied. Please allow camera access in browser settings or choose a photo from your gallery.');
+        setCameraError('Camera permission was denied. Please allow camera access in browser settings or upload a photo from your device.');
       } else {
-        setCameraError('Unable to access camera on this device. You can choose a photo from your gallery below.');
+        setCameraError('Unable to access camera on this device. You can upload a photo from your gallery below.');
       }
       setCameraActive(false);
     }
+  };
+
+  // Switch between Rear (environment) and Front (user) camera
+  const handleSwitchCamera = () => {
+    setIsSwitchingCamera(true);
+    const nextMode = facingMode === 'environment' ? 'user' : 'environment';
+    setFacingMode(nextMode);
+    startCamera(nextMode).finally(() => {
+      setTimeout(() => setIsSwitchingCamera(false), 400);
+    });
   };
 
   // Reset or initialize on open
@@ -135,7 +201,7 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
       setActivePhotoIndex(0);
       setUploadError(null);
       setUploadedSlipId(null);
-      startCamera();
+      startCamera(facingMode);
     } else {
       stopCamera();
     }
@@ -144,17 +210,40 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
     };
   }, [isOpen]);
 
-  // Handle ESC key to dismiss modal
+  // Intercept Android hardware & gesture back button so pressing back
+  // ALWAYS returns to home section ('/') and NEVER closes or crashes the app!
+  useEffect(() => {
+    if (!isOpen) return;
+
+    try {
+      window.history.pushState({ g1modal: 'slip-scanner' }, '', window.location.href);
+      historyPushedRef.current = true;
+    } catch {}
+
+    const handlePopState = () => {
+      historyPushedRef.current = false;
+      stopCamera();
+      onClose();
+      router.push('/');
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [isOpen, router]);
+
+  // Handle ESC key to dismiss modal and go home
   useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
+        handleExitToHome();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   // Client-side image compression: max 1600px on long side, max ~1.5MB JPEG
   const compressImage = async (imageSource: HTMLImageElement | HTMLVideoElement): Promise<Blob> => {
@@ -423,7 +512,7 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
     return (
       <div
         onClick={(e) => {
-          if (e.target === e.currentTarget) onClose();
+          if (e.target === e.currentTarget) handleExitToHome();
         }}
         className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto animate-in fade-in duration-200"
       >
@@ -447,7 +536,7 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
                 </div>
                 <button
                   type="button"
-                  onClick={onClose}
+                  onClick={handleExitToHome}
                   className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors cursor-pointer"
                   aria-label="Close"
                 >
@@ -641,7 +730,7 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
 
                 <button
                   type="button"
-                  onClick={onClose}
+                  onClick={handleExitToHome}
                   className="w-full py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs rounded-xl transition-all cursor-pointer"
                 >
                   Continue Shopping
@@ -655,21 +744,32 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex flex-col justify-between overflow-hidden touch-none select-none">
-      {/* Header Bar */}
-      <div className="flex items-center justify-between px-4 py-3 bg-stone-900/80 border-b border-stone-800 text-white z-10">
-        <div className="flex items-center gap-2">
-          <FileText className="w-5 h-5 text-[#4CAF50]" />
-          <div>
-            <h2 className="text-sm font-extrabold tracking-tight">Scan Slip or Grocery List</h2>
-            <p className="text-[10px] text-stone-400">English &amp; Telugu handwriting accepted</p>
+    <div className="fixed inset-0 z-50 bg-black flex flex-col justify-between overflow-hidden touch-none select-none">
+      {/* Header Bar: Non-changeable title & subtitle with on-screen Back Arrow and Close button */}
+      <div className="flex items-center justify-between px-4 py-3 bg-stone-950/80 backdrop-blur-md border-b border-white/10 text-white z-20">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={handleHeaderBack}
+            className="w-9 h-9 rounded-full bg-stone-900/80 hover:bg-stone-800 border border-white/10 flex items-center justify-center text-stone-200 hover:text-white transition-colors cursor-pointer active:scale-95"
+            aria-label="Back"
+            title="Back to home"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <div className="flex items-center gap-2">
+            <FileText className="w-5 h-5 text-emerald-400 shrink-0" />
+            <div>
+              <h2 className="text-sm font-extrabold tracking-tight">Scan Slip or Grocery List</h2>
+              <p className="text-[10px] text-emerald-300/80 font-medium">English &amp; Telugu handwriting accepted</p>
+            </div>
           </div>
         </div>
         <button
           type="button"
-          onClick={onClose}
-          className="w-9 h-9 rounded-full bg-stone-800 hover:bg-stone-700 flex items-center justify-center text-stone-300 hover:text-white transition-colors cursor-pointer"
-          aria-label="Close scanner"
+          onClick={handleExitToHome}
+          className="w-9 h-9 rounded-full bg-stone-900/80 hover:bg-stone-800 border border-white/10 flex items-center justify-center text-stone-300 hover:text-white transition-colors cursor-pointer active:scale-95"
+          aria-label="Close scanner and return home"
         >
           <X className="w-5 h-5" />
         </button>
@@ -677,7 +777,7 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
 
       {/* Main View Area */}
       <div className="flex-1 relative flex flex-col items-center justify-center overflow-hidden bg-black">
-        {/* Hidden File Input */}
+        {/* Hidden File Input for Upload */}
         <input
           ref={fileInputRef}
           type="file"
@@ -686,21 +786,21 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
           onChange={handleFileSelect}
         />
 
-        {/* ── STEP 1: CAMERA SCANNER ── */}
+        {/* ── STEP 1: CAMERA SCANNER (FULL SCREEN, GREEN FLOATING ANIMATION, NO RECTANGULAR BOX) ── */}
         {step === 'camera' && (
-          <div className="relative w-full h-full flex flex-col items-center justify-center">
-            {/* Live Video Feed */}
+          <div className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden">
+            {/* Live Fullscreen Video Feed */}
             <video
               ref={videoRef}
               playsInline
               autoPlay
               muted
-              className={`absolute inset-0 w-full h-full object-cover ${cameraActive ? 'opacity-100' : 'opacity-0'}`}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${cameraActive ? 'opacity-100' : 'opacity-0'}`}
             />
 
             {/* Camera Permission Denied or Unavailable State */}
             {cameraError && (
-              <div className="z-10 max-w-sm mx-4 p-5 rounded-2xl bg-stone-900/90 border border-stone-700 text-center space-y-3">
+              <div className="z-20 max-w-sm mx-4 p-5 rounded-2xl bg-stone-900/95 border border-stone-700 text-center space-y-3 shadow-2xl">
                 <AlertCircle className="w-10 h-10 text-amber-400 mx-auto" />
                 <h3 className="text-sm font-bold text-white">Camera Access Needed</h3>
                 <p className="text-xs text-stone-300 leading-relaxed">{cameraError}</p>
@@ -708,14 +808,14 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="w-full py-2.5 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer"
+                    className="w-full py-2.5 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md"
                   >
-                    <ImageIcon className="w-4 h-4" />
-                    <span>Choose from Gallery</span>
+                    <Upload className="w-4 h-4" />
+                    <span>Upload from Device</span>
                   </button>
                   <button
                     type="button"
-                    onClick={startCamera}
+                    onClick={() => startCamera(facingMode)}
                     className="w-full py-2 bg-stone-800 hover:bg-stone-700 text-stone-200 rounded-xl text-xs font-bold transition-all cursor-pointer"
                   >
                     Retry Camera
@@ -724,22 +824,64 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
               </div>
             )}
 
-            {/* Document Framing Guide (Camera Active) */}
+            {/* ── IMMERSIVE GREENERY FLOATING & ANALYZING SCANNER OVERLAY ── */}
             {cameraActive && (
-              <div className="relative z-10 w-[82vw] max-w-sm aspect-[3/4] rounded-2xl border-2 border-emerald-400/80 shadow-[0_0_0_9999px_rgba(0,0,0,0.55)] pointer-events-none flex flex-col justify-between p-4">
-                {/* Corner guide brackets */}
-                <div className="flex justify-between">
-                  <div className="w-5 h-5 border-t-4 border-l-4 border-[#4CAF50] rounded-tl-md" />
-                  <div className="w-5 h-5 border-t-4 border-r-4 border-[#4CAF50] rounded-tr-md" />
+              <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
+                {/* 1. Ambient greenery glow across the entire camera view */}
+                <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/25 via-transparent to-emerald-950/35" />
+                <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(16,185,129,0.18)]" />
+
+                {/* 2. Floating sweeping emerald laser beam with luminous gradient trail */}
+                <div className="absolute inset-x-0 h-36 bg-gradient-to-b from-transparent via-emerald-500/20 to-transparent animate-scanner-sweep pointer-events-none">
+                  <div className="w-full h-[2.5px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_16px_#10B981,0_0_32px_#34D399]" />
                 </div>
-                <div className="text-center bg-black/60 backdrop-blur-xs py-1.5 px-3 rounded-full self-center">
-                  <span className="text-[11px] font-bold text-white tracking-wide">
-                    Align your handwritten slip inside frame
-                  </span>
+
+                {/* 3. Floating live AI slip telemetry indicator at top */}
+                <div className="absolute top-4 inset-x-0 flex justify-center pointer-events-none">
+                  <div className="px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-emerald-500/40 shadow-lg flex items-center gap-2">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                    </span>
+                    <span className="text-[11px] font-extrabold text-emerald-300 tracking-wider uppercase">
+                      AI Slip Scanner Active
+                    </span>
+                    <div className="flex items-center gap-0.5 ml-1">
+                      <span className="w-0.5 h-2 bg-emerald-400 animate-pulse" />
+                      <span className="w-0.5 h-3.5 bg-emerald-400 animate-pulse delay-75" />
+                      <span className="w-0.5 h-2 bg-emerald-400 animate-pulse delay-150" />
+                    </div>
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <div className="w-5 h-5 border-b-4 border-l-4 border-[#4CAF50] rounded-bl-md" />
-                  <div className="w-5 h-5 border-b-4 border-r-4 border-[#4CAF50] rounded-br-md" />
+
+                {/* 4. Full-screen outer corner brackets (no restrictive box, frames the full sensor) */}
+                <div className="absolute inset-5 pointer-events-none flex flex-col justify-between">
+                  <div className="flex justify-between">
+                    <div className="w-7 h-7 border-t-2 border-l-2 border-emerald-400/70 rounded-tl-xl shadow-[0_0_10px_rgba(16,185,129,0.3)]" />
+                    <div className="w-7 h-7 border-t-2 border-r-2 border-emerald-400/70 rounded-tr-xl shadow-[0_0_10px_rgba(16,185,129,0.3)]" />
+                  </div>
+                  <div className="flex justify-between">
+                    <div className="w-7 h-7 border-b-2 border-l-2 border-emerald-400/70 rounded-bl-xl shadow-[0_0_10px_rgba(16,185,129,0.3)]" />
+                    <div className="w-7 h-7 border-b-2 border-r-2 border-emerald-400/70 rounded-br-xl shadow-[0_0_10px_rgba(16,185,129,0.3)]" />
+                  </div>
+                </div>
+
+                {/* 5. Center "Scan your slip" floating badge */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="animate-scanner-float flex flex-col items-center gap-2">
+                    <div className="px-6 py-2.5 rounded-full bg-black/70 backdrop-blur-md border border-emerald-400/70 shadow-[0_0_25px_rgba(16,185,129,0.45)] flex items-center gap-2.5">
+                      <span className="relative flex h-2.5 w-2.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-80" />
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
+                      </span>
+                      <span className="text-white text-xs sm:text-sm font-extrabold tracking-wider uppercase drop-shadow-sm">
+                        Scan your slip
+                      </span>
+                    </div>
+                    <span className="text-[10px] sm:text-[11px] font-semibold text-emerald-100 bg-black/50 px-3.5 py-1 rounded-full backdrop-blur-xs border border-white/10 shadow-sm">
+                      Place slip anywhere in camera view
+                    </span>
+                  </div>
                 </div>
               </div>
             )}
@@ -813,40 +955,43 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
 
       {/* Bottom Controls Bar */}
       {step === 'camera' && (
-        <div className="px-6 py-4 bg-stone-950/90 border-t border-stone-800 flex items-center justify-between z-10">
-          {/* Gallery Fallback Button */}
+        <div className="px-8 py-5 bg-stone-950/85 backdrop-blur-md border-t border-white/10 flex items-center justify-between z-20">
+          {/* Upload (from Gallery / Device) */}
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="flex flex-col items-center gap-1 text-stone-400 hover:text-white transition-colors cursor-pointer"
+            className="flex flex-col items-center gap-1.5 text-stone-300 hover:text-emerald-400 transition-colors cursor-pointer group"
           >
-            <div className="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center">
-              <ImageIcon className="w-5 h-5" />
+            <div className="w-12 h-12 rounded-full bg-stone-900 group-hover:bg-emerald-950/60 border border-stone-700 group-hover:border-emerald-500/50 flex items-center justify-center transition-all shadow-md group-active:scale-95">
+              <Upload className="w-5 h-5" />
             </div>
-            <span className="text-[10px] font-bold">Gallery</span>
+            <span className="text-[11px] font-bold tracking-wide">Upload</span>
           </button>
 
-          {/* Shutter Capture Button */}
+          {/* Shutter Capture Button (Full Camera Capture) */}
+          <div className="flex flex-col items-center gap-1">
+            <button
+              type="button"
+              onClick={handleCapture}
+              disabled={!cameraActive}
+              aria-label="Click photo"
+              className="relative w-18 h-18 rounded-full border-4 border-white flex items-center justify-center p-1.5 cursor-pointer active:scale-90 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] hover:border-emerald-400 disabled:opacity-30 disabled:pointer-events-none"
+            >
+              <div className="w-full h-full rounded-full bg-white hover:bg-emerald-400 active:bg-emerald-500 transition-colors shadow-inner" />
+            </button>
+          </div>
+
+          {/* Switch Camera Button (Front <-> Rear) */}
           <button
             type="button"
-            onClick={handleCapture}
+            onClick={handleSwitchCamera}
             disabled={!cameraActive}
-            aria-label="Capture photo"
-            className="w-16 h-16 rounded-full border-4 border-white flex items-center justify-center p-1 cursor-pointer active:scale-90 transition-transform disabled:opacity-30 disabled:pointer-events-none"
+            className="flex flex-col items-center gap-1.5 text-stone-300 hover:text-emerald-400 transition-colors cursor-pointer group disabled:opacity-40"
           >
-            <div className="w-full h-full rounded-full bg-white hover:bg-emerald-400 transition-colors" />
-          </button>
-
-          {/* Camera Flip / Restart Button */}
-          <button
-            type="button"
-            onClick={startCamera}
-            className="flex flex-col items-center gap-1 text-stone-400 hover:text-white transition-colors cursor-pointer"
-          >
-            <div className="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center">
-              <RefreshCw className="w-5 h-5" />
+            <div className="w-12 h-12 rounded-full bg-stone-900 group-hover:bg-emerald-950/60 border border-stone-700 group-hover:border-emerald-500/50 flex items-center justify-center transition-all shadow-md group-active:scale-95">
+              <SwitchCamera className={`w-5 h-5 transition-transform duration-500 ${isSwitchingCamera ? 'rotate-180' : ''}`} />
             </div>
-            <span className="text-[10px] font-bold">Restart</span>
+            <span className="text-[11px] font-bold tracking-wide">Switch</span>
           </button>
         </div>
       )}

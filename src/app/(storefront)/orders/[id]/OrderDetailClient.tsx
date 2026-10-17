@@ -22,6 +22,7 @@ import {
   Check,
   Sparkles,
   FileText,
+  ChevronRight,
 } from 'lucide-react';
 import DeliveryJourneyAnimation from '@/components/orders/DeliveryJourneyAnimation';
 import { formatIndianPhoneDisplay } from '@/lib/phone';
@@ -29,7 +30,35 @@ import { STORE_CONFIG } from '@/config/store';
 import { soundAlerts } from '@/lib/soundAlerts';
 import { useCart } from '@/context/CartContext';
 import { triggerSuccessHaptic } from '@/lib/haptics';
+import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import type { Product } from '@/types';
+
+function getProductHref(item: any): string | null {
+  if (!item) return null;
+  const pid = item.productId || item.product_id;
+  if (pid) return `/product/${pid}`;
+
+  if (item.id && !String(item.id).startsWith('item_') && !String(item.id).startsWith('slip_')) {
+    return `/product/${item.id}`;
+  }
+
+  const rawName = (item.productName || item.name || '').trim();
+  if (!rawName) return null;
+
+  const directMatch = MIGRATED_PRODUCT_LIST.find(
+    (p) => p.name.toLowerCase() === rawName.toLowerCase()
+  );
+  if (directMatch) return `/product/${directMatch.id}`;
+
+  const partialMatch = MIGRATED_PRODUCT_LIST.find((p) => {
+    const pName = p.name.toLowerCase();
+    const target = rawName.toLowerCase();
+    return pName.includes(target) || target.includes(pName);
+  });
+  if (partialMatch) return `/product/${partialMatch.id}`;
+
+  return `/search?q=${encodeURIComponent(rawName)}`;
+}
 
 interface Props {
   orderId: string;
@@ -42,7 +71,61 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
   const isPaid = searchParams.get('paid') === 'true';
   const { clearCart } = useCart();
 
-  const [order, setOrder] = useState<any>(initialOrder || null);
+  // Instant zero-delay hydration from server props or local storage cache
+  const [order, setOrder] = useState<any>(() => {
+    if (initialOrder) return initialOrder;
+    if (typeof window !== 'undefined') {
+      try {
+        const cleanTargetId = String(orderId || '').replace(/^SLIP-/i, '').toLowerCase();
+
+        // 1. Check latest placed order
+        const latestRaw =
+          sessionStorage.getItem('g1mart_latest_order') ||
+          localStorage.getItem('g1mart_recent_order');
+        if (latestRaw) {
+          const parsed = JSON.parse(latestRaw);
+          const parsedId = String(parsed?.id || '').replace(/^SLIP-/i, '').toLowerCase();
+          const parsedNum = String(parsed?.orderNumber || '').replace(/^SLIP-/i, '').toLowerCase();
+          if (parsedId === cleanTargetId || parsedNum === cleanTargetId) {
+            return parsed;
+          }
+        }
+
+        // 2. Check g1mart_account_orders (where /orders page stores orders)
+        const accRaw = localStorage.getItem('g1mart_account_orders');
+        if (accRaw) {
+          const list = JSON.parse(accRaw);
+          if (Array.isArray(list)) {
+            const match = list.find((o: any) => {
+              const oId = String(o?.id || '').replace(/^SLIP-/i, '').toLowerCase();
+              const oNum = String(o?.orderNumber || '').replace(/^SLIP-/i, '').toLowerCase();
+              return oId === cleanTargetId || oNum === cleanTargetId;
+            });
+            if (match) return match;
+          }
+        }
+
+        // 3. Check g1mart_orders_list in sessionStorage
+        const listRaw = sessionStorage.getItem('g1mart_orders_list');
+        if (listRaw) {
+          const list = JSON.parse(listRaw);
+          if (Array.isArray(list)) {
+            const match = list.find((o: any) => {
+              const oId = String(o?.id || '').replace(/^SLIP-/i, '').toLowerCase();
+              const oNum = String(o?.orderNumber || '').replace(/^SLIP-/i, '').toLowerCase();
+              return oId === cleanTargetId || oNum === cleanTargetId;
+            });
+            if (match) return match;
+          }
+        }
+      } catch (err) {
+        console.warn('Error hydrating cached order:', err);
+      }
+    }
+    return null;
+  });
+
+  const [hasTimedOut, setHasTimedOut] = useState(false);
 
   // Phase 5 & 6 Payment state for slip orders
   const [paymentMethod, setPaymentMethod] = useState<'online' | 'cod'>('online');
@@ -94,29 +177,71 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
   }, [itemSearchQuery, showAddItemsModal]);
 
   useEffect(() => {
-    let found = false;
-    try {
-      const latestRaw =
-        sessionStorage.getItem('g1mart_latest_order') ||
-        localStorage.getItem('g1mart_recent_order');
-      if (latestRaw) {
-        const parsed = JSON.parse(latestRaw);
-        if (parsed.id === orderId || parsed.orderNumber === orderId) {
-          setOrder(parsed);
-          found = true;
-        }
-      }
+    const cleanTargetId = String(orderId || '').replace(/^SLIP-/i, '').toLowerCase();
+    let currentOrder = order;
 
-      const listRaw = sessionStorage.getItem('g1mart_orders_list');
-      if (listRaw && !found) {
-        const list = JSON.parse(listRaw);
-        const match = list.find((o: any) => o.id === orderId || o.orderNumber === orderId);
-        if (match) {
-          setOrder(match);
-          found = true;
+    // Check localStorage cache if not yet set
+    if (!currentOrder && typeof window !== 'undefined') {
+      try {
+        const latestRaw =
+          sessionStorage.getItem('g1mart_latest_order') ||
+          localStorage.getItem('g1mart_recent_order');
+        if (latestRaw) {
+          const parsed = JSON.parse(latestRaw);
+          const parsedId = String(parsed?.id || '').replace(/^SLIP-/i, '').toLowerCase();
+          const parsedNum = String(parsed?.orderNumber || '').replace(/^SLIP-/i, '').toLowerCase();
+          if (parsedId === cleanTargetId || parsedNum === cleanTargetId) {
+            currentOrder = parsed;
+            setOrder(parsed);
+          }
         }
-      }
-    } catch {}
+
+        if (!currentOrder) {
+          const accRaw = localStorage.getItem('g1mart_account_orders');
+          if (accRaw) {
+            const list = JSON.parse(accRaw);
+            if (Array.isArray(list)) {
+              const match = list.find((o: any) => {
+                const oId = String(o?.id || '').replace(/^SLIP-/i, '').toLowerCase();
+                const oNum = String(o?.orderNumber || '').replace(/^SLIP-/i, '').toLowerCase();
+                return oId === cleanTargetId || oNum === cleanTargetId;
+              });
+              if (match) {
+                currentOrder = match;
+                setOrder(match);
+              }
+            }
+          }
+        }
+
+        if (!currentOrder) {
+          const listRaw = sessionStorage.getItem('g1mart_orders_list');
+          if (listRaw) {
+            const list = JSON.parse(listRaw);
+            if (Array.isArray(list)) {
+              const match = list.find((o: any) => {
+                const oId = String(o?.id || '').replace(/^SLIP-/i, '').toLowerCase();
+                const oNum = String(o?.orderNumber || '').replace(/^SLIP-/i, '').toLowerCase();
+                return oId === cleanTargetId || oNum === cleanTargetId;
+              });
+              if (match) {
+                currentOrder = match;
+                setOrder(match);
+              }
+            }
+          }
+        }
+      } catch {}
+    }
+
+    // Proactively register locally cached order with server store if server had cold started
+    if (currentOrder && currentOrder.id) {
+      fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(currentOrder),
+      }).catch(() => {});
+    }
 
     const playStatusChime = (newStatus: string) => {
       switch (newStatus) {
@@ -154,6 +279,20 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
           try {
             sessionStorage.setItem('g1mart_latest_order', JSON.stringify(data.order));
             localStorage.setItem('g1mart_recent_order', JSON.stringify(data.order));
+
+            // Keep g1mart_account_orders updated
+            const accRaw = localStorage.getItem('g1mart_account_orders');
+            if (accRaw) {
+              const list = JSON.parse(accRaw);
+              if (Array.isArray(list)) {
+                const updated = list.map((o: any) =>
+                  o.id === data.order.id || o.orderNumber === data.order.id
+                    ? { ...o, ...data.order }
+                    : o
+                );
+                localStorage.setItem('g1mart_account_orders', JSON.stringify(updated));
+              }
+            }
           } catch {}
           return;
         }
@@ -174,6 +313,14 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
     };
 
     syncLiveOrder();
+
+    // 4-second safety timeout so users are never stuck on a 3-4 minute infinite spinner
+    const timer = setTimeout(() => {
+      setOrder((prev: any) => {
+        if (!prev) setHasTimedOut(true);
+        return prev;
+      });
+    }, 4000);
 
     let bc: BroadcastChannel | null = null;
     try {
@@ -203,9 +350,10 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
     };
     window.addEventListener('storage', handleStorageChange);
 
-    const interval = setInterval(syncLiveOrder, 2000);
+    const interval = setInterval(syncLiveOrder, 2500);
 
     return () => {
+      clearTimeout(timer);
       clearInterval(interval);
       window.removeEventListener('storage', handleStorageChange);
       if (bc) bc.close();
@@ -424,6 +572,37 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
     (isSlipOrder && !isFullyPaid && !isCodPending && (order?.items || []).length > 0 && order?.status !== 'SLIP_RECEIVED' && order?.status !== 'BILLING');
 
   if (!order) {
+    if (hasTimedOut) {
+      return (
+        <div className="max-w-md mx-auto space-y-5 pb-28 pt-20 px-4 text-center">
+          <div className="w-16 h-16 rounded-2xl bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center mx-auto shadow-2xs">
+            <AlertTriangle className="w-8 h-8" />
+          </div>
+          <div className="space-y-1.5">
+            <h2 className="text-base sm:text-lg font-black text-stone-900">Order #{orderId} Details Not Found</h2>
+            <p className="text-xs text-stone-500 max-w-xs mx-auto leading-relaxed">
+              We couldn't retrieve the live details for this order. It may have expired or was placed in a different browser session.
+            </p>
+          </div>
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2.5">
+            <Link
+              href="/orders"
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-xs transition-all active:scale-95"
+              style={{ backgroundColor: 'var(--g1-primary)' }}
+            >
+              Back to My Orders
+            </Link>
+            <Link
+              href="/"
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold bg-white border border-stone-200 text-stone-700 hover:bg-stone-50 transition-all active:scale-95"
+            >
+              Start Shopping
+            </Link>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="max-w-2xl mx-auto space-y-4 pb-24 pt-16 px-4 text-center">
         <div className="w-12 h-12 rounded-full border-4 border-[#2E7D32] border-t-transparent animate-spin mx-auto" />
@@ -734,53 +913,74 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
                 const price = Number(item.price) || 0;
                 const lineTotal = isItemUnavailable ? 0 : price * qty;
 
-                return (
-                  <div
-                    key={idx}
-                    className={`p-3 flex items-start justify-between text-xs transition-colors ${
-                      isItemUnavailable ? 'bg-rose-50/40 text-stone-400' : 'bg-white'
-                    }`}
-                  >
-                    <div className="flex items-start gap-2.5 flex-1">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={item.image || '/products/placeholder.svg'}
-                        alt={item.productName || item.name}
-                        className="w-10 h-10 object-contain rounded-lg border border-stone-200 bg-stone-50 p-1 shrink-0"
-                        onError={(e) => {
-                          (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
-                        }}
-                      />
-                      <div className="flex-1">
+                const itemHref = getProductHref(item);
+
+                const itemContent = (
+                  <div className="flex items-start gap-2.5 flex-1 min-w-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={item.image || '/products/placeholder.svg'}
+                      alt={item.productName || item.name}
+                      className="w-10 h-10 object-contain rounded-lg border border-stone-200 bg-stone-50 p-1 shrink-0 group-hover:scale-105 transition-transform"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
+                      }}
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1.5">
                         <p
-                          className={`font-black ${
+                          className={`font-black group-hover:text-[#1E6B2E] transition-colors leading-snug line-clamp-2 ${
                             isItemUnavailable ? 'line-through text-stone-400' : 'text-[#212121]'
                           }`}
                         >
                           {item.productName || item.name}
                         </p>
-                        <p className="text-stone-500 text-[11px] mt-0.5">
-                          {item.requestedQty !== undefined && item.packedQty !== undefined
-                            ? `Requested: ${item.requestedQty} · Packed: ${item.packedQty} ${item.unit || ''}`
-                            : `Qty: ${qty} · ${item.unit || 'unit'}`}{' '}
-                          @ ₹{price}/unit
-                        </p>
-
-                        {/* Unavailable Badge & Substitute Note */}
-                        {isItemUnavailable && (
-                          <div className="mt-1 flex items-center gap-1.5">
-                            <span className="px-2 py-0.5 rounded text-[10px] font-black bg-rose-100 text-rose-800 border border-rose-200">
-                              Out of stock
-                            </span>
-                            {item.substituteNote && (
-                              <span className="text-[11px] text-stone-600 italic">
-                                Note: {item.substituteNote}
-                              </span>
-                            )}
-                          </div>
+                        {itemHref && (
+                          <ChevronRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-[#1E6B2E] group-hover:translate-x-0.5 transition-all shrink-0" />
                         )}
                       </div>
+                      <p className="text-stone-500 text-[11px] mt-0.5">
+                        {item.requestedQty !== undefined && item.packedQty !== undefined
+                          ? `Requested: ${item.requestedQty} · Packed: ${item.packedQty} ${item.unit || ''}`
+                          : `Qty: ${qty} · ${item.unit || 'unit'}`}{' '}
+                        @ ₹{price}/unit
+                      </p>
+
+                      {/* Unavailable Badge & Substitute Note */}
+                      {isItemUnavailable && (
+                        <div className="mt-1 flex items-center gap-1.5">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-black bg-rose-100 text-rose-800 border border-rose-200">
+                            Out of stock
+                          </span>
+                          {item.substituteNote && (
+                            <span className="text-[11px] text-stone-600 italic">
+                              Note: {item.substituteNote}
+                            </span>
+                          )}
+                        </div>
+                      )}
                     </div>
+                  </div>
+                );
+
+                return (
+                  <div
+                    key={idx}
+                    className={`p-3 flex items-start justify-between text-xs transition-colors ${
+                      isItemUnavailable ? 'bg-rose-50/40 text-stone-400' : 'bg-white hover:bg-stone-50/80'
+                    }`}
+                  >
+                    {itemHref ? (
+                      <Link
+                        href={itemHref}
+                        className="group flex-1 min-w-0 flex items-start cursor-pointer mr-3"
+                        title={`View ${item.productName || item.name} details`}
+                      >
+                        {itemContent}
+                      </Link>
+                    ) : (
+                      <div className="flex-1 min-w-0 flex items-start mr-3">{itemContent}</div>
+                    )}
 
                     <div className="text-right shrink-0">
                       <span
