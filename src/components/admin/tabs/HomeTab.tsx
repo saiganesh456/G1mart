@@ -27,6 +27,7 @@ interface Props {
   onNavigateToOrders: (status?: string) => void;
   onNavigateToInventory: (filter?: string) => void;
   onNavigateToTab?: (tab: string) => void;
+  onNavigateToShootList?: () => void;
   audioEnabled: boolean;
   onToggleAudio: () => void;
   onTestAudio?: () => void;
@@ -39,6 +40,7 @@ export default function HomeTab({
   onNavigateToOrders,
   onNavigateToInventory,
   onNavigateToTab,
+  onNavigateToShootList,
   audioEnabled,
   onToggleAudio,
   onTestAudio,
@@ -459,6 +461,42 @@ export default function HomeTab({
           </button>
         </div>
       </div>
+
+      {/* Product Photo Studio Quick Shortcut Banner */}
+      {(onNavigateToShootList || onNavigateToTab) && (
+        <div
+          onClick={() => {
+            if (onNavigateToShootList) onNavigateToShootList();
+            else onNavigateToTab?.('shoot-list');
+          }}
+          className="bg-gradient-to-r from-[#14532D] via-[#1B5E20] to-[#2E7D32] p-4 sm:p-5 rounded-3xl text-white shadow-sm flex items-center justify-between gap-4 cursor-pointer hover:shadow-md transition-all active:scale-[0.99] border border-emerald-700/40"
+        >
+          <div className="flex items-center gap-3.5 min-w-0">
+            <div className="w-11 h-11 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center shrink-0 border border-white/20">
+              <Camera className="w-6 h-6 text-emerald-200" />
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <h3 className="text-sm sm:text-base font-black tracking-tight">Product Photo Studio</h3>
+                <span className="text-[10px] font-black uppercase tracking-wider bg-white/20 px-2 py-0.5 rounded-full text-emerald-100">
+                  Shelf Packshots
+                </span>
+              </div>
+              <p className="text-xs text-emerald-100/90 font-medium truncate mt-0.5">
+                {products.filter((p) => p.image_status !== 'verified').length} items need photos · Tap to open studio &amp; snap with phone camera
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold bg-white text-emerald-950 px-3.5 py-1.5 rounded-xl shadow-xs">
+              Open Studio
+            </span>
+            <div className="w-8 h-8 rounded-xl bg-white/15 flex items-center justify-center text-white">
+              <ArrowRight className="w-4 h-4" />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Recent Orders Live Section */}
       <div className="bg-white rounded-3xl p-5 sm:p-6 border border-stone-200/90 shadow-2xs space-y-4">

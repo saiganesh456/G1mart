@@ -1106,6 +1106,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 onNavigateToInventory={(stockFilter) => {
                   setActiveTab('inventory');
                 }}
+                onNavigateToShootList={() => {
+                  stopAlarm();
+                  setActiveTab('shoot-list');
+                }}
                 onNavigateToTab={(tab) => {
                   stopAlarm();
                   setActiveTab(tab as any);
@@ -1155,6 +1159,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 onProductUpdated={(updated) =>
                   setProducts((prev) => prev.map((p) => (p.id === updated.id ? updated : p)))
                 }
+                onBackToDashboard={() => setActiveTab('home')}
               />
             )}
 
