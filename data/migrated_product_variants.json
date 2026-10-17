@@ -2097,15 +2097,6 @@
     "image_url": "/products/packshots/freedom-sunflower-1l-pouch.webp"
   },
   {
-    "id": "g1-p1701-v1l-bottle",
-    "product_id": "g1-p1701",
-    "size_label": "1 L PET Bottle",
-    "price": 148,
-    "mrp": 155,
-    "stock": 80,
-    "image_url": "/products/packshots/freedom-sunflower-1l-bottle.webp"
-  },
-  {
     "id": "g1-p1701-v5l-can",
     "product_id": "g1-p1701",
     "size_label": "5 L Can",
@@ -5189,15 +5180,6 @@
     "size_label": "125 g",
     "price": 68,
     "mrp": 68,
-    "stock": 50,
-    "image_url": "/products/verified/pc-dettol-soap.webp"
-  },
-  {
-    "id": "g1-pc006-v-125g(packof4)",
-    "product_id": "g1-pc006",
-    "size_label": "125 g (Pack of 4)",
-    "price": 195,
-    "mrp": 195,
     "stock": 50,
     "image_url": "/products/verified/pc-dettol-soap.webp"
   },
@@ -9549,69 +9531,6 @@
     "image_url": "/products/verified/tea-rasna-orange.webp"
   },
   {
-    "id": "g1-bev001-v-250ml(petbottle)",
-    "product_id": "g1-bev001",
-    "size_label": "250 ml (Pet Bottle)",
-    "price": 20,
-    "mrp": 20,
-    "stock": 50,
-    "image_url": "/products/verified/bev-thums-up-250ml.webp"
-  },
-  {
-    "id": "g1-bev001-v-250mlpet",
-    "product_id": "g1-bev001",
-    "size_label": "250 ml PET",
-    "price": 20,
-    "mrp": 20,
-    "stock": 100,
-    "image_url": "/products/verified/bev-thums-up-250ml.webp"
-  },
-  {
-    "id": "var-g1-bev001-1",
-    "product_id": "g1-bev001",
-    "size_label": "750 ml (PET Bottle)",
-    "price": 40,
-    "mrp": 40,
-    "stock": 50,
-    "image_url": "/products/verified/bev-thums-up-750ml.webp"
-  },
-  {
-    "id": "g1-bev001-v-750mlpet",
-    "product_id": "g1-bev001",
-    "size_label": "750 ml PET",
-    "price": 40,
-    "mrp": 40,
-    "stock": 80,
-    "image_url": "/products/verified/bev-thums-up-750ml.webp"
-  },
-  {
-    "id": "g1-bev001-v-1.25l(bottle)",
-    "product_id": "g1-bev001",
-    "size_label": "1.25 L (Bottle)",
-    "price": 65,
-    "mrp": 65,
-    "stock": 50,
-    "image_url": "/products/verified/bev-thums-up-1l.webp"
-  },
-  {
-    "id": "g1-bev001-v-2.25lpet",
-    "product_id": "g1-bev001",
-    "size_label": "2.25 L PET",
-    "price": 99,
-    "mrp": 99,
-    "stock": 50,
-    "image_url": "/products/verified/bev-thums-up-2l.webp"
-  },
-  {
-    "id": "g1-bev001-v-2.25l(largebottle)",
-    "product_id": "g1-bev001",
-    "size_label": "2.25 L (Large Bottle)",
-    "price": 100,
-    "mrp": 100,
-    "stock": 50,
-    "image_url": "/products/verified/bev-thums-up-2l.webp"
-  },
-  {
     "id": "g1-bev002-v1",
     "product_id": "g1-bev002",
     "size_label": "250 ml (Small Bottle)",
@@ -13772,15 +13691,6 @@
     "image_url": "/products/packshots/amul-pure-ghee-500ml.webp"
   },
   {
-    "id": "g1-amul-pure-ghee-v-500ml",
-    "product_id": "g1-amul-pure-ghee",
-    "size_label": "500 ml",
-    "price": 335,
-    "mrp": 335,
-    "stock": 50,
-    "image_url": "/products/packshots/amul-ghee.jpg"
-  },
-  {
     "id": "g1-amul-pure-ghee-v-1l",
     "product_id": "g1-amul-pure-ghee",
     "size_label": "1 L",
@@ -13908,39 +13818,12 @@
     "image_url": "/products/packshots/priya-mango-pickle-300g.webp"
   },
   {
-    "id": "g1-priya-avakaya-v300j",
-    "product_id": "g1-priya-avakaya",
-    "size_label": "300 g Jar",
-    "price": 115,
-    "mrp": 115,
-    "stock": 50,
-    "image_url": "/products/packshots/priya-mango-pickle-300g.webp"
-  },
-  {
     "id": "g1-priya-gongura-v300p",
     "product_id": "g1-priya-gongura",
     "size_label": "300 g Pouch",
     "price": 95,
     "mrp": 95,
     "stock": 60,
-    "image_url": "/products/packshots/priya-gongura-pickle-300g.webp"
-  },
-  {
-    "id": "g1-priya-gongura-v-300g",
-    "product_id": "g1-priya-gongura",
-    "size_label": "300 g",
-    "price": 115,
-    "mrp": 115,
-    "stock": 50,
-    "image_url": "/products/packshots/priya-gongura-pickle-300g.webp"
-  },
-  {
-    "id": "g1-priya-gongura-v300j",
-    "product_id": "g1-priya-gongura",
-    "size_label": "300 g Jar",
-    "price": 115,
-    "mrp": 115,
-    "stock": 50,
     "image_url": "/products/packshots/priya-gongura-pickle-300g.webp"
   },
   {
@@ -14203,33 +14086,6 @@
     "mrp": 445,
     "stock": 40,
     "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
-  },
-  {
-    "id": "g1-bev-coke-v250",
-    "product_id": "g1-bev-coke",
-    "size_label": "250 ml PET",
-    "price": 20,
-    "mrp": 20,
-    "stock": 100,
-    "image_url": "/products/verified/bev-coca-cola-250ml.webp"
-  },
-  {
-    "id": "g1-bev-coke-v750",
-    "product_id": "g1-bev-coke",
-    "size_label": "750 ml PET",
-    "price": 40,
-    "mrp": 40,
-    "stock": 80,
-    "image_url": "/products/verified/bev-coca-cola-750ml.webp"
-  },
-  {
-    "id": "g1-bev-coke-v225",
-    "product_id": "g1-bev-coke",
-    "size_label": "2.25 L PET",
-    "price": 99,
-    "mrp": 99,
-    "stock": 50,
-    "image_url": "/products/verified/bev-coca-cola-2l.webp"
   },
   {
     "id": "g1-bev-pulpy-orange-v400",
@@ -14576,26 +14432,6 @@
     "in_stock": true
   },
   {
-    "id": "g1-p0014-v2",
-    "product_id": "g1-p0014",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0014-v3",
-    "product_id": "g1-p0014",
-    "size_label": " g",
-    "price": 162,
-    "mrp": 162,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
-    "in_stock": true
-  },
-  {
     "id": "g1-p0019-v1",
     "product_id": "g1-p0019",
     "size_label": "1 unit",
@@ -14789,16 +14625,6 @@
     "in_stock": true
   },
   {
-    "id": "g1-p0184-v2",
-    "product_id": "g1-p0184",
-    "size_label": " g",
-    "price": 67,
-    "mrp": 67,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
-    "in_stock": true
-  },
-  {
     "id": "g1-p0280-v1",
     "product_id": "g1-p0280",
     "size_label": " g",
@@ -14938,26 +14764,6 @@
     "in_stock": true
   },
   {
-    "id": "g1-p0396-v2",
-    "product_id": "g1-p0396",
-    "size_label": " g",
-    "price": 63,
-    "mrp": 63,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0396-v3",
-    "product_id": "g1-p0396",
-    "size_label": " g",
-    "price": 34,
-    "mrp": 34,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
-    "in_stock": true
-  },
-  {
     "id": "g1-p0413-v1",
     "product_id": "g1-p0413",
     "size_label": " g",
@@ -15029,16 +14835,6 @@
   },
   {
     "id": "g1-p0466-v1",
-    "product_id": "g1-p0466",
-    "size_label": " g",
-    "price": 22,
-    "mrp": 22,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0466-v2",
     "product_id": "g1-p0466",
     "size_label": " g",
     "price": 22,
@@ -15199,15 +14995,6 @@
     "in_stock": true
   },
   {
-    "id": "g1-p0651-v2",
-    "product_id": "g1-p0651",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "in_stock": true
-  },
-  {
     "id": "g1-p0653-v1",
     "product_id": "g1-p0653",
     "size_label": " g",
@@ -15244,25 +15031,7 @@
     "in_stock": true
   },
   {
-    "id": "g1-p0657-v2",
-    "product_id": "g1-p0657",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "in_stock": true
-  },
-  {
     "id": "g1-p0658-v1",
-    "product_id": "g1-p0658",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0658-v2",
     "product_id": "g1-p0658",
     "size_label": " g",
     "price": 50,
@@ -15382,15 +15151,6 @@
     "in_stock": true
   },
   {
-    "id": "g1-p0741-v2",
-    "product_id": "g1-p0741",
-    "size_label": " g",
-    "price": 20,
-    "mrp": 20,
-    "stock": 50,
-    "in_stock": true
-  },
-  {
     "id": "g1-p0742-v1",
     "product_id": "g1-p0742",
     "size_label": " g",
@@ -15465,26 +15225,6 @@
     "in_stock": true
   },
   {
-    "id": "g1-p0879-v2",
-    "product_id": "g1-p0879",
-    "size_label": " g",
-    "price": 22,
-    "mrp": 22,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_menthulu_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0879-v3",
-    "product_id": "g1-p0879",
-    "size_label": " g",
-    "price": 13,
-    "mrp": 13,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_menthulu_pouch.webp",
-    "in_stock": true
-  },
-  {
     "id": "g1-p0920-v1",
     "product_id": "g1-p0920",
     "size_label": " g",
@@ -15503,68 +15243,11 @@
     "in_stock": true
   },
   {
-    "id": "g1-p0951-v2",
-    "product_id": "g1-p0951",
-    "size_label": " g",
-    "price": 62,
-    "mrp": 62,
-    "stock": 50,
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0951-v3",
-    "product_id": "g1-p0951",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0951-v4",
-    "product_id": "g1-p0951",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "in_stock": true
-  },
-  {
     "id": "g1-p0990-v1",
     "product_id": "g1-p0990",
     "size_label": " g",
     "price": 17,
     "mrp": 17,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_coriander_powder_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0990-v2",
-    "product_id": "g1-p0990",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_coriander_powder_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0990-v3",
-    "product_id": "g1-p0990",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_coriander_powder_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0990-v4",
-    "product_id": "g1-p0990",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_coriander_powder_pouch.webp",
     "in_stock": true
@@ -16126,16 +15809,6 @@
     "in_stock": true
   },
   {
-    "id": "var-g1-spc046-500g",
-    "product_id": "g1-spc046",
-    "size_label": "500g",
-    "price": 95,
-    "mrp": 95,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
-    "in_stock": true
-  },
-  {
     "id": "g1-spc047-v1",
     "product_id": "g1-spc047",
     "size_label": "250 g",
@@ -16314,5 +15987,41 @@
     "stock": 30,
     "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
     "in_stock": true
+  },
+  {
+    "id": "g1-bev001-v1",
+    "product_id": "g1-bev001",
+    "size_label": "250 ml (Pet Bottle)",
+    "price": 20,
+    "mrp": 20,
+    "stock": 50,
+    "image_url": "/products/verified/bev-thums-up-250ml.webp"
+  },
+  {
+    "id": "g1-bev001-v2",
+    "product_id": "g1-bev001",
+    "size_label": "750 ml (Standard Bottle)",
+    "price": 40,
+    "mrp": 40,
+    "stock": 50,
+    "image_url": "/products/verified/bev-thums-up-750ml.webp"
+  },
+  {
+    "id": "g1-bev001-v3",
+    "product_id": "g1-bev001",
+    "size_label": "1.25 L (Medium Bottle)",
+    "price": 65,
+    "mrp": 65,
+    "stock": 50,
+    "image_url": "/products/verified/bev-thums-up-1l.webp"
+  },
+  {
+    "id": "g1-bev001-v4",
+    "product_id": "g1-bev001",
+    "size_label": "2.25 L (Family Pack)",
+    "price": 100,
+    "mrp": 100,
+    "stock": 50,
+    "image_url": "/products/verified/bev-thums-up-2l.webp"
   }
 ]

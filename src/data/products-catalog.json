@@ -35623,16 +35623,16 @@
     "variants": [
       {
         "id": "g1-bev001-v1",
-        "name": "250 ml (Can/PET)",
+        "name": "250 ml (Pet Bottle)",
         "unit": "250 ml",
         "price": 20,
         "mrp": 20,
         "in_stock": true,
-        "image": "/products/verified/bev-thums-up-750ml.webp"
+        "image": "/products/verified/bev-thums-up-250ml.webp"
       },
       {
         "id": "g1-bev001-v2",
-        "name": "750 ml (Standard)",
+        "name": "750 ml (Standard Bottle)",
         "unit": "750 ml",
         "price": 40,
         "mrp": 40,
@@ -35641,21 +35641,21 @@
       },
       {
         "id": "g1-bev001-v3",
-        "name": "1 L (Large Bottle)",
-        "unit": "1 L",
-        "price": 50,
-        "mrp": 50,
+        "name": "1.25 L (Medium Bottle)",
+        "unit": "1.25 L",
+        "price": 65,
+        "mrp": 65,
         "in_stock": true,
-        "image": "/products/verified/bev-thums-up-750ml.webp"
+        "image": "/products/verified/bev-thums-up-1l.webp"
       },
       {
         "id": "g1-bev001-v4",
-        "name": "2.25 L (Party Pack)",
+        "name": "2.25 L (Family Pack)",
         "unit": "2.25 L",
-        "price": 99,
-        "mrp": 99,
+        "price": 100,
+        "mrp": 100,
         "in_stock": true,
-        "image": "/products/verified/bev-thums-up-750ml.webp"
+        "image": "/products/verified/bev-thums-up-2l.webp"
       }
     ],
     "originalPrice": 20,
