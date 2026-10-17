@@ -13834,10 +13834,10 @@
     "id": "g1-lion-dates-v500",
     "product_id": "g1-lion-dates",
     "size_label": "500 g",
-    "price": 175,
+    "price": 160,
     "mrp": 175,
-    "stock": 60,
-    "image_url": "/products/generated_pouches/g1_dates_pouch.webp"
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_desert_king_dates_pouch.webp"
   },
   {
     "id": "g1-kelloggs-corn-flakes-v500",
@@ -15983,5 +15983,50 @@
     "stock": 30,
     "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
     "in_stock": true
+  },
+  {
+    "id": "g1-p0677-v250",
+    "product_id": "g1-p0677",
+    "size_label": "250 g",
+    "price": 50,
+    "mrp": 55,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_corn_flakes_pouch.webp"
+  },
+  {
+    "id": "g1-p0677-v500",
+    "product_id": "g1-p0677",
+    "size_label": "500 g",
+    "price": 95,
+    "mrp": 105,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_corn_flakes_pouch.webp"
+  },
+  {
+    "id": "g1-p0677-v1k",
+    "product_id": "g1-p0677",
+    "size_label": "1 kg",
+    "price": 180,
+    "mrp": 200,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_corn_flakes_pouch.webp"
+  },
+  {
+    "id": "g1-p1000-v500",
+    "product_id": "g1-p1000",
+    "size_label": "500 g",
+    "price": 99,
+    "mrp": 110,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_oats_pouch.webp"
+  },
+  {
+    "id": "g1-p1000-v1k",
+    "product_id": "g1-p1000",
+    "size_label": "1 kg",
+    "price": 190,
+    "mrp": 215,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_oats_pouch.webp"
   }
 ]

@@ -1259,7 +1259,7 @@
   },
   {
     "id": "g1-p0041",
-    "name": "DRY Nuts BOL",
+    "name": "[INACTIVE DUPLICATE] DRY Nuts BOL",
     "brand_id": "b-063",
     "brand": "Local / Unbranded",
     "category_id": "dry-fruits-cereals",
@@ -1275,12 +1275,14 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_dry_nuts_bowl.webp",
     "image": "/products/generated_pouches/g1_dry_nuts_bowl.webp",
-    "category_name": "Dry Fruits & Nuts"
+    "category_name": "Dry Fruits & Nuts",
+    "is_active": false,
+    "status": "inactive"
   },
   {
     "id": "g1-p0077",
-    "name": "G1 Mart Endu Kharjuram / Dry Dates (ఎండు ఖర్జూరం)",
-    "brand_id": "b-063",
+    "name": "G1 Mart Endu Kharjuram (Dry Hard Dates / ఎండు ఖర్జూరం)",
+    "brand_id": "brand-g1mart",
     "brand": "G1 Mart",
     "category_id": "dry-fruits-cereals",
     "category": "dry-fruits-cereals",
@@ -1295,7 +1297,10 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_dates_pouch.webp",
     "image": "/products/generated_pouches/g1_dates_pouch.webp",
-    "category_name": "Dry Fruits & Nuts"
+    "category_name": "Dry Fruits & Nuts",
+    "is_active": true,
+    "isActive": true,
+    "status": "active"
   },
   {
     "id": "g1-p0138",
@@ -1463,7 +1468,10 @@
     "imageUrl": "/products/generated_pouches/g1_almonds_pouch.webp",
     "image": "/products/generated_pouches/g1_almonds_pouch.webp",
     "category_name": "Dry Fruits & Nuts",
-    "unit": "250g"
+    "unit": "250g",
+    "is_active": true,
+    "isActive": true,
+    "status": "active"
   },
   {
     "id": "g1-p0309",
@@ -1526,7 +1534,7 @@
   },
   {
     "id": "g1-p0394",
-    "name": "Gokulam Dates",
+    "name": "[INACTIVE DUPLICATE] Gokulam Dates",
     "brand_id": "b-063",
     "brand": "Local / Unbranded",
     "category_id": "dry-fruits-cereals",
@@ -1544,7 +1552,8 @@
     "image": "/products/generated_pouches/g1_dates_pouch.webp",
     "category_name": "Dry Fruits & Nuts",
     "is_active": false,
-    "isActive": false
+    "isActive": false,
+    "status": "inactive"
   },
   {
     "id": "g1-p0422",
@@ -1565,7 +1574,10 @@
     "imageUrl": "/products/generated_pouches/g1_cashews_pouch.webp",
     "image": "/products/generated_pouches/g1_cashews_pouch.webp",
     "category_name": "Dals & Pulses",
-    "unit": "250g"
+    "unit": "250g",
+    "is_active": true,
+    "isActive": true,
+    "status": "active"
   },
   {
     "id": "g1-p0486",
@@ -1589,7 +1601,7 @@
   },
   {
     "id": "g1-p0492",
-    "name": "Gkl Black Dates",
+    "name": "[INACTIVE DUPLICATE] Gkl Black Dates",
     "brand_id": "b-063",
     "brand": "Local / Unbranded",
     "category_id": "dry-fruits-cereals",
@@ -1607,11 +1619,12 @@
     "image": "/products/generated_pouches/g1_dates_pouch.webp",
     "category_name": "Dry Fruits & Nuts",
     "is_active": false,
-    "isActive": false
+    "isActive": false,
+    "status": "inactive"
   },
   {
     "id": "g1-p0583",
-    "name": "Badam",
+    "name": "[INACTIVE DUPLICATE] Badam",
     "brand_id": "b-063",
     "brand": "Local / Unbranded",
     "category_id": "dry-fruits-cereals",
@@ -1629,7 +1642,8 @@
     "image": "/products/generated_pouches/g1_almonds_pouch.webp",
     "category_name": "Dry Fruits & Nuts",
     "is_active": false,
-    "isActive": false
+    "isActive": false,
+    "status": "inactive"
   },
   {
     "id": "g1-p0635",
@@ -1653,23 +1667,29 @@
   },
   {
     "id": "g1-p0677",
-    "name": "Corn Flakes",
-    "brand_id": "b-063",
-    "brand": "Local / Unbranded",
+    "name": "G1 Mart Crispy Corn Flakes (కార్న్ ఫ్లేక్స్)",
+    "brand_id": "brand-g1mart",
+    "brand": "G1 Mart",
     "category_id": "dry-fruits-cereals",
     "category": "dry-fruits-cereals",
-    "sub_category": "Cashews, Almonds & Dates",
-    "subCategory": "Cashews, Almonds & Dates",
-    "image_url": "/products/verified/g1-p0677.webp",
+    "sub_category": "Cereals & Flakes",
+    "subCategory": "Cereals & Flakes",
+    "image_url": "/products/generated_pouches/g1_corn_flakes_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000666",
     "image_source": null,
     "image_license": null,
     "image_check_reason": "No passing packshot image",
     "imageStatus": "verified",
-    "imageUrl": "/products/verified/g1-p0677.webp",
-    "image": "/products/verified/g1-p0677.webp",
-    "category_name": "Dry Fruits & Nuts"
+    "imageUrl": "/products/generated_pouches/g1_corn_flakes_pouch.webp",
+    "image": "/products/generated_pouches/g1_corn_flakes_pouch.webp",
+    "category_name": "Dry Fruits & Nuts",
+    "is_active": true,
+    "isActive": true,
+    "inStock": true,
+    "status": "active",
+    "price": 50,
+    "mrp": 50
   },
   {
     "id": "g1-p0688",
@@ -1713,7 +1733,7 @@
   },
   {
     "id": "g1-p0776",
-    "name": "SP Badam",
+    "name": "[INACTIVE DUPLICATE] SP Badam",
     "brand_id": "b-063",
     "brand": "Local / Unbranded",
     "category_id": "dry-fruits-cereals",
@@ -1731,7 +1751,8 @@
     "image": "/products/generated_pouches/g1_almonds_pouch.webp",
     "category_name": "Dry Fruits & Nuts",
     "is_active": false,
-    "isActive": false
+    "isActive": false,
+    "status": "inactive"
   },
   {
     "id": "g1-p0780",
@@ -1815,23 +1836,26 @@
   },
   {
     "id": "g1-p0893",
-    "name": "Pumpkin Seeds",
-    "brand_id": "b-063",
-    "brand": "Local / Unbranded",
+    "name": "G1 Mart Pumpkin Seeds (గుమ్మడి గింజలు)",
+    "brand_id": "brand-g1mart",
+    "brand": "G1 Mart",
     "category_id": "dry-fruits-cereals",
     "category": "dry-fruits-cereals",
     "sub_category": "Cashews, Almonds & Dates",
     "subCategory": "Cashews, Almonds & Dates",
-    "image_url": "/products/verified/g1-p0893.webp",
+    "image_url": "/products/generated_pouches/g1_pumpkin_seeds_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000883",
     "image_source": null,
     "image_license": null,
     "image_check_reason": "No passing packshot image",
     "imageStatus": "verified",
-    "imageUrl": "/products/verified/g1-p0893.webp",
-    "image": "/products/verified/g1-p0893.webp",
-    "category_name": "Dry Fruits & Nuts"
+    "imageUrl": "/products/generated_pouches/g1_pumpkin_seeds_pouch.webp",
+    "image": "/products/generated_pouches/g1_pumpkin_seeds_pouch.webp",
+    "category_name": "Dry Fruits & Nuts",
+    "is_active": true,
+    "isActive": true,
+    "status": "active"
   },
   {
     "id": "g1-p0894",
@@ -1852,51 +1876,60 @@
     "imageUrl": "/products/generated_pouches/g1_sunflower_seeds_pouch.webp",
     "image": "/products/generated_pouches/g1_sunflower_seeds_pouch.webp",
     "category_name": "Dry Fruits & Nuts",
-    "unit": "250g"
+    "unit": "250g",
+    "is_active": true,
+    "isActive": true,
+    "status": "active"
   },
   {
     "id": "g1-p0895",
-    "name": "Muskmelon Seeds",
-    "brand_id": "b-063",
-    "brand": "Local / Unbranded",
+    "name": "G1 Mart Muskmelon Seeds (ఖర్బూజ గింజలు)",
+    "brand_id": "brand-g1mart",
+    "brand": "G1 Mart",
     "category_id": "dry-fruits-cereals",
     "category": "dry-fruits-cereals",
     "sub_category": "Cashews, Almonds & Dates",
     "subCategory": "Cashews, Almonds & Dates",
-    "image_url": "/products/verified/g1-p0895.webp",
+    "image_url": "/products/generated_pouches/g1_muskmelon_seeds_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000885",
     "image_source": null,
     "image_license": null,
     "image_check_reason": "No passing packshot image",
     "imageStatus": "verified",
-    "imageUrl": "/products/verified/g1-p0895.webp",
-    "image": "/products/verified/g1-p0895.webp",
-    "category_name": "Dry Fruits & Nuts"
+    "imageUrl": "/products/generated_pouches/g1_muskmelon_seeds_pouch.webp",
+    "image": "/products/generated_pouches/g1_muskmelon_seeds_pouch.webp",
+    "category_name": "Dry Fruits & Nuts",
+    "is_active": true,
+    "isActive": true,
+    "status": "active"
   },
   {
     "id": "g1-p0898",
-    "name": "Watermelon Seeds",
-    "brand_id": "b-063",
-    "brand": "Local / Unbranded",
+    "name": "G1 Mart Watermelon Seeds (పుచ్చకాయ గింజలు)",
+    "brand_id": "brand-g1mart",
+    "brand": "G1 Mart",
     "category_id": "dry-fruits-cereals",
     "category": "dry-fruits-cereals",
     "sub_category": "Cashews, Almonds & Dates",
     "subCategory": "Cashews, Almonds & Dates",
-    "image_url": "/products/verified/g1-p0898.webp",
+    "image_url": "/products/generated_pouches/g1_watermelon_seeds_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000889",
     "image_source": null,
     "image_license": null,
     "image_check_reason": "No passing packshot image",
     "imageStatus": "verified",
-    "imageUrl": "/products/verified/g1-p0898.webp",
-    "image": "/products/verified/g1-p0898.webp",
-    "category_name": "Dry Fruits & Nuts"
+    "imageUrl": "/products/generated_pouches/g1_watermelon_seeds_pouch.webp",
+    "image": "/products/generated_pouches/g1_watermelon_seeds_pouch.webp",
+    "category_name": "Dry Fruits & Nuts",
+    "is_active": true,
+    "isActive": true,
+    "status": "active"
   },
   {
     "id": "g1-p0909",
-    "name": "Gokilam Dates",
+    "name": "[INACTIVE DUPLICATE] Gokilam Dates",
     "brand_id": "b-063",
     "brand": "Local / Unbranded",
     "category_id": "dry-fruits-cereals",
@@ -1914,7 +1947,8 @@
     "image": "/products/generated_pouches/g1_dates_pouch.webp",
     "category_name": "Dry Fruits & Nuts",
     "is_active": false,
-    "isActive": false
+    "isActive": false,
+    "status": "inactive"
   },
   {
     "id": "g1-p0952",
@@ -1955,11 +1989,14 @@
     "imageUrl": "/products/generated_pouches/g1_makhana_pouch.webp",
     "image": "/products/generated_pouches/g1_makhana_pouch.webp",
     "category_name": "Dry Fruits & Nuts",
-    "unit": "250g"
+    "unit": "250g",
+    "is_active": true,
+    "isActive": true,
+    "status": "active"
   },
   {
     "id": "g1-p0984",
-    "name": "Almond Roasted",
+    "name": "[INACTIVE DUPLICATE] Almond Roasted",
     "brand_id": "b-063",
     "brand": "Local / Unbranded",
     "category_id": "dry-fruits-cereals",
@@ -1977,11 +2014,12 @@
     "image": "/products/generated_pouches/g1_almonds_pouch.webp",
     "category_name": "Dry Fruits & Nuts",
     "is_active": false,
-    "isActive": false
+    "isActive": false,
+    "status": "inactive"
   },
   {
     "id": "g1-p0985",
-    "name": "Pistachio",
+    "name": "[INACTIVE DUPLICATE] Pistachio",
     "brand_id": "b-063",
     "brand": "Local / Unbranded",
     "category_id": "dry-fruits-cereals",
@@ -1999,7 +2037,8 @@
     "image": "/products/generated_pouches/g1_pista_pouch.webp",
     "category_name": "Dry Fruits & Nuts",
     "is_active": false,
-    "isActive": false
+    "isActive": false,
+    "status": "inactive"
   },
   {
     "id": "g1-p0997",
@@ -2023,23 +2062,29 @@
   },
   {
     "id": "g1-p1000",
-    "name": "Oats",
-    "brand_id": "b-063",
-    "brand": "Local / Unbranded",
+    "name": "G1 Mart Rolled Oats (100% Wholegrain Cereals / రోల్డ్ ఓట్స్)",
+    "brand_id": "brand-g1mart",
+    "brand": "G1 Mart",
     "category_id": "dry-fruits-cereals",
     "category": "dry-fruits-cereals",
-    "sub_category": "Cashews, Almonds & Dates",
-    "subCategory": "Cashews, Almonds & Dates",
-    "image_url": "/products/verified/g1-p1000.webp",
+    "sub_category": "Oats & Cereals",
+    "subCategory": "Oats & Cereals",
+    "image_url": "/products/generated_pouches/g1_oats_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000977",
     "image_source": null,
     "image_license": null,
     "image_check_reason": "No passing packshot image",
     "imageStatus": "verified",
-    "imageUrl": "/products/verified/g1-p1000.webp",
-    "image": "/products/verified/g1-p1000.webp",
-    "category_name": "Dry Fruits & Nuts"
+    "imageUrl": "/products/generated_pouches/g1_oats_pouch.webp",
+    "image": "/products/generated_pouches/g1_oats_pouch.webp",
+    "category_name": "Dry Fruits & Nuts",
+    "is_active": true,
+    "isActive": true,
+    "inStock": true,
+    "status": "active",
+    "price": 99,
+    "mrp": 110
   },
   {
     "id": "g1-p1019",
@@ -23085,7 +23130,8 @@
     "image": "/products/packshots/happilo-almonds-200g.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "status": "active"
   },
   {
     "id": "g1-nut003",
@@ -23107,7 +23153,8 @@
     "image": "/products/packshots/happilo-cashews-200g.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "status": "active"
   },
   {
     "id": "g1-nut005",
@@ -23129,7 +23176,8 @@
     "image": "/products/packshots/happilo-pistachios-200g.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "status": "active"
   },
   {
     "id": "g1-nut006",
@@ -23151,7 +23199,8 @@
     "image": "/products/packshots/happilo-raisins-200g.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "status": "active"
   },
   {
     "id": "g1-nut007",
@@ -23173,7 +23222,8 @@
     "image": "/products/packshots/happilo-anjeer-200g.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "status": "active"
   },
   {
     "id": "g1-nut008",
@@ -23195,7 +23245,8 @@
     "image": "/products/packshots/happilo-walnuts-200g.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "status": "active"
   },
   {
     "id": "g1-nut009",
@@ -23217,7 +23268,8 @@
     "image": "/products/packshots/nutraj-almonds-250g.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "250 g",
-    "is_active": true
+    "is_active": true,
+    "status": "active"
   },
   {
     "id": "g1-nut010",
@@ -23239,7 +23291,8 @@
     "image": "/products/packshots/nutraj-cashews-250g.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "250 g",
-    "is_active": true
+    "is_active": true,
+    "status": "active"
   },
   {
     "id": "g1-nut011",
@@ -23261,7 +23314,8 @@
     "image": "/products/packshots/farmley-mixed-dry-fruits-200g.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "status": "active"
   },
   {
     "id": "g1-nut012",
@@ -23283,7 +23337,8 @@
     "image": "/products/packshots/lion-dates-200g.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "status": "active"
   },
   {
     "id": "g1-nut013",
@@ -23305,7 +23360,8 @@
     "image": "/products/packshots/lion-dates-500g.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "500 g",
-    "is_active": true
+    "is_active": true,
+    "status": "active"
   },
   {
     "id": "g1-nut014",
@@ -23327,7 +23383,8 @@
     "image": "/products/packshots/true-elements-chia-seeds-150g.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "150 g",
-    "is_active": true
+    "is_active": true,
+    "status": "active"
   },
   {
     "id": "g1-nut015",
@@ -23349,11 +23406,12 @@
     "image": "/products/packshots/true-elements-pumpkin-seeds-150g.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "150 g",
-    "is_active": true
+    "is_active": true,
+    "status": "active"
   },
   {
     "id": "g1-nut018",
-    "name": "G1 Mart Badam Pappu (California Almonds / బాదం పప్పు)",
+    "name": "[INACTIVE DUPLICATE] G1 Mart Badam Pappu (California Almonds / బాదం పప్పు)",
     "brand_id": "brand-g1mart",
     "brand": "G1 Mart",
     "category_id": "dry-fruits-cereals",
@@ -23371,13 +23429,14 @@
     "image": "/products/generated_pouches/g1_almonds_pouch.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "250g",
-    "is_active": true
+    "is_active": false,
+    "status": "inactive"
   },
   {
     "id": "g1-nut020",
     "name": "G1 Mart Kismis (Golden Sweet Raisins / కిస్మిస్)",
-    "brand_id": "brand-g1mart-loose",
-    "brand": "G1 Mart Loose Staples",
+    "brand_id": "brand-g1mart",
+    "brand": "G1 Mart",
     "category_id": "dry-fruits-cereals",
     "category": "dry-fruits-cereals",
     "sub_category": "Kismis & Raisins",
@@ -23393,12 +23452,14 @@
     "image": "/products/generated_pouches/g1_kismis_pouch.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "250 g",
-    "is_active": true
+    "is_active": true,
+    "isActive": true,
+    "status": "active"
   },
   {
     "id": "g1-nut021",
     "name": "G1 Mart Pista (Salted Pistachios / పిస్తా)",
-    "brand_id": "brand-g1mart-loose",
+    "brand_id": "brand-g1mart",
     "brand": "G1 Mart",
     "category_id": "dry-fruits-cereals",
     "category": "dry-fruits-cereals",
@@ -23415,11 +23476,13 @@
     "image": "/products/generated_pouches/g1_pista_pouch.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "250 g",
-    "is_active": true
+    "is_active": true,
+    "isActive": true,
+    "status": "active"
   },
   {
     "id": "g1-nut022",
-    "name": "G1 Mart Endu Kharjuram (Dry Hard Dates / ఎండు ఖర్జూరం)",
+    "name": "[INACTIVE DUPLICATE] G1 Mart Endu Kharjuram (Dry Hard Dates / ఎండు ఖర్జూరం)",
     "brand_id": "brand-g1mart-loose",
     "brand": "G1 Mart Loose Staples",
     "category_id": "dry-fruits-cereals",
@@ -23437,7 +23500,8 @@
     "image": "/products/generated_pouches/g1_dates_pouch.webp",
     "category_name": "dry-fruits-cereals",
     "unit": "500 g",
-    "is_active": true
+    "is_active": false,
+    "status": "inactive"
   },
   {
     "id": "g1-sau001",
@@ -25491,27 +25555,30 @@
   },
   {
     "id": "g1-lion-dates",
-    "name": "Lion Desert King Seedless Dates (లయన్ ఖర్జూరం)",
+    "name": "Lion Desert King Seedless Dates (లయన్ డిసర్ట్ కింగ్ ఖర్జూరం)",
     "brand_id": "brand-lion",
     "brand": "Lion",
     "category_id": "dry-fruits-cereals",
     "category": "dry-fruits-cereals",
-    "sub_category": "Dates & Dry Fruits",
-    "subCategory": "Dates & Dry Fruits",
-    "image_url": "/products/packshots/lion-dates-500g.webp",
-    "imageUrl": "/products/packshots/lion-dates-500g.webp",
-    "image": "/products/generated_pouches/g1_dates_pouch.webp",
+    "sub_category": "Dates (Kharjuram)",
+    "subCategory": "Dates (Kharjuram)",
+    "image_url": "/products/generated_pouches/g1_desert_king_dates_pouch.webp",
+    "imageUrl": "/products/generated_pouches/g1_desert_king_dates_pouch.webp",
+    "image": "/products/generated_pouches/g1_desert_king_dates_pouch.webp",
     "image_status": "verified",
     "imageStatus": "verified",
     "description": "100% natural, juicy, seedless black Arabian dates packed with iron, essential vitamins, and instant natural energy.",
     "inStock": true,
     "is_active": true,
     "isActive": true,
-    "is_verified": true
+    "is_verified": true,
+    "status": "active",
+    "price": 160,
+    "mrp": 175
   },
   {
     "id": "g1-kelloggs-corn-flakes",
-    "name": "Kellogg's Corn Flakes Original",
+    "name": "[INACTIVE DUPLICATE] Kellogg's Corn Flakes Original",
     "brand_id": "brand-kelloggs",
     "brand": "Kellogg's",
     "category_id": "dry-fruits-cereals",
@@ -25525,13 +25592,14 @@
     "imageStatus": "verified",
     "description": "Crispy sun-ripened golden corn flakes fortified with 8 essential vitamins and iron for a nutritious morning start.",
     "inStock": true,
-    "is_active": true,
+    "is_active": false,
     "isActive": true,
-    "is_verified": true
+    "is_verified": true,
+    "status": "inactive"
   },
   {
     "id": "g1-quaker-oats",
-    "name": "Quaker 100% Natural Wholegrain Rolled Oats",
+    "name": "[INACTIVE DUPLICATE] Quaker 100% Natural Wholegrain Rolled Oats",
     "brand_id": "brand-quaker",
     "brand": "Quaker",
     "category_id": "dry-fruits-cereals",
@@ -25545,9 +25613,10 @@
     "imageStatus": "verified",
     "description": "100% wholegrain rolled oats high in dietary fiber (beta-glucan), helping support healthy cholesterol and heart wellness.",
     "inStock": true,
-    "is_active": true,
+    "is_active": false,
     "isActive": true,
-    "is_verified": true
+    "is_verified": true,
+    "status": "inactive"
   },
   {
     "id": "g1-arokya-toned-milk",
