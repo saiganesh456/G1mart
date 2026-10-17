@@ -130,11 +130,11 @@ export default function Header() {
 
           {/* Row 1: logo (28px high) + profile avatar + cart button */}
           <div className="relative z-40 flex items-center justify-between px-4 pt-3 pb-1">
-            <Link href="/" aria-label="G1 Mart home">
+            <Link href="/" aria-label="G1mart home">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/assets/images/g1_mart_banner_transparent.png"
-                alt="G1 Mart"
+                alt="G1mart"
                 style={{ height: 28, width: 'auto', maxWidth: 130, objectFit: 'contain' }}
                 onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/logo.png'; }}
               />
@@ -246,11 +246,11 @@ export default function Header() {
         style={{ borderColor: 'var(--g1-border)' }}>
         <div className="max-w-7xl mx-auto px-6 py-2.5 flex items-center gap-4">
           {/* Logo */}
-          <Link href="/" aria-label="G1 Mart home" className="shrink-0">
+          <Link href="/" aria-label="G1mart home" className="shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/assets/images/g1_mart_banner_transparent.png"
-              alt="G1 Mart"
+              alt="G1mart"
               style={{ height: 36, width: 'auto', maxWidth: 160, objectFit: 'contain' }}
               onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/logo.png'; }}
             />

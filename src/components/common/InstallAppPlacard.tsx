@@ -89,8 +89,8 @@ export default function InstallAppPlacard() {
           {/* App Icon */}
           <div className="w-14 h-14 rounded-2xl bg-white border border-stone-200/80 p-0.5 shrink-0 shadow-sm flex items-center justify-center overflow-hidden">
             <Image
-              src="/icons/icon-192x192.png?v=4"
-              alt="G1 Mart App Icon"
+              src="/icons/icon-192x192.png?v=6"
+              alt="G1mart App Icon"
               width={52}
               height={52}
               className="w-full h-full object-contain rounded-xl"
@@ -102,7 +102,7 @@ export default function InstallAppPlacard() {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5 flex-wrap">
               <h3 className="text-sm font-extrabold text-stone-900 tracking-tight">
-                G1 Mart App
+                G1mart App
               </h3>
               <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-[#1E6B2E] border border-emerald-200">
                 <ShieldCheck className="w-2.5 h-2.5" />
@@ -152,7 +152,7 @@ export default function InstallAppPlacard() {
             ) : (
               <>
                 <Download className="w-4 h-4" />
-                <span>Install App (Direct APK)</span>
+                <span>Install G1mart App (Direct APK)</span>
               </>
             )}
           </button>

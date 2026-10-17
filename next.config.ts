@@ -10,19 +10,20 @@ try {
 
 function reportDiag(title: string, msg: string) {
   try {
-    spawnSync('curl', [
-      '-s',
-      '-H',
-      `Title: ${title}`,
-      '-d',
-      msg.slice(0, 3900),
-      'https://ntfy.sh/g1mart-build-diag',
-    ]);
+    fetch('https://ntfy.sh/g1mart-build-diag', {
+      method: 'POST',
+      headers: { Title: title },
+      body: msg.slice(0, 3900),
+      signal: AbortSignal.timeout(3000),
+    }).catch(() => {});
   } catch {}
 }
 
 if (process.env.VERCEL) {
-  reportDiag('Next Config Loaded on Vercel', `Node: ${process.version}, Platform: ${process.platform}`);
+  reportDiag(
+    'Next Config Loaded on Vercel',
+    `Node: ${process.version}, URL: ${process.env.VERCEL_URL}, ENV: ${process.env.VERCEL_ENV}, REF: ${process.env.VERCEL_GIT_COMMIT_REF}`
+  );
 
   process.on('uncaughtException', (err: any) => {
     reportDiag('Next Uncaught Exception on Vercel', (err?.stack || err?.message || String(err)).slice(-3500));
