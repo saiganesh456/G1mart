@@ -111,7 +111,10 @@ export default function ProductDetailPage({ params }: Props) {
 
   useEffect(() => {
     if (product) {
-      const firstInStockVariant = product.variants?.find((v) => v.stock > 0);
+      const firstInStockVariant = product.variants?.find((v) => {
+        if (v.stock !== undefined && v.stock !== null) return v.stock > 0;
+        return (v as any).in_stock !== false;
+      });
       setSelectedVariantId(firstInStockVariant?.id || product.variants?.[0]?.id || product.id);
     }
   }, [product]);
@@ -231,7 +234,7 @@ export default function ProductDetailPage({ params }: Props) {
       >
         <div className="w-56 h-56 sm:w-64 sm:h-64 flex items-center justify-center">
           <ProductImage
-            imageUrl={(activeVariant as any)?.variant?.image_url || effectiveProduct.image_url || (effectiveProduct as any).imageUrl}
+            imageUrl={(activeVariant as any)?.variant?.image || (activeVariant as any)?.variant?.image_url || (activeVariant as any)?.variant?.imageUrl || effectiveProduct.image_url || (effectiveProduct as any).imageUrl || (effectiveProduct as any).image}
             imageStatus={effectiveProduct.image_status || (effectiveProduct as any).imageStatus}
             alt={effectiveProduct.name}
             name={effectiveProduct.name}

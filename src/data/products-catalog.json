@@ -63,7 +63,8 @@
       }
     ],
     "originalPrice": 65,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unitLabel": "1 kg"
   },
   {
     "id": "g1-p0457",
@@ -110,7 +111,9 @@
       }
     ],
     "originalPrice": 42,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p0219",
@@ -175,7 +178,9 @@
       }
     ],
     "originalPrice": 62,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "1 kg",
+    "unitLabel": "1 kg"
   },
   {
     "id": "g1-p0411",
@@ -222,7 +227,9 @@
       }
     ],
     "originalPrice": 125,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "1 kg",
+    "unitLabel": "1 kg"
   },
   {
     "id": "g1-p0417",
@@ -269,7 +276,9 @@
       }
     ],
     "originalPrice": 35,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p0728",
@@ -316,7 +325,9 @@
       }
     ],
     "originalPrice": 48,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p0063",
@@ -363,7 +374,9 @@
       }
     ],
     "originalPrice": 28,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p0198",
@@ -410,7 +423,9 @@
       }
     ],
     "originalPrice": 50,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "1 kg",
+    "unitLabel": "1 kg"
   },
   {
     "id": "g1-p1030",
@@ -457,7 +472,9 @@
       }
     ],
     "originalPrice": 28,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p0197",
@@ -504,7 +521,9 @@
       }
     ],
     "originalPrice": 32,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p0704",
@@ -551,7 +570,9 @@
       }
     ],
     "originalPrice": 38,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p1028",
@@ -598,7 +619,9 @@
       }
     ],
     "originalPrice": 62,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p1140",
@@ -645,7 +668,9 @@
       }
     ],
     "originalPrice": 22,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-p0196",
@@ -692,7 +717,9 @@
       }
     ],
     "originalPrice": 32,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p0427",
@@ -739,7 +766,9 @@
       }
     ],
     "originalPrice": 32,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p0428",
@@ -761,8 +790,8 @@
     "category_name": "Rice, Atta & Flours",
     "imageStatus": "verified",
     "is_active": true,
-    "price": 1495,
-    "mrp": 1495,
+    "price": 36,
+    "mrp": 36,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -785,10 +814,11 @@
         "image": "/products/packshots/lalitha-idli-rava.jpg"
       }
     ],
-    "originalPrice": 1495,
+    "originalPrice": 36,
     "discountPercentage": 0,
-    "unit": "25 kg Bag",
-    "inStock": true
+    "unit": "500 g",
+    "inStock": true,
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p1581",
@@ -854,7 +884,8 @@
       }
     ],
     "originalPrice": 60,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unitLabel": "1 kg"
   },
   {
     "id": "g1-p1585",
@@ -875,7 +906,7 @@
     "imageUrl": "/products/packshots/nature-fresh-atta-5kg.jpg",
     "image": "/products/packshots/nature-fresh-atta-5kg.jpg",
     "category_name": "Cooking Oils & Ghee",
-    "unit": "5 kg",
+    "unit": "1 kg",
     "is_active": true,
     "price": 58,
     "mrp": 58,
@@ -911,7 +942,8 @@
       }
     ],
     "originalPrice": 58,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unitLabel": "1 kg"
   },
   {
     "id": "g1-p1586",
@@ -968,7 +1000,9 @@
       }
     ],
     "originalPrice": 56,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "1 kg",
+    "unitLabel": "1 kg"
   },
   {
     "id": "g1-p1590",
@@ -1024,7 +1058,9 @@
       }
     ],
     "originalPrice": 50,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "1 kg",
+    "unitLabel": "1 kg"
   },
   {
     "id": "g1-p0080",
@@ -1071,7 +1107,9 @@
       }
     ],
     "originalPrice": 50,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p0203",
@@ -1118,7 +1156,9 @@
       }
     ],
     "originalPrice": 40,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p0407",
@@ -1165,7 +1205,9 @@
       }
     ],
     "originalPrice": 40,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p0409",
@@ -1212,7 +1254,9 @@
       }
     ],
     "originalPrice": 35,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p0406",
@@ -1234,8 +1278,8 @@
     "image": "/products/generated_pouches/g1_chana_dal_pouch.webp",
     "category_name": "Rice, Atta & Flours",
     "is_active": true,
-    "price": 105,
-    "mrp": 105,
+    "price": 55,
+    "mrp": 55,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -1260,10 +1304,11 @@
         "image": "/products/generated_pouches/g1_chana_dal_pouch.webp"
       }
     ],
-    "originalPrice": 105,
+    "originalPrice": 55,
     "discountPercentage": 0,
     "image_path": "/products/generated_pouches/g1_chana_dal_pouch.webp",
-    "unit": "1 KG"
+    "unit": "500g",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-p1613",
@@ -1310,7 +1355,9 @@
       }
     ],
     "originalPrice": 48,
-    "discountPercentage": 0
+    "discountPercentage": 0,
+    "unit": "400 g",
+    "unitLabel": "400 g"
   },
   {
     "id": "g1-p0003",
@@ -1377,7 +1424,7 @@
       {
         "id": "g1-p0014-v1",
         "name": " g",
-        "unit": " g",
+        "unit": "₹22 Pack",
         "price": 22,
         "mrp": 22,
         "in_stock": true,
@@ -1386,7 +1433,7 @@
       {
         "id": "g1-p0014-v2",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -1395,7 +1442,7 @@
       {
         "id": "g1-p0014-v3",
         "name": " g",
-        "unit": " g",
+        "unit": "₹162 Pack",
         "price": 162,
         "mrp": 162,
         "in_stock": true,
@@ -1404,7 +1451,9 @@
     ],
     "originalPrice": 22,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹22 Pack",
+    "unitLabel": "₹22 Pack"
   },
   {
     "id": "g1-p0019",
@@ -1652,20 +1701,11 @@
     "imageUrl": "/products/verified/g1-p0066.webp",
     "image": "/products/verified/g1-p0066.webp",
     "category_name": "Spices & Masalas",
-    "price": 50,
-    "mrp": 50,
+    "price": 11,
+    "mrp": 11,
     "discount": 0,
     "in_stock": true,
     "variants": [
-      {
-        "id": "g1-p0066-v1",
-        "name": " g",
-        "unit": " g",
-        "price": 50,
-        "mrp": 50,
-        "in_stock": true,
-        "image": "/products/verified/g1-p0066.webp"
-      },
       {
         "id": "g1-p0067-v1",
         "name": "1 unit",
@@ -1674,11 +1714,22 @@
         "mrp": 11,
         "in_stock": true,
         "image": "/products/verified/g1-p0066.webp"
+      },
+      {
+        "id": "g1-p0066-v1",
+        "name": " g",
+        "unit": "₹50 Pack",
+        "price": 50,
+        "mrp": 50,
+        "in_stock": true,
+        "image": "/products/verified/g1-p0066.webp"
       }
     ],
-    "originalPrice": 50,
+    "originalPrice": 11,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "1 unit",
+    "unitLabel": "1 unit"
   },
   {
     "id": "g1-p0069",
@@ -1889,20 +1940,11 @@
     "imageUrl": "/products/verified/g1-p0074.webp",
     "image": "/products/verified/g1-p0074.webp",
     "category_name": "Spices & Masalas",
-    "price": 50,
-    "mrp": 50,
+    "price": 6,
+    "mrp": 6,
     "discount": 0,
     "in_stock": true,
     "variants": [
-      {
-        "id": "g1-p0074-v1",
-        "name": " g",
-        "unit": " g",
-        "price": 50,
-        "mrp": 50,
-        "in_stock": true,
-        "image": "/products/verified/g1-p0074.webp"
-      },
       {
         "id": "g1-p0074-v2",
         "name": "1 unit",
@@ -1911,11 +1953,22 @@
         "mrp": 6,
         "in_stock": true,
         "image": "/products/verified/g1-p0074.webp"
+      },
+      {
+        "id": "g1-p0074-v1",
+        "name": " g",
+        "unit": "₹50 Pack",
+        "price": 50,
+        "mrp": 50,
+        "in_stock": true,
+        "image": "/products/verified/g1-p0074.webp"
       }
     ],
-    "originalPrice": 50,
+    "originalPrice": 6,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "1 unit",
+    "unitLabel": "1 unit"
   },
   {
     "id": "g1-p0075",
@@ -2020,7 +2073,7 @@
       {
         "id": "g1-p0077-v1",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -2029,7 +2082,7 @@
       {
         "id": "g1-p0077-v2",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -2038,7 +2091,7 @@
       {
         "id": "g1-p0077-v3",
         "name": " kg",
-        "unit": " kg",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -2047,7 +2100,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹50 Pack",
+    "unitLabel": "₹50 Pack"
   },
   {
     "id": "g1-p0081",
@@ -2069,8 +2124,8 @@
     "imageUrl": "/products/generated_pouches/g1_urad_dal_pouch.webp",
     "image": "/products/generated_pouches/g1_urad_dal_pouch.webp",
     "category_name": "Dals & Pulses",
-    "price": 140,
-    "mrp": 140,
+    "price": 72,
+    "mrp": 72,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -2095,11 +2150,12 @@
         "image": "/products/generated_pouches/g1_urad_dal_pouch.webp"
       }
     ],
-    "originalPrice": 140,
+    "originalPrice": 72,
     "discountPercentage": 0,
     "is_active": true,
     "image_path": "/products/generated_pouches/g1_urad_dal_pouch.webp",
-    "unit": "1 KG"
+    "unit": "500g",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-p0082",
@@ -2166,7 +2222,7 @@
       {
         "id": "g1-p0088-v1",
         "name": " kg",
-        "unit": " kg",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -2175,7 +2231,7 @@
       {
         "id": "g1-p1005-v1",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -2184,7 +2240,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹50 Pack",
+    "unitLabel": "₹50 Pack"
   },
   {
     "id": "g1-p0096",
@@ -2383,7 +2441,9 @@
     ],
     "originalPrice": 120,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "1 L",
+    "unitLabel": "1 L"
   },
   {
     "id": "g1-p0184",
@@ -2412,7 +2472,7 @@
       {
         "id": "g1-p0184-v1",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -2421,7 +2481,7 @@
       {
         "id": "g1-p0184-v2",
         "name": " g",
-        "unit": " g",
+        "unit": "₹67 Pack",
         "price": 67,
         "mrp": 67,
         "in_stock": true,
@@ -2430,7 +2490,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹50 Pack",
+    "unitLabel": "₹50 Pack"
   },
   {
     "id": "g1-p0185",
@@ -2649,7 +2711,7 @@
       {
         "id": "g1-p0236-v1",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -2658,13 +2720,16 @@
       {
         "id": "g1-p0236-v2",
         "name": " kg",
-        "unit": " kg",
+        "unit": "₹73 Pack",
         "price": 73,
         "mrp": 73,
         "in_stock": true,
         "image": "/products/verified/g1-p0236.webp"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "₹50 Pack",
+    "unitLabel": "₹50 Pack"
   },
   {
     "id": "g1-p0238",
@@ -2725,7 +2790,8 @@
     "discountPercentage": 0,
     "is_active": true,
     "image_path": "/products/generated_pouches/g1_cashews_pouch.webp",
-    "unit": "250g"
+    "unit": "250g",
+    "unitLabel": "250g"
   },
   {
     "id": "g1-p0279",
@@ -2754,7 +2820,7 @@
       {
         "id": "g1-p0279-v1",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -2772,7 +2838,7 @@
       {
         "id": "g1-p0279-v3",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -2781,7 +2847,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹50 Pack",
+    "unitLabel": "₹50 Pack"
   },
   {
     "id": "g1-p0280",
@@ -2995,7 +3063,8 @@
     "discountPercentage": 0,
     "is_active": true,
     "image_path": "/products/generated_pouches/g1_almonds_pouch.webp",
-    "unit": "250g"
+    "unit": "250g",
+    "unitLabel": "250g"
   },
   {
     "id": "g1-p0309",
@@ -3051,8 +3120,8 @@
     "image_license": null,
     "image_check_reason": "Passes revised quality gate (front-facing single pack, transparent 800x800)",
     "category_name": "Sauces & Spreads",
-    "price": 85,
-    "mrp": 85,
+    "price": 5,
+    "mrp": 5,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -3084,13 +3153,14 @@
         "image": "/products/packshots/kissan-fresh-tomato-ketchup-1kg.webp"
       }
     ],
-    "originalPrice": 50,
+    "originalPrice": 5,
     "discountPercentage": 0,
     "is_active": true,
     "image": "/products/packshots/kissan-fresh-tomato-ketchup-500g.webp",
     "imageUrl": "/products/packshots/kissan-fresh-tomato-ketchup-500g.webp",
     "image_path": "/products/packshots/kissan-fresh-tomato-ketchup-500g.webp",
-    "unit": "500 g"
+    "unit": "45 g",
+    "unitLabel": "45 g"
   },
   {
     "id": "g1-p0327",
@@ -3111,8 +3181,8 @@
     "imageUrl": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
     "image": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
     "category_name": "Dals & Pulses",
-    "price": 165,
-    "mrp": 165,
+    "price": 85,
+    "mrp": 85,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -3137,11 +3207,12 @@
         "image": "/products/generated_pouches/g1_kandi_pappu_pouch.webp"
       }
     ],
-    "originalPrice": 165,
+    "originalPrice": 85,
     "discountPercentage": 0,
     "is_active": true,
     "image_path": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
-    "unit": "1 KG"
+    "unit": "500g",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-p0333",
@@ -3162,8 +3233,8 @@
     "imageUrl": "/products/generated_pouches/g1_jeera_pouch.webp",
     "image": "/products/generated_pouches/g1_jeera_pouch.webp",
     "category_name": "Spices & Masalas",
-    "price": 95,
-    "mrp": 95,
+    "price": 40,
+    "mrp": 40,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -3198,11 +3269,12 @@
         "image": "/products/generated_pouches/g1_jeera_pouch.webp"
       }
     ],
-    "originalPrice": 95,
+    "originalPrice": 40,
     "discountPercentage": 0,
     "is_active": true,
     "image_path": "/products/generated_pouches/g1_jeera_pouch.webp",
-    "unit": "250g"
+    "unit": "100g",
+    "unitLabel": "100g"
   },
   {
     "id": "g1-p0336",
@@ -3527,8 +3599,8 @@
     "imageUrl": "/products/generated_pouches/g1_sugar_pouch.webp",
     "image": "/products/generated_pouches/g1_sugar_pouch.webp",
     "category_name": "Salt, Sugar & Jaggery",
-    "price": 48,
-    "mrp": 48,
+    "price": 25,
+    "mrp": 25,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -3553,11 +3625,12 @@
         "image": "/products/generated_pouches/g1_sugar_pouch.webp"
       }
     ],
-    "originalPrice": 48,
+    "originalPrice": 25,
     "discountPercentage": 0,
     "is_active": true,
     "image_path": "/products/generated_pouches/g1_sugar_pouch.webp",
-    "unit": "1 KG"
+    "unit": "500g",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-p0388",
@@ -3578,8 +3651,8 @@
     "imageUrl": "/products/generated_pouches/g1_chana_dal_pouch.webp",
     "image": "/products/generated_pouches/g1_chana_dal_pouch.webp",
     "category_name": "Dals & Pulses",
-    "price": 105,
-    "mrp": 105,
+    "price": 55,
+    "mrp": 55,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -3604,11 +3677,12 @@
         "image": "/products/generated_pouches/g1_chana_dal_pouch.webp"
       }
     ],
-    "originalPrice": 105,
+    "originalPrice": 55,
     "discountPercentage": 0,
     "is_active": true,
     "image_path": "/products/generated_pouches/g1_chana_dal_pouch.webp",
-    "unit": "1 KG"
+    "unit": "500g",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-p0391",
@@ -3631,8 +3705,8 @@
     "category_name": "Dals & Pulses",
     "is_active": true,
     "isActive": false,
-    "price": 75,
-    "mrp": 75,
+    "price": 85,
+    "mrp": 85,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -3673,8 +3747,10 @@
         "image": "/products/generated_pouches/g1_urad_dal_pouch.webp"
       }
     ],
-    "originalPrice": 75,
-    "discountPercentage": 0
+    "originalPrice": 85,
+    "discountPercentage": 0,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p0393",
@@ -3739,7 +3815,9 @@
     ],
     "originalPrice": 85,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p0394",
@@ -3777,7 +3855,7 @@
       {
         "id": "g1-p0394-v2",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -3786,7 +3864,9 @@
     ],
     "originalPrice": 252,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "1 unit",
+    "unitLabel": "1 unit"
   },
   {
     "id": "g1-p0396",
@@ -3807,42 +3887,44 @@
     "imageUrl": "/products/generated_pouches/g1_jeera_pouch.webp",
     "image": "/products/generated_pouches/g1_jeera_pouch.webp",
     "category_name": "Spices & Masalas",
-    "price": 81,
-    "mrp": 81,
+    "price": 34,
+    "mrp": 34,
     "discount": 0,
     "in_stock": true,
     "variants": [
       {
-        "id": "g1-p0396-v1",
+        "id": "g1-p0396-v3",
         "name": " g",
-        "unit": " g",
-        "price": 81,
-        "mrp": 81,
+        "unit": "₹34 Pack",
+        "price": 34,
+        "mrp": 34,
         "in_stock": true,
         "image": "/products/generated_pouches/g1_jeera_pouch.webp"
       },
       {
         "id": "g1-p0396-v2",
         "name": " g",
-        "unit": " g",
+        "unit": "₹63 Pack",
         "price": 63,
         "mrp": 63,
         "in_stock": true,
         "image": "/products/generated_pouches/g1_jeera_pouch.webp"
       },
       {
-        "id": "g1-p0396-v3",
+        "id": "g1-p0396-v1",
         "name": " g",
-        "unit": " g",
-        "price": 34,
-        "mrp": 34,
+        "unit": "₹81 Pack",
+        "price": 81,
+        "mrp": 81,
         "in_stock": true,
         "image": "/products/generated_pouches/g1_jeera_pouch.webp"
       }
     ],
-    "originalPrice": 81,
+    "originalPrice": 34,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹34 Pack",
+    "unitLabel": "₹34 Pack"
   },
   {
     "id": "g1-p0402",
@@ -3863,8 +3945,8 @@
     "imageUrl": "/products/generated_pouches/g1_bellam_pouch.webp",
     "image": "/products/generated_pouches/g1_bellam_pouch.webp",
     "category_name": "Salt, Sugar & Jaggery",
-    "price": 85,
-    "mrp": 85,
+    "price": 45,
+    "mrp": 45,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -3889,11 +3971,12 @@
         "image": "/products/generated_pouches/g1_bellam_pouch.webp"
       }
     ],
-    "originalPrice": 85,
+    "originalPrice": 45,
     "discountPercentage": 0,
     "is_active": true,
     "image_path": "/products/generated_pouches/g1_bellam_pouch.webp",
-    "unit": "1 KG"
+    "unit": "500g",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-p0405",
@@ -3990,8 +4073,8 @@
     "imageUrl": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
     "image": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
     "category_name": "Dals & Pulses",
-    "price": 65,
-    "mrp": 65,
+    "price": 75,
+    "mrp": 75,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -4032,9 +4115,11 @@
         "image": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp"
       }
     ],
-    "originalPrice": 65,
+    "originalPrice": 75,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p0413",
@@ -4171,7 +4256,8 @@
     "discountPercentage": 0,
     "is_active": true,
     "image_path": "/products/generated_pouches/g1_cashews_pouch.webp",
-    "unit": "250g"
+    "unit": "250g",
+    "unitLabel": "250g"
   },
   {
     "id": "g1-p0423",
@@ -4230,8 +4316,8 @@
     "imageUrl": "/products/generated_pouches/g1_avalu_pouch.webp",
     "image": "/products/generated_pouches/g1_avalu_pouch.webp",
     "category_name": "Spices & Masalas",
-    "price": 45,
-    "mrp": 45,
+    "price": 20,
+    "mrp": 20,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -4266,11 +4352,12 @@
         "image": "/products/generated_pouches/g1_avalu_pouch.webp"
       }
     ],
-    "originalPrice": 45,
+    "originalPrice": 20,
     "discountPercentage": 0,
     "is_active": true,
     "image_path": "/products/generated_pouches/g1_avalu_pouch.webp",
-    "unit": "250g"
+    "unit": "100g",
+    "unitLabel": "100g"
   },
   {
     "id": "g1-p0440",
@@ -4367,42 +4454,44 @@
     "imageUrl": "/products/generated_pouches/g1_telagapindi_pouch.webp",
     "image": "/products/generated_pouches/g1_telagapindi_pouch.webp",
     "category_name": "Dals & Pulses",
-    "price": 50,
-    "mrp": 50,
+    "price": 13,
+    "mrp": 13,
     "discount": 0,
     "in_stock": true,
     "variants": [
       {
-        "id": "g1-p0460-v1",
+        "id": "g1-p0460-v3",
         "name": " g",
-        "unit": " g",
-        "price": 90,
-        "mrp": 90,
+        "unit": "₹13 Pack",
+        "price": 13,
+        "mrp": 13,
         "in_stock": true,
         "image": "/products/generated_pouches/g1_telagapindi_pouch.webp"
       },
       {
         "id": "g1-p0460-v2",
         "name": " g",
-        "unit": " g",
+        "unit": "₹45 Pack",
         "price": 45,
         "mrp": 45,
         "in_stock": true,
         "image": "/products/generated_pouches/g1_telagapindi_pouch.webp"
       },
       {
-        "id": "g1-p0460-v3",
+        "id": "g1-p0460-v1",
         "name": " g",
-        "unit": " g",
-        "price": 13,
-        "mrp": 13,
+        "unit": "₹90 Pack",
+        "price": 90,
+        "mrp": 90,
         "in_stock": true,
         "image": "/products/generated_pouches/g1_telagapindi_pouch.webp"
       }
     ],
-    "originalPrice": 50,
+    "originalPrice": 13,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹13 Pack",
+    "unitLabel": "₹13 Pack"
   },
   {
     "id": "g1-p0466",
@@ -4431,7 +4520,7 @@
       {
         "id": "g1-p0466-v1",
         "name": " g",
-        "unit": " g",
+        "unit": "₹22 Pack",
         "price": 22,
         "mrp": 22,
         "in_stock": true,
@@ -4440,7 +4529,7 @@
       {
         "id": "g1-p0466-v2",
         "name": " g",
-        "unit": " g",
+        "unit": "₹22 Pack",
         "price": 22,
         "mrp": 22,
         "in_stock": true,
@@ -4449,7 +4538,9 @@
     ],
     "originalPrice": 22,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹22 Pack",
+    "unitLabel": "₹22 Pack"
   },
   {
     "id": "g1-p0480",
@@ -4852,33 +4943,15 @@
     "imageUrl": "/products/generated_pouches/g1_almonds_pouch.webp",
     "image": "/products/generated_pouches/g1_almonds_pouch.webp",
     "category_name": "Dry Fruits & Nuts",
-    "price": 314,
-    "mrp": 314,
+    "price": 50,
+    "mrp": 50,
     "discount": 0,
     "in_stock": true,
     "variants": [
       {
-        "id": "g1-p0583-v1",
-        "name": " g",
-        "unit": " g",
-        "price": 314,
-        "mrp": 314,
-        "in_stock": true,
-        "image": "/products/generated_pouches/g1_almonds_pouch.webp"
-      },
-      {
-        "id": "g1-p0583-v2",
-        "name": " g",
-        "unit": " g",
-        "price": 73,
-        "mrp": 73,
-        "in_stock": true,
-        "image": "/products/generated_pouches/g1_almonds_pouch.webp"
-      },
-      {
         "id": "g1-p0583-v3",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -4887,16 +4960,36 @@
       {
         "id": "g1-p0583-v4",
         "name": " kg",
-        "unit": " kg",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
         "image": "/products/generated_pouches/g1_almonds_pouch.webp"
+      },
+      {
+        "id": "g1-p0583-v2",
+        "name": " g",
+        "unit": "₹73 Pack",
+        "price": 73,
+        "mrp": 73,
+        "in_stock": true,
+        "image": "/products/generated_pouches/g1_almonds_pouch.webp"
+      },
+      {
+        "id": "g1-p0583-v1",
+        "name": " g",
+        "unit": "₹314 Pack",
+        "price": 314,
+        "mrp": 314,
+        "in_stock": true,
+        "image": "/products/generated_pouches/g1_almonds_pouch.webp"
       }
     ],
-    "originalPrice": 314,
+    "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹50 Pack",
+    "unitLabel": "₹50 Pack"
   },
   {
     "id": "g1-p0587",
@@ -4955,8 +5048,8 @@
     "imageUrl": "/products/generated_pouches/g1_avalu_pouch.webp",
     "image": "/products/generated_pouches/g1_avalu_pouch.webp",
     "category_name": "Spices & Masalas",
-    "price": 45,
-    "mrp": 45,
+    "price": 20,
+    "mrp": 20,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -4991,11 +5084,12 @@
         "image": "/products/generated_pouches/g1_avalu_pouch.webp"
       }
     ],
-    "originalPrice": 45,
+    "originalPrice": 20,
     "discountPercentage": 0,
     "is_active": true,
     "image_path": "/products/generated_pouches/g1_avalu_pouch.webp",
-    "unit": "250g"
+    "unit": "100g",
+    "unitLabel": "100g"
   },
   {
     "id": "g1-p0593",
@@ -5211,7 +5305,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "50 ml",
+    "unitLabel": "50 ml"
   },
   {
     "id": "g1-p0641",
@@ -5507,7 +5603,7 @@
       {
         "id": "g1-p0651-v1",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -5516,7 +5612,7 @@
       {
         "id": "g1-p0651-v2",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -5525,7 +5621,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹50 Pack",
+    "unitLabel": "₹50 Pack"
   },
   {
     "id": "g1-p0653",
@@ -5668,7 +5766,7 @@
       {
         "id": "g1-p0657-v1",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -5677,7 +5775,7 @@
       {
         "id": "g1-p0657-v2",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -5686,7 +5784,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹50 Pack",
+    "unitLabel": "₹50 Pack"
   },
   {
     "id": "g1-p0658",
@@ -5715,7 +5815,7 @@
       {
         "id": "g1-p0658-v1",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -5724,7 +5824,7 @@
       {
         "id": "g1-p0658-v2",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -5733,7 +5833,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹50 Pack",
+    "unitLabel": "₹50 Pack"
   },
   {
     "id": "g1-p0661",
@@ -6363,33 +6465,35 @@
     "imageUrl": "/products/verified/g1-p0741.webp",
     "image": "/products/verified/g1-p0741.webp",
     "category_name": "Spices & Masalas",
-    "price": 50,
-    "mrp": 50,
+    "price": 20,
+    "mrp": 20,
     "discount": 0,
     "in_stock": true,
     "variants": [
       {
-        "id": "g1-p0741-v1",
-        "name": " g",
-        "unit": " g",
-        "price": 50,
-        "mrp": 50,
-        "in_stock": true,
-        "image": "/products/verified/g1-p0741.webp"
-      },
-      {
         "id": "g1-p0741-v2",
         "name": " g",
-        "unit": " g",
+        "unit": "₹20 Pack",
         "price": 20,
         "mrp": 20,
         "in_stock": true,
         "image": "/products/verified/g1-p0741.webp"
+      },
+      {
+        "id": "g1-p0741-v1",
+        "name": " g",
+        "unit": "₹50 Pack",
+        "price": 50,
+        "mrp": 50,
+        "in_stock": true,
+        "image": "/products/verified/g1-p0741.webp"
       }
     ],
-    "originalPrice": 50,
+    "originalPrice": 20,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹20 Pack",
+    "unitLabel": "₹20 Pack"
   },
   {
     "id": "g1-p0742",
@@ -6735,7 +6839,9 @@
     ],
     "originalPrice": 150,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "1 L",
+    "unitLabel": "1 L"
   },
   {
     "id": "g1-p0795",
@@ -7012,7 +7118,9 @@
     ],
     "originalPrice": 190,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "1 L",
+    "unitLabel": "1 L"
   },
   {
     "id": "g1-p0879",
@@ -7033,42 +7141,44 @@
     "imageUrl": "/products/verified/g1-p0879.webp",
     "image": "/products/verified/g1-p0879.webp",
     "category_name": "Spices & Masalas",
-    "price": 39,
-    "mrp": 39,
+    "price": 13,
+    "mrp": 13,
     "discount": 0,
     "in_stock": true,
     "variants": [
       {
-        "id": "g1-p0879-v1",
+        "id": "g1-p0879-v3",
         "name": " g",
-        "unit": " g",
-        "price": 39,
-        "mrp": 39,
+        "unit": "₹13 Pack",
+        "price": 13,
+        "mrp": 13,
         "in_stock": true,
         "image": "/products/verified/g1-p0879.webp"
       },
       {
         "id": "g1-p0879-v2",
         "name": " g",
-        "unit": " g",
+        "unit": "₹22 Pack",
         "price": 22,
         "mrp": 22,
         "in_stock": true,
         "image": "/products/verified/g1-p0879.webp"
       },
       {
-        "id": "g1-p0879-v3",
+        "id": "g1-p0879-v1",
         "name": " g",
-        "unit": " g",
-        "price": 13,
-        "mrp": 13,
+        "unit": "₹39 Pack",
+        "price": 39,
+        "mrp": 39,
         "in_stock": true,
         "image": "/products/verified/g1-p0879.webp"
       }
     ],
-    "originalPrice": 39,
+    "originalPrice": 13,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹13 Pack",
+    "unitLabel": "₹13 Pack"
   },
   {
     "id": "g1-p0893",
@@ -7157,7 +7267,8 @@
     "discountPercentage": 0,
     "is_active": true,
     "image_path": "/products/generated_pouches/g1_sunflower_seeds_pouch.webp",
-    "unit": "250g"
+    "unit": "250g",
+    "unitLabel": "250g"
   },
   {
     "id": "g1-p0895",
@@ -7338,25 +7449,16 @@
       {
         "id": "g1-p0951-v1",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
         "image": "/products/generated_pouches/g1_chilli_powder_pouch.webp"
       },
       {
-        "id": "g1-p0951-v2",
-        "name": " g",
-        "unit": " g",
-        "price": 62,
-        "mrp": 62,
-        "in_stock": true,
-        "image": "/products/generated_pouches/g1_chilli_powder_pouch.webp"
-      },
-      {
         "id": "g1-p0951-v3",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -7365,16 +7467,27 @@
       {
         "id": "g1-p0951-v4",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
+        "in_stock": true,
+        "image": "/products/generated_pouches/g1_chilli_powder_pouch.webp"
+      },
+      {
+        "id": "g1-p0951-v2",
+        "name": " g",
+        "unit": "₹62 Pack",
+        "price": 62,
+        "mrp": 62,
         "in_stock": true,
         "image": "/products/generated_pouches/g1_chilli_powder_pouch.webp"
       }
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹50 Pack",
+    "unitLabel": "₹50 Pack"
   },
   {
     "id": "g1-p0952",
@@ -7439,7 +7552,9 @@
     ],
     "originalPrice": 75,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-p0976",
@@ -7528,7 +7643,8 @@
     "discountPercentage": 0,
     "is_active": true,
     "image_path": "/products/generated_pouches/g1_makhana_pouch.webp",
-    "unit": "250g"
+    "unit": "250g",
+    "unitLabel": "250g"
   },
   {
     "id": "g1-p0984",
@@ -7633,7 +7749,7 @@
       {
         "id": "g1-p0990-v1",
         "name": " g",
-        "unit": " g",
+        "unit": "₹17 Pack",
         "price": 17,
         "mrp": 17,
         "in_stock": true,
@@ -7642,7 +7758,7 @@
       {
         "id": "g1-p0990-v2",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -7651,7 +7767,7 @@
       {
         "id": "g1-p0990-v3",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -7660,7 +7776,7 @@
       {
         "id": "g1-p0990-v4",
         "name": " g",
-        "unit": " g",
+        "unit": "₹50 Pack",
         "price": 50,
         "mrp": 50,
         "in_stock": true,
@@ -7669,7 +7785,9 @@
     ],
     "originalPrice": 17,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "₹17 Pack",
+    "unitLabel": "₹17 Pack"
   },
   {
     "id": "g1-p0997",
@@ -7716,7 +7834,9 @@
     ],
     "originalPrice": 190,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "1 L",
+    "unitLabel": "1 L"
   },
   {
     "id": "g1-p1000",
@@ -8141,7 +8261,10 @@
         "in_stock": true,
         "image": "/products/placeholder.svg"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p1067",
@@ -8185,7 +8308,10 @@
         "in_stock": true,
         "image": "/products/placeholder.svg"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p1069",
@@ -8229,7 +8355,10 @@
         "in_stock": true,
         "image": "/products/placeholder.svg"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p1071",
@@ -8273,7 +8402,10 @@
         "in_stock": true,
         "image": "/products/placeholder.svg"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p1073",
@@ -8317,7 +8449,10 @@
         "in_stock": true,
         "image": "/products/placeholder.svg"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p1075",
@@ -8361,7 +8496,10 @@
         "in_stock": true,
         "image": "/products/placeholder.svg"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "250 g",
+    "unitLabel": "250 g"
   },
   {
     "id": "g1-p1077",
@@ -8405,7 +8543,10 @@
         "in_stock": true,
         "image": "/products/placeholder.svg"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p1079",
@@ -8458,7 +8599,10 @@
         "in_stock": true,
         "image": "/products/placeholder.svg"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "1 kg",
+    "unitLabel": "1 kg"
   },
   {
     "id": "g1-p1082",
@@ -8511,7 +8655,10 @@
         "in_stock": true,
         "image": "/products/placeholder.svg"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "1 kg",
+    "unitLabel": "1 kg"
   },
   {
     "id": "g1-p1085",
@@ -8555,7 +8702,10 @@
         "in_stock": true,
         "image": "/products/placeholder.svg"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-p1087",
@@ -8599,7 +8749,10 @@
         "in_stock": true,
         "image": "/products/placeholder.svg"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-p1089",
@@ -8643,7 +8796,10 @@
         "in_stock": true,
         "image": "/products/placeholder.svg"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-p1091",
@@ -8774,8 +8930,8 @@
     "imageUrl": "/products/packshots/veeba-eggless-mayo-275g.webp",
     "image": "/products/packshots/veeba-eggless-mayo-275g.webp",
     "category_name": "Sauces & Spreads",
-    "price": 85,
-    "mrp": 85,
+    "price": 50,
+    "mrp": 50,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -8802,7 +8958,8 @@
     "discountPercentage": 0,
     "is_active": true,
     "image_path": "/products/packshots/veeba-eggless-mayo-275g.webp",
-    "unit": "275 g"
+    "unit": "250 g",
+    "unitLabel": "250 g"
   },
   {
     "id": "g1-p1175",
@@ -8889,7 +9046,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-p1183",
@@ -8973,7 +9132,10 @@
         "in_stock": true,
         "image": "/products/placeholder.svg"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "200 g",
+    "unitLabel": "200 g"
   },
   {
     "id": "g1-p1561",
@@ -9140,7 +9302,9 @@
     ],
     "originalPrice": 160,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "1 L",
+    "unitLabel": "1 L"
   },
   {
     "id": "g1-p1627",
@@ -9187,7 +9351,9 @@
     ],
     "originalPrice": 165,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "1 L",
+    "unitLabel": "1 L"
   },
   {
     "id": "g1-p1632",
@@ -9234,7 +9400,9 @@
     ],
     "originalPrice": 195,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "1 L",
+    "unitLabel": "1 L"
   },
   {
     "id": "g1-p1637",
@@ -9281,7 +9449,9 @@
     ],
     "originalPrice": 155,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "1 L",
+    "unitLabel": "1 L"
   },
   {
     "id": "g1-p1642",
@@ -9328,7 +9498,9 @@
     ],
     "originalPrice": 158,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "1 L",
+    "unitLabel": "1 L"
   },
   {
     "id": "g1-p1647",
@@ -9375,7 +9547,9 @@
     ],
     "originalPrice": 155,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "1 L",
+    "unitLabel": "1 L"
   },
   {
     "id": "g1-p1657",
@@ -9422,7 +9596,9 @@
     ],
     "originalPrice": 145,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "1 L",
+    "unitLabel": "1 L"
   },
   {
     "id": "g1-p1662",
@@ -9469,7 +9645,9 @@
     ],
     "originalPrice": 195,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "1 L",
+    "unitLabel": "1 L"
   },
   {
     "id": "g1-p1667",
@@ -9534,7 +9712,9 @@
     ],
     "originalPrice": 105,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "200 ml",
+    "unitLabel": "200 ml"
   },
   {
     "id": "g1-p1672",
@@ -9590,7 +9770,9 @@
     ],
     "originalPrice": 140,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "200 ml",
+    "unitLabel": "200 ml"
   },
   {
     "id": "g1-p1675",
@@ -9646,7 +9828,9 @@
     ],
     "originalPrice": 135,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "200 ml",
+    "unitLabel": "200 ml"
   },
   {
     "id": "g1-p1701",
@@ -9729,7 +9913,9 @@
     ],
     "originalPrice": 85,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh001",
@@ -9780,7 +9966,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-exo-ginger-twist-bar.webp"
       }
-    ]
+    ],
+    "originalPrice": 10,
+    "unit": "90 g (1 Bar)",
+    "unitLabel": "90 g (1 Bar)"
   },
   {
     "id": "g1-hh002",
@@ -9831,7 +10020,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-exo-touch-shine-bar.webp"
       }
-    ]
+    ],
+    "originalPrice": 20,
+    "unit": "200 g",
+    "unitLabel": "200 g"
   },
   {
     "id": "g1-hh003",
@@ -9882,7 +10074,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-exo-dishwash-round.webp"
       }
-    ]
+    ],
+    "originalPrice": 60,
+    "unit": "500 g Tub",
+    "unitLabel": "500 g Tub"
   },
   {
     "id": "g1-hh004",
@@ -9975,7 +10170,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-exo-ginger-lemon-liquid.webp"
       }
-    ]
+    ],
+    "originalPrice": 115,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh006",
@@ -10026,7 +10224,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-vim-lemon-dishwash-bar.webp"
       }
-    ]
+    ],
+    "originalPrice": 10,
+    "unit": "130 g (1 Bar)",
+    "unitLabel": "130 g (1 Bar)"
   },
   {
     "id": "g1-hh007",
@@ -10170,7 +10371,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-vim-lemon-dishwash-gel.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "250 ml",
+    "unitLabel": "250 ml"
   },
   {
     "id": "g1-hh010",
@@ -10263,7 +10467,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-pril-lime-dishwash-liquid.webp"
       }
-    ]
+    ],
+    "originalPrice": 60,
+    "unit": "225 ml",
+    "unitLabel": "225 ml"
   },
   {
     "id": "g1-hh012",
@@ -10314,7 +10521,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-pitambari-dishwash-bar.webp"
       }
-    ]
+    ],
+    "originalPrice": 20,
+    "unit": "200 g (1 Bar)",
+    "unitLabel": "200 g (1 Bar)"
   },
   {
     "id": "g1-hh013",
@@ -10365,7 +10575,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-pitambari-dishwash-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 35,
+    "unit": "200 g",
+    "unitLabel": "200 g"
   },
   {
     "id": "g1-hh014",
@@ -10416,7 +10629,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-sabena-dishwash-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 30,
+    "unit": "400 g",
+    "unitLabel": "400 g"
   },
   {
     "id": "g1-hh015",
@@ -10467,7 +10683,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-dettol-kitchen-gel.webp"
       }
-    ]
+    ],
+    "originalPrice": 95,
+    "unit": "400 ml",
+    "unitLabel": "400 ml"
   },
   {
     "id": "g1-hh016",
@@ -10518,7 +10737,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-steel-scrubber.webp"
       }
-    ]
+    ],
+    "originalPrice": 15,
+    "unit": "1 Piece",
+    "unitLabel": "1 Piece"
   },
   {
     "id": "g1-hh017",
@@ -10569,7 +10791,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-scotch-brite-scrub-pad.webp"
       }
-    ]
+    ],
+    "originalPrice": 15,
+    "unit": "1 Pad",
+    "unitLabel": "1 Pad"
   },
   {
     "id": "g1-hh018",
@@ -10620,7 +10845,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-kitchen-scrub-sponge.webp"
       }
-    ]
+    ],
+    "originalPrice": 25,
+    "unit": "1 Sponge",
+    "unitLabel": "1 Sponge"
   },
   {
     "id": "g1-hh019",
@@ -10764,7 +10992,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-surf-excel-easy-wash.webp"
       }
-    ]
+    ],
+    "originalPrice": 75,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-hh022",
@@ -10815,7 +11046,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-surf-excel-matic-top-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 240,
+    "unit": "1 kg",
+    "unitLabel": "1 kg"
   },
   {
     "id": "g1-hh023",
@@ -10866,7 +11100,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-surf-excel-matic-front-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 265,
+    "unit": "1 kg",
+    "unitLabel": "1 kg"
   },
   {
     "id": "g1-hh024",
@@ -11001,7 +11238,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-surf-excel-bar.webp"
       }
-    ]
+    ],
+    "originalPrice": 15,
+    "unit": "150 g (1 Bar)",
+    "unitLabel": "150 g (1 Bar)"
   },
   {
     "id": "g1-hh027",
@@ -11061,7 +11301,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-tide-plus-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-hh028",
@@ -11112,7 +11355,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-wheel-detergent-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 42,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-hh029",
@@ -11163,7 +11409,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-rin-detergent-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 52,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-hh030",
@@ -11214,7 +11463,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-rin-detergent-bar.webp"
       }
-    ]
+    ],
+    "originalPrice": 20,
+    "unit": "250 g (1 Bar)",
+    "unitLabel": "250 g (1 Bar)"
   },
   {
     "id": "g1-hh031",
@@ -11265,7 +11517,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-ghadi-detergent-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 38,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-hh032",
@@ -11316,7 +11571,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-ariel-complete-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 115,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-hh033",
@@ -11451,7 +11709,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-godrej-ezee-liquid.webp"
       }
-    ]
+    ],
+    "originalPrice": 110,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-hh036",
@@ -11511,7 +11772,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-comfort-fabric-conditioner.webp"
       }
-    ]
+    ],
+    "originalPrice": 62,
+    "unit": "220 ml",
+    "unitLabel": "220 ml"
   },
   {
     "id": "g1-hh037",
@@ -11562,7 +11826,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-ujala-supreme-whitener.webp"
       }
-    ]
+    ],
+    "originalPrice": 25,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-hh038",
@@ -11613,7 +11880,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-revive-fabric-stiffener.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "200 g Powder",
+    "unitLabel": "200 g Powder"
   },
   {
     "id": "g1-hh039",
@@ -11808,7 +12078,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-lizol-floor-cleaner.webp"
       }
-    ]
+    ],
+    "originalPrice": 42,
+    "unit": "200 ml",
+    "unitLabel": "200 ml"
   },
   {
     "id": "g1-hh043",
@@ -11859,7 +12132,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-nimyle-floor-cleaner.webp"
       }
-    ]
+    ],
+    "originalPrice": 85,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh044",
@@ -11910,7 +12186,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-domex-multi-surface.webp"
       }
-    ]
+    ],
+    "originalPrice": 95,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh045",
@@ -12003,7 +12282,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-white-phenyl.webp"
       }
-    ]
+    ],
+    "originalPrice": 45,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh047",
@@ -12054,7 +12336,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-pine-floor-cleaner.webp"
       }
-    ]
+    ],
+    "originalPrice": 40,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh048",
@@ -12105,7 +12390,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-dettol-disinfectant-liquid.webp"
       }
-    ]
+    ],
+    "originalPrice": 125,
+    "unit": "250 ml",
+    "unitLabel": "250 ml"
   },
   {
     "id": "g1-hh049",
@@ -12291,7 +12579,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-harpic-toilet-cleaner.webp"
       }
-    ]
+    ],
+    "originalPrice": 44,
+    "unit": "200 ml",
+    "unitLabel": "200 ml"
   },
   {
     "id": "g1-hh053",
@@ -12342,7 +12633,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-domex-toilet-cleaner.webp"
       }
-    ]
+    ],
+    "originalPrice": 99,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh054",
@@ -12393,7 +12687,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-harpic-bathroom-cleaner.webp"
       }
-    ]
+    ],
+    "originalPrice": 105,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh055",
@@ -12570,7 +12867,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-bathroom-scrub-brush.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "Handheld Scrub Brush",
+    "unitLabel": "Handheld Scrub Brush"
   },
   {
     "id": "g1-hh059",
@@ -12705,7 +13005,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-bleaching-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 30,
+    "unit": "200 g",
+    "unitLabel": "200 g"
   },
   {
     "id": "g1-hh062",
@@ -12832,15 +13135,6 @@
         "image": "/products/verified/hh-colin-glass-cleaner.webp"
       },
       {
-        "id": "var-g1-hh064-2",
-        "name": "500 ml Spray",
-        "unit": "500 ml Spray",
-        "price": 115,
-        "mrp": 115,
-        "in_stock": true,
-        "image": "/products/verified/hh-colin-glass-cleaner.webp"
-      },
-      {
         "id": "var-g1-hh064-3",
         "name": "500 ml Refill Pouch",
         "unit": "500 ml Refill Pouch",
@@ -12848,8 +13142,20 @@
         "mrp": 85,
         "in_stock": true,
         "image": "/products/verified/hh-colin-glass-cleaner.webp"
+      },
+      {
+        "id": "var-g1-hh064-2",
+        "name": "500 ml Spray",
+        "unit": "500 ml Spray",
+        "price": 115,
+        "mrp": 115,
+        "in_stock": true,
+        "image": "/products/verified/hh-colin-glass-cleaner.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "250 ml Spray",
+    "unitLabel": "250 ml Spray"
   },
   {
     "id": "g1-hh065",
@@ -12909,7 +13215,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-pitambari-metal-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 10,
+    "unit": "20 g Sachet",
+    "unitLabel": "20 g Sachet"
   },
   {
     "id": "g1-hh066",
@@ -12960,7 +13269,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-pitambari-rooperi.webp"
       }
-    ]
+    ],
+    "originalPrice": 45,
+    "unit": "50 ml",
+    "unitLabel": "50 ml"
   },
   {
     "id": "g1-hh067",
@@ -13095,7 +13407,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-microfiber-cloth.webp"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "1 Cloth",
+    "unitLabel": "1 Cloth"
   },
   {
     "id": "g1-hh070",
@@ -13272,7 +13587,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-shoe-polish.webp"
       }
-    ]
+    ],
+    "originalPrice": 45,
+    "unit": "Black (40 g Tin)",
+    "unitLabel": "Black (40 g Tin)"
   },
   {
     "id": "g1-hh074",
@@ -13365,7 +13683,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-goodknight-liquid-refill.webp"
       }
-    ]
+    ],
+    "originalPrice": 85,
+    "unit": "45 ml (1 Refill)",
+    "unitLabel": "45 ml (1 Refill)"
   },
   {
     "id": "g1-hh076",
@@ -13500,7 +13821,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-all-out-refill.webp"
       }
-    ]
+    ],
+    "originalPrice": 85,
+    "unit": "45 ml (1 Refill)",
+    "unitLabel": "45 ml (1 Refill)"
   },
   {
     "id": "g1-hh079",
@@ -13719,7 +14043,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-red-hit-spray.webp"
       }
-    ]
+    ],
+    "originalPrice": 130,
+    "unit": "200 ml Can",
+    "unitLabel": "200 ml Can"
   },
   {
     "id": "g1-hh084",
@@ -13770,7 +14097,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-black-hit-spray.webp"
       }
-    ]
+    ],
+    "originalPrice": 130,
+    "unit": "200 ml Can",
+    "unitLabel": "200 ml Can"
   },
   {
     "id": "g1-hh085",
@@ -13905,7 +14235,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-odonil-block.webp"
       }
-    ]
+    ],
+    "originalPrice": 42,
+    "unit": "50 g (1 Block)",
+    "unitLabel": "50 g (1 Block)"
   },
   {
     "id": "g1-hh088",
@@ -13933,20 +14266,11 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 25,
-    "mrp": 25,
+    "price": 70,
+    "mrp": 70,
     "discount": 0,
     "in_stock": true,
     "variants": [
-      {
-        "id": "var-g1-hh088-1",
-        "name": "10 g Pocket",
-        "unit": "10 g Pocket",
-        "price": 25,
-        "mrp": 25,
-        "in_stock": true,
-        "image": "/products/verified/hh-odonil-gel-pocket.webp"
-      },
       {
         "id": "var-g1-hh088-2",
         "name": "Pack of 3 Pockets",
@@ -13955,8 +14279,20 @@
         "mrp": 70,
         "in_stock": true,
         "image": "/products/verified/hh-odonil-gel-pocket.webp"
+      },
+      {
+        "id": "var-g1-hh088-1",
+        "name": "10 g Pocket",
+        "unit": "10 g Pocket",
+        "price": 25,
+        "mrp": 25,
+        "in_stock": true,
+        "image": "/products/verified/hh-odonil-gel-pocket.webp"
       }
-    ]
+    ],
+    "originalPrice": 70,
+    "unit": "Pack of 3 Pockets",
+    "unitLabel": "Pack of 3 Pockets"
   },
   {
     "id": "g1-hh089",
@@ -14026,20 +14362,11 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 55,
-    "mrp": 55,
+    "price": 155,
+    "mrp": 155,
     "discount": 0,
     "in_stock": true,
     "variants": [
-      {
-        "id": "var-g1-hh090-1",
-        "name": "10 g Pocket",
-        "unit": "10 g Pocket",
-        "price": 55,
-        "mrp": 55,
-        "in_stock": true,
-        "image": "/products/verified/hh-godrej-aer-pocket.webp"
-      },
       {
         "id": "var-g1-hh090-2",
         "name": "Pack of 3 Pockets",
@@ -14048,8 +14375,20 @@
         "mrp": 155,
         "in_stock": true,
         "image": "/products/verified/hh-godrej-aer-pocket.webp"
+      },
+      {
+        "id": "var-g1-hh090-1",
+        "name": "10 g Pocket",
+        "unit": "10 g Pocket",
+        "price": 55,
+        "mrp": 55,
+        "in_stock": true,
+        "image": "/products/verified/hh-godrej-aer-pocket.webp"
       }
-    ]
+    ],
+    "originalPrice": 155,
+    "unit": "Pack of 3 Pockets",
+    "unitLabel": "Pack of 3 Pockets"
   },
   {
     "id": "g1-hh091",
@@ -15402,7 +15741,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-plastic-dustbin.webp"
       }
-    ]
+    ],
+    "originalPrice": 175,
+    "unit": "Medium (10 Litre)",
+    "unitLabel": "Medium (10 Litre)"
   },
   {
     "id": "g1-hh123",
@@ -15453,7 +15795,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-garbage-bags.webp"
       }
-    ]
+    ],
+    "originalPrice": 99,
+    "unit": "Medium (19x21 in, 30 Bags)",
+    "unitLabel": "Medium (19x21 in, 30 Bags)"
   },
   {
     "id": "g1-hh124",
@@ -15504,7 +15849,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-aluminium-foil.webp"
       }
-    ]
+    ],
+    "originalPrice": 85,
+    "unit": "9 Metres",
+    "unitLabel": "9 Metres"
   },
   {
     "id": "g1-hh125",
@@ -15574,20 +15922,11 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 60,
-    "mrp": 60,
+    "price": 115,
+    "mrp": 115,
     "discount": 0,
     "in_stock": true,
     "variants": [
-      {
-        "id": "var-g1-hh126-1",
-        "name": "Single Roll",
-        "unit": "Single Roll",
-        "price": 60,
-        "mrp": 60,
-        "in_stock": true,
-        "image": "/products/verified/hh-kitchen-tissue-roll.webp"
-      },
       {
         "id": "var-g1-hh126-2",
         "name": "Twin Pack (2 Rolls)",
@@ -15596,8 +15935,20 @@
         "mrp": 115,
         "in_stock": true,
         "image": "/products/verified/hh-kitchen-tissue-roll.webp"
+      },
+      {
+        "id": "var-g1-hh126-1",
+        "name": "Single Roll",
+        "unit": "Single Roll",
+        "price": 60,
+        "mrp": 60,
+        "in_stock": true,
+        "image": "/products/verified/hh-kitchen-tissue-roll.webp"
       }
-    ]
+    ],
+    "originalPrice": 115,
+    "unit": "Twin Pack (2 Rolls)",
+    "unitLabel": "Twin Pack (2 Rolls)"
   },
   {
     "id": "g1-hh127",
@@ -15625,20 +15976,11 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 40,
-    "mrp": 40,
+    "price": 150,
+    "mrp": 150,
     "discount": 0,
     "in_stock": true,
     "variants": [
-      {
-        "id": "var-g1-hh127-1",
-        "name": "Single Roll",
-        "unit": "Single Roll",
-        "price": 40,
-        "mrp": 40,
-        "in_stock": true,
-        "image": "/products/verified/hh-toilet-tissue-roll.webp"
-      },
       {
         "id": "var-g1-hh127-2",
         "name": "Pack of 4 Rolls",
@@ -15647,8 +15989,20 @@
         "mrp": 150,
         "in_stock": true,
         "image": "/products/verified/hh-toilet-tissue-roll.webp"
+      },
+      {
+        "id": "var-g1-hh127-1",
+        "name": "Single Roll",
+        "unit": "Single Roll",
+        "price": 40,
+        "mrp": 40,
+        "in_stock": true,
+        "image": "/products/verified/hh-toilet-tissue-roll.webp"
       }
-    ]
+    ],
+    "originalPrice": 150,
+    "unit": "Pack of 4 Rolls",
+    "unitLabel": "Pack of 4 Rolls"
   },
   {
     "id": "g1-hh128",
@@ -15993,7 +16347,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-mangaldeep-agarbatti.webp"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "1 Pack",
+    "unitLabel": "1 Pack"
   },
   {
     "id": "g1-hh136",
@@ -16128,7 +16485,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-sambrani-cups.webp"
       }
-    ]
+    ],
+    "originalPrice": 75,
+    "unit": "Pack of 12 Cups + Burner Plate",
+    "unitLabel": "Pack of 12 Cups + Burner Plate"
   },
   {
     "id": "g1-hh139",
@@ -16179,7 +16539,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-camphor-karpooram.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "50 g Jar",
+    "unitLabel": "50 g Jar"
   },
   {
     "id": "g1-hh140",
@@ -16272,7 +16635,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-deepam-puja-oil.webp"
       }
-    ]
+    ],
+    "originalPrice": 110,
+    "unit": "500 ml Bottle",
+    "unitLabel": "500 ml Bottle"
   },
   {
     "id": "g1-hh142",
@@ -16407,7 +16773,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-matchbox.webp"
       }
-    ]
+    ],
+    "originalPrice": 2,
+    "unit": "Single Box",
+    "unitLabel": "Single Box"
   },
   {
     "id": "g1-hh145",
@@ -16458,7 +16827,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-duracell-aa-batteries.webp"
       }
-    ]
+    ],
+    "originalPrice": 80,
+    "unit": "Pack of 2 Batteries",
+    "unitLabel": "Pack of 2 Batteries"
   },
   {
     "id": "g1-hh146",
@@ -16509,7 +16881,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-duracell-aaa-batteries.webp"
       }
-    ]
+    ],
+    "originalPrice": 80,
+    "unit": "Pack of 2 Batteries",
+    "unitLabel": "Pack of 2 Batteries"
   },
   {
     "id": "g1-hh147",
@@ -16728,7 +17103,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-151-gopuram-pasupu-turmeric.webp"
       }
-    ]
+    ],
+    "originalPrice": 20,
+    "unit": "50 g",
+    "unitLabel": "50 g"
   },
   {
     "id": "g1-hh152",
@@ -16779,7 +17157,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-152-gopuram-kumkum.webp"
       }
-    ]
+    ],
+    "originalPrice": 20,
+    "unit": "50 g",
+    "unitLabel": "50 g"
   },
   {
     "id": "g1-hh153",
@@ -16998,7 +17379,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-157-rangoli-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 30,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-hh158",
@@ -17175,7 +17559,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-161-pressure-cooker-gasket.webp"
       }
-    ]
+    ],
+    "originalPrice": 40,
+    "unit": "3 Litre",
+    "unitLabel": "3 Litre"
   },
   {
     "id": "g1-hh162",
@@ -17226,7 +17613,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-162-fevikwik-instant-adhesive.webp"
       }
-    ]
+    ],
+    "originalPrice": 5,
+    "unit": "0.5 g",
+    "unitLabel": "0.5 g"
   },
   {
     "id": "g1-hh163",
@@ -17277,7 +17667,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-163-fevicol-mr-glue.webp"
       }
-    ]
+    ],
+    "originalPrice": 25,
+    "unit": "50 g",
+    "unitLabel": "50 g"
   },
   {
     "id": "g1-hh164",
@@ -17431,20 +17824,11 @@
     "isBestDeal": false,
     "inStock": true,
     "is_active": true,
-    "price": 45,
-    "mrp": 45,
+    "price": 65,
+    "mrp": 65,
     "discount": 0,
     "in_stock": true,
     "variants": [
-      {
-        "id": "var-g1-hh167-1",
-        "name": "Pack of 50 Cups (100 ml)",
-        "unit": "Pack of 50 Cups (100 ml)",
-        "price": 45,
-        "mrp": 45,
-        "in_stock": true,
-        "image": "/products/verified/hh-167-paper-cups-plates.webp"
-      },
       {
         "id": "var-g1-hh167-2",
         "name": "Pack of 25 Plates (10 inch)",
@@ -17453,8 +17837,20 @@
         "mrp": 65,
         "in_stock": true,
         "image": "/products/verified/hh-167-paper-cups-plates.webp"
+      },
+      {
+        "id": "var-g1-hh167-1",
+        "name": "Pack of 50 Cups (100 ml)",
+        "unit": "Pack of 50 Cups (100 ml)",
+        "price": 45,
+        "mrp": 45,
+        "in_stock": true,
+        "image": "/products/verified/hh-167-paper-cups-plates.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "Pack of 25 Plates (10 inch)",
+    "unitLabel": "Pack of 25 Plates (10 inch)"
   },
   {
     "id": "g1-hh168",
@@ -17631,7 +18027,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-171-odomos-repellent-cream.webp"
       }
-    ]
+    ],
+    "originalPrice": 60,
+    "unit": "50 g",
+    "unitLabel": "50 g"
   },
   {
     "id": "g1-hh172",
@@ -17850,7 +18249,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-176-henko-stain-care-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-hh177",
@@ -17901,7 +18303,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-177-comfort-lily-fresh-pink.webp"
       }
-    ]
+    ],
+    "originalPrice": 62,
+    "unit": "220 ml",
+    "unitLabel": "220 ml"
   },
   {
     "id": "g1-hh178",
@@ -17952,7 +18357,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-178-robin-liquid-blue.webp"
       }
-    ]
+    ],
+    "originalPrice": 25,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-hh179",
@@ -18045,7 +18453,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-180-vim-polycoat-bar.webp"
       }
-    ]
+    ],
+    "originalPrice": 20,
+    "unit": "200 g",
+    "unitLabel": "200 g"
   },
   {
     "id": "g1-hh181",
@@ -18096,7 +18507,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-181-pril-tamarind-liquid.webp"
       }
-    ]
+    ],
+    "originalPrice": 60,
+    "unit": "225 ml",
+    "unitLabel": "225 ml"
   },
   {
     "id": "g1-hh182",
@@ -18189,7 +18603,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-183-nippo-gold-aa-batteries.webp"
       }
-    ]
+    ],
+    "originalPrice": 30,
+    "unit": "Pack of 2",
+    "unitLabel": "Pack of 2"
   },
   {
     "id": "g1-hh184",
@@ -18240,7 +18657,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-184-nippo-gold-aaa-batteries.webp"
       }
-    ]
+    ],
+    "originalPrice": 30,
+    "unit": "Pack of 2",
+    "unitLabel": "Pack of 2"
   },
   {
     "id": "g1-hh185",
@@ -18291,7 +18711,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-185-dabur-sanifresh-shine.webp"
       }
-    ]
+    ],
+    "originalPrice": 99,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh186",
@@ -18342,7 +18765,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-186-harpic-citrus-toilet-cleaner.webp"
       }
-    ]
+    ],
+    "originalPrice": 110,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh187",
@@ -18393,7 +18819,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-187-harpic-drain-xpert.webp"
       }
-    ]
+    ],
+    "originalPrice": 30,
+    "unit": "50 g Sachet",
+    "unitLabel": "50 g Sachet"
   },
   {
     "id": "g1-hh188",
@@ -18444,7 +18873,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-188-domex-ocean-fresh.webp"
       }
-    ]
+    ],
+    "originalPrice": 95,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh189",
@@ -18495,7 +18927,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-189-gainda-black-phenyl.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "450 ml",
+    "unitLabel": "450 ml"
   },
   {
     "id": "g1-hh190",
@@ -18555,7 +18990,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-190-lizol-floral-pink.webp"
       }
-    ]
+    ],
+    "originalPrice": 118,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh191",
@@ -18606,7 +19044,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-191-lizol-neem-green.webp"
       }
-    ]
+    ],
+    "originalPrice": 118,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh192",
@@ -18657,7 +19098,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-192-lizol-lavender.webp"
       }
-    ]
+    ],
+    "originalPrice": 118,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh193",
@@ -18750,7 +19194,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-194-gainda-white-phenyl.webp"
       }
-    ]
+    ],
+    "originalPrice": 55,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh195",
@@ -18810,7 +19257,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-195-vim-neem-gel.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "250 ml",
+    "unitLabel": "250 ml"
   },
   {
     "id": "g1-hh196",
@@ -18861,7 +19311,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-196-vim-shuddhham-gel.webp"
       }
-    ]
+    ],
+    "originalPrice": 80,
+    "unit": "250 ml",
+    "unitLabel": "250 ml"
   },
   {
     "id": "g1-hh197",
@@ -18912,7 +19365,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-197-exo-safed-scrub-pad.webp"
       }
-    ]
+    ],
+    "originalPrice": 15,
+    "unit": "1 Pad",
+    "unitLabel": "1 Pad"
   },
   {
     "id": "g1-hh198",
@@ -18963,7 +19419,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-198-scotch-brite-spiral-scrubber.webp"
       }
-    ]
+    ],
+    "originalPrice": 45,
+    "unit": "Pack of 2",
+    "unitLabel": "Pack of 2"
   },
   {
     "id": "g1-hh199",
@@ -19014,7 +19473,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-199-finish-dishwasher-tablets.webp"
       }
-    ]
+    ],
+    "originalPrice": 249,
+    "unit": "Pack of 10 Tablets",
+    "unitLabel": "Pack of 10 Tablets"
   },
   {
     "id": "g1-hh200",
@@ -19065,7 +19527,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-200-softouch-fabric-conditioner.webp"
       }
-    ]
+    ],
+    "originalPrice": 210,
+    "unit": "800 ml Bottle",
+    "unitLabel": "800 ml Bottle"
   },
   {
     "id": "g1-hh201",
@@ -19116,7 +19581,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-201-rin-ala-fabric-bleach.webp"
       }
-    ]
+    ],
+    "originalPrice": 45,
+    "unit": "500 ml",
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-hh202",
@@ -19176,7 +19644,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-202-tide-double-power-lemon.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "500 g",
+    "unitLabel": "500 g"
   },
   {
     "id": "g1-hh203",
@@ -19227,7 +19698,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-203-long-cotton-wicks.webp"
       }
-    ]
+    ],
+    "originalPrice": 25,
+    "unit": "Pack of 100 Wicks",
+    "unitLabel": "Pack of 100 Wicks"
   },
   {
     "id": "g1-hh204",
@@ -19278,7 +19752,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-204-yendu-kobbari-copra.webp"
       }
-    ]
+    ],
+    "originalPrice": 40,
+    "unit": "1 Piece (Approx 125 g)",
+    "unitLabel": "1 Piece (Approx 125 g)"
   },
   {
     "id": "g1-hh205",
@@ -19329,7 +19806,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-205-gangotri-gangajal.webp"
       }
-    ]
+    ],
+    "originalPrice": 25,
+    "unit": "100 ml Bottle",
+    "unitLabel": "100 ml Bottle"
   },
   {
     "id": "g1-hh206",
@@ -19380,7 +19860,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-206-hawan-samagri.webp"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "200 g",
+    "unitLabel": "200 g"
   },
   {
     "id": "g1-hh207",
@@ -19431,7 +19914,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-207-patanjali-gomutra-ark.webp"
       }
-    ]
+    ],
+    "originalPrice": 35,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-hh208",
@@ -19482,7 +19968,10 @@
         "in_stock": true,
         "image": "/products/verified/hh-208-brass-diya-kundulu.webp"
       }
-    ]
+    ],
+    "originalPrice": 75,
+    "unit": "1 Piece",
+    "unitLabel": "1 Piece"
   },
   {
     "id": "g1-hh209",
@@ -19710,7 +20199,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-lifebuoy-total-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 10,
+    "unit": "50 g",
+    "unitLabel": "50 g"
   },
   {
     "id": "g1-pc002",
@@ -19770,7 +20262,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-lux-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 10,
+    "unit": "50 g",
+    "unitLabel": "50 g"
   },
   {
     "id": "g1-pc003",
@@ -19830,7 +20325,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dove-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc004",
@@ -19881,7 +20379,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-santoor-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 38,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc005",
@@ -19941,7 +20442,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-mysore-sandal-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 42,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc006",
@@ -20001,7 +20505,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dettol-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 42,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc007",
@@ -20052,7 +20559,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-cinthol-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 42,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc008",
@@ -20112,7 +20622,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-medimix-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 35,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc009",
@@ -20163,7 +20676,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-pears-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 62,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc010",
@@ -20214,7 +20730,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-hamam-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 38,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc011",
@@ -20265,7 +20784,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-godrej-no1-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 30,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc012",
@@ -20316,7 +20838,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-fiama-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 75,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc013",
@@ -20367,7 +20892,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-vivel-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 35,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc014",
@@ -20418,7 +20946,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-nivea-body-wash.webp"
       }
-    ]
+    ],
+    "originalPrice": 225,
+    "unit": "250 ml",
+    "unitLabel": "250 ml"
   },
   {
     "id": "g1-pc015",
@@ -20478,7 +21009,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-clinic-plus-shampoo.webp"
       }
-    ]
+    ],
+    "originalPrice": 55,
+    "unit": "80 ml",
+    "unitLabel": "80 ml"
   },
   {
     "id": "g1-pc016",
@@ -20538,7 +21072,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dove-shampoo.webp"
       }
-    ]
+    ],
+    "originalPrice": 75,
+    "unit": "80 ml",
+    "unitLabel": "80 ml"
   },
   {
     "id": "g1-pc017",
@@ -20598,7 +21135,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-head-shoulders-shampoo.webp"
       }
-    ]
+    ],
+    "originalPrice": 125,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-pc018",
@@ -20658,7 +21198,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-sunsilk-shampoo.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "80 ml",
+    "unitLabel": "80 ml"
   },
   {
     "id": "g1-pc019",
@@ -20718,7 +21261,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-pantene-shampoo.webp"
       }
-    ]
+    ],
+    "originalPrice": 95,
+    "unit": "90 ml",
+    "unitLabel": "90 ml"
   },
   {
     "id": "g1-pc020",
@@ -20769,7 +21315,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-tresemme-shampoo.webp"
       }
-    ]
+    ],
+    "originalPrice": 199,
+    "unit": "185 ml",
+    "unitLabel": "185 ml"
   },
   {
     "id": "g1-pc021",
@@ -20820,7 +21369,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-indulekha-oil.webp"
       }
-    ]
+    ],
+    "originalPrice": 430,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-pc022",
@@ -20880,7 +21432,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-parachute-oil.webp"
       }
-    ]
+    ],
+    "originalPrice": 44,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-pc023",
@@ -20940,7 +21495,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dabur-amla-oil.webp"
       }
-    ]
+    ],
+    "originalPrice": 55,
+    "unit": "90 ml",
+    "unitLabel": "90 ml"
   },
   {
     "id": "g1-pc024",
@@ -21000,7 +21558,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-navratna-oil.webp"
       }
-    ]
+    ],
+    "originalPrice": 47,
+    "unit": "50 ml",
+    "unitLabel": "50 ml"
   },
   {
     "id": "g1-pc025",
@@ -21060,7 +21621,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-bajaj-almond-oil.webp"
       }
-    ]
+    ],
+    "originalPrice": 75,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-pc026",
@@ -21120,7 +21684,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-livon-serum.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "20 ml",
+    "unitLabel": "20 ml"
   },
   {
     "id": "g1-pc027",
@@ -21180,7 +21747,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-himalaya-neem-fw.webp"
       }
-    ]
+    ],
+    "originalPrice": 95,
+    "unit": "50 ml",
+    "unitLabel": "50 ml"
   },
   {
     "id": "g1-pc028",
@@ -21273,7 +21843,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-clean-clear-berry.webp"
       }
-    ]
+    ],
+    "originalPrice": 90,
+    "unit": "50 ml",
+    "unitLabel": "50 ml"
   },
   {
     "id": "g1-pc030",
@@ -21324,7 +21897,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-garnier-acno-fight.webp"
       }
-    ]
+    ],
+    "originalPrice": 125,
+    "unit": "50 g",
+    "unitLabel": "50 g"
   },
   {
     "id": "g1-pc031",
@@ -21417,7 +21993,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-glow-lovely-fw.webp"
       }
-    ]
+    ],
+    "originalPrice": 89,
+    "unit": "50 g",
+    "unitLabel": "50 g"
   },
   {
     "id": "g1-pc033",
@@ -21477,7 +22056,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-ponds-facial-foam.webp"
       }
-    ]
+    ],
+    "originalPrice": 25,
+    "unit": "15 g",
+    "unitLabel": "15 g"
   },
   {
     "id": "g1-pc034",
@@ -21528,7 +22110,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-ponds-cream.webp"
       }
-    ]
+    ],
+    "originalPrice": 249,
+    "unit": "35 g",
+    "unitLabel": "35 g"
   },
   {
     "id": "g1-pc035",
@@ -21588,7 +22173,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-glow-lovely-cream.webp"
       }
-    ]
+    ],
+    "originalPrice": 27,
+    "unit": "15 g",
+    "unitLabel": "15 g"
   },
   {
     "id": "g1-pc036",
@@ -21648,7 +22236,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-nivea-soft-cream.webp"
       }
-    ]
+    ],
+    "originalPrice": 225,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-pc037",
@@ -21699,7 +22290,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-lacto-calamine.webp"
       }
-    ]
+    ],
+    "originalPrice": 160,
+    "unit": "60 ml",
+    "unitLabel": "60 ml"
   },
   {
     "id": "g1-pc038",
@@ -21750,7 +22344,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-boroplus-cream.webp"
       }
-    ]
+    ],
+    "originalPrice": 85,
+    "unit": "40 ml",
+    "unitLabel": "40 ml"
   },
   {
     "id": "g1-pc039",
@@ -21810,7 +22407,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dabur-gulabari.webp"
       }
-    ]
+    ],
+    "originalPrice": 30,
+    "unit": "59 ml",
+    "unitLabel": "59 ml"
   },
   {
     "id": "g1-pc040",
@@ -22038,7 +22638,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-colgate-strong-teeth.webp"
       }
-    ]
+    ],
+    "originalPrice": 30,
+    "unit": "50 g",
+    "unitLabel": "50 g"
   },
   {
     "id": "g1-pc045",
@@ -22098,7 +22701,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-colgate-maxfresh.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "80 g",
+    "unitLabel": "80 g"
   },
   {
     "id": "g1-pc046",
@@ -22149,7 +22755,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-colgate-active-salt.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc047",
@@ -22209,7 +22818,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dabur-red-paste.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc048",
@@ -22260,7 +22872,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-pepsodent-germicheck.webp"
       }
-    ]
+    ],
+    "originalPrice": 60,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc049",
@@ -22311,7 +22926,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-closeup-toothpaste.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "80 g",
+    "unitLabel": "80 g"
   },
   {
     "id": "g1-pc050",
@@ -22371,7 +22989,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-sensodyne-toothpaste.webp"
       }
-    ]
+    ],
+    "originalPrice": 85,
+    "unit": "40 g",
+    "unitLabel": "40 g"
   },
   {
     "id": "g1-pc051",
@@ -22422,7 +23043,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-oral-b-toothbrush.webp"
       }
-    ]
+    ],
+    "originalPrice": 25,
+    "unit": "Single (1 Unit)",
+    "unitLabel": "Single (1 Unit)"
   },
   {
     "id": "g1-pc052",
@@ -22473,7 +23097,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-colgate-toothbrush.webp"
       }
-    ]
+    ],
+    "originalPrice": 30,
+    "unit": "Single (1 Unit)",
+    "unitLabel": "Single (1 Unit)"
   },
   {
     "id": "g1-pc053",
@@ -22524,7 +23151,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-listerine-mouthwash.webp"
       }
-    ]
+    ],
+    "originalPrice": 160,
+    "unit": "250 ml",
+    "unitLabel": "250 ml"
   },
   {
     "id": "g1-pc054",
@@ -22575,7 +23205,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-fogg-deo.webp"
       }
-    ]
+    ],
+    "originalPrice": 225,
+    "unit": "120 ml",
+    "unitLabel": "120 ml"
   },
   {
     "id": "g1-pc055",
@@ -22626,7 +23259,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-engage-deo.webp"
       }
-    ]
+    ],
+    "originalPrice": 160,
+    "unit": "120 ml",
+    "unitLabel": "120 ml"
   },
   {
     "id": "g1-pc056",
@@ -22677,7 +23313,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-wild-stone-deo.webp"
       }
-    ]
+    ],
+    "originalPrice": 175,
+    "unit": "120 ml",
+    "unitLabel": "120 ml"
   },
   {
     "id": "g1-pc057",
@@ -22812,7 +23451,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-gillette-foam.webp"
       }
-    ]
+    ],
+    "originalPrice": 85,
+    "unit": "50 g",
+    "unitLabel": "50 g"
   },
   {
     "id": "g1-pc060",
@@ -22947,7 +23589,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-veet-cream.webp"
       }
-    ]
+    ],
+    "originalPrice": 75,
+    "unit": "25 g",
+    "unitLabel": "25 g"
   },
   {
     "id": "g1-pc063",
@@ -22998,7 +23643,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-ponds-cold-cream.webp"
       }
-    ]
+    ],
+    "originalPrice": 55,
+    "unit": "30 g",
+    "unitLabel": "30 g"
   },
   {
     "id": "g1-pc064",
@@ -23058,7 +23706,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-whisper-ultra.webp"
       }
-    ]
+    ],
+    "originalPrice": 55,
+    "unit": "Pack of 7 (7s)",
+    "unitLabel": "Pack of 7 (7s)"
   },
   {
     "id": "g1-pc065",
@@ -23109,7 +23760,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-stayfree-secure.webp"
       }
-    ]
+    ],
+    "originalPrice": 45,
+    "unit": "Pack of 7 (7s)",
+    "unitLabel": "Pack of 7 (7s)"
   },
   {
     "id": "g1-pc066",
@@ -23143,9 +23797,9 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-pc066-1",
-        "name": "Small (S) - 22 pcs",
-        "unit": "Small (S) - 22 pcs",
+        "id": "var-g1-pc066-3",
+        "name": "Large (L) - 18 pcs",
+        "unit": "Large (L) - 18 pcs",
         "price": 249,
         "mrp": 249,
         "in_stock": true,
@@ -23161,15 +23815,18 @@
         "image": "/products/verified/pc-pampers-diapers.webp"
       },
       {
-        "id": "var-g1-pc066-3",
-        "name": "Large (L) - 18 pcs",
-        "unit": "Large (L) - 18 pcs",
+        "id": "var-g1-pc066-1",
+        "name": "Small (S) - 22 pcs",
+        "unit": "Small (S) - 22 pcs",
         "price": 249,
         "mrp": 249,
         "in_stock": true,
         "image": "/products/verified/pc-pampers-diapers.webp"
       }
-    ]
+    ],
+    "originalPrice": 249,
+    "unit": "Large (L) - 18 pcs",
+    "unitLabel": "Large (L) - 18 pcs"
   },
   {
     "id": "g1-pc067",
@@ -23203,9 +23860,9 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-pc067-1",
-        "name": "Small (S) - 22 pcs",
-        "unit": "Small (S) - 22 pcs",
+        "id": "var-g1-pc067-3",
+        "name": "Large (L) - 18 pcs",
+        "unit": "Large (L) - 18 pcs",
         "price": 249,
         "mrp": 249,
         "in_stock": true,
@@ -23221,15 +23878,18 @@
         "image": "/products/verified/pc-huggies-diapers.webp"
       },
       {
-        "id": "var-g1-pc067-3",
-        "name": "Large (L) - 18 pcs",
-        "unit": "Large (L) - 18 pcs",
+        "id": "var-g1-pc067-1",
+        "name": "Small (S) - 22 pcs",
+        "unit": "Small (S) - 22 pcs",
         "price": 249,
         "mrp": 249,
         "in_stock": true,
         "image": "/products/verified/pc-huggies-diapers.webp"
       }
-    ]
+    ],
+    "originalPrice": 249,
+    "unit": "Large (L) - 18 pcs",
+    "unitLabel": "Large (L) - 18 pcs"
   },
   {
     "id": "g1-pc068",
@@ -23280,7 +23940,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-johnsons-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 105,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc069",
@@ -23331,7 +23994,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-johnsons-lotion.webp"
       }
-    ]
+    ],
+    "originalPrice": 115,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-pc070",
@@ -23382,7 +24048,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-johnsons-oil.webp"
       }
-    ]
+    ],
+    "originalPrice": 130,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-pc071",
@@ -23433,7 +24102,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-himalaya-baby-lotion.webp"
       }
-    ]
+    ],
+    "originalPrice": 110,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-pc072",
@@ -23484,7 +24156,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-himalaya-baby-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 100,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc073",
@@ -23544,7 +24219,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-santoor-almond-milk-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 40,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc074",
@@ -23595,7 +24273,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-santoor-white-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 40,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc075",
@@ -23688,7 +24369,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-lifebuoy-lemon-fresh-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 38,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc077",
@@ -23781,7 +24465,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-lux-velvet-touch-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 40,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc079",
@@ -23841,7 +24528,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dove-pink-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 68,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc080",
@@ -23892,7 +24582,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dove-fresh-moisture-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 68,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc081",
@@ -23952,7 +24645,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dettol-skincare-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 42,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc082",
@@ -24003,7 +24699,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dettol-cool-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 42,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc083",
@@ -24054,7 +24753,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-cinthol-cool-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 42,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc084",
@@ -24105,7 +24807,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-cinthol-lime-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 42,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc085",
@@ -24156,7 +24861,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-pears-oil-clear-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 58,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc086",
@@ -24207,7 +24915,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-pears-soft-fresh-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 55,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc087",
@@ -24258,7 +24969,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-godrej-no1-lime-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 30,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc088",
@@ -24309,7 +25023,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-godrej-no1-kesar-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 30,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc089",
@@ -24360,7 +25077,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-medimix-sandal-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 40,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc090",
@@ -24411,7 +25131,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-medimix-glycerine-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 42,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc091",
@@ -24462,7 +25185,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-margo-neem-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 38,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc092",
@@ -24513,7 +25239,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-chandrika-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 35,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc093",
@@ -24648,7 +25377,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-vivel-aloe-vera-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 35,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc096",
@@ -24699,7 +25431,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-liril-lemon-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 40,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc097",
@@ -24750,7 +25485,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-rexona-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 38,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc098",
@@ -24801,7 +25539,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-savlon-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 40,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc099",
@@ -24852,7 +25593,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-patanjali-somya-haldi-soap.webp"
       }
-    ]
+    ],
+    "originalPrice": 25,
+    "unit": "75 g",
+    "unitLabel": "75 g"
   },
   {
     "id": "g1-pc100",
@@ -24945,7 +25689,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-head-shoulders-anti-hairfall.webp"
       }
-    ]
+    ],
+    "originalPrice": 90,
+    "unit": "72 ml",
+    "unitLabel": "72 ml"
   },
   {
     "id": "g1-pc102",
@@ -24996,7 +25743,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-clear-anti-dandruff-shampoo.webp"
       }
-    ]
+    ],
+    "originalPrice": 95,
+    "unit": "80 ml",
+    "unitLabel": "80 ml"
   },
   {
     "id": "g1-pc103",
@@ -25047,7 +25797,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-chik-shampoo.webp"
       }
-    ]
+    ],
+    "originalPrice": 45,
+    "unit": "80 ml",
+    "unitLabel": "80 ml"
   },
   {
     "id": "g1-pc104",
@@ -25098,7 +25851,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-nyle-shampoo.webp"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "80 ml",
+    "unitLabel": "80 ml"
   },
   {
     "id": "g1-pc105",
@@ -25149,7 +25905,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-meera-shikakai-shampoo.webp"
       }
-    ]
+    ],
+    "originalPrice": 55,
+    "unit": "80 ml",
+    "unitLabel": "80 ml"
   },
   {
     "id": "g1-pc106",
@@ -25200,7 +25959,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dove-daily-shine-conditioner.webp"
       }
-    ]
+    ],
+    "originalPrice": 110,
+    "unit": "80 ml",
+    "unitLabel": "80 ml"
   },
   {
     "id": "g1-pc107",
@@ -25251,7 +26013,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-sunsilk-conditioner.webp"
       }
-    ]
+    ],
+    "originalPrice": 90,
+    "unit": "80 ml",
+    "unitLabel": "80 ml"
   },
   {
     "id": "g1-pc108",
@@ -25344,7 +26109,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dabur-vatika-coconut-oil.webp"
       }
-    ]
+    ],
+    "originalPrice": 55,
+    "unit": "90 ml",
+    "unitLabel": "90 ml"
   },
   {
     "id": "g1-pc110",
@@ -25395,7 +26163,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-nihar-coconut-hair-oil.webp"
       }
-    ]
+    ],
+    "originalPrice": 45,
+    "unit": "90 ml",
+    "unitLabel": "90 ml"
   },
   {
     "id": "g1-pc111",
@@ -25446,7 +26217,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-parachute-jasmine-hair-oil.webp"
       }
-    ]
+    ],
+    "originalPrice": 50,
+    "unit": "90 ml",
+    "unitLabel": "90 ml"
   },
   {
     "id": "g1-pc112",
@@ -25474,20 +26248,11 @@
     "isBestDeal": false,
     "inStock": true,
     "is_active": true,
-    "price": 30,
-    "mrp": 30,
+    "price": 60,
+    "mrp": 60,
     "discount": 0,
     "in_stock": true,
     "variants": [
-      {
-        "id": "var-g1-pc112-1",
-        "name": "20 g + 20 ml",
-        "unit": "20 g + 20 ml",
-        "price": 30,
-        "mrp": 30,
-        "in_stock": true,
-        "image": "/products/verified/pc-godrej-expert-rich-creme.webp"
-      },
       {
         "id": "var-g1-pc112-2",
         "name": "Pack of 2",
@@ -25496,8 +26261,20 @@
         "mrp": 60,
         "in_stock": true,
         "image": "/products/verified/pc-godrej-expert-rich-creme.webp"
+      },
+      {
+        "id": "var-g1-pc112-1",
+        "name": "20 g + 20 ml",
+        "unit": "20 g + 20 ml",
+        "price": 30,
+        "mrp": 30,
+        "in_stock": true,
+        "image": "/products/verified/pc-godrej-expert-rich-creme.webp"
       }
-    ]
+    ],
+    "originalPrice": 60,
+    "unit": "Pack of 2",
+    "unitLabel": "Pack of 2"
   },
   {
     "id": "g1-pc113",
@@ -25590,7 +26367,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-set-wet-styling-gel.webp"
       }
-    ]
+    ],
+    "originalPrice": 45,
+    "unit": "50 g",
+    "unitLabel": "50 g"
   },
   {
     "id": "g1-pc115",
@@ -25641,7 +26421,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-colgate-vedshakti.webp"
       }
-    ]
+    ],
+    "originalPrice": 60,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc116",
@@ -25692,7 +26475,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dabur-meswak-toothpaste.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc117",
@@ -25743,7 +26529,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dabur-babool-toothpaste.webp"
       }
-    ]
+    ],
+    "originalPrice": 40,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc118",
@@ -25794,7 +26583,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-vicco-vajradanti-toothpaste.webp"
       }
-    ]
+    ],
+    "originalPrice": 75,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc119",
@@ -25845,7 +26637,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-lever-ayush-toothpaste.webp"
       }
-    ]
+    ],
+    "originalPrice": 45,
+    "unit": "80 g",
+    "unitLabel": "80 g"
   },
   {
     "id": "g1-pc120",
@@ -25896,7 +26691,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-colgate-plax-mouthwash.webp"
       }
-    ]
+    ],
+    "originalPrice": 150,
+    "unit": "250 ml",
+    "unitLabel": "250 ml"
   },
   {
     "id": "g1-pc121",
@@ -25924,20 +26722,11 @@
     "isBestDeal": false,
     "inStock": true,
     "is_active": true,
-    "price": 35,
-    "mrp": 35,
+    "price": 99,
+    "mrp": 99,
     "discount": 0,
     "in_stock": true,
     "variants": [
-      {
-        "id": "var-g1-pc121-1",
-        "name": "Single",
-        "unit": "Single",
-        "price": 35,
-        "mrp": 35,
-        "in_stock": true,
-        "image": "/products/verified/pc-colgate-zigzag-toothbrush.webp"
-      },
       {
         "id": "var-g1-pc121-2",
         "name": "Pack of 3",
@@ -25946,8 +26735,20 @@
         "mrp": 99,
         "in_stock": true,
         "image": "/products/verified/pc-colgate-zigzag-toothbrush.webp"
+      },
+      {
+        "id": "var-g1-pc121-1",
+        "name": "Single",
+        "unit": "Single",
+        "price": 35,
+        "mrp": 35,
+        "in_stock": true,
+        "image": "/products/verified/pc-colgate-zigzag-toothbrush.webp"
       }
-    ]
+    ],
+    "originalPrice": 99,
+    "unit": "Pack of 3",
+    "unitLabel": "Pack of 3"
   },
   {
     "id": "g1-pc122",
@@ -25975,20 +26776,11 @@
     "isBestDeal": false,
     "inStock": true,
     "is_active": true,
-    "price": 60,
-    "mrp": 60,
+    "price": 115,
+    "mrp": 115,
     "discount": 0,
     "in_stock": true,
     "variants": [
-      {
-        "id": "var-g1-pc122-1",
-        "name": "Single",
-        "unit": "Single",
-        "price": 60,
-        "mrp": 60,
-        "in_stock": true,
-        "image": "/products/verified/pc-oral-b-cross-action.webp"
-      },
       {
         "id": "var-g1-pc122-2",
         "name": "Pack of 2",
@@ -25997,8 +26789,20 @@
         "mrp": 115,
         "in_stock": true,
         "image": "/products/verified/pc-oral-b-cross-action.webp"
+      },
+      {
+        "id": "var-g1-pc122-1",
+        "name": "Single",
+        "unit": "Single",
+        "price": 60,
+        "mrp": 60,
+        "in_stock": true,
+        "image": "/products/verified/pc-oral-b-cross-action.webp"
       }
-    ]
+    ],
+    "originalPrice": 115,
+    "unit": "Pack of 2",
+    "unitLabel": "Pack of 2"
   },
   {
     "id": "g1-pc123",
@@ -26133,7 +26937,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dabur-red-tooth-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 38,
+    "unit": "60 g",
+    "unitLabel": "60 g"
   },
   {
     "id": "g1-pc126",
@@ -26193,7 +27000,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-vaseline-original-jelly.webp"
       }
-    ]
+    ],
+    "originalPrice": 22,
+    "unit": "20 g",
+    "unitLabel": "20 g"
   },
   {
     "id": "g1-pc127",
@@ -26244,7 +27054,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-vaseline-intensive-care-lotion.webp"
       }
-    ]
+    ],
+    "originalPrice": 120,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-pc128",
@@ -26295,7 +27108,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-lakme-sun-expert.webp"
       }
-    ]
+    ],
+    "originalPrice": 275,
+    "unit": "50 ml",
+    "unitLabel": "50 ml"
   },
   {
     "id": "g1-pc129",
@@ -26346,7 +27162,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dermi-cool-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 55,
+    "unit": "50 g",
+    "unitLabel": "50 g"
   },
   {
     "id": "g1-pc130",
@@ -26397,7 +27216,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-nycil-cool-powder.webp"
       }
-    ]
+    ],
+    "originalPrice": 55,
+    "unit": "50 g",
+    "unitLabel": "50 g"
   },
   {
     "id": "g1-pc131",
@@ -26448,7 +27270,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-ponds-dreamflower-talc.webp"
       }
-    ]
+    ],
+    "originalPrice": 105,
+    "unit": "100 g",
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pc132",
@@ -26625,7 +27450,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-nivea-men-roll-on.webp"
       }
-    ]
+    ],
+    "originalPrice": 115,
+    "unit": "25 ml",
+    "unitLabel": "25 ml"
   },
   {
     "id": "g1-pc136",
@@ -26653,20 +27481,11 @@
     "isBestDeal": false,
     "inStock": true,
     "is_active": true,
-    "price": 25,
-    "mrp": 25,
+    "price": 70,
+    "mrp": 70,
     "discount": 0,
     "in_stock": true,
     "variants": [
-      {
-        "id": "var-g1-pc136-1",
-        "name": "Single",
-        "unit": "Single",
-        "price": 25,
-        "mrp": 25,
-        "in_stock": true,
-        "image": "/products/verified/pc-gillette-guard-razor.webp"
-      },
       {
         "id": "var-g1-pc136-2",
         "name": "Pack of 3",
@@ -26675,8 +27494,20 @@
         "mrp": 70,
         "in_stock": true,
         "image": "/products/verified/pc-gillette-guard-razor.webp"
+      },
+      {
+        "id": "var-g1-pc136-1",
+        "name": "Single",
+        "unit": "Single",
+        "price": 25,
+        "mrp": 25,
+        "in_stock": true,
+        "image": "/products/verified/pc-gillette-guard-razor.webp"
       }
-    ]
+    ],
+    "originalPrice": 70,
+    "unit": "Pack of 3",
+    "unitLabel": "Pack of 3"
   },
   {
     "id": "g1-pc137",
@@ -26769,7 +27600,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-old-spice-after-shave.webp"
       }
-    ]
+    ],
+    "originalPrice": 135,
+    "unit": "50 ml",
+    "unitLabel": "50 ml"
   },
   {
     "id": "g1-pc139",
@@ -26862,7 +27696,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-nivea-creme-tin.webp"
       }
-    ]
+    ],
+    "originalPrice": 85,
+    "unit": "50 ml",
+    "unitLabel": "50 ml"
   },
   {
     "id": "g1-pc141",
@@ -26896,9 +27733,9 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-pc141-1",
-        "name": "Small (20 count)",
-        "unit": "Small (20 count)",
+        "id": "var-g1-pc141-3",
+        "name": "Large (16 count)",
+        "unit": "Large (16 count)",
         "price": 249,
         "mrp": 249,
         "in_stock": true,
@@ -26914,15 +27751,18 @@
         "image": "/products/verified/pc-mamypoko-pants.webp"
       },
       {
-        "id": "var-g1-pc141-3",
-        "name": "Large (16 count)",
-        "unit": "Large (16 count)",
+        "id": "var-g1-pc141-1",
+        "name": "Small (20 count)",
+        "unit": "Small (20 count)",
         "price": 249,
         "mrp": 249,
         "in_stock": true,
         "image": "/products/verified/pc-mamypoko-pants.webp"
       }
-    ]
+    ],
+    "originalPrice": 249,
+    "unit": "Large (16 count)",
+    "unitLabel": "Large (16 count)"
   },
   {
     "id": "g1-pc142",
@@ -26973,7 +27813,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-johnsons-baby-wipes.webp"
       }
-    ]
+    ],
+    "originalPrice": 85,
+    "unit": "20 wipes",
+    "unitLabel": "20 wipes"
   },
   {
     "id": "g1-pc143",
@@ -27024,7 +27867,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-himalaya-baby-wipes.webp"
       }
-    ]
+    ],
+    "originalPrice": 80,
+    "unit": "24 wipes",
+    "unitLabel": "24 wipes"
   },
   {
     "id": "g1-pc144",
@@ -27075,7 +27921,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-johnsons-baby-shampoo.webp"
       }
-    ]
+    ],
+    "originalPrice": 110,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-pc145",
@@ -27126,7 +27975,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-himalaya-baby-wash.webp"
       }
-    ]
+    ],
+    "originalPrice": 105,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-pc146",
@@ -27261,7 +28113,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-whisper-ultra-nights.webp"
       }
-    ]
+    ],
+    "originalPrice": 99,
+    "unit": "7 pads",
+    "unitLabel": "7 pads"
   },
   {
     "id": "g1-pc149",
@@ -27312,7 +28167,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-stayfree-secure-nights.webp"
       }
-    ]
+    ],
+    "originalPrice": 85,
+    "unit": "7 pads",
+    "unitLabel": "7 pads"
   },
   {
     "id": "g1-pc150",
@@ -27363,7 +28221,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-sofy-anti-bacteria.webp"
       }
-    ]
+    ],
+    "originalPrice": 80,
+    "unit": "7 pads",
+    "unitLabel": "7 pads"
   },
   {
     "id": "g1-pc151",
@@ -27414,7 +28275,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-whisper-panty-liners.webp"
       }
-    ]
+    ],
+    "originalPrice": 110,
+    "unit": "20 liners",
+    "unitLabel": "20 liners"
   },
   {
     "id": "g1-pc152",
@@ -27465,7 +28329,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-vwash-plus-intimate-wash.webp"
       }
-    ]
+    ],
+    "originalPrice": 190,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-pc153",
@@ -27516,7 +28383,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-ob-procomfort-tampons.webp"
       }
-    ]
+    ],
+    "originalPrice": 180,
+    "unit": "10 tampons",
+    "unitLabel": "10 tampons"
   },
   {
     "id": "g1-pc154",
@@ -27567,7 +28437,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dettol-liquid-handwash.webp"
       }
-    ]
+    ],
+    "originalPrice": 99,
+    "unit": "200 ml (Pump)",
+    "unitLabel": "200 ml (Pump)"
   },
   {
     "id": "g1-pc155",
@@ -27618,7 +28491,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-lifebuoy-liquid-handwash.webp"
       }
-    ]
+    ],
+    "originalPrice": 95,
+    "unit": "190 ml (Pump)",
+    "unitLabel": "190 ml (Pump)"
   },
   {
     "id": "g1-pc156",
@@ -27669,7 +28545,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-savlon-liquid-handwash.webp"
       }
-    ]
+    ],
+    "originalPrice": 99,
+    "unit": "200 ml (Pump)",
+    "unitLabel": "200 ml (Pump)"
   },
   {
     "id": "g1-pc157",
@@ -27720,7 +28599,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-dove-deeply-nourishing-body-wash.webp"
       }
-    ]
+    ],
+    "originalPrice": 140,
+    "unit": "190 ml",
+    "unitLabel": "190 ml"
   },
   {
     "id": "g1-pc158",
@@ -27771,7 +28653,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-nivea-lemon-oil-body-wash.webp"
       }
-    ]
+    ],
+    "originalPrice": 249,
+    "unit": "250 ml",
+    "unitLabel": "250 ml"
   },
   {
     "id": "g1-pc159",
@@ -27822,7 +28707,10 @@
         "in_stock": true,
         "image": "/products/verified/pc-fiama-shower-gel.webp"
       }
-    ]
+    ],
+    "originalPrice": 99,
+    "unit": "100 ml",
+    "unitLabel": "100 ml"
   },
   {
     "id": "g1-snk001",
@@ -30628,7 +31516,7 @@
     "category": "biscuits-bakery",
     "sub_category": "Cream Biscuits & Choco Fills",
     "subCategory": "Cream Biscuits & Choco Fills",
-    "unit": "120 g",
+    "unit": "33 g",
     "image_url": "/products/verified/bsc-parle-hide-seek.webp",
     "imageUrl": "/products/verified/bsc-parle-hide-seek.webp",
     "image": "/products/verified/bsc-parle-hide-seek.webp",
@@ -30646,8 +31534,8 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 35,
-    "mrp": 35,
+    "price": 10,
+    "mrp": 10,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -30669,7 +31557,9 @@
         "in_stock": true,
         "image": "/products/verified/bsc-parle-hide-seek.webp"
       }
-    ]
+    ],
+    "originalPrice": 10,
+    "unitLabel": "33 g"
   },
   {
     "id": "g1-bsc003",
@@ -32314,7 +33204,7 @@
     "category": "biscuits-bakery",
     "sub_category": "Cream Biscuits & Choco Fills",
     "subCategory": "Cream Biscuits & Choco Fills",
-    "unit": "120 g",
+    "unit": "43 g",
     "image_url": "/products/verified/bsc-oreo-vanilla.webp",
     "imageUrl": "/products/verified/bsc-oreo-vanilla.webp",
     "image": "/products/verified/bsc-oreo-vanilla.webp",
@@ -32332,8 +33222,8 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 35,
-    "mrp": 35,
+    "price": 10,
+    "mrp": 10,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -32355,7 +33245,9 @@
         "in_stock": true,
         "image": "/products/verified/bsc-oreo-vanilla.webp"
       }
-    ]
+    ],
+    "originalPrice": 10,
+    "unitLabel": "43 g"
   },
   {
     "id": "g1-bsc042",
@@ -33441,7 +34333,7 @@
     "category": "tea-coffee-milk-drinks",
     "sub_category": "Packaged Tea",
     "subCategory": "Packaged Tea",
-    "unit": "500 g",
+    "unit": "100 g",
     "image_url": "/products/verified/tea-3-roses-dust.webp",
     "imageUrl": "/products/verified/tea-3-roses-dust.webp",
     "image": "/products/verified/tea-3-roses-dust.webp",
@@ -33459,8 +34351,8 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 315,
-    "mrp": 315,
+    "price": 40,
+    "mrp": 40,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -33491,7 +34383,9 @@
         "in_stock": true,
         "image": "/products/verified/tea-3-roses-dust.webp"
       }
-    ]
+    ],
+    "originalPrice": 40,
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-tea002",
@@ -33631,7 +34525,7 @@
     "category": "tea-coffee-milk-drinks",
     "sub_category": "Packaged Tea",
     "subCategory": "Packaged Tea",
-    "unit": "500 g",
+    "unit": "100 g",
     "image_url": "/products/verified/tea-taj-mahal.webp",
     "imageUrl": "/products/verified/tea-taj-mahal.webp",
     "image": "/products/verified/tea-taj-mahal.webp",
@@ -33649,8 +34543,8 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 375,
-    "mrp": 375,
+    "price": 65,
+    "mrp": 65,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -33681,7 +34575,9 @@
         "in_stock": true,
         "image": "/products/verified/tea-taj-mahal.webp"
       }
-    ]
+    ],
+    "originalPrice": 65,
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-tea006",
@@ -33735,7 +34631,7 @@
     "category": "tea-coffee-milk-drinks",
     "sub_category": "Packaged Tea",
     "subCategory": "Packaged Tea",
-    "unit": "500 g",
+    "unit": "50 g",
     "image_url": "/products/verified/tea-tata-gemini.webp",
     "imageUrl": "/products/verified/tea-tata-gemini.webp",
     "image": "/products/verified/tea-tata-gemini.webp",
@@ -33753,8 +34649,8 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 275,
-    "mrp": 275,
+    "price": 25,
+    "mrp": 25,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -33803,7 +34699,9 @@
         "in_stock": true,
         "image": "/products/verified/tea-tata-gemini.webp"
       }
-    ]
+    ],
+    "originalPrice": 25,
+    "unitLabel": "50 g"
   },
   {
     "id": "g1-tea008",
@@ -34029,7 +34927,7 @@
     "category": "tea-coffee-milk-drinks",
     "sub_category": "Instant Coffee",
     "subCategory": "Instant Coffee",
-    "unit": "50 g",
+    "unit": "25 g",
     "image_url": "/products/verified/tea-bru-gold.webp",
     "imageUrl": "/products/verified/tea-bru-gold.webp",
     "image": "/products/verified/tea-bru-gold.webp",
@@ -34047,8 +34945,8 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 180,
-    "mrp": 180,
+    "price": 35,
+    "mrp": 35,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -34088,7 +34986,9 @@
         "in_stock": true,
         "image": "/products/verified/tea-bru-instant.webp"
       }
-    ]
+    ],
+    "originalPrice": 35,
+    "unitLabel": "25 g"
   },
   {
     "id": "g1-tea014",
@@ -34357,7 +35257,7 @@
     "category": "tea-coffee-milk-drinks",
     "sub_category": "Health & Malt Drinks",
     "subCategory": "Health & Malt Drinks",
-    "unit": "500 g",
+    "unit": "200 g",
     "image_url": "/products/verified/tea-bournvita-refill.webp",
     "imageUrl": "/products/verified/tea-bournvita-refill.webp",
     "image": "/products/verified/tea-bournvita-refill.webp",
@@ -34375,8 +35275,8 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 245,
-    "mrp": 245,
+    "price": 110,
+    "mrp": 110,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -34407,7 +35307,9 @@
         "in_stock": true,
         "image": "/products/verified/tea-horlicks-classic.webp"
       }
-    ]
+    ],
+    "originalPrice": 110,
+    "unitLabel": "200 g"
   },
   {
     "id": "g1-tea021",
@@ -34418,7 +35320,7 @@
     "category": "tea-coffee-milk-drinks",
     "sub_category": "Health & Malt Drinks",
     "subCategory": "Health & Malt Drinks",
-    "unit": "500 g",
+    "unit": "200 g",
     "image_url": "/products/verified/tea-complan-chocolate.webp",
     "imageUrl": "/products/verified/tea-complan-chocolate.webp",
     "image": "/products/verified/tea-complan-chocolate.webp",
@@ -34436,8 +35338,8 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 320,
-    "mrp": 320,
+    "price": 115,
+    "mrp": 115,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -34468,7 +35370,9 @@
         "in_stock": true,
         "image": "/products/verified/tea-boost-health-drink.webp"
       }
-    ]
+    ],
+    "originalPrice": 115,
+    "unitLabel": "200 g"
   },
   {
     "id": "g1-tea022",
@@ -34694,7 +35598,7 @@
     "category": "drinks-juices",
     "sub_category": "Thums Up, Coca-Cola & Soft Drinks",
     "subCategory": "Thums Up, Coca-Cola & Soft Drinks",
-    "unit": "750 ml",
+    "unit": "250 ml",
     "image_url": "/products/verified/bev-thums-up-750ml.webp",
     "imageUrl": "/products/verified/bev-thums-up-750ml.webp",
     "image": "/products/verified/bev-thums-up-750ml.webp",
@@ -34712,8 +35616,8 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 40,
-    "mrp": 40,
+    "price": 20,
+    "mrp": 20,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -34753,18 +35657,20 @@
         "in_stock": true,
         "image": "/products/verified/bev-thums-up-750ml.webp"
       }
-    ]
+    ],
+    "originalPrice": 20,
+    "unitLabel": "250 ml"
   },
   {
     "id": "g1-bev002",
-    "name": "Coca-Cola Original Carbonated Soft Drink",
+    "name": "Coca-Cola Original Taste Carbonated Soft Drink",
     "brand_id": "brand-coca-cola",
     "brand": "Coca-Cola",
     "category_id": "drinks-juices",
     "category": "drinks-juices",
     "sub_category": "Thums Up, Coca-Cola & Soft Drinks",
     "subCategory": "Thums Up, Coca-Cola & Soft Drinks",
-    "unit": "750 ml",
+    "unit": "250 ml",
     "image_url": "/products/verified/bev-coca-cola-750ml.webp",
     "imageUrl": "/products/verified/bev-coca-cola-750ml.webp",
     "image": "/products/verified/bev-coca-cola-750ml.webp",
@@ -34782,23 +35688,23 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 40,
-    "mrp": 40,
+    "price": 20,
+    "mrp": 20,
     "discount": 0,
     "in_stock": true,
     "variants": [
       {
         "id": "g1-bev002-v1",
-        "name": "250 ml",
+        "name": "250 ml (Small Bottle)",
         "unit": "250 ml",
         "price": 20,
         "mrp": 20,
         "in_stock": true,
-        "image": "/products/verified/bev-coca-cola-750ml.webp"
+        "image": "/products/verified/bev-coca-cola-250ml.webp"
       },
       {
         "id": "g1-bev002-v2",
-        "name": "750 ml",
+        "name": "750 ml (Standard)",
         "unit": "750 ml",
         "price": 40,
         "mrp": 40,
@@ -34807,14 +35713,25 @@
       },
       {
         "id": "g1-bev002-v3",
-        "name": "2.25 L",
-        "unit": "2.25 L",
-        "price": 99,
-        "mrp": 99,
+        "name": "1.25 L (Medium Bottle)",
+        "unit": "1.25 L",
+        "price": 65,
+        "mrp": 65,
         "in_stock": true,
-        "image": "/products/verified/bev-coca-cola-750ml.webp"
+        "image": "/products/verified/bev-coca-cola-1l.webp"
+      },
+      {
+        "id": "g1-bev002-v4",
+        "name": "2.25 L (Party Pack)",
+        "unit": "2.25 L",
+        "price": 100,
+        "mrp": 100,
+        "in_stock": true,
+        "image": "/products/verified/bev-coca-cola-2l.webp"
       }
-    ]
+    ],
+    "originalPrice": 20,
+    "unitLabel": "250 ml"
   },
   {
     "id": "g1-bev003",
@@ -34825,7 +35742,7 @@
     "category": "drinks-juices",
     "sub_category": "Thums Up, Coca-Cola & Soft Drinks",
     "subCategory": "Thums Up, Coca-Cola & Soft Drinks",
-    "unit": "750 ml",
+    "unit": "250 ml",
     "image_url": "/products/verified/bev-sprite-750ml.webp",
     "imageUrl": "/products/verified/bev-sprite-750ml.webp",
     "image": "/products/verified/bev-sprite-750ml.webp",
@@ -34843,14 +35760,14 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 40,
-    "mrp": 40,
+    "price": 20,
+    "mrp": 20,
     "discount": 0,
     "in_stock": true,
     "variants": [
       {
         "id": "g1-bev003-v1",
-        "name": "250 ml",
+        "name": "250 ml (Pet Bottle)",
         "unit": "250 ml",
         "price": 20,
         "mrp": 20,
@@ -34859,7 +35776,7 @@
       },
       {
         "id": "g1-bev003-v2",
-        "name": "750 ml",
+        "name": "750 ml (Standard)",
         "unit": "750 ml",
         "price": 40,
         "mrp": 40,
@@ -34868,7 +35785,7 @@
       },
       {
         "id": "g1-bev003-v3",
-        "name": "1 L",
+        "name": "1 L (Large Bottle)",
         "unit": "1 L",
         "price": 50,
         "mrp": 50,
@@ -34877,14 +35794,16 @@
       },
       {
         "id": "g1-bev003-v4",
-        "name": "2.25 L",
+        "name": "2.25 L (Family Pack)",
         "unit": "2.25 L",
         "price": 99,
-        "mrp": 99,
+        "mrp": 100,
         "in_stock": true,
-        "image": "/products/verified/bev-sprite-750ml.webp"
+        "image": "/products/verified/bev-sprite-2l.webp"
       }
-    ]
+    ],
+    "unitLabel": "250 ml",
+    "originalPrice": 20
   },
   {
     "id": "g1-bev004",
@@ -35110,7 +36029,7 @@
     "category": "drinks-juices",
     "sub_category": "Maaza & Fruit Beverages",
     "subCategory": "Maaza & Fruit Beverages",
-    "unit": "600 ml",
+    "unit": "250 ml",
     "image_url": "/products/verified/bev-maaza-600ml.webp",
     "imageUrl": "/products/verified/bev-maaza-600ml.webp",
     "image": "/products/verified/bev-maaza-600ml.webp",
@@ -35128,8 +36047,8 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 42,
-    "mrp": 42,
+    "price": 20,
+    "mrp": 20,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -35160,7 +36079,9 @@
         "in_stock": true,
         "image": "/products/verified/bev-maaza-600ml.webp"
       }
-    ]
+    ],
+    "originalPrice": 20,
+    "unitLabel": "250 ml"
   },
   {
     "id": "g1-bev010",
@@ -35816,7 +36737,7 @@
     "category": "sweets-chocolates",
     "sub_category": "Cadbury Dairy Milk & Silk",
     "subCategory": "Cadbury Dairy Milk & Silk",
-    "unit": "50 g",
+    "unit": "13 g",
     "image_url": "/products/verified/swt-cadbury-dairy-milk.webp",
     "imageUrl": "/products/verified/swt-cadbury-dairy-milk.webp",
     "image": "/products/verified/swt-cadbury-dairy-milk.webp",
@@ -35834,8 +36755,8 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 45,
-    "mrp": 45,
+    "price": 5,
+    "mrp": 5,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -35866,7 +36787,9 @@
         "in_stock": true,
         "image": "/products/verified/swt-cadbury-dairy-milk.webp"
       }
-    ]
+    ],
+    "originalPrice": 5,
+    "unitLabel": "13 g"
   },
   {
     "id": "g1-swt002",
@@ -36049,7 +36972,7 @@
     "category": "sweets-chocolates",
     "sub_category": "Chocolate Bars & Wafers",
     "subCategory": "Chocolate Bars & Wafers",
-    "unit": "40 g",
+    "unit": "10 g",
     "image_url": "/products/verified/swt-cadbury-5-star.webp",
     "imageUrl": "/products/verified/swt-cadbury-5-star.webp",
     "image": "/products/verified/swt-cadbury-5-star.webp",
@@ -36067,8 +36990,8 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 20,
-    "mrp": 20,
+    "price": 5,
+    "mrp": 5,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -36099,7 +37022,9 @@
         "in_stock": true,
         "image": "/products/verified/swt-cadbury-5-star.webp"
       }
-    ]
+    ],
+    "originalPrice": 5,
+    "unitLabel": "10 g"
   },
   {
     "id": "g1-swt007",
@@ -36110,7 +37035,7 @@
     "category": "sweets-chocolates",
     "sub_category": "Chocolate Bars & Wafers",
     "subCategory": "Chocolate Bars & Wafers",
-    "unit": "28 g",
+    "unit": "13 g",
     "image_url": "/products/verified/swt-cadbury-perk.webp",
     "imageUrl": "/products/verified/swt-cadbury-perk.webp",
     "image": "/products/verified/swt-cadbury-perk.webp",
@@ -36128,21 +37053,32 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 10,
-    "mrp": 10,
+    "price": 5,
+    "mrp": 5,
     "discount": 0,
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-swt007-1",
-        "name": "28 g (Bar)",
-        "unit": "28 g (Bar)",
+        "id": "g1-swt007-v1",
+        "name": "13 g (₹5 Pack)",
+        "unit": "13 g",
+        "price": 5,
+        "mrp": 5,
+        "in_stock": true,
+        "image": "/products/verified/swt-cadbury-perk.webp"
+      },
+      {
+        "id": "g1-swt007-v2",
+        "name": "28 g (Double Bar)",
+        "unit": "28 g",
         "price": 10,
         "mrp": 10,
         "in_stock": true,
         "image": "/products/verified/swt-cadbury-perk.webp"
       }
-    ]
+    ],
+    "unitLabel": "13 g",
+    "originalPrice": 5
   },
   {
     "id": "g1-swt008",
@@ -36196,7 +37132,7 @@
     "category": "sweets-chocolates",
     "sub_category": "Chocolate Bars & Wafers",
     "subCategory": "Chocolate Bars & Wafers",
-    "unit": "27.5 g",
+    "unit": "12.8 g",
     "image_url": "/products/verified/swt-nestle-kitkat.webp",
     "imageUrl": "/products/verified/swt-nestle-kitkat.webp",
     "image": "/products/verified/swt-nestle-kitkat.webp",
@@ -36214,8 +37150,8 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 20,
-    "mrp": 20,
+    "price": 10,
+    "mrp": 10,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -36246,7 +37182,9 @@
         "in_stock": true,
         "image": "/products/verified/swt-nestle-kitkat.webp"
       }
-    ]
+    ],
+    "originalPrice": 10,
+    "unitLabel": "12.8 g"
   },
   {
     "id": "g1-swt010",
@@ -36257,7 +37195,7 @@
     "category": "sweets-chocolates",
     "sub_category": "Chocolate Bars & Wafers",
     "subCategory": "Chocolate Bars & Wafers",
-    "unit": "18 g",
+    "unit": "9 g",
     "image_url": "/products/verified/swt-nestle-munch.webp",
     "imageUrl": "/products/verified/swt-nestle-munch.webp",
     "image": "/products/verified/swt-nestle-munch.webp",
@@ -36275,8 +37213,8 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 10,
-    "mrp": 10,
+    "price": 5,
+    "mrp": 5,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -36298,7 +37236,9 @@
         "in_stock": true,
         "image": "/products/verified/swt-nestle-munch.webp"
       }
-    ]
+    ],
+    "originalPrice": 5,
+    "unitLabel": "9 g"
   },
   {
     "id": "g1-swt011",
@@ -36826,10 +37766,10 @@
     "sub_category": "Packaged Traditional Sweets",
     "subCategory": "Packaged Traditional Sweets",
     "unit": "200 g",
-    "image_url": "/products/verified/swt-tulasi-peanut-chikki.webp",
-    "imageUrl": "/products/verified/swt-tulasi-peanut-chikki.webp",
-    "image": "/products/verified/swt-tulasi-peanut-chikki.webp",
-    "image_path": "/products/verified/swt-tulasi-peanut-chikki.webp",
+    "image_url": "/products/verified/bsc-peanut-chikki.webp",
+    "imageUrl": "/products/verified/bsc-peanut-chikki.webp",
+    "image": "/products/verified/bsc-peanut-chikki.webp",
+    "image_path": "/products/verified/bsc-peanut-chikki.webp",
     "image_status": "verified",
     "imageStatus": "verified",
     "image_source": "verified_packshot",
@@ -37038,7 +37978,9 @@
         "in_stock": true,
         "image": "/products/verified/ice-arun-vanilla-1l.webp"
       }
-    ]
+    ],
+    "originalPrice": 110,
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-dry027",
@@ -37090,7 +38032,9 @@
         "in_stock": true,
         "image": "/products/verified/ice-arun-butterscotch-1l.webp"
       }
-    ]
+    ],
+    "originalPrice": 130,
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-dry028",
@@ -37519,178 +38463,6 @@
         "mrp": 40,
         "in_stock": true,
         "image": "/products/verified/bev-thums-up-can.webp"
-      }
-    ]
-  },
-  {
-    "id": "g1-bev029",
-    "name": "Coca-Cola Original Taste Soft Drink (250 ml)",
-    "brand_id": "brand-coca-cola",
-    "brand": "Coca-Cola",
-    "category_id": "drinks-juices",
-    "category": "drinks-juices",
-    "sub_category": "Thums Up, Coca-Cola & Soft Drinks",
-    "subCategory": "Thums Up, Coca-Cola & Soft Drinks",
-    "unit": "250 ml",
-    "image_url": "/products/verified/bev-coca-cola-250ml.webp",
-    "imageUrl": "/products/verified/bev-coca-cola-250ml.webp",
-    "image": "/products/verified/bev-coca-cola-250ml.webp",
-    "image_path": "/products/verified/bev-coca-cola-250ml.webp",
-    "image_status": "verified",
-    "imageStatus": "verified",
-    "image_source": "verified_packshot",
-    "image_license": "Brand Packshot",
-    "image_check_reason": "100% authentic supermarket packshot",
-    "barcode": "8908068593304",
-    "description": "Coca-Cola Coca-Cola Original Taste Soft Drink (250 ml) (Original Taste Cola). Authentic Indian supermarket packaged SKU. Net quantity: 250 ml. Storage: AMBIENT. Shelf life: 6 Months.",
-    "rating": 4.8,
-    "reviewsCount": 74,
-    "isPopular": true,
-    "isBestDeal": true,
-    "inStock": true,
-    "is_active": true,
-    "price": 20,
-    "mrp": 20,
-    "discount": 0,
-    "in_stock": true,
-    "variants": [
-      {
-        "id": "var-g1-bev029-1",
-        "name": "250 ml (Pet Bottle)",
-        "unit": "250 ml (Pet Bottle)",
-        "price": 20,
-        "mrp": 20,
-        "in_stock": true,
-        "image": "/products/verified/bev-coca-cola-250ml.webp"
-      }
-    ]
-  },
-  {
-    "id": "g1-bev030",
-    "name": "Coca-Cola Original Taste Soft Drink (1.25 L)",
-    "brand_id": "brand-coca-cola",
-    "brand": "Coca-Cola",
-    "category_id": "drinks-juices",
-    "category": "drinks-juices",
-    "sub_category": "Thums Up, Coca-Cola & Soft Drinks",
-    "subCategory": "Thums Up, Coca-Cola & Soft Drinks",
-    "unit": "1.25 L",
-    "image_url": "/products/verified/bev-coca-cola-1l.webp",
-    "imageUrl": "/products/verified/bev-coca-cola-1l.webp",
-    "image": "/products/verified/bev-coca-cola-1l.webp",
-    "image_path": "/products/verified/bev-coca-cola-1l.webp",
-    "image_status": "verified",
-    "imageStatus": "verified",
-    "image_source": "verified_packshot",
-    "image_license": "Brand Packshot",
-    "image_check_reason": "100% authentic supermarket packshot",
-    "barcode": "8902436722659",
-    "description": "Coca-Cola Coca-Cola Original Taste Soft Drink (1.25 L) (Original Taste Cola). Authentic Indian supermarket packaged SKU. Net quantity: 1.25 L. Storage: AMBIENT. Shelf life: 6 Months.",
-    "rating": 4.8,
-    "reviewsCount": 91,
-    "isPopular": true,
-    "isBestDeal": true,
-    "inStock": true,
-    "is_active": true,
-    "price": 65,
-    "mrp": 65,
-    "discount": 0,
-    "in_stock": true,
-    "variants": [
-      {
-        "id": "var-g1-bev030-1",
-        "name": "1.25 L (Bottle)",
-        "unit": "1.25 L (Bottle)",
-        "price": 65,
-        "mrp": 65,
-        "in_stock": true,
-        "image": "/products/verified/bev-coca-cola-1l.webp"
-      }
-    ]
-  },
-  {
-    "id": "g1-bev031",
-    "name": "Coca-Cola Original Taste Soft Drink (2.25 L)",
-    "brand_id": "brand-coca-cola",
-    "brand": "Coca-Cola",
-    "category_id": "drinks-juices",
-    "category": "drinks-juices",
-    "sub_category": "Thums Up, Coca-Cola & Soft Drinks",
-    "subCategory": "Thums Up, Coca-Cola & Soft Drinks",
-    "unit": "2.25 L",
-    "image_url": "/products/verified/bev-coca-cola-2l.webp",
-    "imageUrl": "/products/verified/bev-coca-cola-2l.webp",
-    "image": "/products/verified/bev-coca-cola-2l.webp",
-    "image_path": "/products/verified/bev-coca-cola-2l.webp",
-    "image_status": "verified",
-    "imageStatus": "verified",
-    "image_source": "verified_packshot",
-    "image_license": "Brand Packshot",
-    "image_check_reason": "100% authentic supermarket packshot",
-    "barcode": "8906982594371",
-    "description": "Coca-Cola Coca-Cola Original Taste Soft Drink (2.25 L) (Original Taste Cola Family Pack). Authentic Indian supermarket packaged SKU. Net quantity: 2.25 L. Storage: AMBIENT. Shelf life: 6 Months.",
-    "rating": 4.8,
-    "reviewsCount": 87,
-    "isPopular": true,
-    "isBestDeal": true,
-    "inStock": true,
-    "is_active": true,
-    "price": 100,
-    "mrp": 100,
-    "discount": 0,
-    "in_stock": true,
-    "variants": [
-      {
-        "id": "var-g1-bev031-1",
-        "name": "2.25 L (Large Bottle)",
-        "unit": "2.25 L (Large Bottle)",
-        "price": 100,
-        "mrp": 100,
-        "in_stock": true,
-        "image": "/products/verified/bev-coca-cola-2l.webp"
-      }
-    ]
-  },
-  {
-    "id": "g1-bev032",
-    "name": "Coca-Cola Original Soft Drink Can (250 ml)",
-    "brand_id": "brand-coca-cola",
-    "brand": "Coca-Cola",
-    "category_id": "drinks-juices",
-    "category": "drinks-juices",
-    "sub_category": "Thums Up, Coca-Cola & Soft Drinks",
-    "subCategory": "Thums Up, Coca-Cola & Soft Drinks",
-    "unit": "250 ml",
-    "image_url": "/products/verified/bev-coca-cola-can.webp",
-    "imageUrl": "/products/verified/bev-coca-cola-can.webp",
-    "image": "/products/verified/bev-coca-cola-can.webp",
-    "image_path": "/products/verified/bev-coca-cola-can.webp",
-    "image_status": "verified",
-    "imageStatus": "verified",
-    "image_source": "verified_packshot",
-    "image_license": "Brand Packshot",
-    "image_check_reason": "100% authentic supermarket packshot",
-    "barcode": "8906314300081",
-    "description": "Coca-Cola Coca-Cola Original Soft Drink Can (250 ml) (Original Cola Can). Authentic Indian supermarket packaged SKU. Net quantity: 250 ml. Storage: AMBIENT. Shelf life: 9 Months.",
-    "rating": 4.8,
-    "reviewsCount": 110,
-    "isPopular": true,
-    "isBestDeal": true,
-    "inStock": true,
-    "is_active": true,
-    "price": 40,
-    "mrp": 40,
-    "discount": 0,
-    "in_stock": true,
-    "variants": [
-      {
-        "id": "var-g1-bev032-1",
-        "name": "250 ml (Can)",
-        "unit": "250 ml (Can)",
-        "price": 40,
-        "mrp": 40,
-        "in_stock": true,
-        "image": "/products/verified/bev-coca-cola-can.webp"
       }
     ]
   },
@@ -38260,7 +39032,9 @@
         "in_stock": true,
         "image": "/products/verified/bev-kinley-water-1l.webp"
       }
-    ]
+    ],
+    "originalPrice": 10,
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-bev046",
@@ -39046,10 +39820,10 @@
     "sub_category": "Chocolate Bars & Wafers",
     "subCategory": "Chocolate Bars & Wafers",
     "unit": "13 g",
-    "image_url": "/products/verified/swt-perk-5rs.webp",
-    "imageUrl": "/products/verified/swt-perk-5rs.webp",
-    "image": "/products/verified/swt-perk-5rs.webp",
-    "image_path": "/products/verified/swt-perk-5rs.webp",
+    "image_url": "/products/verified/swt-cadbury-perk.webp",
+    "imageUrl": "/products/verified/swt-cadbury-perk.webp",
+    "image": "/products/verified/swt-cadbury-perk.webp",
+    "image_path": "/products/verified/swt-cadbury-perk.webp",
     "image_status": "verified",
     "imageStatus": "verified",
     "image_source": "verified_packshot",
@@ -42720,10 +43494,10 @@
     "imageUrl": "/products/verified/bsc-parle-g-10rs.webp",
     "image": "/products/verified/bsc-parle-g-10rs.webp",
     "category_name": "Biscuits, Cookies & Rusks",
-    "unit": "130 g",
+    "unit": "65 g",
     "is_active": true,
-    "price": 10,
-    "mrp": 10,
+    "price": 5,
+    "mrp": 5,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -42754,7 +43528,9 @@
         "in_stock": true,
         "image": "/products/verified/bsc-parle-g-1kg.webp"
       }
-    ]
+    ],
+    "originalPrice": 5,
+    "unitLabel": "65 g"
   },
   {
     "id": "g1-bsc069",
@@ -42846,7 +43622,9 @@
         "in_stock": true,
         "image": "/products/verified/bsc-good-day-cashew-600g.webp"
       }
-    ]
+    ],
+    "originalPrice": 10,
+    "unitLabel": "42 g"
   },
   {
     "id": "g1-bsc071",
@@ -42966,7 +43744,9 @@
         "in_stock": true,
         "image": "/products/verified/bsc-marie-gold-1kg.webp"
       }
-    ]
+    ],
+    "originalPrice": 15,
+    "unitLabel": "120 g"
   },
   {
     "id": "g1-bsc074",
@@ -44011,7 +44791,9 @@
         "in_stock": true,
         "image": "/products/verified/swt-lotte-choco-pie.webp"
       }
-    ]
+    ],
+    "originalPrice": 15,
+    "unitLabel": "28 g"
   },
   {
     "id": "g1-swt054",
@@ -48543,11 +49325,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "local-dals",
-    "unit": "1 KG",
+    "unit": "500g",
     "is_active": true,
-    "price": 165,
-    "mrp": 165,
-    "originalPrice": 165,
+    "price": 85,
+    "mrp": 85,
+    "originalPrice": 85,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -48573,7 +49355,8 @@
         "image": "/products/generated_pouches/g1_kandi_pappu_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_kandi_pappu_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-dal017",
@@ -48594,11 +49377,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "local-dals",
-    "unit": "1 KG",
+    "unit": "500g",
     "is_active": true,
-    "price": 165,
-    "mrp": 165,
-    "originalPrice": 165,
+    "price": 85,
+    "mrp": 85,
+    "originalPrice": 85,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -48624,7 +49407,8 @@
         "image": "/products/generated_pouches/g1_kandi_pappu_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_kandi_pappu_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-dal018",
@@ -48645,11 +49429,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "local-dals",
-    "unit": "1 KG",
+    "unit": "500g",
     "is_active": true,
-    "price": 105,
-    "mrp": 105,
-    "originalPrice": 105,
+    "price": 55,
+    "mrp": 55,
+    "originalPrice": 55,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -48675,7 +49459,8 @@
         "image": "/products/generated_pouches/g1_chana_dal_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_chana_dal_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_chana_dal_pouch.webp",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-dal019",
@@ -48696,11 +49481,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "local-dals",
-    "unit": "1 KG",
+    "unit": "500g",
     "is_active": true,
-    "price": 105,
-    "mrp": 105,
-    "originalPrice": 105,
+    "price": 55,
+    "mrp": 55,
+    "originalPrice": 55,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -48726,7 +49511,8 @@
         "image": "/products/generated_pouches/g1_chana_dal_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_chana_dal_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_chana_dal_pouch.webp",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-dal020",
@@ -48825,11 +49611,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "local-dals",
-    "unit": "1 KG",
+    "unit": "500g",
     "is_active": true,
-    "price": 145,
-    "mrp": 145,
-    "originalPrice": 145,
+    "price": 75,
+    "mrp": 75,
+    "originalPrice": 75,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -48855,7 +49641,8 @@
         "image": "/products/generated_pouches/g1_minapa_gundu_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_minapa_gundu_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_minapa_gundu_pouch.webp",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-dal023",
@@ -48876,11 +49663,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "local-dals",
-    "unit": "1 KG",
+    "unit": "500g",
     "is_active": true,
-    "price": 145,
-    "mrp": 145,
-    "originalPrice": 145,
+    "price": 75,
+    "mrp": 75,
+    "originalPrice": 75,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -48906,7 +49693,8 @@
         "image": "/products/generated_pouches/g1_minapa_gundu_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_minapa_gundu_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_minapa_gundu_pouch.webp",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-dal024",
@@ -48927,11 +49715,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "local-dals",
-    "unit": "1 KG",
+    "unit": "500g",
     "is_active": true,
-    "price": 140,
-    "mrp": 140,
-    "originalPrice": 140,
+    "price": 72,
+    "mrp": 72,
+    "originalPrice": 72,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -48957,7 +49745,8 @@
         "image": "/products/generated_pouches/g1_urad_dal_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_urad_dal_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_urad_dal_pouch.webp",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-dal025",
@@ -48978,11 +49767,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "local-dals",
-    "unit": "1 KG",
+    "unit": "500g",
     "is_active": true,
-    "price": 140,
-    "mrp": 140,
-    "originalPrice": 140,
+    "price": 72,
+    "mrp": 72,
+    "originalPrice": 72,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -49008,7 +49797,8 @@
         "image": "/products/generated_pouches/g1_urad_dal_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_urad_dal_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_urad_dal_pouch.webp",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-dal026",
@@ -49107,11 +49897,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "local-dals",
-    "unit": "500g",
+    "unit": "250g",
     "is_active": true,
-    "price": 68,
-    "mrp": 68,
-    "originalPrice": 68,
+    "price": 35,
+    "mrp": 35,
+    "originalPrice": 35,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -49147,7 +49937,8 @@
         "image": "/products/generated_pouches/g1_putnala_pappu_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_putnala_pappu_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_putnala_pappu_pouch.webp",
+    "unitLabel": "250g"
   },
   {
     "id": "g1-dal029",
@@ -49168,11 +49959,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "local-dals",
-    "unit": "500g",
+    "unit": "250g",
     "is_active": true,
-    "price": 68,
-    "mrp": 68,
-    "originalPrice": 68,
+    "price": 35,
+    "mrp": 35,
+    "originalPrice": 35,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -49208,7 +49999,8 @@
         "image": "/products/generated_pouches/g1_putnala_pappu_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_putnala_pappu_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_putnala_pappu_pouch.webp",
+    "unitLabel": "250g"
   },
   {
     "id": "g1-dal030",
@@ -51140,11 +51932,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "spices-masalas",
-    "unit": "250g",
+    "unit": "100g",
     "is_active": true,
-    "price": 95,
-    "mrp": 95,
-    "originalPrice": 95,
+    "price": 40,
+    "mrp": 40,
+    "originalPrice": 40,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -51180,7 +51972,8 @@
         "image": "/products/generated_pouches/g1_jeera_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_jeera_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_jeera_pouch.webp",
+    "unitLabel": "100g"
   },
   {
     "id": "g1-spc046",
@@ -51201,11 +51994,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "spices-masalas",
-    "unit": "250g",
+    "unit": "100g",
     "is_active": true,
-    "price": 50,
-    "mrp": 50,
-    "originalPrice": 50,
+    "price": 22,
+    "mrp": 22,
+    "originalPrice": 22,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -51241,7 +52034,8 @@
         "image": "/products/generated_pouches/g1_coriander_seeds_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_coriander_seeds_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
+    "unitLabel": "100g"
   },
   {
     "id": "g1-spc047",
@@ -51301,11 +52095,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "spices-masalas",
-    "unit": "250g",
+    "unit": "100g",
     "is_active": true,
-    "price": 45,
-    "mrp": 45,
-    "originalPrice": 45,
+    "price": 20,
+    "mrp": 20,
+    "originalPrice": 20,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -51341,7 +52135,8 @@
         "image": "/products/generated_pouches/g1_avalu_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_avalu_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_avalu_pouch.webp",
+    "unitLabel": "100g"
   },
   {
     "id": "g1-spc049",
@@ -52376,11 +53171,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "sugar-salt-staples",
-    "unit": "1 KG",
+    "unit": "500g",
     "is_active": true,
-    "price": 48,
-    "mrp": 48,
-    "originalPrice": 48,
+    "price": 25,
+    "mrp": 25,
+    "originalPrice": 25,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -52406,7 +53201,8 @@
         "image": "/products/generated_pouches/g1_sugar_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_sugar_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_sugar_pouch.webp",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-sug016",
@@ -52427,11 +53223,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "sugar-salt-staples",
-    "unit": "1 KG",
+    "unit": "500g",
     "is_active": true,
-    "price": 85,
-    "mrp": 85,
-    "originalPrice": 85,
+    "price": 45,
+    "mrp": 45,
+    "originalPrice": 45,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -52457,7 +53253,8 @@
         "image": "/products/generated_pouches/g1_bellam_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_bellam_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_bellam_pouch.webp",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-sug017",
@@ -52478,11 +53275,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "sugar-salt-staples",
-    "unit": "1 KG",
+    "unit": "500g",
     "is_active": true,
-    "price": 85,
-    "mrp": 85,
-    "originalPrice": 85,
+    "price": 45,
+    "mrp": 45,
+    "originalPrice": 45,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -52508,7 +53305,8 @@
         "image": "/products/generated_pouches/g1_bellam_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_bellam_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_bellam_pouch.webp",
+    "unitLabel": "500g"
   },
   {
     "id": "g1-sug018",
@@ -53466,7 +54264,8 @@
         "image": "/products/generated_pouches/g1_cashews_1kg_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_cashews_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_cashews_pouch.webp",
+    "unitLabel": "250g"
   },
   {
     "id": "g1-nut017",
@@ -53527,7 +54326,8 @@
         "image": "/products/generated_pouches/g1_cashews_1kg_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_cashews_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_cashews_pouch.webp",
+    "unitLabel": "250g"
   },
   {
     "id": "g1-nut018",
@@ -53588,7 +54388,8 @@
         "image": "/products/generated_pouches/g1_almonds_1kg_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_almonds_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_almonds_pouch.webp",
+    "unitLabel": "250g"
   },
   {
     "id": "g1-nut019",
@@ -53649,7 +54450,8 @@
         "image": "/products/generated_pouches/g1_almonds_1kg_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_almonds_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_almonds_pouch.webp",
+    "unitLabel": "250g"
   },
   {
     "id": "g1-nut020",
@@ -53817,7 +54619,8 @@
         "image": "/products/generated_pouches/g1_makhana_pouch.webp"
       }
     ],
-    "image_path": "/products/generated_pouches/g1_makhana_pouch.webp"
+    "image_path": "/products/generated_pouches/g1_makhana_pouch.webp",
+    "unitLabel": "250g"
   },
   {
     "id": "g1-sau001",
@@ -54294,7 +55097,8 @@
         "in_stock": true,
         "image": "/products/packshots/mixed-fruit-jam.jpg"
       }
-    ]
+    ],
+    "unitLabel": "200 g"
   },
   {
     "id": "g1-sau013",
@@ -54354,11 +55158,11 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "instant-food",
-    "unit": "70 g",
+    "unit": "48 g",
     "is_active": true,
-    "price": 14,
-    "mrp": 14,
-    "originalPrice": 14,
+    "price": 10,
+    "mrp": 10,
+    "originalPrice": 10,
     "discount": 0,
     "discountPercentage": 0,
     "in_stock": true,
@@ -54399,7 +55203,8 @@
         "in_stock": true,
         "image": "/products/packshots/maggi-2-minute-noodles-multipack.webp"
       }
-    ]
+    ],
+    "unitLabel": "48 g"
   },
   {
     "id": "g1-ins002",
@@ -54525,7 +55330,8 @@
         "in_stock": true,
         "image": "/products/packshots/yippee-magic-masala-4pack.webp"
       }
-    ]
+    ],
+    "unitLabel": "60 g"
   },
   {
     "id": "g1-ins005",
@@ -55242,7 +56048,8 @@
         "in_stock": true,
         "image": "/products/generated_pouches/g1_vadiyalu_pouch.webp"
       }
-    ]
+    ],
+    "unitLabel": "250g"
   },
   {
     "id": "g1-dry053",
@@ -55288,7 +56095,9 @@
         "in_stock": true,
         "image": "/products/verified/dry-arokya-toned-milk.webp"
       }
-    ]
+    ],
+    "originalPrice": 30,
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-dry054",
@@ -55416,7 +56225,7 @@
     "category": "dairy-bread-eggs",
     "sub_category": "Fresh Milk & Curd",
     "subCategory": "Fresh Milk & Curd",
-    "unit": "450 g",
+    "unit": "200 g",
     "image_url": "/products/verified/dry-heritage-curd-450g.webp",
     "imageUrl": "/products/verified/dry-heritage-curd-450g.webp",
     "image": "/products/verified/dry-heritage-curd-450g.webp",
@@ -55434,8 +56243,8 @@
     "isBestDeal": true,
     "inStock": true,
     "is_active": true,
-    "price": 38,
-    "mrp": 38,
+    "price": 15,
+    "mrp": 15,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -55466,7 +56275,9 @@
         "in_stock": true,
         "image": "/products/verified/dry-heritage-curd-1kg.webp"
       }
-    ]
+    ],
+    "originalPrice": 15,
+    "unitLabel": "200 g"
   },
   {
     "id": "g1-dry001",
@@ -55518,7 +56329,9 @@
         "in_stock": true,
         "image": "/products/verified/dry-heritage-toned-milk.webp"
       }
-    ]
+    ],
+    "originalPrice": 29,
+    "unitLabel": "500 ml"
   },
   {
     "id": "g1-dry002",
@@ -56859,7 +57672,8 @@
         "in_stock": true,
         "image": "/products/verified/dry-hatsun-paneer-200g.webp"
       }
-    ]
+    ],
+    "unitLabel": "200 g"
   },
   {
     "id": "g1-pos-1412",
@@ -56872,10 +57686,10 @@
     "category_name": "Oil, Ghee & Masala",
     "subCategory": "Edible Oils & Ghee",
     "sub_category": "Edible Oils & Ghee",
-    "unit": "500 ml",
-    "price": 385,
-    "mrp": 385,
-    "originalPrice": 385,
+    "unit": "200 ml",
+    "price": 165,
+    "mrp": 165,
+    "originalPrice": 165,
     "discount": 0,
     "discountPercentage": 0,
     "inStock": true,
@@ -56921,7 +57735,8 @@
         "in_stock": true,
         "image": "/products/verified/dry-hatsun-ghee-500ml.webp"
       }
-    ]
+    ],
+    "unitLabel": "200 ml"
   },
   {
     "id": "g1-pos-0671",
@@ -56983,7 +57798,8 @@
         "in_stock": true,
         "image": "/products/verified/dry-farm-fresh-eggs-6pack.webp"
       }
-    ]
+    ],
+    "unitLabel": "6 pcs"
   },
   {
     "id": "g1-pos-1033",
@@ -57558,50 +58374,6 @@
     ]
   },
   {
-    "id": "g1-pos-1429",
-    "itemNumber": 1429,
-    "name": "Kinley Club Soda",
-    "brand": "Kinley",
-    "brand_id": "brand-kinley",
-    "category": "drinks-juices",
-    "category_id": "drinks-juices",
-    "category_name": "Cold Drinks & Juices",
-    "subCategory": "Sodas & Mixers",
-    "sub_category": "Sodas & Mixers",
-    "unit": "750 ml",
-    "price": 20,
-    "mrp": 20,
-    "originalPrice": 20,
-    "discount": 0,
-    "discountPercentage": 0,
-    "inStock": true,
-    "in_stock": true,
-    "isActive": true,
-    "is_active": true,
-    "image": "/products/verified/bev-kinley-soda-750ml.webp",
-    "imageUrl": "/products/verified/bev-kinley-soda-750ml.webp",
-    "image_url": "/products/verified/bev-kinley-soda-750ml.webp",
-    "image_path": "/products/verified/bev-kinley-soda-750ml.webp",
-    "imageStatus": "verified",
-    "image_status": "verified",
-    "description": "Extra bubbly club soda with high carbonation for refreshments and mixed drinks.",
-    "rating": 4.7,
-    "reviewsCount": 24,
-    "isPopular": true,
-    "isBestDeal": false,
-    "variants": [
-      {
-        "id": "g1-pos-1429-v1",
-        "name": "750 ml",
-        "unit": "750 ml",
-        "price": 20,
-        "mrp": 20,
-        "in_stock": true,
-        "image": "/products/verified/bev-kinley-soda-750ml.webp"
-      }
-    ]
-  },
-  {
     "id": "g1-pos-0412",
     "itemNumber": 412,
     "name": "Haldiram's Nagpur Tasty Soya Chips",
@@ -57696,7 +58468,8 @@
         "in_stock": true,
         "image": "/products/verified/snk-andhra-garlic-mixture.webp"
       }
-    ]
+    ],
+    "unitLabel": "100 g"
   },
   {
     "id": "g1-pos-1082",
@@ -57829,5 +58602,136 @@
         "image": "/products/verified/tea-tata-chakra-gold.webp"
       }
     ]
+  },
+  {
+    "id": "g1-pos-0876",
+    "name": "Sprite Zero Sugar Lemon-Lime Soft Drink",
+    "brand_id": "brand-sprite",
+    "brand": "Sprite",
+    "category_id": "drinks-juices",
+    "category": "drinks-juices",
+    "sub_category": "Thums Up, Coca-Cola & Soft Drinks",
+    "subCategory": "Thums Up, Coca-Cola & Soft Drinks",
+    "unit": "750 ml",
+    "image_url": "/products/verified/bev-sprite-zero-750ml.webp",
+    "imageUrl": "/products/verified/bev-sprite-zero-750ml.webp",
+    "image": "/products/verified/bev-sprite-zero-750ml.webp",
+    "image_path": "/products/verified/bev-sprite-zero-750ml.webp",
+    "image_status": "verified",
+    "imageStatus": "verified",
+    "image_source": "verified_packshot",
+    "barcode": "8901047562888",
+    "description": "Sprite Zero Sugar Lemon-Lime refreshing sparkling beverage with zero sugar and crisp fizzy taste.",
+    "rating": 4.7,
+    "reviewsCount": 24,
+    "isPopular": true,
+    "inStock": true,
+    "is_active": true,
+    "price": 40,
+    "mrp": 40,
+    "discount": 0,
+    "in_stock": true,
+    "variants": [
+      {
+        "id": "g1-pos-0876-v1",
+        "name": "750 ml",
+        "unit": "750 ml",
+        "price": 40,
+        "mrp": 40,
+        "in_stock": true,
+        "image": "/products/verified/bev-sprite-zero-750ml.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-0888",
+    "name": "Kinley Salty Lemon Carbonated Soda",
+    "brand_id": "brand-kinley",
+    "brand": "Kinley",
+    "category_id": "drinks-juices",
+    "category": "drinks-juices",
+    "sub_category": "Water, Soda & Mixers",
+    "subCategory": "Water, Soda & Mixers",
+    "unit": "750 ml",
+    "image_url": "/products/verified/bev-kinley-lemon-soda-750ml.webp",
+    "imageUrl": "/products/verified/bev-kinley-lemon-soda-750ml.webp",
+    "image": "/products/verified/bev-kinley-lemon-soda-750ml.webp",
+    "image_path": "/products/verified/bev-kinley-lemon-soda-750ml.webp",
+    "image_status": "verified",
+    "imageStatus": "verified",
+    "image_source": "verified_packshot",
+    "barcode": "8901047562889",
+    "description": "Kinley Salty Lemon sparkling club soda infused with a tangy twist of lime and pinch of salt.",
+    "rating": 4.6,
+    "reviewsCount": 18,
+    "isPopular": false,
+    "inStock": true,
+    "is_active": true,
+    "price": 20,
+    "mrp": 20,
+    "discount": 0,
+    "in_stock": true,
+    "variants": [
+      {
+        "id": "g1-pos-0888-v1",
+        "name": "750 ml",
+        "unit": "750 ml",
+        "price": 20,
+        "mrp": 20,
+        "in_stock": true,
+        "image": "/products/verified/bev-kinley-lemon-soda-750ml.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-0540",
+    "name": "Sri Krishna White Sesame Chikki (Til Chikki)",
+    "brand_id": "brand-sri-krishna",
+    "brand": "Sri Krishna",
+    "category_id": "sweets-chocolates",
+    "category": "sweets-chocolates",
+    "sub_category": "Packaged Traditional Sweets",
+    "subCategory": "Packaged Traditional Sweets",
+    "unit": "100 g",
+    "image_url": "/products/verified/snk-white-sesame-chikki.webp",
+    "imageUrl": "/products/verified/snk-white-sesame-chikki.webp",
+    "image": "/products/verified/snk-white-sesame-chikki.webp",
+    "image_path": "/products/verified/snk-white-sesame-chikki.webp",
+    "image_status": "verified",
+    "imageStatus": "verified",
+    "image_source": "verified_packshot",
+    "barcode": "8906054054011",
+    "description": "Traditional roasted white sesame seeds (til / nuvvulu) blended with pure jaggery for a crisp healthy sweet snack.",
+    "rating": 4.8,
+    "reviewsCount": 29,
+    "isPopular": true,
+    "inStock": true,
+    "is_active": true,
+    "price": 35,
+    "mrp": 35,
+    "discount": 0,
+    "in_stock": true,
+    "variants": [
+      {
+        "id": "g1-pos-0540-v1",
+        "name": "100 g",
+        "unit": "100 g",
+        "price": 35,
+        "mrp": 35,
+        "in_stock": true,
+        "image": "/products/verified/snk-white-sesame-chikki.webp"
+      },
+      {
+        "id": "g1-pos-0540-v2",
+        "name": "200 g",
+        "unit": "200 g",
+        "price": 65,
+        "mrp": 70,
+        "in_stock": true,
+        "image": "/products/verified/snk-white-sesame-chikki.webp"
+      }
+    ],
+    "originalPrice": 35,
+    "unitLabel": "100 g"
   }
 ]

@@ -100,6 +100,16 @@ const ALIASES: Record<string, string> = {
   'sri durga': '/brands/sri-durga.png',
   'zed black': '/brands/zed-black.png',
   'mangaldeep': '/brands/mangaldeep.png',
+  'g1 mart': '/brands/g1-mart.png',
+  'g1mart': '/brands/g1-mart.png',
+  'jeevan mart': '/brands/jeevan-mart.png',
+  'g1 mart loose staples': '/brands/g1mart-loose.png',
+  'everest': '/brands/everest.png',
+  'catch': '/brands/catch.png',
+  'sakthi': '/brands/sakthi.png',
+  'mdh': '/brands/mdh.png',
+  'tata sampann': '/brands/tata.png',
+  'gopuram': '/brands/gopuram.png',
 };
 
 for (const [k, v] of Object.entries(ALIASES)) {
