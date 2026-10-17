@@ -130,87 +130,41 @@ export default function OrdersPage() {
     isSyncingRef.current = true;
     if (isManual) setRefreshing(true);
 
-    const orderMap = new Map<string, any>();
-
-    // Seed with existing state and local storage
-    for (const o of ordersRef.current) {
-      if (o?.id) orderMap.set(o.id, o);
-    }
-
-    try {
-      const metaOrders = supabaseUser?.user_metadata?.orders;
-      if (Array.isArray(metaOrders)) {
-        for (const o of metaOrders) {
-          if (o?.id) orderMap.set(o.id, { ...orderMap.get(o.id), ...o });
-        }
-      }
-    } catch {}
-
-    try {
-      const stored = localStorage.getItem('g1mart_account_orders');
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-          for (const o of parsed) {
-            if (o?.id) orderMap.set(o.id, { ...orderMap.get(o.id), ...o });
-          }
-        }
-      }
-    } catch {}
-
     try {
       const userId = supabaseUser?.id || undefined;
-      const phone = user?.phone || undefined;
+      let phone = user?.phone || undefined;
+      if (!phone && typeof window !== 'undefined') {
+        try {
+          const lastAddr = JSON.parse(localStorage.getItem('g1mart_last_used_address') || '{}');
+          phone = lastAddr.phone || lastAddr.mobileNumber || undefined;
+        } catch {}
+      }
+
       const query = new URLSearchParams();
       if (userId) query.set('userId', userId);
       if (phone) query.set('phone', phone);
 
-      const res = await fetch(`/api/orders?${query.toString()}`);
-      const data = await res.json();
-      if (data.success && Array.isArray(data.orders)) {
-        for (const o of data.orders) {
-          if (o?.id) orderMap.set(o.id, { ...orderMap.get(o.id), ...o });
+      if (userId || phone) {
+        const res = await fetch(`/api/orders?${query.toString()}`);
+        const data = await res.json();
+        if (data.success && Array.isArray(data.orders)) {
+          // Authoritative list directly from server
+          setOrders(data.orders);
+          try {
+            localStorage.setItem('g1mart_account_orders', JSON.stringify(data.orders.slice(0, 30)));
+          } catch {}
         }
-      }
-
-      // Check for any remaining local orders not returned in the main list
-      const missingIds = Array.from(orderMap.keys()).filter(
-        (id) => !data?.orders?.some((o: any) => o.id === id)
-      );
-
-      if (missingIds.length > 0) {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 2500);
-
-        await Promise.allSettled(
-          missingIds.slice(0, 5).map(async (id) => {
-            try {
-              const singleRes = await fetch(`/api/orders/${id}`, { signal: controller.signal });
-              const singleData = await singleRes.json();
-              if (singleData.success && singleData.order) {
-                orderMap.set(id, { ...orderMap.get(id), ...singleData.order });
-              }
-            } catch {}
-          })
-        );
-        clearTimeout(timeoutId);
+      } else {
+        // Unauthenticated guest without stored phone: read local cache
+        const localCached = getInitialCachedOrders();
+        setOrders(localCached);
       }
     } catch (err) {
       console.warn('Could not fetch cloud orders:', err);
     } finally {
-      const merged = Array.from(orderMap.values()).sort(
-        (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
-      );
-
-      setOrders(merged);
       setLoaded(true);
       setRefreshing(false);
       isSyncingRef.current = false;
-
-      // Update local storage cache safely
-      try {
-        localStorage.setItem('g1mart_account_orders', JSON.stringify(merged.slice(0, 30)));
-      } catch {}
     }
   }, [supabaseUser, user]);
 

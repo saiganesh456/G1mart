@@ -20,6 +20,7 @@ import {
   CreditCard,
   Banknote,
   AlertCircle,
+  Trash2,
 } from 'lucide-react';
 import type { StaffMember } from '@/types';
 import RiderAssignmentModal from '@/components/admin/RiderAssignmentModal';
@@ -33,6 +34,7 @@ interface Props {
     assignedRider?: { id?: string; email?: string; name: string; phone?: string; vehicleNumber?: string }
   ) => void;
   availableRiders?: StaffMember[];
+  onClearAllOrders?: () => void;
   initialFilter?: string;
 }
 
@@ -101,6 +103,7 @@ export default function OrdersTab({
   onViewOrder,
   onUpdateStatus,
   availableRiders = [],
+  onClearAllOrders,
   initialFilter = 'All',
 }: Props) {
   const [search, setSearch] = useState('');
@@ -276,23 +279,38 @@ export default function OrdersTab({
             </div>
           </div>
 
-          {/* Search Bar */}
-          <div className="relative flex-1 sm:max-w-xs">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-stone-400" />
-            <input
-              type="text"
-              placeholder="Search order ID, customer, phone..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-8 pr-7 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#1B5E20] focus:bg-white transition-all"
-            />
-            {search && (
+          {/* Search Bar & Action Buttons */}
+          <div className="flex items-center gap-2 flex-1 sm:max-w-md justify-end">
+            <div className="relative flex-1 sm:max-w-xs">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-stone-400" />
+              <input
+                type="text"
+                placeholder="Search order ID, customer, phone..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full pl-8 pr-7 py-1.5 bg-stone-50 border border-stone-200 rounded-xl text-xs font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#1B5E20] focus:bg-white transition-all"
+              />
+              {search && (
+                <button
+                  type="button"
+                  onClick={() => setSearch('')}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+
+            {onClearAllOrders && (
               <button
                 type="button"
-                onClick={() => setSearch('')}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600"
+                onClick={onClearAllOrders}
+                title="Delete all test orders across all accounts"
+                className="px-2.5 py-1.5 rounded-xl text-xs font-bold bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200 transition-all flex items-center gap-1.5 shrink-0 cursor-pointer shadow-2xs"
               >
-                <X className="w-3.5 h-3.5" />
+                <Trash2 className="w-3.5 h-3.5 text-rose-600" />
+                <span className="hidden sm:inline">Clear All Orders</span>
+                <span className="sm:hidden">Clear</span>
               </button>
             )}
           </div>

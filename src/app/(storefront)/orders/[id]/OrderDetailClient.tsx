@@ -234,15 +234,6 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
       } catch {}
     }
 
-    // Proactively register locally cached order with server store if server had cold started
-    if (currentOrder && currentOrder.id) {
-      fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(currentOrder),
-      }).catch(() => {});
-    }
-
     const playStatusChime = (newStatus: string) => {
       switch (newStatus) {
         case 'Confirmed':

@@ -8,6 +8,7 @@
     "build": "next build",
     "postinstall": "node scripts/patch_next.js",
     "start": "next start",
+    "clear-orders": "node scripts/clear_all_orders.js",
     "lint": "next lint"
   },
   "dependencies": {

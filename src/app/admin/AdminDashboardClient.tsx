@@ -417,50 +417,14 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     };
   };
 
-  // Fetch Orders from Server & Local Storage
+  // Fetch Orders from Server directly
   const fetchOrders = async (silent = false) => {
     try {
-      // Collect local storage orders
-      let localOrders: any[] = [];
-      try {
-        const rawAcc = localStorage.getItem('g1mart_account_orders');
-        const rawRecent = localStorage.getItem('g1mart_recent_order');
-        const rawList = sessionStorage.getItem('g1mart_orders_list');
-        const listA = rawAcc ? JSON.parse(rawAcc) : [];
-        const listB = rawList ? JSON.parse(rawList) : [];
-        const single = rawRecent ? [JSON.parse(rawRecent)] : [];
-        const combined = [...listA, ...listB, ...single];
-        const uniqueMap = new Map<string, any>();
-        combined.forEach((o) => {
-          if (o && o.id) uniqueMap.set(o.id, o);
-        });
-        localOrders = Array.from(uniqueMap.values());
-      } catch {}
-
       const res = await fetch('/api/admin/orders');
       const data = await res.json();
       const serverList: Order[] = data.success && Array.isArray(data.orders) ? data.orders : [];
 
-      // Forward any local-only orders to server
-      for (const lo of localOrders) {
-        if (!serverList.some((s) => s.id === lo.id)) {
-          fetch('/api/orders', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(lo),
-          }).catch(() => {});
-        }
-      }
-
-      // Merge server orders with local data
-      const mergedMap = new Map<string, Order>();
-      localOrders.forEach((o) => mergedMap.set(o.id, o));
-      serverList.forEach((s) => {
-        const local = mergedMap.get(s.id);
-        mergedMap.set(s.id, { ...local, ...s });
-      });
-
-      const merged = Array.from(mergedMap.values()).sort(
+      const merged = serverList.sort(
         (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
       );
 
@@ -765,6 +729,38 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       }
     } catch (err) {
       console.error('Failed to mark order paid', err);
+    }
+  };
+
+  // Clear all test orders completely across the entire app
+  const handleClearAllOrders = async () => {
+    if (
+      !window.confirm(
+        'Are you sure you want to delete ALL orders across all accounts? This will permanently delete test orders from server, database, and client storage.'
+      )
+    ) {
+      return;
+    }
+    try {
+      const res = await fetch('/api/admin/orders', { method: 'DELETE' });
+      const data = await res.json();
+      if (data.success) {
+        try {
+          localStorage.removeItem('g1mart_account_orders');
+          localStorage.removeItem('g1mart_recent_order');
+          sessionStorage.removeItem('g1mart_orders_list');
+          sessionStorage.removeItem('g1mart_latest_order');
+        } catch {}
+        setOrders([]);
+        seenOrderIdsRef.current.clear();
+        stopAlarm();
+        setSelectedOrder(null);
+        alert('All orders have been permanently cleared from everywhere!');
+      } else {
+        alert(data.error || 'Failed to clear orders');
+      }
+    } catch (err: any) {
+      alert('Error clearing orders: ' + err.message);
     }
   };
 
@@ -1131,6 +1127,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                   handleUpdateOrderStatus(id, nextStatus, assignedRider);
                 }}
                 availableRiders={staffMembers.riders}
+                onClearAllOrders={handleClearAllOrders}
               />
             )}
 

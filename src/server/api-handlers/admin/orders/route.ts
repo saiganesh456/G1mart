@@ -156,3 +156,44 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const auth = await verifyAdminRequest(request);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
+    serverOrderStore.clearAllOrders();
+    const { serverSlipOrders } = await import('@/lib/serverSlipOrders');
+    serverSlipOrders.clearAllSlips();
+
+    if (isSupabaseConfigured()) {
+      try {
+        await supabase.from('order_items').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+        await supabase.from('order_status_history').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+        await supabase.from('payments').delete().neq('id', '');
+        await supabase.from('orders').delete().neq('id', '');
+        await supabase.from('slip_items').delete().neq('id', '');
+        await supabase.from('slip_images').delete().neq('id', '');
+        await supabase.from('slip_orders').delete().neq('id', '');
+      } catch (err) {
+        console.warn('Supabase orders delete notice:', err);
+      }
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: 'All orders successfully cleared from server and database',
+    });
+  } catch (err: any) {
+    return NextResponse.json(
+      { success: false, error: err.message || 'Failed to clear orders' },
+      { status: 500 }
+    );
+  }
+}
+

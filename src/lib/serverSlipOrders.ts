@@ -735,4 +735,12 @@ export const serverSlipOrders = {
 
     return { success: true, order };
   },
+
+  /**
+   * Completely clear all slip orders from memory and disk
+   */
+  clearAllSlips() {
+    slipsMap.clear();
+    persistDiskSlipOrders();
+  },
 };

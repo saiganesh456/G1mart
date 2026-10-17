@@ -993,4 +993,14 @@ export const serverOrderStore = {
   markWebhookProcessed(idempotencyKey: string) {
     processedWebhooks.add(idempotencyKey);
   },
+
+  /**
+   * Completely clear all orders, payments, and webhooks from memory and disk
+   */
+  clearAllOrders() {
+    ordersMap.clear();
+    paymentsMap.clear();
+    processedWebhooks.clear();
+    this.persistToDisk();
+  },
 };

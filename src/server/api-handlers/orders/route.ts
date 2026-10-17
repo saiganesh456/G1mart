@@ -154,3 +154,22 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+export async function DELETE() {
+  try {
+    serverOrderStore.clearAllOrders();
+    const { serverSlipOrders } = await import('@/lib/serverSlipOrders');
+    serverSlipOrders.clearAllSlips();
+
+    return NextResponse.json({
+      success: true,
+      message: 'All test orders successfully cleared',
+    });
+  } catch (err: any) {
+    return NextResponse.json(
+      { success: false, error: err.message || 'Failed to clear orders' },
+      { status: 500 }
+    );
+  }
+}
+

@@ -72,6 +72,27 @@ const labels = [
     subtitle: '(Puchakaya Ginjalu)',
     telugu: 'పుచ్చకాయ గింజలు',
     weight: 'NET WT: 250g'
+  },
+  {
+    id: 'corn_flakes',
+    title: 'Crispy Corn Flakes',
+    subtitle: '(Toasted Golden Cereal)',
+    telugu: 'కార్న్ ఫ్లేక్స్',
+    weight: 'NET WT: 500g'
+  },
+  {
+    id: 'rolled_oats',
+    title: 'Rolled Oats',
+    subtitle: '(100% Wholegrain Cereals)',
+    telugu: 'రోల్డ్ ఓట్స్',
+    weight: 'NET WT: 500g'
+  },
+  {
+    id: 'desert_king_dates',
+    title: 'Lion Desert King',
+    subtitle: '(Arabian Black Dates)',
+    telugu: 'డిసర్ట్ కింగ్ ఖర్జూరం',
+    weight: 'NET WT: 500g'
   }
 ];
 
@@ -104,15 +125,17 @@ async function renderLabels() {
   }
   .label-card {
     width: 240px;
+    height: 304px;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.18), 0 1px 3px rgba(0,0,0,0.1);
     border: 1px solid rgba(0,0,0,0.06);
-    padding: 16px 14px 14px 14px;
+    padding: 22px 14px 18px 14px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     text-align: center;
   }
   .brand-logo-wrap {
@@ -120,7 +143,7 @@ async function renderLabels() {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
   .logo-icon {
     width: 32px;
@@ -134,25 +157,25 @@ async function renderLabels() {
     font-family: 'Arial Black', Arial, sans-serif;
   }
   .prod-title {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 800;
     color: #064e3b;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
     line-height: 1.2;
   }
   .prod-subtitle {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     color: #047857;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     line-height: 1.2;
   }
   .prod-telugu {
     font-family: 'Nirmala UI', sans-serif;
-    font-size: 17px;
+    font-size: 19px;
     font-weight: 700;
     color: #064e3b;
-    margin-bottom: 14px;
+    margin-bottom: 8px;
     line-height: 1.3;
   }
   .divider {
@@ -162,7 +185,7 @@ async function renderLabels() {
     margin-bottom: 8px;
   }
   .prod-weight {
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 800;
     color: #1f2937;
     letter-spacing: 0.8px;
