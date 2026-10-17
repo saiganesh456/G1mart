@@ -48,7 +48,8 @@ export const SUPERMARKET_CATEGORIES: Omit<Category, 'itemCount'>[] = [
       "Minapappu (Urad Dal)",
       "Pesara Pappu (Moong)",
       "Senaga Pappu (Chana Dal)",
-      "Peanuts & Fried Gram"
+      "Peanuts & Fried Gram",
+      "Specialty Dals & Pulses"
     ]
   },
   {

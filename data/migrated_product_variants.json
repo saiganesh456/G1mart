@@ -1,59 +1,5 @@
 [
   {
-    "id": "g1-p1572-v1",
-    "product_id": "g1-p1572",
-    "size_label": "1 kg",
-    "price": 65,
-    "mrp": 65,
-    "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-atta-1kg.jpg"
-  },
-  {
-    "id": "g1-p1572-v2",
-    "product_id": "g1-p1572",
-    "size_label": "2 kg",
-    "price": 125,
-    "mrp": 125,
-    "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-atta-1kg.jpg"
-  },
-  {
-    "id": "g1-p1572-v3",
-    "product_id": "g1-p1572",
-    "size_label": "5 kg",
-    "price": 295,
-    "mrp": 295,
-    "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-atta-5kg.jpg"
-  },
-  {
-    "id": "g1-p1572-v4",
-    "product_id": "g1-p1572",
-    "size_label": "10 kg",
-    "price": 540,
-    "mrp": 540,
-    "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-atta-10kg.jpg"
-  },
-  {
-    "id": "g1-p0457-v1",
-    "product_id": "g1-p0457",
-    "size_label": "500 g",
-    "price": 42,
-    "mrp": 42,
-    "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-suji-rava.jpg"
-  },
-  {
-    "id": "g1-p0457-v2",
-    "product_id": "g1-p0457",
-    "size_label": "1 kg",
-    "price": 80,
-    "mrp": 80,
-    "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-suji-rava.jpg"
-  },
-  {
     "id": "g1-p0219-v1",
     "product_id": "g1-p0219",
     "size_label": "1 kg",
@@ -324,8 +270,8 @@
     "image_url": "/products/packshots/lalitha-idli-rava.jpg"
   },
   {
-    "id": "g1-p1581-v1",
-    "product_id": "g1-p1581",
+    "id": "g1-pillsbury-atta-v-1kg",
+    "product_id": "g1-pillsbury-atta",
     "size_label": "1 kg",
     "price": 60,
     "mrp": 60,
@@ -333,8 +279,8 @@
     "image_url": "/products/packshots/pillsbury-atta-2kg.jpg"
   },
   {
-    "id": "g1-p1581-v2",
-    "product_id": "g1-p1581",
+    "id": "g1-pillsbury-atta-v-2kg",
+    "product_id": "g1-pillsbury-atta",
     "size_label": "2 kg",
     "price": 120,
     "mrp": 120,
@@ -342,8 +288,8 @@
     "image_url": "/products/packshots/pillsbury-atta-2kg.jpg"
   },
   {
-    "id": "g1-p1581-v3",
-    "product_id": "g1-p1581",
+    "id": "g1-pillsbury-atta-v-5kg",
+    "product_id": "g1-pillsbury-atta",
     "size_label": "5 kg",
     "price": 290,
     "mrp": 290,
@@ -351,8 +297,8 @@
     "image_url": "/products/packshots/pillsbury-atta-5kg.jpg"
   },
   {
-    "id": "g1-p1581-v4",
-    "product_id": "g1-p1581",
+    "id": "g1-pillsbury-atta-v-10kg",
+    "product_id": "g1-pillsbury-atta",
     "size_label": "10 kg",
     "price": 530,
     "mrp": 530,
@@ -519,7 +465,7 @@
     "price": 48,
     "mrp": 48,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_wheat_grains_pouch.webp"
+    "image_url": "/products/generated_pouches/g1_chana_dal_pouch.webp"
   },
   {
     "id": "g1-p0406-v2",
@@ -528,23 +474,14 @@
     "price": 230,
     "mrp": 230,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_wheat_grains_pouch.webp"
+    "image_url": "/products/generated_pouches/g1_chana_dal_pouch.webp"
   },
   {
     "id": "var-g1-dal018-500g",
     "product_id": "g1-p0406",
-    "size_label": "500g",
+    "size_label": "500 g",
     "price": 55,
     "mrp": 55,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_chana_dal_500g_pouch.webp"
-  },
-  {
-    "id": "var-g1-dal018-1kg",
-    "product_id": "g1-p0406",
-    "size_label": "1 KG",
-    "price": 105,
-    "mrp": 105,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_chana_dal_pouch.webp"
   },
@@ -567,52 +504,13 @@
     "image_url": "/products/packshots/vermicelli.jpg"
   },
   {
-    "id": "g1-p0003-v1",
-    "product_id": "g1-p0003",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0014-v1",
-    "product_id": "g1-p0014",
-    "size_label": " g",
-    "price": 22,
-    "mrp": 22,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0014-v2",
-    "product_id": "g1-p0014",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0014-v3",
-    "product_id": "g1-p0014",
-    "size_label": " g",
-    "price": 162,
-    "mrp": 162,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0019-v1",
-    "product_id": "g1-p0019",
-    "size_label": "1 unit",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
     "id": "g1-p0028-v1",
     "product_id": "g1-p0028",
     "size_label": "1 unit",
     "price": 22,
     "mrp": 22,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0028.webp"
   },
   {
     "id": "g1-p0041-v1",
@@ -620,7 +518,8 @@
     "size_label": "1 unit",
     "price": 196,
     "mrp": 196,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_dry_nuts_bowl.webp"
   },
   {
     "id": "g1-p0042-v1",
@@ -628,39 +527,8 @@
     "size_label": "1 unit",
     "price": 11,
     "mrp": 11,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0064-v1",
-    "product_id": "g1-p0064",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0065-v1",
-    "product_id": "g1-p0065",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0066-v1",
-    "product_id": "g1-p0066",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0067-v1",
-    "product_id": "g1-p0066",
-    "size_label": "1 unit",
-    "price": 11,
-    "mrp": 11,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_elaichi_pouch.webp"
   },
   {
     "id": "g1-p0069-v1",
@@ -668,274 +536,35 @@
     "size_label": "1 unit",
     "price": 11,
     "mrp": 11,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0069.webp"
   },
   {
     "id": "g1-p0070-v1",
-    "product_id": "g1-p0070",
-    "size_label": "1 unit",
-    "price": 6,
-    "mrp": 6,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0071-v1",
-    "product_id": "g1-p0071",
-    "size_label": "1 unit",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0072-v1",
-    "product_id": "g1-p0072",
-    "size_label": "1 unit",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0073-v1",
     "product_id": "g1-p0073",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0074-v1",
-    "product_id": "g1-p0074",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0074-v2",
-    "product_id": "g1-p0074",
-    "size_label": "1 unit",
+    "size_label": "15 g (5 Rs Pack)",
     "price": 6,
     "mrp": 6,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/packshots/aachi-mutton-masala-100g.webp"
   },
   {
     "id": "g1-p0075-v1",
-    "product_id": "g1-p0075",
-    "size_label": " g",
+    "product_id": "g1-p0071",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0076-v1",
-    "product_id": "g1-p0076",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0077-v1",
-    "product_id": "g1-p0077",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0077-v2",
-    "product_id": "g1-p0077",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0077-v3",
-    "product_id": "g1-p0077",
-    "size_label": " kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0081-v1",
-    "product_id": "g1-p0081",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0082-v1",
-    "product_id": "g1-p0082",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0088-v1",
-    "product_id": "g1-p0088",
-    "size_label": " kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1005-v1",
-    "product_id": "g1-p0088",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0096-v1",
-    "product_id": "g1-p0096",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0138-v1",
-    "product_id": "g1-p0138",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0160-v1",
-    "product_id": "g1-p0160",
-    "size_label": " kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0163-v1",
-    "product_id": "g1-p0163",
-    "size_label": "1 unit",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/packshots/aachi-biryani-masala-50g.webp"
   },
   {
     "id": "g1-p0184-v1",
     "product_id": "g1-p0184",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0184-v2",
-    "product_id": "g1-p0184",
-    "size_label": " g",
-    "price": 67,
-    "mrp": 67,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0185-v1",
-    "product_id": "g1-p0185",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0190-v1",
-    "product_id": "g1-p0190",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0191-v1",
-    "product_id": "g1-p0191",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0195-v1",
-    "product_id": "g1-p0195",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0200-v1",
-    "product_id": "g1-p0200",
-    "size_label": "1 unit",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0236-v1",
-    "product_id": "g1-p0236",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0236-v2",
-    "product_id": "g1-p0236",
-    "size_label": " kg",
-    "price": 73,
-    "mrp": 73,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0238-v1",
-    "product_id": "g1-p0238",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0279-v1",
-    "product_id": "g1-p0279",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "image_url": "/products/packshots/hatsun-ghee.jpg"
-  },
-  {
-    "id": "g1-p0279-v2",
-    "product_id": "g1-p0279",
-    "size_label": " L",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/packshots/hatsun-ghee.jpg"
-  },
-  {
-    "id": "g1-p0279-v3",
-    "product_id": "g1-p0279",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/packshots/hatsun-ghee.jpg"
-  },
-  {
-    "id": "g1-p0280-v1",
-    "product_id": "g1-p0280",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "image_url": "/products/generated_pouches/g1_nuvvulu_pouch.webp"
   },
   {
     "id": "g1-p0286-v1",
@@ -943,15 +572,8 @@
     "size_label": "1 unit",
     "price": 50,
     "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0290-v1",
-    "product_id": "g1-p0290",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_vamu_pouch.webp"
   },
   {
     "id": "g1-p0293-v1",
@@ -959,101 +581,8 @@
     "size_label": "1 unit",
     "price": 2,
     "mrp": 2,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0295-v1",
-    "product_id": "g1-p0295",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "var-g1-nut018-250g",
-    "product_id": "g1-p0295",
-    "size_label": "250g",
-    "price": 210,
-    "mrp": 210,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_almonds_250g_pouch.webp"
-  },
-  {
-    "id": "var-g1-nut018-500g",
-    "product_id": "g1-p0295",
-    "size_label": "500g",
-    "price": 400,
-    "mrp": 400,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_almonds_500g_pouch.webp"
-  },
-  {
-    "id": "var-g1-nut018-1kg",
-    "product_id": "g1-p0295",
-    "size_label": "1 KG",
-    "price": 780,
-    "mrp": 780,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_almonds_1kg_pouch.webp"
-  },
-  {
-    "id": "g1-p0309-v1",
-    "product_id": "g1-p0309",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0311-v1",
-    "product_id": "g1-p0311",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0333-v1",
-    "product_id": "g1-p0333",
-    "size_label": "1 unit",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "var-g1-spc045-100g",
-    "product_id": "g1-p0333",
-    "size_label": "100g",
-    "price": 40,
-    "mrp": 40,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp"
-  },
-  {
-    "id": "var-g1-spc045-250g",
-    "product_id": "g1-p0333",
-    "size_label": "250g",
-    "price": 95,
-    "mrp": 95,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp"
-  },
-  {
-    "id": "var-g1-spc045-500g",
-    "product_id": "g1-p0333",
-    "size_label": "500g",
-    "price": 180,
-    "mrp": 180,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp"
-  },
-  {
-    "id": "g1-p0336-v1",
-    "product_id": "g1-p0336",
-    "size_label": "Packs",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "image_url": "/products/verified/g1-p0293.webp"
   },
   {
     "id": "g1-p0337-v1",
@@ -1061,7 +590,8 @@
     "size_label": "Packs",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_anasa_puvvu_pouch.webp"
   },
   {
     "id": "g1-p0338-v1",
@@ -1069,15 +599,8 @@
     "size_label": "Packs",
     "price": 50,
     "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0341-v1",
-    "product_id": "g1-p0341",
-    "size_label": "Packs",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_japathri_pouch.webp"
   },
   {
     "id": "g1-p0342-v1",
@@ -1085,116 +608,13 @@
     "size_label": "Packs",
     "price": 50,
     "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0344-v1",
-    "product_id": "g1-p0344",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0350-v1",
-    "product_id": "g1-p0350",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0367-v1",
-    "product_id": "g1-p0367",
-    "size_label": " ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0394-v1",
-    "product_id": "g1-p0394",
-    "size_label": "1 unit",
-    "price": 252,
-    "mrp": 252,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0394-v2",
-    "product_id": "g1-p0394",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0396-v1",
-    "product_id": "g1-p0396",
-    "size_label": " g",
-    "price": 81,
-    "mrp": 81,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0396-v2",
-    "product_id": "g1-p0396",
-    "size_label": " g",
-    "price": 63,
-    "mrp": 63,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0396-v3",
-    "product_id": "g1-p0396",
-    "size_label": " g",
-    "price": 34,
-    "mrp": 34,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0405-v1",
-    "product_id": "g1-p0405",
-    "size_label": " g",
-    "price": 56,
-    "mrp": 56,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0408-v1",
-    "product_id": "g1-p0408",
-    "size_label": " g",
-    "price": 62,
-    "mrp": 62,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0413-v1",
-    "product_id": "g1-p0413",
-    "size_label": " g",
-    "price": 62,
-    "mrp": 62,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0414-v1",
-    "product_id": "g1-p0414",
-    "size_label": " g",
-    "price": 26,
-    "mrp": 26,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0422-v1",
-    "product_id": "g1-p0422",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp"
   },
   {
     "id": "var-g1-nut016-250g",
     "product_id": "g1-p0422",
-    "size_label": "250g",
+    "size_label": "250 g",
     "price": 220,
     "mrp": 220,
     "stock": 50,
@@ -1203,7 +623,7 @@
   {
     "id": "var-g1-nut016-500g",
     "product_id": "g1-p0422",
-    "size_label": "500g",
+    "size_label": "500 g",
     "price": 420,
     "mrp": 420,
     "stock": 50,
@@ -1212,128 +632,11 @@
   {
     "id": "var-g1-nut016-1kg",
     "product_id": "g1-p0422",
-    "size_label": "1 KG",
+    "size_label": "1 kg",
     "price": 820,
     "mrp": 820,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_cashews_1kg_pouch.webp"
-  },
-  {
-    "id": "g1-p0423-v1",
-    "product_id": "g1-p0423",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0431-v1",
-    "product_id": "g1-p0431",
-    "size_label": " g",
-    "price": 22,
-    "mrp": 22,
-    "stock": 50
-  },
-  {
-    "id": "var-g1-spc048-100g",
-    "product_id": "g1-p0431",
-    "size_label": "100g",
-    "price": 20,
-    "mrp": 20,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_avalu_pouch.webp"
-  },
-  {
-    "id": "var-g1-spc048-250g",
-    "product_id": "g1-p0431",
-    "size_label": "250g",
-    "price": 45,
-    "mrp": 45,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_avalu_pouch.webp"
-  },
-  {
-    "id": "var-g1-spc048-500g",
-    "product_id": "g1-p0431",
-    "size_label": "500g",
-    "price": 85,
-    "mrp": 85,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_avalu_pouch.webp"
-  },
-  {
-    "id": "g1-p0440-v1",
-    "product_id": "g1-p0440",
-    "size_label": " kg",
-    "price": 73,
-    "mrp": 73,
-    "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
-  },
-  {
-    "id": "g1-p0444-v1",
-    "product_id": "g1-p0444",
-    "size_label": " g",
-    "price": 78,
-    "mrp": 78,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0460-v1",
-    "product_id": "g1-p0460",
-    "size_label": " g",
-    "price": 90,
-    "mrp": 90,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0460-v2",
-    "product_id": "g1-p0460",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 45,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0460-v3",
-    "product_id": "g1-p0460",
-    "size_label": " g",
-    "price": 13,
-    "mrp": 13,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0466-v1",
-    "product_id": "g1-p0466",
-    "size_label": " g",
-    "price": 22,
-    "mrp": 22,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0466-v2",
-    "product_id": "g1-p0466",
-    "size_label": " g",
-    "price": 22,
-    "mrp": 22,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0480-v1",
-    "product_id": "g1-p0480",
-    "size_label": " g",
-    "price": 22,
-    "mrp": 22,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0482-v1",
-    "product_id": "g1-p0482",
-    "size_label": " kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/packshots/tata-salt.jpg"
   },
   {
     "id": "g1-p0486-v1",
@@ -1341,7 +644,8 @@
     "size_label": "Packs",
     "price": 16,
     "mrp": 16,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0486.webp"
   },
   {
     "id": "g1-p0492-v1",
@@ -1349,31 +653,8 @@
     "size_label": "Pouches",
     "price": 123,
     "mrp": 123,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0493-v1",
-    "product_id": "g1-p0493",
-    "size_label": " g",
-    "price": 67,
-    "mrp": 67,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0494-v1",
-    "product_id": "g1-p0494",
-    "size_label": "Packs",
-    "price": 129,
-    "mrp": 129,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0495-v1",
-    "product_id": "g1-p0495",
-    "size_label": " g",
-    "price": 62,
-    "mrp": 62,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_dates_pouch.webp"
   },
   {
     "id": "g1-p0502-v1",
@@ -1381,239 +662,44 @@
     "size_label": "1 unit",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_turmeric_powder_pouch.webp"
   },
   {
     "id": "g1-p0503-v1",
     "product_id": "g1-p0503",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0539-v1",
-    "product_id": "g1-p0539",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_turmeric_powder_pouch.webp"
   },
   {
     "id": "g1-p0583-v1",
     "product_id": "g1-p0583",
-    "size_label": " g",
+    "size_label": "500 g",
     "price": 314,
     "mrp": 314,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_almonds_pouch.webp"
   },
   {
     "id": "g1-p0583-v2",
     "product_id": "g1-p0583",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 73,
     "mrp": 73,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0583-v3",
-    "product_id": "g1-p0583",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0583-v4",
-    "product_id": "g1-p0583",
-    "size_label": " kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_almonds_pouch.webp"
   },
   {
     "id": "g1-p0587-v1",
     "product_id": "g1-p0587",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 24,
     "mrp": 24,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0592-v1",
-    "product_id": "g1-p0592",
-    "size_label": " g",
-    "price": 45,
-    "mrp": 45,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0593-v1",
-    "product_id": "g1-p0593",
-    "size_label": " g",
-    "price": 11,
-    "mrp": 11,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0594-v1",
-    "product_id": "g1-p0594",
-    "size_label": " g",
-    "price": 40,
-    "mrp": 40,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0597-v1",
-    "product_id": "g1-p0597",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0623-v1",
-    "product_id": "g1-p0623",
-    "size_label": "1 unit",
-    "price": 11,
-    "mrp": 11,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0641-v1",
-    "product_id": "g1-p0641",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0643-v1",
-    "product_id": "g1-p0643",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0644-v1",
-    "product_id": "g1-p0644",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0645-v1",
-    "product_id": "g1-p0645",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0648-v1",
-    "product_id": "g1-p0648",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0649-v1",
-    "product_id": "g1-p0649",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0650-v1",
-    "product_id": "g1-p0650",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0651-v1",
-    "product_id": "g1-p0651",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0651-v2",
-    "product_id": "g1-p0651",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0653-v1",
-    "product_id": "g1-p0653",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0654-v1",
-    "product_id": "g1-p0654",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0656-v1",
-    "product_id": "g1-p0656",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0657-v1",
-    "product_id": "g1-p0657",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0657-v2",
-    "product_id": "g1-p0657",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0658-v1",
-    "product_id": "g1-p0658",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0658-v2",
-    "product_id": "g1-p0658",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0661-v1",
-    "product_id": "g1-p0661",
-    "size_label": " g",
-    "price": 56,
-    "mrp": 56,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_elaichi_pouch.webp"
   },
   {
     "id": "g1-p0673-v1",
@@ -1621,23 +707,26 @@
     "size_label": "1 unit",
     "price": 11,
     "mrp": 11,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_biryani_masala_pouch.webp"
   },
   {
     "id": "g1-p0677-v1",
     "product_id": "g1-p0677",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0677.webp"
   },
   {
     "id": "g1-p0688-v1",
     "product_id": "g1-p0688",
-    "size_label": " g",
+    "size_label": "500 g",
     "price": 151,
     "mrp": 151,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0688.webp"
   },
   {
     "id": "g1-p0690-v1",
@@ -1645,144 +734,80 @@
     "size_label": "1 unit",
     "price": 6,
     "mrp": 6,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0690.webp"
   },
   {
     "id": "g1-p0691-v1",
     "product_id": "g1-p0691",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 11,
     "mrp": 11,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_kasuri_methi_pouch.webp"
   },
   {
     "id": "g1-p0693-v1",
     "product_id": "g1-p0693",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_ginger_garlic_paste_pouch.webp"
   },
   {
     "id": "g1-p0695-v1",
     "product_id": "g1-p0695",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_mango_pickle_pouch.webp"
   },
   {
     "id": "g1-p0696-v1",
     "product_id": "g1-p0696",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_tomato_pickle_pouch.webp"
   },
   {
     "id": "g1-p0697-v1",
     "product_id": "g1-p0697",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0703-v1",
-    "product_id": "g1-p0703",
-    "size_label": "1 unit",
-    "price": 6,
-    "mrp": 6,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_lemon_pickle_pouch.webp"
   },
   {
     "id": "g1-p0706-v1",
     "product_id": "g1-p0706",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0707-v1",
-    "product_id": "g1-p0707",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_pappula_podi_pouch.webp"
   },
   {
     "id": "g1-p0709-v1",
     "product_id": "g1-p0709",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0716-v1",
-    "product_id": "g1-p0716",
-    "size_label": "1 unit",
-    "price": 31,
-    "mrp": 31,
     "stock": 50,
-    "image_url": "/products/packshots/tata-salt.jpg"
-  },
-  {
-    "id": "g1-p0739-v1",
-    "product_id": "g1-p0739",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0741-v1",
-    "product_id": "g1-p0741",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0741-v2",
-    "product_id": "g1-p0741",
-    "size_label": " g",
-    "price": 20,
-    "mrp": 20,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0742-v1",
-    "product_id": "g1-p0742",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0748-v1",
-    "product_id": "g1-p0748",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0768-v1",
-    "product_id": "g1-p0768",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "image_url": "/products/generated_pouches/g1_kobbari_karam_podi_pouch.webp"
   },
   {
     "id": "g1-p0776-v1",
     "product_id": "g1-p0776",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_almonds_pouch.webp"
   },
   {
     "id": "g1-p0778-v1",
@@ -1790,7 +815,8 @@
     "size_label": "1 unit",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_turmeric_powder_pouch.webp"
   },
   {
     "id": "g1-p0780-v1",
@@ -1798,31 +824,26 @@
     "size_label": "1 unit",
     "price": 50,
     "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0782-v1",
-    "product_id": "g1-p0782",
-    "size_label": "1 unit",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0780.webp"
   },
   {
     "id": "g1-p0795-v1",
     "product_id": "g1-p0795",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0795.webp"
   },
   {
     "id": "g1-p0804-v1",
     "product_id": "g1-p0804",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p1004.webp"
   },
   {
     "id": "g1-p0826-v1",
@@ -1830,68 +851,31 @@
     "size_label": "Packs",
     "price": 26,
     "mrp": 26,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0852-v1",
-    "product_id": "g1-p0852",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0872-v1",
-    "product_id": "g1-p0872",
-    "size_label": " g",
-    "price": 56,
-    "mrp": 56,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0879-v1",
-    "product_id": "g1-p0879",
-    "size_label": " g",
-    "price": 39,
-    "mrp": 39,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0879-v2",
-    "product_id": "g1-p0879",
-    "size_label": " g",
-    "price": 22,
-    "mrp": 22,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0879-v3",
-    "product_id": "g1-p0879",
-    "size_label": " g",
-    "price": 13,
-    "mrp": 13,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0826.webp"
   },
   {
     "id": "g1-p0893-v1",
     "product_id": "g1-p0893",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 73,
     "mrp": 73,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0893.webp"
   },
   {
     "id": "g1-p0894-v1",
     "product_id": "g1-p0894",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 28,
     "mrp": 28,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_sunflower_seeds_pouch.webp"
   },
   {
     "id": "var-g1-p0894-250g",
     "product_id": "g1-p0894",
-    "size_label": "250g",
+    "size_label": "250 g",
     "price": 120,
     "mrp": 120,
     "stock": 50,
@@ -1900,7 +884,7 @@
   {
     "id": "var-g1-p0894-500g",
     "product_id": "g1-p0894",
-    "size_label": "500g",
+    "size_label": "500 g",
     "price": 230,
     "mrp": 230,
     "stock": 50,
@@ -1909,66 +893,47 @@
   {
     "id": "g1-p0895-v1",
     "product_id": "g1-p0895",
-    "size_label": " g",
+    "size_label": "500 g",
     "price": 118,
     "mrp": 118,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0895.webp"
   },
   {
     "id": "g1-p0898-v1",
     "product_id": "g1-p0898",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 78,
     "mrp": 78,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0898.webp"
   },
   {
     "id": "g1-p0909-v1",
     "product_id": "g1-p0909",
-    "size_label": " g",
+    "size_label": "500 g",
     "price": 174,
     "mrp": 174,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_dates_pouch.webp"
   },
   {
     "id": "g1-p0920-v1",
     "product_id": "g1-p0920",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0920.webp"
   },
   {
     "id": "g1-p0951-v1",
     "product_id": "g1-p0951",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0951-v2",
-    "product_id": "g1-p0951",
-    "size_label": " g",
-    "price": 62,
-    "mrp": 62,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0951-v3",
-    "product_id": "g1-p0951",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0951-v4",
-    "product_id": "g1-p0951",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_chilli_powder_pouch.webp"
   },
   {
     "id": "g1-p0952-v1",
@@ -2009,15 +974,16 @@
   {
     "id": "g1-p0979-v1",
     "product_id": "g1-p0979",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_makhana_pouch.webp"
   },
   {
     "id": "var-g1-nut023-250g",
     "product_id": "g1-p0979",
-    "size_label": "250g",
+    "size_label": "250 g",
     "price": 180,
     "mrp": 180,
     "stock": 50,
@@ -2026,7 +992,7 @@
   {
     "id": "var-g1-nut023-500g",
     "product_id": "g1-p0979",
-    "size_label": "500g",
+    "size_label": "500 g",
     "price": 350,
     "mrp": 350,
     "stock": 50,
@@ -2038,7 +1004,8 @@
     "size_label": "1 unit",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_almonds_pouch.webp"
   },
   {
     "id": "g1-p0985-v1",
@@ -2046,88 +1013,35 @@
     "size_label": "1 unit",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_pista_pouch.webp"
   },
   {
     "id": "g1-p0990-v1",
     "product_id": "g1-p0990",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 17,
     "mrp": 17,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0990-v2",
-    "product_id": "g1-p0990",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0990-v3",
-    "product_id": "g1-p0990",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p0990-v4",
-    "product_id": "g1-p0990",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_coriander_powder_pouch.webp"
   },
   {
     "id": "g1-p1000-v1",
     "product_id": "g1-p1000",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 92,
     "mrp": 92,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1001-v1",
-    "product_id": "g1-p1001",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_chilli_powder_pouch.webp"
+    "image_url": "/products/verified/g1-p1000.webp"
   },
   {
     "id": "g1-p1004-v1",
     "product_id": "g1-p1004",
-    "size_label": " g",
+    "size_label": "500 g",
     "price": 106,
     "mrp": 106,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1006-v1",
-    "product_id": "g1-p1006",
-    "size_label": " g",
-    "price": 87,
-    "mrp": 87,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1011-v1",
-    "product_id": "g1-p1011",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1012-v1",
-    "product_id": "g1-p1012",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p1004.webp"
   },
   {
     "id": "g1-p1014-v1",
@@ -2135,7 +1049,8 @@
     "size_label": "1 unit",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_turmeric_powder_pouch.webp"
   },
   {
     "id": "g1-p1019-v1",
@@ -2143,247 +1058,17 @@
     "size_label": "1 unit",
     "price": 75,
     "mrp": 75,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1022-v1",
-    "product_id": "g1-p1022",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p1019.webp"
   },
   {
     "id": "g1-p1032-v1",
     "product_id": "g1-p1032",
-    "size_label": " g",
+    "size_label": "100 g",
     "price": 54,
     "mrp": 54,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1065-v1",
-    "product_id": "g1-p1065",
-    "size_label": "500 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1065-v2",
-    "product_id": "g1-p1065",
-    "size_label": "1 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1067-v1",
-    "product_id": "g1-p1067",
-    "size_label": "500 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1067-v2",
-    "product_id": "g1-p1067",
-    "size_label": "1 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1069-v1",
-    "product_id": "g1-p1069",
-    "size_label": "500 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1069-v2",
-    "product_id": "g1-p1069",
-    "size_label": "1 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1071-v1",
-    "product_id": "g1-p1071",
-    "size_label": "500 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1071-v2",
-    "product_id": "g1-p1071",
-    "size_label": "1 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1073-v1",
-    "product_id": "g1-p1073",
-    "size_label": "500 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1073-v2",
-    "product_id": "g1-p1073",
-    "size_label": "1 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1075-v1",
-    "product_id": "g1-p1075",
-    "size_label": "250 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1075-v2",
-    "product_id": "g1-p1075",
-    "size_label": "500 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1077-v1",
-    "product_id": "g1-p1077",
-    "size_label": "500 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1077-v2",
-    "product_id": "g1-p1077",
-    "size_label": "1 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1079-v1",
-    "product_id": "g1-p1079",
-    "size_label": "1 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1079-v2",
-    "product_id": "g1-p1079",
-    "size_label": "2 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1079-v3",
-    "product_id": "g1-p1079",
-    "size_label": "5 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1082-v1",
-    "product_id": "g1-p1082",
-    "size_label": "1 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1082-v2",
-    "product_id": "g1-p1082",
-    "size_label": "2 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1082-v3",
-    "product_id": "g1-p1082",
-    "size_label": "5 kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1085-v1",
-    "product_id": "g1-p1085",
-    "size_label": "100 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1085-v2",
-    "product_id": "g1-p1085",
-    "size_label": "250 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1087-v1",
-    "product_id": "g1-p1087",
-    "size_label": "100 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1087-v2",
-    "product_id": "g1-p1087",
-    "size_label": "250 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1089-v1",
-    "product_id": "g1-p1089",
-    "size_label": "100 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1089-v2",
-    "product_id": "g1-p1089",
-    "size_label": "250 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1091-v1",
-    "product_id": "g1-p1091",
-    "size_label": "1 bunch",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1092-v1",
-    "product_id": "g1-p1092",
-    "size_label": "1 bunch",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/g1-p1032.webp"
   },
   {
     "id": "g1-p1138-v1",
@@ -2409,7 +1094,8 @@
     "size_label": "250 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/packshots/ginger-garlic-paste.jpg"
   },
   {
     "id": "g1-p1173-v2",
@@ -2417,7 +1103,8 @@
     "size_label": "500 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/packshots/ginger-garlic-paste.jpg"
   },
   {
     "id": "g1-p1175-v1",
@@ -2425,7 +1112,8 @@
     "size_label": "250 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/packshots/ginger-garlic-paste.jpg"
   },
   {
     "id": "g1-p1177-v1",
@@ -2433,7 +1121,8 @@
     "size_label": "500 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/packshots/tomato-ketchup.jpg"
   },
   {
     "id": "g1-p1177-v2",
@@ -2441,7 +1130,8 @@
     "size_label": "1 kg",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/packshots/tomato-ketchup.jpg"
   },
   {
     "id": "g1-p1183-v1",
@@ -2449,23 +1139,8 @@
     "size_label": "250 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1192-v1",
-    "product_id": "g1-p1192",
-    "size_label": "200 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1192-v2",
-    "product_id": "g1-p1192",
-    "size_label": "500 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/placeholder.svg"
   },
   {
     "id": "g1-p1561-v1",
@@ -2473,7 +1148,8 @@
     "size_label": "150 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/placeholder.svg"
   },
   {
     "id": "g1-p1562-v1",
@@ -2481,7 +1157,8 @@
     "size_label": "180 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/placeholder.svg"
   },
   {
     "id": "g1-p1563-v1",
@@ -2489,61 +1166,8 @@
     "size_label": "300 g",
     "price": 50,
     "mrp": 50,
-    "stock": 50
-  },
-  {
-    "id": "g1-p1701-v1",
-    "product_id": "g1-p1701",
-    "size_label": "500 ml",
-    "price": 85,
-    "mrp": 85,
     "stock": 50,
-    "image_url": "/products/packshots/freedom-oil-1l.jpg"
-  },
-  {
-    "id": "g1-p1701-v2",
-    "product_id": "g1-p1701",
-    "size_label": "1 L",
-    "price": 165,
-    "mrp": 165,
-    "stock": 50,
-    "image_url": "/products/packshots/freedom-oil-1l.jpg"
-  },
-  {
-    "id": "g1-p1701-v3",
-    "product_id": "g1-p1701",
-    "size_label": "2 L",
-    "price": 340,
-    "mrp": 340,
-    "stock": 50,
-    "image_url": "/products/packshots/freedom-oil-1l.jpg"
-  },
-  {
-    "id": "g1-p1701-v4",
-    "product_id": "g1-p1701",
-    "size_label": "5 L",
-    "price": 825,
-    "mrp": 825,
-    "stock": 50,
-    "image_url": "/products/packshots/freedom-oil-5l.jpg"
-  },
-  {
-    "id": "g1-p1701-v5",
-    "product_id": "g1-p1701",
-    "size_label": "15 L",
-    "price": 2450,
-    "mrp": 2450,
-    "stock": 50,
-    "image_url": "/products/packshots/freedom-oil-5l.jpg"
-  },
-  {
-    "id": "g1-p1701-v6",
-    "product_id": "g1-p1701",
-    "size_label": "15 kg",
-    "price": 2650,
-    "mrp": 2650,
-    "stock": 50,
-    "image_url": "/products/packshots/freedom-oil-5l.jpg"
+    "image_url": "/products/placeholder.svg"
   },
   {
     "id": "g1-p1627-v1",
@@ -2798,8 +1422,8 @@
     "image_url": "/products/packshots/idhayam-oil.jpg"
   },
   {
-    "id": "g1-p1672-v1",
-    "product_id": "g1-p1672",
+    "id": "g1-amul-pure-ghee-v-200ml",
+    "product_id": "g1-amul-pure-ghee",
     "size_label": "200 ml",
     "price": 140,
     "mrp": 140,
@@ -2807,8 +1431,8 @@
     "image_url": "/products/packshots/amul-ghee.jpg"
   },
   {
-    "id": "g1-p1672-v2",
-    "product_id": "g1-p1672",
+    "id": "g1-amul-pure-ghee-v-500ml",
+    "product_id": "g1-amul-pure-ghee",
     "size_label": "500 ml",
     "price": 335,
     "mrp": 335,
@@ -2816,8 +1440,8 @@
     "image_url": "/products/packshots/amul-ghee.jpg"
   },
   {
-    "id": "g1-p1672-v3",
-    "product_id": "g1-p1672",
+    "id": "g1-amul-pure-ghee-v-1l",
+    "product_id": "g1-amul-pure-ghee",
     "size_label": "1 L",
     "price": 650,
     "mrp": 650,
@@ -2960,38 +1584,11 @@
     "image_url": "/products/generated_pouches/g1_urad_dal_pouch.webp"
   },
   {
-    "id": "g1-p0388-v1",
-    "product_id": "g1-p0388",
-    "size_label": "500 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_chana_dal_pouch.webp"
-  },
-  {
-    "id": "g1-p0388-v2",
-    "product_id": "g1-p0388",
-    "size_label": "1 kg",
-    "price": 95,
-    "mrp": 95,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_chana_dal_pouch.webp"
-  },
-  {
     "id": "g1-p0388-v3",
-    "product_id": "g1-p0388",
+    "product_id": "g1-p0406",
     "size_label": "2 kg",
     "price": 185,
     "mrp": 185,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_chana_dal_pouch.webp"
-  },
-  {
-    "id": "g1-p0388-v4",
-    "product_id": "g1-p0388",
-    "size_label": "5 kg",
-    "price": 450,
-    "mrp": 450,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_chana_dal_pouch.webp"
   },
@@ -3214,7 +1811,7 @@
   {
     "id": "var-g1-hh010-1",
     "product_id": "g1-hh010",
-    "size_label": "900 ml Refill Pouch",
+    "size_label": "900 ml Refil L Pouch",
     "price": 175,
     "mrp": 175,
     "stock": 50,
@@ -3304,7 +1901,7 @@
   {
     "id": "var-g1-hh015-2",
     "product_id": "g1-hh015",
-    "size_label": "1.5 L Refill Pouch",
+    "size_label": "1.5 L Refil L Pouch",
     "price": 260,
     "mrp": 260,
     "stock": 50,
@@ -3610,7 +2207,7 @@
   {
     "id": "var-g1-hh034-1",
     "product_id": "g1-hh034",
-    "size_label": "800 g Refill Pouch",
+    "size_label": "800 g Refil L Pouch",
     "price": 130,
     "mrp": 130,
     "stock": 50,
@@ -3988,7 +2585,7 @@
   {
     "id": "var-g1-hh058-2",
     "product_id": "g1-hh058",
-    "size_label": "Long-Handle Floor Brush",
+    "size_label": "Lon g-Handle Floor Brush",
     "price": 149,
     "mrp": 149,
     "stock": 50,
@@ -4069,7 +2666,7 @@
   {
     "id": "var-g1-hh064-3",
     "product_id": "g1-hh064",
-    "size_label": "500 ml Refill Pouch",
+    "size_label": "500 ml Refil L Pouch",
     "price": 85,
     "mrp": 85,
     "stock": 50,
@@ -4213,7 +2810,7 @@
   {
     "id": "var-g1-hh075-1",
     "product_id": "g1-hh075",
-    "size_label": "45 ml (1 Refill)",
+    "size_label": "45 ml (1 Refil L)",
     "price": 85,
     "mrp": 85,
     "stock": 50,
@@ -4231,7 +2828,7 @@
   {
     "id": "var-g1-hh076-1",
     "product_id": "g1-hh076",
-    "size_label": "1 Machine + 45 ml Refill",
+    "size_label": "1 Machine + 45 ml Refil L",
     "price": 120,
     "mrp": 120,
     "stock": 50,
@@ -4249,7 +2846,7 @@
   {
     "id": "var-g1-hh078-1",
     "product_id": "g1-hh078",
-    "size_label": "45 ml (1 Refill)",
+    "size_label": "45 ml (1 Refil L)",
     "price": 85,
     "mrp": 85,
     "stock": 50,
@@ -4267,7 +2864,7 @@
   {
     "id": "var-g1-hh079-1",
     "product_id": "g1-hh079",
-    "size_label": "1 Machine + 45 ml Refill",
+    "size_label": "1 Machine + 45 ml Refil L",
     "price": 120,
     "mrp": 120,
     "stock": 50,
@@ -4285,7 +2882,7 @@
   {
     "id": "var-g1-hh081-1",
     "product_id": "g1-hh081",
-    "size_label": "45 ml (1 Refill)",
+    "size_label": "45 ml (1 Refil L)",
     "price": 85,
     "mrp": 85,
     "stock": 50,
@@ -4420,7 +3017,7 @@
   {
     "id": "var-g1-hh091-1",
     "product_id": "g1-hh091",
-    "size_label": "Machine + 225 ml Refill",
+    "size_label": "Machine + 225 ml Refil L",
     "price": 550,
     "mrp": 550,
     "stock": 50,
@@ -4429,7 +3026,7 @@
   {
     "id": "var-g1-hh092-1",
     "product_id": "g1-hh092",
-    "size_label": "225 ml Refill Can",
+    "size_label": "225 ml Refil L Can",
     "price": 275,
     "mrp": 275,
     "stock": 50,
@@ -4438,7 +3035,7 @@
   {
     "id": "var-g1-hh093-1",
     "product_id": "g1-hh093",
-    "size_label": "250 ml Refill Can",
+    "size_label": "250 ml Refil L Can",
     "price": 299,
     "mrp": 299,
     "stock": 50,
@@ -4537,7 +3134,7 @@
   {
     "id": "var-g1-hh104-1",
     "product_id": "g1-hh104",
-    "size_label": "Mop + Steel Handle",
+    "size_label": "Mop + Stee L Handle",
     "price": 149,
     "mrp": 149,
     "stock": 50,
@@ -4546,7 +3143,7 @@
   {
     "id": "var-g1-hh105-1",
     "product_id": "g1-hh105",
-    "size_label": "1 Refill Head",
+    "size_label": "1 Refil L Head",
     "price": 75,
     "mrp": 75,
     "stock": 50,
@@ -4618,7 +3215,7 @@
   {
     "id": "var-g1-hh113-1",
     "product_id": "g1-hh113",
-    "size_label": "1 Litre Mug",
+    "size_label": "1 Litre Mu g",
     "price": 35,
     "mrp": 35,
     "stock": 50,
@@ -4690,7 +3287,7 @@
   {
     "id": "var-g1-hh121-1",
     "product_id": "g1-hh121",
-    "size_label": "20 Metres Roll",
+    "size_label": "20 Metres Rol L",
     "price": 45,
     "mrp": 45,
     "stock": 50,
@@ -4753,7 +3350,7 @@
   {
     "id": "var-g1-hh125-1",
     "product_id": "g1-hh125",
-    "size_label": "30 Metres Roll",
+    "size_label": "30 Metres Rol L",
     "price": 120,
     "mrp": 120,
     "stock": 50,
@@ -4762,7 +3359,7 @@
   {
     "id": "var-g1-hh126-1",
     "product_id": "g1-hh126",
-    "size_label": "Single Roll",
+    "size_label": "Single Rol L",
     "price": 60,
     "mrp": 60,
     "stock": 50,
@@ -4780,7 +3377,7 @@
   {
     "id": "var-g1-hh127-1",
     "product_id": "g1-hh127",
-    "size_label": "Single Roll",
+    "size_label": "Single Rol L",
     "price": 40,
     "mrp": 40,
     "stock": 50,
@@ -4825,7 +3422,7 @@
   {
     "id": "var-g1-hh131-1",
     "product_id": "g1-hh131",
-    "size_label": "80 Pulls Roll",
+    "size_label": "80 Pulls Rol L",
     "price": 149,
     "mrp": 149,
     "stock": 50,
@@ -5041,7 +3638,7 @@
   {
     "id": "var-g1-hh148-1",
     "product_id": "g1-hh148",
-    "size_label": "1 Roll",
+    "size_label": "1 Rol L",
     "price": 35,
     "mrp": 35,
     "stock": 50,
@@ -5050,7 +3647,7 @@
   {
     "id": "var-g1-hh149-1",
     "product_id": "g1-hh149",
-    "size_label": "10 Metres Roll",
+    "size_label": "10 Metres Rol L",
     "price": 40,
     "mrp": 40,
     "stock": 50,
@@ -5167,7 +3764,7 @@
   {
     "id": "var-g1-hh159-1",
     "product_id": "g1-hh159",
-    "size_label": "1 Roll",
+    "size_label": "1 Rol L",
     "price": 20,
     "mrp": 20,
     "stock": 50,
@@ -5356,7 +3953,7 @@
   {
     "id": "var-g1-hh175-1",
     "product_id": "g1-hh175",
-    "size_label": "60 g Hanging Cone",
+    "size_label": "60 g Hangin g Cone",
     "price": 149,
     "mrp": 149,
     "stock": 50,
@@ -7309,7 +5906,7 @@
   {
     "id": "var-g1-pc066-1",
     "product_id": "g1-pc066",
-    "size_label": "Small (S) - 22 pcs",
+    "size_label": "Smal L (S) - 22 pcs",
     "price": 249,
     "mrp": 249,
     "stock": 50,
@@ -7327,7 +5924,7 @@
   {
     "id": "var-g1-pc066-3",
     "product_id": "g1-pc066",
-    "size_label": "Large (L) - 18 pcs",
+    "size_label": "Large ( L) - 18 pcs",
     "price": 249,
     "mrp": 249,
     "stock": 50,
@@ -7336,7 +5933,7 @@
   {
     "id": "var-g1-pc067-1",
     "product_id": "g1-pc067",
-    "size_label": "Small (S) - 22 pcs",
+    "size_label": "Smal L (S) - 22 pcs",
     "price": 249,
     "mrp": 249,
     "stock": 50,
@@ -7354,7 +5951,7 @@
   {
     "id": "var-g1-pc067-3",
     "product_id": "g1-pc067",
-    "size_label": "Large (L) - 18 pcs",
+    "size_label": "Large ( L) - 18 pcs",
     "price": 249,
     "mrp": 249,
     "stock": 50,
@@ -8279,20 +6876,11 @@
     "image_url": "/products/verified/pc-colgate-plax-mouthwash.webp"
   },
   {
-    "id": "var-g1-pc121-1",
-    "product_id": "g1-pc121",
+    "id": "g1-pc052-v-single",
+    "product_id": "g1-pc052",
     "size_label": "Single",
     "price": 35,
     "mrp": 35,
-    "stock": 50,
-    "image_url": "/products/verified/pc-colgate-zigzag-toothbrush.webp"
-  },
-  {
-    "id": "var-g1-pc121-2",
-    "product_id": "g1-pc121",
-    "size_label": "Pack of 3",
-    "price": 99,
-    "mrp": 99,
     "stock": 50,
     "image_url": "/products/verified/pc-colgate-zigzag-toothbrush.webp"
   },
@@ -8587,7 +7175,7 @@
   {
     "id": "var-g1-pc141-1",
     "product_id": "g1-pc141",
-    "size_label": "Small (20 count)",
+    "size_label": "Smal L (20 count)",
     "price": 249,
     "mrp": 249,
     "stock": 50,
@@ -8821,7 +7409,7 @@
   {
     "id": "var-g1-pc154-2",
     "product_id": "g1-pc154",
-    "size_label": "750 ml (Refill Pouch)",
+    "size_label": "750 ml (Refil L Pouch)",
     "price": 130,
     "mrp": 130,
     "stock": 50,
@@ -8839,7 +7427,7 @@
   {
     "id": "var-g1-pc155-2",
     "product_id": "g1-pc155",
-    "size_label": "750 ml (Refill Pouch)",
+    "size_label": "750 ml (Refil L Pouch)",
     "price": 125,
     "mrp": 125,
     "stock": 50,
@@ -8857,7 +7445,7 @@
   {
     "id": "var-g1-pc156-2",
     "product_id": "g1-pc156",
-    "size_label": "725 ml (Refill Pouch)",
+    "size_label": "725 ml (Refil L Pouch)",
     "price": 129,
     "mrp": 129,
     "stock": 50,
@@ -10234,7 +8822,7 @@
   {
     "id": "var-g1-tea017-1",
     "product_id": "g1-tea017",
-    "size_label": "500 g (Refill Pouch)",
+    "size_label": "500 g (Refil L Pouch)",
     "price": 240,
     "mrp": 240,
     "stock": 50,
@@ -10252,7 +8840,7 @@
   {
     "id": "var-g1-tea019-1",
     "product_id": "g1-tea019",
-    "size_label": "500 g (Refill Pouch)",
+    "size_label": "500 g (Refil L Pouch)",
     "price": 245,
     "mrp": 245,
     "stock": 50,
@@ -10261,7 +8849,7 @@
   {
     "id": "var-g1-tea020-1",
     "product_id": "g1-tea020",
-    "size_label": "500 g (Refill Pouch)",
+    "size_label": "500 g (Refil L Pouch)",
     "price": 245,
     "mrp": 245,
     "stock": 50,
@@ -10270,7 +8858,7 @@
   {
     "id": "var-g1-tea021-1",
     "product_id": "g1-tea021",
-    "size_label": "500 g (Refill Box)",
+    "size_label": "500 g (Refil L Box)",
     "price": 320,
     "mrp": 320,
     "stock": 50,
@@ -10657,7 +9245,7 @@
   {
     "id": "var-g1-swt014-1",
     "product_id": "g1-swt014",
-    "size_label": "20 g (Egg Pack)",
+    "size_label": "20 g (Eg g Pack)",
     "price": 45,
     "mrp": 45,
     "stock": 50,
@@ -10788,15 +9376,6 @@
     "mrp": 38,
     "stock": 50,
     "image_url": "/products/verified/dry-hatsun-curd.webp"
-  },
-  {
-    "id": "var-g1-dry006-1",
-    "product_id": "g1-dry006",
-    "size_label": "400 g (Tub / Cup)",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/verified/dry-milky-mist-curd.webp"
   },
   {
     "id": "var-g1-dry007-1",
@@ -10934,15 +9513,6 @@
     "image_url": "/products/verified/dry-britannia-white-bread.webp"
   },
   {
-    "id": "var-g1-dry022-1",
-    "product_id": "g1-dry022",
-    "size_label": "400 g (Pack)",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/verified/dry-britannia-brown-bread.webp"
-  },
-  {
     "id": "var-g1-dry023-1",
     "product_id": "g1-dry023",
     "size_label": "60 ml (Stick)",
@@ -11042,8 +9612,8 @@
     "image_url": "/products/verified/dry-kwality-feast.webp"
   },
   {
-    "id": "var-g1-bev025-1",
-    "product_id": "g1-bev025",
+    "id": "g1-bev001-v-250ml(petbottle)",
+    "product_id": "g1-bev001",
     "size_label": "250 ml (Pet Bottle)",
     "price": 20,
     "mrp": 20,
@@ -11051,8 +9621,8 @@
     "image_url": "/products/verified/bev-thums-up-250ml.webp"
   },
   {
-    "id": "var-g1-bev026-1",
-    "product_id": "g1-bev026",
+    "id": "g1-bev001-v-1.25l(bottle)",
+    "product_id": "g1-bev001",
     "size_label": "1.25 L (Bottle)",
     "price": 65,
     "mrp": 65,
@@ -11060,8 +9630,8 @@
     "image_url": "/products/verified/bev-thums-up-1l.webp"
   },
   {
-    "id": "var-g1-bev027-1",
-    "product_id": "g1-bev027",
+    "id": "g1-bev001-v-2.25l(largebottle)",
+    "product_id": "g1-bev001",
     "size_label": "2.25 L (Large Bottle)",
     "price": 100,
     "mrp": 100,
@@ -11087,8 +9657,8 @@
     "image_url": "/products/verified/bev-coca-cola-250ml.webp"
   },
   {
-    "id": "var-g1-bev030-1",
-    "product_id": "g1-bev030",
+    "id": "g1-bev029-v-1.25l(bottle)",
+    "product_id": "g1-bev029",
     "size_label": "1.25 L (Bottle)",
     "price": 65,
     "mrp": 65,
@@ -11096,8 +9666,8 @@
     "image_url": "/products/verified/bev-coca-cola-1l.webp"
   },
   {
-    "id": "var-g1-bev031-1",
-    "product_id": "g1-bev031",
+    "id": "g1-bev029-v-2.25l(largebottle)",
+    "product_id": "g1-bev029",
     "size_label": "2.25 L (Large Bottle)",
     "price": 100,
     "mrp": 100,
@@ -11114,8 +9684,8 @@
     "image_url": "/products/verified/bev-coca-cola-can.webp"
   },
   {
-    "id": "var-g1-bev033-1",
-    "product_id": "g1-bev033",
+    "id": "g1-bev003-v-250ml(petbottle)",
+    "product_id": "g1-bev003",
     "size_label": "250 ml (Pet Bottle)",
     "price": 20,
     "mrp": 20,
@@ -11123,8 +9693,8 @@
     "image_url": "/products/verified/bev-sprite-250ml.webp"
   },
   {
-    "id": "var-g1-bev034-1",
-    "product_id": "g1-bev034",
+    "id": "g1-bev003-v-1.25l(bottle)",
+    "product_id": "g1-bev003",
     "size_label": "1.25 L (Bottle)",
     "price": 65,
     "mrp": 65,
@@ -11132,8 +9702,8 @@
     "image_url": "/products/verified/bev-sprite-1l.webp"
   },
   {
-    "id": "var-g1-bev035-1",
-    "product_id": "g1-bev035",
+    "id": "g1-bev003-v-2.25l(largebottle)",
+    "product_id": "g1-bev003",
     "size_label": "2.25 L (Large Bottle)",
     "price": 100,
     "mrp": 100,
@@ -11141,8 +9711,8 @@
     "image_url": "/products/verified/bev-sprite-2l.webp"
   },
   {
-    "id": "var-g1-bev036-1",
-    "product_id": "g1-bev036",
+    "id": "g1-bev004-v-250ml(petbottle)",
+    "product_id": "g1-bev004",
     "size_label": "250 ml (Pet Bottle)",
     "price": 20,
     "mrp": 20,
@@ -11150,8 +9720,8 @@
     "image_url": "/products/verified/bev-limca-250ml.webp"
   },
   {
-    "id": "var-g1-bev037-1",
-    "product_id": "g1-bev037",
+    "id": "g1-bev004-v-2.25l(largebottle)",
+    "product_id": "g1-bev004",
     "size_label": "2.25 L (Large Bottle)",
     "price": 100,
     "mrp": 100,
@@ -11159,8 +9729,8 @@
     "image_url": "/products/verified/bev-limca-2l.webp"
   },
   {
-    "id": "var-g1-bev038-1",
-    "product_id": "g1-bev038",
+    "id": "g1-bev005-v-250ml(petbottle)",
+    "product_id": "g1-bev005",
     "size_label": "250 ml (Pet Bottle)",
     "price": 20,
     "mrp": 20,
@@ -11168,8 +9738,8 @@
     "image_url": "/products/verified/bev-fanta-250ml.webp"
   },
   {
-    "id": "var-g1-bev039-1",
-    "product_id": "g1-bev039",
+    "id": "g1-bev005-v-2.25l(largebottle)",
+    "product_id": "g1-bev005",
     "size_label": "2.25 L (Large Bottle)",
     "price": 100,
     "mrp": 100,
@@ -11177,8 +9747,8 @@
     "image_url": "/products/verified/bev-fanta-2l.webp"
   },
   {
-    "id": "var-g1-bev040-1",
-    "product_id": "g1-bev040",
+    "id": "g1-bev009-v-150ml(tetrapack)",
+    "product_id": "g1-bev009",
     "size_label": "150 ml (Tetra Pack)",
     "price": 10,
     "mrp": 10,
@@ -11186,8 +9756,8 @@
     "image_url": "/products/verified/bev-maaza-150ml.webp"
   },
   {
-    "id": "var-g1-bev041-1",
-    "product_id": "g1-bev041",
+    "id": "g1-bev009-v-250ml(petbottle)",
+    "product_id": "g1-bev009",
     "size_label": "250 ml (Pet Bottle)",
     "price": 20,
     "mrp": 20,
@@ -11195,8 +9765,8 @@
     "image_url": "/products/verified/bev-maaza-250ml.webp"
   },
   {
-    "id": "var-g1-bev042-1",
-    "product_id": "g1-bev042",
+    "id": "g1-bev009-v-1.2l(largebottle)",
+    "product_id": "g1-bev009",
     "size_label": "1.2 L (Large Bottle)",
     "price": 75,
     "mrp": 75,
@@ -11204,8 +9774,8 @@
     "image_url": "/products/verified/bev-maaza-1l.webp"
   },
   {
-    "id": "var-g1-bev043-1",
-    "product_id": "g1-bev043",
+    "id": "g1-bev010-v-125ml(tetrapack)",
+    "product_id": "g1-bev010",
     "size_label": "125 ml (Tetra Pack)",
     "price": 10,
     "mrp": 10,
@@ -11213,8 +9783,8 @@
     "image_url": "/products/verified/bev-frooti-125ml.webp"
   },
   {
-    "id": "var-g1-bev044-1",
-    "product_id": "g1-bev044",
+    "id": "g1-bev010-v-1.2l(largebottle)",
+    "product_id": "g1-bev010",
     "size_label": "1.2 L (Large Bottle)",
     "price": 75,
     "mrp": 75,
@@ -11231,8 +9801,8 @@
     "image_url": "/products/verified/bev-bisleri-500ml.webp"
   },
   {
-    "id": "var-g1-bev046-1",
-    "product_id": "g1-bev046",
+    "id": "g1-bev045-v-2l(largebottle)",
+    "product_id": "g1-bev045",
     "size_label": "2 L (Large Bottle)",
     "price": 30,
     "mrp": 30,
@@ -11240,8 +9810,8 @@
     "image_url": "/products/verified/bev-bisleri-2l.webp"
   },
   {
-    "id": "var-g1-bev047-1",
-    "product_id": "g1-bev047",
+    "id": "g1-bev016-v-500ml(bottle)",
+    "product_id": "g1-bev016",
     "size_label": "500 ml (Bottle)",
     "price": 10,
     "mrp": 10,
@@ -11267,8 +9837,8 @@
     "image_url": "/products/verified/swt-kitkat-dessert-delight.webp"
   },
   {
-    "id": "var-g1-swt026-1",
-    "product_id": "g1-swt026",
+    "id": "g1-swt001-v-12g(bar)",
+    "product_id": "g1-swt001",
     "size_label": "12 g (Bar)",
     "price": 10,
     "mrp": 10,
@@ -11276,8 +9846,8 @@
     "image_url": "/products/verified/swt-dairy-milk-10rs.webp"
   },
   {
-    "id": "var-g1-swt027-1",
-    "product_id": "g1-swt027",
+    "id": "g1-swt001-v-24g(bar)",
+    "product_id": "g1-swt001",
     "size_label": "24 g (Bar)",
     "price": 20,
     "mrp": 20,
@@ -11303,8 +9873,8 @@
     "image_url": "/products/verified/swt-dairy-milk-roast-almond.webp"
   },
   {
-    "id": "var-g1-swt030-1",
-    "product_id": "g1-swt030",
+    "id": "g1-swt004-v-150g(bar)",
+    "product_id": "g1-swt004",
     "size_label": "150 g (Bar)",
     "price": 175,
     "mrp": 175,
@@ -11348,8 +9918,8 @@
     "image_url": "/products/verified/swt-silk-hazelnut.webp"
   },
   {
-    "id": "var-g1-swt035-1",
-    "product_id": "g1-swt035",
+    "id": "g1-swt006-v-10.1g(bar)",
+    "product_id": "g1-swt006",
     "size_label": "10.1 g (Bar)",
     "price": 5,
     "mrp": 5,
@@ -11357,8 +9927,8 @@
     "image_url": "/products/verified/swt-5star-5rs.webp"
   },
   {
-    "id": "var-g1-swt036-1",
-    "product_id": "g1-swt036",
+    "id": "g1-swt006-v-20g(bar)",
+    "product_id": "g1-swt006",
     "size_label": "20 g (Bar)",
     "price": 10,
     "mrp": 10,
@@ -11375,8 +9945,8 @@
     "image_url": "/products/verified/swt-5star-3d.webp"
   },
   {
-    "id": "var-g1-swt038-1",
-    "product_id": "g1-swt038",
+    "id": "g1-swt010-v-9g(bar)",
+    "product_id": "g1-swt010",
     "size_label": "9 g (Bar)",
     "price": 5,
     "mrp": 5,
@@ -11404,7 +9974,7 @@
   {
     "id": "var-g1-swt041-1",
     "product_id": "g1-swt041",
-    "size_label": "18.6 g (Ball)",
+    "size_label": "18.6 g (Bal L)",
     "price": 20,
     "mrp": 20,
     "stock": 50,
@@ -11449,15 +10019,15 @@
   {
     "id": "var-g1-swt046-1",
     "product_id": "g1-swt046",
-    "size_label": "20 g (Egg)",
+    "size_label": "20 g (Eg g)",
     "price": 45,
     "mrp": 45,
     "stock": 50,
     "image_url": "/products/verified/swt-kinder-joy-pink.webp"
   },
   {
-    "id": "var-g1-swt047-1",
-    "product_id": "g1-swt047",
+    "id": "g1-swt013-v-50g(box)",
+    "product_id": "g1-swt013",
     "size_label": "50 g (Box)",
     "price": 160,
     "mrp": 160,
@@ -11476,7 +10046,7 @@
   {
     "id": "var-g1-swt049-1",
     "product_id": "g1-swt049",
-    "size_label": "29 g (Roll)",
+    "size_label": "29 g (Rol L)",
     "price": 10,
     "mrp": 10,
     "stock": 50,
@@ -11681,8 +10251,8 @@
     "image_url": "/products/verified/dry-kw-vanilla-tub.webp"
   },
   {
-    "id": "var-g1-snk068-1",
-    "product_id": "g1-snk068",
+    "id": "g1-snk001-v-26g(pouch)",
+    "product_id": "g1-snk001",
     "size_label": "26 g (Pouch)",
     "price": 10,
     "mrp": 10,
@@ -11690,8 +10260,8 @@
     "image_url": "/products/verified/snk-lays-magic-masala-10rs.webp"
   },
   {
-    "id": "var-g1-snk069-1",
-    "product_id": "g1-snk069",
+    "id": "g1-snk002-v-26g(pouch)",
+    "product_id": "g1-snk002",
     "size_label": "26 g (Pouch)",
     "price": 10,
     "mrp": 10,
@@ -11708,8 +10278,8 @@
     "image_url": "/products/verified/snk-lays-cream-onion-10rs.webp"
   },
   {
-    "id": "var-g1-snk071-1",
-    "product_id": "g1-snk071",
+    "id": "g1-snk003-v-26g(pouch)",
+    "product_id": "g1-snk003",
     "size_label": "26 g (Pouch)",
     "price": 10,
     "mrp": 10,
@@ -11717,8 +10287,8 @@
     "image_url": "/products/verified/snk-lays-tomato-tango-10rs.webp"
   },
   {
-    "id": "var-g1-snk072-1",
-    "product_id": "g1-snk072",
+    "id": "g1-snk005-v-26g(pouch)",
+    "product_id": "g1-snk005",
     "size_label": "26 g (Pouch)",
     "price": 10,
     "mrp": 10,
@@ -11726,8 +10296,8 @@
     "image_url": "/products/verified/snk-lays-sizzling-hot-10rs.webp"
   },
   {
-    "id": "var-g1-snk073-1",
-    "product_id": "g1-snk073",
+    "id": "g1-snk001-v-115g(pouch)",
+    "product_id": "g1-snk001",
     "size_label": "115 g (Pouch)",
     "price": 50,
     "mrp": 50,
@@ -11735,8 +10305,8 @@
     "image_url": "/products/verified/snk-lays-magic-masala-50rs.webp"
   },
   {
-    "id": "var-g1-snk074-1",
-    "product_id": "g1-snk074",
+    "id": "g1-snk002-v-115g(pouch)",
+    "product_id": "g1-snk002",
     "size_label": "115 g (Pouch)",
     "price": 50,
     "mrp": 50,
@@ -11744,8 +10314,8 @@
     "image_url": "/products/verified/snk-lays-classic-salted-50rs.webp"
   },
   {
-    "id": "var-g1-snk075-1",
-    "product_id": "g1-snk075",
+    "id": "g1-snk070-v-115g(pouch)",
+    "product_id": "g1-snk070",
     "size_label": "115 g (Pouch)",
     "price": 50,
     "mrp": 50,
@@ -11753,8 +10323,8 @@
     "image_url": "/products/verified/snk-lays-cream-onion-50rs.webp"
   },
   {
-    "id": "var-g1-snk076-1",
-    "product_id": "g1-snk076",
+    "id": "g1-snk007-v-40g(pouch)",
+    "product_id": "g1-snk007",
     "size_label": "40 g (Pouch)",
     "price": 10,
     "mrp": 10,
@@ -11762,8 +10332,8 @@
     "image_url": "/products/verified/snk-kurkure-masala-munch-10rs.webp"
   },
   {
-    "id": "var-g1-snk077-1",
-    "product_id": "g1-snk077",
+    "id": "g1-snk008-v-40g(pouch)",
+    "product_id": "g1-snk008",
     "size_label": "40 g (Pouch)",
     "price": 10,
     "mrp": 10,
@@ -11771,8 +10341,8 @@
     "image_url": "/products/verified/snk-kurkure-green-chutney-10rs.webp"
   },
   {
-    "id": "var-g1-snk078-1",
-    "product_id": "g1-snk078",
+    "id": "g1-snk007-v-170g(pouch)",
+    "product_id": "g1-snk007",
     "size_label": "170 g (Pouch)",
     "price": 50,
     "mrp": 50,
@@ -11780,8 +10350,8 @@
     "image_url": "/products/verified/snk-kurkure-masala-munch-50rs.webp"
   },
   {
-    "id": "var-g1-snk079-1",
-    "product_id": "g1-snk079",
+    "id": "g1-snk012-v-30g(pouch)",
+    "product_id": "g1-snk012",
     "size_label": "30 g (Pouch)",
     "price": 10,
     "mrp": 10,
@@ -11789,8 +10359,8 @@
     "image_url": "/products/verified/snk-bingo-mad-angles-achaari-10rs.webp"
   },
   {
-    "id": "var-g1-snk080-1",
-    "product_id": "g1-snk080",
+    "id": "g1-snk013-v-21g(pouch)",
+    "product_id": "g1-snk013",
     "size_label": "21 g (Pouch)",
     "price": 5,
     "mrp": 5,
@@ -11798,8 +10368,8 @@
     "image_url": "/products/verified/snk-bingo-mad-angles-tomato-5rs.webp"
   },
   {
-    "id": "var-g1-snk081-1",
-    "product_id": "g1-snk081",
+    "id": "g1-snk013-v-30g(pouch)",
+    "product_id": "g1-snk013",
     "size_label": "30 g (Pouch)",
     "price": 10,
     "mrp": 10,
@@ -11807,8 +10377,8 @@
     "image_url": "/products/verified/snk-bingo-mad-angles-tomato-10rs.webp"
   },
   {
-    "id": "var-g1-snk082-1",
-    "product_id": "g1-snk082",
+    "id": "g1-snk013-v-130g(pouch)",
+    "product_id": "g1-snk013",
     "size_label": "130 g (Pouch)",
     "price": 50,
     "mrp": 50,
@@ -11816,8 +10386,8 @@
     "image_url": "/products/verified/snk-bingo-mad-angles-tomato-50rs.webp"
   },
   {
-    "id": "var-g1-snk083-1",
-    "product_id": "g1-snk083",
+    "id": "g1-snk014-v-30g(pouch)",
+    "product_id": "g1-snk014",
     "size_label": "30 g (Pouch)",
     "price": 10,
     "mrp": 10,
@@ -11843,8 +10413,8 @@
     "image_url": "/products/verified/snk-bingo-mad-angles-chilli.webp"
   },
   {
-    "id": "var-g1-snk086-1",
-    "product_id": "g1-snk086",
+    "id": "g1-snk015-v-30g(pouch)",
+    "product_id": "g1-snk015",
     "size_label": "30 g (Pouch)",
     "price": 5,
     "mrp": 5,
@@ -11852,8 +10422,8 @@
     "image_url": "/products/verified/snk-bingo-tedhe-medhe-5rs.webp"
   },
   {
-    "id": "var-g1-snk087-1",
-    "product_id": "g1-snk087",
+    "id": "g1-snk015-v-105g(pouch)",
+    "product_id": "g1-snk015",
     "size_label": "105 g (Pouch)",
     "price": 20,
     "mrp": 20,
@@ -11951,8 +10521,8 @@
     "image_url": "/products/verified/snk-kurkure-solid-masti.webp"
   },
   {
-    "id": "var-g1-bev048-1",
-    "product_id": "g1-bev048",
+    "id": "g1-bev009-v-2l(largebottle)",
+    "product_id": "g1-bev009",
     "size_label": "2 L (Large Bottle)",
     "price": 100,
     "mrp": 100,
@@ -11960,8 +10530,8 @@
     "image_url": "/products/verified/bev-maaza-1l.webp"
   },
   {
-    "id": "var-g1-bev049-1",
-    "product_id": "g1-bev049",
+    "id": "g1-bev010-v-2l(largebottle)",
+    "product_id": "g1-bev010",
     "size_label": "2 L (Large Bottle)",
     "price": 100,
     "mrp": 100,
@@ -12266,8 +10836,8 @@
     "image_url": "/products/verified/ins-quaker-oats-400g.webp"
   },
   {
-    "id": "g1-ins027-v1",
-    "product_id": "g1-ins027",
+    "id": "g1-ins026-v-1kg",
+    "product_id": "g1-ins026",
     "size_label": "1 kg",
     "price": 199,
     "mrp": 199,
@@ -12284,8 +10854,8 @@
     "image_url": "/products/verified/ins-saffola-oats-38g.webp"
   },
   {
-    "id": "g1-ins029-v1",
-    "product_id": "g1-ins029",
+    "id": "g1-ins028-v-400g",
+    "product_id": "g1-ins028",
     "size_label": "400 g",
     "price": 165,
     "mrp": 165,
@@ -12302,8 +10872,8 @@
     "image_url": "/products/verified/ins-saffola-oats-veggie-400g.webp"
   },
   {
-    "id": "g1-bsc067-v1",
-    "product_id": "g1-bsc067",
+    "id": "g1-bsc001-v-65g",
+    "product_id": "g1-bsc001",
     "size_label": "65 g",
     "price": 5,
     "mrp": 5,
@@ -12311,8 +10881,8 @@
     "image_url": "/products/verified/bsc-parle-g-5rs.webp"
   },
   {
-    "id": "g1-bsc068-v1",
-    "product_id": "g1-bsc068",
+    "id": "g1-bsc001-v-130g",
+    "product_id": "g1-bsc001",
     "size_label": "130 g",
     "price": 10,
     "mrp": 10,
@@ -12356,8 +10926,8 @@
     "image_url": "/products/verified/bsc-good-day-cashew-600g.webp"
   },
   {
-    "id": "g1-bsc073-v1",
-    "product_id": "g1-bsc073",
+    "id": "g1-bsc015-v-120g",
+    "product_id": "g1-bsc015",
     "size_label": "120 g",
     "price": 15,
     "mrp": 15,
@@ -12689,8 +11259,8 @@
     "image_url": "/products/packshots/india-gate-classic-1kg.webp"
   },
   {
-    "id": "g1-ric002-v1",
-    "product_id": "g1-ric002",
+    "id": "g1-ric001-v-5kg",
+    "product_id": "g1-ric001",
     "size_label": "5 kg",
     "price": 1150,
     "mrp": 1150,
@@ -12707,8 +11277,8 @@
     "image_url": "/products/packshots/india-gate-rozzana-1kg.webp"
   },
   {
-    "id": "g1-ric004-v1",
-    "product_id": "g1-ric004",
+    "id": "g1-ric003-v-5kg",
+    "product_id": "g1-ric003",
     "size_label": "5 kg",
     "price": 585,
     "mrp": 585,
@@ -12734,8 +11304,8 @@
     "image_url": "/products/packshots/daawat-traditional-1kg.webp"
   },
   {
-    "id": "g1-ric007-v1",
-    "product_id": "g1-ric007",
+    "id": "g1-ric006-v-5kg",
+    "product_id": "g1-ric006",
     "size_label": "5 kg",
     "price": 1125,
     "mrp": 1125,
@@ -12743,8 +11313,8 @@
     "image_url": "/products/packshots/daawat-traditional-5kg.webp"
   },
   {
-    "id": "g1-ric008-v1",
-    "product_id": "g1-ric008",
+    "id": "g1-daawat-rozana-v-1kg",
+    "product_id": "g1-daawat-rozana",
     "size_label": "1 kg",
     "price": 115,
     "mrp": 115,
@@ -12752,8 +11322,8 @@
     "image_url": "/products/packshots/daawat-rozana-super-1kg.webp"
   },
   {
-    "id": "g1-ric009-v1",
-    "product_id": "g1-ric009",
+    "id": "g1-daawat-rozana-v-5kg",
+    "product_id": "g1-daawat-rozana",
     "size_label": "5 kg",
     "price": 545,
     "mrp": 545,
@@ -12770,8 +11340,8 @@
     "image_url": "/products/packshots/fortune-biryani-special-1kg.webp"
   },
   {
-    "id": "g1-ric011-v1",
-    "product_id": "g1-ric011",
+    "id": "g1-ric010-v-5kg",
+    "product_id": "g1-ric010",
     "size_label": "5 kg",
     "price": 825,
     "mrp": 825,
@@ -12797,33 +11367,6 @@
     "image_url": "/products/packshots/lal-qilla-basmati-1kg.webp"
   },
   {
-    "id": "g1-ric014-v1",
-    "product_id": "g1-ric014",
-    "size_label": "1 kg",
-    "price": 65,
-    "mrp": 65,
-    "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-atta-1kg.jpg"
-  },
-  {
-    "id": "g1-ric015-v1",
-    "product_id": "g1-ric015",
-    "size_label": "5 kg",
-    "price": 295,
-    "mrp": 295,
-    "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-atta-5kg.jpg"
-  },
-  {
-    "id": "g1-ric016-v1",
-    "product_id": "g1-ric016",
-    "size_label": "10 kg",
-    "price": 540,
-    "mrp": 540,
-    "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-atta-10kg.jpg"
-  },
-  {
     "id": "g1-ric017-v1",
     "product_id": "g1-ric017",
     "size_label": "5 kg",
@@ -12831,51 +11374,6 @@
     "mrp": 345,
     "stock": 50,
     "image_url": "/products/packshots/aashirvaad-select-sharbati-5kg.webp"
-  },
-  {
-    "id": "g1-ric018-v1",
-    "product_id": "g1-ric018",
-    "size_label": "1 kg",
-    "price": 60,
-    "mrp": 60,
-    "stock": 50,
-    "image_url": "/products/packshots/pillsbury-atta-5kg.jpg"
-  },
-  {
-    "id": "g1-ric019-v1",
-    "product_id": "g1-ric019",
-    "size_label": "5 kg",
-    "price": 285,
-    "mrp": 285,
-    "stock": 50,
-    "image_url": "/products/packshots/pillsbury-atta-5kg.jpg"
-  },
-  {
-    "id": "g1-ric020-v1",
-    "product_id": "g1-ric020",
-    "size_label": "10 kg",
-    "price": 520,
-    "mrp": 520,
-    "stock": 50,
-    "image_url": "/products/packshots/pillsbury-atta-10kg.jpg"
-  },
-  {
-    "id": "g1-ric021-v1",
-    "product_id": "g1-ric021",
-    "size_label": "5 kg",
-    "price": 270,
-    "mrp": 270,
-    "stock": 50,
-    "image_url": "/products/packshots/fortune-atta-5kg.jpg"
-  },
-  {
-    "id": "g1-ric022-v1",
-    "product_id": "g1-ric022",
-    "size_label": "5 kg",
-    "price": 265,
-    "mrp": 265,
-    "stock": 50,
-    "image_url": "/products/packshots/nature-fresh-atta-5kg.jpg"
   },
   {
     "id": "g1-ric023-v1",
@@ -12887,8 +11385,8 @@
     "image_url": "/products/packshots/tata-sampann-multigrain-atta-1kg.webp"
   },
   {
-    "id": "g1-ric024-v1",
-    "product_id": "g1-ric024",
+    "id": "g1-ric023-v-5kg",
+    "product_id": "g1-ric023",
     "size_label": "5 kg",
     "price": 395,
     "mrp": 395,
@@ -12903,15 +11401,6 @@
     "mrp": 65,
     "stock": 50,
     "image_url": "/products/packshots/fortune-maida-1kg.webp"
-  },
-  {
-    "id": "g1-ric026-v1",
-    "product_id": "g1-ric026",
-    "size_label": "500 g",
-    "price": 65,
-    "mrp": 65,
-    "stock": 50,
-    "image_url": "/products/packshots/fortune-besan.jpg"
   },
   {
     "id": "g1-ric027-v1",
@@ -12932,15 +11421,6 @@
     "image_url": "/products/packshots/fortune-sooji-500g.webp"
   },
   {
-    "id": "g1-ric029-v1",
-    "product_id": "g1-ric029",
-    "size_label": "1 kg",
-    "price": 75,
-    "mrp": 75,
-    "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-suji-rava.jpg"
-  },
-  {
     "id": "g1-ric030-v1",
     "product_id": "g1-ric030",
     "size_label": "400 g",
@@ -12950,8 +11430,8 @@
     "image_url": "/products/packshots/bambino-roasted-vermicelli-400g.webp"
   },
   {
-    "id": "g1-ric031-v1",
-    "product_id": "g1-ric031",
+    "id": "g1-ric030-v-850g",
+    "product_id": "g1-ric030",
     "size_label": "850 g",
     "price": 95,
     "mrp": 95,
@@ -12977,15 +11457,6 @@
     "image_url": "/products/packshots/mtr-vermicelli-400g.webp"
   },
   {
-    "id": "g1-ric034-v1",
-    "product_id": "g1-ric034",
-    "size_label": "1 kg",
-    "price": 55,
-    "mrp": 55,
-    "stock": 50,
-    "image_url": "/products/packshots/lalitha-idli-rava.jpg"
-  },
-  {
     "id": "g1-ric035-v1",
     "product_id": "g1-ric035",
     "size_label": "1 kg",
@@ -12995,8 +11466,8 @@
     "image_url": "/products/generated_pouches/g1_rice_pouch.webp"
   },
   {
-    "id": "g1-ric036-v1",
-    "product_id": "g1-ric036",
+    "id": "g1-ric035-v-5kg",
+    "product_id": "g1-ric035",
     "size_label": "5 kg",
     "price": 300,
     "mrp": 300,
@@ -13128,33 +11599,6 @@
     "mrp": 75,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_korralu_pouch.webp"
-  },
-  {
-    "id": "g1-oil001-v1",
-    "product_id": "g1-oil001",
-    "size_label": "1 L",
-    "price": 138,
-    "mrp": 138,
-    "stock": 50,
-    "image_url": "/products/packshots/freedom-sunflower-1l-pouch.webp"
-  },
-  {
-    "id": "g1-oil002-v1",
-    "product_id": "g1-oil002",
-    "size_label": "1 L",
-    "price": 148,
-    "mrp": 148,
-    "stock": 50,
-    "image_url": "/products/packshots/freedom-sunflower-1l-bottle.webp"
-  },
-  {
-    "id": "g1-oil003-v1",
-    "product_id": "g1-oil003",
-    "size_label": "5 L",
-    "price": 725,
-    "mrp": 725,
-    "stock": 50,
-    "image_url": "/products/packshots/freedom-sunflower-5l-can.webp"
   },
   {
     "id": "g1-oil004-v1",
@@ -13364,8 +11808,8 @@
     "image_url": "/products/packshots/idhayam-gingelly-500ml.webp"
   },
   {
-    "id": "g1-oil027-v1",
-    "product_id": "g1-oil027",
+    "id": "g1-oil026-v-1l",
+    "product_id": "g1-oil026",
     "size_label": "1 L",
     "price": 475,
     "mrp": 475,
@@ -13382,8 +11826,8 @@
     "image_url": "/products/packshots/parachute-coconut-oil-200ml.webp"
   },
   {
-    "id": "g1-oil029-v1",
-    "product_id": "g1-oil029",
+    "id": "g1-oil028-v-500ml",
+    "product_id": "g1-oil028",
     "size_label": "500 ml",
     "price": 215,
     "mrp": 215,
@@ -13436,8 +11880,8 @@
     "image_url": "/products/packshots/nandini-pure-ghee-500ml.webp"
   },
   {
-    "id": "g1-oil035-v1",
-    "product_id": "g1-oil035",
+    "id": "g1-oil034-v-1l",
+    "product_id": "g1-oil034",
     "size_label": "1 L",
     "price": 590,
     "mrp": 590,
@@ -13472,15 +11916,6 @@
     "image_url": "/products/packshots/grb-pure-ghee-500ml.webp"
   },
   {
-    "id": "g1-oil039-v1",
-    "product_id": "g1-oil039",
-    "size_label": "500 ml",
-    "price": 330,
-    "mrp": 330,
-    "stock": 50,
-    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
-  },
-  {
     "id": "g1-oil040-v1",
     "product_id": "g1-oil040",
     "size_label": "500 ml",
@@ -13499,8 +11934,8 @@
     "image_url": "/products/packshots/amul-salted-butter-100g.webp"
   },
   {
-    "id": "g1-oil042-v1",
-    "product_id": "g1-oil042",
+    "id": "g1-oil041-v-500g",
+    "product_id": "g1-oil041",
     "size_label": "500 g",
     "price": 285,
     "mrp": 285,
@@ -13536,12 +11971,12 @@
   },
   {
     "id": "g1-dal002-v1",
-    "product_id": "g1-dal002",
+    "product_id": "g1-dal001",
     "size_label": "500 g",
     "price": 98,
     "mrp": 98,
     "stock": 50,
-    "image_url": "/products/packshots/tata-sampann-toor-dal-500g.webp"
+    "image_url": "/products/packshots/tata-sampann-toor-dal-1kg.webp"
   },
   {
     "id": "g1-dal003-v1",
@@ -13554,12 +11989,12 @@
   },
   {
     "id": "g1-dal004-v1",
-    "product_id": "g1-dal004",
+    "product_id": "g1-dal003",
     "size_label": "500 g",
     "price": 65,
     "mrp": 65,
     "stock": 50,
-    "image_url": "/products/packshots/tata-sampann-chana-dal-500g.webp"
+    "image_url": "/products/packshots/tata-sampann-chana-dal-1kg.webp"
   },
   {
     "id": "g1-dal005-v1",
@@ -13572,12 +12007,12 @@
   },
   {
     "id": "g1-dal006-v1",
-    "product_id": "g1-dal006",
+    "product_id": "g1-dal005",
     "size_label": "500 g",
     "price": 85,
     "mrp": 85,
     "stock": 50,
-    "image_url": "/products/packshots/tata-sampann-moong-dal-500g.webp"
+    "image_url": "/products/packshots/tata-sampann-moong-dal-1kg.webp"
   },
   {
     "id": "g1-dal007-v1",
@@ -13661,90 +12096,18 @@
     "image_url": "/products/packshots/nutrela-soya-chunks-200g.webp"
   },
   {
-    "id": "g1-dal016-v1",
-    "product_id": "g1-dal016",
-    "size_label": "500 g",
-    "price": 85,
-    "mrp": 85,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_kandi_pappu_pouch.webp"
-  },
-  {
-    "id": "g1-dal017-v1",
-    "product_id": "g1-dal017",
-    "size_label": "1 kg",
-    "price": 165,
-    "mrp": 165,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_kandi_pappu_pouch.webp"
-  },
-  {
-    "id": "g1-dal018-v1",
-    "product_id": "g1-dal018",
-    "size_label": "500 g",
-    "price": 55,
-    "mrp": 55,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_chana_dal_pouch.webp"
-  },
-  {
-    "id": "g1-dal019-v1",
-    "product_id": "g1-dal019",
-    "size_label": "1 kg",
-    "price": 105,
-    "mrp": 105,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_chana_dal_pouch.webp"
-  },
-  {
-    "id": "g1-dal020-v1",
-    "product_id": "g1-dal020",
-    "size_label": "500 g",
-    "price": 65,
-    "mrp": 65,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp"
-  },
-  {
-    "id": "g1-dal021-v1",
-    "product_id": "g1-dal021",
-    "size_label": "1 kg",
-    "price": 125,
-    "mrp": 125,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp"
-  },
-  {
     "id": "g1-dal022-v1",
     "product_id": "g1-dal022",
     "size_label": "500 g",
     "price": 75,
     "mrp": 75,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_urad_dal_pouch.webp"
-  },
-  {
-    "id": "g1-dal023-v1",
-    "product_id": "g1-dal023",
-    "size_label": "1 kg",
-    "price": 145,
-    "mrp": 145,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_urad_dal_pouch.webp"
-  },
-  {
-    "id": "var-g1-dal022-500g",
-    "product_id": "g1-dal023",
-    "size_label": "500g",
-    "price": 75,
-    "mrp": 75,
-    "stock": 50,
     "image_url": "/products/generated_pouches/g1_minapa_gundu_pouch.webp"
   },
   {
-    "id": "var-g1-dal022-1kg",
-    "product_id": "g1-dal023",
-    "size_label": "1 KG",
+    "id": "g1-dal023-v1",
+    "product_id": "g1-dal022",
+    "size_label": "1 kg",
     "price": 145,
     "mrp": 145,
     "stock": 50,
@@ -13752,7 +12115,7 @@
   },
   {
     "id": "g1-dal024-v1",
-    "product_id": "g1-dal024",
+    "product_id": "g1-p0081",
     "size_label": "500 g",
     "price": 70,
     "mrp": 70,
@@ -13761,7 +12124,7 @@
   },
   {
     "id": "g1-dal025-v1",
-    "product_id": "g1-dal025",
+    "product_id": "g1-p0081",
     "size_label": "1 kg",
     "price": 135,
     "mrp": 135,
@@ -13769,40 +12132,22 @@
     "image_url": "/products/generated_pouches/g1_urad_dal_pouch.webp"
   },
   {
-    "id": "var-g1-p0081-500g",
-    "product_id": "g1-dal025",
-    "size_label": "500g",
-    "price": 72,
-    "mrp": 72,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_urad_dal_pouch.webp"
-  },
-  {
-    "id": "var-g1-p0081-1kg",
-    "product_id": "g1-dal025",
-    "size_label": "1 KG",
-    "price": 140,
-    "mrp": 140,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_urad_dal_pouch.webp"
-  },
-  {
     "id": "g1-dal026-v1",
-    "product_id": "g1-dal026",
+    "product_id": "g1-p0405",
     "size_label": "500 g",
     "price": 55,
     "mrp": 55,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_moong_dal_pouch.webp"
+    "image_url": "/products/generated_pouches/g1_masoor_dal_pouch.webp"
   },
   {
     "id": "g1-dal027-v1",
-    "product_id": "g1-dal027",
+    "product_id": "g1-p0405",
     "size_label": "1 kg",
     "price": 105,
     "mrp": 105,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_moong_dal_pouch.webp"
+    "image_url": "/products/generated_pouches/g1_masoor_dal_pouch.webp"
   },
   {
     "id": "g1-dal028-v1",
@@ -13811,65 +12156,29 @@
     "price": 35,
     "mrp": 35,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_chana_dal_pouch.webp"
-  },
-  {
-    "id": "g1-dal029-v1",
-    "product_id": "g1-dal029",
-    "size_label": "500 g",
-    "price": 65,
-    "mrp": 65,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_chana_dal_pouch.webp"
-  },
-  {
-    "id": "var-g1-dal028-250g",
-    "product_id": "g1-dal029",
-    "size_label": "250g",
-    "price": 35,
-    "mrp": 35,
-    "stock": 50,
     "image_url": "/products/generated_pouches/g1_putnala_pappu_pouch.webp"
   },
   {
-    "id": "var-g1-dal028-500g",
-    "product_id": "g1-dal029",
-    "size_label": "500g",
-    "price": 68,
-    "mrp": 68,
+    "id": "g1-dal029-v1",
+    "product_id": "g1-dal028",
+    "size_label": "500 g",
+    "price": 65,
+    "mrp": 65,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_putnala_pappu_pouch.webp"
   },
   {
     "id": "var-g1-dal028-1kg",
-    "product_id": "g1-dal029",
-    "size_label": "1 KG",
+    "product_id": "g1-dal028",
+    "size_label": "1 kg",
     "price": 130,
     "mrp": 130,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_putnala_pappu_pouch.webp"
   },
   {
-    "id": "g1-dal030-v1",
-    "product_id": "g1-dal030",
-    "size_label": "500 g",
-    "price": 75,
-    "mrp": 75,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_groundnuts_pouch.webp"
-  },
-  {
-    "id": "g1-dal031-v1",
-    "product_id": "g1-dal031",
-    "size_label": "1 kg",
-    "price": 145,
-    "mrp": 145,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_groundnuts_pouch.webp"
-  },
-  {
     "id": "g1-dal032-v1",
-    "product_id": "g1-dal032",
+    "product_id": "g1-p0190",
     "size_label": "500 g",
     "price": 80,
     "mrp": 80,
@@ -13878,16 +12187,16 @@
   },
   {
     "id": "g1-dal033-v1",
-    "product_id": "g1-dal033",
+    "product_id": "g1-p0191",
     "size_label": "500 g",
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_kabuli_chana_pouch.webp"
+    "image_url": "/products/generated_pouches/g1_kala_chana_pouch.webp"
   },
   {
-    "id": "g1-dal034-v1",
-    "product_id": "g1-dal034",
+    "id": "g1-p0082-v-500g",
+    "product_id": "g1-p0082",
     "size_label": "500 g",
     "price": 75,
     "mrp": 75,
@@ -13904,8 +12213,8 @@
     "image_url": "/products/packshots/everest-turmeric-powder-200g.webp"
   },
   {
-    "id": "g1-spc002-v1",
-    "product_id": "g1-spc002",
+    "id": "g1-spc001-v-500g",
+    "product_id": "g1-spc001",
     "size_label": "500 g",
     "price": 160,
     "mrp": 160,
@@ -13940,8 +12249,8 @@
     "image_url": "/products/packshots/everest-coriander-powder-200g.webp"
   },
   {
-    "id": "g1-spc006-v1",
-    "product_id": "g1-spc006",
+    "id": "g1-ev-garam-masala-v-100g",
+    "product_id": "g1-ev-garam-masala",
     "size_label": "100 g",
     "price": 82,
     "mrp": 82,
@@ -13949,8 +12258,8 @@
     "image_url": "/products/packshots/everest-garam-masala-100g.webp"
   },
   {
-    "id": "g1-spc007-v1",
-    "product_id": "g1-spc007",
+    "id": "g1-ev-kitchen-king-v-100g",
+    "product_id": "g1-ev-kitchen-king",
     "size_label": "100 g",
     "price": 84,
     "mrp": 84,
@@ -13958,8 +12267,8 @@
     "image_url": "/products/packshots/everest-kitchen-king-100g.webp"
   },
   {
-    "id": "g1-spc008-v1",
-    "product_id": "g1-spc008",
+    "id": "g1-ev-chicken-masala-v-100g",
+    "product_id": "g1-ev-chicken-masala",
     "size_label": "100 g",
     "price": 82,
     "mrp": 82,
@@ -13976,8 +12285,8 @@
     "image_url": "/products/packshots/everest-meat-masala-100g.webp"
   },
   {
-    "id": "g1-spc010-v1",
-    "product_id": "g1-spc010",
+    "id": "g1-ev-pav-bhaji-v-100g",
+    "product_id": "g1-ev-pav-bhaji",
     "size_label": "100 g",
     "price": 78,
     "mrp": 78,
@@ -14111,8 +12420,8 @@
     "image_url": "/products/packshots/catch-sprinkler-black-pepper-100g.webp"
   },
   {
-    "id": "g1-spc025-v1",
-    "product_id": "g1-spc025",
+    "id": "g1-p0065-v-200g",
+    "product_id": "g1-p0065",
     "size_label": "200 g",
     "price": 88,
     "mrp": 88,
@@ -14120,8 +12429,8 @@
     "image_url": "/products/packshots/mtr-sambar-powder-200g.webp"
   },
   {
-    "id": "g1-spc026-v1",
-    "product_id": "g1-spc026",
+    "id": "g1-p0064-v-200g",
+    "product_id": "g1-p0064",
     "size_label": "200 g",
     "price": 88,
     "mrp": 88,
@@ -14147,8 +12456,8 @@
     "image_url": "/products/packshots/mtr-bisibele-bath-100g.webp"
   },
   {
-    "id": "g1-spc029-v1",
-    "product_id": "g1-spc029",
+    "id": "g1-p0782-v-200g",
+    "product_id": "g1-p0782",
     "size_label": "200 g",
     "price": 80,
     "mrp": 80,
@@ -14156,8 +12465,8 @@
     "image_url": "/products/packshots/aachi-sambar-powder-200g.webp"
   },
   {
-    "id": "g1-spc030-v1",
-    "product_id": "g1-spc030",
+    "id": "g1-p0066-v-200g",
+    "product_id": "g1-p0066",
     "size_label": "200 g",
     "price": 80,
     "mrp": 80,
@@ -14165,8 +12474,8 @@
     "image_url": "/products/packshots/aachi-rasam-powder-200g.webp"
   },
   {
-    "id": "g1-spc031-v1",
-    "product_id": "g1-spc031",
+    "id": "g1-p0074-v-100g",
+    "product_id": "g1-p0074",
     "size_label": "100 g",
     "price": 48,
     "mrp": 48,
@@ -14174,17 +12483,8 @@
     "image_url": "/products/packshots/aachi-chicken-masala-100g.webp"
   },
   {
-    "id": "g1-spc032-v1",
-    "product_id": "g1-spc032",
-    "size_label": "100 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/packshots/aachi-mutton-masala-100g.webp"
-  },
-  {
-    "id": "g1-spc033-v1",
-    "product_id": "g1-spc033",
+    "id": "g1-p0072-v-50g",
+    "product_id": "g1-p0072",
     "size_label": "50 g",
     "price": 24,
     "mrp": 24,
@@ -14228,8 +12528,8 @@
     "image_url": "/products/packshots/priya-mango-pickle-300g.webp"
   },
   {
-    "id": "g1-spc038-v1",
-    "product_id": "g1-spc038",
+    "id": "g1-priya-gongura-v-300g",
+    "product_id": "g1-priya-gongura",
     "size_label": "300 g",
     "price": 115,
     "mrp": 115,
@@ -14282,8 +12582,8 @@
     "image_url": "/products/packshots/aachi-chilli.jpg"
   },
   {
-    "id": "g1-spc044-v1",
-    "product_id": "g1-spc044",
+    "id": "g1-spc043-v-1kg",
+    "product_id": "g1-spc043",
     "size_label": "1 kg",
     "price": 320,
     "mrp": 320,
@@ -14291,49 +12591,13 @@
     "image_url": "/products/packshots/aachi-chilli.jpg"
   },
   {
-    "id": "g1-spc045-v1",
-    "product_id": "g1-spc045",
+    "id": "g1-p0333-v-250g",
+    "product_id": "g1-p0333",
     "size_label": "250 g",
     "price": 55,
     "mrp": 55,
     "stock": 50,
-    "image_url": "/products/generated_pouches/g1_turmeric_powder_pouch.webp"
-  },
-  {
-    "id": "g1-spc046-v1",
-    "product_id": "g1-spc046",
-    "size_label": "500 g",
-    "price": 85,
-    "mrp": 85,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp"
-  },
-  {
-    "id": "var-g1-spc046-100g",
-    "product_id": "g1-spc046",
-    "size_label": "100g",
-    "price": 22,
-    "mrp": 22,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp"
-  },
-  {
-    "id": "var-g1-spc046-250g",
-    "product_id": "g1-spc046",
-    "size_label": "250g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp"
-  },
-  {
-    "id": "var-g1-spc046-500g",
-    "product_id": "g1-spc046",
-    "size_label": "500g",
-    "price": 95,
-    "mrp": 95,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp"
+    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp"
   },
   {
     "id": "g1-spc047-v1",
@@ -14345,24 +12609,6 @@
     "image_url": "/products/generated_pouches/g1_jeera_pouch.webp"
   },
   {
-    "id": "g1-spc048-v1",
-    "product_id": "g1-spc048",
-    "size_label": "250 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp"
-  },
-  {
-    "id": "g1-spc049-v1",
-    "product_id": "g1-spc049",
-    "size_label": "250 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp"
-  },
-  {
     "id": "g1-spc050-v1",
     "product_id": "g1-spc050",
     "size_label": "250 g",
@@ -14372,31 +12618,13 @@
     "image_url": "/products/packshots/fennel-seeds.jpg"
   },
   {
-    "id": "g1-spc051-v1",
+    "id": "g1-spc051-v-50g",
     "product_id": "g1-spc051",
-    "size_label": "100 g",
-    "price": 110,
-    "mrp": 110,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_black_pepper_pouch.webp"
-  },
-  {
-    "id": "g1-spc052-v1",
-    "product_id": "g1-spc052",
     "size_label": "50 g",
     "price": 65,
     "mrp": 65,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_lavangalu_pouch.webp"
-  },
-  {
-    "id": "g1-spc053-v1",
-    "product_id": "g1-spc053",
-    "size_label": "50 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/packshots/garam-masala.jpg"
   },
   {
     "id": "g1-spc054-v1",
@@ -14467,7 +12695,8 @@
     "size_label": "1 kg",
     "price": 28,
     "mrp": 30,
-    "stock": 120
+    "stock": 120,
+    "image_url": "/products/packshots/tata-salt.png"
   },
   {
     "id": "var-g1-sug002-1",
@@ -14475,7 +12704,8 @@
     "size_label": "1 kg",
     "price": 45,
     "mrp": 50,
-    "stock": 60
+    "stock": 60,
+    "image_url": "/products/packshots/tata-salt-lite-1kg.webp"
   },
   {
     "id": "var-g1-sug003-1",
@@ -14483,7 +12713,8 @@
     "size_label": "1 kg",
     "price": 110,
     "mrp": 120,
-    "stock": 40
+    "stock": 40,
+    "image_url": "/products/packshots/tata-rock-salt-1kg.webp"
   },
   {
     "id": "var-g1-sug004-1",
@@ -14491,7 +12722,8 @@
     "size_label": "1 kg",
     "price": 26,
     "mrp": 30,
-    "stock": 85
+    "stock": 85,
+    "image_url": "/products/packshots/aashirvaad-salt.jpg"
   },
   {
     "id": "var-g1-sug005-1",
@@ -14499,7 +12731,8 @@
     "size_label": "1 kg",
     "price": 24,
     "mrp": 28,
-    "stock": 75
+    "stock": 75,
+    "image_url": "/products/packshots/aashirvaad-crystal-salt.jpg"
   },
   {
     "id": "var-g1-sug006-1",
@@ -14507,7 +12740,8 @@
     "size_label": "200 g",
     "price": 42,
     "mrp": 45,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/catch-table-salt-sprinkler-200g.webp"
   },
   {
     "id": "var-g1-sug007-1",
@@ -14515,7 +12749,8 @@
     "size_label": "1 kg",
     "price": 58,
     "mrp": 65,
-    "stock": 90
+    "stock": 90,
+    "image_url": "/products/packshots/madhur-sugar-clean.png"
   },
   {
     "id": "var-g1-sug007-2",
@@ -14523,7 +12758,8 @@
     "size_label": "5 kg",
     "price": 275,
     "mrp": 310,
-    "stock": 30
+    "stock": 30,
+    "image_url": "/products/packshots/madhur-sugar-clean.png"
   },
   {
     "id": "var-g1-sug009-1",
@@ -14531,7 +12767,8 @@
     "size_label": "1 kg",
     "price": 56,
     "mrp": 62,
-    "stock": 65
+    "stock": 65,
+    "image_url": "/products/packshots/trust-classic-sugar-1kg.webp"
   },
   {
     "id": "var-g1-sug010-1",
@@ -14539,7 +12776,8 @@
     "size_label": "500 g",
     "price": 85,
     "mrp": 99,
-    "stock": 40
+    "stock": 40,
+    "image_url": "/products/packshots/organic-tattva-jaggery-powder-500g.webp"
   },
   {
     "id": "var-g1-sug011-1",
@@ -14547,7 +12785,8 @@
     "size_label": "500 g",
     "price": 75,
     "mrp": 85,
-    "stock": 45
+    "stock": 45,
+    "image_url": "/products/packshots/24-mantra-organic-jaggery-500g.webp"
   },
   {
     "id": "var-g1-sug012-1",
@@ -14555,7 +12794,8 @@
     "size_label": "1 kg",
     "price": 88,
     "mrp": 95,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/packshots/patanjali-jaggery-1kg.webp"
   },
   {
     "id": "g1-sug013-v1",
@@ -14572,7 +12812,8 @@
     "size_label": "250 g",
     "price": 135,
     "mrp": 155,
-    "stock": 40
+    "stock": 40,
+    "image_url": "/products/verified/dabur-honey-500g.webp"
   },
   {
     "id": "var-g1-sug014-2",
@@ -14580,7 +12821,8 @@
     "size_label": "500 g",
     "price": 235,
     "mrp": 270,
-    "stock": 55
+    "stock": 55,
+    "image_url": "/products/verified/dabur-honey-500g.webp"
   },
   {
     "id": "var-g1-sug015-1",
@@ -14588,7 +12830,8 @@
     "size_label": "1 kg",
     "price": 48,
     "mrp": 55,
-    "stock": 250
+    "stock": 250,
+    "image_url": "/products/generated_pouches/g1_sugar_pouch.webp"
   },
   {
     "id": "var-g1-sug015-2",
@@ -14596,7 +12839,8 @@
     "size_label": "2 kg",
     "price": 95,
     "mrp": 110,
-    "stock": 120
+    "stock": 120,
+    "image_url": "/products/generated_pouches/g1_sugar_pouch.webp"
   },
   {
     "id": "var-g1-sug015-3",
@@ -14604,7 +12848,8 @@
     "size_label": "5 kg",
     "price": 235,
     "mrp": 265,
-    "stock": 80
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_sugar_pouch.webp"
   },
   {
     "id": "var-g1-sug016-1",
@@ -14612,7 +12857,8 @@
     "size_label": "500 g",
     "price": 45,
     "mrp": 55,
-    "stock": 120
+    "stock": 120,
+    "image_url": "/products/generated_pouches/g1_bellam_pouch.webp"
   },
   {
     "id": "var-g1-sug016-2",
@@ -14620,7 +12866,8 @@
     "size_label": "1 kg",
     "price": 85,
     "mrp": 100,
-    "stock": 90
+    "stock": 90,
+    "image_url": "/products/generated_pouches/g1_bellam_pouch.webp"
   },
   {
     "id": "var-g1-sug018-1",
@@ -14628,7 +12875,8 @@
     "size_label": "500 g",
     "price": 155,
     "mrp": 180,
-    "stock": 35
+    "stock": 35,
+    "image_url": "/products/generated_pouches/g1_thati_bellam_pouch.webp"
   },
   {
     "id": "var-g1-sug019-1",
@@ -14636,7 +12884,8 @@
     "size_label": "500 g",
     "price": 48,
     "mrp": 60,
-    "stock": 60
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_patika_bellam_pouch.webp"
   },
   {
     "id": "g1-sug020-v1",
@@ -14649,7 +12898,7 @@
   },
   {
     "id": "g1-sug021-v1",
-    "product_id": "g1-sug021",
+    "product_id": "g1-sug020",
     "size_label": "1 kg",
     "price": 68,
     "mrp": 68,
@@ -14676,7 +12925,7 @@
   },
   {
     "id": "g1-sug024-v1",
-    "product_id": "g1-sug024",
+    "product_id": "g1-sug023",
     "size_label": "1 kg",
     "price": 92,
     "mrp": 92,
@@ -14689,20 +12938,12 @@
     "size_label": "1 kg",
     "price": 18,
     "mrp": 22,
-    "stock": 200
+    "stock": 200,
+    "image_url": "/products/generated_pouches/g1_crystal_salt_pouch.webp"
   },
   {
-    "id": "g1-nut001-v1",
+    "id": "g1-nut001-v-500g",
     "product_id": "g1-nut001",
-    "size_label": "200 g",
-    "price": 245,
-    "mrp": 245,
-    "stock": 50,
-    "image_url": "/products/packshots/happilo-almonds-200g.webp"
-  },
-  {
-    "id": "g1-nut002-v1",
-    "product_id": "g1-nut002",
     "size_label": "500 g",
     "price": 585,
     "mrp": 585,
@@ -14719,8 +12960,8 @@
     "image_url": "/products/packshots/happilo-cashews-200g.webp"
   },
   {
-    "id": "g1-nut004-v1",
-    "product_id": "g1-nut004",
+    "id": "g1-nut003-v-500g",
+    "product_id": "g1-nut003",
     "size_label": "500 g",
     "price": 675,
     "mrp": 675,
@@ -14827,24 +13068,6 @@
     "image_url": "/products/packshots/true-elements-pumpkin-seeds-150g.webp"
   },
   {
-    "id": "g1-nut016-v1",
-    "product_id": "g1-nut016",
-    "size_label": "250 g",
-    "price": 275,
-    "mrp": 275,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_cashews_pouch.webp"
-  },
-  {
-    "id": "g1-nut017-v1",
-    "product_id": "g1-nut017",
-    "size_label": "500 g",
-    "price": 540,
-    "mrp": 540,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_cashews_pouch.webp"
-  },
-  {
     "id": "g1-nut018-v1",
     "product_id": "g1-nut018",
     "size_label": "250 g",
@@ -14854,22 +13077,13 @@
     "image_url": "/products/generated_pouches/g1_almonds_pouch.webp"
   },
   {
-    "id": "g1-nut019-v1",
-    "product_id": "g1-nut019",
+    "id": "g1-nut018-v-500g",
+    "product_id": "g1-nut018",
     "size_label": "500 g",
     "price": 450,
     "mrp": 450,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_almonds_pouch.webp"
-  },
-  {
-    "id": "g1-nut020-v1",
-    "product_id": "g1-nut020",
-    "size_label": "250 g",
-    "price": 105,
-    "mrp": 105,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_kismis_pouch.webp"
   },
   {
     "id": "g1-nut021-v1",
@@ -14888,15 +13102,6 @@
     "mrp": 125,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_dates_pouch.webp"
-  },
-  {
-    "id": "g1-nut023-v1",
-    "product_id": "g1-nut023",
-    "size_label": "250 g",
-    "price": 230,
-    "mrp": 230,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_atta_pouch.webp"
   },
   {
     "id": "g1-sau001-v1",
@@ -14998,8 +13203,8 @@
     "image_url": "/products/packshots/veeba-eggless-mayo-275g.webp"
   },
   {
-    "id": "g1-sau012-v1",
-    "product_id": "g1-sau012",
+    "id": "g1-p0293-v-200g",
+    "product_id": "g1-p0293",
     "size_label": "200 g",
     "price": 75,
     "mrp": 75,
@@ -15007,8 +13212,8 @@
     "image_url": "/products/verified/g1-p0293.webp"
   },
   {
-    "id": "g1-sau013-v1",
-    "product_id": "g1-sau013",
+    "id": "g1-p0293-v-500g",
+    "product_id": "g1-p0293",
     "size_label": "500 g",
     "price": 165,
     "mrp": 165,
@@ -15205,45 +13410,9 @@
     "image_url": "/products/packshots/weikfield-custard-powder-100g.webp"
   },
   {
-    "id": "var-g1-dal016-500g",
-    "product_id": "g1-p0404",
-    "size_label": "500g",
-    "price": 85,
-    "mrp": 85,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_kandi_pappu_500g_pouch.webp"
-  },
-  {
-    "id": "var-g1-dal016-1kg",
-    "product_id": "g1-p0404",
-    "size_label": "1 KG",
-    "price": 165,
-    "mrp": 165,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_kandi_pappu_pouch.webp"
-  },
-  {
-    "id": "var-g1-nut024-250g",
-    "product_id": "g1-nut024",
-    "size_label": "250g",
-    "price": 85,
-    "mrp": 85,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_kismis_pouch.webp"
-  },
-  {
-    "id": "var-g1-nut024-500g",
-    "product_id": "g1-nut024",
-    "size_label": "500g",
-    "price": 160,
-    "mrp": 160,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_kismis_pouch.webp"
-  },
-  {
     "id": "var-g1-snk-vadiyalu-250g",
     "product_id": "g1-snk-vadiyalu",
-    "size_label": "250g",
+    "size_label": "250 g",
     "price": 65,
     "mrp": 65,
     "stock": 50,
@@ -15252,7 +13421,7 @@
   {
     "id": "var-g1-snk-vadiyalu-500g",
     "product_id": "g1-snk-vadiyalu",
-    "size_label": "500g",
+    "size_label": "500 g",
     "price": 120,
     "mrp": 120,
     "stock": 50,
@@ -15273,7 +13442,8 @@
     "size_label": "1 kg",
     "price": 115,
     "mrp": 129,
-    "stock": 35
+    "stock": 35,
+    "image_url": "/products/verified/puro-rock-salt-1kg.webp"
   },
   {
     "id": "var-g1-sug027-1",
@@ -15281,7 +13451,8 @@
     "size_label": "1 kg",
     "price": 20,
     "mrp": 25,
-    "stock": 150
+    "stock": 150,
+    "image_url": "/products/generated_pouches/g1_table_salt_pouch.webp"
   },
   {
     "id": "var-g1-sug028-1",
@@ -15289,7 +13460,8 @@
     "size_label": "1 kg",
     "price": 55,
     "mrp": 60,
-    "stock": 80
+    "stock": 80,
+    "image_url": "/products/verified/parrys-sugar-1kg.webp"
   },
   {
     "id": "var-g1-sug029-1",
@@ -15297,7 +13469,8 @@
     "size_label": "100 Pellets",
     "price": 75,
     "mrp": 80,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/verified/sugar-free-gold-100p.webp"
   },
   {
     "id": "var-g1-sug030-1",
@@ -15305,7 +13478,8 @@
     "size_label": "500 g",
     "price": 55,
     "mrp": 65,
-    "stock": 80
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_jaggery_powder_pouch.webp"
   },
   {
     "id": "var-g1-sug030-2",
@@ -15313,7 +13487,8 @@
     "size_label": "1 kg",
     "price": 105,
     "mrp": 125,
-    "stock": 50
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_jaggery_powder_pouch.webp"
   },
   {
     "id": "var-g1-sug031-1",
@@ -15321,7 +13496,8 @@
     "size_label": "250 g",
     "price": 120,
     "mrp": 140,
-    "stock": 30
+    "stock": 30,
+    "image_url": "/products/verified/lion-honey-500g.webp"
   },
   {
     "id": "var-g1-sug031-2",
@@ -15329,42 +13505,2059 @@
     "size_label": "500 g",
     "price": 215,
     "mrp": 250,
-    "stock": 45
+    "stock": 45,
+    "image_url": "/products/verified/lion-honey-500g.webp"
   },
   {
-    "id": "g1-canon-mirchi-01-v1",
-    "product_id": "g1-canon-mirchi-01",
-    "size_label": "100 g Pouch",
-    "price": 38,
+    "id": "g1-p1572-v1",
+    "product_id": "g1-p1572",
+    "size_label": "1 kg",
+    "price": 65,
+    "mrp": 65,
+    "stock": 100,
+    "image_url": "/products/packshots/aashirvaad-atta-1kg.jpg"
+  },
+  {
+    "id": "g1-p1572-v2",
+    "product_id": "g1-p1572",
+    "size_label": "2 kg",
+    "price": 125,
+    "mrp": 125,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-atta-1kg.jpg"
+  },
+  {
+    "id": "g1-p1572-v3",
+    "product_id": "g1-p1572",
+    "size_label": "5 kg",
+    "price": 295,
+    "mrp": 295,
+    "stock": 100,
+    "image_url": "/products/packshots/aashirvaad-atta-5kg.jpg"
+  },
+  {
+    "id": "g1-p1572-v4",
+    "product_id": "g1-p1572",
+    "size_label": "10 kg",
+    "price": 540,
+    "mrp": 540,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-atta-10kg.jpg"
+  },
+  {
+    "id": "g1-p0457-v1",
+    "product_id": "g1-p0457",
+    "size_label": "500 g",
+    "price": 42,
+    "mrp": 42,
+    "stock": 60,
+    "image_url": "/products/packshots/aashirvaad-suji-rava.jpg"
+  },
+  {
+    "id": "g1-p0457-v2",
+    "product_id": "g1-p0457",
+    "size_label": "1 kg",
+    "price": 75,
+    "mrp": 75,
+    "stock": 60,
+    "image_url": "/products/packshots/aashirvaad-suji-rava.jpg"
+  },
+  {
+    "id": "g1-oil039-v1",
+    "product_id": "g1-oil039",
+    "size_label": "200 ml",
+    "price": 150,
+    "mrp": 150,
+    "stock": 40,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-oil039-v2",
+    "product_id": "g1-oil039",
+    "size_label": "500 ml",
+    "price": 330,
+    "mrp": 330,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-oil039-v3",
+    "product_id": "g1-oil039",
+    "size_label": "1 L",
+    "price": 640,
+    "mrp": 640,
+    "stock": 30,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-p1001-v1",
+    "product_id": "g1-p1001",
+    "size_label": "100 g",
+    "price": 45,
+    "mrp": 45,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_chilli_powder_pouch.webp"
+  },
+  {
+    "id": "g1-p1001-v2",
+    "product_id": "g1-p1001",
+    "size_label": "200 g",
+    "price": 85,
+    "mrp": 85,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_chilli_powder_pouch.webp"
+  },
+  {
+    "id": "g1-p1001-v3",
+    "product_id": "g1-p1001",
+    "size_label": "500 g",
+    "price": 210,
+    "mrp": 210,
+    "stock": 30,
+    "image_url": "/products/generated_pouches/g1_chilli_powder_pouch.webp"
+  },
+  {
+    "id": "g1-aash-vermicelli-v1",
+    "product_id": "g1-aash-vermicelli",
+    "size_label": "85 g",
+    "price": 12,
+    "mrp": 12,
+    "stock": 60,
+    "image_url": "/products/packshots/aashirvaad-roasted-vermicelli.webp"
+  },
+  {
+    "id": "g1-aash-vermicelli-v2",
+    "product_id": "g1-aash-vermicelli",
+    "size_label": "250 g",
+    "price": 32,
+    "mrp": 32,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-roasted-vermicelli.webp"
+  },
+  {
+    "id": "g1-aash-vermicelli-v3",
+    "product_id": "g1-aash-vermicelli",
+    "size_label": "400 g",
+    "price": 48,
+    "mrp": 48,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-roasted-vermicelli.webp"
+  },
+  {
+    "id": "g1-dharani-atta-v1",
+    "product_id": "g1-dharani-atta",
+    "size_label": "1 kg",
+    "price": 60,
+    "mrp": 60,
+    "stock": 60,
+    "image_url": "/products/packshots/aashirvaad-atta-1kg.jpg"
+  },
+  {
+    "id": "g1-dharani-atta-v2",
+    "product_id": "g1-dharani-atta",
+    "size_label": "5 kg",
+    "price": 275,
+    "mrp": 275,
+    "stock": 40,
+    "image_url": "/products/packshots/aashirvaad-atta-5kg.jpg"
+  },
+  {
+    "id": "g1-dharani-corn-flour-v1",
+    "product_id": "g1-dharani-corn-flour",
+    "size_label": "500 g",
+    "price": 45,
+    "mrp": 45,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_corn_flour_pouch.webp"
+  },
+  {
+    "id": "g1-dharani-upma-rava-v1",
+    "product_id": "g1-dharani-upma-rava",
+    "size_label": "500 g",
+    "price": 35,
+    "mrp": 35,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-suji-rava.jpg"
+  },
+  {
+    "id": "g1-swastiks-vermicelli-v1",
+    "product_id": "g1-swastiks-vermicelli",
+    "size_label": "85 g",
+    "price": 12,
+    "mrp": 12,
+    "stock": 80,
+    "image_url": "/products/packshots/bambino-roasted-vermicelli-400g.webp"
+  },
+  {
+    "id": "g1-swastiks-vermicelli-v2",
+    "product_id": "g1-swastiks-vermicelli",
+    "size_label": "400 g",
+    "price": 45,
     "mrp": 45,
     "stock": 60,
-    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp"
+    "image_url": "/products/packshots/bambino-roasted-vermicelli-400g.webp"
   },
   {
-    "id": "g1-canon-mirchi-01-v2",
-    "product_id": "g1-canon-mirchi-01",
-    "size_label": "250 g Pouch",
-    "price": 89,
+    "id": "g1-swastiks-vermicelli-v3",
+    "product_id": "g1-swastiks-vermicelli",
+    "size_label": "800 g",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/packshots/bambino-roasted-vermicelli-400g.webp"
+  },
+  {
+    "id": "g1-ric030-v250",
+    "product_id": "g1-ric030",
+    "size_label": "250 g",
+    "price": 32,
+    "mrp": 32,
+    "stock": 60,
+    "image_url": "/products/packshots/bambino-roasted-vermicelli-400g.webp"
+  },
+  {
+    "id": "g1-javva-wheat-rava-v1",
+    "product_id": "g1-javva-wheat-rava",
+    "size_label": "500 g",
+    "price": 35,
+    "mrp": 35,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_bansi_rava_pouch.webp"
+  },
+  {
+    "id": "g1-salt-rice-pelalu-v1",
+    "product_id": "g1-salt-rice-pelalu",
+    "size_label": "1 kg",
+    "price": 65,
+    "mrp": 65,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_borugulu_pouch.webp"
+  },
+  {
+    "id": "g1-borugulu-murmura-v1",
+    "product_id": "g1-borugulu-murmura",
+    "size_label": "500 g",
+    "price": 35,
+    "mrp": 35,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_borugulu_pouch.webp"
+  },
+  {
+    "id": "g1-borugulu-murmura-v2",
+    "product_id": "g1-borugulu-murmura",
+    "size_label": "1 kg",
+    "price": 65,
+    "mrp": 65,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_borugulu_pouch.webp"
+  },
+  {
+    "id": "g1-indiagate-rozana-v1",
+    "product_id": "g1-indiagate-rozana",
+    "size_label": "1 kg",
+    "price": 115,
+    "mrp": 115,
+    "stock": 60,
+    "image_url": "/products/packshots/india-gate-rozzana-1kg.webp"
+  },
+  {
+    "id": "g1-indiagate-rozana-v2",
+    "product_id": "g1-indiagate-rozana",
+    "size_label": "5 kg",
+    "price": 525,
+    "mrp": 525,
+    "stock": 40,
+    "image_url": "/products/packshots/india-gate-rozzana-5kg.webp"
+  },
+  {
+    "id": "g1-indiagate-classic-v1",
+    "product_id": "g1-indiagate-classic",
+    "size_label": "1 kg",
+    "price": 245,
+    "mrp": 245,
+    "stock": 40,
+    "image_url": "/products/packshots/india-gate-classic-1kg.webp"
+  },
+  {
+    "id": "g1-indiagate-classic-v2",
+    "product_id": "g1-indiagate-classic",
+    "size_label": "5 kg",
+    "price": 1150,
+    "mrp": 1150,
+    "stock": 30,
+    "image_url": "/products/packshots/india-gate-classic-5kg.webp"
+  },
+  {
+    "id": "g1-tatasampann-multi-atta-v1",
+    "product_id": "g1-tatasampann-multi-atta",
+    "size_label": "1 kg",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/packshots/tata-sampann-multigrain-atta-1kg.webp"
+  },
+  {
+    "id": "g1-tatasampann-multi-atta-v2",
+    "product_id": "g1-tatasampann-multi-atta",
+    "size_label": "5 kg",
+    "price": 390,
+    "mrp": 390,
+    "stock": 30,
+    "image_url": "/products/packshots/tata-sampann-multigrain-atta-5kg.webp"
+  },
+  {
+    "id": "g1-bambino-macaroni-v1",
+    "product_id": "g1-bambino-macaroni",
+    "size_label": "400 g",
+    "price": 45,
+    "mrp": 45,
+    "stock": 50,
+    "image_url": "/products/packshots/bambino-macaroni-400g.webp"
+  },
+  {
+    "id": "g1-p0082-v250",
+    "product_id": "g1-p0082",
+    "size_label": "250 g",
+    "price": 45,
+    "mrp": 45,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_rajma_pouch.webp"
+  },
+  {
+    "id": "g1-p0082-v1k",
+    "product_id": "g1-p0082",
+    "size_label": "1 kg",
+    "price": 160,
+    "mrp": 160,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_rajma_pouch.webp"
+  },
+  {
+    "id": "g1-p0190-v1k",
+    "product_id": "g1-p0190",
+    "size_label": "1 kg",
+    "price": 160,
+    "mrp": 160,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_kabuli_chana_pouch.webp"
+  },
+  {
+    "id": "g1-p0191-v1k",
+    "product_id": "g1-p0191",
+    "size_label": "1 kg",
+    "price": 105,
     "mrp": 105,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_kala_chana_pouch.webp"
+  },
+  {
+    "id": "g1-p0195-v500",
+    "product_id": "g1-p0195",
+    "size_label": "500 g",
+    "price": 55,
+    "mrp": 55,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_tella_bataneelu_pouch.webp"
+  },
+  {
+    "id": "g1-p0195-v1k",
+    "product_id": "g1-p0195",
+    "size_label": "1 kg",
+    "price": 100,
+    "mrp": 100,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_tella_bataneelu_pouch.webp"
+  },
+  {
+    "id": "g1-p0408-v500",
+    "product_id": "g1-p0408",
+    "size_label": "500 g",
+    "price": 65,
+    "mrp": 65,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_pesalu_pouch.webp"
+  },
+  {
+    "id": "g1-p0408-v1k",
+    "product_id": "g1-p0408",
+    "size_label": "1 kg",
+    "price": 125,
+    "mrp": 125,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_pesalu_pouch.webp"
+  },
+  {
+    "id": "g1-p1011-v500",
+    "product_id": "g1-p1011",
+    "size_label": "500 g",
+    "price": 60,
+    "mrp": 60,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_alasandalu_pouch.webp"
+  },
+  {
+    "id": "g1-p1011-v1k",
+    "product_id": "g1-p1011",
+    "size_label": "1 kg",
+    "price": 115,
+    "mrp": 115,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_alasandalu_pouch.webp"
+  },
+  {
+    "id": "g1-p0412-v250",
+    "product_id": "g1-p0412",
+    "size_label": "250 g",
+    "price": 40,
+    "mrp": 40,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp"
+  },
+  {
+    "id": "g1-p0279-v200",
+    "product_id": "g1-p0279",
+    "size_label": "200 g",
+    "price": 160,
+    "mrp": 160,
+    "stock": 40,
+    "image_url": "/products/packshots/hatsun-ghee.jpg"
+  },
+  {
+    "id": "g1-p0279-v500",
+    "product_id": "g1-p0279",
+    "size_label": "500 g",
+    "price": 365,
+    "mrp": 365,
+    "stock": 50,
+    "image_url": "/products/packshots/hatsun-ghee.jpg"
+  },
+  {
+    "id": "g1-p0279-v1k",
+    "product_id": "g1-p0279",
+    "size_label": "1 L",
+    "price": 710,
+    "mrp": 710,
+    "stock": 30,
+    "image_url": "/products/packshots/hatsun-ghee.jpg"
+  },
+  {
+    "id": "g1-red-alasandalu-v500",
+    "product_id": "g1-red-alasandalu",
+    "size_label": "500 g",
+    "price": 65,
+    "mrp": 65,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_alasandalu_pouch.webp"
+  },
+  {
+    "id": "g1-pappula-podi-v150",
+    "product_id": "g1-pappula-podi",
+    "size_label": "150 g",
+    "price": 45,
+    "mrp": 45,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_coriander_powder_pouch.webp"
+  },
+  {
+    "id": "g1-fortune-mustard-oil-v1",
+    "product_id": "g1-fortune-mustard-oil",
+    "size_label": "1 L Bottle",
+    "price": 175,
+    "mrp": 175,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-saffola-gold-v1",
+    "product_id": "g1-saffola-gold",
+    "size_label": "1 L Pouch",
+    "price": 195,
+    "mrp": 195,
+    "stock": 60,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-saffola-gold-v5",
+    "product_id": "g1-saffola-gold",
+    "size_label": "5 L Jar",
+    "price": 960,
+    "mrp": 960,
+    "stock": 30,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-amul-pure-ghee-v500",
+    "product_id": "g1-amul-pure-ghee",
+    "size_label": "500 ml Pouch",
+    "price": 325,
+    "mrp": 325,
+    "stock": 50,
+    "image_url": "/products/packshots/amul-pure-ghee-500ml.webp"
+  },
+  {
+    "id": "g1-amul-pure-ghee-v1l",
+    "product_id": "g1-amul-pure-ghee",
+    "size_label": "1 L Tin",
+    "price": 650,
+    "mrp": 650,
+    "stock": 40,
+    "image_url": "/products/packshots/amul-pure-ghee-1l.webp"
+  },
+  {
+    "id": "g1-heritage-cow-ghee-v200",
+    "product_id": "g1-heritage-cow-ghee",
+    "size_label": "200 ml",
+    "price": 165,
+    "mrp": 165,
+    "stock": 40,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-heritage-cow-ghee-v500",
+    "product_id": "g1-heritage-cow-ghee",
+    "size_label": "500 ml",
+    "price": 350,
+    "mrp": 350,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-heritage-cow-ghee-v1l",
+    "product_id": "g1-heritage-cow-ghee",
+    "size_label": "1 L",
+    "price": 680,
+    "mrp": 680,
+    "stock": 30,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-tulasi-sesame-oil-v200",
+    "product_id": "g1-tulasi-sesame-oil",
+    "size_label": "200 ml",
+    "price": 95,
+    "mrp": 95,
+    "stock": 40,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-tulasi-sesame-oil-v500",
+    "product_id": "g1-tulasi-sesame-oil",
+    "size_label": "500 ml",
+    "price": 225,
+    "mrp": 225,
+    "stock": 30,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-mirchi-v100",
+    "product_id": "g1-canon-mirchi-01",
+    "size_label": "100 g",
+    "price": 45,
+    "mrp": 45,
     "stock": 80,
     "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp"
   },
   {
-    "id": "g1-canon-mirchi-01-v3",
+    "id": "g1-mirchi-v250",
     "product_id": "g1-canon-mirchi-01",
-    "size_label": "500 g Pouch",
-    "price": 169,
-    "mrp": 199,
-    "stock": 50,
+    "size_label": "250 g",
+    "price": 110,
+    "mrp": 110,
+    "stock": 80,
     "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp"
   },
   {
-    "id": "g1-canon-mirchi-01-v4",
+    "id": "g1-mirchi-v500",
     "product_id": "g1-canon-mirchi-01",
-    "size_label": "1 kg Value Pack",
-    "price": 320,
-    "mrp": 380,
-    "stock": 30,
+    "size_label": "500 g",
+    "price": 210,
+    "mrp": 210,
+    "stock": 60,
     "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp"
+  },
+  {
+    "id": "g1-mirchi-v1k",
+    "product_id": "g1-canon-mirchi-01",
+    "size_label": "1 kg",
+    "price": 410,
+    "mrp": 410,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp"
+  },
+  {
+    "id": "g1-p0333-v50",
+    "product_id": "g1-p0333",
+    "size_label": "50 g",
+    "price": 25,
+    "mrp": 25,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp"
+  },
+  {
+    "id": "g1-p0333-v100",
+    "product_id": "g1-p0333",
+    "size_label": "100 g",
+    "price": 45,
+    "mrp": 45,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp"
+  },
+  {
+    "id": "g1-p0333-v500",
+    "product_id": "g1-p0333",
+    "size_label": "500 g",
+    "price": 200,
+    "mrp": 200,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp"
+  },
+  {
+    "id": "g1-spc046-v100",
+    "product_id": "g1-spc046",
+    "size_label": "100 g",
+    "price": 22,
+    "mrp": 22,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp"
+  },
+  {
+    "id": "g1-spc046-v250",
+    "product_id": "g1-spc046",
+    "size_label": "250 g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp"
+  },
+  {
+    "id": "g1-spc046-v500",
+    "product_id": "g1-spc046",
+    "size_label": "500 g",
+    "price": 95,
+    "mrp": 95,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp"
+  },
+  {
+    "id": "g1-spc046-v1k",
+    "product_id": "g1-spc046",
+    "size_label": "1 kg",
+    "price": 185,
+    "mrp": 185,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp"
+  },
+  {
+    "id": "g1-spc048-v100",
+    "product_id": "g1-spc048",
+    "size_label": "100 g",
+    "price": 20,
+    "mrp": 20,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_avalu_pouch.webp"
+  },
+  {
+    "id": "g1-spc048-v250",
+    "product_id": "g1-spc048",
+    "size_label": "250 g",
+    "price": 45,
+    "mrp": 45,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_avalu_pouch.webp"
+  },
+  {
+    "id": "g1-spc048-v500",
+    "product_id": "g1-spc048",
+    "size_label": "500 g",
+    "price": 85,
+    "mrp": 85,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_avalu_pouch.webp"
+  },
+  {
+    "id": "g1-spc051-v25",
+    "product_id": "g1-spc051",
+    "size_label": "25 g",
+    "price": 35,
+    "mrp": 35,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_black_pepper_pouch.webp"
+  },
+  {
+    "id": "g1-spc051-v100",
+    "product_id": "g1-spc051",
+    "size_label": "100 g",
+    "price": 125,
+    "mrp": 125,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_black_pepper_pouch.webp"
+  },
+  {
+    "id": "g1-spc049-v100",
+    "product_id": "g1-spc049",
+    "size_label": "100 g",
+    "price": 18,
+    "mrp": 18,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_menthulu_pouch.webp"
+  },
+  {
+    "id": "g1-spc049-v250",
+    "product_id": "g1-spc049",
+    "size_label": "250 g",
+    "price": 40,
+    "mrp": 40,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_menthulu_pouch.webp"
+  },
+  {
+    "id": "g1-spc049-v500",
+    "product_id": "g1-spc049",
+    "size_label": "500 g",
+    "price": 75,
+    "mrp": 75,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_menthulu_pouch.webp"
+  },
+  {
+    "id": "g1-spc053-v50",
+    "product_id": "g1-spc053",
+    "size_label": "50 g",
+    "price": 35,
+    "mrp": 35,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_black_pepper_pouch.webp"
+  },
+  {
+    "id": "g1-spc053-v100",
+    "product_id": "g1-spc053",
+    "size_label": "100 g",
+    "price": 65,
+    "mrp": 65,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_black_pepper_pouch.webp"
+  },
+  {
+    "id": "g1-p0019-v100",
+    "product_id": "g1-p0019",
+    "size_label": "100 g",
+    "price": 30,
+    "mrp": 30,
+    "stock": 60,
+    "image_url": "/products/verified/g1-p0019.webp"
+  },
+  {
+    "id": "g1-p0019-v200",
+    "product_id": "g1-p0019",
+    "size_label": "200 g",
+    "price": 55,
+    "mrp": 55,
+    "stock": 50,
+    "image_url": "/products/verified/g1-p0019.webp"
+  },
+  {
+    "id": "g1-p0066-v50",
+    "product_id": "g1-p0066",
+    "size_label": "50 g",
+    "price": 35,
+    "mrp": 35,
+    "stock": 60,
+    "image_url": "/products/packshots/aachi-rasam-powder-200g.webp"
+  },
+  {
+    "id": "g1-p0782-v100",
+    "product_id": "g1-p0782",
+    "size_label": "100 g",
+    "price": 55,
+    "mrp": 55,
+    "stock": 60,
+    "image_url": "/products/packshots/aachi-sambar-powder-200g.webp"
+  },
+  {
+    "id": "g1-p0074-v50",
+    "product_id": "g1-p0074",
+    "size_label": "50 g",
+    "price": 40,
+    "mrp": 40,
+    "stock": 60,
+    "image_url": "/products/packshots/aachi-chicken-masala-100g.webp"
+  },
+  {
+    "id": "g1-p0073-v50",
+    "product_id": "g1-p0073",
+    "size_label": "50 g",
+    "price": 42,
+    "mrp": 42,
+    "stock": 60,
+    "image_url": "/products/packshots/aachi-mutton-masala-100g.webp"
+  },
+  {
+    "id": "g1-p0073-v100",
+    "product_id": "g1-p0073",
+    "size_label": "100 g",
+    "price": 82,
+    "mrp": 82,
+    "stock": 60,
+    "image_url": "/products/packshots/aachi-mutton-masala-100g.webp"
+  },
+  {
+    "id": "g1-p0071-v50",
+    "product_id": "g1-p0071",
+    "size_label": "50 g",
+    "price": 45,
+    "mrp": 45,
+    "stock": 60,
+    "image_url": "/products/packshots/aachi-biryani-masala-50g.webp"
+  },
+  {
+    "id": "g1-p0076-v50",
+    "product_id": "g1-p0076",
+    "size_label": "50 g",
+    "price": 38,
+    "mrp": 38,
+    "stock": 60,
+    "image_url": "/products/verified/g1-p0076.webp"
+  },
+  {
+    "id": "g1-p0185-v500",
+    "product_id": "g1-p0185",
+    "size_label": "500 g",
+    "price": 140,
+    "mrp": 140,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_thati_bellam_pouch.webp"
+  },
+  {
+    "id": "g1-p0185-v1k",
+    "product_id": "g1-p0185",
+    "size_label": "1 kg",
+    "price": 270,
+    "mrp": 270,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_thati_bellam_pouch.webp"
+  },
+  {
+    "id": "g1-p0350-v100",
+    "product_id": "g1-p0350",
+    "size_label": "100 g",
+    "price": 18,
+    "mrp": 18,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_patika_bellam_pouch.webp"
+  },
+  {
+    "id": "g1-p0350-v500",
+    "product_id": "g1-p0350",
+    "size_label": "500 g",
+    "price": 65,
+    "mrp": 65,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_patika_bellam_pouch.webp"
+  },
+  {
+    "id": "g1-p0200-v1k",
+    "product_id": "g1-p0200",
+    "size_label": "1 kg",
+    "price": 20,
+    "mrp": 20,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_crystal_salt_pouch.webp"
+  },
+  {
+    "id": "g1-p0138-v250",
+    "product_id": "g1-p0138",
+    "size_label": "250 g",
+    "price": 125,
+    "mrp": 125,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-p0138-v500",
+    "product_id": "g1-p0138",
+    "size_label": "500 g",
+    "price": 235,
+    "mrp": 235,
+    "stock": 40,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-sugar-crystal-v500",
+    "product_id": "g1-sug015",
+    "size_label": "500 g",
+    "price": 25,
+    "mrp": 25,
+    "stock": 100,
+    "image_url": "/products/generated_pouches/g1_sugar_pouch.webp"
+  },
+  {
+    "id": "g1-mdh-deggi-mirch-v100",
+    "product_id": "g1-mdh-deggi-mirch",
+    "size_label": "100 g",
+    "price": 92,
+    "mrp": 92,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_chilli_powder_pouch.webp"
+  },
+  {
+    "id": "g1-mdh-chunky-chat-v100",
+    "product_id": "g1-mdh-chunky-chat",
+    "size_label": "100 g",
+    "price": 85,
+    "mrp": 85,
+    "stock": 60,
+    "image_url": "/products/packshots/catch-sprinkler-chaat-masala-100g.webp"
+  },
+  {
+    "id": "g1-priya-avakaya-v300p",
+    "product_id": "g1-priya-avakaya",
+    "size_label": "300 g Pouch",
+    "price": 95,
+    "mrp": 95,
+    "stock": 60,
+    "image_url": "/products/packshots/priya-mango-pickle-300g.webp"
+  },
+  {
+    "id": "g1-priya-avakaya-v300j",
+    "product_id": "g1-priya-avakaya",
+    "size_label": "300 g Jar",
+    "price": 115,
+    "mrp": 115,
+    "stock": 50,
+    "image_url": "/products/packshots/priya-mango-pickle-300g.webp"
+  },
+  {
+    "id": "g1-priya-gongura-v300p",
+    "product_id": "g1-priya-gongura",
+    "size_label": "300 g Pouch",
+    "price": 95,
+    "mrp": 95,
+    "stock": 60,
+    "image_url": "/products/packshots/priya-gongura-pickle-300g.webp"
+  },
+  {
+    "id": "g1-priya-gongura-v300j",
+    "product_id": "g1-priya-gongura",
+    "size_label": "300 g Jar",
+    "price": 115,
+    "mrp": 115,
+    "stock": 50,
+    "image_url": "/products/packshots/priya-gongura-pickle-300g.webp"
+  },
+  {
+    "id": "g1-nut001-v100",
+    "product_id": "g1-nut001",
+    "size_label": "100 g",
+    "price": 95,
+    "mrp": 95,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_cashews_pouch.webp"
+  },
+  {
+    "id": "g1-nut001-v250",
+    "product_id": "g1-nut001",
+    "size_label": "250 g",
+    "price": 230,
+    "mrp": 230,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_cashews_pouch.webp"
+  },
+  {
+    "id": "g1-nut001-v1k",
+    "product_id": "g1-nut001",
+    "size_label": "1 kg",
+    "price": 880,
+    "mrp": 880,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_cashews_pouch.webp"
+  },
+  {
+    "id": "g1-p0295-v100",
+    "product_id": "g1-p0295",
+    "size_label": "100 g",
+    "price": 85,
+    "mrp": 85,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_almonds_pouch.webp"
+  },
+  {
+    "id": "g1-p0295-v250",
+    "product_id": "g1-p0295",
+    "size_label": "250 g",
+    "price": 210,
+    "mrp": 210,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_almonds_pouch.webp"
+  },
+  {
+    "id": "g1-p0295-v500",
+    "product_id": "g1-p0295",
+    "size_label": "500 g",
+    "price": 410,
+    "mrp": 410,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_almonds_pouch.webp"
+  },
+  {
+    "id": "g1-p0295-v1k",
+    "product_id": "g1-p0295",
+    "size_label": "1 kg",
+    "price": 800,
+    "mrp": 800,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_almonds_pouch.webp"
+  },
+  {
+    "id": "g1-p0077-v100",
+    "product_id": "g1-p0077",
+    "size_label": "100 g",
+    "price": 35,
+    "mrp": 35,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_dates_pouch.webp"
+  },
+  {
+    "id": "g1-p0077-v250",
+    "product_id": "g1-p0077",
+    "size_label": "250 g",
+    "price": 85,
+    "mrp": 85,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_dates_pouch.webp"
+  },
+  {
+    "id": "g1-p0077-v500",
+    "product_id": "g1-p0077",
+    "size_label": "500 g",
+    "price": 160,
+    "mrp": 160,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_dates_pouch.webp"
+  },
+  {
+    "id": "g1-p0077-v1k",
+    "product_id": "g1-p0077",
+    "size_label": "1 kg",
+    "price": 310,
+    "mrp": 310,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_dates_pouch.webp"
+  },
+  {
+    "id": "g1-nut020-v100",
+    "product_id": "g1-nut020",
+    "size_label": "100 g",
+    "price": 45,
+    "mrp": 45,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_kismis_pouch.webp"
+  },
+  {
+    "id": "g1-nut020-v250",
+    "product_id": "g1-nut020",
+    "size_label": "250 g",
+    "price": 105,
+    "mrp": 105,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_kismis_pouch.webp"
+  },
+  {
+    "id": "g1-nut020-v500",
+    "product_id": "g1-nut020",
+    "size_label": "500 g",
+    "price": 195,
+    "mrp": 195,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_kismis_pouch.webp"
+  },
+  {
+    "id": "g1-p0394-v68",
+    "product_id": "g1-p0394",
+    "size_label": "68 g",
+    "price": 35,
+    "mrp": 35,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_dates_pouch.webp"
+  },
+  {
+    "id": "g1-p0394-v500",
+    "product_id": "g1-p0394",
+    "size_label": "500 g",
+    "price": 175,
+    "mrp": 175,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_dates_pouch.webp"
+  },
+  {
+    "id": "g1-dry022-v400",
+    "product_id": "g1-dry022",
+    "size_label": "400 g Pack",
+    "price": 45,
+    "mrp": 45,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-dry006-v400",
+    "product_id": "g1-dry006",
+    "size_label": "400 g Cup",
+    "price": 40,
+    "mrp": 40,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-lion-dates-v500",
+    "product_id": "g1-lion-dates",
+    "size_label": "500 g",
+    "price": 175,
+    "mrp": 175,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_dates_pouch.webp"
+  },
+  {
+    "id": "g1-kelloggs-corn-flakes-v500",
+    "product_id": "g1-kelloggs-corn-flakes",
+    "size_label": "500 g",
+    "price": 195,
+    "mrp": 195,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-kelloggs-corn-flakes-v1k",
+    "product_id": "g1-kelloggs-corn-flakes",
+    "size_label": "1 kg",
+    "price": 375,
+    "mrp": 375,
+    "stock": 40,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-quaker-oats-v1k",
+    "product_id": "g1-quaker-oats",
+    "size_label": "1 kg",
+    "price": 199,
+    "mrp": 199,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-arokya-toned-milk-v500",
+    "product_id": "g1-arokya-toned-milk",
+    "size_label": "500 ml Pouch",
+    "price": 28,
+    "mrp": 28,
+    "stock": 100,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-arokya-toned-milk-v1l",
+    "product_id": "g1-arokya-toned-milk",
+    "size_label": "1 L Pouch",
+    "price": 56,
+    "mrp": 56,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-hatsun-curd-v200",
+    "product_id": "g1-hatsun-curd",
+    "size_label": "200 g",
+    "price": 18,
+    "mrp": 18,
+    "stock": 80,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-hatsun-curd-v450",
+    "product_id": "g1-hatsun-curd",
+    "size_label": "450 g",
+    "price": 35,
+    "mrp": 35,
+    "stock": 80,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-hatsun-curd-v1k",
+    "product_id": "g1-hatsun-curd",
+    "size_label": "1 kg",
+    "price": 75,
+    "mrp": 75,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-hatsun-paneer-v200",
+    "product_id": "g1-hatsun-paneer",
+    "size_label": "200 g",
+    "price": 95,
+    "mrp": 95,
+    "stock": 60,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-hatsun-paneer-v500",
+    "product_id": "g1-hatsun-paneer",
+    "size_label": "500 g",
+    "price": 220,
+    "mrp": 220,
+    "stock": 40,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-amul-butter-v100",
+    "product_id": "g1-amul-butter",
+    "size_label": "100 g",
+    "price": 58,
+    "mrp": 58,
+    "stock": 80,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-amul-butter-v500",
+    "product_id": "g1-amul-butter",
+    "size_label": "500 g",
+    "price": 285,
+    "mrp": 285,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-amul-cheese-v200",
+    "product_id": "g1-amul-cheese",
+    "size_label": "200 g",
+    "price": 145,
+    "mrp": 145,
+    "stock": 60,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-glucond-energy-v200",
+    "product_id": "g1-glucond-energy",
+    "size_label": "200 g",
+    "price": 75,
+    "mrp": 75,
+    "stock": 80,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-glucond-energy-v500",
+    "product_id": "g1-glucond-energy",
+    "size_label": "500 g",
+    "price": 170,
+    "mrp": 170,
+    "stock": 60,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-glucond-energy-v1k",
+    "product_id": "g1-glucond-energy",
+    "size_label": "1 kg",
+    "price": 325,
+    "mrp": 325,
+    "stock": 40,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-continental-xtra-v50",
+    "product_id": "g1-continental-xtra",
+    "size_label": "50 g",
+    "price": 95,
+    "mrp": 95,
+    "stock": 60,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-continental-xtra-v200",
+    "product_id": "g1-continental-xtra",
+    "size_label": "200 g",
+    "price": 340,
+    "mrp": 340,
+    "stock": 40,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-3roses-tea-v250",
+    "product_id": "g1-3roses-tea",
+    "size_label": "250 g",
+    "price": 165,
+    "mrp": 165,
+    "stock": 60,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-3roses-tea-v500",
+    "product_id": "g1-3roses-tea",
+    "size_label": "500 g",
+    "price": 320,
+    "mrp": 320,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-tajmahal-tea-v100",
+    "product_id": "g1-tajmahal-tea",
+    "size_label": "100 g",
+    "price": 75,
+    "mrp": 75,
+    "stock": 60,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-tajmahal-tea-v250",
+    "product_id": "g1-tajmahal-tea",
+    "size_label": "250 g",
+    "price": 180,
+    "mrp": 180,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-tajmahal-tea-v500",
+    "product_id": "g1-tajmahal-tea",
+    "size_label": "500 g",
+    "price": 350,
+    "mrp": 350,
+    "stock": 40,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-horlicks-malt-v500",
+    "product_id": "g1-horlicks-malt",
+    "size_label": "500 g Jar",
+    "price": 235,
+    "mrp": 235,
+    "stock": 60,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-horlicks-malt-v1k",
+    "product_id": "g1-horlicks-malt",
+    "size_label": "1 kg Refil L",
+    "price": 440,
+    "mrp": 440,
+    "stock": 40,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-boost-drink-v200",
+    "product_id": "g1-boost-drink",
+    "size_label": "200 g",
+    "price": 95,
+    "mrp": 95,
+    "stock": 60,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-boost-drink-v500",
+    "product_id": "g1-boost-drink",
+    "size_label": "500 g",
+    "price": 235,
+    "mrp": 235,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-boost-drink-v1k",
+    "product_id": "g1-boost-drink",
+    "size_label": "1 kg",
+    "price": 445,
+    "mrp": 445,
+    "stock": 40,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-p0309-v250",
+    "product_id": "g1-p0309",
+    "size_label": "250 g",
+    "price": 99,
+    "mrp": 99,
+    "stock": 50,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-p0309-v500",
+    "product_id": "g1-p0309",
+    "size_label": "500 g",
+    "price": 180,
+    "mrp": 180,
+    "stock": 40,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-p0311-v200",
+    "product_id": "g1-p0311",
+    "size_label": "200 g",
+    "price": 35,
+    "mrp": 35,
+    "stock": 80,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-p0311-v500",
+    "product_id": "g1-p0311",
+    "size_label": "500 g",
+    "price": 75,
+    "mrp": 75,
+    "stock": 60,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-p0311-v1k",
+    "product_id": "g1-p0311",
+    "size_label": "1 kg",
+    "price": 140,
+    "mrp": 140,
+    "stock": 40,
+    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg"
+  },
+  {
+    "id": "g1-p0460-v250",
+    "product_id": "g1-p0460",
+    "size_label": "250 g",
+    "price": 45,
+    "mrp": 45,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_telagapindi_pouch.webp"
+  },
+  {
+    "id": "g1-p0460-v500",
+    "product_id": "g1-p0460",
+    "size_label": "500 g",
+    "price": 85,
+    "mrp": 85,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_telagapindi_pouch.webp"
+  },
+  {
+    "id": "g1-p0460-v1k",
+    "product_id": "g1-p0460",
+    "size_label": "1 kg",
+    "price": 165,
+    "mrp": 165,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_telagapindi_pouch.webp"
+  },
+  {
+    "id": "g1-p0064-v100",
+    "product_id": "g1-p0064",
+    "size_label": "100 g",
+    "price": 45,
+    "mrp": 45,
+    "stock": 60,
+    "image_url": "/products/packshots/mtr-rasam-powder-200g.webp"
+  },
+  {
+    "id": "g1-p0065-v100",
+    "product_id": "g1-p0065",
+    "size_label": "100 g",
+    "price": 45,
+    "mrp": 45,
+    "stock": 60,
+    "image_url": "/products/packshots/mtr-sambar-powder-200g.webp"
+  },
+  {
+    "id": "g1-p0014-v100",
+    "product_id": "g1-p0014",
+    "size_label": "100 g",
+    "price": 28,
+    "mrp": 28,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_turmeric_powder_pouch.webp"
+  },
+  {
+    "id": "g1-p0014-v250",
+    "product_id": "g1-p0014",
+    "size_label": "250 g",
+    "price": 65,
+    "mrp": 65,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_turmeric_powder_pouch.webp"
+  },
+  {
+    "id": "g1-p0014-v500",
+    "product_id": "g1-p0014",
+    "size_label": "500 g",
+    "price": 125,
+    "mrp": 125,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_turmeric_powder_pouch.webp"
+  },
+  {
+    "id": "g1-p0641-v300",
+    "product_id": "g1-p0641",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0641.webp"
+  },
+  {
+    "id": "g1-p0643-v300",
+    "product_id": "g1-p0643",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0643.webp"
+  },
+  {
+    "id": "g1-p0644-v300",
+    "product_id": "g1-p0644",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0644.webp"
+  },
+  {
+    "id": "g1-p0645-v300",
+    "product_id": "g1-p0645",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0645.webp"
+  },
+  {
+    "id": "g1-p0648-v300",
+    "product_id": "g1-p0648",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0648.webp"
+  },
+  {
+    "id": "g1-p0649-v300",
+    "product_id": "g1-p0649",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0649.webp"
+  },
+  {
+    "id": "g1-p0650-v300",
+    "product_id": "g1-p0650",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0650.webp"
+  },
+  {
+    "id": "g1-p0651-v300",
+    "product_id": "g1-p0651",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0651.webp"
+  },
+  {
+    "id": "g1-p0653-v300",
+    "product_id": "g1-p0653",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0653.webp"
+  },
+  {
+    "id": "g1-p0654-v300",
+    "product_id": "g1-p0654",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0654.webp"
+  },
+  {
+    "id": "g1-p0656-v300",
+    "product_id": "g1-p0656",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0656.webp"
+  },
+  {
+    "id": "g1-p0657-v300",
+    "product_id": "g1-p0657",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0657.webp"
+  },
+  {
+    "id": "g1-p0658-v300",
+    "product_id": "g1-p0658",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0658.webp"
+  },
+  {
+    "id": "g1-p0739-v300",
+    "product_id": "g1-p0739",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0739.webp"
+  },
+  {
+    "id": "g1-p0741-v300",
+    "product_id": "g1-p0741",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0741.webp"
+  },
+  {
+    "id": "g1-p0742-v300",
+    "product_id": "g1-p0742",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0742.webp"
+  },
+  {
+    "id": "g1-p0852-v300",
+    "product_id": "g1-p0852",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/verified/g1-p0852.webp"
+  },
+  {
+    "id": "g1-p1022-v300",
+    "product_id": "g1-p1022",
+    "size_label": "300 g Jar",
+    "price": 85,
+    "mrp": 85,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp"
+  },
+  {
+    "id": "g1-bev001-v-250mlpet",
+    "product_id": "g1-bev001",
+    "size_label": "250 ml PET",
+    "price": 20,
+    "mrp": 20,
+    "stock": 100,
+    "image_url": "/products/verified/bev-thums-up-250ml.webp"
+  },
+  {
+    "id": "g1-bev001-v-750mlpet",
+    "product_id": "g1-bev001",
+    "size_label": "750 ml PET",
+    "price": 40,
+    "mrp": 40,
+    "stock": 80,
+    "image_url": "/products/verified/bev-thums-up-750ml.webp"
+  },
+  {
+    "id": "g1-bev001-v-2.25lpet",
+    "product_id": "g1-bev001",
+    "size_label": "2.25 L PET",
+    "price": 99,
+    "mrp": 99,
+    "stock": 50,
+    "image_url": "/products/verified/bev-thums-up-2l.webp"
+  },
+  {
+    "id": "g1-bev-coke-v250",
+    "product_id": "g1-bev-coke",
+    "size_label": "250 ml PET",
+    "price": 20,
+    "mrp": 20,
+    "stock": 100,
+    "image_url": "/products/verified/bev-coca-cola-250ml.webp"
+  },
+  {
+    "id": "g1-bev-coke-v750",
+    "product_id": "g1-bev-coke",
+    "size_label": "750 ml PET",
+    "price": 40,
+    "mrp": 40,
+    "stock": 80,
+    "image_url": "/products/verified/bev-coca-cola-750ml.webp"
+  },
+  {
+    "id": "g1-bev-coke-v225",
+    "product_id": "g1-bev-coke",
+    "size_label": "2.25 L PET",
+    "price": 99,
+    "mrp": 99,
+    "stock": 50,
+    "image_url": "/products/verified/bev-coca-cola-2l.webp"
+  },
+  {
+    "id": "g1-bev-pulpy-orange-v400",
+    "product_id": "g1-bev-pulpy-orange",
+    "size_label": "400 ml",
+    "price": 38,
+    "mrp": 38,
+    "stock": 60,
+    "image_url": "/products/verified/bev-tropicana-orange.webp"
+  },
+  {
+    "id": "g1-bev-pulpy-orange-v1l",
+    "product_id": "g1-bev-pulpy-orange",
+    "size_label": "1 L PET",
+    "price": 85,
+    "mrp": 85,
+    "stock": 50,
+    "image_url": "/products/verified/bev-tropicana-orange.webp"
+  },
+  {
+    "id": "g1-pc006-v-125g(packof4)",
+    "product_id": "g1-pc006",
+    "size_label": "125 g (Pack of 4)",
+    "price": 195,
+    "mrp": 195,
+    "stock": 50,
+    "image_url": "/products/verified/pc-dettol-soap.webp"
+  },
+  {
+    "id": "g1-pc-lifebuoy-neem-v100",
+    "product_id": "g1-pc-lifebuoy-neem",
+    "size_label": "100 g",
+    "price": 35,
+    "mrp": 35,
+    "stock": 80,
+    "image_url": "/products/verified/pc-lifebuoy-neem-soap.webp"
+  },
+  {
+    "id": "g1-pc-lifebuoy-neem-v125-4",
+    "product_id": "g1-pc-lifebuoy-neem",
+    "size_label": "125 g (Pack of 4)",
+    "price": 150,
+    "mrp": 150,
+    "stock": 50,
+    "image_url": "/products/verified/pc-lifebuoy-neem-soap.webp"
+  },
+  {
+    "id": "g1-pc-pears-multipack-v125",
+    "product_id": "g1-pc-pears-multipack",
+    "size_label": "125 g (Buy 4 Get 1 Free)",
+    "price": 285,
+    "mrp": 285,
+    "stock": 40,
+    "image_url": "/products/verified/pc-pears-soap.webp"
+  },
+  {
+    "id": "g1-hh-707-soap-v250",
+    "product_id": "g1-hh-707-soap",
+    "size_label": "250 g Bar",
+    "price": 25,
+    "mrp": 25,
+    "stock": 100,
+    "image_url": "/products/verified/hh-laundry-soap-bar.webp"
+  },
+  {
+    "id": "g1-hh-707-soap-v500",
+    "product_id": "g1-hh-707-soap",
+    "size_label": "500 g (2 Bars)",
+    "price": 50,
+    "mrp": 50,
+    "stock": 80,
+    "image_url": "/products/verified/hh-laundry-soap-bar.webp"
+  },
+  {
+    "id": "g1-pc-santoor-handwash-v180",
+    "product_id": "g1-pc-santoor-handwash",
+    "size_label": "180 ml Refil L",
+    "price": 45,
+    "mrp": 45,
+    "stock": 80,
+    "image_url": "/products/verified/pc-dettol-liquid-handwash.webp"
+  },
+  {
+    "id": "g1-pc-santoor-handwash-v750",
+    "product_id": "g1-pc-santoor-handwash",
+    "size_label": "750 ml Refil L",
+    "price": 119,
+    "mrp": 119,
+    "stock": 50,
+    "image_url": "/products/verified/pc-dettol-liquid-handwash.webp"
+  },
+  {
+    "id": "g1-pc-kesh-king-oil-v100",
+    "product_id": "g1-pc-kesh-king-oil",
+    "size_label": "100 ml",
+    "price": 175,
+    "mrp": 175,
+    "stock": 50,
+    "image_url": "/products/verified/pc-indulekha-oil.webp"
+  },
+  {
+    "id": "g1-pc-kesh-king-oil-v300",
+    "product_id": "g1-pc-kesh-king-oil",
+    "size_label": "300 ml",
+    "price": 360,
+    "mrp": 360,
+    "stock": 40,
+    "image_url": "/products/verified/pc-indulekha-oil.webp"
+  },
+  {
+    "id": "g1-pc-keo-karpin-oil-v100",
+    "product_id": "g1-pc-keo-karpin-oil",
+    "size_label": "100 ml",
+    "price": 70,
+    "mrp": 70,
+    "stock": 60,
+    "image_url": "/products/verified/pc-bajaj-almond-oil.webp"
+  },
+  {
+    "id": "g1-pc-keo-karpin-oil-v200",
+    "product_id": "g1-pc-keo-karpin-oil",
+    "size_label": "200 ml",
+    "price": 135,
+    "mrp": 135,
+    "stock": 50,
+    "image_url": "/products/verified/pc-bajaj-almond-oil.webp"
+  },
+  {
+    "id": "g1-pc-super-vasmol-v50",
+    "product_id": "g1-pc-super-vasmol",
+    "size_label": "50 ml",
+    "price": 48,
+    "mrp": 48,
+    "stock": 60,
+    "image_url": "/products/verified/pc-indica-easy-hair-colour.webp"
+  },
+  {
+    "id": "g1-pc-super-vasmol-v100",
+    "product_id": "g1-pc-super-vasmol",
+    "size_label": "100 ml",
+    "price": 90,
+    "mrp": 90,
+    "stock": 50,
+    "image_url": "/products/verified/pc-indica-easy-hair-colour.webp"
+  },
+  {
+    "id": "g1-pc-tresemme-keratin-v180",
+    "product_id": "g1-pc-tresemme-keratin",
+    "size_label": "180 ml",
+    "price": 165,
+    "mrp": 165,
+    "stock": 50,
+    "image_url": "/products/verified/pc-tresemme-shampoo.webp"
+  },
+  {
+    "id": "g1-pc-tresemme-keratin-v340",
+    "product_id": "g1-pc-tresemme-keratin",
+    "size_label": "340 ml",
+    "price": 310,
+    "mrp": 310,
+    "stock": 40,
+    "image_url": "/products/verified/pc-tresemme-shampoo.webp"
+  },
+  {
+    "id": "g1-pc-colgate-vedshakti-v100",
+    "product_id": "g1-pc-colgate-vedshakti",
+    "size_label": "100 g",
+    "price": 65,
+    "mrp": 65,
+    "stock": 80,
+    "image_url": "/products/verified/pc-colgate-vedshakti.webp"
+  },
+  {
+    "id": "g1-pc-colgate-vedshakti-v200",
+    "product_id": "g1-pc-colgate-vedshakti",
+    "size_label": "200 g",
+    "price": 120,
+    "mrp": 120,
+    "stock": 60,
+    "image_url": "/products/verified/pc-colgate-vedshakti.webp"
+  },
+  {
+    "id": "g1-pc-glow-lovely-v9",
+    "product_id": "g1-pc-glow-lovely",
+    "size_label": "9 g Tube",
+    "price": 10,
+    "mrp": 10,
+    "stock": 100,
+    "image_url": "/products/verified/pc-glow-lovely-cream.webp"
+  },
+  {
+    "id": "g1-pc-glow-lovely-v25",
+    "product_id": "g1-pc-glow-lovely",
+    "size_label": "25 g Tube",
+    "price": 65,
+    "mrp": 65,
+    "stock": 80,
+    "image_url": "/products/verified/pc-glow-lovely-cream.webp"
+  },
+  {
+    "id": "g1-pc-glow-lovely-v50",
+    "product_id": "g1-pc-glow-lovely",
+    "size_label": "50 g Tube",
+    "price": 125,
+    "mrp": 125,
+    "stock": 60,
+    "image_url": "/products/verified/pc-glow-lovely-cream.webp"
+  },
+  {
+    "id": "g1-pc-yardley-roses-v100",
+    "product_id": "g1-pc-yardley-roses",
+    "size_label": "100 g",
+    "price": 110,
+    "mrp": 110,
+    "stock": 50,
+    "image_url": "/products/verified/pc-ponds-dreamflower-talc.webp"
+  },
+  {
+    "id": "g1-pc-yardley-roses-v250",
+    "product_id": "g1-pc-yardley-roses",
+    "size_label": "250 g",
+    "price": 245,
+    "mrp": 245,
+    "stock": 40,
+    "image_url": "/products/verified/pc-ponds-dreamflower-talc.webp"
+  },
+  {
+    "id": "g1-hh-hit-chalk-v15",
+    "product_id": "g1-hh-hit-chalk",
+    "size_label": "15 g Chalk",
+    "price": 25,
+    "mrp": 25,
+    "stock": 100,
+    "image_url": "/products/verified/hh-169-laxman-rekha-chalk.webp"
+  },
+  {
+    "id": "g1-hh-domex-powder-v500",
+    "product_id": "g1-hh-domex-powder",
+    "size_label": "500 g",
+    "price": 65,
+    "mrp": 65,
+    "stock": 60,
+    "image_url": "/products/verified/hh-domex-toilet-cleaner.webp"
+  },
+  {
+    "id": "g1-hh-domex-powder-v1k",
+    "product_id": "g1-hh-domex-powder",
+    "size_label": "1 kg",
+    "price": 120,
+    "mrp": 120,
+    "stock": 40,
+    "image_url": "/products/verified/hh-domex-toilet-cleaner.webp"
+  },
+  {
+    "id": "g1-bsc-moms-magic-v75",
+    "product_id": "g1-bsc-moms-magic",
+    "size_label": "75 g",
+    "price": 20,
+    "mrp": 20,
+    "stock": 80,
+    "image_url": "/products/verified/bsc-sunfeast-moms-magic-cashew.webp"
+  },
+  {
+    "id": "g1-bsc-moms-magic-v150",
+    "product_id": "g1-bsc-moms-magic",
+    "size_label": "150 g",
+    "price": 40,
+    "mrp": 40,
+    "stock": 80,
+    "image_url": "/products/verified/bsc-sunfeast-moms-magic-cashew.webp"
+  },
+  {
+    "id": "g1-bsc-moms-magic-v300",
+    "product_id": "g1-bsc-moms-magic",
+    "size_label": "300 g",
+    "price": 80,
+    "mrp": 80,
+    "stock": 50,
+    "image_url": "/products/verified/bsc-sunfeast-moms-magic-cashew.webp"
+  },
+  {
+    "id": "g1-bsc-unibic-choco-ripple-v75",
+    "product_id": "g1-bsc-unibic-choco-ripple",
+    "size_label": "75 g",
+    "price": 25,
+    "mrp": 25,
+    "stock": 80,
+    "image_url": "/products/verified/bsc-unibic-choco-chip.webp"
+  },
+  {
+    "id": "g1-bsc-unibic-choco-ripple-v150",
+    "product_id": "g1-bsc-unibic-choco-ripple",
+    "size_label": "150 g",
+    "price": 50,
+    "mrp": 50,
+    "stock": 60,
+    "image_url": "/products/verified/bsc-unibic-choco-chip.webp"
+  },
+  {
+    "id": "g1-p1701-v1l-pouch",
+    "product_id": "g1-p1701",
+    "size_label": "1 L Pouch",
+    "price": 138,
+    "mrp": 145,
+    "stock": 120,
+    "image_url": "/products/packshots/freedom-sunflower-1l-pouch.webp"
+  },
+  {
+    "id": "g1-p1701-v1l-bottle",
+    "product_id": "g1-p1701",
+    "size_label": "1 L PET Bottle",
+    "price": 148,
+    "mrp": 155,
+    "stock": 80,
+    "image_url": "/products/packshots/freedom-sunflower-1l-bottle.webp"
+  },
+  {
+    "id": "g1-p1701-v5l-can",
+    "product_id": "g1-p1701",
+    "size_label": "5 L Can",
+    "price": 699,
+    "mrp": 750,
+    "stock": 40,
+    "image_url": "/products/packshots/freedom-sunflower-5l-can.webp"
+  },
+  {
+    "id": "g1-p1701-v15l-tin",
+    "product_id": "g1-p1701",
+    "size_label": "15 L Tin (13.65 kg)",
+    "price": 1899,
+    "mrp": 2150,
+    "stock": 25,
+    "image_url": "/products/packshots/freedom-sunflower-oil-15l-tin.webp"
+  },
+  {
+    "id": "g1-p0236-v1kg",
+    "product_id": "g1-p0236",
+    "size_label": "1 kg",
+    "price": 35,
+    "mrp": 40,
+    "stock": 150,
+    "image_url": "/products/packshots/fresh-onion.webp"
+  },
+  {
+    "id": "g1-p0236-v2kg",
+    "product_id": "g1-p0236",
+    "size_label": "2 kg",
+    "price": 68,
+    "mrp": 80,
+    "stock": 100,
+    "image_url": "/products/packshots/fresh-onion.webp"
+  },
+  {
+    "id": "g1-p0236-v5kg",
+    "product_id": "g1-p0236",
+    "size_label": "5 kg Bag",
+    "price": 165,
+    "mrp": 200,
+    "stock": 50,
+    "image_url": "/products/packshots/fresh-onion.webp"
   }
 ]

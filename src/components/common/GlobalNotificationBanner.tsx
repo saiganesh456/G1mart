@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   Package,
   Bike,
@@ -17,11 +17,25 @@ import { useNotification, AppNotification } from '@/context/NotificationContext'
 
 export default function GlobalNotificationBanner() {
   const router = useRouter();
+  const pathname = usePathname();
   const {
     activeNotification,
     dismissNotification,
   } = useNotification();
   const [progress, setProgress] = useState(100);
+
+  // If the customer is already actively on this order's live tracking page,
+  // do not show the banner prompting them to track it
+  useEffect(() => {
+    if (activeNotification?.orderId && pathname) {
+      if (
+        pathname === `/orders/${activeNotification.orderId}` ||
+        pathname.startsWith(`/orders/${activeNotification.orderId}/`)
+      ) {
+        dismissNotification(activeNotification.id);
+      }
+    }
+  }, [activeNotification, pathname, dismissNotification]);
 
   useEffect(() => {
     if (!activeNotification) {

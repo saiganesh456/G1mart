@@ -3037,38 +3037,60 @@
   },
   {
     "id": "g1-p0311",
-    "name": "Kissan Tomato Ketchup",
+    "name": "Kissan Fresh Tomato Ketchup",
     "brand_id": "b-089",
     "brand": "Kissan",
     "category_id": "sauces-spreads",
     "category": "sauces-spreads",
     "sub_category": "Ketchup, Mayonnaise, Jams & Dips",
     "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
-    "image_url": "/products/verified/g1-p0311.webp",
+    "image_url": "/products/packshots/kissan-fresh-tomato-ketchup-500g.webp",
     "image_status": "verified",
     "barcode": null,
     "image_source": null,
     "image_license": null,
     "image_check_reason": "Passes revised quality gate (front-facing single pack, transparent 800x800)",
     "category_name": "Sauces & Spreads",
-    "price": 50,
-    "mrp": 50,
+    "price": 85,
+    "mrp": 85,
     "discount": 0,
     "in_stock": true,
     "variants": [
       {
         "id": "g1-p0311-v1",
-        "name": " g",
-        "unit": " g",
-        "price": 50,
-        "mrp": 50,
+        "name": "45 g (Mini Squeeze)",
+        "unit": "45 g",
+        "price": 5,
+        "mrp": 5,
         "in_stock": true,
-        "image": "/products/verified/g1-p0311.webp"
+        "image": "/products/packshots/kissan-fresh-tomato-ketchup-500g.webp"
+      },
+      {
+        "id": "g1-p0311-v2",
+        "name": "500 g (Bottle)",
+        "unit": "500 g",
+        "price": 85,
+        "mrp": 85,
+        "in_stock": true,
+        "image": "/products/packshots/kissan-fresh-tomato-ketchup-500g.webp"
+      },
+      {
+        "id": "g1-p0311-v3",
+        "name": "1 kg (Refill Pouch)",
+        "unit": "1 kg",
+        "price": 145,
+        "mrp": 145,
+        "in_stock": true,
+        "image": "/products/packshots/kissan-fresh-tomato-ketchup-1kg.webp"
       }
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "image": "/products/packshots/kissan-fresh-tomato-ketchup-500g.webp",
+    "imageUrl": "/products/packshots/kissan-fresh-tomato-ketchup-500g.webp",
+    "image_path": "/products/packshots/kissan-fresh-tomato-ketchup-500g.webp",
+    "unit": "500 g"
   },
   {
     "id": "g1-p0327",
@@ -4527,7 +4549,7 @@
     "price": 16,
     "mrp": 16,
     "discount": 0,
-    "in_stock": true,
+    "in_stock": false,
     "variants": [
       {
         "id": "g1-p0486-v1",
@@ -4541,7 +4563,9 @@
     ],
     "originalPrice": 16,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": false,
+    "isActive": false,
+    "inStock": false
   },
   {
     "id": "g1-p0492",
@@ -5071,7 +5095,7 @@
     "price": 50,
     "mrp": 50,
     "discount": 0,
-    "in_stock": true,
+    "in_stock": false,
     "variants": [
       {
         "id": "g1-p0597-v1",
@@ -5085,7 +5109,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": false,
+    "isActive": false,
+    "inStock": false
   },
   {
     "id": "g1-p0623",
@@ -5825,25 +5851,25 @@
   },
   {
     "id": "g1-p0688",
-    "name": "Gulab JAM",
+    "name": "Gits Instant Gulab Jamun Dessert Mix",
     "brand_id": "b-063",
     "brand": "Local / Unbranded",
-    "category_id": "sauces-spreads",
-    "category": "sauces-spreads",
-    "sub_category": "Ketchup, Mayonnaise, Jams & Dips",
-    "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
-    "image_url": "/products/verified/g1-p0688.webp",
+    "category_id": "instant-food",
+    "category": "instant-food",
+    "sub_category": "Ready Mixes & Breakfast",
+    "subCategory": "Ready Mixes & Breakfast",
+    "image_url": "/products/packshots/gits-gulab-jamun-mix-200g.webp",
     "image_status": "verified",
     "barcode": "8901000000675",
     "image_source": null,
     "image_license": null,
     "image_check_reason": "No passing packshot image",
     "imageStatus": "verified",
-    "imageUrl": "/products/verified/g1-p0688.webp",
-    "image": "/products/verified/g1-p0688.webp",
+    "imageUrl": "/products/packshots/gits-gulab-jamun-mix-200g.webp",
+    "image": "/products/packshots/gits-gulab-jamun-mix-200g.webp",
     "category_name": "Sauces & Spreads",
-    "price": 151,
-    "mrp": 151,
+    "price": 135,
+    "mrp": 135,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -5859,7 +5885,8 @@
     ],
     "originalPrice": 151,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "200 g"
   },
   {
     "id": "g1-p0690",
@@ -5883,7 +5910,7 @@
     "price": 6,
     "mrp": 6,
     "discount": 0,
-    "in_stock": true,
+    "in_stock": false,
     "variants": [
       {
         "id": "g1-p0690-v1",
@@ -5897,7 +5924,9 @@
     ],
     "originalPrice": 6,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": false,
+    "isActive": false,
+    "inStock": false
   },
   {
     "id": "g1-p0691",
@@ -6586,25 +6615,25 @@
   },
   {
     "id": "g1-p0780",
-    "name": "Jimjam Bisccuit",
+    "name": "Britannia Treat Jim Jam Sandwich Biscuits",
     "brand_id": "b-063",
     "brand": "Local / Unbranded",
-    "category_id": "sauces-spreads",
-    "category": "sauces-spreads",
-    "sub_category": "Ketchup, Mayonnaise, Jams & Dips",
-    "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
-    "image_url": "/products/verified/g1-p0780.webp",
+    "category_id": "biscuits-bakery",
+    "category": "biscuits-bakery",
+    "sub_category": "Cream Biscuits & Choco Fills",
+    "subCategory": "Cream Biscuits & Choco Fills",
+    "image_url": "/products/verified/bsc-jim-jam-10rs.webp",
     "image_status": "verified",
     "barcode": "8901000000764",
     "image_source": null,
     "image_license": null,
     "image_check_reason": "No passing packshot image",
     "imageStatus": "verified",
-    "imageUrl": "/products/verified/g1-p0780.webp",
-    "image": "/products/verified/g1-p0780.webp",
+    "imageUrl": "/products/verified/bsc-jim-jam-10rs.webp",
+    "image": "/products/verified/bsc-jim-jam-10rs.webp",
     "category_name": "Sauces & Spreads",
-    "price": 50,
-    "mrp": 50,
+    "price": 10,
+    "mrp": 10,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -6620,7 +6649,8 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "50 g"
   },
   {
     "id": "g1-p0782",
@@ -6805,7 +6835,7 @@
     "price": 26,
     "mrp": 26,
     "discount": 0,
-    "in_stock": true,
+    "in_stock": false,
     "variants": [
       {
         "id": "g1-p0826-v1",
@@ -6819,7 +6849,9 @@
     ],
     "originalPrice": 26,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": false,
+    "isActive": false,
+    "inStock": false
   },
   {
     "id": "g1-p0852",
@@ -7954,25 +7986,25 @@
   },
   {
     "id": "g1-p1019",
-    "name": "Gulab Jamum MIX",
+    "name": "Gits Instant Gulab Jamun Dessert Mix",
     "brand_id": "b-063",
     "brand": "Local / Unbranded",
-    "category_id": "sauces-spreads",
-    "category": "sauces-spreads",
-    "sub_category": "Ketchup, Mayonnaise, Jams & Dips",
-    "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
-    "image_url": "/products/verified/g1-p1019.webp",
+    "category_id": "instant-food",
+    "category": "instant-food",
+    "sub_category": "Ready Mixes & Breakfast",
+    "subCategory": "Ready Mixes & Breakfast",
+    "image_url": "/products/packshots/gits-gulab-jamun-mix-200g.webp",
     "image_status": "verified",
     "barcode": "8901000001001",
     "image_source": null,
     "image_license": null,
     "image_check_reason": "No passing packshot image",
     "imageStatus": "verified",
-    "imageUrl": "/products/verified/g1-p1019.webp",
-    "image": "/products/verified/g1-p1019.webp",
+    "imageUrl": "/products/packshots/gits-gulab-jamun-mix-200g.webp",
+    "image": "/products/packshots/gits-gulab-jamun-mix-200g.webp",
     "category_name": "Sauces & Spreads",
-    "price": 75,
-    "mrp": 75,
+    "price": 135,
+    "mrp": 135,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -7988,7 +8020,8 @@
     ],
     "originalPrice": 75,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "200 g"
   },
   {
     "id": "g1-p1022",
@@ -8730,25 +8763,25 @@
   },
   {
     "id": "g1-p1173",
-    "name": "Veeba Mayonnaise",
+    "name": "Veeba Truly Eggless Mayonnaise",
     "brand_id": "brand-veeba",
     "brand": "Veeba",
     "category_id": "sauces-spreads",
     "category": "sauces-spreads",
     "sub_category": "Ketchup, Mayonnaise, Jams & Dips",
     "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
-    "image_url": "/products/packshots/ginger-garlic-paste.jpg",
+    "image_url": "/products/packshots/veeba-eggless-mayo-275g.webp",
     "image_status": "VERIFIED",
     "barcode": "8902000001148",
     "image_source": "placeholder",
     "image_license": null,
     "image_check_reason": "Verified Master FMCG SKU",
     "imageStatus": "VERIFIED",
-    "imageUrl": "/products/packshots/ginger-garlic-paste.jpg",
-    "image": "/products/packshots/ginger-garlic-paste.jpg",
+    "imageUrl": "/products/packshots/veeba-eggless-mayo-275g.webp",
+    "image": "/products/packshots/veeba-eggless-mayo-275g.webp",
     "category_name": "Sauces & Spreads",
-    "price": 50,
-    "mrp": 50,
+    "price": 85,
+    "mrp": 85,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -8773,7 +8806,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "image_path": "/products/packshots/veeba-eggless-mayo-275g.webp",
+    "unit": "275 g"
   },
   {
     "id": "g1-p1175",
@@ -8784,18 +8819,18 @@
     "category": "sauces-spreads",
     "sub_category": "Ketchup, Mayonnaise, Jams & Dips",
     "subCategory": "Ketchup, Mayonnaise, Jams & Dips",
-    "image_url": "/products/packshots/ginger-garlic-paste.jpg",
+    "image_url": "/products/packshots/veeba-eggless-mayo-275g.webp",
     "image_status": "VERIFIED",
     "barcode": "8902000001150",
     "image_source": "placeholder",
     "image_license": null,
     "image_check_reason": "Verified Master FMCG SKU",
     "imageStatus": "VERIFIED",
-    "imageUrl": "/products/packshots/ginger-garlic-paste.jpg",
-    "image": "/products/packshots/ginger-garlic-paste.jpg",
+    "imageUrl": "/products/packshots/veeba-eggless-mayo-275g.webp",
+    "image": "/products/packshots/veeba-eggless-mayo-275g.webp",
     "category_name": "Sauces & Spreads",
-    "price": 50,
-    "mrp": 50,
+    "price": 85,
+    "mrp": 85,
     "discount": 0,
     "in_stock": true,
     "variants": [
@@ -8811,7 +8846,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "image_path": "/products/packshots/veeba-eggless-mayo-275g.webp",
+    "unit": "275 g"
   },
   {
     "id": "g1-p1177",
@@ -8882,7 +8919,7 @@
     "price": 50,
     "mrp": 50,
     "discount": 0,
-    "in_stock": true,
+    "in_stock": false,
     "variants": [
       {
         "id": "g1-p1183-v1",
@@ -8896,7 +8933,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": false,
+    "isActive": false,
+    "inStock": false
   },
   {
     "id": "g1-p1192",
@@ -8964,7 +9003,7 @@
     "price": 50,
     "mrp": 50,
     "discount": 0,
-    "in_stock": true,
+    "in_stock": false,
     "variants": [
       {
         "id": "g1-p1561-v1",
@@ -8978,7 +9017,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": false,
+    "isActive": false,
+    "inStock": false
   },
   {
     "id": "g1-p1562",
@@ -9002,7 +9043,7 @@
     "price": 50,
     "mrp": 50,
     "discount": 0,
-    "in_stock": true,
+    "in_stock": false,
     "variants": [
       {
         "id": "g1-p1562-v1",
@@ -9016,7 +9057,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": false,
+    "isActive": false,
+    "inStock": false
   },
   {
     "id": "g1-p1563",
@@ -9040,7 +9083,7 @@
     "price": 50,
     "mrp": 50,
     "discount": 0,
-    "in_stock": true,
+    "in_stock": false,
     "variants": [
       {
         "id": "g1-p1563-v1",
@@ -9054,7 +9097,9 @@
     ],
     "originalPrice": 50,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": false,
+    "isActive": false,
+    "inStock": false
   },
   {
     "id": "g1-p1622",
@@ -30613,9 +30658,18 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-bsc002-1",
-        "name": "120 g (Pouch)",
-        "unit": "120 g (Pouch)",
+        "id": "g1-bsc002-v1",
+        "name": "33 g (₹10 Pack)",
+        "unit": "33 g",
+        "price": 10,
+        "mrp": 10,
+        "in_stock": true,
+        "image": "/products/verified/bsc-parle-hide-seek.webp"
+      },
+      {
+        "id": "g1-bsc002-v2",
+        "name": "120 g (Standard Pack)",
+        "unit": "120 g",
         "price": 35,
         "mrp": 35,
         "in_stock": true,
@@ -32290,9 +32344,18 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-bsc041-1",
-        "name": "120 g (Pouch)",
-        "unit": "120 g (Pouch)",
+        "id": "g1-bsc041-v1",
+        "name": "43 g (Pocket Pack)",
+        "unit": "43 g",
+        "price": 10,
+        "mrp": 10,
+        "in_stock": true,
+        "image": "/products/verified/bsc-oreo-vanilla-10rs.webp"
+      },
+      {
+        "id": "g1-bsc041-v2",
+        "name": "120 g (Standard Pack)",
+        "unit": "120 g",
         "price": 35,
         "mrp": 35,
         "in_stock": true,
@@ -36676,13 +36739,22 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-dry026-1",
-        "name": "500 ml (Tub)",
-        "unit": "500 ml (Tub)",
+        "id": "g1-dry026-v1",
+        "name": "500 ml",
+        "unit": "500 ml",
         "price": 110,
         "mrp": 110,
         "in_stock": true,
         "image": "/products/verified/dry-arun-vanilla-tub.webp"
+      },
+      {
+        "id": "g1-dry026-v2",
+        "name": "1 L",
+        "unit": "1 L",
+        "price": 160,
+        "mrp": 160,
+        "in_stock": true,
+        "image": "/products/verified/ice-arun-vanilla-1l.webp"
       }
     ]
   },
@@ -36719,13 +36791,22 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-dry027-1",
-        "name": "500 ml (Tub)",
-        "unit": "500 ml (Tub)",
+        "id": "g1-dry027-v1",
+        "name": "500 ml",
+        "unit": "500 ml",
         "price": 130,
         "mrp": 130,
         "in_stock": true,
         "image": "/products/verified/dry-arun-butterscotch-tub.webp"
+      },
+      {
+        "id": "g1-dry027-v2",
+        "name": "1 L",
+        "unit": "1 L",
+        "price": 180,
+        "mrp": 180,
+        "in_stock": true,
+        "image": "/products/verified/ice-arun-butterscotch-1l.webp"
       }
     ]
   },
@@ -39256,9 +39337,9 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-dry034-1",
-        "name": "70 ml (Stick)",
-        "unit": "70 ml (Stick)",
+        "id": "g1-dry034-v1",
+        "name": "70 ml",
+        "unit": "70 ml",
         "price": 40,
         "mrp": 40,
         "in_stock": true,
@@ -42357,12 +42438,30 @@
     "variants": [
       {
         "id": "g1-bsc068-v1",
-        "name": "130 g",
+        "name": "65 g (Pocket Pack)",
+        "unit": "65 g",
+        "price": 5,
+        "mrp": 5,
+        "in_stock": true,
+        "image": "/products/verified/bsc-parle-g-5rs.webp"
+      },
+      {
+        "id": "g1-bsc068-v2",
+        "name": "130 g (Standard Pack)",
         "unit": "130 g",
         "price": 10,
         "mrp": 10,
         "in_stock": true,
         "image": "/products/verified/bsc-parle-g-10rs.webp"
+      },
+      {
+        "id": "g1-bsc068-v3",
+        "name": "1 kg (Family Pack)",
+        "unit": "1 kg",
+        "price": 120,
+        "mrp": 120,
+        "in_stock": true,
+        "image": "/products/verified/bsc-parle-g-1kg.webp"
       }
     ]
   },
@@ -42431,12 +42530,30 @@
     "variants": [
       {
         "id": "g1-bsc070-v1",
-        "name": "42 g",
+        "name": "42 g (Pocket Pack)",
         "unit": "42 g",
         "price": 10,
         "mrp": 10,
         "in_stock": true,
         "image": "/products/verified/bsc-good-day-cashew-10rs.webp"
+      },
+      {
+        "id": "g1-bsc070-v2",
+        "name": "120 g (Standard Pack)",
+        "unit": "120 g",
+        "price": 30,
+        "mrp": 30,
+        "in_stock": true,
+        "image": "/products/verified/bsc-good-day-cashew-10rs.webp"
+      },
+      {
+        "id": "g1-bsc070-v3",
+        "name": "600 g (Family Pack)",
+        "unit": "600 g",
+        "price": 120,
+        "mrp": 120,
+        "in_stock": true,
+        "image": "/products/verified/bsc-good-day-cashew-600g.webp"
       }
     ]
   },
@@ -42542,12 +42659,21 @@
     "variants": [
       {
         "id": "g1-bsc073-v1",
-        "name": "120 g",
+        "name": "120 g (Pocket Pack)",
         "unit": "120 g",
         "price": 15,
         "mrp": 15,
         "in_stock": true,
         "image": "/products/verified/bsc-marie-gold-120g.webp"
+      },
+      {
+        "id": "g1-bsc073-v2",
+        "name": "1 kg (Family Pack)",
+        "unit": "1 kg",
+        "price": 110,
+        "mrp": 110,
+        "in_stock": true,
+        "image": "/products/verified/bsc-marie-gold-1kg.webp"
       }
     ]
   },
@@ -53852,12 +53978,21 @@
     "variants": [
       {
         "id": "g1-sau012-v1",
-        "name": "200 g",
+        "name": "200 g (Glass Jar)",
         "unit": "200 g",
         "price": 75,
         "mrp": 75,
         "in_stock": true,
-        "image": "/products/verified/g1-p0293.webp"
+        "image": "/products/packshots/mixed-fruit-jam.jpg"
+      },
+      {
+        "id": "g1-sau012-v2",
+        "name": "500 g (Glass Jar)",
+        "unit": "500 g",
+        "price": 165,
+        "mrp": 165,
+        "in_stock": true,
+        "image": "/products/packshots/mixed-fruit-jam.jpg"
       }
     ]
   },
@@ -53930,12 +54065,39 @@
     "variants": [
       {
         "id": "g1-ins001-v1",
-        "name": "70 g",
+        "name": "48 g (Chhota Pack)",
+        "unit": "48 g",
+        "price": 10,
+        "mrp": 10,
+        "in_stock": true,
+        "image": "/products/packshots/maggi-2-minute-noodles-70g.webp"
+      },
+      {
+        "id": "g1-ins001-v2",
+        "name": "70 g (Single Pack)",
         "unit": "70 g",
         "price": 14,
         "mrp": 14,
         "in_stock": true,
         "image": "/products/packshots/maggi-2-minute-noodles-70g.webp"
+      },
+      {
+        "id": "g1-ins001-v3",
+        "name": "140 g (2-in-1 Pack)",
+        "unit": "140 g",
+        "price": 28,
+        "mrp": 28,
+        "in_stock": true,
+        "image": "/products/packshots/maggi-2-minute-noodles-70g.webp"
+      },
+      {
+        "id": "g1-ins001-v4",
+        "name": "280 g (4-Pack Multipack)",
+        "unit": "280 g",
+        "price": 56,
+        "mrp": 56,
+        "in_stock": true,
+        "image": "/products/packshots/maggi-2-minute-noodles-multipack.webp"
       }
     ]
   },
@@ -54047,12 +54209,21 @@
     "variants": [
       {
         "id": "g1-ins004-v1",
-        "name": "60 g",
+        "name": "60 g (Single Pack)",
         "unit": "60 g",
         "price": 12,
         "mrp": 12,
         "in_stock": true,
         "image": "/products/packshots/yippee-magic-masala-single.webp"
+      },
+      {
+        "id": "g1-ins004-v2",
+        "name": "240 g (4-Pack Multipack)",
+        "unit": "240 g",
+        "price": 48,
+        "mrp": 48,
+        "in_stock": true,
+        "image": "/products/packshots/yippee-magic-masala-4pack.webp"
       }
     ]
   },
@@ -54807,6 +54978,15 @@
         "mrp": 30,
         "in_stock": true,
         "image": "/products/verified/dry-arokya-toned-milk.webp"
+      },
+      {
+        "id": "g1-dry053-v2",
+        "name": "1 L",
+        "unit": "1 L",
+        "price": 60,
+        "mrp": 60,
+        "in_stock": true,
+        "image": "/products/verified/dry-arokya-toned-milk.webp"
       }
     ]
   },
@@ -54960,13 +55140,31 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-dry004-1",
-        "name": "450 g (Pouch)",
-        "unit": "450 g (Pouch)",
+        "id": "g1-dry004-v1",
+        "name": "200 g",
+        "unit": "200 g",
+        "price": 15,
+        "mrp": 15,
+        "in_stock": true,
+        "image": "/products/verified/dry-heritage-curd-200g.webp"
+      },
+      {
+        "id": "g1-dry004-v2",
+        "name": "450 g",
+        "unit": "450 g",
         "price": 38,
         "mrp": 38,
         "in_stock": true,
         "image": "/products/verified/dry-heritage-curd-450g.webp"
+      },
+      {
+        "id": "g1-dry004-v3",
+        "name": "1 kg",
+        "unit": "1 kg",
+        "price": 72,
+        "mrp": 72,
+        "in_stock": true,
+        "image": "/products/verified/dry-heritage-curd-1kg.webp"
       }
     ]
   },
@@ -55003,11 +55201,20 @@
     "in_stock": true,
     "variants": [
       {
-        "id": "var-g1-dry001-1",
-        "name": "500 ml (Pouch)",
-        "unit": "500 ml (Pouch)",
+        "id": "g1-dry001-v1",
+        "name": "500 ml",
+        "unit": "500 ml",
         "price": 29,
         "mrp": 29,
+        "in_stock": true,
+        "image": "/products/verified/dry-heritage-toned-milk.webp"
+      },
+      {
+        "id": "g1-dry001-v2",
+        "name": "1 L",
+        "unit": "1 L",
+        "price": 58,
+        "mrp": 58,
         "in_stock": true,
         "image": "/products/verified/dry-heritage-toned-milk.webp"
       }
@@ -56122,6 +56329,887 @@
         "mrp": 1495,
         "in_stock": true,
         "image": "/products/packshots/sri-lalitha-rice-25kg.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-1017",
+    "itemNumber": 1017,
+    "name": "Hatsun Pure Fresh Curd Pouch",
+    "brand": "Hatsun",
+    "brand_id": "brand-hatsun",
+    "category": "dairy-bread-eggs",
+    "category_id": "dairy-bread-eggs",
+    "category_name": "Dairy, Bread & Eggs",
+    "subCategory": "Fresh Milk & Curd",
+    "sub_category": "Fresh Milk & Curd",
+    "unit": "400 g",
+    "price": 35,
+    "mrp": 35,
+    "originalPrice": 35,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/dry-hatsun-curd.webp",
+    "imageUrl": "/products/verified/dry-hatsun-curd.webp",
+    "image_url": "/products/verified/dry-hatsun-curd.webp",
+    "image_path": "/products/verified/dry-hatsun-curd.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Pure, thick homogenised curd made from high quality pasteurised milk. Perfect for curd rice and raita.",
+    "rating": 4.8,
+    "reviewsCount": 26,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-1017-v1",
+        "name": "400 g",
+        "unit": "400 g",
+        "price": 35,
+        "mrp": 35,
+        "in_stock": true,
+        "image": "/products/verified/dry-hatsun-curd.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-1154",
+    "itemNumber": 1154,
+    "name": "Hatsun Sweet Malai Lassi",
+    "brand": "Hatsun",
+    "brand_id": "brand-hatsun",
+    "category": "dairy-bread-eggs",
+    "category_id": "dairy-bread-eggs",
+    "category_name": "Dairy, Bread & Eggs",
+    "subCategory": "Chilled Beverages & Lassi",
+    "sub_category": "Chilled Beverages & Lassi",
+    "unit": "200 ml",
+    "price": 20,
+    "mrp": 20,
+    "originalPrice": 20,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/dry-hatsun-malai-lassi.webp",
+    "imageUrl": "/products/verified/dry-hatsun-malai-lassi.webp",
+    "image_url": "/products/verified/dry-hatsun-malai-lassi.webp",
+    "image_path": "/products/verified/dry-hatsun-malai-lassi.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Rich and refreshing sweet malai lassi chilled and ready to drink.",
+    "rating": 4.7,
+    "reviewsCount": 19,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-1154-v1",
+        "name": "200 ml",
+        "unit": "200 ml",
+        "price": 20,
+        "mrp": 20,
+        "in_stock": true,
+        "image": "/products/verified/dry-hatsun-malai-lassi.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-1414",
+    "itemNumber": 1414,
+    "name": "Hatsun Fresh Mango Lassi Pouch",
+    "brand": "Hatsun",
+    "brand_id": "brand-hatsun",
+    "category": "dairy-bread-eggs",
+    "category_id": "dairy-bread-eggs",
+    "category_name": "Dairy, Bread & Eggs",
+    "subCategory": "Chilled Beverages & Lassi",
+    "sub_category": "Chilled Beverages & Lassi",
+    "unit": "200 ml",
+    "price": 25,
+    "mrp": 25,
+    "originalPrice": 25,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/dry-hatsun-mango-lassi.webp",
+    "imageUrl": "/products/verified/dry-hatsun-mango-lassi.webp",
+    "image_url": "/products/verified/dry-hatsun-mango-lassi.webp",
+    "image_path": "/products/verified/dry-hatsun-mango-lassi.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Luscious blend of Alphonso mango pulp and thick creamy curd.",
+    "rating": 4.8,
+    "reviewsCount": 22,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-1414-v1",
+        "name": "200 ml",
+        "unit": "200 ml",
+        "price": 25,
+        "mrp": 25,
+        "in_stock": true,
+        "image": "/products/verified/dry-hatsun-mango-lassi.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-1413",
+    "itemNumber": 1413,
+    "name": "Hatsun Masala Jeera Buttermilk",
+    "brand": "Hatsun",
+    "brand_id": "brand-hatsun",
+    "category": "dairy-bread-eggs",
+    "category_id": "dairy-bread-eggs",
+    "category_name": "Dairy, Bread & Eggs",
+    "subCategory": "Chilled Beverages & Lassi",
+    "sub_category": "Chilled Beverages & Lassi",
+    "unit": "200 ml",
+    "price": 12,
+    "mrp": 12,
+    "originalPrice": 12,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/dry-hatsun-jeera-buttermilk.webp",
+    "imageUrl": "/products/verified/dry-hatsun-jeera-buttermilk.webp",
+    "image_url": "/products/verified/dry-hatsun-jeera-buttermilk.webp",
+    "image_path": "/products/verified/dry-hatsun-jeera-buttermilk.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Cooling spiced churned buttermilk seasoned with roasted jeera and curry leaves.",
+    "rating": 4.7,
+    "reviewsCount": 18,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-1413-v1",
+        "name": "200 ml",
+        "unit": "200 ml",
+        "price": 12,
+        "mrp": 12,
+        "in_stock": true,
+        "image": "/products/verified/dry-hatsun-jeera-buttermilk.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-1431",
+    "itemNumber": 1431,
+    "name": "Hatsun Fresh Malai Paneer",
+    "brand": "Hatsun",
+    "brand_id": "brand-hatsun",
+    "category": "dairy-bread-eggs",
+    "category_id": "dairy-bread-eggs",
+    "category_name": "Dairy, Bread & Eggs",
+    "subCategory": "Paneer, Butter & Cheese",
+    "sub_category": "Paneer, Butter & Cheese",
+    "unit": "200 g",
+    "price": 105,
+    "mrp": 105,
+    "originalPrice": 105,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/dry-hatsun-paneer-200g.webp",
+    "imageUrl": "/products/verified/dry-hatsun-paneer-200g.webp",
+    "image_url": "/products/verified/dry-hatsun-paneer-200g.webp",
+    "image_path": "/products/verified/dry-hatsun-paneer-200g.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Soft and succulent vacuum-sealed fresh paneer made from pure cow milk.",
+    "rating": 4.8,
+    "reviewsCount": 31,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-1431-v1",
+        "name": "200 g",
+        "unit": "200 g",
+        "price": 105,
+        "mrp": 105,
+        "in_stock": true,
+        "image": "/products/verified/dry-hatsun-paneer-200g.webp"
+      },
+      {
+        "id": "g1-pos-1431-v2",
+        "name": "500 g",
+        "unit": "500 g",
+        "price": 240,
+        "mrp": 240,
+        "in_stock": true,
+        "image": "/products/verified/dry-hatsun-paneer-200g.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-1412",
+    "itemNumber": 1412,
+    "name": "Hatsun Pure Cow Ghee",
+    "brand": "Hatsun",
+    "brand_id": "brand-hatsun",
+    "category": "oil-ghee-masala",
+    "category_id": "oil-ghee-masala",
+    "category_name": "Oil, Ghee & Masala",
+    "subCategory": "Edible Oils & Ghee",
+    "sub_category": "Edible Oils & Ghee",
+    "unit": "500 ml",
+    "price": 385,
+    "mrp": 385,
+    "originalPrice": 385,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/dry-hatsun-ghee-500ml.webp",
+    "imageUrl": "/products/verified/dry-hatsun-ghee-500ml.webp",
+    "image_url": "/products/verified/dry-hatsun-ghee-500ml.webp",
+    "image_path": "/products/verified/dry-hatsun-ghee-500ml.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Aromatic golden granular pure cow ghee made with traditional churning process.",
+    "rating": 4.9,
+    "reviewsCount": 42,
+    "isPopular": true,
+    "isBestDeal": true,
+    "variants": [
+      {
+        "id": "g1-pos-1412-v1",
+        "name": "200 ml",
+        "unit": "200 ml",
+        "price": 165,
+        "mrp": 165,
+        "in_stock": true,
+        "image": "/products/verified/dry-hatsun-ghee-500ml.webp"
+      },
+      {
+        "id": "g1-pos-1412-v2",
+        "name": "500 ml",
+        "unit": "500 ml",
+        "price": 385,
+        "mrp": 385,
+        "in_stock": true,
+        "image": "/products/verified/dry-hatsun-ghee-500ml.webp"
+      },
+      {
+        "id": "g1-pos-1412-v3",
+        "name": "1 L",
+        "unit": "1 L",
+        "price": 740,
+        "mrp": 740,
+        "in_stock": true,
+        "image": "/products/verified/dry-hatsun-ghee-500ml.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-0671",
+    "itemNumber": 671,
+    "name": "Farm Fresh White Eggs Protective Pack",
+    "brand": "Farm Fresh",
+    "brand_id": "brand-farm-fresh",
+    "category": "dairy-bread-eggs",
+    "category_id": "dairy-bread-eggs",
+    "category_name": "Dairy, Bread & Eggs",
+    "subCategory": "Fresh Eggs",
+    "sub_category": "Fresh Eggs",
+    "unit": "6 pcs",
+    "price": 48,
+    "mrp": 48,
+    "originalPrice": 48,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/dry-farm-fresh-eggs-6pack.webp",
+    "imageUrl": "/products/verified/dry-farm-fresh-eggs-6pack.webp",
+    "image_url": "/products/verified/dry-farm-fresh-eggs-6pack.webp",
+    "image_path": "/products/verified/dry-farm-fresh-eggs-6pack.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Hygienically sorted and cleaned protein-rich table eggs in secure molded packaging.",
+    "rating": 4.8,
+    "reviewsCount": 55,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-0671-v1",
+        "name": "6 pcs",
+        "unit": "6 pcs",
+        "price": 48,
+        "mrp": 48,
+        "in_stock": true,
+        "image": "/products/verified/dry-farm-fresh-eggs-6pack.webp"
+      },
+      {
+        "id": "g1-pos-0671-v2",
+        "name": "12 pcs",
+        "unit": "12 pcs",
+        "price": 95,
+        "mrp": 95,
+        "in_stock": true,
+        "image": "/products/verified/dry-farm-fresh-eggs-6pack.webp"
+      },
+      {
+        "id": "g1-pos-0671-v3",
+        "name": "30 pcs (Full Tray)",
+        "unit": "30 pcs",
+        "price": 210,
+        "mrp": 210,
+        "in_stock": true,
+        "image": "/products/verified/dry-farm-fresh-eggs-6pack.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-1033",
+    "itemNumber": 1033,
+    "name": "Arun Icecreams Lipstick Strawberry Ice Bar",
+    "brand": "Arun Icecreams",
+    "brand_id": "brand-arun-icecreams",
+    "category": "ice-creams",
+    "category_id": "ice-creams",
+    "category_name": "Ice Creams & More",
+    "subCategory": "Arun Icecreams Sticks & Bars",
+    "sub_category": "Arun Icecreams Sticks & Bars",
+    "unit": "45 ml",
+    "price": 10,
+    "mrp": 10,
+    "originalPrice": 10,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/ice-arun-lipstick.webp",
+    "imageUrl": "/products/verified/ice-arun-lipstick.webp",
+    "image_url": "/products/verified/ice-arun-lipstick.webp",
+    "image_path": "/products/verified/ice-arun-lipstick.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Fun strawberry ice candy bar designed in classic push-up lipstick style.",
+    "rating": 4.7,
+    "reviewsCount": 20,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-1033-v1",
+        "name": "45 ml",
+        "unit": "45 ml",
+        "price": 10,
+        "mrp": 10,
+        "in_stock": true,
+        "image": "/products/verified/ice-arun-lipstick.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-1157",
+    "itemNumber": 1157,
+    "name": "Arun Icecreams Fun Wheel Ice Cream",
+    "brand": "Arun Icecreams",
+    "brand_id": "brand-arun-icecreams",
+    "category": "ice-creams",
+    "category_id": "ice-creams",
+    "category_name": "Ice Creams & More",
+    "subCategory": "Arun Icecreams Sticks & Bars",
+    "sub_category": "Arun Icecreams Sticks & Bars",
+    "unit": "60 ml",
+    "price": 20,
+    "mrp": 20,
+    "originalPrice": 20,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/ice-arun-fun-wheel.webp",
+    "imageUrl": "/products/verified/ice-arun-fun-wheel.webp",
+    "image_url": "/products/verified/ice-arun-fun-wheel.webp",
+    "image_path": "/products/verified/ice-arun-fun-wheel.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Multi-flavor swirl ice cream wheel stick bar with bright colors and creamy texture.",
+    "rating": 4.7,
+    "reviewsCount": 16,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-1157-v1",
+        "name": "60 ml",
+        "unit": "60 ml",
+        "price": 20,
+        "mrp": 20,
+        "in_stock": true,
+        "image": "/products/verified/ice-arun-fun-wheel.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-1359",
+    "itemNumber": 1359,
+    "name": "Arun Icecreams Chocolate Trio Ball",
+    "brand": "Arun Icecreams",
+    "brand_id": "brand-arun-icecreams",
+    "category": "ice-creams",
+    "category_id": "ice-creams",
+    "category_name": "Ice Creams & More",
+    "subCategory": "Arun Icecreams Sticks & Bars",
+    "sub_category": "Arun Icecreams Sticks & Bars",
+    "unit": "60 ml",
+    "price": 25,
+    "mrp": 25,
+    "originalPrice": 25,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/ice-arun-chocolate-ball.webp",
+    "imageUrl": "/products/verified/ice-arun-chocolate-ball.webp",
+    "image_url": "/products/verified/ice-arun-chocolate-ball.webp",
+    "image_path": "/products/verified/ice-arun-chocolate-ball.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Crispy chocolate-covered ice cream sphere ball filled with luscious cream.",
+    "rating": 4.8,
+    "reviewsCount": 24,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-1359-v1",
+        "name": "60 ml",
+        "unit": "60 ml",
+        "price": 25,
+        "mrp": 25,
+        "in_stock": true,
+        "image": "/products/verified/ice-arun-chocolate-ball.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-0707",
+    "itemNumber": 707,
+    "name": "Sunfeast YiPPee! Wow Masala Instant Noodles",
+    "brand": "Sunfeast",
+    "brand_id": "brand-sunfeast",
+    "category": "instant-food",
+    "category_id": "instant-food",
+    "category_name": "Instant & Frozen Food",
+    "subCategory": "Noodles, Pasta & Vermicelli",
+    "sub_category": "Noodles, Pasta & Vermicelli",
+    "unit": "65 g",
+    "price": 14,
+    "mrp": 14,
+    "originalPrice": 14,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/ins-yippee-wow-masala.webp",
+    "imageUrl": "/products/verified/ins-yippee-wow-masala.webp",
+    "image_url": "/products/verified/ins-yippee-wow-masala.webp",
+    "image_path": "/products/verified/ins-yippee-wow-masala.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Non-sticky round noodles infused with rich spices and dehydrated vegetables.",
+    "rating": 4.7,
+    "reviewsCount": 28,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-0707-v1",
+        "name": "65 g",
+        "unit": "65 g",
+        "price": 14,
+        "mrp": 14,
+        "in_stock": true,
+        "image": "/products/verified/ins-yippee-wow-masala.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-0225",
+    "itemNumber": 225,
+    "name": "Knorr Classic Thick Tomato Soup Mix",
+    "brand": "Knorr",
+    "brand_id": "brand-knorr",
+    "category": "instant-food",
+    "category_id": "instant-food",
+    "category_name": "Instant & Frozen Food",
+    "subCategory": "Ready Mixes & Breakfast",
+    "sub_category": "Ready Mixes & Breakfast",
+    "unit": "53 g",
+    "price": 35,
+    "mrp": 35,
+    "originalPrice": 35,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/ins-knorr-tomato-soup.webp",
+    "imageUrl": "/products/verified/ins-knorr-tomato-soup.webp",
+    "image_url": "/products/verified/ins-knorr-tomato-soup.webp",
+    "image_path": "/products/verified/ins-knorr-tomato-soup.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Restaurant quality rich and tangy tomato soup seasoned with herbs and croutons.",
+    "rating": 4.8,
+    "reviewsCount": 35,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-0225-v1",
+        "name": "53 g",
+        "unit": "53 g",
+        "price": 35,
+        "mrp": 35,
+        "in_stock": true,
+        "image": "/products/verified/ins-knorr-tomato-soup.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-0521",
+    "itemNumber": 521,
+    "name": "Bambino Roasted Short Vermicelli (Semiya)",
+    "brand": "Bambino",
+    "brand_id": "brand-bambino",
+    "category": "instant-food",
+    "category_id": "instant-food",
+    "category_name": "Instant & Frozen Food",
+    "subCategory": "Noodles, Pasta & Vermicelli",
+    "sub_category": "Noodles, Pasta & Vermicelli",
+    "unit": "250 g",
+    "price": 28,
+    "mrp": 28,
+    "originalPrice": 28,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/ins-bambino-vermicelli-250g.webp",
+    "imageUrl": "/products/verified/ins-bambino-vermicelli-250g.webp",
+    "image_url": "/products/verified/ins-bambino-vermicelli-250g.webp",
+    "image_path": "/products/verified/ins-bambino-vermicelli-250g.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Pre-roasted 100% hard wheat semolina vermicelli for quick payasam and upma.",
+    "rating": 4.8,
+    "reviewsCount": 40,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-0521-v1",
+        "name": "250 g",
+        "unit": "250 g",
+        "price": 28,
+        "mrp": 28,
+        "in_stock": true,
+        "image": "/products/verified/ins-bambino-vermicelli-250g.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-0233",
+    "itemNumber": 233,
+    "name": "Dharani Roasted Upma Rava (Suji)",
+    "brand": "Dharani",
+    "brand_id": "brand-dharani",
+    "category": "instant-food",
+    "category_id": "instant-food",
+    "category_name": "Instant & Frozen Food",
+    "subCategory": "Ready Mixes & Breakfast",
+    "sub_category": "Ready Mixes & Breakfast",
+    "unit": "500 g",
+    "price": 42,
+    "mrp": 42,
+    "originalPrice": 42,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/ins-dharani-upma-rava-500g.webp",
+    "imageUrl": "/products/verified/ins-dharani-upma-rava-500g.webp",
+    "image_url": "/products/verified/ins-dharani-upma-rava-500g.webp",
+    "image_path": "/products/verified/ins-dharani-upma-rava-500g.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Granular roasted wheat rava for fluffy traditional South Indian upma and kesari.",
+    "rating": 4.7,
+    "reviewsCount": 21,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-0233-v1",
+        "name": "500 g",
+        "unit": "500 g",
+        "price": 42,
+        "mrp": 42,
+        "in_stock": true,
+        "image": "/products/verified/ins-dharani-upma-rava-500g.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-0221",
+    "itemNumber": 221,
+    "name": "Premium Thick Poha (Atukulu)",
+    "brand": "G1 Mart Staples",
+    "brand_id": "brand-g1mart",
+    "category": "instant-food",
+    "category_id": "instant-food",
+    "category_name": "Instant & Frozen Food",
+    "subCategory": "Ready Mixes & Breakfast",
+    "sub_category": "Ready Mixes & Breakfast",
+    "unit": "500 g",
+    "price": 38,
+    "mrp": 38,
+    "originalPrice": 38,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/ins-thick-poha-500g.webp",
+    "imageUrl": "/products/verified/ins-thick-poha-500g.webp",
+    "image_url": "/products/verified/ins-thick-poha-500g.webp",
+    "image_path": "/products/verified/ins-thick-poha-500g.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Clean, unpolished thick flattened rice flakes for quick breakfast poha and snacks.",
+    "rating": 4.8,
+    "reviewsCount": 29,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-0221-v1",
+        "name": "500 g",
+        "unit": "500 g",
+        "price": 38,
+        "mrp": 38,
+        "in_stock": true,
+        "image": "/products/verified/ins-thick-poha-500g.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-1389",
+    "itemNumber": 1389,
+    "name": "Kissan Sweet & Spicy Tomato Chilli Sauce Bottle",
+    "brand": "Kissan",
+    "brand_id": "brand-kissan",
+    "category": "sauces-spreads",
+    "category_id": "sauces-spreads",
+    "category_name": "Sauces & Spreads",
+    "subCategory": "Tomato Ketchup & Chilli Sauce",
+    "sub_category": "Tomato Ketchup & Chilli Sauce",
+    "unit": "200 g",
+    "price": 55,
+    "mrp": 55,
+    "originalPrice": 55,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/sau-kissan-sweet-spicy.webp",
+    "imageUrl": "/products/verified/sau-kissan-sweet-spicy.webp",
+    "image_url": "/products/verified/sau-kissan-sweet-spicy.webp",
+    "image_path": "/products/verified/sau-kissan-sweet-spicy.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Unique tangy and spicy sauce made with farm fresh tomatoes and zesty red chillies.",
+    "rating": 4.8,
+    "reviewsCount": 33,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-1389-v1",
+        "name": "200 g",
+        "unit": "200 g",
+        "price": 55,
+        "mrp": 55,
+        "in_stock": true,
+        "image": "/products/verified/sau-kissan-sweet-spicy.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-1391",
+    "itemNumber": 1391,
+    "name": "Kissan Crunchy Peanut Butter",
+    "brand": "Kissan",
+    "brand_id": "brand-kissan",
+    "category": "sauces-spreads",
+    "category_id": "sauces-spreads",
+    "category_name": "Sauces & Spreads",
+    "subCategory": "Jams, Honey & Spreads",
+    "sub_category": "Jams, Honey & Spreads",
+    "unit": "350 g",
+    "price": 175,
+    "mrp": 175,
+    "originalPrice": 175,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/sau-kissan-peanut-butter.webp",
+    "imageUrl": "/products/verified/sau-kissan-peanut-butter.webp",
+    "image_url": "/products/verified/sau-kissan-peanut-butter.webp",
+    "image_path": "/products/verified/sau-kissan-peanut-butter.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "High-protein roasted peanut butter with crunchy bits for morning toast and smoothies.",
+    "rating": 4.9,
+    "reviewsCount": 27,
+    "isPopular": true,
+    "isBestDeal": true,
+    "variants": [
+      {
+        "id": "g1-pos-1391-v1",
+        "name": "350 g",
+        "unit": "350 g",
+        "price": 175,
+        "mrp": 175,
+        "in_stock": true,
+        "image": "/products/verified/sau-kissan-peanut-butter.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-0017",
+    "itemNumber": 17,
+    "name": "Unibic Danish Coconut Cookies",
+    "brand": "Unibic",
+    "brand_id": "brand-unibic",
+    "category": "biscuits-bakery",
+    "category_id": "biscuits-bakery",
+    "category_name": "Biscuits, Cookies & Rusks",
+    "subCategory": "Cookies & Premium Biscuits",
+    "sub_category": "Cookies & Premium Biscuits",
+    "unit": "150 g",
+    "price": 50,
+    "mrp": 50,
+    "originalPrice": 50,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/bsc-unibic-coconut.webp",
+    "imageUrl": "/products/verified/bsc-unibic-coconut.webp",
+    "image_url": "/products/verified/bsc-unibic-coconut.webp",
+    "image_path": "/products/verified/bsc-unibic-coconut.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Crisp traditional Danish-recipe cookies loaded with desiccated coconut shreds.",
+    "rating": 4.8,
+    "reviewsCount": 22,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-0017-v1",
+        "name": "150 g",
+        "unit": "150 g",
+        "price": 50,
+        "mrp": 50,
+        "in_stock": true,
+        "image": "/products/verified/bsc-unibic-coconut.webp"
+      }
+    ]
+  },
+  {
+    "id": "g1-pos-0539",
+    "itemNumber": 539,
+    "name": "Sri Krishna Crunchy Peanut Chikki Bar",
+    "brand": "Sri Krishna",
+    "brand_id": "brand-sri-krishna",
+    "category": "biscuits-bakery",
+    "category_id": "biscuits-bakery",
+    "category_name": "Biscuits, Cookies & Rusks",
+    "subCategory": "Traditional Indian Sweets",
+    "sub_category": "Traditional Indian Sweets",
+    "unit": "100 g",
+    "price": 30,
+    "mrp": 30,
+    "originalPrice": 30,
+    "discount": 0,
+    "discountPercentage": 0,
+    "inStock": true,
+    "in_stock": true,
+    "isActive": true,
+    "is_active": true,
+    "image": "/products/verified/bsc-peanut-chikki.webp",
+    "imageUrl": "/products/verified/bsc-peanut-chikki.webp",
+    "image_url": "/products/verified/bsc-peanut-chikki.webp",
+    "image_path": "/products/verified/bsc-peanut-chikki.webp",
+    "imageStatus": "verified",
+    "image_status": "verified",
+    "description": "Traditional roasted groundnut chikki sweetened with natural jaggery.",
+    "rating": 4.8,
+    "reviewsCount": 38,
+    "isPopular": true,
+    "isBestDeal": false,
+    "variants": [
+      {
+        "id": "g1-pos-0539-v1",
+        "name": "100 g",
+        "unit": "100 g",
+        "price": 30,
+        "mrp": 30,
+        "in_stock": true,
+        "image": "/products/verified/bsc-peanut-chikki.webp"
       }
     ]
   }

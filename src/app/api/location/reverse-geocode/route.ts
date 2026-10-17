@@ -135,21 +135,37 @@ export async function POST(request: NextRequest) {
 
         // If street or area has technical highway codes (e.g. MDR085, NH16, Nellore Urban), clean them
         if (isTechnicalHighwayCode(street)) {
-          street = nearestLocality?.locality.landmark || nearestLocality?.locality.name || area || 'Doorstep Location';
+          if (nearestLocality && nearestLocality.distanceKm <= 2.0) {
+            street = nearestLocality.locality.landmark || nearestLocality.locality.name;
+          } else if (village) {
+            street = `${village} Main Road`;
+          } else if (suburb) {
+            street = `${suburb} Main Road`;
+          } else {
+            street = 'Doorstep Location';
+          }
         }
 
         if (isTechnicalHighwayCode(area) || !area || area.toLowerCase().includes('urban') || area.toLowerCase() === 'nellore') {
-          area = nearestLocality?.locality.area || 'Nellore';
+          if (village && street !== village) {
+            area = village;
+          } else if (nearestLocality && nearestLocality.distanceKm <= 2.0) {
+            area = nearestLocality.locality.area;
+          } else if (mandal) {
+            area = mandal;
+          } else {
+            area = nearestLocality?.locality.area || 'Nellore';
+          }
         }
 
-        let cleanStreet = street || nearestLocality?.locality.name || 'Doorstep Location';
+        let cleanStreet = street || 'Doorstep Location';
         if (isTechnicalHighwayCode(cleanStreet)) {
-          cleanStreet = nearestLocality?.locality.name || 'Doorstep Location';
+          cleanStreet = village || suburb || (nearestLocality && nearestLocality.distanceKm <= 2.0 ? nearestLocality.locality.name : 'Doorstep Location');
         }
 
-        let cleanArea = area || nearestLocality?.locality.area || 'Nellore';
+        let cleanArea = area || 'Nellore';
         if (isTechnicalHighwayCode(cleanArea)) {
-          cleanArea = nearestLocality?.locality.area || 'Nellore';
+          cleanArea = village || mandal || (nearestLocality && nearestLocality.distanceKm <= 2.0 ? nearestLocality.locality.area : 'Nellore');
         }
 
         const cleanAddress = `${cleanStreet}, ${cleanArea}, ${city}, Andhra Pradesh - ${pincode}`;

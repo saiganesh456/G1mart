@@ -34,7 +34,14 @@ for (const v of MIGRATED_VARIANTS) {
  * Convert a migrated_products.json row → Product shape used across the storefront.
  */
 function mapMigratedProduct(row: typeof MIGRATED_PRODUCTS[number]): Product {
-  const brandName = brandNameById.get(row.brand_id ?? '') || (row as any).brand || 'Local / Unbranded';
+  let brandName = (row as any).brand || brandNameById.get(row.brand_id ?? '');
+  if (!brandName || brandName === 'Local / Unbranded') {
+    if (row.name?.startsWith('G1 Mart') || row.name?.startsWith('G1Mart') || (row as any).brand === 'G1 Mart') {
+      brandName = 'G1 Mart';
+    } else {
+      brandName = 'Local / Unbranded';
+    }
+  }
   const variants = variantsByProductId.get(row.id) || [];
   const cheapest = variants.length > 0 ? variants.reduce((a, b) => (a.price <= b.price ? a : b)) : null;
 
@@ -100,6 +107,24 @@ function isG1MartOrLocalBrand(brand?: string | null): boolean {
   );
 }
 
+function getProductBrandTier(brand?: string | null, name?: string | null): number {
+  const b = (brand || '').trim().toLowerCase();
+  const n = (name || '').trim().toLowerCase();
+  if (
+    isG1MartOrLocalBrand(b) ||
+    b.includes('g1') ||
+    b.includes('g1mart') ||
+    n.startsWith('g1 mart') ||
+    n.startsWith('g1mart')
+  ) {
+    return 1;
+  }
+  if (b.includes('tata') || n.includes('tata')) {
+    return 3;
+  }
+  return 2;
+}
+
 export const MIGRATED_PRODUCT_LIST: Product[] = MIGRATED_PRODUCTS.map(mapMigratedProduct).sort((a, b) => {
   const aCat = a.category_id || a.category;
   const bCat = b.category_id || b.category;
@@ -107,10 +132,10 @@ export const MIGRATED_PRODUCT_LIST: Product[] = MIGRATED_PRODUCTS.map(mapMigrate
     const aSub = a.subCategory || (a as any).sub_category || '';
     const bSub = b.subCategory || (b as any).sub_category || '';
     if (aSub === bSub) {
-      const aIsG1 = isG1MartOrLocalBrand(a.brand);
-      const bIsG1 = isG1MartOrLocalBrand(b.brand);
-      if (aIsG1 !== bIsG1) {
-        return aIsG1 ? 1 : -1;
+      const tierA = getProductBrandTier(a.brand, a.name);
+      const tierB = getProductBrandTier(b.brand, b.name);
+      if (tierA !== tierB) {
+        return tierA - tierB;
       }
       const aHasImg = a.image_url && !a.image_url.includes('placeholder') ? 1 : 0;
       const bHasImg = b.image_url && !b.image_url.includes('placeholder') ? 1 : 0;

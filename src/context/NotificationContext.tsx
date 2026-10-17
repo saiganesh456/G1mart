@@ -199,19 +199,28 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
           }
 
           if ('Notification' in window && Notification.permission === 'granted') {
-            const nativeNotif = new Notification(fullNotification.title, {
-              body: fullNotification.body,
-              icon: '/logo.png',
-              badge: '/logo.png',
-              tag: fullNotification.orderId ? `order_${fullNotification.orderId}` : 'g1mart_alert',
-            });
-            nativeNotif.onclick = () => {
-              window.focus();
-              if (fullNotification.actionUrl) {
-                window.location.href = fullNotification.actionUrl;
-              }
-              nativeNotif.close();
-            };
+            const currentPath = window.location.pathname;
+            const isViewingThisOrder =
+              Boolean(fullNotification.orderId &&
+              (currentPath === `/orders/${fullNotification.orderId}` ||
+               currentPath.startsWith(`/orders/${fullNotification.orderId}/`)));
+
+            // Never show duplicate system notification if user is already looking right at this order
+            if (!isViewingThisOrder || document.visibilityState !== 'visible') {
+              const nativeNotif = new Notification(fullNotification.title, {
+                body: fullNotification.body,
+                icon: '/logo.png',
+                badge: '/logo.png',
+                tag: fullNotification.orderId ? `order_${fullNotification.orderId}` : 'g1mart_alert',
+              });
+              nativeNotif.onclick = () => {
+                window.focus();
+                if (fullNotification.actionUrl) {
+                  window.location.href = fullNotification.actionUrl;
+                }
+                nativeNotif.close();
+              };
+            }
           }
         } catch {}
       }
@@ -308,15 +317,34 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
 
   const notifyOrderStatus = useCallback(
     (orderId: string, status: OrderStatus | string, orderData?: any) => {
-      // STRICT FILTER: Only notify if the order belongs to THIS account/device!
+      // STRICT FILTER 1: Only notify if the order belongs to THIS account/device!
       if (!isOrderOwnedByCurrentAccount(orderId, orderData)) {
         return;
       }
 
-      // Deduplicate status triggers for the same order
+      // STRICT FILTER 2: If customer is ALREADY on the live tracking page for this order,
+      // DO NOT pop up a redundant "Track Order" notification banner!
+      // The tracking screen already displays the live animated journey and updates in real-time.
+      if (typeof window !== 'undefined') {
+        const pathname = window.location.pathname;
+        if (pathname === `/orders/${orderId}` || pathname.startsWith(`/orders/${orderId}/`)) {
+          return;
+        }
+      }
+
+      // Deduplicate status triggers for the same order (in-memory + sessionStorage)
+      const dedupeKey = `g1mart_notif_seen_${orderId}_${status}`;
       if (lastNotifiedStatusRef.current.get(orderId) === status) {
         return;
       }
+      try {
+        if (typeof window !== 'undefined') {
+          if (sessionStorage.getItem(dedupeKey)) {
+            return;
+          }
+          sessionStorage.setItem(dedupeKey, 'true');
+        }
+      } catch {}
       lastNotifiedStatusRef.current.set(orderId, status);
 
       const shortId = orderId.startsWith('G1-') ? orderId : `#${orderId.slice(-6)}`;

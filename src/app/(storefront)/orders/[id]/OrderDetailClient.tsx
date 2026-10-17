@@ -26,7 +26,7 @@ import {
 import DeliveryJourneyAnimation from '@/components/orders/DeliveryJourneyAnimation';
 import { formatIndianPhoneDisplay } from '@/lib/phone';
 import { STORE_CONFIG } from '@/config/store';
-import { useNotification } from '@/context/NotificationContext';
+import { soundAlerts } from '@/lib/soundAlerts';
 import { useCart } from '@/context/CartContext';
 import { triggerSuccessHaptic } from '@/lib/haptics';
 import type { Product } from '@/types';
@@ -40,7 +40,6 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
   const searchParams = useSearchParams();
   const isJustPlaced = searchParams.get('placed') === 'true';
   const isPaid = searchParams.get('paid') === 'true';
-  const { notifyOrderStatus } = useNotification();
   const { clearCart } = useCart();
 
   const [order, setOrder] = useState<any>(initialOrder || null);
@@ -94,9 +93,6 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
     return () => clearTimeout(searchTimer);
   }, [itemSearchQuery, showAddItemsModal]);
 
-  const notifyRef = useRef(notifyOrderStatus);
-  notifyRef.current = notifyOrderStatus;
-
   useEffect(() => {
     let found = false;
     try {
@@ -122,6 +118,28 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
       }
     } catch {}
 
+    const playStatusChime = (newStatus: string) => {
+      switch (newStatus) {
+        case 'Confirmed':
+          soundAlerts.playOrderConfirmedChime();
+          break;
+        case 'Packing':
+        case 'Packed':
+          soundAlerts.playPackedChime();
+          break;
+        case 'Rider Assigned':
+          soundAlerts.playRiderAssignmentChime();
+          break;
+        case 'Order Dispatched':
+        case 'Out for Delivery':
+          soundAlerts.playOutForDeliveryChime();
+          break;
+        case 'Delivered':
+          soundAlerts.playDeliveredChime();
+          break;
+      }
+    };
+
     const syncLiveOrder = async () => {
       try {
         const res = await fetch(`/api/orders/${orderId}`);
@@ -129,7 +147,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
         if (data.success && data.order) {
           setOrder((prev: any) => {
             if (prev && prev.status && prev.status !== data.order.status) {
-              notifyRef.current(orderId, data.order.status, data.order);
+              playStatusChime(data.order.status);
             }
             return { ...prev, ...data.order };
           });
@@ -145,7 +163,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
         if (payData.success && payData.order) {
           setOrder((prev: any) => {
             if (prev && prev.status && prev.status !== payData.order.status) {
-              notifyRef.current(orderId, payData.order.status, payData.order);
+              playStatusChime(payData.order.status);
             }
             return { ...prev, ...payData.order };
           });
@@ -162,7 +180,13 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
       bc = new BroadcastChannel('g1mart_order_channel');
       bc.onmessage = (event) => {
         if (event.data?.type === 'ORDER_UPDATED' && (event.data.orderId === orderId || event.data.order?.id === orderId)) {
-          setOrder((prev: any) => ({ ...prev, ...(event.data.order || {}), status: event.data.status || event.data.order?.status || prev?.status }));
+          const nextStatus = event.data.status || event.data.order?.status;
+          setOrder((prev: any) => {
+            if (prev && nextStatus && prev.status !== nextStatus) {
+              playStatusChime(nextStatus);
+            }
+            return { ...prev, ...(event.data.order || {}), status: nextStatus || prev?.status };
+          });
         }
       };
     } catch {}
@@ -195,11 +219,30 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
       if (typeof document !== 'undefined') {
         document.cookie = 'g1mart_order_just_paid=; path=/; max-age=0;';
       }
+      // Immediately clean search params from address bar so refresh/re-renders never re-trigger
+      try {
+        if (typeof window !== 'undefined') {
+          const url = new URL(window.location.href);
+          url.searchParams.delete('placed');
+          url.searchParams.delete('paid');
+          window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''));
+        }
+      } catch {}
     }
+
     if (isJustPlaced) {
-      notifyOrderStatus(orderId, 'Order Placed');
+      // Play confirmation sound chime once on placement without showing redundant "Track Order" banner
+      const placedChimeKey = `g1mart_placed_chime_${orderId}`;
+      try {
+        if (!sessionStorage.getItem(placedChimeKey)) {
+          sessionStorage.setItem(placedChimeKey, 'true');
+          soundAlerts.playOrderConfirmedChime();
+        }
+      } catch {
+        soundAlerts.playOrderConfirmedChime();
+      }
     }
-  }, [isJustPlaced, isPaid, orderId, notifyOrderStatus, clearCart]);
+  }, [isJustPlaced, isPaid, orderId, clearCart]);
 
   const isSlipOrder =
     order?.type === 'slip' ||

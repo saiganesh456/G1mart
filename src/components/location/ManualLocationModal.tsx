@@ -321,6 +321,10 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
     const lng = Number(item.lng || STORE_LNG);
 
     skipNextReverseGeocodeRef.current = true;
+    if (geocodeDebounceRef.current) {
+      clearTimeout(geocodeDebounceRef.current);
+    }
+
     setPinLat(lat);
     setPinLng(lng);
     setResolvedAddress(item.fullAddress || item.title);
@@ -341,29 +345,46 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
     }
   };
 
-  // Handle Enter key on search input (e.g. typing "Balaji Nellore" + Enter)
-  const handleSearchSubmit = (e?: React.FormEvent) => {
+  // Handle Enter key or 'Go' button on search input
+  const handleSearchSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     const query = searchQuery.trim();
     if (!query) return;
 
+    // 1. If suggestions already loaded in UI, pick the top one
     if (suggestions.length > 0) {
       handleSelectSuggestion(suggestions[0]);
-    } else {
-      // Check local dataset directly
-      const matches = searchNelloreLocations(query, 1);
-      if (matches.length > 0) {
-        const loc = matches[0];
-        handleSelectSuggestion({
-          title: loc.name,
-          fullAddress: `${loc.name}, ${loc.area}, Nellore, Andhra Pradesh - ${loc.pincode}`,
-          area: loc.area,
-          city: loc.city,
-          pincode: loc.pincode,
-          lat: loc.lat,
-          lng: loc.lng,
-        });
+      return;
+    }
+
+    // 2. Immediate local Nellore curated dataset match
+    const matches = searchNelloreLocations(query, 1);
+    if (matches.length > 0) {
+      const loc = matches[0];
+      handleSelectSuggestion({
+        title: loc.name,
+        fullAddress: `${loc.name}, ${loc.area}, Nellore, Andhra Pradesh - ${loc.pincode}`,
+        area: loc.area,
+        city: loc.city,
+        pincode: loc.pincode,
+        lat: loc.lat,
+        lng: loc.lng,
+      });
+      return;
+    }
+
+    // 3. Fallback: actively query backend API
+    setIsSearching(true);
+    try {
+      const res = await fetch(`/api/location/search?q=${encodeURIComponent(query)}`);
+      const json = await res.json();
+      if (res.ok && json.success && Array.isArray(json.data) && json.data.length > 0) {
+        handleSelectSuggestion(json.data[0]);
       }
+    } catch (err) {
+      console.warn('[ManualLocationModal] Direct search submit error:', err);
+    } finally {
+      setIsSearching(false);
     }
   };
 
@@ -547,7 +568,7 @@ export default function ManualLocationModal({ isOpen, onClose, isMandatory = fal
           {/* Popular quick areas tags */}
           <div className="flex items-center gap-1.5 overflow-x-auto py-2 no-scrollbar text-[11px]">
             <span className="text-stone-400 font-semibold shrink-0">Popular:</span>
-            {['Molapeta', 'Harnadhapuram', 'Balaji Nagar', 'Magunta Layout', 'Pogathota', 'VRC Centre', 'Padarupalli'].map(
+            {['MGB Mall', 'Molapeta', 'Harnadhapuram', 'Balaji Nagar', 'Magunta Layout', 'Pogathota', 'VRC Centre', 'Padarupalli'].map(
               (area) => (
                 <button
                   key={area}

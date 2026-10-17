@@ -81,14 +81,26 @@ export async function GET(request: NextRequest) {
         const isTechCode = (s: string) => /^(MDR|SH|NH|\d+)/i.test((s || '').trim()) || /\bMDR\d*/i.test(s || '');
         const osmSuggestions = (data || []).map((item: any) => {
           const addr = item.address || {};
+          // Check for specific POI / place name first
+          const poiName = item.name || addr.shop || addr.amenity || addr.building || addr.tourism || addr.leisure;
           let rawTitle =
-            addr.suburb || addr.neighbourhood || addr.road || addr.city || item.name;
+            poiName && !isTechCode(poiName)
+              ? poiName
+              : addr.suburb || addr.neighbourhood || addr.village || addr.road || addr.city || 'Nellore Location';
+
           if (isTechCode(rawTitle)) {
-            rawTitle = addr.suburb || addr.neighbourhood || addr.city || 'Nellore Location';
+            rawTitle = addr.suburb || addr.neighbourhood || addr.village || addr.city || 'Nellore Location';
           }
-          const subtitle = [addr.suburb || addr.neighbourhood, addr.city || addr.town || 'Nellore', addr.postcode]
-            .filter(Boolean)
-            .join(', ');
+
+          const subtitleParts = [
+            rawTitle !== addr.road ? addr.road : null,
+            rawTitle !== addr.suburb ? addr.suburb : null,
+            rawTitle !== addr.neighbourhood ? addr.neighbourhood : null,
+            addr.city || addr.town || addr.village || 'Nellore',
+            addr.postcode,
+          ].filter(Boolean);
+
+          const subtitle = subtitleParts.filter((val, idx, self) => self.indexOf(val) === idx).join(', ');
 
           return {
             id: String(item.place_id),

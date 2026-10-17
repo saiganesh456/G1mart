@@ -1,0 +1,243 @@
+atta-rice-dal | bambino | bambino roasted vermicelli:
+   g1-ric030: Bambino Roasted Vermicelli (Semiya)
+   g1-ric031: Bambino Roasted Vermicelli (Semiya)
+atta-rice-dal | daawat | daawat rozana super basmati rice:
+   g1-ric008: Daawat Rozana Super Basmati Rice
+   g1-ric009: Daawat Rozana Super Basmati Rice
+   g1-daawat-rozana: Daawat Rozana Super Basmati Rice
+atta-rice-dal | daawat | daawat traditional basmati rice:
+   g1-ric006: Daawat Traditional Basmati Rice
+   g1-ric007: Daawat Traditional Basmati Rice
+atta-rice-dal | fortune | fortune biryani special basmati rice:
+   g1-ric010: Fortune Biryani Special Basmati Rice
+   g1-ric011: Fortune Biryani Special Basmati Rice
+atta-rice-dal | fortune | fortune chakki fresh atta 100 whole wheat:
+   g1-p1586: Fortune Chakki Fresh Atta 100% Whole Wheat
+   g1-ric021: Fortune Chakki Fresh Atta 100% Whole Wheat
+atta-rice-dal | fortune | fortune chana besan:
+   g1-p1028: Fortune Chana Besan (Pure Gram Flour)
+   g1-ric026: Fortune Chana Besan (Pure Gram Flour)
+atta-rice-dal | g1 mart loose staples | g1 mart kurnool special sona masuri rice:
+   g1-ric035: G1 Mart Kurnool Special Sona Masuri Rice (కర్నూలు స్పెషల్ బియ్యం)
+   g1-ric036: G1 Mart Kurnool Special Sona Masuri Rice (కర్నూలు స్పెషల్ బియ్యం)
+atta-rice-dal | india gate | india gate classic basmati rice:
+   g1-ric001: India Gate Classic Basmati Rice
+   g1-ric002: India Gate Classic Basmati Rice
+atta-rice-dal | india gate | india gate feast rozzana basmati rice:
+   g1-ric003: India Gate Feast Rozzana Basmati Rice
+   g1-ric004: India Gate Feast Rozzana Basmati Rice
+atta-rice-dal | nature fresh | nature fresh sampoorna chakki atta:
+   g1-p1585: Nature Fresh Sampoorna Chakki Atta
+   g1-ric022: Nature Fresh Sampoorna Chakki Atta
+atta-rice-dal | pillsbury | pillsbury chakki fresh whole wheat atta:
+   g1-p1581: Pillsbury Chakki Fresh Whole Wheat Atta
+   g1-ric018: Pillsbury Chakki Fresh Whole Wheat Atta
+   g1-ric019: Pillsbury Chakki Fresh Whole Wheat Atta
+   g1-ric020: Pillsbury Chakki Fresh Whole Wheat Atta
+   g1-pillsbury-atta: Pillsbury Chakki Fresh Whole Wheat Atta (గోధుమ పిండి)
+atta-rice-dal | sri lalitha | sri lalitha idli rava:
+   g1-p0428: Sri Lalitha Idli Rava (ఇడ్లీ రవ్వ)
+   g1-ric034: Sri Lalitha Idli Rava (ఇడ్లీ రవ్వ)
+atta-rice-dal | tata sampann | tata sampann 100 multigrain atta:
+   g1-ric023: Tata Sampann 100% Multigrain Atta
+   g1-ric024: Tata Sampann 100% Multigrain Atta
+biscuits-bakery | britannia | britannia marie gold biscuits:
+   g1-bsc015: Britannia Marie Gold Biscuits
+   g1-bsc073: Britannia Marie Gold Biscuits (120 g)
+biscuits-bakery | parle | parleg original glucose biscuits:
+   g1-bsc001: Parle-G Original Glucose Biscuits
+   g1-bsc067: Parle-G Original Glucose Biscuits (Pocket Pack 65 g)
+   g1-bsc068: Parle-G Original Glucose Biscuits (130 g)
+chips-namkeen | lay's | lays american style cream onion chips:
+   g1-snk070: Lay's American Style Cream & Onion Chips (26 g)
+   g1-snk075: Lay's American Style Cream & Onion Chips (115 g)
+chips-namkeen | lay's | lays classic salted potato chips:
+   g1-snk002: Lay's Classic Salted Potato Chips
+   g1-snk069: Lay's Classic Salted Potato Chips (26 g)
+   g1-snk074: Lay's Classic Salted Potato Chips (115 g)
+chips-namkeen | lay's | lays indias magic masala potato chips:
+   g1-snk001: Lay's India's Magic Masala Potato Chips
+   g1-snk068: Lay's India's Magic Masala Potato Chips (26 g)
+   g1-snk073: Lay's India's Magic Masala Potato Chips (115 g)
+chips-namkeen | lay's | lays sizzling hot potato chips:
+   g1-snk005: Lay's Sizzling Hot Potato Chips
+   g1-snk072: Lay's Sizzling Hot Potato Chips (26 g)
+chips-namkeen | lay's | lays spanish tomato tango potato chips:
+   g1-snk003: Lay's Spanish Tomato Tango Potato Chips
+   g1-snk071: Lay's Spanish Tomato Tango Potato Chips (26 g)
+chips-namkeen | bingo! | bingo mad angles achaari masti:
+   g1-snk012: Bingo! Mad Angles Achaari Masti
+   g1-snk079: Bingo! Mad Angles Achaari Masti (30 g)
+chips-namkeen | bingo! | bingo mad angles tomato madness:
+   g1-snk013: Bingo! Mad Angles Tomato Madness
+   g1-snk080: Bingo! Mad Angles Tomato Madness (21 g)
+   g1-snk081: Bingo! Mad Angles Tomato Madness (30 g)
+   g1-snk082: Bingo! Mad Angles Tomato Madness (130 g)
+chips-namkeen | bingo! | bingo mad angles very peri peri:
+   g1-snk014: Bingo! Mad Angles Very Peri Peri
+   g1-snk083: Bingo! Mad Angles Very Peri Peri (30 g)
+chips-namkeen | bingo! | bingo tedhe medhe masala tadka:
+   g1-snk015: Bingo! Tedhe Medhe Masala Tadka
+   g1-snk086: Bingo! Tedhe Medhe Masala Tadka (30 g)
+   g1-snk087: Bingo! Tedhe Medhe Masala Tadka (105 g)
+chips-namkeen | kurkure | kurkure green chutney style crispy snack:
+   g1-snk008: Kurkure Green Chutney Style Crispy Snack
+   g1-snk077: Kurkure Green Chutney Style Crispy Snack (40 g)
+chips-namkeen | kurkure | kurkure masala munch crispy snack:
+   g1-snk007: Kurkure Masala Munch Crispy Snack
+   g1-snk076: Kurkure Masala Munch Crispy Snack (40 g)
+   g1-snk078: Kurkure Masala Munch Crispy Snack (170 g)
+drinks-juices | bisleri | bisleri packaged drinking water:
+   g1-bev045: Bisleri Packaged Drinking Water (500 ml)
+   g1-bev046: Bisleri Packaged Drinking Water (2 L)
+drinks-juices | coca-cola | cocacola original taste soft drink:
+   g1-bev029: Coca-Cola Original Taste Soft Drink (250 ml)
+   g1-bev030: Coca-Cola Original Taste Soft Drink (1.25 L)
+   g1-bev031: Coca-Cola Original Taste Soft Drink (2.25 L)
+drinks-juices | fanta | fanta orange flavour carbonated drink:
+   g1-bev005: Fanta Orange Flavour Carbonated Drink
+   g1-bev038: Fanta Orange Flavour Carbonated Drink (250 ml)
+   g1-bev039: Fanta Orange Flavour Carbonated Drink (2.25 L)
+drinks-juices | frooti | frooti mango fresh juicy mango drink:
+   g1-bev010: Frooti Mango Fresh Juicy Mango Drink
+   g1-bev043: Frooti Mango Fresh Juicy Mango Drink (125 ml)
+   g1-bev044: Frooti Mango Fresh Juicy Mango Drink (1.2 L)
+   g1-bev049: Frooti Mango Fresh Juicy Mango Drink (2 L Big Bottle)
+drinks-juices | kinley | kinley purified packaged drinking water:
+   g1-bev016: Kinley Purified Packaged Drinking Water
+   g1-bev047: Kinley Purified Packaged Drinking Water (500 ml)
+drinks-juices | limca | limca fresh lemon carbonated drink:
+   g1-bev004: Limca Fresh Lemon Carbonated Drink
+   g1-bev036: Limca Fresh Lemon Carbonated Drink (250 ml)
+   g1-bev037: Limca Fresh Lemon Carbonated Drink (2.25 L)
+drinks-juices | maaza | maaza real mango pulp beverage:
+   g1-bev009: Maaza Real Mango Pulp Beverage
+   g1-bev040: Maaza Real Mango Pulp Beverage (150 ml Pocket)
+   g1-bev041: Maaza Real Mango Pulp Beverage (250 ml)
+   g1-bev042: Maaza Real Mango Pulp Beverage (1.2 L)
+   g1-bev048: Maaza Real Mango Pulp Beverage (2 L Big Bottle)
+drinks-juices | sprite | sprite lemonlime carbonated drink:
+   g1-bev003: Sprite Lemon-Lime Carbonated Drink
+   g1-bev033: Sprite Lemon-Lime Carbonated Drink (250 ml)
+   g1-bev034: Sprite Lemon-Lime Carbonated Drink (1.25 L)
+   g1-bev035: Sprite Lemon-Lime Carbonated Drink (2.25 L)
+drinks-juices | thums up | thums up charged carbonated soft drink:
+   g1-bev001: Thums Up Charged Carbonated Soft Drink
+   g1-bev025: Thums Up Charged Carbonated Soft Drink (250 ml)
+   g1-bev026: Thums Up Charged Carbonated Soft Drink (1.25 L)
+   g1-bev027: Thums Up Charged Carbonated Soft Drink (2.25 L)
+   g1-bev-thumsup: Thums Up Charged Carbonated Soft Drink
+dry-fruits-cereals | g1 mart | g1 mart badam pappu:
+   g1-nut018: G1 Mart Badam Pappu (California Almonds / బాదం పప్పు)
+   g1-nut019: G1 Mart Badam Pappu (California Almonds / బాదం పప్పు)
+dry-fruits-cereals | g1 mart | g1 mart jeedipappu:
+   g1-p0422: G1 Mart Jeedipappu (Premium Cashews / జీడిపప్పు)
+   g1-nut016: G1 Mart Jeedipappu (Premium Cashews / జీడిపప్పు)
+   g1-nut017: G1 Mart Jeedipappu (Premium Cashews / జీడిపప్పు)
+dry-fruits-cereals | g1 mart | g1 mart phool makhana:
+   g1-p0979: G1 Mart Phool Makhana (Lotus Seeds / పూల్ మఖానా)
+   g1-nut023: G1 Mart Phool Makhana (Lotus Seeds / పూల్ మఖానా)
+dry-fruits-cereals | happilo | happilo 100 natural california almonds:
+   g1-nut001: Happilo 100% Natural California Almonds
+   g1-nut002: Happilo 100% Natural California Almonds
+dry-fruits-cereals | happilo | happilo 100 natural whole cashews:
+   g1-nut003: Happilo 100% Natural Whole Cashews
+   g1-nut004: Happilo 100% Natural Whole Cashews
+instant-food | quaker | quaker rolled oats 100 wholegrain:
+   g1-ins026: Quaker Rolled Oats 100% Wholegrain (400 g)
+   g1-ins027: Quaker Rolled Oats 100% Wholegrain (1 kg)
+instant-food | saffola | saffola classic masala oats:
+   g1-ins028: Saffola Classic Masala Oats (38 g Pocket)
+   g1-ins029: Saffola Classic Masala Oats (400 g)
+oil-ghee-masala | amul | amul pasteurized salted butter pack:
+   g1-oil041: Amul Pasteurized Salted Butter 100 g Pack
+   g1-oil042: Amul Pasteurized Salted Butter 500 g Pack
+oil-ghee-masala | amul | amul pure ghee:
+   g1-p1672: Amul Pure Ghee
+   g1-amul-pure-ghee: Amul Pure Ghee (అముల్ స్వచ్ఛమైన నెయ్యి)
+oil-ghee-masala | idhayam | idhayam pure sesame gingelly oil bottle:
+   g1-oil026: Idhayam Pure Sesame Gingelly Oil 500 ml Bottle
+   g1-oil027: Idhayam Pure Sesame Gingelly Oil 1 L Bottle
+oil-ghee-masala | nandini | nandini pure cow ghee pouch:
+   g1-oil034: Nandini Pure Cow Ghee 500 ml Pouch
+   g1-oil035: Nandini Pure Cow Ghee 1 L Pouch
+oil-ghee-masala | parachute | parachute pure coconut oil bottle:
+   g1-oil028: Parachute Pure Coconut Oil 200 ml Bottle
+   g1-oil029: Parachute Pure Coconut Oil 500 ml Bottle
+oral-care | closeup | closeup everfresh red hot gel toothpaste:
+   g1-pc049: Closeup Everfresh Red Hot Gel Toothpaste
+   g1-pc-closeup-redhot: Closeup Everfresh Red Hot Gel Toothpaste
+oral-care | colgate | colgate zigzag deep clean toothbrush:
+   g1-pc052: Colgate ZigZag Deep Clean Toothbrush
+   g1-pc121: Colgate ZigZag Deep Clean Toothbrush (Medium)
+sauces-spreads | kissan | kissan mixed fruit jam jar:
+   g1-sau012: Kissan Mixed Fruit Jam 200 g Jar
+   g1-sau013: Kissan Mixed Fruit Jam 500 g Jar
+sauces-spreads | kissan | kissan mixed fruit jam:
+   g1-p0293: Kissan Mixed Fruit Jam
+   g1-p0597: Kissan Mixed Fruit Jam
+soaps-bath | dettol | dettol original germ protection bathing soap:
+   g1-pc006: Dettol Original Germ Protection Bathing Soap
+   g1-pc-dettol-soap: Dettol Original Germ Protection Bathing Soap
+spices-masalas | aachi | aachi chicken masala:
+   g1-p0074: Aachi Chicken Masala
+   g1-spc031: Aachi Chicken Masala
+spices-masalas | aachi | aachi fish fry masala:
+   g1-p0072: Aachi Fish Fry Masala
+   g1-spc033: Aachi Fish Fry Masala
+spices-masalas | aachi | aachi rasam powder:
+   g1-p0066: Aachi Rasam Powder (రసం పొడి)
+   g1-spc030: Aachi Rasam Powder
+spices-masalas | aachi | aachi sambar powder:
+   g1-p0782: Aachi Sambar Powder (సాంబార్ పొడి)
+   g1-spc029: Aachi Sambar Powder
+spices-masalas | everest | everest chicken masala:
+   g1-spc008: Everest Chicken Masala
+   g1-ev-chicken-masala: Everest Chicken Masala
+spices-masalas | everest | everest garam masala:
+   g1-spc006: Everest Garam Masala
+   g1-ev-garam-masala: Everest Garam Masala
+spices-masalas | everest | everest kitchen king masala:
+   g1-spc007: Everest Kitchen King Masala
+   g1-ev-kitchen-king: Everest Kitchen King Masala
+spices-masalas | everest | everest pav bhaji masala:
+   g1-spc010: Everest Pav Bhaji Masala
+   g1-ev-pav-bhaji: Everest Pav Bhaji Masala
+spices-masalas | everest | everest turmeric powder:
+   g1-spc001: Everest Turmeric Powder (Haldi)
+   g1-spc002: Everest Turmeric Powder (Haldi)
+spices-masalas | g1 mart loose staples | g1 mart guntur endu mirchi:
+   g1-spc043: G1 Mart Guntur Endu Mirchi (Dried Red Chillies / ఎండుమిర్చి)
+   g1-spc044: G1 Mart Guntur Endu Mirchi (Dried Red Chillies / ఎండుమిర్చి)
+spices-masalas | g1 mart loose staples | g1 mart lavangalu:
+   g1-spc051: G1 Mart Lavangalu (Whole Cloves / లవంగాలు)
+   g1-spc052: G1 Mart Lavangalu (Cloves / లవంగాలు)
+spices-masalas | g1 mart | g1 mart jeelakarra:
+   g1-p0333: G1 Mart Jeelakarra (Cumin Seeds / జీలకర్ర)
+   g1-spc045: G1 Mart Jeelakarra (Cumin Seeds / జీలకర్ర)
+spices-masalas | mtr | mtr rasam powder:
+   g1-p0064: MTR Rasam Powder (రసం పొడి)
+   g1-spc026: MTR Rasam Powder
+spices-masalas | mtr | mtr sambar powder:
+   g1-p0065: MTR Sambar Powder (సాంబార్ పొడి)
+   g1-spc025: MTR Sambar Powder
+spices-masalas | priya | priya gongura pickle:
+   g1-spc038: Priya Gongura Pickle
+   g1-priya-gongura: Priya Gongura Pickle (గోంగూర పచ్చడి)
+sweets-chocolates | cadbury | cadbury 5 star chocolate bar:
+   g1-swt006: Cadbury 5 Star Chocolate Bar
+   g1-swt035: Cadbury 5 Star Chocolate Bar (10.1 g)
+   g1-swt036: Cadbury 5 Star Chocolate Bar (20 g)
+sweets-chocolates | cadbury | cadbury dairy milk chocolate bar:
+   g1-swt001: Cadbury Dairy Milk Chocolate Bar
+   g1-swt026: Cadbury Dairy Milk Chocolate Bar (12 g)
+   g1-swt027: Cadbury Dairy Milk Chocolate Bar (24 g)
+sweets-chocolates | cadbury | cadbury dairy milk silk chocolate bar:
+   g1-swt004: Cadbury Dairy Milk Silk Chocolate Bar
+   g1-swt030: Cadbury Dairy Milk Silk Chocolate Bar (150 g)
+sweets-chocolates | ferrero rocher | ferrero rocher crisp hazelnut pralines:
+   g1-swt013: Ferrero Rocher Crisp Hazelnut Pralines (8 Pack)
+   g1-swt047: Ferrero Rocher Crisp Hazelnut Pralines (4 Pack T4)
+sweets-chocolates | nestlé | nestl munch crunchy chocolate wafer:
+   g1-swt010: Nestlé Munch Crunchy Chocolate Wafer
+   g1-swt038: Nestlé Munch Crunchy Chocolate Wafer (9 g)

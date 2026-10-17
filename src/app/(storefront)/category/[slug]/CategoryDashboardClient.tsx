@@ -49,6 +49,67 @@ function isG1MartOrLocal(brand?: string | null): boolean {
   );
 }
 
+/**
+ * Checks if a product belongs to G1Mart private label or local store brand.
+ */
+function isG1MartProduct(p: { brand?: string | null; name?: string | null }): boolean {
+  const b = (p.brand || '').trim().toLowerCase();
+  const n = (p.name || '').trim().toLowerCase();
+  return (
+    isG1MartOrLocal(b) ||
+    b.includes('g1') ||
+    b.includes('g1mart') ||
+    n.startsWith('g1 mart') ||
+    n.startsWith('g1mart')
+  );
+}
+
+/**
+ * Checks if a product belongs to Tata brand (Tata Sampann, Tata, etc.).
+ */
+function isTataProduct(p: { brand?: string | null; name?: string | null }): boolean {
+  const b = (p.brand || '').trim().toLowerCase();
+  const n = (p.name || '').trim().toLowerCase();
+  return b.includes('tata') || n.includes('tata');
+}
+
+/**
+ * Brand priority hierarchy:
+ * 1. G1Mart products (First priority / Top of shelf)
+ * 2. Other FMCG brands (Nutrela, etc.)
+ * 3. Tata brands (Below list as requested)
+ */
+function getBrandPriorityTier(p: Product): number {
+  if (isG1MartProduct(p)) return 1;
+  if (isTataProduct(p)) return 3;
+  return 2;
+}
+
+/**
+ * Importance score for Telugu household staple dals.
+ * Daily staples like Toor Dal and Chana Dal are presented first.
+ */
+function getDalScore(name: string): number {
+  const n = name.toLowerCase();
+  if (n.includes('toor') || n.includes('kandi pappu')) return 1;
+  if ((n.includes('chana dal') || n.includes('senaga pappu') || n.includes('bengal gram')) && !n.includes('verusenaga')) return 2;
+  if (n.includes('pesara pappu') || n.includes('yellow moong')) return 3;
+  if (n.includes('moong') || n.includes('pesalu')) return 4;
+  if (n.includes('minap') || n.includes('urad')) return 5;
+  if (n.includes('masoor')) return 6;
+  if (n.includes('peanut') || n.includes('groundnut') || n.includes('verusenaga')) return 7;
+  if (n.includes('putnala') || (n.includes('roasted gram') && !n.includes('podi'))) return 8;
+  if (n.includes('rajma')) return 9;
+  if (n.includes('kabuli')) return 10;
+  if (n.includes('kala chana') || n.includes('nalla senagalu')) return 11;
+  if (n.includes('bataneelu') || n.includes('peas')) return 12;
+  if (n.includes('alasandalu') || n.includes('cowpeas')) return 13;
+  if (n.includes('soya')) return 14;
+  if (n.includes('telagapindi')) return 15;
+  if (n.includes('pappula podi') || n.includes('podi')) return 16;
+  return 20;
+}
+
 export default function CategoryDashboardClient({ category, products }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -85,7 +146,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
       name: string;
       image: string | null;
       count: number;
-      isBrandedImage: boolean;
+      isG1Image: boolean;
     }
     const subMap = new Map<string, SubInfo>();
 
@@ -96,7 +157,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
       }
 
       const existing = subMap.get(sub);
-      const isBranded = !isG1MartOrLocal(p.brand);
+      const isG1 = isG1MartProduct(p);
       const hasVerifiedImg = Boolean(
         (p.image_status === 'verified' || (p as any).imageStatus === 'verified' || (p as any).imageStatus === 'VERIFIED') &&
         ((p.image_url && !p.image_url.includes('placeholder')) || (p.imageUrl && !p.imageUrl.includes('placeholder')))
@@ -106,20 +167,29 @@ export default function CategoryDashboardClient({ category, products }: Props) {
         : null;
 
       if (!existing) {
-        subMap.set(sub, { name: sub, image: img, count: 1, isBrandedImage: isBranded && hasVerifiedImg });
+        subMap.set(sub, { name: sub, image: img, count: 1, isG1Image: isG1 && hasVerifiedImg });
       } else {
         existing.count += 1;
-        if (isBranded && hasVerifiedImg && (!existing.isBrandedImage || !existing.image)) {
+        // Prioritize G1Mart product images for subcategory thumbnails
+        if (isG1 && hasVerifiedImg && (!existing.isG1Image || !existing.image)) {
           existing.image = img;
-          existing.isBrandedImage = true;
+          existing.isG1Image = true;
         } else if (!existing.image && img) {
           existing.image = img;
         }
       }
     });
 
-    return Array.from(subMap.values()).sort((a, b) => b.count - a.count);
-  }, [category.id, categoryProducts]);
+    const definedOrder = category.subcategories || [];
+    return Array.from(subMap.values()).sort((a, b) => {
+      const idxA = definedOrder.indexOf(a.name);
+      const idxB = definedOrder.indexOf(b.name);
+      if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+      if (idxA !== -1) return -1;
+      if (idxB !== -1) return 1;
+      return b.count - a.count;
+    });
+  }, [category.id, category.subcategories, categoryProducts]);
 
   // Filter by selected sub-category
   const subFilteredProducts = useMemo(() => {
@@ -138,8 +208,8 @@ export default function CategoryDashboardClient({ category, products }: Props) {
 
     subFilteredProducts.forEach((p) => {
       const b = p.brand?.trim();
-      const isG1 = b && (b.toLowerCase().includes('g1') || b.toLowerCase().includes('g1mart'));
-      const isLocal = !b || /local\s*\/?\s*unbranded/i.test(b) || /^unbranded$/i.test(b);
+      const isG1 = isG1MartProduct(p);
+      const isLocal = !isG1 && (!b || /local\s*\/?\s*unbranded/i.test(b) || /^unbranded$/i.test(b));
 
       if (isG1) {
         g1MartCount += 1;
@@ -153,6 +223,10 @@ export default function CategoryDashboardClient({ category, products }: Props) {
     const brands = Array.from(brandMap.entries())
       .filter(([, count]) => count > 0)
       .sort((a, b) => {
+        // Tata brands below other brands
+        const aIsTata = a[0].toLowerCase().includes('tata');
+        const bIsTata = b[0].toLowerCase().includes('tata');
+        if (aIsTata !== bIsTata) return aIsTata ? 1 : -1;
         if (a[0].toLowerCase() === 'aashirvaad') return -1;
         if (b[0].toLowerCase() === 'aashirvaad') return 1;
         return b[1] - a[1];
@@ -167,14 +241,11 @@ export default function CategoryDashboardClient({ category, products }: Props) {
 
     // 1. Brand filtering
     if (selectedBrand === 'g1-mart' || selectedBrand === 'jeevan-mart') {
-      list = list.filter((p) => {
-        const b = p.brand?.trim();
-        return b && (b.toLowerCase().includes('g1') || b.toLowerCase().includes('g1mart'));
-      });
+      list = list.filter((p) => isG1MartProduct(p));
     } else if (selectedBrand === 'local') {
       list = list.filter((p) => {
         const b = p.brand?.trim();
-        return !b || /local\s*\/?\s*unbranded/i.test(b) || /^unbranded$/i.test(b);
+        return !isG1MartProduct(p) && (!b || /local\s*\/?\s*unbranded/i.test(b) || /^unbranded$/i.test(b));
       });
     } else if (selectedBrand !== 'all') {
       list = list.filter((p) => p.brand?.trim() === selectedBrand);
@@ -194,11 +265,19 @@ export default function CategoryDashboardClient({ category, products }: Props) {
       if (sortBy === 'price-asc') return a.price - b.price;
       if (sortBy === 'price-desc') return b.price - a.price;
 
-      const aIsG1 = isG1MartOrLocal(a.brand);
-      const bIsG1 = isG1MartOrLocal(b.brand);
+      // Brand Priority: G1Mart products first (Tier 1), other brands (Tier 2), Tata brands below list (Tier 3)
+      const tierA = getBrandPriorityTier(a);
+      const tierB = getBrandPriorityTier(b);
+      if (tierA !== tierB) {
+        return tierA - tierB;
+      }
 
-      if (aIsG1 !== bIsG1) {
-        return aIsG1 ? 1 : -1;
+      // Within the same brand tier in dal categories, sort by staple importance (Toor, Chana, Moong, Urad...)
+      const isDalCategory = category.id === 'local-dals' || category.id === 'dals-pulses';
+      if (isDalCategory) {
+        const dalA = getDalScore(a.name);
+        const dalB = getDalScore(b.name);
+        if (dalA !== dalB) return dalA - dalB;
       }
 
       const aHasImg = (a.image_status === 'verified' || (a as any).imageStatus === 'verified' || (a as any).imageStatus === 'VERIFIED') &&
@@ -214,7 +293,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
 
       return (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0);
     });
-  }, [subFilteredProducts, selectedBrand, priceFilter, sortBy]);
+  }, [subFilteredProducts, selectedBrand, priceFilter, sortBy, category.id]);
 
   const handleSelectSubCategory = (subName: string) => {
     setSelectedSubCategory(subName);
