@@ -102,7 +102,7 @@ export default function InstallAppPlacard() {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5 flex-wrap">
               <h3 className="text-sm font-extrabold text-stone-900 tracking-tight">
-                G1mart App
+                G1 Mart App
               </h3>
               <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-[#1E6B2E] border border-emerald-200">
                 <ShieldCheck className="w-2.5 h-2.5" />
@@ -152,7 +152,7 @@ export default function InstallAppPlacard() {
             ) : (
               <>
                 <Download className="w-4 h-4" />
-                <span>Install G1mart App (Direct APK)</span>
+                <span>Install G1 Mart App (Direct APK)</span>
               </>
             )}
           </button>

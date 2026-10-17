@@ -14,7 +14,7 @@ manifest_xml = '''<?xml version="1.0" encoding="utf-8"?>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="G1mart"
+        android:label="G1 Mart"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
@@ -29,12 +29,12 @@ manifest_xml = '''<?xml version="1.0" encoding="utf-8"?>
 </manifest>'''
 
 with zipfile.ZipFile(apk_path, 'w', zipfile.ZIP_DEFLATED) as z:
-    z.writestr('META-INF/MANIFEST.MF', 'Manifest-Version: 1.0\nCreated-By: G1mart 1.2.2\n')
+    z.writestr('META-INF/MANIFEST.MF', 'Manifest-Version: 1.0\nCreated-By: G1 Mart 1.2.2\n')
     z.writestr('AndroidManifest.xml', manifest_xml)
     if os.path.exists(icon_path):
         z.write(icon_path, 'res/mipmap-xxxhdpi/ic_launcher.png')
         z.write(icon_path, 'res/mipmap-xxxhdpi/ic_launcher_round.png')
         z.write(icon_path, 'res/drawable/ic_launcher.png')
-    z.writestr('assets/app_config.json', '{"app_name": "G1mart", "version": "1.2.2"}')
+    z.writestr('assets/app_config.json', '{"app_name": "G1 Mart", "version": "1.2.2"}')
 
 print(f'APK written: {os.path.getsize(apk_path)} bytes')

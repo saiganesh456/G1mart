@@ -74,7 +74,7 @@ function LoginForm() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/assets/images/g1_mart_banner_transparent.png"
-          alt="G1mart"
+          alt="G1 Mart"
           className="h-10 w-auto mx-auto object-contain"
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).src = '/logo.png';
@@ -85,7 +85,7 @@ function LoginForm() {
             ? 'Administrator Sign In'
             : roleParam === 'rider'
             ? 'Rider Portal Sign In'
-            : 'Sign In to G1mart'}
+            : 'Sign In to G1 Mart'}
         </h1>
         <p className="text-xs text-stone-500">
           {roleParam === 'admin'

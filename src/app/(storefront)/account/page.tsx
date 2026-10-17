@@ -174,7 +174,7 @@ export default function AccountPage() {
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5 flex-wrap">
                 <h2 className="font-extrabold text-[15px] tracking-tight" style={{ color: 'var(--g1-text)' }}>
-                  G1mart Android App
+                  G1 Mart Android App
                 </h2>
                 <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-[#1E6B2E] border border-emerald-300">
                   Official APK
