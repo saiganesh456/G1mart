@@ -150,7 +150,7 @@ export default function AccountPage() {
           </div>
         </div>
 
-        {/* ── Prominent Jeevan Mart APK Download Banner ── */}
+        {/* ── Prominent G1 Mart APK Download Banner ── */}
         <div
           className="mx-4 mt-4 rounded-[var(--g1-r-card)] overflow-hidden border p-4 shadow-sm"
           style={{
@@ -165,7 +165,7 @@ export default function AccountPage() {
             >
               <Image
                 src="/icons/icon-512x512.png"
-                alt="Jeevan Mart App Icon"
+                alt="G1 Mart App Icon"
                 width={52}
                 height={52}
                 className="w-full h-full object-cover rounded-xl"
@@ -174,7 +174,7 @@ export default function AccountPage() {
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5 flex-wrap">
                 <h2 className="font-extrabold text-[15px] tracking-tight" style={{ color: 'var(--g1-text)' }}>
-                  Jeevan Mart Android App
+                  G1 Mart Android App
                 </h2>
                 <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-[#1E6B2E] border border-emerald-300">
                   Official APK
@@ -192,7 +192,7 @@ export default function AccountPage() {
             </span>
             <a
               href="/downloads/g1mart.apk"
-              download="JeevanMart.apk"
+              download="G1Mart.apk"
               onClick={handleInstallApp}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white shadow-md transition-all shrink-0 g1-press"
               style={{ backgroundColor: '#1E6B2E' }}

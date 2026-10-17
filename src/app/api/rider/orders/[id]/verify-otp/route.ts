@@ -2,12 +2,21 @@ import { NextRequest, NextResponse } from 'next/server';
 import { serverOrderStore } from '@/lib/serverOrderStore';
 import { serverSlipOrders } from '@/lib/serverSlipOrders';
 import { verifyDeliveryOtp } from '@/lib/deliveryOtp';
+import { verifyRiderOrAdminRequest } from '@/lib/authGuard';
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const auth = await verifyRiderOrAdminRequest(request);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Rider or admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
     const { id } = await params;
     const body = await request.json();
     const { otp, riderIdentifier, cashCollected } = body;

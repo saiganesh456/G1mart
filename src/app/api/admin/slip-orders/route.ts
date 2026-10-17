@@ -1,9 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { serverSlipOrders } from '@/lib/serverSlipOrders';
+import { verifyAdminRequest } from '@/lib/authGuard';
 import type { SlipOrderStatus } from '@/types/slipOrder';
 
 export async function GET(req: NextRequest) {
   try {
+    const auth = await verifyAdminRequest(req);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
     const { searchParams } = new URL(req.url);
     const status = searchParams.get('status') as SlipOrderStatus | null;
 

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { serverOrderStore } from '@/lib/serverOrderStore';
+import { verifyRiderOrAdminRequest } from '@/lib/authGuard';
 import type { OrderStatus } from '@/types';
 
 export async function POST(
@@ -7,6 +8,14 @@ export async function POST(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const auth = await verifyRiderOrAdminRequest(request);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
     const { id } = await params;
     const body = await request.json();
     const { status, staffIdentifier, assignedRider } = body;

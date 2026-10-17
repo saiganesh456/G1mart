@@ -1,9 +1,18 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import { serverOrderStore } from '@/lib/serverOrderStore';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
+import { verifyAdminRequest } from '@/lib/authGuard';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const auth = await verifyAdminRequest(request);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
     const orders = serverOrderStore.getAllOrders();
 
     if (isSupabaseConfigured()) {

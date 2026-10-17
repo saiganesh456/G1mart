@@ -4,15 +4,23 @@ import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    const path = searchParams.get('path');
-    const bucket = searchParams.get('bucket') || 'slips';
+    const filePath = searchParams.get('path');
+    const ALLOWED_BUCKETS = ['slips', 'product-images'];
+    const rawBucket = searchParams.get('bucket') || 'slips';
+    if (!ALLOWED_BUCKETS.includes(rawBucket)) {
+      return NextResponse.json({ error: 'Invalid or restricted storage bucket' }, { status: 403 });
+    }
+    const bucket = rawBucket;
 
-    if (!path) {
+    if (!filePath) {
       return NextResponse.json({ error: 'Missing path parameter' }, { status: 400 });
     }
 
-    // Clean leading slash or bucket name if passed
-    const cleanPath = path.replace(/^slips\//, '').replace(/^\/+/, '');
+    // Clean leading slash or bucket name if passed, and prevent directory traversal
+    const cleanPath = filePath.replace(/^slips\//, '').replace(/^\/+/, '');
+    if (cleanPath.includes('..') || cleanPath.includes('\\')) {
+      return NextResponse.json({ error: 'Invalid path parameter' }, { status: 400 });
+    }
 
     if (isSupabaseConfigured()) {
       try {

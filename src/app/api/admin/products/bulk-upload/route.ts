@@ -3,11 +3,20 @@ import fs from 'fs';
 import path from 'path';
 import { execFile } from 'child_process';
 import { promisify } from 'util';
+import { verifyAdminRequest } from '@/lib/authGuard';
 
 const execFileAsync = promisify(execFile);
 
 export async function POST(req: NextRequest) {
   try {
+    const auth = await verifyAdminRequest(req);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
     const formData = await req.formData();
     const files = formData.getAll('images') as File[];
 

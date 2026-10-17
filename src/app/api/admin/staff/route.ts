@@ -1,8 +1,17 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { serverStaffStore } from '@/lib/serverStaffStore';
+import { verifyAdminRequest } from '@/lib/authGuard';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const auth = await verifyAdminRequest(request);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
     const data = serverStaffStore.getStaff();
     return NextResponse.json({
       success: true,
@@ -19,10 +28,18 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    const auth = await verifyAdminRequest(request);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
     const body = await request.json();
     const { type, email, name, phone, vehicleNumber, admins, riders } = body;
 
-    // Support client synchronization
+    // Support client synchronization only by authorized admins
     if (type === 'sync') {
       serverStaffStore.syncClientStaff(admins, riders);
       return NextResponse.json({
@@ -84,6 +101,14 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
+    const auth = await verifyAdminRequest(request);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
     const body = await request.json();
     const { type, email } = body;
 

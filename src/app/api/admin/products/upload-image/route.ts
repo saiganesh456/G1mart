@@ -1,12 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase/client';
+import { verifyAdminRequest } from '@/lib/authGuard';
 
 const SUPABASE_STORAGE_URL = 'https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/product-images';
 const STORAGE_PUBLIC_BASE = 'https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images';
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_21Va_owgBZfUACOuIp5Z2w_tQFUY74e';
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
 export async function POST(req: NextRequest) {
   try {
+    const auth = await verifyAdminRequest(req);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
     const contentType = req.headers.get('content-type') || '';
 
     // Handle Multipart File Upload

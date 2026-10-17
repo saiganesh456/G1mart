@@ -1,7 +1,8 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import { productService } from '@/services/productService';
+import { verifyAdminRequest } from '@/lib/authGuard';
 
 const CATALOG_PATH = path.join(process.cwd(), 'src', 'data', 'products-catalog.json');
 
@@ -45,8 +46,16 @@ export async function GET(request: Request) {
   }
 }
 
-export async function PATCH(request: Request) {
+export async function PATCH(request: NextRequest) {
   try {
+    const auth = await verifyAdminRequest(request);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
     const body = await request.json();
     const { id, name, brand, price, originalPrice, unit, inStock, imageUrl, imageStatus, category, subCategory } = body;
 

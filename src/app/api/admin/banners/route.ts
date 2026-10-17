@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { verifyAdminRequest } from '@/lib/authGuard';
 
 export async function GET() {
   try {
@@ -16,6 +17,14 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
+    const auth = await verifyAdminRequest(req);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
     const body = await req.json();
     const bannersPath = path.join(process.cwd(), 'data', 'banners.json');
     let data: any[] = fs.existsSync(bannersPath)

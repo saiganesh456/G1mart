@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { serverStoreSettings } from '@/lib/serverStoreSettings';
+import { verifyAdminRequest } from '@/lib/authGuard';
 
 export async function GET() {
   try {
@@ -22,6 +23,14 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    const auth = await verifyAdminRequest(request);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
     const body = await request.json();
     const { settings, zones } = body;
 
