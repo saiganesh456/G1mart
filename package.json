@@ -1,10 +1,9 @@
 {
   "name": "g1mart",
   "private": true,
-  "version": "0.1.3",
+  "version": "0.1.4",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/patch_next.js",
     "build": "node scripts/patch_next.js && next build",
     "postinstall": "node scripts/patch_next.js",
     "start": "next start",
