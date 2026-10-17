@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { serverPushService } from '@/lib/serverPushService';
 import type { Order } from '@/types';

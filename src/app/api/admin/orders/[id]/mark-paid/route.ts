@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { serverOrderStore } from '@/lib/serverOrderStore';
 import { verifyAdminRequest } from '@/lib/authGuard';

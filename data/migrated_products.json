@@ -15,8 +15,8 @@
     "imageStatus": "verified",
     "description": "Premium sun-dried whole Guntur red chillies packed in clean white food-grade pouch with official G1Mart seal. Known for deep vibrant red color, sharp pungency, and rich aroma essential for Andhra tadka, sambar, rasam, and spicy chutneys.",
     "inStock": true,
-    "is_active": true,
-    "isActive": true,
+    "is_active": false,
+    "isActive": false,
     "is_verified": true
   },
   {
@@ -1263,8 +1263,8 @@
     "brand": "G1 Mart",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
     "image_url": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000011",
@@ -1274,7 +1274,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
     "image": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Chilli, Turmeric & Coriander"
   },
   {
     "id": "g1-p0019",
@@ -1283,8 +1284,8 @@
     "brand": "Aachi",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0019.webp",
     "image_status": "verified",
     "barcode": null,
@@ -1294,7 +1295,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0019.webp",
     "image": "/products/verified/g1-p0019.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-p0028",
@@ -1355,7 +1357,9 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_elaichi_pouch.webp",
     "image": "/products/generated_pouches/g1_elaichi_pouch.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0064",
@@ -1364,8 +1368,8 @@
     "brand": "MTR",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Sambar, Rasam & Podis",
+    "subCategory": "Sambar, Rasam & Podis",
     "image_url": "/products/packshots/mtr-rasam-powder-200g.webp",
     "image_status": "verified",
     "barcode": "8901000000058",
@@ -1376,7 +1380,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/packshots/mtr-rasam-powder-200g.webp",
     "image": "/products/packshots/mtr-rasam-powder-200g.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Sambar, Rasam & Podis"
   },
   {
     "id": "g1-p0065",
@@ -1385,8 +1390,8 @@
     "brand": "MTR",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Sambar, Rasam & Podis",
+    "subCategory": "Sambar, Rasam & Podis",
     "image_url": "/products/packshots/mtr-sambar-powder-200g.webp",
     "image_status": "verified",
     "barcode": "8901000000059",
@@ -1396,7 +1401,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/packshots/mtr-sambar-powder-200g.webp",
     "image": "/products/packshots/mtr-sambar-powder-200g.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Sambar, Rasam & Podis"
   },
   {
     "id": "g1-p0066",
@@ -1405,8 +1411,8 @@
     "brand": "Aachi",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Sambar, Rasam & Podis",
+    "subCategory": "Sambar, Rasam & Podis",
     "image_url": "/products/packshots/aachi-rasam-powder-200g.webp",
     "image_status": "verified",
     "barcode": "8901000000060",
@@ -1416,7 +1422,8 @@
     "imageUrl": "/products/packshots/aachi-rasam-powder-200g.webp",
     "image": "/products/packshots/aachi-rasam-powder-200g.webp",
     "category_name": "Spices & Masalas",
-    "imageStatus": "verified"
+    "imageStatus": "verified",
+    "subcategory": "Sambar, Rasam & Podis"
   },
   {
     "id": "g1-p0069",
@@ -1425,8 +1432,8 @@
     "brand": "Aachi",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/verified/g1-p0069.webp",
     "image_status": "verified",
     "barcode": null,
@@ -1436,7 +1443,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0069.webp",
     "image": "/products/verified/g1-p0069.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-p0071",
@@ -1445,8 +1453,8 @@
     "brand": "Aachi",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/packshots/aachi-biryani-masala-50g.webp",
     "image_status": "verified",
     "barcode": "8901000000064",
@@ -1456,77 +1464,87 @@
     "imageStatus": "verified",
     "imageUrl": "/products/packshots/aachi-biryani-masala-50g.webp",
     "image": "/products/packshots/aachi-biryani-masala-50g.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-p0072",
-    "name": "Aachi Fish Fry Masala",
+    "name": "Aachi Fish Fry Masala (ఫిష్ ఫ్రై మసాలా)",
     "brand_id": "brand-aachi",
     "brand": "Aachi",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
-    "image_url": "/products/packshots/aachi-fish-fry-masala-50g.webp",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
+    "image_url": "/products/verified/g1-p0072.webp",
     "image_status": "verified",
     "barcode": "8901000000065",
     "image_source": null,
     "image_license": null,
     "image_check_reason": "No passing packshot image",
     "imageStatus": "verified",
-    "imageUrl": "/products/packshots/aachi-fish-fry-masala-50g.webp",
-    "image": "/products/packshots/aachi-fish-fry-masala-50g.webp",
-    "category_name": "Spices & Masalas"
+    "imageUrl": "/products/verified/g1-p0072.webp",
+    "image": "/products/verified/g1-p0072.webp",
+    "category_name": "Spices & Masalas",
+    "subcategory": "Masala Powders & Blends",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0073",
-    "name": "Aachi Mutton Masala",
+    "name": "Aachi Mutton Masala (మటన్ మసాలా)",
     "brand_id": "brand-aachi",
     "brand": "Aachi",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
-    "image_url": "/products/packshots/aachi-mutton-masala-100g.webp",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
+    "image_url": "/products/verified/g1-p0073.webp",
     "image_status": "verified",
     "barcode": null,
     "image_source": null,
     "image_license": null,
     "image_check_reason": "No passing packshot image",
     "imageStatus": "verified",
-    "imageUrl": "/products/packshots/aachi-mutton-masala-100g.webp",
-    "image": "/products/packshots/aachi-mutton-masala-100g.webp",
-    "category_name": "Spices & Masalas"
+    "imageUrl": "/products/verified/g1-p0073.webp",
+    "image": "/products/verified/g1-p0073.webp",
+    "category_name": "Spices & Masalas",
+    "subcategory": "Masala Powders & Blends",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0074",
-    "name": "Aachi Chicken Masala",
+    "name": "Aachi Chicken Masala (చికెన్ మసాలా)",
     "brand_id": "brand-aachi",
     "brand": "Aachi",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
-    "image_url": "/products/packshots/aachi-chicken-masala-100g.webp",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
+    "image_url": "/products/verified/g1-p0074.webp",
     "image_status": "verified",
     "barcode": "8901000000768",
     "image_source": null,
     "image_license": null,
     "image_check_reason": "No passing packshot image",
     "imageStatus": "verified",
-    "imageUrl": "/products/packshots/aachi-chicken-masala-100g.webp",
-    "image": "/products/packshots/aachi-chicken-masala-100g.webp",
-    "category_name": "Spices & Masalas"
+    "imageUrl": "/products/verified/g1-p0074.webp",
+    "image": "/products/verified/g1-p0074.webp",
+    "category_name": "Spices & Masalas",
+    "subcategory": "Masala Powders & Blends",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0076",
-    "name": "Aachi Garam Masala",
+    "name": "Aachi Garam Masala (గరం మసాలా)",
     "brand_id": "brand-aachi",
     "brand": "Aachi",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/verified/g1-p0076.webp",
     "image_status": "verified",
     "barcode": null,
@@ -1536,7 +1554,10 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0076.webp",
     "image": "/products/verified/g1-p0076.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Masala Powders & Blends",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0077",
@@ -1618,7 +1639,9 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
     "image": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0185",
@@ -1707,12 +1730,12 @@
   {
     "id": "g1-p0286",
     "name": "G1 Mart Vamu (Ajwain Seeds / వాము)",
-    "brand_id": "brand-g1mart",
-    "brand": "G1 Mart",
+    "brand_id": "brand-g1mart-loose",
+    "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/generated_pouches/g1_vamu_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000277",
@@ -1722,7 +1745,10 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_vamu_pouch.webp",
     "image": "/products/generated_pouches/g1_vamu_pouch.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Whole Spices & Staples",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0293",
@@ -1822,17 +1848,19 @@
     "imageUrl": "/products/generated_pouches/g1_jeera_pouch.webp",
     "image": "/products/generated_pouches/g1_jeera_pouch.webp",
     "category_name": "Spices & Masalas",
-    "unit": "250g"
+    "unit": "250g",
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0337",
     "name": "G1 Mart Anasa Puvvu (Star Anise / అనాస పువ్వు)",
-    "brand_id": "brand-g1mart",
-    "brand": "G1 Mart",
+    "brand_id": "brand-g1mart-loose",
+    "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/generated_pouches/g1_anasa_puvvu_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000319",
@@ -1842,17 +1870,20 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_anasa_puvvu_pouch.webp",
     "image": "/products/generated_pouches/g1_anasa_puvvu_pouch.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Whole Spices & Staples",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0338",
     "name": "G1 Mart Japathri (Mace / జాపత్రి)",
-    "brand_id": "brand-g1mart",
-    "brand": "G1 Mart",
+    "brand_id": "brand-g1mart-loose",
+    "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/generated_pouches/g1_japathri_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000320",
@@ -1862,17 +1893,20 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_japathri_pouch.webp",
     "image": "/products/generated_pouches/g1_japathri_pouch.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Whole Spices & Staples",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0342",
-    "name": "G1 Mart Miriyalu (Black Pepper / మిరియాలు)",
-    "brand_id": "brand-g1mart",
-    "brand": "G1 Mart",
+    "name": "G1 Mart Miriyalu (Whole Black Pepper / మిరియాలు)",
+    "brand_id": "brand-g1mart-loose",
+    "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000325",
@@ -1882,7 +1916,10 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_miriyalu_pouch.webp",
     "image": "/products/generated_pouches/g1_miriyalu_pouch.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Whole Spices & Staples",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0350",
@@ -1993,23 +2030,26 @@
   },
   {
     "id": "g1-p0502",
-    "name": "Gopuram Turmeric Powder 50",
-    "brand_id": "b-063",
-    "brand": "Local / Unbranded",
+    "name": "Gopuram Turmeric Powder (గోపురం పసుపు)",
+    "brand_id": "brand-gopuram",
+    "brand": "Gopuram",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
-    "image_url": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
+    "image_url": "/products/verified/hh-151-gopuram-pasupu-turmeric.webp",
     "image_status": "verified",
     "barcode": null,
     "image_source": null,
     "image_license": null,
     "image_check_reason": "No passing packshot image",
     "imageStatus": "verified",
-    "imageUrl": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
-    "image": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "imageUrl": "/products/verified/hh-151-gopuram-pasupu-turmeric.webp",
+    "image": "/products/verified/hh-151-gopuram-pasupu-turmeric.webp",
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Chilli, Turmeric & Coriander",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0503",
@@ -2029,7 +2069,9 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
     "image": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0583",
@@ -2060,8 +2102,8 @@
     "brand": "Local / Unbranded",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/generated_pouches/g1_elaichi_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000580",
@@ -2071,7 +2113,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_elaichi_pouch.webp",
     "image": "/products/generated_pouches/g1_elaichi_pouch.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Whole Spices & Staples"
   },
   {
     "id": "g1-p0635",
@@ -2095,13 +2138,13 @@
   },
   {
     "id": "g1-p0641",
-    "name": "Sri Durga Lemon Pickle",
-    "brand_id": "b-101",
+    "name": "Sri Durga Lemon Pickle (నిమ్మకాయ పచ్చడి)",
+    "brand_id": "brand-sri-durga",
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0641.webp",
     "image_status": "verified",
     "barcode": "8901000000638",
@@ -2111,17 +2154,20 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0641.webp",
     "image": "/products/verified/g1-p0641.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Andhra Pickles & Pastes",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0643",
-    "name": "Sri Durga Pulihora Pk",
-    "brand_id": "b-101",
+    "name": "Sri Durga Pulihora Paste (పులిహోర పేస్ట్)",
+    "brand_id": "brand-sri-durga",
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0643.webp",
     "image_status": "verified",
     "barcode": "8901000000641",
@@ -2131,17 +2177,20 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0643.webp",
     "image": "/products/verified/g1-p0643.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Andhra Pickles & Pastes",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0644",
-    "name": "Sri Durga Green Tamarind Pickleb",
-    "brand_id": "b-101",
+    "name": "Sri Durga Green Tamarind Pickle (చింతకాయ తొక్కు)",
+    "brand_id": "brand-sri-durga",
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0644.webp",
     "image_status": "verified",
     "barcode": null,
@@ -2151,17 +2200,20 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0644.webp",
     "image": "/products/verified/g1-p0644.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Andhra Pickles & Pastes",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0645",
-    "name": "Sri Durga Ginger Pickle",
-    "brand_id": "b-101",
+    "name": "Sri Durga Ginger Pickle (అల్లం పచ్చడి)",
+    "brand_id": "brand-sri-durga",
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0645.webp",
     "image_status": "verified",
     "barcode": "8901000000642",
@@ -2171,17 +2223,20 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0645.webp",
     "image": "/products/verified/g1-p0645.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Andhra Pickles & Pastes",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0648",
-    "name": "SRI Durga Ginger Garlic Paste",
-    "brand_id": "b-101",
+    "name": "Sri Durga Ginger Garlic Paste (అల్లం వెల్లుల్లి పేస్ట్)",
+    "brand_id": "brand-sri-durga",
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0648.webp",
     "image_status": "verified",
     "barcode": null,
@@ -2191,7 +2246,10 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0648.webp",
     "image": "/products/verified/g1-p0648.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Andhra Pickles & Pastes",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0649",
@@ -2211,17 +2269,19 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0649.webp",
     "image": "/products/verified/g1-p0649.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0650",
-    "name": "SRI Durga Mango CUT Pickle",
-    "brand_id": "b-101",
+    "name": "Sri Durga Mango Cut Pickle (మామిడి ముక్కల పచ్చడి)",
+    "brand_id": "brand-sri-durga",
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0650.webp",
     "image_status": "verified",
     "barcode": null,
@@ -2231,17 +2291,20 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0650.webp",
     "image": "/products/verified/g1-p0650.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Andhra Pickles & Pastes",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0651",
-    "name": "Sri Durga Tomato Pickle",
-    "brand_id": "b-101",
+    "name": "Sri Durga Tomato Pickle (టమాటో పచ్చడి)",
+    "brand_id": "brand-sri-durga",
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0651.webp",
     "image_status": "verified",
     "barcode": null,
@@ -2252,17 +2315,20 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0651.webp",
     "image": "/products/verified/g1-p0651.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Andhra Pickles & Pastes",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0653",
-    "name": "SRI Durga Gongura Pickle",
-    "brand_id": "b-101",
+    "name": "Sri Durga Gongura Pickle (గోంగూర పచ్చడి)",
+    "brand_id": "brand-sri-durga",
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0653.webp",
     "image_status": "verified",
     "barcode": null,
@@ -2272,17 +2338,20 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0653.webp",
     "image": "/products/verified/g1-p0653.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Andhra Pickles & Pastes",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0654",
-    "name": "SRI Durga Amla Pickle",
-    "brand_id": "brand-dabur",
-    "brand": "Dabur",
+    "name": "Sri Durga Amla Pickle (ఉసిరికాయ పచ్చడి)",
+    "brand_id": "brand-sri-durga",
+    "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0654.webp",
     "image_status": "verified",
     "barcode": null,
@@ -2292,17 +2361,20 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0654.webp",
     "image": "/products/verified/g1-p0654.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Andhra Pickles & Pastes",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0656",
-    "name": "SRI Durga RED Chilli Pickle",
-    "brand_id": "b-101",
+    "name": "Sri Durga Red Chilli Pickle (పండుమిరప పచ్చడి)",
+    "brand_id": "brand-sri-durga",
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0656.webp",
     "image_status": "verified",
     "barcode": null,
@@ -2312,17 +2384,20 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0656.webp",
     "image": "/products/verified/g1-p0656.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Andhra Pickles & Pastes",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0657",
-    "name": "SRI Durga Mango Avakai",
-    "brand_id": "b-101",
+    "name": "Sri Durga Mango Avakai Pickle (ఆవకాయ పచ్చడి)",
+    "brand_id": "brand-sri-durga",
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0657.webp",
     "image_status": "verified",
     "barcode": null,
@@ -2332,17 +2407,20 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0657.webp",
     "image": "/products/verified/g1-p0657.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Andhra Pickles & Pastes",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0658",
-    "name": "SRI Durga Mango Thokku",
-    "brand_id": "b-101",
+    "name": "Sri Durga Mango Thokku Pickle (మామిడి తురుము)",
+    "brand_id": "brand-sri-durga",
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0658.webp",
     "image_status": "verified",
     "barcode": null,
@@ -2352,7 +2430,10 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0658.webp",
     "image": "/products/verified/g1-p0658.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Andhra Pickles & Pastes",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0673",
@@ -2361,8 +2442,8 @@
     "brand": "G1 Mart",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/generated_pouches/g1_biryani_masala_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000662",
@@ -2372,7 +2453,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_biryani_masala_pouch.webp",
     "image": "/products/generated_pouches/g1_biryani_masala_pouch.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-p0677",
@@ -2441,8 +2523,8 @@
     "brand": "G1 Mart",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/generated_pouches/g1_kasuri_methi_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000678",
@@ -2452,7 +2534,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_kasuri_methi_pouch.webp",
     "image": "/products/generated_pouches/g1_kasuri_methi_pouch.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Whole Spices & Staples"
   },
   {
     "id": "g1-p0693",
@@ -2461,8 +2544,8 @@
     "brand": "G1 Mart",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/generated_pouches/g1_ginger_garlic_paste_pouch.webp",
     "image_status": "verified",
     "barcode": null,
@@ -2472,7 +2555,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_ginger_garlic_paste_pouch.webp",
     "image": "/products/generated_pouches/g1_ginger_garlic_paste_pouch.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-p0695",
@@ -2481,8 +2565,8 @@
     "brand": "G1 Mart",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/generated_pouches/g1_mango_pickle_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000681",
@@ -2492,7 +2576,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_mango_pickle_pouch.webp",
     "image": "/products/generated_pouches/g1_mango_pickle_pouch.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-p0696",
@@ -2501,8 +2586,8 @@
     "brand": "G1 Mart",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/generated_pouches/g1_tomato_pickle_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000682",
@@ -2513,7 +2598,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_tomato_pickle_pouch.webp",
     "image": "/products/generated_pouches/g1_tomato_pickle_pouch.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-p0697",
@@ -2522,8 +2608,8 @@
     "brand": "G1 Mart",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/generated_pouches/g1_lemon_pickle_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000683",
@@ -2533,17 +2619,18 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_lemon_pickle_pouch.webp",
     "image": "/products/generated_pouches/g1_lemon_pickle_pouch.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-p0706",
-    "name": "G1 Mart Pappula Podi (పప్పుల పొడి)",
-    "brand_id": "brand-g1mart",
-    "brand": "G1 Mart",
+    "name": "G1 Mart Pappula Podi (Gunpowder / పప్పుల పొడి)",
+    "brand_id": "brand-g1mart-loose",
+    "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Sambar, Rasam & Podis",
+    "subCategory": "Sambar, Rasam & Podis",
     "image_url": "/products/generated_pouches/g1_pappula_podi_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000693",
@@ -2553,17 +2640,20 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_pappula_podi_pouch.webp",
     "image": "/products/generated_pouches/g1_pappula_podi_pouch.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Sambar, Rasam & Podis",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0709",
     "name": "G1 Mart Kobbari Karam Podi (కొబ్బరి కారం పొడి)",
-    "brand_id": "brand-g1mart",
-    "brand": "G1 Mart",
+    "brand_id": "brand-g1mart-loose",
+    "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Sambar, Rasam & Podis",
+    "subCategory": "Sambar, Rasam & Podis",
     "image_url": "/products/generated_pouches/g1_kobbari_karam_podi_pouch.webp",
     "image_status": "verified",
     "barcode": null,
@@ -2573,7 +2663,10 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_kobbari_karam_podi_pouch.webp",
     "image": "/products/generated_pouches/g1_kobbari_karam_podi_pouch.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Sambar, Rasam & Podis",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0739",
@@ -2582,8 +2675,8 @@
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
     "image_url": "/products/verified/g1-p0739.webp",
     "image_status": "verified",
     "barcode": null,
@@ -2593,7 +2686,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0739.webp",
     "image": "/products/verified/g1-p0739.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Chilli, Turmeric & Coriander"
   },
   {
     "id": "g1-p0741",
@@ -2602,8 +2696,8 @@
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0741.webp",
     "image_status": "verified",
     "barcode": "8901000000730",
@@ -2613,7 +2707,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0741.webp",
     "image": "/products/verified/g1-p0741.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-p0742",
@@ -2622,8 +2717,8 @@
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0742.webp",
     "image_status": "verified",
     "barcode": null,
@@ -2633,7 +2728,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0742.webp",
     "image": "/products/verified/g1-p0742.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-p0776",
@@ -2675,7 +2771,9 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
     "image": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0780",
@@ -2704,8 +2802,8 @@
     "brand": "Aachi",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Sambar, Rasam & Podis",
+    "subCategory": "Sambar, Rasam & Podis",
     "image_url": "/products/packshots/aachi-sambar-powder-200g.webp",
     "image_status": "verified",
     "barcode": "8901000000767",
@@ -2715,7 +2813,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/packshots/aachi-sambar-powder-200g.webp",
     "image": "/products/packshots/aachi-sambar-powder-200g.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Sambar, Rasam & Podis"
   },
   {
     "id": "g1-p0788",
@@ -2744,8 +2843,8 @@
     "brand": "Local / Unbranded",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0795.webp",
     "image_status": "verified",
     "barcode": "8901000000781",
@@ -2755,7 +2854,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0795.webp",
     "image": "/products/verified/g1-p0795.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-p0804",
@@ -2764,8 +2864,8 @@
     "brand": "LG",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/verified/g1-p1004.webp",
     "image_status": "verified",
     "barcode": "8901000000787",
@@ -2775,7 +2875,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p1004.webp",
     "image": "/products/verified/g1-p1004.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Whole Spices & Staples"
   },
   {
     "id": "g1-p0826",
@@ -2804,8 +2905,8 @@
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Sambar, Rasam & Podis",
+    "subCategory": "Sambar, Rasam & Podis",
     "image_url": "/products/verified/g1-p0852.webp",
     "image_status": "verified",
     "barcode": null,
@@ -2815,7 +2916,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0852.webp",
     "image": "/products/verified/g1-p0852.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Sambar, Rasam & Podis"
   },
   {
     "id": "g1-p0874",
@@ -2947,8 +3049,8 @@
     "brand": "Local / Unbranded",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p0920.webp",
     "image_status": "verified",
     "barcode": null,
@@ -2958,7 +3060,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p0920.webp",
     "image": "/products/verified/g1-p0920.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-p0951",
@@ -2978,7 +3081,9 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_chilli_powder_pouch.webp",
     "image": "/products/generated_pouches/g1_chilli_powder_pouch.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0952",
@@ -3068,12 +3173,12 @@
   {
     "id": "g1-p0990",
     "name": "G1 Mart Dhaniyala Podi (Coriander Powder / ధనియాల పొడి)",
-    "brand_id": "brand-g1mart",
-    "brand": "G1 Mart",
+    "brand_id": "brand-g1mart-loose",
+    "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Sambar, Rasam & Podis",
+    "subCategory": "Sambar, Rasam & Podis",
     "image_url": "/products/generated_pouches/g1_coriander_powder_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000975",
@@ -3083,7 +3188,10 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_coriander_powder_pouch.webp",
     "image": "/products/generated_pouches/g1_coriander_powder_pouch.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Sambar, Rasam & Podis",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p0997",
@@ -3132,8 +3240,8 @@
     "brand": "Aashirvaad",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
     "image_url": "/products/packshots/aashirvaad-chilli-powder.webp",
     "image_status": "verified",
     "barcode": null,
@@ -3142,8 +3250,11 @@
     "image_check_reason": "Passes revised quality gate (front-facing single pack, transparent 800x800)",
     "category_name": "Spices, Masalas & Pickles",
     "imageUrl": "/products/packshots/aashirvaad-chilli-powder.webp",
-    "image": "/products/generated_pouches/g1_chilli_powder_pouch.webp",
-    "imageStatus": "verified"
+    "image": "/products/packshots/aashirvaad-chilli-powder.webp",
+    "imageStatus": "verified",
+    "subcategory": "Chilli, Turmeric & Coriander",
+    "is_active": true,
+    "isActive": true
   },
   {
     "id": "g1-p1004",
@@ -3152,8 +3263,8 @@
     "brand": "Vandevi",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/verified/g1-p1004.webp",
     "image_status": "verified",
     "barcode": "8901000000981",
@@ -3163,7 +3274,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p1004.webp",
     "image": "/products/verified/g1-p1004.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-p1014",
@@ -3172,8 +3284,8 @@
     "brand": "Local / Unbranded",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
     "image_url": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
     "image_status": "verified",
     "barcode": "8901000000993",
@@ -3183,7 +3295,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
     "image": "/products/generated_pouches/g1_turmeric_powder_pouch.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Chilli, Turmeric & Coriander"
   },
   {
     "id": "g1-p1019",
@@ -3212,8 +3325,8 @@
     "brand": "Sri Durga",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Masala Powders, Whole Spices & Pickles",
-    "subCategory": "Masala Powders, Whole Spices & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/packshots/sri-durga-coriander.webp",
     "image_status": "verified",
     "barcode": null,
@@ -3223,7 +3336,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/packshots/sri-durga-coriander.webp",
     "image": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
-    "category_name": "Spices & Masalas"
+    "category_name": "Spices & Masalas",
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-p1032",
@@ -3232,8 +3346,8 @@
     "brand": "Local / Unbranded",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/verified/g1-p1032.webp",
     "image_status": "verified",
     "barcode": "8901000001015",
@@ -3243,7 +3357,8 @@
     "imageStatus": "verified",
     "imageUrl": "/products/verified/g1-p1032.webp",
     "image": "/products/verified/g1-p1032.webp",
-    "category_name": "Spices, Masalas & Pickles"
+    "category_name": "Spices, Masalas & Pickles",
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-p1138",
@@ -18015,7 +18130,7 @@
   },
   {
     "id": "g1-bev002",
-    "name": "Coca-Cola Original Carbonated Soft Drink",
+    "name": "Coca-Cola Original Taste Carbonated Soft Drink",
     "brand_id": "brand-coca-cola",
     "brand": "Coca-Cola",
     "category_id": "drinks-juices",
@@ -18023,9 +18138,9 @@
     "sub_category": "Thums Up, Coca-Cola & Soft Drinks",
     "subCategory": "Thums Up, Coca-Cola & Soft Drinks",
     "unit": "750 ml",
-    "image_url": "/products/verified/bev-coca-cola-750ml.webp",
-    "imageUrl": "/products/verified/bev-coca-cola-750ml.webp",
-    "image": "/products/verified/bev-coca-cola-750ml.webp",
+    "image_url": "/products/verified/bev-coca-cola-250ml.webp",
+    "imageUrl": "/products/verified/bev-coca-cola-250ml.webp",
+    "image": "/products/verified/bev-coca-cola-250ml.webp",
     "image_path": "/products/verified/bev-coca-cola-750ml.webp",
     "image_status": "verified",
     "imageStatus": "verified",
@@ -19283,9 +19398,9 @@
     "sub_category": "Packaged Traditional Sweets",
     "subCategory": "Packaged Traditional Sweets",
     "unit": "200 g",
-    "image_url": "/products/verified/swt-tulasi-peanut-chikki.webp",
-    "imageUrl": "/products/verified/swt-tulasi-peanut-chikki.webp",
-    "image": "/products/verified/swt-tulasi-peanut-chikki.webp",
+    "image_url": "/products/verified/bsc-peanut-chikki.webp",
+    "imageUrl": "/products/verified/bsc-peanut-chikki.webp",
+    "image": "/products/verified/bsc-peanut-chikki.webp",
     "image_path": "/products/verified/swt-tulasi-peanut-chikki.webp",
     "image_status": "verified",
     "imageStatus": "verified",
@@ -19638,62 +19753,6 @@
     "is_active": true
   },
   {
-    "id": "g1-bev029",
-    "name": "Coca-Cola Original Taste Soft Drink",
-    "brand_id": "brand-coca-cola",
-    "brand": "Coca-Cola",
-    "category_id": "drinks-juices",
-    "category": "drinks-juices",
-    "sub_category": "Thums Up, Coca-Cola & Soft Drinks",
-    "subCategory": "Thums Up, Coca-Cola & Soft Drinks",
-    "unit": "250 ml",
-    "image_url": "/products/verified/bev-coca-cola-250ml.webp",
-    "imageUrl": "/products/verified/bev-coca-cola-250ml.webp",
-    "image": "/products/verified/bev-coca-cola-250ml.webp",
-    "image_path": "/products/verified/bev-coca-cola-250ml.webp",
-    "image_status": "verified",
-    "imageStatus": "verified",
-    "image_source": "verified_packshot",
-    "image_license": "Brand Packshot",
-    "image_check_reason": "100% authentic supermarket packshot",
-    "barcode": "8908068593304",
-    "description": "Coca-Cola Coca-Cola Original Taste Soft Drink (250 ml) (Original Taste Cola). Authentic Indian supermarket packaged SKU. Net quantity: 250 ml. Storage: AMBIENT. Shelf life: 6 Months.",
-    "rating": 4.8,
-    "reviewsCount": 74,
-    "isPopular": true,
-    "isBestDeal": true,
-    "inStock": true,
-    "is_active": true
-  },
-  {
-    "id": "g1-bev032",
-    "name": "Coca-Cola Original Soft Drink Can (250 ml)",
-    "brand_id": "brand-coca-cola",
-    "brand": "Coca-Cola",
-    "category_id": "drinks-juices",
-    "category": "drinks-juices",
-    "sub_category": "Thums Up, Coca-Cola & Soft Drinks",
-    "subCategory": "Thums Up, Coca-Cola & Soft Drinks",
-    "unit": "250 ml",
-    "image_url": "/products/verified/bev-coca-cola-can.webp",
-    "imageUrl": "/products/verified/bev-coca-cola-can.webp",
-    "image": "/products/verified/bev-coca-cola-can.webp",
-    "image_path": "/products/verified/bev-coca-cola-can.webp",
-    "image_status": "verified",
-    "imageStatus": "verified",
-    "image_source": "verified_packshot",
-    "image_license": "Brand Packshot",
-    "image_check_reason": "100% authentic supermarket packshot",
-    "barcode": "8906314300081",
-    "description": "Coca-Cola Coca-Cola Original Soft Drink Can (250 ml) (Original Cola Can). Authentic Indian supermarket packaged SKU. Net quantity: 250 ml. Storage: AMBIENT. Shelf life: 9 Months.",
-    "rating": 4.8,
-    "reviewsCount": 110,
-    "isPopular": true,
-    "isBestDeal": true,
-    "inStock": true,
-    "is_active": true
-  },
-  {
     "id": "g1-bev045",
     "name": "Bisleri Packaged Drinking Water",
     "brand_id": "brand-bisleri",
@@ -20011,9 +20070,9 @@
     "sub_category": "Chocolate Bars & Wafers",
     "subCategory": "Chocolate Bars & Wafers",
     "unit": "13 g",
-    "image_url": "/products/verified/swt-perk-5rs.webp",
-    "imageUrl": "/products/verified/swt-perk-5rs.webp",
-    "image": "/products/verified/swt-perk-5rs.webp",
+    "image_url": "/products/verified/swt-cadbury-perk.webp",
+    "imageUrl": "/products/verified/swt-cadbury-perk.webp",
+    "image": "/products/verified/swt-cadbury-perk.webp",
     "image_path": "/products/verified/swt-perk-5rs.webp",
     "image_status": "verified",
     "imageStatus": "verified",
@@ -24039,8 +24098,8 @@
     "brand": "Everest",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
     "image_url": "/products/packshots/everest-turmeric-powder-200g.webp",
     "image_status": "verified",
     "barcode": "8901786010022",
@@ -24052,7 +24111,8 @@
     "image": "/products/packshots/everest-turmeric-powder-200g.webp",
     "category_name": "spices-masalas",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Chilli, Turmeric & Coriander"
   },
   {
     "id": "g1-spc003",
@@ -24061,8 +24121,8 @@
     "brand": "Everest",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
     "image_url": "/products/packshots/everest-tikhalal-chilli-200g.webp",
     "image_status": "verified",
     "barcode": "8901786020021",
@@ -24074,7 +24134,8 @@
     "image": "/products/packshots/everest-tikhalal-chilli-200g.webp",
     "category_name": "spices-masalas",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Chilli, Turmeric & Coriander"
   },
   {
     "id": "g1-spc004",
@@ -24083,8 +24144,8 @@
     "brand": "Everest",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
     "image_url": "/products/packshots/everest-kashmirilal-100g.webp",
     "image_status": "verified",
     "barcode": "8901786020106",
@@ -24096,7 +24157,8 @@
     "image": "/products/packshots/everest-kashmirilal-100g.webp",
     "category_name": "spices-masalas",
     "unit": "100 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Chilli, Turmeric & Coriander"
   },
   {
     "id": "g1-spc005",
@@ -24105,8 +24167,8 @@
     "brand": "Everest",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
     "image_url": "/products/packshots/everest-coriander-powder-200g.webp",
     "image_status": "verified",
     "barcode": "8901786030020",
@@ -24118,7 +24180,8 @@
     "image": "/products/packshots/everest-coriander-powder-200g.webp",
     "category_name": "spices-masalas",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Chilli, Turmeric & Coriander"
   },
   {
     "id": "g1-spc009",
@@ -24127,8 +24190,8 @@
     "brand": "Everest",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Sambar & Rasam Powders",
-    "subCategory": "Sambar & Rasam Powders",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/packshots/everest-meat-masala-100g.webp",
     "image_status": "verified",
     "barcode": "8901786070019",
@@ -24140,7 +24203,8 @@
     "image": "/products/packshots/everest-meat-masala-100g.webp",
     "category_name": "spices-masalas",
     "unit": "100 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-spc011",
@@ -24149,8 +24213,8 @@
     "brand": "Everest",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Sambar & Rasam Powders",
-    "subCategory": "Sambar & Rasam Powders",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/packshots/everest-chhole-masala-100g.webp",
     "image_status": "verified",
     "barcode": "8901786090017",
@@ -24162,7 +24226,8 @@
     "image": "/products/packshots/everest-chhole-masala-100g.webp",
     "category_name": "spices-masalas",
     "unit": "100 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-spc012",
@@ -24171,8 +24236,8 @@
     "brand": "Everest",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Sambar & Rasam Powders",
-    "subCategory": "Sambar & Rasam Powders",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/packshots/everest-chaat-masala-100g.webp",
     "image_status": "verified",
     "barcode": "8901786100013",
@@ -24184,7 +24249,8 @@
     "image": "/products/packshots/everest-chaat-masala-100g.webp",
     "category_name": "spices-masalas",
     "unit": "100 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-spc013",
@@ -24193,8 +24259,8 @@
     "brand": "Everest",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Sambar & Rasam Powders",
-    "subCategory": "Sambar & Rasam Powders",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/packshots/everest-sambhar-masala-100g.webp",
     "image_status": "verified",
     "barcode": "8901786110012",
@@ -24206,7 +24272,8 @@
     "image": "/products/packshots/everest-sambhar-masala-100g.webp",
     "category_name": "spices-masalas",
     "unit": "100 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-spc014",
@@ -24215,8 +24282,8 @@
     "brand": "Everest",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/packshots/everest-kasuri-methi-50g.webp",
     "image_status": "verified",
     "barcode": "8901786120011",
@@ -24228,7 +24295,8 @@
     "image": "/products/packshots/everest-kasuri-methi-50g.webp",
     "category_name": "spices-masalas",
     "unit": "50 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples"
   },
   {
     "id": "g1-spc015",
@@ -24237,8 +24305,8 @@
     "brand": "Everest",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/packshots/everest-hingraj-50g.webp",
     "image_status": "verified",
     "barcode": "8901786130010",
@@ -24250,7 +24318,8 @@
     "image": "/products/packshots/everest-hingraj-50g.webp",
     "category_name": "spices-masalas",
     "unit": "50 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples"
   },
   {
     "id": "g1-spc016",
@@ -24259,8 +24328,8 @@
     "brand": "Tata Sampann",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
     "image_url": "/products/packshots/tata-sampann-turmeric-200g.webp",
     "image_status": "verified",
     "barcode": "8901030130029",
@@ -24272,7 +24341,8 @@
     "image": "/products/packshots/tata-sampann-turmeric-200g.webp",
     "category_name": "spices-masalas",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Chilli, Turmeric & Coriander"
   },
   {
     "id": "g1-spc017",
@@ -24281,8 +24351,8 @@
     "brand": "Tata Sampann",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
     "image_url": "/products/packshots/tata-sampann-chilli-200g.webp",
     "image_status": "verified",
     "barcode": "8901030140028",
@@ -24294,7 +24364,8 @@
     "image": "/products/packshots/tata-sampann-chilli-200g.webp",
     "category_name": "spices-masalas",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Chilli, Turmeric & Coriander"
   },
   {
     "id": "g1-spc018",
@@ -24303,8 +24374,8 @@
     "brand": "Tata Sampann",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
     "image_url": "/products/packshots/tata-sampann-coriander-200g.webp",
     "image_status": "verified",
     "barcode": "8901030150027",
@@ -24316,7 +24387,8 @@
     "image": "/products/packshots/tata-sampann-coriander-200g.webp",
     "category_name": "spices-masalas",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Chilli, Turmeric & Coriander"
   },
   {
     "id": "g1-spc019",
@@ -24325,8 +24397,8 @@
     "brand": "Tata Sampann",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Sambar & Rasam Powders",
-    "subCategory": "Sambar & Rasam Powders",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/packshots/tata-sampann-garam-masala-100g.webp",
     "image_status": "verified",
     "barcode": "8901030160019",
@@ -24338,7 +24410,8 @@
     "image": "/products/packshots/tata-sampann-garam-masala-100g.webp",
     "category_name": "spices-masalas",
     "unit": "100 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-spc020",
@@ -24347,8 +24420,8 @@
     "brand": "Catch",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
     "image_url": "/products/packshots/catch-turmeric-200g.webp",
     "image_status": "verified",
     "barcode": "8901170050027",
@@ -24360,7 +24433,8 @@
     "image": "/products/packshots/catch-turmeric-200g.webp",
     "category_name": "spices-masalas",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Chilli, Turmeric & Coriander"
   },
   {
     "id": "g1-spc021",
@@ -24369,8 +24443,8 @@
     "brand": "Catch",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
     "image_url": "/products/packshots/catch-chilli-200g.webp",
     "image_status": "verified",
     "barcode": "8901170060026",
@@ -24382,7 +24456,8 @@
     "image": "/products/packshots/catch-chilli-200g.webp",
     "category_name": "spices-masalas",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Chilli, Turmeric & Coriander"
   },
   {
     "id": "g1-spc022",
@@ -24391,8 +24466,8 @@
     "brand": "Catch",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
     "image_url": "/products/packshots/catch-coriander-200g.webp",
     "image_status": "verified",
     "barcode": "8901170070025",
@@ -24404,7 +24479,8 @@
     "image": "/products/packshots/catch-coriander-200g.webp",
     "category_name": "spices-masalas",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Chilli, Turmeric & Coriander"
   },
   {
     "id": "g1-spc023",
@@ -24413,8 +24489,8 @@
     "brand": "Catch",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Sambar & Rasam Powders",
-    "subCategory": "Sambar & Rasam Powders",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/packshots/catch-sprinkler-chaat-masala-100g.webp",
     "image_status": "verified",
     "barcode": "8901170080017",
@@ -24426,7 +24502,8 @@
     "image": "/products/packshots/catch-sprinkler-chaat-masala-100g.webp",
     "category_name": "spices-masalas",
     "unit": "100 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-spc024",
@@ -24435,8 +24512,8 @@
     "brand": "Catch",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/packshots/catch-sprinkler-black-pepper-100g.webp",
     "image_status": "verified",
     "barcode": "8901170090016",
@@ -24448,7 +24525,8 @@
     "image": "/products/packshots/catch-sprinkler-black-pepper-100g.webp",
     "category_name": "spices-masalas",
     "unit": "100 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples"
   },
   {
     "id": "g1-spc027",
@@ -24457,8 +24535,8 @@
     "brand": "MTR",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Sambar & Rasam Powders",
-    "subCategory": "Sambar & Rasam Powders",
+    "sub_category": "Sambar, Rasam & Podis",
+    "subCategory": "Sambar, Rasam & Podis",
     "image_url": "/products/packshots/mtr-puliyogare-powder-100g.webp",
     "image_status": "verified",
     "barcode": "8901042973002",
@@ -24470,7 +24548,8 @@
     "image": "/products/packshots/mtr-puliyogare-powder-100g.webp",
     "category_name": "spices-masalas",
     "unit": "100 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Sambar, Rasam & Podis"
   },
   {
     "id": "g1-spc028",
@@ -24479,8 +24558,8 @@
     "brand": "MTR",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Sambar & Rasam Powders",
-    "subCategory": "Sambar & Rasam Powders",
+    "sub_category": "Sambar, Rasam & Podis",
+    "subCategory": "Sambar, Rasam & Podis",
     "image_url": "/products/packshots/mtr-bisibele-bath-100g.webp",
     "image_status": "verified",
     "barcode": "8901042973507",
@@ -24492,7 +24571,8 @@
     "image": "/products/packshots/mtr-bisibele-bath-100g.webp",
     "category_name": "spices-masalas",
     "unit": "100 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Sambar, Rasam & Podis"
   },
   {
     "id": "g1-spc034",
@@ -24501,8 +24581,8 @@
     "brand": "Sakthi",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Sambar & Rasam Powders",
-    "subCategory": "Sambar & Rasam Powders",
+    "sub_category": "Sambar, Rasam & Podis",
+    "subCategory": "Sambar, Rasam & Podis",
     "image_url": "/products/packshots/sakthi-sambar-powder-100g.webp",
     "image_status": "verified",
     "barcode": "8901722060011",
@@ -24514,7 +24594,8 @@
     "image": "/products/packshots/sakthi-sambar-powder-100g.webp",
     "category_name": "spices-masalas",
     "unit": "100 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Sambar, Rasam & Podis"
   },
   {
     "id": "g1-spc035",
@@ -24523,8 +24604,8 @@
     "brand": "Sakthi",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Sambar & Rasam Powders",
-    "subCategory": "Sambar & Rasam Powders",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/packshots/sakthi-chicken-masala-100g.webp",
     "image_status": "verified",
     "barcode": "8901722070010",
@@ -24536,7 +24617,8 @@
     "image": "/products/packshots/sakthi-chicken-masala-100g.webp",
     "category_name": "spices-masalas",
     "unit": "100 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-spc036",
@@ -24545,8 +24627,8 @@
     "brand": "Dabur",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Ginger Garlic Paste",
-    "subCategory": "Ginger Garlic Paste",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/packshots/dabur-hommade-ginger-garlic-paste-200g.webp",
     "image_status": "verified",
     "barcode": "8901207002008",
@@ -24558,7 +24640,8 @@
     "image": "/products/packshots/dabur-hommade-ginger-garlic-paste-200g.webp",
     "category_name": "spices-masalas",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-spc037",
@@ -24580,7 +24663,8 @@
     "image": "/products/packshots/priya-mango-pickle-300g.webp",
     "category_name": "spices-masalas",
     "unit": "300 g",
-    "is_active": true
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-spc039",
@@ -24589,8 +24673,8 @@
     "brand": "Priya",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Andhra Avakaya & Pickles",
-    "subCategory": "Andhra Avakaya & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/packshots/priya-tomato-pickle-300g.webp",
     "image_status": "verified",
     "barcode": "8901592003023",
@@ -24602,7 +24686,8 @@
     "image": "/products/packshots/priya-tomato-pickle-300g.webp",
     "category_name": "spices-masalas",
     "unit": "300 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-spc040",
@@ -24611,8 +24696,8 @@
     "brand": "Priya",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Andhra Avakaya & Pickles",
-    "subCategory": "Andhra Avakaya & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/packshots/priya-lemon-pickle-300g.webp",
     "image_status": "verified",
     "barcode": "8901592003030",
@@ -24624,7 +24709,8 @@
     "image": "/products/packshots/priya-lemon-pickle-300g.webp",
     "category_name": "spices-masalas",
     "unit": "300 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-spc041",
@@ -24633,8 +24719,8 @@
     "brand": "Priya",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Andhra Avakaya & Pickles",
-    "subCategory": "Andhra Avakaya & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/packshots/priya-red-chilli-pickle-300g.webp",
     "image_status": "verified",
     "barcode": "8901592003047",
@@ -24646,7 +24732,8 @@
     "image": "/products/packshots/priya-red-chilli-pickle-300g.webp",
     "category_name": "spices-masalas",
     "unit": "300 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-spc042",
@@ -24655,8 +24742,8 @@
     "brand": "Lijjat",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Andhra Avakaya & Pickles",
-    "subCategory": "Andhra Avakaya & Pickles",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/packshots/lijjat-urad-papad-200g.webp",
     "image_status": "verified",
     "barcode": "8901235002008",
@@ -24668,7 +24755,8 @@
     "image": "/products/packshots/lijjat-urad-papad-200g.webp",
     "category_name": "spices-masalas",
     "unit": "200 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-spc043",
@@ -24677,30 +24765,32 @@
     "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
-    "image_url": "/products/packshots/aachi-chilli.jpg",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
+    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
     "image_status": "verified",
     "barcode": "8900003000057",
     "image_source": "verified_cdn",
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "imageStatus": "verified",
-    "imageUrl": "/products/packshots/aachi-chilli.jpg",
-    "image": "/products/packshots/aachi-chilli.jpg",
+    "imageUrl": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
+    "image": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
     "category_name": "spices-masalas",
     "unit": "500 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Chilli, Turmeric & Coriander",
+    "isActive": true
   },
   {
     "id": "g1-spc046",
     "name": "G1 Mart Dhaniyalu (Coriander Seeds / ధనియాలు)",
-    "brand_id": "brand-g1mart",
-    "brand": "G1 Mart",
+    "brand_id": "brand-g1mart-loose",
+    "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Seeds",
-    "subCategory": "Whole Spices & Seeds",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
     "image_status": "verified",
     "barcode": "8900003000255",
@@ -24712,7 +24802,9 @@
     "image": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
     "category_name": "spices-masalas",
     "unit": "250g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples",
+    "isActive": true
   },
   {
     "id": "g1-spc047",
@@ -24721,8 +24813,8 @@
     "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
     "image_status": "verified",
     "barcode": "8900003000323",
@@ -24734,17 +24826,19 @@
     "image": "/products/generated_pouches/g1_jeera_pouch.webp",
     "category_name": "spices-masalas",
     "unit": "250 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples",
+    "isActive": true
   },
   {
     "id": "g1-spc048",
     "name": "G1 Mart Avalu (Mustard Seeds / ఆవాలు)",
-    "brand_id": "brand-g1mart",
-    "brand": "G1 Mart",
+    "brand_id": "brand-g1mart-loose",
+    "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Seeds",
-    "subCategory": "Whole Spices & Seeds",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/generated_pouches/g1_avalu_pouch.webp",
     "image_status": "verified",
     "barcode": "8900003000422",
@@ -24756,17 +24850,19 @@
     "image": "/products/generated_pouches/g1_avalu_pouch.webp",
     "category_name": "spices-masalas",
     "unit": "250g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples",
+    "isActive": true
   },
   {
     "id": "g1-spc049",
     "name": "G1 Mart Menthulu (Fenugreek Seeds / మెంతులు)",
-    "brand_id": "brand-g1mart",
-    "brand": "G1 Mart",
+    "brand_id": "brand-g1mart-loose",
+    "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/generated_pouches/g1_menthulu_pouch.webp",
     "image_status": "verified",
     "barcode": "8900003000521",
@@ -24778,7 +24874,9 @@
     "image": "/products/generated_pouches/g1_menthulu_pouch.webp",
     "category_name": "spices-masalas",
     "unit": "250 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples",
+    "isActive": true
   },
   {
     "id": "g1-spc050",
@@ -24787,20 +24885,22 @@
     "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
-    "image_url": "/products/packshots/fennel-seeds.jpg",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
+    "image_url": "/products/generated_pouches/g1_sompu_pouch.webp",
     "image_status": "verified",
     "barcode": "8900003000620",
     "image_source": "verified_cdn",
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "imageStatus": "verified",
-    "imageUrl": "/products/packshots/fennel-seeds.jpg",
-    "image": "/products/packshots/fennel-seeds.jpg",
+    "imageUrl": "/products/generated_pouches/g1_sompu_pouch.webp",
+    "image": "/products/generated_pouches/g1_sompu_pouch.webp",
     "category_name": "spices-masalas",
     "unit": "250 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples",
+    "isActive": true
   },
   {
     "id": "g1-spc051",
@@ -24809,20 +24909,22 @@
     "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
-    "image_url": "/products/generated_pouches/g1_black_pepper_pouch.webp",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
+    "image_url": "/products/generated_pouches/g1_lavangalu_pouch.webp",
     "image_status": "verified",
     "barcode": "8900003000712",
     "image_source": "verified_cdn",
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "imageStatus": "verified",
-    "imageUrl": "/products/generated_pouches/g1_black_pepper_pouch.webp",
-    "image": "/products/generated_pouches/g1_black_pepper_pouch.webp",
+    "imageUrl": "/products/generated_pouches/g1_lavangalu_pouch.webp",
+    "image": "/products/generated_pouches/g1_lavangalu_pouch.webp",
     "category_name": "spices-masalas",
     "unit": "100 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples",
+    "isActive": true
   },
   {
     "id": "g1-spc053",
@@ -24831,20 +24933,22 @@
     "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
-    "image_url": "/products/generated_pouches/g1_black_pepper_pouch.webp",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
+    "image_url": "/products/generated_pouches/g1_dalchina_pouch.webp",
     "image_status": "verified",
     "barcode": "8900003000903",
     "image_source": "verified_cdn",
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "imageStatus": "verified",
-    "imageUrl": "/products/generated_pouches/g1_black_pepper_pouch.webp",
-    "image": "/products/generated_pouches/g1_black_pepper_pouch.webp",
+    "imageUrl": "/products/generated_pouches/g1_dalchina_pouch.webp",
+    "image": "/products/generated_pouches/g1_dalchina_pouch.webp",
     "category_name": "spices-masalas",
     "unit": "50 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples",
+    "isActive": true
   },
   {
     "id": "g1-spc054",
@@ -24853,8 +24957,8 @@
     "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/generated_pouches/g1_elaichi_pouch.webp",
     "image_status": "verified",
     "barcode": "8900003001009",
@@ -24866,7 +24970,9 @@
     "image": "/products/generated_pouches/g1_elaichi_pouch.webp",
     "category_name": "spices-masalas",
     "unit": "50 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples",
+    "isActive": true
   },
   {
     "id": "g1-spc055",
@@ -24875,20 +24981,22 @@
     "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
-    "image_url": "/products/packshots/biryani-masala.jpg",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
+    "image_url": "/products/generated_pouches/g1_biryani_aaku_pouch.webp",
     "image_status": "verified",
     "barcode": "8900003001108",
     "image_source": "verified_cdn",
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "imageStatus": "verified",
-    "imageUrl": "/products/packshots/biryani-masala.jpg",
-    "image": "/products/packshots/biryani-masala.jpg",
+    "imageUrl": "/products/generated_pouches/g1_biryani_aaku_pouch.webp",
+    "image": "/products/generated_pouches/g1_biryani_aaku_pouch.webp",
     "category_name": "spices-masalas",
     "unit": "50 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Masala Powders & Blends",
+    "isActive": true
   },
   {
     "id": "g1-spc056",
@@ -24897,20 +25005,22 @@
     "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
-    "image_url": "/products/generated_pouches/g1_alasandalu_pouch.webp",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
+    "image_url": "/products/generated_pouches/g1_chintapandu_pouch.webp",
     "image_status": "verified",
     "barcode": "8900003001252",
     "image_source": "verified_cdn",
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "imageStatus": "verified",
-    "imageUrl": "/products/generated_pouches/g1_alasandalu_pouch.webp",
-    "image": "/products/generated_pouches/g1_alasandalu_pouch.webp",
+    "imageUrl": "/products/generated_pouches/g1_chintapandu_pouch.webp",
+    "image": "/products/generated_pouches/g1_chintapandu_pouch.webp",
     "category_name": "spices-masalas",
     "unit": "500 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples",
+    "isActive": true
   },
   {
     "id": "g1-spc057",
@@ -24919,20 +25029,22 @@
     "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
-    "image_url": "/products/generated_pouches/g1_dry_nuts_bowl.webp",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
+    "image_url": "/products/generated_pouches/g1_kobbari_pouch.webp",
     "image_status": "verified",
     "barcode": "8900003001320",
     "image_source": "verified_cdn",
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "imageStatus": "verified",
-    "imageUrl": "/products/generated_pouches/g1_dry_nuts_bowl.webp",
-    "image": "/products/generated_pouches/g1_dry_nuts_bowl.webp",
+    "imageUrl": "/products/generated_pouches/g1_kobbari_pouch.webp",
+    "image": "/products/generated_pouches/g1_kobbari_pouch.webp",
     "category_name": "spices-masalas",
     "unit": "250 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples",
+    "isActive": true
   },
   {
     "id": "g1-spc058",
@@ -24941,20 +25053,22 @@
     "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
-    "image_url": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
+    "image_url": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
     "image_status": "verified",
     "barcode": "8900003001429",
     "image_source": "verified_cdn",
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "imageStatus": "verified",
-    "imageUrl": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
-    "image": "/products/generated_pouches/g1_coriander_seeds_pouch.webp",
+    "imageUrl": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
+    "image": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
     "category_name": "spices-masalas",
     "unit": "250 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples",
+    "isActive": true
   },
   {
     "id": "g1-spc059",
@@ -24963,20 +25077,22 @@
     "brand": "G1 Mart Loose Staples",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
-    "image_url": "/products/packshots/fennel-seeds.jpg",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
+    "image_url": "/products/generated_pouches/g1_gasagasalu_pouch.webp",
     "image_status": "verified",
     "barcode": "8900003001504",
     "image_source": "verified_cdn",
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "imageStatus": "verified",
-    "imageUrl": "/products/packshots/fennel-seeds.jpg",
-    "image": "/products/packshots/fennel-seeds.jpg",
+    "imageUrl": "/products/generated_pouches/g1_gasagasalu_pouch.webp",
+    "image": "/products/generated_pouches/g1_gasagasalu_pouch.webp",
     "category_name": "spices-masalas",
     "unit": "50 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples",
+    "isActive": true
   },
   {
     "id": "g1-spc060",
@@ -24985,8 +25101,8 @@
     "brand": "LG",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Whole Spices & Jeera",
-    "subCategory": "Whole Spices & Jeera",
+    "sub_category": "Whole Spices & Staples",
+    "subCategory": "Whole Spices & Staples",
     "image_url": "/products/verified/g1-p1004.webp",
     "image_status": "verified",
     "barcode": "8901235003005",
@@ -24998,7 +25114,8 @@
     "image": "/products/verified/g1-p1004.webp",
     "category_name": "spices-masalas",
     "unit": "50 g",
-    "is_active": true
+    "is_active": true,
+    "subcategory": "Whole Spices & Staples"
   },
   {
     "id": "g1-sug001",
@@ -27722,8 +27839,8 @@
     "brand": "Everest",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Blended Masalas",
-    "subCategory": "Blended Masalas",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/packshots/everest-chicken-masala-100g.webp",
     "imageUrl": "/products/packshots/everest-chicken-masala-100g.webp",
     "image": "/products/packshots/everest-chicken-masala-100g.webp",
@@ -27733,7 +27850,8 @@
     "inStock": true,
     "is_active": true,
     "isActive": true,
-    "is_verified": true
+    "is_verified": true,
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-ev-garam-masala",
@@ -27742,8 +27860,8 @@
     "brand": "Everest",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Blended Masalas",
-    "subCategory": "Blended Masalas",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/packshots/everest-garam-masala-100g.webp",
     "imageUrl": "/products/packshots/everest-garam-masala-100g.webp",
     "image": "/products/packshots/everest-garam-masala-100g.webp",
@@ -27753,7 +27871,8 @@
     "inStock": true,
     "is_active": true,
     "isActive": true,
-    "is_verified": true
+    "is_verified": true,
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-ev-kitchen-king",
@@ -27762,8 +27881,8 @@
     "brand": "Everest",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Blended Masalas",
-    "subCategory": "Blended Masalas",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/packshots/everest-kitchen-king-100g.webp",
     "imageUrl": "/products/packshots/everest-kitchen-king-100g.webp",
     "image": "/products/packshots/everest-kitchen-king-100g.webp",
@@ -27773,7 +27892,8 @@
     "inStock": true,
     "is_active": true,
     "isActive": true,
-    "is_verified": true
+    "is_verified": true,
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-ev-pav-bhaji",
@@ -27782,8 +27902,8 @@
     "brand": "Everest",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Blended Masalas",
-    "subCategory": "Blended Masalas",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/packshots/everest-pav-bhaji-100g.webp",
     "imageUrl": "/products/packshots/everest-pav-bhaji-100g.webp",
     "image": "/products/packshots/everest-pav-bhaji-100g.webp",
@@ -27793,7 +27913,8 @@
     "inStock": true,
     "is_active": true,
     "isActive": true,
-    "is_verified": true
+    "is_verified": true,
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-mdh-deggi-mirch",
@@ -27802,18 +27923,19 @@
     "brand": "MDH",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Chilli & Turmeric Powder",
-    "subCategory": "Chilli & Turmeric Powder",
+    "sub_category": "Chilli, Turmeric & Coriander",
+    "subCategory": "Chilli, Turmeric & Coriander",
     "image_url": "/products/packshots/mdh-deggi-mirch.webp",
     "imageUrl": "/products/packshots/mdh-deggi-mirch.webp",
-    "image": "/products/generated_pouches/g1_chilli_powder_pouch.webp",
+    "image": "/products/packshots/mdh-deggi-mirch.webp",
     "image_status": "verified",
     "imageStatus": "verified",
     "description": "Unique blend of Kashmiri and Indian red chillies that imparts glowing natural red color without excessive heat.",
     "inStock": true,
     "is_active": true,
     "isActive": true,
-    "is_verified": true
+    "is_verified": true,
+    "subcategory": "Chilli, Turmeric & Coriander"
   },
   {
     "id": "g1-mdh-chunky-chat",
@@ -27822,8 +27944,8 @@
     "brand": "MDH",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Blended Masalas",
-    "subCategory": "Blended Masalas",
+    "sub_category": "Masala Powders & Blends",
+    "subCategory": "Masala Powders & Blends",
     "image_url": "/products/packshots/catch-sprinkler-chaat-masala-100g.webp",
     "imageUrl": "/products/packshots/catch-sprinkler-chaat-masala-100g.webp",
     "image": "/products/packshots/catch-sprinkler-chaat-masala-100g.webp",
@@ -27833,7 +27955,8 @@
     "inStock": true,
     "is_active": true,
     "isActive": true,
-    "is_verified": true
+    "is_verified": true,
+    "subcategory": "Masala Powders & Blends"
   },
   {
     "id": "g1-priya-avakaya",
@@ -27842,8 +27965,8 @@
     "brand": "Priya",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Pickles & Chutneys",
-    "subCategory": "Pickles & Chutneys",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/packshots/priya-mango-pickle-300g.webp",
     "imageUrl": "/products/packshots/priya-mango-pickle-300g.webp",
     "image": "/products/packshots/priya-mango-pickle-300g.webp",
@@ -27853,7 +27976,8 @@
     "inStock": true,
     "is_active": true,
     "isActive": true,
-    "is_verified": true
+    "is_verified": true,
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-priya-gongura",
@@ -27862,8 +27986,8 @@
     "brand": "Priya",
     "category_id": "spices-masalas",
     "category": "spices-masalas",
-    "sub_category": "Pickles & Chutneys",
-    "subCategory": "Pickles & Chutneys",
+    "sub_category": "Andhra Pickles & Pastes",
+    "subCategory": "Andhra Pickles & Pastes",
     "image_url": "/products/packshots/priya-gongura-pickle-300g.webp",
     "imageUrl": "/products/packshots/priya-gongura-pickle-300g.webp",
     "image": "/products/packshots/priya-gongura-pickle-300g.webp",
@@ -27873,7 +27997,8 @@
     "inStock": true,
     "is_active": true,
     "isActive": true,
-    "is_verified": true
+    "is_verified": true,
+    "subcategory": "Andhra Pickles & Pastes"
   },
   {
     "id": "g1-lion-dates",
@@ -28494,5 +28619,62 @@
     "is_active": true,
     "isActive": true,
     "is_verified": true
+  },
+  {
+    "id": "g1-pos-0876",
+    "name": "Sprite Zero Sugar Lemon-Lime Soft Drink",
+    "brand_id": "brand-sprite",
+    "brand": "Sprite",
+    "category_id": "drinks-juices",
+    "category": "drinks-juices",
+    "sub_category": "Thums Up, Coca-Cola & Soft Drinks",
+    "subCategory": "Thums Up, Coca-Cola & Soft Drinks",
+    "image_url": "/products/verified/bev-sprite-zero-750ml.webp",
+    "imageUrl": "/products/verified/bev-sprite-zero-750ml.webp",
+    "image": "/products/verified/bev-sprite-zero-750ml.webp",
+    "image_status": "verified",
+    "barcode": "8901047562888",
+    "inStock": true,
+    "is_active": true,
+    "price": 40,
+    "mrp": 40
+  },
+  {
+    "id": "g1-pos-0888",
+    "name": "Kinley Salty Lemon Carbonated Soda",
+    "brand_id": "brand-kinley",
+    "brand": "Kinley",
+    "category_id": "drinks-juices",
+    "category": "drinks-juices",
+    "sub_category": "Water, Soda & Mixers",
+    "subCategory": "Water, Soda & Mixers",
+    "image_url": "/products/verified/bev-kinley-lemon-soda-750ml.webp",
+    "imageUrl": "/products/verified/bev-kinley-lemon-soda-750ml.webp",
+    "image": "/products/verified/bev-kinley-lemon-soda-750ml.webp",
+    "image_status": "verified",
+    "barcode": "8901047562889",
+    "inStock": true,
+    "is_active": true,
+    "price": 20,
+    "mrp": 20
+  },
+  {
+    "id": "g1-pos-0540",
+    "name": "Sri Krishna White Sesame Chikki (Til Chikki)",
+    "brand_id": "brand-sri-krishna",
+    "brand": "Sri Krishna",
+    "category_id": "sweets-chocolates",
+    "category": "sweets-chocolates",
+    "sub_category": "Packaged Traditional Sweets",
+    "subCategory": "Packaged Traditional Sweets",
+    "image_url": "/products/verified/snk-white-sesame-chikki.webp",
+    "imageUrl": "/products/verified/snk-white-sesame-chikki.webp",
+    "image": "/products/verified/snk-white-sesame-chikki.webp",
+    "image_status": "verified",
+    "barcode": "8906054054011",
+    "inStock": true,
+    "is_active": true,
+    "price": 35,
+    "mrp": 35
   }
 ]

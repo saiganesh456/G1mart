@@ -15,7 +15,7 @@
   {
     "id": "brand-g1mart",
     "name": "G1Mart",
-    "logo_url": "/assets/images/g1_mart_banner_transparent.png",
+    "logo_url": "/brands/g1-mart.png",
     "product_count": 50
   },
   {
@@ -275,7 +275,7 @@
   {
     "id": "brand-catch",
     "name": "Catch",
-    "logo_url": null,
+    "logo_url": "/brands/catch.png",
     "product_count": 6
   },
   {
@@ -701,7 +701,7 @@
   {
     "id": "brand-gopuram",
     "name": "Gopuram",
-    "logo_url": null,
+    "logo_url": "/brands/gopuram.png",
     "product_count": 3
   },
   {

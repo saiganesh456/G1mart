@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { razorpayAdapter } from '@/lib/payment/razorpayAdapter';
 import { phonePeAdapter } from '@/lib/payment/phonepeAdapter';

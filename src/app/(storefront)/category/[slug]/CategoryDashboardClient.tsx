@@ -7,6 +7,7 @@ import ProductCard from '@/components/storefront/ProductCard';
 import InnerPageHeader from '@/components/layout/InnerPageHeader';
 import { useLocation } from '@/context/LocationContext';
 import type { Category, Product } from '@/types';
+import { getBrandLogo } from '@/lib/brandLogos';
 
 interface Props {
   category: Category;
@@ -393,7 +394,14 @@ export default function CategoryDashboardClient({ category, products }: Props) {
               <ChevronDown className="w-3 h-3 text-[var(--g1-text-secondary)]" />
             </button>
           ) : (
-            <div className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold bg-[var(--g1-primary)] text-white shadow-sm shrink-0">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-[var(--g1-primary)] text-white shadow-sm shrink-0">
+              {currentBrandLabel && getBrandLogo(currentBrandLabel) && (
+                <img
+                  src={getBrandLogo(currentBrandLabel)!}
+                  alt=""
+                  className="w-4 h-4 object-contain rounded-full bg-white p-0.5 shrink-0"
+                />
+              )}
               <span
                 onClick={() => {
                   setBrandSearchQuery('');
@@ -409,7 +417,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
                   e.stopPropagation();
                   setSelectedBrand('all');
                 }}
-                className="w-4 h-4 ml-1 rounded-full flex items-center justify-center bg-white/20 hover:bg-white/30 text-white cursor-pointer"
+                className="w-4 h-4 ml-0.5 rounded-full flex items-center justify-center bg-white/20 hover:bg-white/30 text-white cursor-pointer"
                 aria-label="Remove brand filter"
               >
                 <X className="w-2.5 h-2.5" />
@@ -751,7 +759,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
                   >
                     <div className="flex items-center gap-2.5">
                       <div
-                        className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                        className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${
                           selectedBrand === 'g1-mart'
                             ? 'border-[var(--g1-primary)] bg-[var(--g1-primary)]'
                             : 'border-stone-300'
@@ -759,6 +767,11 @@ export default function CategoryDashboardClient({ category, products }: Props) {
                       >
                         {selectedBrand === 'g1-mart' && <Check className="w-2.5 h-2.5 text-white" />}
                       </div>
+                      <img
+                        src="/brands/g1-mart.png"
+                        alt="G1Mart"
+                        className="w-5 h-5 object-contain rounded bg-white p-0.5 border border-stone-200 shrink-0"
+                      />
                       <span className="text-xs">G1Mart</span>
                     </div>
                     <span className="text-[11px] text-stone-400 font-medium">
@@ -770,6 +783,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
               {/* Individual Brands */}
               {filteredBrandsList.map(([bName, bCount]) => {
                 const isSelected = selectedBrand === bName;
+                const bLogo = getBrandLogo(bName);
                 return (
                   <button
                     key={bName}
@@ -783,7 +797,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
                   >
                     <div className="flex items-center gap-2.5">
                       <div
-                        className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                        className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${
                           isSelected
                             ? 'border-[var(--g1-primary)] bg-[var(--g1-primary)]'
                             : 'border-stone-300'
@@ -791,6 +805,16 @@ export default function CategoryDashboardClient({ category, products }: Props) {
                       >
                         {isSelected && <Check className="w-2.5 h-2.5 text-white" />}
                       </div>
+                      {bLogo && (
+                        <img
+                          src={bLogo}
+                          alt={bName}
+                          className="w-5 h-5 object-contain rounded bg-white p-0.5 border border-stone-200 shrink-0"
+                          onError={(e) => {
+                            (e.currentTarget as HTMLImageElement).style.display = 'none';
+                          }}
+                        />
+                      )}
                       <span className="text-xs">{bName}</span>
                     </div>
                     <span className="text-[11px] text-stone-400 font-medium">
