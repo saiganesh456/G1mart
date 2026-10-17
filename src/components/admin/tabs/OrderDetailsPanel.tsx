@@ -102,23 +102,23 @@ export default function OrderDetailsPanel({
       };
     if (s === 'Packed')
       return {
-        label: 'Assign Rider & Dispatch',
+        label: 'Appoint Delivery Rider',
         next: 'Rider Assigned',
-        description: 'Assign available delivery partner',
+        description: 'Select an available delivery rider from the fleet',
         color: 'bg-purple-600 hover:bg-purple-700',
       };
     if (s === 'Rider Assigned')
       return {
-        label: 'Handover to Rider (Out for Delivery)',
+        label: 'Handover & Dispatch (Out for Delivery)',
         next: 'Out for Delivery',
-        description: 'Order handed over to rider on route',
+        description: 'Handover packed bags to rider for doorstep delivery',
         color: 'bg-purple-700 hover:bg-purple-800',
       };
     if (s === 'Out for Delivery' || s === 'Order Dispatched')
       return {
-        label: 'Verify OTP & Mark Delivered',
+        label: 'Confirm Customer Handover (OTP)',
         next: 'Delivered',
-        description: 'Requires customer 4-digit handover OTP to confirm delivery',
+        description: 'Enter customer 4-digit handover OTP to confirm doorstep delivery',
         color: 'bg-emerald-700 hover:bg-emerald-800',
       };
     return null;
