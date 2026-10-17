@@ -1,38 +1,29 @@
 import json
-import re
+from collections import defaultdict
 
-with open('data/migrated_products.json', 'r', encoding='utf-8') as f:
+with open('data/migrated_products.json', encoding='utf-8') as f:
     products = json.load(f)
 
-# Rules for detecting misplaced products
-# For instance:
-# In atta-rice-dal:
-#   - Shampoos, conditioners, soaps, hair oils -> hair-care / soaps-bath
-#   - Masalas, spices, turmeric, mirchi, chilli -> spices-masalas
-#   - Namkeen, chips, khatta meetha, chikki, snacks -> chips-namkeen / sweets-chocolates
-#   - Dal, pappu, toor, moong, urad, chana dal, peanuts, senagalu -> local-dals
-#   - Noodles, semiya, upma mix, idli mix -> instant-food
+active = [p for p in products if p.get('is_active', True) and p.get('isActive', True)]
 
-mismatches = []
-for p in products:
-    cid = p.get('category_id')
-    name = p['name']
-    name_lower = name.lower()
+cats = defaultdict(lambda: {'total': 0, 'g1': 0, 'loose': 0, 'brands': set(), 'placeholders': 0})
+
+for p in active:
+    c = p.get('category_id') or p.get('category') or 'unknown'
+    cats[c]['total'] += 1
+    b = (p.get('brand') or '').lower()
+    if 'g1' in b:
+        cats[c]['g1'] += 1
+    elif 'local' in b or 'unbranded' in b or not b:
+        cats[c]['loose'] += 1
+    else:
+        cats[c]['brands'].add(p.get('brand'))
     
-    # Check atta-rice-dal
-    if cid == 'atta-rice-dal':
-        # Check if it is a dal/pulse
-        if any(w in name_lower for w in ['dal', 'pappu', 'toor', 'urad', 'moong', 'senagalu', 'peanuts', 'groundnut', 'senga nodi']):
-            mismatches.append((p['id'], name, cid, 'local-dals', 'dal/pulse keyword'))
-        elif any(w in name_lower for w in ['shampoo', 'clinic plus', 'hair']):
-            mismatches.append((p['id'], name, cid, 'hair-care', 'hair keyword'))
-        elif any(w in name_lower for w in ['masala', 'mirchi', 'chilli', 'turmeric', 'dhania', 'coriander']):
-            mismatches.append((p['id'], name, cid, 'spices-masalas', 'spice keyword'))
-        elif any(w in name_lower for w in ['khatta meetha', 'chikki', 'chips', 'namkeen']):
-            mismatches.append((p['id'], name, cid, 'chips-namkeen', 'snack keyword'))
-        elif any(w in name_lower for w in ['instant', 'upma mix', 'idli mix', 'rava idli mix']):
-            mismatches.append((p['id'], name, cid, 'instant-food', 'instant mix keyword'))
+    img = p.get('image_url') or ''
+    if not img or 'placeholder' in img:
+        cats[c]['placeholders'] += 1
 
-print(f"Total misplaced in atta-rice-dal: {len(mismatches)}")
-for m in mismatches:
-    print(m)
+print('=== CATEGORIES AUDIT ===')
+for c, d in sorted(cats.items(), key=lambda x: -x[1]['total']):
+    brand_sample = ', '.join(list(d['brands'])[:3])
+    print(f"{c}: {d['total']} items | G1Mart: {d['g1']} | Loose: {d['loose']} | Placeholders: {d['placeholders']} | Brands: {brand_sample}")

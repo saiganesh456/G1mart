@@ -135,6 +135,23 @@ export const SUPERMARKET_CATEGORIES: Omit<Category, 'itemCount'>[] = [
     ]
   },
   {
+    "id": "local-millets",
+    "name": "Millets & Grains",
+    "section_id": "grocery-kitchen",
+    "tile_image_url": "/categories/collages/local-millets.webp",
+    "image": "/categories/collages/local-millets.webp",
+    "sort_order": 8,
+    "icon": "Wheat",
+    "description": "Nutritious foxtail millets (Korralu), pearl millet (Sajjalu), jowar, whole ragi, poha and suji rava",
+    "subcategories": [
+      "Millets (Korralu & Sajjalu)",
+      "Jowar & Whole Ragi",
+      "Poha & Sabudana",
+      "Ragi Pindi & Health Flours",
+      "Upma & Idli Rava"
+    ]
+  },
+  {
     "id": "dairy-bread-eggs",
     "name": "Dairy, Bread & Eggs",
     "section_id": "dairy-breakfast",

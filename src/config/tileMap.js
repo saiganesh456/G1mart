@@ -16,12 +16,13 @@ const TILE_MAP = {
   'sugar-salt-staples': ['g1-p0202', 'g1-p1150', 'g1-p0185', 'g1-p0028'],
   'dry-fruits-cereals': ['g1-p0238', 'g1-p0077', 'g1-p0210', 'g1-p0323'],
   'vegetables-fruits': ['g1-p0236', 'g1-p0703', 'g1-p0748'],
+  'local-millets': ['g1-ric050', 'g1-ric048', 'g1-ric049', 'g1-ric047'],
 
   // DAIRY & BREAKFAST
   'dairy-bread-eggs': ['g1-p0048', 'g1-p0022', 'g1-p1096', 'g1-p0032'],
   'breakfast-cereals': ['g1-p1112', 'g1-p0660', 'g1-p0273'],
   'biscuits-bakery': ['g1-p0026', 'g1-p0061', 'g1-p0175', 'g1-p0179'],
-  'instant-food': ['g1-p0273', 'g1-p0599', 'g1-p0204', 'g1-p0660'],
+  'instant-food': ['g1-ins001', 'g1-ins004', 'g1-ins002', 'g1-ins005'],
 
   // SNACKS & DRINKS
   'chips-namkeen': ['g1-p0862', 'g1-p0861', 'g1-p1517', 'g1-p0541'],
@@ -59,6 +60,7 @@ const TILE_LABELS = {
   'sugar-salt-staples': 'Salt, Sugar & Jaggery',
   'dry-fruits-cereals': 'Dry Fruits & Nuts',
   'vegetables-fruits': 'Fresh Vegetables',
+  'local-millets': 'Millets & Grains',
 
   'dairy-bread-eggs': 'Dairy, Bread & Eggs',
   'breakfast-cereals': 'Breakfast & Cereals',

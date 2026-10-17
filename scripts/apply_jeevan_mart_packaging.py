@@ -33,10 +33,10 @@ def fit_font(text, font_path, initial_size, max_width):
 
 def render_g1_label(canvas_w, canvas_h, eng_line1, eng_line2, telugu_text, weight_text):
     scale = canvas_w / 800.0
-    lx1 = int(280 * scale)
-    ly1 = int(282 * scale)
-    lx2 = int(520 * scale)
-    ly2 = int(588 * scale)
+    lx1 = int(274 * scale)
+    ly1 = int(280 * scale)
+    lx2 = int(532 * scale)
+    ly2 = int(590 * scale)
     max_txt_w = int((lx2 - lx1) - (20 * scale))
 
     layer = Image.new("RGBA", (canvas_w, canvas_h), (0, 0, 0, 0))

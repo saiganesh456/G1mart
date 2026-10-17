@@ -14583,135 +14583,6 @@
     "in_stock": true
   },
   {
-    "id": "g1-p0088-v1",
-    "product_id": "g1-p0088",
-    "size_label": " kg",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p1005-v1",
-    "product_id": "g1-p0088",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0096-v1",
-    "product_id": "g1-p0096",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0163-v1",
-    "product_id": "g1-p0163",
-    "size_label": "1 unit",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_dalchina_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0184-v1",
-    "product_id": "g1-p0184",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0280-v1",
-    "product_id": "g1-p0280",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_lavangalu_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0286-v1",
-    "product_id": "g1-p0286",
-    "size_label": "1 unit",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_vamu_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0290-v1",
-    "product_id": "g1-p0290",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0333-v1",
-    "product_id": "g1-p0333",
-    "size_label": "1 unit",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "var-g1-spc045-100g",
-    "product_id": "g1-p0333",
-    "size_label": "100g",
-    "price": 40,
-    "mrp": 40,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "var-g1-spc045-250g",
-    "product_id": "g1-p0333",
-    "size_label": "250g",
-    "price": 95,
-    "mrp": 95,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "var-g1-spc045-500g",
-    "product_id": "g1-p0333",
-    "size_label": "500g",
-    "price": 180,
-    "mrp": 180,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0336-v1",
-    "product_id": "g1-p0336",
-    "size_label": "Packs",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
-    "in_stock": true
-  },
-  {
     "id": "g1-p0337-v1",
     "product_id": "g1-p0337",
     "size_label": "Packs",
@@ -14729,45 +14600,6 @@
     "mrp": 50,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_japathri_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0341-v1",
-    "product_id": "g1-p0341",
-    "size_label": "Packs",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_lavangalu_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0342-v1",
-    "product_id": "g1-p0342",
-    "size_label": "Packs",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0367-v1",
-    "product_id": "g1-p0367",
-    "size_label": " ml",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0396-v1",
-    "product_id": "g1-p0396",
-    "size_label": " g",
-    "price": 81,
-    "mrp": 81,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
     "in_stock": true
   },
   {
@@ -14831,26 +14663,6 @@
     "in_stock": true
   },
   {
-    "id": "g1-p0444-v1",
-    "product_id": "g1-p0444",
-    "size_label": " g",
-    "price": 78,
-    "mrp": 78,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0466-v1",
-    "product_id": "g1-p0466",
-    "size_label": " g",
-    "price": 22,
-    "mrp": 22,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
-    "in_stock": true
-  },
-  {
     "id": "g1-p0480-v1",
     "product_id": "g1-p0480",
     "size_label": " g",
@@ -14877,16 +14689,6 @@
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0539-v1",
-    "product_id": "g1-p0539",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
     "in_stock": true
   },
   {
@@ -14917,16 +14719,6 @@
     "mrp": 11,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_avalu_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0594-v1",
-    "product_id": "g1-p0594",
-    "size_label": " g",
-    "price": 40,
-    "mrp": 40,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
     "in_stock": true
   },
   {
@@ -15047,16 +14839,6 @@
     "in_stock": true
   },
   {
-    "id": "g1-p0661-v1",
-    "product_id": "g1-p0661",
-    "size_label": " g",
-    "price": 56,
-    "mrp": 56,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
-    "in_stock": true
-  },
-  {
     "id": "g1-p0673-v1",
     "product_id": "g1-p0673",
     "size_label": "1 unit",
@@ -15118,15 +14900,6 @@
     "mrp": 50,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_pappula_podi_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-p0707-v1",
-    "product_id": "g1-p0707",
-    "size_label": " g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
     "in_stock": true
   },
   {
@@ -15212,16 +14985,6 @@
     "in_stock": true
   },
   {
-    "id": "g1-p0872-v1",
-    "product_id": "g1-p0872",
-    "size_label": " g",
-    "price": 56,
-    "mrp": 56,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
-    "in_stock": true
-  },
-  {
     "id": "g1-p0879-v1",
     "product_id": "g1-p0879",
     "size_label": " g",
@@ -15276,16 +15039,6 @@
     "price": 106,
     "mrp": 106,
     "stock": 50,
-    "in_stock": true
-  },
-  {
-    "id": "g1-p1006-v1",
-    "product_id": "g1-p1006",
-    "size_label": " g",
-    "price": 87,
-    "mrp": 87,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
     "in_stock": true
   },
   {
@@ -15756,36 +15509,6 @@
     "in_stock": true
   },
   {
-    "id": "g1-spc043-v1",
-    "product_id": "g1-spc043",
-    "size_label": "500 g",
-    "price": 165,
-    "mrp": 165,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-spc044-v1",
-    "product_id": "g1-spc044",
-    "size_label": "1 kg",
-    "price": 320,
-    "mrp": 320,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-spc045-v1",
-    "product_id": "g1-spc045",
-    "size_label": "250 g",
-    "price": 55,
-    "mrp": 55,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
-    "in_stock": true
-  },
-  {
     "id": "g1-spc046-v1",
     "product_id": "g1-spc046",
     "size_label": "500 g",
@@ -15816,16 +15539,6 @@
     "in_stock": true
   },
   {
-    "id": "g1-spc047-v1",
-    "product_id": "g1-spc047",
-    "size_label": "250 g",
-    "price": 135,
-    "mrp": 135,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
-    "in_stock": true
-  },
-  {
     "id": "g1-spc048-v1",
     "product_id": "g1-spc048",
     "size_label": "250 g",
@@ -15853,36 +15566,6 @@
     "mrp": 80,
     "stock": 50,
     "image_url": "/products/generated_pouches/g1_sompu_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-spc051-v1",
-    "product_id": "g1-spc051",
-    "size_label": "100 g",
-    "price": 110,
-    "mrp": 110,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-spc052-v1",
-    "product_id": "g1-spc052",
-    "size_label": "50 g",
-    "price": 65,
-    "mrp": 65,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_lavangalu_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-spc053-v1",
-    "product_id": "g1-spc053",
-    "size_label": "50 g",
-    "price": 50,
-    "mrp": 50,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_dalchina_pouch.webp",
     "in_stock": true
   },
   {
@@ -15926,16 +15609,6 @@
     "in_stock": true
   },
   {
-    "id": "g1-spc058-v1",
-    "product_id": "g1-spc058",
-    "size_label": "250 g",
-    "price": 80,
-    "mrp": 80,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
-    "in_stock": true
-  },
-  {
     "id": "g1-spc059-v1",
     "product_id": "g1-spc059",
     "size_label": "50 g",
@@ -15953,46 +15626,6 @@
     "mrp": 75,
     "stock": 50,
     "image_url": "/products/verified/g1-p1004.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-canon-mirchi-01-v1",
-    "product_id": "g1-canon-mirchi-01",
-    "size_label": "100 g Pouch",
-    "price": 38,
-    "mrp": 45,
-    "stock": 60,
-    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-canon-mirchi-01-v2",
-    "product_id": "g1-canon-mirchi-01",
-    "size_label": "250 g Pouch",
-    "price": 89,
-    "mrp": 105,
-    "stock": 80,
-    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-canon-mirchi-01-v3",
-    "product_id": "g1-canon-mirchi-01",
-    "size_label": "500 g Pouch",
-    "price": 169,
-    "mrp": 199,
-    "stock": 50,
-    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
-    "in_stock": true
-  },
-  {
-    "id": "g1-canon-mirchi-01-v4",
-    "product_id": "g1-canon-mirchi-01",
-    "size_label": "1 kg Value Pack",
-    "price": 320,
-    "mrp": 380,
-    "stock": 30,
-    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
     "in_stock": true
   },
   {
@@ -16040,5 +15673,315 @@
     "stock": 25,
     "in_stock": true,
     "image_url": "/products/verified/freedom-sunflower-oil-15l-tin.webp"
+  },
+  {
+    "id": "g1-spc051-v1",
+    "product_id": "g1-spc051",
+    "size_label": "₹10 Pack (15g)",
+    "price": 10,
+    "mrp": 10,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc051-v2",
+    "product_id": "g1-spc051",
+    "size_label": "50 g",
+    "price": 35,
+    "mrp": 40,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc051-v3",
+    "product_id": "g1-spc051",
+    "size_label": "100 g",
+    "price": 65,
+    "mrp": 75,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc051-v4",
+    "product_id": "g1-spc051",
+    "size_label": "250 g",
+    "price": 155,
+    "mrp": 180,
+    "stock": 35,
+    "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc053-v1",
+    "product_id": "g1-spc053",
+    "size_label": "₹10 Pack (15g)",
+    "price": 10,
+    "mrp": 10,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_dalchina_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc053-v2",
+    "product_id": "g1-spc053",
+    "size_label": "50 g",
+    "price": 35,
+    "mrp": 40,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_dalchina_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc053-v3",
+    "product_id": "g1-spc053",
+    "size_label": "100 g",
+    "price": 65,
+    "mrp": 75,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_dalchina_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc053-v4",
+    "product_id": "g1-spc053",
+    "size_label": "250 g",
+    "price": 150,
+    "mrp": 175,
+    "stock": 25,
+    "image_url": "/products/generated_pouches/g1_dalchina_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc058-v1",
+    "product_id": "g1-spc058",
+    "size_label": "100 g",
+    "price": 35,
+    "mrp": 40,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc058-v2",
+    "product_id": "g1-spc058",
+    "size_label": "250 g",
+    "price": 80,
+    "mrp": 95,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc058-v3",
+    "product_id": "g1-spc058",
+    "size_label": "500 g",
+    "price": 155,
+    "mrp": 180,
+    "stock": 30,
+    "image_url": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc052-v1",
+    "product_id": "g1-spc052",
+    "size_label": "₹10 Pack (10g)",
+    "price": 10,
+    "mrp": 10,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_lavangalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc052-v2",
+    "product_id": "g1-spc052",
+    "size_label": "50 g",
+    "price": 45,
+    "mrp": 55,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_lavangalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc052-v3",
+    "product_id": "g1-spc052",
+    "size_label": "100 g",
+    "price": 85,
+    "mrp": 100,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_lavangalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-spc052-v4",
+    "product_id": "g1-spc052",
+    "size_label": "250 g",
+    "price": 200,
+    "mrp": 240,
+    "stock": 20,
+    "image_url": "/products/generated_pouches/g1_lavangalu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0286-v1",
+    "product_id": "g1-p0286",
+    "size_label": "₹10 Pack (20g)",
+    "price": 10,
+    "mrp": 10,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_vamu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0286-v2",
+    "product_id": "g1-p0286",
+    "size_label": "50 g",
+    "price": 25,
+    "mrp": 30,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_vamu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0286-v3",
+    "product_id": "g1-p0286",
+    "size_label": "100 g",
+    "price": 45,
+    "mrp": 55,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_vamu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0286-v4",
+    "product_id": "g1-p0286",
+    "size_label": "250 g",
+    "price": 105,
+    "mrp": 125,
+    "stock": 30,
+    "image_url": "/products/generated_pouches/g1_vamu_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0707-v1",
+    "product_id": "g1-p0707",
+    "size_label": "100 g",
+    "price": 45,
+    "mrp": 55,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_nalla_karam_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0707-v2",
+    "product_id": "g1-p0707",
+    "size_label": "250 g",
+    "price": 105,
+    "mrp": 125,
+    "stock": 40,
+    "image_url": "/products/generated_pouches/g1_nalla_karam_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0707-v3",
+    "product_id": "g1-p0707",
+    "size_label": "500 g",
+    "price": 199,
+    "mrp": 240,
+    "stock": 25,
+    "image_url": "/products/generated_pouches/g1_nalla_karam_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0333-v1",
+    "product_id": "g1-p0333",
+    "size_label": "₹10 Pack (20g)",
+    "price": 10,
+    "mrp": 10,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0333-v2",
+    "product_id": "g1-p0333",
+    "size_label": "50 g",
+    "price": 25,
+    "mrp": 30,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0333-v3",
+    "product_id": "g1-p0333",
+    "size_label": "100 g",
+    "price": 45,
+    "mrp": 55,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0333-v4",
+    "product_id": "g1-p0333",
+    "size_label": "250 g",
+    "price": 105,
+    "mrp": 125,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-p0333-v5",
+    "product_id": "g1-p0333",
+    "size_label": "500 g",
+    "price": 199,
+    "mrp": 240,
+    "stock": 30,
+    "image_url": "/products/generated_pouches/g1_jeera_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-canon-mirchi-01-v1",
+    "product_id": "g1-canon-mirchi-01",
+    "size_label": "100 g",
+    "price": 38,
+    "mrp": 45,
+    "stock": 60,
+    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-canon-mirchi-01-v2",
+    "product_id": "g1-canon-mirchi-01",
+    "size_label": "250 g",
+    "price": 89,
+    "mrp": 105,
+    "stock": 80,
+    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-canon-mirchi-01-v3",
+    "product_id": "g1-canon-mirchi-01",
+    "size_label": "500 g",
+    "price": 169,
+    "mrp": 199,
+    "stock": 50,
+    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
+    "in_stock": true
+  },
+  {
+    "id": "g1-canon-mirchi-01-v4",
+    "product_id": "g1-canon-mirchi-01",
+    "size_label": "1 kg",
+    "price": 320,
+    "mrp": 380,
+    "stock": 30,
+    "image_url": "/products/generated_pouches/g1_dry_mirchi_pouch.webp",
+    "in_stock": true
   }
 ]

@@ -20,7 +20,7 @@ function CategoryTileItem({ cat }: { cat: Category }) {
   const rawUrl = (categoryTilesMap as Record<string, string>)[cat.id]
     || cat.tile_image_url
     || `/categories/collages/${cat.id}.webp`;
-  const tileUrl = rawUrl.includes('?') ? rawUrl : `${rawUrl}?v=20261017-g1mart-pulses`;
+  const tileUrl = rawUrl.includes('?') ? rawUrl : `${rawUrl}?v=20261017-g1mart-millets-hd`;
 
   return (
     <Link
