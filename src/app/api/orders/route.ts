@@ -11,12 +11,17 @@ export async function GET(req: NextRequest) {
     const phone = searchParams.get('phone') || undefined;
     const cleanPhone = phone ? phone.replace(/\D/g, '').slice(-10) : '';
 
-    let standardOrders: any[] = [];
-    if (userId || cleanPhone) {
-      standardOrders = serverOrderStore.getUserOrders(userId, cleanPhone);
-    } else {
-      standardOrders = serverOrderStore.getAllOrders();
+    // Enforce data isolation: Never dump all store orders on public customer endpoints
+    if (!userId && !cleanPhone) {
+      return NextResponse.json({
+        success: true,
+        orders: [],
+        count: 0,
+        message: 'Please provide userId or phone number to retrieve personal orders.',
+      });
     }
+
+    const standardOrders = serverOrderStore.getUserOrders(userId, cleanPhone);
 
     let slipOrdersFormatted: any[] = [];
     try {
@@ -26,7 +31,7 @@ export async function GET(req: NextRequest) {
           const sPhone = (s.customer_phone || '').replace(/\D/g, '').slice(-10);
           return sPhone === cleanPhone;
         }
-        return !userId;
+        return false;
       });
 
       slipOrdersFormatted = matchedSlips.map((slipOrder) => ({

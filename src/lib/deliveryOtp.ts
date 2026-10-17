@@ -9,21 +9,17 @@ export function generate4DigitOtp(): string {
 }
 
 /**
- * Standard Darkstore Dispatcher Emergency Master Override PIN
- * Used when a customer's phone battery died, cellular reception is unavailable,
- * or an elderly customer ordered without access to their smartphone.
+ * Verify delivery OTP provided by customer at doorstep.
+ * Strict cryptographic/exact match required — backdoor bypass pins are completely eliminated.
  */
-export const EMERGENCY_MANAGER_BYPASS_PIN = '0000';
-
 export function verifyDeliveryOtp(providedOtp: string, expectedOtp?: string | null): boolean {
-  if (!providedOtp) return false;
+  if (!providedOtp || !expectedOtp) return false;
   const cleanProvided = providedOtp.trim();
+  const cleanExpected = expectedOtp.trim();
 
-  // Allow emergency dispatcher bypass PIN if configured
-  if (cleanProvided === EMERGENCY_MANAGER_BYPASS_PIN) {
-    return true;
+  if (cleanProvided.length !== 4 || cleanExpected.length !== 4) {
+    return false;
   }
 
-  if (!expectedOtp) return false;
-  return cleanProvided === expectedOtp.trim();
+  return cleanProvided === cleanExpected;
 }
