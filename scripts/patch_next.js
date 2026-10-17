@@ -51,3 +51,23 @@ if (fs.existsSync(buildIndexPath)) {
 
   fs.writeFileSync(buildIndexPath, content, 'utf8');
 }
+
+// 3. Patch app-paths selectAppPageEntry for /_not-found during build page data collection
+const appPathsFiles = [
+  'node_modules/next/dist/shared/lib/router/utils/app-paths.js',
+  'node_modules/next/dist/esm/shared/lib/router/utils/app-paths.js',
+];
+
+for (const rel of appPathsFiles) {
+  const p = path.resolve(rel);
+  if (fs.existsSync(p)) {
+    let content = fs.readFileSync(p, 'utf8');
+    const target = 'throw new Error("Invariant: no direct app page entry found for " + pathname);';
+    const repl = 'if (pathname === "/_not-found") return "/_not-found/page"; throw new Error("Invariant: no direct app page entry found for " + pathname);';
+    if (content.includes(target) && !content.includes('if (pathname === "/_not-found")')) {
+      content = content.replace(target, repl);
+      fs.writeFileSync(p, content, 'utf8');
+      console.log('Patched selectAppPageEntry in', rel);
+    }
+  }
+}

@@ -101,11 +101,11 @@ export default function BottomNav() {
 
       {/* Tab bar — 64px + safe area */}
       <nav
-        className="pointer-events-auto bg-white/95 backdrop-blur-md border-t border-[var(--g1-border)] px-1 flex items-center justify-around"
+        className="pointer-events-auto bg-white border-t border-[var(--g1-border)] px-1 flex items-center justify-around"
         style={{
           height: 'calc(64px + env(safe-area-inset-bottom, 0px))',
           paddingBottom: 'env(safe-area-inset-bottom, 0px)',
-          boxShadow: '0 -1px 0 var(--g1-border)',
+          boxShadow: '0 -1px 3px rgba(0,0,0,0.04)',
         }}
         aria-label="Main navigation"
       >

@@ -6,10 +6,10 @@ export const metadata: Metadata = {
   title: 'G1 Mart | Fresh Groceries Delivered',
   description: 'Order fresh groceries, dairy, staples and essentials online for fast home delivery in Nellore.',
   icons: {
-    icon: '/icons/icon-192x192.png?v=4',
-    apple: '/apple-touch-icon.png?v=4',
+    icon: '/icons/icon-192x192.png?v=5',
+    apple: '/apple-touch-icon.png?v=5',
   },
-  manifest: '/manifest.json?v=4',
+  manifest: '/manifest.json?v=5',
 };
 
 export const viewport: Viewport = {
@@ -18,7 +18,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: 'cover',
-  themeColor: '#1E6B2E',
+  themeColor: '#FFFFFF',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
