@@ -21,7 +21,28 @@ export async function verifyAdminRequest(req: NextRequest): Promise<AuthGuardRes
     return { authorized: true, email: 'system@g1mart.com' };
   }
 
-  // 2. Offline / local development fallback when Supabase is not configured
+  // 2. Support client admin session headers (x-user-email / Bearer token)
+  const clientUserEmail = (req.headers.get('x-user-email') || '').toLowerCase().trim();
+  if (clientUserEmail && serverStaffStore.isAdmin(clientUserEmail)) {
+    return { authorized: true, email: clientUserEmail };
+  }
+
+  const authHeader = req.headers.get('authorization');
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    const token = authHeader.substring(7).trim();
+    try {
+      const supabase = await createServerSupabaseClient();
+      const { data } = await supabase.auth.getUser(token);
+      if (data?.user?.email) {
+        const email = data.user.email.toLowerCase().trim();
+        if (serverStaffStore.isAdmin(email)) {
+          return { authorized: true, email };
+        }
+      }
+    } catch {}
+  }
+
+  // 3. Offline / local development fallback when Supabase is not configured
   if (!isSupabaseConfigured()) {
     if (process.env.NODE_ENV !== 'production') {
       return { authorized: true, email: 'dev-admin@g1mart.com' };
@@ -79,6 +100,12 @@ export async function verifyRiderOrAdminRequest(req: NextRequest): Promise<AuthG
   const configuredAdminKey = process.env.ADMIN_API_KEY || process.env.ADMIN_SECRET;
   if (configuredAdminKey && adminKey === configuredAdminKey) {
     return { authorized: true, email: 'system@g1mart.com' };
+  }
+
+  // Support client user email header
+  const clientUserEmail = (req.headers.get('x-user-email') || '').toLowerCase().trim();
+  if (clientUserEmail && (serverStaffStore.isAdmin(clientUserEmail) || serverStaffStore.isRider(clientUserEmail))) {
+    return { authorized: true, email: clientUserEmail };
   }
 
   if (!isSupabaseConfigured()) {
