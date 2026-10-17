@@ -3,11 +3,11 @@ import './globals.css';
 import { Providers } from '@/components/Providers';
 
 export const metadata: Metadata = {
-  title: 'G1 Mart | Fresh Groceries Online',
-  description: 'Order fresh groceries online for fast home delivery.',
+  title: 'Jeevan Mart (G1 Mart) | Fresh Groceries Delivered',
+  description: 'Order fresh groceries, dairy, staples and essentials online for fast home delivery in Nellore.',
   icons: {
     icon: '/icons/icon-192x192.png',
-    apple: '/icons/apple-touch-icon.png',
+    apple: '/apple-touch-icon.png',
   },
   manifest: '/manifest.json',
 };
@@ -18,7 +18,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: 'cover',
-  themeColor: '#2E7D32',
+  themeColor: '#1E6B2E',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

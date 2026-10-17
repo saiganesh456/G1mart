@@ -219,16 +219,16 @@ export default function AccountPage() {
           >
             <div className="flex items-center justify-between px-4" style={{ height: 56 }}>
               <div className="flex items-center gap-3 min-w-0">
-                <div className="w-9 h-9 rounded-xl overflow-hidden border shrink-0"
+                <div className="w-9 h-9 rounded-xl overflow-hidden border shrink-0 bg-white"
                   style={{ borderColor: 'var(--g1-border)' }}>
-                  <Image src="/logo.png" alt="G1 Mart App" width={36} height={36} className="w-full h-full object-contain" />
+                  <Image src="/icons/icon-192x192.png" alt="Jeevan Mart App" width={36} height={36} className="w-full h-full object-contain" />
                 </div>
                 <div className="min-w-0">
                   <span className="font-medium truncate block" style={{ fontSize: 14, color: 'var(--g1-text)' }}>
-                    Install G1 Mart App
+                    Install Jeevan Mart App
                   </span>
                   <span className="text-[11px] block" style={{ color: 'var(--g1-text-secondary)' }}>
-                    Android APK · 12 MB
+                    Official Android App · 12 MB
                   </span>
                 </div>
               </div>

@@ -5,6 +5,7 @@ import { CartProvider } from '@/context/CartContext';
 import { LocationProvider } from '@/context/LocationContext';
 import { NotificationProvider } from '@/context/NotificationContext';
 import GlobalNotificationBanner from '@/components/common/GlobalNotificationBanner';
+import AnimatedSplashScreen from '@/components/common/AnimatedSplashScreen';
 import LocationGate from '@/components/location/LocationGate';
 
 /**
@@ -21,6 +22,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
               {children}
             </LocationGate>
             <GlobalNotificationBanner />
+            <AnimatedSplashScreen />
           </CartProvider>
         </LocationProvider>
       </NotificationProvider>

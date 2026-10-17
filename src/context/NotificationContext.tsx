@@ -249,7 +249,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
   const notifyApkDownloaded = useCallback(() => {
     soundAlerts.playApkInstallChime();
     showNotification({
-      title: 'G1 Mart APK Ready',
+      title: 'Jeevan Mart App Ready',
       body: 'Installation file downloaded. Complete setup to track live orders with 1-tap checkout.',
       badge: 'APP DOWNLOAD',
       type: 'apk_download',

@@ -1,11 +1,11 @@
 {
-  "name": "G1 Mart - Fresh Groceries Delivered",
-  "short_name": "G1 Mart",
-  "description": "Order fresh groceries online for fast home delivery.",
+  "name": "Jeevan Mart (G1 Mart) - Fresh Groceries Delivered",
+  "short_name": "Jeevan Mart",
+  "description": "Order fresh groceries, dairy, staples and essentials online for fast home delivery in Nellore.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#2E7D32",
+  "theme_color": "#1E6B2E",
   "orientation": "portrait",
   "icons": [
     {

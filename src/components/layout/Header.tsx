@@ -53,9 +53,6 @@ function AnimatedSearchPlaceholder() {
 export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
-  if (pathname.startsWith('/rider')) {
-    return null;
-  }
   const isHomePage = pathname === '/';
   const { currentLocation, setIsModalOpen } = useLocation();
   const { user, isLoggedIn } = useAuth();
@@ -77,6 +74,10 @@ export default function Header() {
     window.addEventListener('g1mart:open-slip-scan', handleOpenSlip);
     return () => window.removeEventListener('g1mart:open-slip-scan', handleOpenSlip);
   }, []);
+
+  if (pathname.startsWith('/rider')) {
+    return null;
+  }
 
   const etaMins = currentLocation.eta_min ?? currentLocation.etaMin;
   const deliveryEta = etaMins

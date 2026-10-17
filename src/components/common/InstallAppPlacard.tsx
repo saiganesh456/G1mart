@@ -87,10 +87,10 @@ export default function InstallAppPlacard() {
 
         <div className="flex items-start gap-3.5 pr-6">
           {/* App Icon */}
-          <div className="w-14 h-14 rounded-2xl bg-stone-100 border border-stone-200/80 p-1 shrink-0 shadow-xs flex items-center justify-center overflow-hidden">
+          <div className="w-14 h-14 rounded-2xl bg-white border border-stone-200/80 p-0.5 shrink-0 shadow-sm flex items-center justify-center overflow-hidden">
             <Image
-              src="/logo.png"
-              alt="G1 Mart App Icon"
+              src="/icons/icon-192x192.png"
+              alt="Jeevan Mart App Icon"
               width={52}
               height={52}
               className="w-full h-full object-contain rounded-xl"
@@ -102,11 +102,11 @@ export default function InstallAppPlacard() {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5 flex-wrap">
               <h3 className="text-sm font-extrabold text-stone-900 tracking-tight">
-                G1 Mart App
+                Jeevan Mart App
               </h3>
-              <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-[#2E7D32] border border-emerald-200">
+              <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-[#1E6B2E] border border-emerald-200">
                 <ShieldCheck className="w-2.5 h-2.5" />
-                Verified
+                Official APK
               </span>
             </div>
 
