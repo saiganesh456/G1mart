@@ -31,7 +31,7 @@ for key, url_list in urls.items():
         try:
             r = requests.get(u, headers=headers, timeout=10)
             if r.status_code == 200 and len(r.content) > 1000:
-                img = Image.open(io.BytesIO(r.content))
+                img = Image.open(io.BytesIO(r.content)).convert('RGB')
                 out_path = os.path.join(scratch_dir, f'sprite_bb_{key}.jpg')
                 img.save(out_path)
                 print(f"Downloaded {key} successfully from {u}: size {img.size}")

@@ -9573,7 +9573,7 @@
     "price": 20,
     "mrp": 20,
     "stock": 50,
-    "image_url": "/products/verified/bev-sprite-750ml.webp"
+    "image_url": "/products/verified/bev-sprite-250ml.webp"
   },
   {
     "id": "g1-bev003-v2",
@@ -9591,7 +9591,7 @@
     "price": 50,
     "mrp": 50,
     "stock": 50,
-    "image_url": "/products/verified/bev-sprite-750ml.webp"
+    "image_url": "/products/verified/bev-sprite-1l.webp"
   },
   {
     "id": "g1-bev003-v4",
@@ -10001,7 +10001,7 @@
   {
     "id": "g1-swt007-v1",
     "product_id": "g1-swt007",
-    "size_label": "13 g (₹5 Pack)",
+    "size_label": "13 g (\u20b95 Pack)",
     "price": 5,
     "mrp": 5,
     "stock": 50,
