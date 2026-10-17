@@ -849,7 +849,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       badge: products.length > 0 ? products.length : undefined,
     },
     { id: 'shoot-list' as const, label: 'Product Photos (Shoot List)', icon: Camera },
-    { id: 'staff' as const, label: 'Staff & Fleet', icon: Users },
+    { id: 'staff' as const, label: 'Staff & Role Access', icon: Users },
     { id: 'settings' as const, label: 'Store Settings & Zones', icon: Settings },
   ];
 
@@ -1065,7 +1065,28 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               setProducts((prev) =>
                 prev.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
               );
-              return true;
+              try {
+                const res = await fetch('/api/admin/products', {
+                  method: 'PATCH',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    id: updatedProduct.id,
+                    name: updatedProduct.name,
+                    brand: updatedProduct.brand,
+                    unit: updatedProduct.unit,
+                    category: updatedProduct.category,
+                    price: updatedProduct.price,
+                    originalPrice: updatedProduct.originalPrice,
+                    inStock: updatedProduct.inStock,
+                    stockCount: updatedProduct.stockCount,
+                  }),
+                });
+                const data = await res.json();
+                return Boolean(data.success);
+              } catch (err) {
+                console.error('Failed to update product on server:', err);
+                return false;
+              }
             }}
           />
         ) : (
@@ -1084,6 +1105,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 }}
                 onNavigateToInventory={(stockFilter) => {
                   setActiveTab('inventory');
+                }}
+                onNavigateToTab={(tab) => {
+                  stopAlarm();
+                  setActiveTab(tab as any);
                 }}
                 audioEnabled={audioEnabled}
                 onToggleAudio={handleToggleAudio}

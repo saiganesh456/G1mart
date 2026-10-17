@@ -32,6 +32,7 @@ self.addEventListener('push', (event) => {
       body: body,
       icon: '/icons/icon-192x192.png',
       badge: '/icons/icon-192x192.png',
+      sound: isAdminAlert ? '/new_order_voice.wav' : undefined,
       vibrate: isAdminAlert ? [600, 200, 600, 200, 600, 200, 600] : [200, 100, 200, 100, 200],
       tag: orderId ? `g1mart_order_${orderId}` : 'g1mart_notification',
       renotify: true,

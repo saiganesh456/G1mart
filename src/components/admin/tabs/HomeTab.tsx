@@ -13,6 +13,11 @@ import {
   ArrowRight,
   Clock,
   Sparkles,
+  Users,
+  Camera,
+  FileText,
+  CheckSquare,
+  Settings,
 } from 'lucide-react';
 
 interface Props {
@@ -21,6 +26,7 @@ interface Props {
   onViewOrder: (order: Order) => void;
   onNavigateToOrders: (status?: string) => void;
   onNavigateToInventory: (filter?: string) => void;
+  onNavigateToTab?: (tab: string) => void;
   audioEnabled: boolean;
   onToggleAudio: () => void;
   onTestAudio?: () => void;
@@ -32,6 +38,7 @@ export default function HomeTab({
   onViewOrder,
   onNavigateToOrders,
   onNavigateToInventory,
+  onNavigateToTab,
   audioEnabled,
   onToggleAudio,
   onTestAudio,
@@ -326,6 +333,130 @@ export default function HomeTab({
           <div className="w-10 h-10 rounded-2xl bg-rose-50 text-rose-700 flex items-center justify-center">
             <AlertTriangle className="w-5 h-5" />
           </div>
+        </div>
+      </div>
+
+      {/* Store Operations & Category Navigation (Quick Access for Mobile & Desktop) */}
+      <div className="bg-white rounded-3xl p-4 sm:p-5 border border-stone-200/90 shadow-2xs space-y-3">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-xs font-black uppercase text-stone-400 tracking-wider">
+              Store Operations &amp; Hub Tools
+            </h2>
+            <p className="text-[11px] text-stone-500 font-medium">Quick 1-tap access to all store categories</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3">
+          {/* 1. Staff & Role Access */}
+          <button
+            type="button"
+            onClick={() => onNavigateToTab?.('staff')}
+            className="p-3.5 rounded-2xl border border-stone-200/90 hover:border-emerald-600 bg-stone-50/60 hover:bg-emerald-50/30 transition-all text-left flex flex-col justify-between group active:scale-[0.98]"
+          >
+            <div className="flex items-center justify-between w-full">
+              <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Users className="w-4 h-4" />
+              </div>
+              <ArrowRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-emerald-700 transition-colors" />
+            </div>
+            <div className="mt-2.5">
+              <span className="text-xs font-black text-stone-900 block group-hover:text-emerald-800">
+                Staff &amp; Role Access
+              </span>
+              <span className="text-[10px] text-stone-500 font-medium block mt-0.5">
+                Admins &amp; Delivery Fleet
+              </span>
+            </div>
+          </button>
+
+          {/* 2. Slip Orders & Billing */}
+          <button
+            type="button"
+            onClick={() => onNavigateToTab?.('slips')}
+            className="p-3.5 rounded-2xl border border-stone-200/90 hover:border-blue-600 bg-stone-50/60 hover:bg-blue-50/30 transition-all text-left flex flex-col justify-between group active:scale-[0.98]"
+          >
+            <div className="flex items-center justify-between w-full">
+              <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-800 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <FileText className="w-4 h-4" />
+              </div>
+              <ArrowRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-blue-700 transition-colors" />
+            </div>
+            <div className="mt-2.5">
+              <span className="text-xs font-black text-stone-900 block group-hover:text-blue-800">
+                Slip Orders &amp; Billing
+              </span>
+              <span className="text-[10px] text-stone-500 font-medium block mt-0.5">
+                Handwritten lists &amp; bills
+              </span>
+            </div>
+          </button>
+
+          {/* 3. Packer Queue */}
+          <button
+            type="button"
+            onClick={() => onNavigateToTab?.('packer')}
+            className="p-3.5 rounded-2xl border border-stone-200/90 hover:border-amber-600 bg-stone-50/60 hover:bg-amber-50/30 transition-all text-left flex flex-col justify-between group active:scale-[0.98]"
+          >
+            <div className="flex items-center justify-between w-full">
+              <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <CheckSquare className="w-4 h-4" />
+              </div>
+              <ArrowRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-amber-700 transition-colors" />
+            </div>
+            <div className="mt-2.5">
+              <span className="text-xs font-black text-stone-900 block group-hover:text-amber-800">
+                Packer Queue
+              </span>
+              <span className="text-[10px] text-stone-500 font-medium block mt-0.5">
+                Packing table &amp; checklist
+              </span>
+            </div>
+          </button>
+
+          {/* 4. Product Photos (Shoot List) */}
+          <button
+            type="button"
+            onClick={() => onNavigateToTab?.('shoot-list')}
+            className="p-3.5 rounded-2xl border border-stone-200/90 hover:border-purple-600 bg-stone-50/60 hover:bg-purple-50/30 transition-all text-left flex flex-col justify-between group active:scale-[0.98]"
+          >
+            <div className="flex items-center justify-between w-full">
+              <div className="w-8 h-8 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Camera className="w-4 h-4" />
+              </div>
+              <ArrowRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-purple-700 transition-colors" />
+            </div>
+            <div className="mt-2.5">
+              <span className="text-xs font-black text-stone-900 block group-hover:text-purple-800">
+                Product Shoot List
+              </span>
+              <span className="text-[10px] text-stone-500 font-medium block mt-0.5">
+                Photo uploads &amp; catalog
+              </span>
+            </div>
+          </button>
+
+          {/* 5. Store Settings & Zones */}
+          <button
+            type="button"
+            onClick={() => onNavigateToTab?.('settings')}
+            className="p-3.5 rounded-2xl border border-stone-200/90 hover:border-stone-800 bg-stone-50/60 hover:bg-stone-100 transition-all text-left flex flex-col justify-between group active:scale-[0.98]"
+          >
+            <div className="flex items-center justify-between w-full">
+              <div className="w-8 h-8 rounded-xl bg-stone-200 text-stone-800 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Settings className="w-4 h-4" />
+              </div>
+              <ArrowRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-stone-700 transition-colors" />
+            </div>
+            <div className="mt-2.5">
+              <span className="text-xs font-black text-stone-900 block group-hover:text-stone-900">
+                Store Settings
+              </span>
+              <span className="text-[10px] text-stone-500 font-medium block mt-0.5">
+                GPS, zones &amp; timings
+              </span>
+            </div>
+          </button>
         </div>
       </div>
 

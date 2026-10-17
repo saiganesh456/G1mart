@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import webpush from 'web-push';
 import type { Order, OrderStatus } from '@/types';
+import { serverStaffStore } from '@/lib/serverStaffStore';
 
 export interface PushSubscriptionData {
   endpoint: string;
@@ -264,7 +265,11 @@ class ServerPushService {
 
     const adminSubs = Array.from(this.subscriptions.values()).filter((sub) => {
       if (sub.isAdmin || sub.role === 'admin') return true;
-      if (sub.userEmail && knownAdminEmails.has(sub.userEmail.toLowerCase().trim())) return true;
+      if (sub.userEmail) {
+        const cleanEmail = sub.userEmail.toLowerCase().trim();
+        if (knownAdminEmails.has(cleanEmail)) return true;
+        if (serverStaffStore.isAdmin(cleanEmail)) return true;
+      }
       return false;
     });
 
