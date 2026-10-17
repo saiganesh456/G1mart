@@ -18,7 +18,7 @@ export async function POST(
 
     const { id } = await params;
     const body = await request.json();
-    const { status, staffIdentifier, assignedRider } = body;
+    const { status, staffIdentifier, assignedRider, otp } = body;
 
     const validStatuses: OrderStatus[] = [
       'Order Placed',
@@ -37,6 +37,49 @@ export async function POST(
         { success: false, error: 'Invalid order status' },
         { status: 400 }
       );
+    }
+
+    // STRICT RULE: Marking an order as Delivered REQUIRES customer delivery OTP confirmation!
+    // The admin panel cannot arbitrarily mark as delivered without the customer's OTP.
+    if (status === 'Delivered') {
+      if (!otp || typeof otp !== 'string' || !otp.trim()) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Customer Delivery OTP is required to mark this order as Delivered. Please enter the 4-digit OTP provided by the customer.',
+          },
+          { status: 400 }
+        );
+      }
+
+      let expectedOtp: string | undefined | null = null;
+      if (id.startsWith('SLIP-')) {
+        const { serverSlipOrders } = await import('@/lib/serverSlipOrders');
+        const slip = await serverSlipOrders.getSlipOrderById(id);
+        expectedOtp = slip?.delivery_otp;
+      } else {
+        let order = serverOrderStore.getOrder(id);
+        if (!order) {
+          serverOrderStore.loadFromDisk();
+          order = serverOrderStore.getOrder(id);
+        }
+        if (!order && body.orderFallback) {
+          expectedOtp = body.orderFallback.deliveryOtp;
+        } else {
+          expectedOtp = order?.deliveryOtp;
+        }
+      }
+
+      const { verifyDeliveryOtp } = await import('@/lib/deliveryOtp');
+      if (!expectedOtp || !verifyDeliveryOtp(otp, expectedOtp)) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'Invalid Customer Delivery OTP. Delivery can only be confirmed with the matching 4-digit OTP from the customer.',
+          },
+          { status: 400 }
+        );
+      }
     }
 
     let result = await serverOrderStore.updateOrderStatus(
@@ -64,6 +107,17 @@ export async function POST(
         { success: false, error: 'Order not found' },
         { status: 404 }
       );
+    }
+
+    if (status === 'Delivered' && result.order) {
+      result.order.deliveredAt = new Date().toISOString();
+      if (!result.order.isPaid && (result.order.paymentMethod === 'Cash on Delivery' || body.cashCollected)) {
+        result.order.isPaid = true;
+        result.order.paymentStatus = 'completed';
+        result.order.paidAmount = result.order.grandTotal;
+        result.order.paidAt = new Date().toISOString();
+      }
+      serverOrderStore.cacheOrder(result.order);
     }
 
     // If this is a slip order, mirror to serverSlipOrders

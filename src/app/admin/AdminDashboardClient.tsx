@@ -625,9 +625,21 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   const handleUpdateOrderStatus = async (
     orderId: string,
     nextStatus: string,
-    assignedRider?: { id?: string; name: string; phone?: string; vehicleNumber?: string }
+    assignedRider?: { id?: string; name: string; phone?: string; vehicleNumber?: string },
+    providedOtp?: string
   ) => {
     const targetOrder = orders.find((o) => o.id === orderId);
+
+    let otp = providedOtp;
+    if (nextStatus === 'Delivered' && !otp) {
+      const input = window.prompt(
+        'Customer Delivery OTP Verification:\n\nPlease ask the customer for their 4-digit handover OTP to confirm delivery:'
+      );
+      if (!input || !input.trim()) {
+        return; // Admin cancelled or did not provide OTP
+      }
+      otp = input.trim();
+    }
 
     // Optimistic UI update
     setOrders((prev) =>
@@ -659,6 +671,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           status: nextStatus,
+          otp,
           staffIdentifier: 'Store Admin',
           assignedRider,
           orderFallback: targetOrder,

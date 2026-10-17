@@ -204,7 +204,7 @@ export default function OrdersTab({
       };
     if (s === 'Out for Delivery' || s === 'Order Dispatched')
       return {
-        label: 'Mark Delivered',
+        label: 'Verify OTP & Deliver',
         next: 'Delivered',
         icon: Check,
         color: 'bg-emerald-600 hover:bg-emerald-700 text-white',

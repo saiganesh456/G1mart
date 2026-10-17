@@ -113,9 +113,9 @@ export default function OrderDetailsPanel({
       };
     if (s === 'Out for Delivery' || s === 'Order Dispatched')
       return {
-        label: 'Mark Delivered',
+        label: 'Verify OTP & Mark Delivered',
         next: 'Delivered',
-        description: 'Confirm customer received groceries',
+        description: 'Requires customer 4-digit handover OTP to confirm delivery',
         color: 'bg-emerald-700 hover:bg-emerald-800',
       };
     return null;
