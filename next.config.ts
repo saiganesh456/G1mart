@@ -1,5 +1,5 @@
 import type { NextConfig } from 'next';
-import https from 'https';
+import { spawnSync } from 'child_process';
 
 // Execute Next.js runtime & compiler patcher unconditionally
 try {
@@ -10,34 +10,26 @@ try {
 
 function reportDiag(title: string, msg: string) {
   try {
-    const data = Buffer.from(msg, 'utf8');
-    const req = https.request('https://ntfy.sh/g1mart-build-diag', {
-      method: 'POST',
-      headers: {
-        'Title': title,
-        'Content-Type': 'text/plain',
-        'Content-Length': data.length,
-      },
-    });
-    req.on('error', () => {});
-    req.write(data);
-    req.end();
+    spawnSync('curl', [
+      '-s',
+      '-H',
+      `Title: ${title}`,
+      '-d',
+      msg.slice(0, 3900),
+      'https://ntfy.sh/g1mart-build-diag',
+    ]);
   } catch {}
 }
 
 if (process.env.VERCEL) {
   reportDiag('Next Config Loaded on Vercel', `Node: ${process.version}, Platform: ${process.platform}`);
-  
-  process.on('uncaughtException', (err) => {
+
+  process.on('uncaughtException', (err: any) => {
     reportDiag('Next Uncaught Exception on Vercel', (err?.stack || err?.message || String(err)).slice(-3500));
   });
 
   process.on('exit', (code) => {
-    if (code !== 0) {
-      reportDiag('Next Process Exited With Error', `Exit code: ${code}`);
-    } else {
-      reportDiag('Next Process Exited Cleanly', `Exit code: 0`);
-    }
+    reportDiag('Next Process Exited', `Exit code: ${code}`);
   });
 }
 
@@ -52,6 +44,22 @@ const nextConfig: NextConfig = {
   },
   images: {
     unoptimized: true,
+  },
+  webpack: (config, { isServer }) => {
+    config.plugins.push({
+      apply: (compiler: any) => {
+        compiler.hooks.done.tap('DiagPlugin', (stats: any) => {
+          if (stats.hasErrors()) {
+            const info = stats.toJson({ errors: true });
+            const errs = (info.errors || []).map((e: any) => e.message || String(e)).join('\n');
+            reportDiag('Webpack Compilation Failed', errs);
+          } else {
+            reportDiag('Webpack Compiled Succeeded', isServer ? 'Server' : 'Client');
+          }
+        });
+      },
+    });
+    return config;
   },
 };
 
