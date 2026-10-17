@@ -1924,7 +1924,9 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_dates_pouch.webp",
     "image": "/products/generated_pouches/g1_dates_pouch.webp",
-    "category_name": "Dry Fruits & Nuts"
+    "category_name": "Dry Fruits & Nuts",
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0422",
@@ -1985,7 +1987,9 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_dates_pouch.webp",
     "image": "/products/generated_pouches/g1_dates_pouch.webp",
-    "category_name": "Dry Fruits & Nuts"
+    "category_name": "Dry Fruits & Nuts",
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0502",
@@ -2045,7 +2049,9 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_almonds_pouch.webp",
     "image": "/products/generated_pouches/g1_almonds_pouch.webp",
-    "category_name": "Dry Fruits & Nuts"
+    "category_name": "Dry Fruits & Nuts",
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0587",
@@ -2647,7 +2653,9 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_almonds_pouch.webp",
     "image": "/products/generated_pouches/g1_almonds_pouch.webp",
-    "category_name": "Dry Fruits & Nuts"
+    "category_name": "Dry Fruits & Nuts",
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0778",
@@ -2928,7 +2936,9 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_dates_pouch.webp",
     "image": "/products/generated_pouches/g1_dates_pouch.webp",
-    "category_name": "Dry Fruits & Nuts"
+    "category_name": "Dry Fruits & Nuts",
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0920",
@@ -3029,7 +3039,9 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_almonds_pouch.webp",
     "image": "/products/generated_pouches/g1_almonds_pouch.webp",
-    "category_name": "Dry Fruits & Nuts"
+    "category_name": "Dry Fruits & Nuts",
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0985",
@@ -3049,7 +3061,9 @@
     "imageStatus": "verified",
     "imageUrl": "/products/generated_pouches/g1_pista_pouch.webp",
     "image": "/products/generated_pouches/g1_pista_pouch.webp",
-    "category_name": "Dry Fruits & Nuts"
+    "category_name": "Dry Fruits & Nuts",
+    "is_active": false,
+    "isActive": false
   },
   {
     "id": "g1-p0990",
@@ -25615,7 +25629,7 @@
     "id": "g1-nut021",
     "name": "G1 Mart Pista (Salted Pistachios / పిస్తా)",
     "brand_id": "brand-g1mart-loose",
-    "brand": "G1 Mart Loose Staples",
+    "brand": "G1 Mart",
     "category_id": "dry-fruits-cereals",
     "category": "dry-fruits-cereals",
     "sub_category": "Pistachios & Walnuts",
@@ -27890,8 +27904,8 @@
     "category": "dry-fruits-cereals",
     "sub_category": "Cereals & Breakfast",
     "subCategory": "Cereals & Breakfast",
-    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg",
-    "imageUrl": "/products/packshots/aashirvaad-svasti-ghee.jpg",
+    "image_url": "/products/packshots/kelloggs-corn-flakes.webp",
+    "imageUrl": "/products/packshots/kelloggs-corn-flakes.webp",
     "image": "/products/packshots/aashirvaad-svasti-ghee.jpg",
     "image_status": "verified",
     "imageStatus": "verified",
@@ -27910,8 +27924,8 @@
     "category": "dry-fruits-cereals",
     "sub_category": "Cereals & Breakfast",
     "subCategory": "Cereals & Breakfast",
-    "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg",
-    "imageUrl": "/products/packshots/aashirvaad-svasti-ghee.jpg",
+    "image_url": "/products/packshots/quaker-oats.webp",
+    "imageUrl": "/products/packshots/quaker-oats.webp",
     "image": "/products/packshots/aashirvaad-svasti-ghee.jpg",
     "image_status": "verified",
     "imageStatus": "verified",
