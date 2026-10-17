@@ -63,7 +63,7 @@ export default function AccountPage() {
   const handleInstallApp = async () => {
     setIsInstalling(true);
     try {
-      await executeInstallFlow(user?.id, '/downloads/g1mart.apk?v=1.2.1');
+      await executeInstallFlow(user?.id, '/downloads/g1mart.apk?v=1.2.2');
       setAppInstalled(true);
     } catch (err) {
       console.error('Failed to install app:', err);
@@ -174,7 +174,7 @@ export default function AccountPage() {
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-1.5 flex-wrap">
                 <h2 className="font-extrabold text-[15px] tracking-tight" style={{ color: 'var(--g1-text)' }}>
-                  G1 Mart Android App
+                  G1mart Android App
                 </h2>
                 <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-[#1E6B2E] border border-emerald-300">
                   Official APK
@@ -188,11 +188,11 @@ export default function AccountPage() {
 
           <div className="mt-3.5 pt-3 border-t border-emerald-200/60 flex items-center justify-between gap-2">
             <span className="text-[11px] font-medium" style={{ color: 'var(--g1-text-secondary)' }}>
-              Direct Android APK (v1.2.1)
+              Direct Android APK (v1.2.2)
             </span>
             <a
-              href="/downloads/g1mart.apk?v=1.2.1"
-              download="G1Mart.apk"
+              href="/downloads/g1mart.apk?v=1.2.2"
+              download="G1mart.apk"
               onClick={handleInstallApp}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white shadow-md transition-all shrink-0 g1-press"
               style={{ backgroundColor: '#1E6B2E' }}
