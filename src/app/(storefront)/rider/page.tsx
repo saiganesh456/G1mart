@@ -366,7 +366,7 @@ export default function RiderPage() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/assets/images/g1_mart_banner_transparent.png"
-                  alt="G1 Mart"
+                  alt="G1mart"
                   className="h-6 w-auto object-contain"
                   onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/logo.png'; }}
                 />
@@ -840,7 +840,7 @@ export default function RiderPage() {
               </span>
             </div>
             <p className="text-[11px] text-stone-300 leading-relaxed">
-              Please deposit the total cash collected from Cash-on-Delivery orders with the store cashier at G1 Mart Nellore Hub at the end of your shift.
+              Please deposit the total cash collected from Cash-on-Delivery orders with the store cashier at G1mart Nellore Hub at the end of your shift.
             </p>
           </div>
         )}

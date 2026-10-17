@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
         product.image_url = webpUrl;
         product.image_status = 'verified';
         product.image_source = 'owner_bulk_upload';
-        product.image_license = 'Proprietary / G1 Mart';
+        product.image_license = 'Proprietary / G1mart';
 
         results.push({ fileName, productId: pid, success: true });
       } catch (err: any) {

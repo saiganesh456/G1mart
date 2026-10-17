@@ -81,7 +81,7 @@ export default function GlobalNotificationBanner() {
         return (
           <Image
             src="/logo.png"
-            alt="G1 Mart"
+            alt="G1mart"
             width={24}
             height={24}
             className="w-5 h-5 object-contain rounded-md"

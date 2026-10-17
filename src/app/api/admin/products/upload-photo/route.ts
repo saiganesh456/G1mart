@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
         product.image_url = webpUrl;
         product.image_status = 'verified';
         product.image_source = 'store_camera';
-        product.image_license = 'Proprietary / G1 Mart';
+        product.image_license = 'Proprietary / G1mart';
         fs.writeFileSync(catalogPath, JSON.stringify(catalog, null, 2), 'utf-8');
 
         // Automatically regenerate category tile collages in background

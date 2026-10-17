@@ -53,7 +53,7 @@ export function getJourneyStage(status: string): JourneyInfo {
       stage: 'packing',
       stepNumber: 2,
       title: 'Packing Fresh Groceries',
-      description: 'Our store staff is carefully picking and packing fresh groceries into your G1 Mart box.',
+      description: 'Our store staff is carefully picking and packing fresh groceries into your G1mart box.',
     };
   }
 
@@ -95,7 +95,7 @@ export default function DeliveryJourneyAnimation({ status, orderType }: Props) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/assets/images/g1_delivery_master_banner.png"
-              alt="G1 Mart illustrated delivery journey: store, employee packing fresh groceries, express scooter delivery, and doorstep handover"
+              alt="G1mart illustrated delivery journey: store, employee packing fresh groceries, express scooter delivery, and doorstep handover"
               className="w-full h-auto object-cover object-top block"
               onError={() => setImgError(true)}
             />
@@ -290,7 +290,7 @@ export default function DeliveryJourneyAnimation({ status, orderType }: Props) {
         ) : (
           <div className="w-full p-6 text-center bg-emerald-50/70 space-y-2">
             <Package className="w-10 h-10 text-[#1E6B2E] mx-auto animate-pulse" />
-            <p className="text-xs font-bold text-emerald-950">G1 Mart Fresh Grocery Journey</p>
+            <p className="text-xs font-bold text-emerald-950">G1mart Fresh Grocery Journey</p>
           </div>
         )}
       </div>

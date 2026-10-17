@@ -20,7 +20,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/assets/images/g1_mart_banner_transparent.png"
-                alt="G1 Mart"
+                alt="G1mart"
                 className="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105"
               />
               <span className="font-black text-stone-900 text-sm sm:text-base tracking-tight hidden sm:inline">

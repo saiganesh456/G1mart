@@ -54,7 +54,7 @@ export default function RazorpayCheckoutButton({
   amountInPaise,
   currency = 'INR',
   receipt,
-  orderName = 'G1 Mart Supermarket',
+  orderName = 'G1mart Supermarket',
   orderDescription,
   customerName = '',
   customerEmail = '',

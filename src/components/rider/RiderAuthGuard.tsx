@@ -91,7 +91,7 @@ export default function RiderAuthGuard({ children }: { children: React.ReactNode
           <RefreshCw className="w-6 h-6" />
         </div>
         <h2 className="text-base font-extrabold text-stone-800">Verifying Delivery Clearance...</h2>
-        <p className="text-xs text-stone-500 mt-1">Connecting to G1 Mart Rider Fleet Dispatch</p>
+        <p className="text-xs text-stone-500 mt-1">Connecting to G1mart Rider Fleet Dispatch</p>
       </div>
     );
   }
@@ -111,7 +111,7 @@ export default function RiderAuthGuard({ children }: { children: React.ReactNode
             </span>
             <h1 className="text-xl font-black text-stone-900 pt-2">Rider Login Required</h1>
             <p className="text-xs text-stone-500 max-w-xs mx-auto">
-              Please sign in with your registered G1 Mart delivery partner email.
+              Please sign in with your registered G1mart delivery partner email.
             </p>
           </div>
 

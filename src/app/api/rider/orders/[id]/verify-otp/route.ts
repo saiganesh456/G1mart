@@ -73,7 +73,7 @@ export async function POST(
         const { serverPushService } = await import('@/lib/serverPushService');
         await serverPushService.sendCustomNotification({
           title: '✅ Order Delivered!',
-          body: `Your G1 Mart order #${id} was delivered successfully. Enjoy your groceries!`,
+          body: `Your G1mart order #${id} was delivered successfully. Enjoy your groceries!`,
           tag: `delivered-${id}`,
           url: `/orders/${id}`,
         });
@@ -143,7 +143,7 @@ export async function POST(
         const { serverPushService } = await import('@/lib/serverPushService');
         await serverPushService.sendCustomNotification({
           title: '✅ Order Delivered!',
-          body: `Your G1 Mart order #${id} was delivered successfully. Enjoy your groceries!`,
+          body: `Your G1mart order #${id} was delivered successfully. Enjoy your groceries!`,
           tag: `delivered-${id}`,
           url: `/orders/${id}`,
         });

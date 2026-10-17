@@ -1,4 +1,4 @@
-// Utility for managing G1 Mart App APK installation and persistent prompt suppression
+// Utility for managing G1mart App APK installation and persistent prompt suppression
 
 const GLOBAL_INSTALLED_KEY = 'g1mart_app_installed';
 const DISMISSED_KEY = 'g1mart_install_dismissed';

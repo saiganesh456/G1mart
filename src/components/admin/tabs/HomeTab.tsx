@@ -86,7 +86,7 @@ export default function HomeTab({
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.png"
-            alt="G1 MART"
+            alt="G1mart"
             className="w-12 h-12 sm:w-16 sm:h-16 object-contain shrink-0"
           />
           <div>
@@ -100,7 +100,7 @@ export default function HomeTab({
               </span>
             </div>
             <h1 className="text-lg sm:text-2xl font-black text-white mt-1 tracking-tight">
-              G1 MART Operations Dashboard
+              G1mart Operations Dashboard
             </h1>
             <p className="text-xs text-emerald-100/90 font-medium hidden sm:block">
               Real-time supermarket order dispatch, inventory &amp; cash management
@@ -320,7 +320,7 @@ export default function HomeTab({
         <div className="flex items-center justify-between border-b border-stone-100 pb-3">
           <div>
             <h2 className="text-base font-black text-stone-900">Recent Customer Orders</h2>
-            <p className="text-xs text-stone-500 font-medium">Real-time orders received at G1 MART Hub</p>
+            <p className="text-xs text-stone-500 font-medium">Real-time orders received at G1mart Hub</p>
           </div>
           <button
             type="button"

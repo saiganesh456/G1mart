@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     }
 
     const cleanPhone = sanitizeIndianPhone(rawPhone);
-    const fullName = addressData.fullName || addressData.name || body.userName || 'G1 Mart Customer';
+    const fullName = addressData.fullName || addressData.name || body.userName || 'G1mart Customer';
 
     // Rule 3: Server recalculates the total from database prices (never trust client)
     let calculated;

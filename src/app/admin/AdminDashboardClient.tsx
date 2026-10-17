@@ -852,7 +852,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               Live &amp; Online
             </span>
           </div>
-          <p className="text-xs font-black text-stone-900 truncate">G1 Mart Main Supermarket</p>
+          <p className="text-xs font-black text-stone-900 truncate">G1mart Main Supermarket</p>
           <p className="text-[10px] text-stone-500 truncate">Nellore Hub • Padarupalli (524004)</p>
         </div>
 
@@ -904,7 +904,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               GM
             </div>
             <div>
-              <p className="text-xs font-bold text-stone-900">G1 MART Admin</p>
+              <p className="text-xs font-bold text-stone-900">G1mart Admin</p>
               <p className="text-[10px] text-stone-500">Store Manager</p>
             </div>
           </div>

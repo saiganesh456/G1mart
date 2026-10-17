@@ -141,7 +141,7 @@ class ServerPushService {
 
     // Prepare human-written, professional notification content
     const shortId = order.id.startsWith('G1-') ? order.id : `#${order.id.slice(-6)}`;
-    let title = 'G1 Mart Order Update';
+    let title = 'G1mart Order Update';
     let body = `Your order ${shortId} status is now ${status}.`;
 
     switch (status) {
