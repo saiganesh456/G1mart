@@ -2,6 +2,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { serverOrderStore } from '@/lib/serverOrderStore';
 
 export async function POST(req: NextRequest) {
+  // Block payment simulator completely in production
+  if (process.env.NODE_ENV === 'production' && process.env.ENABLE_PAYMENT_SIMULATION !== 'true') {
+    return NextResponse.json(
+      { success: false, error: 'Payment simulator endpoint is strictly disabled in production.' },
+      { status: 403 }
+    );
+  }
+
   try {
     const body = await req.json();
     const { orderId, action = 'success', tamperedAmount, orderData } = body;

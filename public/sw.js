@@ -24,8 +24,8 @@ self.addEventListener('push', (event) => {
 
     const options = {
       body: body,
-      icon: '/logo.png',
-      badge: '/logo.png',
+      icon: '/icons/icon-192x192.png',
+      badge: '/icons/icon-192x192.png',
       vibrate: [200, 100, 200, 100, 200],
       tag: orderId ? `g1mart_order_${orderId}` : 'g1mart_notification',
       renotify: true,

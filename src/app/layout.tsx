@@ -6,10 +6,10 @@ export const metadata: Metadata = {
   title: 'Jeevan Mart (G1 Mart) | Fresh Groceries Delivered',
   description: 'Order fresh groceries, dairy, staples and essentials online for fast home delivery in Nellore.',
   icons: {
-    icon: '/icons/icon-192x192.png',
-    apple: '/apple-touch-icon.png',
+    icon: '/icons/icon-192x192.png?v=3',
+    apple: '/apple-touch-icon.png?v=3',
   },
-  manifest: '/manifest.json',
+  manifest: '/manifest.json?v=3',
 };
 
 export const viewport: Viewport = {

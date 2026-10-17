@@ -33,17 +33,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Check for test mode simulation order
-    const isTestModeOrder =
-      orderId.startsWith('order_test_') ||
-      paymentId.startsWith('pay_test_') ||
-      signature.startsWith('test_sig_');
-
     // Step 3 Algorithm: HMAC-SHA256(order_id + "|" + payment_id, KEY_SECRET)
     const expectedSignature = crypto
       .createHmac('sha256', keySecret)
       .update(`${orderId}|${paymentId}`)
       .digest('hex');
+
+    // In non-production testing, allow simulation ONLY if explicitly enabled via environment variable
+    const allowSimulation =
+      process.env.NODE_ENV !== 'production' &&
+      process.env.ENABLE_PAYMENT_SIMULATION === 'true';
+
+    const isTestModeOrder =
+      allowSimulation &&
+      (orderId.startsWith('order_test_') ||
+        paymentId.startsWith('pay_test_') ||
+        signature.startsWith('test_sig_'));
 
     // Secure timing-safe signature comparison
     let signaturesMatch = false;

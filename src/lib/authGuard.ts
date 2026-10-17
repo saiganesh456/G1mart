@@ -1,0 +1,124 @@
+import { NextRequest } from 'next/server';
+import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { serverStaffStore } from '@/lib/serverStaffStore';
+import { isSupabaseConfigured } from '@/lib/supabase/client';
+
+export interface AuthGuardResult {
+  authorized: boolean;
+  email?: string;
+  error?: string;
+  status?: number;
+}
+
+/**
+ * Server-side guard to enforce administrator privileges on API routes.
+ */
+export async function verifyAdminRequest(req: NextRequest): Promise<AuthGuardResult> {
+  // 1. Support secure machine-to-machine admin API key via header
+  const adminKey = req.headers.get('x-admin-key');
+  const configuredAdminKey = process.env.ADMIN_API_KEY || process.env.ADMIN_SECRET;
+  if (configuredAdminKey && adminKey === configuredAdminKey) {
+    return { authorized: true, email: 'system@g1mart.com' };
+  }
+
+  // 2. Offline / local development fallback when Supabase is not configured
+  if (!isSupabaseConfigured()) {
+    if (process.env.NODE_ENV !== 'production') {
+      return { authorized: true, email: 'dev-admin@g1mart.com' };
+    }
+    return {
+      authorized: false,
+      error: 'Authentication service not configured in production.',
+      status: 500,
+    };
+  }
+
+  // 3. Verify user session via Supabase SSR cookies
+  try {
+    const supabase = await createServerSupabaseClient();
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+
+    if (error || !user) {
+      return {
+        authorized: false,
+        error: 'Unauthorized: Authentication required to access administrative resources.',
+        status: 401,
+      };
+    }
+
+    const email = (user.email || '').toLowerCase().trim();
+    if (!serverStaffStore.isAdmin(email)) {
+      return {
+        authorized: false,
+        error: 'Forbidden: Administrator privileges required.',
+        status: 403,
+      };
+    }
+
+    return { authorized: true, email };
+  } catch (err: any) {
+    return {
+      authorized: false,
+      error: err?.message || 'Authentication failed',
+      status: 500,
+    };
+  }
+}
+
+/**
+ * Server-side guard to enforce delivery partner or admin access on rider API routes.
+ */
+export async function verifyRiderOrAdminRequest(req: NextRequest): Promise<AuthGuardResult> {
+  const adminKey = req.headers.get('x-admin-key');
+  const configuredAdminKey = process.env.ADMIN_API_KEY || process.env.ADMIN_SECRET;
+  if (configuredAdminKey && adminKey === configuredAdminKey) {
+    return { authorized: true, email: 'system@g1mart.com' };
+  }
+
+  if (!isSupabaseConfigured()) {
+    if (process.env.NODE_ENV !== 'production') {
+      return { authorized: true, email: 'dev-rider@g1mart.com' };
+    }
+    return {
+      authorized: false,
+      error: 'Authentication service not configured in production.',
+      status: 500,
+    };
+  }
+
+  try {
+    const supabase = await createServerSupabaseClient();
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+
+    if (error || !user) {
+      return {
+        authorized: false,
+        error: 'Unauthorized: Authentication required.',
+        status: 401,
+      };
+    }
+
+    const email = (user.email || '').toLowerCase().trim();
+    if (!serverStaffStore.isRider(email) && !serverStaffStore.isAdmin(email)) {
+      return {
+        authorized: false,
+        error: 'Forbidden: Rider or admin privileges required.',
+        status: 403,
+      };
+    }
+
+    return { authorized: true, email };
+  } catch (err: any) {
+    return {
+      authorized: false,
+      error: err?.message || 'Authentication failed',
+      status: 500,
+    };
+  }
+}

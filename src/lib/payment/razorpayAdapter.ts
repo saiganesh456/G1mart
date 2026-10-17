@@ -154,11 +154,16 @@ export class RazorpayAdapter implements PaymentAdapter {
       return false;
     }
 
-    // Allow test simulator signature verification
+    // Allow test simulator signature verification ONLY in non-production with explicit opt-in
+    const allowSimulation =
+      process.env.NODE_ENV !== 'production' &&
+      process.env.ENABLE_PAYMENT_SIMULATION === 'true';
+
     if (
-      razorpayOrderId.startsWith('order_test_') ||
-      razorpayPaymentId.startsWith('pay_test_') ||
-      razorpaySignature.startsWith('test_sig_')
+      allowSimulation &&
+      (razorpayOrderId.startsWith('order_test_') ||
+        razorpayPaymentId.startsWith('pay_test_') ||
+        razorpaySignature.startsWith('test_sig_'))
     ) {
       return true;
     }
