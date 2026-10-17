@@ -134,19 +134,28 @@ export default function GlobalNotificationBanner() {
                   {activeNotification.body}
                 </p>
 
-                {/* Action Button */}
-                {activeNotification.actionLabel && (
-                  <div className="mt-3 flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => handleActionClick(activeNotification)}
-                      className="px-4 py-2 rounded-xl bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-extrabold text-xs shadow-sm flex items-center gap-1.5 active:scale-95 transition-all cursor-pointer"
-                    >
-                      <span>{activeNotification.actionLabel}</span>
-                      <ChevronRight className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                )}
+                {/* Action Button: Only render if not already on this order / action URL */}
+                {activeNotification.actionLabel &&
+                  !(
+                    activeNotification.actionUrl &&
+                    (pathname === activeNotification.actionUrl ||
+                      Boolean(
+                        activeNotification.orderId &&
+                          (pathname === `/orders/${activeNotification.orderId}` ||
+                            pathname.startsWith(`/orders/${activeNotification.orderId}/`))
+                      ))
+                  ) && (
+                    <div className="mt-3 flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => handleActionClick(activeNotification)}
+                        className="px-4 py-2 rounded-xl bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-extrabold text-xs shadow-sm flex items-center gap-1.5 active:scale-95 transition-all cursor-pointer"
+                      >
+                        <span>{activeNotification.actionLabel}</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  )}
               </div>
 
               {/* Dismiss Button */}

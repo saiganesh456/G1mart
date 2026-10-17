@@ -41,7 +41,21 @@ self.addEventListener('push', (event) => {
       ],
     };
 
-    event.waitUntil(self.registration.showNotification(title, options));
+    event.waitUntil(
+      clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+        // If customer is already actively viewing this order's live tracking page in a focused tab,
+        // do not display redundant background push notification
+        const isViewingThisOrder = clientList.some((client) => {
+          return client.focused && orderId && client.url && client.url.includes(`/orders/${orderId}`);
+        });
+
+        if (isViewingThisOrder) {
+          return;
+        }
+
+        return self.registration.showNotification(title, options);
+      })
+    );
   } catch (err) {
     console.warn('[G1 Mart SW] Push parse error:', err);
   }
