@@ -135,13 +135,21 @@ export async function POST(req: NextRequest) {
     const registered = await serverOrderStore.registerOrderAsync(body);
 
     // Asynchronously notify all registered store managers / admins via Web Push
-    // (Wakes up mobile phones even if screen is OFF or app is closed)
-    try {
-      serverPushService.notifyAdminsNewOrder(registered).catch((pushErr) => {
-        console.warn('[api/orders] Admin push notify notice:', pushErr);
-      });
-      serverPushService.sendOrderPushNotification(registered, 'Order Placed').catch(() => {});
-    } catch {}
+    // (Strict guard: NEVER notify for background sync, test replays, or historical orders)
+    const isHistorical =
+      body.isSync === true ||
+      (body.date &&
+        !isNaN(new Date(body.date).getTime()) &&
+        Date.now() - new Date(body.date).getTime() > 5 * 60 * 1000);
+
+    if (!isHistorical) {
+      try {
+        serverPushService.notifyAdminsNewOrder(registered).catch((pushErr) => {
+          console.warn('[api/orders] Admin push notify notice:', pushErr);
+        });
+        serverPushService.sendOrderPushNotification(registered, 'Order Placed').catch(() => {});
+      } catch {}
+    }
 
     return NextResponse.json({
       success: true,

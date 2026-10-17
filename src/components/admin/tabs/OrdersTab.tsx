@@ -33,6 +33,7 @@ interface Props {
     status: string,
     assignedRider?: { id?: string; email?: string; name: string; phone?: string; vehicleNumber?: string }
   ) => void;
+  onClearTestOrders?: () => void;
   availableRiders?: StaffMember[];
   onClearAllOrders?: () => void;
   initialFilter?: string;
@@ -102,6 +103,7 @@ export default function OrdersTab({
   orders,
   onViewOrder,
   onUpdateStatus,
+  onClearTestOrders,
   availableRiders = [],
   onClearAllOrders,
   initialFilter = 'All',
@@ -239,6 +241,18 @@ export default function OrdersTab({
               <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
                 {filteredOrders.length}
               </span>
+              {onClearTestOrders && orders.length > 0 && (
+                <button
+                  type="button"
+                  onClick={onClearTestOrders}
+                  className="ml-1 px-2.5 py-1 text-[11px] font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl transition-all active:scale-95 flex items-center gap-1 cursor-pointer"
+                  title="Delete all test orders and start fresh"
+                >
+                  <Trash2 className="w-3.5 h-3.5 text-rose-600" />
+                  <span className="hidden sm:inline">Clear Test Orders</span>
+                  <span className="sm:hidden">Clear All</span>
+                </button>
+              )}
             </div>
 
             {/* Payment Segmented Toggle */}

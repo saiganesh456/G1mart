@@ -1003,4 +1003,19 @@ export const serverOrderStore = {
     processedWebhooks.clear();
     this.persistToDisk();
   },
+
+  /**
+   * Clear all orders and payment records completely to start freshly
+   */
+  async clearAllOrdersAsync(): Promise<void> {
+    this.clearAllOrders();
+
+    if (isSupabaseConfigured()) {
+      try {
+        await supabase.from('orders').delete().neq('id', '___none___');
+      } catch (err) {
+        console.warn('[serverOrderStore] Supabase delete note:', err);
+      }
+    }
+  },
 };

@@ -428,7 +428,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
       );
 
-      // Strict deduplication & new order alert detection
+      // Strict deduplication & new order alert detection (only genuine new arrivals after initial load)
       if (isInitialFetchDoneRef.current) {
         const newlyArrived = merged.filter((o) => !seenOrderIdsRef.current.has(o.id));
         if (newlyArrived.length > 0) {
@@ -469,6 +469,19 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   };
 
   useEffect(() => {
+    // Purge old customer test orders from browser cache so they don't persist on admin devices
+    try {
+      if (typeof window !== 'undefined') {
+        const hasPurged = localStorage.getItem('g1mart_test_orders_purged_v4');
+        if (!hasPurged) {
+          localStorage.removeItem('g1mart_account_orders');
+          localStorage.removeItem('g1mart_recent_order');
+          sessionStorage.removeItem('g1mart_orders_list');
+          localStorage.setItem('g1mart_test_orders_purged_v4', 'true');
+        }
+      }
+    } catch {}
+
     fetchOrders(false);
     fetchStaff();
 
@@ -1126,8 +1139,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 onUpdateStatus={(id, nextStatus, assignedRider) => {
                   handleUpdateOrderStatus(id, nextStatus, assignedRider);
                 }}
-                availableRiders={staffMembers.riders}
                 onClearAllOrders={handleClearAllOrders}
+                availableRiders={staffMembers.riders}
               />
             )}
 

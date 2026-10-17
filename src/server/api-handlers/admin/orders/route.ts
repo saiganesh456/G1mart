@@ -167,7 +167,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    serverOrderStore.clearAllOrders();
+    await serverOrderStore.clearAllOrdersAsync();
     const { serverSlipOrders } = await import('@/lib/serverSlipOrders');
     serverSlipOrders.clearAllSlips();
 
@@ -187,7 +187,7 @@ export async function DELETE(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'All orders successfully cleared from server and database',
+      message: 'All test orders cleared from server and database. Store pipeline is 100% fresh.',
     });
   } catch (err: any) {
     return NextResponse.json(
@@ -196,4 +196,3 @@ export async function DELETE(request: NextRequest) {
     );
   }
 }
-
