@@ -1608,7 +1608,7 @@
   },
   {
     "id": "g1-p0064",
-    "name": "MTR Rasam",
+    "name": "MTR Rasam Powder (రసం పొడి)",
     "brand_id": "b-067",
     "brand": "MTR",
     "category_id": "spices-masalas",
@@ -1623,10 +1623,10 @@
     "image_attribution": "Open Food Facts (MTR)",
     "image_check_reason": "No passing packshot image",
     "imageStatus": "verified",
-    "imageUrl": "/products/verified/g1-p0064.webp",
+    "imageUrl": "/products/packshots/mtr-rasam-powder-200g.webp",
     "image": "/products/verified/g1-p0064.webp",
     "category_name": "Spices & Masalas",
-    "price": 50,
+    "price": 48,
     "mrp": 50,
     "discount": 0,
     "in_stock": true,
@@ -1641,13 +1641,14 @@
         "image": "/products/verified/g1-p0064.webp"
       }
     ],
-    "originalPrice": 50,
-    "discountPercentage": 0,
-    "is_active": true
+    "originalPrice": 52,
+    "discountPercentage": 8,
+    "is_active": true,
+    "unit": "100 g"
   },
   {
     "id": "g1-p0065",
-    "name": "MTR Sambar",
+    "name": "MTR Sambar Powder (సాంబార్ పొడి)",
     "brand_id": "b-067",
     "brand": "MTR",
     "category_id": "spices-masalas",
@@ -1661,10 +1662,10 @@
     "image_license": null,
     "image_check_reason": "No passing packshot image",
     "imageStatus": "verified",
-    "imageUrl": "/products/verified/g1-p0065.webp",
+    "imageUrl": "/products/packshots/mtr-sambar-powder-200g.webp",
     "image": "/products/verified/g1-p0065.webp",
     "category_name": "Spices & Masalas",
-    "price": 50,
+    "price": 48,
     "mrp": 50,
     "discount": 0,
     "in_stock": true,
@@ -1679,13 +1680,14 @@
         "image": "/products/verified/g1-p0065.webp"
       }
     ],
-    "originalPrice": 50,
+    "originalPrice": 52,
     "discountPercentage": 0,
-    "is_active": true
+    "is_active": true,
+    "unit": "100 g"
   },
   {
     "id": "g1-p0066",
-    "name": "Aachi Rasam Powder",
+    "name": "Aachi Chilli Powder (కారం పొడి)",
     "brand_id": "brand-aachi",
     "brand": "Aachi",
     "category_id": "spices-masalas",
@@ -1701,7 +1703,7 @@
     "imageUrl": "/products/verified/g1-p0066.webp",
     "image": "/products/verified/g1-p0066.webp",
     "category_name": "Spices & Masalas",
-    "price": 11,
+    "price": 48,
     "mrp": 11,
     "discount": 0,
     "in_stock": true,
@@ -1725,10 +1727,10 @@
         "image": "/products/verified/g1-p0066.webp"
       }
     ],
-    "originalPrice": 11,
-    "discountPercentage": 0,
+    "originalPrice": 52,
+    "discountPercentage": 8,
     "is_active": true,
-    "unit": "1 unit",
+    "unit": "100 g",
     "unitLabel": "1 unit"
   },
   {
@@ -1923,7 +1925,7 @@
   },
   {
     "id": "g1-p0074",
-    "name": "Aachi Chicken Masala",
+    "name": "Aachi Chicken Masala (చికెన్ మసాలా)",
     "brand_id": "brand-aachi",
     "brand": "Aachi",
     "category_id": "spices-masalas",
@@ -1940,7 +1942,7 @@
     "imageUrl": "/products/verified/g1-p0074.webp",
     "image": "/products/verified/g1-p0074.webp",
     "category_name": "Spices & Masalas",
-    "price": 6,
+    "price": 25,
     "mrp": 6,
     "discount": 0,
     "in_stock": true,
@@ -1964,10 +1966,10 @@
         "image": "/products/verified/g1-p0074.webp"
       }
     ],
-    "originalPrice": 6,
-    "discountPercentage": 0,
+    "originalPrice": 28,
+    "discountPercentage": 11,
     "is_active": true,
-    "unit": "1 unit",
+    "unit": "50 g",
     "unitLabel": "1 unit"
   },
   {
@@ -51170,7 +51172,8 @@
         "in_stock": true,
         "image": "/products/packshots/mtr-sambar-powder-200g.webp"
       }
-    ]
+    ],
+    "isActive": false
   },
   {
     "id": "g1-spc026",
@@ -51209,7 +51212,8 @@
         "in_stock": true,
         "image": "/products/packshots/mtr-rasam-powder-200g.webp"
       }
-    ]
+    ],
+    "isActive": false
   },
   {
     "id": "g1-spc027",
@@ -51330,7 +51334,7 @@
   },
   {
     "id": "g1-spc030",
-    "name": "Aachi Rasam Powder",
+    "name": "Aachi Rasam Powder (రసం పొడి)",
     "brand_id": "brand-aachi",
     "brand": "Aachi",
     "category_id": "spices-masalas",
@@ -51347,13 +51351,13 @@
     "image_license": "Open / Brand Packshot",
     "image_check_reason": "Verified Master FMCG SKU",
     "category_name": "spices-masalas",
-    "unit": "200 g",
+    "unit": "100 g",
     "is_active": true,
-    "price": 80,
+    "price": 45,
     "mrp": 80,
-    "originalPrice": 80,
+    "originalPrice": 50,
     "discount": 0,
-    "discountPercentage": 0,
+    "discountPercentage": 10,
     "in_stock": true,
     "variants": [
       {
@@ -51365,7 +51369,8 @@
         "in_stock": true,
         "image": "/products/packshots/aachi-rasam-powder-200g.webp"
       }
-    ]
+    ],
+    "isActive": true
   },
   {
     "id": "g1-spc031",
@@ -51404,7 +51409,8 @@
         "in_stock": true,
         "image": "/products/packshots/aachi-chicken-masala-100g.webp"
       }
-    ]
+    ],
+    "isActive": false
   },
   {
     "id": "g1-spc032",
@@ -58733,5 +58739,25 @@
     ],
     "originalPrice": 35,
     "unitLabel": "100 g"
+  },
+  {
+    "id": "g1-freedom-oil-15l-tin",
+    "itemNumber": 1800,
+    "name": "Freedom Refined Sunflower Oil 15 Litre Tin (ఫ్రీడమ్ సన్‌ఫ్లవర్ ఆయిల్ 15L కేన్)",
+    "brand": "Freedom",
+    "category": "oil-ghee-masala",
+    "category_id": "oil-ghee-masala",
+    "subCategory": "Edible Cooking Oils & Ghee",
+    "unit": "15 L Tin (13.65 kg)",
+    "price": 1899,
+    "originalPrice": 2350,
+    "discountPercentage": 19,
+    "priceConfirmed": true,
+    "inStock": true,
+    "stockCount": 25,
+    "imageUrl": "/products/verified/freedom-sunflower-oil-15l-tin.webp",
+    "imageStatus": "VERIFIED",
+    "isActive": true,
+    "description": "Freedom Refined Sunflower Oil 15 Litre Tin (13.65 kg at 30° C). Fortified with Vitamins A, D & E. High smoke point, non-sticky edible oil for family cooking and bulk catering. Printed MRP: ₹2,350."
   }
 ]

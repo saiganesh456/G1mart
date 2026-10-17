@@ -58,13 +58,13 @@
     "icon": "Sparkles",
     "description": "Turmeric, chilli powder, whole jeera, mustard, sambar/rasam powders and Andhra pickles",
     "subcategories": [
-      "Chilli & Turmeric Powder",
       "Masala Powders, Whole Spices & Pickles",
-      "Whole Spices & Seeds",
+      "Chilli & Turmeric Powder",
       "Whole Spices & Jeera",
+      "Whole Spices & Seeds",
       "Sambar & Rasam Powders",
-      "Ginger Garlic Paste",
-      "Andhra Avakaya & Pickles"
+      "Andhra Avakaya & Pickles",
+      "Ginger Garlic Paste"
     ]
   },
   {
