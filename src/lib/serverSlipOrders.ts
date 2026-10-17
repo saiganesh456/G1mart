@@ -300,22 +300,6 @@ export const serverSlipOrders = {
       return match;
     }
 
-    // Check Supabase if configured
-    if (isSupabaseConfigured()) {
-      try {
-        const { data } = await supabase
-          .from('slip_orders')
-          .select('*, slip_items(*)')
-          .or(`id.eq.${id},id.eq.SLIP-${cleanTarget}`)
-          .maybeSingle();
-
-        if (data) {
-          slipsMap.set(data.id, data);
-          return data;
-        }
-      } catch {}
-    }
-
     return null;
   },
 
