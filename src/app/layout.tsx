@@ -3,13 +3,13 @@ import './globals.css';
 import { Providers } from '@/components/Providers';
 
 export const metadata: Metadata = {
-  title: 'G1 Mart | Fresh Groceries Delivered',
+  title: 'G1mart | Fresh Groceries Delivered',
   description: 'Order fresh groceries, dairy, staples and essentials online for fast home delivery in Nellore.',
   icons: {
-    icon: '/icons/icon-192x192.png?v=5',
-    apple: '/apple-touch-icon.png?v=5',
+    icon: '/icons/icon-192x192.png?v=6',
+    apple: '/apple-touch-icon.png?v=6',
   },
-  manifest: '/manifest.json?v=5',
+  manifest: '/manifest.json?v=6',
 };
 
 export const viewport: Viewport = {

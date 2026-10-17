@@ -8,7 +8,7 @@
  */
 export const STORE_CONFIG = {
   /** Exact trading name as it appears on the shop front / GST registration */
-  name: 'G1 Mart Supermarket',
+  name: 'G1mart',
 
   /** One-line tagline shown in the site header / meta description */
   tagline: 'Fresh Groceries & Essentials Delivered in 15–30 Mins',
@@ -33,7 +33,7 @@ export const STORE_CONFIG = {
   /** UPI Payment Configuration */
   payment: {
     upiId: process.env.NEXT_PUBLIC_STORE_UPI_ID || '9110759629@ybl',
-    upiPayeeName: 'G1 Mart',
+    upiPayeeName: 'G1mart',
   },
 
   /** Store operating hours (displayed to customers) */

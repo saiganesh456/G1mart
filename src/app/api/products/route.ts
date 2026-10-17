@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     const query = searchParams.get('q') || '';
     const limit = Math.min(Number(searchParams.get('limit')) || 20, 50);
 
-    let products = await productService.getProducts();
+    let products = await productService.getAllProductsRaw();
 
     if (query) {
       const q = query.toLowerCase().trim();

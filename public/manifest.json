@@ -1,9 +1,9 @@
 {
-  "name": "G1 Mart - Fresh Groceries Delivered",
-  "short_name": "G1 Mart",
+  "name": "G1mart - Fresh Groceries Delivered",
+  "short_name": "G1mart",
   "description": "Order fresh groceries, dairy, staples and essentials online for fast home delivery in Nellore.",
-  "id": "/g1-mart-app-v5",
-  "start_url": "/?v=5",
+  "id": "/g1mart-app-v6",
+  "start_url": "/?v=6",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#FFFFFF",
