@@ -824,64 +824,23 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
               </div>
             )}
 
-            {/* ── IMMERSIVE GREENERY FLOATING & ANALYZING SCANNER OVERLAY ── */}
+            {/* ── IMMERSIVE GREENERY SCANNER OVERLAY (CLEAN & MINIMAL) ── */}
             {cameraActive && (
               <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
-                {/* 1. Ambient greenery glow across the entire camera view */}
-                <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/25 via-transparent to-emerald-950/35" />
-                <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(16,185,129,0.18)]" />
+                {/* 1. Ambient soft greenery glow across the entire camera view */}
+                <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/20 via-transparent to-emerald-950/30" />
+                <div className="absolute inset-0 shadow-[inset_0_0_90px_rgba(16,185,129,0.15)]" />
 
-                {/* 2. Floating sweeping emerald laser beam with luminous gradient trail */}
+                {/* 2. Floating sweeping emerald laser beam analyzing the document */}
                 <div className="absolute inset-x-0 h-36 bg-gradient-to-b from-transparent via-emerald-500/20 to-transparent animate-scanner-sweep pointer-events-none">
                   <div className="w-full h-[2.5px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_16px_#10B981,0_0_32px_#34D399]" />
                 </div>
 
-                {/* 3. Floating live AI slip telemetry indicator at top */}
-                <div className="absolute top-4 inset-x-0 flex justify-center pointer-events-none">
-                  <div className="px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-emerald-500/40 shadow-lg flex items-center gap-2">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
-                    </span>
-                    <span className="text-[11px] font-extrabold text-emerald-300 tracking-wider uppercase">
-                      AI Slip Scanner Active
-                    </span>
-                    <div className="flex items-center gap-0.5 ml-1">
-                      <span className="w-0.5 h-2 bg-emerald-400 animate-pulse" />
-                      <span className="w-0.5 h-3.5 bg-emerald-400 animate-pulse delay-75" />
-                      <span className="w-0.5 h-2 bg-emerald-400 animate-pulse delay-150" />
-                    </div>
-                  </div>
-                </div>
-
-                {/* 4. Full-screen outer corner brackets (no restrictive box, frames the full sensor) */}
-                <div className="absolute inset-5 pointer-events-none flex flex-col justify-between">
-                  <div className="flex justify-between">
-                    <div className="w-7 h-7 border-t-2 border-l-2 border-emerald-400/70 rounded-tl-xl shadow-[0_0_10px_rgba(16,185,129,0.3)]" />
-                    <div className="w-7 h-7 border-t-2 border-r-2 border-emerald-400/70 rounded-tr-xl shadow-[0_0_10px_rgba(16,185,129,0.3)]" />
-                  </div>
-                  <div className="flex justify-between">
-                    <div className="w-7 h-7 border-b-2 border-l-2 border-emerald-400/70 rounded-bl-xl shadow-[0_0_10px_rgba(16,185,129,0.3)]" />
-                    <div className="w-7 h-7 border-b-2 border-r-2 border-emerald-400/70 rounded-br-xl shadow-[0_0_10px_rgba(16,185,129,0.3)]" />
-                  </div>
-                </div>
-
-                {/* 5. Center "Scan your slip" floating badge */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="animate-scanner-float flex flex-col items-center gap-2">
-                    <div className="px-6 py-2.5 rounded-full bg-black/70 backdrop-blur-md border border-emerald-400/70 shadow-[0_0_25px_rgba(16,185,129,0.45)] flex items-center gap-2.5">
-                      <span className="relative flex h-2.5 w-2.5">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-80" />
-                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
-                      </span>
-                      <span className="text-white text-xs sm:text-sm font-extrabold tracking-wider uppercase drop-shadow-sm">
-                        Scan your slip
-                      </span>
-                    </div>
-                    <span className="text-[10px] sm:text-[11px] font-semibold text-emerald-100 bg-black/50 px-3.5 py-1 rounded-full backdrop-blur-xs border border-white/10 shadow-sm">
-                      Place slip anywhere in camera view
-                    </span>
-                  </div>
+                {/* 3. Clean, minimal headline without any background */}
+                <div className="absolute top-6 inset-x-0 flex justify-center pointer-events-none z-10 px-4">
+                  <h3 className="text-base sm:text-lg font-bold text-white tracking-wide text-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] select-none">
+                    Scan your slip
+                  </h3>
                 </div>
               </div>
             )}
