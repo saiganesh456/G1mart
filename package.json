@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "prebuild": "node scripts/patch_next.js",
-    "build": "node scripts/patch_next.js && next build",
+    "build": "node scripts/run_build.js",
     "postinstall": "node scripts/patch_next.js",
     "start": "next start",
     "lint": "next lint"

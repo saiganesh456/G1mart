@@ -1,4 +1,4 @@
 {
   "framework": "nextjs",
-  "buildCommand": "node scripts/patch_next.js && next build"
+  "buildCommand": "node scripts/run_build.js"
 }
