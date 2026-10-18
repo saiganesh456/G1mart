@@ -4,7 +4,14 @@ import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import type { StaffMember, UserRole } from '@/types';
 
 // Default primary super admin emails
-export const ROOT_ADMIN_EMAILS = ['g1mart@gmail.com', 'lingalamahendra0@gmail.com'];
+export const ROOT_ADMIN_EMAILS = [
+  'g1mart@gmail.com',
+  'lingalamahendra0@gmail.com',
+  'gummasaiganesh57@gmail.com',
+  'vv727457@gmail.com',
+  'orders@g1mart.com',
+  'admin@g1mart.com',
+];
 export const ROOT_ADMIN_EMAIL = 'g1mart@gmail.com';
 
 // Permanent bundled repository file (persists across Git commits & Vercel builds)

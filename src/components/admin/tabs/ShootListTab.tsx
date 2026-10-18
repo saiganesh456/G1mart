@@ -26,6 +26,7 @@ import {
 import type { Category, Product } from '@/types';
 import ProductImage from '@/components/storefront/ProductImage';
 import categoryTilesMap from '@/data/categoryTiles.json';
+import { adminFetch } from '@/lib/adminApi';
 
 interface Props {
   products: Product[];
@@ -221,7 +222,7 @@ export default function ShootListTab({ products, categories, onProductUpdated, o
     formData.append('image', file);
 
     try {
-      const res = await fetch('/api/admin/products/upload-photo', {
+      const res = await adminFetch('/api/admin/products/upload-photo', {
         method: 'POST',
         body: formData,
       });
@@ -264,7 +265,7 @@ export default function ShootListTab({ products, categories, onProductUpdated, o
     }
 
     try {
-      const res = await fetch('/api/admin/products/bulk-upload', {
+      const res = await adminFetch('/api/admin/products/bulk-upload', {
         method: 'POST',
         body: formData,
       });

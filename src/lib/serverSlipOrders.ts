@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
+import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 import { serverStoreSettings } from '@/lib/serverStoreSettings';
 import { serverOrderStore } from '@/lib/serverOrderStore';
 import type {
@@ -37,25 +37,34 @@ function ensureDataDir(): void {
 }
 
 function loadDiskSlipOrders(): SlipOrder[] {
+  const mergedSlips = new Map<string, SlipOrder>();
   try {
     ensureDataDir();
-    let filePath = SLIP_ORDERS_FILE_PATH;
-    if (!fs.existsSync(filePath)) {
-      const tmpPath = path.join(os.tmpdir(), 'g1mart_slip_orders.json');
-      if (fs.existsSync(tmpPath)) filePath = tmpPath;
-    }
+    const pathsToCheck = [
+      SLIP_ORDERS_FILE_PATH,
+      path.join(os.tmpdir(), 'g1mart_slip_orders.json'),
+      path.join(process.cwd(), '.next', 'g1mart_slip_orders.json'),
+    ];
 
-    if (fs.existsSync(filePath)) {
-      const raw = fs.readFileSync(filePath, 'utf-8');
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) {
-        return parsed;
+    for (const filePath of pathsToCheck) {
+      if (fs.existsSync(filePath)) {
+        try {
+          const raw = fs.readFileSync(filePath, 'utf-8');
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            for (const s of parsed) {
+              if (s && s.id && !mergedSlips.has(s.id)) {
+                mergedSlips.set(s.id, s);
+              }
+            }
+          }
+        } catch {}
       }
     }
   } catch (err) {
     console.warn('[serverSlipOrders] Error reading from disk:', err);
   }
-  return [];
+  return Array.from(mergedSlips.values());
 }
 
 function persistDiskSlipOrders(): void {
@@ -132,6 +141,7 @@ export const serverSlipOrders = {
   async createSlipOrder(params: {
     customerName: string;
     customerPhone: string;
+    customerId?: string;
     customerNote?: string;
     address: string;
     lat?: number | null;
@@ -158,6 +168,7 @@ export const serverSlipOrders = {
 
     const order: SlipOrder = {
       id,
+      customer_id: params.customerId || undefined,
       customer_name: params.customerName.trim(),
       customer_phone: params.customerPhone.trim(),
       customer_note: params.customerNote?.trim() || null,
@@ -214,8 +225,9 @@ export const serverSlipOrders = {
     // Mirror to Supabase if configured
     if (isSupabaseConfigured()) {
       try {
-        await supabase.from('slip_orders').insert({
+        await supabase.from('slip_orders').upsert({
           id: order.id,
+          customer_id: params.customerId || null,
           customer_name: order.customer_name,
           customer_phone: order.customer_phone,
           customer_note: order.customer_note,
@@ -240,7 +252,7 @@ export const serverSlipOrders = {
         });
 
         if (slipImages.length > 0) {
-          await supabase.from('slip_images').insert(
+          await supabase.from('slip_images').upsert(
             slipImages.map((img) => ({
               id: img.id,
               slip_order_id: img.slip_order_id,
@@ -260,9 +272,100 @@ export const serverSlipOrders = {
   },
 
   /**
-   * List all slip orders
+   * List all slip orders (syncs from Supabase if configured)
    */
   async getSlipOrders(filterStatus?: SlipOrderStatus): Promise<SlipOrder[]> {
+    // 1. Re-hydrate latest slips from disk and serverless /tmp cache
+    const diskSlips = loadDiskSlipOrders();
+    diskSlips.forEach((s) => {
+      if (s && s.id) {
+        const existing = slipsMap.get(s.id);
+        if (!existing) {
+          slipsMap.set(s.id, s);
+        }
+      }
+    });
+
+    if (isSupabaseConfigured()) {
+      try {
+        const { data: dbSlips, error } = await supabase
+          .from('slip_orders')
+          .select('*, slip_images(*), slip_items(*)')
+          .order('created_at', { ascending: false });
+
+        if (!error && Array.isArray(dbSlips)) {
+          for (const s of dbSlips) {
+            if (!s || !s.id) continue;
+            const existing = slipsMap.get(s.id);
+            const mapped: SlipOrder = {
+              id: s.id,
+              customer_id: s.customer_id || undefined,
+              customer_name: s.customer_name || 'Customer',
+              customer_phone: s.customer_phone || '',
+              customer_note: s.customer_note,
+              address: s.address || '',
+              lat: s.lat ? Number(s.lat) : null,
+              lng: s.lng ? Number(s.lng) : null,
+              pincode: s.pincode,
+              distance_km: Number(s.distance_km || 0),
+              eta_min: Number(s.eta_min || 15),
+              zone_id: s.zone_id,
+              zone_min_order: Number(s.zone_min_order || 500),
+              order_type: s.order_type || 'delivery',
+              status: s.status || 'SLIP_RECEIVED',
+              estimated_total: Number(s.estimated_total || 0),
+              final_total: Number(s.final_total || 0),
+              subtotal: Number(s.subtotal || 0),
+              delivery_fee: Number(s.delivery_fee || 0),
+              cod_fee: Number(s.cod_fee || 0),
+              payment_method: s.payment_method,
+              payment_status: s.payment_status || 'pending',
+              transaction_id: s.transaction_id,
+              billed_by: s.billed_by,
+              packed_by: s.packed_by,
+              assigned_rider_id: s.assigned_rider_id,
+              assigned_rider_name: s.assigned_rider_name,
+              assigned_rider_phone: s.assigned_rider_phone,
+              admin_notes: s.admin_notes,
+              cancel_reason: s.cancel_reason,
+              images: Array.isArray(s.slip_images) && s.slip_images.length > 0
+                ? s.slip_images.map((img: any) => ({
+                    id: img.id,
+                    slip_order_id: img.slip_order_id,
+                    storage_path: img.storage_path,
+                    image_url: img.image_url,
+                    sort_order: img.sort_order,
+                    created_at: img.created_at,
+                  }))
+                : existing?.images || [],
+              items: Array.isArray(s.slip_items) && s.slip_items.length > 0
+                ? s.slip_items.map((it: any) => ({
+                    id: it.id,
+                    slip_order_id: it.slip_order_id,
+                    product_id: it.product_id,
+                    name: it.name,
+                    requested_qty: Number(it.requested_qty || 1),
+                    packed_qty: Number(it.packed_qty || 0),
+                    unit: it.unit || 'unit',
+                    price: Number(it.price || 0),
+                    available: it.available !== false,
+                    substitute_note: it.substitute_note,
+                    created_at: it.created_at,
+                  }))
+                : existing?.items || [],
+              status_history: existing?.status_history || [],
+              created_at: s.created_at,
+              updated_at: s.updated_at,
+            };
+            slipsMap.set(mapped.id, mapped);
+          }
+          persistDiskSlipOrders();
+        }
+      } catch (err) {
+        console.warn('[serverSlipOrders] Supabase sync note in getSlipOrders:', err);
+      }
+    }
+
     const list = Array.from(slipsMap.values()).sort(
       (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     );
@@ -274,7 +377,7 @@ export const serverSlipOrders = {
   },
 
   /**
-   * Get slip order by ID with flexible prefix matching
+   * Get slip order by ID with flexible prefix matching and Supabase fallback
    */
   async getSlipOrderById(id: string): Promise<SlipOrder | null> {
     if (!id) return null;
@@ -298,6 +401,81 @@ export const serverSlipOrders = {
     if (match) {
       slipsMap.set(match.id, match);
       return match;
+    }
+
+    // Query Supabase if configured
+    if (isSupabaseConfigured()) {
+      try {
+        const { data: s } = await supabase
+          .from('slip_orders')
+          .select('*, slip_images(*), slip_items(*)')
+          .or(`id.eq.${id},id.eq.SLIP-${cleanTarget}`)
+          .maybeSingle();
+
+        if (s) {
+          const mapped: SlipOrder = {
+            id: s.id,
+            customer_id: s.customer_id || undefined,
+            customer_name: s.customer_name || 'Customer',
+            customer_phone: s.customer_phone || '',
+            customer_note: s.customer_note,
+            address: s.address || '',
+            lat: s.lat ? Number(s.lat) : null,
+            lng: s.lng ? Number(s.lng) : null,
+            pincode: s.pincode,
+            distance_km: Number(s.distance_km || 0),
+            eta_min: Number(s.eta_min || 15),
+            zone_id: s.zone_id,
+            zone_min_order: Number(s.zone_min_order || 500),
+            order_type: s.order_type || 'delivery',
+            status: s.status || 'SLIP_RECEIVED',
+            estimated_total: Number(s.estimated_total || 0),
+            final_total: Number(s.final_total || 0),
+            subtotal: Number(s.subtotal || 0),
+            delivery_fee: Number(s.delivery_fee || 0),
+            cod_fee: Number(s.cod_fee || 0),
+            payment_method: s.payment_method,
+            payment_status: s.payment_status || 'pending',
+            transaction_id: s.transaction_id,
+            billed_by: s.billed_by,
+            packed_by: s.packed_by,
+            assigned_rider_id: s.assigned_rider_id,
+            assigned_rider_name: s.assigned_rider_name,
+            assigned_rider_phone: s.assigned_rider_phone,
+            admin_notes: s.admin_notes,
+            cancel_reason: s.cancel_reason,
+            images: Array.isArray(s.slip_images) ? s.slip_images.map((img: any) => ({
+              id: img.id,
+              slip_order_id: img.slip_order_id,
+              storage_path: img.storage_path,
+              image_url: img.image_url,
+              sort_order: img.sort_order,
+              created_at: img.created_at,
+            })) : [],
+            items: Array.isArray(s.slip_items) ? s.slip_items.map((it: any) => ({
+              id: it.id,
+              slip_order_id: it.slip_order_id,
+              product_id: it.product_id,
+              name: it.name,
+              requested_qty: Number(it.requested_qty || 1),
+              packed_qty: Number(it.packed_qty || 0),
+              unit: it.unit || 'unit',
+              price: Number(it.price || 0),
+              available: it.available !== false,
+              substitute_note: it.substitute_note,
+              created_at: it.created_at,
+            })) : [],
+            status_history: [],
+            created_at: s.created_at,
+            updated_at: s.updated_at,
+          };
+          slipsMap.set(mapped.id, mapped);
+          persistDiskSlipOrders();
+          return mapped;
+        }
+      } catch (err) {
+        console.warn('[serverSlipOrders] Error fetching single slip from Supabase:', err);
+      }
     }
 
     return null;

@@ -30,7 +30,10 @@ export async function GET(req: NextRequest) {
       const matchedSlips = allSlips.filter((s) => {
         if (cleanPhone) {
           const sPhone = (s.customer_phone || '').replace(/\D/g, '').slice(-10);
-          return sPhone === cleanPhone;
+          if (sPhone === cleanPhone) return true;
+        }
+        if (userId && (s.customer_id === userId || (s as any).userId === userId)) {
+          return true;
         }
         return false;
       });

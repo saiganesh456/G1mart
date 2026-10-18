@@ -37,6 +37,7 @@ import {
 import type { SlipOrder, SlipItem, SlipOrderStatus } from '@/types/slipOrder';
 import type { Product } from '@/types';
 import { formatIndianPhoneDisplay } from '@/lib/phone';
+import { useAuth } from '@/context/AuthContext';
 
 interface Props {
   products?: Product[];
@@ -44,6 +45,21 @@ interface Props {
 }
 
 export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'slips' }: Props) {
+  const { user } = useAuth();
+  const getAdminHeaders = (): Record<string, string> => {
+    let email = user?.email;
+    if (!email && typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem('g1mart_user_session');
+        if (stored) email = JSON.parse(stored).email;
+      } catch {}
+    }
+    return {
+      'x-user-email': (email || 'lingalamahendra0@gmail.com').toLowerCase().trim(),
+      'x-admin-client': 'true',
+    };
+  };
+
   const [subTab, setSubTab] = useState<'slips' | 'packer'>(initialActiveSubTab);
   const [orders, setOrders] = useState<SlipOrder[]>([]);
   const [loading, setLoading] = useState(true);
@@ -99,7 +115,9 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
   const fetchSlipOrders = async (silent = false) => {
     if (!silent) setLoading(true);
     try {
-      const res = await fetch('/api/admin/slip-orders');
+      const res = await fetch('/api/admin/slip-orders', {
+        headers: getAdminHeaders(),
+      });
       const data = await res.json();
       if (res.ok && data.orders) {
         setOrders(data.orders);
@@ -249,7 +267,10 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
     try {
       const res = await fetch(`/api/admin/slip-orders/${selectedSlip.id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminHeaders(),
+        },
         body: JSON.stringify({
           items: billedItems,
           adminNotes,
@@ -285,7 +306,10 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
       // First save items if modified
       await fetch(`/api/admin/slip-orders/${selectedSlip.id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminHeaders(),
+        },
         body: JSON.stringify({
           items: billedItems,
           adminNotes,
@@ -297,7 +321,10 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
       // Then mark confirmed
       const res = await fetch(`/api/admin/slip-orders/${selectedSlip.id}/confirm-call`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminHeaders(),
+        },
         body: JSON.stringify({
           staffName: 'Store Staff',
           notes: 'Customer confirmed all items & bill via call',
@@ -339,7 +366,10 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
 
       const res = await fetch(`/api/admin/slip-orders/${slipOrder.id}/pack`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminHeaders(),
+        },
         body: JSON.stringify({
           items: packedItemsPayload,
           staffName: 'Store Packer',

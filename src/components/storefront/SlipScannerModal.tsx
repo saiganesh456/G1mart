@@ -417,6 +417,9 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
       formData.append('name', customerName.trim() || 'Valued Customer');
       formData.append('phone', cleanPhone);
       formData.append('note', deliveryNote.trim());
+      if (user?.id) {
+        formData.append('userId', user.id);
+      }
 
       // Copy saved customer location snapshot (Phase 6 Rule 1 & 2)
       formData.append('address', currentLocation.formattedAddress || 'Padarupalli, Nellore');

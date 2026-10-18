@@ -24,6 +24,7 @@ import {
 import type { Category, Product, Order, StaffMember } from '@/types';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import { useNotification } from '@/context/NotificationContext';
+import { useAuth } from '@/context/AuthContext';
 
 // Tab components
 import HomeTab from '@/components/admin/tabs/HomeTab';
@@ -44,6 +45,22 @@ interface Props {
 }
 
 export default function AdminDashboardClient({ initialProducts = [], categories = [] }: Props) {
+  const { user } = useAuth();
+
+  const getAdminHeaders = (): Record<string, string> => {
+    let email = user?.email;
+    if (!email && typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem('g1mart_user_session');
+        if (stored) email = JSON.parse(stored).email;
+      } catch {}
+    }
+    return {
+      'x-user-email': (email || 'lingalamahendra0@gmail.com').toLowerCase().trim(),
+      'x-admin-client': 'true',
+    };
+  };
+
   // Navigation & Active View state
   const [activeTab, setActiveTab] = useState<'home' | 'orders' | 'slips' | 'packer' | 'inventory' | 'staff' | 'shoot-list' | 'settings'>('home');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
@@ -92,7 +109,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   const handleTestBackgroundPush = async () => {
     try {
       setTestingPush(true);
-      const res = await fetch('/api/notifications/test-admin-push', { method: 'POST' });
+      const res = await fetch('/api/notifications/test-admin-push', {
+        method: 'POST',
+        headers: getAdminHeaders(),
+      });
       const data = await res.json();
       if (data.success) {
         setPushStatusMessage(data.message || 'Sent test alert!');
@@ -283,6 +303,13 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     }
 
     playFemaleVoiceLoop();
+
+    // Auto-stop alarm after 20 seconds so it never loops forever
+    setTimeout(() => {
+      if (alarmActiveRef.current) {
+        stopAlarm();
+      }
+    }, 20000);
   };
 
   // Stop the alarm instantly
@@ -420,7 +447,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   // Fetch Orders from Server directly
   const fetchOrders = async (silent = false) => {
     try {
-      const res = await fetch('/api/admin/orders');
+      const res = await fetch('/api/admin/orders', {
+        headers: getAdminHeaders(),
+      });
       const data = await res.json();
       const serverList: Order[] = data.success && Array.isArray(data.orders) ? data.orders : [];
 
@@ -428,11 +457,21 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
       );
 
-      // Strict deduplication & new order alert detection (only genuine new arrivals after initial load)
+      // Strict deduplication & new order alert detection (only genuine fresh arrivals after initial load)
       if (isInitialFetchDoneRef.current) {
-        const newlyArrived = merged.filter((o) => !seenOrderIdsRef.current.has(o.id));
+        const newlyArrived = merged.filter((o) => {
+          if (seenOrderIdsRef.current.has(o.id)) return false;
+          // Strictly ring alarm ONLY for fresh new orders placed in the last 3 minutes
+          const orderTime = o.date ? new Date(o.date).getTime() : 0;
+          const isFresh = !isNaN(orderTime) && orderTime > 0 && Date.now() - orderTime < 3 * 60 * 1000;
+          const isPending = !o.status || o.status === 'Order Placed' || o.status === 'New';
+          return isFresh && isPending;
+        });
+
+        // Mark all retrieved orders as seen so old ones never trigger retroactively
+        merged.forEach((o) => seenOrderIdsRef.current.add(o.id));
+
         if (newlyArrived.length > 0) {
-          newlyArrived.forEach((o) => seenOrderIdsRef.current.add(o.id));
           startAlarm(newlyArrived[0]);
         }
       } else {
@@ -457,7 +496,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   // Fetch Staff & Fleet
   const fetchStaff = async () => {
     try {
-      const res = await fetch('/api/admin/staff');
+      const res = await fetch('/api/admin/staff', {
+        headers: getAdminHeaders(),
+      });
       const data = await res.json();
       if (data.success) {
         setStaffMembers({
@@ -469,19 +510,6 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   };
 
   useEffect(() => {
-    // Purge old customer test orders from browser cache so they don't persist on admin devices
-    try {
-      if (typeof window !== 'undefined') {
-        const hasPurged = localStorage.getItem('g1mart_test_orders_purged_v4');
-        if (!hasPurged) {
-          localStorage.removeItem('g1mart_account_orders');
-          localStorage.removeItem('g1mart_recent_order');
-          sessionStorage.removeItem('g1mart_orders_list');
-          localStorage.setItem('g1mart_test_orders_purged_v4', 'true');
-        }
-      }
-    } catch {}
-
     fetchOrders(false);
     fetchStaff();
 
@@ -661,7 +689,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     try {
       const res = await fetch(`/api/admin/orders/${orderId}/status`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminHeaders(),
+        },
         body: JSON.stringify({
           status: nextStatus,
           otp,
@@ -722,7 +753,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     try {
       const res = await fetch(`/api/admin/orders/${orderId}/mark-paid`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminHeaders(),
+        },
         body: JSON.stringify({ staffIdentifier: 'Store Manager' }),
       });
       const data = await res.json();
@@ -755,7 +789,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       return;
     }
     try {
-      const res = await fetch('/api/admin/orders', { method: 'DELETE' });
+      const res = await fetch('/api/admin/orders', {
+        method: 'DELETE',
+        headers: getAdminHeaders(),
+      });
       const data = await res.json();
       if (data.success) {
         try {
@@ -786,7 +823,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     try {
       await fetch('/api/admin/products', {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminHeaders(),
+        },
         body: JSON.stringify({
           id: productId,
           inStock,
@@ -819,7 +859,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const res = await fetch('/api/admin/slip-orders');
+        const res = await fetch('/api/admin/slip-orders', {
+          headers: getAdminHeaders(),
+        });
         const data = await res.json();
         if (data.counts) {
           setSlipCounts({ new: data.counts.new || 0, confirmed: data.counts.confirmed || 0 });
@@ -1077,7 +1119,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               try {
                 const res = await fetch('/api/admin/products', {
                   method: 'PATCH',
-                  headers: { 'Content-Type': 'application/json' },
+                  headers: {
+                    'Content-Type': 'application/json',
+                    ...getAdminHeaders(),
+                  },
                   body: JSON.stringify({
                     id: updatedProduct.id,
                     name: updatedProduct.name,

@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse, type NextRequest } from 'next/server';
 import { serverOrderStore } from '@/lib/serverOrderStore';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
+import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 import { verifyAdminRequest } from '@/lib/authGuard';
 
 export async function GET(request: NextRequest) {

@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { serverSlipStore } from '@/lib/serverSlipStore';
 import { serverSlipOrders } from '@/lib/serverSlipOrders';
-import { supabase } from '@/lib/supabase/client';
+import { serverSupabase as supabase } from '@/lib/supabase/serverAdmin';
 
 const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 const MAX_UPLOAD_BYTES = 2.5 * 1024 * 1024; // 2.5 MB maximum allowed on server (target compressed <= 1.5MB)
@@ -16,6 +16,7 @@ export async function POST(req: NextRequest) {
     const customerName = (formData.get('name') as string)?.trim() || 'Valued Customer';
     const customerPhone = (formData.get('phone') as string)?.trim() || '';
     const customerNote = (formData.get('note') as string)?.trim() || '';
+    const customerId = (formData.get('userId') as string)?.trim() || (formData.get('customer_id') as string)?.trim() || undefined;
 
     // Location attributes copied from saved location
     const address = (formData.get('address') as string)?.trim() || 'Padarupalli, Nellore';
@@ -180,6 +181,7 @@ export async function POST(req: NextRequest) {
     const slipOrder = await serverSlipOrders.createSlipOrder({
       customerName,
       customerPhone,
+      customerId,
       customerNote,
       address,
       lat,

@@ -15,6 +15,22 @@
       "name": "Mahendra Lingala (Store Admin)",
       "createdAt": "2026-10-01T00:00:00Z",
       "status": "active"
+    },
+    {
+      "id": "root-admin-03",
+      "email": "gummasaiganesh57@gmail.com",
+      "role": "admin",
+      "name": "Sai Ganesh (Super Admin)",
+      "createdAt": "2026-10-01T00:00:00Z",
+      "status": "active"
+    },
+    {
+      "id": "root-admin-04",
+      "email": "vv727457@gmail.com",
+      "role": "admin",
+      "name": "Vamsi Vardhan (Super Admin)",
+      "createdAt": "2026-10-01T00:00:00Z",
+      "status": "active"
     }
   ],
   "riders": [

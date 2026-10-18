@@ -3,7 +3,7 @@ import path from 'path';
 import os from 'os';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import { resolveLegacyId } from '@/lib/legacyIdMap';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
+import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 import type { Order, OrderItem, PaymentRecord, PaymentStatus, OrderStatus } from '@/types';
 import migratedVariantsData from '../../data/migrated_product_variants.json';
 
@@ -28,6 +28,11 @@ if (!global.__g1ProcessedWebhooks) global.__g1ProcessedWebhooks = new Set<string
 const ordersMap = global.__g1Orders;
 const paymentsMap = global.__g1Payments;
 const processedWebhooks = global.__g1ProcessedWebhooks;
+
+const toValidUuidOrNull = (val?: string | null): string | null => {
+  if (!val || typeof val !== 'string') return null;
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(val) ? val : null;
+};
 
 export const STATUS_RANK: Record<string, number> = {
   'Order Placed': 1,
@@ -235,7 +240,7 @@ export const serverOrderStore = {
       try {
         await supabase.from('orders').upsert({
           id: order.id,
-          user_id: params.userId || null,
+          user_id: toValidUuidOrNull(params.userId),
           date: order.date,
           slot: order.slot,
           payment_method: order.paymentMethod,
@@ -768,7 +773,7 @@ export const serverOrderStore = {
       try {
         await supabase.from('orders').upsert({
           id: merged.id,
-          user_id: merged.userId || null,
+          user_id: toValidUuidOrNull(merged.userId),
           date: merged.date,
           slot: merged.slot || 'Standard Delivery',
           payment_method: merged.paymentMethod || 'Cash on Delivery',

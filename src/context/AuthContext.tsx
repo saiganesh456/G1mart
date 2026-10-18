@@ -72,13 +72,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const meta = activeUser.user_metadata || {};
         const uEmail = (activeUser.email || meta.email || '').toLowerCase().trim();
         let fallbackRole: any = 'customer';
-        if (uEmail === 'g1mart@gmail.com' || uEmail === 'lingalamahendra0@gmail.com') {
-          fallbackRole = 'admin';
-        } else if (
+        const isCoreAdmin =
+          uEmail === 'g1mart@gmail.com' ||
+          uEmail === 'lingalamahendra0@gmail.com' ||
           uEmail === 'gummasaiganesh57@gmail.com' ||
           uEmail === 'vv727457@gmail.com' ||
-          uEmail === 'rider@g1mart.com'
-        ) {
+          uEmail === 'orders@g1mart.com' ||
+          uEmail === 'admin@g1mart.com';
+
+        if (isCoreAdmin) {
+          fallbackRole = 'admin';
+        } else if (uEmail === 'rider@g1mart.com') {
           fallbackRole = 'delivery_partner';
         }
         const p: UserProfile = {
