@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { productService } from '@/services/productService';
 import { verifyAdminRequest } from '@/lib/authGuard';
+import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 
 const CATALOG_PATH = path.join(process.cwd(), 'src', 'data', 'products-catalog.json');
 
@@ -177,6 +178,26 @@ export async function PATCH(request: NextRequest) {
         imageStatus: imageStatus || 'VERIFIED',
       }),
     });
+
+    // 5. Update Supabase public.products if configured
+    if (isSupabaseConfigured()) {
+      try {
+        const updatePayload: Record<string, any> = {};
+        if (name !== undefined) updatePayload.name = String(name).trim();
+        if (brand !== undefined) updatePayload.brand = String(brand).trim();
+        if (price !== undefined) updatePayload.price = Number(price);
+        if (originalPrice !== undefined) updatePayload.original_price = Number(originalPrice);
+        if (inStock !== undefined) updatePayload.in_stock = Boolean(inStock);
+        if (body.stockCount !== undefined) updatePayload.stock_count = Number(body.stockCount);
+        if (imageUrl !== undefined) updatePayload.image_url = String(imageUrl).trim();
+
+        if (Object.keys(updatePayload).length > 0) {
+          await supabase.from('products').update(updatePayload).eq('id', id);
+        }
+      } catch (sbErr) {
+        console.warn('[Admin Products] Error syncing product update to Supabase:', sbErr);
+      }
+    }
 
     return NextResponse.json({
       success: true,

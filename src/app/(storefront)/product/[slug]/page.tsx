@@ -29,12 +29,24 @@ export default function ProductDetailPage({ params }: Props) {
 
   useEffect(() => {
     let isMounted = true;
-    productService.getProductById(canonicalId).then((live) => {
-      if (isMounted && live) {
-        setProduct(live);
+    productService.getProductById(canonicalId).then((cached) => {
+      if (isMounted && cached) {
+        setProduct(cached);
         setLoading(false);
       }
     });
+
+    // Real-time server revalidation for updated MRP, price, or photo from admin
+    fetch(`/api/products?id=${encodeURIComponent(canonicalId)}&_t=${Date.now()}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (isMounted && data?.success && data?.product) {
+          setProduct(data.product);
+          setLoading(false);
+        }
+      })
+      .catch(() => {});
+
     return () => {
       isMounted = false;
     };

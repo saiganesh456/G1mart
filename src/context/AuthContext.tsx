@@ -95,6 +95,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           fallbackRole = 'admin';
         } else if (isCoreRider) {
           fallbackRole = 'delivery_partner';
+        } else if (uEmail) {
+          try {
+            const roleRes = await fetch('/api/auth/role-check', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: uEmail, normalizedEmail: normEmail }),
+            });
+            const roleData = await roleRes.json();
+            if (roleData.success && roleData.role && roleData.role !== 'customer') {
+              fallbackRole = roleData.role;
+            }
+          } catch {}
         }
         const p: UserProfile = {
           id: activeUser.id,

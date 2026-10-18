@@ -5,6 +5,15 @@ import { productService } from '@/services/productService';
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id') || '';
+    if (id) {
+      const prod = await productService.getProductById(id);
+      if (prod) {
+        return NextResponse.json({ success: true, product: prod });
+      }
+      return NextResponse.json({ success: false, error: 'Product not found' }, { status: 404 });
+    }
+
     const query = searchParams.get('q') || '';
     const limit = Math.min(Number(searchParams.get('limit')) || 20, 50);
 
