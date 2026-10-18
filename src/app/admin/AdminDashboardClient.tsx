@@ -432,7 +432,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       slot: row.slot || row.delivery_slot || 'Standard Delivery',
       paymentMethod: row.payment_method || 'Cash on Delivery',
       paymentStatus: row.payment_status || (row.is_paid ? 'completed' : 'pending'),
-      status: (row.status as any) || 'Order Placed',
+      status: (row.address?._status || row.status || 'Order Placed') as any,
       subtotal: Number(row.subtotal || row.total_amount || 0),
       discount: Number(row.discount || row.discount_amount || 0),
       deliveryFee: Number(row.delivery_fee || 0),
@@ -440,7 +440,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       grandTotal: Number(row.grand_total || row.total_amount || 0),
       isPaid: Boolean(row.is_paid),
       paidAmount: Number(row.paid_amount || 0),
-      timeline: [{ status: 'Order Placed', time: 'Just Now', completed: true }],
+      timeline: row.address?._timeline || [{ status: 'Order Placed', time: 'Just Now', completed: true }],
     };
   };
 
@@ -554,14 +554,17 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 const row = payload.new;
                 if (!row || !row.id) return;
 
+                const actualStatus = (row.address?._status || row.status || 'Order Placed') as any;
                 setOrders((prev) =>
                   prev.map((o) => {
                     if (o.id !== row.id) return o;
                     return {
                       ...o,
-                      status: (row.status as any) || o.status,
+                      status: actualStatus,
                       paymentStatus: (row.payment_status as any) || o.paymentStatus,
                       isPaid: Boolean(row.is_paid ?? o.isPaid),
+                      assignedRider: row.address?._assignedRider || o.assignedRider,
+                      timeline: row.address?._timeline || o.timeline,
                     };
                   })
                 );
@@ -571,9 +574,11 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                     prev
                       ? {
                           ...prev,
-                          status: (row.status as any) || prev.status,
+                          status: actualStatus,
                           paymentStatus: (row.payment_status as any) || prev.paymentStatus,
                           isPaid: Boolean(row.is_paid ?? prev.isPaid),
+                          assignedRider: row.address?._assignedRider || prev.assignedRider,
+                          timeline: row.address?._timeline || prev.timeline,
                         }
                       : null
                   );
@@ -719,6 +724,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       const data = await res.json();
 
       if (data.success && data.order) {
+        setSelectedOrder(data.order);
+        setOrders((prev) => prev.map((o) => (o.id === orderId ? data.order : o)));
+
         // Sync local storage for customer persistence
         try {
           const rawAcc = localStorage.getItem('g1mart_account_orders');
@@ -753,12 +761,14 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         alert('Could not update order status: ' + (data.error || 'Server error'));
         if (targetOrder) {
           setOrders((prev) => prev.map((o) => (o.id === orderId ? targetOrder : o)));
+          if (selectedOrder && selectedOrder.id === orderId) setSelectedOrder(targetOrder);
         }
       }
     } catch (err: any) {
       alert('Error updating order: ' + err.message);
       if (targetOrder) {
         setOrders((prev) => prev.map((o) => (o.id === orderId ? targetOrder : o)));
+        if (selectedOrder && selectedOrder.id === orderId) setSelectedOrder(targetOrder);
       }
     }
   };

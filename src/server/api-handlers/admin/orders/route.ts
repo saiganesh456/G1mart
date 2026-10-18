@@ -27,6 +27,7 @@ export async function GET(request: NextRequest) {
         if (data && Array.isArray(data)) {
           data.forEach((row: any) => {
             if (row && row.id && !orders.some((o) => o.id === row.id)) {
+              const realStatus = row.address?._status || row.status || 'Order Placed';
               serverOrderStore.registerOrder({
                 id: row.id,
                 date: row.date || new Date(row.created_at).toLocaleDateString(),
@@ -34,7 +35,7 @@ export async function GET(request: NextRequest) {
                 paymentMethod: row.payment_method,
                 paymentStatus: row.payment_status || (row.is_paid ? 'completed' : 'pending'),
                 isPaid: Boolean(row.is_paid),
-                status: row.status,
+                status: realStatus,
                 subtotal: Number(row.subtotal || 0),
                 discount: Number(row.discount || 0),
                 deliveryFee: Number(row.delivery_fee || 0),
@@ -51,22 +52,25 @@ export async function GET(request: NextRequest) {
                     }))
                   : (row.address?._items || []),
                 address: row.address,
-                timeline: [
+                assignedRider: row.address?._assignedRider,
+                deliveryOtp: row.address?._deliveryOtp,
+                timeline: row.address?._timeline || [
                   { status: 'Order Placed', time: 'Confirmed', completed: true },
                   {
                     status: 'Packed',
                     time: 'Pending',
                     completed:
-                      row.status === 'Packed' ||
-                      row.status === 'Out for Delivery' ||
-                      row.status === 'Delivered',
+                      realStatus === 'Packed' ||
+                      realStatus === 'Rider Assigned' ||
+                      realStatus === 'Out for Delivery' ||
+                      realStatus === 'Delivered',
                   },
                   {
                     status: 'Out for Delivery',
                     time: 'Pending',
-                    completed: row.status === 'Out for Delivery' || row.status === 'Delivered',
+                    completed: realStatus === 'Out for Delivery' || realStatus === 'Delivered',
                   },
-                  { status: 'Delivered', time: 'Pending', completed: row.status === 'Delivered' },
+                  { status: 'Delivered', time: 'Pending', completed: realStatus === 'Delivered' },
                 ],
               });
             }

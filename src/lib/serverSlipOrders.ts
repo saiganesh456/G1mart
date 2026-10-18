@@ -658,6 +658,7 @@ export const serverSlipOrders = {
         zone_min_order: order.zone_min_order,
         orderType: 'slip',
       });
+      await serverOrderStore.updateOrderStatus(order.id, 'Confirmed', staffName);
     } catch {}
 
     return order;

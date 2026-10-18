@@ -566,23 +566,34 @@ export const serverOrderStore = {
 
     if (isSupabaseConfigured()) {
       try {
+        // Map status to valid database enum ('Order Placed', 'Packed', 'Out for Delivery', 'Delivered', 'Cancelled')
+        let dbStatus: 'Order Placed' | 'Packed' | 'Out for Delivery' | 'Delivered' | 'Cancelled' = 'Order Placed';
+        if (status === 'Delivered') {
+          dbStatus = 'Delivered';
+        } else if (status === 'Out for Delivery' || status === 'Order Dispatched') {
+          dbStatus = 'Out for Delivery';
+        } else if (status === 'Packed' || status === 'Rider Assigned') {
+          dbStatus = 'Packed';
+        } else if (status === 'Cancelled') {
+          dbStatus = 'Cancelled';
+        } else {
+          dbStatus = 'Order Placed';
+        }
+
         const updatePayload: any = {
-          status: status,
+          status: dbStatus,
           updated_at: new Date().toISOString(),
+          address: {
+            ...(order.address || {}),
+            _status: status,
+            _timeline: order.timeline,
+            _deliveryOtp: order.deliveryOtp,
+            _assignedRider: order.assignedRider,
+          },
         };
 
         if (order.assignedRider?.id && order.assignedRider.id.includes('-') && order.assignedRider.id.length > 20) {
           updatePayload.assigned_rider_id = order.assignedRider.id;
-        }
-
-        if (order.address) {
-          updatePayload.address = {
-            ...order.address,
-            _timeline: order.timeline,
-            _deliveryOtp: order.deliveryOtp,
-            _assignedRider: order.assignedRider,
-            _status: status,
-          };
         }
 
         await supabase
@@ -858,6 +869,7 @@ export const serverOrderStore = {
         if (data) {
           const addr = data.address || {};
           const existing = order;
+          const realStatus = (addr._status || data.status || 'Order Placed') as OrderStatus;
           order = {
             id: data.id,
             orderNumber: data.id,
@@ -868,7 +880,7 @@ export const serverOrderStore = {
             isPaid: Boolean(data.is_paid),
             paidAmount: addr._paidAmount || (data.is_paid ? Number(data.grand_total) : 0),
             paidAt: addr._paidAt,
-            status: data.status,
+            status: realStatus,
             subtotal: Number(data.subtotal),
             discount: Number(data.discount || 0),
             deliveryFee: Number(data.delivery_fee || 0),
@@ -882,9 +894,9 @@ export const serverOrderStore = {
             assignedRider: addr._assignedRider || existing?.assignedRider,
             timeline: addr._timeline || existing?.timeline || [
               { status: 'Order Placed', time: 'Confirmed', completed: true },
-              { status: 'Packed', time: 'Pending', completed: data.status === 'Packed' || data.status === 'Out for Delivery' || data.status === 'Delivered' },
-              { status: 'Out for Delivery', time: 'Pending', completed: data.status === 'Out for Delivery' || data.status === 'Delivered' },
-              { status: 'Delivered', time: 'Pending', completed: data.status === 'Delivered' },
+              { status: 'Packed', time: 'Pending', completed: realStatus === 'Packed' || realStatus === 'Rider Assigned' || realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
+              { status: 'Out for Delivery', time: 'Pending', completed: realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
+              { status: 'Delivered', time: 'Pending', completed: realStatus === 'Delivered' },
             ],
           };
           ordersMap.set(data.id, order);
@@ -937,6 +949,7 @@ export const serverOrderStore = {
             const existing = ordersMap.get(row.id);
             const addr = row.address || {};
             const items = existing?.items?.length ? existing.items : (addr._items || []);
+            const realStatus = (addr._status || row.status || 'Order Placed') as OrderStatus;
 
             const syncedOrder: Order = {
               id: row.id,
@@ -948,7 +961,7 @@ export const serverOrderStore = {
                 ? 'completed'
                 : (addr._paymentStatus || existing?.paymentStatus || (row.payment_method === 'Cash on Delivery' ? 'cash_on_delivery' : 'pending')),
               isPaid: Boolean(row.is_paid ?? existing?.isPaid ?? false),
-              status: (row.status as any) || existing?.status || 'Order Placed',
+              status: realStatus,
               subtotal: Number(row.subtotal || existing?.subtotal || 0),
               discount: Number(row.discount || existing?.discount || 0),
               deliveryFee: Number(row.delivery_fee || existing?.deliveryFee || 0),
@@ -958,11 +971,13 @@ export const serverOrderStore = {
               address: existing?.address || addr,
               userId: row.user_id || existing?.userId || addr._userId,
               userEmail: existing?.userEmail || addr._userEmail,
-              timeline: existing?.timeline || [
+              deliveryOtp: addr._deliveryOtp || existing?.deliveryOtp,
+              assignedRider: addr._assignedRider || existing?.assignedRider,
+              timeline: addr._timeline || existing?.timeline || [
                 { status: 'Order Placed', time: 'Confirmed', completed: true },
-                { status: 'Packed', time: 'Pending', completed: row.status === 'Packed' || row.status === 'Out for Delivery' || row.status === 'Delivered' },
-                { status: 'Out for Delivery', time: 'Pending', completed: row.status === 'Out for Delivery' || row.status === 'Delivered' },
-                { status: 'Delivered', time: 'Pending', completed: row.status === 'Delivered' },
+                { status: 'Packed', time: 'Pending', completed: realStatus === 'Packed' || realStatus === 'Rider Assigned' || realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
+                { status: 'Out for Delivery', time: 'Pending', completed: realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
+                { status: 'Delivered', time: 'Pending', completed: realStatus === 'Delivered' },
               ],
             };
 

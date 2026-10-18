@@ -332,7 +332,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
             },
             (payload: any) => {
               if (payload.new) {
-                const nextStatus = payload.new.status;
+                const nextStatus = payload.new.address?._status || payload.new.status;
                 setOrder((prev: any) => {
                   if (prev && nextStatus && prev.status !== nextStatus) {
                     playStatusChime(nextStatus);
