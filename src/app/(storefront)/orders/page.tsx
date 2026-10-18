@@ -150,7 +150,8 @@ export default function OrdersPage() {
       if (phone) query.set('phone', phone);
 
       if (userId || phone) {
-        const res = await fetch(`/api/orders?${query.toString()}`);
+        query.set('_t', String(Date.now()));
+        const res = await fetch(`/api/orders?${query.toString()}`, { cache: 'no-store' });
         const data = await res.json();
         if (data.success && Array.isArray(data.orders)) {
           // Authoritative list directly from server

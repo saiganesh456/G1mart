@@ -49,31 +49,71 @@ export async function POST(req: NextRequest) {
 
     const webpUrl = `/products/verified/${productId}.webp`;
 
-    // Update migrated_products.json
+    // 1. Update data/migrated_products.json
     const catalogPath = path.join(process.cwd(), 'data', 'migrated_products.json');
     if (fs.existsSync(catalogPath)) {
-      const catalog = JSON.parse(fs.readFileSync(catalogPath, 'utf-8'));
-      const product = catalog.find((p: any) => p.id === productId);
-      if (product) {
-        product.image_url = webpUrl;
-        product.image_status = 'verified';
-        product.image_source = 'store_camera';
-        product.image_license = 'Proprietary / G1mart';
-        fs.writeFileSync(catalogPath, JSON.stringify(catalog, null, 2), 'utf-8');
-
-        // Automatically regenerate category tile collages in background
-        const collageScript = path.join(process.cwd(), 'scripts', 'photo_pipeline', 'generate_category_collages.py');
-        execFile('python', [collageScript], (err) => {
-          if (err) console.error('Auto-regenerate category collages error:', err);
-        });
+      try {
+        const catalog = JSON.parse(fs.readFileSync(catalogPath, 'utf-8'));
+        const product = catalog.find((p: any) => p.id === productId);
+        if (product) {
+          product.image_url = webpUrl;
+          product.image = webpUrl;
+          product.image_status = 'verified';
+          product.imageStatus = 'verified';
+          product.image_source = 'store_camera';
+          product.image_license = 'Proprietary / G1mart';
+          fs.writeFileSync(catalogPath, JSON.stringify(catalog, null, 2), 'utf-8');
+        }
+      } catch (err) {
+        console.warn('[Upload Photo] Error updating migrated_products.json:', err);
       }
     }
+
+    // 2. Update src/data/products-catalog.json
+    const adminCatalogPath = path.join(process.cwd(), 'src', 'data', 'products-catalog.json');
+    if (fs.existsSync(adminCatalogPath)) {
+      try {
+        const adminCatalog = JSON.parse(fs.readFileSync(adminCatalogPath, 'utf-8'));
+        const aProd = adminCatalog.find((p: any) => p.id === productId);
+        if (aProd) {
+          aProd.imageUrl = webpUrl;
+          aProd.image = webpUrl;
+          aProd.image_url = webpUrl;
+          aProd.imageStatus = 'VERIFIED';
+          aProd.image_status = 'VERIFIED';
+          fs.writeFileSync(adminCatalogPath, JSON.stringify(adminCatalog, null, 2), 'utf-8');
+        }
+      } catch (err) {
+        console.warn('[Upload Photo] Error updating products-catalog.json:', err);
+      }
+    }
+
+    // 3. Immediately update in-memory catalog for live customer storefront
+    try {
+      const { productService } = await import('@/services/productService');
+      await productService.updateProductImage(productId, webpUrl, 'VERIFIED');
+      await productService.updateProduct({
+        id: productId,
+        imageUrl: webpUrl,
+        image: webpUrl,
+        image_url: webpUrl,
+        imageStatus: 'VERIFIED',
+      });
+    } catch (memErr) {
+      console.warn('[Upload Photo] Error updating in-memory productService:', memErr);
+    }
+
+    // 4. Automatically regenerate category tile collages in background
+    const collageScript = path.join(process.cwd(), 'scripts', 'photo_pipeline', 'generate_category_collages.py');
+    execFile('python', [collageScript], (err) => {
+      if (err) console.error('Auto-regenerate category collages error:', err);
+    });
 
     return NextResponse.json({
       success: true,
       productId,
       imageUrl: webpUrl,
-      imageStatus: 'verified'
+      imageStatus: 'verified',
     });
   } catch (error: any) {
     console.error('Photo upload error:', error);

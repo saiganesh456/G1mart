@@ -32,6 +32,7 @@ import { useCart } from '@/context/CartContext';
 import { triggerSuccessHaptic } from '@/lib/haptics';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import type { Product } from '@/types';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 
 function getProductHref(item: any): string | null {
   if (!item) return null;
@@ -258,7 +259,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
 
     const syncLiveOrder = async () => {
       try {
-        const res = await fetch(`/api/orders/${orderId}`);
+        const res = await fetch(`/api/orders/${orderId}?_t=${Date.now()}`, { cache: 'no-store' });
         const data = await res.json();
         if (data.success && data.order) {
           setOrder((prev: any) => {
@@ -288,7 +289,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
           return;
         }
 
-        const payRes = await fetch(`/api/orders/${orderId}/payment-status`);
+        const payRes = await fetch(`/api/orders/${orderId}/payment-status?_t=${Date.now()}`, { cache: 'no-store' });
         const payData = await payRes.json();
         if (payData.success && payData.order) {
           setOrder((prev: any) => {
@@ -312,6 +313,39 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
         return prev;
       });
     }, 4000);
+
+    // Instant Supabase Realtime WebSocket listener for this order
+    let sbChannel: any = null;
+    if (isSupabaseConfigured()) {
+      try {
+        const isSlip = String(orderId).startsWith('SLIP-');
+        const targetTable = isSlip ? 'slip_orders' : 'orders';
+        sbChannel = supabase
+          .channel(`customer_order_track_${orderId}`)
+          .on(
+            'postgres_changes',
+            {
+              event: 'UPDATE',
+              schema: 'public',
+              table: targetTable,
+              filter: `id=eq.${orderId}`,
+            },
+            (payload: any) => {
+              if (payload.new) {
+                const nextStatus = payload.new.status;
+                setOrder((prev: any) => {
+                  if (prev && nextStatus && prev.status !== nextStatus) {
+                    playStatusChime(nextStatus);
+                  }
+                  return { ...prev, ...payload.new, status: nextStatus || prev?.status };
+                });
+                syncLiveOrder();
+              }
+            }
+          )
+          .subscribe();
+      } catch {}
+    }
 
     let bc: BroadcastChannel | null = null;
     try {
@@ -348,6 +382,11 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
       clearInterval(interval);
       window.removeEventListener('storage', handleStorageChange);
       if (bc) bc.close();
+      if (sbChannel) {
+        try {
+          supabase.removeChannel(sbChannel);
+        } catch {}
+      }
     };
   }, [orderId]);
 
@@ -632,13 +671,15 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
           </p>
         </div>
 
-        <div className="w-9 flex items-center justify-end shrink-0">
-          {order?.eta_min ? (
+        <div className="w-12 flex items-center justify-end shrink-0">
+          {Number(order?.eta_min) > 0 ? (
             <span className="text-[10px] font-bold bg-white/20 text-white px-2 py-0.5 rounded-full whitespace-nowrap">
-              ~{order.eta_min}m
+              ~{Math.max(10, Math.round(Number(order.eta_min)))}m
             </span>
           ) : (
-            <div className="w-9" />
+            <span className="text-[10px] font-bold bg-white/20 text-white px-2 py-0.5 rounded-full whitespace-nowrap">
+              Active
+            </span>
           )}
         </div>
       </header>
@@ -783,6 +824,50 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
           return null;
         })()}
 
+        {/* Slip Order Confirmation by Store Manager Call */}
+        {isSlipOrder && (
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50/70 to-emerald-50 border border-emerald-300 shadow-xs space-y-2.5">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-[#1E6B2E] text-white flex items-center justify-center text-lg shrink-0 shadow-xs">
+                📞
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black text-emerald-950 uppercase tracking-wide">
+                    {order?.status === 'SLIP_RECEIVED'
+                      ? 'Store Reviewing Your Slip'
+                      : 'Confirmed via Call with Store Manager'}
+                  </span>
+                  <span className="text-[10px] font-bold bg-emerald-200/80 text-emerald-900 px-2.5 py-0.5 rounded-full border border-emerald-300">
+                    {order?.status === 'SLIP_RECEIVED' ? 'Pending Call' : 'Verified on Call'}
+                  </span>
+                </div>
+                <p className="text-xs text-emerald-900 mt-1 leading-snug">
+                  {order?.status === 'SLIP_RECEIVED'
+                    ? 'Our store manager is reviewing your uploaded grocery list and will call your phone to verify brands and pack your items.'
+                    : 'The store manager verified your grocery list over phone. Items have been billed and prepared as discussed.'}
+                </p>
+              </div>
+            </div>
+
+            {/* Price confirmation box */}
+            {currentSubtotal > 0 && (
+              <div className="bg-white/90 rounded-xl p-3 border border-emerald-200/90 flex items-center justify-between text-xs">
+                <div>
+                  <span className="text-stone-700 font-bold block">Verified Bill Amount</span>
+                  <span className="text-[10px] text-stone-500">Confirmed over phone for your uploaded slip</span>
+                </div>
+                <div className="text-right">
+                  <span className="text-base font-black text-[#1E6B2E]">
+                    ₹{currentSubtotal}
+                  </span>
+                  <span className="text-[10px] text-emerald-700 font-bold block">Free Doorstep Delivery</span>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Customer Uploaded Photos Preview (for slip orders) */}
         {order?.images && order.images.length > 0 && (
           <div className="bg-stone-50 p-3 rounded-xl border border-stone-200/70 space-y-1.5">
@@ -867,21 +952,27 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
                 )}
               </div>
               <p className="text-stone-600">
-                {address.houseFlat ? `${address.houseFlat}, ` : ''}
-                {address.streetArea ? `${address.streetArea}, ` : ''}
-                {address.city} – {address.pincode}
+                {(() => {
+                  const rawParts = [address.houseFlat, address.streetArea, address.city, address.pincode]
+                    .filter(Boolean)
+                    .flatMap((p) => String(p).split(/,\s*/))
+                    .map((s) => s.trim().replace(/^-+|-+$/g, '').trim())
+                    .filter(Boolean);
+                  const unique = rawParts.filter((item, index) => rawParts.indexOf(item) === index);
+                  return unique.join(', ');
+                })()}
               </p>
             </div>
           </div>
         )}
 
         {/* Items Breakdown with Unavailable Strike-Through (Phase 6 Rule 5) */}
-        {items.length > 0 && (
+        {(items.length > 0 || isSlipOrder || currentSubtotal > 0) && (
           <div className="space-y-2.5 border-t border-stone-100 pt-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-stone-900">
                 <Package className="w-4 h-4 text-[#1E6B2E]" />
-                <span>Items ({items.length})</span>
+                <span>Items ({items.length > 0 ? items.length : 'From Uploaded Slip'})</span>
               </div>
 
               {/* Add items top-up button if awaiting payment */}
@@ -897,6 +988,17 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
               )}
             </div>
 
+            {items.length === 0 && isSlipOrder && (
+              <div className="p-3 bg-white rounded-xl border border-stone-200 text-xs text-stone-700 flex items-center justify-between shadow-2xs">
+                <div>
+                  <span className="font-bold text-stone-900 block">Items verified from uploaded slip</span>
+                  <span className="text-[10px] text-stone-500">Lump-sum bill confirmed with store manager over call</span>
+                </div>
+                <span className="font-black text-[#1E6B2E] text-sm">₹{currentSubtotal}</span>
+              </div>
+            )}
+
+            {items.length > 0 && (
             <div className="divide-y divide-stone-100 border border-stone-100 rounded-xl overflow-hidden">
               {items.map((item: any, idx: number) => {
                 const isItemUnavailable = item.available === false;
@@ -986,6 +1088,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
                 );
               })}
             </div>
+            )}
 
             {/* Bill Summary — Reference C */}
             <div className="bg-stone-50 p-3.5 rounded-2xl border border-stone-200/80 space-y-2 text-xs">

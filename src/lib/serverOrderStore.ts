@@ -566,27 +566,23 @@ export const serverOrderStore = {
 
     if (isSupabaseConfigured()) {
       try {
-        // Map status to valid database enum ('Order Placed', 'Packed', 'Out for Delivery', 'Delivered', 'Cancelled')
-        let dbStatus: 'Order Placed' | 'Packed' | 'Out for Delivery' | 'Delivered' | 'Cancelled' = 'Order Placed';
-        if (status === 'Delivered') {
-          dbStatus = 'Delivered';
-        } else if (status === 'Out for Delivery' || status === 'Order Dispatched') {
-          dbStatus = 'Out for Delivery';
-        } else if (status === 'Packed' || status === 'Rider Assigned') {
-          dbStatus = 'Packed';
-        } else if (status === 'Cancelled') {
-          dbStatus = 'Cancelled';
-        } else {
-          dbStatus = 'Order Placed';
-        }
-
         const updatePayload: any = {
-          status: dbStatus,
+          status: status,
           updated_at: new Date().toISOString(),
         };
 
         if (order.assignedRider?.id && order.assignedRider.id.includes('-') && order.assignedRider.id.length > 20) {
           updatePayload.assigned_rider_id = order.assignedRider.id;
+        }
+
+        if (order.address) {
+          updatePayload.address = {
+            ...order.address,
+            _timeline: order.timeline,
+            _deliveryOtp: order.deliveryOtp,
+            _assignedRider: order.assignedRider,
+            _status: status,
+          };
         }
 
         await supabase
@@ -856,11 +852,12 @@ export const serverOrderStore = {
   async getOrderAsync(orderId: string): Promise<Order | undefined> {
     this.loadFromDisk();
     let order = this.getOrder(orderId);
-    if (!order && isSupabaseConfigured()) {
+    if (isSupabaseConfigured()) {
       try {
         const { data } = await supabase.from('orders').select('*').eq('id', orderId).maybeSingle();
         if (data) {
           const addr = data.address || {};
+          const existing = order;
           order = {
             id: data.id,
             orderNumber: data.id,
@@ -877,11 +874,13 @@ export const serverOrderStore = {
             deliveryFee: Number(data.delivery_fee || 0),
             taxes: Number(data.taxes || 0),
             grandTotal: Number(data.grand_total),
-            items: addr._items || [],
+            items: (existing?.items && existing.items.length > 0) ? existing.items : (addr._items || []),
             address: addr,
             userId: data.user_id || addr._userId,
             userEmail: addr._userEmail,
-            timeline: [
+            deliveryOtp: addr._deliveryOtp || existing?.deliveryOtp,
+            assignedRider: addr._assignedRider || existing?.assignedRider,
+            timeline: addr._timeline || existing?.timeline || [
               { status: 'Order Placed', time: 'Confirmed', completed: true },
               { status: 'Packed', time: 'Pending', completed: data.status === 'Packed' || data.status === 'Out for Delivery' || data.status === 'Delivered' },
               { status: 'Out for Delivery', time: 'Pending', completed: data.status === 'Out for Delivery' || data.status === 'Delivered' },

@@ -198,6 +198,14 @@ export async function POST(req: NextRequest) {
       })),
     });
 
+    // Notify all store admins / managers of new slip order immediately
+    try {
+      const { serverPushService } = await import('@/lib/serverPushService');
+      await serverPushService.notifyAdminsNewSlip(slipOrder);
+    } catch (pushErr) {
+      console.warn('[Slip Upload] Admin push notification notice:', pushErr);
+    }
+
     return NextResponse.json({
       success: true,
       slipId: slipOrder.id,

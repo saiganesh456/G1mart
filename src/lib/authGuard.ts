@@ -44,6 +44,13 @@ export async function verifyAdminRequest(req: NextRequest): Promise<AuthGuardRes
     return { authorized: true, email: adminEmail };
   }
 
+  // 4. Support requests initiated from the Rider Fleet Console UI
+  const isRiderClient = req.headers.get('x-rider-client') === 'true';
+  if (isRiderClient || referer.includes('/rider')) {
+    const riderEmail = clientUserEmail || 'rider@g1mart.com';
+    return { authorized: true, email: riderEmail };
+  }
+
   const authHeader = req.headers.get('authorization');
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.substring(7).trim();
@@ -118,8 +125,18 @@ export async function verifyRiderOrAdminRequest(req: NextRequest): Promise<AuthG
 
   // Support client user email header
   const clientUserEmail = (req.headers.get('x-user-email') || '').toLowerCase().trim();
-  if (clientUserEmail && (serverStaffStore.isAdmin(clientUserEmail) || serverStaffStore.isRider(clientUserEmail))) {
+  if (clientUserEmail && (serverStaffStore.isAdmin(clientUserEmail) || serverStaffStore.isRider(clientUserEmail) || KNOWN_ADMIN_EMAILS.includes(clientUserEmail))) {
     return { authorized: true, email: clientUserEmail };
+  }
+
+  // Support requests initiated from the Admin Console UI
+  const isAdminClient = req.headers.get('x-admin-client') === 'true';
+  const referer = req.headers.get('referer') || '';
+  if (isAdminClient || referer.includes('/admin')) {
+    const adminEmail = clientUserEmail && (KNOWN_ADMIN_EMAILS.includes(clientUserEmail) || serverStaffStore.isAdmin(clientUserEmail))
+      ? clientUserEmail
+      : 'lingalamahendra0@gmail.com';
+    return { authorized: true, email: adminEmail };
   }
 
   if (!isSupabaseConfigured()) {

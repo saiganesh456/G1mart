@@ -287,9 +287,15 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
       }
 
       // 3. Mobile number match
-      if (user?.phone && orderData?.address?.mobileNumber) {
+      const orderPhoneRaw =
+        orderData?.address?.mobileNumber ||
+        orderData?.address?.phone ||
+        orderData?.customer_phone ||
+        orderData?.customerPhone ||
+        '';
+      if (user?.phone && orderPhoneRaw) {
         const uPhone = user.phone.replace(/\D/g, '').slice(-10);
-        const oPhone = orderData.address.mobileNumber.replace(/\D/g, '').slice(-10);
+        const oPhone = orderPhoneRaw.replace(/\D/g, '').slice(-10);
         if (uPhone && oPhone && uPhone === oPhone) {
           return true;
         }
@@ -297,22 +303,29 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
 
       // 4. Check local customer orders cache on this device
       try {
+        const cleanOrderId = String(orderId).replace(/^SLIP-/i, '');
+        const checkMatch = (idCandidate: any) => {
+          if (!idCandidate) return false;
+          const cleanCand = String(idCandidate).replace(/^SLIP-/i, '');
+          return cleanCand === cleanOrderId || idCandidate === orderId;
+        };
+
         const recent = localStorage.getItem('g1mart_recent_order');
         if (recent) {
           const parsed = JSON.parse(recent);
-          if (parsed.id === orderId || parsed.orderNumber === orderId) return true;
+          if (checkMatch(parsed.id) || checkMatch(parsed.orderNumber)) return true;
         }
 
         const latest = sessionStorage.getItem('g1mart_latest_order');
         if (latest) {
           const parsed = JSON.parse(latest);
-          if (parsed.id === orderId || parsed.orderNumber === orderId) return true;
+          if (checkMatch(parsed.id) || checkMatch(parsed.orderNumber)) return true;
         }
 
         const accOrders = localStorage.getItem('g1mart_account_orders');
         if (accOrders) {
           const list = JSON.parse(accOrders);
-          if (Array.isArray(list) && list.some((o: any) => o.id === orderId || o.orderNumber === orderId)) {
+          if (Array.isArray(list) && list.some((o: any) => checkMatch(o.id) || checkMatch(o.orderNumber))) {
             return true;
           }
         }
@@ -355,16 +368,24 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
       } catch {}
       lastNotifiedStatusRef.current.set(orderId, status);
 
-      const shortId = orderId.startsWith('G1-') ? orderId : `#${orderId.slice(-6)}`;
+      const isSlip = String(orderId).toUpperCase().startsWith('SLIP') || orderData?.type === 'slip';
+      const cleanNum = String(orderId).replace(/^SLIP-/i, '');
+      const shortId = isSlip ? `#SLIP-${cleanNum}` : (orderId.startsWith('G1-') ? orderId : `#${orderId.slice(-6)}`);
+      const billTotal = orderData?.finalTotal || orderData?.final_total || orderData?.grandTotal || orderData?.subtotal || 5000;
 
-      switch (status) {
-        case 'Order Placed':
-        case 'New':
+      const normStatus = (status || '').toUpperCase();
+
+      switch (normStatus) {
+        case 'ORDER PLACED':
+        case 'NEW':
+        case 'SLIP_RECEIVED':
           soundAlerts.playOrderConfirmedChime();
           showNotification({
-            title: 'Order Placed Successfully',
-            body: `Order ${shortId} received. Store team is preparing your items.`,
-            badge: 'ORDER PLACED',
+            title: isSlip ? 'Grocery List Received' : 'Order Placed Successfully',
+            body: isSlip
+              ? `We received your grocery list (${shortId}). Store team will call to confirm.`
+              : `Order ${shortId} received. Store team is preparing your items.`,
+            badge: isSlip ? 'SLIP RECEIVED' : 'ORDER PLACED',
             type: 'order_update',
             statusKey: status,
             iconType: 'bag',
@@ -374,22 +395,27 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
           });
           break;
 
-        case 'Confirmed':
+        case 'CONFIRMED':
+        case 'BILLING':
+        case 'AWAITING_PAYMENT':
+        case 'AWAITING_CUSTOMER_CONFIRMATION':
           soundAlerts.playOrderConfirmedChime();
           showNotification({
-            title: 'Order Confirmed',
-            body: `Store accepted Order ${shortId}. Item packaging has started.`,
+            title: isSlip ? `Order ${shortId} Confirmed on Call! 🎉` : 'Order Confirmed',
+            body: isSlip
+              ? `Store verified your grocery list. Bill of ₹${Number(billTotal).toLocaleString('en-IN')} is ready. Tap to pay & dispatch.`
+              : `Store accepted Order ${shortId}. Item packaging has started.`,
             badge: 'CONFIRMED',
             type: 'order_update',
             statusKey: status,
             iconType: 'package',
             orderId,
-            actionLabel: 'Track Order',
+            actionLabel: isSlip ? 'Review & Pay' : 'Track Order',
             actionUrl: `/orders/${orderId}`,
           });
           break;
 
-        case 'Packing':
+        case 'PACKING':
           soundAlerts.playPackedChime();
           showNotification({
             title: 'Packing Your Items',
@@ -404,7 +430,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
           });
           break;
 
-        case 'Packed':
+        case 'PACKED':
           soundAlerts.playPackedChime();
           showNotification({
             title: 'Order Packed & Sealed',

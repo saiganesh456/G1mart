@@ -87,6 +87,63 @@ function persistDiskSlipOrders(): void {
   } catch {}
 }
 
+async function syncSlipOrderToSupabase(slip: SlipOrder): Promise<void> {
+  if (!isSupabaseConfigured() || !slip || !slip.id) return;
+  try {
+    await supabase.from('slip_orders').upsert({
+      id: slip.id,
+      customer_id: slip.customer_id || null,
+      customer_name: slip.customer_name,
+      customer_phone: slip.customer_phone,
+      customer_note: slip.customer_note || null,
+      address: slip.address,
+      lat: slip.lat ? Number(slip.lat) : null,
+      lng: slip.lng ? Number(slip.lng) : null,
+      pincode: slip.pincode || null,
+      distance_km: Number(slip.distance_km || 0),
+      eta_min: Number(slip.eta_min || 15),
+      zone_id: slip.zone_id || null,
+      zone_min_order: Number(slip.zone_min_order || 500),
+      order_type: slip.order_type || 'delivery',
+      status: slip.status || 'SLIP_RECEIVED',
+      estimated_total: Number(slip.estimated_total || 0),
+      final_total: Number(slip.final_total || 0),
+      subtotal: Number(slip.subtotal || 0),
+      delivery_fee: Number(slip.delivery_fee || 0),
+      cod_fee: Number(slip.cod_fee || 0),
+      payment_method: slip.payment_method || null,
+      payment_status: slip.payment_status || 'pending',
+      transaction_id: slip.transaction_id || null,
+      billed_by: slip.billed_by || null,
+      packed_by: slip.packed_by || null,
+      assigned_rider_id: slip.assigned_rider_id || null,
+      assigned_rider_name: slip.assigned_rider_name || null,
+      assigned_rider_phone: slip.assigned_rider_phone || null,
+      admin_notes: slip.admin_notes || null,
+      cancel_reason: slip.cancel_reason || null,
+      updated_at: new Date().toISOString(),
+    });
+
+    if (Array.isArray(slip.items) && slip.items.length > 0) {
+      const itemsPayload = slip.items.map((it) => ({
+        id: it.id,
+        slip_order_id: slip.id,
+        product_id: it.product_id || null,
+        name: it.name,
+        requested_qty: Number(it.requested_qty || 1),
+        packed_qty: Number(it.packed_qty || 0),
+        unit: it.unit || 'unit',
+        price: Number(it.price || 0),
+        available: it.available !== false,
+        substitute_note: it.substitute_note || null,
+      }));
+      await supabase.from('slip_items').upsert(itemsPayload);
+    }
+  } catch (err) {
+    console.warn('[serverSlipOrders] Supabase sync note in syncSlipOrderToSupabase:', err);
+  }
+}
+
 // Initial hydration from disk
 if (slipsMap.size === 0) {
   const disk = loadDiskSlipOrders();
@@ -543,6 +600,7 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     return order;
   },
@@ -567,6 +625,7 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     // Mirror as standard order into serverOrderStore so packer and admin orders see it
     try {
@@ -638,6 +697,7 @@ export const serverSlipOrders = {
     order.updated_at = new Date().toISOString();
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     return order;
   },
@@ -689,6 +749,7 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     return order;
   },
@@ -755,6 +816,7 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     return { success: true, order };
   },
@@ -799,6 +861,7 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     return { success: true, order };
   },
@@ -830,6 +893,7 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     return { success: true, order };
   },
@@ -853,6 +917,7 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     return { success: true, order };
   },
@@ -910,6 +975,7 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     return { success: true, order };
   },

@@ -200,7 +200,12 @@ export default function RiderPage() {
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/orders');
+      const res = await fetch('/api/admin/orders', {
+        headers: {
+          'x-rider-client': 'true',
+          'x-user-email': (user?.email || '').toLowerCase().trim(),
+        },
+      });
       const data = await res.json();
       if (data.success && Array.isArray(data.orders)) {
         const newOrders: Order[] = data.orders;
@@ -251,7 +256,11 @@ export default function RiderPage() {
 
       const res = await fetch(`/api/admin/orders/${orderId}/status`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-rider-client': 'true',
+          'x-user-email': (user?.email || '').toLowerCase().trim(),
+        },
         body: JSON.stringify({
           status,
           staffIdentifier: user?.name ? `Rider: ${user.name}` : 'Rider App',

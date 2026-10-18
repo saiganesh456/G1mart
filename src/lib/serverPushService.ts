@@ -366,7 +366,180 @@ class ServerPushService {
     await Promise.all(sendPromises);
     return sentCount;
   }
-}
 
+  /**
+   * Broadcast alert to store Admins / Managers when any customer uploads a new slip order
+   */
+  async notifyAdminsNewSlip(slipOrder: any): Promise<number> {
+    if (!slipOrder || !slipOrder.id || !this.vapidKeys) return 0;
+    await this.syncSubscriptionsFromSupabase();
+
+    const knownAdminEmails = new Set([
+      'g1mart@gmail.com',
+      'lingalamahendra0@gmail.com',
+      'orders@g1mart.com',
+    ]);
+
+    const adminSubs = Array.from(this.subscriptions.values()).filter((sub) => {
+      if (sub.isAdmin || sub.role === 'admin') return true;
+      if (sub.userEmail) {
+        const cleanEmail = sub.userEmail.toLowerCase().trim();
+        if (knownAdminEmails.has(cleanEmail)) return true;
+        if (serverStaffStore.isAdmin(cleanEmail)) return true;
+      }
+      return false;
+    });
+
+    if (adminSubs.length === 0) return 0;
+
+    const shortId = String(slipOrder.id).startsWith('SLIP-') ? slipOrder.id : `SLIP-${slipOrder.id}`;
+    const custName = slipOrder.customer_name || slipOrder.customerName || 'Customer';
+    const custPhone = slipOrder.customer_phone || slipOrder.customerPhone || '';
+    const imgCount = slipOrder.images?.length || 1;
+
+    const payload = JSON.stringify({
+      title: `📸 NEW GROCERY SLIP: ${shortId}`,
+      body: `${custName} (${custPhone}) uploaded ${imgCount} photo slip(s). Tap to view & call customer.`,
+      tag: `admin_new_slip_${slipOrder.id}`,
+      url: `/admin`,
+      orderId: slipOrder.id,
+      timestamp: Date.now(),
+      isAdminOrder: true,
+      sound: '/new_order_voice.wav',
+    });
+
+    let sentCount = 0;
+    const sendPromises = adminSubs.map(async (sub) => {
+      try {
+        await webpush.sendNotification(
+          { endpoint: sub.endpoint, keys: sub.keys },
+          payload,
+          {
+            TTL: 60 * 60 * 24, // 24 hours
+            urgency: 'high',
+          }
+        );
+        sentCount++;
+      } catch (err: any) {
+        if (err?.statusCode === 404 || err?.statusCode === 410) {
+          this.removeSubscription(sub.endpoint);
+        }
+      }
+    });
+
+    await Promise.all(sendPromises);
+    return sentCount;
+  }
+
+  /**
+   * Send high-priority push notification to the customer who uploaded the slip order
+   * when the store manager confirms the order over call or prepares the bill.
+   * Stored in push queue with 24h TTL so it pops up immediately when the customer turns their phone on!
+   */
+  async sendSlipPushNotification(
+    slipOrder: any,
+    eventType: 'CONFIRMED' | 'BILL_READY' | 'PACKED' | 'DISPATCHED' | 'CANCELLED' = 'CONFIRMED'
+  ): Promise<number> {
+    if (!slipOrder || !slipOrder.id) return 0;
+    await this.syncSubscriptionsFromSupabase();
+
+    const targetUserId = slipOrder.customer_id || slipOrder.customerId;
+    const rawPhone = slipOrder.customer_phone || slipOrder.customerPhone || '';
+    const targetPhone = rawPhone.replace(/\D/g, '').slice(-10);
+
+    const matchingSubs: PushSubscriptionData[] = [];
+    for (const sub of this.subscriptions.values()) {
+      let isMatch = false;
+      if (targetUserId && sub.userId && sub.userId === targetUserId) {
+        isMatch = true;
+      } else if (targetPhone && sub.userPhone) {
+        const subCleanPhone = sub.userPhone.replace(/\D/g, '').slice(-10);
+        if (subCleanPhone && subCleanPhone === targetPhone) {
+          isMatch = true;
+        }
+      }
+      if (isMatch) matchingSubs.push(sub);
+    }
+
+    // Determine short order ID and bill total
+    const cleanId = String(slipOrder.id).replace(/^SLIP-/i, '');
+    const displayId = `Order #SLIP-${cleanId}`;
+    const billTotal = Number(slipOrder.final_total || slipOrder.finalTotal || slipOrder.subtotal || slipOrder.estimated_total || 5000);
+
+    let title = `${displayId} Update`;
+    let body = `Your slip order has been updated. Tap to view status.`;
+
+    switch (eventType) {
+      case 'CONFIRMED':
+      case 'BILL_READY':
+        title = `Order #${cleanId} Confirmed! 🎉`;
+        body = `Store verified your slip on call. Total bill: ₹${billTotal.toLocaleString('en-IN')}. Tap to review items & pay.`;
+        break;
+      case 'PACKED':
+        title = `Order #${cleanId} Packed & Sealed 📦`;
+        body = `Your items are securely packed and ready for delivery partner.`;
+        break;
+      case 'DISPATCHED':
+        title = `Order #${cleanId} Out for Delivery 🛵`;
+        body = `Delivery partner is on the way to your doorstep.`;
+        break;
+      case 'CANCELLED':
+        title = `Order #${cleanId} Cancelled`;
+        body = `Your slip order was cancelled. Tap to view details.`;
+        break;
+    }
+
+    const payload = JSON.stringify({
+      title,
+      body,
+      orderId: String(slipOrder.id),
+      url: `/orders/${slipOrder.id}`,
+      tag: `slip_order_${slipOrder.id}`,
+      timestamp: Date.now(),
+    });
+
+    let sentCount = 0;
+    const sendPromises = matchingSubs.map(async (sub) => {
+      try {
+        await webpush.sendNotification(
+          { endpoint: sub.endpoint, keys: sub.keys },
+          payload,
+          {
+            TTL: 60 * 60 * 24, // 24 hours - delivers when device turns on
+            urgency: 'high',
+          }
+        );
+        sentCount++;
+      } catch (err: any) {
+        if (err?.statusCode === 404 || err?.statusCode === 410) {
+          this.removeSubscription(sub.endpoint);
+        }
+      }
+    });
+
+    await Promise.all(sendPromises);
+
+    // If Supabase is configured, record notification in database for persistence
+    if (isSupabaseConfigured()) {
+      try {
+        supabase
+          .from('notifications')
+          .insert({
+            user_phone: targetPhone || null,
+            user_id: targetUserId || null,
+            title,
+            body,
+            order_id: String(slipOrder.id),
+            status: eventType,
+            created_at: new Date().toISOString(),
+          })
+          .then(() => {})
+          .catch(() => {});
+      } catch {}
+    }
+
+    return sentCount;
+  }
+}
 
 export const serverPushService = new ServerPushService();

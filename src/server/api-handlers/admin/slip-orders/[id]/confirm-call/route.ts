@@ -22,6 +22,14 @@ export async function POST(req: NextRequest, { params }: Props) {
       );
     }
 
+    // Trigger high-priority push notification to customer (arrives now or when phone powers on)
+    try {
+      const { serverPushService } = await import('@/lib/serverPushService');
+      await serverPushService.sendSlipPushNotification(order, 'CONFIRMED');
+    } catch (pushErr) {
+      console.warn('[Confirm Call] Customer push notification notice:', pushErr);
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Slip order confirmed by call and sent to packer queue',

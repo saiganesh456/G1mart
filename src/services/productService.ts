@@ -347,10 +347,27 @@ export const productService = {
     return rankAndFilterProducts(q, all);
   },
 
-  async updateProduct(product: Product): Promise<boolean> {
+  async updateProduct(product: Partial<Product> & { id: string }): Promise<boolean> {
     const idx = MIGRATED_PRODUCT_LIST.findIndex((p) => p.id === product.id);
     if (idx !== -1) {
-      MIGRATED_PRODUCT_LIST[idx] = product;
+      MIGRATED_PRODUCT_LIST[idx] = {
+        ...MIGRATED_PRODUCT_LIST[idx],
+        ...product,
+      };
+
+      // Also sync variants in-memory if price or stock changed
+      const productVariants = variantsByProductId.get(product.id);
+      if (productVariants && productVariants.length > 0) {
+        if (product.price !== undefined) {
+          productVariants[0].price = product.price;
+        }
+        if (product.originalPrice !== undefined) {
+          productVariants[0].mrp = product.originalPrice;
+        }
+        if (product.stockCount !== undefined) {
+          productVariants[0].stock = product.stockCount;
+        }
+      }
       return true;
     }
     return false;
