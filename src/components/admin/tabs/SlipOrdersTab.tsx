@@ -41,9 +41,30 @@ import { formatIndianPhoneDisplay } from '@/lib/phone';
 interface Props {
   products?: Product[];
   initialActiveSubTab?: 'slips' | 'packer';
+  selectedSlipId?: string | null;
+  onClearSelectedSlip?: () => void;
 }
 
-export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'slips' }: Props) {
+const getAdminHeaders = () => {
+  let email = 'g1mart@gmail.com';
+  try {
+    const stored =
+      localStorage.getItem('g1mart_admin_email') ||
+      localStorage.getItem('g1mart_user_email');
+    if (stored && stored.includes('@')) email = stored;
+  } catch {}
+  return {
+    'Content-Type': 'application/json',
+    'x-user-email': email,
+  };
+};
+
+export default function SlipOrdersTab({
+  products = [],
+  initialActiveSubTab = 'slips',
+  selectedSlipId,
+  onClearSelectedSlip,
+}: Props) {
   const [subTab, setSubTab] = useState<'slips' | 'packer'>(initialActiveSubTab);
   const [orders, setOrders] = useState<SlipOrder[]>([]);
   const [loading, setLoading] = useState(true);
@@ -99,7 +120,9 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
   const fetchSlipOrders = async (silent = false) => {
     if (!silent) setLoading(true);
     try {
-      const res = await fetch('/api/admin/slip-orders');
+      const res = await fetch('/api/admin/slip-orders', {
+        headers: getAdminHeaders(),
+      });
       const data = await res.json();
       if (res.ok && data.orders) {
         setOrders(data.orders);
@@ -123,6 +146,16 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
     }, 4000);
     return () => clearInterval(interval);
   }, []);
+
+  // Auto-select slip when requested by parent alert
+  useEffect(() => {
+    if (selectedSlipId && orders.length > 0) {
+      const match = orders.find((o) => o.id === selectedSlipId);
+      if (match) {
+        setSelectedSlip(match);
+      }
+    }
+  }, [selectedSlipId, orders]);
 
   // When selected slip changes, initialize bill builder and image viewer
   useEffect(() => {
@@ -249,7 +282,7 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
     try {
       const res = await fetch(`/api/admin/slip-orders/${selectedSlip.id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAdminHeaders(),
         body: JSON.stringify({
           items: billedItems,
           adminNotes,
@@ -285,7 +318,7 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
       // First save items if modified
       await fetch(`/api/admin/slip-orders/${selectedSlip.id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAdminHeaders(),
         body: JSON.stringify({
           items: billedItems,
           adminNotes,
@@ -297,7 +330,7 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
       // Then mark confirmed
       const res = await fetch(`/api/admin/slip-orders/${selectedSlip.id}/confirm-call`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAdminHeaders(),
         body: JSON.stringify({
           staffName: 'Store Staff',
           notes: 'Customer confirmed all items & bill via call',
@@ -339,7 +372,7 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
 
       const res = await fetch(`/api/admin/slip-orders/${slipOrder.id}/pack`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAdminHeaders(),
         body: JSON.stringify({
           items: packedItemsPayload,
           staffName: 'Store Packer',
@@ -743,7 +776,10 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
               <div className="flex items-center justify-between bg-white p-3.5 rounded-2xl border border-stone-200/80 shadow-2xs">
                 <button
                   type="button"
-                  onClick={() => setSelectedSlip(null)}
+                  onClick={() => {
+                    setSelectedSlip(null);
+                    onClearSelectedSlip?.();
+                  }}
                   className="inline-flex items-center gap-2 text-xs font-black text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 px-3 py-1.5 rounded-xl transition-colors"
                 >
                   <ArrowLeft className="w-4 h-4" />

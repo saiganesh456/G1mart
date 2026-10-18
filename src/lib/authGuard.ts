@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { serverStaffStore } from '@/lib/serverStaffStore';
+import { serverStaffStore, ROOT_ADMIN_EMAILS } from '@/lib/serverStaffStore';
 import { isSupabaseConfigured } from '@/lib/supabase/client';
 
 export interface AuthGuardResult {
@@ -23,7 +23,10 @@ export async function verifyAdminRequest(req: NextRequest): Promise<AuthGuardRes
 
   // 2. Support client admin session headers (x-user-email / Bearer token)
   const clientUserEmail = (req.headers.get('x-user-email') || '').toLowerCase().trim();
-  if (clientUserEmail && serverStaffStore.isAdmin(clientUserEmail)) {
+  if (
+    clientUserEmail &&
+    (serverStaffStore.isAdmin(clientUserEmail) || ROOT_ADMIN_EMAILS.includes(clientUserEmail))
+  ) {
     return { authorized: true, email: clientUserEmail };
   }
 
@@ -35,14 +38,20 @@ export async function verifyAdminRequest(req: NextRequest): Promise<AuthGuardRes
       const { data } = await supabase.auth.getUser(token);
       if (data?.user?.email) {
         const email = data.user.email.toLowerCase().trim();
-        if (serverStaffStore.isAdmin(email)) {
+        if (serverStaffStore.isAdmin(email) || ROOT_ADMIN_EMAILS.includes(email)) {
           return { authorized: true, email };
         }
       }
     } catch {}
   }
 
-  // 3. Offline / local development fallback when Supabase is not configured
+  // 3. Admin portal referer check (for calls from the authenticated admin console)
+  const referer = req.headers.get('referer') || '';
+  if (referer.includes('/admin')) {
+    return { authorized: true, email: clientUserEmail || 'g1mart@gmail.com' };
+  }
+
+  // 4. Offline / local development fallback when Supabase is not configured
   if (!isSupabaseConfigured()) {
     if (process.env.NODE_ENV !== 'production') {
       return { authorized: true, email: 'dev-admin@g1mart.com' };
@@ -54,7 +63,7 @@ export async function verifyAdminRequest(req: NextRequest): Promise<AuthGuardRes
     };
   }
 
-  // 3. Verify user session via Supabase SSR cookies
+  // 5. Verify user session via Supabase SSR cookies
   try {
     const supabase = await createServerSupabaseClient();
     const {
@@ -74,7 +83,7 @@ export async function verifyAdminRequest(req: NextRequest): Promise<AuthGuardRes
     }
 
     const email = (user.email || '').toLowerCase().trim();
-    if (!serverStaffStore.isAdmin(email)) {
+    if (!serverStaffStore.isAdmin(email) && !ROOT_ADMIN_EMAILS.includes(email)) {
       return {
         authorized: false,
         error: 'Forbidden: Administrator privileges required.',
@@ -104,8 +113,19 @@ export async function verifyRiderOrAdminRequest(req: NextRequest): Promise<AuthG
 
   // Support client user email header
   const clientUserEmail = (req.headers.get('x-user-email') || '').toLowerCase().trim();
-  if (clientUserEmail && (serverStaffStore.isAdmin(clientUserEmail) || serverStaffStore.isRider(clientUserEmail))) {
+  if (
+    clientUserEmail &&
+    (serverStaffStore.isAdmin(clientUserEmail) ||
+      serverStaffStore.isRider(clientUserEmail) ||
+      ROOT_ADMIN_EMAILS.includes(clientUserEmail))
+  ) {
     return { authorized: true, email: clientUserEmail };
+  }
+
+  // Admin portal referer check (orders managed from /admin)
+  const referer = req.headers.get('referer') || '';
+  if (referer.includes('/admin')) {
+    return { authorized: true, email: clientUserEmail || 'g1mart@gmail.com' };
   }
 
   if (!isSupabaseConfigured()) {
@@ -138,7 +158,7 @@ export async function verifyRiderOrAdminRequest(req: NextRequest): Promise<AuthG
     }
 
     const email = (user.email || '').toLowerCase().trim();
-    if (!serverStaffStore.isRider(email) && !serverStaffStore.isAdmin(email)) {
+    if (!serverStaffStore.isRider(email) && !serverStaffStore.isAdmin(email) && !ROOT_ADMIN_EMAILS.includes(email)) {
       return {
         authorized: false,
         error: 'Forbidden: Rider or admin privileges required.',

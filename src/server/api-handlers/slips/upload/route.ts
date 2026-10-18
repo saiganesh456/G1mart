@@ -176,8 +176,11 @@ export async function POST(req: NextRequest) {
       ip,
     });
 
+    const customerId = (formData.get('userId') as string)?.trim() || null;
+
     // Create Phase 6 slip_orders record
     const slipOrder = await serverSlipOrders.createSlipOrder({
+      customerId,
       customerName,
       customerPhone,
       customerNote,
@@ -196,6 +199,25 @@ export async function POST(req: NextRequest) {
       })),
     });
 
+    // Notify admins immediately via background Web Push if subscribed
+    try {
+      const { serverPushService } = await import('@/lib/serverPushService');
+      serverPushService.notifyAdminsNewOrder({
+        id: slipOrder.id,
+        orderNumber: slipOrder.id,
+        date: new Date().toISOString(),
+        status: 'Order Placed',
+        orderType: 'slip',
+        address: {
+          fullName: slipOrder.customer_name,
+          mobileNumber: slipOrder.customer_phone,
+          streetArea: slipOrder.address,
+        },
+        items: [],
+        grandTotal: 0,
+      } as any).catch(() => {});
+    } catch {}
+
     return NextResponse.json({
       success: true,
       slipId: slipOrder.id,
@@ -205,9 +227,11 @@ export async function POST(req: NextRequest) {
       slip: {
         id: slipOrder.id,
         customer_name: slipOrder.customer_name,
+        customer_phone: slipOrder.customer_phone,
         created_at: slipOrder.created_at,
         status: slipOrder.status,
       },
+      order: slipOrder,
     });
   } catch (err: any) {
     console.error('[Slip Upload] Error processing slip:', err);

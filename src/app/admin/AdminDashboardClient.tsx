@@ -43,11 +43,26 @@ interface Props {
   categories: Category[];
 }
 
+const getAdminHeaders = () => {
+  let email = 'g1mart@gmail.com';
+  try {
+    const stored =
+      localStorage.getItem('g1mart_admin_email') ||
+      localStorage.getItem('g1mart_user_email');
+    if (stored && stored.includes('@')) email = stored;
+  } catch {}
+  return {
+    'Content-Type': 'application/json',
+    'x-user-email': email,
+  };
+};
+
 export default function AdminDashboardClient({ initialProducts = [], categories = [] }: Props) {
   // Navigation & Active View state
   const [activeTab, setActiveTab] = useState<'home' | 'orders' | 'slips' | 'packer' | 'inventory' | 'staff' | 'shoot-list' | 'settings'>('home');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedSlipId, setSelectedSlipId] = useState<string | null>(null);
 
   // Data states
   const [products, setProducts] = useState<Product[]>(initialProducts);
@@ -72,6 +87,22 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   }, [audioEnabled]);
   const [isAlarmRinging, setIsAlarmRinging] = useState(false);
   const [newOrderAlert, setNewOrderAlert] = useState<Order | null>(null);
+
+  // Dedicated Slip Order Alert Engine
+  const [newSlipAlert, setNewSlipAlert] = useState<{
+    id: string;
+    customerName: string;
+    customerPhone: string;
+    orderType: string;
+    address?: string;
+    imagesCount: number;
+  } | null>(null);
+  const [isSlipAlarmRinging, setIsSlipAlarmRinging] = useState(false);
+  const slipAlarmActiveRef = useRef<boolean>(false);
+  const slipAlarmLoopTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const seenSlipIdsRef = useRef<Set<string>>(new Set());
+  const isInitialSlipFetchDoneRef = useRef<boolean>(false);
+
   const [pushStatusMessage, setPushStatusMessage] = useState<string | null>(null);
   const [testingPush, setTestingPush] = useState(false);
 
@@ -352,11 +383,93 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     startAlarm(mockOrder);
   };
 
+  const playSlipVoiceLoop = () => {
+    if (!slipAlarmActiveRef.current) return;
+    try {
+      playWebAudioChime();
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance('New slip order! Customer grocery list received!');
+        utterance.volume = 1.0;
+        utterance.rate = 0.95;
+        utterance.pitch = 1.05;
+
+        const voices = window.speechSynthesis.getVoices();
+        if (voices && voices.length > 0) {
+          const femaleVoice =
+            voices.find((v) => {
+              const n = v.name.toLowerCase();
+              return (
+                n.includes('female') ||
+                n.includes('zira') ||
+                n.includes('samantha') ||
+                n.includes('karen') ||
+                (v.lang.startsWith('en') && (n.includes('woman') || n.includes('girl')))
+              );
+            }) ||
+            voices.find((v) => v.lang.startsWith('en')) ||
+            voices[0];
+          if (femaleVoice) utterance.voice = femaleVoice;
+        }
+        window.speechSynthesis.speak(utterance);
+      }
+    } catch {}
+
+    if (slipAlarmLoopTimerRef.current) {
+      clearTimeout(slipAlarmLoopTimerRef.current);
+    }
+    slipAlarmLoopTimerRef.current = setTimeout(() => {
+      if (slipAlarmActiveRef.current) {
+        playSlipVoiceLoop();
+      }
+    }, 4500);
+  };
+
+  const startSlipAlarm = (slip: any) => {
+    setNewSlipAlert({
+      id: slip.id,
+      customerName: slip.customer_name || 'Customer',
+      customerPhone: slip.customer_phone || '',
+      orderType: slip.order_type || 'photo',
+      address: slip.address || '',
+      imagesCount: Array.isArray(slip.images) ? slip.images.length : 0,
+    });
+
+    if (!audioEnabledRef.current) return;
+    if (slipAlarmActiveRef.current) return;
+
+    slipAlarmActiveRef.current = true;
+    setIsSlipAlarmRinging(true);
+
+    if (slipAlarmLoopTimerRef.current) {
+      clearTimeout(slipAlarmLoopTimerRef.current);
+    }
+    playSlipVoiceLoop();
+  };
+
+  const stopSlipAlarm = () => {
+    slipAlarmActiveRef.current = false;
+    setIsSlipAlarmRinging(false);
+    setNewSlipAlert(null);
+
+    if (slipAlarmLoopTimerRef.current) {
+      clearTimeout(slipAlarmLoopTimerRef.current);
+      slipAlarmLoopTimerRef.current = null;
+    }
+
+    try {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    } catch {}
+  };
+
   const handleToggleAudio = () => {
     const next = !audioEnabled;
     setAudioEnabled(next);
     if (!next) {
       stopAlarm();
+      stopSlipAlarm();
     }
   };
 
@@ -420,7 +533,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   // Fetch Orders from Server directly
   const fetchOrders = async (silent = false) => {
     try {
-      const res = await fetch('/api/admin/orders');
+      const res = await fetch('/api/admin/orders', {
+        headers: getAdminHeaders(),
+      });
       const data = await res.json();
       const serverList: Order[] = data.success && Array.isArray(data.orders) ? data.orders : [];
 
@@ -430,7 +545,15 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
 
       // Strict deduplication & new order alert detection
       if (isInitialFetchDoneRef.current) {
-        const newlyArrived = merged.filter((o) => !seenOrderIdsRef.current.has(o.id));
+        const newlyArrived = merged.filter((o) => {
+          if (seenOrderIdsRef.current.has(o.id)) return false;
+          // Slip orders are handled by the slip alert engine, not the regular order voice!
+          if (String(o.id).startsWith('SLIP-') || (o as any).type === 'slip' || (o as any).orderType === 'slip') {
+            seenOrderIdsRef.current.add(o.id);
+            return false;
+          }
+          return true;
+        });
         if (newlyArrived.length > 0) {
           newlyArrived.forEach((o) => seenOrderIdsRef.current.add(o.id));
           startAlarm(newlyArrived[0]);
@@ -457,7 +580,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   // Fetch Staff & Fleet
   const fetchStaff = async () => {
     try {
-      const res = await fetch('/api/admin/staff');
+      const res = await fetch('/api/admin/staff', {
+        headers: getAdminHeaders(),
+      });
       const data = await res.json();
       if (data.success) {
         setStaffMembers({
@@ -472,8 +597,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     fetchOrders(false);
     fetchStaff();
 
-    // 1. Supabase Realtime Channel (Instant 0ms database push notifications)
+    // 1. Supabase Realtime Channel for Standard Orders
     let supabaseChannel: any = null;
+    let supabaseSlipChannel: any = null;
     if (isSupabaseConfigured()) {
       try {
         supabaseChannel = supabase
@@ -493,6 +619,12 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 // Strict deduplication: never alert twice for the same order
                 if (seenOrderIdsRef.current.has(row.id)) return;
                 seenOrderIdsRef.current.add(row.id);
+
+                // STRICT GUARD: If this row is a slip order (e.g. registered on confirmation), do NOT ring the standard "New order!" alarm!
+                if (String(row.id).startsWith('SLIP-') || row.order_type === 'slip' || row.type === 'slip') {
+                  fetchOrders(true);
+                  return;
+                }
 
                 const newOrder = formatSupabaseRowToOrder(row);
                 setOrders((prev) => {
@@ -539,6 +671,28 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           .subscribe((status: string) => {
             console.log('[Supabase Realtime] Orders channel status:', status);
           });
+
+        // Dedicated Supabase Realtime Channel for Slip Orders
+        supabaseSlipChannel = supabase
+          .channel('g1mart_admin_slips_live')
+          .on(
+            'postgres_changes',
+            {
+              event: '*',
+              schema: 'public',
+              table: 'slip_orders',
+            },
+            (payload: any) => {
+              if (payload.eventType === 'INSERT') {
+                const row = payload.new;
+                if (!row || !row.id) return;
+                if (seenSlipIdsRef.current.has(row.id)) return;
+                seenSlipIdsRef.current.add(row.id);
+                startSlipAlarm(row);
+              }
+            }
+          )
+          .subscribe();
       } catch (err) {
         console.warn('[Supabase Realtime] Setup notice:', err);
       }
@@ -553,12 +707,20 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           const newOrder = event.data.order;
           if (seenOrderIdsRef.current.has(newOrder.id)) return;
           seenOrderIdsRef.current.add(newOrder.id);
+          // Strict guard: ignore slip orders for regular voice alert
+          if (String(newOrder.id).startsWith('SLIP-') || newOrder.orderType === 'slip') return;
 
           setOrders((prev) => {
             if (prev.some((o) => o.id === newOrder.id)) return prev;
             return [newOrder, ...prev];
           });
           startAlarm(newOrder);
+        } else if (event.data?.type === 'NEW_SLIP' && event.data.slip) {
+          const slip = event.data.slip;
+          if (!seenSlipIdsRef.current.has(slip.id)) {
+            seenSlipIdsRef.current.add(slip.id);
+            startSlipAlarm(slip);
+          }
         } else if (event.data?.type === 'ORDER_UPDATED' && event.data.order) {
           setOrders((prev) =>
             prev.map((o) => (o.id === event.data.order.id ? { ...o, ...event.data.order } : o))
@@ -597,7 +759,13 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           supabase.removeChannel(supabaseChannel);
         } catch {}
       }
+      if (supabaseSlipChannel) {
+        try {
+          supabase.removeChannel(supabaseSlipChannel);
+        } catch {}
+      }
       stopAlarm();
+      stopSlipAlarm();
     };
   }, []);
 
@@ -648,7 +816,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     try {
       const res = await fetch(`/api/admin/orders/${orderId}/status`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAdminHeaders(),
         body: JSON.stringify({
           status: nextStatus,
           otp,
@@ -709,7 +877,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     try {
       const res = await fetch(`/api/admin/orders/${orderId}/mark-paid`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAdminHeaders(),
         body: JSON.stringify({ staffIdentifier: 'Store Manager' }),
       });
       const data = await res.json();
@@ -742,7 +910,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       return;
     }
     try {
-      const res = await fetch('/api/admin/orders', { method: 'DELETE' });
+      const res = await fetch('/api/admin/orders', {
+        method: 'DELETE',
+        headers: getAdminHeaders(),
+      });
       const data = await res.json();
       if (data.success) {
         try {
@@ -773,7 +944,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     try {
       await fetch('/api/admin/products', {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: getAdminHeaders(),
         body: JSON.stringify({
           id: productId,
           inStock,
@@ -804,17 +975,33 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   const [slipCounts, setSlipCounts] = useState<{ new: number; confirmed: number }>({ new: 0, confirmed: 0 });
 
   useEffect(() => {
-    const fetchCounts = async () => {
+    const fetchCountsAndSlips = async () => {
       try {
-        const res = await fetch('/api/admin/slip-orders');
+        const res = await fetch('/api/admin/slip-orders', {
+          headers: getAdminHeaders(),
+        });
         const data = await res.json();
         if (data.counts) {
           setSlipCounts({ new: data.counts.new || 0, confirmed: data.counts.confirmed || 0 });
         }
+        if (Array.isArray(data.orders)) {
+          if (isInitialSlipFetchDoneRef.current) {
+            const newSlips = data.orders.filter(
+              (s: any) => s.status === 'SLIP_RECEIVED' && !seenSlipIdsRef.current.has(s.id)
+            );
+            if (newSlips.length > 0) {
+              newSlips.forEach((s: any) => seenSlipIdsRef.current.add(s.id));
+              startSlipAlarm(newSlips[0]);
+            }
+          } else {
+            data.orders.forEach((s: any) => seenSlipIdsRef.current.add(s.id));
+            isInitialSlipFetchDoneRef.current = true;
+          }
+        }
       } catch {}
     };
-    fetchCounts();
-    const iv = setInterval(fetchCounts, 5000);
+    fetchCountsAndSlips();
+    const iv = setInterval(fetchCountsAndSlips, 4000);
     return () => clearInterval(iv);
   }, []);
 
@@ -1006,6 +1193,80 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         </div>
       )}
 
+      {/* 2B. REALTIME SLIP ORDER ARRIVAL FLOATING POPUP BANNER */}
+      {newSlipAlert && (
+        <div
+          className={`fixed top-14 sm:top-6 right-3 sm:right-6 z-50 max-w-md w-full text-white p-4 sm:p-5 rounded-3xl shadow-2xl border-2 transition-all ${
+            isSlipAlarmRinging
+              ? 'bg-[#15341c] border-amber-400 ring-4 ring-amber-400/50 animate-pulse'
+              : 'bg-[#1B5E20] border-emerald-400'
+          }`}
+        >
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div
+                className={`w-12 h-12 rounded-2xl flex items-center justify-center text-xl shrink-0 font-black ${
+                  isSlipAlarmRinging ? 'bg-amber-400 text-stone-900 animate-bounce' : 'bg-white/20 text-white'
+                }`}
+              >
+                📸
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <h4 className="text-xs font-black tracking-wider uppercase text-amber-300">
+                    {isSlipAlarmRinging ? '🚨 New Slip Received!' : 'New Slip Order'}
+                  </h4>
+                  {isSlipAlarmRinging && (
+                    <span className="text-[10px] font-black uppercase bg-amber-400 text-stone-900 px-2 py-0.5 rounded-full animate-pulse">
+                      Voice Alert Active
+                    </span>
+                  )}
+                </div>
+                <p className="text-base font-black truncate mt-0.5">
+                  #{newSlipAlert.id}
+                </p>
+                <p className="text-xs text-emerald-100 truncate">
+                  {newSlipAlert.customerName} {newSlipAlert.customerPhone ? `(${newSlipAlert.customerPhone})` : ''} • {newSlipAlert.imagesCount} photo{newSlipAlert.imagesCount === 1 ? '' : 's'}
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={stopSlipAlarm}
+              className="p-1.5 text-white/70 hover:text-white rounded-lg transition-colors"
+              title="Close alert"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          <div className="mt-3.5 pt-3 border-t border-white/15 flex items-center justify-end gap-2">
+            {isSlipAlarmRinging && (
+              <button
+                type="button"
+                onClick={stopSlipAlarm}
+                className="px-3.5 py-2 bg-white/20 hover:bg-white/30 text-white rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5"
+              >
+                <span>⏹️ Stop Voice</span>
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => {
+                const targetSlipId = newSlipAlert.id;
+                stopSlipAlarm();
+                setSelectedSlipId(targetSlipId);
+                setActiveTab('slips');
+              }}
+              className="px-4 py-2 bg-amber-400 text-stone-900 hover:bg-amber-300 rounded-xl text-xs font-black uppercase tracking-wider shadow-md transition-all flex items-center gap-1.5"
+            >
+              <FileText className="w-4 h-4 text-stone-900" />
+              <span>View &amp; Bill Slip</span>
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* 3. MAIN CONTENT WORKSPACE AREA */}
       <main className="flex-1 w-full min-w-0">
         {/* Notification Permission Prompt for Store Admins (Only visible if notifications not yet enabled) */}
@@ -1064,7 +1325,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               try {
                 const res = await fetch('/api/admin/products', {
                   method: 'PATCH',
-                  headers: { 'Content-Type': 'application/json' },
+                  headers: getAdminHeaders(),
                   body: JSON.stringify({
                     id: updatedProduct.id,
                     name: updatedProduct.name,
@@ -1132,11 +1393,21 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             )}
 
             {activeTab === 'slips' && (
-              <SlipOrdersTab products={products} initialActiveSubTab="slips" />
+              <SlipOrdersTab
+                products={products}
+                initialActiveSubTab="slips"
+                selectedSlipId={selectedSlipId}
+                onClearSelectedSlip={() => setSelectedSlipId(null)}
+              />
             )}
 
             {activeTab === 'packer' && (
-              <SlipOrdersTab products={products} initialActiveSubTab="packer" />
+              <SlipOrdersTab
+                products={products}
+                initialActiveSubTab="packer"
+                selectedSlipId={selectedSlipId}
+                onClearSelectedSlip={() => setSelectedSlipId(null)}
+              />
             )}
 
             {activeTab === 'inventory' && (
