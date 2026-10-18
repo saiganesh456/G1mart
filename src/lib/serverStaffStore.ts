@@ -7,8 +7,6 @@ import type { StaffMember, UserRole } from '@/types';
 export const ROOT_ADMIN_EMAILS = [
   'g1mart@gmail.com',
   'lingalamahendra0@gmail.com',
-  'orders@g1mart.com',
-  'admin@g1mart.com',
 ];
 export const ROOT_ADMIN_EMAIL = 'g1mart@gmail.com';
 
@@ -315,10 +313,14 @@ export const serverStaffStore = {
   /**
    * Remove admin access from an email
    */
-  async removeAdmin(rawEmail: string): Promise<{ success: boolean; error?: string }> {
+  async removeAdmin(rawEmail: string, requesterEmail?: string): Promise<{ success: boolean; error?: string }> {
     const email = rawEmail.toLowerCase().trim();
-    if (ROOT_ADMIN_EMAILS.map((e) => e.toLowerCase()).includes(email)) {
-      return { success: false, error: 'Cannot remove primary root store admin.' };
+    const requester = (requesterEmail || '').toLowerCase().trim();
+    const isOwner = requester === 'lingalamahendra0@gmail.com' || requester === 'g1mart@gmail.com';
+
+    // Disallow non-owners from removing root owner accounts
+    if (!isOwner && ROOT_ADMIN_EMAILS.map((e) => e.toLowerCase()).includes(email)) {
+      return { success: false, error: 'Only the store owner can modify primary store accounts.' };
     }
 
     if (!adminsMap.has(email)) {

@@ -207,22 +207,42 @@ export default function StaffManagementTab() {
 
   const handleRemoveAdmin = async (email: string) => {
     const cleanEmail = email.toLowerCase().trim();
-    if (
-      cleanEmail === 'g1mart@gmail.com' ||
-      cleanEmail === 'lingalamahendra0@gmail.com' ||
-      cleanEmail === 'orders@g1mart.com' ||
-      cleanEmail === 'admin@g1mart.com'
-    ) {
-      alert(`The root store admin (${email}) is permanently protected and cannot be removed.`);
+    const currentLoggedEmail = (user?.email || '').toLowerCase().trim();
+    const isOwner = currentLoggedEmail === 'lingalamahendra0@gmail.com' || currentLoggedEmail === 'g1mart@gmail.com';
+    const isSelf = currentLoggedEmail === cleanEmail;
+
+    // Disallow non-owners from removing protected root accounts
+    if (!isOwner && (cleanEmail === 'g1mart@gmail.com' || cleanEmail === 'lingalamahendra0@gmail.com')) {
+      setFeedback({
+        type: 'error',
+        message: `The primary store owner account (${email}) is protected and cannot be removed.`,
+      });
       return;
     }
 
-    const isSelf = Boolean(user?.email && user.email.toLowerCase().trim() === cleanEmail);
-    const confirmMsg = isSelf
-      ? `Are you sure you want to revoke admin access for yourself (${email})?\n\nYou will be logged out of the Admin Console immediately.`
-      : `Are you sure you want to revoke admin access for ${email}?`;
+    // If deleting your own logged-in account, prompt confirmation
+    if (isSelf) {
+      if (
+        !confirm(
+          `Are you sure you want to revoke admin access for yourself (${email})?\n\nYou will be logged out of the Admin Console immediately.`
+        )
+      ) {
+        return;
+      }
+    }
 
-    if (!confirm(confirmMsg)) return;
+    // 1. Optimistically remove from UI state immediately for responsive instant feedback
+    const prevAdmins = [...admins];
+    const remainingAdmins = admins.filter(
+      (a) => (a.email || '').toLowerCase().trim() !== cleanEmail
+    );
+    setAdmins(remainingAdmins);
+    try {
+      localStorage.setItem(
+        'g1mart_staff_directory',
+        JSON.stringify({ admins: remainingAdmins, riders })
+      );
+    } catch {}
 
     setActionLoading(true);
     setFeedback(null);
@@ -238,17 +258,8 @@ export default function StaffManagementTab() {
       });
       const data = await res.json();
       if (data.success) {
+        soundAlerts.playRoleGrantedChime();
         setFeedback({ type: 'success', message: `Revoked admin privileges for ${email}` });
-
-        // Update local state and directory storage
-        const remainingAdmins = admins.filter((a) => (a.email || '').toLowerCase().trim() !== cleanEmail);
-        setAdmins(remainingAdmins);
-        try {
-          localStorage.setItem(
-            'g1mart_staff_directory',
-            JSON.stringify({ admins: remainingAdmins, riders })
-          );
-        } catch {}
 
         if (isSelf) {
           try {
@@ -260,11 +271,20 @@ export default function StaffManagementTab() {
 
         if (data.staffDirectory?.admins) {
           setAdmins(data.staffDirectory.admins);
+          try {
+            localStorage.setItem(
+              'g1mart_staff_directory',
+              JSON.stringify(data.staffDirectory)
+            );
+          } catch {}
         }
       } else {
+        // Rollback on error
+        setAdmins(prevAdmins);
         setFeedback({ type: 'error', message: data.error || 'Failed to revoke admin' });
       }
     } catch (err: any) {
+      setAdmins(prevAdmins);
       setFeedback({ type: 'error', message: err.message || 'Network error' });
     } finally {
       setActionLoading(false);
@@ -326,7 +346,17 @@ export default function StaffManagementTab() {
 
   const handleRemoveRider = async (email: string) => {
     const cleanEmail = email.toLowerCase().trim();
-    if (!confirm(`Are you sure you want to remove rider access for ${email}?`)) return;
+
+    // 1. Optimistically remove from UI state immediately
+    const prevRiders = [...riders];
+    const remainingRiders = riders.filter((r) => (r.email || '').toLowerCase().trim() !== cleanEmail);
+    setRiders(remainingRiders);
+    try {
+      localStorage.setItem(
+        'g1mart_staff_directory',
+        JSON.stringify({ admins, riders: remainingRiders })
+      );
+    } catch {}
 
     setActionLoading(true);
     setFeedback(null);
@@ -342,24 +372,24 @@ export default function StaffManagementTab() {
       });
       const data = await res.json();
       if (data.success) {
+        soundAlerts.playRoleGrantedChime();
         setFeedback({ type: 'success', message: `Removed rider access for ${email}` });
-
-        const remainingRiders = riders.filter((r) => (r.email || '').toLowerCase().trim() !== cleanEmail);
-        setRiders(remainingRiders);
-        try {
-          localStorage.setItem(
-            'g1mart_staff_directory',
-            JSON.stringify({ admins, riders: remainingRiders })
-          );
-        } catch {}
 
         if (data.staffDirectory?.riders) {
           setRiders(data.staffDirectory.riders);
+          try {
+            localStorage.setItem(
+              'g1mart_staff_directory',
+              JSON.stringify(data.staffDirectory)
+            );
+          } catch {}
         }
       } else {
+        setRiders(prevRiders);
         setFeedback({ type: 'error', message: data.error || 'Failed to remove rider' });
       }
     } catch (err: any) {
+      setRiders(prevRiders);
       setFeedback({ type: 'error', message: err.message || 'Network error' });
     } finally {
       setActionLoading(false);
@@ -616,12 +646,18 @@ export default function StaffManagementTab() {
             ) : (
               admins.map((admin) => {
                 const cleanEmail = (admin.email || '').toLowerCase().trim();
-                const isRoot =
+                const currentLoggedEmail = (user?.email || '').toLowerCase().trim();
+                const isOwner =
+                  currentLoggedEmail === 'lingalamahendra0@gmail.com' ||
+                  currentLoggedEmail === 'g1mart@gmail.com';
+                const isRootOwnerAccount =
                   cleanEmail === 'g1mart@gmail.com' ||
-                  cleanEmail === 'lingalamahendra0@gmail.com' ||
-                  cleanEmail === 'orders@g1mart.com';
+                  cleanEmail === 'lingalamahendra0@gmail.com';
                 const isCurrentLoggedInUser =
-                  Boolean(user?.email && user.email.toLowerCase().trim() === cleanEmail);
+                  Boolean(user?.email && currentLoggedEmail === cleanEmail);
+
+                // Protected: only your current active session, OR owner accounts viewed by non-owners
+                const isProtected = isCurrentLoggedInUser || (!isOwner && isRootOwnerAccount);
                 const initials = (admin.name || admin.email || 'Admin')
                   .slice(0, 2)
                   .toUpperCase();
@@ -653,7 +689,7 @@ export default function StaffManagementTab() {
                               You (Active Session)
                             </span>
                           )}
-                          {isRoot ? (
+                          {isRootOwnerAccount ? (
                             <span className="text-[10px] font-extrabold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-300">
                               Root Superadmin
                             </span>
@@ -676,20 +712,20 @@ export default function StaffManagementTab() {
                     </div>
 
                     <div>
-                      {!isRoot ? (
+                      {!isProtected ? (
                         <button
                           type="button"
                           onClick={() => handleRemoveAdmin(admin.email)}
                           disabled={actionLoading}
-                          className="w-8 h-8 rounded-xl text-stone-400 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition-colors cursor-pointer"
-                          title={isCurrentLoggedInUser ? "Revoke Your Own Admin Access & Log Out" : "Revoke Admin Access"}
+                          className="w-8 h-8 rounded-xl text-stone-400 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition-colors cursor-pointer active:scale-90"
+                          title="Revoke Admin Access"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
                       ) : (
                         <span
                           className="text-[10px] font-black uppercase text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200"
-                          title="Store owner account (protected to prevent accidental store lockout)"
+                          title={isCurrentLoggedInUser ? "Your active session account" : "Primary store owner account"}
                         >
                           Protected
                         </span>

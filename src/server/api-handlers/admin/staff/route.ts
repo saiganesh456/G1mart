@@ -121,7 +121,7 @@ export async function DELETE(request: NextRequest) {
     }
 
     if (type === 'admin') {
-      const result = await serverStaffStore.removeAdmin(email);
+      const result = await serverStaffStore.removeAdmin(email, auth.email);
       if (!result.success) {
         return NextResponse.json({ success: false, error: result.error }, { status: 400 });
       }
