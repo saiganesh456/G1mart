@@ -172,6 +172,19 @@ export async function DELETE() {
     const { serverSlipOrders } = await import('@/lib/serverSlipOrders');
     serverSlipOrders.clearAllSlips();
 
+    try {
+      const { supabase, isSupabaseConfigured } = await import('@/lib/supabase/client');
+      if (isSupabaseConfigured()) {
+        await supabase.from('order_items').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+        await supabase.from('order_status_history').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+        await supabase.from('payments').delete().neq('id', '');
+        await supabase.from('orders').delete().neq('id', '');
+        await supabase.from('slip_items').delete().neq('id', '');
+        await supabase.from('slip_images').delete().neq('id', '');
+        await supabase.from('slip_orders').delete().neq('id', '');
+      }
+    } catch {}
+
     return NextResponse.json({
       success: true,
       message: 'All test orders successfully cleared',

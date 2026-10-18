@@ -15,6 +15,7 @@ const DATA_DIR = path.join(ROOT_DIR, 'data');
 const BACKUP_DIR = path.join(DATA_DIR, 'backup_orders');
 
 const ORDERS_FILE = path.join(DATA_DIR, 'g1mart_orders.json');
+const PRIMARY_ORDERS_STORE = path.join(ROOT_DIR, 'src', 'data', 'orders_store.json');
 const SLIP_ORDERS_FILE = path.join(DATA_DIR, 'g1mart_slip_orders.json');
 const DEV_CACHE_FILE = path.join(ROOT_DIR, '.next', 'g1mart_orders_dev.json');
 const TMP_ORDERS = path.join(os.tmpdir(), 'g1mart_orders.json');
@@ -44,6 +45,14 @@ function clearAllOrders() {
   }
   fs.writeFileSync(ORDERS_FILE, '[]', 'utf-8');
   console.log('[Cleared] data/g1mart_orders.json reset to []');
+
+  // Also wipe the primary src/data/orders_store.json
+  try {
+    fs.writeFileSync(PRIMARY_ORDERS_STORE, '[]\n', 'utf-8');
+    console.log('[Cleared] src/data/orders_store.json reset to []');
+  } catch (e) {
+    console.warn('Could not reset src/data/orders_store.json:', e.message);
+  }
 
   // 2. Backup & Clear Slip / Photo Orders
   if (fs.existsSync(SLIP_ORDERS_FILE)) {

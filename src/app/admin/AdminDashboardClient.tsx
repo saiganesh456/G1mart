@@ -711,7 +711,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         body: JSON.stringify({
           status: nextStatus,
           otp,
-          staffIdentifier: 'Store Admin',
+          staffIdentifier: user?.name || user?.email || 'Store Admin',
           assignedRider,
           orderFallback: targetOrder,
         }),
@@ -772,7 +772,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           'Content-Type': 'application/json',
           ...getAdminHeaders(),
         },
-        body: JSON.stringify({ staffIdentifier: 'Store Manager' }),
+        body: JSON.stringify({ staffIdentifier: user?.name || user?.email || 'Store Manager' }),
       });
       const data = await res.json();
       if (data.success && data.order) {
