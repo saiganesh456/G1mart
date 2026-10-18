@@ -22,7 +22,13 @@ export default function BottomNav() {
   const { cartItemCount, cartSubtotal } = useCart();
   const { user } = useAuth();
 
-  const isRider = user?.role === 'delivery_partner' || user?.role === 'rider';
+  const cleanEmail = (user?.email || '').toLowerCase().trim();
+  const isRider =
+    user?.role === 'delivery_partner' ||
+    user?.role === 'rider' ||
+    cleanEmail === 'rider@g1mart.com' ||
+    cleanEmail === 'gummasaiganesh57@gmail.com' ||
+    cleanEmail === 'gumma.saiganesh57@gmail.com';
   const showRiderPill = isRider && !pathname.startsWith('/rider');
 
   const isActive = (matchPaths: readonly string[]) =>

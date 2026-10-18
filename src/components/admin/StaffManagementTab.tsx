@@ -127,6 +127,16 @@ export default function StaffManagementTab() {
       if (serverRiders.length === 0) {
         serverRiders = [
           {
+            id: 'rider-sai-ganesh',
+            email: 'gummasaiganesh57@gmail.com',
+            role: 'rider',
+            name: 'Sai Ganesh',
+            phone: '9876543210',
+            vehicleNumber: 'AP 26 EQ 4589',
+            createdAt: '2026-10-01T00:00:00Z',
+            status: 'active',
+          },
+          {
             id: 'default-rider',
             email: 'rider@g1mart.com',
             role: 'rider',

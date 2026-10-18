@@ -10,6 +10,23 @@ export const ROOT_ADMIN_EMAILS = [
 ];
 export const ROOT_ADMIN_EMAIL = 'g1mart@gmail.com';
 
+/**
+ * Normalizes email address for consistent matching.
+ * Removes Gmail dots and plus-tags so gumma.saiganesh57@gmail.com matches gummasaiganesh57@gmail.com.
+ */
+export function normalizeEmail(email?: string | null): string {
+  if (!email) return '';
+  const clean = email.toLowerCase().trim();
+  const parts = clean.split('@');
+  if (parts.length !== 2) return clean;
+  let [user, domain] = parts;
+  if (domain === 'gmail.com' || domain === 'googlemail.com') {
+    user = user.replace(/\./g, '').split('+')[0];
+    domain = 'gmail.com';
+  }
+  return `${user}@${domain}`;
+}
+
 // Permanent bundled repository file (persists across Git commits & Vercel builds)
 const REPO_STAFF_FILE = path.join(process.cwd(), 'data', 'g1mart_staff.json');
 
@@ -44,12 +61,22 @@ function loadCacheFromDisk() {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed.admins)) {
         parsed.admins.forEach((a: StaffMember) => {
-          if (a?.email) adminsMap.set(a.email.toLowerCase().trim(), a);
+          if (a?.email) {
+            const clean = a.email.toLowerCase().trim();
+            adminsMap.set(clean, a);
+            const norm = normalizeEmail(clean);
+            if (norm !== clean && !adminsMap.has(norm)) adminsMap.set(norm, a);
+          }
         });
       }
       if (Array.isArray(parsed.riders)) {
         parsed.riders.forEach((r: StaffMember) => {
-          if (r?.email) ridersMap.set(r.email.toLowerCase().trim(), r);
+          if (r?.email) {
+            const clean = r.email.toLowerCase().trim();
+            ridersMap.set(clean, r);
+            const norm = normalizeEmail(clean);
+            if (norm !== clean && !ridersMap.has(norm)) ridersMap.set(norm, r);
+          }
         });
       }
     }
@@ -64,12 +91,22 @@ function loadCacheFromDisk() {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed.admins)) {
         parsed.admins.forEach((a: StaffMember) => {
-          if (a?.email) adminsMap.set(a.email.toLowerCase().trim(), a);
+          if (a?.email) {
+            const clean = a.email.toLowerCase().trim();
+            adminsMap.set(clean, a);
+            const norm = normalizeEmail(clean);
+            if (norm !== clean && !adminsMap.has(norm)) adminsMap.set(norm, a);
+          }
         });
       }
       if (Array.isArray(parsed.riders)) {
         parsed.riders.forEach((r: StaffMember) => {
-          if (r?.email) ridersMap.set(r.email.toLowerCase().trim(), r);
+          if (r?.email) {
+            const clean = r.email.toLowerCase().trim();
+            ridersMap.set(clean, r);
+            const norm = normalizeEmail(clean);
+            if (norm !== clean && !ridersMap.has(norm)) ridersMap.set(norm, r);
+          }
         });
       }
     }
@@ -95,6 +132,8 @@ function loadCacheFromDisk() {
   // 4. Ensure known core riders are ALWAYS present
   const defaultRidersList: { email: string; name: string; phone: string; vehicle: string }[] = [
     { email: 'rider@g1mart.com', name: 'Express Delivery Rider', phone: '9876543212', vehicle: 'AP 26 EQ 4591' },
+    { email: 'gummasaiganesh57@gmail.com', name: 'Sai Ganesh (Delivery Partner)', phone: '9876543210', vehicle: 'AP 26 EQ 4589' },
+    { email: 'gumma.saiganesh57@gmail.com', name: 'Sai Ganesh (Delivery Partner)', phone: '9876543210', vehicle: 'AP 26 EQ 4589' },
   ];
 
   defaultRidersList.forEach((r) => {
@@ -191,17 +230,41 @@ export const serverStaffStore = {
    */
   getRoleForEmail(rawEmail?: string | null): UserRole {
     if (!rawEmail) return 'customer';
+    loadCacheFromDisk();
     const email = rawEmail.toLowerCase().trim();
+    const norm = normalizeEmail(email);
 
-    // Check if in admin map or root list
-    if (adminsMap.has(email) || ROOT_ADMIN_EMAILS.map((e) => e.toLowerCase()).includes(email)) {
+    // 1. Check if root admin
+    const rootNorms = ROOT_ADMIN_EMAILS.map(normalizeEmail);
+    if (rootNorms.includes(norm) || ROOT_ADMIN_EMAILS.map((e) => e.toLowerCase().trim()).includes(email)) {
       return 'admin';
     }
 
-    // Check if in riders map or default list
+    // 2. Check admin map directly or normalized
+    if (adminsMap.has(email) || adminsMap.has(norm)) {
+      return 'admin';
+    }
+    for (const [key] of adminsMap.entries()) {
+      if (normalizeEmail(key) === norm) {
+        return 'admin';
+      }
+    }
+
+    // 3. Check rider map directly or normalized
+    if (ridersMap.has(email) || ridersMap.has(norm)) {
+      return 'delivery_partner';
+    }
+    for (const [key] of ridersMap.entries()) {
+      if (normalizeEmail(key) === norm) {
+        return 'delivery_partner';
+      }
+    }
+
+    // 4. Default hard-fallback for known delivery partners
     if (
-      ridersMap.has(email) ||
-      email === 'rider@g1mart.com'
+      norm === 'rider@g1mart.com' ||
+      norm === 'gummasaiganesh57@gmail.com' ||
+      email === 'gumma.saiganesh57@gmail.com'
     ) {
       return 'delivery_partner';
     }
@@ -356,19 +419,19 @@ export const serverStaffStore = {
     vehicleNumber?: string;
   }): Promise<{ success: boolean; staff?: StaffMember; error?: string }> {
     const email = params.email.toLowerCase().trim();
+    const normEmail = normalizeEmail(email);
     if (!email || !email.includes('@')) {
       return { success: false, error: 'A valid email address is required.' };
     }
 
     // Disallow overriding root admin
-    if (email === ROOT_ADMIN_EMAIL.toLowerCase()) {
+    if (ROOT_ADMIN_EMAILS.map(normalizeEmail).includes(normEmail)) {
       return { success: false, error: 'Root admin cannot be assigned as rider.' };
     }
 
     // If exists in admins, remove from admins
-    if (adminsMap.has(email)) {
-      adminsMap.delete(email);
-    }
+    if (adminsMap.has(email)) adminsMap.delete(email);
+    if (adminsMap.has(normEmail)) adminsMap.delete(normEmail);
 
     const newRider: StaffMember = {
       id: `rider-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
@@ -382,6 +445,9 @@ export const serverStaffStore = {
     };
 
     ridersMap.set(email, newRider);
+    if (normEmail && normEmail !== email) {
+      ridersMap.set(normEmail, { ...newRider, email: normEmail });
+    }
     persistCacheToDisk();
 
     // Sync to Supabase profiles & riders table if configured
@@ -390,7 +456,7 @@ export const serverStaffStore = {
         await supabase
           .from('profiles')
           .update({ role: 'delivery_partner' })
-          .eq('email', email);
+          .or(`email.eq.${email},email.eq.${normEmail}`);
 
         await supabase.from('riders').upsert({
           name: newRider.name,
@@ -419,12 +485,14 @@ export const serverStaffStore = {
       if (found) emailKey = found.email.toLowerCase().trim();
     }
 
-    if (!ridersMap.has(emailKey)) {
+    const normEmail = normalizeEmail(emailKey);
+    if (!ridersMap.has(emailKey) && !ridersMap.has(normEmail)) {
       persistCacheToDisk();
       return { success: true };
     }
 
     ridersMap.delete(emailKey);
+    if (normEmail) ridersMap.delete(normEmail);
     persistCacheToDisk();
 
     // Downgrade in Supabase
@@ -433,7 +501,7 @@ export const serverStaffStore = {
         await supabase
           .from('profiles')
           .update({ role: 'customer' })
-          .eq('email', emailKey);
+          .or(`email.eq.${emailKey},email.eq.${normEmail}`);
       } catch (err) {
         console.warn('[StaffStore] Supabase rider downgrade warning:', err);
       }

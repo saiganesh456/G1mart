@@ -240,7 +240,13 @@ export default function AccountPage() {
         )}
 
         {/* ── Rider shortcut ── */}
-        {isLoggedIn && (user?.role === 'delivery_partner' || user?.role === 'rider') && (
+        {isLoggedIn &&
+          (user?.role === 'delivery_partner' ||
+            user?.role === 'rider' ||
+            (user?.email &&
+              ['rider@g1mart.com', 'gummasaiganesh57@gmail.com', 'gumma.saiganesh57@gmail.com'].includes(
+                user.email.toLowerCase().trim()
+              ))) && (
           <div
             className="mx-4 mt-4 rounded-[var(--g1-r-card)] p-4 flex items-center justify-between"
             style={{ background: '#1a2e1c', border: '1px solid rgba(74,222,128,.3)' }}

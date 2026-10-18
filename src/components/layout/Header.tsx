@@ -103,7 +103,12 @@ export default function Header() {
       {isHomePage && (
         <header className="lg:hidden w-full bg-[var(--g1-bg)] z-30">
           {/* Rider / Admin banner */}
-          {(user?.role === 'delivery_partner' || user?.role === 'rider') && (
+          {(user?.role === 'delivery_partner' ||
+            user?.role === 'rider' ||
+            (user?.email &&
+              ['rider@g1mart.com', 'gummasaiganesh57@gmail.com', 'gumma.saiganesh57@gmail.com'].includes(
+                user.email.toLowerCase().trim()
+              ))) && (
             <div className="bg-[#1A2E1C] text-white px-4 py-1.5 text-xs font-bold flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />

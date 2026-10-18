@@ -78,13 +78,15 @@ export async function GET(request: NextRequest) {
       }
 
       // Determine smart destination:
-      // If user came with explicit next (e.g. /admin), honor it.
+      // If user came with explicit next (e.g. /admin or /checkout), honor it only if not default.
       // Otherwise, if they are an admin, route to /admin. If rider, route to /rider.
       let targetPath = rawNext;
-      if (rawNext === '/account' || rawNext === '/') {
-        if (assignedRole === 'admin') {
+      if (assignedRole === 'admin') {
+        if (rawNext === '/account' || rawNext === '/' || rawNext === '/checkout') {
           targetPath = '/admin';
-        } else if (assignedRole === 'delivery_partner' || assignedRole === 'rider') {
+        }
+      } else if (assignedRole === 'delivery_partner' || assignedRole === 'rider') {
+        if (rawNext === '/account' || rawNext === '/' || rawNext === '/checkout') {
           targetPath = '/rider';
         }
       }
