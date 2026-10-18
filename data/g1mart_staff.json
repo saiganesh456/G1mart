@@ -15,45 +15,9 @@
       "name": "Mahendra Lingala (Store Admin)",
       "createdAt": "2026-10-01T00:00:00Z",
       "status": "active"
-    },
-    {
-      "id": "root-admin-03",
-      "email": "gummasaiganesh57@gmail.com",
-      "role": "admin",
-      "name": "Sai Ganesh (Super Admin)",
-      "createdAt": "2026-10-01T00:00:00Z",
-      "status": "active"
-    },
-    {
-      "id": "root-admin-04",
-      "email": "vv727457@gmail.com",
-      "role": "admin",
-      "name": "Vamsi Vardhan (Super Admin)",
-      "createdAt": "2026-10-01T00:00:00Z",
-      "status": "active"
     }
   ],
   "riders": [
-    {
-      "id": "rider-sai-ganesh",
-      "email": "gummasaiganesh57@gmail.com",
-      "role": "rider",
-      "name": "Sai Ganesh",
-      "phone": "9876543210",
-      "vehicleNumber": "AP 26 EQ 4589",
-      "createdAt": "2026-10-01T00:00:00Z",
-      "status": "active"
-    },
-    {
-      "id": "rider-vamsi-vardhan",
-      "email": "vv727457@gmail.com",
-      "role": "rider",
-      "name": "Vamsi Vardhan",
-      "phone": "9876543211",
-      "vehicleNumber": "AP 26 EQ 4590",
-      "createdAt": "2026-10-01T00:00:00Z",
-      "status": "active"
-    },
     {
       "id": "default-rider",
       "email": "rider@g1mart.com",
@@ -65,5 +29,5 @@
       "status": "active"
     }
   ],
-  "updatedAt": "2026-10-09T08:00:00Z"
+  "updatedAt": "2026-10-18T19:00:00Z"
 }

@@ -75,8 +75,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const isCoreAdmin =
           uEmail === 'g1mart@gmail.com' ||
           uEmail === 'lingalamahendra0@gmail.com' ||
-          uEmail === 'gummasaiganesh57@gmail.com' ||
-          uEmail === 'vv727457@gmail.com' ||
           uEmail === 'orders@g1mart.com' ||
           uEmail === 'admin@g1mart.com';
 

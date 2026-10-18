@@ -31,8 +31,6 @@ export default function RiderAuthGuard({ children }: { children: React.ReactNode
         user.role === 'admin' ||
         cleanEmail === 'g1mart@gmail.com' ||
         cleanEmail === 'lingalamahendra0@gmail.com' ||
-        cleanEmail === 'gummasaiganesh57@gmail.com' ||
-        cleanEmail === 'vv727457@gmail.com' ||
         cleanEmail === 'rider@g1mart.com'
       ) {
         if (isMounted) setVerifiedRider(true);

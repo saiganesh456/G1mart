@@ -3,12 +3,10 @@ import path from 'path';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import type { StaffMember, UserRole } from '@/types';
 
-// Default primary super admin emails
+// Default primary super admin emails (Protected store root owners)
 export const ROOT_ADMIN_EMAILS = [
   'g1mart@gmail.com',
   'lingalamahendra0@gmail.com',
-  'gummasaiganesh57@gmail.com',
-  'vv727457@gmail.com',
   'orders@g1mart.com',
   'admin@g1mart.com',
 ];
@@ -38,6 +36,9 @@ const adminsMap = global.__g1Admins;
 const ridersMap = global.__g1Riders;
 
 function loadCacheFromDisk() {
+  adminsMap.clear();
+  ridersMap.clear();
+
   // 1. First, load from the permanent repository staff file (data/g1mart_staff.json)
   try {
     if (fs.existsSync(REPO_STAFF_FILE)) {
@@ -95,8 +96,6 @@ function loadCacheFromDisk() {
 
   // 4. Ensure known core riders are ALWAYS present
   const defaultRidersList: { email: string; name: string; phone: string; vehicle: string }[] = [
-    { email: 'gummasaiganesh57@gmail.com', name: 'Sai Ganesh', phone: '9876543210', vehicle: 'AP 26 EQ 4589' },
-    { email: 'vv727457@gmail.com', name: 'Vamsi Vardhan', phone: '9876543211', vehicle: 'AP 26 EQ 4590' },
     { email: 'rider@g1mart.com', name: 'Express Delivery Rider', phone: '9876543212', vehicle: 'AP 26 EQ 4591' },
   ];
 
@@ -204,8 +203,6 @@ export const serverStaffStore = {
     // Check if in riders map or default list
     if (
       ridersMap.has(email) ||
-      email === 'gummasaiganesh57@gmail.com' ||
-      email === 'vv727457@gmail.com' ||
       email === 'rider@g1mart.com'
     ) {
       return 'delivery_partner';
@@ -325,7 +322,8 @@ export const serverStaffStore = {
     }
 
     if (!adminsMap.has(email)) {
-      return { success: false, error: 'Admin email not found.' };
+      persistCacheToDisk();
+      return { success: true };
     }
 
     adminsMap.delete(email);
@@ -420,7 +418,8 @@ export const serverStaffStore = {
     }
 
     if (!ridersMap.has(emailKey)) {
-      return { success: false, error: 'Rider not found.' };
+      persistCacheToDisk();
+      return { success: true };
     }
 
     ridersMap.delete(emailKey);

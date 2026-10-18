@@ -20,13 +20,24 @@ self.addEventListener('push', (event) => {
     const title = data.title || 'G1 Mart';
     const body = data.body || 'Order status updated';
     const orderId = data.orderId;
-    const url = data.url || (orderId ? `/orders/${orderId}` : '/');
+    let url = data.url;
     const isAdminAlert = Boolean(
       url === '/admin' ||
       url?.startsWith('/admin') ||
       data.tag?.includes('admin_new_order') ||
+      data.tag?.includes('admin_new_slip') ||
       data.isAdminOrder
     );
+
+    // If it's an admin alert with orderId, ensure it routes to the order interface
+    if (isAdminAlert && orderId) {
+      if (!url || url === '/admin' || url === '/admin/') {
+        const isSlip = Boolean(data.tag?.includes('admin_new_slip') || String(orderId).startsWith('SLIP'));
+        url = isSlip ? `/admin?tab=slips&slipId=${encodeURIComponent(orderId)}` : `/admin?tab=orders&orderId=${encodeURIComponent(orderId)}`;
+      }
+    } else if (!url) {
+      url = orderId ? `/orders/${encodeURIComponent(orderId)}` : '/';
+    }
 
     const options = {
       body: body,
@@ -40,12 +51,13 @@ self.addEventListener('push', (event) => {
       data: {
         url: url,
         orderId: orderId,
+        tab: data.tab || (isAdminAlert ? (String(orderId).startsWith('SLIP') ? 'slips' : 'orders') : undefined),
         isAdminAlert: isAdminAlert,
       },
       actions: [
         {
           action: 'open_order',
-          title: isAdminAlert ? 'Open Admin Order' : (orderId ? 'Track Order' : 'Open G1 Mart'),
+          title: isAdminAlert ? 'Open Order' : (orderId ? 'Track Order' : 'Open G1 Mart'),
         },
       ],
     };
@@ -59,6 +71,7 @@ self.addEventListener('push', (event) => {
               client.postMessage({
                 type: 'NEW_ORDER_PUSH_RECEIVED',
                 orderId: orderId,
+                targetUrl: url,
                 data: data,
               });
             }
@@ -85,25 +98,63 @@ self.addEventListener('push', (event) => {
   }
 });
 
-// Handle Notification Clicks (Opens the app directly to the order tracking page)
+// Handle Notification Clicks (Opens the app directly to the order tracking or admin order interface)
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  const targetUrl = event.notification.data?.url || '/';
+  const notifData = event.notification.data || {};
+  let targetUrl = notifData.url || '/';
+  const orderId = notifData.orderId;
+  const isAdminAlert = Boolean(notifData.isAdminAlert);
+
+  // Safety fallback: ensure admin order alerts point directly to order interface
+  if (isAdminAlert && orderId && (targetUrl === '/admin' || targetUrl === '/admin/')) {
+    const isSlip = Boolean(String(orderId).startsWith('SLIP'));
+    targetUrl = isSlip ? `/admin?tab=slips&slipId=${encodeURIComponent(orderId)}` : `/admin?tab=orders&orderId=${encodeURIComponent(orderId)}`;
+  }
 
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
-      // If G1 Mart is already open in a tab, focus it and navigate
+      // 1. If an admin tab is open, focus it and notify/navigate
       for (let i = 0; i < clientList.length; i++) {
         const client = clientList[i];
-        if ('focus' in client) {
-          client.focus();
+        if (client.url && client.url.includes('/admin')) {
+          if ('focus' in client) {
+            client.focus();
+          }
+          client.postMessage({
+            type: 'NOTIFICATION_ORDER_CLICKED',
+            url: targetUrl,
+            orderId: orderId,
+            tab: notifData.tab || 'orders',
+            isAdminAlert: isAdminAlert,
+          });
           if ('navigate' in client && targetUrl) {
             client.navigate(targetUrl);
           }
           return;
         }
       }
-      // If closed, open a new window directly to the target URL
+
+      // 2. If any other G1 Mart tab is open, focus it and navigate
+      for (let i = 0; i < clientList.length; i++) {
+        const client = clientList[i];
+        if ('focus' in client) {
+          client.focus();
+          client.postMessage({
+            type: 'NOTIFICATION_ORDER_CLICKED',
+            url: targetUrl,
+            orderId: orderId,
+            tab: notifData.tab || 'orders',
+            isAdminAlert: isAdminAlert,
+          });
+          if ('navigate' in client && targetUrl) {
+            client.navigate(targetUrl);
+          }
+          return;
+        }
+      }
+
+      // 3. If closed (phone was off or in another app), open window directly to targetUrl
       if (clients.openWindow) {
         return clients.openWindow(targetUrl);
       }

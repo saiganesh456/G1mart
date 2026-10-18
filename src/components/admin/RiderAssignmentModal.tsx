@@ -32,26 +32,6 @@ interface Props {
 // Guaranteed baseline riders if fleet is still loading or unconfigured
 const DEFAULT_STORE_RIDERS: StaffMember[] = [
   {
-    id: 'rider-sai-ganesh',
-    email: 'gummasaiganesh57@gmail.com',
-    name: 'Sai Ganesh',
-    phone: '9876543210',
-    vehicleNumber: 'AP 26 EQ 4589',
-    role: 'rider',
-    createdAt: '2026-10-01T00:00:00Z',
-    status: 'active',
-  },
-  {
-    id: 'rider-vamsi-vardhan',
-    email: 'vv727457@gmail.com',
-    name: 'Vamsi Vardhan',
-    phone: '9876543211',
-    vehicleNumber: 'AP 26 EQ 4590',
-    role: 'rider',
-    createdAt: '2026-10-01T00:00:00Z',
-    status: 'active',
-  },
-  {
     id: 'rider-express-hub',
     email: 'rider@g1mart.com',
     name: 'Express Delivery Partner',

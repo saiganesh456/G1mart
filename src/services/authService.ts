@@ -50,8 +50,6 @@ export const authService = {
       const isCoreAdmin =
         userEmail === 'g1mart@gmail.com' ||
         userEmail === 'lingalamahendra0@gmail.com' ||
-        userEmail === 'gummasaiganesh57@gmail.com' ||
-        userEmail === 'vv727457@gmail.com' ||
         userEmail === 'orders@g1mart.com' ||
         userEmail === 'admin@g1mart.com';
 

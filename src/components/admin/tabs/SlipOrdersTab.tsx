@@ -126,6 +126,16 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
         if (selectedSlip) {
           const updated = data.orders.find((o: SlipOrder) => o.id === selectedSlip.id);
           if (updated) setSelectedSlip(updated);
+        } else if (typeof window !== 'undefined') {
+          // Check for deep-linked slip from notification click or URL
+          const urlParams = new URLSearchParams(window.location.search);
+          const initialSlipId = urlParams.get('slipId') || urlParams.get('slip_id');
+          if (initialSlipId) {
+            const match = data.orders.find(
+              (o: SlipOrder) => String(o.id).toLowerCase() === String(initialSlipId).toLowerCase()
+            );
+            if (match) setSelectedSlip(match);
+          }
         }
       }
     } catch (err) {
@@ -754,7 +764,12 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
 
                           <button
                             type="button"
-                            onClick={() => setSelectedSlip(slip)}
+                            onClick={() => {
+                              setSelectedSlip(slip);
+                              try {
+                                window.history.replaceState(null, '', `/admin?tab=slips&slipId=${encodeURIComponent(slip.id)}`);
+                              } catch {}
+                            }}
                             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white text-xs font-black rounded-xl transition-all shadow-2xs"
                           >
                             <span>Open Bill Builder</span>
@@ -774,7 +789,12 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
               <div className="flex items-center justify-between bg-white p-3.5 rounded-2xl border border-stone-200/80 shadow-2xs">
                 <button
                   type="button"
-                  onClick={() => setSelectedSlip(null)}
+                  onClick={() => {
+                    setSelectedSlip(null);
+                    try {
+                      window.history.replaceState(null, '', '/admin?tab=slips');
+                    } catch {}
+                  }}
                   className="inline-flex items-center gap-2 text-xs font-black text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 px-3 py-1.5 rounded-xl transition-colors"
                 >
                   <ArrowLeft className="w-4 h-4" />
