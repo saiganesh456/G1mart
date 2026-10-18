@@ -87,7 +87,7 @@ class ServerPushService {
       const { data, error } = await supabase.from('push_subscriptions').select('*');
       if (!error && Array.isArray(data)) {
         data.forEach((row: any) => {
-          if (row?.endpoint && row?.keys) {
+          if (row?.endpoint && row?.keys && row.endpoint.startsWith('http')) {
             this.subscriptions.set(row.endpoint, {
               endpoint: row.endpoint,
               keys: row.keys,

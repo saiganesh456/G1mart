@@ -224,6 +224,60 @@ function persistCacheToDisk() {
 // Initial hydration
 loadCacheFromDisk();
 
+async function loadStaffFromSupabase(): Promise<void> {
+  if (!isSupabaseConfigured()) return;
+  try {
+    const { data, error } = await supabase
+      .from('push_subscriptions')
+      .select('*')
+      .like('endpoint', 'staff:%');
+
+    if (!error && Array.isArray(data)) {
+      data.forEach((row: any) => {
+        if (!row.endpoint) return;
+        const parts = row.endpoint.split(':');
+        const type = parts[1]; // 'admin' | 'rider'
+        const email = (row.user_email || parts.slice(2).join(':')).toLowerCase().trim();
+        const norm = normalizeEmail(email);
+        const keys = row.keys || {};
+
+        if (type === 'admin') {
+          const adm: StaffMember = {
+            id: `admin-${email.replace(/[^a-z0-9]/g, '_')}`,
+            email,
+            role: 'admin',
+            name: keys.name || 'Store Administrator',
+            createdAt: row.created_at || new Date().toISOString(),
+            status: 'active',
+          };
+          adminsMap.set(email, adm);
+          if (norm && norm !== email) adminsMap.set(norm, adm);
+        } else if (type === 'rider') {
+          const rdr: StaffMember = {
+            id: `rider-${email.replace(/[^a-z0-9]/g, '_')}`,
+            email,
+            role: 'rider',
+            name: keys.name || 'Delivery Partner',
+            phone: keys.phone || '',
+            vehicleNumber: keys.vehicleNumber || 'AP 26 EQ 4589',
+            createdAt: row.created_at || new Date().toISOString(),
+            status: 'active',
+          };
+          ridersMap.set(email, rdr);
+          if (norm && norm !== email) ridersMap.set(norm, rdr);
+        }
+      });
+    }
+  } catch (err) {
+    console.warn('[StaffStore] Supabase staff sync note:', err);
+  }
+}
+
+// Trigger background sync on module load
+if (isSupabaseConfigured()) {
+  loadStaffFromSupabase().catch(() => {});
+}
+
 export const serverStaffStore = {
   /**
    * Determine role for a given email address
@@ -272,6 +326,44 @@ export const serverStaffStore = {
     return 'customer';
   },
 
+  /**
+   * Determine role for a given email address asynchronously with live Supabase fallback
+   */
+  async getRoleForEmailAsync(rawEmail?: string | null): Promise<UserRole> {
+    if (!rawEmail) return 'customer';
+    const email = rawEmail.toLowerCase().trim();
+    const norm = normalizeEmail(email);
+
+    // Fast check: in-memory, disk, root admins, known emails
+    const syncRole = this.getRoleForEmail(rawEmail);
+    if (syncRole !== 'customer') return syncRole;
+
+    // Live query against Supabase push_subscriptions (persists across all Vercel lambdas)
+    if (isSupabaseConfigured()) {
+      try {
+        const { data, error } = await supabase
+          .from('push_subscriptions')
+          .select('role')
+          .in('endpoint', [
+            `staff:admin:${email}`,
+            `staff:admin:${norm}`,
+            `staff:rider:${email}`,
+            `staff:rider:${norm}`,
+          ]);
+
+        if (!error && Array.isArray(data) && data.length > 0) {
+          const found = data[0].role;
+          if (found === 'admin') return 'admin';
+          if (found === 'delivery_partner' || found === 'rider') return 'delivery_partner';
+        }
+      } catch (err) {
+        console.warn('[StaffStore] Supabase async role check warning:', err);
+      }
+    }
+
+    return 'customer';
+  },
+
   isAdmin(rawEmail?: string | null): boolean {
     return this.getRoleForEmail(rawEmail) === 'admin';
   },
@@ -282,10 +374,22 @@ export const serverStaffStore = {
   },
 
   /**
-   * List all current admins and riders
+   * List all current admins and riders synchronously
    */
   getStaff(): { admins: StaffMember[]; riders: StaffMember[] } {
     loadCacheFromDisk();
+    return {
+      admins: Array.from(adminsMap.values()),
+      riders: Array.from(ridersMap.values()),
+    };
+  },
+
+  /**
+   * List all current admins and riders with live Supabase database sync
+   */
+  async getStaffAsync(): Promise<{ admins: StaffMember[]; riders: StaffMember[] }> {
+    loadCacheFromDisk();
+    await loadStaffFromSupabase();
     return {
       admins: Array.from(adminsMap.values()),
       riders: Array.from(ridersMap.values()),
@@ -304,6 +408,16 @@ export const serverStaffStore = {
           if (!adminsMap.has(em)) {
             adminsMap.set(em, a);
             changed = true;
+            if (isSupabaseConfigured()) {
+              supabase.from('push_subscriptions').upsert({
+                endpoint: `staff:admin:${em}`,
+                keys: { name: a.name || 'Store Administrator' },
+                user_email: em,
+                role: 'admin',
+                is_admin: true,
+                created_at: a.createdAt || new Date().toISOString(),
+              }).then(() => {}).catch(() => {});
+            }
           }
         }
       });
@@ -315,6 +429,20 @@ export const serverStaffStore = {
           if (!ridersMap.has(em)) {
             ridersMap.set(em, r);
             changed = true;
+            if (isSupabaseConfigured()) {
+              supabase.from('push_subscriptions').upsert({
+                endpoint: `staff:rider:${em}`,
+                keys: {
+                  name: r.name || 'Delivery Partner',
+                  phone: r.phone || '',
+                  vehicleNumber: r.vehicleNumber || 'AP 26 EQ 4589',
+                },
+                user_email: em,
+                role: 'delivery_partner',
+                is_admin: false,
+                created_at: r.createdAt || new Date().toISOString(),
+              }).then(() => {}).catch(() => {});
+            }
           }
         }
       });
@@ -332,6 +460,7 @@ export const serverStaffStore = {
     name?: string
   ): Promise<{ success: boolean; staff?: StaffMember; error?: string }> {
     const email = rawEmail.toLowerCase().trim();
+    const normEmail = normalizeEmail(email);
     if (!email || !email.includes('@')) {
       return { success: false, error: 'A valid email address is required.' };
     }
@@ -345,6 +474,9 @@ export const serverStaffStore = {
     if (ridersMap.has(email)) {
       ridersMap.delete(email);
     }
+    if (normEmail && ridersMap.has(normEmail)) {
+      ridersMap.delete(normEmail);
+    }
 
     const newAdmin: StaffMember = {
       id: `admin-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
@@ -356,17 +488,34 @@ export const serverStaffStore = {
     };
 
     adminsMap.set(email, newAdmin);
+    if (normEmail && normEmail !== email) {
+      adminsMap.set(normEmail, { ...newAdmin, email: normEmail });
+    }
     persistCacheToDisk();
 
-    // Sync to Supabase profiles if configured
+    // Persist to Supabase push_subscriptions so every serverless instance knows immediately
     if (isSupabaseConfigured()) {
       try {
-        await supabase
-          .from('profiles')
-          .update({ role: 'admin' })
-          .eq('email', email);
+        await supabase.from('push_subscriptions').upsert({
+          endpoint: `staff:admin:${email}`,
+          keys: { name: newAdmin.name },
+          user_email: email,
+          role: 'admin',
+          is_admin: true,
+          created_at: newAdmin.createdAt,
+        });
+        if (normEmail && normEmail !== email) {
+          await supabase.from('push_subscriptions').upsert({
+            endpoint: `staff:admin:${normEmail}`,
+            keys: { name: newAdmin.name },
+            user_email: normEmail,
+            role: 'admin',
+            is_admin: true,
+            created_at: newAdmin.createdAt,
+          });
+        }
       } catch (err) {
-        console.warn('[StaffStore] Supabase profile sync warning:', err);
+        console.warn('[StaffStore] Supabase admin persist warning:', err);
       }
     }
 
@@ -392,15 +541,21 @@ export const serverStaffStore = {
     }
 
     adminsMap.delete(email);
+    if (normEmail) adminsMap.delete(normEmail);
     persistCacheToDisk();
 
-    // Downgrade in Supabase to customer
+    // Delete from Supabase push_subscriptions & downgrade profiles
     if (isSupabaseConfigured()) {
       try {
         await supabase
+          .from('push_subscriptions')
+          .delete()
+          .in('endpoint', [`staff:admin:${email}`, `staff:admin:${normEmail}`]);
+
+        await supabase
           .from('profiles')
           .update({ role: 'customer' })
-          .eq('email', email);
+          .or(`email.eq.${email},email.eq.${normEmail}`);
       } catch (err) {
         console.warn('[StaffStore] Supabase profile downgrade warning:', err);
       }
@@ -450,9 +605,36 @@ export const serverStaffStore = {
     }
     persistCacheToDisk();
 
-    // Sync to Supabase profiles & riders table if configured
+    // Sync to Supabase push_subscriptions & profiles
     if (isSupabaseConfigured()) {
       try {
+        await supabase.from('push_subscriptions').upsert({
+          endpoint: `staff:rider:${email}`,
+          keys: {
+            name: newRider.name,
+            phone: newRider.phone,
+            vehicleNumber: newRider.vehicleNumber,
+          },
+          user_email: email,
+          role: 'delivery_partner',
+          is_admin: false,
+          created_at: newRider.createdAt,
+        });
+        if (normEmail && normEmail !== email) {
+          await supabase.from('push_subscriptions').upsert({
+            endpoint: `staff:rider:${normEmail}`,
+            keys: {
+              name: newRider.name,
+              phone: newRider.phone,
+              vehicleNumber: newRider.vehicleNumber,
+            },
+            user_email: normEmail,
+            role: 'delivery_partner',
+            is_admin: false,
+            created_at: newRider.createdAt,
+          });
+        }
+
         await supabase
           .from('profiles')
           .update({ role: 'delivery_partner' })
@@ -495,9 +677,14 @@ export const serverStaffStore = {
     if (normEmail) ridersMap.delete(normEmail);
     persistCacheToDisk();
 
-    // Downgrade in Supabase
+    // Delete from Supabase push_subscriptions & downgrade in profiles
     if (isSupabaseConfigured()) {
       try {
+        await supabase
+          .from('push_subscriptions')
+          .delete()
+          .in('endpoint', [`staff:rider:${emailKey}`, `staff:rider:${normEmail}`]);
+
         await supabase
           .from('profiles')
           .update({ role: 'customer' })

@@ -7,9 +7,9 @@ async function resolveRole(rawEmail: string, normalizedEmail?: string) {
   const email = (rawEmail || '').toLowerCase().trim();
   const norm = normalizedEmail || normalizeEmail(email);
 
-  let role = serverStaffStore.getRoleForEmail(email);
+  let role = await serverStaffStore.getRoleForEmailAsync(email);
   if (role === 'customer' && norm) {
-    role = serverStaffStore.getRoleForEmail(norm);
+    role = await serverStaffStore.getRoleForEmailAsync(norm);
   }
 
   // Supabase fallback in case of cold lambdas
