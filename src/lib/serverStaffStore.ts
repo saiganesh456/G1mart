@@ -527,6 +527,7 @@ export const serverStaffStore = {
    */
   async removeAdmin(rawEmail: string, requesterEmail?: string): Promise<{ success: boolean; error?: string }> {
     const email = rawEmail.toLowerCase().trim();
+    const normEmail = normalizeEmail(email);
     const requester = (requesterEmail || '').toLowerCase().trim();
     const isOwner = requester === 'lingalamahendra0@gmail.com' || requester === 'g1mart@gmail.com';
 
