@@ -930,7 +930,7 @@ export const serverOrderStore = {
         const { data, error } = await supabase
           .from('orders')
           .select('*')
-          .order('date', { ascending: false });
+          .order('created_at', { ascending: false });
 
         if (!error && Array.isArray(data) && data.length > 0) {
           for (const row of data) {
@@ -976,9 +976,11 @@ export const serverOrderStore = {
       }
     }
 
-    return Array.from(ordersMap.values()).sort(
-      (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
-    );
+    return Array.from(ordersMap.values()).sort((a, b) => {
+      const timeA = new Date((a as any).created_at || a.date || 0).getTime() || 0;
+      const timeB = new Date((b as any).created_at || b.date || 0).getTime() || 0;
+      return timeB - timeA;
+    });
   },
 
   /**

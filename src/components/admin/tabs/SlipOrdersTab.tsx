@@ -115,7 +115,8 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
   const fetchSlipOrders = async (silent = false) => {
     if (!silent) setLoading(true);
     try {
-      const res = await fetch('/api/admin/slip-orders', {
+      const res = await fetch(`/api/admin/slip-orders?_t=${Date.now()}`, {
+        cache: 'no-store',
         headers: getAdminHeaders(),
       });
       const data = await res.json();
@@ -138,7 +139,7 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
     fetchSlipOrders(false);
     const interval = setInterval(() => {
       fetchSlipOrders(true);
-    }, 4000);
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 

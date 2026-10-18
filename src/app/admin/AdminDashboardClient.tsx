@@ -447,23 +447,27 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   // Fetch Orders from Server directly
   const fetchOrders = async (silent = false) => {
     try {
-      const res = await fetch('/api/admin/orders', {
+      const res = await fetch(`/api/admin/orders?_t=${Date.now()}`, {
+        cache: 'no-store',
         headers: getAdminHeaders(),
       });
       const data = await res.json();
       const serverList: Order[] = data.success && Array.isArray(data.orders) ? data.orders : [];
 
-      const merged = serverList.sort(
-        (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
-      );
+      const merged = serverList.sort((a, b) => {
+        const timeA = new Date((a as any).created_at || a.date || 0).getTime() || 0;
+        const timeB = new Date((b as any).created_at || b.date || 0).getTime() || 0;
+        return timeB - timeA;
+      });
 
       // Strict deduplication & new order alert detection (only genuine fresh arrivals after initial load)
       if (isInitialFetchDoneRef.current) {
         const newlyArrived = merged.filter((o) => {
           if (seenOrderIdsRef.current.has(o.id)) return false;
-          // Strictly ring alarm ONLY for fresh new orders placed in the last 3 minutes
-          const orderTime = o.date ? new Date(o.date).getTime() : 0;
-          const isFresh = !isNaN(orderTime) && orderTime > 0 && Date.now() - orderTime < 3 * 60 * 1000;
+          // Strictly ring alarm ONLY for fresh new orders placed in the last 5 minutes
+          const rawDate = (o as any).created_at || o.date;
+          const orderTime = rawDate ? new Date(rawDate).getTime() : 0;
+          const isFresh = isNaN(orderTime) || orderTime <= 0 || Date.now() - orderTime < 5 * 60 * 1000;
           const isPending = !o.status || o.status === 'Order Placed' || o.status === 'New';
           return isFresh && isPending;
         });
@@ -577,6 +581,17 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               }
             }
           )
+          .on(
+            'postgres_changes',
+            {
+              event: '*',
+              schema: 'public',
+              table: 'slip_orders',
+            },
+            () => {
+              fetchOrders(false);
+            }
+          )
           .subscribe((status: string) => {
             console.log('[Supabase Realtime] Orders channel status:', status);
           });
@@ -611,10 +626,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       };
     } catch {}
 
-    // 3. 4-second safety net background sync (never misses orders if realtime is reconnecting)
+    // 3. 2-second safety net background sync (ultra-fast live refresh)
     const interval = setInterval(() => {
       fetchOrders(true);
-    }, 4000);
+    }, 2000);
 
     // 4. Service Worker Push Sync Listener (triggers if push arrived while app was dormant)
     let handleSwMessage: ((event: MessageEvent) => void) | null = null;

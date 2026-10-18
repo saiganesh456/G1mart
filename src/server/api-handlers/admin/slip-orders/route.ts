@@ -25,17 +25,27 @@ export async function GET(req: NextRequest) {
     const packingCount = orders.filter((o) => o.status === 'PACKING').length;
     const packedCount = orders.filter((o) => o.status === 'PACKED' || o.status === 'AWAITING_PAYMENT').length;
 
-    return NextResponse.json({
-      success: true,
-      orders,
-      counts: {
-        new: newCount,
-        confirmed: confirmedCount,
-        packing: packingCount,
-        packed: packedCount,
-        total: orders.length,
+    return NextResponse.json(
+      {
+        success: true,
+        orders,
+        counts: {
+          new: newCount,
+          confirmed: confirmedCount,
+          packing: packingCount,
+          packed: packedCount,
+          total: orders.length,
+        },
       },
-    });
+      {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+          'Surrogate-Control': 'no-store',
+        },
+      }
+    );
   } catch (err: any) {
     console.error('[API/Admin/SlipOrders] GET error:', err);
     return NextResponse.json(
