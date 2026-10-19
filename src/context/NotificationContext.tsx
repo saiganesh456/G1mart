@@ -109,7 +109,10 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
         isOnAdminRoute ||
         normalizedEmail === 'g1mart@gmail.com' ||
         normalizedEmail === 'lingalamahendra0@gmail.com' ||
-        normalizedEmail === 'orders@g1mart.com';
+        normalizedEmail === 'gummasaiganesh57@gmail.com' ||
+        normalizedEmail === 'vv727457@gmail.com' ||
+        normalizedEmail === 'orders@g1mart.com' ||
+        normalizedEmail === 'admin@g1mart.com';
 
       await fetch('/api/notifications/subscribe', {
         method: 'POST',

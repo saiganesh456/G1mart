@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { serverSlipStore } from '@/lib/serverSlipStore';
-import { supabase } from '@/lib/supabase/client';
+import { serverSupabase as supabase } from '@/lib/supabase/serverAdmin';
 
 interface Props {
   params: Promise<{ id: string }>;

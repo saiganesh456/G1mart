@@ -32,6 +32,8 @@ import {
   Layers,
   ArrowLeft,
   ChevronDown,
+  ChevronUp,
+  ListPlus,
   Info,
 } from 'lucide-react';
 import type { SlipOrder, SlipItem, SlipOrderStatus } from '@/types/slipOrder';
@@ -41,30 +43,9 @@ import { formatIndianPhoneDisplay } from '@/lib/phone';
 interface Props {
   products?: Product[];
   initialActiveSubTab?: 'slips' | 'packer';
-  selectedSlipId?: string | null;
-  onClearSelectedSlip?: () => void;
 }
 
-const getAdminHeaders = () => {
-  let email = 'g1mart@gmail.com';
-  try {
-    const stored =
-      localStorage.getItem('g1mart_admin_email') ||
-      localStorage.getItem('g1mart_user_email');
-    if (stored && stored.includes('@')) email = stored;
-  } catch {}
-  return {
-    'Content-Type': 'application/json',
-    'x-user-email': email,
-  };
-};
-
-export default function SlipOrdersTab({
-  products = [],
-  initialActiveSubTab = 'slips',
-  selectedSlipId,
-  onClearSelectedSlip,
-}: Props) {
+export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'slips' }: Props) {
   const [subTab, setSubTab] = useState<'slips' | 'packer'>(initialActiveSubTab);
   const [orders, setOrders] = useState<SlipOrder[]>([]);
   const [loading, setLoading] = useState(true);
@@ -101,6 +82,20 @@ export default function SlipOrdersTab({
   const [manualUnit, setManualUnit] = useState('1 unit');
   const [manualPrice, setManualPrice] = useState(50);
 
+  // Bulk add grocery list state
+  const [showBulkModal, setShowBulkModal] = useState(false);
+  const [bulkText, setBulkText] = useState('');
+
+  // Inline quick add state
+  const [inlineName, setInlineName] = useState('');
+  const [inlineQty, setInlineQty] = useState(1);
+  const [inlineUnit, setInlineUnit] = useState('1 unit');
+  const [inlinePrice, setInlinePrice] = useState(50);
+
+  // Mobile photo collapse & Floating preview modal state
+  const [isPhotoCollapsed, setIsPhotoCollapsed] = useState(false);
+  const [showFloatingPreviewModal, setShowFloatingPreviewModal] = useState(false);
+
   // Zoomable Slip Viewer state
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [zoomScale, setZoomScale] = useState(1);
@@ -108,6 +103,7 @@ export default function SlipOrdersTab({
   const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const dragStartRef = useRef({ x: 0, y: 0 });
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Packer Checklist state
   const [packerChecked, setPackerChecked] = useState<Record<string, boolean>>({});
@@ -120,16 +116,16 @@ export default function SlipOrdersTab({
   const fetchSlipOrders = async (silent = false) => {
     if (!silent) setLoading(true);
     try {
-      const res = await fetch('/api/admin/slip-orders', {
-        headers: getAdminHeaders(),
-      });
+      const res = await fetch('/api/admin/slip-orders');
       const data = await res.json();
       if (res.ok && data.orders) {
         setOrders(data.orders);
-        // Refresh selected slip if currently open
+        // Refresh selected slip metadata if currently open, without wiping draft bill items
         if (selectedSlip) {
           const updated = data.orders.find((o: SlipOrder) => o.id === selectedSlip.id);
-          if (updated) setSelectedSlip(updated);
+          if (updated) {
+            setSelectedSlip((prev) => (prev ? { ...prev, ...updated, items: prev.items } : updated));
+          }
         }
       }
     } catch (err) {
@@ -147,17 +143,7 @@ export default function SlipOrdersTab({
     return () => clearInterval(interval);
   }, []);
 
-  // Auto-select slip when requested by parent alert
-  useEffect(() => {
-    if (selectedSlipId && orders.length > 0) {
-      const match = orders.find((o) => o.id === selectedSlipId);
-      if (match) {
-        setSelectedSlip(match);
-      }
-    }
-  }, [selectedSlipId, orders]);
-
-  // When selected slip changes, initialize bill builder and image viewer
+  // When selected slip changes (by ID), initialize bill builder and image viewer
   useEffect(() => {
     if (selectedSlip) {
       setActiveImageIndex(0);
@@ -195,7 +181,7 @@ export default function SlipOrdersTab({
       setPackerAvailable(initialAvailable);
       setPackerSubstituteNotes(initialNotes);
     }
-  }, [selectedSlip]);
+  }, [selectedSlip?.id]);
 
   // Live estimated total
   const estimatedTotal = useMemo(() => {
@@ -236,6 +222,98 @@ export default function SlipOrdersTab({
     setBilledItems((prev) => [...prev, newItem]);
     setCatalogSearch('');
     setShowCatalogDropdown(false);
+  };
+
+  // Add custom item directly from search input or inline form
+  const handleQuickAddCustom = (name: string, qty = 1, unit = '1 unit', price = 0) => {
+    if (!name.trim()) return;
+    setBilledItems((prev) => [
+      ...prev,
+      {
+        productId: null,
+        name: name.trim(),
+        requestedQty: qty,
+        unit,
+        price,
+        available: true,
+        substituteNote: '',
+      },
+    ]);
+    setCatalogSearch('');
+    setShowCatalogDropdown(false);
+  };
+
+  // Inline Quick Add row
+  const handleInlineAdd = () => {
+    if (!inlineName.trim()) return;
+    setBilledItems((prev) => [
+      ...prev,
+      {
+        productId: null,
+        name: inlineName.trim(),
+        requestedQty: Number(inlineQty) || 1,
+        unit: inlineUnit.trim() || '1 unit',
+        price: Number(inlinePrice) || 0,
+        available: true,
+        substituteNote: '',
+      },
+    ]);
+    setInlineName('');
+    setInlineQty(1);
+    setInlineUnit('1 unit');
+    setInlinePrice(50);
+  };
+
+  // Bulk add list items (paste handwritten lines or WhatsApp list)
+  const handleBulkAdd = () => {
+    if (!bulkText.trim()) return;
+    const lines = bulkText.split('\n').map((l) => l.trim()).filter(Boolean);
+    const newItems: typeof billedItems = [];
+
+    lines.forEach((line) => {
+      let name = line;
+      let price = 0;
+      let qty = 1;
+      let unit = '1 unit';
+
+      // Price e.g. " - 45" or " ₹50"
+      const priceMatch = name.match(/[-–—₹]\s*(\d+(\.\d+)?)\s*$/);
+      if (priceMatch) {
+        price = Number(priceMatch[1]) || 0;
+        name = name.replace(/[-–—₹]\s*(\d+(\.\d+)?)\s*$/, '').trim();
+      }
+
+      // Quantity prefix e.g. "2x " or "3 "
+      const qtyMatch = name.match(/^(\d+)\s*[xX*]\s*/);
+      if (qtyMatch) {
+        qty = Number(qtyMatch[1]) || 1;
+        name = name.replace(/^(\d+)\s*[xX*]\s*/, '').trim();
+      }
+
+      // Unit detection
+      const unitMatch = name.match(/\b(\d+(\.\d+)?\s*(kg|g|gm|gms|ml|l|ltr|litre|packet|pkt|pc|pcs|box|bottle))\b/i);
+      if (unitMatch) {
+        unit = unitMatch[0];
+      }
+
+      newItems.push({
+        productId: null,
+        name: name || line,
+        requestedQty: qty,
+        unit,
+        price,
+        available: true,
+        substituteNote: '',
+      });
+    });
+
+    if (newItems.length > 0) {
+      setBilledItems((prev) => [...prev, ...newItems]);
+      setBulkText('');
+      setShowBulkModal(false);
+      setActionSuccess(`Added ${newItems.length} items from bulk list!`);
+      setTimeout(() => setActionSuccess(null), 3000);
+    }
   };
 
   // Add custom manual item
@@ -282,7 +360,7 @@ export default function SlipOrdersTab({
     try {
       const res = await fetch(`/api/admin/slip-orders/${selectedSlip.id}`, {
         method: 'PATCH',
-        headers: getAdminHeaders(),
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           items: billedItems,
           adminNotes,
@@ -318,7 +396,7 @@ export default function SlipOrdersTab({
       // First save items if modified
       await fetch(`/api/admin/slip-orders/${selectedSlip.id}`, {
         method: 'PATCH',
-        headers: getAdminHeaders(),
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           items: billedItems,
           adminNotes,
@@ -330,7 +408,7 @@ export default function SlipOrdersTab({
       // Then mark confirmed
       const res = await fetch(`/api/admin/slip-orders/${selectedSlip.id}/confirm-call`, {
         method: 'POST',
-        headers: getAdminHeaders(),
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           staffName: 'Store Staff',
           notes: 'Customer confirmed all items & bill via call',
@@ -372,7 +450,7 @@ export default function SlipOrdersTab({
 
       const res = await fetch(`/api/admin/slip-orders/${slipOrder.id}/pack`, {
         method: 'POST',
-        headers: getAdminHeaders(),
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           items: packedItemsPayload,
           staffName: 'Store Packer',
@@ -422,6 +500,26 @@ export default function SlipOrdersTab({
   };
 
   const handleMouseUp = () => setIsDragging(false);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      setIsDragging(true);
+      dragStartRef.current = {
+        x: e.touches[0].clientX - panOffset.x,
+        y: e.touches[0].clientY - panOffset.y,
+      };
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging || e.touches.length !== 1) return;
+    setPanOffset({
+      x: e.touches[0].clientX - dragStartRef.current.x,
+      y: e.touches[0].clientY - dragStartRef.current.y,
+    });
+  };
+
+  const handleTouchEnd = () => setIsDragging(false);
 
   // Counts for badges
   const newSlipsCount = orders.filter((o) => o.status === 'SLIP_RECEIVED').length;
@@ -776,10 +874,7 @@ export default function SlipOrdersTab({
               <div className="flex items-center justify-between bg-white p-3.5 rounded-2xl border border-stone-200/80 shadow-2xs">
                 <button
                   type="button"
-                  onClick={() => {
-                    setSelectedSlip(null);
-                    onClearSelectedSlip?.();
-                  }}
+                  onClick={() => setSelectedSlip(null)}
                   className="inline-flex items-center gap-2 text-xs font-black text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 px-3 py-1.5 rounded-xl transition-colors"
                 >
                   <ArrowLeft className="w-4 h-4" />
@@ -795,116 +890,169 @@ export default function SlipOrdersTab({
               {/* Two Column Layout: Left Viewer | Right Bill Builder */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
                 {/* 1. LEFT COLUMN: ZOOMABLE SLIP VIEWER (5 cols on lg) */}
-                <div className="lg:col-span-5 bg-white rounded-3xl border border-stone-200/90 shadow-2xs p-4 space-y-3 sticky top-20">
+                <div className="lg:col-span-5 bg-white rounded-3xl border border-stone-200/90 shadow-2xs p-4 space-y-3 lg:sticky lg:top-20">
                   <div className="flex items-center justify-between border-b border-stone-100 pb-2">
                     <span className="text-xs font-black text-stone-800 flex items-center gap-1.5">
                       <FileText className="w-4 h-4 text-[#2E7D32]" />
                       <span>Slip Photo Viewer ({selectedSlip.images?.length || 0})</span>
                     </span>
 
-                    {/* Viewer Controls */}
-                    <div className="flex items-center gap-1 bg-stone-100 p-1 rounded-xl">
+                    <div className="flex items-center gap-1.5">
+                      {/* Collapse / Expand toggle button for mobile and desktop */}
                       <button
                         type="button"
-                        onClick={handleZoomIn}
-                        title="Zoom In"
-                        className="p-1 rounded-lg hover:bg-white text-stone-700 transition-colors"
+                        onClick={() => setIsPhotoCollapsed(!isPhotoCollapsed)}
+                        className="inline-flex items-center gap-1 text-[11px] font-bold text-stone-600 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 px-2 py-1 rounded-lg transition-colors"
+                        title={isPhotoCollapsed ? 'Expand photo' : 'Minimize photo'}
                       >
-                        <ZoomIn className="w-3.5 h-3.5" />
+                        {isPhotoCollapsed ? (
+                          <>
+                            <ChevronDown className="w-3.5 h-3.5" />
+                            <span>Expand</span>
+                          </>
+                        ) : (
+                          <>
+                            <ChevronUp className="w-3.5 h-3.5" />
+                            <span>Minimize</span>
+                          </>
+                        )}
                       </button>
-                      <button
-                        type="button"
-                        onClick={handleZoomOut}
-                        title="Zoom Out"
-                        className="p-1 rounded-lg hover:bg-white text-stone-700 transition-colors"
-                      >
-                        <ZoomOut className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={handleRotate}
-                        title="Rotate 90°"
-                        className="p-1 rounded-lg hover:bg-white text-stone-700 transition-colors"
-                      >
-                        <RotateCw className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={handleResetZoom}
-                        title="Reset Zoom"
-                        className="p-1 rounded-lg hover:bg-white text-stone-700 transition-colors"
-                      >
-                        <RotateCcw className="w-3.5 h-3.5" />
-                      </button>
+
+                      {/* Viewer Controls (visible when expanded) */}
+                      {!isPhotoCollapsed && (
+                        <div className="flex items-center gap-1 bg-stone-100 p-1 rounded-xl">
+                          <button
+                            type="button"
+                            onClick={handleZoomIn}
+                            title="Zoom In"
+                            className="p-1 rounded-lg hover:bg-white text-stone-700 transition-colors"
+                          >
+                            <ZoomIn className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleZoomOut}
+                            title="Zoom Out"
+                            className="p-1 rounded-lg hover:bg-white text-stone-700 transition-colors"
+                          >
+                            <ZoomOut className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleRotate}
+                            title="Rotate 90°"
+                            className="p-1 rounded-lg hover:bg-white text-stone-700 transition-colors"
+                          >
+                            <RotateCw className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleResetZoom}
+                            title="Reset Zoom"
+                            className="p-1 rounded-lg hover:bg-white text-stone-700 transition-colors"
+                          >
+                            <RotateCcw className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
 
-                  {/* Multiple image tabs/strip */}
-                  {selectedSlip.images && selectedSlip.images.length > 1 && (
-                    <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-                      {selectedSlip.images.map((img, idx) => (
-                        <button
-                          key={idx}
-                          type="button"
-                          onClick={() => {
-                            setActiveImageIndex(idx);
-                            handleResetZoom();
-                          }}
-                          className={`relative shrink-0 rounded-xl overflow-hidden border-2 transition-all ${
-                            activeImageIndex === idx
-                              ? 'border-[#2E7D32] ring-2 ring-emerald-100'
-                              : 'border-stone-200 opacity-60 hover:opacity-100'
-                          }`}
-                        >
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                  {isPhotoCollapsed ? (
+                    <div
+                      onClick={() => setIsPhotoCollapsed(false)}
+                      className="p-3 bg-stone-50 hover:bg-stone-100 rounded-2xl border border-dashed border-stone-300 flex items-center justify-between cursor-pointer transition-colors"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        {selectedSlip.images?.[activeImageIndex]?.image_url && (
                           <img
-                            src={img.image_url}
-                            alt={`Slip page ${idx + 1}`}
-                            className="w-14 h-14 object-cover"
+                            src={selectedSlip.images[activeImageIndex].image_url}
+                            alt="Slip thumbnail"
+                            className="w-10 h-10 object-cover rounded-lg border border-stone-200"
                           />
-                          <span className="absolute bottom-0 right-0 bg-black/70 text-white text-[9px] px-1 font-bold rounded-tl">
-                            {idx + 1}
-                          </span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Interactive Zoomable Viewport */}
-                  <div
-                    onMouseDown={handleMouseDown}
-                    onMouseMove={handleMouseMove}
-                    onMouseUp={handleMouseUp}
-                    onMouseLeave={handleMouseUp}
-                    className="relative w-full h-[420px] bg-stone-900 rounded-2xl overflow-hidden cursor-grab active:cursor-grabbing flex items-center justify-center border border-stone-300 select-none"
-                  >
-                    {selectedSlip.images && selectedSlip.images[activeImageIndex] ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={selectedSlip.images[activeImageIndex].image_url}
-                        alt="Customer slip"
-                        className="max-h-full max-w-full object-contain transition-transform duration-75 ease-out"
-                        style={{
-                          transform: `translate(${panOffset.x}px, ${panOffset.y}px) scale(${zoomScale}) rotate(${zoomRotation}deg)`,
-                        }}
-                        draggable={false}
-                      />
-                    ) : (
-                      <div className="text-center text-stone-400 text-xs">
-                        <FileText className="w-8 h-8 mx-auto mb-2 opacity-40" />
-                        <span>No image available</span>
+                        )}
+                        <div>
+                          <p className="text-xs font-bold text-stone-800">Slip Photo Minimized</p>
+                          <p className="text-[10px] text-stone-500">Tap to expand and zoom handwritten slip</p>
+                        </div>
                       </div>
-                    )}
-
-                    {/* Zoom indicator overlay */}
-                    <div className="absolute bottom-2 left-2 px-2 py-1 bg-black/60 backdrop-blur-md rounded-md text-[10px] text-white font-mono">
-                      {Math.round(zoomScale * 100)}% {zoomRotation > 0 ? `· ${zoomRotation}°` : ''}
+                      <span className="text-xs font-black text-[#2E7D32] bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+                        Tap to View
+                      </span>
                     </div>
+                  ) : (
+                    <>
+                      {/* Multiple image tabs/strip */}
+                      {selectedSlip.images && selectedSlip.images.length > 1 && (
+                        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                          {selectedSlip.images.map((img, idx) => (
+                            <button
+                              key={idx}
+                              type="button"
+                              onClick={() => {
+                                setActiveImageIndex(idx);
+                                handleResetZoom();
+                              }}
+                              className={`relative shrink-0 rounded-xl overflow-hidden border-2 transition-all ${
+                                activeImageIndex === idx
+                                  ? 'border-[#2E7D32] ring-2 ring-emerald-100'
+                                  : 'border-stone-200 opacity-60 hover:opacity-100'
+                              }`}
+                            >
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={img.image_url}
+                                alt={`Slip page ${idx + 1}`}
+                                className="w-14 h-14 object-cover"
+                              />
+                              <span className="absolute bottom-0 right-0 bg-black/70 text-white text-[9px] px-1 font-bold rounded-tl">
+                                {idx + 1}
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
 
-                    <div className="absolute top-2 right-2 px-2 py-0.5 bg-black/60 backdrop-blur-md rounded-md text-[10px] text-white font-medium">
-                      Drag to Pan • Click +/- to Zoom
-                    </div>
-                  </div>
+                      {/* Interactive Zoomable Viewport */}
+                      <div
+                        onMouseDown={handleMouseDown}
+                        onMouseMove={handleMouseMove}
+                        onMouseUp={handleMouseUp}
+                        onMouseLeave={handleMouseUp}
+                        onTouchStart={handleTouchStart}
+                        onTouchMove={handleTouchMove}
+                        onTouchEnd={handleTouchEnd}
+                        className="relative w-full h-[260px] sm:h-[340px] lg:h-[420px] bg-stone-900 rounded-2xl overflow-hidden cursor-grab active:cursor-grabbing flex items-center justify-center border border-stone-300 select-none touch-none"
+                      >
+                        {selectedSlip.images && selectedSlip.images[activeImageIndex] ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={selectedSlip.images[activeImageIndex].image_url}
+                            alt="Customer slip"
+                            className="max-h-full max-w-full object-contain transition-transform duration-75 ease-out"
+                            style={{
+                              transform: `translate(${panOffset.x}px, ${panOffset.y}px) scale(${zoomScale}) rotate(${zoomRotation}deg)`,
+                            }}
+                            draggable={false}
+                          />
+                        ) : (
+                          <div className="text-center text-stone-400 text-xs">
+                            <FileText className="w-8 h-8 mx-auto mb-2 opacity-40" />
+                            <span>No image available</span>
+                          </div>
+                        )}
+
+                        {/* Zoom indicator overlay */}
+                        <div className="absolute bottom-2 left-2 px-2 py-1 bg-black/60 backdrop-blur-md rounded-md text-[10px] text-white font-mono">
+                          {Math.round(zoomScale * 100)}% {zoomRotation > 0 ? `· ${zoomRotation}°` : ''}
+                        </div>
+
+                        <div className="absolute top-2 right-2 px-2 py-0.5 bg-black/60 backdrop-blur-md rounded-md text-[10px] text-white font-medium">
+                          Drag to Pan • Click +/- to Zoom
+                        </div>
+                      </div>
+                    </>
+                  )}
 
                   {/* Customer Note */}
                   {selectedSlip.customer_note && (
@@ -965,19 +1113,35 @@ export default function SlipOrdersTab({
                       <label className="text-xs font-black text-stone-800">
                         Add Items from Supermarket Catalog
                       </label>
-                      <button
-                        type="button"
-                        onClick={() => setShowManualModal(true)}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-[#2E7D32] hover:underline"
-                      >
-                        <Plus className="w-3.5 h-3.5" />
-                        <span>+ Custom Item</span>
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setShowBulkModal(true)}
+                          className="inline-flex items-center gap-1 text-xs font-bold text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 px-2.5 py-1 rounded-xl transition-colors"
+                        >
+                          <ListPlus className="w-3.5 h-3.5 text-[#2E7D32]" />
+                          <span>📋 Bulk Add List</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (catalogSearch.trim()) {
+                              setManualName(catalogSearch.trim());
+                            }
+                            setShowManualModal(true);
+                          }}
+                          className="inline-flex items-center gap-1 text-xs font-bold text-[#2E7D32] hover:underline"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                          <span>+ Custom Item</span>
+                        </button>
+                      </div>
                     </div>
 
                     <div className="relative">
                       <Search className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
                       <input
+                        ref={searchInputRef}
                         type="text"
                         value={catalogSearch}
                         onFocus={() => setShowCatalogDropdown(true)}
@@ -985,18 +1149,33 @@ export default function SlipOrdersTab({
                           setCatalogSearch(e.target.value);
                           setShowCatalogDropdown(true);
                         }}
-                        placeholder="Type grocery name (e.g., Aashirvaad Atta, Fortune Oil, Amul Milk)..."
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            if (matchingCatalogProducts.length > 0) {
+                              handleAddCatalogItem(matchingCatalogProducts[0]);
+                              searchInputRef.current?.focus();
+                            } else if (catalogSearch.trim()) {
+                              handleQuickAddCustom(catalogSearch.trim());
+                              searchInputRef.current?.focus();
+                            }
+                          }
+                        }}
+                        placeholder="Type grocery name & press Enter (e.g., Aashirvaad Atta, Fortune Oil, Amul Milk)..."
                         className="w-full pl-9 pr-3 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
                       />
 
                       {/* Dropdown Auto-suggest */}
-                      {showCatalogDropdown && matchingCatalogProducts.length > 0 && (
-                        <div className="absolute z-30 left-0 right-0 mt-1 bg-white rounded-2xl border border-stone-200 shadow-lg divide-y divide-stone-100 max-h-60 overflow-y-auto">
+                      {showCatalogDropdown && catalogSearch.trim() && (
+                        <div className="absolute z-30 left-0 right-0 mt-1 bg-white rounded-2xl border border-stone-200 shadow-xl divide-y divide-stone-100 max-h-64 overflow-y-auto">
                           {matchingCatalogProducts.map((p) => (
                             <button
                               key={p.id}
                               type="button"
-                              onClick={() => handleAddCatalogItem(p)}
+                              onClick={() => {
+                                handleAddCatalogItem(p);
+                                searchInputRef.current?.focus();
+                              }}
                               className="w-full px-3.5 py-2.5 flex items-center justify-between text-left hover:bg-stone-50 transition-colors"
                             >
                               <div className="flex items-center gap-2.5">
@@ -1016,18 +1195,91 @@ export default function SlipOrdersTab({
                               <span className="text-xs font-black text-[#2E7D32]">₹{p.price}</span>
                             </button>
                           ))}
+
+                          {/* Quick add custom item option directly in dropdown */}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              handleQuickAddCustom(catalogSearch.trim());
+                              searchInputRef.current?.focus();
+                            }}
+                            className="w-full px-3.5 py-2.5 flex items-center gap-2 text-left bg-emerald-50 hover:bg-emerald-100 text-[#1B5E20] font-black text-xs transition-colors"
+                          >
+                            <Plus className="w-4 h-4 shrink-0" />
+                            <span>
+                              {matchingCatalogProducts.length === 0 ? 'No exact catalog match · ' : ''}
+                              Add &quot;{catalogSearch.trim()}&quot; as Custom Line Item
+                            </span>
+                          </button>
                         </div>
                       )}
                     </div>
                   </div>
 
                   {/* Billed Items List */}
-                  <div className="space-y-2">
+                  <div className="space-y-2.5">
                     <div className="flex items-center justify-between text-xs font-black text-stone-800">
                       <span>Billed Line Items ({billedItems.length})</span>
                       <span className="text-[11px] text-stone-500 font-medium">
                         Tick checkbox or toggle availability if out of stock
                       </span>
+                    </div>
+
+                    {/* Inline Quick Add Row */}
+                    <div className="p-2.5 bg-stone-50 rounded-2xl border border-stone-200 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                      <input
+                        type="text"
+                        placeholder="Quick item name (e.g. Sugar 1kg)..."
+                        value={inlineName}
+                        onChange={(e) => setInlineName(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            handleInlineAdd();
+                          }
+                        }}
+                        className="flex-1 px-3 py-1.5 bg-white border border-stone-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                      />
+                      <div className="flex items-center gap-1.5 justify-end">
+                        <input
+                          type="number"
+                          min={1}
+                          value={inlineQty}
+                          onChange={(e) => setInlineQty(Math.max(1, Number(e.target.value)))}
+                          title="Quantity"
+                          placeholder="Qty"
+                          className="w-12 px-2 py-1.5 bg-white border border-stone-200 rounded-xl text-xs font-bold text-center focus:outline-none"
+                        />
+                        <input
+                          type="text"
+                          value={inlineUnit}
+                          onChange={(e) => setInlineUnit(e.target.value)}
+                          title="Unit"
+                          placeholder="unit"
+                          className="w-16 px-2 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-600 focus:outline-none"
+                        />
+                        <div className="flex items-center gap-0.5 bg-white border border-stone-200 rounded-xl px-2 py-1.5">
+                          <span className="text-xs text-stone-400 font-bold">₹</span>
+                          <input
+                            type="number"
+                            min={0}
+                            value={inlinePrice}
+                            onChange={(e) => setInlinePrice(Math.max(0, Number(e.target.value)))}
+                            title="Price"
+                            placeholder="Price"
+                            className="w-14 text-xs font-bold focus:outline-none"
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          onClick={handleInlineAdd}
+                          disabled={!inlineName.trim()}
+                          className="px-3.5 py-1.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black rounded-xl text-xs flex items-center gap-1 transition-colors disabled:opacity-50 shrink-0 shadow-2xs"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                          <span>Add</span>
+                        </button>
+                      </div>
                     </div>
 
                     {billedItems.length === 0 ? (
@@ -1234,6 +1486,20 @@ export default function SlipOrdersTab({
                   </div>
                 </div>
               </div>
+
+              {/* Mobile Floating Action Button: Quick Slip Photo Preview */}
+              {selectedSlip.images && selectedSlip.images.length > 0 && (
+                <div className="lg:hidden fixed bottom-20 right-4 z-40">
+                  <button
+                    type="button"
+                    onClick={() => setShowFloatingPreviewModal(true)}
+                    className="flex items-center gap-2 px-4 py-2.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black text-xs rounded-full shadow-xl border border-emerald-400 active:scale-95 transition-all"
+                  >
+                    <FileText className="w-4 h-4 text-emerald-300" />
+                    <span>View Slip ({selectedSlip.images.length})</span>
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </>
@@ -1497,6 +1763,171 @@ export default function SlipOrdersTab({
                 Add to Bill
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: BULK ADD GROCERY LIST */}
+      {showBulkModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+          <div className="bg-white rounded-3xl p-5 max-w-md w-full space-y-4 shadow-xl animate-in zoom-in-95">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-2">
+              <div className="flex items-center gap-2">
+                <ListPlus className="w-4 h-4 text-[#2E7D32]" />
+                <h4 className="text-sm font-black text-stone-900">Bulk Add Grocery List</h4>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowBulkModal(false)}
+                className="p-1 rounded-lg hover:bg-stone-100 text-stone-400"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <p className="text-xs text-stone-500">
+              Paste or type customer list line-by-line. Price and quantity are optional (e.g. &quot;Aashirvaad Atta 5kg - 260&quot; or &quot;Sugar 2kg&quot;).
+            </p>
+
+            <textarea
+              value={bulkText}
+              onChange={(e) => setBulkText(e.target.value)}
+              rows={7}
+              placeholder={`Aashirvaad Atta 5kg - 260\nSugar 1kg - 45\nFortune Sunflower Oil 1L - 130\nAmul Milk 500ml\nTata Salt 1kg`}
+              className="w-full p-3 bg-stone-50 border border-stone-200 rounded-2xl text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+            />
+
+            <div className="flex items-center gap-2 pt-1">
+              <button
+                type="button"
+                onClick={() => setShowBulkModal(false)}
+                className="flex-1 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold rounded-xl text-xs"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleBulkAdd}
+                disabled={!bulkText.trim()}
+                className="flex-1 py-2.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black rounded-xl text-xs disabled:opacity-50"
+              >
+                Add All Line Items
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL: FLOATING FULLSCREEN SLIP PHOTO PREVIEW */}
+      {showFloatingPreviewModal && selectedSlip && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 bg-black/85 backdrop-blur-xs">
+          <div className="bg-stone-900 text-white rounded-3xl p-4 max-w-lg w-full space-y-3 shadow-2xl flex flex-col max-h-[92vh]">
+            <div className="flex items-center justify-between border-b border-stone-800 pb-2">
+              <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                <FileText className="w-4 h-4 text-emerald-400" />
+                <span>Customer Slip Photo ({activeImageIndex + 1}/{selectedSlip.images?.length || 1})</span>
+              </span>
+
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 bg-stone-800 p-1 rounded-xl">
+                  <button
+                    type="button"
+                    onClick={handleZoomIn}
+                    className="p-1 rounded hover:bg-stone-700 text-stone-300"
+                    title="Zoom In"
+                  >
+                    <ZoomIn className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleZoomOut}
+                    className="p-1 rounded hover:bg-stone-700 text-stone-300"
+                    title="Zoom Out"
+                  >
+                    <ZoomOut className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleRotate}
+                    className="p-1 rounded hover:bg-stone-700 text-stone-300"
+                    title="Rotate"
+                  >
+                    <RotateCw className="w-3.5 h-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleResetZoom}
+                    className="p-1 rounded hover:bg-stone-700 text-stone-300"
+                    title="Reset"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowFloatingPreviewModal(false)}
+                  className="p-1.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-300"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Multiple images strip if > 1 */}
+            {selectedSlip.images && selectedSlip.images.length > 1 && (
+              <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                {selectedSlip.images.map((img, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => {
+                      setActiveImageIndex(idx);
+                      handleResetZoom();
+                    }}
+                    className={`relative shrink-0 rounded-xl overflow-hidden border-2 transition-all ${
+                      activeImageIndex === idx ? 'border-emerald-500' : 'border-stone-700 opacity-60'
+                    }`}
+                  >
+                    <img src={img.image_url} alt="" className="w-12 h-12 object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Zoomable Image Area */}
+            <div
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              className="relative w-full flex-1 min-h-[320px] bg-black rounded-2xl overflow-hidden cursor-grab active:cursor-grabbing flex items-center justify-center select-none touch-none"
+            >
+              {selectedSlip.images && selectedSlip.images[activeImageIndex] ? (
+                <img
+                  src={selectedSlip.images[activeImageIndex].image_url}
+                  alt="Customer Slip Preview"
+                  className="max-h-full max-w-full object-contain transition-transform duration-75 ease-out"
+                  style={{
+                    transform: `translate(${panOffset.x}px, ${panOffset.y}px) scale(${zoomScale}) rotate(${zoomRotation}deg)`,
+                  }}
+                  draggable={false}
+                />
+              ) : (
+                <div className="text-stone-400 text-xs">No image available</div>
+              )}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setShowFloatingPreviewModal(false)}
+              className="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-xl transition-colors"
+            >
+              Close &amp; Continue Billing
+            </button>
           </div>
         </div>
       )}

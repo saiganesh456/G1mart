@@ -3,6 +3,7 @@ import path from 'path';
 import webpush from 'web-push';
 import type { Order, OrderStatus } from '@/types';
 import { serverStaffStore } from '@/lib/serverStaffStore';
+import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 
 export interface PushSubscriptionData {
   endpoint: string;
@@ -80,6 +81,31 @@ class ServerPushService {
     return this.vapidKeys?.publicKey || '';
   }
 
+  async syncSubscriptionsFromSupabase(): Promise<void> {
+    if (!isSupabaseConfigured()) return;
+    try {
+      const { data, error } = await supabase.from('push_subscriptions').select('*');
+      if (!error && Array.isArray(data)) {
+        data.forEach((row: any) => {
+          if (row?.endpoint && row?.keys) {
+            this.subscriptions.set(row.endpoint, {
+              endpoint: row.endpoint,
+              keys: row.keys,
+              userId: row.user_id,
+              userEmail: row.user_email,
+              userPhone: row.user_phone,
+              role: row.role,
+              isAdmin: Boolean(row.is_admin),
+              createdAt: row.created_at,
+            });
+          }
+        });
+      }
+    } catch (err) {
+      console.warn('[ServerPushService] Supabase sync note:', err);
+    }
+  }
+
   saveSubscription(sub: PushSubscriptionData): boolean {
     if (!sub || !sub.endpoint || !sub.keys) return false;
     this.subscriptions.set(sub.endpoint, {
@@ -87,12 +113,38 @@ class ServerPushService {
       createdAt: new Date().toISOString(),
     });
     this.persistSubscriptions();
+
+    if (isSupabaseConfigured()) {
+      try {
+        supabase
+          .from('push_subscriptions')
+          .upsert({
+            endpoint: sub.endpoint,
+            keys: sub.keys,
+            user_id: sub.userId || null,
+            user_email: sub.userEmail || null,
+            user_phone: sub.userPhone || null,
+            role: sub.role || 'customer',
+            is_admin: Boolean(sub.isAdmin),
+            created_at: new Date().toISOString(),
+          })
+          .then(() => {})
+          .catch(() => {});
+      } catch {}
+    }
+
     return true;
   }
 
   removeSubscription(endpoint: string) {
     this.subscriptions.delete(endpoint);
     this.persistSubscriptions();
+
+    if (isSupabaseConfigured()) {
+      try {
+        supabase.from('push_subscriptions').delete().eq('endpoint', endpoint).then(() => {}).catch(() => {});
+      } catch {}
+    }
   }
 
   private persistSubscriptions() {
@@ -108,6 +160,7 @@ class ServerPushService {
    */
   async sendOrderPushNotification(order: Order, status: OrderStatus): Promise<number> {
     if (!order || !order.id) return 0;
+    await this.syncSubscriptionsFromSupabase();
 
     // Identify target customer credentials
     const targetUserId = order.userId;
@@ -256,6 +309,7 @@ class ServerPushService {
    */
   async notifyAdminsNewOrder(order: Order): Promise<number> {
     if (!order || !order.id || !this.vapidKeys) return 0;
+    await this.syncSubscriptionsFromSupabase();
 
     const knownAdminEmails = new Set([
       'g1mart@gmail.com',

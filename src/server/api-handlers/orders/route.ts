@@ -30,10 +30,7 @@ export async function GET(req: NextRequest) {
       const matchedSlips = allSlips.filter((s) => {
         if (cleanPhone) {
           const sPhone = (s.customer_phone || '').replace(/\D/g, '').slice(-10);
-          if (sPhone === cleanPhone) return true;
-        }
-        if (userId) {
-          if (s.customer_id === userId || (s as any).user_id === userId) return true;
+          return sPhone === cleanPhone;
         }
         return false;
       });
@@ -61,8 +58,6 @@ export async function GET(req: NextRequest) {
         paymentMethod: slipOrder.payment_method || 'Cash on Delivery',
         paymentStatus: slipOrder.payment_status,
         isPaid: slipOrder.payment_status === 'paid' || slipOrder.payment_status === 'completed',
-        deliveryOtp: slipOrder.delivery_otp,
-        delivery_otp: slipOrder.delivery_otp,
         items: (slipOrder.items || []).map((it) => ({
           id: it.id,
           productId: it.product_id,
@@ -104,11 +99,9 @@ export async function GET(req: NextRequest) {
     for (const order of standardOrders) {
       if (order?.id) mergedMap.set(order.id, order);
     }
-    // Slip orders from serverSlipOrders contain live item billing and statuses - let them take precedence!
     for (const slip of slipOrdersFormatted) {
-      if (slip?.id) {
-        const existing = mergedMap.get(slip.id);
-        mergedMap.set(slip.id, existing ? { ...existing, ...slip } : slip);
+      if (slip?.id && !mergedMap.has(slip.id)) {
+        mergedMap.set(slip.id, slip);
       }
     }
 

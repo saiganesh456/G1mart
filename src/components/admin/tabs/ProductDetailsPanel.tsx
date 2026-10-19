@@ -13,6 +13,7 @@ import {
   CheckCircle2,
 } from 'lucide-react';
 import ProductImage from '@/components/storefront/ProductImage';
+import { adminFetch } from '@/lib/adminApi';
 
 interface Props {
   product: Product;
@@ -76,7 +77,7 @@ export default function ProductDetailsPanel({
       }
 
       // Fallback direct PATCH if onSaveProduct is not provided
-      const res = await fetch('/api/admin/products', {
+      const res = await adminFetch('/api/admin/products', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

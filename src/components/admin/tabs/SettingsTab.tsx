@@ -23,6 +23,7 @@ import {
   Volume2,
   Sparkles,
 } from 'lucide-react';
+import { adminFetch } from '@/lib/adminApi';
 import type { StoreSettings, DeliveryZone } from '@/types/deliveryZone';
 import { DEFAULT_STORE_SETTINGS, DEFAULT_DELIVERY_ZONES } from '@/lib/storeSettingsConstants';
 
@@ -42,7 +43,7 @@ export default function SettingsTab() {
     try {
       setTestingPush(true);
       setPushTestResult(null);
-      const res = await fetch('/api/notifications/test-admin-push', { method: 'POST' });
+      const res = await adminFetch('/api/notifications/test-admin-push', { method: 'POST' });
       const data = await res.json();
       if (data.success) {
         setPushTestResult(data.message || 'Test background alert sent! Check your notification center or lock screen.');
@@ -76,7 +77,7 @@ export default function SettingsTab() {
     setLoading(true);
     setSaveError(null);
     try {
-      const res = await fetch('/api/admin/settings');
+      const res = await adminFetch('/api/admin/settings');
       const data = await res.json();
       if (res.ok && data.success) {
         if (data.settings) setSettings(data.settings);
@@ -294,7 +295,7 @@ export default function SettingsTab() {
         }
       }
 
-      const res = await fetch('/api/admin/settings', {
+      const res = await adminFetch('/api/admin/settings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

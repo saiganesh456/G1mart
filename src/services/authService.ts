@@ -47,13 +47,17 @@ export const authService = {
       let detectedRole: UserRole = (data?.role as any) || 'customer';
 
       // Always grant admin to root admin emails or check server role
-      if (userEmail === 'g1mart@gmail.com' || userEmail === 'lingalamahendra0@gmail.com') {
-        detectedRole = 'admin';
-      } else if (
+      const isCoreAdmin =
+        userEmail === 'g1mart@gmail.com' ||
+        userEmail === 'lingalamahendra0@gmail.com' ||
         userEmail === 'gummasaiganesh57@gmail.com' ||
         userEmail === 'vv727457@gmail.com' ||
-        userEmail === 'rider@g1mart.com'
-      ) {
+        userEmail === 'orders@g1mart.com' ||
+        userEmail === 'admin@g1mart.com';
+
+      if (isCoreAdmin) {
+        detectedRole = 'admin';
+      } else if (userEmail === 'rider@g1mart.com') {
         detectedRole = 'delivery_partner';
       } else {
         try {

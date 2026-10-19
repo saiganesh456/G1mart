@@ -86,14 +86,6 @@ function getInitialCachedOrders(): any[] {
   } catch {}
 
   try {
-    const recent = localStorage.getItem('g1mart_recent_order');
-    if (recent) {
-      const parsed = JSON.parse(recent);
-      if (parsed?.id) orderMap.set(parsed.id, parsed);
-    }
-  } catch {}
-
-  try {
     const storedSession = sessionStorage.getItem('g1mart_orders_list');
     if (storedSession) {
       const parsed = JSON.parse(storedSession);
@@ -143,25 +135,9 @@ export default function OrdersPage() {
       let phone = user?.phone || undefined;
       if (!phone && typeof window !== 'undefined') {
         try {
-          phone =
-            localStorage.getItem('g1mart_customer_phone') ||
-            localStorage.getItem('g1mart_user_phone') ||
-            localStorage.getItem('g1mart_checkout_phone') ||
-            localStorage.getItem('g1mart_auth_phone') ||
-            undefined;
+          const lastAddr = JSON.parse(localStorage.getItem('g1mart_last_used_address') || '{}');
+          phone = lastAddr.phone || lastAddr.mobileNumber || undefined;
         } catch {}
-        if (!phone) {
-          try {
-            const lastAddr = JSON.parse(localStorage.getItem('g1mart_last_used_address') || '{}');
-            phone = lastAddr.phone || lastAddr.mobileNumber || undefined;
-          } catch {}
-        }
-        if (!phone) {
-          try {
-            const recent = JSON.parse(localStorage.getItem('g1mart_recent_order') || '{}');
-            phone = recent.address?.phone || recent.address?.mobileNumber || recent.customer_phone || undefined;
-          } catch {}
-        }
       }
 
       const query = new URLSearchParams();
@@ -172,32 +148,10 @@ export default function OrdersPage() {
         const res = await fetch(`/api/orders?${query.toString()}`);
         const data = await res.json();
         if (data.success && Array.isArray(data.orders)) {
-          const localCached = getInitialCachedOrders();
-          const mergedMap = new Map<string, any>();
-
-          // Preload local cache first
-          for (const o of localCached) {
-            if (o?.id) mergedMap.set(o.id, o);
-          }
-
-          // Merge server orders (preserving cached items if server record is empty stub)
-          for (const sOrder of data.orders) {
-            if (!sOrder?.id) continue;
-            const existing = mergedMap.get(sOrder.id);
-            if (existing && (!sOrder.items || sOrder.items.length === 0) && existing.items && existing.items.length > 0) {
-              mergedMap.set(sOrder.id, { ...existing, ...sOrder, items: existing.items });
-            } else {
-              mergedMap.set(sOrder.id, existing ? { ...existing, ...sOrder } : sOrder);
-            }
-          }
-
-          const combined = Array.from(mergedMap.values()).sort(
-            (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
-          );
-
-          setOrders(combined);
+          // Authoritative list directly from server
+          setOrders(data.orders);
           try {
-            localStorage.setItem('g1mart_account_orders', JSON.stringify(combined.slice(0, 30)));
+            localStorage.setItem('g1mart_account_orders', JSON.stringify(data.orders.slice(0, 30)));
           } catch {}
         }
       } else {
@@ -381,25 +335,17 @@ export default function OrdersPage() {
               const displayTotal =
                 order.finalTotal || order.grandTotal || order.total || order.subtotal || 0;
               const itemsList: any[] = order.items || [];
-              const hasItems = itemsList.length > 0;
-              const hasImages = Array.isArray(order.images) && order.images.length > 0;
 
               // Summary line: e.g. "2 items · Aashirvaad Suji Rava, Aachi Mutton Masala"
-              const itemsCount = hasItems
+              const itemsCount = itemsList.length > 0
                 ? itemsList.reduce((acc, it) => acc + (it.quantity || it.packedQty || it.requestedQty || 1), 0)
-                : hasImages
-                ? order.images.length
                 : 1;
 
-              const productNames = hasItems
-                ? itemsList
-                    .map((it) => it.productName || it.name)
-                    .filter(Boolean)
-                    .slice(0, 3)
-                    .join(', ')
-                : hasImages
-                ? 'Uploaded Grocery List (Slip Order)'
-                : 'Grocery items';
+              const productNames = itemsList
+                .map((it) => it.productName || it.name)
+                .filter(Boolean)
+                .slice(0, 3)
+                .join(', ');
 
               const displayThumbnails = itemsList.slice(0, 3);
               const remainingThumbnailsCount = itemsList.length > 3 ? itemsList.length - 3 : 0;
@@ -439,7 +385,7 @@ export default function OrdersPage() {
                   <div className="flex items-center gap-3 pt-1">
                     {/* Thumbnails Row */}
                     <div className="flex items-center gap-1.5 shrink-0">
-                      {hasItems ? (
+                      {displayThumbnails.length > 0 ? (
                         displayThumbnails.map((item, idx) => (
                           <div
                             key={idx}
@@ -467,23 +413,6 @@ export default function OrdersPage() {
                             />
                           </div>
                         ))
-                      ) : hasImages ? (
-                        order.images.slice(0, 3).map((img: any, idx: number) => (
-                          <div
-                            key={idx}
-                            className="w-12 h-12 rounded-xl border border-stone-200 bg-stone-100 p-0.5 flex items-center justify-center shrink-0 overflow-hidden"
-                          >
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                              src={img.image_url || img.imageUrl || img}
-                              alt="Grocery slip"
-                              className="w-full h-full object-cover rounded-lg"
-                              onError={(e) => {
-                                (e.currentTarget as HTMLImageElement).style.display = 'none';
-                              }}
-                            />
-                          </div>
-                        ))
                       ) : (
                         <div className="w-12 h-12 rounded-xl border border-stone-200 bg-stone-50 flex items-center justify-center shrink-0">
                           <Package className="w-5 h-5 text-stone-400" />
@@ -501,11 +430,7 @@ export default function OrdersPage() {
                     {/* Product Summary */}
                     <div className="min-w-0 flex-1">
                       <p className="font-bold text-xs sm:text-sm text-stone-900 leading-snug">
-                        {hasItems
-                          ? `${itemsCount} ${itemsCount === 1 ? 'item' : 'items'}`
-                          : hasImages
-                          ? `${order.images.length} list photo${order.images.length === 1 ? '' : 's'}`
-                          : 'Order items'}
+                        {itemsCount} {itemsCount === 1 ? 'item' : 'items'}
                       </p>
                       <p className="text-[11px] sm:text-xs text-stone-500 leading-snug line-clamp-2 mt-0.5">
                         {productNames || (order.type === 'slip' ? 'Uploaded grocery list items' : 'Supermarket items')}

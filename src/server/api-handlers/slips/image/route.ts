@@ -1,6 +1,6 @@
 export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
+import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 
 export async function GET(req: NextRequest) {
   try {

@@ -130,7 +130,6 @@ export const serverSlipOrders = {
    * Status begins at SLIP_RECEIVED. Copies saved location, distance, zone.
    */
   async createSlipOrder(params: {
-    customerId?: string | null;
     customerName: string;
     customerPhone: string;
     customerNote?: string;
@@ -159,7 +158,6 @@ export const serverSlipOrders = {
 
     const order: SlipOrder = {
       id,
-      customer_id: params.customerId || null,
       customer_name: params.customerName.trim(),
       customer_phone: params.customerPhone.trim(),
       customer_note: params.customerNote?.trim() || null,
@@ -194,7 +192,6 @@ export const serverSlipOrders = {
       admin_notes: null,
       cancel_reason: null,
 
-      delivery_otp: Math.floor(1000 + Math.random() * 9000).toString(),
       images: slipImages,
       items: [],
       status_history: [],
@@ -369,25 +366,6 @@ export const serverSlipOrders = {
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
 
-    // Keep serverOrderStore synchronized with updated billing items
-    try {
-      const existingInOrderStore = serverOrderStore.getOrder(order.id);
-      if (existingInOrderStore) {
-        existingInOrderStore.items = slipItems.map((it) => ({
-          productId: it.product_id || it.id,
-          productName: it.name,
-          unit: it.unit,
-          price: it.price,
-          quantity: it.requested_qty,
-          image: '/products/placeholder.svg',
-        }));
-        existingInOrderStore.subtotal = estimatedTotal;
-        existingInOrderStore.grandTotal = estimatedTotal;
-        existingInOrderStore.finalTotal = estimatedTotal;
-        serverOrderStore.registerOrder(existingInOrderStore);
-      }
-    } catch {}
-
     return order;
   },
 
@@ -412,56 +390,36 @@ export const serverSlipOrders = {
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
 
-    // Mirror as standard order into serverOrderStore with TRUE status 'Confirmed' (NOT 'Order Placed'!)
-    // This avoids falsely triggering the "New order! New order!" alarm in the admin console.
+    // Mirror as standard order into serverOrderStore so packer and admin orders see it
     try {
-      serverOrderStore.registerOrder({
-        id: order.id,
-        orderNumber: order.id,
-        date: new Date(order.created_at).toLocaleDateString('en-IN', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-        }),
-        slot: order.order_type === 'pickup' ? 'Store Pickup' : 'Standard Delivery',
-        paymentMethod: (order.payment_method || 'Cash on Delivery') as any,
-        paymentStatus: order.payment_status as any,
-        isPaid: order.payment_status === 'paid' || order.payment_status === 'completed',
-        status: 'Confirmed', // TRUE STATUS!
-        subtotal: order.subtotal,
-        discount: 0,
-        deliveryFee: 0,
-        taxes: 0,
-        grandTotal: order.final_total || order.subtotal,
-        finalTotal: order.final_total || order.subtotal,
-        distance_km: order.distance_km,
-        zone_min_order: order.zone_min_order,
-        orderType: 'slip',
+      await serverOrderStore.createPendingOrder({
+        orderId: order.id,
+        merchantOrderId: `MT_${order.id}`,
         items: (order.items || []).map((it) => ({
           productId: it.product_id || it.id,
           productName: it.name,
           unit: it.unit,
           price: it.price,
-          quantity: it.packed_qty || it.requested_qty,
+          quantity: it.requested_qty,
           image: '/products/placeholder.svg',
         })),
+        subtotal: order.subtotal,
+        deliveryFee: 0,
+        taxes: 0,
+        grandTotal: order.subtotal,
+        final_total: order.subtotal,
         address: {
           fullName: order.customer_name,
           phone: order.customer_phone,
           mobileNumber: order.customer_phone,
           streetArea: order.address,
           city: 'Nellore',
-        } as any,
-        timeline: [
-          { status: 'Order Placed', time: 'Confirmed', completed: true },
-          { status: 'Confirmed', time: 'Just now', completed: true },
-          { status: 'Packing', time: 'Pending', completed: false },
-          { status: 'Out for Delivery', time: 'Pending', completed: false },
-          { status: 'Delivered', time: 'Pending', completed: false },
-        ],
-        deliveryOtp: order.delivery_otp || '4821',
+        },
+        slot: order.order_type === 'pickup' ? 'Store Pickup' : 'Standard Delivery',
+        paymentMethod: 'Cash on Delivery',
+        distance_km: order.distance_km,
+        zone_min_order: order.zone_min_order,
+        orderType: 'slip',
       });
     } catch {}
 
@@ -502,14 +460,6 @@ export const serverSlipOrders = {
     order.updated_at = new Date().toISOString();
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
-
-    try {
-      const existingInOrderStore = serverOrderStore.getOrder(order.id);
-      if (existingInOrderStore) {
-        existingInOrderStore.status = 'Packing';
-        serverOrderStore.registerOrder(existingInOrderStore);
-      }
-    } catch {}
 
     return order;
   },
@@ -561,26 +511,6 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
-
-    // Keep serverOrderStore synchronized
-    try {
-      const existingInOrderStore = serverOrderStore.getOrder(order.id);
-      if (existingInOrderStore) {
-        existingInOrderStore.status = 'Packed';
-        existingInOrderStore.subtotal = actualSubtotal;
-        existingInOrderStore.finalTotal = actualSubtotal;
-        existingInOrderStore.grandTotal = actualSubtotal;
-        existingInOrderStore.items = (order.items || []).map((it) => ({
-          productId: it.product_id || it.id,
-          productName: it.name,
-          unit: it.unit,
-          price: it.price,
-          quantity: it.packed_qty || it.requested_qty,
-          image: '/products/placeholder.svg',
-        }));
-        serverOrderStore.registerOrder(existingInOrderStore);
-      }
-    } catch {}
 
     return order;
   },
@@ -648,24 +578,12 @@ export const serverSlipOrders = {
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
 
-    try {
-      const existingInOrderStore = serverOrderStore.getOrder(order.id);
-      if (existingInOrderStore) {
-        existingInOrderStore.paymentMethod = order.payment_method as any;
-        existingInOrderStore.paymentStatus = order.payment_status as any;
-        existingInOrderStore.isPaid = order.payment_status === 'paid';
-        existingInOrderStore.finalTotal = order.final_total;
-        existingInOrderStore.grandTotal = order.final_total;
-        serverOrderStore.registerOrder(existingInOrderStore);
-      }
-    } catch {}
-
     return { success: true, order };
   },
 
   /**
    * 7. Assign Delivery Partner / Rider
-   * Rider can be assigned after confirmation or packing. If not paid online, defaults to Cash on Delivery.
+   * Rider is assigned only AFTER payment (PAID or COD_PENDING).
    */
   async assignRider(params: {
     slipId: string;
@@ -677,22 +595,12 @@ export const serverSlipOrders = {
     const order = await this.getSlipOrderById(params.slipId);
     if (!order) return { success: false, error: 'Slip order not found' };
 
-    // If order was in CONFIRMED, PACKING, PACKED, or AWAITING_PAYMENT, assigning a rider auto-sets COD if not paid online
+    // Rider assignment restriction: only after payment
     if (order.status !== 'PAID' && order.status !== 'COD_PENDING' && order.status !== 'RIDER_ASSIGNED') {
-      if (
-        order.status === 'CONFIRMED' ||
-        order.status === 'PACKING' ||
-        order.status === 'PACKED' ||
-        order.status === 'AWAITING_PAYMENT'
-      ) {
-        order.payment_method = 'Cash on Delivery';
-        order.payment_status = 'COD_PENDING';
-      } else {
-        return {
-          success: false,
-          error: `Cannot assign rider until order is confirmed or packed. Current status: ${order.status}`,
-        };
-      }
+      return {
+        success: false,
+        error: `Cannot assign rider until customer confirms payment. Current status: ${order.status}`,
+      };
     }
 
     order.assigned_rider_id = params.riderId;
@@ -713,20 +621,6 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
-
-    // Mirror to serverOrderStore
-    try {
-      const existingInOrderStore = serverOrderStore.getOrder(order.id);
-      if (existingInOrderStore) {
-        existingInOrderStore.status = 'Rider Assigned';
-        existingInOrderStore.assignedRider = {
-          id: params.riderId,
-          name: params.riderName,
-          phone: params.riderPhone,
-        };
-        serverOrderStore.registerOrder(existingInOrderStore);
-      }
-    } catch {}
 
     return { success: true, order };
   },
@@ -758,21 +652,6 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
-
-    // Mirror to serverOrderStore
-    try {
-      const existingInOrderStore = serverOrderStore.getOrder(order.id);
-      if (existingInOrderStore) {
-        if (status === 'OUT_FOR_DELIVERY') {
-          existingInOrderStore.status = 'Out for Delivery';
-        } else if (status === 'DELIVERED') {
-          existingInOrderStore.status = 'Delivered';
-          existingInOrderStore.isPaid = true;
-          existingInOrderStore.paymentStatus = 'completed';
-        }
-        serverOrderStore.registerOrder(existingInOrderStore);
-      }
-    } catch {}
 
     return { success: true, order };
   },

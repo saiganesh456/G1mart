@@ -593,29 +593,6 @@ export const serverOrderStore = {
       }
     }
 
-    if (orderId.startsWith('SLIP-')) {
-      try {
-        const { serverSlipOrders } = await import('./serverSlipOrders');
-        if (status === 'Packed') {
-          await serverSlipOrders.markPacked(orderId).catch(() => {});
-        } else if (status === 'Out for Delivery' || status === 'Order Dispatched') {
-          await serverSlipOrders.updateDeliveryStatus(orderId, 'OUT_FOR_DELIVERY').catch(() => {});
-        } else if (status === 'Delivered') {
-          await serverSlipOrders.updateDeliveryStatus(orderId, 'DELIVERED').catch(() => {});
-        }
-        if (assignedRider?.name) {
-          await serverSlipOrders.assignRider(
-            orderId,
-            assignedRider.id || 'rider-partner',
-            assignedRider.name,
-            assignedRider.phone || ''
-          ).catch(() => {});
-        }
-      } catch (slipErr) {
-        console.warn('[serverOrderStore] Syncing status to slip order notice:', slipErr);
-      }
-    }
-
     return { success: true, order };
   },
 
@@ -947,38 +924,15 @@ export const serverOrderStore = {
       try {
         const { data, error } = await supabase
           .from('orders')
-          .select('*, order_items(*)')
+          .select('*')
           .order('date', { ascending: false });
 
         if (!error && Array.isArray(data) && data.length > 0) {
           for (const row of data) {
             if (!row || !row.id) continue;
             const existing = ordersMap.get(row.id);
-            const addr = typeof row.address === 'object' && row.address !== null ? row.address : {};
-
-            let items = existing?.items?.length ? existing.items : [];
-            if ((!items || items.length === 0) && Array.isArray(row.order_items) && row.order_items.length > 0) {
-              items = row.order_items.map((oi: any) => ({
-                id: oi.product_id || oi.id,
-                productId: oi.product_id,
-                productName: oi.product_name || oi.name || 'Item',
-                unit: oi.unit || 'unit',
-                price: Number(oi.unit_price || oi.price || 0),
-                quantity: Number(oi.quantity || 1),
-                image: oi.image_url || '/products/placeholder.svg',
-              }));
-            }
-            if ((!items || items.length === 0) && Array.isArray(addr._items) && addr._items.length > 0) {
-              items = addr._items;
-            }
-
-            const cleanAddress = existing?.address || (typeof row.address === 'object' && row.address !== null ? row.address : {
-              fullName: 'Customer',
-              phone: '',
-              mobileNumber: '',
-              streetArea: typeof row.address === 'string' ? row.address : '',
-              city: 'Nellore',
-            });
+            const addr = row.address || {};
+            const items = existing?.items?.length ? existing.items : (addr._items || []);
 
             const syncedOrder: Order = {
               id: row.id,
@@ -997,10 +951,9 @@ export const serverOrderStore = {
               taxes: Number(row.taxes || existing?.taxes || 0),
               grandTotal: Number(row.grand_total || existing?.grandTotal || 0),
               items: items,
-              address: cleanAddress,
+              address: existing?.address || addr,
               userId: row.user_id || existing?.userId || addr._userId,
               userEmail: existing?.userEmail || addr._userEmail,
-              deliveryOtp: existing?.deliveryOtp || addr._deliveryOtp,
               timeline: existing?.timeline || [
                 { status: 'Order Placed', time: 'Confirmed', completed: true },
                 { status: 'Packed', time: 'Pending', completed: row.status === 'Packed' || row.status === 'Out for Delivery' || row.status === 'Delivered' },
