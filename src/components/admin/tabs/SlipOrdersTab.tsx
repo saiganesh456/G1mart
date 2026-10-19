@@ -43,9 +43,20 @@ import { formatIndianPhoneDisplay } from '@/lib/phone';
 interface Props {
   products?: Product[];
   initialActiveSubTab?: 'slips' | 'packer';
+  activeSlipId?: string | null;
+  onSelectSlip?: (slip: SlipOrder) => void;
+  onCloseSlip?: () => void;
+  onBackToDashboard?: () => void;
 }
 
-export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'slips' }: Props) {
+export default function SlipOrdersTab({
+  products = [],
+  initialActiveSubTab = 'slips',
+  activeSlipId,
+  onSelectSlip,
+  onCloseSlip,
+  onBackToDashboard,
+}: Props) {
   const [subTab, setSubTab] = useState<'slips' | 'packer'>(initialActiveSubTab);
   const [orders, setOrders] = useState<SlipOrder[]>([]);
   const ordersRef = useRef<SlipOrder[]>(orders);
@@ -54,6 +65,23 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [selectedSlip, setSelectedSlip] = useState<SlipOrder | null>(null);
+
+  useEffect(() => {
+    if (initialActiveSubTab && initialActiveSubTab !== subTab) {
+      setSubTab(initialActiveSubTab);
+    }
+  }, [initialActiveSubTab]);
+
+  useEffect(() => {
+    if (!activeSlipId) {
+      setSelectedSlip(null);
+    } else if (orders.length > 0) {
+      const match = orders.find(
+        (o) => String(o.id).toLowerCase() === String(activeSlipId).toLowerCase()
+      );
+      if (match) setSelectedSlip(match);
+    }
+  }, [activeSlipId, orders]);
 
   // Bill Builder state
   const [billedItems, setBilledItems] = useState<
@@ -691,14 +719,27 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
     <div className="space-y-5 pb-20">
       {/* Tab Switcher Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-stone-200/90 shadow-2xs">
-        <div>
-          <h2 className="text-lg font-black text-stone-900 flex items-center gap-2">
-            <FileText className="w-5 h-5 text-[#2E7D32]" />
-            <span>Slip Orders &amp; Smart Bill Builder</span>
-          </h2>
-          <p className="text-xs text-stone-500 mt-0.5">
-            Review customer list photos, build verified bills, enforce zone minimums, and manage packing
-          </p>
+        <div className="flex items-center gap-2">
+          {onBackToDashboard && (
+            <button
+              type="button"
+              onClick={onBackToDashboard}
+              className="px-2.5 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-stone-900 text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer mr-1 shrink-0"
+              title="Back to Admin Dashboard Home"
+            >
+              <ArrowLeft className="w-4 h-4 text-stone-600" />
+              <span className="hidden sm:inline">Dashboard</span>
+            </button>
+          )}
+          <div>
+            <h2 className="text-lg font-black text-stone-900 flex items-center gap-2">
+              <FileText className="w-5 h-5 text-[#2E7D32]" />
+              <span>Slip Orders &amp; Smart Bill Builder</span>
+            </h2>
+            <p className="text-xs text-stone-500 mt-0.5">
+              Review customer list photos, build verified bills, enforce zone minimums, and manage packing
+            </p>
+          </div>
         </div>
 
         {/* Subtab Pills */}
@@ -914,14 +955,18 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                           <button
                             type="button"
                             onClick={() => {
-                              setSelectedSlip(slip);
-                              try {
-                                window.history.pushState(
-                                  { view: 'slip', slipId: slip.id, tab: 'slips', adminBack: true },
-                                  '',
-                                  `/admin?tab=slips&slipId=${encodeURIComponent(slip.id)}`
-                                );
-                              } catch {}
+                              if (onSelectSlip) {
+                                onSelectSlip(slip);
+                              } else {
+                                setSelectedSlip(slip);
+                                try {
+                                  window.history.pushState(
+                                    { view: 'slip', slipId: slip.id, tab: 'slips', adminBack: true },
+                                    '',
+                                    `/admin?tab=slips&slipId=${encodeURIComponent(slip.id)}`
+                                  );
+                                } catch {}
+                              }
                             }}
                             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white text-xs font-black rounded-xl transition-all shadow-2xs"
                           >
@@ -943,16 +988,20 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                 <button
                   type="button"
                   onClick={() => {
-                    setSelectedSlip(null);
-                    if (typeof window !== 'undefined') {
-                      if (window.history.state?.adminBack) {
-                        window.history.back();
-                      } else {
-                        window.history.pushState({ tab: 'slips' }, '', '/admin?tab=slips');
+                    if (onCloseSlip) {
+                      onCloseSlip();
+                    } else {
+                      setSelectedSlip(null);
+                      if (typeof window !== 'undefined') {
+                        if (window.history.state?.adminBack) {
+                          window.history.back();
+                        } else {
+                          window.history.pushState({ tab: 'slips' }, '', '/admin?tab=slips');
+                        }
                       }
                     }
                   }}
-                  className="inline-flex items-center gap-2 text-xs font-black text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 px-3 py-1.5 rounded-xl transition-colors"
+                  className="inline-flex items-center gap-2 text-xs font-black text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 px-3 py-1.5 rounded-xl transition-colors cursor-pointer"
                 >
                   <ArrowLeft className="w-4 h-4" />
                   <span>Back to Slips List</span>

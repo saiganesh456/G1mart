@@ -21,12 +21,17 @@ import {
   RotateCcw,
   Bell,
   Volume2,
+  ArrowLeft,
 } from 'lucide-react';
 import { adminFetch } from '@/lib/adminApi';
 import type { StoreSettings, DeliveryZone } from '@/types/deliveryZone';
 import { DEFAULT_STORE_SETTINGS, DEFAULT_DELIVERY_ZONES } from '@/lib/storeSettingsConstants';
 
-export default function SettingsTab() {
+interface Props {
+  onBackToDashboard?: () => void;
+}
+
+export default function SettingsTab({ onBackToDashboard }: Props = {}) {
   const [settings, setSettings] = useState<StoreSettings>(DEFAULT_STORE_SETTINGS);
   const [zones, setZones] = useState<DeliveryZone[]>(DEFAULT_DELIVERY_ZONES);
   const [loading, setLoading] = useState(true);
@@ -412,18 +417,31 @@ export default function SettingsTab() {
     <div className="space-y-6 pb-20">
       {/* Top Banner / Actions */}
       <div className="bg-white p-5 sm:p-6 rounded-3xl border border-stone-200/90 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-emerald-100 text-[#1B5E20] flex items-center justify-center">
-              <Sliders className="w-4 h-4 stroke-[2.5]" />
+        <div className="flex items-center gap-3">
+          {onBackToDashboard && (
+            <button
+              type="button"
+              onClick={onBackToDashboard}
+              className="px-2.5 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-stone-900 text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer mr-1 shrink-0"
+              title="Back to Admin Dashboard Home"
+            >
+              <ArrowLeft className="w-4 h-4 text-stone-600" />
+              <span className="hidden sm:inline">Dashboard</span>
+            </button>
+          )}
+          <div>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-xl bg-emerald-100 text-[#1B5E20] flex items-center justify-center">
+                <Sliders className="w-4 h-4 stroke-[2.5]" />
+              </div>
+              <h1 className="text-lg sm:text-xl font-black text-stone-900 tracking-tight">
+                Store &amp; Delivery Settings
+              </h1>
             </div>
-            <h1 className="text-lg sm:text-xl font-black text-stone-900 tracking-tight">
-              Store & Delivery Settings
-            </h1>
+            <p className="text-xs text-stone-500 font-medium mt-1">
+              Configure darkstore hub GPS, 30 km geofence radius, distance-based minimum orders, and COD fees.
+            </p>
           </div>
-          <p className="text-xs text-stone-500 font-medium mt-1">
-            Configure darkstore hub GPS, 30 km geofence radius, distance-based minimum orders, and COD fees.
-          </p>
         </div>
 
         <div className="flex items-center gap-2 w-full sm:w-auto">

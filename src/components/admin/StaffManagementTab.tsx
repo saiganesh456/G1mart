@@ -20,12 +20,17 @@ import {
   X,
   PhoneCall,
   Users,
+  ArrowLeft,
 } from 'lucide-react';
 import type { StaffMember } from '@/types';
 import { soundAlerts } from '@/lib/soundAlerts';
 import { useAuth } from '@/context/AuthContext';
 
-export default function StaffManagementTab() {
+interface Props {
+  onBackToDashboard?: () => void;
+}
+
+export default function StaffManagementTab({ onBackToDashboard }: Props = {}) {
   const { user } = useAuth();
   const [admins, setAdmins] = useState<StaffMember[]>([]);
   const [riders, setRiders] = useState<StaffMember[]>([]);
@@ -411,6 +416,16 @@ export default function StaffManagementTab() {
       {/* 1. Compact Brand Header (Mobile Optimized) */}
       <div className="bg-gradient-to-r from-[#1A2E1C] via-[#1B5E20] to-[#2E7D32] text-white rounded-3xl p-4 sm:p-5 border border-emerald-800/40 shadow-sm flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
+          {onBackToDashboard && (
+            <button
+              type="button"
+              onClick={onBackToDashboard}
+              className="w-10 h-10 rounded-2xl bg-white/15 hover:bg-white/25 active:scale-95 text-white flex items-center justify-center shrink-0 border border-white/20 transition-all cursor-pointer"
+              title="Back to Admin Dashboard Home"
+            >
+              <ArrowLeft className="w-5 h-5 text-white" />
+            </button>
+          )}
           <div className="w-10 h-10 rounded-2xl bg-white/15 flex items-center justify-center shrink-0">
             <KeyRound className="w-5 h-5 text-emerald-300" />
           </div>

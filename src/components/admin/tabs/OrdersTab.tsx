@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Order, StaffMember } from '@/types';
 import {
+  ArrowLeft,
   Search,
   Bike,
   Check,
@@ -56,6 +57,8 @@ interface Props {
   availableRiders?: StaffMember[];
   onClearAllOrders?: () => void;
   initialFilter?: string;
+  onFilterChange?: (filter: string) => void;
+  onBackToDashboard?: () => void;
 }
 
 export type QueueFilter = 'All' | 'Needs action' | 'Packing' | 'Ready for delivery' | 'Completed';
@@ -102,6 +105,8 @@ export default function OrdersTab({
   availableRiders = [],
   onClearAllOrders,
   initialFilter = 'All',
+  onFilterChange,
+  onBackToDashboard,
 }: Props) {
   const [search, setSearch] = useState('');
   const [queueFilter, setQueueFilter] = useState<QueueFilter>(
@@ -110,6 +115,12 @@ export default function OrdersTab({
   const [paymentFilter, setPaymentFilter] = useState<'all' | 'cod' | 'paid'>('all');
   const [riderModalOrder, setRiderModalOrder] = useState<Order | null>(null);
   const [expandedOrders, setExpandedOrders] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    if (initialFilter && initialFilter !== queueFilter) {
+      setQueueFilter(initialFilter as QueueFilter);
+    }
+  }, [initialFilter]);
 
   const toggleExpand = (orderId: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -246,6 +257,17 @@ export default function OrdersTab({
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
+            {onBackToDashboard && (
+              <button
+                type="button"
+                onClick={onBackToDashboard}
+                className="px-2.5 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-stone-900 text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer mr-1"
+                title="Back to Admin Dashboard Home"
+              >
+                <ArrowLeft className="w-4 h-4 text-stone-600" />
+                <span className="hidden sm:inline">Dashboard</span>
+              </button>
+            )}
             <h1 className="text-2xl font-black text-stone-900 tracking-tight">Orders</h1>
             <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-stone-100 text-stone-700 border border-stone-200">
               {filteredOrders.length}
@@ -296,7 +318,10 @@ export default function OrdersTab({
               <button
                 key={filter}
                 type="button"
-                onClick={() => setQueueFilter(filter)}
+                onClick={() => {
+                  setQueueFilter(filter);
+                  onFilterChange?.(filter);
+                }}
                 className={`whitespace-nowrap px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 flex items-center gap-1.5 cursor-pointer ${
                   isSelected
                     ? 'bg-[#087F5B] text-white shadow-2xs'
