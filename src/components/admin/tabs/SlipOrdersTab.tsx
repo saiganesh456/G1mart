@@ -61,9 +61,9 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
       id?: string;
       productId?: string | null;
       name: string;
-      requestedQty: number;
+      requestedQty: number | string;
       unit: string;
-      price: number;
+      price: number | string;
       available: boolean;
       substituteNote?: string;
     }>
@@ -80,9 +80,9 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
   // Manual item addition state
   const [showManualModal, setShowManualModal] = useState(false);
   const [manualName, setManualName] = useState('');
-  const [manualQty, setManualQty] = useState(1);
+  const [manualQty, setManualQty] = useState<number | string>('1');
   const [manualUnit, setManualUnit] = useState('1 unit');
-  const [manualPrice, setManualPrice] = useState(50);
+  const [manualPrice, setManualPrice] = useState<number | string>('');
 
   // Bulk add grocery list state
   const [showBulkModal, setShowBulkModal] = useState(false);
@@ -90,9 +90,9 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
 
   // Inline quick add state
   const [inlineName, setInlineName] = useState('');
-  const [inlineQty, setInlineQty] = useState(1);
+  const [inlineQty, setInlineQty] = useState<number | string>('1');
   const [inlineUnit, setInlineUnit] = useState('1 unit');
-  const [inlinePrice, setInlinePrice] = useState(50);
+  const [inlinePrice, setInlinePrice] = useState<number | string>('');
 
   // Mobile photo collapse & Floating preview modal state
   const [isPhotoCollapsed, setIsPhotoCollapsed] = useState(false);
@@ -109,7 +109,7 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
 
   // Packer Checklist state
   const [packerChecked, setPackerChecked] = useState<Record<string, boolean>>({});
-  const [packerPackedQty, setPackerPackedQty] = useState<Record<string, number>>({});
+  const [packerPackedQty, setPackerPackedQty] = useState<Record<string, number | string>>({});
   const [packerAvailable, setPackerAvailable] = useState<Record<string, boolean>>({});
   const [packerSubstituteNotes, setPackerSubstituteNotes] = useState<Record<string, string>>({});
   const [packerSaving, setPackerSaving] = useState(false);
@@ -295,9 +295,9 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
       },
     ]);
     setInlineName('');
-    setInlineQty(1);
+    setInlineQty('1');
     setInlineUnit('1 unit');
-    setInlinePrice(50);
+    setInlinePrice('');
   };
 
   // Bulk add list items (paste handwritten lines or WhatsApp list)
@@ -368,9 +368,9 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
       },
     ]);
     setManualName('');
-    setManualQty(1);
+    setManualQty('1');
     setManualUnit('1 unit');
-    setManualPrice(50);
+    setManualPrice('');
     setShowManualModal(false);
   };
 
@@ -393,12 +393,18 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
     setActionSuccess(null);
     setActionError(null);
 
+    const sanitizedItems = billedItems.map((item) => ({
+      ...item,
+      requestedQty: Number(item.requestedQty) || 1,
+      price: Number(item.price) || 0,
+    }));
+
     try {
       const res = await fetch(`/api/admin/slip-orders/${selectedSlip.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          items: billedItems,
+          items: sanitizedItems,
           adminNotes,
           billedBy: 'Store Staff',
           moveStatus: moveStatus || 'BILLING',
@@ -407,9 +413,10 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
 
       const data = await res.json();
       if (res.ok && data.order) {
+        setBilledItems(sanitizedItems);
         setSelectedSlip(data.order);
         setOrders((prev) => prev.map((o) => (o.id === data.order.id ? data.order : o)));
-        setActionSuccess('Bill saved successfully with ' + billedItems.length + ' items.');
+        setActionSuccess('Bill saved successfully with ' + sanitizedItems.length + ' items.');
         setTimeout(() => setActionSuccess(null), 3500);
       } else {
         setActionError(data.error || 'Failed to save bill');
@@ -428,13 +435,19 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
     setActionSuccess(null);
     setActionError(null);
 
+    const sanitizedItems = billedItems.map((item) => ({
+      ...item,
+      requestedQty: Number(item.requestedQty) || 1,
+      price: Number(item.price) || 0,
+    }));
+
     try {
       // First save items if modified
       await fetch(`/api/admin/slip-orders/${selectedSlip.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          items: billedItems,
+          items: sanitizedItems,
           adminNotes,
           billedBy: 'Store Staff',
           moveStatus: 'AWAITING_CUSTOMER_CONFIRMATION',
@@ -1191,7 +1204,11 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                           onClick={() => {
                             if (catalogSearch.trim()) {
                               setManualName(catalogSearch.trim());
+                            } else {
+                              setManualName('');
                             }
+                            setManualQty('1');
+                            setManualPrice('');
                             setShowManualModal(true);
                           }}
                           className="inline-flex items-center gap-1 text-xs font-bold text-[#2E7D32] hover:underline"
@@ -1309,10 +1326,16 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                           type="number"
                           min={1}
                           value={inlineQty}
-                          onChange={(e) => setInlineQty(Math.max(1, Number(e.target.value)))}
+                          onChange={(e) => setInlineQty(e.target.value)}
+                          onFocus={(e) => e.target.select()}
+                          onBlur={() => {
+                            if (inlineQty === '' || Number(inlineQty) < 1) {
+                              setInlineQty('1');
+                            }
+                          }}
                           title="Quantity"
-                          placeholder="Qty"
-                          className="w-12 px-2 py-1.5 bg-white border border-stone-200 rounded-xl text-xs font-bold text-center focus:outline-none"
+                          placeholder="1"
+                          className="w-12 px-2 py-1.5 bg-white border border-stone-200 rounded-xl text-xs font-bold text-center focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
                         />
                         <input
                           type="text"
@@ -1320,15 +1343,17 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                           onChange={(e) => setInlineUnit(e.target.value)}
                           title="Unit"
                           placeholder="unit"
-                          className="w-16 px-2 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-600 focus:outline-none"
+                          className="w-16 px-2 py-1.5 bg-white border border-stone-200 rounded-xl text-xs text-stone-600 focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
                         />
-                        <div className="flex items-center gap-0.5 bg-white border border-stone-200 rounded-xl px-2 py-1.5">
+                        <div className="flex items-center gap-0.5 bg-white border border-stone-200 rounded-xl px-2 py-1.5 focus-within:ring-1 focus-within:ring-[#2E7D32]">
                           <span className="text-xs text-stone-400 font-bold">₹</span>
                           <input
                             type="number"
                             min={0}
+                            step="any"
                             value={inlinePrice}
-                            onChange={(e) => setInlinePrice(Math.max(0, Number(e.target.value)))}
+                            onChange={(e) => setInlinePrice(e.target.value)}
+                            onFocus={(e) => e.target.select()}
                             title="Price"
                             placeholder="Price"
                             className="w-14 text-xs font-bold focus:outline-none"
@@ -1399,13 +1424,15 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                                       min={1}
                                       value={item.requestedQty}
                                       onChange={(e) =>
-                                        handleUpdateItemField(
-                                          idx,
-                                          'requestedQty',
-                                          Math.max(1, Number(e.target.value))
-                                        )
+                                        handleUpdateItemField(idx, 'requestedQty', e.target.value)
                                       }
-                                      className="w-12 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-xs font-bold text-center"
+                                      onFocus={(e) => e.target.select()}
+                                      onBlur={() => {
+                                        if (item.requestedQty === '' || Number(item.requestedQty) < 1) {
+                                          handleUpdateItemField(idx, 'requestedQty', 1);
+                                        }
+                                      }}
+                                      className="w-12 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-xs font-bold text-center focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
                                     />
                                     <input
                                       type="text"
@@ -1414,7 +1441,7 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                                         handleUpdateItemField(idx, 'unit', e.target.value)
                                       }
                                       placeholder="unit"
-                                      className="w-16 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-[11px] text-stone-600"
+                                      className="w-16 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-[11px] text-stone-600 focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
                                     />
                                   </div>
                                 </div>
@@ -1428,19 +1455,23 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                                     <input
                                       type="number"
                                       min={0}
+                                      step="any"
                                       value={item.price}
                                       onChange={(e) =>
-                                        handleUpdateItemField(
-                                          idx,
-                                          'price',
-                                          Math.max(0, Number(e.target.value))
-                                        )
+                                        handleUpdateItemField(idx, 'price', e.target.value)
                                       }
-                                      className="w-16 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-xs font-bold text-right"
+                                      onFocus={(e) => e.target.select()}
+                                      onBlur={() => {
+                                        if (item.price === '') {
+                                          handleUpdateItemField(idx, 'price', 0);
+                                        }
+                                      }}
+                                      placeholder="0"
+                                      className="w-16 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-xs font-bold text-right focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
                                     />
                                   </div>
                                   <span className="text-[11px] font-black text-stone-900 block mt-0.5">
-                                    = ₹{item.available ? item.price * item.requestedQty : 0}
+                                    = ₹{item.available ? Math.round(((Number(item.price) || 0) * (Number(item.requestedQty) || 0)) * 100) / 100 : 0}
                                   </span>
                                 </div>
 
@@ -1691,14 +1722,24 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                                     min={0}
                                     step="any"
                                     disabled={!isAvail}
-                                    value={packedQty}
-                                    onChange={(e) =>
+                                    value={packedQty ?? ''}
+                                    onFocus={(e) => e.target.select()}
+                                    onChange={(e) => {
+                                      const val = e.target.value;
                                       setPackerPackedQty((prev) => ({
                                         ...prev,
-                                        [key]: Math.max(0, Number(e.target.value)),
-                                      }))
-                                    }
-                                    className="w-16 px-2 py-1 bg-stone-50 border border-stone-200 rounded-lg text-xs font-black text-center disabled:opacity-40"
+                                        [key]: val === '' ? ('' as any) : Number(val),
+                                      }));
+                                    }}
+                                    onBlur={() => {
+                                      if (packedQty === '' || packedQty === undefined) {
+                                        setPackerPackedQty((prev) => ({
+                                          ...prev,
+                                          [key]: 0,
+                                        }));
+                                      }
+                                    }}
+                                    className="w-16 px-2 py-1 bg-stone-50 border border-stone-200 rounded-lg text-xs font-black text-center disabled:opacity-40 focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
                                   />
                                 </div>
 
@@ -1782,7 +1823,14 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                     type="number"
                     min={1}
                     value={manualQty}
-                    onChange={(e) => setManualQty(Math.max(1, Number(e.target.value)))}
+                    onChange={(e) => setManualQty(e.target.value)}
+                    onFocus={(e) => e.target.select()}
+                    onBlur={() => {
+                      if (manualQty === '' || Number(manualQty) < 1) {
+                        setManualQty('1');
+                      }
+                    }}
+                    placeholder="1"
                     className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
                   />
                 </div>
@@ -1803,8 +1851,11 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                 <input
                   type="number"
                   min={0}
+                  step="any"
                   value={manualPrice}
-                  onChange={(e) => setManualPrice(Math.max(0, Number(e.target.value)))}
+                  onChange={(e) => setManualPrice(e.target.value)}
+                  onFocus={(e) => e.target.select()}
+                  placeholder="Enter price (e.g. 50)"
                   className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
                 />
               </div>
