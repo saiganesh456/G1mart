@@ -53,6 +53,24 @@ const STATUS_RANK: Record<string, number> = {
   'Cancelled': 8,
 };
 
+const BLANK_NEW_PRODUCT: Product = {
+  id: '',
+  name: '',
+  brand: 'G1 Mart',
+  price: 0,
+  originalPrice: 0,
+  discountPercentage: 0,
+  unit: '1 unit',
+  inStock: true,
+  stockCount: 15,
+  category: 'grocery-staples',
+  imageUrl: '/products/placeholder.svg',
+  image: '/products/placeholder.svg',
+  description: '',
+  rating: 4.8,
+  reviewsCount: 0,
+} as any as Product;
+
 interface Props {
   initialProducts: Product[];
   categories: Category[];
@@ -1738,21 +1756,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           />
         ) : isCreatingProduct ? (
           <ProductDetailsPanel
+            key="create-new-product"
             isNew={true}
-            product={
-              {
-                id: '',
-                name: '',
-                brand: 'G1 Mart',
-                price: '' as any,
-                originalPrice: '' as any,
-                unit: '1 unit',
-                inStock: true,
-                stockCount: 15,
-                category: categories[0]?.id || 'grocery-staples',
-                imageUrl: '/products/placeholder.svg',
-              } as any
-            }
+            product={BLANK_NEW_PRODUCT}
             onBack={() => setIsCreatingProduct(false)}
             categories={categories}
             onSaveProduct={async (newProduct) => {
@@ -1764,6 +1770,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           />
         ) : selectedProduct ? (
           <ProductDetailsPanel
+            key={`edit-product-${selectedProduct.id}`}
             product={selectedProduct}
             onBack={() => navigateBack()}
             categories={categories}

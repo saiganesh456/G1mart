@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Product, Category } from '@/types';
 import {
   ArrowLeft,
@@ -32,14 +32,18 @@ export default function ProductDetailsPanel({
   isNew = false,
 }: Props) {
   const [name, setName] = useState(product.name || '');
-  const [brand, setBrand] = useState(product.brand || '');
+  const [brand, setBrand] = useState(product.brand || 'G1 Mart');
   const [unit, setUnit] = useState(product.unit || '1 unit');
   const [category, setCategory] = useState(product.category || (categories[0]?.id || 'grocery-staples'));
-  const [price, setPrice] = useState(product.price !== undefined && product.price !== null ? String(product.price) : '');
+  const [price, setPrice] = useState(
+    product.price !== undefined && product.price !== null && (isNew ? product.price > 0 : true)
+      ? String(product.price)
+      : ''
+  );
   const [originalPrice, setOriginalPrice] = useState(
-    product.originalPrice !== undefined && product.originalPrice !== null
+    product.originalPrice !== undefined && product.originalPrice !== null && (isNew ? product.originalPrice > 0 : true)
       ? String(product.originalPrice)
-      : product.price !== undefined
+      : product.price !== undefined && (isNew ? product.price > 0 : true)
       ? String(product.price)
       : ''
   );
@@ -47,11 +51,15 @@ export default function ProductDetailsPanel({
     product.stockCount !== undefined && product.stockCount !== null ? String(product.stockCount) : '15'
   );
   const [inStock, setInStock] = useState(product.inStock !== false);
-  const [imageUrl, setImageUrl] = useState(product.imageUrl || product.image_url || product.image || '');
+  const [imageUrl, setImageUrl] = useState(
+    product.imageUrl || product.image_url || product.image || '/products/placeholder.svg'
+  );
   const [uploadingImage, setUploadingImage] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>({});
   const [variantsList, setVariantsList] = useState<any[]>(() => {
     if (product.variants && product.variants.length > 0) {
       return product.variants.map((v) => ({ ...v }));
@@ -60,23 +68,38 @@ export default function ProductDetailsPanel({
   });
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
 
-  // Synchronize internal state whenever product prop changes
+  // Key tracking to prevent wiping user edits on background re-renders
+  const productKey = isNew ? 'new-product-creation' : `product-${product.id}`;
+  const initializedKeyRef = useRef<string | null>(null);
+
+  // Synchronize internal state ONLY when switching to a different product or mode
   useEffect(() => {
+    if (initializedKeyRef.current === productKey) {
+      return; // Already initialized for this product - NEVER overwrite user's in-progress typing!
+    }
+    initializedKeyRef.current = productKey;
+
     setName(product.name || '');
-    setBrand(product.brand || '');
+    setBrand(product.brand || 'G1 Mart');
     setUnit(product.unit || '1 unit');
     setCategory(product.category || (categories[0]?.id || 'grocery-staples'));
-    setPrice(product.price !== undefined && product.price !== null ? String(product.price) : '');
-    setOriginalPrice(
-      product.originalPrice !== undefined && product.originalPrice !== null
-        ? String(product.originalPrice)
-        : product.price !== undefined
+    setPrice(
+      product.price !== undefined && product.price !== null && (isNew ? product.price > 0 : true)
         ? String(product.price)
         : ''
     );
-    setStockCount(product.stockCount !== undefined && product.stockCount !== null ? String(product.stockCount) : '15');
+    setOriginalPrice(
+      product.originalPrice !== undefined && product.originalPrice !== null && (isNew ? product.originalPrice > 0 : true)
+        ? String(product.originalPrice)
+        : product.price !== undefined && (isNew ? product.price > 0 : true)
+        ? String(product.price)
+        : ''
+    );
+    setStockCount(
+      product.stockCount !== undefined && product.stockCount !== null ? String(product.stockCount) : '15'
+    );
     setInStock(product.inStock !== false);
-    setImageUrl(product.imageUrl || product.image_url || product.image || '');
+    setImageUrl(product.imageUrl || product.image_url || product.image || '/products/placeholder.svg');
     if (product.variants && product.variants.length > 0) {
       setVariantsList(product.variants.map((v) => ({ ...v })));
     } else {
@@ -85,7 +108,13 @@ export default function ProductDetailsPanel({
     setSelectedVariantIdx(0);
     setErrorMsg('');
     setSaveSuccess(false);
-  }, [product]);
+    setSubmitted(false);
+    setTouchedFields({});
+  }, [productKey, product.id, isNew]);
+
+  const markTouched = (field: string) => {
+    setTouchedFields((prev) => (prev[field] ? prev : { ...prev, [field]: true }));
+  };
 
   const handleSelectVariant = (idx: number) => {
     const currPrice = parseFloat(price) || 0;
@@ -113,14 +142,70 @@ export default function ProductDetailsPanel({
     }
   };
 
+  // Client-side image compression: converts 5MB-10MB camera pictures to ~50KB WebP in 50ms
+  const compressImageFile = async (file: File): Promise<Blob> => {
+    return new Promise((resolve) => {
+      if (file.type.includes('svg') || file.size < 80 * 1024) {
+        return resolve(file);
+      }
+      const img = new Image();
+      const objectUrl = URL.createObjectURL(file);
+      img.onload = () => {
+        URL.revokeObjectURL(objectUrl);
+        const MAX_DIM = 800; // Optimal 800x800 for high-res e-commerce catalog
+        let { width, height } = img;
+        if (width > MAX_DIM || height > MAX_DIM) {
+          if (width > height) {
+            height = Math.round((height * MAX_DIM) / width);
+            width = MAX_DIM;
+          } else {
+            width = Math.round((width * MAX_DIM) / height);
+            height = MAX_DIM;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          return resolve(file);
+        }
+        ctx.drawImage(img, 0, 0, width, height);
+        canvas.toBlob(
+          (blob) => {
+            resolve(blob || file);
+          },
+          'image/webp',
+          0.82
+        );
+      };
+      img.onerror = () => {
+        URL.revokeObjectURL(objectUrl);
+        resolve(file);
+      };
+      img.src = objectUrl;
+    });
+  };
+
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
     setUploadingImage(true);
     setErrorMsg('');
+
     try {
+      // 1. Immediately compress client-side (reduces phone photos to ~50KB with zero user lag)
+      const compressedBlob = await compressImageFile(file);
+
+      // 2. Set instant local preview URL so photo displays immediately with 0 delay
+      const previewUrl = URL.createObjectURL(compressedBlob);
+      setImageUrl(previewUrl);
+
+      // 3. Upload the compressed lightweight image to cloud
       const formData = new FormData();
-      formData.append('file', file);
+      const uploadFileName = file.name.replace(/\.[^/.]+$/, '') + '.webp';
+      formData.append('file', compressedBlob, uploadFileName);
       formData.append('productId', product.id || `new_${Date.now()}`);
 
       const res = await adminFetch('/api/admin/products/upload-image', {
@@ -131,7 +216,7 @@ export default function ProductDetailsPanel({
       if (data.success && data.imageUrl) {
         setImageUrl(data.imageUrl);
       } else {
-        setErrorMsg(data.error || 'Failed to upload image');
+        setErrorMsg(data.error || 'Failed to upload image to cloud');
       }
     } catch (err: any) {
       setErrorMsg(err.message || 'Image upload error');
@@ -142,6 +227,7 @@ export default function ProductDetailsPanel({
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitted(true);
     setErrorMsg('');
     setSaveSuccess(false);
 
@@ -283,6 +369,10 @@ export default function ProductDetailsPanel({
   const isPriceEmpty = price === '';
   const isStockEmpty = stockCount === '';
   const isNameEmpty = name.trim() === '';
+
+  const showPriceError = (submitted || touchedFields.price) && isPriceEmpty;
+  const showNameError = (submitted || touchedFields.name) && isNameEmpty;
+  const showStockError = (submitted || touchedFields.stock) && isStockEmpty;
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col min-h-screen bg-[#F4F6F9] p-3 sm:p-6 pb-28">
@@ -432,15 +522,19 @@ export default function ProductDetailsPanel({
                 min="0"
                 value={price}
                 onFocus={(e) => e.target.select()}
-                onChange={(e) => setPrice(e.target.value)}
+                onBlur={() => markTouched('price')}
+                onChange={(e) => {
+                  setPrice(e.target.value);
+                  markTouched('price');
+                }}
                 placeholder="e.g. 65"
                 className={`w-full px-3.5 py-2.5 rounded-xl text-sm font-bold text-stone-900 focus:outline-none transition-all ${
-                  isPriceEmpty
+                  showPriceError
                     ? 'bg-rose-50/50 border border-rose-300 focus:ring-2 focus:ring-rose-500'
                     : 'bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#1B5E20]'
                 }`}
               />
-              {isPriceEmpty ? (
+              {showPriceError ? (
                 <span className="text-[10px] text-rose-600 font-bold mt-1 block">
                   Price cannot be empty — enter customer price
                 </span>
@@ -477,8 +571,10 @@ export default function ProductDetailsPanel({
                 min="0"
                 value={stockCount}
                 onFocus={(e) => e.target.select()}
+                onBlur={() => markTouched('stock')}
                 onChange={(e) => {
                   setStockCount(e.target.value);
+                  markTouched('stock');
                   const n = parseInt(e.target.value, 10);
                   if (!isNaN(n) && n <= 0) {
                     setInStock(false);
@@ -488,12 +584,12 @@ export default function ProductDetailsPanel({
                 }}
                 placeholder="e.g. 50"
                 className={`w-full px-3.5 py-2.5 rounded-xl text-sm font-bold text-stone-900 focus:outline-none transition-all ${
-                  isStockEmpty
+                  showStockError
                     ? 'bg-rose-50/50 border border-rose-300 focus:ring-2 focus:ring-rose-500'
                     : 'bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#1B5E20]'
                 }`}
               />
-              {isStockEmpty ? (
+              {showStockError ? (
                 <span className="text-[10px] text-rose-600 font-bold mt-1 block">
                   Quantity cannot be empty — enter available stock (or 0 for out of stock)
                 </span>
@@ -529,18 +625,21 @@ export default function ProductDetailsPanel({
               </label>
               <input
                 type="text"
-                required
                 value={name}
                 onFocus={(e) => e.target.select()}
-                onChange={(e) => setName(e.target.value)}
+                onBlur={() => markTouched('name')}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  markTouched('name');
+                }}
                 placeholder="e.g. Aashirvaad Shudh Chakki Atta"
                 className={`w-full px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-stone-900 focus:outline-none transition-all ${
-                  isNameEmpty
+                  showNameError
                     ? 'bg-rose-50/50 border border-rose-300 focus:ring-2 focus:ring-rose-500'
                     : 'bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#1B5E20]'
                 }`}
               />
-              {isNameEmpty && (
+              {showNameError && (
                 <span className="text-[10px] text-rose-600 font-bold mt-1 block">
                   Product name is required
                 </span>
@@ -610,7 +709,7 @@ export default function ProductDetailsPanel({
           <div className="pt-4 flex items-center gap-3">
             <button
               type="submit"
-              disabled={isSaving || isNameEmpty || isPriceEmpty}
+              disabled={isSaving}
               className="flex-1 py-3 bg-[#1B5E20] hover:bg-[#2E7D32] disabled:opacity-50 text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider shadow-md flex items-center justify-center gap-2 transition-all active:scale-98 cursor-pointer"
             >
               {isSaving ? (

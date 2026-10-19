@@ -5,11 +5,14 @@ import path from 'path';
 import { verifyAdminRequest } from '@/lib/authGuard';
 import { serverProductOverrides } from '@/lib/serverProductOverrides';
 import { productService } from '@/services/productService';
-import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
+import { serverSupabase as supabase, isSupabaseConfigured, DEFAULT_SUPABASE_ANON_KEY } from '@/lib/supabase/serverAdmin';
 
 const SUPABASE_STORAGE_URL = 'https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/product-images';
 const STORAGE_PUBLIC_BASE = 'https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images';
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const SUPABASE_ANON_KEY =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  process.env.SUPABASE_SERVICE_ROLE_KEY ||
+  DEFAULT_SUPABASE_ANON_KEY;
 
 export async function POST(req: NextRequest) {
   try {
@@ -82,7 +85,7 @@ export async function POST(req: NextRequest) {
         console.warn('[upload-image] Supabase Storage upload error, falling back to local storage:', sbErr);
       }
 
-      // 3. Fallback: Save to local public/products/uploads/ directory
+      // 3. Fallback: Save to local public/products/uploads/ directory or base64 data URL on serverless
       if (!finalImageUrl) {
         try {
           const uploadsDir = path.join(process.cwd(), 'public', 'products', 'uploads');
@@ -93,11 +96,9 @@ export async function POST(req: NextRequest) {
           fs.writeFileSync(localFilePath, fileBuffer);
           finalImageUrl = `/products/uploads/${filename}`;
         } catch (fsErr) {
-          console.error('[upload-image] Local filesystem write error:', fsErr);
-          return NextResponse.json(
-            { success: false, error: 'Failed to write uploaded image to disk' },
-            { status: 500 }
-          );
+          console.warn('[upload-image] Local filesystem write not available (serverless/Vercel), using optimized base64 data URL:', fsErr);
+          // Zero-downtime serverless fallback: Store as base64 data URL
+          finalImageUrl = `data:${file.type || 'image/jpeg'};base64,${fileBuffer.toString('base64')}`;
         }
       }
 

@@ -205,7 +205,10 @@ export default function ProductImage({
   const hasValidUrl =
     Boolean(candidateUrl) &&
     !candidateUrl?.includes('placeholder.svg') &&
-    (candidateUrl?.startsWith('/') || candidateUrl?.startsWith('http') || candidateUrl?.startsWith('data:'));
+    (candidateUrl?.startsWith('/') ||
+      candidateUrl?.startsWith('http') ||
+      candidateUrl?.startsWith('data:') ||
+      candidateUrl?.startsWith('blob:'));
 
   const shouldRenderImage =
     hasValidUrl &&
