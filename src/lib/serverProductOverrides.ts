@@ -1,6 +1,15 @@
-import fs from 'fs';
-import path from 'path';
 import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
+
+let fs: any = null;
+let path: any = null;
+if (typeof window === 'undefined') {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    fs = require('fs');
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    path = require('path');
+  } catch {}
+}
 
 export interface ProductOverride {
   id: string;
@@ -34,13 +43,20 @@ if (!global.__g1ProductOverridesLastSync) {
 }
 
 const CACHE_TTL_MS = 5000; // 5-second cache to balance instant freshness with zero latency
-const DISK_OVERRIDE_PATH = path.join(process.cwd(), 'data', 'g1mart_product_overrides.json');
+
+function getDiskPath(): string | null {
+  if (path && typeof process !== 'undefined' && process.cwd) {
+    return path.join(process.cwd(), 'data', 'g1mart_product_overrides.json');
+  }
+  return null;
+}
 
 function loadDiskOverrides(): Map<string, ProductOverride> {
   const map = new Map<string, ProductOverride>();
   try {
-    if (fs.existsSync(DISK_OVERRIDE_PATH)) {
-      const raw = fs.readFileSync(DISK_OVERRIDE_PATH, 'utf-8');
+    const filePath = getDiskPath();
+    if (fs && filePath && fs.existsSync(filePath)) {
+      const raw = fs.readFileSync(filePath, 'utf-8');
       const list = JSON.parse(raw);
       if (Array.isArray(list)) {
         for (const item of list) {
@@ -58,12 +74,15 @@ function loadDiskOverrides(): Map<string, ProductOverride> {
 
 function persistDiskOverrides(overrides: Map<string, ProductOverride>): void {
   try {
-    const dir = path.dirname(DISK_OVERRIDE_PATH);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+    const filePath = getDiskPath();
+    if (fs && path && filePath) {
+      const dir = path.dirname(filePath);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+      const list = Array.from(overrides.values());
+      fs.writeFileSync(filePath, JSON.stringify(list, null, 2), 'utf-8');
     }
-    const list = Array.from(overrides.values());
-    fs.writeFileSync(DISK_OVERRIDE_PATH, JSON.stringify(list, null, 2), 'utf-8');
   } catch (err) {
     // Read-only filesystem in serverless environments (Vercel) - safely ignored
   }

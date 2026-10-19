@@ -355,7 +355,6 @@ export const productService = {
       prod.image = imageUrl;
       prod.image_url = imageUrl;
       prod.imageStatus = imageStatus;
-      prod.image_status = imageStatus;
       await serverProductOverrides.saveOverride({
         id: prod.id,
         imageUrl,

@@ -1447,6 +1447,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                     stockCount: updatedProduct.stockCount,
                     imageUrl: (updatedProduct as any).imageUrl || (updatedProduct as any).image_url || updatedProduct.image,
                     imageStatus: (updatedProduct as any).imageStatus || 'VERIFIED',
+                    variants: updatedProduct.variants,
                   }),
                 });
                 const data = await res.json();

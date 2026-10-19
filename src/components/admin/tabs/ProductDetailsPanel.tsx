@@ -41,6 +41,39 @@ export default function ProductDetailsPanel({
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [variantsList, setVariantsList] = useState<any[]>(() => {
+    if (product.variants && product.variants.length > 0) {
+      return product.variants.map((v) => ({ ...v }));
+    }
+    return [];
+  });
+  const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
+
+  const handleSelectVariant = (idx: number) => {
+    const currPrice = parseFloat(price) || 0;
+    const currMrp = parseFloat(originalPrice) || currPrice;
+    const currStock = parseInt(stockCount, 10) || 0;
+
+    const nextList = [...variantsList];
+    if (nextList[selectedVariantIdx]) {
+      nextList[selectedVariantIdx] = {
+        ...nextList[selectedVariantIdx],
+        price: currPrice,
+        mrp: currMrp,
+        stock: currStock,
+      };
+    }
+    setVariantsList(nextList);
+
+    setSelectedVariantIdx(idx);
+    const target = nextList[idx];
+    if (target) {
+      setPrice(String(target.price ?? 0));
+      setOriginalPrice(String(target.mrp ?? target.price ?? 0));
+      if (target.stock !== undefined) setStockCount(String(target.stock));
+      if (target.size_label) setUnit(target.size_label);
+    }
+  };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -80,6 +113,20 @@ export default function ProductDetailsPanel({
 
     const cleanImg = imageUrl.trim() || product.imageUrl || product.image_url || product.image;
 
+    const finalVariants = variantsList.length > 0
+      ? variantsList.map((v, i) => {
+          if (i === selectedVariantIdx || (v.size_label && unit && v.size_label.toLowerCase() === unit.trim().toLowerCase())) {
+            return {
+              ...v,
+              price: priceNum,
+              mrp: mrpNum,
+              stock: stockNum,
+            };
+          }
+          return v;
+        })
+      : product.variants;
+
     const updatedProduct: Product = {
       ...product,
       name: name.trim(),
@@ -97,6 +144,7 @@ export default function ProductDetailsPanel({
       image: cleanImg || '',
       imageStatus: 'VERIFIED',
       image_status: 'VERIFIED',
+      variants: finalVariants,
     };
 
     try {
@@ -127,6 +175,7 @@ export default function ProductDetailsPanel({
           stockCount: updatedProduct.stockCount,
           imageUrl: cleanImg,
           imageStatus: 'VERIFIED',
+          variants: finalVariants,
         }),
       });
       const data = await res.json();
@@ -245,6 +294,35 @@ export default function ProductDetailsPanel({
             <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>Product updated successfully! Returning...</span>
+            </div>
+          )}
+
+          {/* Pack / Variant Selector if product has multiple variants */}
+          {variantsList.length > 1 && (
+            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-3 space-y-1.5">
+              <label className="text-[11px] font-black text-stone-700 uppercase tracking-wider block">
+                Pack Sizes / Variants (Tap pack size to edit its price &amp; stock)
+              </label>
+              <div className="flex flex-wrap gap-2 pt-1">
+                {variantsList.map((v, idx) => {
+                  const isSel = selectedVariantIdx === idx;
+                  return (
+                    <button
+                      key={v.id || idx}
+                      type="button"
+                      onClick={() => handleSelectVariant(idx)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
+                        isSel
+                          ? 'bg-[#1B5E20] text-white border-[#1B5E20] shadow-2xs'
+                          : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-100'
+                      }`}
+                    >
+                      <span>{v.size_label || `Pack ${idx + 1}`}</span>
+                      <span className="ml-1.5 opacity-80">₹{v.price}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           )}
 
