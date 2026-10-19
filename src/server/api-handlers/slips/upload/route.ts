@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { serverSlipStore } from '@/lib/serverSlipStore';
 import { serverSlipOrders } from '@/lib/serverSlipOrders';
-import { supabase } from '@/lib/supabase/client';
+import { serverSupabase as supabase } from '@/lib/supabase/serverAdmin';
 
 const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 const MAX_UPLOAD_BYTES = 2.5 * 1024 * 1024; // 2.5 MB maximum allowed on server (target compressed <= 1.5MB)

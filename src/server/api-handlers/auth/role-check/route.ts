@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse, type NextRequest } from 'next/server';
 import { serverStaffStore, normalizeEmail } from '@/lib/serverStaffStore';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
+import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 
 async function resolveRole(rawEmail: string, normalizedEmail?: string) {
   const email = (rawEmail || '').toLowerCase().trim();

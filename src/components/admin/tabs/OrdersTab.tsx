@@ -109,7 +109,7 @@ function getStatusBadge(status?: string, isPickup?: boolean) {
 }
 
 export default function OrdersTab({
-  orders,
+  orders = [],
   onViewOrder,
   onUpdateStatus,
   onClearTestOrders,

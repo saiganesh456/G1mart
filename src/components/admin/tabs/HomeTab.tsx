@@ -31,8 +31,8 @@ interface Props {
 }
 
 export default function HomeTab({
-  orders,
-  products,
+  orders = [],
+  products = [],
   onViewOrder,
   onNavigateToOrders,
   onNavigateToInventory,
