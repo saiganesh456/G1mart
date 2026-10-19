@@ -3,6 +3,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import { productService } from '@/services/productService';
+import { serverProductOverrides } from '@/lib/serverProductOverrides';
 import { verifyAdminRequest } from '@/lib/authGuard';
 import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 
@@ -159,7 +160,26 @@ export async function PATCH(request: NextRequest) {
       }
     }
 
-    // 4. Update in-memory product service immediately for live storefront
+    // 4. Persist override to Supabase cloud storage (shared across all Vercel Lambdas)
+    await serverProductOverrides.saveOverride({
+      id,
+      ...(name !== undefined && { name: String(name).trim() }),
+      ...(brand !== undefined && { brand: String(brand).trim() }),
+      ...(category !== undefined && { category: String(category).trim() }),
+      ...(subCategory !== undefined && { subCategory: String(subCategory).trim() }),
+      ...(unit !== undefined && { unit: String(unit).trim() }),
+      ...(price !== undefined && { price: Number(price) }),
+      ...(originalPrice !== undefined && { originalPrice: Number(originalPrice) }),
+      ...(inStock !== undefined && { inStock: Boolean(inStock) }),
+      ...(body.stockCount !== undefined && { stockCount: Number(body.stockCount) }),
+      ...(imageUrl !== undefined && {
+        imageUrl: String(imageUrl).trim(),
+        imageStatus: imageStatus || 'VERIFIED',
+      }),
+      ...(body.variants !== undefined && { variants: body.variants }),
+    });
+
+    // 5. Update in-memory product service immediately for live storefront
     await productService.updateProduct({
       id,
       ...(name !== undefined && { name: String(name).trim() }),
@@ -177,27 +197,8 @@ export async function PATCH(request: NextRequest) {
         image_url: String(imageUrl).trim(),
         imageStatus: imageStatus || 'VERIFIED',
       }),
+      ...(body.variants !== undefined && { variants: body.variants }),
     });
-
-    // 5. Update Supabase public.products if configured
-    if (isSupabaseConfigured()) {
-      try {
-        const updatePayload: Record<string, any> = {};
-        if (name !== undefined) updatePayload.name = String(name).trim();
-        if (brand !== undefined) updatePayload.brand = String(brand).trim();
-        if (price !== undefined) updatePayload.price = Number(price);
-        if (originalPrice !== undefined) updatePayload.original_price = Number(originalPrice);
-        if (inStock !== undefined) updatePayload.in_stock = Boolean(inStock);
-        if (body.stockCount !== undefined) updatePayload.stock_count = Number(body.stockCount);
-        if (imageUrl !== undefined) updatePayload.image_url = String(imageUrl).trim();
-
-        if (Object.keys(updatePayload).length > 0) {
-          await supabase.from('products').update(updatePayload).eq('id', id);
-        }
-      } catch (sbErr) {
-        console.warn('[Admin Products] Error syncing product update to Supabase:', sbErr);
-      }
-    }
 
     return NextResponse.json({
       success: true,
