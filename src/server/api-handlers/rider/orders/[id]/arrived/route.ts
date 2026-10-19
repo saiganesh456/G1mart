@@ -34,11 +34,13 @@ export async function POST(
       serverSlipOrders.addStatusHistory(
         slip,
         'OUT_FOR_DELIVERY',
-        `Rider ${riderName} arrived at customer doorstep (Delivery PIN: ${deliveryOtp})`,
+        `Rider ${riderName} reached destination (Delivery PIN: ${deliveryOtp})`,
         riderName
       );
 
-      updatedOrder = slip;
+      await serverSlipOrders.saveOrder(slip);
+      updatedOrder = serverSlipOrders.convertToStandardOrder(slip, 'Out for Delivery');
+      serverOrderStore.registerOrder(updatedOrder);
     } else {
       let order = serverOrderStore.getOrder(id);
       if (!order) {
@@ -72,7 +74,7 @@ export async function POST(
     try {
       const { serverPushService } = await import('@/lib/serverPushService');
       await serverPushService.sendCustomNotification({
-        title: '📍 Rider Arrived at Your Door!',
+        title: '📍 Rider Reached Your Destination!',
         body: `Your delivery PIN is ${deliveryOtp}. Share this code with ${riderName} to receive your parcel.`,
         tag: `doorstep-otp-${id}`,
         url: `/orders/${id}`,
@@ -83,7 +85,7 @@ export async function POST(
 
     return NextResponse.json({
       success: true,
-      message: 'Rider marked arrived at doorstep',
+      message: 'Rider marked reached destination',
       deliveryOtp,
       order: updatedOrder,
     });

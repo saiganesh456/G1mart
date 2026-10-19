@@ -33,6 +33,7 @@ import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import type { Product } from '@/types';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import { loadRazorpayScript } from '@/components/payment/RazorpayCheckoutButton';
+import { CONSTANT_DELIVERY_OTP } from '@/lib/deliveryOtp';
 
 function getProductHref(item: any): string | null {
   if (!item) return null;
@@ -847,7 +848,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
           const otp = order?.deliveryOtp || order?.delivery_otp;
 
           if (!isDelivered && (isOutForDelivery || isReadyPickup || otp || order?.arrivedAtDoorstep || order?.arrived_at_doorstep)) {
-            const displayPin = otp || '4821';
+            const displayPin = otp || CONSTANT_DELIVERY_OTP;
             const riderName =
               order?.assignedRider?.name ||
               order?.assigned_rider_name ||

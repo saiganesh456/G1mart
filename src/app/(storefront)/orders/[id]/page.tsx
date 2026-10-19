@@ -70,11 +70,20 @@ export default async function OrderDetailPage({ params }: Props) {
                 phone: slipOrder.assigned_rider_phone,
               }
             : undefined,
+          deliveryOtp: slipOrder.delivery_otp || '1234',
+          delivery_otp: slipOrder.delivery_otp || '1234',
+          arrivedAtDoorstep: Boolean((slipOrder as any).arrived_at_doorstep),
+          arrived_at_doorstep: Boolean((slipOrder as any).arrived_at_doorstep),
         };
       }
     } catch (err) {
       console.warn('Error fetching server slip order for initial props:', err);
     }
+  }
+
+  if (initialOrder) {
+    if (!initialOrder.deliveryOtp) initialOrder.deliveryOtp = '1234';
+    if (!initialOrder.delivery_otp) initialOrder.delivery_otp = '1234';
   }
 
   return (

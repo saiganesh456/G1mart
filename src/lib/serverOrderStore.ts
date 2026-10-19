@@ -243,10 +243,10 @@ export const serverOrderStore = {
       type: params.type || (orderType === 'slip' ? 'slip' : 'standard'),
       isPaid: false,
       paidAmount: 0,
-      deliveryOtp: Math.floor(1000 + Math.random() * 9000).toString(),
       providerOrderId: params.merchantOrderId,
       userId: params.userId,
       userEmail: params.userEmail,
+      deliveryOtp: '1234',
       timeline: [
         { status: 'Order Placed', time: 'Just now', completed: true },
         { status: 'Packed', time: 'Pending', completed: false },
@@ -575,7 +575,7 @@ export const serverOrderStore = {
 
     order.status = status;
     if (!order.deliveryOtp) {
-      order.deliveryOtp = Math.floor(1000 + Math.random() * 9000).toString();
+      order.deliveryOtp = '1234';
     }
     if (assignedRider) {
       order.assignedRider = {

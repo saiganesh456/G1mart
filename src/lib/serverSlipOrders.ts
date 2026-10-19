@@ -4,6 +4,8 @@ import os from 'os';
 import { serverSupabase as supabase, fallbackSupabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 import { serverStoreSettings } from '@/lib/serverStoreSettings';
 import { serverOrderStore } from '@/lib/serverOrderStore';
+import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
+import type { Order } from '@/types';
 import type {
   SlipOrder,
   SlipOrderStatus,
@@ -151,6 +153,8 @@ async function syncSlipOrderToSupabase(slip: SlipOrder): Promise<void> {
         assigned_rider_phone: slip.assigned_rider_phone || null,
         admin_notes: slip.admin_notes || null,
         cancel_reason: slip.cancel_reason || null,
+        delivery_otp: slip.delivery_otp || '1234',
+        arrived_at_doorstep: Boolean(slip.arrived_at_doorstep),
         updated_at: new Date().toISOString(),
       });
 
@@ -294,6 +298,7 @@ export const serverSlipOrders = {
 
       admin_notes: null,
       cancel_reason: null,
+      delivery_otp: '1234',
 
       images: slipImages,
       items: [],
@@ -1063,11 +1068,11 @@ export const serverSlipOrders = {
     const order = await this.getSlipOrderById(params.slipId);
     if (!order) return { success: false, error: 'Slip order not found' };
 
-    // Rider assignment restriction: only after payment
-    if (order.status !== 'PAID' && order.status !== 'COD_PENDING' && order.status !== 'RIDER_ASSIGNED') {
+    // Rider assignment: Allowed for confirmed, packed, paid, and cod orders
+    if (order.status === 'CANCELLED' || order.status === 'SLIP_RECEIVED') {
       return {
         success: false,
-        error: `Cannot assign rider until customer confirms payment. Current status: ${order.status}`,
+        error: `Cannot assign rider for an order with status: ${order.status}`,
       };
     }
 
@@ -1075,9 +1080,7 @@ export const serverSlipOrders = {
     order.assigned_rider_name = params.riderName;
     order.assigned_rider_phone = params.riderPhone;
     order.status = 'RIDER_ASSIGNED';
-    if (!order.delivery_otp) {
-      order.delivery_otp = Math.floor(1000 + Math.random() * 9000).toString();
-    }
+    order.delivery_otp = '1234';
     order.updated_at = new Date().toISOString();
 
     this.addStatusHistory(
@@ -1206,6 +1209,100 @@ export const serverSlipOrders = {
     await syncSlipOrderToSupabase(order);
 
     return { success: true, order };
+  },
+
+  /**
+   * Convert SlipOrder into full standard Order format with resolved product photos and details
+   */
+  convertToStandardOrder(slip: SlipOrder, forcedStatus?: string): Order {
+    let status: any = forcedStatus;
+    if (!status) {
+      status = 'Packed';
+      if (slip.status === 'RIDER_ASSIGNED') status = 'Rider Assigned';
+      else if (slip.status === 'OUT_FOR_DELIVERY') status = 'Out for Delivery';
+      else if (slip.status === 'DELIVERED') status = 'Delivered';
+      else if (slip.status === 'CONFIRMED' || slip.status === 'PACKING') status = 'Confirmed';
+      else if (slip.status === 'CANCELLED') status = 'Cancelled';
+    }
+
+    const isPaid = slip.status === 'PAID' || slip.payment_status === 'paid' || slip.payment_status === 'completed';
+
+    const resolveProductImage = (name?: string, pid?: string | null): string => {
+      if (pid) {
+        const found = MIGRATED_PRODUCT_LIST.find((p) => p.id === pid);
+        if (found?.imageUrl || found?.image) return found.imageUrl || found.image || '';
+      }
+      if (name) {
+        const lower = name.toLowerCase();
+        const found = MIGRATED_PRODUCT_LIST.find((p) => p.name.toLowerCase().includes(lower));
+        if (found?.imageUrl || found?.image) return found.imageUrl || found.image || '';
+      }
+      return '/products/placeholder.svg';
+    };
+
+    return {
+      id: slip.id,
+      date: new Date(slip.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }),
+      slot: slip.order_type === 'pickup' ? 'Store Pickup' : 'Standard Delivery',
+      paymentMethod: (slip.payment_method || (slip.status === 'COD_PENDING' || !isPaid ? 'Cash on Delivery' : 'Online')) as any,
+      paymentStatus: slip.payment_status as any,
+      isPaid,
+      status: status as any,
+      subtotal: slip.subtotal,
+      discount: 0,
+      deliveryFee: slip.delivery_fee || 0,
+      taxes: 0,
+      grandTotal: slip.final_total || slip.estimated_total,
+      distance_km: slip.distance_km,
+      zone_min_order: slip.zone_min_order,
+      orderType: 'slip',
+      assignedRider: slip.assigned_rider_name
+        ? {
+            id: slip.assigned_rider_id || '',
+            name: slip.assigned_rider_name,
+            phone: slip.assigned_rider_phone || '',
+          }
+        : undefined,
+      deliveryOtp: slip.delivery_otp || '1234',
+      arrivedAtDoorstep: Boolean(slip.arrived_at_doorstep),
+      address: {
+        fullName: slip.customer_name,
+        phone: slip.customer_phone,
+        mobileNumber: slip.customer_phone,
+        streetArea: slip.address,
+        city: 'Nellore',
+        latitude: slip.lat,
+        longitude: slip.lng,
+      } as any,
+      items: (slip.items || []).map((it) => ({
+        productId: it.product_id || it.id,
+        productName: it.name,
+        unit: it.unit,
+        price: it.price,
+        quantity: it.packed_qty || it.requested_qty || 1,
+        image: resolveProductImage(it.name, it.product_id),
+      })),
+      timeline: [
+        { status: 'Order Placed', time: 'Confirmed', completed: true },
+        {
+          status: 'Packed',
+          time: 'Pending',
+          completed: status === 'Packed' || status === 'Rider Assigned' || status === 'Out for Delivery' || status === 'Delivered',
+        },
+        {
+          status: 'Out for Delivery',
+          time: 'Pending',
+          completed: status === 'Out for Delivery' || status === 'Delivered',
+        },
+        { status: 'Delivered', time: 'Pending', completed: status === 'Delivered' },
+      ],
+    };
+  },
+
+  async saveOrder(order: SlipOrder): Promise<void> {
+    slipsMap.set(order.id, order);
+    persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
   },
 
   /**

@@ -69,7 +69,20 @@ export async function GET(req: NextRequest, { params }: Props) {
                 phone: slipOrder.assigned_rider_phone,
               }
             : undefined,
+          deliveryOtp: slipOrder.delivery_otp || '1234',
+          delivery_otp: slipOrder.delivery_otp || '1234',
+          arrivedAtDoorstep: Boolean(slipOrder.arrived_at_doorstep),
+          arrived_at_doorstep: Boolean(slipOrder.arrived_at_doorstep),
         };
+      }
+    }
+
+    if (order) {
+      if (!order.deliveryOtp) {
+        order.deliveryOtp = '1234';
+      }
+      if (!order.delivery_otp) {
+        order.delivery_otp = '1234';
       }
     }
 

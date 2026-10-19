@@ -1499,7 +1499,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   useEffect(() => {
     const fetchSlipData = async () => {
       try {
-        const res = await fetch('/api/admin/slip-orders');
+        const res = await fetch('/api/admin/slip-orders', {
+          headers: getAdminHeaders(),
+        });
         const data = await res.json();
         if (data.counts) {
           setSlipCounts({ new: data.counts.new || 0, confirmed: data.counts.confirmed || 0 });

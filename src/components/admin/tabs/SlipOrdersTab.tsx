@@ -50,7 +50,14 @@ interface Props {
   onBackToDashboard?: () => void;
 }
 
-export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'slips' }: Props) {
+export default function SlipOrdersTab({
+  products = [],
+  initialActiveSubTab = 'slips',
+  activeSlipId,
+  onSelectSlip,
+  onCloseSlip,
+  onBackToDashboard,
+}: Props) {
   const { user } = useAuth();
   const getAdminHeaders = (): Record<string, string> => {
     let email = user?.email;
@@ -65,7 +72,6 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
       'x-admin-client': 'true',
     };
   };
-
   const [subTab, setSubTab] = useState<'slips' | 'packer'>(initialActiveSubTab);
   const [orders, setOrders] = useState<SlipOrder[]>([]);
   const ordersRef = useRef<SlipOrder[]>(orders);

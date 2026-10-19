@@ -48,6 +48,8 @@ export default function RiderClient() {
   const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
   const [isArriving, setIsArriving] = useState(false);
   const [cashCollectedChecked, setCashCollectedChecked] = useState(false);
+  const [itemsHandedOverChecked, setItemsHandedOverChecked] = useState(false);
+  const [acknowledgedOrderIds, setAcknowledgedOrderIds] = useState<Set<string>>(new Set());
   const [deliverySuccessOrder, setDeliverySuccessOrder] = useState<Order | null>(null);
   const [resendCooldown, setResendCooldown] = useState(0);
 
@@ -160,6 +162,7 @@ export default function RiderClient() {
           status,
           staffIdentifier: user?.name ? `Rider: ${user.name}` : 'Rider App',
           assignedRider: riderPayload,
+          orderFallback: targetOrder,
         }),
       });
       const data = await res.json();
@@ -182,7 +185,11 @@ export default function RiderClient() {
     try {
       const res = await fetch(`/api/rider/orders/${order.id}/arrived`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-rider-client': 'true',
+          'x-user-email': (user?.email || '').toLowerCase().trim(),
+        },
         body: JSON.stringify({
           riderName: user?.name || 'Express Rider',
           orderFallback: order,
@@ -201,11 +208,19 @@ export default function RiderClient() {
       setOtpModalOrder(order);
       setOtpDigits('');
       setOtpError(null);
-      setCashCollectedChecked(false);
+      setCashCollectedChecked(Boolean(order.isPaid || order.paymentMethod !== 'Cash on Delivery'));
+      setItemsHandedOverChecked(false);
     }
   };
 
   const handlePressOtpDigit = (digit: string) => {
+    if (!otpModalOrder) return;
+    const isCod = !otpModalOrder.isPaid && otpModalOrder.paymentMethod === 'Cash on Delivery';
+    if (isCod && !cashCollectedChecked) {
+      setOtpError(`Please confirm collecting ₹${otpModalOrder.grandTotal} cash first`);
+      return;
+    }
+
     if (otpDigits.length < 4) {
       const next = otpDigits + digit;
       setOtpDigits(next);
@@ -230,12 +245,9 @@ export default function RiderClient() {
       setOtpError('Please enter the complete 4-digit OTP');
       return;
     }
-    if (
-      !otpModalOrder.isPaid &&
-      otpModalOrder.paymentMethod === 'Cash on Delivery' &&
-      !cashCollectedChecked
-    ) {
-      setOtpError('Please collect cash from customer and tick the confirmation box');
+    const isCod = !otpModalOrder.isPaid && otpModalOrder.paymentMethod === 'Cash on Delivery';
+    if (isCod && !cashCollectedChecked) {
+      setOtpError(`Please collect ₹${otpModalOrder.grandTotal} cash and tap confirm first`);
       return;
     }
 
@@ -245,7 +257,11 @@ export default function RiderClient() {
     try {
       const res = await fetch(`/api/rider/orders/${otpModalOrder.id}/verify-otp`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-rider-client': 'true',
+          'x-user-email': (user?.email || '').toLowerCase().trim(),
+        },
         body: JSON.stringify({
           otp: code,
           riderIdentifier: user?.name ? `Rider: ${user.name}` : 'Rider',
@@ -786,7 +802,7 @@ export default function RiderClient() {
                     className="py-2.5 sm:py-3 bg-emerald-500 hover:bg-emerald-400 text-stone-950 rounded-xl sm:rounded-2xl font-black text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer text-center truncate"
                   >
                     <MapPin className="w-3.5 h-3.5 shrink-0" />
-                    <span className="truncate">{isArriving ? 'Connecting...' : 'At Door (OTP)'}</span>
+                    <span className="truncate">{isArriving ? 'Connecting...' : 'Reached Destination'}</span>
                   </button>
                 </div>
               </div>
@@ -965,13 +981,13 @@ export default function RiderClient() {
                           className="w-full p-2 sm:p-2.5 bg-stone-50/70 hover:bg-stone-100 flex items-center justify-between text-xs font-bold text-stone-700 transition-colors cursor-pointer min-w-0"
                         >
                           <div className="flex items-center gap-1.5 truncate min-w-0">
-                            <ShoppingBag className="w-3.5 h-3.5 text-stone-500 shrink-0" />
-                            <span className="truncate">
-                              {o.items?.length || 0} Grocery {o.items?.length === 1 ? 'Item' : 'Items'}
+                            <ShoppingBag className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
+                            <span className="truncate font-extrabold text-stone-900">
+                              {o.items?.length || 0} Grocery {o.items?.length === 1 ? 'Item' : 'Items'} (Inspect Items)
                             </span>
                           </div>
                           <div className="flex items-center gap-1 text-[11px] text-stone-500 shrink-0">
-                            <span>{isExpanded ? 'Hide' : 'View'}</span>
+                            <span className="font-semibold text-emerald-800">{isExpanded ? 'Hide' : 'View Details'}</span>
                             {isExpanded ? (
                               <ChevronUp className="w-3.5 h-3.5" />
                             ) : (
@@ -982,16 +998,30 @@ export default function RiderClient() {
 
                         {isExpanded && (
                           <div className="p-2.5 bg-white divide-y divide-stone-100 text-xs">
-                            {o.items?.map((it, idx) => (
-                              <div key={idx} className="py-1 flex items-center justify-between text-[11px] min-w-0 gap-2">
-                                <span className="font-semibold text-stone-800 truncate">
-                                  {it.productName}
-                                </span>
-                                <span className="font-bold text-stone-600 bg-stone-100 px-1.5 py-0.2 rounded shrink-0">
-                                  Qty: {it.quantity}
-                                </span>
-                              </div>
-                            ))}
+                            {o.items && o.items.length > 0 ? (
+                              o.items.map((it, idx) => (
+                                <div key={idx} className="py-2 flex items-center justify-between text-xs min-w-0 gap-2">
+                                  <div className="flex items-center gap-2 min-w-0 truncate">
+                                    {it.image && (
+                                      <img
+                                        src={it.image}
+                                        alt={it.productName}
+                                        className="w-9 h-9 rounded-lg object-contain bg-stone-50 border border-stone-200 shrink-0"
+                                      />
+                                    )}
+                                    <div className="min-w-0 truncate">
+                                      <p className="font-bold text-stone-900 text-xs truncate">{it.productName}</p>
+                                      {it.unit && <p className="text-[10px] text-stone-500 font-medium">{it.unit}</p>}
+                                    </div>
+                                  </div>
+                                  <span className="font-black text-stone-800 bg-stone-100 px-2.5 py-1 rounded-lg text-xs shrink-0 border border-stone-200">
+                                    Qty: {it.quantity}
+                                  </span>
+                                </div>
+                              ))
+                            ) : (
+                              <p className="text-xs text-stone-400 py-1.5 text-center">Items listed on store bill / packing slip</p>
+                            )}
                           </div>
                         )}
                       </div>
@@ -1017,7 +1047,7 @@ export default function RiderClient() {
                               className="py-2.5 sm:py-3 px-2 bg-emerald-600 hover:bg-emerald-700 text-white font-black rounded-xl text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-xs transition-all active:scale-[0.99] cursor-pointer truncate text-center"
                             >
                               <MapPin className="w-3.5 h-3.5 text-amber-300 shrink-0" />
-                              <span className="truncate">{isArriving ? 'Connecting...' : 'At Door (OTP)'}</span>
+                              <span className="truncate">{isArriving ? 'Connecting...' : 'Reached Destination'}</span>
                             </button>
                           ) : isPacked ? (
                             <button
@@ -1158,25 +1188,66 @@ export default function RiderClient() {
 
               {/* Header */}
               <div className="text-center space-y-1">
-                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 bg-amber-100 text-amber-900 rounded-full text-[10px] font-black uppercase tracking-wider">
-                  <ShieldCheck className="w-3.5 h-3.5 text-amber-700" />
-                  <span>DOORSTEP OTP VERIFICATION</span>
+                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 bg-emerald-100 text-emerald-900 rounded-full text-[10px] font-black uppercase tracking-wider">
+                  <MapPin className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>REACHED DESTINATION — ORDER HANDOVER</span>
                 </div>
                 <h3 className="text-sm sm:text-base font-black text-stone-900">
-                  Ask Customer for 4-Digit PIN
+                  Doorstep Handover Verification
                 </h3>
                 <p className="text-xs text-stone-500">
                   Order #{otpModalOrder.id} · <span className="font-bold text-stone-700">{otpModalOrder.address?.fullName || 'Customer'}</span>
                 </p>
               </div>
 
-              {/* Cash Collection Requirement (if COD) */}
-              {(!otpModalOrder.isPaid || otpModalOrder.paymentMethod === 'Cash on Delivery') && (
-                <div className="bg-rose-50 border border-rose-200 rounded-xl p-3 space-y-2">
-                  <div className="flex items-center justify-between text-xs font-black text-rose-900">
+              {/* STEP 1: Verify Products With Customer */}
+              <div className="bg-stone-50 border border-stone-200 rounded-xl p-2.5 space-y-2">
+                <div className="flex items-center justify-between text-xs font-black text-stone-800">
+                  <span className="flex items-center gap-1.5">
+                    <ShoppingBag className="w-3.5 h-3.5 text-emerald-700" />
+                    <span>STEP 1: VERIFY PRODUCTS ({otpModalOrder.items?.length || 1} Items)</span>
+                  </span>
+                  <span className="text-[10px] bg-stone-200 text-stone-700 px-2 py-0.5 rounded-full font-bold">Doorstep</span>
+                </div>
+                <div className="max-h-24 overflow-y-auto space-y-1.5 pr-1 divide-y divide-stone-100">
+                  {otpModalOrder.items && otpModalOrder.items.length > 0 ? (
+                    otpModalOrder.items.map((it, idx) => (
+                      <div key={idx} className="pt-1 flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-2 min-w-0 truncate">
+                          {it.image && (
+                            <img src={it.image} alt={it.productName} className="w-6 h-6 rounded object-contain bg-white border border-stone-200 shrink-0" />
+                          )}
+                          <span className="text-xs font-bold text-stone-800 truncate">{it.productName}</span>
+                        </div>
+                        <span className="text-xs font-black text-stone-700 shrink-0 ml-2">×{it.quantity}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-xs text-stone-400">Products listed on store bill / packing slip</p>
+                  )}
+                </div>
+                <label className="flex items-center gap-2 text-xs font-bold text-stone-800 cursor-pointer pt-2 border-t border-stone-200">
+                  <input
+                    type="checkbox"
+                    checked={itemsHandedOverChecked}
+                    onChange={(e) => setItemsHandedOverChecked(e.target.checked)}
+                    className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-stone-300 cursor-pointer"
+                  />
+                  <span className="text-stone-900 font-extrabold">All items verified and handed to customer</span>
+                </label>
+              </div>
+
+              {/* STEP 2: Cash Collection Requirement (if COD) */}
+              {(!otpModalOrder.isPaid || otpModalOrder.paymentMethod === 'Cash on Delivery') ? (
+                <div className={`border rounded-xl p-3 space-y-2 transition-all ${
+                  cashCollectedChecked
+                    ? 'bg-emerald-50 border-emerald-300 text-emerald-900'
+                    : 'bg-rose-50 border-rose-300 text-rose-900'
+                }`}>
+                  <div className="flex items-center justify-between text-xs font-black">
                     <span className="flex items-center gap-1">
                       <DollarSign className="w-4 h-4 text-rose-600" />
-                      <span>CASH ON DELIVERY</span>
+                      <span>STEP 2: CASH ON DELIVERY</span>
                     </span>
                     <span className="text-sm font-mono font-black text-rose-700">
                       Collect ₹{otpModalOrder.grandTotal}
@@ -1186,23 +1257,51 @@ export default function RiderClient() {
                     <input
                       type="checkbox"
                       checked={cashCollectedChecked}
-                      onChange={(e) => setCashCollectedChecked(e.target.checked)}
+                      onChange={(e) => {
+                        setCashCollectedChecked(e.target.checked);
+                        if (e.target.checked) setOtpError(null);
+                      }}
                       className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-stone-300 cursor-pointer"
                     />
-                    <span>I have received ₹{otpModalOrder.grandTotal} cash</span>
+                    <span className="font-extrabold text-stone-900">
+                      I have collected ₹{otpModalOrder.grandTotal} cash from customer
+                    </span>
                   </label>
                 </div>
+              ) : (
+                <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-2.5 flex items-center justify-between text-xs font-bold text-emerald-900">
+                  <span className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    <span>STEP 2: Prepaid Online (UPI / Card)</span>
+                  </span>
+                  <span className="text-emerald-700 font-mono font-black">₹0 to collect</span>
+                </div>
               )}
+
+              {/* STEP 3: Customer Delivery OTP */}
+              <div className="text-center space-y-1 pt-1">
+                <span className="text-[11px] font-black text-stone-700 uppercase tracking-wider">
+                  STEP 3: ASK CUSTOMER FOR 4-DIGIT PIN
+                </span>
+                {(!otpModalOrder.isPaid && otpModalOrder.paymentMethod === 'Cash on Delivery' && !cashCollectedChecked) && (
+                  <p className="text-[11px] font-bold text-rose-600">
+                    🔒 Collect cash and tick Step 2 above to unlock PIN entry
+                  </p>
+                )}
+              </div>
 
               {/* 4 Digit Boxes */}
               <div className="flex justify-center items-center gap-2 py-1">
                 {[0, 1, 2, 3].map((idx) => {
                   const digit = otpDigits[idx] || '';
+                  const isLocked = !otpModalOrder.isPaid && otpModalOrder.paymentMethod === 'Cash on Delivery' && !cashCollectedChecked;
                   return (
                     <div
                       key={idx}
                       className={`w-11 h-13 rounded-xl border-2 flex items-center justify-center font-mono text-2xl font-black shadow-inner transition-all ${
-                        digit
+                        isLocked
+                          ? 'border-stone-200 bg-stone-100 text-stone-300 cursor-not-allowed'
+                          : digit
                           ? 'border-emerald-600 bg-white text-emerald-700'
                           : otpError
                           ? 'border-rose-400 bg-rose-50 text-rose-700'
@@ -1228,17 +1327,24 @@ export default function RiderClient() {
 
               {/* Custom Large Mobile Number Pad */}
               <div className="grid grid-cols-3 gap-1.5 px-1">
-                {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((num) => (
-                  <button
-                    key={num}
-                    type="button"
-                    onClick={() => handlePressOtpDigit(num)}
-                    disabled={isVerifyingOtp}
-                    className="h-11 bg-stone-100 hover:bg-stone-200 active:scale-95 text-stone-900 rounded-xl font-black text-lg shadow-xs transition-all cursor-pointer"
-                  >
-                    {num}
-                  </button>
-                ))}
+                {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((num) => {
+                  const isLocked = !otpModalOrder.isPaid && otpModalOrder.paymentMethod === 'Cash on Delivery' && !cashCollectedChecked;
+                  return (
+                    <button
+                      key={num}
+                      type="button"
+                      onClick={() => handlePressOtpDigit(num)}
+                      disabled={isVerifyingOtp || isLocked}
+                      className={`h-11 rounded-xl font-black text-lg shadow-xs transition-all ${
+                        isLocked
+                          ? 'bg-stone-100 text-stone-300 cursor-not-allowed opacity-50'
+                          : 'bg-stone-100 hover:bg-stone-200 active:scale-95 text-stone-900 cursor-pointer'
+                      }`}
+                    >
+                      {num}
+                    </button>
+                  );
+                })}
                 <button
                   type="button"
                   onClick={() => {
@@ -1250,14 +1356,23 @@ export default function RiderClient() {
                 >
                   Cancel
                 </button>
-                <button
-                  type="button"
-                  onClick={() => handlePressOtpDigit('0')}
-                  disabled={isVerifyingOtp}
-                  className="h-11 bg-stone-100 hover:bg-stone-200 active:scale-95 text-stone-900 rounded-xl font-black text-lg shadow-xs transition-all cursor-pointer"
-                >
-                  0
-                </button>
+                {(() => {
+                  const isLocked = !otpModalOrder.isPaid && otpModalOrder.paymentMethod === 'Cash on Delivery' && !cashCollectedChecked;
+                  return (
+                    <button
+                      type="button"
+                      onClick={() => handlePressOtpDigit('0')}
+                      disabled={isVerifyingOtp || isLocked}
+                      className={`h-11 rounded-xl font-black text-lg shadow-xs transition-all ${
+                        isLocked
+                          ? 'bg-stone-100 text-stone-300 cursor-not-allowed opacity-50'
+                          : 'bg-stone-100 hover:bg-stone-200 active:scale-95 text-stone-900 cursor-pointer'
+                      }`}
+                    >
+                      0
+                    </button>
+                  );
+                })()}
                 <button
                   type="button"
                   onClick={handleDeleteOtpDigit}

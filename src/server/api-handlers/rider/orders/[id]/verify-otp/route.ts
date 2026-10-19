@@ -44,7 +44,7 @@ export async function POST(
         }, { status: 429 });
       }
 
-      const isValid = verifyDeliveryOtp(otp, slip.delivery_otp);
+      const isValid = verifyDeliveryOtp(otp, slip.delivery_otp, slip.customer_phone);
       if (!isValid) {
         slip.otp_attempts = (slip.otp_attempts || 0) + 1;
         await serverSlipOrders.updateDeliveryStatus(id, 'OUT_FOR_DELIVERY', riderIdentifier || 'Rider');
@@ -68,6 +68,10 @@ export async function POST(
         riderIdentifier || 'Rider'
       );
 
+      await serverSlipOrders.saveOrder(slip);
+      const finalOrder = serverSlipOrders.convertToStandardOrder(slip, 'Delivered');
+      serverOrderStore.registerOrder(finalOrder);
+
       // Trigger Web Push to customer
       try {
         const { serverPushService } = await import('@/lib/serverPushService');
@@ -82,7 +86,7 @@ export async function POST(
       return NextResponse.json({
         success: true,
         message: 'Delivery verified successfully via OTP',
-        order: slip,
+        order: finalOrder,
       });
     } else {
       let order = serverOrderStore.getOrder(id);
@@ -111,7 +115,8 @@ export async function POST(
         }, { status: 429 });
       }
 
-      const isValid = verifyDeliveryOtp(otp, order.deliveryOtp);
+      const customerPhone = order.address?.mobileNumber || order.address?.phone;
+      const isValid = verifyDeliveryOtp(otp, order.deliveryOtp, customerPhone);
       if (!isValid) {
         order.otpAttempts = (order.otpAttempts || 0) + 1;
         serverOrderStore.cacheOrder(order);
