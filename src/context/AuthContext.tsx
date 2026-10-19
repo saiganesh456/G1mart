@@ -71,19 +71,42 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else {
         const meta = activeUser.user_metadata || {};
         const uEmail = (activeUser.email || meta.email || '').toLowerCase().trim();
+        const emailParts = uEmail.split('@');
+        const normEmail =
+          emailParts.length === 2 && (emailParts[1] === 'gmail.com' || emailParts[1] === 'googlemail.com')
+            ? `${emailParts[0].replace(/\./g, '').split('+')[0]}@gmail.com`
+            : uEmail;
+
         let fallbackRole: any = 'customer';
         const isCoreAdmin =
           uEmail === 'g1mart@gmail.com' ||
           uEmail === 'lingalamahendra0@gmail.com' ||
-          uEmail === 'gummasaiganesh57@gmail.com' ||
-          uEmail === 'vv727457@gmail.com' ||
           uEmail === 'orders@g1mart.com' ||
           uEmail === 'admin@g1mart.com';
 
+        const isCoreRider =
+          uEmail === 'rider@g1mart.com' ||
+          uEmail === 'gummasaiganesh57@gmail.com' ||
+          uEmail === 'gumma.saiganesh57@gmail.com' ||
+          normEmail === 'gummasaiganesh57@gmail.com' ||
+          normEmail === 'rider@g1mart.com';
+
         if (isCoreAdmin) {
           fallbackRole = 'admin';
-        } else if (uEmail === 'rider@g1mart.com') {
+        } else if (isCoreRider) {
           fallbackRole = 'delivery_partner';
+        } else if (uEmail) {
+          try {
+            const roleRes = await fetch('/api/auth/role-check', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: uEmail, normalizedEmail: normEmail }),
+            });
+            const roleData = await roleRes.json();
+            if (roleData.success && roleData.role && roleData.role !== 'customer') {
+              fallbackRole = roleData.role;
+            }
+          } catch {}
         }
         const p: UserProfile = {
           id: activeUser.id,

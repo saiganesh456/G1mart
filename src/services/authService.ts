@@ -46,25 +46,37 @@ export const authService = {
       const userEmail = (data?.email || user.email || '').toLowerCase().trim();
       let detectedRole: UserRole = (data?.role as any) || 'customer';
 
+      // Normalized email for Gmail dot-invariance
+      const emailParts = userEmail.split('@');
+      const normEmail =
+        emailParts.length === 2 && (emailParts[1] === 'gmail.com' || emailParts[1] === 'googlemail.com')
+          ? `${emailParts[0].replace(/\./g, '').split('+')[0]}@gmail.com`
+          : userEmail;
+
       // Always grant admin to root admin emails or check server role
       const isCoreAdmin =
         userEmail === 'g1mart@gmail.com' ||
         userEmail === 'lingalamahendra0@gmail.com' ||
-        userEmail === 'gummasaiganesh57@gmail.com' ||
-        userEmail === 'vv727457@gmail.com' ||
         userEmail === 'orders@g1mart.com' ||
         userEmail === 'admin@g1mart.com';
 
+      const isCoreRider =
+        userEmail === 'rider@g1mart.com' ||
+        userEmail === 'gummasaiganesh57@gmail.com' ||
+        userEmail === 'gumma.saiganesh57@gmail.com' ||
+        normEmail === 'gummasaiganesh57@gmail.com' ||
+        normEmail === 'rider@g1mart.com';
+
       if (isCoreAdmin) {
         detectedRole = 'admin';
-      } else if (userEmail === 'rider@g1mart.com') {
+      } else if (isCoreRider) {
         detectedRole = 'delivery_partner';
       } else {
         try {
           const roleRes = await fetch('/api/auth/role-check', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: userEmail }),
+            body: JSON.stringify({ email: userEmail, normalizedEmail: normEmail }),
           });
           const roleData = await roleRes.json();
           if (roleData.success && roleData.role) {

@@ -179,7 +179,7 @@ export async function POST(req: NextRequest) {
     const activeKeyId = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
 
     // Check payment initiation result
-    if (!paymentResult.success || !paymentResult.providerOrderId) {
+    if (!paymentResult.success || !paymentResult.providerOrderId || !activeKeyId) {
       return NextResponse.json(
         {
           success: false,
@@ -198,15 +198,11 @@ export async function POST(req: NextRequest) {
       subtotal: calculated.subtotal,
       codFee: 0,
       grandTotal: finalGrandTotal,
-      keyId: activeKeyId || 'rzp_test_simulated',
+      keyId: activeKeyId,
       currency: 'INR',
       redirectUrl: paymentResult.redirectUrl,
       paymentMethod: 'Pay Online',
       paymentStatus: 'pending',
-      isTestFallback: paymentResult.isTestFallback || false,
-      authNotice: paymentResult.authFailed
-        ? 'Razorpay Merchant API credentials returned Authentication Failed. Test simulator active.'
-        : undefined,
     });
   } catch (err: any) {
     return NextResponse.json(

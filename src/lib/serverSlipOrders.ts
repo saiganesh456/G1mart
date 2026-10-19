@@ -78,6 +78,63 @@ function persistDiskSlipOrders(): void {
   } catch {}
 }
 
+async function syncSlipOrderToSupabase(slip: SlipOrder): Promise<void> {
+  if (!isSupabaseConfigured() || !slip || !slip.id) return;
+  try {
+    await supabase.from('slip_orders').upsert({
+      id: slip.id,
+      customer_id: slip.customer_id || null,
+      customer_name: slip.customer_name,
+      customer_phone: slip.customer_phone,
+      customer_note: slip.customer_note || null,
+      address: slip.address,
+      lat: slip.lat ? Number(slip.lat) : null,
+      lng: slip.lng ? Number(slip.lng) : null,
+      pincode: slip.pincode || null,
+      distance_km: Number(slip.distance_km || 0),
+      eta_min: Number(slip.eta_min || 15),
+      zone_id: slip.zone_id || null,
+      zone_min_order: Number(slip.zone_min_order || 500),
+      order_type: slip.order_type || 'delivery',
+      status: slip.status || 'SLIP_RECEIVED',
+      estimated_total: Number(slip.estimated_total || 0),
+      final_total: Number(slip.final_total || 0),
+      subtotal: Number(slip.subtotal || 0),
+      delivery_fee: Number(slip.delivery_fee || 0),
+      cod_fee: Number(slip.cod_fee || 0),
+      payment_method: slip.payment_method || null,
+      payment_status: slip.payment_status || 'pending',
+      transaction_id: slip.transaction_id || null,
+      billed_by: slip.billed_by || null,
+      packed_by: slip.packed_by || null,
+      assigned_rider_id: slip.assigned_rider_id || null,
+      assigned_rider_name: slip.assigned_rider_name || null,
+      assigned_rider_phone: slip.assigned_rider_phone || null,
+      admin_notes: slip.admin_notes || null,
+      cancel_reason: slip.cancel_reason || null,
+      updated_at: new Date().toISOString(),
+    });
+
+    if (Array.isArray(slip.items) && slip.items.length > 0) {
+      const itemsPayload = slip.items.map((it) => ({
+        id: it.id,
+        slip_order_id: slip.id,
+        product_id: it.product_id || null,
+        name: it.name,
+        requested_qty: Number(it.requested_qty || 1),
+        packed_qty: Number(it.packed_qty || 0),
+        unit: it.unit || 'unit',
+        price: Number(it.price || 0),
+        available: it.available !== false,
+        substitute_note: it.substitute_note || null,
+      }));
+      await supabase.from('slip_items').upsert(itemsPayload);
+    }
+  } catch (err) {
+    console.warn('[serverSlipOrders] Supabase sync note in syncSlipOrderToSupabase:', err);
+  }
+}
+
 // Initial hydration from disk
 if (slipsMap.size === 0) {
   const disk = loadDiskSlipOrders();
@@ -365,6 +422,142 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
+
+    return order;
+  },
+
+  /**
+   * 2b. Admin Aggregate Billing: Save Total Items & Total Grocery Amount
+   * Simplifies the store staff workflow so they only input item count & grocery amount in INR.
+   */
+  async saveAggregateBill(params: {
+    slipId: string;
+    totalItems: number;
+    groceryAmount: number;
+    deliveryFee?: number;
+    discount?: number;
+    adminNotes?: string;
+    billedBy?: string;
+    moveStatus?: SlipOrderStatus;
+  }): Promise<SlipOrder | null> {
+    const order = await this.getSlipOrderById(params.slipId);
+    if (!order) return null;
+
+    const nowIso = new Date().toISOString();
+    const count = Math.max(1, Math.round(Number(params.totalItems) || 1));
+    const amount = Math.max(0, Number(params.groceryAmount) || 0);
+    const fee = Math.max(0, Number(params.deliveryFee) || 0);
+    const disc = Math.max(0, Number(params.discount) || 0);
+    const grandTotal = amount + fee - disc;
+
+    const aggregateItem: SlipItem = {
+      id: `slip_item_${order.id}`,
+      slip_order_id: order.id,
+      name: `${count} grocery ${count === 1 ? 'item' : 'items'} (as per customer slip)`,
+      requested_qty: 1,
+      packed_qty: 1,
+      unit: count === 1 ? '1 item' : `${count} items`,
+      price: amount,
+      available: true,
+      substitute_note: null,
+      created_at: nowIso,
+    };
+
+    order.items = [aggregateItem];
+    order.total_items = count;
+    order.subtotal = amount;
+    order.delivery_fee = fee;
+    order.discount = disc;
+    order.estimated_total = grandTotal;
+    order.final_total = grandTotal;
+    order.admin_notes = params.adminNotes !== undefined ? params.adminNotes : order.admin_notes;
+    order.billed_by = params.billedBy || 'Store Staff';
+    order.updated_at = nowIso;
+
+    const nextStatus = params.moveStatus || 'BILLING';
+    order.status = nextStatus;
+
+    this.addStatusHistory(
+      order,
+      nextStatus,
+      `Billed ${count} items for total ₹${grandTotal} (Groceries: ₹${amount}, Delivery: ₹${fee})`,
+      params.billedBy || 'Store Staff'
+    );
+
+    slipsMap.set(order.id, order);
+    persistDiskSlipOrders();
+
+    // Mirror to serverOrderStore so standard order store & storefront sees it immediately
+    try {
+      await serverOrderStore.createPendingOrder({
+        orderId: order.id,
+        merchantOrderId: `MT_${order.id}`,
+        items: [
+          {
+            productId: `slip_item_${order.id}`,
+            productName: `${count} grocery ${count === 1 ? 'item' : 'items'} (as per customer slip)`,
+            unit: `${count} items`,
+            price: amount,
+            quantity: 1,
+            image: order.images?.[0]?.image_url || '/products/placeholder.svg',
+          },
+        ],
+        subtotal: amount,
+        deliveryFee: fee,
+        taxes: 0,
+        grandTotal,
+        final_total: grandTotal,
+        address: {
+          fullName: order.customer_name,
+          phone: order.customer_phone,
+          mobileNumber: order.customer_phone,
+          streetArea: order.address,
+          city: 'Nellore',
+        },
+        slot: order.order_type === 'pickup' ? 'Store Pickup' : 'Standard Delivery',
+        paymentMethod: (order.payment_method as any) || 'Cash on Delivery',
+        distance_km: order.distance_km,
+        zone_min_order: order.zone_min_order,
+        orderType: 'slip',
+      });
+    } catch (mirrorErr) {
+      console.warn('[serverSlipOrders] Error mirroring order to serverOrderStore:', mirrorErr);
+    }
+
+    // Sync to Supabase if configured
+    if (isSupabaseConfigured()) {
+      try {
+        await supabase
+          .from('slip_orders')
+          .update({
+            subtotal: amount,
+            delivery_fee: fee,
+            estimated_total: grandTotal,
+            final_total: grandTotal,
+            billed_by: order.billed_by,
+            admin_notes: order.admin_notes,
+            status: order.status,
+            updated_at: nowIso,
+          })
+          .eq('id', order.id);
+
+        await supabase.from('slip_items').delete().eq('slip_order_id', order.id);
+        await supabase.from('slip_items').insert({
+          id: aggregateItem.id,
+          slip_order_id: order.id,
+          name: aggregateItem.name,
+          requested_qty: aggregateItem.requested_qty,
+          packed_qty: aggregateItem.packed_qty,
+          unit: aggregateItem.unit,
+          price: aggregateItem.price,
+          available: aggregateItem.available,
+          created_at: nowIso,
+        });
+      } catch (sbErr) {
+        console.warn('[serverSlipOrders] Supabase sync note in saveAggregateBill:', sbErr);
+      }
+    }
 
     return order;
   },
@@ -389,6 +582,7 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     // Mirror as standard order into serverOrderStore so packer and admin orders see it
     try {
@@ -421,6 +615,7 @@ export const serverSlipOrders = {
         zone_min_order: order.zone_min_order,
         orderType: 'slip',
       });
+      await serverOrderStore.updateOrderStatus(order.id, 'Confirmed', staffName);
     } catch {}
 
     return order;
@@ -460,6 +655,7 @@ export const serverSlipOrders = {
     order.updated_at = new Date().toISOString();
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     return order;
   },
@@ -511,6 +707,7 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     return order;
   },
@@ -577,6 +774,7 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     return { success: true, order };
   },
@@ -621,6 +819,7 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     return { success: true, order };
   },
@@ -652,6 +851,7 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     return { success: true, order };
   },
@@ -675,6 +875,7 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     return { success: true, order };
   },
@@ -732,6 +933,7 @@ export const serverSlipOrders = {
 
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
+    await syncSlipOrderToSupabase(order);
 
     return { success: true, order };
   },

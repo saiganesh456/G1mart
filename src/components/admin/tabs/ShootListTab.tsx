@@ -6,7 +6,6 @@ import {
   Upload,
   CheckCircle2,
   AlertCircle,
-  Sparkles,
   ChevronDown,
   ChevronUp,
   Download,
@@ -620,7 +619,7 @@ export default function ShootListTab({ products, categories, onProductUpdated, o
                                   </span>
                                 ) : (
                                   <span className="absolute bottom-1 right-1 w-3.5 h-3.5 bg-amber-500 rounded-full flex items-center justify-center text-white shadow-xs">
-                                    <Sparkles className="w-2.5 h-2.5" />
+                                    <Camera className="w-2.5 h-2.5" />
                                   </span>
                                 )}
                               </button>
@@ -836,7 +835,7 @@ export default function ShootListTab({ products, categories, onProductUpdated, o
             </div>
 
             <div className="text-[11px] text-stone-500 leading-relaxed bg-emerald-50 border border-emerald-200/80 p-2.5 rounded-xl text-emerald-900 flex items-start gap-2">
-              <Sparkles className="w-4 h-4 text-[#2E7D32] shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-4 h-4 text-[#2E7D32] shrink-0 mt-0.5" />
               <span>
                 Our AI model automatically removes shelf glare and backgrounds, saving the cutout directly to verified store catalog.
               </span>
@@ -864,10 +863,7 @@ export default function ShootListTab({ products, categories, onProductUpdated, o
                     <span>Publishing...</span>
                   </>
                 ) : (
-                  <>
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>Process &amp; Publish</span>
-                  </>
+                  <span>Process &amp; Publish</span>
                 )}
               </button>
             </div>

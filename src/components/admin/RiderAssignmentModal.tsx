@@ -13,7 +13,6 @@ import {
   AlertCircle,
   PlusCircle,
   Clock,
-  Sparkles,
 } from 'lucide-react';
 import type { Order, StaffMember } from '@/types';
 import { soundAlerts } from '@/lib/soundAlerts';
@@ -31,26 +30,6 @@ interface Props {
 
 // Guaranteed baseline riders if fleet is still loading or unconfigured
 const DEFAULT_STORE_RIDERS: StaffMember[] = [
-  {
-    id: 'rider-sai-ganesh',
-    email: 'gummasaiganesh57@gmail.com',
-    name: 'Sai Ganesh',
-    phone: '9876543210',
-    vehicleNumber: 'AP 26 EQ 4589',
-    role: 'rider',
-    createdAt: '2026-10-01T00:00:00Z',
-    status: 'active',
-  },
-  {
-    id: 'rider-vamsi-vardhan',
-    email: 'vv727457@gmail.com',
-    name: 'Vamsi Vardhan',
-    phone: '9876543211',
-    vehicleNumber: 'AP 26 EQ 4590',
-    role: 'rider',
-    createdAt: '2026-10-01T00:00:00Z',
-    status: 'active',
-  },
   {
     id: 'rider-express-hub',
     email: 'rider@g1mart.com',
@@ -328,8 +307,7 @@ export default function RiderAssignmentModal({
           ) : (
             <form onSubmit={handleAssignCustom} className="space-y-3.5">
               <div className="p-3 bg-amber-50 rounded-2xl border border-amber-200 text-[11px] text-amber-900 space-y-1">
-                <p className="font-bold flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-700" />
+                <p className="font-bold">
                   <span>Spot / Temporary Rider Appointment</span>
                 </p>
                 <p className="text-amber-800">

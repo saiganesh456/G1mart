@@ -10,7 +10,6 @@ import {
   Check,
   AlertCircle,
   Loader2,
-  Sparkles,
 } from 'lucide-react';
 import { useLocation } from '@/context/LocationContext';
 import { useAuth } from '@/context/AuthContext';

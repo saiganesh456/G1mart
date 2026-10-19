@@ -57,8 +57,25 @@ export async function GET(request: NextRequest) {
       const meta = u.user_metadata || {};
       const userEmail = (u.email || '').toLowerCase().trim();
 
-      // Check role assignment from staff directory
-      const assignedRole = serverStaffStore.getRoleForEmail(userEmail);
+      // Check role assignment from staff directory (checks memory, disk, and Supabase)
+      let assignedRole = await serverStaffStore.getRoleForEmailAsync(userEmail);
+
+      // Check existing profile in Supabase to preserve any existing staff role
+      try {
+        const { data: existingProfile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', u.id)
+          .maybeSingle();
+
+        if (existingProfile?.role && existingProfile.role !== 'customer') {
+          if (assignedRole === 'customer') {
+            assignedRole = existingProfile.role as any;
+          }
+        }
+      } catch (checkErr) {
+        console.warn('[Auth Callback] Existing role check note:', checkErr);
+      }
 
       // Upsert profile with proper role
       try {
@@ -78,13 +95,15 @@ export async function GET(request: NextRequest) {
       }
 
       // Determine smart destination:
-      // If user came with explicit next (e.g. /admin), honor it.
+      // If user came with explicit next (e.g. /admin or /checkout), honor it only if not default.
       // Otherwise, if they are an admin, route to /admin. If rider, route to /rider.
       let targetPath = rawNext;
-      if (rawNext === '/account' || rawNext === '/') {
-        if (assignedRole === 'admin') {
+      if (assignedRole === 'admin') {
+        if (rawNext === '/account' || rawNext === '/' || rawNext === '/checkout') {
           targetPath = '/admin';
-        } else if (assignedRole === 'delivery_partner' || assignedRole === 'rider') {
+        }
+      } else if (assignedRole === 'delivery_partner' || assignedRole === 'rider') {
+        if (rawNext === '/account' || rawNext === '/' || rawNext === '/checkout') {
           targetPath = '/rider';
         }
       }

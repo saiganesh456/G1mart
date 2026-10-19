@@ -16,7 +16,6 @@ import {
   ChevronRight,
   ShieldCheck,
   X,
-  Sparkles,
   Settings,
   FileText,
   CheckSquare,
@@ -24,6 +23,7 @@ import {
 import type { Category, Product, Order, StaffMember } from '@/types';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import { useNotification } from '@/context/NotificationContext';
+import { useAuth } from '@/context/AuthContext';
 
 // Tab components
 import HomeTab from '@/components/admin/tabs/HomeTab';
@@ -37,6 +37,7 @@ import ShootListTab from '@/components/admin/tabs/ShootListTab';
 import SettingsTab from '@/components/admin/tabs/SettingsTab';
 import SlipOrdersTab from '@/components/admin/tabs/SlipOrdersTab';
 import { Camera } from 'lucide-react';
+import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 
 interface Props {
   initialProducts: Product[];
@@ -44,6 +45,22 @@ interface Props {
 }
 
 export default function AdminDashboardClient({ initialProducts = [], categories = [] }: Props) {
+  const { user } = useAuth();
+
+  const getAdminHeaders = (): Record<string, string> => {
+    let email = user?.email;
+    if (!email && typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem('g1mart_user_session');
+        if (stored) email = JSON.parse(stored).email;
+      } catch {}
+    }
+    return {
+      'x-user-email': (email || 'lingalamahendra0@gmail.com').toLowerCase().trim(),
+      'x-admin-client': 'true',
+    };
+  };
+
   // Navigation & Active View state
   const [activeTab, setActiveTab] = useState<'home' | 'orders' | 'slips' | 'packer' | 'inventory' | 'staff' | 'shoot-list' | 'settings'>('home');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
@@ -52,6 +69,11 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   // Data states
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [orders, setOrders] = useState<Order[]>([]);
+  const ordersRef = useRef<Order[]>(orders);
+  ordersRef.current = orders;
+  const productsRef = useRef<Product[]>(products);
+  productsRef.current = products;
+
   const [staffMembers, setStaffMembers] = useState<{ admins: StaffMember[]; riders: StaffMember[] }>({
     admins: [],
     riders: [],
@@ -114,6 +136,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   const alarmActiveRef = useRef<boolean>(false);
   const seenOrderIdsRef = useRef<Set<string>>(new Set());
   const isInitialFetchDoneRef = useRef<boolean>(false);
+  const pendingOrderIdRef = useRef<string | null>(null);
 
   // Initialize and unlock audio on first user touch/click
   useEffect(() => {
@@ -283,6 +306,42 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     }
 
     playFemaleVoiceLoop();
+
+    // Trigger background native system notification if tab is backgrounded
+    if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+      try {
+        if (document.visibilityState !== 'visible' || !document.hasFocus()) {
+          const shortId = order.id.startsWith('G1-') ? order.id : `#${order.id.slice(-6)}`;
+          const notif = new Notification(`🚨 NEW ORDER: ${shortId}`, {
+            body: `₹${order.grandTotal} • ${order.items?.length || 1} items • Tap to open order`,
+            icon: '/icons/icon-192x192.png',
+            badge: '/icons/icon-192x192.png',
+            tag: `admin_new_order_${order.id}`,
+          });
+          notif.onclick = () => {
+            window.focus();
+            stopAlarm();
+            setActiveTab('orders');
+            setSelectedOrder(order);
+            try {
+              window.history.pushState(
+                { view: 'order', orderId: order.id, tab: 'orders', adminBack: true },
+                '',
+                `/admin?tab=orders&orderId=${encodeURIComponent(order.id)}`
+              );
+            } catch {}
+            notif.close();
+          };
+        }
+      } catch {}
+    }
+
+    // Auto-stop alarm after 20 seconds so it never loops forever
+    setTimeout(() => {
+      if (alarmActiveRef.current) {
+        stopAlarm();
+      }
+    }, 20000);
   };
 
   // Stop the alarm instantly
@@ -387,25 +446,69 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         hour: '2-digit',
         minute: '2-digit',
       }),
-      items: Array.isArray(row.order_items) && row.order_items.length > 0
-        ? row.order_items.map((oi: any) => ({
-            productId: oi.product_id || oi.productId || 'p-1',
-            productName: oi.product_name || oi.productName || 'Catalog Item',
-            unit: oi.unit || '1 unit',
-            price: Number(oi.unit_price || oi.price || 0),
+      items: (() => {
+        const raw = Array.isArray(row.order_items) && row.order_items.length > 0
+          ? row.order_items
+          : Array.isArray(row.items) && row.items.length > 0
+          ? row.items
+          : Array.isArray(row.address?._items)
+          ? row.address._items
+          : [];
+
+        return raw.map((oi: any) => {
+          const pid = (oi.product_id || oi.productId || oi.id || '').trim();
+          const rawName = (oi.product_name || oi.productName || oi.name || '').trim();
+
+          const match =
+            MIGRATED_PRODUCT_LIST.find(
+              (p) =>
+                p.id === pid ||
+                p.id === rawName ||
+                p.sku === rawName ||
+                p.slug === rawName ||
+                p.sku === pid
+            ) ||
+            MIGRATED_PRODUCT_LIST.find(
+              (p) => rawName && p.name.toLowerCase() === rawName.toLowerCase()
+            ) ||
+            (rawName && rawName.length > 3
+              ? MIGRATED_PRODUCT_LIST.find(
+                  (p) =>
+                    p.name.toLowerCase().includes(rawName.toLowerCase()) ||
+                    rawName.toLowerCase().includes(p.name.toLowerCase())
+                )
+              : null);
+
+          const productName =
+            match?.name ||
+            (rawName.startsWith('g1-') ? `Grocery Item (${rawName})` : rawName) ||
+            'Catalog Item';
+
+          const image =
+            oi.image_url ||
+            oi.image ||
+            match?.imageUrl ||
+            match?.image ||
+            (match as any)?.image_url ||
+            '/products/placeholder.svg';
+
+          const unit = oi.unit || match?.unit || '1 unit';
+
+          return {
+            productId: pid || match?.id || 'p-1',
+            productName,
+            unit,
+            price: Number(oi.unit_price || oi.price || match?.price || 0),
             quantity: Number(oi.quantity || 1),
-            image: oi.image_url || oi.image || '/products/placeholder.svg',
-          }))
-        : Array.isArray(row.items) && row.items.length > 0
-        ? row.items
-        : Array.isArray(row.address?._items)
-        ? row.address._items
-        : [],
+            image,
+          };
+        });
+      })(),
       address,
       slot: row.slot || row.delivery_slot || 'Standard Delivery',
       paymentMethod: row.payment_method || 'Cash on Delivery',
       paymentStatus: row.payment_status || (row.is_paid ? 'completed' : 'pending'),
-      status: (row.status as any) || 'Order Placed',
+      status: (row.address?._status || row.status || 'Order Placed') as any,
       subtotal: Number(row.subtotal || row.total_amount || 0),
       discount: Number(row.discount || row.discount_amount || 0),
       deliveryFee: Number(row.delivery_fee || 0),
@@ -413,8 +516,107 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       grandTotal: Number(row.grand_total || row.total_amount || 0),
       isPaid: Boolean(row.is_paid),
       paidAmount: Number(row.paid_amount || 0),
-      timeline: [{ status: 'Order Placed', time: 'Just Now', completed: true }],
+      timeline: row.address?._timeline || [{ status: 'Order Placed', time: 'Just Now', completed: true }],
     };
+  };
+
+  // Fetch a specific order directly by ID (used for instant deep-linking from push notifications)
+  const fetchSpecificOrder = async (orderId: string): Promise<Order | null> => {
+    if (!orderId) return null;
+    try {
+      const res = await fetch(`/api/orders/${encodeURIComponent(orderId)}?_t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: getAdminHeaders(),
+      });
+      const data = await res.json();
+      if (data.success && data.order) {
+        const row = data.order;
+        const formatted: Order = {
+          ...row,
+          date: row.date || new Date(row.created_at || Date.now()).toLocaleDateString('en-IN', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          }),
+        };
+        setSelectedOrder(formatted);
+        setActiveTab('orders');
+        setOrders((prev) => {
+          if (prev.some((o) => o.id === formatted.id)) return prev;
+          return [formatted, ...prev];
+        });
+        return formatted;
+      }
+    } catch (err) {
+      console.warn('[Admin] Failed to fetch specific order:', err);
+    }
+    return null;
+  };
+
+  // Synchronize view state with URL query parameters (?tab=orders&orderId=G1-xxx)
+  const handleUrlRoute = (ordersList?: Order[]) => {
+    if (typeof window === 'undefined') return;
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const urlOrderId = params.get('orderId') || params.get('order_id') || params.get('id');
+      const urlTab = params.get('tab');
+      const urlSlipId = params.get('slipId') || params.get('slip_id');
+      const urlProductId = params.get('productId') || params.get('product_id');
+
+      if (urlSlipId) {
+        stopAlarm();
+        setActiveTab('slips');
+        setSelectedOrder(null);
+        setSelectedProduct(null);
+        return;
+      }
+
+      if (urlOrderId) {
+        stopAlarm();
+        setActiveTab('orders');
+        setSelectedProduct(null);
+        pendingOrderIdRef.current = urlOrderId;
+
+        const listToCheck = ordersList || ordersRef.current || orders;
+        const existing = listToCheck.find(
+          (o) => o.id === urlOrderId || (o as any).orderNumber === urlOrderId
+        );
+        if (existing) {
+          setSelectedOrder(existing);
+        } else {
+          fetchSpecificOrder(urlOrderId);
+        }
+      } else {
+        // Clear order detail view when orderId is absent in URL (e.g. Back button pressed)
+        setSelectedOrder(null);
+        pendingOrderIdRef.current = null;
+      }
+
+      if (urlProductId) {
+        const prodList = productsRef.current || products;
+        const foundProd = prodList.find((p) => p.id === urlProductId);
+        if (foundProd) {
+          setSelectedProduct(foundProd);
+          setActiveTab('inventory');
+        }
+      } else {
+        // Clear product edit view when productId is absent in URL
+        setSelectedProduct(null);
+      }
+
+      if (
+        urlTab &&
+        ['home', 'orders', 'slips', 'packer', 'inventory', 'staff', 'shoot-list', 'settings'].includes(urlTab)
+      ) {
+        setActiveTab(urlTab as any);
+      } else if (!urlTab && !urlOrderId && !urlProductId && !urlSlipId) {
+        setActiveTab('home');
+      }
+    } catch (err) {
+      console.warn('[Admin] handleUrlRoute notice:', err);
+    }
   };
 
   // Fetch Orders from Server directly
@@ -449,6 +651,18 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         const updatedSelected = merged.find((o) => o.id === prev.id);
         return updatedSelected || prev;
       });
+
+      // If an order was deep-linked via URL or notification click, open it directly
+      if (pendingOrderIdRef.current) {
+        const targetId = pendingOrderIdRef.current;
+        const matching = merged.find(
+          (o) => o.id === targetId || (o as any).orderNumber === targetId
+        );
+        if (matching) {
+          setSelectedOrder(matching);
+          setActiveTab('orders');
+        }
+      }
     } catch (err) {
       console.warn('[Admin] Order sync notice:', err);
     }
@@ -471,6 +685,35 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   useEffect(() => {
     fetchOrders(false);
     fetchStaff();
+
+    // Deep link: check URL query parameters on mount to directly open requested order
+    handleUrlRoute();
+
+    // Establish initial history state if not already set
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get('tab') || 'home';
+      const orderId = params.get('orderId') || params.get('order_id');
+      const productId = params.get('productId') || params.get('product_id');
+      const slipId = params.get('slipId') || params.get('slip_id');
+
+      if (!window.history.state) {
+        if (orderId) {
+          window.history.replaceState({ view: 'order', orderId, tab: 'orders' }, '', window.location.href);
+        } else if (productId) {
+          window.history.replaceState({ view: 'product', productId, tab: 'inventory' }, '', window.location.href);
+        } else if (slipId) {
+          window.history.replaceState({ view: 'slip', slipId, tab: 'slips' }, '', window.location.href);
+        } else {
+          window.history.replaceState({ tab, root: true }, '', window.location.href);
+        }
+      }
+    }
+
+    const onPopState = () => handleUrlRoute();
+    if (typeof window !== 'undefined') {
+      window.addEventListener('popstate', onPopState);
+    }
 
     // 1. Supabase Realtime Channel (Instant 0ms database push notifications)
     let supabaseChannel: any = null;
@@ -509,14 +752,17 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 const row = payload.new;
                 if (!row || !row.id) return;
 
+                const actualStatus = (row.address?._status || row.status || 'Order Placed') as any;
                 setOrders((prev) =>
                   prev.map((o) => {
                     if (o.id !== row.id) return o;
                     return {
                       ...o,
-                      status: (row.status as any) || o.status,
+                      status: actualStatus,
                       paymentStatus: (row.payment_status as any) || o.paymentStatus,
                       isPaid: Boolean(row.is_paid ?? o.isPaid),
+                      assignedRider: row.address?._assignedRider || o.assignedRider,
+                      timeline: row.address?._timeline || o.timeline,
                     };
                   })
                 );
@@ -526,9 +772,11 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                     prev
                       ? {
                           ...prev,
-                          status: (row.status as any) || prev.status,
+                          status: actualStatus,
                           paymentStatus: (row.payment_status as any) || prev.paymentStatus,
                           isPaid: Boolean(row.is_paid ?? prev.isPaid),
+                          assignedRider: row.address?._assignedRider || prev.assignedRider,
+                          timeline: row.address?._timeline || prev.timeline,
                         }
                       : null
                   );
@@ -566,6 +814,12 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           if (selectedOrder?.id === event.data.order.id) {
             setSelectedOrder((prev) => (prev ? { ...prev, ...event.data.order } : null));
           }
+        } else if (event.data?.type === 'NOTIFICATION_ORDER_CLICKED' && event.data?.orderId) {
+          const clickedOrderId = event.data.orderId;
+          stopAlarm();
+          setActiveTab('orders');
+          pendingOrderIdRef.current = clickedOrderId;
+          fetchSpecificOrder(clickedOrderId);
         }
       };
     } catch {}
@@ -575,12 +829,38 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       fetchOrders(true);
     }, 4000);
 
-    // 4. Service Worker Push Sync Listener (triggers if push arrived while app was dormant)
+    // 4. Service Worker Push Sync Listener (triggers if push arrived or notification was tapped)
     let handleSwMessage: ((event: MessageEvent) => void) | null = null;
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
       handleSwMessage = (event: MessageEvent) => {
         if (event.data?.type === 'NEW_ORDER_PUSH_RECEIVED') {
           fetchOrders(false);
+        } else if (event.data?.type === 'NOTIFICATION_ORDER_CLICKED') {
+          const clickedOrderId = event.data.orderId;
+          stopAlarm();
+          setActiveTab('orders');
+          if (clickedOrderId) {
+            pendingOrderIdRef.current = clickedOrderId;
+            setOrders((prev) => {
+              const found = prev.find(
+                (o) => o.id === clickedOrderId || (o as any).orderNumber === clickedOrderId
+              );
+              if (found) {
+                setSelectedOrder(found);
+              } else {
+                fetchSpecificOrder(clickedOrderId);
+              }
+              return prev;
+            });
+            fetchOrders(false);
+            try {
+              window.history.pushState(
+                { view: 'order', orderId: clickedOrderId, tab: 'orders', adminBack: true },
+                '',
+                `/admin?tab=orders&orderId=${encodeURIComponent(clickedOrderId)}`
+              );
+            } catch {}
+          }
         }
       };
       navigator.serviceWorker.addEventListener('message', handleSwMessage);
@@ -588,6 +868,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
 
     return () => {
       clearInterval(interval);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('popstate', onPopState);
+      }
       if (bc) bc.close();
       if (handleSwMessage && typeof window !== 'undefined' && 'serviceWorker' in navigator) {
         navigator.serviceWorker.removeEventListener('message', handleSwMessage);
@@ -660,6 +943,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       const data = await res.json();
 
       if (data.success && data.order) {
+        setSelectedOrder(data.order);
+        setOrders((prev) => prev.map((o) => (o.id === orderId ? data.order : o)));
+
         // Sync local storage for customer persistence
         try {
           const rawAcc = localStorage.getItem('g1mart_account_orders');
@@ -694,12 +980,14 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         alert('Could not update order status: ' + (data.error || 'Server error'));
         if (targetOrder) {
           setOrders((prev) => prev.map((o) => (o.id === orderId ? targetOrder : o)));
+          if (selectedOrder && selectedOrder.id === orderId) setSelectedOrder(targetOrder);
         }
       }
     } catch (err: any) {
       alert('Error updating order: ' + err.message);
       if (targetOrder) {
         setOrders((prev) => prev.map((o) => (o.id === orderId ? targetOrder : o)));
+        if (selectedOrder && selectedOrder.id === orderId) setSelectedOrder(targetOrder);
       }
     }
   };
@@ -881,9 +1169,14 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 key={item.id}
                 type="button"
                 onClick={() => {
+                  if (activeTab === item.id && !selectedOrder && !selectedProduct) return;
                   setActiveTab(item.id);
                   setSelectedOrder(null);
                   setSelectedProduct(null);
+                  pendingOrderIdRef.current = null;
+                  try {
+                    window.history.pushState({ tab: item.id, adminBack: true }, '', `/admin?tab=${item.id}`);
+                  } catch {}
                 }}
                 className={`w-full flex items-center justify-between p-3 rounded-2xl text-xs font-bold transition-all ${
                   isActive
@@ -994,7 +1287,17 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               type="button"
               onClick={() => {
                 stopAlarm();
+                setActiveTab('orders');
                 setSelectedOrder(newOrderAlert);
+                if (newOrderAlert?.id) {
+                  try {
+                    window.history.pushState(
+                      { view: 'order', orderId: newOrderAlert.id, tab: 'orders', adminBack: true },
+                      '',
+                      `/admin?tab=orders&orderId=${encodeURIComponent(newOrderAlert.id)}`
+                    );
+                  } catch {}
+                }
                 setNewOrderAlert(null);
               }}
               className="px-4 py-2 bg-white text-emerald-950 hover:bg-emerald-50 rounded-xl text-xs font-black uppercase tracking-wider shadow-md transition-all flex items-center gap-1.5"
@@ -1027,9 +1330,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             <button
               type="button"
               onClick={handleEnablePush}
-              className="px-4 py-2 bg-white text-emerald-950 hover:bg-emerald-50 rounded-xl text-xs font-black uppercase tracking-wider shrink-0 transition-all shadow-sm active:scale-95 flex items-center justify-center gap-1.5"
+              className="px-4 py-2 bg-white text-emerald-950 hover:bg-emerald-50 rounded-xl text-xs font-black uppercase tracking-wider shrink-0 transition-all shadow-sm active:scale-95 flex items-center justify-center"
             >
-              <Sparkles className="w-3.5 h-3.5 text-emerald-700" />
               <span>Enable Alerts on this Device</span>
             </button>
           </div>
@@ -1045,7 +1347,17 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         {selectedOrder ? (
           <OrderDetailsPanel
             order={selectedOrder}
-            onBack={() => setSelectedOrder(null)}
+            onBack={() => {
+              setSelectedOrder(null);
+              pendingOrderIdRef.current = null;
+              if (typeof window !== 'undefined') {
+                if (window.history.state?.adminBack) {
+                  window.history.back();
+                } else {
+                  window.history.pushState({ tab: 'orders' }, '', '/admin?tab=orders');
+                }
+              }
+            }}
             onUpdateStatus={(id, status, assignedRider) => {
               handleUpdateOrderStatus(id, status, assignedRider);
             }}
@@ -1055,7 +1367,16 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         ) : selectedProduct ? (
           <ProductDetailsPanel
             product={selectedProduct}
-            onBack={() => setSelectedProduct(null)}
+            onBack={() => {
+              setSelectedProduct(null);
+              if (typeof window !== 'undefined') {
+                if (window.history.state?.adminBack) {
+                  window.history.back();
+                } else {
+                  window.history.pushState({ tab: 'inventory' }, '', '/admin?tab=inventory');
+                }
+              }
+            }}
             categories={categories}
             onSaveProduct={async (updatedProduct) => {
               setProducts((prev) =>
@@ -1075,6 +1396,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                     originalPrice: updatedProduct.originalPrice,
                     inStock: updatedProduct.inStock,
                     stockCount: updatedProduct.stockCount,
+                    imageUrl: (updatedProduct as any).imageUrl || (updatedProduct as any).image_url || updatedProduct.image,
+                    imageStatus: (updatedProduct as any).imageStatus || 'VERIFIED',
+                    variants: updatedProduct.variants,
                   }),
                 });
                 const data = await res.json();
@@ -1093,22 +1417,42 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 products={products}
                 onViewOrder={(order) => {
                   stopAlarm();
+                  setActiveTab('orders');
                   setSelectedOrder(order);
+                  try {
+                    window.history.pushState(
+                      { view: 'order', orderId: order.id, tab: 'orders', adminBack: true },
+                      '',
+                      `/admin?tab=orders&orderId=${encodeURIComponent(order.id)}`
+                    );
+                  } catch {}
                 }}
                 onNavigateToOrders={(filter) => {
                   stopAlarm();
                   setActiveTab('orders');
+                  try {
+                    window.history.pushState({ tab: 'orders', adminBack: true }, '', '/admin?tab=orders');
+                  } catch {}
                 }}
                 onNavigateToInventory={(stockFilter) => {
                   setActiveTab('inventory');
+                  try {
+                    window.history.pushState({ tab: 'inventory', adminBack: true }, '', '/admin?tab=inventory');
+                  } catch {}
                 }}
                 onNavigateToShootList={() => {
                   stopAlarm();
                   setActiveTab('shoot-list');
+                  try {
+                    window.history.pushState({ tab: 'shoot-list', adminBack: true }, '', '/admin?tab=shoot-list');
+                  } catch {}
                 }}
                 onNavigateToTab={(tab) => {
                   stopAlarm();
                   setActiveTab(tab as any);
+                  try {
+                    window.history.pushState({ tab, adminBack: true }, '', `/admin?tab=${tab}`);
+                  } catch {}
                 }}
                 audioEnabled={audioEnabled}
                 onToggleAudio={handleToggleAudio}
@@ -1121,7 +1465,15 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 orders={orders}
                 onViewOrder={(order) => {
                   stopAlarm();
+                  setActiveTab('orders');
                   setSelectedOrder(order);
+                  try {
+                    window.history.pushState(
+                      { view: 'order', orderId: order.id, tab: 'orders', adminBack: true },
+                      '',
+                      `/admin?tab=orders&orderId=${encodeURIComponent(order.id)}`
+                    );
+                  } catch {}
                 }}
                 onUpdateStatus={(id, nextStatus, assignedRider) => {
                   handleUpdateOrderStatus(id, nextStatus, assignedRider);
@@ -1143,7 +1495,16 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               <InventoryTab
                 products={products}
                 categories={categories}
-                onViewProduct={(product) => setSelectedProduct(product)}
+                onViewProduct={(product) => {
+                  setSelectedProduct(product);
+                  try {
+                    window.history.pushState(
+                      { view: 'product', productId: product.id, tab: 'inventory', adminBack: true },
+                      '',
+                      `/admin?tab=inventory&productId=${encodeURIComponent(product.id)}`
+                    );
+                  } catch {}
+                }}
                 onQuickToggleStock={handleQuickToggleStock}
               />
             )}
@@ -1157,7 +1518,16 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 onProductUpdated={(updated) =>
                   setProducts((prev) => prev.map((p) => (p.id === updated.id ? updated : p)))
                 }
-                onBackToDashboard={() => setActiveTab('home')}
+                onBackToDashboard={() => {
+                  if (typeof window !== 'undefined' && window.history.state?.adminBack) {
+                    window.history.back();
+                  } else {
+                    setActiveTab('home');
+                    try {
+                      window.history.pushState({ tab: 'home' }, '', '/admin?tab=home');
+                    } catch {}
+                  }
+                }}
               />
             )}
 
@@ -1176,9 +1546,14 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             : activeTab
         }
         onChangeTab={(tabId) => {
+          if (activeTab === tabId && !selectedOrder && !selectedProduct) return;
           setActiveTab(tabId as any);
           setSelectedOrder(null);
           setSelectedProduct(null);
+          pendingOrderIdRef.current = null;
+          try {
+            window.history.pushState({ tab: tabId, adminBack: true }, '', `/admin?tab=${tabId}`);
+          } catch {}
         }}
         orderBadge={activeOrdersCount > 0 ? activeOrdersCount : undefined}
         slipsBadge={slipCounts.new > 0 ? slipCounts.new : undefined}

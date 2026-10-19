@@ -18,7 +18,6 @@ import {
   User,
   Plus,
   MapPin,
-  Sparkles,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';

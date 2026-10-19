@@ -24,6 +24,12 @@ export default function RiderAuthGuard({ children }: { children: React.ReactNode
       }
 
       const cleanEmail = user.email?.toLowerCase().trim() || '';
+      const emailParts = cleanEmail.split('@');
+      const normEmail =
+        emailParts.length === 2 && (emailParts[1] === 'gmail.com' || emailParts[1] === 'googlemail.com')
+          ? `${emailParts[0].replace(/\./g, '').split('+')[0]}@gmail.com`
+          : cleanEmail;
+
       // Admins and Riders both have clearance for rider delivery console
       if (
         user.role === 'delivery_partner' ||
@@ -31,9 +37,11 @@ export default function RiderAuthGuard({ children }: { children: React.ReactNode
         user.role === 'admin' ||
         cleanEmail === 'g1mart@gmail.com' ||
         cleanEmail === 'lingalamahendra0@gmail.com' ||
+        cleanEmail === 'rider@g1mart.com' ||
         cleanEmail === 'gummasaiganesh57@gmail.com' ||
-        cleanEmail === 'vv727457@gmail.com' ||
-        cleanEmail === 'rider@g1mart.com'
+        cleanEmail === 'gumma.saiganesh57@gmail.com' ||
+        normEmail === 'gummasaiganesh57@gmail.com' ||
+        normEmail === 'rider@g1mart.com'
       ) {
         if (isMounted) setVerifiedRider(true);
         return;
@@ -45,7 +53,7 @@ export default function RiderAuthGuard({ children }: { children: React.ReactNode
         const res = await fetch('/api/auth/role-check', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: user.email }),
+          body: JSON.stringify({ email: user.email, normalizedEmail: normEmail }),
         });
         const data = await res.json();
         if (isMounted) {

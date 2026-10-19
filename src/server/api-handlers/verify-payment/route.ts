@@ -40,22 +40,9 @@ export async function POST(req: NextRequest) {
       .update(`${orderId}|${paymentId}`)
       .digest('hex');
 
-    // In non-production testing, allow simulation ONLY if explicitly enabled via environment variable
-    const allowSimulation =
-      process.env.NODE_ENV !== 'production' &&
-      process.env.ENABLE_PAYMENT_SIMULATION === 'true';
-
-    const isTestModeOrder =
-      allowSimulation &&
-      (orderId.startsWith('order_test_') ||
-        paymentId.startsWith('pay_test_') ||
-        signature.startsWith('test_sig_'));
-
     // Secure timing-safe signature comparison
     let signaturesMatch = false;
-    if (isTestModeOrder) {
-      signaturesMatch = true;
-    } else if (typeof signature === 'string' && expectedSignature.length === signature.length) {
+    if (typeof signature === 'string' && expectedSignature.length === signature.length) {
       signaturesMatch = crypto.timingSafeEqual(
         Buffer.from(expectedSignature, 'utf-8'),
         Buffer.from(signature, 'utf-8')

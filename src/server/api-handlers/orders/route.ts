@@ -109,11 +109,21 @@ export async function GET(req: NextRequest) {
       (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
     );
 
-    return NextResponse.json({
-      success: true,
-      orders: merged,
-      count: merged.length,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        orders: merged,
+        count: merged.length,
+      },
+      {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+          'Surrogate-Control': 'no-store',
+        },
+      }
+    );
   } catch (err: any) {
     return NextResponse.json(
       { success: false, error: err.message || 'Failed to fetch user orders' },

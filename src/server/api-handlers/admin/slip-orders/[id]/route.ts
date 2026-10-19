@@ -48,7 +48,33 @@ export async function PATCH(req: NextRequest, { params }: Props) {
       return NextResponse.json({ success: true, order: cancelResult.order });
     }
 
-    // Save Billing Items (Phase 6 Rule 3)
+    // 1. Support Simple Aggregate Billing (Total Items + Total Grocery Amount)
+    if (body.totalItems !== undefined && body.groceryAmount !== undefined) {
+      const updated = await serverSlipOrders.saveAggregateBill({
+        slipId: id,
+        totalItems: Number(body.totalItems),
+        groceryAmount: Number(body.groceryAmount),
+        deliveryFee: body.deliveryFee !== undefined ? Number(body.deliveryFee) : 0,
+        discount: body.discount !== undefined ? Number(body.discount) : 0,
+        adminNotes,
+        billedBy: billedBy || 'Store Staff',
+        moveStatus: body.moveStatus || 'BILLING',
+      });
+
+      if (!updated) {
+        return NextResponse.json(
+          { success: false, error: 'Failed to save aggregate bill for slip order' },
+          { status: 404 }
+        );
+      }
+
+      return NextResponse.json({
+        success: true,
+        order: updated,
+      });
+    }
+
+    // 2. Save Itemized Billing Items if submitted
     if (items && Array.isArray(items)) {
       const updated = await serverSlipOrders.saveBillingItems({
         slipId: id,
@@ -65,13 +91,19 @@ export async function PATCH(req: NextRequest, { params }: Props) {
         );
       }
 
+      // Notify customer if moved to awaiting confirmation or bill updated
+      try {
+        const { serverPushService } = await import('@/lib/serverPushService');
+        await serverPushService.sendSlipPushNotification(updated, 'BILL_READY');
+      } catch {}
+
       return NextResponse.json({
         success: true,
         order: updated,
       });
     }
 
-    return NextResponse.json({ success: false, error: 'Invalid action or missing items' }, { status: 400 });
+    return NextResponse.json({ success: false, error: 'Invalid action or missing billing details' }, { status: 400 });
   } catch (err: any) {
     return NextResponse.json(
       { success: false, error: err.message || 'Error updating slip order' },

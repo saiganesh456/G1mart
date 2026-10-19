@@ -21,7 +21,6 @@ import {
   RotateCcw,
   Bell,
   Volume2,
-  Sparkles,
 } from 'lucide-react';
 import { adminFetch } from '@/lib/adminApi';
 import type { StoreSettings, DeliveryZone } from '@/types/deliveryZone';

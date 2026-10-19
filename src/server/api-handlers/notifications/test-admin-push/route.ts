@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { serverPushService } from '@/lib/serverPushService';
+import { serverOrderStore } from '@/lib/serverOrderStore';
 import type { Order } from '@/types';
 
 export async function POST() {
@@ -43,6 +44,7 @@ export async function POST() {
       timeline: [{ status: 'Order Placed', time: 'Just now', completed: true }],
     };
 
+    await serverOrderStore.registerOrderAsync(testOrder);
     const sentCount = await serverPushService.notifyAdminsNewOrder(testOrder);
 
     return NextResponse.json({

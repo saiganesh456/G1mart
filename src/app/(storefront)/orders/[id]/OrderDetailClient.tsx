@@ -20,7 +20,6 @@ import {
   Banknote,
   Truck,
   Check,
-  Sparkles,
   FileText,
   ChevronRight,
 } from 'lucide-react';
@@ -32,6 +31,8 @@ import { useCart } from '@/context/CartContext';
 import { triggerSuccessHaptic } from '@/lib/haptics';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import type { Product } from '@/types';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
+import { loadRazorpayScript } from '@/components/payment/RazorpayCheckoutButton';
 
 function getProductHref(item: any): string | null {
   if (!item) return null;
@@ -132,7 +133,6 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
   const [codFee, setCodFee] = useState<number>(50);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [paymentError, setPaymentError] = useState<string | null>(null);
-  const [showRazorpayTestModal, setShowRazorpayTestModal] = useState(false);
 
   // Top-up items modal (Phase 6 Rule 5)
   const [showAddItemsModal, setShowAddItemsModal] = useState(false);
@@ -258,7 +258,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
 
     const syncLiveOrder = async () => {
       try {
-        const res = await fetch(`/api/orders/${orderId}`);
+        const res = await fetch(`/api/orders/${orderId}?_t=${Date.now()}`, { cache: 'no-store' });
         const data = await res.json();
         if (data.success && data.order) {
           setOrder((prev: any) => {
@@ -288,7 +288,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
           return;
         }
 
-        const payRes = await fetch(`/api/orders/${orderId}/payment-status`);
+        const payRes = await fetch(`/api/orders/${orderId}/payment-status?_t=${Date.now()}`, { cache: 'no-store' });
         const payData = await payRes.json();
         if (payData.success && payData.order) {
           setOrder((prev: any) => {
@@ -312,6 +312,39 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
         return prev;
       });
     }, 4000);
+
+    // Instant Supabase Realtime WebSocket listener for this order
+    let sbChannel: any = null;
+    if (isSupabaseConfigured()) {
+      try {
+        const isSlip = String(orderId).startsWith('SLIP-');
+        const targetTable = isSlip ? 'slip_orders' : 'orders';
+        sbChannel = supabase
+          .channel(`customer_order_track_${orderId}`)
+          .on(
+            'postgres_changes',
+            {
+              event: 'UPDATE',
+              schema: 'public',
+              table: targetTable,
+              filter: `id=eq.${orderId}`,
+            },
+            (payload: any) => {
+              if (payload.new) {
+                const nextStatus = payload.new.address?._status || payload.new.status;
+                setOrder((prev: any) => {
+                  if (prev && nextStatus && prev.status !== nextStatus) {
+                    playStatusChime(nextStatus);
+                  }
+                  return { ...prev, ...payload.new, status: nextStatus || prev?.status };
+                });
+                syncLiveOrder();
+              }
+            }
+          )
+          .subscribe();
+      } catch {}
+    }
 
     let bc: BroadcastChannel | null = null;
     try {
@@ -348,6 +381,11 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
       clearInterval(interval);
       window.removeEventListener('storage', handleStorageChange);
       if (bc) bc.close();
+      if (sbChannel) {
+        try {
+          supabase.removeChannel(sbChannel);
+        } catch {}
+      }
     };
   }, [orderId]);
 
@@ -472,7 +510,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
   };
 
   // Submit Payment for Slip Order
-  const handleCompleteSlipPayment = async (isTestOnlineSuccess: boolean = false) => {
+  const handleCompleteSlipPayment = async () => {
     setIsProcessingPayment(true);
     setPaymentError(null);
 
@@ -507,48 +545,94 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
         }
       } else {
         // Online Payment via Razorpay
-        if (!isTestOnlineSuccess) {
-          setShowRazorpayTestModal(true);
-          setIsProcessingPayment(false);
-          return;
+        const scriptReady = await loadRazorpayScript();
+        if (!scriptReady || !(window as any).Razorpay) {
+          throw new Error('Unable to load payment gateway SDK. Please check your internet connection or choose Pay on Delivery.');
         }
 
-        const paymentId = `pay_slip_${Date.now().toString().slice(-8)}`;
-        const razorpayOrderId = `order_slip_${orderId}`;
-        const signature = `sig_${razorpayOrderId}_${paymentId}`;
-
-        const res = await fetch(`/api/slip-orders/${orderId}/pay`, {
+        const initRes = await fetch(`/api/slip-orders/${orderId}/pay`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            paymentMethod: 'online',
-            razorpayPaymentId: paymentId,
-            razorpayOrderId,
-            razorpaySignature: signature,
-          }),
+          body: JSON.stringify({ paymentMethod: 'online' }),
         });
 
-        const data = await res.json();
-        if (res.ok && data.success) {
-          setShowRazorpayTestModal(false);
-          setOrder((prev: any) => ({
-            ...prev,
-            status: 'PAID',
-            paymentStatus: 'paid',
-            isPaid: true,
-            paymentMethod: 'Razorpay UPI/Card',
-            transactionId: paymentId,
-            finalTotal: data.order.final_total,
-          }));
-
-          try {
-            const bc = new BroadcastChannel('g1mart_order_channel');
-            bc.postMessage({ type: 'ORDER_UPDATED', orderId, status: 'PAID' });
-            bc.close();
-          } catch {}
-        } else {
-          setPaymentError(data.error || 'Online payment verification failed');
+        const initData = await initRes.json();
+        if (!initRes.ok || !initData.success) {
+          throw new Error(initData.error || 'Failed to initialize online payment');
         }
+
+        const options = {
+          key: initData.keyId,
+          amount: initData.amountInPaise,
+          currency: 'INR',
+          name: 'G1mart Supermarket',
+          description: `Slip Order #${orderId}`,
+          order_id: initData.providerOrderId,
+          prefill: {
+            name: order.customer_name || '',
+            contact: order.customer_phone || '',
+          },
+          theme: { color: '#2E7D32' },
+          modal: {
+            ondismiss: () => {
+              setIsProcessingPayment(false);
+              setPaymentError('Online payment was cancelled. You can retry or choose Pay on Delivery.');
+            },
+          },
+          handler: async (response: {
+            razorpay_payment_id: string;
+            razorpay_order_id: string;
+            razorpay_signature: string;
+          }) => {
+            try {
+              const verifyRes = await fetch(`/api/slip-orders/${orderId}/pay`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  paymentMethod: 'online',
+                  razorpayPaymentId: response.razorpay_payment_id,
+                  razorpayOrderId: response.razorpay_order_id,
+                  razorpaySignature: response.razorpay_signature,
+                }),
+              });
+
+              const verifyData = await verifyRes.json();
+              if (verifyRes.ok && verifyData.success) {
+                setOrder((prev: any) => ({
+                  ...prev,
+                  status: 'PAID',
+                  paymentStatus: 'paid',
+                  isPaid: true,
+                  paymentMethod: 'Razorpay UPI/Card',
+                  transactionId: response.razorpay_payment_id,
+                  finalTotal: verifyData.order?.final_total || prev?.finalTotal,
+                }));
+
+                try {
+                  const bc = new BroadcastChannel('g1mart_order_channel');
+                  bc.postMessage({ type: 'ORDER_UPDATED', orderId, status: 'PAID' });
+                  bc.close();
+                } catch {}
+              } else {
+                setPaymentError(verifyData.error || 'Payment signature verification failed');
+              }
+            } catch (err: any) {
+              setPaymentError(err.message || 'Error verifying payment');
+            } finally {
+              setIsProcessingPayment(false);
+            }
+          },
+        };
+
+        const rzp = new (window as any).Razorpay(options);
+        rzp.on('payment.failed', (failResp: any) => {
+          setIsProcessingPayment(false);
+          const desc = failResp?.error?.description || failResp?.error?.reason || 'Payment transaction failed';
+          setPaymentError(`Payment failed: ${desc}`);
+        });
+
+        rzp.open();
+        return;
       }
     } catch (err: any) {
       setPaymentError(err.message || 'Payment processing error');
@@ -632,13 +716,15 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
           </p>
         </div>
 
-        <div className="w-9 flex items-center justify-end shrink-0">
-          {order?.eta_min ? (
+        <div className="w-12 flex items-center justify-end shrink-0">
+          {Number(order?.eta_min) > 0 ? (
             <span className="text-[10px] font-bold bg-white/20 text-white px-2 py-0.5 rounded-full whitespace-nowrap">
-              ~{order.eta_min}m
+              ~{Math.max(10, Math.round(Number(order.eta_min)))}m
             </span>
           ) : (
-            <div className="w-9" />
+            <span className="text-[10px] font-bold bg-white/20 text-white px-2 py-0.5 rounded-full whitespace-nowrap">
+              Active
+            </span>
           )}
         </div>
       </header>
@@ -783,6 +869,50 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
           return null;
         })()}
 
+        {/* Slip Order Confirmation by Store Manager Call */}
+        {isSlipOrder && (
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50/70 to-emerald-50 border border-emerald-300 shadow-xs space-y-2.5">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-[#1E6B2E] text-white flex items-center justify-center text-lg shrink-0 shadow-xs">
+                📞
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black text-emerald-950 uppercase tracking-wide">
+                    {order?.status === 'SLIP_RECEIVED'
+                      ? 'Store Reviewing Your Slip'
+                      : 'Confirmed via Call with Store Manager'}
+                  </span>
+                  <span className="text-[10px] font-bold bg-emerald-200/80 text-emerald-900 px-2.5 py-0.5 rounded-full border border-emerald-300">
+                    {order?.status === 'SLIP_RECEIVED' ? 'Pending Call' : 'Verified on Call'}
+                  </span>
+                </div>
+                <p className="text-xs text-emerald-900 mt-1 leading-snug">
+                  {order?.status === 'SLIP_RECEIVED'
+                    ? 'Our store manager is reviewing your uploaded grocery list and will call your phone to verify brands and pack your items.'
+                    : 'The store manager verified your grocery list over phone. Items have been billed and prepared as discussed.'}
+                </p>
+              </div>
+            </div>
+
+            {/* Price confirmation box */}
+            {currentSubtotal > 0 && (
+              <div className="bg-white/90 rounded-xl p-3 border border-emerald-200/90 flex items-center justify-between text-xs">
+                <div>
+                  <span className="text-stone-700 font-bold block">Verified Bill Amount</span>
+                  <span className="text-[10px] text-stone-500">Confirmed over phone for your uploaded slip</span>
+                </div>
+                <div className="text-right">
+                  <span className="text-base font-black text-[#1E6B2E]">
+                    ₹{currentSubtotal}
+                  </span>
+                  <span className="text-[10px] text-emerald-700 font-bold block">Free Doorstep Delivery</span>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Customer Uploaded Photos Preview (for slip orders) */}
         {order?.images && order.images.length > 0 && (
           <div className="bg-stone-50 p-3 rounded-xl border border-stone-200/70 space-y-1.5">
@@ -867,21 +997,27 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
                 )}
               </div>
               <p className="text-stone-600">
-                {address.houseFlat ? `${address.houseFlat}, ` : ''}
-                {address.streetArea ? `${address.streetArea}, ` : ''}
-                {address.city} – {address.pincode}
+                {(() => {
+                  const rawParts = [address.houseFlat, address.streetArea, address.city, address.pincode]
+                    .filter(Boolean)
+                    .flatMap((p) => String(p).split(/,\s*/))
+                    .map((s) => s.trim().replace(/^-+|-+$/g, '').trim())
+                    .filter(Boolean);
+                  const unique = rawParts.filter((item, index) => rawParts.indexOf(item) === index);
+                  return unique.join(', ');
+                })()}
               </p>
             </div>
           </div>
         )}
 
         {/* Items Breakdown with Unavailable Strike-Through (Phase 6 Rule 5) */}
-        {items.length > 0 && (
+        {(items.length > 0 || isSlipOrder || currentSubtotal > 0) && (
           <div className="space-y-2.5 border-t border-stone-100 pt-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-stone-900">
                 <Package className="w-4 h-4 text-[#1E6B2E]" />
-                <span>Items ({items.length})</span>
+                <span>Items ({items.length > 0 ? items.length : 'From Uploaded Slip'})</span>
               </div>
 
               {/* Add items top-up button if awaiting payment */}
@@ -897,6 +1033,17 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
               )}
             </div>
 
+            {items.length === 0 && isSlipOrder && (
+              <div className="p-3 bg-white rounded-xl border border-stone-200 text-xs text-stone-700 flex items-center justify-between shadow-2xs">
+                <div>
+                  <span className="font-bold text-stone-900 block">Items verified from uploaded slip</span>
+                  <span className="text-[10px] text-stone-500">Lump-sum bill confirmed with store manager over call</span>
+                </div>
+                <span className="font-black text-[#1E6B2E] text-sm">₹{currentSubtotal}</span>
+              </div>
+            )}
+
+            {items.length > 0 && (
             <div className="divide-y divide-stone-100 border border-stone-100 rounded-xl overflow-hidden">
               {items.map((item: any, idx: number) => {
                 const isItemUnavailable = item.available === false;
@@ -931,10 +1078,11 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
                         )}
                       </div>
                       <p className="text-stone-500 text-[11px] mt-0.5">
-                        {item.requestedQty !== undefined && item.packedQty !== undefined
-                          ? `Requested: ${item.requestedQty} · Packed: ${item.packedQty} ${item.unit || ''}`
-                          : `Qty: ${qty} · ${item.unit || 'unit'}`}{' '}
-                        @ ₹{price}/unit
+                        {String(item.id).startsWith('slip_item_') || (item.productName || item.name || '').includes('as per')
+                          ? `Total verified store amount for ${item.unit || 'slip items'}`
+                          : item.requestedQty !== undefined && item.packedQty !== undefined
+                          ? `Requested: ${item.requestedQty} · Packed: ${item.packedQty} ${item.unit || ''} @ ₹${price}/unit`
+                          : `Qty: ${qty} · ${item.unit || 'unit'} @ ₹${price}/unit`}
                       </p>
 
                       {/* Unavailable Badge & Substitute Note */}
@@ -986,6 +1134,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
                 );
               })}
             </div>
+            )}
 
             {/* Bill Summary — Reference C */}
             <div className="bg-stone-50 p-3.5 rounded-2xl border border-stone-200/80 space-y-2 text-xs">
@@ -1113,7 +1262,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
             <button
               type="button"
               disabled={isProcessingPayment}
-              onClick={() => handleCompleteSlipPayment(false)}
+              onClick={() => handleCompleteSlipPayment()}
               className="w-full py-3.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black rounded-2xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
             >
               <Check className="w-4 h-4 stroke-[3]" />
@@ -1289,64 +1438,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
         </div>
       )}
 
-      {/* MODAL 2: RAZORPAY TEST PAYMENT MODAL */}
-      {showRazorpayTestModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-          <div className="bg-white rounded-3xl p-5 max-w-sm w-full space-y-4 shadow-xl animate-in zoom-in-95">
-            <div className="flex items-center justify-between border-b border-stone-100 pb-2">
-              <div className="flex items-center gap-2">
-                <CreditCard className="w-4 h-4 text-[#2E7D32]" />
-                <h4 className="text-sm font-black text-stone-900">Razorpay Test Checkout</h4>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowRazorpayTestModal(false)}
-                className="p-1 rounded-lg hover:bg-stone-100 text-stone-400"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
 
-            <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200/80 space-y-2 text-xs">
-              <div className="flex justify-between">
-                <span className="text-stone-500 font-medium">Order Number:</span>
-                <span className="font-bold text-stone-900">#{orderId}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-stone-500 font-medium">Total Amount:</span>
-                <span className="font-black text-[#2E7D32]">₹{currentSubtotal}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-stone-500 font-medium">Mode:</span>
-                <span className="font-bold text-emerald-700">TEST / Sandbox</span>
-              </div>
-            </div>
-
-            <p className="text-[11px] text-stone-500 leading-relaxed">
-              In test mode, clicking &quot;Simulate Success&quot; will generate an authenticated HMAC SHA256 payment signature and verify it server-side.
-            </p>
-
-            <div className="flex items-center gap-2 pt-1">
-              <button
-                type="button"
-                onClick={() => setShowRazorpayTestModal(false)}
-                className="flex-1 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold rounded-xl text-xs"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                disabled={isProcessingPayment}
-                onClick={() => handleCompleteSlipPayment(true)}
-                className="flex-1 py-2.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black rounded-xl text-xs shadow-xs flex items-center justify-center gap-1.5 disabled:opacity-50"
-              >
-                <Check className="w-4 h-4 stroke-[3]" />
-                <span>Simulate Success</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

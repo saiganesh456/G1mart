@@ -1,13 +1,16 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { MapPin, Clock, Phone, Truck, ShieldCheck, CheckCircle2, CreditCard } from 'lucide-react';
 import { DEMO_CATEGORIES } from '@/data/demo-seed';
 import { STORE_CONFIG } from '@/config/store';
 
-/**
- * Site-wide footer — server component, no client JS needed.
- * All navigation uses Next.js Link.
- */
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname.startsWith('/rider')) {
+    return null;
+  }
   return (
     <footer className="mt-16 bg-white border-t border-stone-200/90 text-stone-700 select-none hidden md:block">
 

@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const data = serverStaffStore.getStaff();
+    const data = await serverStaffStore.getStaffAsync();
     return NextResponse.json({
       success: true,
       admins: data.admins,
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         success: true,
         message: 'Staff directory synchronized successfully',
-        staffDirectory: serverStaffStore.getStaff(),
+        staffDirectory: await serverStaffStore.getStaffAsync(),
       });
     }
 
@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
         success: true,
         message: `Admin privileges granted to ${email}`,
         staff: result.staff,
-        staffDirectory: serverStaffStore.getStaff(),
+        staffDirectory: await serverStaffStore.getStaffAsync(),
       });
     }
 
@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
         success: true,
         message: `Rider privileges granted to ${email}`,
         staff: result.staff,
-        staffDirectory: serverStaffStore.getStaff(),
+        staffDirectory: await serverStaffStore.getStaffAsync(),
       });
     }
 
@@ -121,14 +121,14 @@ export async function DELETE(request: NextRequest) {
     }
 
     if (type === 'admin') {
-      const result = await serverStaffStore.removeAdmin(email);
+      const result = await serverStaffStore.removeAdmin(email, auth.email);
       if (!result.success) {
         return NextResponse.json({ success: false, error: result.error }, { status: 400 });
       }
       return NextResponse.json({
         success: true,
         message: `Admin access revoked for ${email}`,
-        staffDirectory: serverStaffStore.getStaff(),
+        staffDirectory: await serverStaffStore.getStaffAsync(),
       });
     }
 
@@ -140,7 +140,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({
         success: true,
         message: `Rider access revoked for ${email}`,
-        staffDirectory: serverStaffStore.getStaff(),
+        staffDirectory: await serverStaffStore.getStaffAsync(),
       });
     }
 

@@ -53,7 +53,9 @@ export default function StaffManagementTab() {
   const fetchStaff = async () => {
     setLoading(true);
     try {
-      const headers: Record<string, string> = {};
+      const headers: Record<string, string> = {
+        'x-admin-client': 'true',
+      };
       if (user?.email) {
         headers['x-user-email'] = user.email;
       }
@@ -103,8 +105,8 @@ export default function StaffManagementTab() {
         ];
       }
 
-      // 3. Guarantee the currently logged-in admin's email is always displayed!
-      if (user?.email) {
+      // 3. Display current admin if verified as admin
+      if (user?.email && user.role === 'admin') {
         const currentCleanEmail = user.email.toLowerCase().trim();
         const exists = serverAdmins.some(
           (a) => (a.email || '').toLowerCase().trim() === currentCleanEmail
@@ -131,16 +133,6 @@ export default function StaffManagementTab() {
             name: 'Sai Ganesh',
             phone: '9876543210',
             vehicleNumber: 'AP 26 EQ 4589',
-            createdAt: '2026-10-01T00:00:00Z',
-            status: 'active',
-          },
-          {
-            id: 'rider-vamsi-vardhan',
-            email: 'vv727457@gmail.com',
-            role: 'rider',
-            name: 'Vamsi Vardhan',
-            phone: '9876543211',
-            vehicleNumber: 'AP 26 EQ 4590',
             createdAt: '2026-10-01T00:00:00Z',
             status: 'active',
           },
@@ -189,6 +181,7 @@ export default function StaffManagementTab() {
         headers: {
           'Content-Type': 'application/json',
           'x-user-email': user?.email || '',
+          'x-admin-client': 'true',
         },
         body: JSON.stringify({
           type: 'admin',
@@ -224,11 +217,42 @@ export default function StaffManagementTab() {
 
   const handleRemoveAdmin = async (email: string) => {
     const cleanEmail = email.toLowerCase().trim();
-    if (cleanEmail === 'g1mart@gmail.com' || cleanEmail === 'lingalamahendra0@gmail.com') {
-      alert(`The root store admin (${email}) cannot be removed.`);
+    const currentLoggedEmail = (user?.email || '').toLowerCase().trim();
+    const isOwner = currentLoggedEmail === 'lingalamahendra0@gmail.com' || currentLoggedEmail === 'g1mart@gmail.com';
+    const isSelf = currentLoggedEmail === cleanEmail;
+
+    // Disallow non-owners from removing protected root accounts
+    if (!isOwner && (cleanEmail === 'g1mart@gmail.com' || cleanEmail === 'lingalamahendra0@gmail.com')) {
+      setFeedback({
+        type: 'error',
+        message: `The primary store owner account (${email}) is protected and cannot be removed.`,
+      });
       return;
     }
-    if (!confirm(`Are you sure you want to revoke admin access for ${email}?`)) return;
+
+    // If deleting your own logged-in account, prompt confirmation
+    if (isSelf) {
+      if (
+        !confirm(
+          `Are you sure you want to revoke admin access for yourself (${email})?\n\nYou will be logged out of the Admin Console immediately.`
+        )
+      ) {
+        return;
+      }
+    }
+
+    // 1. Optimistically remove from UI state immediately for responsive instant feedback
+    const prevAdmins = [...admins];
+    const remainingAdmins = admins.filter(
+      (a) => (a.email || '').toLowerCase().trim() !== cleanEmail
+    );
+    setAdmins(remainingAdmins);
+    try {
+      localStorage.setItem(
+        'g1mart_staff_directory',
+        JSON.stringify({ admins: remainingAdmins, riders })
+      );
+    } catch {}
 
     setActionLoading(true);
     setFeedback(null);
@@ -238,21 +262,39 @@ export default function StaffManagementTab() {
         headers: {
           'Content-Type': 'application/json',
           'x-user-email': user?.email || '',
+          'x-admin-client': 'true',
         },
-        body: JSON.stringify({ type: 'admin', email }),
+        body: JSON.stringify({ type: 'admin', email: cleanEmail }),
       });
       const data = await res.json();
       if (data.success) {
+        soundAlerts.playRoleGrantedChime();
         setFeedback({ type: 'success', message: `Revoked admin privileges for ${email}` });
-        if (data.staffDirectory) {
-          setAdmins(data.staffDirectory.admins || []);
-        } else {
-          fetchStaff();
+
+        if (isSelf) {
+          try {
+            localStorage.removeItem('g1mart_user_session');
+          } catch {}
+          window.location.href = '/';
+          return;
+        }
+
+        if (data.staffDirectory?.admins) {
+          setAdmins(data.staffDirectory.admins);
+          try {
+            localStorage.setItem(
+              'g1mart_staff_directory',
+              JSON.stringify(data.staffDirectory)
+            );
+          } catch {}
         }
       } else {
+        // Rollback on error
+        setAdmins(prevAdmins);
         setFeedback({ type: 'error', message: data.error || 'Failed to revoke admin' });
       }
     } catch (err: any) {
+      setAdmins(prevAdmins);
       setFeedback({ type: 'error', message: err.message || 'Network error' });
     } finally {
       setActionLoading(false);
@@ -271,6 +313,7 @@ export default function StaffManagementTab() {
         headers: {
           'Content-Type': 'application/json',
           'x-user-email': user?.email || '',
+          'x-admin-client': 'true',
         },
         body: JSON.stringify({
           type: 'rider',
@@ -312,7 +355,18 @@ export default function StaffManagementTab() {
   };
 
   const handleRemoveRider = async (email: string) => {
-    if (!confirm(`Are you sure you want to remove rider access for ${email}?`)) return;
+    const cleanEmail = email.toLowerCase().trim();
+
+    // 1. Optimistically remove from UI state immediately
+    const prevRiders = [...riders];
+    const remainingRiders = riders.filter((r) => (r.email || '').toLowerCase().trim() !== cleanEmail);
+    setRiders(remainingRiders);
+    try {
+      localStorage.setItem(
+        'g1mart_staff_directory',
+        JSON.stringify({ admins, riders: remainingRiders })
+      );
+    } catch {}
 
     setActionLoading(true);
     setFeedback(null);
@@ -322,24 +376,30 @@ export default function StaffManagementTab() {
         headers: {
           'Content-Type': 'application/json',
           'x-user-email': user?.email || '',
+          'x-admin-client': 'true',
         },
-        body: JSON.stringify({ type: 'rider', email }),
+        body: JSON.stringify({ type: 'rider', email: cleanEmail }),
       });
       const data = await res.json();
       if (data.success) {
+        soundAlerts.playRoleGrantedChime();
         setFeedback({ type: 'success', message: `Removed rider access for ${email}` });
-        if (data.staffDirectory) {
-          setRiders(data.staffDirectory.riders || []);
+
+        if (data.staffDirectory?.riders) {
+          setRiders(data.staffDirectory.riders);
           try {
-            localStorage.setItem('g1mart_staff_directory', JSON.stringify(data.staffDirectory));
+            localStorage.setItem(
+              'g1mart_staff_directory',
+              JSON.stringify(data.staffDirectory)
+            );
           } catch {}
-        } else {
-          fetchStaff();
         }
       } else {
+        setRiders(prevRiders);
         setFeedback({ type: 'error', message: data.error || 'Failed to remove rider' });
       }
     } catch (err: any) {
+      setRiders(prevRiders);
       setFeedback({ type: 'error', message: err.message || 'Network error' });
     } finally {
       setActionLoading(false);
@@ -490,6 +550,17 @@ export default function StaffManagementTab() {
             </button>
           </div>
 
+          {/* Informative Security Banner explaining the Protected badge */}
+          <div className="bg-emerald-50/70 border border-emerald-200/80 rounded-2xl p-3 flex items-start gap-2.5 text-xs text-emerald-950">
+            <Shield className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+            <div className="space-y-0.5 text-[11px] leading-relaxed">
+              <span className="font-bold text-emerald-900">What does the &quot;Protected&quot; badge mean?</span>
+              <p className="text-emerald-800/80">
+                The store owner accounts (<code className="bg-emerald-100/70 text-emerald-900 font-mono px-1 py-0.5 rounded text-[10px]">g1mart@gmail.com</code> &amp; <code className="bg-emerald-100/70 text-emerald-900 font-mono px-1 py-0.5 rounded text-[10px]">lingalamahendra0@gmail.com</code>) are marked <strong>Protected</strong> so ownership cannot be accidentally deleted. All other admin and rider accounts can be removed or revoked at any time with the trash can button.
+              </p>
+            </div>
+          </div>
+
           {/* Collapsible Add Admin Form */}
           {showAddForm && (
             <form
@@ -585,12 +656,18 @@ export default function StaffManagementTab() {
             ) : (
               admins.map((admin) => {
                 const cleanEmail = (admin.email || '').toLowerCase().trim();
-                const isRoot =
+                const currentLoggedEmail = (user?.email || '').toLowerCase().trim();
+                const isOwner =
+                  currentLoggedEmail === 'lingalamahendra0@gmail.com' ||
+                  currentLoggedEmail === 'g1mart@gmail.com';
+                const isRootOwnerAccount =
                   cleanEmail === 'g1mart@gmail.com' ||
-                  cleanEmail === 'lingalamahendra0@gmail.com' ||
-                  cleanEmail === 'orders@g1mart.com';
+                  cleanEmail === 'lingalamahendra0@gmail.com';
                 const isCurrentLoggedInUser =
-                  Boolean(user?.email && user.email.toLowerCase().trim() === cleanEmail);
+                  Boolean(user?.email && currentLoggedEmail === cleanEmail);
+
+                // Protected: only your current active session, OR owner accounts viewed by non-owners
+                const isProtected = isCurrentLoggedInUser || (!isOwner && isRootOwnerAccount);
                 const initials = (admin.name || admin.email || 'Admin')
                   .slice(0, 2)
                   .toUpperCase();
@@ -622,7 +699,7 @@ export default function StaffManagementTab() {
                               You (Active Session)
                             </span>
                           )}
-                          {isRoot ? (
+                          {isRootOwnerAccount ? (
                             <span className="text-[10px] font-extrabold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-300">
                               Root Superadmin
                             </span>
@@ -645,18 +722,21 @@ export default function StaffManagementTab() {
                     </div>
 
                     <div>
-                      {!isRoot && !isCurrentLoggedInUser ? (
+                      {!isProtected ? (
                         <button
                           type="button"
                           onClick={() => handleRemoveAdmin(admin.email)}
                           disabled={actionLoading}
-                          className="w-8 h-8 rounded-xl text-stone-400 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition-colors cursor-pointer"
+                          className="w-8 h-8 rounded-xl text-stone-400 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition-colors cursor-pointer active:scale-90"
                           title="Revoke Admin Access"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
                       ) : (
-                        <span className="text-[10px] font-black uppercase text-emerald-700 bg-emerald-50 px-2 py-1 rounded-lg">
+                        <span
+                          className="text-[10px] font-black uppercase text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200"
+                          title={isCurrentLoggedInUser ? "Your active session account" : "Primary store owner account"}
+                        >
                           Protected
                         </span>
                       )}

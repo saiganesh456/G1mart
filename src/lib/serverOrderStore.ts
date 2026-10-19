@@ -66,24 +66,44 @@ export const serverOrderStore = {
       const pid = item.productId || item.id;
       const vid = item.variantId || item.variant_id;
 
+      // Check if this product has dynamic price overrides from admin
+      const override = global.__g1ProductOverrides?.get(pid);
+
       // --- Try variant price first (most accurate) ---
       if (vid) {
         const variant = variantById.get(vid);
         if (variant && variant.product_id === pid) {
           const qty = Math.max(1, Math.min(item.quantity || 1, 10000));
-          const unitPrice = variant.price > 0 ? variant.price : 10;
+          let unitPrice = variant.price > 0 ? variant.price : 10;
+          if (override) {
+            if (override.variants && Array.isArray(override.variants)) {
+              const ov = override.variants.find((v: any) => v.id === vid);
+              if (ov && ov.price !== undefined) unitPrice = Number(ov.price);
+            } else if (override.price !== undefined) {
+              unitPrice = Number(override.price);
+            }
+          }
           const lineTotal = unitPrice * qty;
           subtotal += lineTotal;
 
-          // Try to get product image
+          // Try to get product name and image
           const mp = migratedProductById.get(pid);
+          const resolvedName = item.productName || item.name || override?.name || mp?.name || 'Grocery Item';
+          const resolvedImg =
+            item.image ||
+            override?.imageUrl ||
+            mp?.imageUrl ||
+            mp?.image ||
+            (mp as any)?.image_url ||
+            '/products/placeholder.svg';
+
           verifiedItems.push({
             productId: pid,
-            productName: item.productName || item.name || variant.product_id,
-            unit: variant.size_label,
+            productName: resolvedName,
+            unit: variant.size_label || override?.unit || mp?.unit || '1 unit',
             price: unitPrice,
             quantity: qty,
-            image: mp?.image_url || '/products/placeholder.svg',
+            image: resolvedImg,
             variantId: vid,
             sizeLabel: variant.size_label,
           });
@@ -104,21 +124,28 @@ export const serverOrderStore = {
       }
 
       // Ensure price is confirmed or fallback to baseline
-      const unitPrice = product.price > 0 ? product.price : product.originalPrice > 0 ? product.originalPrice : 10;
+      const basePrice = product.price > 0 ? product.price : product.originalPrice > 0 ? product.originalPrice : 10;
+      const unitPrice = override?.price !== undefined ? Number(override.price) : basePrice;
       const qty = Math.max(1, Math.min(item.quantity || 1, 10000));
 
       const lineTotal = unitPrice * qty;
       subtotal += lineTotal;
 
+      const fallbackImg =
+        item.image ||
+        product.imageUrl ||
+        product.image ||
+        (product as any).image_url ||
+        (product as any).image_path ||
+        '/products/placeholder.svg';
+
       verifiedItems.push({
         productId: product.id,
-        productName: product.name,
+        productName: item.productName || product.name,
         unit: product.unit,
         price: unitPrice,
         quantity: qty,
-        image: (product.image_status === 'VERIFIED' || product.image_status === 'approved')
-          ? (product.image_url || product.image_path || product.image || '/products/placeholder.svg')
-          : '/products/placeholder.svg',
+        image: fallbackImg,
       });
     }
 
@@ -578,6 +605,13 @@ export const serverOrderStore = {
         const updatePayload: any = {
           status: dbStatus,
           updated_at: new Date().toISOString(),
+          address: {
+            ...(order.address || {}),
+            _status: status,
+            _timeline: order.timeline,
+            _deliveryOtp: order.deliveryOtp,
+            _assignedRider: order.assignedRider,
+          },
         };
 
         if (order.assignedRider?.id && order.assignedRider.id.includes('-') && order.assignedRider.id.length > 20) {
@@ -851,11 +885,13 @@ export const serverOrderStore = {
   async getOrderAsync(orderId: string): Promise<Order | undefined> {
     this.loadFromDisk();
     let order = this.getOrder(orderId);
-    if (!order && isSupabaseConfigured()) {
+    if (isSupabaseConfigured()) {
       try {
         const { data } = await supabase.from('orders').select('*').eq('id', orderId).maybeSingle();
         if (data) {
           const addr = data.address || {};
+          const existing = order;
+          const realStatus = (addr._status || data.status || 'Order Placed') as OrderStatus;
           order = {
             id: data.id,
             orderNumber: data.id,
@@ -866,21 +902,23 @@ export const serverOrderStore = {
             isPaid: Boolean(data.is_paid),
             paidAmount: addr._paidAmount || (data.is_paid ? Number(data.grand_total) : 0),
             paidAt: addr._paidAt,
-            status: data.status,
+            status: realStatus,
             subtotal: Number(data.subtotal),
             discount: Number(data.discount || 0),
             deliveryFee: Number(data.delivery_fee || 0),
             taxes: Number(data.taxes || 0),
             grandTotal: Number(data.grand_total),
-            items: addr._items || [],
+            items: (existing?.items && existing.items.length > 0) ? existing.items : (addr._items || []),
             address: addr,
             userId: data.user_id || addr._userId,
             userEmail: addr._userEmail,
-            timeline: [
+            deliveryOtp: addr._deliveryOtp || existing?.deliveryOtp,
+            assignedRider: addr._assignedRider || existing?.assignedRider,
+            timeline: addr._timeline || existing?.timeline || [
               { status: 'Order Placed', time: 'Confirmed', completed: true },
-              { status: 'Packed', time: 'Pending', completed: data.status === 'Packed' || data.status === 'Out for Delivery' || data.status === 'Delivered' },
-              { status: 'Out for Delivery', time: 'Pending', completed: data.status === 'Out for Delivery' || data.status === 'Delivered' },
-              { status: 'Delivered', time: 'Pending', completed: data.status === 'Delivered' },
+              { status: 'Packed', time: 'Pending', completed: realStatus === 'Packed' || realStatus === 'Rider Assigned' || realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
+              { status: 'Out for Delivery', time: 'Pending', completed: realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
+              { status: 'Delivered', time: 'Pending', completed: realStatus === 'Delivered' },
             ],
           };
           ordersMap.set(data.id, order);
@@ -933,6 +971,7 @@ export const serverOrderStore = {
             const existing = ordersMap.get(row.id);
             const addr = row.address || {};
             const items = existing?.items?.length ? existing.items : (addr._items || []);
+            const realStatus = (addr._status || row.status || 'Order Placed') as OrderStatus;
 
             const syncedOrder: Order = {
               id: row.id,
@@ -944,7 +983,7 @@ export const serverOrderStore = {
                 ? 'completed'
                 : (addr._paymentStatus || existing?.paymentStatus || (row.payment_method === 'Cash on Delivery' ? 'cash_on_delivery' : 'pending')),
               isPaid: Boolean(row.is_paid ?? existing?.isPaid ?? false),
-              status: (row.status as any) || existing?.status || 'Order Placed',
+              status: realStatus,
               subtotal: Number(row.subtotal || existing?.subtotal || 0),
               discount: Number(row.discount || existing?.discount || 0),
               deliveryFee: Number(row.delivery_fee || existing?.deliveryFee || 0),
@@ -954,11 +993,13 @@ export const serverOrderStore = {
               address: existing?.address || addr,
               userId: row.user_id || existing?.userId || addr._userId,
               userEmail: existing?.userEmail || addr._userEmail,
-              timeline: existing?.timeline || [
+              deliveryOtp: addr._deliveryOtp || existing?.deliveryOtp,
+              assignedRider: addr._assignedRider || existing?.assignedRider,
+              timeline: addr._timeline || existing?.timeline || [
                 { status: 'Order Placed', time: 'Confirmed', completed: true },
-                { status: 'Packed', time: 'Pending', completed: row.status === 'Packed' || row.status === 'Out for Delivery' || row.status === 'Delivered' },
-                { status: 'Out for Delivery', time: 'Pending', completed: row.status === 'Out for Delivery' || row.status === 'Delivered' },
-                { status: 'Delivered', time: 'Pending', completed: row.status === 'Delivered' },
+                { status: 'Packed', time: 'Pending', completed: realStatus === 'Packed' || realStatus === 'Rider Assigned' || realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
+                { status: 'Out for Delivery', time: 'Pending', completed: realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
+                { status: 'Delivered', time: 'Pending', completed: realStatus === 'Delivered' },
               ],
             };
 

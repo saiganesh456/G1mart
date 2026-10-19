@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { X, ScanBarcode, Camera, Search, Check, Sparkles } from 'lucide-react';
+import { X, ScanBarcode, Camera, Search, Check } from 'lucide-react';
 
 interface BarcodeScannerModalProps {
   isOpen: boolean;

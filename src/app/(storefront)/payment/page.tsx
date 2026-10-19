@@ -13,8 +13,7 @@ import {
   CheckCircle2,
   Lock,
   ChevronRight,
-  ExternalLink,
-  Sparkles,
+  X,
   Info,
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
@@ -29,24 +28,14 @@ export default function PaymentPage() {
   const { cart, cartSubtotal, cartItemCount, clearCart } = useCart();
   const { isLoggedIn, supabaseUser, user } = useAuth();
 
-  // Phase 5: Two options — 'online' (Razorpay UPI/Card in TEST mode) vs 'cod' (Pay on delivery)
+  // Two options — 'online' (Razorpay UPI/Cards/NetBanking) vs 'cod' (Pay on delivery)
   const [selectedMethod, setSelectedMethod] = useState<'online' | 'cod'>('online');
   const [processing, setProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // Dynamic COD fee from store settings (default ₹50)
   const [codFee, setCodFee] = useState<number>(50);
-
-  // Razorpay Test Simulation Modal State
-  const [showRazorpayModal, setShowRazorpayModal] = useState(false);
   const [recentOrder, setRecentOrder] = useState<any>(null);
-  const [pendingPaymentData, setPendingPaymentData] = useState<{
-    orderId: string;
-    razorpayOrderId: string;
-    amountInPaise: number;
-    grandTotal: number;
-    keyId: string;
-  } | null>(null);
 
   // If user arrives at /payment with ?paid=true and ?orderId=, redirect to order detail page immediately
   useEffect(() => {
@@ -137,6 +126,10 @@ export default function PaymentPage() {
     const payload = {
       items: cart.map((i) => ({
         productId: i.product.id,
+        productName: i.product.name,
+        image: i.product.imageUrl || i.product.image || (i.product as any).image_url || '/products/placeholder.svg',
+        price: i.variant?.price || i.product.price || 0,
+        unit: i.variant?.size_label || i.product.unit || '1 unit',
         quantity: i.quantity,
         ...(i.variantId ? { variantId: i.variantId } : {}),
         ...(i.variant?.size_label ? { sizeLabel: i.variant.size_label } : {}),
@@ -171,7 +164,7 @@ export default function PaymentPage() {
 
         if (isAuthFailure) {
           setErrorMessage(
-            'Razorpay API Authentication Failed (merchant Key ID/Secret in dashboard/env is invalid). You can complete with Test Simulation or choose Pay on Delivery.'
+            'Payment gateway authentication error. Please retry or choose Pay on delivery.'
           );
         } else {
           setErrorMessage(data?.error || 'Failed to initiate checkout. Please check minimum order and try again.');
@@ -324,22 +317,9 @@ export default function PaymentPage() {
         localStorage.setItem('g1mart_recent_order', JSON.stringify(pendingOrderRecord));
       } catch {}
 
-      setPendingPaymentData({
-        orderId: data.orderId,
-        razorpayOrderId: data.providerOrderId,
-        amountInPaise: data.amountInPaise,
-        grandTotal: data.grandTotal,
-        keyId: data.keyId,
-      });
 
-      // If server returned test fallback (e.g. invalid merchant keys) or simulator mode:
-      if (
-        data.isTestFallback ||
-        data.providerOrderId?.startsWith('order_test_') ||
-        !data.keyId ||
-        data.keyId.includes('simulated')
-      ) {
-        setShowRazorpayModal(true);
+      if (!data.providerOrderId || !data.keyId) {
+        setErrorMessage('Online payment gateway is temporarily unavailable. Please retry or choose Pay on delivery.');
         setProcessing(false);
         return;
       }
@@ -347,8 +327,7 @@ export default function PaymentPage() {
       // Load official Razorpay checkout.js script
       const scriptReady = await loadRazorpayScript();
       if (!scriptReady || !(window as any).Razorpay) {
-        // Fallback to manual simulator modal if external script fails to load
-        setShowRazorpayModal(true);
+        setErrorMessage('Unable to load payment gateway. Please check your internet connection or choose Pay on delivery.');
         setProcessing(false);
         return;
       }
@@ -376,7 +355,7 @@ export default function PaymentPage() {
         modal: {
           ondismiss: () => {
             setProcessing(false);
-            setErrorMessage('Online payment was cancelled. You can retry, use Test Simulation, or choose Pay on delivery.');
+            setErrorMessage('Online payment was cancelled or not completed. Please retry or choose Pay on delivery.');
           },
         },
         handler: async (response: {
@@ -405,8 +384,8 @@ export default function PaymentPage() {
         rzp.open();
         setProcessing(false);
       } catch (rzpErr) {
-        console.warn('[Payment] Error opening Razorpay popup, opening simulator modal instead:', rzpErr);
-        setShowRazorpayModal(true);
+        console.warn('[Payment] Error opening Razorpay popup:', rzpErr);
+        setErrorMessage('Unable to open payment popup. Please allow popups or choose Pay on delivery.');
         setProcessing(false);
       }
     } catch (err: any) {
@@ -416,22 +395,15 @@ export default function PaymentPage() {
   };
 
   // Complete Razorpay Online Payment with Server-Side Verification
-  const handleVerifyRazorpaySuccess = async (verifyParams?: {
+  const handleVerifyRazorpaySuccess = async (verifyParams: {
     orderId: string;
     razorpayOrderId: string;
     razorpayPaymentId: string;
     razorpaySignature: string;
     grandTotal: number;
   }) => {
-    const params = verifyParams || (pendingPaymentData ? {
-      orderId: pendingPaymentData.orderId,
-      razorpayOrderId: pendingPaymentData.razorpayOrderId,
-      razorpayPaymentId: `pay_test_${Date.now().toString().slice(-8)}`,
-      razorpaySignature: `test_sig_${pendingPaymentData.razorpayOrderId}_pay_test`,
-      grandTotal: pendingPaymentData.grandTotal,
-    } : null);
-
-    if (!params) return;
+    if (!verifyParams) return;
+    const params = verifyParams;
 
     setProcessing(true);
     setErrorMessage(null);
@@ -580,7 +552,6 @@ export default function PaymentPage() {
       } catch {}
 
       clearCart();
-      setShowRazorpayModal(false);
       router.replace(`/orders/${params.orderId}?paid=true`);
     } catch (err: any) {
       setErrorMessage(err?.message || 'Error completing server payment verification');
@@ -665,48 +636,50 @@ export default function PaymentPage() {
 
       {errorMessage && (
         <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-2xl text-xs text-rose-800 space-y-2 animate-in fade-in min-w-0 w-full box-border">
-          <div className="flex items-start gap-2">
-            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-600" />
-            <span className="flex-1 font-medium leading-relaxed">{errorMessage}</span>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2 pt-1">
+          <div className="flex items-start justify-between gap-2">
+            <div className="flex items-start gap-2 flex-1 min-w-0">
+              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-600" />
+              <span className="flex-1 font-medium leading-relaxed">{errorMessage}</span>
+            </div>
             <button
               type="button"
-              onClick={() => {
-                setSelectedMethod('cod');
-                setErrorMessage(null);
-              }}
-              className="px-3 py-1.5 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl text-[11px] font-extrabold transition-all active:scale-95 cursor-pointer shadow-xs"
+              onClick={() => setErrorMessage(null)}
+              className="p-1 rounded-lg text-rose-400 hover:text-rose-700 hover:bg-rose-100 transition-colors shrink-0 cursor-pointer"
+              aria-label="Dismiss error"
             >
-              Switch to Pay on Delivery (+₹{codFee})
+              <X className="w-4 h-4" />
             </button>
+          </div>
 
-            {pendingPaymentData && (
+          {selectedMethod !== 'cod' && (
+            <div className="flex flex-wrap items-center gap-2 pt-1">
               <button
                 type="button"
                 onClick={() => {
-                  setShowRazorpayModal(true);
+                  setSelectedMethod('cod');
                   setErrorMessage(null);
                 }}
-                className="px-3 py-1.5 bg-stone-900 hover:bg-black text-white rounded-xl text-[11px] font-extrabold transition-all active:scale-95 cursor-pointer"
+                className="px-3 py-1.5 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl text-[11px] font-extrabold transition-all active:scale-95 cursor-pointer shadow-xs"
               >
-                Use Test Payment Simulator
+                Switch to Pay on Delivery (+₹{codFee})
               </button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       )}
 
-      {/* PHASE 5: Payment Step with Two Options */}
+      {/* Payment Step with Two Options */}
       <div className="space-y-2.5 min-w-0 w-full box-border">
         <label className="text-[11px] font-extrabold text-stone-500 uppercase tracking-wider block px-1">
           Select Payment Method
         </label>
 
-        {/* Option 1: Pay online (UPI / Card via Razorpay TEST mode) */}
+        {/* Option 1: Pay online (UPI / Cards / NetBanking) */}
         <label
-          onClick={() => setSelectedMethod('online')}
+          onClick={() => {
+            setSelectedMethod('online');
+            setErrorMessage(null);
+          }}
           className={`bg-white rounded-2xl border p-3 sm:p-3.5 shadow-2xs cursor-pointer flex items-center justify-between gap-2.5 transition-all min-w-0 w-full box-border ${
             selectedMethod === 'online'
               ? 'border-[#2E7D32] ring-2 ring-[#2E7D32]/20 bg-emerald-50/30'
@@ -741,14 +714,20 @@ export default function PaymentPage() {
             type="radio"
             name="paymentOption"
             checked={selectedMethod === 'online'}
-            onChange={() => setSelectedMethod('online')}
+            onChange={() => {
+              setSelectedMethod('online');
+              setErrorMessage(null);
+            }}
             className="accent-[#2E7D32] w-4 h-4 shrink-0 cursor-pointer"
           />
         </label>
 
         {/* Option 2: Pay on delivery (Cash on Delivery) */}
         <label
-          onClick={() => setSelectedMethod('cod')}
+          onClick={() => {
+            setSelectedMethod('cod');
+            setErrorMessage(null);
+          }}
           className={`bg-white rounded-2xl border p-3 sm:p-3.5 shadow-2xs cursor-pointer flex items-center justify-between gap-2.5 transition-all min-w-0 w-full box-border ${
             selectedMethod === 'cod'
               ? 'border-[#2E7D32] ring-2 ring-[#2E7D32]/20 bg-emerald-50/30'
@@ -783,7 +762,10 @@ export default function PaymentPage() {
             type="radio"
             name="paymentOption"
             checked={selectedMethod === 'cod'}
-            onChange={() => setSelectedMethod('cod')}
+            onChange={() => {
+              setSelectedMethod('cod');
+              setErrorMessage(null);
+            }}
             className="accent-[#2E7D32] w-4 h-4 shrink-0 cursor-pointer"
           />
         </label>
@@ -835,19 +817,9 @@ export default function PaymentPage() {
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
 
       {/* Trust Notice */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-[11px] text-stone-500">
-        <div className="flex items-center gap-1.5">
-          <ShieldCheck className="w-4 h-4 text-[#2E7D32] shrink-0" />
-          <span className="truncate">Razorpay Standard Web Checkout · Safe &amp; Verified</span>
-        </div>
-        <span className="hidden sm:inline">·</span>
-        <Link
-          href="/payment/demo"
-          className="text-emerald-700 hover:text-emerald-800 font-bold underline inline-flex items-center gap-1 shrink-0"
-        >
-          <span>Test Standard Checkout Demo</span>
-          <ExternalLink className="w-3 h-3" />
-        </Link>
+      <div className="flex items-center justify-center gap-1.5 text-[11px] text-stone-500">
+        <ShieldCheck className="w-4 h-4 text-[#2E7D32] shrink-0" />
+        <span className="truncate">Razorpay Standard Web Checkout · Safe &amp; 256-bit Secure</span>
       </div>
 
       {/* Sticky Bottom Action */}
@@ -878,77 +850,6 @@ export default function PaymentPage() {
           </button>
         </div>
       </div>
-
-      {/* Razorpay TEST Mode Simulator Modal */}
-      {showRazorpayModal && pendingPaymentData && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl space-y-4 border border-stone-200">
-            {/* Razorpay Branding Header */}
-            <div className="flex items-center justify-between border-b border-stone-100 pb-3">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-black text-xs">
-                  R
-                </div>
-                <div>
-                  <h3 className="font-extrabold text-xs text-stone-900 leading-tight">Razorpay Checkout</h3>
-                  <span className="text-[10px] font-bold text-amber-700 bg-amber-100 px-1.5 py-0.2 rounded">
-                    TEST MODE
-                  </span>
-                </div>
-              </div>
-              <span className="text-xs font-black text-stone-900">
-                ₹{pendingPaymentData.grandTotal}
-              </span>
-            </div>
-
-            <div className="space-y-1.5 text-xs text-stone-600">
-              <p className="font-bold text-stone-800">G1mart Supermarket</p>
-              <p className="text-[11px] text-stone-500">Order Ref: {pendingPaymentData.orderId}</p>
-              <p className="text-[11px] text-stone-500">Razorpay ID: {pendingPaymentData.razorpayOrderId}</p>
-            </div>
-
-            <div className="p-3 bg-blue-50/70 border border-blue-200/80 rounded-xl text-[11px] text-blue-900 space-y-1">
-              <div className="font-bold flex items-center gap-1">
-                <Info className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                <span>Server Signature Verification</span>
-              </div>
-              <p className="text-[10px] text-blue-800 leading-relaxed">
-                Clicking Simulate Success sends HMAC SHA256 signature to <code>/api/payment/verify</code>.
-                The order becomes PAID only after server verification passes.
-              </p>
-            </div>
-
-            {/* Test Action Buttons */}
-            <div className="space-y-2 pt-1">
-              <button
-                type="button"
-                onClick={() => handleVerifyRazorpaySuccess()}
-                disabled={processing}
-                className="w-full h-11 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
-              >
-                {processing ? (
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                ) : (
-                  <CheckCircle2 className="w-4 h-4" />
-                )}
-                <span>Simulate Successful Payment</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setShowRazorpayModal(false);
-                  setErrorMessage('Online payment was cancelled. You can retry or choose Pay on delivery.');
-                }}
-                disabled={processing}
-                className="w-full h-9 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs rounded-xl transition-all cursor-pointer"
-              >
-                Cancel / Simulate Payment Failure
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

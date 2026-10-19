@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Download, X, Star, CheckCircle2, ShieldCheck, Sparkles } from 'lucide-react';
+import { Download, X, Star, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
@@ -118,8 +118,8 @@ export default function InstallAppPlacard() {
             <div className="flex items-center gap-2 mt-1.5 text-[11px] text-stone-600 font-semibold">
               <span>12 MB</span>
               <span className="text-stone-300">•</span>
-              <span className="text-emerald-700 font-bold flex items-center gap-0.5">
-                <Sparkles className="w-2.5 h-2.5" /> Android APK
+              <span className="text-emerald-700 font-bold">
+                Android APK
               </span>
             </div>
           </div>

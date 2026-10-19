@@ -28,14 +28,14 @@ function LoginForm() {
         }
       }
 
-      if (target) {
+      if (target && target !== '/account' && target !== '/') {
         router.replace(target);
       } else if (user?.role === 'admin') {
         router.replace('/admin');
       } else if (user?.role === 'delivery_partner' || user?.role === 'rider') {
         router.replace('/rider');
       } else {
-        router.replace('/account');
+        router.replace(target || '/account');
       }
     }
   }, [authLoading, isLoggedIn, user, nextParam, router]);

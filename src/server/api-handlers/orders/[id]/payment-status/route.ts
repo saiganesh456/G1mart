@@ -21,19 +21,29 @@ export async function GET(req: NextRequest, { params }: Props) {
 
     // If order is already completed or failed, return immediately
     if (order.paymentStatus === 'completed' || order.paymentStatus === 'failed' || order.paymentStatus === 'manual_verified' || order.paymentStatus === 'cash_on_delivery') {
-      return NextResponse.json({
-        success: true,
-        orderId: order.id,
-        paymentStatus: order.paymentStatus,
-        status: order.status,
-        isPaid: !!order.isPaid,
-        paidAmount: order.paidAmount,
-        paidAt: order.paidAt,
-        grandTotal: order.grandTotal,
-        paymentMethod: order.paymentMethod,
-        transactionId: order.transactionId,
-        order,
-      });
+      return NextResponse.json(
+        {
+          success: true,
+          orderId: order.id,
+          paymentStatus: order.paymentStatus,
+          status: order.status,
+          isPaid: !!order.isPaid,
+          paidAmount: order.paidAmount,
+          paidAt: order.paidAt,
+          grandTotal: order.grandTotal,
+          paymentMethod: order.paymentMethod,
+          transactionId: order.transactionId,
+          order,
+        },
+        {
+          headers: {
+            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+            'Surrogate-Control': 'no-store',
+          },
+        }
+      );
     }
 
     // Rule 6: If the webhook has not arrived, server check uses the Order Status API
