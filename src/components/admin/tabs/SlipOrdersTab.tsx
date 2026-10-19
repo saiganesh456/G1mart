@@ -1245,6 +1245,7 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                               type="number"
                               min={1}
                               value={aggregateCount}
+                              onFocus={(e) => e.target.select()}
                               onChange={(e) => setAggregateCount(e.target.value)}
                               onBlur={() => {
                                 if (
@@ -1256,7 +1257,11 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                                 }
                               }}
                               placeholder="e.g. 5"
-                              className="w-full pl-9 pr-3 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm font-black text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                              className={`w-full pl-9 pr-3 py-2.5 rounded-xl text-sm font-black text-stone-900 focus:outline-none transition-all ${
+                                aggregateCount === ''
+                                  ? 'bg-rose-50/50 border border-rose-300 focus:ring-2 focus:ring-rose-500'
+                                  : 'bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#2E7D32]'
+                              }`}
                             />
                           </div>
                           <p className="text-[10px] text-stone-500 mt-1 font-medium">
@@ -1276,6 +1281,7 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                               type="number"
                               min={0}
                               value={aggregateAmount}
+                              onFocus={(e) => e.target.select()}
                               onChange={(e) => setAggregateAmount(e.target.value)}
                               onBlur={() => {
                                 if (
@@ -1287,7 +1293,11 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                                 }
                               }}
                               placeholder="e.g. 650"
-                              className="w-full pl-8 pr-3 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-base font-black text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                              className={`w-full pl-8 pr-3 py-2.5 rounded-xl text-base font-black text-stone-900 focus:outline-none transition-all ${
+                                aggregateAmount === ''
+                                  ? 'bg-rose-50/50 border border-rose-300 focus:ring-2 focus:ring-rose-500'
+                                  : 'bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#2E7D32]'
+                              }`}
                             />
                           </div>
                           <p className="text-[10px] text-stone-500 mt-1 font-medium">
@@ -1541,6 +1551,7 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                                           type="number"
                                           min={1}
                                           value={item.requestedQty}
+                                          onFocus={(e) => e.target.select()}
                                           onChange={(e) =>
                                             handleUpdateItemField(idx, 'requestedQty', e.target.value)
                                           }
@@ -1577,6 +1588,7 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                                           type="number"
                                           min={0}
                                           value={item.price}
+                                          onFocus={(e) => e.target.select()}
                                           onChange={(e) =>
                                             handleUpdateItemField(idx, 'price', e.target.value)
                                           }
@@ -1833,6 +1845,7 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                                     step="any"
                                     disabled={!isAvail}
                                     value={packedQty}
+                                    onFocus={(e) => e.target.select()}
                                     onChange={(e) =>
                                       setPackerPackedQty((prev) => ({
                                         ...prev,

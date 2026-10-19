@@ -7,6 +7,7 @@ import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase
 import { serverProductOverrides } from '@/lib/serverProductOverrides';
 import type { Order, OrderItem, PaymentRecord, PaymentStatus, OrderStatus } from '@/types';
 import migratedVariantsData from '../../data/migrated_product_variants.json';
+import { formatToIST, formatTimeToIST } from '@/lib/dateUtils';
 
 const PRIMARY_ORDERS_PATH = path.join(process.cwd(), 'src', 'data', 'orders_store.json');
 const ORDERS_FILE_PATH = path.join(process.cwd(), 'data', 'g1mart_orders.json');
@@ -218,13 +219,7 @@ export const serverOrderStore = {
     const order: Order = {
       id: params.orderId,
       orderNumber: params.orderId,
-      date: new Date().toLocaleDateString('en-IN', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-      }),
+      date: formatToIST(),
       items: params.items,
       address: params.address,
       slot: params.slot || 'Standard Delivery',
@@ -576,10 +571,7 @@ export const serverOrderStore = {
 
     if (!order) return { success: false };
 
-    const timeStr = new Date().toLocaleTimeString('en-IN', {
-      hour: '2-digit',
-      minute: '2-digit',
-    });
+    const timeStr = formatTimeToIST();
 
     order.status = status;
     if (!order.deliveryOtp) {

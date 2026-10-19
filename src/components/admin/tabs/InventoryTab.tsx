@@ -17,12 +17,14 @@ import {
   ChevronRight,
   TrendingDown,
   ShoppingBag,
+  Plus,
 } from 'lucide-react';
 
 interface Props {
   products: Product[];
   categories: Category[];
   onViewProduct: (product: Product) => void;
+  onAddNewProduct?: () => void;
   onQuickToggleStock?: (productId: string, inStock: boolean) => void;
   initialStockFilter?: string;
   onStockFilterChange?: (filter: string) => void;
@@ -33,6 +35,7 @@ export default function InventoryTab({
   products,
   categories,
   onViewProduct,
+  onAddNewProduct,
   onQuickToggleStock,
   initialStockFilter = 'All',
   onStockFilterChange,
@@ -120,14 +123,27 @@ export default function InventoryTab({
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setShowFilterDrawer(true)}
-            className="sm:hidden px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-bold flex items-center gap-1.5 shrink-0 cursor-pointer"
-          >
-            <SlidersHorizontal className="w-3.5 h-3.5 text-[#087F5B]" />
-            <span>Categories</span>
-          </button>
+          <div className="flex items-center gap-2">
+            {onAddNewProduct && (
+              <button
+                type="button"
+                onClick={onAddNewProduct}
+                className="px-3.5 py-1.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white rounded-xl text-xs font-black flex items-center gap-1.5 shrink-0 shadow-xs cursor-pointer active:scale-95 transition-all"
+              >
+                <Plus className="w-3.5 h-3.5 stroke-[3]" />
+                <span>Add Product</span>
+              </button>
+            )}
+
+            <button
+              type="button"
+              onClick={() => setShowFilterDrawer(true)}
+              className="sm:hidden px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-bold flex items-center gap-1.5 shrink-0 cursor-pointer"
+            >
+              <SlidersHorizontal className="w-3.5 h-3.5 text-[#087F5B]" />
+              <span>Categories</span>
+            </button>
+          </div>
         </div>
 
         {/* Quick Search Bar */}

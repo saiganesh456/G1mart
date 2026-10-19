@@ -209,3 +209,168 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
+
+export async function POST(request: NextRequest) {
+  try {
+    const auth = await verifyAdminRequest(request);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
+    const body = await request.json();
+    const {
+      name,
+      brand,
+      category,
+      subCategory,
+      unit,
+      price,
+      originalPrice,
+      stockCount,
+      inStock,
+      imageUrl,
+      imageStatus,
+      variants,
+    } = body;
+
+    if (!name || !String(name).trim()) {
+      return NextResponse.json(
+        { success: false, error: 'Product name is required' },
+        { status: 400 }
+      );
+    }
+
+    const cleanName = String(name).trim();
+    const cleanBrand = brand ? String(brand).trim() : 'G1 Mart';
+    const cleanUnit = unit ? String(unit).trim() : '1 unit';
+    const cleanCategory = category ? String(category).trim() : 'grocery-staples';
+    const numPrice = Number(price) || 0;
+    const numMrp = Number(originalPrice) || numPrice;
+    const numStock = stockCount !== undefined ? Number(stockCount) : 15;
+    const boolInStock = inStock !== undefined ? Boolean(inStock) : numStock > 0;
+    const cleanImg = imageUrl && String(imageUrl).trim() ? String(imageUrl).trim() : '/products/placeholder.svg';
+
+    const newId = `g1-p${Date.now().toString().slice(-6)}`;
+
+    const newVariants =
+      Array.isArray(variants) && variants.length > 0
+        ? variants
+        : [
+            {
+              id: `${newId}-v1`,
+              product_id: newId,
+              size_label: cleanUnit,
+              price: numPrice,
+              mrp: numMrp,
+              stock: numStock,
+              image_url: cleanImg,
+            },
+          ];
+
+    const newProduct: any = {
+      id: newId,
+      name: cleanName,
+      brand: cleanBrand,
+      category: cleanCategory,
+      category_id: cleanCategory,
+      subCategory: subCategory ? String(subCategory).trim() : undefined,
+      unit: cleanUnit,
+      price: numPrice,
+      priceConfirmed: numPrice > 0,
+      originalPrice: numMrp,
+      discountPercentage:
+        numMrp > numPrice && numMrp > 0
+          ? Math.round(((numMrp - numPrice) / numMrp) * 100)
+          : 0,
+      stockCount: numStock,
+      inStock: boolInStock,
+      imageUrl: cleanImg,
+      image_url: cleanImg,
+      image: cleanImg,
+      imageStatus: imageStatus || 'VERIFIED',
+      image_status: imageStatus || 'VERIFIED',
+      isActive: true,
+      variants: newVariants,
+    };
+
+    const MIGRATED_PATH = path.join(process.cwd(), 'data', 'migrated_products.json');
+    const VARIANTS_PATH = path.join(process.cwd(), 'data', 'migrated_product_variants.json');
+
+    // 1. Update data/migrated_products.json
+    if (fs.existsSync(MIGRATED_PATH)) {
+      try {
+        const migratedList = JSON.parse(fs.readFileSync(MIGRATED_PATH, 'utf-8'));
+        migratedList.unshift({
+          id: newId,
+          name: cleanName,
+          brand: cleanBrand,
+          category_id: cleanCategory,
+          sub_category: subCategory ? String(subCategory).trim() : undefined,
+          unit: cleanUnit,
+          price: numPrice,
+          originalPrice: numMrp,
+          is_active: boolInStock,
+          image_url: cleanImg,
+          image_status: 'verified',
+        });
+        fs.writeFileSync(MIGRATED_PATH, JSON.stringify(migratedList, null, 2), 'utf-8');
+      } catch (err) {
+        console.warn('[Admin Products] Error adding to migrated_products.json:', err);
+      }
+    }
+
+    // 2. Update data/migrated_product_variants.json
+    if (fs.existsSync(VARIANTS_PATH)) {
+      try {
+        const variantsList = JSON.parse(fs.readFileSync(VARIANTS_PATH, 'utf-8'));
+        newVariants.forEach((v: any) => variantsList.unshift(v));
+        fs.writeFileSync(VARIANTS_PATH, JSON.stringify(variantsList, null, 2), 'utf-8');
+      } catch (err) {
+        console.warn('[Admin Products] Error adding to migrated_product_variants.json:', err);
+      }
+    }
+
+    // 3. Update src/data/products-catalog.json
+    if (fs.existsSync(CATALOG_PATH)) {
+      try {
+        const catalog = JSON.parse(fs.readFileSync(CATALOG_PATH, 'utf-8'));
+        catalog.unshift(newProduct);
+        fs.writeFileSync(CATALOG_PATH, JSON.stringify(catalog, null, 2), 'utf-8');
+      } catch (err) {
+        console.warn('[Admin Products] Error adding to products-catalog.json:', err);
+      }
+    }
+
+    // 4. Persist override to Supabase cloud storage (KV fallback)
+    await serverProductOverrides.saveOverride({
+      id: newId,
+      name: cleanName,
+      brand: cleanBrand,
+      category: cleanCategory,
+      subCategory: subCategory ? String(subCategory).trim() : undefined,
+      unit: cleanUnit,
+      price: numPrice,
+      originalPrice: numMrp,
+      inStock: boolInStock,
+      stockCount: numStock,
+      imageUrl: cleanImg,
+      imageStatus: imageStatus || 'VERIFIED',
+      variants: newVariants,
+    });
+
+    // 5. Update in-memory product service immediately
+    await productService.addProduct(newProduct);
+
+    return NextResponse.json({
+      success: true,
+      message: 'Product created successfully and published to storefront!',
+      product: newProduct,
+    });
+  } catch (error: any) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  }
+}
+

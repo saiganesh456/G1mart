@@ -38,6 +38,7 @@ import SettingsTab from '@/components/admin/tabs/SettingsTab';
 import SlipOrdersTab from '@/components/admin/tabs/SlipOrdersTab';
 import { Camera } from 'lucide-react';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
+import { formatToIST } from '@/lib/dateUtils';
 
 const STATUS_RANK: Record<string, number> = {
   'Order Placed': 1,
@@ -78,6 +79,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   const [activeTab, setActiveTab] = useState<'home' | 'orders' | 'slips' | 'packer' | 'inventory' | 'staff' | 'shoot-list' | 'settings'>('home');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isCreatingProduct, setIsCreatingProduct] = useState(false);
   const [ordersStatusFilter, setOrdersStatusFilter] = useState<string>('All');
   const [activeSlipId, setActiveSlipId] = useState<string | null>(null);
   const [inventoryStockFilter, setInventoryStockFilter] = useState<string>('All');
@@ -524,13 +526,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     return {
       id: row.id,
       orderNumber: row.order_number || row.id,
-      date: row.date || new Date(row.created_at || Date.now()).toLocaleDateString('en-IN', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-      }),
+      date: formatToIST(row.date || row.created_at),
       items: (() => {
         const raw = Array.isArray(row.order_items) && row.order_items.length > 0
           ? row.order_items
@@ -642,13 +638,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         const row = data.order;
         const formatted: Order = {
           ...row,
-          date: row.date || new Date(row.created_at || Date.now()).toLocaleDateString('en-IN', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-          }),
+          date: formatToIST(row.date || row.created_at),
         };
         setSelectedOrder(formatted);
         setActiveTab('orders');
@@ -733,6 +723,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   // Synchronize view state with URL parameters & history pop
   const applyAdminState = (state: AdminViewState, ordersList?: Order[], productsList?: Product[]) => {
     setActiveTab(state.tab);
+    setIsCreatingProduct(false);
 
     if (state.status) {
       setOrdersStatusFilter(state.status);
@@ -1745,6 +1736,32 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             onMarkPaid={(id) => handleMarkPaid(id)}
             availableRiders={staffMembers.riders}
           />
+        ) : isCreatingProduct ? (
+          <ProductDetailsPanel
+            isNew={true}
+            product={
+              {
+                id: '',
+                name: '',
+                brand: 'G1 Mart',
+                price: '' as any,
+                originalPrice: '' as any,
+                unit: '1 unit',
+                inStock: true,
+                stockCount: 15,
+                category: categories[0]?.id || 'grocery-staples',
+                imageUrl: '/products/placeholder.svg',
+              } as any
+            }
+            onBack={() => setIsCreatingProduct(false)}
+            categories={categories}
+            onSaveProduct={async (newProduct) => {
+              setProducts((prev) => [newProduct, ...prev]);
+              productsRef.current = [newProduct, ...productsRef.current];
+              setIsCreatingProduct(false);
+              return true;
+            }}
+          />
         ) : selectedProduct ? (
           <ProductDetailsPanel
             product={selectedProduct}
@@ -1753,6 +1770,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             onSaveProduct={async (updatedProduct) => {
               setProducts((prev) =>
                 prev.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
+              );
+              setSelectedProduct(updatedProduct);
+              productsRef.current = productsRef.current.map((p) =>
+                p.id === updatedProduct.id ? updatedProduct : p
               );
               try {
                 const res = await fetch('/api/admin/products', {
@@ -1866,6 +1887,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               <InventoryTab
                 products={products}
                 categories={categories}
+                onAddNewProduct={() => setIsCreatingProduct(true)}
                 initialStockFilter={inventoryStockFilter}
                 onStockFilterChange={(stockFilter) => {
                   pushAdminState({ tab: 'inventory', stockFilter });

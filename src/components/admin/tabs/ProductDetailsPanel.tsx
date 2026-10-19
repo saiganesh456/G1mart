@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Product, Category } from '@/types';
 import {
   ArrowLeft,
@@ -11,6 +11,7 @@ import {
   Edit2,
   CheckCircle2,
   Upload,
+  Plus,
 } from 'lucide-react';
 import ProductImage from '@/components/storefront/ProductImage';
 import { adminFetch } from '@/lib/adminApi';
@@ -20,6 +21,7 @@ interface Props {
   onBack: () => void;
   onSaveProduct?: (updatedProduct: Product) => Promise<boolean>;
   categories?: Category[];
+  isNew?: boolean;
 }
 
 export default function ProductDetailsPanel({
@@ -27,15 +29,24 @@ export default function ProductDetailsPanel({
   onBack,
   onSaveProduct,
   categories = [],
+  isNew = false,
 }: Props) {
   const [name, setName] = useState(product.name || '');
   const [brand, setBrand] = useState(product.brand || '');
   const [unit, setUnit] = useState(product.unit || '1 unit');
-  const [category, setCategory] = useState(product.category || 'grocery-staples');
-  const [price, setPrice] = useState(String(product.price || 0));
-  const [originalPrice, setOriginalPrice] = useState(String(product.originalPrice || product.price || 0));
-  const [stockCount, setStockCount] = useState(String(product.stockCount || 15));
-  const [inStock, setInStock] = useState(Boolean(product.inStock));
+  const [category, setCategory] = useState(product.category || (categories[0]?.id || 'grocery-staples'));
+  const [price, setPrice] = useState(product.price !== undefined && product.price !== null ? String(product.price) : '');
+  const [originalPrice, setOriginalPrice] = useState(
+    product.originalPrice !== undefined && product.originalPrice !== null
+      ? String(product.originalPrice)
+      : product.price !== undefined
+      ? String(product.price)
+      : ''
+  );
+  const [stockCount, setStockCount] = useState(
+    product.stockCount !== undefined && product.stockCount !== null ? String(product.stockCount) : '15'
+  );
+  const [inStock, setInStock] = useState(product.inStock !== false);
   const [imageUrl, setImageUrl] = useState(product.imageUrl || product.image_url || product.image || '');
   const [uploadingImage, setUploadingImage] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -48,6 +59,33 @@ export default function ProductDetailsPanel({
     return [];
   });
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
+
+  // Synchronize internal state whenever product prop changes
+  useEffect(() => {
+    setName(product.name || '');
+    setBrand(product.brand || '');
+    setUnit(product.unit || '1 unit');
+    setCategory(product.category || (categories[0]?.id || 'grocery-staples'));
+    setPrice(product.price !== undefined && product.price !== null ? String(product.price) : '');
+    setOriginalPrice(
+      product.originalPrice !== undefined && product.originalPrice !== null
+        ? String(product.originalPrice)
+        : product.price !== undefined
+        ? String(product.price)
+        : ''
+    );
+    setStockCount(product.stockCount !== undefined && product.stockCount !== null ? String(product.stockCount) : '15');
+    setInStock(product.inStock !== false);
+    setImageUrl(product.imageUrl || product.image_url || product.image || '');
+    if (product.variants && product.variants.length > 0) {
+      setVariantsList(product.variants.map((v) => ({ ...v })));
+    } else {
+      setVariantsList([]);
+    }
+    setSelectedVariantIdx(0);
+    setErrorMsg('');
+    setSaveSuccess(false);
+  }, [product]);
 
   const handleSelectVariant = (idx: number) => {
     const currPrice = parseFloat(price) || 0;
@@ -68,8 +106,8 @@ export default function ProductDetailsPanel({
     setSelectedVariantIdx(idx);
     const target = nextList[idx];
     if (target) {
-      setPrice(String(target.price ?? 0));
-      setOriginalPrice(String(target.mrp ?? target.price ?? 0));
+      setPrice(target.price !== undefined ? String(target.price) : '');
+      setOriginalPrice(target.mrp !== undefined ? String(target.mrp) : String(target.price ?? ''));
       if (target.stock !== undefined) setStockCount(String(target.stock));
       if (target.size_label) setUnit(target.size_label);
     }
@@ -79,10 +117,11 @@ export default function ProductDetailsPanel({
     const file = e.target.files?.[0];
     if (!file) return;
     setUploadingImage(true);
+    setErrorMsg('');
     try {
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('productId', product.id);
+      formData.append('productId', product.id || `new_${Date.now()}`);
 
       const res = await adminFetch('/api/admin/products/upload-image', {
         method: 'POST',
@@ -103,36 +142,61 @@ export default function ProductDetailsPanel({
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSaving(true);
     setErrorMsg('');
     setSaveSuccess(false);
 
+    // Validation
+    if (!name.trim()) {
+      setErrorMsg('Product name is required.');
+      return;
+    }
+
+    if (price === '' || isNaN(Number(price)) || Number(price) < 0) {
+      setErrorMsg('Please enter a valid selling price (e.g. 50).');
+      return;
+    }
+
     const priceNum = parseFloat(price) || 0;
-    const mrpNum = parseFloat(originalPrice) || priceNum;
-    const stockNum = parseInt(stockCount, 10) || 0;
+    const mrpNum = originalPrice !== '' && !isNaN(Number(originalPrice)) ? parseFloat(originalPrice) : priceNum;
+    const stockNum = stockCount !== '' && !isNaN(parseInt(stockCount, 10)) ? parseInt(stockCount, 10) : 0;
 
-    const cleanImg = imageUrl.trim() || product.imageUrl || product.image_url || product.image;
+    setIsSaving(true);
 
-    const finalVariants = variantsList.length > 0
-      ? variantsList.map((v, i) => {
-          if (i === selectedVariantIdx || (v.size_label && unit && v.size_label.toLowerCase() === unit.trim().toLowerCase())) {
-            return {
-              ...v,
+    const cleanImg = imageUrl.trim() || product.imageUrl || product.image_url || product.image || '/products/placeholder.svg';
+
+    const finalVariants =
+      variantsList.length > 0
+        ? variantsList.map((v, i) => {
+            if (i === selectedVariantIdx || (v.size_label && unit && v.size_label.toLowerCase() === unit.trim().toLowerCase())) {
+              return {
+                ...v,
+                price: priceNum,
+                mrp: mrpNum,
+                stock: stockNum,
+              };
+            }
+            return v;
+          })
+        : [
+            {
+              id: `${product.id || 'p'}-v1`,
+              product_id: product.id || 'p',
+              size_label: unit.trim() || '1 unit',
               price: priceNum,
               mrp: mrpNum,
               stock: stockNum,
-            };
-          }
-          return v;
-        })
-      : product.variants;
+              image_url: cleanImg,
+            },
+          ];
 
     const updatedProduct: Product = {
       ...product,
+      id: product.id || `g1-p${Date.now().toString().slice(-6)}`,
       name: name.trim(),
-      brand: brand.trim(),
-      unit: unit.trim(),
+      brand: brand.trim() || 'G1 Mart',
+      unit: unit.trim() || '1 unit',
       category: category.trim(),
+      category_id: category.trim(),
       price: priceNum,
       originalPrice: mrpNum,
       discountPercentage: mrpNum > priceNum && mrpNum > 0 ? Math.round(((mrpNum - priceNum) / mrpNum) * 100) : 0,
@@ -141,51 +205,73 @@ export default function ProductDetailsPanel({
       priceConfirmed: priceNum > 0,
       imageUrl: cleanImg,
       image_url: cleanImg,
-      image: cleanImg || '',
+      image: cleanImg,
       imageStatus: 'VERIFIED',
       image_status: 'VERIFIED',
       variants: finalVariants,
     };
 
     try {
-      if (onSaveProduct) {
-        const ok = await onSaveProduct(updatedProduct);
-        if (ok) {
+      if (isNew) {
+        // Create new product via POST
+        const res = await adminFetch('/api/admin/products', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updatedProduct),
+        });
+        const data = await res.json();
+        if (data.success && data.product) {
+          if (onSaveProduct) {
+            await onSaveProduct(data.product);
+          }
           setSaveSuccess(true);
           setTimeout(() => {
             onBack();
-          }, 1000);
-          return;
+          }, 800);
+        } else {
+          setErrorMsg(data.error || 'Failed to create new product');
         }
-      }
-
-      // Fallback direct PATCH if onSaveProduct is not provided
-      const res = await adminFetch('/api/admin/products', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          id: product.id,
-          name: updatedProduct.name,
-          brand: updatedProduct.brand,
-          unit: updatedProduct.unit,
-          category: updatedProduct.category,
-          price: updatedProduct.price,
-          originalPrice: updatedProduct.originalPrice,
-          inStock: updatedProduct.inStock,
-          stockCount: updatedProduct.stockCount,
-          imageUrl: cleanImg,
-          imageStatus: 'VERIFIED',
-          variants: finalVariants,
-        }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setSaveSuccess(true);
-        setTimeout(() => {
-          onBack();
-        }, 1000);
       } else {
-        setErrorMsg(data.error || 'Failed to update product');
+        // Edit existing product
+        if (onSaveProduct) {
+          const ok = await onSaveProduct(updatedProduct);
+          if (ok) {
+            setSaveSuccess(true);
+            setTimeout(() => {
+              onBack();
+            }, 800);
+            return;
+          }
+        }
+
+        // Direct fallback PATCH
+        const res = await adminFetch('/api/admin/products', {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: updatedProduct.id,
+            name: updatedProduct.name,
+            brand: updatedProduct.brand,
+            unit: updatedProduct.unit,
+            category: updatedProduct.category,
+            price: updatedProduct.price,
+            originalPrice: updatedProduct.originalPrice,
+            inStock: updatedProduct.inStock,
+            stockCount: updatedProduct.stockCount,
+            imageUrl: cleanImg,
+            imageStatus: 'VERIFIED',
+            variants: finalVariants,
+          }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          setSaveSuccess(true);
+          setTimeout(() => {
+            onBack();
+          }, 800);
+        } else {
+          setErrorMsg(data.error || 'Failed to update product');
+        }
       }
     } catch (err: any) {
       setErrorMsg(err.message || 'Error saving product');
@@ -193,6 +279,10 @@ export default function ProductDetailsPanel({
       setIsSaving(false);
     }
   };
+
+  const isPriceEmpty = price === '';
+  const isStockEmpty = stockCount === '';
+  const isNameEmpty = name.trim() === '';
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col min-h-screen bg-[#F4F6F9] p-3 sm:p-6 pb-28">
@@ -202,24 +292,28 @@ export default function ProductDetailsPanel({
           <button
             type="button"
             onClick={onBack}
-            className="w-10 h-10 rounded-2xl bg-stone-100 hover:bg-stone-200 text-stone-800 flex items-center justify-center transition-colors"
+            className="w-10 h-10 rounded-2xl bg-stone-100 hover:bg-stone-200 text-stone-800 flex items-center justify-center transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
             <h1 className="text-base sm:text-xl font-black text-stone-900 tracking-tight">
-              Edit Product Details
+              {isNew ? 'Add New Product' : 'Edit Product Details'}
             </h1>
-            <p className="text-xs text-stone-500">ID: {product.id}</p>
+            <p className="text-xs text-stone-500">
+              {isNew ? 'Create a brand new item in supermarket catalog' : `ID: ${product.id}`}
+            </p>
           </div>
         </div>
 
         <span
           className={`text-xs font-bold px-2.5 py-1 rounded-full ${
-            inStock ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+            inStock && (parseInt(stockCount, 10) > 0 || stockCount === '')
+              ? 'bg-emerald-100 text-emerald-800'
+              : 'bg-rose-100 text-rose-800'
           }`}
         >
-          {inStock ? '🟢 In Stock' : '🔴 Out of Stock'}
+          {inStock && (parseInt(stockCount, 10) > 0 || stockCount === '') ? '🟢 In Stock' : '🔴 Out of Stock'}
         </span>
       </div>
 
@@ -227,22 +321,22 @@ export default function ProductDetailsPanel({
         {/* Product Photo & Identification Preview */}
         <div className="bg-white rounded-3xl p-5 border border-stone-200/90 shadow-2xs space-y-4">
           <div className="flex flex-col sm:flex-row items-center gap-4">
-            <div className="w-24 h-24 rounded-2xl bg-stone-50 border border-stone-200 p-2 overflow-hidden shrink-0">
+            <div className="w-24 h-24 rounded-2xl bg-stone-50 border border-stone-200 p-2 overflow-hidden shrink-0 flex items-center justify-center">
               <ProductImage
                 imageUrl={imageUrl || product.image_url || product.imageUrl || product.image}
                 imageStatus="VERIFIED"
-                alt={name}
+                alt={name || 'Product'}
               />
             </div>
             <div className="text-center sm:text-left flex-1 min-w-0">
               <span className="text-[10px] font-black uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full inline-block mb-1">
-                {brand || 'G1 MART Brand'}
+                {brand || 'G1 Mart'}
               </span>
               <h2 className="text-sm sm:text-base font-bold text-stone-900 leading-snug line-clamp-2">
-                {name}
+                {name || 'New Product Name'}
               </h2>
               <p className="text-xs text-stone-500 mt-1">
-                Unit: {unit} • Category: {category}
+                Unit: {unit || '1 unit'} • Category: {category}
               </p>
             </div>
           </div>
@@ -251,7 +345,7 @@ export default function ProductDetailsPanel({
           <div className="pt-3 border-t border-stone-100 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
             <div className="flex-1">
               <label className="text-[11px] font-bold text-stone-600 block mb-1">
-                Product Image URL / Packshot Path
+                Product Image URL or Path
               </label>
               <input
                 type="text"
@@ -263,8 +357,8 @@ export default function ProductDetailsPanel({
             </div>
             <div className="sm:self-end">
               <label className="cursor-pointer inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-stone-100 hover:bg-stone-200 border border-stone-200 rounded-xl text-xs font-bold text-stone-800 transition-colors w-full sm:w-auto">
-                <Upload className="w-3.5 h-3.5" />
-                <span>{uploadingImage ? 'Uploading...' : 'Upload Image'}</span>
+                <Upload className="w-3.5 h-3.5 text-[#1B5E20]" />
+                <span>{uploadingImage ? 'Uploading...' : 'Upload Photo'}</span>
                 <input
                   type="file"
                   accept="image/jpeg,image/png,image/webp,image/avif"
@@ -293,7 +387,7 @@ export default function ProductDetailsPanel({
           {saveSuccess && (
             <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 shrink-0" />
-              <span>Product updated successfully! Returning...</span>
+              <span>{isNew ? 'New product created successfully!' : 'Product updated successfully! Returning...'}</span>
             </div>
           )}
 
@@ -334,14 +428,25 @@ export default function ProductDetailsPanel({
               </label>
               <input
                 type="number"
-                step="0.5"
+                step="any"
                 min="0"
-                required
                 value={price}
+                onFocus={(e) => e.target.select()}
                 onChange={(e) => setPrice(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm font-bold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
+                placeholder="e.g. 65"
+                className={`w-full px-3.5 py-2.5 rounded-xl text-sm font-bold text-stone-900 focus:outline-none transition-all ${
+                  isPriceEmpty
+                    ? 'bg-rose-50/50 border border-rose-300 focus:ring-2 focus:ring-rose-500'
+                    : 'bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#1B5E20]'
+                }`}
               />
-              <span className="text-[10px] text-stone-500 mt-1 block">The price customer pays at checkout</span>
+              {isPriceEmpty ? (
+                <span className="text-[10px] text-rose-600 font-bold mt-1 block">
+                  Price cannot be empty — enter customer price
+                </span>
+              ) : (
+                <span className="text-[10px] text-stone-500 mt-1 block">The price customer pays at checkout</span>
+              )}
             </div>
 
             {/* MRP / Original Price */}
@@ -351,13 +456,15 @@ export default function ProductDetailsPanel({
               </label>
               <input
                 type="number"
-                step="0.5"
+                step="any"
                 min="0"
                 value={originalPrice}
+                onFocus={(e) => e.target.select()}
                 onChange={(e) => setOriginalPrice(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm font-bold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
+                placeholder="e.g. 70"
+                className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm font-bold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none transition-all"
               />
-              <span className="text-[10px] text-stone-500 mt-1 block">Maximum Retail Price on packet</span>
+              <span className="text-[10px] text-stone-500 mt-1 block">Maximum Retail Price printed on packet</span>
             </div>
 
             {/* Stock Count */}
@@ -368,17 +475,31 @@ export default function ProductDetailsPanel({
               <input
                 type="number"
                 min="0"
-                required
                 value={stockCount}
+                onFocus={(e) => e.target.select()}
                 onChange={(e) => {
                   setStockCount(e.target.value);
                   const n = parseInt(e.target.value, 10);
-                  if (n <= 0) setInStock(false);
-                  else setInStock(true);
+                  if (!isNaN(n) && n <= 0) {
+                    setInStock(false);
+                  } else if (!isNaN(n) && n > 0) {
+                    setInStock(true);
+                  }
                 }}
-                className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm font-bold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
+                placeholder="e.g. 50"
+                className={`w-full px-3.5 py-2.5 rounded-xl text-sm font-bold text-stone-900 focus:outline-none transition-all ${
+                  isStockEmpty
+                    ? 'bg-rose-50/50 border border-rose-300 focus:ring-2 focus:ring-rose-500'
+                    : 'bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#1B5E20]'
+                }`}
               />
-              <span className="text-[10px] text-stone-500 mt-1 block">Available quantity in store rack</span>
+              {isStockEmpty ? (
+                <span className="text-[10px] text-rose-600 font-bold mt-1 block">
+                  Quantity cannot be empty — enter available stock (or 0 for out of stock)
+                </span>
+              ) : (
+                <span className="text-[10px] text-stone-500 mt-1 block">Available quantity in store rack</span>
+              )}
             </div>
 
             {/* In Stock Toggle */}
@@ -389,7 +510,7 @@ export default function ProductDetailsPanel({
               <button
                 type="button"
                 onClick={() => setInStock(!inStock)}
-                className={`w-full py-2.5 px-4 rounded-xl text-xs font-black flex items-center justify-center gap-2 border transition-all ${
+                className={`w-full py-2.5 px-4 rounded-xl text-xs font-black flex items-center justify-center gap-2 border transition-all cursor-pointer ${
                   inStock
                     ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
                     : 'bg-rose-100 text-rose-900 border-rose-300'
@@ -404,18 +525,29 @@ export default function ProductDetailsPanel({
           <div className="pt-2 border-t border-stone-100 space-y-3">
             <div>
               <label className="text-xs font-black text-stone-700 uppercase tracking-wider block mb-1">
-                Product Display Name
+                Product Display Name *
               </label>
               <input
                 type="text"
                 required
                 value={name}
+                onFocus={(e) => e.target.select()}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm font-semibold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
+                placeholder="e.g. Aashirvaad Shudh Chakki Atta"
+                className={`w-full px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-stone-900 focus:outline-none transition-all ${
+                  isNameEmpty
+                    ? 'bg-rose-50/50 border border-rose-300 focus:ring-2 focus:ring-rose-500'
+                    : 'bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#1B5E20]'
+                }`}
               />
+              {isNameEmpty && (
+                <span className="text-[10px] text-rose-600 font-bold mt-1 block">
+                  Product name is required
+                </span>
+              )}
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
                 <label className="text-xs font-black text-stone-700 uppercase tracking-wider block mb-1">
                   Brand
@@ -423,7 +555,9 @@ export default function ProductDetailsPanel({
                 <input
                   type="text"
                   value={brand}
+                  onFocus={(e) => e.target.select()}
                   onChange={(e) => setBrand(e.target.value)}
+                  placeholder="e.g. Aashirvaad"
                   className="w-full px-3.5 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-semibold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
                 />
               </div>
@@ -435,9 +569,39 @@ export default function ProductDetailsPanel({
                 <input
                   type="text"
                   value={unit}
+                  onFocus={(e) => e.target.select()}
                   onChange={(e) => setUnit(e.target.value)}
+                  placeholder="e.g. 1 kg, 500 g, 1 L"
                   className="w-full px-3.5 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-semibold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
                 />
+              </div>
+
+              <div>
+                <label className="text-xs font-black text-stone-700 uppercase tracking-wider block mb-1">
+                  Store Category
+                </label>
+                <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-semibold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
+                >
+                  {categories.length > 0 ? (
+                    categories.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.name}
+                      </option>
+                    ))
+                  ) : (
+                    <>
+                      <option value="atta-rice-dal">Atta, Rice &amp; Dal</option>
+                      <option value="oil-ghee-masala">Oil, Ghee &amp; Masala</option>
+                      <option value="grocery-staples">Grocery Staples</option>
+                      <option value="snacks-beverages">Snacks &amp; Beverages</option>
+                      <option value="cleaning-household">Cleaning &amp; Household</option>
+                      <option value="personal-care">Personal Care</option>
+                    </>
+                  )}
+                </select>
               </div>
             </div>
           </div>
@@ -446,25 +610,25 @@ export default function ProductDetailsPanel({
           <div className="pt-4 flex items-center gap-3">
             <button
               type="submit"
-              disabled={isSaving}
-              className="flex-1 py-3 bg-[#1B5E20] hover:bg-[#2E7D32] disabled:opacity-75 text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider shadow-md flex items-center justify-center gap-2 transition-all active:scale-98"
+              disabled={isSaving || isNameEmpty || isPriceEmpty}
+              className="flex-1 py-3 bg-[#1B5E20] hover:bg-[#2E7D32] disabled:opacity-50 text-white rounded-2xl font-black text-xs sm:text-sm uppercase tracking-wider shadow-md flex items-center justify-center gap-2 transition-all active:scale-98 cursor-pointer"
             >
               {isSaving ? (
                 <>
                   <RefreshCw className="w-4 h-4 animate-spin" />
-                  <span>Saving Updates...</span>
+                  <span>{isNew ? 'Creating Product...' : 'Saving Updates...'}</span>
                 </>
               ) : (
                 <>
-                  <Check className="w-4 h-4 stroke-[3]" />
-                  <span>Save Product Changes</span>
+                  {isNew ? <Plus className="w-4 h-4 stroke-[3]" /> : <Check className="w-4 h-4 stroke-[3]" />}
+                  <span>{isNew ? 'Create & Publish Product' : 'Save Product Changes'}</span>
                 </>
               )}
             </button>
             <button
               type="button"
               onClick={onBack}
-              className="py-3 px-5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-2xl font-bold text-xs sm:text-sm transition-colors"
+              className="py-3 px-5 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-2xl font-bold text-xs sm:text-sm transition-colors cursor-pointer"
             >
               Cancel
             </button>

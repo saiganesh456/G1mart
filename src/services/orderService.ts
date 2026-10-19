@@ -1,3 +1,4 @@
+import { formatToIST } from '@/lib/dateUtils';
 import { supabase, isSupabaseConfigured } from '../lib/supabase/client';
 import { Order, OrderStatus } from '../types';
 
@@ -29,13 +30,7 @@ export const orderService = {
       return data.map((row: any) => ({
         id: row.id,
         orderNumber: row.order_number,
-        date: new Date(row.created_at).toLocaleDateString('en-IN', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-        }),
+        date: formatToIST(row.created_at),
         items: (row.order_items || []).map((item: any) => ({
           productId: item.product_id,
           productName: item.product_name,

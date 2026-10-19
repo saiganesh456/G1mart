@@ -1,7 +1,11 @@
 export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase/client';
+import fs from 'fs';
+import path from 'path';
 import { verifyAdminRequest } from '@/lib/authGuard';
+import { serverProductOverrides } from '@/lib/serverProductOverrides';
+import { productService } from '@/services/productService';
+import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 
 const SUPABASE_STORAGE_URL = 'https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/product-images';
 const STORAGE_PUBLIC_BASE = 'https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images';
@@ -32,8 +36,8 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      // 1. Validate file format and size (5MB max)
-      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
+      // 1. Validate file format and size (10MB max)
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/avif', 'image/gif'];
       if (!allowedTypes.includes(file.type) && !file.type.startsWith('image/')) {
         return NextResponse.json(
           { success: false, error: 'Invalid file type. Allowed: JPEG, PNG, WEBP, AVIF' },
@@ -41,64 +45,94 @@ export async function POST(req: NextRequest) {
         );
       }
 
-      const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+      const MAX_SIZE = 10 * 1024 * 1024; // 10MB
       if (file.size > MAX_SIZE) {
         return NextResponse.json(
-          { success: false, error: 'File size exceeds maximum 5MB limit' },
+          { success: false, error: 'File size exceeds maximum 10MB limit' },
           { status: 400 }
         );
       }
 
       const fileBuffer = Buffer.from(await file.arrayBuffer());
       const ext = file.type.includes('png') ? 'png' : file.type.includes('webp') ? 'webp' : 'jpg';
-      const storagePath = `products/${productId}-${Date.now()}.${ext}`;
+      const cleanProdId = productId.replace(/[^a-zA-Z0-9_-]/g, '_');
+      const filename = `${cleanProdId}-${Date.now()}.${ext}`;
+      const storagePath = `products/${filename}`;
 
-      // 2. Upload to Supabase Storage 'product-images' bucket
-      const uploadUrl = `${SUPABASE_STORAGE_URL}/${storagePath}`;
-      const uploadResp = await fetch(uploadUrl, {
-        method: 'POST',
-        headers: {
-          apikey: SUPABASE_ANON_KEY,
-          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-          'Content-Type': file.type || 'image/jpeg',
-          'x-upsert': 'true',
-        },
-        body: fileBuffer,
-      });
+      let finalImageUrl = '';
 
-      if (!uploadResp.ok) {
-        const errText = await uploadResp.text();
-        console.error('[upload-image] Storage upload failed:', errText);
-        return NextResponse.json(
-          { success: false, error: `Storage upload failed: ${errText}` },
-          { status: 500 }
-        );
+      // 2. Try Supabase Storage 'product-images' bucket first
+      try {
+        const uploadUrl = `${SUPABASE_STORAGE_URL}/${storagePath}`;
+        const uploadResp = await fetch(uploadUrl, {
+          method: 'POST',
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': file.type || 'image/jpeg',
+            'x-upsert': 'true',
+          },
+          body: fileBuffer,
+        });
+
+        if (uploadResp.ok) {
+          finalImageUrl = `${STORAGE_PUBLIC_BASE}/${storagePath}`;
+        }
+      } catch (sbErr) {
+        console.warn('[upload-image] Supabase Storage upload error, falling back to local storage:', sbErr);
       }
 
-      // 3. Construct Public Supabase URL
-      const publicUrl = `${STORAGE_PUBLIC_BASE}/${storagePath}`;
+      // 3. Fallback: Save to local public/products/uploads/ directory
+      if (!finalImageUrl) {
+        try {
+          const uploadsDir = path.join(process.cwd(), 'public', 'products', 'uploads');
+          if (!fs.existsSync(uploadsDir)) {
+            fs.mkdirSync(uploadsDir, { recursive: true });
+          }
+          const localFilePath = path.join(uploadsDir, filename);
+          fs.writeFileSync(localFilePath, fileBuffer);
+          finalImageUrl = `/products/uploads/${filename}`;
+        } catch (fsErr) {
+          console.error('[upload-image] Local filesystem write error:', fsErr);
+          return NextResponse.json(
+            { success: false, error: 'Failed to write uploaded image to disk' },
+            { status: 500 }
+          );
+        }
+      }
 
-      // 4. Persist to Supabase public.products
-      const { error: dbError } = await supabase
-        .from('products')
-        .update({
-          image_url: publicUrl,
-          image_status: 'VERIFIED',
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', productId);
+      // 4. Persist to server product overrides and in-memory catalog
+      await serverProductOverrides.saveOverride({
+        id: productId,
+        imageUrl: finalImageUrl,
+        imageStatus: 'VERIFIED',
+      });
 
-      if (dbError) {
-        console.error('[upload-image] Database update failed:', dbError);
-        return NextResponse.json(
-          { success: false, error: `Database update failed: ${dbError.message}` },
-          { status: 500 }
-        );
+      await productService.updateProduct({
+        id: productId,
+        imageUrl: finalImageUrl,
+        image: finalImageUrl,
+        image_url: finalImageUrl,
+        imageStatus: 'VERIFIED',
+      });
+
+      // Best effort update to Supabase products table if exists
+      if (isSupabaseConfigured()) {
+        try {
+          await supabase
+            .from('products')
+            .update({
+              image_url: finalImageUrl,
+              image_status: 'VERIFIED',
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', productId);
+        } catch {}
       }
 
       return NextResponse.json({
         success: true,
-        imageUrl: publicUrl,
+        imageUrl: finalImageUrl,
         productId,
         message: 'Image uploaded and published successfully!',
       });
@@ -115,39 +149,28 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Validate URL format
-    try {
-      new URL(imageUrl);
-    } catch {
-      return NextResponse.json(
-        { success: false, error: 'Invalid image URL format' },
-        { status: 400 }
-      );
-    }
+    const cleanUrl = String(imageUrl).trim();
 
-    // Persist to Supabase public.products
-    const { error: dbError } = await supabase
-      .from('products')
-      .update({
-        image_url: imageUrl,
-        image_status: 'VERIFIED',
-        updated_at: new Date().toISOString(),
-      })
-      .eq('id', productId);
+    // Persist to server overrides
+    await serverProductOverrides.saveOverride({
+      id: productId,
+      imageUrl: cleanUrl,
+      imageStatus: 'VERIFIED',
+    });
 
-    if (dbError) {
-      console.error('[upload-image] Database update failed:', dbError);
-      return NextResponse.json(
-        { success: false, error: `Database update failed: ${dbError.message}` },
-        { status: 500 }
-      );
-    }
+    await productService.updateProduct({
+      id: productId,
+      imageUrl: cleanUrl,
+      image: cleanUrl,
+      image_url: cleanUrl,
+      imageStatus: 'VERIFIED',
+    });
 
     return NextResponse.json({
       success: true,
-      imageUrl,
+      imageUrl: cleanUrl,
       productId,
-      message: 'Product image updated and verified in database!',
+      message: 'Product image updated and verified!',
     });
   } catch (error: any) {
     console.error('[upload-image] Unexpected error:', error);

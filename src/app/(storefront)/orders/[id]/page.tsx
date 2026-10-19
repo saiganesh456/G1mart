@@ -1,3 +1,4 @@
+import { formatToIST } from '@/lib/dateUtils';
 import { Suspense } from 'react';
 import OrderDetailClient from './OrderDetailClient';
 import { serverOrderStore } from '@/lib/serverOrderStore';
@@ -19,13 +20,7 @@ export default async function OrderDetailPage({ params }: Props) {
         initialOrder = {
           id: slipOrder.id,
           orderNumber: slipOrder.id,
-          date: new Date(slipOrder.created_at).toLocaleDateString('en-IN', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-          }),
+          date: formatToIST(slipOrder.created_at),
           status: slipOrder.status,
           type: 'slip',
           orderType: slipOrder.order_type,

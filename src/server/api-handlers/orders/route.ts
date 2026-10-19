@@ -4,6 +4,7 @@ import { serverOrderStore } from '@/lib/serverOrderStore';
 import { serverSlipOrders } from '@/lib/serverSlipOrders';
 import { serverPushService } from '@/lib/serverPushService';
 import { sanitizeIndianPhone } from '@/lib/phone';
+import { formatToIST } from '@/lib/dateUtils';
 
 export async function GET(req: NextRequest) {
   try {
@@ -38,13 +39,7 @@ export async function GET(req: NextRequest) {
       slipOrdersFormatted = matchedSlips.map((slipOrder) => ({
         id: slipOrder.id,
         orderNumber: slipOrder.id,
-        date: new Date(slipOrder.created_at).toLocaleDateString('en-IN', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-        }),
+        date: formatToIST(slipOrder.created_at),
         status: slipOrder.status,
         type: 'slip',
         orderType: slipOrder.order_type,

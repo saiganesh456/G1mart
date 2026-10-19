@@ -73,14 +73,29 @@ function StatusChip({ status }: { status: string }) {
 function getInitialCachedOrders(): any[] {
   if (typeof window === 'undefined') return [];
   const orderMap = new Map<string, any>();
+
+  const registerOrderToMap = (o: any) => {
+    if (!o) return;
+    const key = (o.id || o.orderNumber || '').toString().trim().toLowerCase();
+    if (!key) return;
+    if (!orderMap.has(key)) {
+      orderMap.set(key, o);
+    } else {
+      const existing = orderMap.get(key);
+      const existingItems = Array.isArray(existing?.items) ? existing.items.length : 0;
+      const newItems = Array.isArray(o?.items) ? o.items.length : 0;
+      if (newItems >= existingItems) {
+        orderMap.set(key, { ...existing, ...o });
+      }
+    }
+  };
+
   try {
     const stored = localStorage.getItem('g1mart_account_orders');
     if (stored) {
       const parsed = JSON.parse(stored);
       if (Array.isArray(parsed)) {
-        for (const o of parsed) {
-          if (o?.id) orderMap.set(o.id, o);
-        }
+        for (const o of parsed) registerOrderToMap(o);
       }
     }
   } catch {}
@@ -90,9 +105,7 @@ function getInitialCachedOrders(): any[] {
     if (storedSession) {
       const parsed = JSON.parse(storedSession);
       if (Array.isArray(parsed)) {
-        for (const o of parsed) {
-          if (o?.id) orderMap.set(o.id, o);
-        }
+        for (const o of parsed) registerOrderToMap(o);
       }
     }
   } catch {}
@@ -101,12 +114,12 @@ function getInitialCachedOrders(): any[] {
     const latest = sessionStorage.getItem('g1mart_latest_order');
     if (latest) {
       const parsed = JSON.parse(latest);
-      if (parsed?.id) orderMap.set(parsed.id, parsed);
+      registerOrderToMap(parsed);
     }
   } catch {}
 
   return Array.from(orderMap.values()).sort(
-    (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
+    (a, b) => new Date(b.created_at || b.date || 0).getTime() - new Date(a.created_at || a.date || 0).getTime()
   );
 }
 

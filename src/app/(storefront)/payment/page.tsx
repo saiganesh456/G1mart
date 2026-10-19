@@ -22,6 +22,7 @@ import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import { addressService } from '@/services/addressService';
 import Script from 'next/script';
 import { loadRazorpayScript } from '@/components/payment/RazorpayCheckoutButton';
+import { formatToIST } from '@/lib/dateUtils';
 
 export default function PaymentPage() {
   const router = useRouter();
@@ -182,13 +183,7 @@ export default function PaymentPage() {
         const orderRecord = {
           id: data.orderId,
           orderNumber: data.orderId,
-          date: new Date().toLocaleDateString('en-IN', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-          }),
+          date: formatToIST(),
           status: 'Order Placed',
           orderType: isPickup ? 'pickup' : 'delivery',
           paymentMethod: 'Cash on Delivery',
@@ -287,13 +282,7 @@ export default function PaymentPage() {
       const pendingOrderRecord = {
         id: data.orderId,
         orderNumber: data.orderId,
-        date: new Date().toLocaleDateString('en-IN', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-        }),
+        date: formatToIST(),
         status: 'Order Placed',
         paymentMethod: 'Pay Online (Razorpay)',
         paymentStatus: 'pending',
@@ -462,13 +451,7 @@ export default function PaymentPage() {
       const paidOrderRecord = {
         id: params.orderId,
         orderNumber: params.orderId,
-        date: new Date().toLocaleDateString('en-IN', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-        }),
+        date: formatToIST(),
         status: 'Order Placed',
         paymentMethod: 'Razorpay Standard Checkout',
         paymentStatus: 'paid',
