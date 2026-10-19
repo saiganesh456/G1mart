@@ -8,7 +8,7 @@
 
 import fs from 'fs';
 import path from 'path';
-import { supabase } from '@/lib/supabase/client';
+import { serverSupabase as supabase } from '@/lib/supabase/serverAdmin';
 
 export interface SlipRecord {
   id: string;

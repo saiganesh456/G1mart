@@ -151,9 +151,12 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   const handleTestBackgroundPush = async () => {
     try {
       setTestingPush(true);
-      const res = await fetch('/api/notifications/test-admin-push', { method: 'POST' });
+      const res = await fetch('/api/notifications/test-admin-push', {
+        method: 'POST',
+        headers: getAdminHeaders(),
+      });
       const data = await res.json();
-      if (data.success) {
+      if (res.ok && data.success) {
         setPushStatusMessage(data.message || 'Sent test alert!');
         setTimeout(() => setPushStatusMessage(null), 6000);
       } else {
@@ -1386,11 +1389,14 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     try {
       const res = await fetch(`/api/admin/orders/${orderId}/mark-paid`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ staffIdentifier: 'Store Manager' }),
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminHeaders(),
+        },
+        body: JSON.stringify({ staffIdentifier: user?.name || user?.email || 'Store Manager' }),
       });
       const data = await res.json();
-      if (data.success && data.order) {
+      if (res.ok && data.success && data.order) {
         setOrders((prev) =>
           prev.map((o) => (o.id === orderId ? { ...o, ...data.order, isPaid: true } : o))
         );
@@ -1403,9 +1409,12 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           bc.postMessage({ type: 'ORDER_UPDATED', orderId, order: data.order });
           bc.close();
         } catch {}
+      } else {
+        alert('Could not mark order as paid: ' + (data?.error || `Server rejected request (${res.status})`));
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Failed to mark order paid', err);
+      alert('Error marking order paid: ' + err.message);
     }
   };
 
@@ -1419,9 +1428,12 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       return;
     }
     try {
-      const res = await fetch('/api/admin/orders', { method: 'DELETE' });
+      const res = await fetch('/api/admin/orders', {
+        method: 'DELETE',
+        headers: getAdminHeaders(),
+      });
       const data = await res.json();
-      if (data.success) {
+      if (res.ok && data.success) {
         try {
           localStorage.removeItem('g1mart_account_orders');
           localStorage.removeItem('g1mart_recent_order');
@@ -1434,7 +1446,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         setSelectedOrder(null);
         alert('All orders have been permanently cleared from everywhere!');
       } else {
-        alert(data.error || 'Failed to clear orders');
+        alert(data.error || `Failed to clear orders (${res.status})`);
       }
     } catch (err: any) {
       alert('Error clearing orders: ' + err.message);
@@ -1450,7 +1462,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     try {
       await fetch('/api/admin/products', {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminHeaders(),
+        },
         body: JSON.stringify({
           id: productId,
           inStock,
@@ -1785,7 +1800,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               try {
                 const res = await fetch('/api/admin/products', {
                   method: 'PATCH',
-                  headers: { 'Content-Type': 'application/json' },
+                  headers: {
+                    'Content-Type': 'application/json',
+                    ...getAdminHeaders(),
+                  },
                   body: JSON.stringify({
                     id: updatedProduct.id,
                     name: updatedProduct.name,

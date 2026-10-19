@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { serverStaffStore } from '@/lib/serverStaffStore';
-import { isSupabaseConfigured } from '@/lib/supabase/client';
+import { isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 
 export interface AuthGuardResult {
   authorized: boolean;

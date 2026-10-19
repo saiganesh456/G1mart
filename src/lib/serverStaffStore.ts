@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
+import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 import type { StaffMember, UserRole } from '@/types';
 
 // Default primary super admin emails (Protected store root owners)

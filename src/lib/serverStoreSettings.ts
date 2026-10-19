@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
+import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 import type { StoreSettings, DeliveryZone } from '@/types/deliveryZone';
 
 import { DEFAULT_STORE_SETTINGS, DEFAULT_DELIVERY_ZONES } from './storeSettingsConstants';
