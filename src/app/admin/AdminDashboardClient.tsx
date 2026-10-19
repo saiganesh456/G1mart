@@ -93,7 +93,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     audioEnabledRef.current = audioEnabled;
   }, [audioEnabled]);
   const [isAlarmRinging, setIsAlarmRinging] = useState(false);
-  const [newOrderAlert, setNewOrderAlert] = useState<Order | null>(null);
+  const [newOrderAlert, setNewOrderAlert] = useState<any>(null);
   const [pushStatusMessage, setPushStatusMessage] = useState<string | null>(null);
   const [testingPush, setTestingPush] = useState(false);
 
@@ -135,7 +135,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   const alarmLoopTimerRef = useRef<NodeJS.Timeout | null>(null);
   const alarmActiveRef = useRef<boolean>(false);
   const seenOrderIdsRef = useRef<Set<string>>(new Set());
+  const seenSlipIdsRef = useRef<Set<string>>(new Set());
   const isInitialFetchDoneRef = useRef<boolean>(false);
+  const isInitialSlipFetchDoneRef = useRef<boolean>(false);
   const pendingOrderIdRef = useRef<string | null>(null);
 
   // Initialize and unlock audio on first user touch/click
@@ -337,6 +339,72 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     }
 
     // Auto-stop alarm after 20 seconds so it never loops forever
+    setTimeout(() => {
+      if (alarmActiveRef.current) {
+        stopAlarm();
+      }
+    }, 20000);
+  };
+
+  // Start the alarm for new slip orders
+  const startSlipAlarm = (slip: any) => {
+    const slipAlertObj = {
+      id: slip.id,
+      isSlip: true,
+      customerName: slip.customer_name || slip.customerName || 'Customer',
+      customerPhone: slip.customer_phone || slip.customerPhone || '',
+      imagesCount: slip.images?.length || 1,
+      address: slip.address || 'Nellore',
+      grandTotal: slip.estimated_total || slip.final_total || 0,
+      createdAt: slip.created_at || new Date().toISOString(),
+    };
+    setNewOrderAlert(slipAlertObj);
+
+    if (!audioEnabledRef.current) {
+      return;
+    }
+
+    if (alarmActiveRef.current) {
+      return;
+    }
+
+    alarmActiveRef.current = true;
+    setIsAlarmRinging(true);
+
+    if (alarmLoopTimerRef.current) {
+      clearTimeout(alarmLoopTimerRef.current);
+    }
+
+    playFemaleVoiceLoop();
+
+    // Trigger background native system notification if tab is backgrounded
+    if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+      try {
+        if (document.visibilityState !== 'visible' || !document.hasFocus()) {
+          const shortId = slip.id.startsWith('SLIP-') ? slip.id : `#${slip.id}`;
+          const notif = new Notification(`📸 NEW GROCERY SLIP: ${shortId}`, {
+            body: `${slipAlertObj.customerName} (${slipAlertObj.customerPhone}) • ${slipAlertObj.imagesCount} photo slip(s) • Tap to view & call`,
+            icon: '/icons/icon-192x192.png',
+            badge: '/icons/icon-192x192.png',
+            tag: `admin_new_slip_${slip.id}`,
+          });
+          notif.onclick = () => {
+            window.focus();
+            stopAlarm();
+            setActiveTab('slips');
+            try {
+              window.history.pushState(
+                { view: 'slip', slipId: slip.id, tab: 'slips', adminBack: true },
+                '',
+                `/admin?tab=slips&slipId=${encodeURIComponent(slip.id)}`
+              );
+            } catch {}
+            notif.close();
+          };
+        }
+      } catch {}
+    }
+
     setTimeout(() => {
       if (alarmActiveRef.current) {
         stopAlarm();
@@ -717,6 +785,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
 
     // 1. Supabase Realtime Channel (Instant 0ms database push notifications)
     let supabaseChannel: any = null;
+    let supabaseSlipChannel: any = null;
     if (isSupabaseConfigured()) {
       try {
         supabaseChannel = supabase
@@ -787,6 +856,39 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           .subscribe((status: string) => {
             console.log('[Supabase Realtime] Orders channel status:', status);
           });
+
+        supabaseSlipChannel = supabase
+          .channel('g1mart_admin_slips_live')
+          .on(
+            'postgres_changes',
+            {
+              event: '*',
+              schema: 'public',
+              table: 'slip_orders',
+            },
+            (payload: any) => {
+              if (payload.eventType === 'INSERT') {
+                const row = payload.new;
+                if (!row || !row.id) return;
+                if (seenSlipIdsRef.current.has(row.id)) return;
+                seenSlipIdsRef.current.add(row.id);
+
+                setSlipCounts((prev) => ({ ...prev, new: prev.new + 1 }));
+                startSlipAlarm(row);
+              } else if (payload.eventType === 'UPDATE') {
+                const row = payload.new;
+                if (row?.status === 'CONFIRMED') {
+                  setSlipCounts((prev) => ({
+                    new: Math.max(0, prev.new - 1),
+                    confirmed: prev.confirmed + 1,
+                  }));
+                }
+              }
+            }
+          )
+          .subscribe((status: string) => {
+            console.log('[Supabase Realtime] Slips channel status:', status);
+          });
       } catch (err) {
         console.warn('[Supabase Realtime] Setup notice:', err);
       }
@@ -807,6 +909,13 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             return [newOrder, ...prev];
           });
           startAlarm(newOrder);
+        } else if (event.data?.type === 'NEW_SLIP_ORDER' && event.data.slip) {
+          const newSlip = event.data.slip;
+          if (seenSlipIdsRef.current.has(newSlip.id)) return;
+          seenSlipIdsRef.current.add(newSlip.id);
+
+          setSlipCounts((prev) => ({ ...prev, new: prev.new + 1 }));
+          startSlipAlarm(newSlip);
         } else if (event.data?.type === 'ORDER_UPDATED' && event.data.order) {
           setOrders((prev) =>
             prev.map((o) => (o.id === event.data.order.id ? { ...o, ...event.data.order } : o))
@@ -816,10 +925,24 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           }
         } else if (event.data?.type === 'NOTIFICATION_ORDER_CLICKED' && event.data?.orderId) {
           const clickedOrderId = event.data.orderId;
+          const isSlip = event.data?.tab === 'slips' || String(clickedOrderId).startsWith('SLIP');
           stopAlarm();
-          setActiveTab('orders');
-          pendingOrderIdRef.current = clickedOrderId;
-          fetchSpecificOrder(clickedOrderId);
+          if (isSlip) {
+            setActiveTab('slips');
+            if (clickedOrderId) {
+              try {
+                window.history.pushState(
+                  { view: 'slip', slipId: clickedOrderId, tab: 'slips', adminBack: true },
+                  '',
+                  `/admin?tab=slips&slipId=${encodeURIComponent(clickedOrderId)}`
+                );
+              } catch {}
+            }
+          } else {
+            setActiveTab('orders');
+            pendingOrderIdRef.current = clickedOrderId;
+            fetchSpecificOrder(clickedOrderId);
+          }
         }
       };
     } catch {}
@@ -835,31 +958,49 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       handleSwMessage = (event: MessageEvent) => {
         if (event.data?.type === 'NEW_ORDER_PUSH_RECEIVED') {
           fetchOrders(false);
+          const isSlip = event.data?.data?.tab === 'slips' || event.data?.data?.tag?.includes('admin_new_slip') || String(event.data?.orderId).startsWith('SLIP');
+          if (isSlip && event.data?.orderId) {
+            startSlipAlarm({ id: event.data.orderId, customer_name: 'Customer' });
+          }
         } else if (event.data?.type === 'NOTIFICATION_ORDER_CLICKED') {
           const clickedOrderId = event.data.orderId;
+          const isSlip = event.data?.tab === 'slips' || String(clickedOrderId).startsWith('SLIP');
           stopAlarm();
-          setActiveTab('orders');
-          if (clickedOrderId) {
-            pendingOrderIdRef.current = clickedOrderId;
-            setOrders((prev) => {
-              const found = prev.find(
-                (o) => o.id === clickedOrderId || (o as any).orderNumber === clickedOrderId
-              );
-              if (found) {
-                setSelectedOrder(found);
-              } else {
-                fetchSpecificOrder(clickedOrderId);
-              }
-              return prev;
-            });
-            fetchOrders(false);
-            try {
-              window.history.pushState(
-                { view: 'order', orderId: clickedOrderId, tab: 'orders', adminBack: true },
-                '',
-                `/admin?tab=orders&orderId=${encodeURIComponent(clickedOrderId)}`
-              );
-            } catch {}
+          if (isSlip) {
+            setActiveTab('slips');
+            if (clickedOrderId) {
+              try {
+                window.history.pushState(
+                  { view: 'slip', slipId: clickedOrderId, tab: 'slips', adminBack: true },
+                  '',
+                  `/admin?tab=slips&slipId=${encodeURIComponent(clickedOrderId)}`
+                );
+              } catch {}
+            }
+          } else {
+            setActiveTab('orders');
+            if (clickedOrderId) {
+              pendingOrderIdRef.current = clickedOrderId;
+              setOrders((prev) => {
+                const found = prev.find(
+                  (o) => o.id === clickedOrderId || (o as any).orderNumber === clickedOrderId
+                );
+                if (found) {
+                  setSelectedOrder(found);
+                } else {
+                  fetchSpecificOrder(clickedOrderId);
+                }
+                return prev;
+              });
+              fetchOrders(false);
+              try {
+                window.history.pushState(
+                  { view: 'order', orderId: clickedOrderId, tab: 'orders', adminBack: true },
+                  '',
+                  `/admin?tab=orders&orderId=${encodeURIComponent(clickedOrderId)}`
+                );
+              } catch {}
+            }
           }
         }
       };
@@ -878,6 +1019,11 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       if (supabaseChannel) {
         try {
           supabase.removeChannel(supabaseChannel);
+        } catch {}
+      }
+      if (supabaseSlipChannel) {
+        try {
+          supabase.removeChannel(supabaseSlipChannel);
         } catch {}
       }
       stopAlarm();
@@ -1092,17 +1238,31 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   const [slipCounts, setSlipCounts] = useState<{ new: number; confirmed: number }>({ new: 0, confirmed: 0 });
 
   useEffect(() => {
-    const fetchCounts = async () => {
+    const fetchSlipData = async () => {
       try {
         const res = await fetch('/api/admin/slip-orders');
         const data = await res.json();
         if (data.counts) {
           setSlipCounts({ new: data.counts.new || 0, confirmed: data.counts.confirmed || 0 });
         }
+        if (Array.isArray(data.orders)) {
+          if (isInitialSlipFetchDoneRef.current) {
+            const newSlips = data.orders.filter(
+              (o: any) => o.status === 'SLIP_RECEIVED' && !seenSlipIdsRef.current.has(o.id)
+            );
+            if (newSlips.length > 0) {
+              newSlips.forEach((o: any) => seenSlipIdsRef.current.add(o.id));
+              startSlipAlarm(newSlips[0]);
+            }
+          } else {
+            data.orders.forEach((o: any) => seenSlipIdsRef.current.add(o.id));
+            isInitialSlipFetchDoneRef.current = true;
+          }
+        }
       } catch {}
     };
-    fetchCounts();
-    const iv = setInterval(fetchCounts, 5000);
+    fetchSlipData();
+    const iv = setInterval(fetchSlipData, 4000);
     return () => clearInterval(iv);
   }, []);
 
@@ -1239,12 +1399,12 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                   isAlarmRinging ? 'bg-red-500 text-white animate-bounce' : 'bg-white/20 text-white'
                 }`}
               >
-                {isAlarmRinging ? '🚨' : '🔔'}
+                {newOrderAlert.isSlip ? '📸' : (isAlarmRinging ? '🚨' : '🔔')}
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
                   <h4 className="text-xs font-black tracking-wider uppercase text-emerald-200">
-                    {isAlarmRinging ? 'New Order Alert!' : 'Order Notification'}
+                    {newOrderAlert.isSlip ? 'New Grocery Slip Alert!' : (isAlarmRinging ? 'New Order Alert!' : 'Order Notification')}
                   </h4>
                   {isAlarmRinging && (
                     <span className="text-[10px] font-black uppercase bg-red-500/90 text-white px-2 py-0.5 rounded-full animate-pulse">
@@ -1253,10 +1413,12 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                   )}
                 </div>
                 <p className="text-base font-black truncate mt-0.5">
-                  #{newOrderAlert.id} • ₹{newOrderAlert.grandTotal}
+                  #{newOrderAlert.id} • {newOrderAlert.isSlip ? `${newOrderAlert.imagesCount || 1} photo slip(s)` : `₹${newOrderAlert.grandTotal}`}
                 </p>
                 <p className="text-xs text-emerald-100 truncate">
-                  {newOrderAlert.address?.fullName || 'Customer'} • {newOrderAlert.items?.length || 1} items • {newOrderAlert.paymentMethod || 'COD'}
+                  {newOrderAlert.isSlip
+                    ? `${newOrderAlert.customerName || 'Customer'} (${newOrderAlert.customerPhone || ''}) • ${newOrderAlert.address || 'Nellore'}`
+                    : `${newOrderAlert.address?.fullName || 'Customer'} • ${newOrderAlert.items?.length || 1} items • ${newOrderAlert.paymentMethod || 'COD'}`}
                 </p>
               </div>
             </div>
@@ -1287,23 +1449,36 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               type="button"
               onClick={() => {
                 stopAlarm();
-                setActiveTab('orders');
-                setSelectedOrder(newOrderAlert);
-                if (newOrderAlert?.id) {
-                  try {
-                    window.history.pushState(
-                      { view: 'order', orderId: newOrderAlert.id, tab: 'orders', adminBack: true },
-                      '',
-                      `/admin?tab=orders&orderId=${encodeURIComponent(newOrderAlert.id)}`
-                    );
-                  } catch {}
+                if (newOrderAlert.isSlip) {
+                  setActiveTab('slips');
+                  if (newOrderAlert.id) {
+                    try {
+                      window.history.pushState(
+                        { view: 'slip', slipId: newOrderAlert.id, tab: 'slips', adminBack: true },
+                        '',
+                        `/admin?tab=slips&slipId=${encodeURIComponent(newOrderAlert.id)}`
+                      );
+                    } catch {}
+                  }
+                } else {
+                  setActiveTab('orders');
+                  setSelectedOrder(newOrderAlert);
+                  if (newOrderAlert?.id) {
+                    try {
+                      window.history.pushState(
+                        { view: 'order', orderId: newOrderAlert.id, tab: 'orders', adminBack: true },
+                        '',
+                        `/admin?tab=orders&orderId=${encodeURIComponent(newOrderAlert.id)}`
+                      );
+                    } catch {}
+                  }
                 }
                 setNewOrderAlert(null);
               }}
               className="px-4 py-2 bg-white text-emerald-950 hover:bg-emerald-50 rounded-xl text-xs font-black uppercase tracking-wider shadow-md transition-all flex items-center gap-1.5"
             >
               <CheckCircle2 className="w-4 h-4 text-emerald-700" />
-              <span>Open &amp; Acknowledge</span>
+              <span>{newOrderAlert.isSlip ? 'Open Slip & Call Customer' : 'Open & Acknowledge'}</span>
             </button>
           </div>
         </div>

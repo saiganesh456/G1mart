@@ -59,6 +59,7 @@ function loadDiskSlipOrders(): SlipOrder[] {
 }
 
 function persistDiskSlipOrders(): void {
+  if (slipsMap.size === 0) return;
   try {
     ensureDataDir();
     const list = Array.from(slipsMap.values()).sort(
@@ -317,9 +318,113 @@ export const serverSlipOrders = {
   },
 
   /**
-   * List all slip orders
+   * List all slip orders with Supabase remote database synchronization
    */
   async getSlipOrders(filterStatus?: SlipOrderStatus): Promise<SlipOrder[]> {
+    // 1. Ensure disk cache is loaded
+    const disk = loadDiskSlipOrders();
+    disk.forEach((o) => {
+      if (o && o.id && !slipsMap.has(o.id)) {
+        slipsMap.set(o.id, o);
+      }
+    });
+
+    // 2. Fetch from Supabase remote database
+    if (isSupabaseConfigured()) {
+      try {
+        const { data: dbOrders, error: sErr } = await supabase
+          .from('slip_orders')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (!sErr && Array.isArray(dbOrders) && dbOrders.length > 0) {
+          const ids = dbOrders.map((r: any) => r.id);
+
+          const [{ data: imgRows }, { data: itRows }] = await Promise.all([
+            supabase.from('slip_images').select('*').in('slip_order_id', ids),
+            supabase.from('slip_items').select('*').in('slip_order_id', ids),
+          ]);
+
+          for (const row of dbOrders) {
+            if (!row || !row.id) continue;
+            const existing = slipsMap.get(row.id);
+
+            const rowImages: SlipImage[] = (imgRows || [])
+              .filter((img: any) => img.slip_order_id === row.id)
+              .sort((a: any, b: any) => (a.sort_order || 0) - (b.sort_order || 0))
+              .map((img: any) => ({
+                id: img.id,
+                slip_order_id: img.slip_order_id,
+                storage_path: img.storage_path,
+                image_url: img.image_url,
+                sort_order: img.sort_order,
+                created_at: img.created_at,
+              }));
+
+            const rowItems: SlipItem[] = (itRows || [])
+              .filter((it: any) => it.slip_order_id === row.id)
+              .map((it: any) => ({
+                id: it.id,
+                slip_order_id: it.slip_order_id,
+                product_id: it.product_id || null,
+                name: it.name,
+                requested_qty: Number(it.requested_qty || 1),
+                packed_qty: Number(it.packed_qty || 0),
+                unit: it.unit || 'unit',
+                price: Number(it.price || 0),
+                available: it.available !== false,
+                substitute_note: it.substitute_note || null,
+                created_at: it.created_at,
+              }));
+
+            const mergedOrder: SlipOrder = {
+              id: row.id,
+              customer_id: row.customer_id || existing?.customer_id || null,
+              customer_name: row.customer_name || existing?.customer_name || 'Customer',
+              customer_phone: row.customer_phone || existing?.customer_phone || '',
+              customer_note: row.customer_note || existing?.customer_note || null,
+              address: row.address || existing?.address || 'Nellore',
+              lat: row.lat !== null && row.lat !== undefined ? Number(row.lat) : (existing?.lat ?? null),
+              lng: row.lng !== null && row.lng !== undefined ? Number(row.lng) : (existing?.lng ?? null),
+              pincode: row.pincode || existing?.pincode || null,
+              distance_km: Number(row.distance_km ?? existing?.distance_km ?? 0),
+              eta_min: Number(row.eta_min ?? existing?.eta_min ?? 15),
+              zone_id: row.zone_id || existing?.zone_id || null,
+              zone_min_order: Number(row.zone_min_order ?? existing?.zone_min_order ?? 500),
+              order_type: (row.order_type as any) || existing?.order_type || 'delivery',
+              status: (row.status as any) || existing?.status || 'SLIP_RECEIVED',
+              estimated_total: Number(row.estimated_total ?? existing?.estimated_total ?? 0),
+              final_total: Number(row.final_total ?? existing?.final_total ?? 0),
+              subtotal: Number(row.subtotal ?? existing?.subtotal ?? 0),
+              delivery_fee: Number(row.delivery_fee ?? existing?.delivery_fee ?? 0),
+              cod_fee: Number(row.cod_fee ?? existing?.cod_fee ?? 0),
+              payment_method: row.payment_method || existing?.payment_method || null,
+              payment_status: row.payment_status || existing?.payment_status || 'pending',
+              transaction_id: row.transaction_id || existing?.transaction_id || null,
+              billed_by: row.billed_by || existing?.billed_by || null,
+              packed_by: row.packed_by || existing?.packed_by || null,
+              assigned_rider_id: row.assigned_rider_id || existing?.assigned_rider_id || null,
+              assigned_rider_name: row.assigned_rider_name || existing?.assigned_rider_name || null,
+              assigned_rider_phone: row.assigned_rider_phone || existing?.assigned_rider_phone || null,
+              admin_notes: row.admin_notes || existing?.admin_notes || null,
+              cancel_reason: row.cancel_reason || existing?.cancel_reason || null,
+              created_at: row.created_at || existing?.created_at || new Date().toISOString(),
+              updated_at: row.updated_at || existing?.updated_at || new Date().toISOString(),
+              images: (existing?.images && existing.images.length > 0) ? existing.images : rowImages,
+              items: (existing?.items && existing.items.length > 0) ? existing.items : rowItems,
+              status_history: existing?.status_history || [],
+            };
+
+            slipsMap.set(row.id, mergedOrder);
+          }
+
+          persistDiskSlipOrders();
+        }
+      } catch (dbErr) {
+        console.warn('[serverSlipOrders] Error syncing from Supabase:', dbErr);
+      }
+    }
+
     const list = Array.from(slipsMap.values()).sort(
       (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     );
@@ -331,7 +436,7 @@ export const serverSlipOrders = {
   },
 
   /**
-   * Get slip order by ID with flexible prefix matching
+   * Get slip order by ID with flexible prefix matching and Supabase fallback
    */
   async getSlipOrderById(id: string): Promise<SlipOrder | null> {
     if (!id) return null;
@@ -355,6 +460,96 @@ export const serverSlipOrders = {
     if (match) {
       slipsMap.set(match.id, match);
       return match;
+    }
+
+    // Check Supabase remote database
+    if (isSupabaseConfigured()) {
+      try {
+        const fullId = String(id).startsWith('SLIP-') ? id : `SLIP-${id}`;
+        const rawId = String(id).replace(/^SLIP-/i, '');
+
+        const { data: row } = await supabase
+          .from('slip_orders')
+          .select('*')
+          .or(`id.eq.${id},id.eq.${fullId},id.eq.${rawId}`)
+          .maybeSingle();
+
+        if (row) {
+          const [{ data: imgRows }, { data: itRows }] = await Promise.all([
+            supabase.from('slip_images').select('*').eq('slip_order_id', row.id),
+            supabase.from('slip_items').select('*').eq('slip_order_id', row.id),
+          ]);
+
+          const rowImages: SlipImage[] = (imgRows || [])
+            .sort((a: any, b: any) => (a.sort_order || 0) - (b.sort_order || 0))
+            .map((img: any) => ({
+              id: img.id,
+              slip_order_id: img.slip_order_id,
+              storage_path: img.storage_path,
+              image_url: img.image_url,
+              sort_order: img.sort_order,
+              created_at: img.created_at,
+            }));
+
+          const rowItems: SlipItem[] = (itRows || []).map((it: any) => ({
+            id: it.id,
+            slip_order_id: it.slip_order_id,
+            product_id: it.product_id || null,
+            name: it.name,
+            requested_qty: Number(it.requested_qty || 1),
+            packed_qty: Number(it.packed_qty || 0),
+            unit: it.unit || 'unit',
+            price: Number(it.price || 0),
+            available: it.available !== false,
+            substitute_note: it.substitute_note || null,
+            created_at: it.created_at,
+          }));
+
+          const dbOrder: SlipOrder = {
+            id: row.id,
+            customer_id: row.customer_id || null,
+            customer_name: row.customer_name || 'Customer',
+            customer_phone: row.customer_phone || '',
+            customer_note: row.customer_note || null,
+            address: row.address || 'Nellore',
+            lat: row.lat !== null && row.lat !== undefined ? Number(row.lat) : null,
+            lng: row.lng !== null && row.lng !== undefined ? Number(row.lng) : null,
+            pincode: row.pincode || null,
+            distance_km: Number(row.distance_km || 0),
+            eta_min: Number(row.eta_min || 15),
+            zone_id: row.zone_id || null,
+            zone_min_order: Number(row.zone_min_order || 500),
+            order_type: (row.order_type as any) || 'delivery',
+            status: (row.status as any) || 'SLIP_RECEIVED',
+            estimated_total: Number(row.estimated_total || 0),
+            final_total: Number(row.final_total || 0),
+            subtotal: Number(row.subtotal || 0),
+            delivery_fee: Number(row.delivery_fee || 0),
+            cod_fee: Number(row.cod_fee || 0),
+            payment_method: row.payment_method || null,
+            payment_status: row.payment_status || 'pending',
+            transaction_id: row.transaction_id || null,
+            billed_by: row.billed_by || null,
+            packed_by: row.packed_by || null,
+            assigned_rider_id: row.assigned_rider_id || null,
+            assigned_rider_name: row.assigned_rider_name || null,
+            assigned_rider_phone: row.assigned_rider_phone || null,
+            admin_notes: row.admin_notes || null,
+            cancel_reason: row.cancel_reason || null,
+            created_at: row.created_at,
+            updated_at: row.updated_at,
+            images: rowImages,
+            items: rowItems,
+            status_history: [],
+          };
+
+          slipsMap.set(row.id, dbOrder);
+          persistDiskSlipOrders();
+          return dbOrder;
+        }
+      } catch (err) {
+        console.warn('[serverSlipOrders] getSlipOrderById Supabase error:', err);
+      }
     }
 
     return null;

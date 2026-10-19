@@ -493,6 +493,20 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
         if (customerName.trim()) {
           localStorage.setItem('g1mart_customer_name', customerName.trim());
         }
+
+        // Broadcast to any open admin dashboard tabs immediately
+        try {
+          const bc = new BroadcastChannel('g1mart_order_channel');
+          bc.postMessage({
+            type: 'NEW_SLIP_ORDER',
+            slip: {
+              ...slipOrderRecord,
+              customer_name: customerName,
+              customer_phone: cleanPhone,
+            },
+          });
+          bc.close();
+        } catch {}
       } catch {}
 
       setStep('success');
