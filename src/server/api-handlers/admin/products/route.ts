@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 import { NextResponse, type NextRequest } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import { productService } from '@/services/productService';
+import { productService, normalizeCategory } from '@/services/productService';
 import { serverProductOverrides } from '@/lib/serverProductOverrides';
 import { verifyAdminRequest } from '@/lib/authGuard';
 import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
@@ -78,7 +78,7 @@ export async function PATCH(request: NextRequest) {
           const mProd = migratedList[mIndex];
           if (name !== undefined) mProd.name = String(name).trim();
           if (brand !== undefined) mProd.brand = String(brand).trim();
-          if (category !== undefined) mProd.category_id = String(category).trim();
+          if (category !== undefined) mProd.category_id = normalizeCategory(String(category).trim());
           if (subCategory !== undefined) mProd.sub_category = String(subCategory).trim();
           if (unit !== undefined) mProd.unit = String(unit).trim();
           if (price !== undefined) mProd.price = Number(price);
@@ -246,7 +246,7 @@ export async function POST(request: NextRequest) {
     const cleanName = String(name).trim();
     const cleanBrand = brand ? String(brand).trim() : 'G1 Mart';
     const cleanUnit = unit ? String(unit).trim() : '1 unit';
-    const cleanCategory = category ? String(category).trim() : 'grocery-staples';
+    const cleanCategory = normalizeCategory(category ? String(category).trim() : 'atta-rice-dal');
     const numPrice = Number(price) || 0;
     const numMrp = Number(originalPrice) || numPrice;
     const numStock = stockCount !== undefined ? Number(stockCount) : 15;

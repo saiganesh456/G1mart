@@ -12,9 +12,68 @@ import {
   CheckCircle2,
   Upload,
   Plus,
+  ExternalLink,
 } from 'lucide-react';
 import ProductImage from '@/components/storefront/ProductImage';
 import { adminFetch } from '@/lib/adminApi';
+import { normalizeCategory } from '@/services/productService';
+
+export const STORE_SECTIONS_CATEGORIES = [
+  {
+    section: '🛒 Grocery & Kitchen',
+    categories: [
+      { id: 'atta-rice-dal', name: 'Rice, Atta & Flours' },
+      { id: 'local-dals', name: 'Dals & Pulses' },
+      { id: 'oil-ghee-masala', name: 'Oils & Ghee' },
+      { id: 'spices-masalas', name: 'Spices & Masalas' },
+      { id: 'sugar-salt-staples', name: 'Salt, Sugar & Jaggery' },
+      { id: 'dry-fruits-cereals', name: 'Dry Fruits & Nuts' },
+      { id: 'vegetables-fruits', name: 'Fresh Vegetables & Produce' },
+      { id: 'local-millets', name: 'Millets & Grains' },
+    ],
+  },
+  {
+    section: '🥛 Dairy, Breakfast & Instant Food',
+    categories: [
+      { id: 'dairy-bread-eggs', name: 'Dairy, Bread & Eggs' },
+      { id: 'instant-food', name: 'Noodles & Instant Food' },
+      { id: 'biscuits-bakery', name: 'Biscuits & Bakery' },
+      { id: 'sauces-spreads', name: 'Sauces & Spreads' },
+      { id: 'pickles', name: 'Pickles & Chutneys' },
+      { id: 'ice-creams', name: 'Ice Creams & More' },
+    ],
+  },
+  {
+    section: '🍿 Snacks & Drinks',
+    categories: [
+      { id: 'chips-namkeen', name: 'Chips & Namkeen' },
+      { id: 'sweets-chocolates', name: 'Sweets & Chocolates' },
+      { id: 'tea-coffee-milk-drinks', name: 'Tea, Coffee & Health Drinks' },
+      { id: 'drinks-juices', name: 'Cold Drinks & Juices' },
+    ],
+  },
+  {
+    section: '🧹 Household & Pooja',
+    categories: [
+      { id: 'laundry-detergents', name: 'Detergents & Fabric Care' },
+      { id: 'dishwash', name: 'Dishwash Bars & Liquids' },
+      { id: 'floor-surface-cleaners', name: 'Cleaners & Pest Control' },
+      { id: 'pooja-needs', name: 'Pooja Essentials' },
+      { id: 'kitchenware', name: 'Kitchen Utility & Hardware' },
+    ],
+  },
+  {
+    section: '🧴 Personal Care & Hygiene',
+    categories: [
+      { id: 'soaps-bath', name: 'Soaps & Body Wash' },
+      { id: 'hair-care', name: 'Hair Care & Shampoos' },
+      { id: 'oral-care', name: 'Toothpaste & Oral Care' },
+      { id: 'skin-care', name: 'Skin Care & Lotions' },
+      { id: 'baby-care', name: 'Baby Care' },
+      { id: 'hygiene', name: 'Feminine & Personal Hygiene' },
+    ],
+  },
+];
 
 interface Props {
   product: Product;
@@ -34,7 +93,11 @@ export default function ProductDetailsPanel({
   const [name, setName] = useState(product.name || '');
   const [brand, setBrand] = useState(product.brand || 'G1 Mart');
   const [unit, setUnit] = useState(product.unit || '1 unit');
-  const [category, setCategory] = useState(product.category || (categories[0]?.id || 'grocery-staples'));
+  const [category, setCategory] = useState(
+    normalizeCategory(product.category || (product as any).category_id || 'atta-rice-dal')
+  );
+  const [isCustomCategory, setIsCustomCategory] = useState(false);
+  const [customCategoryName, setCustomCategoryName] = useState('');
   const [price, setPrice] = useState(
     product.price !== undefined && product.price !== null && (isNew ? product.price > 0 : true)
       ? String(product.price)
@@ -82,7 +145,9 @@ export default function ProductDetailsPanel({
     setName(product.name || '');
     setBrand(product.brand || 'G1 Mart');
     setUnit(product.unit || '1 unit');
-    setCategory(product.category || (categories[0]?.id || 'grocery-staples'));
+    setCategory(normalizeCategory(product.category || (product as any).category_id || 'atta-rice-dal'));
+    setIsCustomCategory(false);
+    setCustomCategoryName('');
     setPrice(
       product.price !== undefined && product.price !== null && (isNew ? product.price > 0 : true)
         ? String(product.price)
@@ -396,15 +461,28 @@ export default function ProductDetailsPanel({
           </div>
         </div>
 
-        <span
-          className={`text-xs font-bold px-2.5 py-1 rounded-full ${
-            inStock && (parseInt(stockCount, 10) > 0 || stockCount === '')
-              ? 'bg-emerald-100 text-emerald-800'
-              : 'bg-rose-100 text-rose-800'
-          }`}
-        >
-          {inStock && (parseInt(stockCount, 10) > 0 || stockCount === '') ? '🟢 In Stock' : '🔴 Out of Stock'}
-        </span>
+        <div className="flex items-center gap-2">
+          {!isNew && product.id && (
+            <a
+              href={`/product/${product.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-[#1B5E20] border border-emerald-200 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-2xs"
+            >
+              <span>View in Store</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          )}
+          <span
+            className={`text-xs font-bold px-2.5 py-1.5 rounded-full ${
+              inStock && (parseInt(stockCount, 10) > 0 || stockCount === '')
+                ? 'bg-emerald-100 text-emerald-800'
+                : 'bg-rose-100 text-rose-800'
+            }`}
+          >
+            {inStock && (parseInt(stockCount, 10) > 0 || stockCount === '') ? '🟢 In Stock' : '🔴 Out of Stock'}
+          </span>
+        </div>
       </div>
 
       <form onSubmit={handleSave} className="space-y-4">
@@ -428,6 +506,19 @@ export default function ProductDetailsPanel({
               <p className="text-xs text-stone-500 mt-1">
                 Unit: {unit || '1 unit'} • Category: {category}
               </p>
+              {!isNew && product.id && (
+                <div className="mt-2">
+                  <a
+                    href={`/product/${product.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-[#1B5E20] rounded-lg text-[11px] font-bold transition-colors cursor-pointer"
+                  >
+                    <span>View customer product page</span>
+                    <ExternalLink className="w-3 h-3 text-[#1B5E20]" />
+                  </a>
+                </div>
+              )}
             </div>
           </div>
 
@@ -475,9 +566,25 @@ export default function ProductDetailsPanel({
           )}
 
           {saveSuccess && (
-            <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 shrink-0" />
-              <span>{isNew ? 'New product created successfully!' : 'Product updated successfully! Returning...'}</span>
+            <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-2xl text-xs font-bold flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 shadow-2xs">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#1B5E20] shrink-0" />
+                <span>
+                  {isNew
+                    ? 'New product published to customer storefront!'
+                    : 'Product updated successfully in customer store!'}
+                </span>
+              </div>
+              {product.id && (
+                <a
+                  href={`/product/${product.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white hover:bg-emerald-100 text-[#1B5E20] border border-emerald-300 rounded-lg text-xs font-black transition-colors"
+                >
+                  <span>Open in Store ↗</span>
+                </a>
+              )}
             </div>
           )}
 
@@ -676,31 +783,87 @@ export default function ProductDetailsPanel({
               </div>
 
               <div>
-                <label className="text-xs font-black text-stone-700 uppercase tracking-wider block mb-1">
-                  Store Category
-                </label>
-                <select
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-semibold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
-                >
-                  {categories.length > 0 ? (
-                    categories.map((c) => (
-                      <option key={c.id} value={c.id}>
-                        {c.name}
-                      </option>
-                    ))
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-xs font-black text-stone-700 uppercase tracking-wider block">
+                    Store Category
+                  </label>
+                  {!isCustomCategory ? (
+                    <button
+                      type="button"
+                      onClick={() => setIsCustomCategory(true)}
+                      className="text-[10px] font-bold text-[#1B5E20] hover:underline cursor-pointer"
+                    >
+                      + New Category
+                    </button>
                   ) : (
-                    <>
-                      <option value="atta-rice-dal">Atta, Rice &amp; Dal</option>
-                      <option value="oil-ghee-masala">Oil, Ghee &amp; Masala</option>
-                      <option value="grocery-staples">Grocery Staples</option>
-                      <option value="snacks-beverages">Snacks &amp; Beverages</option>
-                      <option value="cleaning-household">Cleaning &amp; Household</option>
-                      <option value="personal-care">Personal Care</option>
-                    </>
+                    <button
+                      type="button"
+                      onClick={() => setIsCustomCategory(false)}
+                      className="text-[10px] font-bold text-stone-500 hover:underline cursor-pointer"
+                    >
+                      Choose Existing
+                    </button>
                   )}
-                </select>
+                </div>
+
+                {!isCustomCategory ? (
+                  <select
+                    value={category}
+                    onChange={(e) => {
+                      if (e.target.value === '__add_new__') {
+                        setIsCustomCategory(true);
+                      } else {
+                        setCategory(e.target.value);
+                      }
+                    }}
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-semibold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
+                  >
+                    {STORE_SECTIONS_CATEGORIES.map((sec) => (
+                      <optgroup key={sec.section} label={sec.section}>
+                        {sec.categories.map((c) => (
+                          <option key={c.id} value={c.id}>
+                            {c.name}
+                          </option>
+                        ))}
+                      </optgroup>
+                    ))}
+                    <optgroup label="✨ Custom / Other">
+                      <option value="__add_new__">➕ + Add New Custom Category...</option>
+                    </optgroup>
+                  </select>
+                ) : (
+                  <div className="space-y-1.5">
+                    <input
+                      type="text"
+                      autoFocus
+                      value={customCategoryName}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setCustomCategoryName(val);
+                        const slug = val
+                          .toLowerCase()
+                          .replace(/[^a-z0-9]+/g, '-')
+                          .replace(/(^-|-$)/g, '');
+                        setCategory(slug || 'atta-rice-dal');
+                      }}
+                      placeholder="e.g. Organic & Healthy Foods"
+                      className="w-full px-3 py-2 bg-white border border-[#1B5E20] rounded-xl text-xs font-semibold text-stone-900 focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
+                    />
+                    <div className="flex items-center justify-between text-[10px] text-stone-500">
+                      <span>Category ID: <code className="font-mono text-emerald-800">{category}</code></span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsCustomCategory(false);
+                          setCategory('atta-rice-dal');
+                        }}
+                        className="text-stone-400 hover:text-stone-600 cursor-pointer"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

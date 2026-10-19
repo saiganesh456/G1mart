@@ -3,6 +3,23 @@ import { DEMO_CATEGORIES, DEMO_SECTIONS } from '../data/demo-seed';
 import { resolveLegacyId } from '../lib/legacyIdMap';
 import { serverProductOverrides } from '../lib/serverProductOverrides';
 
+export function normalizeCategory(cat?: string | null): string {
+  if (!cat) return 'atta-rice-dal';
+  const c = cat.trim().toLowerCase();
+  const map: Record<string, string> = {
+    'grocery-staples': 'atta-rice-dal',
+    'staples': 'atta-rice-dal',
+    'atta': 'atta-rice-dal',
+    'rice': 'atta-rice-dal',
+    'snacks-beverages': 'chips-namkeen',
+    'household-cleaning': 'floor-surface-cleaners',
+    'cleaning-household': 'floor-surface-cleaners',
+    'pooja-essentials': 'pooja-needs',
+    'personal-care': 'soaps-bath',
+  };
+  return map[c] || c;
+}
+
 // ---------------------------------------------------------------------------
 // Load migrated JSON data (1 043 products + 1 231 variants) as server-side module
 // These are plain JSON files read at build-time / server startup.
@@ -266,6 +283,7 @@ export const productService = {
 
   /**
    * Synchronize dynamic product overrides from Supabase into MIGRATED_PRODUCT_LIST.
+   * Updates existing products and registers newly created admin products into customer catalog.
    */
   async syncOverrides(): Promise<void> {
     try {
@@ -278,6 +296,58 @@ export const productService = {
           MIGRATED_PRODUCT_LIST[idx] = serverProductOverrides.applyToProduct(MIGRATED_PRODUCT_LIST[idx], override);
           if (MIGRATED_PRODUCT_LIST[idx].variants && MIGRATED_PRODUCT_LIST[idx].variants!.length > 0) {
             variantsByProductId.set(id, MIGRATED_PRODUCT_LIST[idx].variants!);
+          }
+        } else if (override.name) {
+          // Brand new product created in Admin console - register for storefront & customer views
+          const priceNum = Number(override.price) || 0;
+          const mrpNum = Number(override.originalPrice) || priceNum;
+          const stockNum = override.stockCount !== undefined ? Number(override.stockCount) : 15;
+          const img = override.imageUrl || '/products/placeholder.svg';
+          const catId = normalizeCategory(override.category || (override as any).category_id);
+          const brandName = override.brand || 'G1 Mart';
+
+          const newProd: Product = {
+            id: override.id,
+            name: override.name,
+            brand: brandName,
+            category: catId,
+            category_id: catId,
+            subCategory: override.subCategory,
+            unit: override.unit || '1 unit',
+            price: priceNum,
+            priceConfirmed: priceNum > 0,
+            originalPrice: mrpNum,
+            discountPercentage: mrpNum > priceNum && mrpNum > 0 ? Math.round(((mrpNum - priceNum) / mrpNum) * 100) : 0,
+            stockCount: stockNum,
+            inStock: override.inStock !== false && stockNum > 0,
+            image: img,
+            image_url: img,
+            imageUrl: img,
+            image_path: img,
+            image_source: 'manufacturer',
+            image_status: (override.imageStatus as any) || 'verified',
+            imageStatus: (override.imageStatus as any) || 'verified',
+            description: `${brandName} — ${override.name}`,
+            rating: 4.8,
+            reviewsCount: 1,
+            isPopular: true,
+            isActive: override.inStock !== false,
+            variants: override.variants || [
+              {
+                id: `${override.id}-v1`,
+                product_id: override.id,
+                size_label: override.unit || '1 unit',
+                price: priceNum,
+                mrp: mrpNum,
+                stock: stockNum,
+                image_url: img,
+              },
+            ],
+          };
+
+          MIGRATED_PRODUCT_LIST.unshift(newProd);
+          if (newProd.variants && newProd.variants.length > 0) {
+            variantsByProductId.set(override.id, newProd.variants);
           }
         }
       }

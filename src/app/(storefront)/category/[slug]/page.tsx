@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { productService } from '@/services/productService';
+import { productService, normalizeCategory } from '@/services/productService';
 import CategoryDashboardClient from './CategoryDashboardClient';
 
 export const dynamic = 'force-dynamic';
@@ -76,14 +76,19 @@ export default async function CategoryPage({ params }: Props) {
   }
 
   // Strict Category Filter: A category page must show ONLY products whose category_id matches.
-  // No fallback or "related" items, no leftover items from other categories.
-  const finalProducts = allProducts.filter(
-    (p) =>
-      p.category_id === category!.id ||
-      p.category_id === targetId ||
-      p.category === category!.id ||
-      p.category === targetId
-  );
+  const catId = category!.id.toLowerCase();
+  const target = targetId.toLowerCase();
+  const finalProducts = allProducts.filter((p) => {
+    const rawCat = (p.category_id || p.category || '').toLowerCase();
+    const normCat = normalizeCategory(rawCat);
+    return (
+      normCat === catId ||
+      normCat === target ||
+      rawCat === catId ||
+      rawCat === target ||
+      (CATEGORY_ALIASES[rawCat] && (CATEGORY_ALIASES[rawCat] === catId || CATEGORY_ALIASES[rawCat] === target))
+    );
+  });
 
   return (
     <CategoryDashboardClient
