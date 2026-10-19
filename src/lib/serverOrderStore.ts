@@ -30,11 +30,6 @@ const ordersMap = global.__g1Orders;
 const paymentsMap = global.__g1Payments;
 const processedWebhooks = global.__g1ProcessedWebhooks;
 
-const toValidUuidOrNull = (val?: string | null): string | null => {
-  if (!val || typeof val !== 'string') return null;
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(val) ? val : null;
-};
-
 export const STATUS_RANK: Record<string, number> = {
   'Order Placed': 1,
   'New': 1,
@@ -281,7 +276,7 @@ export const serverOrderStore = {
       try {
         await supabase.from('orders').upsert({
           id: order.id,
-          user_id: toValidUuidOrNull(params.userId),
+          user_id: params.userId || null,
           date: order.date,
           slot: order.slot,
           payment_method: order.paymentMethod,
@@ -905,7 +900,7 @@ export const serverOrderStore = {
       try {
         await supabase.from('orders').upsert({
           id: merged.id,
-          user_id: toValidUuidOrNull(merged.userId),
+          user_id: merged.userId || null,
           date: merged.date,
           slot: merged.slot || 'Standard Delivery',
           payment_method: merged.paymentMethod || 'Cash on Delivery',
@@ -1086,7 +1081,7 @@ export const serverOrderStore = {
         const { data, error } = await supabase
           .from('orders')
           .select('*')
-          .order('created_at', { ascending: false });
+          .order('date', { ascending: false });
 
         if (!error && Array.isArray(data) && data.length > 0) {
           for (const row of data) {
@@ -1158,11 +1153,9 @@ export const serverOrderStore = {
       }
     }
 
-    return Array.from(ordersMap.values()).sort((a, b) => {
-      const timeA = new Date((a as any).created_at || a.date || 0).getTime() || 0;
-      const timeB = new Date((b as any).created_at || b.date || 0).getTime() || 0;
-      return timeB - timeA;
-    });
+    return Array.from(ordersMap.values()).sort(
+      (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
+    );
   },
 
   /**
@@ -1191,20 +1184,5 @@ export const serverOrderStore = {
     paymentsMap.clear();
     processedWebhooks.clear();
     this.persistToDisk();
-  },
-
-  /**
-   * Clear all orders and payment records completely to start freshly
-   */
-  async clearAllOrdersAsync(): Promise<void> {
-    this.clearAllOrders();
-
-    if (isSupabaseConfigured()) {
-      try {
-        await supabase.from('orders').delete().neq('id', '___none___');
-      } catch (err) {
-        console.warn('[serverOrderStore] Supabase delete note:', err);
-      }
-    }
   },
 };

@@ -138,11 +138,6 @@ export default function OrdersPage() {
           const lastAddr = JSON.parse(localStorage.getItem('g1mart_last_used_address') || '{}');
           phone = lastAddr.phone || lastAddr.mobileNumber || undefined;
         } catch {}
-        if (!phone) {
-          try {
-            phone = localStorage.getItem('g1mart_customer_phone') || undefined;
-          } catch {}
-        }
       }
 
       const query = new URLSearchParams();

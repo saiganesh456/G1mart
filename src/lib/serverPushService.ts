@@ -312,6 +312,7 @@ class ServerPushService {
     await this.syncSubscriptionsFromSupabase();
 
     const knownAdminEmails = new Set([
+      'sureshdega466@gmail.com',
       'g1mart@gmail.com',
       'lingalamahendra0@gmail.com',
       'orders@g1mart.com',
@@ -376,6 +377,7 @@ class ServerPushService {
     await this.syncSubscriptionsFromSupabase();
 
     const knownAdminEmails = new Set([
+      'sureshdega466@gmail.com',
       'g1mart@gmail.com',
       'lingalamahendra0@gmail.com',
       'orders@g1mart.com',

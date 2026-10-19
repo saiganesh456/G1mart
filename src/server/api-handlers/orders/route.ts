@@ -30,10 +30,7 @@ export async function GET(req: NextRequest) {
       const matchedSlips = allSlips.filter((s) => {
         if (cleanPhone) {
           const sPhone = (s.customer_phone || '').replace(/\D/g, '').slice(-10);
-          if (sPhone === cleanPhone) return true;
-        }
-        if (userId && (s.customer_id === userId || (s as any).userId === userId)) {
-          return true;
+          return sPhone === cleanPhone;
         }
         return false;
       });
@@ -148,21 +145,13 @@ export async function POST(req: NextRequest) {
     const registered = await serverOrderStore.registerOrderAsync(body);
 
     // Asynchronously notify all registered store managers / admins via Web Push
-    // (Strict guard: NEVER notify for background sync, test replays, or historical orders)
-    const isHistorical =
-      body.isSync === true ||
-      (body.date &&
-        !isNaN(new Date(body.date).getTime()) &&
-        Date.now() - new Date(body.date).getTime() > 5 * 60 * 1000);
-
-    if (!isHistorical) {
-      try {
-        serverPushService.notifyAdminsNewOrder(registered).catch((pushErr) => {
-          console.warn('[api/orders] Admin push notify notice:', pushErr);
-        });
-        serverPushService.sendOrderPushNotification(registered, 'Order Placed').catch(() => {});
-      } catch {}
-    }
+    // (Wakes up mobile phones even if screen is OFF or app is closed)
+    try {
+      serverPushService.notifyAdminsNewOrder(registered).catch((pushErr) => {
+        console.warn('[api/orders] Admin push notify notice:', pushErr);
+      });
+      serverPushService.sendOrderPushNotification(registered, 'Order Placed').catch(() => {});
+    } catch {}
 
     return NextResponse.json({
       success: true,
@@ -181,19 +170,6 @@ export async function DELETE() {
     serverOrderStore.clearAllOrders();
     const { serverSlipOrders } = await import('@/lib/serverSlipOrders');
     serverSlipOrders.clearAllSlips();
-
-    try {
-      const { supabase, isSupabaseConfigured } = await import('@/lib/supabase/client');
-      if (isSupabaseConfigured()) {
-        await supabase.from('order_items').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-        await supabase.from('order_status_history').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-        await supabase.from('payments').delete().neq('id', '');
-        await supabase.from('orders').delete().neq('id', '');
-        await supabase.from('slip_items').delete().neq('id', '');
-        await supabase.from('slip_images').delete().neq('id', '');
-        await supabase.from('slip_orders').delete().neq('id', '');
-      }
-    } catch {}
 
     return NextResponse.json({
       success: true,

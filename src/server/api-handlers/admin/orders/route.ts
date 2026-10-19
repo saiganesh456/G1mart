@@ -187,7 +187,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    await serverOrderStore.clearAllOrdersAsync();
+    serverOrderStore.clearAllOrders();
     const { serverSlipOrders } = await import('@/lib/serverSlipOrders');
     serverSlipOrders.clearAllSlips();
 

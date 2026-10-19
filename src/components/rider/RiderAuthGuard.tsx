@@ -35,6 +35,7 @@ export default function RiderAuthGuard({ children }: { children: React.ReactNode
         user.role === 'delivery_partner' ||
         user.role === 'rider' ||
         user.role === 'admin' ||
+        cleanEmail === 'sureshdega466@gmail.com' ||
         cleanEmail === 'g1mart@gmail.com' ||
         cleanEmail === 'lingalamahendra0@gmail.com' ||
         cleanEmail === 'rider@g1mart.com' ||

@@ -1,15 +1,6 @@
+import fs from 'fs';
+import path from 'path';
 import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
-
-let fs: any = null;
-let path: any = null;
-if (typeof window === 'undefined') {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    fs = require('fs');
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    path = require('path');
-  } catch {}
-}
 
 export interface ProductOverride {
   id: string;

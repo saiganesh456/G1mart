@@ -79,6 +79,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         let fallbackRole: any = 'customer';
         const isCoreAdmin =
+          uEmail === 'sureshdega466@gmail.com' ||
           uEmail === 'g1mart@gmail.com' ||
           uEmail === 'lingalamahendra0@gmail.com' ||
           uEmail === 'orders@g1mart.com' ||

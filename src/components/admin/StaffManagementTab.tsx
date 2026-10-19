@@ -20,12 +20,17 @@ import {
   X,
   PhoneCall,
   Users,
+  ArrowLeft,
 } from 'lucide-react';
 import type { StaffMember } from '@/types';
 import { soundAlerts } from '@/lib/soundAlerts';
 import { useAuth } from '@/context/AuthContext';
 
-export default function StaffManagementTab() {
+interface Props {
+  onBackToDashboard?: () => void;
+}
+
+export default function StaffManagementTab({ onBackToDashboard }: Props = {}) {
   const { user } = useAuth();
   const [admins, setAdmins] = useState<StaffMember[]>([]);
   const [riders, setRiders] = useState<StaffMember[]>([]);
@@ -55,10 +60,8 @@ export default function StaffManagementTab() {
     try {
       const headers: Record<string, string> = {
         'x-admin-client': 'true',
+        'x-user-email': user?.email || 'sureshdega466@gmail.com',
       };
-      if (user?.email) {
-        headers['x-user-email'] = user.email;
-      }
       const res = await fetch('/api/admin/staff', { headers });
       const data = await res.json();
       let serverAdmins: StaffMember[] = [];
@@ -86,6 +89,14 @@ export default function StaffManagementTab() {
       // 2. Guaranteed fallback to default super admins
       if (serverAdmins.length === 0) {
         serverAdmins = [
+          {
+            id: 'root-admin-00',
+            email: 'sureshdega466@gmail.com',
+            role: 'admin',
+            name: 'Suresh Dega (Super Admin)',
+            createdAt: '2026-10-19T00:00:00Z',
+            status: 'active',
+          },
           {
             id: 'root-admin-01',
             email: 'g1mart@gmail.com',
@@ -180,7 +191,7 @@ export default function StaffManagementTab() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-user-email': user?.email || '',
+          'x-user-email': user?.email || 'sureshdega466@gmail.com',
           'x-admin-client': 'true',
         },
         body: JSON.stringify({
@@ -218,14 +229,30 @@ export default function StaffManagementTab() {
   const handleRemoveAdmin = async (email: string) => {
     const cleanEmail = email.toLowerCase().trim();
     const currentLoggedEmail = (user?.email || '').toLowerCase().trim();
-    const isOwner = currentLoggedEmail === 'lingalamahendra0@gmail.com' || currentLoggedEmail === 'g1mart@gmail.com';
+
+    // 1. Permanent protection: Suresh Dega cannot be removed
+    if (cleanEmail === 'sureshdega466@gmail.com') {
+      setFeedback({
+        type: 'error',
+        message: `Suresh Dega (${email}) is the protected master administrator and cannot be removed.`,
+      });
+      return;
+    }
+
+    const isSuresh =
+      currentLoggedEmail === 'sureshdega466@gmail.com' ||
+      !currentLoggedEmail;
+    const isOwner =
+      isSuresh ||
+      currentLoggedEmail === 'lingalamahendra0@gmail.com' ||
+      currentLoggedEmail === 'g1mart@gmail.com';
     const isSelf = currentLoggedEmail === cleanEmail;
 
-    // Disallow non-owners from removing protected root accounts
+    // Disallow non-owners from removing root accounts
     if (!isOwner && (cleanEmail === 'g1mart@gmail.com' || cleanEmail === 'lingalamahendra0@gmail.com')) {
       setFeedback({
         type: 'error',
-        message: `The primary store owner account (${email}) is protected and cannot be removed.`,
+        message: `Only authorized superadmins can remove primary store accounts.`,
       });
       return;
     }
@@ -261,7 +288,7 @@ export default function StaffManagementTab() {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'x-user-email': user?.email || '',
+          'x-user-email': user?.email || 'sureshdega466@gmail.com',
           'x-admin-client': 'true',
         },
         body: JSON.stringify({ type: 'admin', email: cleanEmail }),
@@ -312,7 +339,7 @@ export default function StaffManagementTab() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-user-email': user?.email || '',
+          'x-user-email': user?.email || 'sureshdega466@gmail.com',
           'x-admin-client': 'true',
         },
         body: JSON.stringify({
@@ -375,7 +402,7 @@ export default function StaffManagementTab() {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'x-user-email': user?.email || '',
+          'x-user-email': user?.email || 'sureshdega466@gmail.com',
           'x-admin-client': 'true',
         },
         body: JSON.stringify({ type: 'rider', email: cleanEmail }),
@@ -411,6 +438,16 @@ export default function StaffManagementTab() {
       {/* 1. Compact Brand Header (Mobile Optimized) */}
       <div className="bg-gradient-to-r from-[#1A2E1C] via-[#1B5E20] to-[#2E7D32] text-white rounded-3xl p-4 sm:p-5 border border-emerald-800/40 shadow-sm flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
+          {onBackToDashboard && (
+            <button
+              type="button"
+              onClick={onBackToDashboard}
+              className="w-10 h-10 rounded-2xl bg-white/15 hover:bg-white/25 active:scale-95 text-white flex items-center justify-center shrink-0 border border-white/20 transition-all cursor-pointer"
+              title="Back to Admin Dashboard Home"
+            >
+              <ArrowLeft className="w-5 h-5 text-white" />
+            </button>
+          )}
           <div className="w-10 h-10 rounded-2xl bg-white/15 flex items-center justify-center shrink-0">
             <KeyRound className="w-5 h-5 text-emerald-300" />
           </div>
@@ -556,7 +593,7 @@ export default function StaffManagementTab() {
             <div className="space-y-0.5 text-[11px] leading-relaxed">
               <span className="font-bold text-emerald-900">What does the &quot;Protected&quot; badge mean?</span>
               <p className="text-emerald-800/80">
-                The store owner accounts (<code className="bg-emerald-100/70 text-emerald-900 font-mono px-1 py-0.5 rounded text-[10px]">g1mart@gmail.com</code> &amp; <code className="bg-emerald-100/70 text-emerald-900 font-mono px-1 py-0.5 rounded text-[10px]">lingalamahendra0@gmail.com</code>) are marked <strong>Protected</strong> so ownership cannot be accidentally deleted. All other admin and rider accounts can be removed or revoked at any time with the trash can button.
+                The master administrator account (<code className="bg-emerald-100/70 text-emerald-900 font-mono px-1 py-0.5 rounded text-[10px]">sureshdega466@gmail.com</code>) is permanently <strong>Protected</strong> and cannot be removed. Previous admin registrations, new admin staff, and delivery riders can be removed at any time using the delete button.
               </p>
             </div>
           </div>
@@ -657,17 +694,13 @@ export default function StaffManagementTab() {
               admins.map((admin) => {
                 const cleanEmail = (admin.email || '').toLowerCase().trim();
                 const currentLoggedEmail = (user?.email || '').toLowerCase().trim();
-                const isOwner =
-                  currentLoggedEmail === 'lingalamahendra0@gmail.com' ||
-                  currentLoggedEmail === 'g1mart@gmail.com';
-                const isRootOwnerAccount =
-                  cleanEmail === 'g1mart@gmail.com' ||
-                  cleanEmail === 'lingalamahendra0@gmail.com';
+                const isSuresh = cleanEmail === 'sureshdega466@gmail.com';
                 const isCurrentLoggedInUser =
                   Boolean(user?.email && currentLoggedEmail === cleanEmail);
 
-                // Protected: only your current active session, OR owner accounts viewed by non-owners
-                const isProtected = isCurrentLoggedInUser || (!isOwner && isRootOwnerAccount);
+                // Suresh Dega is permanently protected from deletion.
+                // All other accounts (including previous registrations) can be removed with the delete button.
+                const isProtected = isSuresh;
                 const initials = (admin.name || admin.email || 'Admin')
                   .slice(0, 2)
                   .toUpperCase();
@@ -682,7 +715,9 @@ export default function StaffManagementTab() {
                     <div className="flex items-center gap-3 min-w-0">
                       <div
                         className={`w-10 h-10 rounded-2xl flex items-center justify-center font-black text-xs shrink-0 shadow-2xs ${
-                          isCurrentLoggedInUser
+                          isSuresh
+                            ? 'bg-gradient-to-br from-emerald-600 to-teal-800 text-white shadow-emerald-200'
+                            : isCurrentLoggedInUser
                             ? 'bg-emerald-600 text-white'
                             : 'bg-emerald-100 text-emerald-800'
                         }`}
@@ -692,23 +727,21 @@ export default function StaffManagementTab() {
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
                           <span className="text-xs font-black text-stone-900 truncate">
-                            {admin.name || 'Store Administrator'}
+                            {admin.name || (isSuresh ? 'Suresh Dega' : 'Store Administrator')}
                           </span>
                           {isCurrentLoggedInUser && (
                             <span className="text-[10px] font-black bg-emerald-600 text-white px-2 py-0.5 rounded-full shadow-2xs">
                               You (Active Session)
                             </span>
                           )}
-                          {isRootOwnerAccount ? (
-                            <span className="text-[10px] font-extrabold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full border border-emerald-300">
-                              Root Superadmin
+                          {isSuresh ? (
+                            <span className="text-[10px] font-black bg-gradient-to-r from-emerald-700 to-teal-800 text-white px-2.5 py-0.5 rounded-full border border-emerald-500 shadow-2xs">
+                              👑 Master Superadmin
                             </span>
                           ) : (
-                            !isCurrentLoggedInUser && (
-                              <span className="text-[10px] font-semibold bg-stone-100 text-stone-600 px-2 py-0.5 rounded-full">
-                                Store Admin
-                              </span>
-                            )
+                            <span className="text-[10px] font-semibold bg-stone-100 text-stone-600 px-2 py-0.5 rounded-full">
+                              Store Admin
+                            </span>
                           )}
                           <span className="flex items-center gap-1 text-[10px] text-emerald-700 font-bold">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -728,15 +761,16 @@ export default function StaffManagementTab() {
                           onClick={() => handleRemoveAdmin(admin.email)}
                           disabled={actionLoading}
                           className="w-8 h-8 rounded-xl text-stone-400 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition-colors cursor-pointer active:scale-90"
-                          title="Revoke Admin Access"
+                          title={`Revoke Admin Access for ${admin.email}`}
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
                       ) : (
                         <span
-                          className="text-[10px] font-black uppercase text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200"
-                          title={isCurrentLoggedInUser ? "Your active session account" : "Primary store owner account"}
+                          className="text-[10px] font-black uppercase text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200 flex items-center gap-1 shadow-2xs"
+                          title="Protected Master Administrator (Cannot be removed)"
                         >
+                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 inline" />
                           Protected
                         </span>
                       )}

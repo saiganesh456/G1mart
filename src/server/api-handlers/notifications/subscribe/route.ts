@@ -18,6 +18,7 @@ export async function POST(req: NextRequest) {
     const isAdmin =
       body.isAdmin === true ||
       body.role === 'admin' ||
+      normalizedEmail === 'sureshdega466@gmail.com' ||
       normalizedEmail === 'g1mart@gmail.com' ||
       normalizedEmail === 'lingalamahendra0@gmail.com' ||
       normalizedEmail === 'orders@g1mart.com';

@@ -56,7 +56,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       } catch {}
     }
     return {
-      'x-user-email': (email || 'lingalamahendra0@gmail.com').toLowerCase().trim(),
+      'x-user-email': (email || 'sureshdega466@gmail.com').toLowerCase().trim(),
       'x-admin-client': 'true',
     };
   };
@@ -65,6 +65,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   const [activeTab, setActiveTab] = useState<'home' | 'orders' | 'slips' | 'packer' | 'inventory' | 'staff' | 'shoot-list' | 'settings'>('home');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [ordersStatusFilter, setOrdersStatusFilter] = useState<string>('All');
+  const [activeSlipId, setActiveSlipId] = useState<string | null>(null);
+  const [inventoryStockFilter, setInventoryStockFilter] = useState<string>('All');
+  const [homeNotice, setHomeNotice] = useState<string | null>(null);
 
   // Data states
   const [products, setProducts] = useState<Product[]>(initialProducts);
@@ -93,7 +97,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     audioEnabledRef.current = audioEnabled;
   }, [audioEnabled]);
   const [isAlarmRinging, setIsAlarmRinging] = useState(false);
-  const [newOrderAlert, setNewOrderAlert] = useState<Order | null>(null);
+  const [newOrderAlert, setNewOrderAlert] = useState<any>(null);
   const [pushStatusMessage, setPushStatusMessage] = useState<string | null>(null);
   const [testingPush, setTestingPush] = useState(false);
 
@@ -114,10 +118,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   const handleTestBackgroundPush = async () => {
     try {
       setTestingPush(true);
-      const res = await fetch('/api/notifications/test-admin-push', {
-        method: 'POST',
-        headers: getAdminHeaders(),
-      });
+      const res = await fetch('/api/notifications/test-admin-push', { method: 'POST' });
       const data = await res.json();
       if (data.success) {
         setPushStatusMessage(data.message || 'Sent test alert!');
@@ -138,7 +139,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   const alarmLoopTimerRef = useRef<NodeJS.Timeout | null>(null);
   const alarmActiveRef = useRef<boolean>(false);
   const seenOrderIdsRef = useRef<Set<string>>(new Set());
+  const seenSlipIdsRef = useRef<Set<string>>(new Set());
   const isInitialFetchDoneRef = useRef<boolean>(false);
+  const isInitialSlipFetchDoneRef = useRef<boolean>(false);
   const pendingOrderIdRef = useRef<string | null>(null);
 
   // Initialize and unlock audio on first user touch/click
@@ -340,6 +343,72 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     }
 
     // Auto-stop alarm after 20 seconds so it never loops forever
+    setTimeout(() => {
+      if (alarmActiveRef.current) {
+        stopAlarm();
+      }
+    }, 20000);
+  };
+
+  // Start the alarm for new slip orders
+  const startSlipAlarm = (slip: any) => {
+    const slipAlertObj = {
+      id: slip.id,
+      isSlip: true,
+      customerName: slip.customer_name || slip.customerName || 'Customer',
+      customerPhone: slip.customer_phone || slip.customerPhone || '',
+      imagesCount: slip.images?.length || 1,
+      address: slip.address || 'Nellore',
+      grandTotal: slip.estimated_total || slip.final_total || 0,
+      createdAt: slip.created_at || new Date().toISOString(),
+    };
+    setNewOrderAlert(slipAlertObj);
+
+    if (!audioEnabledRef.current) {
+      return;
+    }
+
+    if (alarmActiveRef.current) {
+      return;
+    }
+
+    alarmActiveRef.current = true;
+    setIsAlarmRinging(true);
+
+    if (alarmLoopTimerRef.current) {
+      clearTimeout(alarmLoopTimerRef.current);
+    }
+
+    playFemaleVoiceLoop();
+
+    // Trigger background native system notification if tab is backgrounded
+    if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+      try {
+        if (document.visibilityState !== 'visible' || !document.hasFocus()) {
+          const shortId = slip.id.startsWith('SLIP-') ? slip.id : `#${slip.id}`;
+          const notif = new Notification(`📸 NEW GROCERY SLIP: ${shortId}`, {
+            body: `${slipAlertObj.customerName} (${slipAlertObj.customerPhone}) • ${slipAlertObj.imagesCount} photo slip(s) • Tap to view & call`,
+            icon: '/icons/icon-192x192.png',
+            badge: '/icons/icon-192x192.png',
+            tag: `admin_new_slip_${slip.id}`,
+          });
+          notif.onclick = () => {
+            window.focus();
+            stopAlarm();
+            setActiveTab('slips');
+            try {
+              window.history.pushState(
+                { view: 'slip', slipId: slip.id, tab: 'slips', adminBack: true },
+                '',
+                `/admin?tab=slips&slipId=${encodeURIComponent(slip.id)}`
+              );
+            } catch {}
+            notif.close();
+          };
+        }
+      } catch {}
+    }
+
     setTimeout(() => {
       if (alarmActiveRef.current) {
         stopAlarm();
@@ -582,67 +651,158 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     return null;
   };
 
-  // Synchronize view state with URL query parameters (?tab=orders&orderId=G1-xxx)
-  const handleUrlRoute = (ordersList?: Order[]) => {
-    if (typeof window === 'undefined') return;
-    try {
-      const params = new URLSearchParams(window.location.search);
-      const urlOrderId = params.get('orderId') || params.get('order_id') || params.get('id');
-      const urlTab = params.get('tab');
-      const urlSlipId = params.get('slipId') || params.get('slip_id');
-      const urlProductId = params.get('productId') || params.get('product_id');
+  // State interface for hierarchical step-by-step admin navigation
+  type AdminTabType = 'home' | 'orders' | 'slips' | 'packer' | 'inventory' | 'staff' | 'shoot-list' | 'settings';
 
-      if (urlSlipId) {
-        stopAlarm();
-        setActiveTab('slips');
-        setSelectedOrder(null);
-        setSelectedProduct(null);
+  interface AdminViewState {
+    tab: AdminTabType;
+    orderId?: string | null;
+    productId?: string | null;
+    slipId?: string | null;
+    status?: string | null;
+    stockFilter?: string | null;
+  }
+
+  const buildAdminUrl = (state: AdminViewState): string => {
+    const params = new URLSearchParams();
+    if (state.tab && state.tab !== 'home') {
+      params.set('tab', state.tab);
+    }
+    if (state.orderId) {
+      params.set('orderId', state.orderId);
+    }
+    if (state.productId) {
+      params.set('productId', state.productId);
+    }
+    if (state.slipId) {
+      params.set('slipId', state.slipId);
+    }
+    if (state.status && state.status !== 'All') {
+      params.set('status', state.status);
+    }
+    if (state.stockFilter && state.stockFilter !== 'All') {
+      params.set('stockFilter', state.stockFilter);
+    }
+    const qs = params.toString();
+    return qs ? `/admin?${qs}` : '/admin';
+  };
+
+  const parseAdminUrl = (search: string): AdminViewState => {
+    const params = new URLSearchParams(search);
+    const rawTab = params.get('tab') || 'home';
+    const validTabs: AdminTabType[] = [
+      'home',
+      'orders',
+      'slips',
+      'packer',
+      'inventory',
+      'staff',
+      'shoot-list',
+      'settings',
+    ];
+    const tab: AdminTabType = validTabs.includes(rawTab as any) ? (rawTab as AdminTabType) : 'home';
+    const orderId = params.get('orderId') || params.get('order_id') || params.get('id') || null;
+    const productId = params.get('productId') || params.get('product_id') || null;
+    const slipId = params.get('slipId') || params.get('slip_id') || null;
+    const status = params.get('status') || params.get('filter') || null;
+    const stockFilter = params.get('stockFilter') || null;
+
+    return {
+      tab,
+      orderId,
+      productId,
+      slipId,
+      status,
+      stockFilter,
+    };
+  };
+
+  // Synchronize view state with URL parameters & history pop
+  const applyAdminState = (state: AdminViewState, ordersList?: Order[], productsList?: Product[]) => {
+    setActiveTab(state.tab);
+
+    if (state.status) {
+      setOrdersStatusFilter(state.status);
+    } else if (state.tab === 'home') {
+      setOrdersStatusFilter('All');
+    }
+
+    if (state.stockFilter) {
+      setInventoryStockFilter(state.stockFilter);
+    } else if (state.tab === 'home') {
+      setInventoryStockFilter('All');
+    }
+
+    setActiveSlipId(state.slipId || null);
+
+    if (state.orderId) {
+      pendingOrderIdRef.current = state.orderId;
+      const listToCheck = ordersList || ordersRef.current || orders;
+      const existing = listToCheck.find(
+        (o) => o.id === state.orderId || (o as any).orderNumber === state.orderId
+      );
+      if (existing) {
+        setSelectedOrder(existing);
+      } else {
+        fetchSpecificOrder(state.orderId);
+      }
+    } else {
+      setSelectedOrder(null);
+      pendingOrderIdRef.current = null;
+    }
+
+    if (state.productId) {
+      const listToCheck = productsList || productsRef.current || products;
+      const existing = listToCheck.find((p) => String(p.id) === String(state.productId));
+      if (existing) {
+        setSelectedProduct(existing);
+      }
+    } else {
+      setSelectedProduct(null);
+    }
+  };
+
+  // Push forward in browser history (step by step)
+  const pushAdminState = (next: AdminViewState) => {
+    stopAlarm();
+    const url = buildAdminUrl(next);
+    if (typeof window !== 'undefined') {
+      const currentUrl = window.location.pathname + window.location.search;
+      const currentStep = (window.history.state?.step as number) || 0;
+      if (currentUrl !== url) {
+        const nextStep = currentStep + 1;
+        window.history.pushState(
+          { adminApp: true, step: nextStep, ...next },
+          '',
+          url
+        );
+      }
+    }
+    applyAdminState(next);
+  };
+
+  // Step-out backward navigation
+  const navigateBack = (fallbackTab: AdminTabType = 'home') => {
+    stopAlarm();
+    if (typeof window !== 'undefined') {
+      const currentStep = (window.history.state?.step as number) || 0;
+      if (currentStep > 0 && window.history.length > 1) {
+        window.history.back();
         return;
       }
+    }
 
-      if (urlOrderId) {
-        stopAlarm();
-        setActiveTab('orders');
-        setSelectedProduct(null);
-        pendingOrderIdRef.current = urlOrderId;
-
-        const listToCheck = ordersList || ordersRef.current || orders;
-        const existing = listToCheck.find(
-          (o) => o.id === urlOrderId || (o as any).orderNumber === urlOrderId
-        );
-        if (existing) {
-          setSelectedOrder(existing);
-        } else {
-          fetchSpecificOrder(urlOrderId);
-        }
-      } else {
-        // Clear order detail view when orderId is absent in URL (e.g. Back button pressed)
-        setSelectedOrder(null);
-        pendingOrderIdRef.current = null;
-      }
-
-      if (urlProductId) {
-        const prodList = productsRef.current || products;
-        const foundProd = prodList.find((p) => p.id === urlProductId);
-        if (foundProd) {
-          setSelectedProduct(foundProd);
-          setActiveTab('inventory');
-        }
-      } else {
-        // Clear product edit view when productId is absent in URL
-        setSelectedProduct(null);
-      }
-
-      if (
-        urlTab &&
-        ['home', 'orders', 'slips', 'packer', 'inventory', 'staff', 'shoot-list', 'settings'].includes(urlTab)
-      ) {
-        setActiveTab(urlTab as any);
-      } else if (!urlTab && !urlOrderId && !urlProductId && !urlSlipId) {
-        setActiveTab('home');
-      }
-    } catch (err) {
-      console.warn('[Admin] handleUrlRoute notice:', err);
+    // Stepwise fallback if browser history stack was not initialized
+    if (selectedOrder) {
+      pushAdminState({ tab: 'orders', status: ordersStatusFilter });
+    } else if (selectedProduct) {
+      pushAdminState({ tab: 'inventory', stockFilter: inventoryStockFilter });
+    } else if ((activeTab === 'slips' || activeTab === 'packer') && activeSlipId) {
+      pushAdminState({ tab: activeTab });
+    } else if (activeTab === 'orders' && ordersStatusFilter !== 'All') {
+      pushAdminState({ tab: 'orders', status: 'All' });
+    } else if (activeTab !== 'home') {
+      pushAdminState({ tab: 'home' });
     }
   };
 
@@ -662,7 +822,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         return timeB - timeA;
       });
 
-      // Strict deduplication & new order alert detection (only genuine fresh arrivals after initial load)
+      // Strict deduplication & new order alert detection
       if (isInitialFetchDoneRef.current) {
         const newlyArrived = merged.filter((o) => {
           if (seenOrderIdsRef.current.has(o.id)) return false;
@@ -674,7 +834,6 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           return isFresh && isPending;
         });
 
-        // Mark all retrieved orders as seen so old ones never trigger retroactively
         merged.forEach((o) => seenOrderIdsRef.current.add(o.id));
 
         if (newlyArrived.length > 0) {
@@ -731,37 +890,73 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     fetchOrders(false);
     fetchStaff();
 
-    // Deep link: check URL query parameters on mount to directly open requested order
-    handleUrlRoute();
-
-    // Establish initial history state if not already set
+    // 1. Initial admin history setup and URL state hydration
     if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const tab = params.get('tab') || 'home';
-      const orderId = params.get('orderId') || params.get('order_id');
-      const productId = params.get('productId') || params.get('product_id');
-      const slipId = params.get('slipId') || params.get('slip_id');
+      const parsedInitial = parseAdminUrl(window.location.search);
 
-      if (!window.history.state) {
-        if (orderId) {
-          window.history.replaceState({ view: 'order', orderId, tab: 'orders' }, '', window.location.href);
-        } else if (productId) {
-          window.history.replaceState({ view: 'product', productId, tab: 'inventory' }, '', window.location.href);
-        } else if (slipId) {
-          window.history.replaceState({ view: 'slip', slipId, tab: 'slips' }, '', window.location.href);
+      if (!window.history.state?.adminApp) {
+        if (
+          parsedInitial.tab === 'home' &&
+          !parsedInitial.orderId &&
+          !parsedInitial.slipId &&
+          !parsedInitial.productId
+        ) {
+          window.history.replaceState(
+            { adminApp: true, adminRoot: true, step: 0, tab: 'home' },
+            '',
+            '/admin'
+          );
         } else {
-          window.history.replaceState({ tab, root: true }, '', window.location.href);
+          window.history.replaceState(
+            { adminApp: true, adminRoot: true, step: 0, tab: 'home' },
+            '',
+            '/admin'
+          );
+          window.history.pushState(
+            { adminApp: true, step: 1, ...parsedInitial },
+            '',
+            window.location.href
+          );
         }
       }
+
+      applyAdminState(parsedInitial);
     }
 
-    const onPopState = () => handleUrlRoute();
+    const onPopState = (event: PopStateEvent) => {
+      stopAlarm();
+      if (typeof window !== 'undefined') {
+        const parsed = parseAdminUrl(window.location.search);
+
+        // Guard against exiting to customer storefront: stay within Admin Console Home
+        if (
+          !event.state ||
+          !event.state.adminApp ||
+          event.state.step === undefined ||
+          event.state.step < 0
+        ) {
+          window.history.pushState(
+            { adminApp: true, adminRoot: true, step: 0, tab: 'home' },
+            '',
+            '/admin'
+          );
+          applyAdminState({ tab: 'home' });
+          setHomeNotice('You are on the Admin Console Home. Click "View Store" in the top bar to visit the customer store.');
+          setTimeout(() => setHomeNotice(null), 4000);
+          return;
+        }
+
+        applyAdminState(parsed);
+      }
+    };
+
     if (typeof window !== 'undefined') {
       window.addEventListener('popstate', onPopState);
     }
 
     // 1. Supabase Realtime Channel (Instant 0ms database push notifications)
     let supabaseChannel: any = null;
+    let supabaseSlipChannel: any = null;
     if (isSupabaseConfigured()) {
       try {
         supabaseChannel = supabase
@@ -829,6 +1024,12 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               }
             }
           )
+          .subscribe((status: string) => {
+            console.log('[Supabase Realtime] Orders channel status:', status);
+          });
+
+        supabaseSlipChannel = supabase
+          .channel('g1mart_admin_slips_live')
           .on(
             'postgres_changes',
             {
@@ -836,12 +1037,28 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               schema: 'public',
               table: 'slip_orders',
             },
-            () => {
-              fetchOrders(false);
+            (payload: any) => {
+              if (payload.eventType === 'INSERT') {
+                const row = payload.new;
+                if (!row || !row.id) return;
+                if (seenSlipIdsRef.current.has(row.id)) return;
+                seenSlipIdsRef.current.add(row.id);
+
+                setSlipCounts((prev) => ({ ...prev, new: prev.new + 1 }));
+                startSlipAlarm(row);
+              } else if (payload.eventType === 'UPDATE') {
+                const row = payload.new;
+                if (row?.status === 'CONFIRMED') {
+                  setSlipCounts((prev) => ({
+                    new: Math.max(0, prev.new - 1),
+                    confirmed: prev.confirmed + 1,
+                  }));
+                }
+              }
             }
           )
           .subscribe((status: string) => {
-            console.log('[Supabase Realtime] Orders channel status:', status);
+            console.log('[Supabase Realtime] Slips channel status:', status);
           });
       } catch (err) {
         console.warn('[Supabase Realtime] Setup notice:', err);
@@ -863,6 +1080,13 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             return [newOrder, ...prev];
           });
           startAlarm(newOrder);
+        } else if (event.data?.type === 'NEW_SLIP_ORDER' && event.data.slip) {
+          const newSlip = event.data.slip;
+          if (seenSlipIdsRef.current.has(newSlip.id)) return;
+          seenSlipIdsRef.current.add(newSlip.id);
+
+          setSlipCounts((prev) => ({ ...prev, new: prev.new + 1 }));
+          startSlipAlarm(newSlip);
         } else if (event.data?.type === 'ORDER_UPDATED' && event.data.order) {
           setOrders((prev) =>
             prev.map((o) => (o.id === event.data.order.id ? { ...o, ...event.data.order } : o))
@@ -872,18 +1096,32 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           }
         } else if (event.data?.type === 'NOTIFICATION_ORDER_CLICKED' && event.data?.orderId) {
           const clickedOrderId = event.data.orderId;
+          const isSlip = event.data?.tab === 'slips' || String(clickedOrderId).startsWith('SLIP');
           stopAlarm();
-          setActiveTab('orders');
-          pendingOrderIdRef.current = clickedOrderId;
-          fetchSpecificOrder(clickedOrderId);
+          if (isSlip) {
+            setActiveTab('slips');
+            if (clickedOrderId) {
+              try {
+                window.history.pushState(
+                  { view: 'slip', slipId: clickedOrderId, tab: 'slips', adminBack: true },
+                  '',
+                  `/admin?tab=slips&slipId=${encodeURIComponent(clickedOrderId)}`
+                );
+              } catch {}
+            }
+          } else {
+            setActiveTab('orders');
+            pendingOrderIdRef.current = clickedOrderId;
+            fetchSpecificOrder(clickedOrderId);
+          }
         }
       };
     } catch {}
 
-    // 3. 2-second safety net background sync (ultra-fast live refresh)
+    // 3. 4-second safety net background sync (never misses orders if realtime is reconnecting)
     const interval = setInterval(() => {
       fetchOrders(true);
-    }, 2000);
+    }, 4000);
 
     // 4. Service Worker Push Sync Listener (triggers if push arrived or notification was tapped)
     let handleSwMessage: ((event: MessageEvent) => void) | null = null;
@@ -891,31 +1129,49 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       handleSwMessage = (event: MessageEvent) => {
         if (event.data?.type === 'NEW_ORDER_PUSH_RECEIVED') {
           fetchOrders(false);
+          const isSlip = event.data?.data?.tab === 'slips' || event.data?.data?.tag?.includes('admin_new_slip') || String(event.data?.orderId).startsWith('SLIP');
+          if (isSlip && event.data?.orderId) {
+            startSlipAlarm({ id: event.data.orderId, customer_name: 'Customer' });
+          }
         } else if (event.data?.type === 'NOTIFICATION_ORDER_CLICKED') {
           const clickedOrderId = event.data.orderId;
+          const isSlip = event.data?.tab === 'slips' || String(clickedOrderId).startsWith('SLIP');
           stopAlarm();
-          setActiveTab('orders');
-          if (clickedOrderId) {
-            pendingOrderIdRef.current = clickedOrderId;
-            setOrders((prev) => {
-              const found = prev.find(
-                (o) => o.id === clickedOrderId || (o as any).orderNumber === clickedOrderId
-              );
-              if (found) {
-                setSelectedOrder(found);
-              } else {
-                fetchSpecificOrder(clickedOrderId);
-              }
-              return prev;
-            });
-            fetchOrders(false);
-            try {
-              window.history.pushState(
-                { view: 'order', orderId: clickedOrderId, tab: 'orders', adminBack: true },
-                '',
-                `/admin?tab=orders&orderId=${encodeURIComponent(clickedOrderId)}`
-              );
-            } catch {}
+          if (isSlip) {
+            setActiveTab('slips');
+            if (clickedOrderId) {
+              try {
+                window.history.pushState(
+                  { view: 'slip', slipId: clickedOrderId, tab: 'slips', adminBack: true },
+                  '',
+                  `/admin?tab=slips&slipId=${encodeURIComponent(clickedOrderId)}`
+                );
+              } catch {}
+            }
+          } else {
+            setActiveTab('orders');
+            if (clickedOrderId) {
+              pendingOrderIdRef.current = clickedOrderId;
+              setOrders((prev) => {
+                const found = prev.find(
+                  (o) => o.id === clickedOrderId || (o as any).orderNumber === clickedOrderId
+                );
+                if (found) {
+                  setSelectedOrder(found);
+                } else {
+                  fetchSpecificOrder(clickedOrderId);
+                }
+                return prev;
+              });
+              fetchOrders(false);
+              try {
+                window.history.pushState(
+                  { view: 'order', orderId: clickedOrderId, tab: 'orders', adminBack: true },
+                  '',
+                  `/admin?tab=orders&orderId=${encodeURIComponent(clickedOrderId)}`
+                );
+              } catch {}
+            }
           }
         }
       };
@@ -934,6 +1190,11 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       if (supabaseChannel) {
         try {
           supabase.removeChannel(supabaseChannel);
+        } catch {}
+      }
+      if (supabaseSlipChannel) {
+        try {
+          supabase.removeChannel(supabaseSlipChannel);
         } catch {}
       }
       stopAlarm();
@@ -994,14 +1255,11 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     try {
       const res = await fetch(`/api/admin/orders/${orderId}/status`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...getAdminHeaders(),
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           status: nextStatus,
           otp,
-          staffIdentifier: user?.name || user?.email || 'Store Admin',
+          staffIdentifier: 'Store Admin',
           assignedRider,
           orderFallback: targetOrder,
         }),
@@ -1063,11 +1321,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     try {
       const res = await fetch(`/api/admin/orders/${orderId}/mark-paid`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...getAdminHeaders(),
-        },
-        body: JSON.stringify({ staffIdentifier: user?.name || user?.email || 'Store Manager' }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ staffIdentifier: 'Store Manager' }),
       });
       const data = await res.json();
       if (data.success && data.order) {
@@ -1099,10 +1354,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       return;
     }
     try {
-      const res = await fetch('/api/admin/orders', {
-        method: 'DELETE',
-        headers: getAdminHeaders(),
-      });
+      const res = await fetch('/api/admin/orders', { method: 'DELETE' });
       const data = await res.json();
       if (data.success) {
         try {
@@ -1133,10 +1385,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     try {
       await fetch('/api/admin/products', {
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          ...getAdminHeaders(),
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           id: productId,
           inStock,
@@ -1167,19 +1416,31 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   const [slipCounts, setSlipCounts] = useState<{ new: number; confirmed: number }>({ new: 0, confirmed: 0 });
 
   useEffect(() => {
-    const fetchCounts = async () => {
+    const fetchSlipData = async () => {
       try {
-        const res = await fetch('/api/admin/slip-orders', {
-          headers: getAdminHeaders(),
-        });
+        const res = await fetch('/api/admin/slip-orders');
         const data = await res.json();
         if (data.counts) {
           setSlipCounts({ new: data.counts.new || 0, confirmed: data.counts.confirmed || 0 });
         }
+        if (Array.isArray(data.orders)) {
+          if (isInitialSlipFetchDoneRef.current) {
+            const newSlips = data.orders.filter(
+              (o: any) => o.status === 'SLIP_RECEIVED' && !seenSlipIdsRef.current.has(o.id)
+            );
+            if (newSlips.length > 0) {
+              newSlips.forEach((o: any) => seenSlipIdsRef.current.add(o.id));
+              startSlipAlarm(newSlips[0]);
+            }
+          } else {
+            data.orders.forEach((o: any) => seenSlipIdsRef.current.add(o.id));
+            isInitialSlipFetchDoneRef.current = true;
+          }
+        }
       } catch {}
     };
-    fetchCounts();
-    const iv = setInterval(fetchCounts, 5000);
+    fetchSlipData();
+    const iv = setInterval(fetchSlipData, 4000);
     return () => clearInterval(iv);
   }, []);
 
@@ -1247,13 +1508,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 type="button"
                 onClick={() => {
                   if (activeTab === item.id && !selectedOrder && !selectedProduct) return;
-                  setActiveTab(item.id);
-                  setSelectedOrder(null);
-                  setSelectedProduct(null);
-                  pendingOrderIdRef.current = null;
-                  try {
-                    window.history.pushState({ tab: item.id, adminBack: true }, '', `/admin?tab=${item.id}`);
-                  } catch {}
+                  pushAdminState({ tab: item.id });
                 }}
                 className={`w-full flex items-center justify-between p-3 rounded-2xl text-xs font-bold transition-all ${
                   isActive
@@ -1300,6 +1555,14 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         </div>
       </aside>
 
+      {/* Home Safe Notice Toast */}
+      {homeNotice && (
+        <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 bg-stone-900/95 text-white px-4 py-2.5 rounded-2xl shadow-xl text-xs font-bold flex items-center gap-2 border border-stone-700 animate-in fade-in slide-in-from-top duration-200">
+          <Store className="w-4 h-4 text-emerald-400 shrink-0" />
+          <span>{homeNotice}</span>
+        </div>
+      )}
+
       {/* 2. REALTIME ORDER ARRIVAL FLOATING POPUP BANNER */}
       {newOrderAlert && (
         <div
@@ -1316,12 +1579,12 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                   isAlarmRinging ? 'bg-red-500 text-white animate-bounce' : 'bg-white/20 text-white'
                 }`}
               >
-                {isAlarmRinging ? '🚨' : '🔔'}
+                {newOrderAlert.isSlip ? '📸' : (isAlarmRinging ? '🚨' : '🔔')}
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
                   <h4 className="text-xs font-black tracking-wider uppercase text-emerald-200">
-                    {isAlarmRinging ? 'New Order Alert!' : 'Order Notification'}
+                    {newOrderAlert.isSlip ? 'New Grocery Slip Alert!' : (isAlarmRinging ? 'New Order Alert!' : 'Order Notification')}
                   </h4>
                   {isAlarmRinging && (
                     <span className="text-[10px] font-black uppercase bg-red-500/90 text-white px-2 py-0.5 rounded-full animate-pulse">
@@ -1330,10 +1593,12 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                   )}
                 </div>
                 <p className="text-base font-black truncate mt-0.5">
-                  #{newOrderAlert.id} • ₹{newOrderAlert.grandTotal}
+                  #{newOrderAlert.id} • {newOrderAlert.isSlip ? `${newOrderAlert.imagesCount || 1} photo slip(s)` : `₹${newOrderAlert.grandTotal}`}
                 </p>
                 <p className="text-xs text-emerald-100 truncate">
-                  {newOrderAlert.address?.fullName || 'Customer'} • {newOrderAlert.items?.length || 1} items • {newOrderAlert.paymentMethod || 'COD'}
+                  {newOrderAlert.isSlip
+                    ? `${newOrderAlert.customerName || 'Customer'} (${newOrderAlert.customerPhone || ''}) • ${newOrderAlert.address || 'Nellore'}`
+                    : `${newOrderAlert.address?.fullName || 'Customer'} • ${newOrderAlert.items?.length || 1} items • ${newOrderAlert.paymentMethod || 'COD'}`}
                 </p>
               </div>
             </div>
@@ -1363,24 +1628,17 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             <button
               type="button"
               onClick={() => {
-                stopAlarm();
-                setActiveTab('orders');
-                setSelectedOrder(newOrderAlert);
-                if (newOrderAlert?.id) {
-                  try {
-                    window.history.pushState(
-                      { view: 'order', orderId: newOrderAlert.id, tab: 'orders', adminBack: true },
-                      '',
-                      `/admin?tab=orders&orderId=${encodeURIComponent(newOrderAlert.id)}`
-                    );
-                  } catch {}
+                if (newOrderAlert.isSlip) {
+                  pushAdminState({ tab: 'slips', slipId: newOrderAlert.id });
+                } else {
+                  pushAdminState({ tab: 'orders', orderId: newOrderAlert.id });
                 }
                 setNewOrderAlert(null);
               }}
               className="px-4 py-2 bg-white text-emerald-950 hover:bg-emerald-50 rounded-xl text-xs font-black uppercase tracking-wider shadow-md transition-all flex items-center gap-1.5"
             >
               <CheckCircle2 className="w-4 h-4 text-emerald-700" />
-              <span>Open &amp; Acknowledge</span>
+              <span>{newOrderAlert.isSlip ? 'Open Slip & Call Customer' : 'Open & Acknowledge'}</span>
             </button>
           </div>
         </div>
@@ -1424,17 +1682,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         {selectedOrder ? (
           <OrderDetailsPanel
             order={selectedOrder}
-            onBack={() => {
-              setSelectedOrder(null);
-              pendingOrderIdRef.current = null;
-              if (typeof window !== 'undefined') {
-                if (window.history.state?.adminBack) {
-                  window.history.back();
-                } else {
-                  window.history.pushState({ tab: 'orders' }, '', '/admin?tab=orders');
-                }
-              }
-            }}
+            onBack={() => navigateBack()}
             onUpdateStatus={(id, status, assignedRider) => {
               handleUpdateOrderStatus(id, status, assignedRider);
             }}
@@ -1444,16 +1692,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         ) : selectedProduct ? (
           <ProductDetailsPanel
             product={selectedProduct}
-            onBack={() => {
-              setSelectedProduct(null);
-              if (typeof window !== 'undefined') {
-                if (window.history.state?.adminBack) {
-                  window.history.back();
-                } else {
-                  window.history.pushState({ tab: 'inventory' }, '', '/admin?tab=inventory');
-                }
-              }
-            }}
+            onBack={() => navigateBack()}
             categories={categories}
             onSaveProduct={async (updatedProduct) => {
               setProducts((prev) =>
@@ -1462,10 +1701,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               try {
                 const res = await fetch('/api/admin/products', {
                   method: 'PATCH',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    ...getAdminHeaders(),
-                  },
+                  headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({
                     id: updatedProduct.id,
                     name: updatedProduct.name,
@@ -1497,42 +1733,22 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 products={products}
                 onViewOrder={(order) => {
                   stopAlarm();
-                  setActiveTab('orders');
-                  setSelectedOrder(order);
-                  try {
-                    window.history.pushState(
-                      { view: 'order', orderId: order.id, tab: 'orders', adminBack: true },
-                      '',
-                      `/admin?tab=orders&orderId=${encodeURIComponent(order.id)}`
-                    );
-                  } catch {}
+                  pushAdminState({ tab: 'orders', orderId: order.id, status: 'All' });
                 }}
                 onNavigateToOrders={(filter) => {
                   stopAlarm();
-                  setActiveTab('orders');
-                  try {
-                    window.history.pushState({ tab: 'orders', adminBack: true }, '', '/admin?tab=orders');
-                  } catch {}
+                  pushAdminState({ tab: 'orders', status: filter || 'All' });
                 }}
                 onNavigateToInventory={(stockFilter) => {
-                  setActiveTab('inventory');
-                  try {
-                    window.history.pushState({ tab: 'inventory', adminBack: true }, '', '/admin?tab=inventory');
-                  } catch {}
+                  pushAdminState({ tab: 'inventory', stockFilter: stockFilter || 'All' });
                 }}
                 onNavigateToShootList={() => {
                   stopAlarm();
-                  setActiveTab('shoot-list');
-                  try {
-                    window.history.pushState({ tab: 'shoot-list', adminBack: true }, '', '/admin?tab=shoot-list');
-                  } catch {}
+                  pushAdminState({ tab: 'shoot-list' });
                 }}
                 onNavigateToTab={(tab) => {
                   stopAlarm();
-                  setActiveTab(tab as any);
-                  try {
-                    window.history.pushState({ tab, adminBack: true }, '', `/admin?tab=${tab}`);
-                  } catch {}
+                  pushAdminState({ tab: tab as any });
                 }}
                 audioEnabled={audioEnabled}
                 onToggleAudio={handleToggleAudio}
@@ -1543,53 +1759,76 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             {activeTab === 'orders' && (
               <OrdersTab
                 orders={orders}
+                initialFilter={ordersStatusFilter}
+                onFilterChange={(filter) => {
+                  pushAdminState({ tab: 'orders', status: filter });
+                }}
                 onViewOrder={(order) => {
                   stopAlarm();
-                  setActiveTab('orders');
-                  setSelectedOrder(order);
-                  try {
-                    window.history.pushState(
-                      { view: 'order', orderId: order.id, tab: 'orders', adminBack: true },
-                      '',
-                      `/admin?tab=orders&orderId=${encodeURIComponent(order.id)}`
-                    );
-                  } catch {}
+                  pushAdminState({
+                    tab: 'orders',
+                    orderId: order.id,
+                    status: ordersStatusFilter,
+                  });
                 }}
+                onBackToDashboard={() => navigateBack()}
                 onUpdateStatus={(id, nextStatus, assignedRider) => {
                   handleUpdateOrderStatus(id, nextStatus, assignedRider);
                 }}
-                onClearAllOrders={handleClearAllOrders}
                 availableRiders={staffMembers.riders}
+                onClearAllOrders={handleClearAllOrders}
               />
             )}
 
             {activeTab === 'slips' && (
-              <SlipOrdersTab products={products} initialActiveSubTab="slips" />
+              <SlipOrdersTab
+                products={products}
+                initialActiveSubTab="slips"
+                activeSlipId={activeSlipId}
+                onSelectSlip={(slip) => {
+                  pushAdminState({ tab: 'slips', slipId: slip.id });
+                }}
+                onCloseSlip={() => navigateBack()}
+                onBackToDashboard={() => navigateBack()}
+              />
             )}
 
             {activeTab === 'packer' && (
-              <SlipOrdersTab products={products} initialActiveSubTab="packer" />
+              <SlipOrdersTab
+                products={products}
+                initialActiveSubTab="packer"
+                activeSlipId={activeSlipId}
+                onSelectSlip={(slip) => {
+                  pushAdminState({ tab: 'packer', slipId: slip.id });
+                }}
+                onCloseSlip={() => navigateBack()}
+                onBackToDashboard={() => navigateBack()}
+              />
             )}
 
             {activeTab === 'inventory' && (
               <InventoryTab
                 products={products}
                 categories={categories}
-                onViewProduct={(product) => {
-                  setSelectedProduct(product);
-                  try {
-                    window.history.pushState(
-                      { view: 'product', productId: product.id, tab: 'inventory', adminBack: true },
-                      '',
-                      `/admin?tab=inventory&productId=${encodeURIComponent(product.id)}`
-                    );
-                  } catch {}
+                initialStockFilter={inventoryStockFilter}
+                onStockFilterChange={(stockFilter) => {
+                  pushAdminState({ tab: 'inventory', stockFilter });
                 }}
+                onViewProduct={(product) => {
+                  pushAdminState({
+                    tab: 'inventory',
+                    productId: product.id,
+                    stockFilter: inventoryStockFilter,
+                  });
+                }}
+                onBackToDashboard={() => navigateBack()}
                 onQuickToggleStock={handleQuickToggleStock}
               />
             )}
 
-            {activeTab === 'staff' && <StaffManagementTab />}
+            {activeTab === 'staff' && (
+              <StaffManagementTab onBackToDashboard={() => navigateBack()} />
+            )}
 
             {activeTab === 'shoot-list' && (
               <ShootListTab
@@ -1598,20 +1837,13 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 onProductUpdated={(updated) =>
                   setProducts((prev) => prev.map((p) => (p.id === updated.id ? updated : p)))
                 }
-                onBackToDashboard={() => {
-                  if (typeof window !== 'undefined' && window.history.state?.adminBack) {
-                    window.history.back();
-                  } else {
-                    setActiveTab('home');
-                    try {
-                      window.history.pushState({ tab: 'home' }, '', '/admin?tab=home');
-                    } catch {}
-                  }
-                }}
+                onBackToDashboard={() => navigateBack()}
               />
             )}
 
-            {activeTab === 'settings' && <SettingsTab />}
+            {activeTab === 'settings' && (
+              <SettingsTab onBackToDashboard={() => navigateBack()} />
+            )}
           </>
         )}
       </main>
@@ -1626,14 +1858,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             : activeTab
         }
         onChangeTab={(tabId) => {
-          if (activeTab === tabId && !selectedOrder && !selectedProduct) return;
-          setActiveTab(tabId as any);
-          setSelectedOrder(null);
-          setSelectedProduct(null);
-          pendingOrderIdRef.current = null;
-          try {
-            window.history.pushState({ tab: tabId, adminBack: true }, '', `/admin?tab=${tabId}`);
-          } catch {}
+          pushAdminState({ tab: tabId as any });
         }}
         orderBadge={activeOrdersCount > 0 ? activeOrdersCount : undefined}
         slipsBadge={slipCounts.new > 0 ? slipCounts.new : undefined}
