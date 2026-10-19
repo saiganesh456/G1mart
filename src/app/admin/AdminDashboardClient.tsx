@@ -16,7 +16,6 @@ import {
   ChevronRight,
   ShieldCheck,
   X,
-  Sparkles,
   Settings,
   FileText,
   CheckSquare,
@@ -38,6 +37,7 @@ import ShootListTab from '@/components/admin/tabs/ShootListTab';
 import SettingsTab from '@/components/admin/tabs/SettingsTab';
 import SlipOrdersTab from '@/components/admin/tabs/SlipOrdersTab';
 import { Camera } from 'lucide-react';
+import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 
 interface Props {
   initialProducts: Product[];
@@ -69,6 +69,11 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   // Data states
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [orders, setOrders] = useState<Order[]>([]);
+  const ordersRef = useRef<Order[]>(orders);
+  ordersRef.current = orders;
+  const productsRef = useRef<Product[]>(products);
+  productsRef.current = products;
+
   const [staffMembers, setStaffMembers] = useState<{ admins: StaffMember[]; riders: StaffMember[] }>({
     admins: [],
     riders: [],
@@ -322,7 +327,11 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             setActiveTab('orders');
             setSelectedOrder(order);
             try {
-              window.history.replaceState(null, '', `/admin?tab=orders&orderId=${encodeURIComponent(order.id)}`);
+              window.history.pushState(
+                { view: 'order', orderId: order.id, tab: 'orders', adminBack: true },
+                '',
+                `/admin?tab=orders&orderId=${encodeURIComponent(order.id)}`
+              );
             } catch {}
             notif.close();
           };
@@ -440,20 +449,64 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         hour: '2-digit',
         minute: '2-digit',
       }),
-      items: Array.isArray(row.order_items) && row.order_items.length > 0
-        ? row.order_items.map((oi: any) => ({
-            productId: oi.product_id || oi.productId || 'p-1',
-            productName: oi.product_name || oi.productName || 'Catalog Item',
-            unit: oi.unit || '1 unit',
-            price: Number(oi.unit_price || oi.price || 0),
+      items: (() => {
+        const raw = Array.isArray(row.order_items) && row.order_items.length > 0
+          ? row.order_items
+          : Array.isArray(row.items) && row.items.length > 0
+          ? row.items
+          : Array.isArray(row.address?._items)
+          ? row.address._items
+          : [];
+
+        return raw.map((oi: any) => {
+          const pid = (oi.product_id || oi.productId || oi.id || '').trim();
+          const rawName = (oi.product_name || oi.productName || oi.name || '').trim();
+
+          const match =
+            MIGRATED_PRODUCT_LIST.find(
+              (p) =>
+                p.id === pid ||
+                p.id === rawName ||
+                p.sku === rawName ||
+                p.slug === rawName ||
+                p.sku === pid
+            ) ||
+            MIGRATED_PRODUCT_LIST.find(
+              (p) => rawName && p.name.toLowerCase() === rawName.toLowerCase()
+            ) ||
+            (rawName && rawName.length > 3
+              ? MIGRATED_PRODUCT_LIST.find(
+                  (p) =>
+                    p.name.toLowerCase().includes(rawName.toLowerCase()) ||
+                    rawName.toLowerCase().includes(p.name.toLowerCase())
+                )
+              : null);
+
+          const productName =
+            match?.name ||
+            (rawName.startsWith('g1-') ? `Grocery Item (${rawName})` : rawName) ||
+            'Catalog Item';
+
+          const image =
+            oi.image_url ||
+            oi.image ||
+            match?.imageUrl ||
+            match?.image ||
+            (match as any)?.image_url ||
+            '/products/placeholder.svg';
+
+          const unit = oi.unit || match?.unit || '1 unit';
+
+          return {
+            productId: pid || match?.id || 'p-1',
+            productName,
+            unit,
+            price: Number(oi.unit_price || oi.price || match?.price || 0),
             quantity: Number(oi.quantity || 1),
-            image: oi.image_url || oi.image || '/products/placeholder.svg',
-          }))
-        : Array.isArray(row.items) && row.items.length > 0
-        ? row.items
-        : Array.isArray(row.address?._items)
-        ? row.address._items
-        : [],
+            image,
+          };
+        });
+      })(),
       address,
       slot: row.slot || row.delivery_slot || 'Standard Delivery',
       paymentMethod: row.payment_method || 'Cash on Delivery',
@@ -513,6 +566,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       const urlOrderId = params.get('orderId') || params.get('order_id') || params.get('id');
       const urlTab = params.get('tab');
       const urlSlipId = params.get('slipId') || params.get('slip_id');
+      const urlProductId = params.get('productId') || params.get('product_id');
 
       if (urlSlipId) {
         stopAlarm();
@@ -528,7 +582,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         setSelectedProduct(null);
         pendingOrderIdRef.current = urlOrderId;
 
-        const listToCheck = ordersList || orders;
+        const listToCheck = ordersList || ordersRef.current || orders;
         const existing = listToCheck.find(
           (o) => o.id === urlOrderId || (o as any).orderNumber === urlOrderId
         );
@@ -537,11 +591,31 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         } else {
           fetchSpecificOrder(urlOrderId);
         }
-      } else if (
+      } else {
+        // Clear order detail view when orderId is absent in URL (e.g. Back button pressed)
+        setSelectedOrder(null);
+        pendingOrderIdRef.current = null;
+      }
+
+      if (urlProductId) {
+        const prodList = productsRef.current || products;
+        const foundProd = prodList.find((p) => p.id === urlProductId);
+        if (foundProd) {
+          setSelectedProduct(foundProd);
+          setActiveTab('inventory');
+        }
+      } else {
+        // Clear product edit view when productId is absent in URL
+        setSelectedProduct(null);
+      }
+
+      if (
         urlTab &&
         ['home', 'orders', 'slips', 'packer', 'inventory', 'staff', 'shoot-list', 'settings'].includes(urlTab)
       ) {
         setActiveTab(urlTab as any);
+      } else if (!urlTab && !urlOrderId && !urlProductId && !urlSlipId) {
+        setActiveTab('home');
       }
     } catch (err) {
       console.warn('[Admin] handleUrlRoute notice:', err);
@@ -635,6 +709,27 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
 
     // Deep link: check URL query parameters on mount to directly open requested order
     handleUrlRoute();
+
+    // Establish initial history state if not already set
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get('tab') || 'home';
+      const orderId = params.get('orderId') || params.get('order_id');
+      const productId = params.get('productId') || params.get('product_id');
+      const slipId = params.get('slipId') || params.get('slip_id');
+
+      if (!window.history.state) {
+        if (orderId) {
+          window.history.replaceState({ view: 'order', orderId, tab: 'orders' }, '', window.location.href);
+        } else if (productId) {
+          window.history.replaceState({ view: 'product', productId, tab: 'inventory' }, '', window.location.href);
+        } else if (slipId) {
+          window.history.replaceState({ view: 'slip', slipId, tab: 'slips' }, '', window.location.href);
+        } else {
+          window.history.replaceState({ tab, root: true }, '', window.location.href);
+        }
+      }
+    }
 
     const onPopState = () => handleUrlRoute();
     if (typeof window !== 'undefined') {
@@ -791,8 +886,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             });
             fetchOrders(false);
             try {
-              window.history.replaceState(
-                null,
+              window.history.pushState(
+                { view: 'order', orderId: clickedOrderId, tab: 'orders', adminBack: true },
                 '',
                 `/admin?tab=orders&orderId=${encodeURIComponent(clickedOrderId)}`
               );
@@ -1120,12 +1215,13 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 key={item.id}
                 type="button"
                 onClick={() => {
+                  if (activeTab === item.id && !selectedOrder && !selectedProduct) return;
                   setActiveTab(item.id);
                   setSelectedOrder(null);
                   setSelectedProduct(null);
                   pendingOrderIdRef.current = null;
                   try {
-                    window.history.replaceState(null, '', `/admin?tab=${item.id}`);
+                    window.history.pushState({ tab: item.id, adminBack: true }, '', `/admin?tab=${item.id}`);
                   } catch {}
                 }}
                 className={`w-full flex items-center justify-between p-3 rounded-2xl text-xs font-bold transition-all ${
@@ -1241,8 +1337,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 setSelectedOrder(newOrderAlert);
                 if (newOrderAlert?.id) {
                   try {
-                    window.history.replaceState(
-                      null,
+                    window.history.pushState(
+                      { view: 'order', orderId: newOrderAlert.id, tab: 'orders', adminBack: true },
                       '',
                       `/admin?tab=orders&orderId=${encodeURIComponent(newOrderAlert.id)}`
                     );
@@ -1280,9 +1376,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             <button
               type="button"
               onClick={handleEnablePush}
-              className="px-4 py-2 bg-white text-emerald-950 hover:bg-emerald-50 rounded-xl text-xs font-black uppercase tracking-wider shrink-0 transition-all shadow-sm active:scale-95 flex items-center justify-center gap-1.5"
+              className="px-4 py-2 bg-white text-emerald-950 hover:bg-emerald-50 rounded-xl text-xs font-black uppercase tracking-wider shrink-0 transition-all shadow-sm active:scale-95 flex items-center justify-center"
             >
-              <Sparkles className="w-3.5 h-3.5 text-emerald-700" />
               <span>Enable Alerts on this Device</span>
             </button>
           </div>
@@ -1301,9 +1396,13 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             onBack={() => {
               setSelectedOrder(null);
               pendingOrderIdRef.current = null;
-              try {
-                window.history.replaceState(null, '', '/admin?tab=orders');
-              } catch {}
+              if (typeof window !== 'undefined') {
+                if (window.history.state?.adminBack) {
+                  window.history.back();
+                } else {
+                  window.history.pushState({ tab: 'orders' }, '', '/admin?tab=orders');
+                }
+              }
             }}
             onUpdateStatus={(id, status, assignedRider) => {
               handleUpdateOrderStatus(id, status, assignedRider);
@@ -1314,7 +1413,16 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         ) : selectedProduct ? (
           <ProductDetailsPanel
             product={selectedProduct}
-            onBack={() => setSelectedProduct(null)}
+            onBack={() => {
+              setSelectedProduct(null);
+              if (typeof window !== 'undefined') {
+                if (window.history.state?.adminBack) {
+                  window.history.back();
+                } else {
+                  window.history.pushState({ tab: 'inventory' }, '', '/admin?tab=inventory');
+                }
+              }
+            }}
             categories={categories}
             onSaveProduct={async (updatedProduct) => {
               setProducts((prev) =>
@@ -1360,8 +1468,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                   setActiveTab('orders');
                   setSelectedOrder(order);
                   try {
-                    window.history.replaceState(
-                      null,
+                    window.history.pushState(
+                      { view: 'order', orderId: order.id, tab: 'orders', adminBack: true },
                       '',
                       `/admin?tab=orders&orderId=${encodeURIComponent(order.id)}`
                     );
@@ -1371,27 +1479,27 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                   stopAlarm();
                   setActiveTab('orders');
                   try {
-                    window.history.replaceState(null, '', '/admin?tab=orders');
+                    window.history.pushState({ tab: 'orders', adminBack: true }, '', '/admin?tab=orders');
                   } catch {}
                 }}
                 onNavigateToInventory={(stockFilter) => {
                   setActiveTab('inventory');
                   try {
-                    window.history.replaceState(null, '', '/admin?tab=inventory');
+                    window.history.pushState({ tab: 'inventory', adminBack: true }, '', '/admin?tab=inventory');
                   } catch {}
                 }}
                 onNavigateToShootList={() => {
                   stopAlarm();
                   setActiveTab('shoot-list');
                   try {
-                    window.history.replaceState(null, '', '/admin?tab=shoot-list');
+                    window.history.pushState({ tab: 'shoot-list', adminBack: true }, '', '/admin?tab=shoot-list');
                   } catch {}
                 }}
                 onNavigateToTab={(tab) => {
                   stopAlarm();
                   setActiveTab(tab as any);
                   try {
-                    window.history.replaceState(null, '', `/admin?tab=${tab}`);
+                    window.history.pushState({ tab, adminBack: true }, '', `/admin?tab=${tab}`);
                   } catch {}
                 }}
                 audioEnabled={audioEnabled}
@@ -1408,8 +1516,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                   setActiveTab('orders');
                   setSelectedOrder(order);
                   try {
-                    window.history.replaceState(
-                      null,
+                    window.history.pushState(
+                      { view: 'order', orderId: order.id, tab: 'orders', adminBack: true },
                       '',
                       `/admin?tab=orders&orderId=${encodeURIComponent(order.id)}`
                     );
@@ -1435,7 +1543,16 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
               <InventoryTab
                 products={products}
                 categories={categories}
-                onViewProduct={(product) => setSelectedProduct(product)}
+                onViewProduct={(product) => {
+                  setSelectedProduct(product);
+                  try {
+                    window.history.pushState(
+                      { view: 'product', productId: product.id, tab: 'inventory', adminBack: true },
+                      '',
+                      `/admin?tab=inventory&productId=${encodeURIComponent(product.id)}`
+                    );
+                  } catch {}
+                }}
                 onQuickToggleStock={handleQuickToggleStock}
               />
             )}
@@ -1450,10 +1567,14 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                   setProducts((prev) => prev.map((p) => (p.id === updated.id ? updated : p)))
                 }
                 onBackToDashboard={() => {
-                  setActiveTab('home');
-                  try {
-                    window.history.replaceState(null, '', '/admin?tab=home');
-                  } catch {}
+                  if (typeof window !== 'undefined' && window.history.state?.adminBack) {
+                    window.history.back();
+                  } else {
+                    setActiveTab('home');
+                    try {
+                      window.history.pushState({ tab: 'home' }, '', '/admin?tab=home');
+                    } catch {}
+                  }
                 }}
               />
             )}
@@ -1473,12 +1594,13 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             : activeTab
         }
         onChangeTab={(tabId) => {
+          if (activeTab === tabId && !selectedOrder && !selectedProduct) return;
           setActiveTab(tabId as any);
           setSelectedOrder(null);
           setSelectedProduct(null);
           pendingOrderIdRef.current = null;
           try {
-            window.history.replaceState(null, '', `/admin?tab=${tabId}`);
+            window.history.pushState({ tab: tabId, adminBack: true }, '', `/admin?tab=${tabId}`);
           } catch {}
         }}
         orderBadge={activeOrdersCount > 0 ? activeOrdersCount : undefined}

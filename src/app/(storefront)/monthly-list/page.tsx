@@ -12,7 +12,6 @@ import {
   CheckCircle2, 
   ShoppingBag, 
   ArrowLeft, 
-  Sparkles, 
   ShieldCheck,
   Check
 } from 'lucide-react';
@@ -309,8 +308,7 @@ export default function MonthlyListPage() {
         <div className="rounded-2xl bg-gradient-to-br from-emerald-800 to-[#1b5e20] text-white p-4 shadow-sm relative overflow-hidden">
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-white/20 text-[10px] font-bold tracking-wide uppercase mb-1.5">
-                <Sparkles className="w-3 h-3 text-amber-300" />
+              <div className="inline-flex items-center px-2 py-0.5 rounded-md bg-white/20 text-[10px] font-bold tracking-wide uppercase mb-1.5">
                 <span>Zero Typing Needed</span>
               </div>
               <h2 className="text-sm sm:text-base font-extrabold leading-tight">

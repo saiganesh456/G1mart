@@ -12,8 +12,8 @@ import {
   Navigation,
   Bike,
   Package,
+  PackageCheck,
   Truck,
-  Sparkles,
   Check,
   Circle,
   CreditCard,
@@ -88,7 +88,7 @@ export default function OrderDetailsPanel({
     { key: 'Order Placed', label: 'Placed', icon: Circle },
     { key: 'Confirmed', label: 'Confirmed', icon: CheckCircle2 },
     { key: 'Packing', label: 'Packing', icon: Package },
-    { key: 'Packed', label: 'Packed', icon: Sparkles },
+    { key: 'Packed', label: 'Packed', icon: PackageCheck },
     { key: 'Rider Assigned', label: 'Rider Assigned', icon: Bike },
     { key: 'Out for Delivery', label: 'Out for Delivery', icon: Truck },
     { key: 'Delivered', label: 'Delivered', icon: Check },
@@ -98,7 +98,7 @@ export default function OrderDetailsPanel({
     { key: 'Order Placed', label: 'Placed', icon: Circle },
     { key: 'Confirmed', label: 'Confirmed', icon: CheckCircle2 },
     { key: 'Packing', label: 'Packing', icon: Package },
-    { key: 'Packed', label: 'Ready for Pickup', icon: Sparkles },
+    { key: 'Packed', label: 'Ready for Pickup', icon: PackageCheck },
     { key: 'Delivered', label: 'Handed Over', icon: Check },
   ];
 

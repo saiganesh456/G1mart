@@ -8,7 +8,6 @@ import {
   Tag,
   Package,
   Layers,
-  Sparkles,
   Edit2,
   CheckCircle2,
   Upload,

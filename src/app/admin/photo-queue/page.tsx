@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useRef } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Camera, Upload, CheckCircle2, AlertCircle, Sparkles, Filter, Search, Loader2 } from 'lucide-react';
+import { ArrowLeft, Camera, Upload, CheckCircle2, AlertCircle, Filter, Search, Loader2 } from 'lucide-react';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import ProductImage from '@/components/storefront/ProductImage';
 import type { Product } from '@/types';

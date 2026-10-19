@@ -62,6 +62,8 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
 
   const [subTab, setSubTab] = useState<'slips' | 'packer'>(initialActiveSubTab);
   const [orders, setOrders] = useState<SlipOrder[]>([]);
+  const ordersRef = useRef<SlipOrder[]>(orders);
+  ordersRef.current = orders;
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -150,7 +152,31 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
     const interval = setInterval(() => {
       fetchSlipOrders(true);
     }, 2000);
-    return () => clearInterval(interval);
+
+    const onPopState = () => {
+      if (typeof window === 'undefined') return;
+      const params = new URLSearchParams(window.location.search);
+      const slipId = params.get('slipId') || params.get('slip_id');
+      if (!slipId) {
+        setSelectedSlip(null);
+      } else {
+        const match = ordersRef.current.find(
+          (o) => String(o.id).toLowerCase() === String(slipId).toLowerCase()
+        );
+        if (match) setSelectedSlip(match);
+      }
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('popstate', onPopState);
+    }
+
+    return () => {
+      clearInterval(interval);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('popstate', onPopState);
+      }
+    };
   }, []);
 
   // When selected slip changes, initialize bill builder and image viewer
@@ -568,7 +594,12 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
             type="button"
             onClick={() => {
               setSubTab('slips');
-              setSelectedSlip(null);
+              if (selectedSlip) {
+                setSelectedSlip(null);
+                try {
+                  window.history.pushState({ tab: 'slips', adminBack: true }, '', '/admin?tab=slips');
+                } catch {}
+              }
             }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black transition-all ${
               subTab === 'slips'
@@ -589,7 +620,12 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
             type="button"
             onClick={() => {
               setSubTab('packer');
-              setSelectedSlip(null);
+              if (selectedSlip) {
+                setSelectedSlip(null);
+                try {
+                  window.history.pushState({ tab: 'packer', adminBack: true }, '', '/admin?tab=packer');
+                } catch {}
+              }
             }}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black transition-all ${
               subTab === 'packer'
@@ -767,7 +803,11 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                             onClick={() => {
                               setSelectedSlip(slip);
                               try {
-                                window.history.replaceState(null, '', `/admin?tab=slips&slipId=${encodeURIComponent(slip.id)}`);
+                                window.history.pushState(
+                                  { view: 'slip', slipId: slip.id, tab: 'slips', adminBack: true },
+                                  '',
+                                  `/admin?tab=slips&slipId=${encodeURIComponent(slip.id)}`
+                                );
                               } catch {}
                             }}
                             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white text-xs font-black rounded-xl transition-all shadow-2xs"
@@ -791,9 +831,13 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                   type="button"
                   onClick={() => {
                     setSelectedSlip(null);
-                    try {
-                      window.history.replaceState(null, '', '/admin?tab=slips');
-                    } catch {}
+                    if (typeof window !== 'undefined') {
+                      if (window.history.state?.adminBack) {
+                        window.history.back();
+                      } else {
+                        window.history.pushState({ tab: 'slips' }, '', '/admin?tab=slips');
+                      }
+                    }
                   }}
                   className="inline-flex items-center gap-2 text-xs font-black text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 px-3 py-1.5 rounded-xl transition-colors"
                 >

@@ -1,6 +1,7 @@
 import { Product, ProductVariant, Category, Section } from '../types';
 import { DEMO_CATEGORIES, DEMO_SECTIONS } from '../data/demo-seed';
 import { resolveLegacyId } from '../lib/legacyIdMap';
+import { serverProductOverrides } from '../lib/serverProductOverrides';
 
 // ---------------------------------------------------------------------------
 // Load migrated JSON data (1 043 products + 1 231 variants) as server-side module
@@ -264,10 +265,33 @@ export const productService = {
   },
 
   /**
+   * Synchronize dynamic product overrides from Supabase into MIGRATED_PRODUCT_LIST.
+   */
+  async syncOverrides(): Promise<void> {
+    try {
+      const overrides = await serverProductOverrides.getOverrides();
+      if (!overrides || overrides.size === 0) return;
+
+      for (const [id, override] of overrides.entries()) {
+        const idx = MIGRATED_PRODUCT_LIST.findIndex((p) => p.id === id);
+        if (idx !== -1) {
+          MIGRATED_PRODUCT_LIST[idx] = serverProductOverrides.applyToProduct(MIGRATED_PRODUCT_LIST[idx], override);
+          if (MIGRATED_PRODUCT_LIST[idx].variants && MIGRATED_PRODUCT_LIST[idx].variants!.length > 0) {
+            variantsByProductId.set(id, MIGRATED_PRODUCT_LIST[idx].variants!);
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('[productService] syncOverrides error:', err);
+    }
+  },
+
+  /**
    * Fetch canonical products.
-   * MIGRATED_PRODUCT_LIST is the ONLY product source.
+   * MIGRATED_PRODUCT_LIST with persistent overrides applied.
    */
   async getProducts(): Promise<Product[]> {
+    await this.syncOverrides();
     return MIGRATED_PRODUCT_LIST.filter((p) => p.isActive !== false);
   },
 
@@ -275,6 +299,7 @@ export const productService = {
    * Fetch all products (Admin use)
    */
   async getAllProductsRaw(): Promise<Product[]> {
+    await this.syncOverrides();
     return MIGRATED_PRODUCT_LIST;
   },
 
@@ -284,6 +309,7 @@ export const productService = {
    */
   async getProductById(id: string): Promise<Product | null> {
     if (!id) return null;
+    await this.syncOverrides();
     const canonicalId = resolveLegacyId(id);
     const migrated = MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalId || p.id === id);
     if (migrated) return migrated;
@@ -330,6 +356,11 @@ export const productService = {
       prod.image_url = imageUrl;
       prod.imageStatus = imageStatus;
       prod.image_status = imageStatus;
+      await serverProductOverrides.saveOverride({
+        id: prod.id,
+        imageUrl,
+        imageStatus,
+      });
       return true;
     }
     return false;
@@ -358,16 +389,40 @@ export const productService = {
       // Also sync variants in-memory if price or stock changed
       const productVariants = variantsByProductId.get(product.id);
       if (productVariants && productVariants.length > 0) {
-        if (product.price !== undefined) {
-          productVariants[0].price = product.price;
-        }
-        if (product.originalPrice !== undefined) {
-          productVariants[0].mrp = product.originalPrice;
-        }
-        if (product.stockCount !== undefined) {
-          productVariants[0].stock = product.stockCount;
+        if (product.variants && product.variants.length > 0) {
+          variantsByProductId.set(product.id, product.variants);
+          MIGRATED_PRODUCT_LIST[idx].variants = product.variants;
+        } else {
+          if (product.price !== undefined) {
+            productVariants[0].price = product.price;
+          }
+          if (product.originalPrice !== undefined) {
+            productVariants[0].mrp = product.originalPrice;
+          }
+          if (product.stockCount !== undefined) {
+            productVariants[0].stock = product.stockCount;
+          }
+          MIGRATED_PRODUCT_LIST[idx].variants = [...productVariants];
         }
       }
+
+      // Persist to Supabase so it survives restarts and is visible to customer app
+      await serverProductOverrides.saveOverride({
+        id: product.id,
+        name: product.name,
+        brand: product.brand,
+        unit: product.unit,
+        category: product.category || (product as any).category_id,
+        subCategory: product.subCategory,
+        price: product.price,
+        originalPrice: product.originalPrice,
+        stockCount: product.stockCount,
+        inStock: product.inStock,
+        imageUrl: product.imageUrl || product.image,
+        imageStatus: (product as any).imageStatus,
+        variants: MIGRATED_PRODUCT_LIST[idx].variants,
+      });
+
       return true;
     }
     return false;

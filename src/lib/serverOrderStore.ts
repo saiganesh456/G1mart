@@ -80,15 +80,23 @@ export const serverOrderStore = {
           const lineTotal = unitPrice * qty;
           subtotal += lineTotal;
 
-          // Try to get product image
+          // Try to get product name and image
           const mp = migratedProductById.get(pid);
+          const resolvedName = item.productName || item.name || mp?.name || 'Grocery Item';
+          const resolvedImg =
+            item.image ||
+            mp?.imageUrl ||
+            mp?.image ||
+            (mp as any)?.image_url ||
+            '/products/placeholder.svg';
+
           verifiedItems.push({
             productId: pid,
-            productName: item.productName || item.name || variant.product_id,
-            unit: variant.size_label,
+            productName: resolvedName,
+            unit: variant.size_label || mp?.unit || '1 unit',
             price: unitPrice,
             quantity: qty,
-            image: mp?.image_url || '/products/placeholder.svg',
+            image: resolvedImg,
             variantId: vid,
             sizeLabel: variant.size_label,
           });
@@ -115,15 +123,21 @@ export const serverOrderStore = {
       const lineTotal = unitPrice * qty;
       subtotal += lineTotal;
 
+      const fallbackImg =
+        item.image ||
+        product.imageUrl ||
+        product.image ||
+        (product as any).image_url ||
+        (product as any).image_path ||
+        '/products/placeholder.svg';
+
       verifiedItems.push({
         productId: product.id,
-        productName: product.name,
+        productName: item.productName || product.name,
         unit: product.unit,
         price: unitPrice,
         quantity: qty,
-        image: (product.image_status === 'VERIFIED' || product.image_status === 'approved')
-          ? (product.image_url || product.image_path || product.image || '/products/placeholder.svg')
-          : '/products/placeholder.svg',
+        image: fallbackImg,
       });
     }
 

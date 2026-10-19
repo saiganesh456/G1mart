@@ -10,7 +10,6 @@ import {
   Volume2,
   VolumeX,
   ArrowRight,
-  Sparkles,
   Users,
   Camera,
   FileText,

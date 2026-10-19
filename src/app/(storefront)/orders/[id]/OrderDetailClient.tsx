@@ -20,7 +20,6 @@ import {
   Banknote,
   Truck,
   Check,
-  Sparkles,
   FileText,
   ChevronRight,
 } from 'lucide-react';

@@ -13,7 +13,6 @@ import {
   AlertCircle,
   PlusCircle,
   Clock,
-  Sparkles,
 } from 'lucide-react';
 import type { Order, StaffMember } from '@/types';
 import { soundAlerts } from '@/lib/soundAlerts';
@@ -308,8 +307,7 @@ export default function RiderAssignmentModal({
           ) : (
             <form onSubmit={handleAssignCustom} className="space-y-3.5">
               <div className="p-3 bg-amber-50 rounded-2xl border border-amber-200 text-[11px] text-amber-900 space-y-1">
-                <p className="font-bold flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-700" />
+                <p className="font-bold">
                   <span>Spot / Temporary Rider Appointment</span>
                 </p>
                 <p className="text-amber-800">

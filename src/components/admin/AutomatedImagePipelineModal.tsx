@@ -3,7 +3,6 @@
 
 import React, { useState, useEffect } from 'react';
 import {
-  Sparkles,
   CheckCircle2,
   AlertCircle,
   Clock,
@@ -148,7 +147,7 @@ export default function AutomatedImagePipelineModal({
         <div className="px-6 py-4 bg-stone-900 text-white flex items-center justify-between border-b border-stone-800">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg text-white">
-              <Sparkles className="w-5 h-5" />
+              <Layers className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">

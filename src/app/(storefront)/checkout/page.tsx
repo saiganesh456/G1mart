@@ -18,7 +18,6 @@ import {
   Check,
   ChevronRight,
   ShoppingBag,
-  Sparkles,
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useLocation } from '@/context/LocationContext';

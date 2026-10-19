@@ -126,6 +126,10 @@ export default function PaymentPage() {
     const payload = {
       items: cart.map((i) => ({
         productId: i.product.id,
+        productName: i.product.name,
+        image: i.product.imageUrl || i.product.image || (i.product as any).image_url || '/products/placeholder.svg',
+        price: i.variant?.price || i.product.price || 0,
+        unit: i.variant?.size_label || i.product.unit || '1 unit',
         quantity: i.quantity,
         ...(i.variantId ? { variantId: i.variantId } : {}),
         ...(i.variant?.size_label ? { sizeLabel: i.variant.size_label } : {}),

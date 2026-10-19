@@ -3,7 +3,6 @@ import { Order, StaffMember } from '@/types';
 import {
   Search,
   Bike,
-  Sparkles,
   Check,
   Truck,
   Trash2,

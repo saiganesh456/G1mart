@@ -19,7 +19,6 @@ import {
   Power,
   DollarSign,
   Bike,
-  Sparkles,
   ShoppingBag,
   Check,
   Info,
