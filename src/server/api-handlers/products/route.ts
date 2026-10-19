@@ -14,6 +14,16 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Product not found' }, { status: 404 });
     }
 
+    const category = searchParams.get('category') || '';
+    if (category) {
+      const prods = await productService.getProductsByCategory(category);
+      return NextResponse.json({
+        success: true,
+        products: prods,
+        total: prods.length,
+      });
+    }
+
     const query = searchParams.get('q') || '';
     const limit = Math.min(Number(searchParams.get('limit')) || 20, 50);
 

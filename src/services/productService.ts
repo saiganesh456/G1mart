@@ -306,13 +306,21 @@ export const productService = {
           const catId = normalizeCategory(override.category || (override as any).category_id);
           const brandName = override.brand || 'G1 Mart';
 
+          let subCat = override.subCategory;
+          if (!subCat) {
+            const catCfg = DEMO_CATEGORIES.find((c) => c.id === catId);
+            if (catCfg && catCfg.subcategories && catCfg.subcategories.length > 0) {
+              subCat = catCfg.subcategories[0];
+            }
+          }
+
           const newProd: Product = {
             id: override.id,
             name: override.name,
             brand: brandName,
             category: catId,
             category_id: catId,
-            subCategory: override.subCategory,
+            subCategory: subCat,
             unit: override.unit || '1 unit',
             price: priceNum,
             priceConfirmed: priceNum > 0,
@@ -407,7 +415,11 @@ export const productService = {
    */
   async getProductsByCategory(categoryId: string): Promise<Product[]> {
     const all = await this.getProducts();
-    return all.filter((p) => p.category === categoryId || p.category_id === categoryId);
+    const target = normalizeCategory(categoryId).toLowerCase();
+    return all.filter((p) => {
+      const rawCat = (p.category_id || p.category || '').toLowerCase();
+      return normalizeCategory(rawCat) === target || rawCat === target;
+    });
   },
 
   /**

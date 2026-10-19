@@ -17,6 +17,7 @@ import {
 import ProductImage from '@/components/storefront/ProductImage';
 import { adminFetch } from '@/lib/adminApi';
 import { normalizeCategory } from '@/services/productService';
+import { SUPERMARKET_CATEGORIES } from '@/data/demo-seed';
 
 export const STORE_SECTIONS_CATEGORIES = [
   {
@@ -98,6 +99,15 @@ export default function ProductDetailsPanel({
   );
   const [isCustomCategory, setIsCustomCategory] = useState(false);
   const [customCategoryName, setCustomCategoryName] = useState('');
+
+  const currentCatConfig = SUPERMARKET_CATEGORIES.find((c) => c.id === category);
+  const availableSubcategories = currentCatConfig?.subcategories || [];
+
+  const [subCategory, setSubCategory] = useState<string>(
+    product.subCategory || (product as any).sub_category || availableSubcategories[0] || 'General'
+  );
+  const [isCustomSubCategory, setIsCustomSubCategory] = useState(false);
+  const [customSubCategoryName, setCustomSubCategoryName] = useState('');
   const [price, setPrice] = useState(
     product.price !== undefined && product.price !== null && (isNew ? product.price > 0 : true)
       ? String(product.price)
@@ -145,9 +155,15 @@ export default function ProductDetailsPanel({
     setName(product.name || '');
     setBrand(product.brand || 'G1 Mart');
     setUnit(product.unit || '1 unit');
-    setCategory(normalizeCategory(product.category || (product as any).category_id || 'atta-rice-dal'));
+    const initCat = normalizeCategory(product.category || (product as any).category_id || 'atta-rice-dal');
+    setCategory(initCat);
     setIsCustomCategory(false);
     setCustomCategoryName('');
+    const initCfg = SUPERMARKET_CATEGORIES.find((c) => c.id === initCat);
+    const initSub = product.subCategory || (product as any).sub_category || initCfg?.subcategories?.[0] || 'General';
+    setSubCategory(initSub);
+    setIsCustomSubCategory(false);
+    setCustomSubCategoryName('');
     setPrice(
       product.price !== undefined && product.price !== null && (isNew ? product.price > 0 : true)
         ? String(product.price)
@@ -340,6 +356,10 @@ export default function ProductDetailsPanel({
             },
           ];
 
+    const finalSub = isCustomSubCategory
+      ? customSubCategoryName.trim()
+      : subCategory.trim() || availableSubcategories[0] || 'General';
+
     const updatedProduct: Product = {
       ...product,
       id: product.id || `g1-p${Date.now().toString().slice(-6)}`,
@@ -348,6 +368,7 @@ export default function ProductDetailsPanel({
       unit: unit.trim() || '1 unit',
       category: category.trim(),
       category_id: category.trim(),
+      subCategory: finalSub,
       price: priceNum,
       originalPrice: mrpNum,
       discountPercentage: mrpNum > priceNum && mrpNum > 0 ? Math.round(((mrpNum - priceNum) / mrpNum) * 100) : 0,
@@ -504,7 +525,7 @@ export default function ProductDetailsPanel({
                 {name || 'New Product Name'}
               </h2>
               <p className="text-xs text-stone-500 mt-1">
-                Unit: {unit || '1 unit'} • Category: {category}
+                Unit: {unit || '1 unit'} • Category: {category} {subCategory ? `• Shelf: ${subCategory}` : ''}
               </p>
               {!isNew && product.id && (
                 <div className="mt-2">
@@ -753,7 +774,7 @@ export default function ProductDetailsPanel({
               )}
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               <div>
                 <label className="text-xs font-black text-stone-700 uppercase tracking-wider block mb-1">
                   Brand
@@ -785,7 +806,7 @@ export default function ProductDetailsPanel({
               <div>
                 <div className="flex items-center justify-between mb-1">
                   <label className="text-xs font-black text-stone-700 uppercase tracking-wider block">
-                    Store Category
+                    Category
                   </label>
                   {!isCustomCategory ? (
                     <button
@@ -793,7 +814,7 @@ export default function ProductDetailsPanel({
                       onClick={() => setIsCustomCategory(true)}
                       className="text-[10px] font-bold text-[#1B5E20] hover:underline cursor-pointer"
                     >
-                      + New Category
+                      + New
                     </button>
                   ) : (
                     <button
@@ -801,7 +822,7 @@ export default function ProductDetailsPanel({
                       onClick={() => setIsCustomCategory(false)}
                       className="text-[10px] font-bold text-stone-500 hover:underline cursor-pointer"
                     >
-                      Choose Existing
+                      Existing
                     </button>
                   )}
                 </div>
@@ -813,7 +834,13 @@ export default function ProductDetailsPanel({
                       if (e.target.value === '__add_new__') {
                         setIsCustomCategory(true);
                       } else {
-                        setCategory(e.target.value);
+                        const newCat = e.target.value;
+                        setCategory(newCat);
+                        const cfg = SUPERMARKET_CATEGORIES.find((c) => c.id === newCat);
+                        if (cfg && cfg.subcategories && cfg.subcategories.length > 0) {
+                          setSubCategory(cfg.subcategories[0]);
+                          setIsCustomSubCategory(false);
+                        }
                       }
                     }}
                     className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-semibold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
@@ -846,16 +873,92 @@ export default function ProductDetailsPanel({
                           .replace(/(^-|-$)/g, '');
                         setCategory(slug || 'atta-rice-dal');
                       }}
-                      placeholder="e.g. Organic & Healthy Foods"
+                      placeholder="e.g. Organic Foods"
                       className="w-full px-3 py-2 bg-white border border-[#1B5E20] rounded-xl text-xs font-semibold text-stone-900 focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
                     />
                     <div className="flex items-center justify-between text-[10px] text-stone-500">
-                      <span>Category ID: <code className="font-mono text-emerald-800">{category}</code></span>
+                      <span>ID: <code className="font-mono text-emerald-800">{category}</code></span>
                       <button
                         type="button"
                         onClick={() => {
                           setIsCustomCategory(false);
                           setCategory('atta-rice-dal');
+                        }}
+                        className="text-stone-400 hover:text-stone-600 cursor-pointer"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-xs font-black text-stone-700 uppercase tracking-wider block">
+                    Subcategory / Shelf
+                  </label>
+                  {!isCustomSubCategory ? (
+                    <button
+                      type="button"
+                      onClick={() => setIsCustomSubCategory(true)}
+                      className="text-[10px] font-bold text-[#1B5E20] hover:underline cursor-pointer"
+                    >
+                      + Custom
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => setIsCustomSubCategory(false)}
+                      className="text-[10px] font-bold text-stone-500 hover:underline cursor-pointer"
+                    >
+                      Shelf List
+                    </button>
+                  )}
+                </div>
+
+                {!isCustomSubCategory ? (
+                  <select
+                    value={subCategory}
+                    onChange={(e) => {
+                      if (e.target.value === '__add_custom_sub__') {
+                        setIsCustomSubCategory(true);
+                      } else {
+                        setSubCategory(e.target.value);
+                      }
+                    }}
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-semibold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
+                  >
+                    {availableSubcategories.map((sub) => (
+                      <option key={sub} value={sub}>
+                        {sub}
+                      </option>
+                    ))}
+                    {availableSubcategories.length === 0 && (
+                      <option value="General">General</option>
+                    )}
+                    <option value="__add_custom_sub__">➕ + Add Custom Shelf...</option>
+                  </select>
+                ) : (
+                  <div className="space-y-1.5">
+                    <input
+                      type="text"
+                      autoFocus
+                      value={customSubCategoryName}
+                      onChange={(e) => {
+                        setCustomSubCategoryName(e.target.value);
+                        setSubCategory(e.target.value);
+                      }}
+                      placeholder="e.g. Atta & Wheat Flour"
+                      className="w-full px-3 py-2 bg-white border border-[#1B5E20] rounded-xl text-xs font-semibold text-stone-900 focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
+                    />
+                    <div className="flex items-center justify-between text-[10px] text-stone-500">
+                      <span>Custom Subcategory</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsCustomSubCategory(false);
+                          setSubCategory(availableSubcategories[0] || 'General');
                         }}
                         className="text-stone-400 hover:text-stone-600 cursor-pointer"
                       >

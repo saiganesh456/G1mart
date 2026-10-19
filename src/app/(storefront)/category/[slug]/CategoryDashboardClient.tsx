@@ -8,6 +8,7 @@ import InnerPageHeader from '@/components/layout/InnerPageHeader';
 import { useLocation } from '@/context/LocationContext';
 import type { Category, Product } from '@/types';
 import { getBrandLogo } from '@/lib/brandLogos';
+import { normalizeCategory } from '@/services/productService';
 
 interface Props {
   category: Category;
@@ -19,11 +20,12 @@ interface Props {
  * STRICT CATEGORY ENFORCEMENT
  * Products are pre-filtered by category_id in page.tsx (server-side).
  * This client component applies an additional guard to guarantee no
- * cross-category leakage happens, regardless of sub_category label mismatches.
+ * cross-category leakage happens, using normalized category IDs.
  */
 function isProductInCategory(p: Product, categoryId: string): boolean {
-  const catId = p.category_id || p.category;
-  return catId === categoryId;
+  const catId = normalizeCategory(p.category_id || p.category);
+  const targetId = normalizeCategory(categoryId);
+  return catId.toLowerCase() === targetId.toLowerCase();
 }
 
 /**
@@ -131,14 +133,42 @@ export default function CategoryDashboardClient({ category, products }: Props) {
   // Ref to scroll products to top on subcategory or filter change
   const productContainerRef = useRef<HTMLDivElement>(null);
 
+  const [liveProducts, setLiveProducts] = useState<Product[]>(products);
+
+  useEffect(() => {
+    setLiveProducts(products);
+  }, [products]);
+
+  // Real-time client revalidation: fetch latest products from API to bypass browser/router cache
+  useEffect(() => {
+    let isMounted = true;
+    const fetchLatest = async () => {
+      try {
+        const res = await fetch(`/api/products?category=${encodeURIComponent(category.id)}&_t=${Date.now()}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && data.success && Array.isArray(data.products) && data.products.length > 0) {
+            setLiveProducts(data.products);
+          }
+        }
+      } catch (e) {
+        // Fallback to server props
+      }
+    };
+    fetchLatest();
+    return () => {
+      isMounted = false;
+    };
+  }, [category.id]);
+
   useEffect(() => {
     if (brandParam) setSelectedBrand(brandParam);
   }, [brandParam]);
 
   // Base list: enforce strict category membership and active status
   const categoryProducts = useMemo(
-    () => products.filter((p) => isProductInCategory(p, category.id) && (p as any).isActive !== false && (p as any).is_active !== false),
-    [category.id, products]
+    () => liveProducts.filter((p) => isProductInCategory(p, category.id) && (p as any).isActive !== false && (p as any).is_active !== false),
+    [category.id, liveProducts]
   );
 
   // Extract clean sub-categories for this category only
@@ -280,7 +310,11 @@ export default function CategoryDashboardClient({ category, products }: Props) {
         const dalB = getDalScore(b.name);
         if (dalA !== dalB) return dalA - dalB;
       } else {
-        // In all other categories: Top national brands are top priority (private label is placed below top brands)
+        // In all other categories: Newly added or featured items are prioritized at the top
+        if (a.isPopular !== b.isPopular) {
+          return (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0);
+        }
+        // Top national brands are prioritized over generic store brands
         const aIsG1 = isG1MartProduct(a);
         const bIsG1 = isG1MartProduct(b);
         if (aIsG1 !== bIsG1) {
