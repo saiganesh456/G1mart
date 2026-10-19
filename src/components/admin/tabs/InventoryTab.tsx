@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Product, Category } from '@/types';
 import {
+  ArrowLeft,
   Search,
   Filter,
   X,
@@ -24,6 +25,8 @@ interface Props {
   onViewProduct: (product: Product) => void;
   onQuickToggleStock?: (productId: string, inStock: boolean) => void;
   initialStockFilter?: string;
+  onStockFilterChange?: (filter: string) => void;
+  onBackToDashboard?: () => void;
 }
 
 export default function InventoryTab({
@@ -32,11 +35,19 @@ export default function InventoryTab({
   onViewProduct,
   onQuickToggleStock,
   initialStockFilter = 'All',
+  onStockFilterChange,
+  onBackToDashboard,
 }: Props) {
   const [search, setSearch] = useState('');
   const [stockFilter, setStockFilter] = useState(initialStockFilter);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [showFilterDrawer, setShowFilterDrawer] = useState(false);
+
+  useEffect(() => {
+    if (initialStockFilter && initialStockFilter !== stockFilter) {
+      setStockFilter(initialStockFilter);
+    }
+  }, [initialStockFilter]);
 
   // Stock counts
   const totalCount = products.length;
@@ -87,13 +98,26 @@ export default function InventoryTab({
       {/* 1. TOP HEADER & SEARCH CARD */}
       <div className="bg-white rounded-3xl p-4 sm:p-5 border border-stone-200/80 shadow-2xs space-y-3.5">
         <div className="flex items-center justify-between gap-3">
-          <div>
-            <h1 className="text-xl sm:text-2xl font-black text-stone-900 tracking-tight leading-tight">
-              Stock &amp; Price Control
-            </h1>
-            <p className="text-xs text-stone-500 font-medium mt-0.5">
-              Showing {filteredProducts.length} of {totalCount} supermarket products
-            </p>
+          <div className="flex items-center gap-2">
+            {onBackToDashboard && (
+              <button
+                type="button"
+                onClick={onBackToDashboard}
+                className="px-2.5 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-stone-900 text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer mr-1 shrink-0"
+                title="Back to Admin Dashboard Home"
+              >
+                <ArrowLeft className="w-4 h-4 text-stone-600" />
+                <span className="hidden sm:inline">Dashboard</span>
+              </button>
+            )}
+            <div>
+              <h1 className="text-xl sm:text-2xl font-black text-stone-900 tracking-tight leading-tight">
+                Stock &amp; Price Control
+              </h1>
+              <p className="text-xs text-stone-500 font-medium mt-0.5">
+                Showing {filteredProducts.length} of {totalCount} supermarket products
+              </p>
+            </div>
           </div>
 
           <button
@@ -138,7 +162,10 @@ export default function InventoryTab({
             <button
               key={f.key}
               type="button"
-              onClick={() => setStockFilter(f.key)}
+              onClick={() => {
+                setStockFilter(f.key);
+                onStockFilterChange?.(f.key);
+              }}
               className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
                 stockFilter === f.key
                   ? 'bg-[#087F5B] text-white shadow-2xs'
