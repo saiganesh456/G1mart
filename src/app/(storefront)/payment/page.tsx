@@ -176,6 +176,9 @@ export default function PaymentPage() {
       // --- Option B: Pay on Delivery ---
       // Adds cod_fee to total; order becomes PLACED with payment_status = COD_PENDING (Phase 5 Rule 1)
       if (selectedMethod === 'cod') {
+        const effectiveCodFee = isPickup ? 0 : (data.codFee !== undefined ? data.codFee : codFee);
+        const effectiveGrandTotal = data.grandTotal || (cartSubtotal + effectiveCodFee);
+
         const orderRecord = {
           id: data.orderId,
           orderNumber: data.orderId,
@@ -187,13 +190,14 @@ export default function PaymentPage() {
             minute: '2-digit',
           }),
           status: 'Order Placed',
+          orderType: isPickup ? 'pickup' : 'delivery',
           paymentMethod: 'Cash on Delivery',
           paymentStatus: 'COD_PENDING',
           subtotal: data.subtotal || cartSubtotal,
-          codFee: data.codFee || codFee,
+          codFee: effectiveCodFee,
           deliveryFee: 0,
-          grandTotal: data.grandTotal || grandTotal,
-          total: data.grandTotal || grandTotal,
+          grandTotal: effectiveGrandTotal,
+          total: effectiveGrandTotal,
           items: cart.map((i) => ({
             productId: i.product.id,
             productName: i.product.name,
@@ -204,7 +208,7 @@ export default function PaymentPage() {
             variantId: i.variantId,
             sizeLabel: i.variant?.size_label,
           })),
-          address: effectiveAddress,
+          address: { ...effectiveAddress, orderType: isPickup ? 'pickup' : 'delivery' },
           slot: addressData?.selectedSlot || (isPickup ? 'Store Pickup' : 'Standard Delivery'),
           userId: supabaseUser?.id || undefined,
           userEmail: user?.email || supabaseUser?.email || undefined,
@@ -252,6 +256,8 @@ export default function PaymentPage() {
                 grand_total: orderRecord.grandTotal || orderRecord.total || 0,
                 address: {
                   ...effectiveAddress,
+                  orderType: isPickup ? 'pickup' : 'delivery',
+                  _status: 'Order Placed',
                   _items: orderRecord.items,
                   _paymentStatus: 'COD_PENDING',
                   _userId: supabaseUser?.id,

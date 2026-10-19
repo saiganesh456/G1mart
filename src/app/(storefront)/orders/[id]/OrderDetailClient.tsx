@@ -445,8 +445,13 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
 
   // Zone Minimum and Shortfall Calculations
   const zoneMinOrder = Number(order?.zone_min_order) || 500;
+  // Items sum verification from order items list
+  const itemsSum = useMemo(() => {
+    return (order?.items || []).reduce((acc: number, it: any) => acc + ((Number(it.price) || 0) * (Number(it.quantity) || 1)), 0);
+  }, [order?.items]);
+
   // Subtotal is based on available packed items
-  const currentSubtotal = Number(order?.subtotal) || Number(order?.finalTotal) || Number(order?.estimatedTotal) || 0;
+  const currentSubtotal = itemsSum > 0 ? itemsSum : (Number(order?.subtotal) || Number(order?.finalTotal) || Number(order?.estimatedTotal) || 0);
   const hasShortfall = !isPickup && currentSubtotal < zoneMinOrder;
   const shortfallAmount = Math.max(0, zoneMinOrder - currentSubtotal);
 
@@ -641,10 +646,13 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
     }
   };
 
+  // Phase 5 & 6 Payment state for slip orders only (never regular storefront orders)
   const isAwaitingPayment =
-    order?.status === 'AWAITING_PAYMENT' ||
-    order?.status === 'PACKED' ||
-    (isSlipOrder && !isFullyPaid && !isCodPending && (order?.items || []).length > 0 && order?.status !== 'SLIP_RECEIVED' && order?.status !== 'BILLING');
+    isSlipOrder &&
+    !isFullyPaid &&
+    !isCodPending &&
+    (order?.items || []).length > 0 &&
+    (order?.status === 'AWAITING_PAYMENT' || order?.status === 'PACKED' || (order?.status !== 'SLIP_RECEIVED' && order?.status !== 'BILLING'));
 
   if (!order) {
     if (hasTimedOut) {
@@ -788,15 +796,19 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
                     ? 'Confirmed · Preparing Packing'
                     : order?.status === 'PACKING'
                     ? 'Packing Fresh Items'
-                    : order?.status === 'PACKED' || order?.status === 'AWAITING_PAYMENT'
-                    ? 'Packed · Awaiting Bill Payment'
+                    : (order?.status === 'PACKED' || order?.status === 'AWAITING_PAYMENT')
+                    ? (isSlipOrder
+                        ? 'Packed · Awaiting Bill Payment'
+                        : (isPickup ? 'Packed · Ready for Store Pickup 🏬' : 'Packed · Ready for Delivery 📦'))
                     : order?.status === 'COD_PENDING'
                     ? 'Pay on Delivery Confirmed'
                     : order?.status === 'PAID'
-                    ? 'Paid Online · Ready for Dispatch'
+                    ? (isPickup ? 'Paid Online · Ready for Pickup' : 'Paid Online · Ready for Dispatch')
+                    : order?.status === 'Delivered'
+                    ? (isPickup ? 'Picked Up & Completed 🎉' : 'Delivered at Doorstep 🎉')
                     : order?.status || 'Order Placed'}
                 </span>
-                {(order?.status === 'PACKING' || order?.status === 'AWAITING_PAYMENT' || order?.status === 'Out for Delivery') && (
+                {(order?.status === 'PACKING' || (isSlipOrder && order?.status === 'AWAITING_PAYMENT') || order?.status === 'Out for Delivery') && (
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 )}
               </span>
@@ -816,13 +828,13 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
                 {isFullyPaid
                   ? '✓ Paid & Confirmed'
                   : isCodPending
-                  ? 'Cash on Delivery (Pending)'
-                  : 'Payment Pending'}
+                  ? (isPickup ? 'Pay at Counter (Pending)' : 'Cash on Delivery (Pending)')
+                  : (isPickup ? 'Pay at Counter' : 'Payment Pending')}
               </span>
             </div>
           </div>
 
-        {/* Doorstep Delivery PIN (Customer Handover Verification) */}
+        {/* Customer Handover PIN (Doorstep Delivery or In-Store Pickup) */}
         {(() => {
           const status = order?.status || 'Order Placed';
           const isDelivered = status === 'Delivered' || status === 'DELIVERED';
@@ -831,9 +843,10 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
             status === 'OUT_FOR_DELIVERY' ||
             status === 'Order Dispatched' ||
             status === 'RIDER_ASSIGNED';
+          const isReadyPickup = isPickup && (status === 'Packed' || status === 'PACKED' || status === 'Confirmed' || status === 'Packing');
           const otp = order?.deliveryOtp || order?.delivery_otp;
 
-          if (!isDelivered && (isOutForDelivery || otp || order?.arrivedAtDoorstep || order?.arrived_at_doorstep)) {
+          if (!isDelivered && (isOutForDelivery || isReadyPickup || otp || order?.arrivedAtDoorstep || order?.arrived_at_doorstep)) {
             const displayPin = otp || '4821';
             const riderName =
               order?.assignedRider?.name ||
@@ -846,17 +859,21 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
                     <span className="text-xs font-black uppercase text-emerald-300 tracking-wider">
-                      Doorstep Delivery PIN
+                      {isPickup ? 'Store Pickup PIN' : 'Doorstep Delivery PIN'}
                     </span>
                   </div>
                   <span className="text-[10px] bg-white/15 text-emerald-100 px-2.5 py-0.5 rounded-full font-bold">
-                    Share with Rider
+                    {isPickup ? 'Show at Counter' : 'Share with Rider'}
                   </span>
                 </div>
                 <div className="flex items-center justify-between pt-1 gap-3">
                   <div>
                     <p className="text-xs text-stone-200 leading-snug">
-                      Share this 4-digit code with rider <strong className="text-white">{riderName}</strong> when they arrive at your door:
+                      {isPickup ? (
+                        <>Show this 4-digit code at the <strong className="text-white">G1mart Supermarket counter</strong> when picking up your order:</>
+                      ) : (
+                        <>Share this 4-digit code with rider <strong className="text-white">{riderName}</strong> when they arrive at your door:</>
+                      )}
                     </p>
                   </div>
                   <div className="bg-white text-[#1E6B2E] font-mono text-2xl font-black px-4 py-1.5 rounded-xl border-2 border-emerald-400 tracking-widest shadow-inner shrink-0">

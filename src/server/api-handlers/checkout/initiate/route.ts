@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     // Rule 3: Server recalculates the total from database prices (never trust client)
     let calculated;
     try {
-      calculated = serverOrderStore.recalculateOrderTotal(items);
+      calculated = await serverOrderStore.recalculateOrderTotal(items);
     } catch (err: any) {
       return NextResponse.json({ success: false, error: err.message }, { status: 400 });
     }
@@ -93,9 +93,9 @@ export async function POST(req: NextRequest) {
     const storeSettings = await serverStoreSettings.getStoreSettings();
     const configuredCodFee = Number(storeSettings.cod_fee ?? 50);
 
-    // Option 1: Pay on Delivery (adds server-configured COD handling fee)
+    // Option 1: Pay on Delivery (adds server-configured COD handling fee only for doorstep delivery)
     if (isCod) {
-      const codFee = configuredCodFee;
+      const codFee = isPickup ? 0 : configuredCodFee;
       const finalGrandTotal = calculated.subtotal + codFee; // Delivery is FREE (0)
 
       const order = await serverOrderStore.createPendingOrder({
@@ -108,13 +108,15 @@ export async function POST(req: NextRequest) {
         grandTotal: finalGrandTotal,
         final_total: finalGrandTotal,
         cod_fee: codFee,
-        address: { ...addressData, fullName, mobileNumber: cleanPhone, phone: cleanPhone },
-        slot: slot || 'Standard Delivery',
+        address: { ...addressData, fullName, mobileNumber: cleanPhone, phone: cleanPhone, orderType: isPickup ? 'pickup' : 'delivery' },
+        slot: slot || (isPickup ? 'Store Pickup' : 'Standard Delivery'),
         paymentMethod: 'Cash on Delivery',
         userId: userId || undefined,
         userEmail: userEmail || undefined,
         distance_km: distanceKm,
         zone_min_order: zoneMinOrder,
+        orderType: isPickup ? 'pickup' : 'standard',
+        type: isPickup ? 'standard' : 'standard',
       });
 
       // Status becomes PLACED with payment_status = COD_PENDING (Phase 5 Rule 1)
@@ -129,6 +131,7 @@ export async function POST(req: NextRequest) {
         subtotal: calculated.subtotal,
         codFee,
         grandTotal: finalGrandTotal,
+        orderType: isPickup ? 'pickup' : 'delivery',
         paymentMethod: 'Cash on Delivery',
         paymentStatus: 'COD_PENDING',
         redirectUrl: `/orders/${orderId}?placed=true`,

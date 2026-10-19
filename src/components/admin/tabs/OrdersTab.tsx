@@ -68,7 +68,16 @@ const QUEUE_FILTERS: QueueFilter[] = [
   'Completed',
 ];
 
-function getStatusBadge(status?: string) {
+export const isStorePickupOrder = (o: any) => Boolean(
+  o?.orderType === 'pickup' ||
+  o?.slot?.toLowerCase().includes('pickup') ||
+  o?.address?.streetArea?.toLowerCase().includes('pickup') ||
+  o?.address?.landmark?.toLowerCase().includes('pickup') ||
+  o?.address?.orderType === 'pickup' ||
+  o?.address?.fullName?.toLowerCase().includes('pickup')
+);
+
+function getStatusBadge(status?: string, isPickup?: boolean) {
   const s = status || 'Order Placed';
   switch (s) {
     case 'Order Placed':
@@ -79,14 +88,16 @@ function getStatusBadge(status?: string) {
     case 'Packing':
       return { label: 'Packing', bg: 'bg-amber-50 text-amber-800 border-amber-200' };
     case 'Packed':
-      return { label: 'Packed', bg: 'bg-indigo-50 text-indigo-700 border-indigo-200' };
+      return isPickup
+        ? { label: 'Ready for pickup', bg: 'bg-emerald-50 text-emerald-800 border-emerald-300' }
+        : { label: 'Packed', bg: 'bg-indigo-50 text-indigo-700 border-indigo-200' };
     case 'Rider Assigned':
       return { label: 'Rider assigned', bg: 'bg-purple-50 text-purple-700 border-purple-200' };
     case 'Out for Delivery':
     case 'Order Dispatched':
       return { label: 'Out for delivery', bg: 'bg-purple-50 text-purple-700 border-purple-200' };
     case 'Delivered':
-      return { label: 'Delivered', bg: 'bg-emerald-50 text-emerald-800 border-emerald-200' };
+      return { label: isPickup ? 'Picked up' : 'Delivered', bg: 'bg-emerald-50 text-emerald-800 border-emerald-200' };
     case 'Cancelled':
       return { label: 'Cancelled', bg: 'bg-rose-50 text-rose-700 border-rose-200' };
     default:
@@ -188,6 +199,8 @@ export default function OrdersTab({
   // Determine stage-appropriate primary action
   const getStageAction = (order: Order) => {
     const s = order.status || 'Order Placed';
+    const isPickup = isStorePickupOrder(order);
+
     if (s === 'Order Placed' || s === 'New') {
       return {
         label: 'Confirm order →',
@@ -204,12 +217,19 @@ export default function OrdersTab({
     }
     if (s === 'Packing') {
       return {
-        label: 'Mark packed →',
+        label: isPickup ? 'Mark ready for pickup →' : 'Mark packed →',
         next: 'Packed',
         requiresRiderModal: false,
       };
     }
     if (s === 'Packed') {
+      if (isPickup) {
+        return {
+          label: 'Complete Handover (OTP) →',
+          next: 'Delivered',
+          requiresRiderModal: false,
+        };
+      }
       return {
         label: 'Appoint rider →',
         next: 'Rider Assigned',
@@ -232,7 +252,7 @@ export default function OrdersTab({
     }
     if (s === 'Delivered') {
       return {
-        label: 'View receipt →',
+        label: isPickup ? 'View pickup receipt →' : 'View receipt →',
         next: null,
         requiresRiderModal: false,
       };
@@ -327,7 +347,8 @@ export default function OrdersTab({
             order.paymentStatus === 'completed' ||
             order.paymentStatus === 'manual_verified';
           const status = order.status || 'Order Placed';
-          const badge = getStatusBadge(status);
+          const isPickup = isStorePickupOrder(order);
+          const badge = getStatusBadge(status, isPickup);
           const stageAction = getStageAction(order);
           const itemCount = order.items?.length || 0;
           const phone = order.address?.mobileNumber || order.address?.phone || '';
@@ -365,18 +386,25 @@ export default function OrdersTab({
                   className={`text-[11px] font-bold px-2 py-0.5 rounded-md border ${
                     isPaid
                       ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                      : isPickup
+                      ? 'bg-amber-50 text-amber-800 border-amber-200'
                       : 'bg-orange-50 text-orange-800 border-orange-200'
                   }`}
                 >
-                  {isPaid ? '✓ Paid' : 'COD'}
+                  {isPaid ? '✓ Paid' : isPickup ? 'Pay at Store Counter' : 'COD'}
                 </span>
               </div>
 
               {/* Row 4: Delivery Slot & Location Summary */}
-              <p className="text-xs text-stone-500 font-medium truncate">
-                {order.slot || 'Standard delivery'} •{' '}
-                {order.address?.streetArea || order.address?.city || 'Nellore'}
-              </p>
+              <div className="flex items-center gap-1.5 text-xs text-stone-500 font-medium truncate">
+                <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded ${
+                  isPickup ? 'bg-amber-100 text-amber-900 border border-amber-200' : 'bg-stone-100 text-stone-700'
+                }`}>
+                  {isPickup ? '🏬 Store Pickup' : '🛵 Delivery'}
+                </span>
+                <span>•</span>
+                <span className="truncate">{order.address?.streetArea || order.address?.city || (isPickup ? 'Padarupalli Hub' : 'Nellore')}</span>
+              </div>
 
               {/* Expandable item checklist preview */}
               {itemCount > 0 && (

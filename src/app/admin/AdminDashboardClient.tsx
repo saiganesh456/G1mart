@@ -512,11 +512,35 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       paymentMethod: row.payment_method || 'Cash on Delivery',
       paymentStatus: row.payment_status || (row.is_paid ? 'completed' : 'pending'),
       status: (row.address?._status || row.status || 'Order Placed') as any,
-      subtotal: Number(row.subtotal || row.total_amount || 0),
+      subtotal: (() => {
+        const rawItems = Array.isArray(row.order_items) && row.order_items.length > 0
+          ? row.order_items
+          : Array.isArray(row.items) && row.items.length > 0
+          ? row.items
+          : Array.isArray(row.address?._items)
+          ? row.address._items
+          : [];
+        const sum = rawItems.reduce((acc: number, oi: any) => acc + ((Number(oi.unit_price || oi.price) || 0) * (Number(oi.quantity) || 1)), 0);
+        return sum > 0 ? sum : Number(row.subtotal || row.total_amount || 0);
+      })(),
       discount: Number(row.discount || row.discount_amount || 0),
       deliveryFee: Number(row.delivery_fee || 0),
       taxes: Number(row.taxes || 0),
-      grandTotal: Number(row.grand_total || row.total_amount || 0),
+      grandTotal: (() => {
+        const rawItems = Array.isArray(row.order_items) && row.order_items.length > 0
+          ? row.order_items
+          : Array.isArray(row.items) && row.items.length > 0
+          ? row.items
+          : Array.isArray(row.address?._items)
+          ? row.address._items
+          : [];
+        const sum = rawItems.reduce((acc: number, oi: any) => acc + ((Number(oi.unit_price || oi.price) || 0) * (Number(oi.quantity) || 1)), 0);
+        const codFee = Number(row.cod_fee || row.codFee || address?._codFee || address?.codFee || (row.payment_method === 'Cash on Delivery' && !String(row.slot || '').toLowerCase().includes('pickup') ? 50 : 0));
+        if (sum > 0 && (Number(row.grand_total || 0) < sum || Math.abs(Number(row.grand_total || 0) - (sum + codFee)) > 5)) {
+          return sum + Number(row.delivery_fee || 0) + codFee;
+        }
+        return Number(row.grand_total || row.total_amount || sum || 0);
+      })(),
       isPaid: Boolean(row.is_paid),
       paidAmount: Number(row.paid_amount || 0),
       timeline: row.address?._timeline || [{ status: 'Order Placed', time: 'Just Now', completed: true }],
@@ -927,9 +951,16 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
 
     let otp = providedOtp;
     if (nextStatus === 'Delivered' && !otp) {
-      const input = window.prompt(
-        'Customer Delivery OTP Verification:\n\nPlease ask the customer for their 4-digit handover OTP to confirm delivery:'
+      const isPickup = Boolean(
+        targetOrder?.orderType === 'pickup' ||
+        targetOrder?.slot?.toLowerCase().includes('pickup') ||
+        targetOrder?.address?.streetArea?.toLowerCase().includes('pickup') ||
+        (targetOrder?.address as any)?.orderType === 'pickup'
       );
+      const promptMsg = isPickup
+        ? 'Customer Store Pickup Handover Verification:\n\nPlease enter the 4-digit Store Pickup PIN shown on the customer\'s screen to complete handover & confirm collection:'
+        : 'Customer Delivery OTP Verification:\n\nPlease ask the customer for their 4-digit handover OTP to confirm delivery:';
+      const input = window.prompt(promptMsg);
       if (!input || !input.trim()) {
         return; // Admin cancelled or did not provide OTP
       }

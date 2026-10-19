@@ -10,7 +10,7 @@ interface Props {
 export default async function OrderDetailPage({ params }: Props) {
   const rawParams = await params;
   const id = decodeURIComponent(rawParams.id || '').trim();
-  let initialOrder: any = serverOrderStore.getOrder(id);
+  let initialOrder: any = await serverOrderStore.getOrderAsync(id);
 
   if (!initialOrder) {
     try {

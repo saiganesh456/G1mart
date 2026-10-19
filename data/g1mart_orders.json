@@ -1,1 +1,839 @@
-[]
+[
+  {
+    "id": "G1-456899",
+    "orderNumber": "G1-456899",
+    "date": "19 Oct 2026, 11:33 am",
+    "slot": "Store Pickup",
+    "orderType": "pickup",
+    "paymentMethod": "Cash on Delivery",
+    "paymentStatus": "COD_PENDING",
+    "isPaid": false,
+    "status": "Order Placed",
+    "subtotal": 2755,
+    "discount": 0,
+    "deliveryFee": 0,
+    "taxes": 0,
+    "grandTotal": 2755,
+    "items": [
+      {
+        "unit": " g",
+        "image": "/products/verified/g1-p0653.webp",
+        "price": 50,
+        "quantity": 1,
+        "productId": "g1-p0653",
+        "sizeLabel": " g",
+        "variantId": "g1-p0653-v1",
+        "productName": "SRI Durga Gongura Pickle"
+      },
+      {
+        "unit": "300 g",
+        "image": "/products/packshots/priya-gongura-pickle-300g.webp",
+        "price": 115,
+        "quantity": 1,
+        "productId": "g1-spc038",
+        "sizeLabel": "300 g",
+        "variantId": "g1-spc038-v1",
+        "productName": "Priya Gongura Pickle"
+      },
+      {
+        "unit": "300 g",
+        "image": "/products/packshots/priya-mango-pickle-300g.webp",
+        "price": 115,
+        "quantity": 1,
+        "productId": "g1-spc037",
+        "sizeLabel": "300 g",
+        "variantId": "g1-spc037-v1",
+        "productName": "Priya Mango Pickle (with Garlic)"
+      },
+      {
+        "unit": "300 g",
+        "image": "/products/packshots/priya-lemon-pickle-300g.webp",
+        "price": 110,
+        "quantity": 2,
+        "productId": "g1-spc040",
+        "sizeLabel": "300 g",
+        "variantId": "g1-spc040-v1",
+        "productName": "Priya Lemon Pickle"
+      },
+      {
+        "unit": "300 g",
+        "image": "/products/packshots/priya-tomato-pickle-300g.webp",
+        "price": 115,
+        "quantity": 2,
+        "productId": "g1-spc039",
+        "sizeLabel": "300 g",
+        "variantId": "g1-spc039-v1",
+        "productName": "Priya Tomato Pickle"
+      },
+      {
+        "unit": " g",
+        "image": "/products/verified/g1-p0795.webp",
+        "price": 50,
+        "quantity": 1,
+        "productId": "g1-p0795",
+        "sizeLabel": " g",
+        "variantId": "g1-p0795-v1",
+        "productName": "Swastiks Mango Pickle200g"
+      },
+      {
+        "unit": " g",
+        "image": "/products/verified/g1-p0920.webp",
+        "price": 50,
+        "quantity": 1,
+        "productId": "g1-p0920",
+        "sizeLabel": " g",
+        "variantId": "g1-p0920-v1",
+        "productName": "Swastiks RED Chilli Pickle"
+      },
+      {
+        "unit": "200 ml",
+        "image": "/products/packshots/aashirvaad-svasti-ghee.jpg",
+        "price": 150,
+        "quantity": 1,
+        "productId": "g1-oil039",
+        "sizeLabel": "200 ml",
+        "variantId": "g1-oil039-v1",
+        "productName": "Aashirvaad Svasti Pure Cow Ghee (నెయ్యి)"
+      },
+      {
+        "unit": "1 L",
+        "image": "/products/packshots/ruchi-gold-oil.jpg",
+        "price": 120,
+        "quantity": 1,
+        "productId": "g1-p0166",
+        "sizeLabel": "1 L",
+        "variantId": "g1-p0166-v1",
+        "productName": "Ruchi Gold Refined Palmolein Oil"
+      },
+      {
+        "unit": "200 g",
+        "image": "/products/packshots/hatsun-ghee.jpg",
+        "price": 160,
+        "quantity": 1,
+        "productId": "g1-p0279",
+        "sizeLabel": "200 g",
+        "variantId": "g1-p0279-v200",
+        "productName": "Hatsun Pure Ghee (హట్సన్ స్వచ్ఛమైన నెయ్యి)"
+      },
+      {
+        "unit": "50 ml",
+        "image": "/products/packshots/grb-ghee.jpg",
+        "price": 50,
+        "quantity": 1,
+        "productId": "g1-p0635",
+        "sizeLabel": "50 ml",
+        "variantId": "g1-p0635-v1",
+        "productName": "GRB Pure Ghee"
+      },
+      {
+        "unit": "500 ml",
+        "image": "/products/verified/g1-p0952.webp",
+        "price": 75,
+        "quantity": 1,
+        "productId": "g1-p0952",
+        "sizeLabel": "500 ml",
+        "variantId": "g1-p0952-v1",
+        "productName": "Freedom Physically Refined Rice Bran Oil"
+      },
+      {
+        "unit": "1 L",
+        "image": "/products/packshots/vijaya-groundnut-oil.jpg",
+        "price": 190,
+        "quantity": 1,
+        "productId": "g1-p0997",
+        "sizeLabel": "1 L",
+        "variantId": "g1-p0997-v1",
+        "productName": "Vijaya Double Filtered Groundnut Oil"
+      },
+      {
+        "unit": "1 L",
+        "image": "/products/packshots/fortune-soya-oil.jpg",
+        "price": 145,
+        "quantity": 1,
+        "productId": "g1-p1657",
+        "sizeLabel": "1 L",
+        "variantId": "g1-p1657-v1",
+        "productName": "Fortune Soya Health Refined Soyabean Oil"
+      },
+      {
+        "unit": "1 L",
+        "image": "/products/packshots/fortune-groundnut-oil.jpg",
+        "price": 195,
+        "quantity": 1,
+        "productId": "g1-p1662",
+        "sizeLabel": "1 L",
+        "variantId": "g1-p1662-v1",
+        "productName": "Fortune Filtered Groundnut Oil"
+      },
+      {
+        "unit": "12 g (Bar)",
+        "image": "/products/verified/swt-cadbury-dairy-milk.webp",
+        "price": 10,
+        "quantity": 1,
+        "productId": "g1-swt001",
+        "sizeLabel": "12 g (Bar)",
+        "variantId": "g1-swt001-v-12g(bar)",
+        "productName": "Cadbury Dairy Milk Chocolate Bar"
+      },
+      {
+        "unit": "36 g (Bar)",
+        "image": "/products/verified/swt-cadbury-crackle.webp",
+        "price": 45,
+        "quantity": 1,
+        "productId": "g1-swt002",
+        "sizeLabel": "36 g (Bar)",
+        "variantId": "var-g1-swt002-1",
+        "productName": "Cadbury Dairy Milk Crackle Chocolate Bar"
+      },
+      {
+        "unit": "24 g (Bar)",
+        "image": "/products/verified/swt-cadbury-dairy-milk.webp",
+        "price": 20,
+        "quantity": 1,
+        "productId": "g1-swt001",
+        "sizeLabel": "24 g (Bar)",
+        "variantId": "g1-swt001-v-24g(bar)",
+        "productName": "Cadbury Dairy Milk Chocolate Bar"
+      },
+      {
+        "unit": "50 g (Bar)",
+        "image": "/products/verified/swt-cadbury-dairy-milk.webp",
+        "price": 45,
+        "quantity": 1,
+        "productId": "g1-swt001",
+        "sizeLabel": "50 g (Bar)",
+        "variantId": "var-g1-swt001-1",
+        "productName": "Cadbury Dairy Milk Chocolate Bar"
+      },
+      {
+        "unit": "1 kg (Tin)",
+        "image": "/products/verified/swt-haldiram-rasgulla.webp",
+        "price": 220,
+        "quantity": 1,
+        "productId": "g1-swt022",
+        "sizeLabel": "1 kg (Tin)",
+        "variantId": "var-g1-swt022-1",
+        "productName": "Haldiram's Nagpur Sponge Rasgulla Tin"
+      },
+      {
+        "unit": "2.25 L (Family Pack)",
+        "image": "/products/verified/bev-thums-up-250ml-single.webp",
+        "price": 100,
+        "quantity": 1,
+        "productId": "g1-bev001",
+        "sizeLabel": "2.25 L (Family Pack)",
+        "variantId": "g1-bev001-v4",
+        "productName": "Thums Up Charged Carbonated Soft Drink"
+      },
+      {
+        "unit": "2.25 L (Family Pack)",
+        "image": "/products/verified/bev-sprite-750ml.webp",
+        "price": 100,
+        "quantity": 4,
+        "productId": "g1-bev003",
+        "sizeLabel": "2.25 L (Family Pack)",
+        "variantId": "g1-bev003-v4",
+        "productName": "Sprite Lemon-Lime Carbonated Drink"
+      }
+    ],
+    "address": {
+      "id": "store-pickup",
+      "city": "Nellore",
+      "type": "Other",
+      "phone": "9346389857",
+      "state": "Andhra Pradesh",
+      "_items": [
+        {
+          "unit": " g",
+          "image": "/products/verified/g1-p0653.webp",
+          "price": 50,
+          "quantity": 1,
+          "productId": "g1-p0653",
+          "sizeLabel": " g",
+          "variantId": "g1-p0653-v1",
+          "productName": "SRI Durga Gongura Pickle"
+        },
+        {
+          "unit": "300 g",
+          "image": "/products/packshots/priya-gongura-pickle-300g.webp",
+          "price": 115,
+          "quantity": 1,
+          "productId": "g1-spc038",
+          "sizeLabel": "300 g",
+          "variantId": "g1-spc038-v1",
+          "productName": "Priya Gongura Pickle"
+        },
+        {
+          "unit": "300 g",
+          "image": "/products/packshots/priya-mango-pickle-300g.webp",
+          "price": 115,
+          "quantity": 1,
+          "productId": "g1-spc037",
+          "sizeLabel": "300 g",
+          "variantId": "g1-spc037-v1",
+          "productName": "Priya Mango Pickle (with Garlic)"
+        },
+        {
+          "unit": "300 g",
+          "image": "/products/packshots/priya-lemon-pickle-300g.webp",
+          "price": 110,
+          "quantity": 2,
+          "productId": "g1-spc040",
+          "sizeLabel": "300 g",
+          "variantId": "g1-spc040-v1",
+          "productName": "Priya Lemon Pickle"
+        },
+        {
+          "unit": "300 g",
+          "image": "/products/packshots/priya-tomato-pickle-300g.webp",
+          "price": 115,
+          "quantity": 2,
+          "productId": "g1-spc039",
+          "sizeLabel": "300 g",
+          "variantId": "g1-spc039-v1",
+          "productName": "Priya Tomato Pickle"
+        },
+        {
+          "unit": " g",
+          "image": "/products/verified/g1-p0795.webp",
+          "price": 50,
+          "quantity": 1,
+          "productId": "g1-p0795",
+          "sizeLabel": " g",
+          "variantId": "g1-p0795-v1",
+          "productName": "Swastiks Mango Pickle200g"
+        },
+        {
+          "unit": " g",
+          "image": "/products/verified/g1-p0920.webp",
+          "price": 50,
+          "quantity": 1,
+          "productId": "g1-p0920",
+          "sizeLabel": " g",
+          "variantId": "g1-p0920-v1",
+          "productName": "Swastiks RED Chilli Pickle"
+        },
+        {
+          "unit": "200 ml",
+          "image": "/products/packshots/aashirvaad-svasti-ghee.jpg",
+          "price": 150,
+          "quantity": 1,
+          "productId": "g1-oil039",
+          "sizeLabel": "200 ml",
+          "variantId": "g1-oil039-v1",
+          "productName": "Aashirvaad Svasti Pure Cow Ghee (నెయ్యి)"
+        },
+        {
+          "unit": "1 L",
+          "image": "/products/packshots/ruchi-gold-oil.jpg",
+          "price": 120,
+          "quantity": 1,
+          "productId": "g1-p0166",
+          "sizeLabel": "1 L",
+          "variantId": "g1-p0166-v1",
+          "productName": "Ruchi Gold Refined Palmolein Oil"
+        },
+        {
+          "unit": "200 g",
+          "image": "/products/packshots/hatsun-ghee.jpg",
+          "price": 160,
+          "quantity": 1,
+          "productId": "g1-p0279",
+          "sizeLabel": "200 g",
+          "variantId": "g1-p0279-v200",
+          "productName": "Hatsun Pure Ghee (హట్సన్ స్వచ్ఛమైన నెయ్యి)"
+        },
+        {
+          "unit": "50 ml",
+          "image": "/products/packshots/grb-ghee.jpg",
+          "price": 50,
+          "quantity": 1,
+          "productId": "g1-p0635",
+          "sizeLabel": "50 ml",
+          "variantId": "g1-p0635-v1",
+          "productName": "GRB Pure Ghee"
+        },
+        {
+          "unit": "500 ml",
+          "image": "/products/verified/g1-p0952.webp",
+          "price": 75,
+          "quantity": 1,
+          "productId": "g1-p0952",
+          "sizeLabel": "500 ml",
+          "variantId": "g1-p0952-v1",
+          "productName": "Freedom Physically Refined Rice Bran Oil"
+        },
+        {
+          "unit": "1 L",
+          "image": "/products/packshots/vijaya-groundnut-oil.jpg",
+          "price": 190,
+          "quantity": 1,
+          "productId": "g1-p0997",
+          "sizeLabel": "1 L",
+          "variantId": "g1-p0997-v1",
+          "productName": "Vijaya Double Filtered Groundnut Oil"
+        },
+        {
+          "unit": "1 L",
+          "image": "/products/packshots/fortune-soya-oil.jpg",
+          "price": 145,
+          "quantity": 1,
+          "productId": "g1-p1657",
+          "sizeLabel": "1 L",
+          "variantId": "g1-p1657-v1",
+          "productName": "Fortune Soya Health Refined Soyabean Oil"
+        },
+        {
+          "unit": "1 L",
+          "image": "/products/packshots/fortune-groundnut-oil.jpg",
+          "price": 195,
+          "quantity": 1,
+          "productId": "g1-p1662",
+          "sizeLabel": "1 L",
+          "variantId": "g1-p1662-v1",
+          "productName": "Fortune Filtered Groundnut Oil"
+        },
+        {
+          "unit": "12 g (Bar)",
+          "image": "/products/verified/swt-cadbury-dairy-milk.webp",
+          "price": 10,
+          "quantity": 1,
+          "productId": "g1-swt001",
+          "sizeLabel": "12 g (Bar)",
+          "variantId": "g1-swt001-v-12g(bar)",
+          "productName": "Cadbury Dairy Milk Chocolate Bar"
+        },
+        {
+          "unit": "36 g (Bar)",
+          "image": "/products/verified/swt-cadbury-crackle.webp",
+          "price": 45,
+          "quantity": 1,
+          "productId": "g1-swt002",
+          "sizeLabel": "36 g (Bar)",
+          "variantId": "var-g1-swt002-1",
+          "productName": "Cadbury Dairy Milk Crackle Chocolate Bar"
+        },
+        {
+          "unit": "24 g (Bar)",
+          "image": "/products/verified/swt-cadbury-dairy-milk.webp",
+          "price": 20,
+          "quantity": 1,
+          "productId": "g1-swt001",
+          "sizeLabel": "24 g (Bar)",
+          "variantId": "g1-swt001-v-24g(bar)",
+          "productName": "Cadbury Dairy Milk Chocolate Bar"
+        },
+        {
+          "unit": "50 g (Bar)",
+          "image": "/products/verified/swt-cadbury-dairy-milk.webp",
+          "price": 45,
+          "quantity": 1,
+          "productId": "g1-swt001",
+          "sizeLabel": "50 g (Bar)",
+          "variantId": "var-g1-swt001-1",
+          "productName": "Cadbury Dairy Milk Chocolate Bar"
+        },
+        {
+          "unit": "1 kg (Tin)",
+          "image": "/products/verified/swt-haldiram-rasgulla.webp",
+          "price": 220,
+          "quantity": 1,
+          "productId": "g1-swt022",
+          "sizeLabel": "1 kg (Tin)",
+          "variantId": "var-g1-swt022-1",
+          "productName": "Haldiram's Nagpur Sponge Rasgulla Tin"
+        },
+        {
+          "unit": "2.25 L (Family Pack)",
+          "image": "/products/verified/bev-thums-up-250ml-single.webp",
+          "price": 100,
+          "quantity": 1,
+          "productId": "g1-bev001",
+          "sizeLabel": "2.25 L (Family Pack)",
+          "variantId": "g1-bev001-v4",
+          "productName": "Thums Up Charged Carbonated Soft Drink"
+        },
+        {
+          "unit": "2.25 L (Family Pack)",
+          "image": "/products/verified/bev-sprite-750ml.webp",
+          "price": 100,
+          "quantity": 4,
+          "productId": "g1-bev003",
+          "sizeLabel": "2.25 L (Family Pack)",
+          "variantId": "g1-bev003-v4",
+          "productName": "Sprite Lemon-Lime Carbonated Drink"
+        }
+      ],
+      "_status": "Order Placed",
+      "_userId": "537dc0d1-6a61-48ae-844f-1b6d6b3a38fa",
+      "pincode": "524004",
+      "fullName": "vamsi vardhan",
+      "landmark": "In-Store Customer Pickup",
+      "_timeline": [
+        {
+          "time": "Confirmed",
+          "status": "Order Placed",
+          "completed": true
+        },
+        {
+          "time": "Pending",
+          "status": "Packed",
+          "completed": false
+        },
+        {
+          "time": "Pending",
+          "status": "Delivered",
+          "completed": false
+        }
+      ],
+      "houseFlat": "G1mart Supermarket",
+      "isDefault": false,
+      "orderType": "pickup",
+      "_userEmail": "lingalamahendra0@gmail.com",
+      "streetArea": "Govt Hospital, beside Padarupalli",
+      "_deliveryOtp": "4928",
+      "mobileNumber": "9346389857",
+      "_paymentStatus": "COD_PENDING",
+      "deliveryInstructions": "In-Store Customer Pickup"
+    },
+    "userId": "537dc0d1-6a61-48ae-844f-1b6d6b3a38fa",
+    "userEmail": "lingalamahendra0@gmail.com",
+    "deliveryOtp": "4928",
+    "timeline": [
+      {
+        "time": "Confirmed",
+        "status": "Order Placed",
+        "completed": true
+      },
+      {
+        "time": "Pending",
+        "status": "Packed",
+        "completed": false
+      },
+      {
+        "time": "Pending",
+        "status": "Delivered",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "SLIP-843435",
+    "orderNumber": "SLIP-843435",
+    "date": "19 Oct 2026, 12:36 pm",
+    "slot": "Standard Delivery",
+    "orderType": "slip",
+    "paymentMethod": "Cash on Delivery",
+    "paymentStatus": "pending",
+    "isPaid": false,
+    "status": "Confirmed",
+    "subtotal": 300,
+    "discount": 0,
+    "deliveryFee": 0,
+    "taxes": 0,
+    "grandTotal": 300,
+    "items": [
+      {
+        "productId": "item_SLIP-843435_1",
+        "productName": "Toor Dal 1kg",
+        "unit": "1 kg",
+        "price": 150,
+        "quantity": 2,
+        "image": "/products/placeholder.svg"
+      }
+    ],
+    "address": {
+      "fullName": "Mahendra Lingala",
+      "phone": "9346389857",
+      "mobileNumber": "9346389857",
+      "streetArea": "Venkatareddipalem, Venkatareddipalem, Nellore, Andhra Pradesh - 524344",
+      "city": "Nellore"
+    },
+    "timeline": [
+      {
+        "time": "Just now",
+        "status": "Order Placed",
+        "completed": true
+      },
+      {
+        "time": "Pending",
+        "status": "Packed",
+        "completed": false
+      },
+      {
+        "time": "Pending",
+        "status": "Out for Delivery",
+        "completed": false
+      },
+      {
+        "time": "Pending",
+        "status": "Delivered",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "G1-982017",
+    "orderNumber": "G1-982017",
+    "date": "19 Oct 2026, 01:19 pm",
+    "slot": "Standard Delivery",
+    "paymentMethod": "Cash on Delivery",
+    "paymentStatus": "COD_PENDING",
+    "isPaid": false,
+    "paidAmount": 0,
+    "status": "Packed",
+    "subtotal": 19885,
+    "discount": 0,
+    "deliveryFee": 0,
+    "taxes": 0,
+    "grandTotal": 19935,
+    "codFee": 50,
+    "orderType": "delivery",
+    "items": [
+      {
+        "unit": "500 g",
+        "image": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+        "price": 95,
+        "quantity": 1,
+        "productId": "g1-p0327",
+        "sizeLabel": "500 g",
+        "variantId": "g1-p0327-v1",
+        "productName": "G1 Mart Kandi Pappu (Toor Dal / కందిపప్పు)"
+      },
+      {
+        "unit": "500 g",
+        "image": "/products/generated_pouches/g1_chana_dal_pouch.webp",
+        "price": 55,
+        "quantity": 1,
+        "productId": "g1-p0406",
+        "sizeLabel": "500 g",
+        "variantId": "var-g1-dal018-500g",
+        "productName": "G1 Mart Senaga Pappu (Bengal Gram / Chana Dal / శనగపప్పు)"
+      },
+      {
+        "unit": "250 g",
+        "image": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
+        "price": 40,
+        "quantity": 1,
+        "productId": "g1-p0412",
+        "sizeLabel": "250 g",
+        "variantId": "g1-p0412-v250",
+        "productName": "G1 Mart Pesara Pappu (Yellow Moong Dal / పెసరపప్పు)"
+      },
+      {
+        "unit": "500 g",
+        "image": "/products/generated_pouches/g1_green_moong_pouch.webp",
+        "price": 65,
+        "quantity": 1,
+        "productId": "g1-p0408",
+        "sizeLabel": "500 g",
+        "variantId": "g1-p0408-v500",
+        "productName": "G1 Mart Green Moong Whole (Whole Pesalu / పచ్చ పెసలు)"
+      },
+      {
+        "unit": "1 kg",
+        "image": "/products/packshots/aashirvaad-atta-5kg.jpg",
+        "price": 6500,
+        "quantity": 3,
+        "productId": "g1-p1572",
+        "sizeLabel": "1 kg",
+        "variantId": "g1-p1572-v1",
+        "productName": "Aashirvaad Superior MP Shudh Chakki Atta (గోధుమ పిండి)"
+      },
+      {
+        "unit": "100 g",
+        "image": "/products/packshots/weikfield-corn-flour.jpg",
+        "price": 22,
+        "quantity": 1,
+        "productId": "g1-p1140",
+        "sizeLabel": "100 g",
+        "variantId": "g1-p1140-v1",
+        "productName": "Weikfield Corn Starch / Corn Flour"
+      },
+      {
+        "unit": "1 kg",
+        "image": "/products/packshots/nature-fresh-atta-5kg.jpg",
+        "price": 58,
+        "quantity": 1,
+        "productId": "g1-p1585",
+        "sizeLabel": "1 kg",
+        "variantId": "g1-p1585-v1",
+        "productName": "Nature Fresh Sampoorna Chakki Atta"
+      },
+      {
+        "unit": "1 kg",
+        "image": "/products/packshots/patanjali-atta-5kg.jpg",
+        "price": 50,
+        "quantity": 1,
+        "productId": "g1-p1590",
+        "sizeLabel": "1 kg",
+        "variantId": "g1-p1590-v1",
+        "productName": "Patanjali Traditional Whole Wheat Chakki Atta"
+      }
+    ],
+    "address": {
+      "id": "addr-1792396107835-lp9t",
+      "city": "Nellore",
+      "type": "Home",
+      "phone": "8179320662",
+      "state": "Andhra Pradesh",
+      "_items": [
+        {
+          "unit": "500 g",
+          "image": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+          "price": 95,
+          "quantity": 1,
+          "productId": "g1-p0327",
+          "sizeLabel": "500 g",
+          "variantId": "g1-p0327-v1",
+          "productName": "G1 Mart Kandi Pappu (Toor Dal / కందిపప్పు)"
+        },
+        {
+          "unit": "500 g",
+          "image": "/products/generated_pouches/g1_chana_dal_pouch.webp",
+          "price": 55,
+          "quantity": 1,
+          "productId": "g1-p0406",
+          "sizeLabel": "500 g",
+          "variantId": "var-g1-dal018-500g",
+          "productName": "G1 Mart Senaga Pappu (Bengal Gram / Chana Dal / శనగపప్పు)"
+        },
+        {
+          "unit": "250 g",
+          "image": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
+          "price": 40,
+          "quantity": 1,
+          "productId": "g1-p0412",
+          "sizeLabel": "250 g",
+          "variantId": "g1-p0412-v250",
+          "productName": "G1 Mart Pesara Pappu (Yellow Moong Dal / పెసరపప్పు)"
+        },
+        {
+          "unit": "500 g",
+          "image": "/products/generated_pouches/g1_green_moong_pouch.webp",
+          "price": 65,
+          "quantity": 1,
+          "productId": "g1-p0408",
+          "sizeLabel": "500 g",
+          "variantId": "g1-p0408-v500",
+          "productName": "G1 Mart Green Moong Whole (Whole Pesalu / పచ్చ పెసలు)"
+        },
+        {
+          "unit": "1 kg",
+          "image": "/products/packshots/aashirvaad-atta-5kg.jpg",
+          "price": 6500,
+          "quantity": 3,
+          "productId": "g1-p1572",
+          "sizeLabel": "1 kg",
+          "variantId": "g1-p1572-v1",
+          "productName": "Aashirvaad Superior MP Shudh Chakki Atta (గోధుమ పిండి)"
+        },
+        {
+          "unit": "100 g",
+          "image": "/products/packshots/weikfield-corn-flour.jpg",
+          "price": 22,
+          "quantity": 1,
+          "productId": "g1-p1140",
+          "sizeLabel": "100 g",
+          "variantId": "g1-p1140-v1",
+          "productName": "Weikfield Corn Starch / Corn Flour"
+        },
+        {
+          "unit": "1 kg",
+          "image": "/products/packshots/nature-fresh-atta-5kg.jpg",
+          "price": 58,
+          "quantity": 1,
+          "productId": "g1-p1585",
+          "sizeLabel": "1 kg",
+          "variantId": "g1-p1585-v1",
+          "productName": "Nature Fresh Sampoorna Chakki Atta"
+        },
+        {
+          "unit": "1 kg",
+          "image": "/products/packshots/patanjali-atta-5kg.jpg",
+          "price": 50,
+          "quantity": 1,
+          "productId": "g1-p1590",
+          "sizeLabel": "1 kg",
+          "variantId": "g1-p1590-v1",
+          "productName": "Patanjali Traditional Whole Wheat Chakki Atta"
+        }
+      ],
+      "_status": "Packed",
+      "_userId": "bd6c6516-2167-430c-876a-a929b27b9e24",
+      "eta_min": 15,
+      "pincode": "524003",
+      "fullName": "Poojitha Gumma",
+      "landmark": "Vedayapalem",
+      "latitude": 14.4321,
+      "subtotal": 19885,
+      "_timeline": [
+        {
+          "time": "Confirmed",
+          "status": "Order Placed",
+          "completed": true
+        },
+        {
+          "time": "08:06 am",
+          "status": "Packed",
+          "completed": true
+        },
+        {
+          "time": "08:06 am",
+          "status": "Out for Delivery",
+          "completed": true
+        },
+        {
+          "time": "Pending",
+          "status": "Delivered",
+          "completed": false
+        }
+      ],
+      "houseFlat": "2-16",
+      "isDefault": true,
+      "longitude": 79.9672,
+      "orderType": "delivery",
+      "_userEmail": "gummapoojitha@gmail.com",
+      "streetArea": "MGB Felicity Mall",
+      "distance_km": 0.2,
+      "_deliveryOtp": "2112",
+      "delivery_fee": 0,
+      "mobileNumber": "8179320662",
+      "selectedSlot": "Standard Delivery",
+      "_assignedRider": null,
+      "_paymentStatus": "COD_PENDING",
+      "zone_min_order": 500
+    },
+    "userId": "bd6c6516-2167-430c-876a-a929b27b9e24",
+    "userEmail": "gummapoojitha@gmail.com",
+    "deliveryOtp": "2112",
+    "assignedRider": {
+      "id": "rider-gumma_saiganesh57_gmail_com",
+      "name": "Sai Ganesh",
+      "phone": "9876543210",
+      "vehicleNumber": "AP 26 EQ 4589"
+    },
+    "timeline": [
+      {
+        "time": "Confirmed",
+        "status": "Order Placed",
+        "completed": true
+      },
+      {
+        "time": "08:06 am",
+        "status": "Packed",
+        "completed": true
+      },
+      {
+        "time": "08:06 am",
+        "status": "Out for Delivery",
+        "completed": true
+      },
+      {
+        "time": "Pending",
+        "status": "Delivered",
+        "completed": false
+      }
+    ]
+  }
+]

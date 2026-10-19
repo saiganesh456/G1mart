@@ -4,6 +4,7 @@ import os from 'os';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import { resolveLegacyId } from '@/lib/legacyIdMap';
 import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
+import { serverProductOverrides } from '@/lib/serverProductOverrides';
 import type { Order, OrderItem, PaymentRecord, PaymentStatus, OrderStatus } from '@/types';
 import migratedVariantsData from '../../data/migrated_product_variants.json';
 
@@ -36,6 +37,7 @@ const toValidUuidOrNull = (val?: string | null): string | null => {
 
 export const STATUS_RANK: Record<string, number> = {
   'Order Placed': 1,
+  'New': 1,
   'Confirmed': 2,
   'Packing': 3,
   'Packed': 4,
@@ -59,7 +61,15 @@ export const serverOrderStore = {
    * Rule 3 & 8: Recalculate order total directly from database / catalog prices.
    * Client-submitted prices are completely ignored.
    */
-  recalculateOrderTotal(rawItems: any[]): RecalculatedCart {
+  async recalculateOrderTotal(rawItems: any[]): Promise<RecalculatedCart> {
+    // Ensure overrides are synced from database / cloud KV
+    let overridesMap = global.__g1ProductOverrides;
+    try {
+      overridesMap = await serverProductOverrides.getOverrides();
+    } catch (err) {
+      console.warn('[serverOrderStore] Failed to load product overrides:', err);
+    }
+
     // Use imported variants and product list for server-side price verification
     const variantById = new Map((migratedVariantsData as any[]).map((v) => [v.id, v]));
     const migratedProductById = new Map(MIGRATED_PRODUCT_LIST.map((p) => [p.id, p]));
@@ -69,22 +79,27 @@ export const serverOrderStore = {
 
     for (const item of rawItems) {
       const pid = item.productId || item.id;
+      const canonicalPid = resolveLegacyId(pid) || pid;
       const vid = item.variantId || item.variant_id;
 
       // Check if this product has dynamic price overrides from admin
-      const override = global.__g1ProductOverrides?.get(pid);
+      const override = overridesMap?.get(pid) || (canonicalPid ? overridesMap?.get(canonicalPid) : undefined);
 
       // --- Try variant price first (most accurate) ---
       if (vid) {
         const variant = variantById.get(vid);
-        if (variant && variant.product_id === pid) {
+        if (variant && (variant.product_id === pid || variant.product_id === canonicalPid)) {
           const qty = Math.max(1, Math.min(item.quantity || 1, 10000));
           let unitPrice = variant.price > 0 ? variant.price : 10;
           if (override) {
             if (override.variants && Array.isArray(override.variants)) {
-              const ov = override.variants.find((v: any) => v.id === vid);
-              if (ov && ov.price !== undefined) unitPrice = Number(ov.price);
-            } else if (override.price !== undefined) {
+              const ov = override.variants.find((v: any) => v.id === vid || v.size_label === variant.size_label || v.unit === variant.size_label);
+              if (ov && ov.price !== undefined && Number(ov.price) > 0) {
+                unitPrice = Number(ov.price);
+              } else if (override.price !== undefined && Number(override.price) > 0) {
+                unitPrice = Number(override.price);
+              }
+            } else if (override.price !== undefined && Number(override.price) > 0) {
               unitPrice = Number(override.price);
             }
           }
@@ -92,7 +107,7 @@ export const serverOrderStore = {
           subtotal += lineTotal;
 
           // Try to get product name and image
-          const mp = migratedProductById.get(pid);
+          const mp = migratedProductById.get(pid) || (canonicalPid ? migratedProductById.get(canonicalPid) : undefined);
           const resolvedName = item.productName || item.name || override?.name || mp?.name || 'Grocery Item';
           const resolvedImg =
             item.image ||
@@ -117,7 +132,6 @@ export const serverOrderStore = {
       }
 
       // --- Fallback: catalog product lookup ---
-      const canonicalPid = resolveLegacyId(pid) || pid;
       let product = MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalPid || p.id === pid);
 
       if (!product && item.name) {
@@ -130,7 +144,7 @@ export const serverOrderStore = {
 
       // Ensure price is confirmed or fallback to baseline
       const basePrice = product.price > 0 ? product.price : product.originalPrice > 0 ? product.originalPrice : 10;
-      const unitPrice = override?.price !== undefined ? Number(override.price) : basePrice;
+      const unitPrice = override?.price !== undefined && Number(override.price) > 0 ? Number(override.price) : basePrice;
       const qty = Math.max(1, Math.min(item.quantity || 1, 10000));
 
       const lineTotal = unitPrice * qty;
@@ -162,7 +176,6 @@ export const serverOrderStore = {
     return {
       items: verifiedItems,
       subtotal,
-
       deliveryFee,
       taxes,
       grandTotal,
@@ -194,13 +207,13 @@ export const serverOrderStore = {
     final_total?: number;
     finalTotal?: number;
     type?: 'standard' | 'slip';
-    orderType?: 'standard' | 'slip';
+    orderType?: 'standard' | 'slip' | 'pickup' | 'delivery';
   }): Promise<Order> {
     const distanceKm = params.distance_km ?? params.distanceKm;
     const zoneMinOrder = params.zone_min_order ?? params.zoneMinOrder;
     const codFee = params.cod_fee ?? params.codFee ?? 0;
     const finalTotal = params.final_total ?? params.finalTotal ?? params.grandTotal;
-    const orderType = params.type ?? params.orderType ?? 'standard';
+    const orderType = params.orderType ?? params.type ?? 'standard';
 
     const order: Order = {
       id: params.orderId,
@@ -232,9 +245,10 @@ export const serverOrderStore = {
       codFee,
       cod_fee: codFee,
       orderType,
-      type: orderType,
+      type: params.type || (orderType === 'slip' ? 'slip' : 'standard'),
       isPaid: false,
       paidAmount: 0,
+      deliveryOtp: Math.floor(1000 + Math.random() * 9000).toString(),
       providerOrderId: params.merchantOrderId,
       userId: params.userId,
       userEmail: params.userEmail,
@@ -280,6 +294,8 @@ export const serverOrderStore = {
           grand_total: order.grandTotal,
           address: {
             ...order.address,
+            _status: 'Order Placed',
+            _deliveryOtp: order.deliveryOtp,
             _items: order.items,
             _paymentStatus: 'pending',
             _providerOrderId: params.merchantOrderId,
@@ -521,26 +537,33 @@ export const serverOrderStore = {
       try {
         const { data } = await supabase.from('orders').select('*').eq('id', orderId).maybeSingle();
         if (data) {
+          const rawAddr = data.address;
+          const addr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
+          const realStatus = (addr._status || data.status || 'Order Placed') as OrderStatus;
           const loadedOrder: Order = {
             id: data.id,
             date: data.date,
             slot: data.slot,
             paymentMethod: data.payment_method,
-            paymentStatus: data.is_paid ? 'completed' : (data.payment_method === 'Cash on Delivery' ? 'cash_on_delivery' : 'pending'),
+            paymentStatus: data.is_paid ? 'completed' : (addr._paymentStatus || (data.payment_method === 'Cash on Delivery' ? 'cash_on_delivery' : 'pending')),
             isPaid: data.is_paid,
-            status: data.status,
+            status: realStatus,
             subtotal: Number(data.subtotal),
             discount: Number(data.discount),
             deliveryFee: Number(data.delivery_fee),
             taxes: Number(data.taxes),
             grandTotal: Number(data.grand_total),
-            items: [],
-            address: data.address as any,
-            timeline: [
+            items: (addr._items && Array.isArray(addr._items) && addr._items.length > 0)
+              ? addr._items
+              : ((order && order.items && order.items.length > 0) ? order.items : []),
+            address: addr,
+            assignedRider: addr._assignedRider,
+            deliveryOtp: addr._deliveryOtp,
+            timeline: addr._timeline || [
               { status: 'Order Placed', time: 'Confirmed', completed: true },
-              { status: 'Packed', time: 'Pending', completed: false },
-              { status: 'Out for Delivery', time: 'Pending', completed: false },
-              { status: 'Delivered', time: 'Pending', completed: false },
+              { status: 'Packed', time: 'Pending', completed: realStatus === 'Packed' || realStatus === 'Rider Assigned' || realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
+              { status: 'Out for Delivery', time: 'Pending', completed: realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
+              { status: 'Delivered', time: 'Pending', completed: realStatus === 'Delivered' },
             ],
           };
           order = loadedOrder;
@@ -559,7 +582,7 @@ export const serverOrderStore = {
     });
 
     order.status = status;
-    if (!order.deliveryOtp && (status === 'Out for Delivery' || status === 'Order Dispatched' || status === 'Rider Assigned')) {
+    if (!order.deliveryOtp) {
       order.deliveryOtp = Math.floor(1000 + Math.random() * 9000).toString();
     }
     if (assignedRider) {
@@ -567,6 +590,16 @@ export const serverOrderStore = {
         ...assignedRider,
         assignedAt: assignedRider.assignedAt || new Date().toISOString(),
       };
+    }
+
+    if (status === 'Delivered') {
+      order.deliveredAt = new Date().toISOString();
+      if (!order.isPaid && (order.paymentMethod === 'Cash on Delivery' || (order as any).cashCollected)) {
+        order.isPaid = true;
+        order.paymentStatus = 'completed';
+        order.paidAmount = order.grandTotal;
+        order.paidAt = new Date().toISOString();
+      }
     }
 
     // Update timeline steps
@@ -580,13 +613,44 @@ export const serverOrderStore = {
       status === 'Order Dispatched' || status === 'Out for Delivery' || status === 'Delivered';
     const isDelivered = status === 'Delivered';
 
+    const isPickup = Boolean(
+      order.orderType === 'pickup' ||
+      order.slot?.toLowerCase().includes('pickup') ||
+      order.address?.streetArea?.toLowerCase().includes('pickup') ||
+      (order.address as any)?.orderType === 'pickup'
+    );
+
     const prevFirstTime = (order.timeline && order.timeline[0]?.time) || 'Confirmed';
     order.timeline = [
       { status: 'Order Placed', time: prevFirstTime, completed: true },
-      { status: 'Packed', time: isPacked ? timeStr : 'Pending', completed: isPacked },
-      { status: 'Out for Delivery', time: isDispatched ? timeStr : 'Pending', completed: isDispatched },
-      { status: 'Delivered', time: isDelivered ? timeStr : 'Pending', completed: isDelivered },
+      {
+        status: isPickup ? ('Ready for Pickup' as any) : 'Packed',
+        time: isPacked ? timeStr : (status === 'Confirmed' ? 'Confirmed' : status === 'Packing' ? 'Packing' : 'Pending'),
+        completed: isPacked,
+      },
+      {
+        status: isPickup ? ('Ready for Pickup' as any) : 'Out for Delivery',
+        time: isDispatched ? timeStr : (isPickup && isPacked ? timeStr : 'Pending'),
+        completed: isPickup ? isPacked : isDispatched,
+      },
+      {
+        status: isPickup ? ('Picked Up' as any) : 'Delivered',
+        time: isDelivered ? timeStr : 'Pending',
+        completed: isDelivered,
+      },
     ];
+
+    const rawAddr = order.address;
+    const existingAddr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
+    order.address = {
+      ...existingAddr,
+      _items: (order.items && order.items.length > 0) ? order.items : (existingAddr._items || []),
+      _status: status,
+      _timeline: order.timeline,
+      _deliveryOtp: order.deliveryOtp,
+      _assignedRider: order.assignedRider,
+      _paymentStatus: order.paymentStatus,
+    };
 
     ordersMap.set(orderId, order);
     this.persistToDisk();
@@ -609,24 +673,34 @@ export const serverOrderStore = {
 
         const updatePayload: any = {
           status: dbStatus,
+          is_paid: Boolean(order.isPaid),
           updated_at: new Date().toISOString(),
-          address: {
-            ...(order.address || {}),
-            _status: status,
-            _timeline: order.timeline,
-            _deliveryOtp: order.deliveryOtp,
-            _assignedRider: order.assignedRider,
-          },
+          address: order.address,
         };
 
-        if (order.assignedRider?.id && order.assignedRider.id.includes('-') && order.assignedRider.id.length > 20) {
-          updatePayload.assigned_rider_id = order.assignedRider.id;
+        const validRiderUuid = toValidUuidOrNull(order.assignedRider?.id);
+        if (validRiderUuid) {
+          updatePayload.assigned_rider_id = validRiderUuid;
         }
 
-        await supabase
+        const { error: updateErr } = await supabase
           .from('orders')
           .update(updatePayload)
           .eq('id', orderId);
+
+        if (updateErr) {
+          console.warn('[serverOrderStore] Supabase updateOrderStatus notice:', updateErr);
+          if (updatePayload.assigned_rider_id) {
+            delete updatePayload.assigned_rider_id;
+            const { error: retryErr } = await supabase
+              .from('orders')
+              .update(updatePayload)
+              .eq('id', orderId);
+            if (retryErr) {
+              console.warn('[serverOrderStore] Supabase updateOrderStatus retry error:', retryErr);
+            }
+          }
+        }
       } catch (err) {
         console.warn('[serverOrderStore] Supabase updateOrderStatus fallback:', err);
       }
@@ -666,6 +740,7 @@ export const serverOrderStore = {
           status: 'Order Placed',
           address: {
             ...(order.address || {}),
+            _items: (order.items && order.items.length > 0) ? order.items : (order.address?._items || []),
             _paymentStatus: 'COD_PENDING',
           },
           updated_at: new Date().toISOString(),
@@ -765,10 +840,30 @@ export const serverOrderStore = {
     this.loadFromDisk();
     const existing = ordersMap.get(order.id);
 
+    const items = (order.items && order.items.length > 0) ? order.items : (existing?.items || []);
+    const itemsSum = items.reduce((sum: number, it: any) => sum + ((Number(it.price) || 0) * (Number(it.quantity) || 1)), 0);
+    const resolvedDeliveryFee = order.deliveryFee ?? existing?.deliveryFee ?? 0;
+    const resolvedCodFee = (order as any).codFee ?? (order as any).cod_fee ?? (existing as any)?.codFee ?? (existing as any)?.cod_fee ?? 0;
+    const resolvedDiscount = order.discount ?? existing?.discount ?? 0;
+    const resolvedTaxes = order.taxes ?? existing?.taxes ?? 0;
+
+    const resolvedSubtotal = itemsSum > 0 ? itemsSum : (order.subtotal || existing?.subtotal || order.grandTotal || 0);
+    const calculatedGrand = resolvedSubtotal + resolvedDeliveryFee - resolvedDiscount + resolvedTaxes + resolvedCodFee;
+    const resolvedGrandTotal = itemsSum > 0 && Math.abs(calculatedGrand - (order.grandTotal || existing?.grandTotal || 0)) > 1
+      ? calculatedGrand
+      : (order.grandTotal || existing?.grandTotal || calculatedGrand);
+
     if (!existing) {
-      ordersMap.set(order.id, order);
+      const newOrder: Order = {
+        ...order,
+        items,
+        subtotal: resolvedSubtotal,
+        grandTotal: resolvedGrandTotal,
+        finalTotal: resolvedGrandTotal,
+      };
+      ordersMap.set(order.id, newOrder);
       this.persistToDisk();
-      return order;
+      return newOrder;
     }
 
     // Strict status rank protection: Never allow a stale client payload to demote status!
@@ -786,8 +881,11 @@ export const serverOrderStore = {
     const merged: Order = {
       ...existing,
       ...order,
-      items: (order.items && order.items.length > 0) ? order.items : (existing?.items || []),
+      items,
       address: order.address || existing?.address,
+      subtotal: resolvedSubtotal,
+      grandTotal: resolvedGrandTotal,
+      finalTotal: resolvedGrandTotal,
       status: finalStatus,
       isPaid: finalIsPaid,
       paymentStatus: finalPaymentStatus,
@@ -897,6 +995,16 @@ export const serverOrderStore = {
           const addr = data.address || {};
           const existing = order;
           const realStatus = (addr._status || data.status || 'Order Placed') as OrderStatus;
+          const items = (existing?.items && existing.items.length > 0) ? existing.items : (addr._items || []);
+          const rawSubtotal = Number(data.subtotal || 0);
+          const rawGrand = Number(data.grand_total || 0);
+          const itemsSum = items.reduce((acc: number, it: any) => acc + ((Number(it.price) || 0) * (Number(it.quantity) || 1)), 0);
+          const effectiveSubtotal = itemsSum > 0 ? itemsSum : rawSubtotal;
+          const codFee = Number(addr._codFee || addr.codFee || (data.payment_method === 'Cash on Delivery' && !data.slot?.toLowerCase().includes('pickup') ? 50 : 0));
+          const effectiveGrandTotal = itemsSum > 0 && (rawGrand < itemsSum || Math.abs((itemsSum + codFee) - rawGrand) > 5)
+            ? itemsSum + Number(data.delivery_fee || 0) + codFee
+            : rawGrand;
+
           order = {
             id: data.id,
             orderNumber: data.id,
@@ -905,15 +1013,17 @@ export const serverOrderStore = {
             paymentMethod: data.payment_method,
             paymentStatus: data.is_paid ? 'completed' : (addr._paymentStatus || (data.payment_method === 'Cash on Delivery' ? 'cash_on_delivery' : 'pending')),
             isPaid: Boolean(data.is_paid),
-            paidAmount: addr._paidAmount || (data.is_paid ? Number(data.grand_total) : 0),
+            paidAmount: addr._paidAmount || (data.is_paid ? effectiveGrandTotal : 0),
             paidAt: addr._paidAt,
             status: realStatus,
-            subtotal: Number(data.subtotal),
+            subtotal: effectiveSubtotal,
             discount: Number(data.discount || 0),
             deliveryFee: Number(data.delivery_fee || 0),
             taxes: Number(data.taxes || 0),
-            grandTotal: Number(data.grand_total),
-            items: (existing?.items && existing.items.length > 0) ? existing.items : (addr._items || []),
+            grandTotal: effectiveGrandTotal,
+            codFee,
+            orderType: addr.orderType || existing?.orderType || (data.slot?.toLowerCase().includes('pickup') ? 'pickup' : 'standard'),
+            items,
             address: addr,
             userId: data.user_id || addr._userId,
             userEmail: addr._userEmail,
@@ -928,6 +1038,14 @@ export const serverOrderStore = {
           };
           ordersMap.set(data.id, order);
           this.persistToDisk();
+
+          if (isSupabaseConfigured() && (effectiveSubtotal !== rawSubtotal || effectiveGrandTotal !== rawGrand)) {
+            supabase.from('orders').update({
+              subtotal: effectiveSubtotal,
+              grand_total: effectiveGrandTotal,
+              updated_at: new Date().toISOString(),
+            }).eq('id', data.id).then(() => {}).catch(() => {});
+          }
         }
       } catch {}
     }
@@ -974,41 +1092,64 @@ export const serverOrderStore = {
           for (const row of data) {
             if (!row || !row.id) continue;
             const existing = ordersMap.get(row.id);
-            const addr = row.address || {};
+            const rawAddr = row.address;
+            const addr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
             const items = existing?.items?.length ? existing.items : (addr._items || []);
             const realStatus = (addr._status || row.status || 'Order Placed') as OrderStatus;
+            const curRank = STATUS_RANK[existing?.status || ''] || 0;
+            const remoteRank = STATUS_RANK[realStatus] || 0;
+            const winningStatus = curRank > remoteRank ? existing!.status : realStatus;
+            const winningRider = curRank > remoteRank ? (existing?.assignedRider || addr._assignedRider) : (addr._assignedRider || existing?.assignedRider);
+            const rawSubtotal = Number(row.subtotal || existing?.subtotal || 0);
+            const rawGrand = Number(row.grand_total || existing?.grandTotal || 0);
+            const itemsSum = items.reduce((acc: number, it: any) => acc + ((Number(it.price) || 0) * (Number(it.quantity) || 1)), 0);
+            const effectiveSubtotal = itemsSum > 0 ? itemsSum : rawSubtotal;
+            const codFee = Number(addr._codFee || addr.codFee || (row.payment_method === 'Cash on Delivery' && !row.slot?.toLowerCase().includes('pickup') ? 50 : 0));
+            const effectiveGrandTotal = itemsSum > 0 && (rawGrand < itemsSum || Math.abs((itemsSum + codFee) - rawGrand) > 5)
+              ? itemsSum + Number(row.delivery_fee || 0) + codFee
+              : rawGrand;
 
             const syncedOrder: Order = {
               id: row.id,
               orderNumber: existing?.orderNumber || row.id,
               date: row.date || existing?.date || new Date().toISOString(),
               slot: row.slot || existing?.slot || 'Standard Delivery',
+              orderType: addr.orderType || existing?.orderType || (row.slot?.toLowerCase().includes('pickup') ? 'pickup' : 'standard'),
               paymentMethod: (row.payment_method as any) || existing?.paymentMethod || 'Cash on Delivery',
               paymentStatus: row.is_paid
                 ? 'completed'
                 : (addr._paymentStatus || existing?.paymentStatus || (row.payment_method === 'Cash on Delivery' ? 'cash_on_delivery' : 'pending')),
               isPaid: Boolean(row.is_paid ?? existing?.isPaid ?? false),
-              status: realStatus,
-              subtotal: Number(row.subtotal || existing?.subtotal || 0),
+              status: winningStatus,
+              subtotal: effectiveSubtotal,
               discount: Number(row.discount || existing?.discount || 0),
               deliveryFee: Number(row.delivery_fee || existing?.deliveryFee || 0),
               taxes: Number(row.taxes || existing?.taxes || 0),
-              grandTotal: Number(row.grand_total || existing?.grandTotal || 0),
+              grandTotal: effectiveGrandTotal,
+              codFee,
               items: items,
-              address: existing?.address || addr,
+              address: { ...addr, ...(existing?.address || {}), _status: winningStatus, _assignedRider: winningRider },
               userId: row.user_id || existing?.userId || addr._userId,
               userEmail: existing?.userEmail || addr._userEmail,
               deliveryOtp: addr._deliveryOtp || existing?.deliveryOtp,
-              assignedRider: addr._assignedRider || existing?.assignedRider,
+              assignedRider: winningRider,
               timeline: addr._timeline || existing?.timeline || [
                 { status: 'Order Placed', time: 'Confirmed', completed: true },
-                { status: 'Packed', time: 'Pending', completed: realStatus === 'Packed' || realStatus === 'Rider Assigned' || realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
-                { status: 'Out for Delivery', time: 'Pending', completed: realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
-                { status: 'Delivered', time: 'Pending', completed: realStatus === 'Delivered' },
+                { status: 'Packed', time: 'Pending', completed: winningStatus === 'Packed' || winningStatus === 'Rider Assigned' || winningStatus === 'Out for Delivery' || winningStatus === 'Delivered' },
+                { status: 'Out for Delivery', time: 'Pending', completed: winningStatus === 'Out for Delivery' || winningStatus === 'Delivered' },
+                { status: 'Delivered', time: 'Pending', completed: winningStatus === 'Delivered' },
               ],
             };
 
             ordersMap.set(row.id, syncedOrder);
+
+            if (isSupabaseConfigured() && (effectiveSubtotal !== rawSubtotal || effectiveGrandTotal !== rawGrand)) {
+              supabase.from('orders').update({
+                subtotal: effectiveSubtotal,
+                grand_total: effectiveGrandTotal,
+                updated_at: new Date().toISOString(),
+              }).eq('id', row.id).then(() => {}).catch(() => {});
+            }
           }
           this.persistToDisk();
         }

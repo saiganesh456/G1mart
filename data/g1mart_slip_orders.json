@@ -1,1 +1,1383 @@
-[]
+[
+  {
+    "id": "SLIP-843435",
+    "customer_id": null,
+    "customer_name": "Mahendra Lingala",
+    "customer_phone": "9346389857",
+    "customer_note": null,
+    "address": "Venkatareddipalem, Venkatareddipalem, Nellore, Andhra Pradesh - 524344",
+    "lat": 14.230018,
+    "lng": 80.01432,
+    "pincode": "524344",
+    "distance_km": 30,
+    "eta_min": 70,
+    "zone_id": "zone-15-30",
+    "zone_min_order": 2000,
+    "order_type": "delivery",
+    "status": "CONFIRMED",
+    "estimated_total": 300,
+    "final_total": 0,
+    "subtotal": 300,
+    "delivery_fee": 0,
+    "cod_fee": 0,
+    "payment_method": null,
+    "payment_status": "pending",
+    "transaction_id": null,
+    "billed_by": "Test Admin",
+    "packed_by": null,
+    "assigned_rider_id": null,
+    "assigned_rider_name": null,
+    "assigned_rider_phone": null,
+    "admin_notes": "Sample test billing",
+    "cancel_reason": null,
+    "images": [
+      {
+        "id": "img_SLIP-843435_1",
+        "slip_order_id": "SLIP-843435",
+        "storage_path": "slips/9346389857/1792392535336_p1_3jdlk.jpeg",
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/sign/slips/slips/9346389857/1792392535336_p1_3jdlk.jpeg?token=eyJraWQiOiI0YTQzNmFiZS0wMWQyLTRmNTktOGQ2MS1mYmE0ODVlNWViYTMiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJzbGlwcy9zbGlwcy85MzQ2Mzg5ODU3LzE3OTIzOTI1MzUzMzZfcDFfM2pkbGsuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTIzOTI1MzYsImV4cCI6MTc5MjQ3ODkzNn0.blA7boq4ikK7T5gII5qekp2DXzCruex1DPO6KGvwArNBA9UrxSbwc3SxMtKwGqf6kkfbD8WDa93k9PV74DPexA",
+        "sort_order": 0,
+        "created_at": "2026-10-19T06:48:56.738+00:00"
+      }
+    ],
+    "items": [
+      {
+        "id": "item_SLIP-843435_1",
+        "slip_order_id": "SLIP-843435",
+        "product_id": null,
+        "name": "Toor Dal 1kg",
+        "requested_qty": 2,
+        "packed_qty": 0,
+        "unit": "1 kg",
+        "price": 150,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-19T07:06:21.072475+00:00"
+      }
+    ],
+    "created_at": "2026-10-19T06:48:56.738+00:00",
+    "updated_at": "2026-10-19T07:06:22.192+00:00"
+  },
+  {
+    "id": "SLIP-459284",
+    "customer_id": null,
+    "customer_name": "Saiganesh Yadav",
+    "customer_phone": "9222222222",
+    "customer_note": null,
+    "address": "Tadipartipalem, Tadipartipalem, Nellore, Andhra Pradesh - 524321",
+    "lat": 14.261045,
+    "lng": 79.992798,
+    "pincode": "524321",
+    "distance_km": 25.1,
+    "eta_min": 61,
+    "zone_id": "zone-15-30",
+    "zone_min_order": 2000,
+    "order_type": "delivery",
+    "status": "SLIP_RECEIVED",
+    "estimated_total": 0,
+    "final_total": 0,
+    "subtotal": 0,
+    "delivery_fee": 0,
+    "cod_fee": 0,
+    "payment_method": null,
+    "payment_status": "pending",
+    "transaction_id": null,
+    "billed_by": null,
+    "packed_by": null,
+    "assigned_rider_id": null,
+    "assigned_rider_name": null,
+    "assigned_rider_phone": null,
+    "admin_notes": null,
+    "cancel_reason": null,
+    "images": [
+      {
+        "id": "img_SLIP-459284_1",
+        "slip_order_id": "SLIP-459284",
+        "storage_path": "slips/9222222222/1792391910090_p1_anqep.jpeg",
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/sign/slips/slips/9222222222/1792391910090_p1_anqep.jpeg?token=eyJraWQiOiI0YTQzNmFiZS0wMWQyLTRmNTktOGQ2MS1mYmE0ODVlNWViYTMiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJzbGlwcy9zbGlwcy85MjIyMjIyMjIyLzE3OTIzOTE5MTAwOTBfcDFfYW5xZXAuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTIzOTE5MTAsImV4cCI6MTc5MjQ3ODMxMH0.daW1HUQ28OWwTHtPMpz7Tk70MSAWiqA2G8ysAAxc-9ZKFpWqG_yLGgTHaJILDUwycb4ZfGBumQp72WpymCJQxQ",
+        "sort_order": 0,
+        "created_at": "2026-10-19T06:38:31.295+00:00"
+      }
+    ],
+    "items": [],
+    "created_at": "2026-10-19T06:38:31.295+00:00",
+    "updated_at": "2026-10-19T06:38:31.295+00:00"
+  },
+  {
+    "id": "SLIP-357515",
+    "customer_id": null,
+    "customer_name": "Mahendra Lingala",
+    "customer_phone": "9346389857",
+    "customer_note": null,
+    "address": "Venkatareddipalem, Venkatareddipalem, Nellore, Andhra Pradesh - 524344",
+    "lat": 14.230018,
+    "lng": 80.01432,
+    "pincode": "524344",
+    "distance_km": 30,
+    "eta_min": 70,
+    "zone_id": "zone-15-30",
+    "zone_min_order": 2000,
+    "order_type": "delivery",
+    "status": "SLIP_RECEIVED",
+    "estimated_total": 0,
+    "final_total": 0,
+    "subtotal": 0,
+    "delivery_fee": 0,
+    "cod_fee": 0,
+    "payment_method": null,
+    "payment_status": "pending",
+    "transaction_id": null,
+    "billed_by": null,
+    "packed_by": null,
+    "assigned_rider_id": null,
+    "assigned_rider_name": null,
+    "assigned_rider_phone": null,
+    "admin_notes": null,
+    "cancel_reason": null,
+    "images": [
+      {
+        "id": "img_SLIP-357515_1",
+        "slip_order_id": "SLIP-357515",
+        "storage_path": "slips/9346389857/1792389333345_p1_kxzyb.jpeg",
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/sign/slips/slips/9346389857/1792389333345_p1_kxzyb.jpeg?token=eyJraWQiOiI0YTQzNmFiZS0wMWQyLTRmNTktOGQ2MS1mYmE0ODVlNWViYTMiLCJhbGciOiJIUzUxMiJ9.eyJ1cmwiOiJzbGlwcy9zbGlwcy85MzQ2Mzg5ODU3LzE3OTIzODkzMzMzNDVfcDFfa3h6eWIuanBlZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3OTIzODkzMzQsImV4cCI6MTc5MjQ3NTczNH0.YcmUi9nev3xDSP-FlrGHVmToNrs9Q66atrD9W2PE63D23Mt12dc9Cg6N_s6hK5-aKgMhylP2mM3Hb56FeWLiIQ",
+        "sort_order": 0,
+        "created_at": "2026-10-19T05:55:34.379+00:00"
+      }
+    ],
+    "items": [],
+    "created_at": "2026-10-19T05:55:34.379+00:00",
+    "updated_at": "2026-10-19T05:55:34.379+00:00"
+  },
+  {
+    "id": "SLIP-312841",
+    "customer_name": "Sita Devi",
+    "customer_phone": "9440556677",
+    "customer_note": "Deliver fresh cold pressed sesame oil and spices",
+    "address": "Near Ramalayam Temple, Kodavalur, Nellore Dist",
+    "lat": 14.535,
+    "lng": 79.985,
+    "pincode": "524316",
+    "distance_km": 14.9,
+    "eta_min": 40,
+    "zone_id": "zone-10-15",
+    "zone_min_order": 1000,
+    "order_type": "delivery",
+    "status": "DELIVERED",
+    "estimated_total": 1060,
+    "final_total": 1110,
+    "subtotal": 1060,
+    "delivery_fee": 0,
+    "cod_fee": 50,
+    "payment_method": "Cash on Delivery",
+    "payment_status": "completed",
+    "transaction_id": null,
+    "billed_by": "Admin Swamy",
+    "packed_by": "Packer Prasad",
+    "assigned_rider_id": "rider_nellore_1",
+    "assigned_rider_name": "Venkat Rao",
+    "assigned_rider_phone": "9848223344",
+    "admin_notes": "Transcribed from customer photo",
+    "cancel_reason": null,
+    "images": [
+      {
+        "id": "img_SLIP-312841_1",
+        "slip_order_id": "SLIP-312841",
+        "storage_path": "slips/sita_slip_1.jpg",
+        "image_url": "https://images.unsplash.com/photo-1542838132-92c53300491e",
+        "sort_order": 0,
+        "created_at": "2026-10-11T15:44:46.762Z"
+      }
+    ],
+    "items": [
+      {
+        "id": "item_SLIP-312841_1",
+        "slip_order_id": "SLIP-312841",
+        "product_id": null,
+        "name": "Idhayam Sesame Oil 1L",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "1 L",
+        "price": 280,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:44:46.946Z"
+      },
+      {
+        "id": "item_SLIP-312841_2",
+        "slip_order_id": "SLIP-312841",
+        "product_id": null,
+        "name": "Daawat Rozzana Basmati Rice 5kg",
+        "requested_qty": 1,
+        "packed_qty": 0,
+        "unit": "5 kg",
+        "price": 620,
+        "available": false,
+        "substitute_note": "Out of stock in hub - informed customer",
+        "created_at": "2026-10-11T15:44:46.946Z"
+      },
+      {
+        "id": "item_SLIP-312841_3",
+        "slip_order_id": "SLIP-312841",
+        "product_id": null,
+        "name": "G1 Premium Toor Dal 2kg",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "2 kg",
+        "price": 320,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:44:46.946Z"
+      },
+      {
+        "id": "item_SLIP-312841_4",
+        "slip_order_id": "SLIP-312841",
+        "product_id": null,
+        "name": "Raw Groundnuts 1kg",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "1 kg",
+        "price": 150,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:44:46.946Z"
+      },
+      {
+        "id": "item_SLIP-312841_add_1791733487369_1",
+        "slip_order_id": "SLIP-312841",
+        "product_id": null,
+        "name": "Aashirvaad Superior Atta 5kg",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "5 kg",
+        "price": 310,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:44:47.368Z"
+      }
+    ],
+    "status_history": [
+      {
+        "id": "hist_1791733486762_oalz",
+        "order_id": "SLIP-312841",
+        "status": "SLIP_RECEIVED",
+        "notes": "Customer uploaded slip with 1 image(s)",
+        "changed_by": "Sita Devi",
+        "created_at": "2026-10-11T15:44:46.762Z"
+      },
+      {
+        "id": "hist_1791733486947_9jwg",
+        "order_id": "SLIP-312841",
+        "status": "BILLING",
+        "notes": "Billed 4 items (Est. Total: ₹1370)",
+        "changed_by": "Admin Swamy",
+        "created_at": "2026-10-11T15:44:46.947Z"
+      },
+      {
+        "id": "hist_1791733486949_zky0",
+        "order_id": "SLIP-312841",
+        "status": "CONFIRMED",
+        "notes": "Confirmed over phone",
+        "changed_by": "Admin Swamy",
+        "created_at": "2026-10-11T15:44:46.949Z"
+      },
+      {
+        "id": "hist_1791733487365_341a",
+        "order_id": "SLIP-312841",
+        "status": "PACKED",
+        "notes": "Packed and verified (Final Subtotal: ₹750)",
+        "changed_by": "Packer Prasad",
+        "created_at": "2026-10-11T15:44:47.365Z"
+      },
+      {
+        "id": "hist_1791733487366_vq82",
+        "order_id": "SLIP-312841",
+        "status": "AWAITING_PAYMENT",
+        "notes": "Customer notified to review bill & pay",
+        "changed_by": "Packer Prasad",
+        "created_at": "2026-10-11T15:44:47.366Z"
+      },
+      {
+        "id": "hist_1791733487369_pbmj",
+        "order_id": "SLIP-312841",
+        "status": "AWAITING_PAYMENT",
+        "notes": "Customer added 1 item(s) to meet minimum. New subtotal: ₹1060",
+        "changed_by": "Sita Devi",
+        "created_at": "2026-10-11T15:44:47.369Z"
+      },
+      {
+        "id": "hist_1791733487569_6upc",
+        "order_id": "SLIP-312841",
+        "status": "COD_PENDING",
+        "notes": "Pay on delivery selected (+₹50 fee). Total: ₹1110",
+        "changed_by": "Sita Devi",
+        "created_at": "2026-10-11T15:44:47.569Z"
+      },
+      {
+        "id": "hist_1791733487571_osnu",
+        "order_id": "SLIP-312841",
+        "status": "RIDER_ASSIGNED",
+        "notes": "Rider Venkat Rao (9848223344) assigned",
+        "changed_by": "Dispatcher",
+        "created_at": "2026-10-11T15:44:47.571Z"
+      },
+      {
+        "id": "hist_1791733487573_gwv3",
+        "order_id": "SLIP-312841",
+        "status": "OUT_FOR_DELIVERY",
+        "notes": "Out for doorstep delivery",
+        "changed_by": "Rider Venkat Rao",
+        "created_at": "2026-10-11T15:44:47.573Z"
+      },
+      {
+        "id": "hist_1791733487576_ykvw",
+        "order_id": "SLIP-312841",
+        "status": "DELIVERED",
+        "notes": "Order delivered and COD cash collected",
+        "changed_by": "Rider Venkat Rao",
+        "created_at": "2026-10-11T15:44:47.576Z"
+      }
+    ],
+    "created_at": "2026-10-11T15:44:46.762Z",
+    "updated_at": "2026-10-11T15:44:47.576Z"
+  },
+  {
+    "id": "SLIP-735947",
+    "customer_name": "Anil Kumar",
+    "customer_phone": "9000112233",
+    "customer_note": null,
+    "address": "In-Store Pickup, Padarupalli Hub",
+    "lat": null,
+    "lng": null,
+    "pincode": null,
+    "distance_km": 0,
+    "eta_min": 10,
+    "zone_id": null,
+    "zone_min_order": 500,
+    "order_type": "pickup",
+    "status": "PAID",
+    "estimated_total": 65,
+    "final_total": 65,
+    "subtotal": 65,
+    "delivery_fee": 0,
+    "cod_fee": 0,
+    "payment_method": "Razorpay UPI/Card",
+    "payment_status": "paid",
+    "transaction_id": "pay_pickup_123",
+    "billed_by": "Staff Admin",
+    "packed_by": "Packer",
+    "assigned_rider_id": null,
+    "assigned_rider_name": null,
+    "assigned_rider_phone": null,
+    "admin_notes": null,
+    "cancel_reason": null,
+    "images": [
+      {
+        "id": "img_SLIP-735947_1",
+        "slip_order_id": "SLIP-735947",
+        "storage_path": "slips/s3.jpg",
+        "image_url": "https://images.unsplash.com/photo-1542838132-92c53300491e",
+        "sort_order": 0,
+        "created_at": "2026-10-11T15:44:19.104Z"
+      }
+    ],
+    "items": [
+      {
+        "id": "item_SLIP-735947_1",
+        "slip_order_id": "SLIP-735947",
+        "product_id": null,
+        "name": "Toothpaste 100g",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "100 g",
+        "price": 65,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:44:19.336Z"
+      }
+    ],
+    "status_history": [
+      {
+        "id": "hist_1791733459104_hiw1",
+        "order_id": "SLIP-735947",
+        "status": "SLIP_RECEIVED",
+        "notes": "Customer uploaded slip with 1 image(s)",
+        "changed_by": "Anil Kumar",
+        "created_at": "2026-10-11T15:44:19.104Z"
+      },
+      {
+        "id": "hist_1791733459336_b3zr",
+        "order_id": "SLIP-735947",
+        "status": "BILLING",
+        "notes": "Billed 1 items (Est. Total: ₹65)",
+        "changed_by": "Staff Admin",
+        "created_at": "2026-10-11T15:44:19.336Z"
+      },
+      {
+        "id": "hist_1791733459338_h5xq",
+        "order_id": "SLIP-735947",
+        "status": "CONFIRMED",
+        "notes": "Confirmed with customer by telephone call",
+        "changed_by": "Staff Admin",
+        "created_at": "2026-10-11T15:44:19.338Z"
+      },
+      {
+        "id": "hist_1791733459526_a8o2",
+        "order_id": "SLIP-735947",
+        "status": "PACKED",
+        "notes": "Packed and verified (Final Subtotal: ₹65)",
+        "changed_by": "Packer",
+        "created_at": "2026-10-11T15:44:19.526Z"
+      },
+      {
+        "id": "hist_1791733459526_mlr2",
+        "order_id": "SLIP-735947",
+        "status": "AWAITING_PAYMENT",
+        "notes": "Customer notified to review bill & pay",
+        "changed_by": "Packer",
+        "created_at": "2026-10-11T15:44:19.526Z"
+      },
+      {
+        "id": "hist_1791733459528_h44w",
+        "order_id": "SLIP-735947",
+        "status": "PAID",
+        "notes": "Online payment verified successfully (Txn: pay_pickup_123)",
+        "changed_by": "Anil Kumar",
+        "created_at": "2026-10-11T15:44:19.528Z"
+      }
+    ],
+    "created_at": "2026-10-11T15:44:19.104Z",
+    "updated_at": "2026-10-11T15:44:19.528Z"
+  },
+  {
+    "id": "SLIP-435990",
+    "customer_name": "Mahesh Babu",
+    "customer_phone": "9440123456",
+    "customer_note": null,
+    "address": "Near Gandhi Statue, Stonehousepet, Nellore",
+    "lat": null,
+    "lng": null,
+    "pincode": null,
+    "distance_km": 3.2,
+    "eta_min": 18,
+    "zone_id": "zone_0_5",
+    "zone_min_order": 500,
+    "order_type": "delivery",
+    "status": "PAID",
+    "estimated_total": 650,
+    "final_total": 650,
+    "subtotal": 650,
+    "delivery_fee": 0,
+    "cod_fee": 0,
+    "payment_method": "Razorpay UPI/Card",
+    "payment_status": "paid",
+    "transaction_id": "pay_test_rzp_987654",
+    "billed_by": "Staff Admin",
+    "packed_by": "Packer",
+    "assigned_rider_id": null,
+    "assigned_rider_name": null,
+    "assigned_rider_phone": null,
+    "admin_notes": null,
+    "cancel_reason": null,
+    "images": [
+      {
+        "id": "img_SLIP-435990_1",
+        "slip_order_id": "SLIP-435990",
+        "storage_path": "slips/s2.jpg",
+        "image_url": "https://images.unsplash.com/photo-1542838132-92c53300491e",
+        "sort_order": 0,
+        "created_at": "2026-10-11T15:44:18.495Z"
+      }
+    ],
+    "items": [
+      {
+        "id": "item_SLIP-435990_1",
+        "slip_order_id": "SLIP-435990",
+        "product_id": null,
+        "name": "Sona Masoori Rice 10kg",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "10 kg",
+        "price": 650,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:44:18.886Z"
+      }
+    ],
+    "status_history": [
+      {
+        "id": "hist_1791733458495_medg",
+        "order_id": "SLIP-435990",
+        "status": "SLIP_RECEIVED",
+        "notes": "Customer uploaded slip with 1 image(s)",
+        "changed_by": "Mahesh Babu",
+        "created_at": "2026-10-11T15:44:18.495Z"
+      },
+      {
+        "id": "hist_1791733458886_qa7p",
+        "order_id": "SLIP-435990",
+        "status": "AWAITING_CUSTOMER_CONFIRMATION",
+        "notes": "Billed 1 items (Est. Total: ₹650)",
+        "changed_by": "Staff Admin",
+        "created_at": "2026-10-11T15:44:18.886Z"
+      },
+      {
+        "id": "hist_1791733458888_rjdj",
+        "order_id": "SLIP-435990",
+        "status": "CONFIRMED",
+        "notes": "Confirmed with customer by telephone call",
+        "changed_by": "Admin",
+        "created_at": "2026-10-11T15:44:18.888Z"
+      },
+      {
+        "id": "hist_1791733459100_7xdr",
+        "order_id": "SLIP-435990",
+        "status": "PACKED",
+        "notes": "Packed and verified (Final Subtotal: ₹650)",
+        "changed_by": "Packer",
+        "created_at": "2026-10-11T15:44:19.100Z"
+      },
+      {
+        "id": "hist_1791733459100_4pjr",
+        "order_id": "SLIP-435990",
+        "status": "AWAITING_PAYMENT",
+        "notes": "Customer notified to review bill & pay",
+        "changed_by": "Packer",
+        "created_at": "2026-10-11T15:44:19.100Z"
+      },
+      {
+        "id": "hist_1791733459102_gz7e",
+        "order_id": "SLIP-435990",
+        "status": "PAID",
+        "notes": "Online payment verified successfully (Txn: pay_test_rzp_987654)",
+        "changed_by": "Mahesh Babu",
+        "created_at": "2026-10-11T15:44:19.102Z"
+      }
+    ],
+    "created_at": "2026-10-11T15:44:18.495Z",
+    "updated_at": "2026-10-11T15:44:19.102Z"
+  },
+  {
+    "id": "SLIP-893500",
+    "customer_name": "Kavitha Reddy",
+    "customer_phone": "9848022334",
+    "customer_note": "Please deliver fresh sunflower oil and wheat flour before 6 PM",
+    "address": "Flat 302, Sri Krishna Apts, Magunta Layout, Nellore",
+    "lat": 14.4426,
+    "lng": 79.9865,
+    "pincode": "524003",
+    "distance_km": 7.5,
+    "eta_min": 25,
+    "zone_id": "zone_5_10",
+    "zone_min_order": 1000,
+    "order_type": "delivery",
+    "status": "DELIVERED",
+    "estimated_total": 1201,
+    "final_total": 1251,
+    "subtotal": 1201,
+    "delivery_fee": 0,
+    "cod_fee": 50,
+    "payment_method": "Cash on Delivery",
+    "payment_status": "completed",
+    "transaction_id": null,
+    "billed_by": "Hub Admin Ramesh",
+    "packed_by": "Packer Venkatesh",
+    "assigned_rider_id": "rider_01",
+    "assigned_rider_name": "Suresh Kumar",
+    "assigned_rider_phone": "9848112233",
+    "admin_notes": "Added Basmati Rice per customer phone confirmation",
+    "cancel_reason": null,
+    "images": [
+      {
+        "id": "img_SLIP-893500_1",
+        "slip_order_id": "SLIP-893500",
+        "storage_path": "slips/slip1_p1.jpg",
+        "image_url": "https://images.unsplash.com/photo-1542838132-92c53300491e",
+        "sort_order": 0,
+        "created_at": "2026-10-11T15:44:16.887Z"
+      },
+      {
+        "id": "img_SLIP-893500_2",
+        "slip_order_id": "SLIP-893500",
+        "storage_path": "slips/slip1_p2.jpg",
+        "image_url": "https://images.unsplash.com/photo-1578916171728-46686eac8d58",
+        "sort_order": 1,
+        "created_at": "2026-10-11T15:44:16.887Z"
+      }
+    ],
+    "items": [
+      {
+        "id": "item_SLIP-893500_1",
+        "slip_order_id": "SLIP-893500",
+        "product_id": null,
+        "name": "Aashirvaad Superior MP Sharbati Atta 5kg",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "5 kg",
+        "price": 320,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:44:17.700Z"
+      },
+      {
+        "id": "item_SLIP-893500_2",
+        "slip_order_id": "SLIP-893500",
+        "product_id": null,
+        "name": "Freedom Refined Sunflower Oil 1L",
+        "requested_qty": 1,
+        "packed_qty": 0,
+        "unit": "1 L",
+        "price": 140,
+        "available": false,
+        "substitute_note": "Out of stock - suggested Fortune Oil to customer",
+        "created_at": "2026-10-11T15:44:17.700Z"
+      },
+      {
+        "id": "item_SLIP-893500_3",
+        "slip_order_id": "SLIP-893500",
+        "product_id": null,
+        "name": "Tata Salt 1kg",
+        "requested_qty": 2,
+        "packed_qty": 2,
+        "unit": "1 kg",
+        "price": 28,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:44:17.700Z"
+      },
+      {
+        "id": "item_SLIP-893500_4",
+        "slip_order_id": "SLIP-893500",
+        "product_id": null,
+        "name": "India Gate Basmati Rice Feast Rozzana 5kg",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "5 kg",
+        "price": 550,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:44:17.700Z"
+      },
+      {
+        "id": "item_SLIP-893500_add_1791733458288_1",
+        "slip_order_id": "SLIP-893500",
+        "product_id": null,
+        "name": "Amul Salted Butter 500g",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "500 g",
+        "price": 275,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:44:18.288Z"
+      }
+    ],
+    "status_history": [
+      {
+        "id": "hist_1791733456887_grxf",
+        "order_id": "SLIP-893500",
+        "status": "SLIP_RECEIVED",
+        "notes": "Customer uploaded slip with 2 image(s)",
+        "changed_by": "Kavitha Reddy",
+        "created_at": "2026-10-11T15:44:16.887Z"
+      },
+      {
+        "id": "hist_1791733457698_3rc0",
+        "order_id": "SLIP-893500",
+        "status": "BILLING",
+        "notes": "Billed 3 items (Est. Total: ₹516)",
+        "changed_by": "Hub Admin Ramesh",
+        "created_at": "2026-10-11T15:44:17.698Z"
+      },
+      {
+        "id": "hist_1791733457700_fuis",
+        "order_id": "SLIP-893500",
+        "status": "AWAITING_CUSTOMER_CONFIRMATION",
+        "notes": "Billed 4 items (Est. Total: ₹1066)",
+        "changed_by": "Hub Admin Ramesh",
+        "created_at": "2026-10-11T15:44:17.700Z"
+      },
+      {
+        "id": "hist_1791733457702_tze8",
+        "order_id": "SLIP-893500",
+        "status": "CONFIRMED",
+        "notes": "Customer confirmed items",
+        "changed_by": "Hub Admin Ramesh",
+        "created_at": "2026-10-11T15:44:17.702Z"
+      },
+      {
+        "id": "hist_1791733458285_sz20",
+        "order_id": "SLIP-893500",
+        "status": "PACKED",
+        "notes": "Packed and verified (Final Subtotal: ₹926)",
+        "changed_by": "Packer Venkatesh",
+        "created_at": "2026-10-11T15:44:18.285Z"
+      },
+      {
+        "id": "hist_1791733458285_dwq6",
+        "order_id": "SLIP-893500",
+        "status": "AWAITING_PAYMENT",
+        "notes": "Customer notified to review bill & pay",
+        "changed_by": "Packer Venkatesh",
+        "created_at": "2026-10-11T15:44:18.285Z"
+      },
+      {
+        "id": "hist_1791733458288_bt3d",
+        "order_id": "SLIP-893500",
+        "status": "AWAITING_PAYMENT",
+        "notes": "Customer added 1 item(s) to meet minimum. New subtotal: ₹1201",
+        "changed_by": "Kavitha Reddy",
+        "created_at": "2026-10-11T15:44:18.288Z"
+      },
+      {
+        "id": "hist_1791733458487_x9ey",
+        "order_id": "SLIP-893500",
+        "status": "COD_PENDING",
+        "notes": "Pay on delivery selected (+₹50 fee). Total: ₹1251",
+        "changed_by": "Kavitha Reddy",
+        "created_at": "2026-10-11T15:44:18.487Z"
+      },
+      {
+        "id": "hist_1791733458489_5imo",
+        "order_id": "SLIP-893500",
+        "status": "RIDER_ASSIGNED",
+        "notes": "Rider Suresh Kumar (9848112233) assigned",
+        "changed_by": "Store Dispatcher",
+        "created_at": "2026-10-11T15:44:18.489Z"
+      },
+      {
+        "id": "hist_1791733458491_8lyx",
+        "order_id": "SLIP-893500",
+        "status": "OUT_FOR_DELIVERY",
+        "notes": "Out for doorstep delivery",
+        "changed_by": "Rider Suresh Kumar",
+        "created_at": "2026-10-11T15:44:18.491Z"
+      },
+      {
+        "id": "hist_1791733458493_lghw",
+        "order_id": "SLIP-893500",
+        "status": "DELIVERED",
+        "notes": "Order delivered and COD cash collected",
+        "changed_by": "Rider Suresh Kumar",
+        "created_at": "2026-10-11T15:44:18.493Z"
+      }
+    ],
+    "created_at": "2026-10-11T15:44:16.887Z",
+    "updated_at": "2026-10-11T15:44:18.493Z"
+  },
+  {
+    "id": "SLIP-981468",
+    "customer_name": "Sita Devi",
+    "customer_phone": "9440556677",
+    "customer_note": "Deliver fresh cold pressed sesame oil and spices",
+    "address": "Near Ramalayam Temple, Kodavalur, Nellore Dist",
+    "lat": 14.535,
+    "lng": 79.985,
+    "pincode": "524316",
+    "distance_km": 14.9,
+    "eta_min": 40,
+    "zone_id": "zone-10-15",
+    "zone_min_order": 1000,
+    "order_type": "delivery",
+    "status": "DELIVERED",
+    "estimated_total": 1060,
+    "final_total": 1110,
+    "subtotal": 1060,
+    "delivery_fee": 0,
+    "cod_fee": 50,
+    "payment_method": "Cash on Delivery",
+    "payment_status": "completed",
+    "transaction_id": null,
+    "billed_by": "Admin Swamy",
+    "packed_by": "Packer Prasad",
+    "assigned_rider_id": "rider_nellore_1",
+    "assigned_rider_name": "Venkat Rao",
+    "assigned_rider_phone": "9848223344",
+    "admin_notes": "Transcribed from customer photo",
+    "cancel_reason": null,
+    "images": [
+      {
+        "id": "img_SLIP-981468_1",
+        "slip_order_id": "SLIP-981468",
+        "storage_path": "slips/sita_slip_1.jpg",
+        "image_url": "https://images.unsplash.com/photo-1542838132-92c53300491e",
+        "sort_order": 0,
+        "created_at": "2026-10-11T15:41:49.286Z"
+      }
+    ],
+    "items": [
+      {
+        "id": "item_SLIP-981468_1",
+        "slip_order_id": "SLIP-981468",
+        "product_id": null,
+        "name": "Idhayam Sesame Oil 1L",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "1 L",
+        "price": 280,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:41:49.492Z"
+      },
+      {
+        "id": "item_SLIP-981468_2",
+        "slip_order_id": "SLIP-981468",
+        "product_id": null,
+        "name": "Daawat Rozzana Basmati Rice 5kg",
+        "requested_qty": 1,
+        "packed_qty": 0,
+        "unit": "5 kg",
+        "price": 620,
+        "available": false,
+        "substitute_note": "Out of stock in hub - informed customer",
+        "created_at": "2026-10-11T15:41:49.492Z"
+      },
+      {
+        "id": "item_SLIP-981468_3",
+        "slip_order_id": "SLIP-981468",
+        "product_id": null,
+        "name": "G1 Premium Toor Dal 2kg",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "2 kg",
+        "price": 320,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:41:49.492Z"
+      },
+      {
+        "id": "item_SLIP-981468_4",
+        "slip_order_id": "SLIP-981468",
+        "product_id": null,
+        "name": "Raw Groundnuts 1kg",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "1 kg",
+        "price": 150,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:41:49.492Z"
+      },
+      {
+        "id": "item_SLIP-981468_add_1791733309997_1",
+        "slip_order_id": "SLIP-981468",
+        "product_id": null,
+        "name": "Aashirvaad Superior Atta 5kg",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "5 kg",
+        "price": 310,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:41:49.997Z"
+      }
+    ],
+    "status_history": [
+      {
+        "id": "hist_1791733309286_duor",
+        "order_id": "SLIP-981468",
+        "status": "SLIP_RECEIVED",
+        "notes": "Customer uploaded slip with 1 image(s)",
+        "changed_by": "Sita Devi",
+        "created_at": "2026-10-11T15:41:49.286Z"
+      },
+      {
+        "id": "hist_1791733309492_7693",
+        "order_id": "SLIP-981468",
+        "status": "BILLING",
+        "notes": "Billed 4 items (Est. Total: ₹1370)",
+        "changed_by": "Admin Swamy",
+        "created_at": "2026-10-11T15:41:49.492Z"
+      },
+      {
+        "id": "hist_1791733309494_tp84",
+        "order_id": "SLIP-981468",
+        "status": "CONFIRMED",
+        "notes": "Confirmed over phone",
+        "changed_by": "Admin Swamy",
+        "created_at": "2026-10-11T15:41:49.494Z"
+      },
+      {
+        "id": "hist_1791733309995_9cty",
+        "order_id": "SLIP-981468",
+        "status": "PACKED",
+        "notes": "Packed and verified (Final Subtotal: ₹750)",
+        "changed_by": "Packer Prasad",
+        "created_at": "2026-10-11T15:41:49.995Z"
+      },
+      {
+        "id": "hist_1791733309995_auyz",
+        "order_id": "SLIP-981468",
+        "status": "AWAITING_PAYMENT",
+        "notes": "Customer notified to review bill & pay",
+        "changed_by": "Packer Prasad",
+        "created_at": "2026-10-11T15:41:49.995Z"
+      },
+      {
+        "id": "hist_1791733309998_xlfg",
+        "order_id": "SLIP-981468",
+        "status": "AWAITING_PAYMENT",
+        "notes": "Customer added 1 item(s) to meet minimum. New subtotal: ₹1060",
+        "changed_by": "Sita Devi",
+        "created_at": "2026-10-11T15:41:49.998Z"
+      },
+      {
+        "id": "hist_1791733310198_6trw",
+        "order_id": "SLIP-981468",
+        "status": "COD_PENDING",
+        "notes": "Pay on delivery selected (+₹50 fee). Total: ₹1110",
+        "changed_by": "Sita Devi",
+        "created_at": "2026-10-11T15:41:50.198Z"
+      },
+      {
+        "id": "hist_1791733310199_g5m7",
+        "order_id": "SLIP-981468",
+        "status": "RIDER_ASSIGNED",
+        "notes": "Rider Venkat Rao (9848223344) assigned",
+        "changed_by": "Dispatcher",
+        "created_at": "2026-10-11T15:41:50.199Z"
+      },
+      {
+        "id": "hist_1791733310201_50l9",
+        "order_id": "SLIP-981468",
+        "status": "OUT_FOR_DELIVERY",
+        "notes": "Out for doorstep delivery",
+        "changed_by": "Rider Venkat Rao",
+        "created_at": "2026-10-11T15:41:50.201Z"
+      },
+      {
+        "id": "hist_1791733310202_bd12",
+        "order_id": "SLIP-981468",
+        "status": "DELIVERED",
+        "notes": "Order delivered and COD cash collected",
+        "changed_by": "Rider Venkat Rao",
+        "created_at": "2026-10-11T15:41:50.202Z"
+      }
+    ],
+    "created_at": "2026-10-11T15:41:49.286Z",
+    "updated_at": "2026-10-11T15:41:50.202Z"
+  },
+  {
+    "id": "SLIP-512527",
+    "customer_name": "Anil Kumar",
+    "customer_phone": "9000112233",
+    "customer_note": null,
+    "address": "In-Store Pickup, Padarupalli Hub",
+    "lat": null,
+    "lng": null,
+    "pincode": null,
+    "distance_km": 0,
+    "eta_min": 10,
+    "zone_id": null,
+    "zone_min_order": 500,
+    "order_type": "pickup",
+    "status": "PAID",
+    "estimated_total": 65,
+    "final_total": 65,
+    "subtotal": 65,
+    "delivery_fee": 0,
+    "cod_fee": 0,
+    "payment_method": "Razorpay UPI/Card",
+    "payment_status": "paid",
+    "transaction_id": "pay_pickup_123",
+    "billed_by": "Staff Admin",
+    "packed_by": "Packer",
+    "assigned_rider_id": null,
+    "assigned_rider_name": null,
+    "assigned_rider_phone": null,
+    "admin_notes": null,
+    "cancel_reason": null,
+    "images": [
+      {
+        "id": "img_SLIP-512527_1",
+        "slip_order_id": "SLIP-512527",
+        "storage_path": "slips/s3.jpg",
+        "image_url": "https://images.unsplash.com/photo-1542838132-92c53300491e",
+        "sort_order": 0,
+        "created_at": "2026-10-11T15:19:08.884Z"
+      }
+    ],
+    "items": [
+      {
+        "id": "item_SLIP-512527_1",
+        "slip_order_id": "SLIP-512527",
+        "product_id": null,
+        "name": "Toothpaste 100g",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "100 g",
+        "price": 65,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:19:09.084Z"
+      }
+    ],
+    "status_history": [
+      {
+        "id": "hist_1791731948884_ngo2",
+        "order_id": "SLIP-512527",
+        "status": "SLIP_RECEIVED",
+        "notes": "Customer uploaded slip with 1 image(s)",
+        "changed_by": "Anil Kumar",
+        "created_at": "2026-10-11T15:19:08.884Z"
+      },
+      {
+        "id": "hist_1791731949084_xcwv",
+        "order_id": "SLIP-512527",
+        "status": "BILLING",
+        "notes": "Billed 1 items (Est. Total: ₹65)",
+        "changed_by": "Staff Admin",
+        "created_at": "2026-10-11T15:19:09.084Z"
+      },
+      {
+        "id": "hist_1791731949085_2ekm",
+        "order_id": "SLIP-512527",
+        "status": "CONFIRMED",
+        "notes": "Confirmed with customer by telephone call",
+        "changed_by": "Staff Admin",
+        "created_at": "2026-10-11T15:19:09.085Z"
+      },
+      {
+        "id": "hist_1791731949481_e4w3",
+        "order_id": "SLIP-512527",
+        "status": "PACKED",
+        "notes": "Packed and verified (Final Subtotal: ₹65)",
+        "changed_by": "Packer",
+        "created_at": "2026-10-11T15:19:09.481Z"
+      },
+      {
+        "id": "hist_1791731949481_gbd3",
+        "order_id": "SLIP-512527",
+        "status": "AWAITING_PAYMENT",
+        "notes": "Customer notified to review bill & pay",
+        "changed_by": "Packer",
+        "created_at": "2026-10-11T15:19:09.481Z"
+      },
+      {
+        "id": "hist_1791731949482_wcy2",
+        "order_id": "SLIP-512527",
+        "status": "PAID",
+        "notes": "Online payment verified successfully (Txn: pay_pickup_123)",
+        "changed_by": "Anil Kumar",
+        "created_at": "2026-10-11T15:19:09.482Z"
+      }
+    ],
+    "created_at": "2026-10-11T15:19:08.884Z",
+    "updated_at": "2026-10-11T15:19:09.482Z"
+  },
+  {
+    "id": "SLIP-546237",
+    "customer_name": "Mahesh Babu",
+    "customer_phone": "9440123456",
+    "customer_note": null,
+    "address": "Near Gandhi Statue, Stonehousepet, Nellore",
+    "lat": null,
+    "lng": null,
+    "pincode": null,
+    "distance_km": 3.2,
+    "eta_min": 18,
+    "zone_id": "zone_0_5",
+    "zone_min_order": 500,
+    "order_type": "delivery",
+    "status": "PAID",
+    "estimated_total": 650,
+    "final_total": 650,
+    "subtotal": 650,
+    "delivery_fee": 0,
+    "cod_fee": 0,
+    "payment_method": "Razorpay UPI/Card",
+    "payment_status": "paid",
+    "transaction_id": "pay_test_rzp_987654",
+    "billed_by": "Staff Admin",
+    "packed_by": "Packer",
+    "assigned_rider_id": null,
+    "assigned_rider_name": null,
+    "assigned_rider_phone": null,
+    "admin_notes": null,
+    "cancel_reason": null,
+    "images": [
+      {
+        "id": "img_SLIP-546237_1",
+        "slip_order_id": "SLIP-546237",
+        "storage_path": "slips/s2.jpg",
+        "image_url": "https://images.unsplash.com/photo-1542838132-92c53300491e",
+        "sort_order": 0,
+        "created_at": "2026-10-11T15:19:08.363Z"
+      }
+    ],
+    "items": [
+      {
+        "id": "item_SLIP-546237_1",
+        "slip_order_id": "SLIP-546237",
+        "product_id": null,
+        "name": "Sona Masoori Rice 10kg",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "10 kg",
+        "price": 650,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:19:08.666Z"
+      }
+    ],
+    "status_history": [
+      {
+        "id": "hist_1791731948363_oh35",
+        "order_id": "SLIP-546237",
+        "status": "SLIP_RECEIVED",
+        "notes": "Customer uploaded slip with 1 image(s)",
+        "changed_by": "Mahesh Babu",
+        "created_at": "2026-10-11T15:19:08.363Z"
+      },
+      {
+        "id": "hist_1791731948666_mkvd",
+        "order_id": "SLIP-546237",
+        "status": "AWAITING_CUSTOMER_CONFIRMATION",
+        "notes": "Billed 1 items (Est. Total: ₹650)",
+        "changed_by": "Staff Admin",
+        "created_at": "2026-10-11T15:19:08.666Z"
+      },
+      {
+        "id": "hist_1791731948667_h0eq",
+        "order_id": "SLIP-546237",
+        "status": "CONFIRMED",
+        "notes": "Confirmed with customer by telephone call",
+        "changed_by": "Admin",
+        "created_at": "2026-10-11T15:19:08.667Z"
+      },
+      {
+        "id": "hist_1791731948883_hgiv",
+        "order_id": "SLIP-546237",
+        "status": "PACKED",
+        "notes": "Packed and verified (Final Subtotal: ₹650)",
+        "changed_by": "Packer",
+        "created_at": "2026-10-11T15:19:08.883Z"
+      },
+      {
+        "id": "hist_1791731948883_7plt",
+        "order_id": "SLIP-546237",
+        "status": "AWAITING_PAYMENT",
+        "notes": "Customer notified to review bill & pay",
+        "changed_by": "Packer",
+        "created_at": "2026-10-11T15:19:08.883Z"
+      },
+      {
+        "id": "hist_1791731948884_yknb",
+        "order_id": "SLIP-546237",
+        "status": "PAID",
+        "notes": "Online payment verified successfully (Txn: pay_test_rzp_987654)",
+        "changed_by": "Mahesh Babu",
+        "created_at": "2026-10-11T15:19:08.884Z"
+      }
+    ],
+    "created_at": "2026-10-11T15:19:08.363Z",
+    "updated_at": "2026-10-11T15:19:08.884Z"
+  },
+  {
+    "id": "SLIP-657078",
+    "customer_name": "Kavitha Reddy",
+    "customer_phone": "9848022334",
+    "customer_note": "Please deliver fresh sunflower oil and wheat flour before 6 PM",
+    "address": "Flat 302, Sri Krishna Apts, Magunta Layout, Nellore",
+    "lat": 14.4426,
+    "lng": 79.9865,
+    "pincode": "524003",
+    "distance_km": 7.5,
+    "eta_min": 25,
+    "zone_id": "zone_5_10",
+    "zone_min_order": 1000,
+    "order_type": "delivery",
+    "status": "DELIVERED",
+    "estimated_total": 1201,
+    "final_total": 1251,
+    "subtotal": 1201,
+    "delivery_fee": 0,
+    "cod_fee": 50,
+    "payment_method": "Cash on Delivery",
+    "payment_status": "completed",
+    "transaction_id": null,
+    "billed_by": "Hub Admin Ramesh",
+    "packed_by": "Packer Venkatesh",
+    "assigned_rider_id": "rider_01",
+    "assigned_rider_name": "Suresh Kumar",
+    "assigned_rider_phone": "9848112233",
+    "admin_notes": "Added Basmati Rice per customer phone confirmation",
+    "cancel_reason": null,
+    "images": [
+      {
+        "id": "img_SLIP-657078_1",
+        "slip_order_id": "SLIP-657078",
+        "storage_path": "slips/slip1_p1.jpg",
+        "image_url": "https://images.unsplash.com/photo-1542838132-92c53300491e",
+        "sort_order": 0,
+        "created_at": "2026-10-11T15:19:06.622Z"
+      },
+      {
+        "id": "img_SLIP-657078_2",
+        "slip_order_id": "SLIP-657078",
+        "storage_path": "slips/slip1_p2.jpg",
+        "image_url": "https://images.unsplash.com/photo-1578916171728-46686eac8d58",
+        "sort_order": 1,
+        "created_at": "2026-10-11T15:19:06.622Z"
+      }
+    ],
+    "items": [
+      {
+        "id": "item_SLIP-657078_1",
+        "slip_order_id": "SLIP-657078",
+        "product_id": null,
+        "name": "Aashirvaad Superior MP Sharbati Atta 5kg",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "5 kg",
+        "price": 320,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:19:07.474Z"
+      },
+      {
+        "id": "item_SLIP-657078_2",
+        "slip_order_id": "SLIP-657078",
+        "product_id": null,
+        "name": "Freedom Refined Sunflower Oil 1L",
+        "requested_qty": 1,
+        "packed_qty": 0,
+        "unit": "1 L",
+        "price": 140,
+        "available": false,
+        "substitute_note": "Out of stock - suggested Fortune Oil to customer",
+        "created_at": "2026-10-11T15:19:07.474Z"
+      },
+      {
+        "id": "item_SLIP-657078_3",
+        "slip_order_id": "SLIP-657078",
+        "product_id": null,
+        "name": "Tata Salt 1kg",
+        "requested_qty": 2,
+        "packed_qty": 2,
+        "unit": "1 kg",
+        "price": 28,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:19:07.474Z"
+      },
+      {
+        "id": "item_SLIP-657078_4",
+        "slip_order_id": "SLIP-657078",
+        "product_id": null,
+        "name": "India Gate Basmati Rice Feast Rozzana 5kg",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "5 kg",
+        "price": 550,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:19:07.474Z"
+      },
+      {
+        "id": "item_SLIP-657078_add_1791731948097_1",
+        "slip_order_id": "SLIP-657078",
+        "product_id": null,
+        "name": "Amul Salted Butter 500g",
+        "requested_qty": 1,
+        "packed_qty": 1,
+        "unit": "500 g",
+        "price": 275,
+        "available": true,
+        "substitute_note": null,
+        "created_at": "2026-10-11T15:19:08.097Z"
+      }
+    ],
+    "status_history": [
+      {
+        "id": "hist_1791731946622_z11c",
+        "order_id": "SLIP-657078",
+        "status": "SLIP_RECEIVED",
+        "notes": "Customer uploaded slip with 2 image(s)",
+        "changed_by": "Kavitha Reddy",
+        "created_at": "2026-10-11T15:19:06.622Z"
+      },
+      {
+        "id": "hist_1791731947473_xgxb",
+        "order_id": "SLIP-657078",
+        "status": "BILLING",
+        "notes": "Billed 3 items (Est. Total: ₹516)",
+        "changed_by": "Hub Admin Ramesh",
+        "created_at": "2026-10-11T15:19:07.473Z"
+      },
+      {
+        "id": "hist_1791731947474_0cdv",
+        "order_id": "SLIP-657078",
+        "status": "AWAITING_CUSTOMER_CONFIRMATION",
+        "notes": "Billed 4 items (Est. Total: ₹1066)",
+        "changed_by": "Hub Admin Ramesh",
+        "created_at": "2026-10-11T15:19:07.474Z"
+      },
+      {
+        "id": "hist_1791731947475_jtrs",
+        "order_id": "SLIP-657078",
+        "status": "CONFIRMED",
+        "notes": "Customer confirmed items",
+        "changed_by": "Hub Admin Ramesh",
+        "created_at": "2026-10-11T15:19:07.475Z"
+      },
+      {
+        "id": "hist_1791731948095_xb27",
+        "order_id": "SLIP-657078",
+        "status": "PACKED",
+        "notes": "Packed and verified (Final Subtotal: ₹926)",
+        "changed_by": "Packer Venkatesh",
+        "created_at": "2026-10-11T15:19:08.095Z"
+      },
+      {
+        "id": "hist_1791731948095_4r5l",
+        "order_id": "SLIP-657078",
+        "status": "AWAITING_PAYMENT",
+        "notes": "Customer notified to review bill & pay",
+        "changed_by": "Packer Venkatesh",
+        "created_at": "2026-10-11T15:19:08.095Z"
+      },
+      {
+        "id": "hist_1791731948097_of5p",
+        "order_id": "SLIP-657078",
+        "status": "AWAITING_PAYMENT",
+        "notes": "Customer added 1 item(s) to meet minimum. New subtotal: ₹1201",
+        "changed_by": "Kavitha Reddy",
+        "created_at": "2026-10-11T15:19:08.097Z"
+      },
+      {
+        "id": "hist_1791731948355_q5pk",
+        "order_id": "SLIP-657078",
+        "status": "COD_PENDING",
+        "notes": "Pay on delivery selected (+₹50 fee). Total: ₹1251",
+        "changed_by": "Kavitha Reddy",
+        "created_at": "2026-10-11T15:19:08.355Z"
+      },
+      {
+        "id": "hist_1791731948356_enw0",
+        "order_id": "SLIP-657078",
+        "status": "RIDER_ASSIGNED",
+        "notes": "Rider Suresh Kumar (9848112233) assigned",
+        "changed_by": "Store Dispatcher",
+        "created_at": "2026-10-11T15:19:08.356Z"
+      },
+      {
+        "id": "hist_1791731948357_2nma",
+        "order_id": "SLIP-657078",
+        "status": "OUT_FOR_DELIVERY",
+        "notes": "Out for doorstep delivery",
+        "changed_by": "Rider Suresh Kumar",
+        "created_at": "2026-10-11T15:19:08.357Z"
+      },
+      {
+        "id": "hist_1791731948363_95s1",
+        "order_id": "SLIP-657078",
+        "status": "DELIVERED",
+        "notes": "Order delivered and COD cash collected",
+        "changed_by": "Rider Suresh Kumar",
+        "created_at": "2026-10-11T15:19:08.363Z"
+      }
+    ],
+    "created_at": "2026-10-11T15:19:06.622Z",
+    "updated_at": "2026-10-11T15:19:08.363Z"
+  }
+]

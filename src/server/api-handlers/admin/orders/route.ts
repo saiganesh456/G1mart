@@ -27,7 +27,9 @@ export async function GET(request: NextRequest) {
         if (data && Array.isArray(data)) {
           data.forEach((row: any) => {
             if (row && row.id && !orders.some((o) => o.id === row.id)) {
-              const realStatus = row.address?._status || row.status || 'Order Placed';
+              const rawAddr = row.address;
+              const addr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
+              const realStatus = addr._status || row.status || 'Order Placed';
               serverOrderStore.registerOrder({
                 id: row.id,
                 date: row.date || new Date(row.created_at).toLocaleDateString(),
@@ -50,11 +52,12 @@ export async function GET(request: NextRequest) {
                       quantity: Number(oi.quantity || 1),
                       image: oi.image_url || '/products/placeholder.svg',
                     }))
-                  : (row.address?._items || []),
-                address: row.address,
-                assignedRider: row.address?._assignedRider,
-                deliveryOtp: row.address?._deliveryOtp,
-                timeline: row.address?._timeline || [
+                  : (addr._items || []),
+                address: addr,
+                orderType: addr.orderType || (row.slot?.toLowerCase().includes('pickup') ? 'pickup' : 'standard'),
+                assignedRider: addr._assignedRider,
+                deliveryOtp: addr._deliveryOtp,
+                timeline: addr._timeline || [
                   { status: 'Order Placed', time: 'Confirmed', completed: true },
                   {
                     status: 'Packed',
@@ -87,11 +90,14 @@ export async function GET(request: NextRequest) {
       for (const slip of slipOrders) {
         if (slip.status === 'CANCELLED' || slip.status === 'SLIP_RECEIVED') continue;
 
-        let mappedStatus: any = 'Packed';
-        if (slip.status === 'RIDER_ASSIGNED') mappedStatus = 'Rider Assigned';
+        let mappedStatus: any = 'Order Placed';
+        if (slip.status === 'DELIVERED') mappedStatus = 'Delivered';
         else if (slip.status === 'OUT_FOR_DELIVERY') mappedStatus = 'Out for Delivery';
-        else if (slip.status === 'DELIVERED') mappedStatus = 'Delivered';
-        else if (slip.status === 'CONFIRMED' || slip.status === 'PACKING') mappedStatus = 'Confirmed';
+        else if (slip.status === 'RIDER_ASSIGNED') mappedStatus = 'Rider Assigned';
+        else if (slip.status === 'PACKED' || slip.status === 'AWAITING_PAYMENT' || slip.status === 'COD_PENDING' || slip.status === 'PAID') mappedStatus = 'Packed';
+        else if (slip.status === 'PACKING') mappedStatus = 'Packing';
+        else if (slip.status === 'CONFIRMED' || slip.status === 'AWAITING_CUSTOMER_CONFIRMATION') mappedStatus = 'Confirmed';
+        else mappedStatus = 'Order Placed';
 
         serverOrderStore.registerOrder({
           id: slip.id,

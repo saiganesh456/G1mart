@@ -68,6 +68,9 @@ export default function OrderDetailsPanel({
     order.assignedRider?.id || availableRiders[0]?.email || ''
   );
   const [manualStatus, setManualStatus] = useState(s);
+  React.useEffect(() => {
+    setManualStatus(s);
+  }, [s]);
   const [copiedId, setCopiedId] = useState(false);
 
   // Interactive packing checklist state
@@ -184,7 +187,7 @@ export default function OrderDetailsPanel({
     if (primaryAction.next === 'Rider Assigned') {
       setShowRiderModal(true);
     } else {
-      onUpdateStatus(order.id, primaryAction.next);
+      onUpdateStatus(order.id, primaryAction.next, order.assignedRider);
     }
   };
 
@@ -224,12 +227,19 @@ export default function OrderDetailsPanel({
   const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
 
   // Accurate Billing Calculations (solving the mystery difference)
-  const subtotal = order.subtotal || order.grandTotal || 0;
+  const itemsSum = (order.items || []).reduce(
+    (acc: number, it: any) => acc + ((Number(it.price) || 0) * (Number(it.quantity) || 1)),
+    0
+  );
+
+  const subtotal = itemsSum > 0 ? itemsSum : (order.subtotal || order.grandTotal || 0);
   const deliveryFee = order.deliveryFee || 0;
   const discount = order.discount || 0;
   const taxes = order.taxes || 0;
-  const codFee = order.codFee || order.cod_fee || 0;
-  const grandTotal = order.grandTotal || subtotal + deliveryFee - discount + taxes + codFee;
+  const codFee = order.codFee || order.cod_fee || (order.paymentMethod === 'Cash on Delivery' && !isStorePickup ? 50 : 0);
+  const grandTotal = itemsSum > 0 && ((order.grandTotal || 0) < itemsSum || Math.abs((order.grandTotal || 0) - (itemsSum + deliveryFee - discount + taxes + codFee)) > 5)
+    ? subtotal + deliveryFee - discount + taxes + codFee
+    : (order.grandTotal || subtotal + deliveryFee - discount + taxes + codFee);
 
   // Compute any extra platform/handling fee so the math ALWAYS adds up transparently
   const knownSum = subtotal + deliveryFee - discount + taxes + codFee;

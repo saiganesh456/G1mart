@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
+import { serverSupabase as supabase, fallbackSupabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 import { serverStoreSettings } from '@/lib/serverStoreSettings';
 import { serverOrderStore } from '@/lib/serverOrderStore';
 import type {
@@ -51,7 +51,7 @@ function loadDiskSlipOrders(): SlipOrder[] {
         try {
           const raw = fs.readFileSync(filePath, 'utf-8');
           const parsed = JSON.parse(raw);
-          if (Array.isArray(parsed)) {
+          if (Array.isArray(parsed) && parsed.length > 0) {
             for (const s of parsed) {
               if (s && s.id && !mergedSlips.has(s.id)) {
                 mergedSlips.set(s.id, s);
@@ -59,6 +59,33 @@ function loadDiskSlipOrders(): SlipOrder[] {
             }
           }
         } catch {}
+      }
+    }
+
+    // Safety fallback: if primary file was empty, hydrate from latest data/backup_orders/
+    if (mergedSlips.size === 0) {
+      const backupDir = path.join(process.cwd(), 'data', 'backup_orders');
+      if (fs.existsSync(backupDir)) {
+        const files = fs
+          .readdirSync(backupDir)
+          .filter((f) => f.startsWith('g1mart_slip_orders_') && f.endsWith('.json'))
+          .sort()
+          .reverse();
+
+        for (const file of files) {
+          try {
+            const raw = fs.readFileSync(path.join(backupDir, file), 'utf-8');
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              for (const s of parsed) {
+                if (s && s.id && !mergedSlips.has(s.id)) {
+                  mergedSlips.set(s.id, s);
+                }
+              }
+              if (mergedSlips.size > 0) break;
+            }
+          } catch {}
+        }
       }
     }
   } catch (err) {
@@ -88,59 +115,67 @@ function persistDiskSlipOrders(): void {
 }
 
 async function syncSlipOrderToSupabase(slip: SlipOrder): Promise<void> {
-  if (!isSupabaseConfigured() || !slip || !slip.id) return;
-  try {
-    await supabase.from('slip_orders').upsert({
-      id: slip.id,
-      customer_id: slip.customer_id || null,
-      customer_name: slip.customer_name,
-      customer_phone: slip.customer_phone,
-      customer_note: slip.customer_note || null,
-      address: slip.address,
-      lat: slip.lat ? Number(slip.lat) : null,
-      lng: slip.lng ? Number(slip.lng) : null,
-      pincode: slip.pincode || null,
-      distance_km: Number(slip.distance_km || 0),
-      eta_min: Number(slip.eta_min || 15),
-      zone_id: slip.zone_id || null,
-      zone_min_order: Number(slip.zone_min_order || 500),
-      order_type: slip.order_type || 'delivery',
-      status: slip.status || 'SLIP_RECEIVED',
-      estimated_total: Number(slip.estimated_total || 0),
-      final_total: Number(slip.final_total || 0),
-      subtotal: Number(slip.subtotal || 0),
-      delivery_fee: Number(slip.delivery_fee || 0),
-      cod_fee: Number(slip.cod_fee || 0),
-      payment_method: slip.payment_method || null,
-      payment_status: slip.payment_status || 'pending',
-      transaction_id: slip.transaction_id || null,
-      billed_by: slip.billed_by || null,
-      packed_by: slip.packed_by || null,
-      assigned_rider_id: slip.assigned_rider_id || null,
-      assigned_rider_name: slip.assigned_rider_name || null,
-      assigned_rider_phone: slip.assigned_rider_phone || null,
-      admin_notes: slip.admin_notes || null,
-      cancel_reason: slip.cancel_reason || null,
-      updated_at: new Date().toISOString(),
-    });
+  if (!slip || !slip.id) return;
+  const clients = [supabase, fallbackSupabase];
 
-    if (Array.isArray(slip.items) && slip.items.length > 0) {
-      const itemsPayload = slip.items.map((it) => ({
-        id: it.id,
-        slip_order_id: slip.id,
-        product_id: it.product_id || null,
-        name: it.name,
-        requested_qty: Number(it.requested_qty || 1),
-        packed_qty: Number(it.packed_qty || 0),
-        unit: it.unit || 'unit',
-        price: Number(it.price || 0),
-        available: it.available !== false,
-        substitute_note: it.substitute_note || null,
-      }));
-      await supabase.from('slip_items').upsert(itemsPayload);
+  for (const client of clients) {
+    try {
+      await client.from('slip_orders').upsert({
+        id: slip.id,
+        customer_id: slip.customer_id || null,
+        customer_name: slip.customer_name,
+        customer_phone: slip.customer_phone,
+        customer_note: slip.customer_note || null,
+        address: slip.address,
+        lat: slip.lat ? Number(slip.lat) : null,
+        lng: slip.lng ? Number(slip.lng) : null,
+        pincode: slip.pincode || null,
+        distance_km: Number(slip.distance_km || 0),
+        eta_min: Number(slip.eta_min || 15),
+        zone_id: slip.zone_id || null,
+        zone_min_order: Number(slip.zone_min_order || 500),
+        order_type: slip.order_type || 'delivery',
+        status: slip.status || 'SLIP_RECEIVED',
+        estimated_total: Number(slip.estimated_total || 0),
+        final_total: Number(slip.final_total || 0),
+        subtotal: Number(slip.subtotal || 0),
+        delivery_fee: Number(slip.delivery_fee || 0),
+        cod_fee: Number(slip.cod_fee || 0),
+        payment_method: slip.payment_method || null,
+        payment_status: slip.payment_status || 'pending',
+        transaction_id: slip.transaction_id || null,
+        billed_by: slip.billed_by || null,
+        packed_by: slip.packed_by || null,
+        assigned_rider_id: slip.assigned_rider_id || null,
+        assigned_rider_name: slip.assigned_rider_name || null,
+        assigned_rider_phone: slip.assigned_rider_phone || null,
+        admin_notes: slip.admin_notes || null,
+        cancel_reason: slip.cancel_reason || null,
+        updated_at: new Date().toISOString(),
+      });
+
+      if (Array.isArray(slip.items) && slip.items.length > 0) {
+        // Clean up previous items first to prevent duplication
+        await client.from('slip_items').delete().eq('slip_order_id', slip.id);
+
+        const itemsPayload = slip.items.map((it) => ({
+          id: it.id,
+          slip_order_id: slip.id,
+          product_id: it.product_id || null,
+          name: it.name,
+          requested_qty: Number(it.requested_qty || 1),
+          packed_qty: Number(it.packed_qty || 0),
+          unit: it.unit || 'unit',
+          price: Number(it.price || 0),
+          available: it.available !== false,
+          substitute_note: it.substitute_note || null,
+        }));
+        await client.from('slip_items').insert(itemsPayload);
+      }
+      return; // Succeeded with this client
+    } catch (err) {
+      console.warn('[serverSlipOrders] Supabase sync attempt note:', err);
     }
-  } catch (err) {
-    console.warn('[serverSlipOrders] Supabase sync note in syncSlipOrderToSupabase:', err);
   }
 }
 
@@ -329,7 +364,7 @@ export const serverSlipOrders = {
   },
 
   /**
-   * List all slip orders (syncs from Supabase if configured)
+   * List all slip orders (syncs from Supabase with resilient fallbacks)
    */
   async getSlipOrders(filterStatus?: SlipOrderStatus): Promise<SlipOrder[]> {
     // 1. Re-hydrate latest slips from disk and serverless /tmp cache
@@ -343,17 +378,68 @@ export const serverSlipOrders = {
       }
     });
 
-    if (isSupabaseConfigured()) {
+    // 2. Fetch from Supabase cloud database with resilient multi-client & flat fallbacks
+    const clients = [supabase, fallbackSupabase];
+    let fetchedFromCloud = false;
+
+    for (const client of clients) {
+      if (fetchedFromCloud) break;
       try {
-        const { data: dbSlips, error } = await supabase
+        // Try join query first
+        let dbSlips: any[] | null = null;
+        const res = await client
           .from('slip_orders')
           .select('*, slip_images(*), slip_items(*)')
           .order('created_at', { ascending: false });
 
-        if (!error && Array.isArray(dbSlips)) {
+        if (!res.error && Array.isArray(res.data) && res.data.length > 0) {
+          dbSlips = res.data;
+        } else {
+          // Flat query fallback if join relationships or cache fail
+          const flatRes = await client
+            .from('slip_orders')
+            .select('*')
+            .order('created_at', { ascending: false });
+          if (!flatRes.error && Array.isArray(flatRes.data) && flatRes.data.length > 0) {
+            dbSlips = flatRes.data;
+          }
+        }
+
+        if (Array.isArray(dbSlips) && dbSlips.length > 0) {
+          fetchedFromCloud = true;
           for (const s of dbSlips) {
             if (!s || !s.id) continue;
             const existing = slipsMap.get(s.id);
+
+            // Fetch images if not already populated from join
+            let images = Array.isArray(s.slip_images) && s.slip_images.length > 0
+              ? s.slip_images.map((img: any) => ({
+                  id: img.id,
+                  slip_order_id: img.slip_order_id,
+                  storage_path: img.storage_path,
+                  image_url: img.image_url,
+                  sort_order: img.sort_order,
+                  created_at: img.created_at,
+                }))
+              : existing?.images || [];
+
+            // Fetch items if not already populated from join
+            let items = Array.isArray(s.slip_items) && s.slip_items.length > 0
+              ? s.slip_items.map((it: any) => ({
+                  id: it.id,
+                  slip_order_id: it.slip_order_id,
+                  product_id: it.product_id,
+                  name: it.name,
+                  requested_qty: Number(it.requested_qty || 1),
+                  packed_qty: Number(it.packed_qty || 0),
+                  unit: it.unit || 'unit',
+                  price: Number(it.price || 0),
+                  available: it.available !== false,
+                  substitute_note: it.substitute_note,
+                  created_at: it.created_at,
+                }))
+              : existing?.items || [];
+
             const mapped: SlipOrder = {
               id: s.id,
               customer_id: s.customer_id || undefined,
@@ -385,31 +471,8 @@ export const serverSlipOrders = {
               assigned_rider_phone: s.assigned_rider_phone,
               admin_notes: s.admin_notes,
               cancel_reason: s.cancel_reason,
-              images: Array.isArray(s.slip_images) && s.slip_images.length > 0
-                ? s.slip_images.map((img: any) => ({
-                    id: img.id,
-                    slip_order_id: img.slip_order_id,
-                    storage_path: img.storage_path,
-                    image_url: img.image_url,
-                    sort_order: img.sort_order,
-                    created_at: img.created_at,
-                  }))
-                : existing?.images || [],
-              items: Array.isArray(s.slip_items) && s.slip_items.length > 0
-                ? s.slip_items.map((it: any) => ({
-                    id: it.id,
-                    slip_order_id: it.slip_order_id,
-                    product_id: it.product_id,
-                    name: it.name,
-                    requested_qty: Number(it.requested_qty || 1),
-                    packed_qty: Number(it.packed_qty || 0),
-                    unit: it.unit || 'unit',
-                    price: Number(it.price || 0),
-                    available: it.available !== false,
-                    substitute_note: it.substitute_note,
-                    created_at: it.created_at,
-                  }))
-                : existing?.items || [],
+              images,
+              items,
               status_history: existing?.status_history || [],
               created_at: s.created_at,
               updated_at: s.updated_at,
@@ -434,7 +497,7 @@ export const serverSlipOrders = {
   },
 
   /**
-   * Get slip order by ID with flexible prefix matching and Supabase fallback
+   * Get slip order by ID with flexible prefix matching and resilient Supabase fallback
    */
   async getSlipOrderById(id: string): Promise<SlipOrder | null> {
     if (!id) return null;
@@ -460,14 +523,36 @@ export const serverSlipOrders = {
       return match;
     }
 
-    // Query Supabase if configured
-    if (isSupabaseConfigured()) {
+    // Query Supabase with multi-client fallback
+    const clients = [supabase, fallbackSupabase];
+    for (const client of clients) {
       try {
-        const { data: s } = await supabase
+        let s: any = null;
+        const res = await client
           .from('slip_orders')
           .select('*, slip_images(*), slip_items(*)')
           .or(`id.eq.${id},id.eq.SLIP-${cleanTarget}`)
           .maybeSingle();
+
+        if (res.data) {
+          s = res.data;
+        } else {
+          // Flat query fallback
+          const flat = await client
+            .from('slip_orders')
+            .select('*')
+            .or(`id.eq.${id},id.eq.SLIP-${cleanTarget}`)
+            .maybeSingle();
+          if (flat.data) {
+            s = flat.data;
+            const [itemsRes, imagesRes] = await Promise.all([
+              client.from('slip_items').select('*').eq('slip_order_id', s.id),
+              client.from('slip_images').select('*').eq('slip_order_id', s.id),
+            ]);
+            s.slip_items = itemsRes.data || [];
+            s.slip_images = imagesRes.data || [];
+          }
+        }
 
         if (s) {
           const mapped: SlipOrder = {
@@ -545,6 +630,7 @@ export const serverSlipOrders = {
   async saveBillingItems(params: {
     slipId: string;
     items: Array<{
+      id?: string;
       productId?: string | null;
       name: string;
       requestedQty: number;
@@ -563,7 +649,7 @@ export const serverSlipOrders = {
     const nowIso = new Date().toISOString();
 
     const slipItems: SlipItem[] = params.items.map((it, idx) => ({
-      id: `item_${order.id}_${idx + 1}`,
+      id: it.id || `item_${order.id}_${idx + 1}`,
       slip_order_id: order.id,
       product_id: it.productId || null,
       name: it.name.trim(),
@@ -584,6 +670,7 @@ export const serverSlipOrders = {
     order.items = slipItems;
     order.estimated_total = estimatedTotal;
     order.subtotal = estimatedTotal;
+    order.final_total = estimatedTotal + (order.delivery_fee || 0);
     order.admin_notes = params.adminNotes !== undefined ? params.adminNotes : order.admin_notes;
     order.billed_by = params.billedBy || 'Staff Admin';
     order.updated_at = nowIso;
@@ -601,6 +688,41 @@ export const serverSlipOrders = {
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
     await syncSlipOrderToSupabase(order);
+
+    // Mirror to serverOrderStore so standard order store & storefront sees itemized bill immediately
+    try {
+      await serverOrderStore.createPendingOrder({
+        orderId: order.id,
+        merchantOrderId: `MT_${order.id}`,
+        items: slipItems.map((it) => ({
+          productId: it.product_id || it.id,
+          productName: it.name,
+          unit: it.unit,
+          price: it.price,
+          quantity: it.requested_qty,
+          image: order.images?.[0]?.image_url || '/products/placeholder.svg',
+        })),
+        subtotal: estimatedTotal,
+        deliveryFee: order.delivery_fee || 0,
+        taxes: 0,
+        grandTotal: estimatedTotal + (order.delivery_fee || 0),
+        final_total: estimatedTotal + (order.delivery_fee || 0),
+        address: {
+          fullName: order.customer_name,
+          phone: order.customer_phone,
+          mobileNumber: order.customer_phone,
+          streetArea: order.address,
+          city: 'Nellore',
+        },
+        slot: order.order_type === 'pickup' ? 'Store Pickup' : 'Standard Delivery',
+        paymentMethod: (order.payment_method as any) || 'Cash on Delivery',
+        distance_km: order.distance_km,
+        zone_min_order: order.zone_min_order,
+        orderType: 'slip',
+      });
+    } catch (mirrorErr) {
+      console.warn('[serverSlipOrders] Error mirroring order to serverOrderStore:', mirrorErr);
+    }
 
     return order;
   },
@@ -704,38 +826,7 @@ export const serverSlipOrders = {
     }
 
     // Sync to Supabase if configured
-    if (isSupabaseConfigured()) {
-      try {
-        await supabase
-          .from('slip_orders')
-          .update({
-            subtotal: amount,
-            delivery_fee: fee,
-            estimated_total: grandTotal,
-            final_total: grandTotal,
-            billed_by: order.billed_by,
-            admin_notes: order.admin_notes,
-            status: order.status,
-            updated_at: nowIso,
-          })
-          .eq('id', order.id);
-
-        await supabase.from('slip_items').delete().eq('slip_order_id', order.id);
-        await supabase.from('slip_items').insert({
-          id: aggregateItem.id,
-          slip_order_id: order.id,
-          name: aggregateItem.name,
-          requested_qty: aggregateItem.requested_qty,
-          packed_qty: aggregateItem.packed_qty,
-          unit: aggregateItem.unit,
-          price: aggregateItem.price,
-          available: aggregateItem.available,
-          created_at: nowIso,
-        });
-      } catch (sbErr) {
-        console.warn('[serverSlipOrders] Supabase sync note in saveAggregateBill:', sbErr);
-      }
-    }
+    await syncSlipOrderToSupabase(order);
 
     return order;
   },
@@ -764,6 +855,7 @@ export const serverSlipOrders = {
 
     // Mirror as standard order into serverOrderStore so packer and admin orders see it
     try {
+      const orderTotal = Number(order.final_total || order.estimated_total || (order.subtotal + (order.delivery_fee || 0)));
       await serverOrderStore.createPendingOrder({
         orderId: order.id,
         merchantOrderId: `MT_${order.id}`,
@@ -773,13 +865,13 @@ export const serverSlipOrders = {
           unit: it.unit,
           price: it.price,
           quantity: it.requested_qty,
-          image: '/products/placeholder.svg',
+          image: order.images?.[0]?.image_url || '/products/placeholder.svg',
         })),
         subtotal: order.subtotal,
-        deliveryFee: 0,
+        deliveryFee: order.delivery_fee || 0,
         taxes: 0,
-        grandTotal: order.subtotal,
-        final_total: order.subtotal,
+        grandTotal: orderTotal,
+        final_total: orderTotal,
         address: {
           fullName: order.customer_name,
           phone: order.customer_phone,
@@ -788,7 +880,7 @@ export const serverSlipOrders = {
           city: 'Nellore',
         },
         slot: order.order_type === 'pickup' ? 'Store Pickup' : 'Standard Delivery',
-        paymentMethod: 'Cash on Delivery',
+        paymentMethod: (order.payment_method as any) || 'Cash on Delivery',
         distance_km: order.distance_km,
         zone_min_order: order.zone_min_order,
         orderType: 'slip',

@@ -68,6 +68,12 @@ export async function PATCH(req: NextRequest, { params }: Props) {
         );
       }
 
+      // Notify customer if moved to awaiting confirmation or bill updated
+      try {
+        const { serverPushService } = await import('@/lib/serverPushService');
+        await serverPushService.sendSlipPushNotification(updated, 'BILL_READY');
+      } catch {}
+
       return NextResponse.json({
         success: true,
         order: updated,

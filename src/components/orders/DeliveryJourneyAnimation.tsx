@@ -12,18 +12,57 @@ export interface JourneyInfo {
   description: string;
 }
 
-export function getJourneyStage(status: string): JourneyInfo {
+export function getJourneyStage(status: string, orderType?: string): JourneyInfo {
   const s = (status || '').toUpperCase();
+  const isPickup = orderType === 'pickup';
 
+  // 1. DELIVERED / COMPLETED
   if (s === 'DELIVERED') {
     return {
       stage: 'delivered',
       stepNumber: 4,
-      title: 'Delivered at Doorstep 🎉',
-      description: 'Your groceries have been safely handed over at your doorstep. Enjoy your fresh order!',
+      title: isPickup ? 'Picked Up at Store 🎉' : 'Delivered at Doorstep 🎉',
+      description: isPickup
+        ? 'Your groceries have been safely handed over at G1mart counter. Thank you for shopping with G1mart!'
+        : 'Your groceries have been safely handed over at your doorstep. Enjoy your fresh order!',
     };
   }
 
+  // 2. STORE PICKUP WORKFLOW
+  if (isPickup) {
+    if (s === 'PACKED' || s === 'READY_FOR_PICKUP') {
+      return {
+        stage: 'packing',
+        stepNumber: 3,
+        title: 'Ready for Pickup at Store 🏬',
+        description: 'Your groceries are packed and ready at G1mart Supermarket counter. Show your 4-digit PIN to collect!',
+      };
+    }
+    if (s === 'PACKING') {
+      return {
+        stage: 'packing',
+        stepNumber: 2,
+        title: 'Packing Fresh Groceries 🛍️',
+        description: 'Our store staff is picking and packing your items fresh for store pickup.',
+      };
+    }
+    if (s === 'CONFIRMED') {
+      return {
+        stage: 'reviewing',
+        stepNumber: 2,
+        title: 'Order Confirmed by Store',
+        description: 'Store manager confirmed your order. Items are queued for fresh packing.',
+      };
+    }
+    return {
+      stage: 'received',
+      stepNumber: 1,
+      title: 'Order Placed & Confirmed',
+      description: 'We received your order. G1mart store team is preparing your items for store pickup.',
+    };
+  }
+
+  // 3. HOME DELIVERY WORKFLOW
   if (
     s === 'OUT_FOR_DELIVERY' ||
     s === 'OUT FOR DELIVERY' ||
@@ -39,12 +78,12 @@ export function getJourneyStage(status: string): JourneyInfo {
     };
   }
 
-  if (s === 'PACKED' || s === 'AWAITING_PAYMENT' || s === 'COD_PENDING' || s === 'PAID') {
+  if (s === 'PACKED') {
     return {
       stage: 'packing',
       stepNumber: 2,
-      title: 'Store team reviewing your list',
-      description: 'We are checking availability, pricing and packing your items with care.',
+      title: 'Order Packed & Sealed 📦',
+      description: 'Your order is securely packed into G1mart bags and waiting for delivery partner pickup.',
     };
   }
 
@@ -57,12 +96,31 @@ export function getJourneyStage(status: string): JourneyInfo {
     };
   }
 
-  if (s === 'BILLING' || s === 'AWAITING_CUSTOMER_CONFIRMATION' || s === 'CONFIRMED' || s === 'SLIP_RECEIVED') {
+  if (s === 'CONFIRMED') {
+    return {
+      stage: 'reviewing',
+      stepNumber: 2,
+      title: 'Order Confirmed by Store',
+      description: 'Store manager confirmed your order. Items are queued for fresh packing.',
+    };
+  }
+
+  // Slip Order specific statuses
+  if (s === 'BILLING' || s === 'AWAITING_CUSTOMER_CONFIRMATION' || s === 'SLIP_RECEIVED') {
     return {
       stage: 'reviewing',
       stepNumber: 2,
       title: 'Store team reviewing your list',
       description: 'We are checking availability, pricing and packing your items with care.',
+    };
+  }
+
+  if (s === 'AWAITING_PAYMENT' || s === 'COD_PENDING' || s === 'PAID') {
+    return {
+      stage: 'packing',
+      stepNumber: 2,
+      title: 'Order Confirmed & Prepared',
+      description: 'Items are verified and preparing for delivery handover.',
     };
   }
 
@@ -84,7 +142,8 @@ interface Props {
 
 export default function DeliveryJourneyAnimation({ status, orderType }: Props) {
   const [imgError, setImgError] = useState(false);
-  const journey = getJourneyStage(status);
+  const journey = getJourneyStage(status, orderType);
+  const isPickup = orderType === 'pickup';
 
   return (
     <section aria-label="Order tracking journey" className="w-full space-y-3">
@@ -263,7 +322,7 @@ export default function DeliveryJourneyAnimation({ status, orderType }: Props) {
                       journey.stepNumber >= 2 ? 'font-bold text-stone-900' : 'font-medium text-stone-500'
                     }`}
                   >
-                    Packing<br />Fresh Items
+                    {isPickup ? <>Packing<br />in Store</> : <>Packing<br />Fresh Items</>}
                   </p>
                 </div>
                 <div className="w-[25%] flex flex-col items-center">
@@ -272,7 +331,7 @@ export default function DeliveryJourneyAnimation({ status, orderType }: Props) {
                       journey.stepNumber >= 3 ? 'font-bold text-stone-900' : 'font-medium text-stone-500'
                     }`}
                   >
-                    Out for<br />Delivery
+                    {isPickup ? <>Ready for<br />Pickup</> : <>Out for<br />Delivery</>}
                   </p>
                 </div>
                 <div className="w-[23%] flex flex-col items-center">
@@ -281,7 +340,7 @@ export default function DeliveryJourneyAnimation({ status, orderType }: Props) {
                       journey.stepNumber >= 4 ? 'font-bold text-stone-900' : 'font-medium text-stone-500'
                     }`}
                   >
-                    Delivered<br />at Doorstep
+                    {isPickup ? <>Picked Up<br />at Store</> : <>Delivered<br />at Doorstep</>}
                   </p>
                 </div>
               </div>
@@ -300,8 +359,8 @@ export default function DeliveryJourneyAnimation({ status, orderType }: Props) {
         <div className="w-9 h-9 rounded-xl bg-white/90 text-[#1E6B2E] flex items-center justify-center shrink-0 mt-0.5 border border-[#86EFAC]/40 shadow-xs">
           {journey.stepNumber === 1 && <CheckCircle2 className="w-5 h-5 text-[#1E6B2E]" />}
           {journey.stepNumber === 2 && <Package className="w-5 h-5 text-[#1E6B2E]" />}
-          {journey.stepNumber === 3 && <Bike className="w-5 h-5 text-[#1E6B2E]" />}
-          {journey.stepNumber === 4 && <Home className="w-5 h-5 text-[#1E6B2E]" />}
+          {journey.stepNumber === 3 && (isPickup ? <Package className="w-5 h-5 text-[#1E6B2E]" /> : <Bike className="w-5 h-5 text-[#1E6B2E]" />)}
+          {journey.stepNumber === 4 && (isPickup ? <Check className="w-5 h-5 text-[#1E6B2E]" /> : <Home className="w-5 h-5 text-[#1E6B2E]" />)}
         </div>
 
         <div className="flex-1 min-w-0">

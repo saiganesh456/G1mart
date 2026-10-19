@@ -41,6 +41,15 @@ export default function HomeTab({
   audioEnabled,
   onToggleAudio,
 }: Props) {
+  // Helper: detect store pickup
+  const isOrderPickup = (o: Order) => Boolean(
+    o.orderType === 'pickup' ||
+    o.slot?.toLowerCase().includes('pickup') ||
+    o.address?.streetArea?.toLowerCase().includes('pickup') ||
+    o.address?.landmark?.toLowerCase().includes('pickup') ||
+    (o.address as any)?.orderType === 'pickup'
+  );
+
   // Real database-derived status counts
   const ordersToConfirm = orders.filter(
     (o) => !o.status || o.status === 'Order Placed' || o.status === 'New'
@@ -50,12 +59,23 @@ export default function HomeTab({
   const packingCount = orders.filter((o) => o.status === 'Packing').length;
   const ordersToPack = confirmedCount + packingCount;
 
-  const packedCount = orders.filter((o) => o.status === 'Packed').length;
+  // Packed store pickup orders awaiting customer counter pickup
+  const ordersReadyForPickup = orders.filter(
+    (o) => o.status === 'Packed' && isOrderPickup(o)
+  ).length;
+
+  // Packed doorstep delivery orders or in-transit rider orders
+  const packedDeliveryCount = orders.filter(
+    (o) => o.status === 'Packed' && !isOrderPickup(o)
+  ).length;
   const riderAssignedCount = orders.filter((o) => o.status === 'Rider Assigned').length;
   const outForDeliveryCount = orders.filter(
     (o) => o.status === 'Out for Delivery' || o.status === 'Order Dispatched'
   ).length;
-  const ordersToDeliver = packedCount + riderAssignedCount + outForDeliveryCount;
+  const ordersToDeliver = packedDeliveryCount + riderAssignedCount + outForDeliveryCount;
+
+  // Total ready orders (delivery + pickup)
+  const totalReadyOrders = ordersToDeliver + ordersReadyForPickup;
 
   const deliveredCount = orders.filter((o) => o.status === 'Delivered').length;
 
@@ -78,6 +98,8 @@ export default function HomeTab({
       o.status !== 'Delivered'
   );
   const pendingCodTotal = pendingCodOrders.reduce((sum, o) => sum + (o.grandTotal || 0), 0);
+  const pendingCodPickups = pendingCodOrders.filter(isOrderPickup).length;
+  const pendingCodDeliveries = pendingCodOrders.length - pendingCodPickups;
 
   const completedRevenue = orders
     .filter(
@@ -170,7 +192,7 @@ export default function HomeTab({
           <span className="text-xs font-semibold text-stone-600 block mt-0.5">To pack</span>
         </div>
 
-        {/* To Deliver */}
+        {/* Ready for Delivery / Pickup */}
         <div
           onClick={() => onNavigateToOrders('Ready for delivery')}
           className="bg-white p-4 rounded-2xl border border-stone-200/90 shadow-2xs hover:border-teal-500 cursor-pointer transition-all active:scale-[0.98]"
@@ -178,8 +200,23 @@ export default function HomeTab({
           <div className="w-7 h-7 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center">
             <Truck className="w-4 h-4" />
           </div>
-          <p className="text-2xl font-black text-stone-900 mt-2">{ordersToDeliver}</p>
-          <span className="text-xs font-semibold text-stone-600 block mt-0.5">To deliver</span>
+          <p className="text-2xl font-black text-stone-900 mt-2">{totalReadyOrders}</p>
+          <div className="flex items-center justify-between mt-0.5">
+            <span className="text-xs font-semibold text-stone-600">
+              {ordersReadyForPickup > 0 && ordersToDeliver === 0
+                ? 'Ready for pickup'
+                : ordersToDeliver > 0 && ordersReadyForPickup === 0
+                ? 'To deliver'
+                : 'Ready for handover'}
+            </span>
+            {(ordersReadyForPickup > 0 || ordersToDeliver > 0) && (
+              <span className="text-[10px] text-stone-400 font-bold truncate">
+                {ordersToDeliver > 0 ? `${ordersToDeliver} delivery` : ''}
+                {ordersToDeliver > 0 && ordersReadyForPickup > 0 ? ' • ' : ''}
+                {ordersReadyForPickup > 0 ? `${ordersReadyForPickup} pickup` : ''}
+              </span>
+            )}
+          </div>
         </div>
       </div>
 
@@ -204,15 +241,22 @@ export default function HomeTab({
 
       {/* 5. FINANCIAL & STORE VOLUME SUMMARIES (Secondary, lower down) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-        {/* COD cash to collect */}
+        {/* Unpaid cash to collect upon handover */}
         <div className="bg-white p-4 rounded-2xl border border-stone-200/90 shadow-2xs flex items-center justify-between">
           <div>
-            <span className="text-[10px] font-black uppercase text-stone-400 tracking-wider">
-              COD Cash to Collect
-            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-black uppercase text-stone-400 tracking-wider">
+                Unpaid Cash to Collect
+              </span>
+              <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-100 text-amber-900">
+                Pending Handover
+              </span>
+            </div>
             <p className="text-xl font-black text-amber-800 mt-0.5">₹{pendingCodTotal}</p>
             <span className="text-[11px] font-medium text-stone-500">
-              {pendingCodOrders.length} pending cash deliveries
+              {pendingCodOrders.length === 0
+                ? 'No pending cash orders'
+                : `${pendingCodOrders.length} orders awaiting payment (${pendingCodDeliveries} delivery · ${pendingCodPickups} store pickup)`}
             </span>
           </div>
           <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center">
@@ -223,12 +267,17 @@ export default function HomeTab({
         {/* Completed volume */}
         <div className="bg-white p-4 rounded-2xl border border-stone-200/90 shadow-2xs flex items-center justify-between">
           <div>
-            <span className="text-[10px] font-black uppercase text-stone-400 tracking-wider">
-              Completed Orders
-            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[10px] font-black uppercase text-stone-400 tracking-wider">
+                Collected &amp; Completed
+              </span>
+              <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-900">
+                Verified
+              </span>
+            </div>
             <p className="text-xl font-black text-emerald-800 mt-0.5">₹{completedRevenue}</p>
             <span className="text-[11px] font-medium text-stone-500">
-              {deliveredCount} delivered orders
+              {deliveredCount} orders completed &amp; handed over
             </span>
           </div>
           <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">

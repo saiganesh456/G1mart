@@ -227,7 +227,7 @@ export interface Order {
   zone_min_order?: number;
   codFee?: number;
   cod_fee?: number;
-  orderType?: 'standard' | 'slip';
+  orderType?: 'standard' | 'slip' | 'pickup' | 'delivery';
   type?: 'standard' | 'slip';
   isPaid?: boolean;
   paidAmount?: number;

@@ -64,10 +64,13 @@ export async function POST(
           serverOrderStore.loadFromDisk();
           order = serverOrderStore.getOrder(id);
         }
+        if (!order) {
+          order = await serverOrderStore.getOrderAsync(id);
+        }
         if (!order && body.orderFallback) {
-          expectedOtp = body.orderFallback.deliveryOtp;
+          expectedOtp = body.orderFallback.deliveryOtp || body.orderFallback.address?._deliveryOtp;
         } else {
-          expectedOtp = order?.deliveryOtp;
+          expectedOtp = order?.deliveryOtp || (order?.address as any)?._deliveryOtp;
         }
       }
 
@@ -83,11 +86,13 @@ export async function POST(
       }
     }
 
+    const effectiveRider = assignedRider || body.orderFallback?.assignedRider;
+
     let result = await serverOrderStore.updateOrderStatus(
       id,
       status as OrderStatus,
       staffIdentifier || 'Store Admin',
-      assignedRider
+      effectiveRider
     );
 
     // If order was missing from server cache but client sent orderFallback, hydrate and retry
@@ -98,7 +103,7 @@ export async function POST(
           id,
           status as OrderStatus,
           staffIdentifier || 'Store Admin',
-          assignedRider
+          effectiveRider
         );
       } catch {}
     }

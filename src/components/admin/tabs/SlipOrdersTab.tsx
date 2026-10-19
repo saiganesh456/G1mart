@@ -33,6 +33,8 @@ import {
   ArrowLeft,
   ChevronDown,
   Info,
+  Zap,
+  Receipt,
 } from 'lucide-react';
 import type { SlipOrder, SlipItem, SlipOrderStatus } from '@/types/slipOrder';
 import type { Product } from '@/types';
@@ -75,9 +77,9 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
       id?: string;
       productId?: string | null;
       name: string;
-      requestedQty: number;
+      requestedQty: number | string;
       unit: string;
-      price: number;
+      price: number | string;
       available: boolean;
       substituteNote?: string;
     }>
@@ -87,6 +89,12 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
   const [actionSuccess, setActionSuccess] = useState<string | null>(null);
   const [actionError, setActionError] = useState<string | null>(null);
 
+  // Billing Mode state: 'total' | 'itemized'
+  const [billingMode, setBillingMode] = useState<'total' | 'itemized'>('total');
+  const [aggregateCount, setAggregateCount] = useState<number | string>(1);
+  const [aggregateAmount, setAggregateAmount] = useState<number | string>('');
+  const [aggregateDeliveryFee, setAggregateDeliveryFee] = useState<number | string>(0);
+
   // Catalog item search state
   const [catalogSearch, setCatalogSearch] = useState('');
   const [showCatalogDropdown, setShowCatalogDropdown] = useState(false);
@@ -94,9 +102,9 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
   // Manual item addition state
   const [showManualModal, setShowManualModal] = useState(false);
   const [manualName, setManualName] = useState('');
-  const [manualQty, setManualQty] = useState(1);
+  const [manualQty, setManualQty] = useState<number | string>(1);
   const [manualUnit, setManualUnit] = useState('1 unit');
-  const [manualPrice, setManualPrice] = useState(50);
+  const [manualPrice, setManualPrice] = useState<number | string>(50);
 
   // Zoomable Slip Viewer state
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -108,7 +116,7 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
 
   // Packer Checklist state
   const [packerChecked, setPackerChecked] = useState<Record<string, boolean>>({});
-  const [packerPackedQty, setPackerPackedQty] = useState<Record<string, number>>({});
+  const [packerPackedQty, setPackerPackedQty] = useState<Record<string, number | string>>({});
   const [packerAvailable, setPackerAvailable] = useState<Record<string, boolean>>({});
   const [packerSubstituteNotes, setPackerSubstituteNotes] = useState<Record<string, string>>({});
   const [packerSaving, setPackerSaving] = useState(false);
@@ -188,6 +196,35 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
       setPanOffset({ x: 0, y: 0 });
       setAdminNotes(selectedSlip.admin_notes || '');
 
+      const isAggregate =
+        (selectedSlip.items?.length === 1 &&
+          (String(selectedSlip.items[0].id).startsWith('slip_item_') ||
+            (selectedSlip.items[0].name || '').includes('as per customer slip'))) ||
+        Boolean(selectedSlip.total_items && selectedSlip.total_items > 0);
+
+      if (isAggregate) {
+        setBillingMode('total');
+        setAggregateCount(selectedSlip.total_items || 1);
+        setAggregateAmount(
+          selectedSlip.subtotal ||
+            selectedSlip.final_total ||
+            selectedSlip.estimated_total ||
+            selectedSlip.items?.[0]?.price ||
+            ''
+        );
+        setAggregateDeliveryFee(selectedSlip.delivery_fee || 0);
+      } else if (selectedSlip.items && selectedSlip.items.length > 0) {
+        setBillingMode('itemized');
+        setAggregateCount(selectedSlip.items.length);
+        setAggregateAmount(selectedSlip.subtotal || selectedSlip.estimated_total || '');
+        setAggregateDeliveryFee(selectedSlip.delivery_fee || 0);
+      } else {
+        setBillingMode('total');
+        setAggregateCount(1);
+        setAggregateAmount('');
+        setAggregateDeliveryFee(0);
+      }
+
       const currentItems = (selectedSlip.items || []).map((it) => ({
         id: it.id,
         productId: it.product_id,
@@ -202,13 +239,13 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
 
       // Initialize packer checklist
       const initialChecked: Record<string, boolean> = {};
-      const initialPackedQty: Record<string, number> = {};
+      const initialPackedQty: Record<string, number | string> = {};
       const initialAvailable: Record<string, boolean> = {};
       const initialNotes: Record<string, string> = {};
       currentItems.forEach((it) => {
         const key = it.id || it.name;
         initialChecked[key] = it.available;
-        initialPackedQty[key] = it.requestedQty;
+        initialPackedQty[key] = Number(it.requestedQty) || 1;
         initialAvailable[key] = it.available;
         initialNotes[key] = it.substituteNote || '';
       });
@@ -268,9 +305,9 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
       {
         productId: null,
         name: manualName.trim(),
-        requestedQty: Number(manualQty) || 1,
+        requestedQty: Math.max(1, Number(manualQty) || 1),
         unit: manualUnit.trim() || 'unit',
-        price: Number(manualPrice) || 0,
+        price: Math.max(0, Number(manualPrice) || 0),
         available: true,
         substituteNote: '',
       },
@@ -294,9 +331,18 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
     );
   };
 
-  // Save bill items (Action: Save Bill)
-  const handleSaveBill = async (moveStatus?: 'BILLING' | 'AWAITING_CUSTOMER_CONFIRMATION') => {
+  // Save Quick Total Bill (Action: Save Draft Total Bill)
+  const handleSaveTotalBill = async (moveStatus?: 'BILLING' | 'AWAITING_CUSTOMER_CONFIRMATION') => {
     if (!selectedSlip) return;
+    const count = Math.max(1, Number(aggregateCount) || 1);
+    const amount = Math.max(0, Number(aggregateAmount) || 0);
+    const fee = Math.max(0, Number(aggregateDeliveryFee) || 0);
+
+    if (amount <= 0) {
+      setActionError('Please enter a total grocery bill amount greater than ₹0');
+      return;
+    }
+
     setIsSaving(true);
     setActionSuccess(null);
     setActionError(null);
@@ -309,7 +355,9 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
           ...getAdminHeaders(),
         },
         body: JSON.stringify({
-          items: billedItems,
+          totalItems: count,
+          groceryAmount: amount,
+          deliveryFee: fee,
           adminNotes,
           billedBy: 'Store Staff',
           moveStatus: moveStatus || 'BILLING',
@@ -320,7 +368,119 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
       if (res.ok && data.order) {
         setSelectedSlip(data.order);
         setOrders((prev) => prev.map((o) => (o.id === data.order.id ? data.order : o)));
-        setActionSuccess('Bill saved successfully with ' + billedItems.length + ' items.');
+        setActionSuccess(`Total bill of ₹${amount + fee} for ${count} items saved successfully.`);
+        setTimeout(() => setActionSuccess(null), 3500);
+      } else {
+        setActionError(data.error || 'Failed to save total bill');
+      }
+    } catch (err: any) {
+      setActionError(err.message || 'Error saving total bill');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Confirm Quick Total Bill by Call (Action: Confirm by Call)
+  const handleConfirmTotalBillByCall = async () => {
+    if (!selectedSlip) return;
+    const count = Math.max(1, Number(aggregateCount) || 1);
+    const amount = Math.max(0, Number(aggregateAmount) || 0);
+    const fee = Math.max(0, Number(aggregateDeliveryFee) || 0);
+
+    if (amount <= 0) {
+      setActionError('Please enter a total grocery bill amount before confirming');
+      return;
+    }
+
+    setIsSaving(true);
+    setActionSuccess(null);
+    setActionError(null);
+
+    try {
+      // 1. First save the aggregate bill
+      await fetch(`/api/admin/slip-orders/${selectedSlip.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminHeaders(),
+        },
+        body: JSON.stringify({
+          totalItems: count,
+          groceryAmount: amount,
+          deliveryFee: fee,
+          adminNotes,
+          billedBy: 'Store Staff',
+          moveStatus: 'AWAITING_CUSTOMER_CONFIRMATION',
+        }),
+      });
+
+      // 2. Mark confirmed by phone call
+      const res = await fetch(`/api/admin/slip-orders/${selectedSlip.id}/confirm-call`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminHeaders(),
+        },
+        body: JSON.stringify({
+          staffName: 'Store Staff',
+          notes: `Customer confirmed total bill of ₹${amount + fee} (${count} items) via phone call`,
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.order) {
+        setSelectedSlip(data.order);
+        setOrders((prev) => prev.map((o) => (o.id === data.order.id ? data.order : o)));
+        setActionSuccess(`Order #${selectedSlip.id} confirmed by call! Moved to Packer queue.`);
+        setTimeout(() => setActionSuccess(null), 4000);
+      } else {
+        setActionError(data.error || 'Failed to confirm order');
+      }
+    } catch (err: any) {
+      setActionError(err.message || 'Error confirming total bill');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Save bill items (Action: Save Bill)
+  const handleSaveBill = async (moveStatus?: 'BILLING' | 'AWAITING_CUSTOMER_CONFIRMATION') => {
+    if (!selectedSlip) return;
+    setIsSaving(true);
+    setActionSuccess(null);
+    setActionError(null);
+
+    try {
+      const sanitizedItems = billedItems.map((it) => ({
+        id: it.id,
+        productId: it.productId,
+        name: it.name,
+        requestedQty: Math.max(1, Number(it.requestedQty) || 1),
+        unit: it.unit || 'unit',
+        price: Math.max(0, Number(it.price) || 0),
+        available: it.available !== false,
+        substituteNote: it.substituteNote || '',
+      }));
+
+      const res = await fetch(`/api/admin/slip-orders/${selectedSlip.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminHeaders(),
+        },
+        body: JSON.stringify({
+          items: sanitizedItems,
+          adminNotes,
+          billedBy: 'Store Staff',
+          moveStatus: moveStatus || 'BILLING',
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.order) {
+        setSelectedSlip(data.order);
+        setOrders((prev) => prev.map((o) => (o.id === data.order.id ? data.order : o)));
+        setActionSuccess('Bill saved successfully with ' + sanitizedItems.length + ' items.');
         setTimeout(() => setActionSuccess(null), 3500);
       } else {
         setActionError(data.error || 'Failed to save bill');
@@ -340,6 +500,17 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
     setActionError(null);
 
     try {
+      const sanitizedItems = billedItems.map((it) => ({
+        id: it.id,
+        productId: it.productId,
+        name: it.name,
+        requestedQty: Math.max(1, Number(it.requestedQty) || 1),
+        unit: it.unit || 'unit',
+        price: Math.max(0, Number(it.price) || 0),
+        available: it.available !== false,
+        substituteNote: it.substituteNote || '',
+      }));
+
       // First save items if modified
       await fetch(`/api/admin/slip-orders/${selectedSlip.id}`, {
         method: 'PATCH',
@@ -348,7 +519,7 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
           ...getAdminHeaders(),
         },
         body: JSON.stringify({
-          items: billedItems,
+          items: sanitizedItems,
           adminNotes,
           billedBy: 'Store Staff',
           moveStatus: 'AWAITING_CUSTOMER_CONFIRMATION',
@@ -1018,279 +1189,516 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                     </div>
                   </div>
 
-                  {/* Catalog Item Search & Add Bar */}
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <label className="text-xs font-black text-stone-800">
-                        Add Items from Supermarket Catalog
-                      </label>
-                      <button
-                        type="button"
-                        onClick={() => setShowManualModal(true)}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-[#2E7D32] hover:underline"
-                      >
-                        <Plus className="w-3.5 h-3.5" />
-                        <span>+ Custom Item</span>
-                      </button>
-                    </div>
-
-                    <div className="relative">
-                      <Search className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="text"
-                        value={catalogSearch}
-                        onFocus={() => setShowCatalogDropdown(true)}
-                        onChange={(e) => {
-                          setCatalogSearch(e.target.value);
-                          setShowCatalogDropdown(true);
-                        }}
-                        placeholder="Type grocery name (e.g., Aashirvaad Atta, Fortune Oil, Amul Milk)..."
-                        className="w-full pl-9 pr-3 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
-                      />
-
-                      {/* Dropdown Auto-suggest */}
-                      {showCatalogDropdown && matchingCatalogProducts.length > 0 && (
-                        <div className="absolute z-30 left-0 right-0 mt-1 bg-white rounded-2xl border border-stone-200 shadow-lg divide-y divide-stone-100 max-h-60 overflow-y-auto">
-                          {matchingCatalogProducts.map((p) => (
-                            <button
-                              key={p.id}
-                              type="button"
-                              onClick={() => handleAddCatalogItem(p)}
-                              className="w-full px-3.5 py-2.5 flex items-center justify-between text-left hover:bg-stone-50 transition-colors"
-                            >
-                              <div className="flex items-center gap-2.5">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
-                                  src={p.image || '/products/placeholder.svg'}
-                                  alt={p.name}
-                                  className="w-8 h-8 object-contain rounded-md border border-stone-200"
-                                />
-                                <div>
-                                  <p className="text-xs font-bold text-stone-900 line-clamp-1">{p.name}</p>
-                                  <p className="text-[10px] text-stone-500">
-                                    {p.unit || '1 unit'} · {p.category}
-                                  </p>
-                                </div>
-                              </div>
-                              <span className="text-xs font-black text-[#2E7D32]">₹{p.price}</span>
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+                  {/* Billing Mode Switcher (Quick Total Bill vs Itemized Bill) */}
+                  <div className="flex items-center gap-2 p-1.5 bg-stone-100/90 rounded-2xl border border-stone-200/70">
+                    <button
+                      type="button"
+                      onClick={() => setBillingMode('total')}
+                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-black transition-all ${
+                        billingMode === 'total'
+                          ? 'bg-white text-stone-900 shadow-xs border border-stone-200'
+                          : 'text-stone-600 hover:text-stone-900'
+                      }`}
+                    >
+                      <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
+                      <span>⚡ Quick Total Bill</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setBillingMode('itemized')}
+                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-black transition-all ${
+                        billingMode === 'itemized'
+                          ? 'bg-white text-stone-900 shadow-xs border border-stone-200'
+                          : 'text-stone-600 hover:text-stone-900'
+                      }`}
+                    >
+                      <Layers className="w-4 h-4 text-[#2E7D32]" />
+                      <span>📝 Itemized Bill</span>
+                    </button>
                   </div>
 
-                  {/* Billed Items List */}
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between text-xs font-black text-stone-800">
-                      <span>Billed Line Items ({billedItems.length})</span>
-                      <span className="text-[11px] text-stone-500 font-medium">
-                        Tick checkbox or toggle availability if out of stock
-                      </span>
-                    </div>
-
-                    {billedItems.length === 0 ? (
-                      <div className="p-8 text-center bg-stone-50 rounded-2xl border border-dashed border-stone-200">
-                        <ShoppingBag className="w-8 h-8 text-stone-300 mx-auto mb-1.5" />
-                        <p className="text-xs text-stone-500 font-bold">No items added to bill yet</p>
-                        <p className="text-[11px] text-stone-400">
-                          Search catalog above or click &quot;+ Custom Item&quot; to transcribe customer list
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="space-y-2 max-h-[360px] overflow-y-auto pr-1">
-                        {billedItems.map((item, idx) => (
-                          <div
-                            key={idx}
-                            className={`p-3 rounded-2xl border transition-all ${
-                              item.available
-                                ? 'bg-white border-stone-200'
-                                : 'bg-stone-50 border-stone-200/60 opacity-70'
-                            }`}
-                          >
-                            <div className="flex items-start justify-between gap-2">
-                              {/* Left: availability check + item name */}
-                              <div className="flex items-start gap-2 flex-1">
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    handleUpdateItemField(idx, 'available', !item.available)
-                                  }
-                                  className="mt-0.5 text-stone-400 hover:text-stone-700"
-                                >
-                                  {item.available ? (
-                                    <CheckSquare className="w-4 h-4 text-[#2E7D32]" />
-                                  ) : (
-                                    <Square className="w-4 h-4 text-stone-400" />
-                                  )}
-                                </button>
-                                <div className="flex-1">
-                                  <input
-                                    type="text"
-                                    value={item.name}
-                                    onChange={(e) =>
-                                      handleUpdateItemField(idx, 'name', e.target.value)
-                                    }
-                                    className={`text-xs font-bold text-stone-900 bg-transparent w-full focus:outline-none border-b border-transparent focus:border-[#2E7D32] ${
-                                      !item.available ? 'line-through text-stone-400' : ''
-                                    }`}
-                                  />
-                                  <div className="flex items-center gap-2 mt-1">
-                                    <span className="text-[10px] text-stone-400 font-medium">Qty:</span>
-                                    <input
-                                      type="number"
-                                      min={1}
-                                      value={item.requestedQty}
-                                      onChange={(e) =>
-                                        handleUpdateItemField(
-                                          idx,
-                                          'requestedQty',
-                                          Math.max(1, Number(e.target.value))
-                                        )
-                                      }
-                                      className="w-12 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-xs font-bold text-center"
-                                    />
-                                    <input
-                                      type="text"
-                                      value={item.unit}
-                                      onChange={(e) =>
-                                        handleUpdateItemField(idx, 'unit', e.target.value)
-                                      }
-                                      placeholder="unit"
-                                      className="w-16 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-[11px] text-stone-600"
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* Right: Line Price & Total */}
-                              <div className="flex items-center gap-2 shrink-0">
-                                <div className="text-right">
-                                  <div className="flex items-center gap-1">
-                                    <span className="text-xs text-stone-400 font-bold">₹</span>
-                                    <input
-                                      type="number"
-                                      min={0}
-                                      value={item.price}
-                                      onChange={(e) =>
-                                        handleUpdateItemField(
-                                          idx,
-                                          'price',
-                                          Math.max(0, Number(e.target.value))
-                                        )
-                                      }
-                                      className="w-16 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-xs font-bold text-right"
-                                    />
-                                  </div>
-                                  <span className="text-[11px] font-black text-stone-900 block mt-0.5">
-                                    = ₹{item.available ? item.price * item.requestedQty : 0}
-                                  </span>
-                                </div>
-
-                                <button
-                                  type="button"
-                                  onClick={() => handleRemoveItem(idx)}
-                                  className="p-1 rounded-lg hover:bg-rose-50 text-stone-400 hover:text-rose-600 transition-colors"
-                                >
-                                  <Trash2 className="w-3.5 h-3.5" />
-                                </button>
-                              </div>
-                            </div>
-
-                            {/* Substitute Note / Unavailable toggle */}
-                            {!item.available && (
-                              <div className="mt-2 pt-2 border-t border-stone-200/60 flex items-center gap-2 text-xs">
-                                <span className="text-rose-600 font-bold text-[10px] shrink-0">
-                                  OUT OF STOCK:
-                                </span>
-                                <input
-                                  type="text"
-                                  value={item.substituteNote || ''}
-                                  onChange={(e) =>
-                                    handleUpdateItemField(idx, 'substituteNote', e.target.value)
-                                  }
-                                  placeholder="Substitute note (e.g. Offered alternate brand/size to customer)..."
-                                  className="w-full px-2 py-0.5 bg-rose-50/50 border border-rose-200 rounded text-[11px] text-rose-900 focus:outline-none"
-                                />
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Staff Notes */}
-                  <div>
-                    <label className="text-xs font-black text-stone-700 block mb-1">
-                      Staff / Store Notes
-                    </label>
-                    <textarea
-                      value={adminNotes}
-                      onChange={(e) => setAdminNotes(e.target.value)}
-                      rows={2}
-                      placeholder="Notes from customer call or special packing instructions..."
-                      className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
-                    />
-                  </div>
-
-                  {/* LIVE ESTIMATED TOTAL & ZONE MINIMUM VERIFICATION BANNER */}
-                  <div className="p-4 rounded-2xl border space-y-2 bg-stone-50 border-stone-200">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="font-bold text-stone-600">Items Subtotal (Available):</span>
-                      <span className="font-black text-sm text-stone-900">₹{estimatedTotal}</span>
-                    </div>
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="font-bold text-stone-600">Delivery Fee:</span>
-                      <span className="font-black text-emerald-700">FREE (₹0)</span>
-                    </div>
-                    <div className="flex items-center justify-between text-xs border-t border-stone-200 pt-1.5">
-                      <span className="font-black text-stone-800">Zone Minimum Required:</span>
-                      <span className="font-black text-stone-800">₹{zoneMinOrder}</span>
-                    </div>
-
-                    {/* Shortfall Alert vs Success Pill */}
-                    {hasShortfall ? (
-                      <div className="p-2.5 bg-amber-50 border border-amber-300 rounded-xl text-amber-900 text-xs font-bold flex items-start gap-2">
-                        <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  {/* MODE A: QUICK TOTAL BILL */}
+                  {billingMode === 'total' ? (
+                    <div className="space-y-4 animate-in fade-in duration-150">
+                      <div className="p-3.5 bg-emerald-50/70 border border-emerald-200 rounded-2xl text-xs text-emerald-950 flex items-start gap-2.5">
+                        <Info className="w-4 h-4 text-[#2E7D32] shrink-0 mt-0.5" />
                         <div>
-                          <span>
-                            ⚠️ Shortfall of ₹{shortfallAmount} for delivery zone ({selectedSlip.distance_km} km)!
-                          </span>
-                          <p className="text-[11px] text-amber-800 font-normal mt-0.5">
-                            Customer must meet ₹{zoneMinOrder} zone minimum. Call the customer to suggest adding items.
+                          <p className="font-bold text-stone-900">Store Counter / Fast Billing</p>
+                          <p className="text-[11px] text-stone-600 mt-0.5">
+                            Inspect customer list photo on the left. Enter the total number of items and the total bill calculated from your store counter. Customer tracking will immediately update with the verified bill.
                           </p>
                         </div>
                       </div>
-                    ) : (
-                      <div className="p-2 bg-emerald-50 border border-emerald-300 rounded-xl text-emerald-900 text-xs font-bold flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-[#2E7D32] shrink-0" />
-                        <span>✓ Meets or exceeds zone minimum of ₹{zoneMinOrder}!</span>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        <div>
+                          <label className="text-xs font-black text-stone-800 block mb-1.5">
+                            Number of Grocery Items in Slip
+                          </label>
+                          <div className="relative">
+                            <Package className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                            <input
+                              type="number"
+                              min={1}
+                              value={aggregateCount}
+                              onChange={(e) => setAggregateCount(e.target.value)}
+                              onBlur={() => {
+                                if (
+                                  aggregateCount === '' ||
+                                  Number(aggregateCount) < 1 ||
+                                  isNaN(Number(aggregateCount))
+                                ) {
+                                  setAggregateCount(1);
+                                }
+                              }}
+                              placeholder="e.g. 5"
+                              className="w-full pl-9 pr-3 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm font-black text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                            />
+                          </div>
+                          <p className="text-[10px] text-stone-500 mt-1 font-medium">
+                            Total count of items requested
+                          </p>
+                        </div>
+
+                        <div>
+                          <label className="text-xs font-black text-stone-800 block mb-1.5">
+                            Total Grocery Bill Amount (₹)
+                          </label>
+                          <div className="relative">
+                            <span className="text-xs font-black text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2">
+                              ₹
+                            </span>
+                            <input
+                              type="number"
+                              min={0}
+                              value={aggregateAmount}
+                              onChange={(e) => setAggregateAmount(e.target.value)}
+                              onBlur={() => {
+                                if (
+                                  aggregateAmount === '' ||
+                                  Number(aggregateAmount) < 0 ||
+                                  isNaN(Number(aggregateAmount))
+                                ) {
+                                  setAggregateAmount(0);
+                                }
+                              }}
+                              placeholder="e.g. 650"
+                              className="w-full pl-8 pr-3 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-base font-black text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                            />
+                          </div>
+                          <p className="text-[10px] text-stone-500 mt-1 font-medium">
+                            Store subtotal amount calculated for all items
+                          </p>
+                        </div>
                       </div>
-                    )}
-                  </div>
 
-                  {/* ACTION FOOTER BUTTONS */}
-                  <div className="flex flex-col sm:flex-row items-center gap-2.5 pt-2">
-                    <button
-                      type="button"
-                      disabled={isSaving}
-                      onClick={() => handleSaveBill('BILLING')}
-                      className="w-full sm:flex-1 py-3 px-4 bg-stone-100 hover:bg-stone-200 text-stone-800 font-black rounded-2xl text-xs transition-colors border border-stone-300"
-                    >
-                      {isSaving ? 'Saving...' : 'Save Draft Bill'}
-                    </button>
+                      <div className="max-w-xs">
+                        <label className="text-xs font-black text-stone-800 block mb-1.5">
+                          Delivery Fee (₹)
+                        </label>
+                        <div className="relative">
+                          <span className="text-xs font-black text-stone-400 absolute left-3 top-1/2 -translate-y-1/2">
+                            ₹
+                          </span>
+                          <input
+                            type="number"
+                            min={0}
+                            value={aggregateDeliveryFee}
+                            onChange={(e) => setAggregateDeliveryFee(e.target.value)}
+                            onBlur={() => {
+                              if (
+                                aggregateDeliveryFee === '' ||
+                                Number(aggregateDeliveryFee) < 0 ||
+                                isNaN(Number(aggregateDeliveryFee))
+                              ) {
+                                setAggregateDeliveryFee(0);
+                              }
+                            }}
+                            placeholder="0"
+                            className="w-full pl-8 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                          />
+                        </div>
+                      </div>
 
-                    <button
-                      type="button"
-                      disabled={isSaving || billedItems.length === 0}
-                      onClick={handleMarkConfirmedByCall}
-                      className="w-full sm:flex-1 py-3 px-4 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black rounded-2xl text-xs transition-all shadow-xs flex items-center justify-center gap-1.5 disabled:opacity-50"
-                    >
-                      <Check className="w-4 h-4 stroke-[3]" />
-                      <span>Mark Confirmed by Call</span>
-                    </button>
-                  </div>
+                      {/* Staff Notes */}
+                      <div>
+                        <label className="text-xs font-black text-stone-700 block mb-1">
+                          Staff / Store Notes
+                        </label>
+                        <textarea
+                          value={adminNotes}
+                          onChange={(e) => setAdminNotes(e.target.value)}
+                          rows={2}
+                          placeholder="Special customer requests or call notes..."
+                          className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                        />
+                      </div>
+
+                      {/* Zone Minimum Verification Box */}
+                      {(() => {
+                        const countNum = Number(aggregateCount) || 1;
+                        const groceryNum = Number(aggregateAmount) || 0;
+                        const feeNum = Number(aggregateDeliveryFee) || 0;
+                        const grandTotal = groceryNum + feeNum;
+                        const hasAggShortfall = !isPickupOrder && groceryNum < zoneMinOrder;
+                        const aggShortfall = Math.max(0, zoneMinOrder - groceryNum);
+
+                        return (
+                          <div className="p-4 rounded-2xl border space-y-2 bg-stone-50 border-stone-200">
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="font-bold text-stone-600">
+                                Grocery Items ({countNum} {countNum === 1 ? 'item' : 'items'}):
+                              </span>
+                              <span className="font-black text-sm text-stone-900">₹{groceryNum}</span>
+                            </div>
+                            <div className="flex items-center justify-between text-xs">
+                              <span className="font-bold text-stone-600">Delivery Fee:</span>
+                              <span className="font-black text-stone-900">
+                                {feeNum > 0 ? `₹${feeNum}` : 'FREE (₹0)'}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between text-xs border-t border-stone-200 pt-1.5">
+                              <span className="font-black text-stone-900">Total Customer Payable:</span>
+                              <span className="font-black text-base text-[#1B5E20]">₹{grandTotal}</span>
+                            </div>
+                            <div className="flex items-center justify-between text-xs border-t border-stone-200/60 pt-1">
+                              <span className="font-bold text-stone-500">Zone Minimum Required:</span>
+                              <span className="font-black text-stone-700">₹{zoneMinOrder}</span>
+                            </div>
+
+                            {/* Shortfall Alert vs Success Pill */}
+                            {hasAggShortfall ? (
+                              <div className="p-2.5 bg-amber-50 border border-amber-300 rounded-xl text-amber-900 text-xs font-bold flex items-start gap-2">
+                                <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                                <div>
+                                  <span>
+                                    ⚠️ Shortfall of ₹{aggShortfall} for delivery zone ({selectedSlip.distance_km || 0} km)!
+                                  </span>
+                                  <p className="text-[11px] text-amber-800 font-normal mt-0.5">
+                                    Customer must meet ₹{zoneMinOrder} zone minimum. Suggest adding more items during confirmation call.
+                                  </p>
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="p-2 bg-emerald-50 border border-emerald-300 rounded-xl text-emerald-900 text-xs font-bold flex items-center gap-2">
+                                <CheckCircle2 className="w-4 h-4 text-[#2E7D32] shrink-0" />
+                                <span>✓ Meets or exceeds zone minimum of ₹{zoneMinOrder}!</span>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })()}
+
+                      {/* Quick Total Bill Action Buttons */}
+                      <div className="flex flex-col sm:flex-row items-center gap-2.5 pt-2">
+                        <button
+                          type="button"
+                          disabled={isSaving}
+                          onClick={() => handleSaveTotalBill('BILLING')}
+                          className="w-full sm:flex-1 py-3 px-4 bg-stone-100 hover:bg-stone-200 text-stone-800 font-black rounded-2xl text-xs transition-colors border border-stone-300"
+                        >
+                          {isSaving ? 'Saving...' : 'Save Draft Total Bill'}
+                        </button>
+
+                        <button
+                          type="button"
+                          disabled={isSaving || (Number(aggregateAmount) || 0) <= 0}
+                          onClick={handleConfirmTotalBillByCall}
+                          className="w-full sm:flex-1 py-3 px-4 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black rounded-2xl text-xs transition-all shadow-xs flex items-center justify-center gap-1.5 disabled:opacity-50"
+                        >
+                          <Check className="w-4 h-4 stroke-[3]" />
+                          <span>Confirm by Call &amp; Move to Packer</span>
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    /* MODE B: ITEMIZED BILL (SEARCH CATALOG) */
+                    <div className="space-y-4 animate-in fade-in duration-150">
+                      {/* Catalog Item Search & Add Bar */}
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <label className="text-xs font-black text-stone-800">
+                            Add Items from Supermarket Catalog
+                          </label>
+                          <button
+                            type="button"
+                            onClick={() => setShowManualModal(true)}
+                            className="inline-flex items-center gap-1 text-xs font-bold text-[#2E7D32] hover:underline"
+                          >
+                            <Plus className="w-3.5 h-3.5" />
+                            <span>+ Custom Item</span>
+                          </button>
+                        </div>
+
+                        <div className="relative">
+                          <Search className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                          <input
+                            type="text"
+                            value={catalogSearch}
+                            onFocus={() => setShowCatalogDropdown(true)}
+                            onChange={(e) => {
+                              setCatalogSearch(e.target.value);
+                              setShowCatalogDropdown(true);
+                            }}
+                            placeholder="Type grocery name (e.g., Aashirvaad Atta, Fortune Oil, Amul Milk)..."
+                            className="w-full pl-9 pr-3 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                          />
+
+                          {/* Dropdown Auto-suggest */}
+                          {showCatalogDropdown && matchingCatalogProducts.length > 0 && (
+                            <div className="absolute z-30 left-0 right-0 mt-1 bg-white rounded-2xl border border-stone-200 shadow-lg divide-y divide-stone-100 max-h-60 overflow-y-auto">
+                              {matchingCatalogProducts.map((p) => (
+                                <button
+                                  key={p.id}
+                                  type="button"
+                                  onClick={() => handleAddCatalogItem(p)}
+                                  className="w-full px-3.5 py-2.5 flex items-center justify-between text-left hover:bg-stone-50 transition-colors"
+                                >
+                                  <div className="flex items-center gap-2.5">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                      src={p.image || '/products/placeholder.svg'}
+                                      alt={p.name}
+                                      className="w-8 h-8 object-contain rounded-md border border-stone-200"
+                                    />
+                                    <div>
+                                      <p className="text-xs font-bold text-stone-900 line-clamp-1">{p.name}</p>
+                                      <p className="text-[10px] text-stone-500">
+                                        {p.unit || '1 unit'} · {p.category}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <span className="text-xs font-black text-[#2E7D32]">₹{p.price}</span>
+                                </button>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Billed Items List */}
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between text-xs font-black text-stone-800">
+                          <span>Billed Line Items ({billedItems.length})</span>
+                          <span className="text-[11px] text-stone-500 font-medium">
+                            Tick checkbox or toggle availability if out of stock
+                          </span>
+                        </div>
+
+                        {billedItems.length === 0 ? (
+                          <div className="p-8 text-center bg-stone-50 rounded-2xl border border-dashed border-stone-200">
+                            <ShoppingBag className="w-8 h-8 text-stone-300 mx-auto mb-1.5" />
+                            <p className="text-xs text-stone-500 font-bold">No items added to bill yet</p>
+                            <p className="text-[11px] text-stone-400">
+                              Search catalog above or click &quot;+ Custom Item&quot; to transcribe customer list
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="space-y-2 max-h-[360px] overflow-y-auto pr-1">
+                            {billedItems.map((item, idx) => (
+                              <div
+                                key={idx}
+                                className={`p-3 rounded-2xl border transition-all ${
+                                  item.available
+                                    ? 'bg-white border-stone-200'
+                                    : 'bg-stone-50 border-stone-200/60 opacity-70'
+                                }`}
+                              >
+                                <div className="flex items-start justify-between gap-2">
+                                  {/* Left: availability check + item name */}
+                                  <div className="flex items-start gap-2 flex-1">
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        handleUpdateItemField(idx, 'available', !item.available)
+                                      }
+                                      className="mt-0.5 text-stone-400 hover:text-stone-700"
+                                    >
+                                      {item.available ? (
+                                        <CheckSquare className="w-4 h-4 text-[#2E7D32]" />
+                                      ) : (
+                                        <Square className="w-4 h-4 text-stone-400" />
+                                      )}
+                                    </button>
+                                    <div className="flex-1">
+                                      <input
+                                        type="text"
+                                        value={item.name}
+                                        onChange={(e) =>
+                                          handleUpdateItemField(idx, 'name', e.target.value)
+                                        }
+                                        className={`text-xs font-bold text-stone-900 bg-transparent w-full focus:outline-none border-b border-transparent focus:border-[#2E7D32] ${
+                                          !item.available ? 'line-through text-stone-400' : ''
+                                        }`}
+                                      />
+                                      <div className="flex items-center gap-2 mt-1">
+                                        <span className="text-[10px] text-stone-400 font-medium">Qty:</span>
+                                        <input
+                                          type="number"
+                                          min={1}
+                                          value={item.requestedQty}
+                                          onChange={(e) =>
+                                            handleUpdateItemField(idx, 'requestedQty', e.target.value)
+                                          }
+                                          onBlur={() => {
+                                            if (
+                                              item.requestedQty === '' ||
+                                              Number(item.requestedQty) < 1 ||
+                                              isNaN(Number(item.requestedQty))
+                                            ) {
+                                              handleUpdateItemField(idx, 'requestedQty', 1);
+                                            }
+                                          }}
+                                          className="w-14 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-xs font-bold text-center focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                                        />
+                                        <input
+                                          type="text"
+                                          value={item.unit}
+                                          onChange={(e) =>
+                                            handleUpdateItemField(idx, 'unit', e.target.value)
+                                          }
+                                          placeholder="unit"
+                                          className="w-16 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-[11px] text-stone-600 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  {/* Right: Line Price & Total */}
+                                  <div className="flex items-center gap-2 shrink-0">
+                                    <div className="text-right">
+                                      <div className="flex items-center gap-1">
+                                        <span className="text-xs text-stone-400 font-bold">₹</span>
+                                        <input
+                                          type="number"
+                                          min={0}
+                                          value={item.price}
+                                          onChange={(e) =>
+                                            handleUpdateItemField(idx, 'price', e.target.value)
+                                          }
+                                          onBlur={() => {
+                                            if (
+                                              item.price === '' ||
+                                              Number(item.price) < 0 ||
+                                              isNaN(Number(item.price))
+                                            ) {
+                                              handleUpdateItemField(idx, 'price', 0);
+                                            }
+                                          }}
+                                          className="w-20 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-xs font-bold text-right focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                                        />
+                                      </div>
+                                      <span className="text-[11px] font-black text-stone-900 block mt-0.5">
+                                        = ₹{item.available ? (Number(item.price) || 0) * (Number(item.requestedQty) || 0) : 0}
+                                      </span>
+                                    </div>
+
+                                    <button
+                                      type="button"
+                                      onClick={() => handleRemoveItem(idx)}
+                                      className="p-1 rounded-lg hover:bg-rose-50 text-stone-400 hover:text-rose-600 transition-colors"
+                                    >
+                                      <Trash2 className="w-3.5 h-3.5" />
+                                    </button>
+                                  </div>
+                                </div>
+
+                                {/* Substitute Note / Unavailable toggle */}
+                                {!item.available && (
+                                  <div className="mt-2 pt-2 border-t border-stone-200/60 flex items-center gap-2 text-xs">
+                                    <span className="text-rose-600 font-bold text-[10px] shrink-0">
+                                      OUT OF STOCK:
+                                    </span>
+                                    <input
+                                      type="text"
+                                      value={item.substituteNote || ''}
+                                      onChange={(e) =>
+                                        handleUpdateItemField(idx, 'substituteNote', e.target.value)
+                                      }
+                                      placeholder="Substitute note (e.g. Offered alternate brand/size to customer)..."
+                                      className="w-full px-2 py-0.5 bg-rose-50/50 border border-rose-200 rounded text-[11px] text-rose-900 focus:outline-none"
+                                    />
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Staff Notes */}
+                      <div>
+                        <label className="text-xs font-black text-stone-700 block mb-1">
+                          Staff / Store Notes
+                        </label>
+                        <textarea
+                          value={adminNotes}
+                          onChange={(e) => setAdminNotes(e.target.value)}
+                          rows={2}
+                          placeholder="Notes from customer call or special packing instructions..."
+                          className="w-full p-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                        />
+                      </div>
+
+                      {/* LIVE ESTIMATED TOTAL & ZONE MINIMUM VERIFICATION BANNER */}
+                      <div className="p-4 rounded-2xl border space-y-2 bg-stone-50 border-stone-200">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="font-bold text-stone-600">Items Subtotal (Available):</span>
+                          <span className="font-black text-sm text-stone-900">₹{estimatedTotal}</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="font-bold text-stone-600">Delivery Fee:</span>
+                          <span className="font-black text-emerald-700">FREE (₹0)</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs border-t border-stone-200 pt-1.5">
+                          <span className="font-black text-stone-800">Zone Minimum Required:</span>
+                          <span className="font-black text-stone-800">₹{zoneMinOrder}</span>
+                        </div>
+
+                        {/* Shortfall Alert vs Success Pill */}
+                        {hasShortfall ? (
+                          <div className="p-2.5 bg-amber-50 border border-amber-300 rounded-xl text-amber-900 text-xs font-bold flex items-start gap-2">
+                            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                            <div>
+                              <span>
+                                ⚠️ Shortfall of ₹{shortfallAmount} for delivery zone ({selectedSlip.distance_km} km)!
+                              </span>
+                              <p className="text-[11px] text-amber-800 font-normal mt-0.5">
+                                Customer must meet ₹{zoneMinOrder} zone minimum. Call the customer to suggest adding items.
+                              </p>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="p-2 bg-emerald-50 border border-emerald-300 rounded-xl text-emerald-900 text-xs font-bold flex items-center gap-2">
+                            <CheckCircle2 className="w-4 h-4 text-[#2E7D32] shrink-0" />
+                            <span>✓ Meets or exceeds zone minimum of ₹{zoneMinOrder}!</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* ACTION FOOTER BUTTONS */}
+                      <div className="flex flex-col sm:flex-row items-center gap-2.5 pt-2">
+                        <button
+                          type="button"
+                          disabled={isSaving}
+                          onClick={() => handleSaveBill('BILLING')}
+                          className="w-full sm:flex-1 py-3 px-4 bg-stone-100 hover:bg-stone-200 text-stone-800 font-black rounded-2xl text-xs transition-colors border border-stone-300"
+                        >
+                          {isSaving ? 'Saving...' : 'Save Draft Bill'}
+                        </button>
+
+                        <button
+                          type="button"
+                          disabled={isSaving || billedItems.length === 0}
+                          onClick={handleMarkConfirmedByCall}
+                          className="w-full sm:flex-1 py-3 px-4 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black rounded-2xl text-xs transition-all shadow-xs flex items-center justify-center gap-1.5 disabled:opacity-50"
+                        >
+                          <Check className="w-4 h-4 stroke-[3]" />
+                          <span>Mark Confirmed by Call</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -1424,10 +1832,21 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                                     onChange={(e) =>
                                       setPackerPackedQty((prev) => ({
                                         ...prev,
-                                        [key]: Math.max(0, Number(e.target.value)),
+                                        [key]: e.target.value,
                                       }))
                                     }
-                                    className="w-16 px-2 py-1 bg-stone-50 border border-stone-200 rounded-lg text-xs font-black text-center disabled:opacity-40"
+                                    onBlur={() => {
+                                      setPackerPackedQty((prev) => ({
+                                        ...prev,
+                                        [key]:
+                                          prev[key] === '' ||
+                                          Number(prev[key]) < 0 ||
+                                          isNaN(Number(prev[key]))
+                                            ? 0
+                                            : Number(prev[key]),
+                                      }));
+                                    }}
+                                    className="w-16 px-2 py-1 bg-stone-50 border border-stone-200 rounded-lg text-xs font-black text-center disabled:opacity-40 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
                                   />
                                 </div>
 
@@ -1511,7 +1930,16 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                     type="number"
                     min={1}
                     value={manualQty}
-                    onChange={(e) => setManualQty(Math.max(1, Number(e.target.value)))}
+                    onChange={(e) => setManualQty(e.target.value)}
+                    onBlur={() => {
+                      if (
+                        manualQty === '' ||
+                        Number(manualQty) < 1 ||
+                        isNaN(Number(manualQty))
+                      ) {
+                        setManualQty(1);
+                      }
+                    }}
                     className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
                   />
                 </div>
@@ -1533,7 +1961,16 @@ export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'sl
                   type="number"
                   min={0}
                   value={manualPrice}
-                  onChange={(e) => setManualPrice(Math.max(0, Number(e.target.value)))}
+                  onChange={(e) => setManualPrice(e.target.value)}
+                  onBlur={() => {
+                    if (
+                      manualPrice === '' ||
+                      Number(manualPrice) < 0 ||
+                      isNaN(Number(manualPrice))
+                    ) {
+                      setManualPrice(0);
+                    }
+                  }}
                   className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
                 />
               </div>
