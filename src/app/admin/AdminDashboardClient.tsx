@@ -39,6 +39,19 @@ import SlipOrdersTab from '@/components/admin/tabs/SlipOrdersTab';
 import { Camera } from 'lucide-react';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 
+const STATUS_RANK: Record<string, number> = {
+  'Order Placed': 1,
+  'New': 1,
+  'Confirmed': 2,
+  'Packing': 3,
+  'Packed': 4,
+  'Rider Assigned': 5,
+  'Order Dispatched': 6,
+  'Out for Delivery': 6,
+  'Delivered': 7,
+  'Cancelled': 8,
+};
+
 interface Props {
   initialProducts: Product[];
   categories: Category[];
@@ -845,13 +858,40 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         isInitialFetchDoneRef.current = true;
       }
 
-      setOrders(merged);
+      // Prevent stale polling responses from demoting orders that were just updated
+      setOrders((prevOrders) => {
+        return merged.map((newOrder) => {
+          const old = prevOrders.find((p) => p.id === newOrder.id);
+          if (old) {
+            const oldRank = STATUS_RANK[old.status] || 0;
+            const newRank = STATUS_RANK[newOrder.status] || 0;
+            if (oldRank > newRank) {
+              return {
+                ...newOrder,
+                status: old.status,
+                assignedRider: old.assignedRider || newOrder.assignedRider,
+              };
+            }
+          }
+          return newOrder;
+        });
+      });
 
-      // Keep selected order in sync if currently viewed
+      // Keep selected order in sync if currently viewed, with rank protection
       setSelectedOrder((prev) => {
         if (!prev) return null;
         const updatedSelected = merged.find((o) => o.id === prev.id);
-        return updatedSelected || prev;
+        if (!updatedSelected) return prev;
+        const prevRank = STATUS_RANK[prev.status] || 0;
+        const newRank = STATUS_RANK[updatedSelected.status] || 0;
+        if (prevRank > newRank) {
+          return {
+            ...updatedSelected,
+            status: prev.status,
+            assignedRider: prev.assignedRider || updatedSelected.assignedRider,
+          };
+        }
+        return updatedSelected;
       });
 
       // If an order was deep-linked via URL or notification click, open it directly
@@ -992,34 +1032,45 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 const row = payload.new;
                 if (!row || !row.id) return;
 
-                const actualStatus = (row.address?._status || row.status || 'Order Placed') as any;
+                const rawAddr = row.address;
+                const rowAddr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
+                const actualStatus = (rowAddr._status || row.status || 'Order Placed') as any;
+                const actualRider = rowAddr._assignedRider;
+
                 setOrders((prev) =>
                   prev.map((o) => {
                     if (o.id !== row.id) return o;
+                    const prevRank = STATUS_RANK[o.status] || 0;
+                    const nextRank = STATUS_RANK[actualStatus] || 0;
+                    const winningStatus = prevRank > nextRank ? o.status : actualStatus;
+                    const winningRider = actualRider || o.assignedRider;
                     return {
                       ...o,
-                      status: actualStatus,
+                      status: winningStatus,
                       paymentStatus: (row.payment_status as any) || o.paymentStatus,
                       isPaid: Boolean(row.is_paid ?? o.isPaid),
-                      assignedRider: row.address?._assignedRider || o.assignedRider,
-                      timeline: row.address?._timeline || o.timeline,
+                      assignedRider: winningRider,
+                      timeline: rowAddr._timeline || o.timeline,
                     };
                   })
                 );
 
                 if (selectedOrder?.id === row.id) {
-                  setSelectedOrder((prev) =>
-                    prev
-                      ? {
-                          ...prev,
-                          status: actualStatus,
-                          paymentStatus: (row.payment_status as any) || prev.paymentStatus,
-                          isPaid: Boolean(row.is_paid ?? prev.isPaid),
-                          assignedRider: row.address?._assignedRider || prev.assignedRider,
-                          timeline: row.address?._timeline || prev.timeline,
-                        }
-                      : null
-                  );
+                  setSelectedOrder((prev) => {
+                    if (!prev) return null;
+                    const prevRank = STATUS_RANK[prev.status] || 0;
+                    const nextRank = STATUS_RANK[actualStatus] || 0;
+                    const winningStatus = prevRank > nextRank ? prev.status : actualStatus;
+                    const winningRider = actualRider || prev.assignedRider;
+                    return {
+                      ...prev,
+                      status: winningStatus,
+                      paymentStatus: (row.payment_status as any) || prev.paymentStatus,
+                      isPaid: Boolean(row.is_paid ?? prev.isPaid),
+                      assignedRider: winningRider,
+                      timeline: rowAddr._timeline || prev.timeline,
+                    };
+                  });
                 }
               }
             }
@@ -1228,6 +1279,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       otp = input.trim();
     }
 
+    const effectiveRider = assignedRider || targetOrder?.assignedRider || (selectedOrder?.id === orderId ? selectedOrder?.assignedRider : undefined);
+
     // Optimistic UI update
     setOrders((prev) =>
       prev.map((o) => {
@@ -1235,7 +1288,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         return {
           ...o,
           status: nextStatus as any,
-          assignedRider: assignedRider || o.assignedRider,
+          assignedRider: effectiveRider || o.assignedRider,
         };
       })
     );
@@ -1246,7 +1299,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           ? {
               ...prev,
               status: nextStatus as any,
-              assignedRider: assignedRider || prev.assignedRider,
+              assignedRider: effectiveRider || prev.assignedRider,
             }
           : null
       );
@@ -1255,12 +1308,15 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     try {
       const res = await fetch(`/api/admin/orders/${orderId}/status`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminHeaders(),
+        },
         body: JSON.stringify({
           status: nextStatus,
           otp,
-          staffIdentifier: 'Store Admin',
-          assignedRider,
+          staffIdentifier: user?.name || user?.email || 'Store Admin',
+          assignedRider: effectiveRider,
           orderFallback: targetOrder,
         }),
       });
@@ -1785,8 +1841,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 products={products}
                 initialActiveSubTab="slips"
                 activeSlipId={activeSlipId}
-                onSelectSlip={(slip) => {
-                  pushAdminState({ tab: 'slips', slipId: slip.id });
+                onSelectSlip={(slip: any) => {
+                  pushAdminState({ tab: 'slips', slipId: slip?.id || slip });
                 }}
                 onCloseSlip={() => navigateBack()}
                 onBackToDashboard={() => navigateBack()}
@@ -1798,8 +1854,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 products={products}
                 initialActiveSubTab="packer"
                 activeSlipId={activeSlipId}
-                onSelectSlip={(slip) => {
-                  pushAdminState({ tab: 'packer', slipId: slip.id });
+                onSelectSlip={(slip: any) => {
+                  pushAdminState({ tab: 'packer', slipId: slip?.id || slip });
                 }}
                 onCloseSlip={() => navigateBack()}
                 onBackToDashboard={() => navigateBack()}

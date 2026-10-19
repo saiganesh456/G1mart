@@ -30,6 +30,11 @@ const ordersMap = global.__g1Orders;
 const paymentsMap = global.__g1Payments;
 const processedWebhooks = global.__g1ProcessedWebhooks;
 
+const toValidUuidOrNull = (val?: string | null): string | null => {
+  if (!val || typeof val !== 'string') return null;
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(val) ? val : null;
+};
+
 export const STATUS_RANK: Record<string, number> = {
   'Order Placed': 1,
   'New': 1,
@@ -550,7 +555,7 @@ export const serverOrderStore = {
             grandTotal: Number(data.grand_total),
             items: (addr._items && Array.isArray(addr._items) && addr._items.length > 0)
               ? addr._items
-              : ((order && order.items && order.items.length > 0) ? order.items : []),
+              : [],
             address: addr,
             assignedRider: addr._assignedRider,
             deliveryOtp: addr._deliveryOtp,
@@ -735,7 +740,7 @@ export const serverOrderStore = {
           status: 'Order Placed',
           address: {
             ...(order.address || {}),
-            _items: (order.items && order.items.length > 0) ? order.items : (order.address?._items || []),
+            _items: (order.items && order.items.length > 0) ? order.items : ((order.address as any)?._items || []),
             _paymentStatus: 'COD_PENDING',
           },
           updated_at: new Date().toISOString(),

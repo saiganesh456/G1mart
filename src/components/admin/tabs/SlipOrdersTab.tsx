@@ -44,6 +44,10 @@ import { useAuth } from '@/context/AuthContext';
 interface Props {
   products?: Product[];
   initialActiveSubTab?: 'slips' | 'packer';
+  activeSlipId?: string | null;
+  onSelectSlip?: (slip: any) => void;
+  onCloseSlip?: () => void;
+  onBackToDashboard?: () => void;
 }
 
 export default function SlipOrdersTab({ products = [], initialActiveSubTab = 'slips' }: Props) {
