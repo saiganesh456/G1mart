@@ -28,7 +28,7 @@ export async function adminFetch(url: string, options: RequestInit = {}): Promis
 
   // Fallback to store admin root email if user is in admin dashboard
   if (!adminEmail) {
-    adminEmail = 'lingalamahendra0@gmail.com';
+    adminEmail = 'sureshdega466@gmail.com';
   }
 
   // 2. Attach identification headers

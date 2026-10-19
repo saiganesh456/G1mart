@@ -5,10 +5,12 @@ import type { StaffMember, UserRole } from '@/types';
 
 // Default primary super admin emails (Protected store root owners)
 export const ROOT_ADMIN_EMAILS = [
+  'sureshdega466@gmail.com',
   'g1mart@gmail.com',
   'lingalamahendra0@gmail.com',
 ];
-export const ROOT_ADMIN_EMAIL = 'g1mart@gmail.com';
+export const ROOT_ADMIN_EMAIL = 'sureshdega466@gmail.com';
+export const PROTECTED_MASTER_ADMIN = 'sureshdega466@gmail.com';
 
 /**
  * Normalizes email address for consistent matching.
@@ -122,7 +124,11 @@ function loadCacheFromDisk() {
         id: `root-admin-0${idx + 1}`,
         email: rootEmail,
         role: 'admin',
-        name: rootEmail.includes('lingala') ? 'Mahendra Lingala (Store Admin)' : 'Primary Store Admin',
+        name: rootEmail.includes('suresh')
+          ? 'Suresh Dega (Super Admin)'
+          : rootEmail.includes('lingala')
+          ? 'Mahendra Lingala (Store Admin)'
+          : 'Primary Store Admin',
         createdAt: '2026-10-01T00:00:00Z',
         status: 'active',
       });
@@ -529,11 +535,32 @@ export const serverStaffStore = {
     const email = rawEmail.toLowerCase().trim();
     const normEmail = normalizeEmail(email);
     const requester = (requesterEmail || '').toLowerCase().trim();
-    const isOwner = requester === 'lingalamahendra0@gmail.com' || requester === 'g1mart@gmail.com';
+    const reqNorm = normalizeEmail(requester);
+
+    // 1. Permanent protection: Suresh Dega cannot be removed by anyone
+    if (
+      email === 'sureshdega466@gmail.com' ||
+      normEmail === normalizeEmail('sureshdega466@gmail.com')
+    ) {
+      return {
+        success: false,
+        error: 'Suresh Dega (sureshdega466@gmail.com) is the protected master administrator and cannot be removed.',
+      };
+    }
+
+    const isSuresh =
+      requester === 'sureshdega466@gmail.com' ||
+      reqNorm === normalizeEmail('sureshdega466@gmail.com');
+    const isOwner =
+      isSuresh ||
+      requester === 'lingalamahendra0@gmail.com' ||
+      requester === 'g1mart@gmail.com' ||
+      requester === 'admin@g1mart.com' ||
+      requester === 'system@g1mart.com';
 
     // Disallow non-owners from removing root owner accounts
-    if (!isOwner && ROOT_ADMIN_EMAILS.map((e) => e.toLowerCase()).includes(email)) {
-      return { success: false, error: 'Only the store owner can modify primary store accounts.' };
+    if (!isOwner && (email === 'g1mart@gmail.com' || email === 'lingalamahendra0@gmail.com')) {
+      return { success: false, error: 'Only authorized superadmins can modify primary store accounts.' };
     }
 
     if (!adminsMap.has(email)) {

@@ -11,6 +11,7 @@ export interface AuthGuardResult {
 }
 
 const KNOWN_ADMIN_EMAILS = [
+  'sureshdega466@gmail.com',
   'g1mart@gmail.com',
   'lingalamahendra0@gmail.com',
   'orders@g1mart.com',
@@ -38,9 +39,9 @@ export async function verifyAdminRequest(req: NextRequest): Promise<AuthGuardRes
   const isAdminClient = req.headers.get('x-admin-client') === 'true';
   const referer = req.headers.get('referer') || '';
   if (isAdminClient || referer.includes('/admin')) {
-    const adminEmail = clientUserEmail && KNOWN_ADMIN_EMAILS.includes(clientUserEmail)
+    const adminEmail = clientUserEmail && (KNOWN_ADMIN_EMAILS.includes(clientUserEmail) || serverStaffStore.isAdmin(clientUserEmail))
       ? clientUserEmail
-      : 'lingalamahendra0@gmail.com';
+      : 'sureshdega466@gmail.com';
     return { authorized: true, email: adminEmail };
   }
 
@@ -68,7 +69,7 @@ export async function verifyAdminRequest(req: NextRequest): Promise<AuthGuardRes
 
   // 4. Offline / local development fallback when Supabase is not configured
   if (!isSupabaseConfigured()) {
-    return { authorized: true, email: 'lingalamahendra0@gmail.com' };
+    return { authorized: true, email: clientUserEmail || 'sureshdega466@gmail.com' };
   }
 
   // 5. Verify user session via Supabase SSR cookies
@@ -82,7 +83,7 @@ export async function verifyAdminRequest(req: NextRequest): Promise<AuthGuardRes
     if (error || !user) {
       const host = req.headers.get('host') || '';
       if (process.env.NODE_ENV !== 'production' || host.includes('localhost') || host.includes('127.0.0.1') || referer.includes('/admin')) {
-        return { authorized: true, email: clientUserEmail || 'lingalamahendra0@gmail.com' };
+        return { authorized: true, email: clientUserEmail || 'sureshdega466@gmail.com' };
       }
       return {
         authorized: false,
@@ -103,7 +104,7 @@ export async function verifyAdminRequest(req: NextRequest): Promise<AuthGuardRes
     return { authorized: true, email };
   } catch (err: any) {
     if (referer.includes('/admin')) {
-      return { authorized: true, email: 'lingalamahendra0@gmail.com' };
+      return { authorized: true, email: clientUserEmail || 'sureshdega466@gmail.com' };
     }
     return {
       authorized: false,
@@ -135,7 +136,7 @@ export async function verifyRiderOrAdminRequest(req: NextRequest): Promise<AuthG
   if (isAdminClient || referer.includes('/admin')) {
     const adminEmail = clientUserEmail && (KNOWN_ADMIN_EMAILS.includes(clientUserEmail) || serverStaffStore.isAdmin(clientUserEmail))
       ? clientUserEmail
-      : 'lingalamahendra0@gmail.com';
+      : 'sureshdega466@gmail.com';
     return { authorized: true, email: adminEmail };
   }
 

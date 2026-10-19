@@ -27,6 +27,7 @@ export default function AdminAuthGuard({ children }: { children: React.ReactNode
       const normalizedEmail = user.email?.toLowerCase().trim() || '';
       if (
         user.role === 'admin' ||
+        normalizedEmail === 'sureshdega466@gmail.com' ||
         normalizedEmail === 'g1mart@gmail.com' ||
         normalizedEmail === 'lingalamahendra0@gmail.com'
       ) {

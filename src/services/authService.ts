@@ -55,6 +55,7 @@ export const authService = {
 
       // Always grant admin to root admin emails or check server role
       const isCoreAdmin =
+        userEmail === 'sureshdega466@gmail.com' ||
         userEmail === 'g1mart@gmail.com' ||
         userEmail === 'lingalamahendra0@gmail.com' ||
         userEmail === 'orders@g1mart.com' ||

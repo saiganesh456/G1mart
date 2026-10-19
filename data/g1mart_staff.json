@@ -1,6 +1,14 @@
 {
   "admins": [
     {
+      "id": "root-admin-00",
+      "email": "sureshdega466@gmail.com",
+      "role": "admin",
+      "name": "Suresh Dega (Super Admin)",
+      "createdAt": "2026-10-19T00:00:00Z",
+      "status": "active"
+    },
+    {
       "id": "root-admin-01",
       "email": "g1mart@gmail.com",
       "role": "admin",
@@ -49,5 +57,5 @@
       "status": "active"
     }
   ],
-  "updatedAt": "2026-10-18T19:45:00Z"
+  "updatedAt": "2026-10-19T07:52:27.789Z"
 }

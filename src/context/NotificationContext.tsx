@@ -107,6 +107,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
       const isAdminUser =
         user?.role === 'admin' ||
         isOnAdminRoute ||
+        normalizedEmail === 'sureshdega466@gmail.com' ||
         normalizedEmail === 'g1mart@gmail.com' ||
         normalizedEmail === 'lingalamahendra0@gmail.com' ||
         normalizedEmail === 'orders@g1mart.com' ||

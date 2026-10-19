@@ -56,7 +56,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       } catch {}
     }
     return {
-      'x-user-email': (email || 'lingalamahendra0@gmail.com').toLowerCase().trim(),
+      'x-user-email': (email || 'sureshdega466@gmail.com').toLowerCase().trim(),
       'x-admin-client': 'true',
     };
   };
