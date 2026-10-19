@@ -33,6 +33,7 @@ import { triggerSuccessHaptic } from '@/lib/haptics';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import type { Product } from '@/types';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
+import { loadRazorpayScript } from '@/components/payment/RazorpayCheckoutButton';
 
 function getProductHref(item: any): string | null {
   if (!item) return null;
@@ -133,7 +134,6 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
   const [codFee, setCodFee] = useState<number>(50);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [paymentError, setPaymentError] = useState<string | null>(null);
-  const [showRazorpayTestModal, setShowRazorpayTestModal] = useState(false);
 
   // Top-up items modal (Phase 6 Rule 5)
   const [showAddItemsModal, setShowAddItemsModal] = useState(false);
@@ -511,7 +511,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
   };
 
   // Submit Payment for Slip Order
-  const handleCompleteSlipPayment = async (isTestOnlineSuccess: boolean = false) => {
+  const handleCompleteSlipPayment = async () => {
     setIsProcessingPayment(true);
     setPaymentError(null);
 
@@ -546,48 +546,94 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
         }
       } else {
         // Online Payment via Razorpay
-        if (!isTestOnlineSuccess) {
-          setShowRazorpayTestModal(true);
-          setIsProcessingPayment(false);
-          return;
+        const scriptReady = await loadRazorpayScript();
+        if (!scriptReady || !(window as any).Razorpay) {
+          throw new Error('Unable to load payment gateway SDK. Please check your internet connection or choose Pay on Delivery.');
         }
 
-        const paymentId = `pay_slip_${Date.now().toString().slice(-8)}`;
-        const razorpayOrderId = `order_slip_${orderId}`;
-        const signature = `sig_${razorpayOrderId}_${paymentId}`;
-
-        const res = await fetch(`/api/slip-orders/${orderId}/pay`, {
+        const initRes = await fetch(`/api/slip-orders/${orderId}/pay`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            paymentMethod: 'online',
-            razorpayPaymentId: paymentId,
-            razorpayOrderId,
-            razorpaySignature: signature,
-          }),
+          body: JSON.stringify({ paymentMethod: 'online' }),
         });
 
-        const data = await res.json();
-        if (res.ok && data.success) {
-          setShowRazorpayTestModal(false);
-          setOrder((prev: any) => ({
-            ...prev,
-            status: 'PAID',
-            paymentStatus: 'paid',
-            isPaid: true,
-            paymentMethod: 'Razorpay UPI/Card',
-            transactionId: paymentId,
-            finalTotal: data.order.final_total,
-          }));
-
-          try {
-            const bc = new BroadcastChannel('g1mart_order_channel');
-            bc.postMessage({ type: 'ORDER_UPDATED', orderId, status: 'PAID' });
-            bc.close();
-          } catch {}
-        } else {
-          setPaymentError(data.error || 'Online payment verification failed');
+        const initData = await initRes.json();
+        if (!initRes.ok || !initData.success) {
+          throw new Error(initData.error || 'Failed to initialize online payment');
         }
+
+        const options = {
+          key: initData.keyId,
+          amount: initData.amountInPaise,
+          currency: 'INR',
+          name: 'G1mart Supermarket',
+          description: `Slip Order #${orderId}`,
+          order_id: initData.providerOrderId,
+          prefill: {
+            name: order.customer_name || '',
+            contact: order.customer_phone || '',
+          },
+          theme: { color: '#2E7D32' },
+          modal: {
+            ondismiss: () => {
+              setIsProcessingPayment(false);
+              setPaymentError('Online payment was cancelled. You can retry or choose Pay on Delivery.');
+            },
+          },
+          handler: async (response: {
+            razorpay_payment_id: string;
+            razorpay_order_id: string;
+            razorpay_signature: string;
+          }) => {
+            try {
+              const verifyRes = await fetch(`/api/slip-orders/${orderId}/pay`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  paymentMethod: 'online',
+                  razorpayPaymentId: response.razorpay_payment_id,
+                  razorpayOrderId: response.razorpay_order_id,
+                  razorpaySignature: response.razorpay_signature,
+                }),
+              });
+
+              const verifyData = await verifyRes.json();
+              if (verifyRes.ok && verifyData.success) {
+                setOrder((prev: any) => ({
+                  ...prev,
+                  status: 'PAID',
+                  paymentStatus: 'paid',
+                  isPaid: true,
+                  paymentMethod: 'Razorpay UPI/Card',
+                  transactionId: response.razorpay_payment_id,
+                  finalTotal: verifyData.order?.final_total || prev?.finalTotal,
+                }));
+
+                try {
+                  const bc = new BroadcastChannel('g1mart_order_channel');
+                  bc.postMessage({ type: 'ORDER_UPDATED', orderId, status: 'PAID' });
+                  bc.close();
+                } catch {}
+              } else {
+                setPaymentError(verifyData.error || 'Payment signature verification failed');
+              }
+            } catch (err: any) {
+              setPaymentError(err.message || 'Error verifying payment');
+            } finally {
+              setIsProcessingPayment(false);
+            }
+          },
+        };
+
+        const rzp = new (window as any).Razorpay(options);
+        rzp.on('payment.failed', (failResp: any) => {
+          setIsProcessingPayment(false);
+          const desc = failResp?.error?.description || failResp?.error?.reason || 'Payment transaction failed';
+          setPaymentError(`Payment failed: ${desc}`);
+        });
+
+        rzp.open();
+        return;
       }
     } catch (err: any) {
       setPaymentError(err.message || 'Payment processing error');
@@ -1033,10 +1079,11 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
                         )}
                       </div>
                       <p className="text-stone-500 text-[11px] mt-0.5">
-                        {item.requestedQty !== undefined && item.packedQty !== undefined
-                          ? `Requested: ${item.requestedQty} · Packed: ${item.packedQty} ${item.unit || ''}`
-                          : `Qty: ${qty} · ${item.unit || 'unit'}`}{' '}
-                        @ ₹{price}/unit
+                        {String(item.id).startsWith('slip_item_') || (item.productName || item.name || '').includes('as per')
+                          ? `Total verified store amount for ${item.unit || 'slip items'}`
+                          : item.requestedQty !== undefined && item.packedQty !== undefined
+                          ? `Requested: ${item.requestedQty} · Packed: ${item.packedQty} ${item.unit || ''} @ ₹${price}/unit`
+                          : `Qty: ${qty} · ${item.unit || 'unit'} @ ₹${price}/unit`}
                       </p>
 
                       {/* Unavailable Badge & Substitute Note */}
@@ -1216,7 +1263,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
             <button
               type="button"
               disabled={isProcessingPayment}
-              onClick={() => handleCompleteSlipPayment(false)}
+              onClick={() => handleCompleteSlipPayment()}
               className="w-full py-3.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black rounded-2xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
             >
               <Check className="w-4 h-4 stroke-[3]" />
@@ -1392,64 +1439,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
         </div>
       )}
 
-      {/* MODAL 2: RAZORPAY TEST PAYMENT MODAL */}
-      {showRazorpayTestModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
-          <div className="bg-white rounded-3xl p-5 max-w-sm w-full space-y-4 shadow-xl animate-in zoom-in-95">
-            <div className="flex items-center justify-between border-b border-stone-100 pb-2">
-              <div className="flex items-center gap-2">
-                <CreditCard className="w-4 h-4 text-[#2E7D32]" />
-                <h4 className="text-sm font-black text-stone-900">Razorpay Test Checkout</h4>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowRazorpayTestModal(false)}
-                className="p-1 rounded-lg hover:bg-stone-100 text-stone-400"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
 
-            <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200/80 space-y-2 text-xs">
-              <div className="flex justify-between">
-                <span className="text-stone-500 font-medium">Order Number:</span>
-                <span className="font-bold text-stone-900">#{orderId}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-stone-500 font-medium">Total Amount:</span>
-                <span className="font-black text-[#2E7D32]">₹{currentSubtotal}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-stone-500 font-medium">Mode:</span>
-                <span className="font-bold text-emerald-700">TEST / Sandbox</span>
-              </div>
-            </div>
-
-            <p className="text-[11px] text-stone-500 leading-relaxed">
-              In test mode, clicking &quot;Simulate Success&quot; will generate an authenticated HMAC SHA256 payment signature and verify it server-side.
-            </p>
-
-            <div className="flex items-center gap-2 pt-1">
-              <button
-                type="button"
-                onClick={() => setShowRazorpayTestModal(false)}
-                className="flex-1 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold rounded-xl text-xs"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                disabled={isProcessingPayment}
-                onClick={() => handleCompleteSlipPayment(true)}
-                className="flex-1 py-2.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black rounded-xl text-xs shadow-xs flex items-center justify-center gap-1.5 disabled:opacity-50"
-              >
-                <Check className="w-4 h-4 stroke-[3]" />
-                <span>Simulate Success</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

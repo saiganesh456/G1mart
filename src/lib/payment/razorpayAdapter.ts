@@ -58,83 +58,38 @@ export class RazorpayAdapter implements PaymentAdapter {
       const client = this.getClient();
 
       // If valid Razorpay API keys are configured, use official SDK to create the order
-      if (client && this.isConfigured()) {
-        try {
-          const order = await client.orders.create({
-            amount: params.amountInPaise,
-            currency: 'INR',
-            receipt: params.orderId.slice(0, 40),
-            notes: {
-              merchantOrderId: params.merchantOrderId,
-              customerPhone: params.customerPhone || '',
-              customerName: params.customerName || '',
-            },
-          });
-
-          return {
-            success: true,
-            providerOrderId: order.id,
-            redirectUrl: `${params.redirectUrl}&providerOrderId=${encodeURIComponent(order.id)}`,
-            raw: order,
-          };
-        } catch (apiErr: any) {
-          const errDesc = apiErr?.error?.description || apiErr?.message || '';
-          console.warn('[RazorpayAdapter] Live API call notice:', errDesc);
-
-          const isAuthError =
-            apiErr?.statusCode === 401 ||
-            errDesc.toLowerCase().includes('auth') ||
-            apiErr?.error?.code === 'BAD_REQUEST_ERROR';
-
-          if (isAuthError) {
-            console.warn('[RazorpayAdapter] Merchant key authentication failed (401). Falling back to test simulation order.');
-            const cleanId = params.orderId.replace(/[^a-zA-Z0-9]/g, '');
-            const testRazorpayOrderId = `order_test_${cleanId}_${Date.now().toString().slice(-6)}`;
-
-            return {
-              success: true,
-              providerOrderId: testRazorpayOrderId,
-              redirectUrl: `${params.redirectUrl}&providerOrderId=${encodeURIComponent(testRazorpayOrderId)}`,
-              isTestFallback: true,
-              authFailed: true,
-              raw: {
-                id: testRazorpayOrderId,
-                amount: params.amountInPaise,
-                currency: 'INR',
-                receipt: params.orderId,
-                status: 'created',
-                testMode: true,
-              },
-            };
-          }
-          throw apiErr;
-        }
+      if (!client || !this.isConfigured()) {
+        return {
+          success: false,
+          providerOrderId: '',
+          error: 'Razorpay payment gateway credentials are not configured on server',
+        };
       }
 
-      // Fallback for offline development / sandbox when credentials are not yet set
-      const cleanId = params.orderId.replace(/[^a-zA-Z0-9]/g, '');
-      const testRazorpayOrderId = `order_test_${cleanId}_${Date.now().toString().slice(-6)}`;
+      const order = await client.orders.create({
+        amount: params.amountInPaise,
+        currency: 'INR',
+        receipt: params.orderId.slice(0, 40),
+        notes: {
+          merchantOrderId: params.merchantOrderId,
+          customerPhone: params.customerPhone || '',
+          customerName: params.customerName || '',
+        },
+      });
 
       return {
         success: true,
-        providerOrderId: testRazorpayOrderId,
-        redirectUrl: `${params.redirectUrl}&providerOrderId=${encodeURIComponent(testRazorpayOrderId)}`,
-        isTestFallback: true,
-        raw: {
-          id: testRazorpayOrderId,
-          amount: params.amountInPaise,
-          currency: 'INR',
-          receipt: params.orderId,
-          status: 'created',
-          testMode: true,
-        },
+        providerOrderId: order.id,
+        redirectUrl: `${params.redirectUrl}&providerOrderId=${encodeURIComponent(order.id)}`,
+        raw: order,
       };
     } catch (err: any) {
       console.error('[RazorpayAdapter] Error creating order:', err);
+      const desc = err?.error?.description || err?.message || 'Razorpay order creation failed';
       return {
         success: false,
         providerOrderId: '',
-        error: err?.error?.description || err?.message || 'Razorpay order creation failed',
+        error: desc,
       };
     }
   }
@@ -152,20 +107,6 @@ export class RazorpayAdapter implements PaymentAdapter {
 
     if (!razorpayOrderId || !razorpayPaymentId || !razorpaySignature) {
       return false;
-    }
-
-    // Allow test simulator signature verification ONLY in non-production with explicit opt-in
-    const allowSimulation =
-      process.env.NODE_ENV !== 'production' &&
-      process.env.ENABLE_PAYMENT_SIMULATION === 'true';
-
-    if (
-      allowSimulation &&
-      (razorpayOrderId.startsWith('order_test_') ||
-        razorpayPaymentId.startsWith('pay_test_') ||
-        razorpaySignature.startsWith('test_sig_'))
-    ) {
-      return true;
     }
 
     const keySecret = this.getKeySecret();
@@ -218,12 +159,10 @@ export class RazorpayAdapter implements PaymentAdapter {
         };
       }
 
-      // Test sandbox fallback
       return {
-        success: true,
-        state: 'COMPLETED',
-        providerOrderId,
-        raw: { testMode: true },
+        success: false,
+        state: 'FAILED',
+        error: 'Razorpay is not configured on server',
       };
     } catch (err: any) {
       return {

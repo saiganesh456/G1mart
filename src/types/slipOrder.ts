@@ -67,6 +67,8 @@ export interface SlipOrder {
   estimated_total: number;
   final_total: number;
   subtotal: number;
+  total_items?: number;
+  discount?: number;
   delivery_fee: number;
   cod_fee: number;
 

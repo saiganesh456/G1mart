@@ -606,6 +606,141 @@ export const serverSlipOrders = {
   },
 
   /**
+   * 2b. Admin Aggregate Billing: Save Total Items & Total Grocery Amount
+   * Simplifies the store staff workflow so they only input item count & grocery amount in INR.
+   */
+  async saveAggregateBill(params: {
+    slipId: string;
+    totalItems: number;
+    groceryAmount: number;
+    deliveryFee?: number;
+    discount?: number;
+    adminNotes?: string;
+    billedBy?: string;
+    moveStatus?: SlipOrderStatus;
+  }): Promise<SlipOrder | null> {
+    const order = await this.getSlipOrderById(params.slipId);
+    if (!order) return null;
+
+    const nowIso = new Date().toISOString();
+    const count = Math.max(1, Math.round(Number(params.totalItems) || 1));
+    const amount = Math.max(0, Number(params.groceryAmount) || 0);
+    const fee = Math.max(0, Number(params.deliveryFee) || 0);
+    const disc = Math.max(0, Number(params.discount) || 0);
+    const grandTotal = amount + fee - disc;
+
+    const aggregateItem: SlipItem = {
+      id: `slip_item_${order.id}`,
+      slip_order_id: order.id,
+      name: `${count} grocery ${count === 1 ? 'item' : 'items'} (as per customer slip)`,
+      requested_qty: 1,
+      packed_qty: 1,
+      unit: count === 1 ? '1 item' : `${count} items`,
+      price: amount,
+      available: true,
+      substitute_note: null,
+      created_at: nowIso,
+    };
+
+    order.items = [aggregateItem];
+    order.total_items = count;
+    order.subtotal = amount;
+    order.delivery_fee = fee;
+    order.discount = disc;
+    order.estimated_total = grandTotal;
+    order.final_total = grandTotal;
+    order.admin_notes = params.adminNotes !== undefined ? params.adminNotes : order.admin_notes;
+    order.billed_by = params.billedBy || 'Store Staff';
+    order.updated_at = nowIso;
+
+    const nextStatus = params.moveStatus || 'BILLING';
+    order.status = nextStatus;
+
+    this.addStatusHistory(
+      order,
+      nextStatus,
+      `Billed ${count} items for total ₹${grandTotal} (Groceries: ₹${amount}, Delivery: ₹${fee})`,
+      params.billedBy || 'Store Staff'
+    );
+
+    slipsMap.set(order.id, order);
+    persistDiskSlipOrders();
+
+    // Mirror to serverOrderStore so standard order store & storefront sees it immediately
+    try {
+      await serverOrderStore.createPendingOrder({
+        orderId: order.id,
+        merchantOrderId: `MT_${order.id}`,
+        items: [
+          {
+            productId: `slip_item_${order.id}`,
+            productName: `${count} grocery ${count === 1 ? 'item' : 'items'} (as per customer slip)`,
+            unit: `${count} items`,
+            price: amount,
+            quantity: 1,
+            image: order.images?.[0]?.image_url || '/products/placeholder.svg',
+          },
+        ],
+        subtotal: amount,
+        deliveryFee: fee,
+        taxes: 0,
+        grandTotal,
+        final_total: grandTotal,
+        address: {
+          fullName: order.customer_name,
+          phone: order.customer_phone,
+          mobileNumber: order.customer_phone,
+          streetArea: order.address,
+          city: 'Nellore',
+        },
+        slot: order.order_type === 'pickup' ? 'Store Pickup' : 'Standard Delivery',
+        paymentMethod: (order.payment_method as any) || 'Cash on Delivery',
+        distance_km: order.distance_km,
+        zone_min_order: order.zone_min_order,
+        orderType: 'slip',
+      });
+    } catch (mirrorErr) {
+      console.warn('[serverSlipOrders] Error mirroring order to serverOrderStore:', mirrorErr);
+    }
+
+    // Sync to Supabase if configured
+    if (isSupabaseConfigured()) {
+      try {
+        await supabase
+          .from('slip_orders')
+          .update({
+            subtotal: amount,
+            delivery_fee: fee,
+            estimated_total: grandTotal,
+            final_total: grandTotal,
+            billed_by: order.billed_by,
+            admin_notes: order.admin_notes,
+            status: order.status,
+            updated_at: nowIso,
+          })
+          .eq('id', order.id);
+
+        await supabase.from('slip_items').delete().eq('slip_order_id', order.id);
+        await supabase.from('slip_items').insert({
+          id: aggregateItem.id,
+          slip_order_id: order.id,
+          name: aggregateItem.name,
+          requested_qty: aggregateItem.requested_qty,
+          packed_qty: aggregateItem.packed_qty,
+          unit: aggregateItem.unit,
+          price: aggregateItem.price,
+          available: aggregateItem.available,
+          created_at: nowIso,
+        });
+      } catch (sbErr) {
+        console.warn('[serverSlipOrders] Supabase sync note in saveAggregateBill:', sbErr);
+      }
+    }
+
+    return order;
+  },
+
+  /**
    * 3. Admin "Mark Confirmed by Call"
    * Moves status to CONFIRMED (ready for packer checklist)
    */

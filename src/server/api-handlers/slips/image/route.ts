@@ -51,6 +51,31 @@ export async function GET(req: NextRequest) {
       }
     }
 
+    // Local filesystem fallback
+    try {
+      const fs = await import('fs');
+      const path = await import('path');
+      const fileName = path.basename(cleanPath);
+      const candidates = [
+        path.join(process.cwd(), 'public', 'uploads', 'slips', fileName),
+        path.join(process.cwd(), 'public', cleanPath),
+        path.join(process.cwd(), cleanPath),
+      ];
+      for (const cand of candidates) {
+        if (fs.existsSync(cand) && fs.statSync(cand).isFile()) {
+          const buffer = fs.readFileSync(cand);
+          const ext = path.extname(cand).slice(1).toLowerCase() || 'jpeg';
+          const mimeType = ext === 'png' ? 'image/png' : ext === 'webp' ? 'image/webp' : 'image/jpeg';
+          return new NextResponse(buffer, {
+            headers: {
+              'Content-Type': mimeType,
+              'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+            },
+          });
+        }
+      }
+    } catch {}
+
     return NextResponse.json({ error: 'Image not found' }, { status: 404 });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Internal server error' }, { status: 500 });

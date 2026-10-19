@@ -11,7 +11,6 @@ import { STORE_CONFIG } from '@/config/store';
 function PaymentResultContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get('orderId');
-  const isSimulated = searchParams.get('simulated') === 'true';
 
   const { clearCart } = useCart();
 
@@ -54,55 +53,44 @@ function PaymentResultContent() {
         if (raw) savedOrder = JSON.parse(raw);
       } catch {}
 
-      const simRes = await fetch('/api/payment/test-simulate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          orderId,
-          action: 'success',
-          orderData: savedOrder,
-        }),
-      });
-      const simData = await simRes.json();
-
-      const finalOrder = {
+      const updatedOrder = {
         ...(savedOrder || {}),
-        ...(simData.order || {}),
         id: orderId,
         orderNumber: orderId,
-        paymentStatus: 'completed',
-        isPaid: true,
+        paymentStatus: 'pending_verification',
+        paymentMethod: 'Direct UPI Transfer',
         transactionId: cleanUtr,
+        utrNumber: cleanUtr,
       };
 
-      setOrderDetails(finalOrder);
-      setPollState('completed');
+      setOrderDetails(updatedOrder);
+      setPollState('timeout');
       clearCart();
 
       try {
         const accOrders = JSON.parse(localStorage.getItem('g1mart_account_orders') || '[]');
-        const updatedAcc = accOrders.map((o: any) => (o.id === orderId ? finalOrder : o));
+        const updatedAcc = accOrders.map((o: any) => (o.id === orderId ? updatedOrder : o));
         if (!updatedAcc.some((o: any) => o.id === orderId)) {
-          updatedAcc.unshift(finalOrder);
+          updatedAcc.unshift(updatedOrder);
         }
         localStorage.setItem('g1mart_account_orders', JSON.stringify(updatedAcc));
-        localStorage.setItem('g1mart_recent_order', JSON.stringify(finalOrder));
-        sessionStorage.setItem('g1mart_latest_order', JSON.stringify(finalOrder));
+        localStorage.setItem('g1mart_recent_order', JSON.stringify(updatedOrder));
+        sessionStorage.setItem('g1mart_latest_order', JSON.stringify(updatedOrder));
 
         await fetch('/api/orders', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(finalOrder),
+          body: JSON.stringify(updatedOrder),
         }).catch(() => {});
 
         try {
           const bc = new BroadcastChannel('g1mart_order_channel');
-          bc.postMessage({ type: 'ORDER_UPDATED', orderId, order: finalOrder });
+          bc.postMessage({ type: 'ORDER_UPDATED', orderId, order: updatedOrder });
           bc.close();
         } catch {}
       } catch {}
     } catch (err: any) {
-      alert('Error confirming payment: ' + err.message);
+      alert('Error updating payment reference: ' + err.message);
     } finally {
       setConfirmingUtr(false);
     }
@@ -179,71 +167,8 @@ function PaymentResultContent() {
       isCancelled = true;
       if (intervalId) clearInterval(intervalId);
     };
-  }, [orderId, clearCart, isSimulated]);
+  }, [orderId, clearCart]);
 
-  const [simulating, setSimulating] = useState(false);
-
-  const handleSimulate = async (action: 'success' | 'failure') => {
-    if (!orderId) return;
-    setSimulating(true);
-    try {
-      let savedOrder: any = null;
-      try {
-        const raw = sessionStorage.getItem('g1mart_latest_order') || localStorage.getItem('g1mart_recent_order');
-        if (raw) savedOrder = JSON.parse(raw);
-      } catch {}
-
-      const simRes = await fetch('/api/payment/test-simulate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ orderId, action, orderData: savedOrder }),
-      });
-      const simData = await simRes.json();
-      if (!simRes.ok || !simData.success) {
-        alert('Simulation notice: ' + (simData.error || 'Failed to simulate'));
-        setSimulating(false);
-        return;
-      }
-
-      if (action === 'success') {
-        const finalOrder = {
-          ...(savedOrder || {}),
-          ...(simData.order || {}),
-          id: orderId,
-          orderNumber: orderId,
-          paymentStatus: 'completed',
-          isPaid: true,
-        };
-        setOrderDetails(finalOrder);
-        setPollState('completed');
-        clearCart();
-
-        try {
-          const accOrders = JSON.parse(localStorage.getItem('g1mart_account_orders') || '[]');
-          const updatedAcc = accOrders.map((o: any) => (o.id === orderId ? finalOrder : o));
-          if (!updatedAcc.some((o: any) => o.id === orderId)) {
-            updatedAcc.unshift(finalOrder);
-          }
-          localStorage.setItem('g1mart_account_orders', JSON.stringify(updatedAcc));
-          localStorage.setItem('g1mart_recent_order', JSON.stringify(finalOrder));
-          sessionStorage.setItem('g1mart_latest_order', JSON.stringify(finalOrder));
-
-          fetch('/api/orders', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(finalOrder),
-          }).catch(() => {});
-        } catch {}
-      } else {
-        setPollState('failed');
-        setErrorMessage('Payment simulation declined');
-      }
-    } catch (err: any) {
-      alert('Simulation error: ' + err.message);
-    } finally {
-      setSimulating(false);
-    }
-  };
 
   return (
     <div className="max-w-md mx-auto py-12 px-4 space-y-5">
@@ -327,35 +252,7 @@ function PaymentResultContent() {
             </div>
           </div>
 
-          {/* Interactive Sandbox Testing Panel */}
-          <div className="p-3.5 rounded-2xl bg-stone-50 border border-stone-200 text-left space-y-2">
-            <div className="flex items-center justify-between text-[11px] font-bold">
-              <span className="flex items-center gap-1.5 text-stone-700">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Simulate Testing (Without sending real money)</span>
-              </span>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => handleSimulate('success')}
-                disabled={simulating}
-                className="py-2 px-3 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold text-center shadow-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
-              >
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>{simulating ? 'Simulating...' : 'Mock Success'}</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleSimulate('failure')}
-                disabled={simulating}
-                className="py-2 px-3 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold text-center shadow-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
-              >
-                <XCircle className="w-3.5 h-3.5" />
-                <span>Mock Decline</span>
-              </button>
-            </div>
-          </div>
+
         </div>
       )}
 
@@ -469,36 +366,7 @@ function PaymentResultContent() {
             </p>
           </div>
 
-          {/* Sandbox Controls for Testing */}
-          <div className="p-3.5 bg-stone-50 rounded-2xl border border-stone-200/80 text-left space-y-2.5">
-            <div className="flex items-center justify-between text-[11px] font-bold">
-              <span className="flex items-center gap-1.5 text-stone-700">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                PHONEPE SANDBOX TEST
-              </span>
-              <span className="text-[10px] text-stone-400 font-mono">UAT Testing</span>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => handleSimulate('success')}
-                disabled={simulating}
-                className="py-2.5 px-3 bg-[#2E7D32] hover:bg-[#1b5e20] text-white rounded-xl text-xs font-bold text-center shadow-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
-              >
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>{simulating ? 'Simulating...' : 'Simulate Success'}</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleSimulate('failure')}
-                disabled={simulating}
-                className="py-2.5 px-3 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold text-center shadow-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
-              >
-                <XCircle className="w-3.5 h-3.5" />
-                <span>Simulate Decline</span>
-              </button>
-            </div>
-          </div>
+
 
           <div className="space-y-2 pt-1">
             <Link

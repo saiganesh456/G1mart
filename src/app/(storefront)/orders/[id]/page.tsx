@@ -50,7 +50,13 @@ export default async function OrderDetailPage({ params }: Props) {
             available: it.available,
             substituteNote: it.substitute_note,
           })),
-          images: slipOrder.images,
+          images: (slipOrder.images && slipOrder.images.length > 0)
+            ? slipOrder.images
+            : (slipOrder as any).image_url
+            ? [{ id: 'img_1', image_url: (slipOrder as any).image_url }]
+            : Array.isArray((slipOrder as any).image_urls)
+            ? (slipOrder as any).image_urls.map((u: string, idx: number) => ({ id: `img_${idx}`, image_url: u }))
+            : [],
           address: {
             fullName: slipOrder.customer_name,
             phone: slipOrder.customer_phone,
