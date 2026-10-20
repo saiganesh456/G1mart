@@ -53,6 +53,7 @@ export default function RiderClient() {
   const [acknowledgedOrderIds, setAcknowledgedOrderIds] = useState<Set<string>>(new Set());
   const [deliverySuccessOrder, setDeliverySuccessOrder] = useState<Order | null>(null);
   const [resendCooldown, setResendCooldown] = useState(0);
+  const [pushPermission, setPushPermission] = useState<NotificationPermission>('default');
 
   // Profile Drawer & Off Duty Confirmation Sheets
   const [showProfileDrawer, setShowProfileDrawer] = useState(false);
@@ -114,6 +115,19 @@ export default function RiderClient() {
           );
           if (hasNewOrder) {
             soundAlerts.playRiderAssignmentChime();
+            try {
+              if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+                navigator.vibrate([200, 100, 200, 100, 300]);
+              }
+              if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+                new Notification('🛵 New Delivery Assigned!', {
+                  body: 'A new dispatch trip is ready in your queue. Open app to view.',
+                  icon: '/logo.png',
+                  badge: '/logo.png',
+                  tag: 'new-rider-order',
+                });
+              }
+            } catch {}
           }
         }
         knownOrderIdsRef.current = new Set(newOrders.map((o) => o.id));
@@ -132,6 +146,33 @@ export default function RiderClient() {
     const interval = setInterval(fetchOrders, 7000);
     return () => clearInterval(interval);
   }, []);
+
+  // Unlock Audio on first interaction & sync Notification permission
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      setPushPermission(Notification.permission);
+    }
+    const handleUnlock = () => {
+      soundAlerts.unlockAudio();
+    };
+    window.addEventListener('click', handleUnlock, { passive: true });
+    window.addEventListener('touchstart', handleUnlock, { passive: true });
+    return () => {
+      window.removeEventListener('click', handleUnlock);
+      window.removeEventListener('touchstart', handleUnlock);
+    };
+  }, []);
+
+  const handleEnableRiderAlerts = async () => {
+    soundAlerts.unlockAudio();
+    soundAlerts.playRiderAssignmentChime();
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      try {
+        const res = await Notification.requestPermission();
+        setPushPermission(res);
+      } catch {}
+    }
+  };
 
   const handleUpdateStatus = async (
     orderId: string,
@@ -376,10 +417,10 @@ export default function RiderClient() {
       if (tab === 'assigned') {
         if (isDelivered) return false;
 
-        // SINGLE DELIVERY FOCUS ENFORCER:
-        // If rider has an active delivery in progress, lock view to that trip only!
+        // If rider has an active delivery in progress, it is prominently pinned in the Hero Card at the top!
+        // In the list below, show OTHER assigned trips (queue) so the active trip is NEVER duplicated!
         if (ongoingTrip) {
-          return o.id === ongoingTrip.id;
+          return o.id !== ongoingTrip.id && (assignedToMe || !o.assignedRider);
         }
 
         return assignedToMe || !o.assignedRider;
@@ -409,7 +450,7 @@ export default function RiderClient() {
   return (
     <RiderAuthGuard>
       {/* Strict overflow protection so mobile screens never clip on the right */}
-      <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-6 pb-28 min-w-0 max-w-full overflow-x-hidden box-border">
+      <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-6 pb-36 sm:pb-24 min-w-0 max-w-full overflow-x-hidden box-border">
 
         {/* ================= 1. RESPONSIVE TOP HEADER ================= */}
         <header className="bg-gradient-to-r from-[#0C2411] via-[#12381A] to-[#1B5E20] text-white rounded-2xl sm:rounded-3xl p-3 sm:p-5 shadow-lg border border-emerald-900/60 mb-3 sm:mb-6 w-full min-w-0 max-w-full box-border">
@@ -597,6 +638,28 @@ export default function RiderClient() {
           </div>
         )}
 
+        {/* Rider Sound & Push Notification Permission Banner */}
+        {pushPermission !== 'granted' && isOnDuty && (
+          <div className="bg-emerald-50 border border-emerald-300 rounded-2xl p-3 text-xs text-emerald-950 flex items-center justify-between gap-3 shadow-xs mb-3 sm:mb-4 animate-in fade-in w-full min-w-0 max-w-full box-border">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-sm shrink-0">
+                🔔
+              </div>
+              <div className="min-w-0">
+                <strong className="block text-stone-900 truncate">Enable Dispatch Alerts</strong>
+                <span className="text-emerald-700 truncate text-[11px] block">Hear order chimes &amp; receive new trip alerts</span>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={handleEnableRiderAlerts}
+              className="px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl font-black text-xs shrink-0 active:scale-95 transition-all shadow-xs cursor-pointer"
+            >
+              Enable
+            </button>
+          </div>
+        )}
+
         {/* ================= MAIN RESPONSIVE WORKSPACE ================= */}
         {/* On laptop/desktop: 2 columns (Left sidebar + Right order queue) */}
         {/* On mobile: 1 column, perfect fit with zero right-side clipping */}
@@ -763,21 +826,69 @@ export default function RiderClient() {
                   )}
                 </div>
 
-                {/* High-Visibility Cash Warning Banner (if COD) */}
+                {/* Sleek High-Contrast Payment Chip */}
                 {!ongoingTrip.isPaid && ongoingTrip.paymentMethod === 'Cash on Delivery' ? (
-                  <div className="bg-rose-500 text-white p-3 rounded-xl sm:rounded-2xl font-black flex items-center justify-between shadow-md border border-rose-300 animate-pulse min-w-0 gap-2">
+                  <div className="bg-amber-400 text-stone-950 px-3.5 py-2.5 rounded-xl font-black flex items-center justify-between shadow-md min-w-0 gap-2">
                     <div className="flex items-center gap-1.5 text-xs truncate">
-                      <DollarSign className="w-4 h-4 shrink-0" />
-                      <span className="truncate">CASH ON DELIVERY</span>
+                      <span className="w-5 h-5 rounded-full bg-stone-950 text-amber-400 flex items-center justify-center font-black text-xs shrink-0">₹</span>
+                      <span className="truncate tracking-wide">CASH ON DELIVERY</span>
                     </div>
-                    <span className="text-sm sm:text-base font-mono shrink-0">COLLECT ₹{ongoingTrip.grandTotal}</span>
+                    <span className="text-sm sm:text-base font-mono font-black shrink-0">COLLECT ₹{ongoingTrip.grandTotal}</span>
                   </div>
                 ) : (
-                  <div className="bg-emerald-500/20 text-emerald-300 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-emerald-400/30 truncate">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span className="truncate">Prepaid Online (No Cash to Collect)</span>
+                  <div className="bg-white/10 text-emerald-200 px-3.5 py-2 rounded-xl text-xs font-bold flex items-center justify-between border border-white/10 truncate">
+                    <div className="flex items-center gap-1.5 truncate">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <span className="truncate">Prepaid Online Order</span>
+                    </div>
+                    <span className="font-mono text-emerald-300 font-bold shrink-0">₹0 to collect</span>
                   </div>
                 )}
+
+                {/* Collapsible Items Inspector for Active Trip */}
+                <div className="bg-white/10 rounded-xl overflow-hidden border border-white/10 text-xs">
+                  <button
+                    type="button"
+                    onClick={() => toggleItems(ongoingTrip.id)}
+                    className="w-full px-3 py-2 flex items-center justify-between font-bold text-white hover:bg-white/10 transition-colors cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2 truncate">
+                      <ShoppingBag className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
+                      <span className="truncate">
+                        {ongoingTrip.items?.length || 1} {(ongoingTrip.items?.length || 1) === 1 ? 'Grocery Item' : 'Grocery Items'} (Verify Products)
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-emerald-300 font-bold flex items-center gap-1 shrink-0 ml-2">
+                      {expandedItems[ongoingTrip.id] ? 'Hide Items' : 'View Items'}
+                      {expandedItems[ongoingTrip.id] ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                    </span>
+                  </button>
+                  {expandedItems[ongoingTrip.id] && (
+                    <div className="px-3 pb-2.5 pt-1 border-t border-white/10 max-h-36 overflow-y-auto space-y-1.5 divide-y divide-white/5">
+                      {ongoingTrip.items && ongoingTrip.items.length > 0 ? (
+                        ongoingTrip.items.map((it, idx) => (
+                          <div key={idx} className="pt-1.5 flex items-center justify-between text-xs">
+                            <div className="flex items-center gap-2 min-w-0 pr-2">
+                              {it.image ? (
+                                <img src={it.image} alt={it.productName} className="w-6 h-6 rounded object-contain bg-white shrink-0" />
+                              ) : (
+                                <div className="w-6 h-6 rounded bg-white/20 flex items-center justify-center text-[10px] shrink-0">
+                                  📦
+                                </div>
+                              )}
+                              <span className="text-white truncate font-medium text-xs">{it.productName}</span>
+                            </div>
+                            <span className="font-mono font-black text-emerald-300 shrink-0 text-xs bg-white/10 px-1.5 py-0.5 rounded">
+                              ×{it.quantity}
+                            </span>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-[11px] text-white/60 py-1">Items listed on store packing slip</p>
+                      )}
+                    </div>
+                  )}
+                </div>
 
                 {/* Hero Quick Action Buttons */}
                 <div className="grid grid-cols-2 gap-2 pt-1 w-full min-w-0">
@@ -854,27 +965,44 @@ export default function RiderClient() {
                 <p className="text-xs text-stone-400 font-bold">Connecting to dispatch fleet...</p>
               </div>
             ) : displayedOrders.length === 0 ? (
-              <div className="bg-white rounded-3xl border border-stone-200/80 p-8 sm:p-10 text-center space-y-3 shadow-2xs w-full min-w-0 max-w-full box-border">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-3xl bg-stone-100 text-stone-400 flex items-center justify-center mx-auto">
-                  <Truck className="w-7 h-7 sm:w-8 sm:h-8" />
-                </div>
-                <div>
-                  <h3 className="text-sm sm:text-base font-extrabold text-stone-800">No Orders in this Queue</h3>
-                  <p className="text-xs sm:text-sm text-stone-500 max-w-sm mx-auto mt-1 leading-relaxed">
-                    When darkstore staff pack orders or assign dispatches, route assignments will appear here instantly.
+              ongoingTrip && tab === 'assigned' ? (
+                <div className="bg-white rounded-3xl border border-stone-200/80 p-6 sm:p-8 text-center space-y-2 shadow-2xs w-full min-w-0 max-w-full box-border">
+                  <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto">
+                    <CheckCircle2 className="w-6 h-6 stroke-[2.5]" />
+                  </div>
+                  <h3 className="text-sm sm:text-base font-black text-stone-900">Current Trip Active Above</h3>
+                  <p className="text-xs text-stone-500 max-w-xs mx-auto">
+                    You are currently delivering order #{ongoingTrip.id}. Complete this handover to receive your next route assignments.
                   </p>
                 </div>
-                <button
-                  type="button"
-                  onClick={fetchOrders}
-                  className="px-4 py-2 sm:px-5 sm:py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 transition-colors cursor-pointer"
-                >
-                  <RefreshCw className="w-3.5 h-3.5" />
-                  <span>Check for New Orders</span>
-                </button>
-              </div>
+              ) : (
+                <div className="bg-white rounded-3xl border border-stone-200/80 p-8 sm:p-10 text-center space-y-3 shadow-2xs w-full min-w-0 max-w-full box-border">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-3xl bg-stone-100 text-stone-400 flex items-center justify-center mx-auto">
+                    <Truck className="w-7 h-7 sm:w-8 sm:h-8" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm sm:text-base font-extrabold text-stone-800">No Orders in this Queue</h3>
+                    <p className="text-xs sm:text-sm text-stone-500 max-w-sm mx-auto mt-1 leading-relaxed">
+                      When darkstore staff pack orders or assign dispatches, route assignments will appear here instantly.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={fetchOrders}
+                    className="px-4 py-2 sm:px-5 sm:py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" />
+                    <span>Check for New Orders</span>
+                  </button>
+                </div>
+              )
             ) : (
               <div className="space-y-3 w-full min-w-0 max-w-full box-border">
+                {ongoingTrip && tab === 'assigned' && (
+                  <div className="flex items-center justify-between text-xs font-bold text-stone-600 px-1 pt-1">
+                    <span>Upcoming Trips in Queue ({displayedOrders.length})</span>
+                  </div>
+                )}
                 {displayedOrders.map((o) => {
                   const currentStatus = o.status || 'Order Placed';
                   const isDelivered = currentStatus === 'Delivered';

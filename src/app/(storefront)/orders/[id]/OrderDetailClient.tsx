@@ -846,8 +846,9 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
             status === 'RIDER_ASSIGNED';
           const isReadyPickup = isPickup && (status === 'Packed' || status === 'PACKED' || status === 'Confirmed' || status === 'Packing');
           const otp = order?.deliveryOtp || order?.delivery_otp;
+          const hasArrived = Boolean(order?.arrivedAtDoorstep || order?.arrived_at_doorstep);
 
-          if (!isDelivered && (isOutForDelivery || isReadyPickup || otp || order?.arrivedAtDoorstep || order?.arrived_at_doorstep)) {
+          if (!isDelivered && (isOutForDelivery || isReadyPickup || otp || hasArrived)) {
             const displayPin = otp || CONSTANT_DELIVERY_OTP;
             const riderName =
               order?.assignedRider?.name ||
@@ -855,30 +856,54 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
               'Express Fleet Partner';
 
             return (
-              <div className="p-4 rounded-2xl bg-gradient-to-br from-[#0E2813] via-[#163D1D] to-[#1E6B2E] text-white shadow-lg space-y-2 border border-emerald-500/30 animate-in fade-in">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-                    <span className="text-xs font-black uppercase text-emerald-300 tracking-wider">
-                      {isPickup ? 'Store Pickup PIN' : 'Doorstep Delivery PIN'}
+              <div className="space-y-2.5">
+                {/* Doorstep Arrival Alert Banner */}
+                {hasArrived && (
+                  <div className="p-3.5 bg-gradient-to-r from-emerald-600 to-teal-700 text-white rounded-2xl flex items-center justify-between gap-3 shadow-md border border-emerald-400/40 animate-in zoom-in-95 duration-200">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="w-9 h-9 rounded-xl bg-white text-emerald-800 flex items-center justify-center font-black text-base shadow-xs shrink-0">
+                        📍
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-[11px] font-black uppercase tracking-wider text-emerald-200 truncate">
+                          Rider Reached Your Doorstep!
+                        </div>
+                        <div className="text-xs font-bold text-white truncate">
+                          Share this PIN with {riderName}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white text-emerald-800 font-mono text-xl font-black px-3 py-1 rounded-xl shadow-xs shrink-0 tracking-widest border border-emerald-200">
+                      {displayPin}
+                    </div>
+                  </div>
+                )}
+
+                <div className="p-4 rounded-2xl bg-gradient-to-br from-[#0E2813] via-[#163D1D] to-[#1E6B2E] text-white shadow-lg space-y-2 border border-emerald-500/30 animate-in fade-in">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+                      <span className="text-xs font-black uppercase text-emerald-300 tracking-wider">
+                        {isPickup ? 'Store Pickup PIN' : 'Doorstep Delivery PIN'}
+                      </span>
+                    </div>
+                    <span className="text-[10px] bg-white/15 text-emerald-100 px-2.5 py-0.5 rounded-full font-bold">
+                      {isPickup ? 'Show at Counter' : 'Share with Rider'}
                     </span>
                   </div>
-                  <span className="text-[10px] bg-white/15 text-emerald-100 px-2.5 py-0.5 rounded-full font-bold">
-                    {isPickup ? 'Show at Counter' : 'Share with Rider'}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between pt-1 gap-3">
-                  <div>
-                    <p className="text-xs text-stone-200 leading-snug">
-                      {isPickup ? (
-                        <>Show this 4-digit code at the <strong className="text-white">G1mart Supermarket counter</strong> when picking up your order:</>
-                      ) : (
-                        <>Share this 4-digit code with rider <strong className="text-white">{riderName}</strong> when they arrive at your door:</>
-                      )}
-                    </p>
-                  </div>
-                  <div className="bg-white text-[#1E6B2E] font-mono text-2xl font-black px-4 py-1.5 rounded-xl border-2 border-emerald-400 tracking-widest shadow-inner shrink-0">
-                    {displayPin}
+                  <div className="flex items-center justify-between pt-1 gap-3">
+                    <div>
+                      <p className="text-xs text-stone-200 leading-snug">
+                        {isPickup ? (
+                          <>Show this 4-digit code at the <strong className="text-white">G1mart Supermarket counter</strong> when picking up your order:</>
+                        ) : (
+                          <>Share this 4-digit code with rider <strong className="text-white">{riderName}</strong> when they arrive at your door:</>
+                        )}
+                      </p>
+                    </div>
+                    <div className="bg-white text-[#1E6B2E] font-mono text-2xl font-black px-4 py-1.5 rounded-xl border-2 border-emerald-400 tracking-widest shadow-inner shrink-0">
+                      {displayPin}
+                    </div>
                   </div>
                 </div>
               </div>

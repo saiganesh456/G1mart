@@ -73,11 +73,10 @@ export async function POST(
     // Trigger customer push notification if available
     try {
       const { serverPushService } = await import('@/lib/serverPushService');
-      await serverPushService.sendCustomNotification({
-        title: '📍 Rider Reached Your Destination!',
-        body: `Your delivery PIN is ${deliveryOtp}. Share this code with ${riderName} to receive your parcel.`,
-        tag: `doorstep-otp-${id}`,
-        url: `/orders/${id}`,
+      await serverPushService.sendRiderArrivedCustomerNotification({
+        order: updatedOrder,
+        riderName,
+        deliveryOtp,
       });
     } catch (pushErr) {
       console.warn('[Arrived API] Push notice:', pushErr);

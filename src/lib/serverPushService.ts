@@ -272,6 +272,7 @@ class ServerPushService {
     orderId?: string;
   }): Promise<number> {
     if (!this.vapidKeys) return 0;
+    await this.syncSubscriptionsFromSupabase();
     const subs = Array.from(this.subscriptions.values());
     if (subs.length === 0) return 0;
 
@@ -300,6 +301,72 @@ class ServerPushService {
     });
 
     await Promise.all(sendPromises);
+    return sentCount;
+  }
+
+  /**
+   * Send doorstep arrival notification with Delivery PIN directly to the customer of this order
+   */
+  async sendRiderArrivedCustomerNotification(params: {
+    order: any;
+    riderName: string;
+    deliveryOtp: string;
+  }): Promise<number> {
+    if (!params.order || !this.vapidKeys) return 0;
+    await this.syncSubscriptionsFromSupabase();
+
+    const order = params.order;
+    const targetUserId = order.userId || order.user_id || order.customer_id;
+    const targetEmail = (order.userEmail || order.customer_email || '').toLowerCase().trim();
+    const rawPhone = order.address?.mobileNumber || order.address?.phone || order.customer_phone || '';
+    const targetPhone = rawPhone.replace(/\D/g, '').slice(-10);
+
+    // Target matching customer subscriptions
+    const matchingSubs: PushSubscriptionData[] = [];
+    for (const sub of this.subscriptions.values()) {
+      let isMatch = false;
+      if (targetUserId && sub.userId && sub.userId === targetUserId) {
+        isMatch = true;
+      } else if (targetEmail && sub.userEmail && sub.userEmail.toLowerCase().trim() === targetEmail) {
+        isMatch = true;
+      } else if (targetPhone && sub.userPhone) {
+        const subClean = sub.userPhone.replace(/\D/g, '').slice(-10);
+        if (subClean && subClean === targetPhone) {
+          isMatch = true;
+        }
+      }
+      if (isMatch) matchingSubs.push(sub);
+    }
+
+    // If customer has a specific subscription, send to them. Otherwise broadcast to active subscribers
+    const recipientSubs = matchingSubs.length > 0 ? matchingSubs : Array.from(this.subscriptions.values());
+    if (recipientSubs.length === 0) return 0;
+
+    const payload = JSON.stringify({
+      title: '📍 Rider Reached Your Destination!',
+      body: `Your delivery PIN is ${params.deliveryOtp}. Share this code with ${params.riderName} to receive your parcel.`,
+      tag: `doorstep-otp-${order.id}`,
+      url: `/orders/${order.id}`,
+      orderId: order.id,
+    });
+
+    let sentCount = 0;
+    const promises = recipientSubs.map(async (sub) => {
+      try {
+        await webpush.sendNotification(
+          { endpoint: sub.endpoint, keys: sub.keys },
+          payload,
+          { TTL: 60 * 60 * 24, urgency: 'high' }
+        );
+        sentCount++;
+      } catch (err: any) {
+        if (err?.statusCode === 404 || err?.statusCode === 410) {
+          this.removeSubscription(sub.endpoint);
+        }
+      }
+    });
+
+    await Promise.all(promises);
     return sentCount;
   }
 
