@@ -102,9 +102,12 @@ export default function SlipOrdersTab({
 
   // Billing Mode state: 'total' | 'itemized'
   const [billingMode, setBillingMode] = useState<'total' | 'itemized'>('total');
-  const [aggregateCount, setAggregateCount] = useState<number | string>(1);
+  const userBillingModeRef = useRef<'total' | 'itemized' | null>(null);
+  const selectedSlipRef = useRef<SlipOrder | null>(selectedSlip);
+  selectedSlipRef.current = selectedSlip;
+  const [aggregateCount, setAggregateCount] = useState<number | string>('');
   const [aggregateAmount, setAggregateAmount] = useState<number | string>('');
-  const [aggregateDeliveryFee, setAggregateDeliveryFee] = useState<number | string>(0);
+  const [aggregateDeliveryFee, setAggregateDeliveryFee] = useState<number | string>('');
 
   // Catalog item search state
   const [catalogSearch, setCatalogSearch] = useState('');
@@ -113,9 +116,9 @@ export default function SlipOrdersTab({
   // Manual item addition state
   const [showManualModal, setShowManualModal] = useState(false);
   const [manualName, setManualName] = useState('');
-  const [manualQty, setManualQty] = useState<number | string>(1);
+  const [manualQty, setManualQty] = useState<number | string>('');
   const [manualUnit, setManualUnit] = useState('1 unit');
-  const [manualPrice, setManualPrice] = useState<number | string>(50);
+  const [manualPrice, setManualPrice] = useState<number | string>('');
 
   // Zoomable Slip Viewer state
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -143,10 +146,19 @@ export default function SlipOrdersTab({
       const data = await res.json();
       if (res.ok && data.orders) {
         setOrders(data.orders);
-        // Refresh selected slip if currently open
-        if (selectedSlip) {
-          const updated = data.orders.find((o: SlipOrder) => o.id === selectedSlip.id);
-          if (updated) setSelectedSlip(updated);
+        // Refresh selected slip if currently open using active ref
+        const currentSelected = selectedSlipRef.current;
+        if (currentSelected) {
+          const updated = data.orders.find((o: SlipOrder) => o.id === currentSelected.id);
+          if (updated) {
+            setSelectedSlip((prev) => {
+              if (!prev || prev.id !== updated.id) return updated;
+              return {
+                ...updated,
+                admin_notes: prev.admin_notes !== undefined ? prev.admin_notes : updated.admin_notes,
+              };
+            });
+          }
         } else if (typeof window !== 'undefined') {
           // Check for deep-linked slip from notification click or URL
           const urlParams = new URLSearchParams(window.location.search);
@@ -216,31 +228,32 @@ export default function SlipOrdersTab({
       const isAggregate =
         (selectedSlip.items?.length === 1 &&
           (String(selectedSlip.items[0].id).startsWith('slip_item_') ||
-            (selectedSlip.items[0].name || '').includes('as per customer slip'))) ||
+            (selectedSlip.items[0].name || '').includes('as per customer slip') ||
+            (selectedSlip.items[0].name || '').toLowerCase() === 'total bill')) ||
         Boolean(selectedSlip.total_items && selectedSlip.total_items > 0);
 
-      if (isAggregate) {
+      if (userBillingModeRef.current) {
+        setBillingMode(userBillingModeRef.current);
+      } else if (isAggregate) {
         setBillingMode('total');
-        setAggregateCount(selectedSlip.total_items || 1);
-        setAggregateAmount(
-          selectedSlip.subtotal ||
+      } else if (selectedSlip.items && selectedSlip.items.length > 0) {
+        setBillingMode('itemized');
+      } else {
+        setBillingMode('total');
+      }
+
+      // Realistic manual numbers: do not prefill constant numbers like 1, 50, etc.
+      setAggregateCount(selectedSlip.total_items ? selectedSlip.total_items : '');
+      setAggregateAmount(
+        isAggregate
+          ? selectedSlip.subtotal ||
             selectedSlip.final_total ||
             selectedSlip.estimated_total ||
             selectedSlip.items?.[0]?.price ||
             ''
-        );
-        setAggregateDeliveryFee(selectedSlip.delivery_fee || 0);
-      } else if (selectedSlip.items && selectedSlip.items.length > 0) {
-        setBillingMode('itemized');
-        setAggregateCount(selectedSlip.items.length);
-        setAggregateAmount(selectedSlip.subtotal || selectedSlip.estimated_total || '');
-        setAggregateDeliveryFee(selectedSlip.delivery_fee || 0);
-      } else {
-        setBillingMode('total');
-        setAggregateCount(1);
-        setAggregateAmount('');
-        setAggregateDeliveryFee(0);
-      }
+          : ''
+      );
+      setAggregateDeliveryFee(selectedSlip.delivery_fee ? selectedSlip.delivery_fee : '');
 
       const currentItems = (selectedSlip.items || []).map((it) => ({
         id: it.id,
@@ -330,15 +343,55 @@ export default function SlipOrdersTab({
       },
     ]);
     setManualName('');
-    setManualQty('1');
+    setManualQty('');
     setManualUnit('1 unit');
     setManualPrice('');
     setShowManualModal(false);
   };
 
-  // Remove item from bill
-  const handleRemoveItem = (index: number) => {
-    setBilledItems((prev) => prev.filter((_, idx) => idx !== index));
+  // Remove item from bill (persists immediately so background polling never brings it back)
+  const handleRemoveItem = async (index: number) => {
+    const updated = billedItems.filter((_, idx) => idx !== index);
+    setBilledItems(updated);
+
+    if (selectedSlip) {
+      try {
+        const sanitizedItems = updated.map((it) => ({
+          id: it.id,
+          productId: it.productId,
+          name: it.name,
+          requestedQty: Math.max(1, Number(it.requestedQty) || 1),
+          unit: it.unit || 'unit',
+          price: Math.max(0, Number(it.price) || 0),
+          available: it.available !== false,
+          substituteNote: it.substituteNote || '',
+        }));
+
+        const res = await fetch(`/api/admin/slip-orders/${selectedSlip.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            ...getAdminHeaders(),
+          },
+          body: JSON.stringify({
+            items: sanitizedItems,
+            adminNotes,
+            billedBy: 'Store Staff',
+            moveStatus: selectedSlip.status,
+          }),
+        });
+
+        const data = await res.json();
+        if (res.ok && data.order) {
+          setSelectedSlip(data.order);
+          setOrders((prev) => prev.map((o) => (o.id === data.order.id ? data.order : o)));
+          setActionSuccess('Item removed from bill.');
+          setTimeout(() => setActionSuccess(null), 2500);
+        }
+      } catch (err) {
+        console.error('Failed to persist item deletion:', err);
+      }
+    }
   };
 
   // Update item field
@@ -989,6 +1042,8 @@ export default function SlipOrdersTab({
                           <button
                             type="button"
                             onClick={() => {
+                              activeSlipIdRef.current = null;
+                              userBillingModeRef.current = null;
                               setSelectedSlip(slip);
                               try {
                                 window.history.pushState(
@@ -1019,6 +1074,8 @@ export default function SlipOrdersTab({
                   type="button"
                   onClick={() => {
                     setSelectedSlip(null);
+                    activeSlipIdRef.current = null;
+                    userBillingModeRef.current = null;
                     if (typeof window !== 'undefined') {
                       if (window.history.state?.adminBack) {
                         window.history.back();
@@ -1042,7 +1099,7 @@ export default function SlipOrdersTab({
               {/* Two Column Layout: Left Viewer | Right Bill Builder */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
                 {/* 1. LEFT COLUMN: ZOOMABLE SLIP VIEWER (5 cols on lg) */}
-                <div className="lg:col-span-5 bg-white rounded-3xl border border-stone-200/90 shadow-2xs p-4 space-y-3 sticky top-20">
+                <div className="lg:col-span-5 bg-white rounded-3xl border border-stone-200/90 shadow-2xs p-4 space-y-3 relative lg:sticky lg:top-20">
                   <div className="flex items-center justify-between border-b border-stone-100 pb-2">
                     <span className="text-xs font-black text-stone-800 flex items-center gap-1.5">
                       <FileText className="w-4 h-4 text-[#2E7D32]" />
@@ -1210,7 +1267,10 @@ export default function SlipOrdersTab({
                   <div className="flex items-center gap-2 p-1.5 bg-stone-100/90 rounded-2xl border border-stone-200/70">
                     <button
                       type="button"
-                      onClick={() => setBillingMode('total')}
+                      onClick={() => {
+                        setBillingMode('total');
+                        userBillingModeRef.current = 'total';
+                      }}
                       className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-black transition-all ${
                         billingMode === 'total'
                           ? 'bg-white text-stone-900 shadow-xs border border-stone-200'
@@ -1222,7 +1282,10 @@ export default function SlipOrdersTab({
                     </button>
                     <button
                       type="button"
-                      onClick={() => setBillingMode('itemized')}
+                      onClick={() => {
+                        setBillingMode('itemized');
+                        userBillingModeRef.current = 'itemized';
+                      }}
                       className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-black transition-all ${
                         billingMode === 'itemized'
                           ? 'bg-white text-stone-900 shadow-xs border border-stone-200'
@@ -1402,25 +1465,44 @@ export default function SlipOrdersTab({
                         );
                       })()}
 
+                      {/* Inline feedback alerts for fast mobile visibility */}
+                      {actionError && (
+                        <div className="p-3 bg-rose-50 border border-rose-300 rounded-xl text-rose-900 text-xs font-bold flex items-center gap-2 animate-in fade-in">
+                          <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
+                          <span>{actionError}</span>
+                        </div>
+                      )}
+                      {actionSuccess && (
+                        <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-xl text-emerald-950 text-xs font-bold flex items-center gap-2 animate-in fade-in">
+                          <CheckCircle2 className="w-4 h-4 text-[#2E7D32] shrink-0" />
+                          <span>{actionSuccess}</span>
+                        </div>
+                      )}
+
                       {/* Quick Total Bill Action Buttons */}
                       <div className="flex flex-col sm:flex-row items-center gap-2.5 pt-2">
                         <button
                           type="button"
                           disabled={isSaving}
                           onClick={() => handleSaveTotalBill('BILLING')}
-                          className="w-full sm:flex-1 py-3 px-4 bg-stone-100 hover:bg-stone-200 text-stone-800 font-black rounded-2xl text-xs transition-colors border border-stone-300"
+                          className="w-full sm:flex-1 py-3 px-4 bg-stone-100 hover:bg-stone-200 text-stone-800 font-black rounded-2xl text-xs transition-colors border border-stone-300 flex items-center justify-center gap-2"
                         >
-                          {isSaving ? 'Saving...' : 'Save Draft Total Bill'}
+                          {isSaving ? <RefreshCw className="w-4 h-4 animate-spin text-stone-600" /> : null}
+                          <span>{isSaving ? 'Saving Total Bill...' : 'Save Draft Total Bill'}</span>
                         </button>
 
                         <button
                           type="button"
-                          disabled={isSaving || (Number(aggregateAmount) || 0) <= 0}
+                          disabled={isSaving}
                           onClick={handleConfirmTotalBillByCall}
-                          className="w-full sm:flex-1 py-3 px-4 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black rounded-2xl text-xs transition-all shadow-xs flex items-center justify-center gap-1.5 disabled:opacity-50"
+                          className="w-full sm:flex-1 py-3 px-4 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black rounded-2xl text-xs transition-all shadow-xs flex items-center justify-center gap-2 disabled:opacity-50"
                         >
-                          <Check className="w-4 h-4 stroke-[3]" />
-                          <span>Confirm by Call &amp; Move to Packer</span>
+                          {isSaving ? (
+                            <RefreshCw className="w-4 h-4 animate-spin text-white" />
+                          ) : (
+                            <Check className="w-4 h-4 stroke-[3]" />
+                          )}
+                          <span>{isSaving ? 'Confirming...' : 'Confirm by Call & Move to Packer'}</span>
                         </button>
                       </div>
                     </div>
@@ -1683,25 +1765,44 @@ export default function SlipOrdersTab({
                         )}
                       </div>
 
+                      {/* Inline feedback alerts for fast mobile visibility */}
+                      {actionError && (
+                        <div className="p-3 bg-rose-50 border border-rose-300 rounded-xl text-rose-900 text-xs font-bold flex items-center gap-2 animate-in fade-in">
+                          <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
+                          <span>{actionError}</span>
+                        </div>
+                      )}
+                      {actionSuccess && (
+                        <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-xl text-emerald-950 text-xs font-bold flex items-center gap-2 animate-in fade-in">
+                          <CheckCircle2 className="w-4 h-4 text-[#2E7D32] shrink-0" />
+                          <span>{actionSuccess}</span>
+                        </div>
+                      )}
+
                       {/* ACTION FOOTER BUTTONS */}
                       <div className="flex flex-col sm:flex-row items-center gap-2.5 pt-2">
                         <button
                           type="button"
                           disabled={isSaving}
                           onClick={() => handleSaveBill('BILLING')}
-                          className="w-full sm:flex-1 py-3 px-4 bg-stone-100 hover:bg-stone-200 text-stone-800 font-black rounded-2xl text-xs transition-colors border border-stone-300"
+                          className="w-full sm:flex-1 py-3 px-4 bg-stone-100 hover:bg-stone-200 text-stone-800 font-black rounded-2xl text-xs transition-colors border border-stone-300 flex items-center justify-center gap-2"
                         >
-                          {isSaving ? 'Saving...' : 'Save Draft Bill'}
+                          {isSaving ? <RefreshCw className="w-4 h-4 animate-spin text-stone-600" /> : null}
+                          <span>{isSaving ? 'Saving Bill...' : 'Save Draft Bill'}</span>
                         </button>
 
                         <button
                           type="button"
                           disabled={isSaving || billedItems.length === 0}
                           onClick={handleMarkConfirmedByCall}
-                          className="w-full sm:flex-1 py-3 px-4 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black rounded-2xl text-xs transition-all shadow-xs flex items-center justify-center gap-1.5 disabled:opacity-50"
+                          className="w-full sm:flex-1 py-3 px-4 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black rounded-2xl text-xs transition-all shadow-xs flex items-center justify-center gap-2 disabled:opacity-50"
                         >
-                          <Check className="w-4 h-4 stroke-[3]" />
-                          <span>Mark Confirmed by Call</span>
+                          {isSaving ? (
+                            <RefreshCw className="w-4 h-4 animate-spin text-white" />
+                          ) : (
+                            <Check className="w-4 h-4 stroke-[3]" />
+                          )}
+                          <span>{isSaving ? 'Confirming...' : 'Mark Confirmed by Call'}</span>
                         </button>
                       </div>
                     </div>

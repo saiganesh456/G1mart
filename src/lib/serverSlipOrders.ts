@@ -158,23 +158,25 @@ async function syncSlipOrderToSupabase(slip: SlipOrder): Promise<void> {
         updated_at: new Date().toISOString(),
       });
 
-      if (Array.isArray(slip.items) && slip.items.length > 0) {
-        // Clean up previous items first to prevent duplication
+      if (Array.isArray(slip.items)) {
+        // Clean up previous items first to prevent duplication or resurrecting deleted items
         await client.from('slip_items').delete().eq('slip_order_id', slip.id);
 
-        const itemsPayload = slip.items.map((it) => ({
-          id: it.id,
-          slip_order_id: slip.id,
-          product_id: it.product_id || null,
-          name: it.name,
-          requested_qty: Number(it.requested_qty || 1),
-          packed_qty: Number(it.packed_qty || 0),
-          unit: it.unit || 'unit',
-          price: Number(it.price || 0),
-          available: it.available !== false,
-          substitute_note: it.substitute_note || null,
-        }));
-        await client.from('slip_items').insert(itemsPayload);
+        if (slip.items.length > 0) {
+          const itemsPayload = slip.items.map((it) => ({
+            id: it.id,
+            slip_order_id: slip.id,
+            product_id: it.product_id || null,
+            name: it.name,
+            requested_qty: Number(it.requested_qty || 1),
+            packed_qty: Number(it.packed_qty || 0),
+            unit: it.unit || 'unit',
+            price: Number(it.price || 0),
+            available: it.available !== false,
+            substitute_note: it.substitute_note || null,
+          }));
+          await client.from('slip_items').insert(itemsPayload);
+        }
       }
       return; // Succeeded with this client
     } catch (err) {
