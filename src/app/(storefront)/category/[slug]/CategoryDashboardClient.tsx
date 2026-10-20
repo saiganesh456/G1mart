@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { SlidersHorizontal, ArrowUpDown, X, Check, Search, ChevronDown, IndianRupee } from 'lucide-react';
 import ProductCard from '@/components/storefront/ProductCard';
@@ -396,15 +397,33 @@ export default function CategoryDashboardClient({ category, products }: Props) {
   const hasAnyFilterActive = selectedBrand !== 'all' || sortBy !== 'popular' || priceFilter !== 'all';
 
   return (
-    <div className="fixed inset-x-0 top-0 bottom-[calc(64px+env(safe-area-inset-bottom,0px))] z-10 flex flex-col bg-[var(--g1-bg)] overflow-hidden lg:static lg:h-[calc(100vh-80px)]">
-      {/* 1. Top Header: 56px sticky inner header (back button + title + location subtitle + search + cart) */}
-      <div className="shrink-0">
+    <div className="fixed inset-x-0 top-0 bottom-[calc(64px+env(safe-area-inset-bottom,0px))] z-10 flex flex-col bg-[var(--g1-bg)] overflow-hidden lg:static lg:h-[calc(100vh-85px)] lg:w-full lg:max-w-7xl lg:mx-auto lg:my-3 lg:rounded-2xl lg:border lg:border-stone-200/90 lg:bg-white lg:shadow-2xs">
+      {/* 1. Top Header: 56px sticky inner header (Mobile only) */}
+      <div className="shrink-0 lg:hidden">
         <InnerPageHeader
           title={category.name}
           subtitle={shortAddress ? `Delivering to : ${shortAddress}` : undefined}
           showSearch
           onSearchClick={() => router.push('/search')}
         />
+      </div>
+
+      {/* Desktop Breadcrumb Header */}
+      <div className="hidden lg:flex items-center justify-between px-5 py-2.5 border-b bg-stone-50/70" style={{ borderColor: 'var(--g1-border)' }}>
+        <div className="flex items-center gap-2 text-xs">
+          <Link href="/" className="text-stone-500 hover:text-stone-900 transition-colors font-medium">Home</Link>
+          <span className="text-stone-300">/</span>
+          <Link href="/categories" className="text-stone-500 hover:text-stone-900 transition-colors font-medium">Categories</Link>
+          <span className="text-stone-300">/</span>
+          <span className="font-bold text-stone-900">{category.name}</span>
+        </div>
+        {shortAddress && (
+          <span className="text-xs text-stone-500 font-medium flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Delivering to:</span>
+            <strong className="text-stone-800">{shortAddress}</strong>
+          </span>
+        )}
       </div>
 
       {/* 2. Blinkit-style Compact Filter Bar (Height: 42px, single row, compact pills) */}
@@ -542,16 +561,16 @@ export default function CategoryDashboardClient({ category, products }: Props) {
 
       {/* 3. Main Split-Pane Viewport: Left Sidebar (Constant) + Right Products Grid (Scrolling) */}
       <div className="flex flex-1 min-h-0 overflow-hidden">
-        {/* Left rail: 76px width, CONSTANT / INDEPENDENT SCROLL, never moves when right side scrolls */}
+        {/* Left rail: responsive width (compact on mobile, wide with text on desktop) */}
         <aside
-          className="w-[76px] sm:w-20 shrink-0 h-full overflow-y-auto no-scrollbar bg-[var(--g1-surface)] border-r flex flex-col py-2 select-none"
+          className="w-[76px] sm:w-20 lg:w-56 xl:w-60 shrink-0 h-full overflow-y-auto no-scrollbar bg-[var(--g1-surface)] border-r flex flex-col py-2 select-none"
           style={{ borderColor: 'var(--g1-border)' }}
         >
           {/* "All" subcategory button */}
           <button
             type="button"
             onClick={() => handleSelectSubCategory('all')}
-            className="relative w-full py-2.5 px-1 flex flex-col items-center justify-center transition-all cursor-pointer g1-press"
+            className="relative w-full py-2.5 px-1 lg:px-3 lg:py-2 flex flex-col lg:flex-row items-center lg:gap-2.5 justify-center lg:justify-start transition-all cursor-pointer g1-press rounded-xl lg:mx-1 lg:w-[calc(100%-8px)]"
             style={{
               backgroundColor: selectedSubCategory === 'all' ? 'var(--g1-bg)' : 'transparent',
             }}
@@ -563,7 +582,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
               />
             )}
             <div
-              className="w-12 h-12 rounded-full flex items-center justify-center transition-all overflow-hidden"
+              className="w-12 h-12 lg:w-9 lg:h-9 rounded-full flex items-center justify-center transition-all overflow-hidden shrink-0"
               style={{
                 backgroundColor: selectedSubCategory === 'all' ? 'var(--g1-primary-tint)' : 'var(--g1-bg)',
                 border: `1.5px solid ${selectedSubCategory === 'all' ? 'var(--g1-primary)' : 'var(--g1-border)'}`,
@@ -571,13 +590,13 @@ export default function CategoryDashboardClient({ category, products }: Props) {
             >
               {category.image ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={category.image} alt="All" className="w-8 h-8 object-contain" />
+                <img src={category.image} alt="All" className="w-8 h-8 lg:w-6 lg:h-6 object-contain" />
               ) : (
                 <span className="text-xs font-bold" style={{ color: 'var(--g1-primary)' }}>All</span>
               )}
             </div>
             <span
-              className="text-[11px] mt-1 text-center leading-tight px-0.5 line-clamp-2"
+              className="text-[11px] lg:text-xs mt-1 lg:mt-0 text-center lg:text-left leading-tight px-0.5 line-clamp-2 lg:flex-1"
               style={{
                 fontWeight: selectedSubCategory === 'all' ? 700 : 500,
                 color: selectedSubCategory === 'all' ? 'var(--g1-primary)' : 'var(--g1-text)',
@@ -595,7 +614,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
                 key={sub.name}
                 type="button"
                 onClick={() => handleSelectSubCategory(sub.name)}
-                className="relative w-full py-2.5 px-1 flex flex-col items-center justify-center transition-all cursor-pointer g1-press"
+                className="relative w-full py-2.5 px-1 lg:px-3 lg:py-2 flex flex-col lg:flex-row items-center lg:gap-2.5 justify-center lg:justify-start transition-all cursor-pointer g1-press rounded-xl lg:mx-1 lg:w-[calc(100%-8px)]"
                 style={{
                   backgroundColor: isSelected ? 'var(--g1-bg)' : 'transparent',
                 }}
@@ -606,9 +625,9 @@ export default function CategoryDashboardClient({ category, products }: Props) {
                     style={{ backgroundColor: 'var(--g1-primary)' }}
                   />
                 )}
-                {/* 48px circle image */}
+                {/* Icon */}
                 <div
-                  className="w-12 h-12 rounded-full p-1 flex items-center justify-center transition-all overflow-hidden"
+                  className="w-12 h-12 lg:w-9 lg:h-9 rounded-full p-1 flex items-center justify-center transition-all overflow-hidden shrink-0"
                   style={{
                     backgroundColor: isSelected ? 'var(--g1-primary-tint)' : 'var(--g1-bg)',
                     border: `1.5px solid ${isSelected ? 'var(--g1-primary)' : 'var(--g1-border)'}`,
@@ -616,19 +635,19 @@ export default function CategoryDashboardClient({ category, products }: Props) {
                 >
                   {sub.image ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={sub.image} alt={sub.name} className="w-8 h-8 object-contain select-none" />
+                    <img src={sub.image} alt={sub.name} className="w-8 h-8 lg:w-6 lg:h-6 object-contain select-none" />
                   ) : (
                     <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold"
+                      className="w-8 h-8 lg:w-6 lg:h-6 rounded-full flex items-center justify-center text-xs font-bold"
                       style={{ backgroundColor: 'var(--g1-surface)', color: 'var(--g1-text-secondary)' }}
                     >
                       {sub.name.charAt(0)}
                     </div>
                   )}
                 </div>
-                {/* 11px label */}
+                {/* Label */}
                 <span
-                  className="text-[11px] mt-1 text-center leading-tight px-0.5 line-clamp-2"
+                  className="text-[11px] lg:text-xs mt-1 lg:mt-0 text-center lg:text-left leading-tight px-0.5 line-clamp-2 lg:flex-1"
                   style={{
                     fontWeight: isSelected ? 700 : 500,
                     color: isSelected ? 'var(--g1-primary)' : 'var(--g1-text)',
@@ -657,7 +676,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
           </div>
 
           {displayedProducts.length > 0 ? (
-            <div className="grid grid-cols-2 min-[480px]:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-2.5 min-w-0">
+            <div className="grid grid-cols-2 min-[480px]:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 sm:gap-2.5 lg:gap-3 min-w-0">
               {displayedProducts.map((p) => (
                 <ProductCard key={`${p.id}::${selectedBrand}::${priceFilter}`} product={p} compact />
               ))}

@@ -55,7 +55,7 @@ function SearchContent() {
   return (
     <>
       <InnerPageHeader title="Search" />
-      <div className="w-full max-w-2xl mx-auto space-y-4 pb-28 pt-2 px-4 sm:px-0">
+      <div className="w-full max-w-2xl lg:max-w-7xl mx-auto space-y-4 pb-28 pt-2 px-4 sm:px-6 lg:px-8">
         {/* Search Input Box — 52px height, 14px radius, no quotes */}
         <div className="relative" style={{ height: 52 }}>
           <SearchIcon
@@ -180,7 +180,7 @@ function SearchContent() {
         {/* Results Grid or Empty State */}
         {query ? (
           filtered.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pb-8 min-w-0">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2.5 sm:gap-3.5 pb-8 min-w-0">
               {filtered.map((product) => (
                 <div key={product.id} className="min-w-0">
                   <ProductCard product={product} compact />

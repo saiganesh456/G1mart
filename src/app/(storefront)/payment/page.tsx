@@ -598,30 +598,37 @@ export default function PaymentPage() {
   }
 
   return (
-    <div className="w-full max-w-xl mx-auto space-y-3.5 pb-36 pt-2 sm:pt-4 px-3 sm:px-4 box-border min-w-0 overflow-x-hidden">
+    <div className="w-full max-w-xl lg:max-w-6xl xl:max-w-7xl mx-auto space-y-4 pb-36 pt-2 sm:pt-4 px-3 sm:px-6 box-border min-w-0 overflow-x-hidden">
       {/* Header */}
-      <div className="flex items-center gap-3 min-w-0">
-        <button
-          type="button"
-          onClick={() => {
-            if (typeof window !== 'undefined' && window.history.length > 1) {
-              router.back();
-            } else {
-              router.replace('/checkout');
-            }
-          }}
-          className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50 shrink-0 cursor-pointer"
-          aria-label="Back to Checkout"
-        >
-          <ArrowLeft className="w-4 h-4" />
-        </button>
-        <div className="min-w-0 flex-1">
-          <h1 className="text-base sm:text-lg font-black text-[#212121] truncate">Payment Options</h1>
-          <p className="text-[11px] text-stone-500 truncate">
-            {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'} · Secure 256-bit checkout
-          </p>
+      <div className="flex items-center justify-between border-b border-stone-200/80 pb-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <button
+            type="button"
+            onClick={() => {
+              if (typeof window !== 'undefined' && window.history.length > 1) {
+                router.back();
+              } else {
+                router.replace('/checkout');
+              }
+            }}
+            className="w-9 h-9 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50 shrink-0 cursor-pointer shadow-2xs"
+            aria-label="Back to Checkout"
+          >
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+          <div className="min-w-0 flex-1">
+            <h1 className="text-base sm:text-xl lg:text-2xl font-black text-[#212121] truncate">Choose Payment Method</h1>
+            <p className="text-[11px] sm:text-xs text-stone-500 truncate">
+              {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'} · 100% Encrypted &amp; Secure Checkout
+            </p>
+          </div>
         </div>
       </div>
+
+      {/* Main 2-Column Responsive Layout on Desktop */}
+      <div className="lg:grid lg:grid-cols-12 lg:gap-8 lg:items-start">
+        {/* Left Column: Payment Options (7 cols) */}
+        <div className="lg:col-span-7 xl:col-span-7 space-y-3.5">
 
       {errorMessage && (
         <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-2xl text-xs text-rose-800 space-y-2 animate-in fade-in min-w-0 w-full box-border">
@@ -760,8 +767,12 @@ export default function PaymentPage() {
         </label>
       </div>
 
-      {/* PHASE 5: The Bill Summary Card (Updates live when option changes) */}
-      <div className="bg-white rounded-2xl border border-stone-200/90 p-3 sm:p-3.5 shadow-2xs space-y-2.5 min-w-0 w-full box-border">
+        </div>
+
+        {/* Right Column: Final Bill Summary & Desktop Action (5 cols) */}
+        <div className="lg:col-span-5 xl:col-span-5 lg:sticky lg:top-24 space-y-3.5 mt-3.5 lg:mt-0">
+          {/* PHASE 5: The Bill Summary Card */}
+          <div className="bg-white rounded-2xl border border-stone-200/90 p-4 sm:p-5 shadow-2xs space-y-3 min-w-0 w-full box-border">
         <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider border-b border-stone-100 pb-2">
           Bill Details ({cartItemCount} items)
         </h2>
@@ -799,6 +810,28 @@ export default function PaymentPage() {
             <span>To Pay</span>
             <span className="tabular-nums text-base text-[#1B5E20] shrink-0">₹{grandTotal}</span>
           </div>
+
+          {/* Desktop Pay Action Button inside card */}
+          <div className="hidden lg:block pt-3">
+            <button
+              type="button"
+              onClick={handleProceed}
+              disabled={processing}
+              className="w-full h-12 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all disabled:opacity-60 cursor-pointer"
+            >
+              {processing && (
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin shrink-0" />
+              )}
+              <span>
+                {processing
+                  ? 'Processing...'
+                  : selectedMethod === 'cod'
+                  ? `Confirm Order (₹${grandTotal})`
+                  : `Pay Online (₹${grandTotal})`}
+              </span>
+              <ChevronRight className="w-4 h-4 shrink-0" />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -810,9 +843,11 @@ export default function PaymentPage() {
         <ShieldCheck className="w-4 h-4 text-[#2E7D32] shrink-0" />
         <span className="truncate">Razorpay Standard Web Checkout · Safe &amp; 256-bit Secure</span>
       </div>
+        </div>
+      </div>
 
-      {/* Sticky Bottom Action */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-3 py-3 shadow-lg box-border">
+      {/* Sticky Bottom Action (Mobile only) */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-3 py-3 shadow-lg box-border">
         <div className="max-w-xl mx-auto flex items-center justify-between gap-3 min-w-0 w-full box-border">
           <div className="flex flex-col text-left min-w-0 shrink-0">
             <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">TOTAL TO PAY</span>

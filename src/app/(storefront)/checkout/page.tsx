@@ -285,30 +285,43 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="w-full max-w-xl mx-auto space-y-3.5 pb-32 pt-2 sm:pt-4 px-3 sm:px-4 box-border min-w-0 overflow-x-hidden">
+    <div className="w-full max-w-xl lg:max-w-6xl xl:max-w-7xl mx-auto space-y-4 pb-32 pt-2 sm:pt-4 px-3 sm:px-6 box-border min-w-0 overflow-x-hidden">
       {/* Top Header */}
-      <div className="flex items-center gap-3 min-w-0">
-        <button
-          type="button"
-          onClick={() => {
-            if (typeof window !== 'undefined' && window.history.length > 1) {
-              router.back();
-            } else {
-              router.replace('/cart');
-            }
-          }}
-          className="w-8 h-8 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50 shrink-0 cursor-pointer"
-          aria-label="Back to Cart"
-        >
-          <ArrowLeft className="w-4 h-4" />
-        </button>
-        <div className="min-w-0 flex-1">
-          <h1 className="text-base sm:text-lg font-black text-[#212121] truncate">Checkout</h1>
-          <p className="text-[11px] text-stone-500 truncate">
-            {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'} · ₹{cartSubtotal}
-          </p>
+      <div className="flex items-center justify-between border-b border-stone-200/80 pb-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <button
+            type="button"
+            onClick={() => {
+              if (typeof window !== 'undefined' && window.history.length > 1) {
+                router.back();
+              } else {
+                router.replace('/cart');
+              }
+            }}
+            className="w-9 h-9 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-stone-600 hover:bg-stone-50 shrink-0 cursor-pointer shadow-2xs"
+            aria-label="Back to Cart"
+          >
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+          <div className="min-w-0 flex-1">
+            <h1 className="text-base sm:text-xl lg:text-2xl font-black text-[#212121] truncate">Checkout</h1>
+            <p className="text-[11px] sm:text-xs text-stone-500 truncate">
+              {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'} in your cart · Estimated ₹{cartSubtotal}
+            </p>
+          </div>
         </div>
+        <Link
+          href="/cart"
+          className="hidden sm:flex text-xs font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200/80 transition-colors"
+        >
+          Review Cart Items →
+        </Link>
       </div>
+
+      {/* Main 2-Column Responsive Layout on Desktop */}
+      <div className="lg:grid lg:grid-cols-12 lg:gap-8 lg:items-start">
+        {/* Left Column: Fulfillment, Address, Slot (7 cols) */}
+        <div className="lg:col-span-7 xl:col-span-7 space-y-3.5">
 
       {/* Account Verification Gate - ONLY if not logged in */}
       {!isLoggedIn ? (
@@ -765,8 +778,12 @@ export default function CheckoutPage() {
         )}
       </div>
 
-      {/* 4. Bill Summary Card */}
-      <div className="bg-white rounded-2xl border border-stone-200/90 p-3 sm:p-3.5 shadow-2xs space-y-2.5 min-w-0 w-full box-border">
+        </div>
+
+        {/* Right Column: Order Bill Details & Actions (5 cols) */}
+        <div className="lg:col-span-5 xl:col-span-5 lg:sticky lg:top-24 space-y-3.5 mt-3.5 lg:mt-0">
+          {/* 4. Bill Summary Card */}
+          <div className="bg-white rounded-2xl border border-stone-200/90 p-4 sm:p-5 shadow-2xs space-y-3 min-w-0 w-full box-border">
         <h2 className="text-xs font-bold text-stone-800 uppercase tracking-wider border-b border-stone-100 pb-2">
           Bill Details ({cartItemCount} items)
         </h2>
@@ -798,6 +815,36 @@ export default function CheckoutPage() {
             <span>To Pay</span>
             <span className="tabular-nums shrink-0">₹{grandTotal}</span>
           </div>
+
+          {/* Desktop Proceed Button inside card */}
+          <div className="hidden lg:block pt-3">
+            {isBelowMinOrder ? (
+              <button
+                type="button"
+                disabled
+                className="w-full h-12 bg-stone-200 text-stone-500 rounded-xl font-extrabold text-sm flex items-center justify-center gap-1.5 cursor-not-allowed opacity-80"
+              >
+                <span>Add ₹{shortfallAmount} More to Place Order</span>
+              </button>
+            ) : !isAddressServiceable && orderType === 'delivery' ? (
+              <button
+                type="button"
+                disabled
+                className="w-full h-12 bg-rose-100 text-rose-700 rounded-xl font-extrabold text-sm flex items-center justify-center gap-1.5 cursor-not-allowed"
+              >
+                <span>Delivery Outside Service Area</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={handlePlaceOrder}
+                className="w-full h-12 bg-[#2E7D32] hover:bg-[#1B5E20] text-white rounded-xl font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#2E7D32]/25 active:scale-[0.98] transition-all cursor-pointer"
+              >
+                <span>Proceed to Payment (₹{grandTotal})</span>
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
@@ -806,9 +853,11 @@ export default function CheckoutPage() {
         <ShieldCheck className="w-4 h-4 text-[#2E7D32] shrink-0" />
         <span className="truncate">Authentic in-store billing &amp; verified FMCG stock</span>
       </div>
+    </div>
+  </div>
 
-      {/* 5. Sticky Bottom CTA: Place Order / Proceed to Payment (Phase 4) */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-3 py-3 shadow-lg box-border">
+      {/* 5. Sticky Bottom CTA: Place Order / Proceed to Payment (Mobile only) */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 px-3 py-3 shadow-lg box-border">
         <div className="max-w-xl mx-auto flex items-center justify-between gap-3 min-w-0 w-full box-border">
           <div className="flex flex-col text-left min-w-0 shrink-0">
             <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">TOTAL</span>

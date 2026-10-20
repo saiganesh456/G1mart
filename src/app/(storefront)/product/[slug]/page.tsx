@@ -188,9 +188,26 @@ export default function ProductDetailPage({ params }: Props) {
     : null;
 
   return (
-    <div className="w-full max-w-2xl mx-auto space-y-4 pb-28 pt-2 px-4 sm:px-0">
-      {/* 56px Top Header: 40px circle back button + wishlist + cart buttons */}
-      <div className="flex items-center justify-between" style={{ height: 56 }}>
+    <div className="w-full max-w-2xl lg:max-w-6xl xl:max-w-7xl mx-auto space-y-4 lg:space-y-6 pb-28 pt-2 sm:pt-4 px-4 sm:px-6 box-border">
+      {/* Desktop Breadcrumbs Bar */}
+      <div className="hidden lg:block pb-1">
+        <div className="flex items-center gap-2 text-xs text-stone-500 font-medium">
+          <Link href="/" className="hover:text-stone-900 transition-colors">Home</Link>
+          <span>/</span>
+          {effectiveProduct.category && (
+            <>
+              <Link href={`/category/${effectiveProduct.category}`} className="hover:text-stone-900 transition-colors capitalize">
+                {effectiveProduct.category.replace(/-/g, ' ')}
+              </Link>
+              <span>/</span>
+            </>
+          )}
+          <span className="text-stone-900 font-bold truncate max-w-md">{effectiveProduct.name}</span>
+        </div>
+      </div>
+
+      {/* 56px Top Header: Mobile only (40px circle back button + wishlist + cart buttons) */}
+      <div className="flex lg:hidden items-center justify-between" style={{ height: 56 }}>
         <button
           type="button"
           onClick={() => router.back()}
@@ -239,11 +256,14 @@ export default function ProductDetailPage({ params }: Props) {
         </div>
       </div>
 
-      {/* Main Image Card: 1:1 clean packshot */}
-      <div
-        className="rounded-[var(--g1-r-card)] border p-6 flex items-center justify-center relative overflow-hidden bg-[var(--g1-bg)]"
-        style={{ borderColor: 'var(--g1-border)', boxShadow: 'var(--g1-e1)', minHeight: 260 }}
-      >
+      {/* Main Responsive Grid: 2 Columns on Desktop */}
+      <div className="lg:grid lg:grid-cols-12 lg:gap-8 lg:items-start">
+        {/* Left Column: Image Card */}
+        <div className="lg:col-span-5 xl:col-span-5 lg:sticky lg:top-24 space-y-3">
+          <div
+            className="rounded-[var(--g1-r-card)] border p-6 flex items-center justify-center relative overflow-hidden bg-[var(--g1-bg)]"
+            style={{ borderColor: 'var(--g1-border)', boxShadow: 'var(--g1-e1)', minHeight: 280 }}
+          >
         <div className="w-56 h-56 sm:w-64 sm:h-64 flex items-center justify-center">
           <ProductImage
             imageUrl={(activeVariant as any)?.variant?.image || (activeVariant as any)?.variant?.image_url || (activeVariant as any)?.variant?.imageUrl || effectiveProduct.image_url || (effectiveProduct as any).imageUrl || (effectiveProduct as any).image}
@@ -266,9 +286,12 @@ export default function ProductDetailPage({ params }: Props) {
             {discount}% OFF
           </span>
         )}
-      </div>
+          </div>
+        </div>
 
-      {/* Product Details Card */}
+        {/* Right Column: Product Details & Purchase Actions */}
+        <div className="lg:col-span-7 xl:col-span-7 space-y-4 mt-4 lg:mt-0">
+          {/* Product Details Card */}
       <div
         className="rounded-[var(--g1-r-card)] border p-4 sm:p-5 space-y-3 bg-[var(--g1-bg)]"
         style={{ borderColor: 'var(--g1-border)', boxShadow: 'var(--g1-e1)' }}
@@ -458,6 +481,8 @@ export default function ProductDetailPage({ params }: Props) {
           </p>
         </div>
       </div>
+        </div>
+      </div>
 
       {/* Related Products */}
       {relatedProducts.length > 0 && (
@@ -470,7 +495,7 @@ export default function ProductDetailPage({ params }: Props) {
               Popular items in {effectiveProduct.category.replace(/-/g, ' ')}
             </p>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pb-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2.5 sm:gap-3.5 pb-4">
             {relatedProducts.map((rel) => (
               <ProductCard key={rel.id} product={rel} compact />
             ))}
@@ -494,9 +519,9 @@ export default function ProductDetailPage({ params }: Props) {
         </div>
       )}
 
-      {/* Sticky Bottom Add To Cart CTA */}
+      {/* Sticky Bottom Add To Cart CTA (Mobile only) */}
       <div
-        className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t px-4 py-3"
+        className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t px-4 py-3"
         style={{
           borderColor: 'var(--g1-border)',
           boxShadow: 'var(--g1-e2)',

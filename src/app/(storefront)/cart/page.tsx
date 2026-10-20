@@ -134,7 +134,22 @@ export default function CartPage() {
   return (
     <>
       <InnerPageHeader title="Review Cart" />
-      <div className="w-full max-w-2xl mx-auto space-y-4 pb-28 pt-2 px-4 sm:px-0">
+      <div className="w-full max-w-2xl lg:max-w-6xl xl:max-w-7xl mx-auto space-y-4 pb-28 pt-2 sm:pt-4 px-4 sm:px-6 box-border">
+        {/* Desktop Breadcrumbs & Title */}
+        <div className="hidden lg:block pb-2 border-b border-stone-200/80">
+          <div className="flex items-center gap-2 text-xs text-stone-500 mb-1 font-medium">
+            <Link href="/" className="hover:text-stone-900 transition-colors">Home</Link>
+            <span>/</span>
+            <span className="text-stone-900 font-bold">Cart</span>
+          </div>
+          <h1 className="text-2xl font-black text-stone-900 tracking-tight">
+            Shopping Cart ({cartItemCount} {cartItemCount === 1 ? 'item' : 'items'})
+          </h1>
+        </div>
+
+        <div className="lg:grid lg:grid-cols-12 lg:gap-8 lg:items-start">
+          {/* Left Column: Cart Items (8 cols on desktop) */}
+          <div className="lg:col-span-7 xl:col-span-8 space-y-4">
         {/* Quick action bar */}
         <div className="flex items-center justify-between">
           <div>
@@ -331,11 +346,15 @@ export default function CartPage() {
           ))}
         </div>
 
-        {/* Bill Summary Card */}
-        <div
-          className="rounded-[var(--g1-r-card)] border p-4 space-y-2.5 bg-[var(--g1-bg)]"
-          style={{ borderColor: 'var(--g1-border)', boxShadow: 'var(--g1-e1)' }}
-        >
+          </div>
+
+          {/* Right Column: Order Summary & Checkout Action (4 cols on desktop sticky) */}
+          <div className="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-24 space-y-4 mt-4 lg:mt-0">
+            {/* Bill Summary Card */}
+            <div
+              className="rounded-[var(--g1-r-card)] border p-4 sm:p-5 space-y-3 bg-[var(--g1-bg)] shadow-sm"
+              style={{ borderColor: 'var(--g1-border)', boxShadow: 'var(--g1-e1)' }}
+            >
           <h2 className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--g1-text-secondary)' }}>
             Bill Details (Estimated)
           </h2>
@@ -354,23 +373,37 @@ export default function CartPage() {
             </div>
           </div>
           <div
-            className="pt-2 flex items-center justify-between text-sm font-bold"
+            className="pt-2 flex items-center justify-between text-base font-bold"
             style={{ borderTop: '1px solid var(--g1-border)', color: 'var(--g1-text)' }}
           >
             <span>Estimated Total</span>
-            <span className="tabular-nums">₹{cartSubtotal}</span>
+            <span className="tabular-nums text-lg font-black" style={{ color: 'var(--g1-primary)' }}>₹{cartSubtotal}</span>
+          </div>
+
+          {/* Desktop Checkout Action inside the bill card */}
+          <div className="hidden lg:block pt-2">
+            <Link
+              href="/checkout"
+              className="w-full h-12 rounded-xl font-black text-sm text-white flex items-center justify-center gap-2 g1-press shadow-md transition-all hover:opacity-95 cursor-pointer"
+              style={{ backgroundColor: 'var(--g1-primary)' }}
+            >
+              <span>Proceed to Checkout</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
 
-        {/* Trust Badge */}
+
+          </div>
+        </div>
         <div className="flex items-center justify-center gap-1.5 text-[11px]" style={{ color: 'var(--g1-text-secondary)' }}>
           <ShieldCheck className="w-4 h-4" style={{ color: 'var(--g1-primary)' }} strokeWidth={1.75} />
           <span>Authentic Supermarket Fulfilled Delivery</span>
         </div>
 
-        {/* Sticky Bottom Checkout Bar */}
+        {/* Sticky Bottom Checkout Bar (Mobile only) */}
         <div
-          className="fixed bottom-0 left-0 right-0 w-full z-50 bg-white/95 backdrop-blur-md border-t px-4 py-3"
+          className="lg:hidden fixed bottom-0 left-0 right-0 w-full z-50 bg-white/95 backdrop-blur-md border-t px-4 py-3"
           style={{
             borderColor: 'var(--g1-border)',
             boxShadow: 'var(--g1-e2)',

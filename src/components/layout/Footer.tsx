@@ -8,7 +8,7 @@ import { STORE_CONFIG } from '@/config/store';
 
 export default function Footer() {
   const pathname = usePathname();
-  if (pathname.startsWith('/rider')) {
+  if (pathname.startsWith('/rider') || pathname.startsWith('/category/')) {
     return null;
   }
   return (

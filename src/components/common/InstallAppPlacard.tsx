@@ -63,7 +63,11 @@ export default function InstallAppPlacard() {
     setVisible(false);
   };
 
-  if (pathname.startsWith('/rider') || pathname.startsWith('/cart') || pathname.startsWith('/checkout') || !visible || cartItemCount > 0) return null;
+  const [isMobileDevice, setIsMobileDevice] = React.useState(false);
+  React.useEffect(() => {
+    setIsMobileDevice(window.innerWidth < 1024 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent));
+  }, []);
+  if (!isMobileDevice || pathname.startsWith('/rider') || pathname.startsWith('/cart') || pathname.startsWith('/checkout') || !visible || cartItemCount > 0) return null;
 
   return (
     <div

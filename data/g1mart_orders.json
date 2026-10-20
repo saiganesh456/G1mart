@@ -4,11 +4,10 @@
     "orderNumber": "G1-456899",
     "date": "19 Oct 2026, 11:33 am",
     "slot": "Store Pickup",
-    "orderType": "pickup",
     "paymentMethod": "Cash on Delivery",
     "paymentStatus": "COD_PENDING",
     "isPaid": false,
-    "status": "Order Placed",
+    "status": "Out for Delivery",
     "subtotal": 2755,
     "discount": 0,
     "deliveryFee": 0,
@@ -499,6 +498,14 @@
     "userId": "537dc0d1-6a61-48ae-844f-1b6d6b3a38fa",
     "userEmail": "lingalamahendra0@gmail.com",
     "deliveryOtp": "4928",
+    "assignedRider": {
+      "id": "rider-1792400754475",
+      "name": "Sai Ganesh",
+      "email": "gummasaiganesh57@gmail.com",
+      "phone": "",
+      "assignedAt": "2026-10-19T09:05:55.376Z",
+      "vehicleNumber": "AP 26 EQ 4589"
+    },
     "timeline": [
       {
         "time": "Confirmed",
@@ -506,23 +513,28 @@
         "completed": true
       },
       {
-        "time": "Pending",
-        "status": "Packed",
-        "completed": false
+        "time": "09:05 am",
+        "status": "Ready for Pickup",
+        "completed": true
+      },
+      {
+        "time": "09:05 am",
+        "status": "Ready for Pickup",
+        "completed": true
       },
       {
         "time": "Pending",
-        "status": "Delivered",
+        "status": "Picked Up",
         "completed": false
       }
-    ]
+    ],
+    "orderType": "pickup"
   },
   {
     "id": "SLIP-843435",
     "orderNumber": "SLIP-843435",
-    "date": "19 Oct 2026, 12:36 pm",
+    "date": "19 Oct",
     "slot": "Standard Delivery",
-    "orderType": "slip",
     "paymentMethod": "Cash on Delivery",
     "paymentStatus": "pending",
     "isPaid": false,
@@ -547,30 +559,40 @@
       "phone": "9346389857",
       "mobileNumber": "9346389857",
       "streetArea": "Venkatareddipalem, Venkatareddipalem, Nellore, Andhra Pradesh - 524344",
-      "city": "Nellore"
+      "city": "Nellore",
+      "latitude": 14.230018,
+      "longitude": 80.01432
     },
+    "deliveryOtp": "1234",
     "timeline": [
       {
-        "time": "Just now",
         "status": "Order Placed",
+        "time": "Confirmed",
         "completed": true
       },
       {
-        "time": "Pending",
         "status": "Packed",
+        "time": "Pending",
         "completed": false
       },
       {
-        "time": "Pending",
         "status": "Out for Delivery",
+        "time": "Pending",
         "completed": false
       },
       {
-        "time": "Pending",
         "status": "Delivered",
+        "time": "Pending",
         "completed": false
       }
-    ]
+    ],
+    "orderType": "slip",
+    "distance_km": 30,
+    "zone_min_order": 2000,
+    "arrivedAtDoorstep": false,
+    "finalTotal": 300,
+    "paidAmount": 0,
+    "providerOrderId": "MT_SLIP-843435"
   },
   {
     "id": "G1-982017",
@@ -580,15 +602,12 @@
     "paymentMethod": "Cash on Delivery",
     "paymentStatus": "COD_PENDING",
     "isPaid": false,
-    "paidAmount": 0,
-    "status": "Packed",
+    "status": "Out for Delivery",
     "subtotal": 19885,
     "discount": 0,
     "deliveryFee": 0,
     "taxes": 0,
     "grandTotal": 19935,
-    "codFee": 50,
-    "orderType": "delivery",
     "items": [
       {
         "unit": "500 g",
@@ -833,6 +852,630 @@
         "time": "Pending",
         "status": "Delivered",
         "completed": false
+      }
+    ],
+    "paidAmount": 0,
+    "codFee": 50,
+    "orderType": "delivery"
+  },
+  {
+    "id": "G1-459405",
+    "orderNumber": "G1-459405",
+    "date": "19 Oct 2026, 09:44 am",
+    "slot": "Standard Delivery",
+    "paymentMethod": "UPI",
+    "paymentStatus": "pending",
+    "isPaid": false,
+    "status": "Order Placed",
+    "subtotal": 845,
+    "discount": 0,
+    "deliveryFee": 0,
+    "taxes": 0,
+    "grandTotal": 845,
+    "items": [
+      {
+        "unit": "1 kg",
+        "image": "/products/packshots/aashirvaad-atta-5kg.jpg",
+        "price": 65,
+        "quantity": 13,
+        "productId": "g1-p1572",
+        "sizeLabel": "1 kg",
+        "variantId": "g1-p1572-v1",
+        "productName": "Aashirvaad Superior MP Shudh Chakki Atta (గోధుమ పిండి)"
+      }
+    ],
+    "address": {
+      "id": "addr-1792075645415-0rbr",
+      "city": "Nellore",
+      "type": "Home",
+      "phone": "8639176007",
+      "state": "Andhra Pradesh",
+      "_items": [
+        {
+          "unit": "1 kg",
+          "image": "/products/packshots/aashirvaad-atta-5kg.jpg",
+          "price": 65,
+          "quantity": 13,
+          "productId": "g1-p1572",
+          "sizeLabel": "1 kg",
+          "variantId": "g1-p1572-v1",
+          "productName": "Aashirvaad Superior MP Shudh Chakki Atta (గోధుమ పిండి)"
+        }
+      ],
+      "_codFee": 0,
+      "_status": "Order Placed",
+      "eta_min": 15,
+      "pincode": "524004",
+      "fullName": "Rajash",
+      "landmark": "Ganga Bhavani temple",
+      "latitude": 14.4329,
+      "subtotal": 845,
+      "houseFlat": "24-1-152",
+      "isDefault": true,
+      "longitude": 79.968,
+      "orderType": "delivery",
+      "streetArea": "Multiple Yadav street",
+      "_distanceKm": 0,
+      "_finalTotal": 845,
+      "distance_km": 0,
+      "_deliveryOtp": "8890",
+      "delivery_fee": 0,
+      "mobileNumber": "8639176007",
+      "selectedSlot": "Standard Delivery",
+      "_zoneMinOrder": 500,
+      "_paymentStatus": "pending",
+      "zone_min_order": 500,
+      "_providerOrderId": "MT_G1-459405_1792403068834"
+    },
+    "deliveryOtp": "8890",
+    "timeline": [
+      {
+        "status": "Order Placed",
+        "time": "Confirmed",
+        "completed": true
+      },
+      {
+        "status": "Packed",
+        "time": "Pending",
+        "completed": false
+      },
+      {
+        "status": "Out for Delivery",
+        "time": "Pending",
+        "completed": false
+      },
+      {
+        "status": "Delivered",
+        "time": "Pending",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "SLIP-459284",
+    "orderNumber": "SLIP-459284",
+    "date": "19 Oct",
+    "slot": "Standard Delivery",
+    "paymentMethod": "Cash on Delivery",
+    "paymentStatus": "pending",
+    "isPaid": false,
+    "status": "Rider Assigned",
+    "subtotal": 4000,
+    "discount": 0,
+    "deliveryFee": 0,
+    "taxes": 0,
+    "grandTotal": 4000,
+    "items": [
+      {
+        "productId": "item_SLIP-459284_1",
+        "productName": "total bill",
+        "unit": "1 unit",
+        "price": 4000,
+        "quantity": 1,
+        "image": "/products/placeholder.svg"
+      }
+    ],
+    "address": {
+      "fullName": "Saiganesh Yadav",
+      "phone": "9222222222",
+      "mobileNumber": "9222222222",
+      "streetArea": "Tadipartipalem, Tadipartipalem, Nellore, Andhra Pradesh - 524321",
+      "city": "Nellore",
+      "latitude": 14.261045,
+      "longitude": 79.992798
+    },
+    "deliveryOtp": "1234",
+    "timeline": [
+      {
+        "time": "Just now",
+        "status": "Order Placed",
+        "completed": true
+      },
+      {
+        "time": "09:11 am",
+        "status": "Packed",
+        "completed": true
+      },
+      {
+        "time": "Pending",
+        "status": "Out for Delivery",
+        "completed": false
+      },
+      {
+        "time": "Pending",
+        "status": "Delivered",
+        "completed": false
+      }
+    ],
+    "distance_km": 25.1,
+    "zone_min_order": 2000,
+    "orderType": "slip",
+    "arrivedAtDoorstep": false,
+    "finalTotal": 4000,
+    "paidAmount": 0,
+    "providerOrderId": "MT_SLIP-459284"
+  },
+  {
+    "id": "G1-153353",
+    "orderNumber": "G1-153353",
+    "date": "19 Oct 2026, 03:51 pm",
+    "slot": "Standard Delivery",
+    "paymentMethod": "Cash on Delivery",
+    "paymentStatus": "completed",
+    "isPaid": true,
+    "status": "Delivered",
+    "subtotal": 1000,
+    "discount": 0,
+    "deliveryFee": 0,
+    "taxes": 0,
+    "grandTotal": 1050,
+    "items": [
+      {
+        "unit": " g",
+        "image": "/products/verified/g1-p0641.webp",
+        "price": 50,
+        "quantity": 1,
+        "productId": "g1-p0641",
+        "sizeLabel": " g",
+        "variantId": "g1-p0641-v1",
+        "productName": "Sri Durga Lemon Pickle"
+      },
+      {
+        "unit": " g",
+        "image": "/products/verified/g1-p0644.webp",
+        "price": 50,
+        "quantity": 1,
+        "productId": "g1-p0644",
+        "sizeLabel": " g",
+        "variantId": "g1-p0644-v1",
+        "productName": "Sri Durga Green Tamarind Pickleb"
+      },
+      {
+        "unit": " g",
+        "image": "/products/verified/g1-p0645.webp",
+        "price": 50,
+        "quantity": 5,
+        "productId": "g1-p0645",
+        "sizeLabel": " g",
+        "variantId": "g1-p0645-v1",
+        "productName": "Sri Durga Ginger Pickle"
+      },
+      {
+        "unit": " g",
+        "image": "/products/verified/g1-p0650.webp",
+        "price": 50,
+        "quantity": 5,
+        "productId": "g1-p0650",
+        "sizeLabel": " g",
+        "variantId": "g1-p0650-v1",
+        "productName": "SRI Durga Mango CUT Pickle"
+      },
+      {
+        "unit": " g",
+        "image": "/products/verified/g1-p0651.webp",
+        "price": 50,
+        "quantity": 5,
+        "productId": "g1-p0651",
+        "sizeLabel": " g",
+        "variantId": "g1-p0651-v1",
+        "productName": "Sri Durga Tomato Pickle"
+      },
+      {
+        "unit": " g",
+        "image": "/products/verified/g1-p0653.webp",
+        "price": 50,
+        "quantity": 3,
+        "productId": "g1-p0653",
+        "sizeLabel": " g",
+        "variantId": "g1-p0653-v1",
+        "productName": "SRI Durga Gongura Pickle"
+      }
+    ],
+    "address": {
+      "id": "addr-1792405301216-rtgc",
+      "city": "Nellore",
+      "type": "Home",
+      "phone": "8919848952",
+      "state": "Andhra Pradesh",
+      "_items": [
+        {
+          "unit": " g",
+          "image": "/products/verified/g1-p0641.webp",
+          "price": 50,
+          "quantity": 1,
+          "productId": "g1-p0641",
+          "sizeLabel": " g",
+          "variantId": "g1-p0641-v1",
+          "productName": "Sri Durga Lemon Pickle"
+        },
+        {
+          "unit": " g",
+          "image": "/products/verified/g1-p0644.webp",
+          "price": 50,
+          "quantity": 1,
+          "productId": "g1-p0644",
+          "sizeLabel": " g",
+          "variantId": "g1-p0644-v1",
+          "productName": "Sri Durga Green Tamarind Pickleb"
+        },
+        {
+          "unit": " g",
+          "image": "/products/verified/g1-p0645.webp",
+          "price": 50,
+          "quantity": 5,
+          "productId": "g1-p0645",
+          "sizeLabel": " g",
+          "variantId": "g1-p0645-v1",
+          "productName": "Sri Durga Ginger Pickle"
+        },
+        {
+          "unit": " g",
+          "image": "/products/verified/g1-p0650.webp",
+          "price": 50,
+          "quantity": 5,
+          "productId": "g1-p0650",
+          "sizeLabel": " g",
+          "variantId": "g1-p0650-v1",
+          "productName": "SRI Durga Mango CUT Pickle"
+        },
+        {
+          "unit": " g",
+          "image": "/products/verified/g1-p0651.webp",
+          "price": 50,
+          "quantity": 5,
+          "productId": "g1-p0651",
+          "sizeLabel": " g",
+          "variantId": "g1-p0651-v1",
+          "productName": "Sri Durga Tomato Pickle"
+        },
+        {
+          "unit": " g",
+          "image": "/products/verified/g1-p0653.webp",
+          "price": 50,
+          "quantity": 3,
+          "productId": "g1-p0653",
+          "sizeLabel": " g",
+          "variantId": "g1-p0653-v1",
+          "productName": "SRI Durga Gongura Pickle"
+        }
+      ],
+      "_status": "Delivered",
+      "_userId": "572e1aa5-89b4-41ad-b978-a9b1630c7b33",
+      "eta_min": 21,
+      "pincode": "524004",
+      "accuracy": 19,
+      "fullName": "Lovely Gamer ff",
+      "landmark": "",
+      "latitude": 14.3965352,
+      "subtotal": 1000,
+      "_timeline": [
+        {
+          "time": "Confirmed",
+          "status": "Order Placed",
+          "completed": true
+        },
+        {
+          "time": "10:23 am",
+          "status": "Packed",
+          "completed": true
+        },
+        {
+          "time": "10:23 am",
+          "status": "Out for Delivery",
+          "completed": true
+        },
+        {
+          "time": "10:23 am",
+          "status": "Delivered",
+          "completed": true
+        }
+      ],
+      "houseFlat": "+1125",
+      "isDefault": true,
+      "longitude": 79.9656192,
+      "orderType": "delivery",
+      "_userEmail": "gummagowtham5@gmail.com",
+      "streetArea": "Padarupalli",
+      "distance_km": 5.3,
+      "_deliveryOtp": "3924",
+      "delivery_fee": 0,
+      "mobileNumber": "8919848952",
+      "selectedSlot": "Standard Delivery",
+      "_assignedRider": {
+        "id": "rider-gumma_saiganesh57_gmail_com",
+        "name": "Sai Ganesh",
+        "email": "gumma.saiganesh57@gmail.com",
+        "phone": "9876543210",
+        "assignedAt": "2026-10-19T10:22:42.944Z",
+        "vehicleNumber": "AP 26 EQ 4589"
+      },
+      "_paymentStatus": "completed",
+      "zone_min_order": 1000
+    },
+    "userId": "572e1aa5-89b4-41ad-b978-a9b1630c7b33",
+    "userEmail": "gummagowtham5@gmail.com",
+    "deliveryOtp": "3924",
+    "assignedRider": {
+      "id": "rider-gumma_saiganesh57_gmail_com",
+      "name": "Sai Ganesh",
+      "email": "gumma.saiganesh57@gmail.com",
+      "phone": "9876543210",
+      "assignedAt": "2026-10-19T10:22:42.944Z",
+      "vehicleNumber": "AP 26 EQ 4589"
+    },
+    "timeline": [
+      {
+        "time": "Confirmed",
+        "status": "Order Placed",
+        "completed": true
+      },
+      {
+        "time": "10:23 am",
+        "status": "Packed",
+        "completed": true
+      },
+      {
+        "time": "10:23 am",
+        "status": "Out for Delivery",
+        "completed": true
+      },
+      {
+        "time": "10:23 am",
+        "status": "Delivered",
+        "completed": true
+      }
+    ]
+  },
+  {
+    "id": "G1-941728",
+    "orderNumber": "G1-941728",
+    "date": "19 Oct 2026, 03:14 pm",
+    "slot": "Standard Delivery",
+    "paymentMethod": "Cash on Delivery",
+    "paymentStatus": "COD_PENDING",
+    "isPaid": false,
+    "status": "Out for Delivery",
+    "subtotal": 845,
+    "discount": 0,
+    "deliveryFee": 0,
+    "taxes": 0,
+    "grandTotal": 895,
+    "items": [
+      {
+        "unit": "1 kg",
+        "image": "/products/packshots/aashirvaad-atta-5kg.jpg",
+        "price": 65,
+        "quantity": 13,
+        "productId": "g1-p1572",
+        "sizeLabel": "1 kg",
+        "variantId": "g1-p1572-v1",
+        "productName": "Aashirvaad Superior MP Shudh Chakki Atta (గోధుమ పిండి)"
+      }
+    ],
+    "address": {
+      "id": "addr-1792075645415-0rbr",
+      "city": "Nellore",
+      "type": "Home",
+      "phone": "8639176007",
+      "state": "Andhra Pradesh",
+      "_items": [
+        {
+          "unit": "1 kg",
+          "image": "/products/packshots/aashirvaad-atta-5kg.jpg",
+          "price": 65,
+          "quantity": 13,
+          "productId": "g1-p1572",
+          "sizeLabel": "1 kg",
+          "variantId": "g1-p1572-v1",
+          "productName": "Aashirvaad Superior MP Shudh Chakki Atta (గోధుమ పిండి)"
+        }
+      ],
+      "_status": "Out for Delivery",
+      "eta_min": 15,
+      "pincode": "524004",
+      "fullName": "Rajash",
+      "landmark": "Ganga Bhavani temple",
+      "latitude": 14.4329,
+      "subtotal": 845,
+      "_timeline": [
+        {
+          "time": "Confirmed",
+          "status": "Order Placed",
+          "completed": true
+        },
+        {
+          "time": "09:46 am",
+          "status": "Packed",
+          "completed": true
+        },
+        {
+          "time": "09:46 am",
+          "status": "Out for Delivery",
+          "completed": true
+        },
+        {
+          "time": "Pending",
+          "status": "Delivered",
+          "completed": false
+        }
+      ],
+      "houseFlat": "24-1-152",
+      "isDefault": true,
+      "longitude": 79.968,
+      "orderType": "delivery",
+      "streetArea": "Multiple Yadav street",
+      "distance_km": 0,
+      "_deliveryOtp": "7684",
+      "delivery_fee": 0,
+      "mobileNumber": "8639176007",
+      "selectedSlot": "Standard Delivery",
+      "_assignedRider": {
+        "id": "rider-gumma_saiganesh57_gmail_com",
+        "name": "Sai Ganesh",
+        "email": "gumma.saiganesh57@gmail.com",
+        "phone": "9876543210",
+        "assignedAt": "2026-10-19T09:46:10.124Z",
+        "vehicleNumber": "AP 26 EQ 4589"
+      },
+      "_paymentStatus": "COD_PENDING",
+      "zone_min_order": 500
+    },
+    "deliveryOtp": "7684",
+    "assignedRider": {
+      "id": "rider-gumma_saiganesh57_gmail_com",
+      "name": "Sai Ganesh",
+      "email": "gumma.saiganesh57@gmail.com",
+      "phone": "9876543210",
+      "assignedAt": "2026-10-19T09:46:10.124Z",
+      "vehicleNumber": "AP 26 EQ 4589"
+    },
+    "timeline": [
+      {
+        "time": "Confirmed",
+        "status": "Order Placed",
+        "completed": true
+      },
+      {
+        "time": "09:46 am",
+        "status": "Packed",
+        "completed": true
+      },
+      {
+        "time": "09:46 am",
+        "status": "Out for Delivery",
+        "completed": true
+      },
+      {
+        "time": "Pending",
+        "status": "Delivered",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "G1-416775",
+    "orderNumber": "G1-416775",
+    "date": "19 Oct 2026, 02:32 pm",
+    "slot": "Store Pickup",
+    "paymentMethod": "Cash on Delivery",
+    "paymentStatus": "completed",
+    "isPaid": true,
+    "status": "Delivered",
+    "subtotal": 35,
+    "discount": 0,
+    "deliveryFee": 0,
+    "taxes": 0,
+    "grandTotal": 35,
+    "items": [
+      {
+        "unit": "1 kg",
+        "image": "/products/packshots/fresh-onion.webp",
+        "price": 35,
+        "quantity": 1,
+        "productId": "g1-p0236",
+        "sizeLabel": "1 kg",
+        "variantId": "g1-p0236-v1kg",
+        "productName": "Fresh Onions (ఉల్లిపాయలు)"
+      }
+    ],
+    "address": {
+      "id": "store-pickup",
+      "city": "Nellore",
+      "type": "Other",
+      "phone": "9222222222",
+      "state": "Andhra Pradesh",
+      "_items": [
+        {
+          "unit": "1 kg",
+          "image": "/products/packshots/fresh-onion.webp",
+          "price": 35,
+          "quantity": 1,
+          "productId": "g1-p0236",
+          "sizeLabel": "1 kg",
+          "variantId": "g1-p0236-v1kg",
+          "productName": "Fresh Onions (ఉల్లిపాయలు)"
+        }
+      ],
+      "_status": "Delivered",
+      "_userId": "addb30c4-6c03-4243-90b7-b4e09f20fea8",
+      "pincode": "524004",
+      "fullName": "Sai Ganesh",
+      "landmark": "In-Store Customer Pickup",
+      "_timeline": [
+        {
+          "time": "Just now",
+          "status": "Order Placed",
+          "completed": true
+        },
+        {
+          "time": "09:03 am",
+          "status": "Ready for Pickup",
+          "completed": true
+        },
+        {
+          "time": "09:03 am",
+          "status": "Ready for Pickup",
+          "completed": true
+        },
+        {
+          "time": "09:03 am",
+          "status": "Picked Up",
+          "completed": true
+        }
+      ],
+      "houseFlat": "G1mart Supermarket",
+      "isDefault": false,
+      "orderType": "pickup",
+      "_userEmail": "saiganeshyadav92@gmail.com",
+      "streetArea": "Govt Hospital, beside Padarupalli",
+      "_deliveryOtp": "1879",
+      "mobileNumber": "9222222222",
+      "_paymentStatus": "completed",
+      "deliveryInstructions": "In-Store Customer Pickup"
+    },
+    "userId": "addb30c4-6c03-4243-90b7-b4e09f20fea8",
+    "userEmail": "saiganeshyadav92@gmail.com",
+    "deliveryOtp": "1879",
+    "timeline": [
+      {
+        "time": "Just now",
+        "status": "Order Placed",
+        "completed": true
+      },
+      {
+        "time": "09:03 am",
+        "status": "Ready for Pickup",
+        "completed": true
+      },
+      {
+        "time": "09:03 am",
+        "status": "Ready for Pickup",
+        "completed": true
+      },
+      {
+        "time": "09:03 am",
+        "status": "Picked Up",
+        "completed": true
       }
     ]
   }

@@ -698,9 +698,9 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
 
   return (
     <div className="min-h-screen bg-[#F6F7F8] pb-48">
-      {/* Top Header — Reference C: Deep Green Bar */}
+      {/* Top Header — Mobile only */}
       <header
-        className="sticky top-0 z-30 flex items-center justify-between px-4 text-white shadow-xs"
+        className="lg:hidden sticky top-0 z-30 flex items-center justify-between px-4 text-white shadow-xs"
         style={{ height: 56, backgroundColor: 'var(--g1-primary)' }}
       >
         <Link
@@ -738,8 +738,40 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
         </div>
       </header>
 
+      {/* Desktop Breadcrumbs Bar */}
+      <div className="hidden lg:block max-w-5xl xl:max-w-6xl mx-auto px-4 pt-6 pb-2">
+        <div className="flex items-center gap-2 text-xs text-stone-500 mb-2 font-medium">
+          <Link href="/" className="hover:text-stone-900 transition-colors">Home</Link>
+          <span>/</span>
+          <Link href="/orders" className="hover:text-stone-900 transition-colors">Orders</Link>
+          <span>/</span>
+          <span className="text-stone-900 font-bold">Order #{orderId}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-black text-stone-900 tracking-tight flex items-center gap-2">
+              <span>Order #{orderId}</span>
+              {isSlipOrder && (
+                <span className="text-xs font-black uppercase bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full border border-emerald-300">
+                  Slip Order
+                </span>
+              )}
+            </h1>
+            <p className="text-xs text-stone-500 mt-1">
+              Placed on {order?.date || 'Today'} · {isPickup ? 'Store Pickup' : 'Express Doorstep Delivery in Nellore'}
+            </p>
+          </div>
+          <Link
+            href="/orders"
+            className="text-xs font-bold text-stone-700 hover:text-stone-900 bg-white border border-stone-200 px-3.5 py-1.5 rounded-xl transition-all shadow-2xs hover:shadow-xs"
+          >
+            ← Back to All Orders
+          </Link>
+        </div>
+      </div>
+
       {/* Main Page Content */}
-      <main className="max-w-2xl mx-auto px-3 sm:px-4 pt-3 space-y-3.5">
+      <main className="max-w-2xl lg:max-w-5xl xl:max-w-6xl mx-auto px-3 sm:px-4 pt-3 space-y-3.5">
         {/* Just Placed / Paid Congratulations Pill */}
         {(isJustPlaced || isPaid) && (
           <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 flex items-start gap-3 shadow-xs animate-in fade-in">

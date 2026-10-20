@@ -212,9 +212,9 @@ export default function OrdersPage() {
 
   return (
     <div className="min-h-screen bg-[#F6F7F8] pb-44">
-      {/* Top Header — Reference C: Deep Green Header */}
+      {/* Top Header — Mobile only (Desktop header is handled by layout) */}
       <header
-        className="sticky top-0 z-30 flex items-center justify-between px-4 text-white shadow-xs"
+        className="lg:hidden sticky top-0 z-30 flex items-center justify-between px-4 text-white shadow-xs"
         style={{ height: 56, backgroundColor: 'var(--g1-primary)' }}
       >
         <button
@@ -244,9 +244,24 @@ export default function OrdersPage() {
         </Link>
       </header>
 
-      {/* Filter and Refresh Bar — Reference C */}
+      {/* Desktop Breadcrumbs & Title */}
+      <div className="hidden lg:block max-w-5xl xl:max-w-6xl mx-auto px-4 pt-6 pb-2">
+        <div className="flex items-center gap-2 text-xs text-stone-500 mb-2 font-medium">
+          <Link href="/" className="hover:text-stone-900 transition-colors">Home</Link>
+          <span>/</span>
+          <span className="text-stone-900 font-bold">My Orders</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-black text-stone-900 tracking-tight">My Orders</h1>
+          <span className="text-xs font-bold text-stone-500 bg-stone-100 px-3 py-1 rounded-full border border-stone-200">
+            {orders.length} Total Orders
+          </span>
+        </div>
+      </div>
+
+      {/* Filter and Refresh Bar */}
       <div className="bg-white border-b border-stone-200/80 px-4 py-2.5">
-        <div className="max-w-2xl mx-auto flex items-center justify-between gap-2">
+        <div className="max-w-2xl lg:max-w-5xl xl:max-w-6xl mx-auto flex items-center justify-between gap-2">
           {/* Filter Pills */}
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
             {(
@@ -293,7 +308,7 @@ export default function OrdersPage() {
       </div>
 
       {/* Content Area */}
-      <main className="max-w-2xl mx-auto px-4 pt-3 space-y-3">
+      <main className="max-w-2xl lg:max-w-5xl xl:max-w-6xl mx-auto px-4 pt-3 space-y-3">
         {/* Subtitle */}
         <div className="flex items-center justify-between px-0.5">
           <p className="text-xs text-stone-500 font-medium">
@@ -335,8 +350,8 @@ export default function OrdersPage() {
             </Link>
           </div>
         ) : (
-          /* Compact Order Cards List — Reference C */
-          <div className="space-y-3">
+          /* Responsive Order Cards Grid */
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
             {filteredOrders.map((order) => {
               const currentStatus = order.status || 'Order Placed';
               const displayId = String(order.id || '').replace(/^SLIP-/i, '');

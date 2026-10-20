@@ -86,9 +86,18 @@ export default function AccountPage() {
         - max-w-2xl + mx-auto for centering on wide screens
       */}
       <div
-        className="w-full max-w-2xl mx-auto pb-28"
-        style={{ paddingLeft: 0, paddingRight: 0, backgroundColor: 'var(--g1-bg)' }}
+        className="w-full max-w-2xl lg:max-w-5xl mx-auto pb-28 px-4 sm:px-6 lg:px-8"
+        style={{ backgroundColor: 'var(--g1-bg)' }}
       >
+        {/* Desktop Breadcrumbs */}
+        <div className="hidden lg:block pt-6 pb-2">
+          <div className="flex items-center gap-2 text-xs text-stone-500 mb-1.5 font-medium">
+            <Link href="/" className="hover:text-stone-900 transition-colors">Home</Link>
+            <span>/</span>
+            <span className="text-stone-900 font-bold">My Account</span>
+          </div>
+          <h1 className="text-2xl font-black text-stone-900 tracking-tight">My Profile & Account</h1>
+        </div>
         {/* ── Profile Card ── */}
         <div className="mx-4 mt-4 rounded-[var(--g1-r-card)] border p-4 bg-[var(--g1-bg)]"
           style={{ borderColor: 'var(--g1-border)', boxShadow: 'var(--g1-e1)' }}>
