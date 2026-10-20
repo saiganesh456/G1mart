@@ -519,12 +519,69 @@ export const productService = {
     return false;
   },
 
-  async addProduct(product: Omit<Product, 'id'>): Promise<Product | null> {
-    const newProd = {
-      ...product,
-      id: `g1-p${String(MIGRATED_PRODUCT_LIST.length + 1).padStart(4, '0')}`,
-    } as Product;
-    MIGRATED_PRODUCT_LIST.unshift(newProd);
+  async addProduct(product: Partial<Product> & { id?: string }): Promise<Product | null> {
+    const id = product.id || `g1-p${String(MIGRATED_PRODUCT_LIST.length + 1).padStart(4, '0')}`;
+    const priceNum = Number(product.price) || 0;
+    const mrpNum = Number(product.originalPrice) || priceNum;
+    const stockNum = product.stockCount !== undefined ? Number(product.stockCount) : 25;
+    const cleanImg = product.imageUrl || product.image || product.image_url || '/products/placeholder.svg';
+
+    const newProd: Product = {
+      id,
+      name: product.name || 'New Product',
+      brand: product.brand || 'G1 Mart',
+      category: product.category || (product as any).category_id || 'atta-rice-dal',
+      category_id: (product as any).category_id || product.category || 'atta-rice-dal',
+      subCategory: product.subCategory,
+      unit: product.unit || '1 unit',
+      price: priceNum,
+      priceConfirmed: priceNum > 0,
+      originalPrice: mrpNum,
+      discountPercentage: mrpNum > priceNum && mrpNum > 0 ? Math.round(((mrpNum - priceNum) / mrpNum) * 100) : 0,
+      stockCount: stockNum,
+      inStock: product.inStock !== false && stockNum > 0,
+      image: cleanImg,
+      image_url: cleanImg,
+      imageUrl: cleanImg,
+      image_source: 'manufacturer',
+      image_status: 'verified',
+      imageStatus: 'VERIFIED',
+      description: product.description || `${product.brand || 'G1 Mart'} — ${product.name || 'New Product'}`,
+      rating: 4.8,
+      reviewsCount: 1,
+      isActive: product.inStock !== false,
+      variants: product.variants || [
+        {
+          id: `${id}-v1`,
+          product_id: id,
+          size_label: product.unit || '1 unit',
+          price: priceNum,
+          mrp: mrpNum,
+          stock: stockNum,
+          image_url: cleanImg,
+        },
+      ],
+    };
+
+    const existingIdx = MIGRATED_PRODUCT_LIST.findIndex((p) => p.id === id);
+    if (existingIdx !== -1) {
+      MIGRATED_PRODUCT_LIST[existingIdx] = { ...MIGRATED_PRODUCT_LIST[existingIdx], ...newProd };
+    } else {
+      MIGRATED_PRODUCT_LIST.unshift(newProd);
+    }
+
+    if (newProd.variants && newProd.variants.length > 0) {
+      variantsByProductId.set(id, newProd.variants);
+      for (const v of newProd.variants) {
+        const vIdx = MIGRATED_VARIANTS.findIndex((mv) => mv.id === v.id);
+        if (vIdx !== -1) {
+          MIGRATED_VARIANTS[vIdx] = { ...MIGRATED_VARIANTS[vIdx], ...v };
+        } else {
+          MIGRATED_VARIANTS.unshift(v);
+        }
+      }
+    }
+
     return newProd;
   },
 };

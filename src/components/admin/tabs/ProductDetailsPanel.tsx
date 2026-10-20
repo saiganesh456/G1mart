@@ -13,6 +13,7 @@ import {
   Upload,
   Plus,
   ExternalLink,
+  Camera,
 } from 'lucide-react';
 import ProductImage from '@/components/storefront/ProductImage';
 import { adminFetch } from '@/lib/adminApi';
@@ -130,6 +131,7 @@ export default function ProductDetailsPanel({
   const [uploadingImage, setUploadingImage] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [createdProductId, setCreatedProductId] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>({});
@@ -459,6 +461,290 @@ export default function ProductDetailsPanel({
   const showPriceError = (submitted || touchedFields.price) && isPriceEmpty;
   const showNameError = (submitted || touchedFields.name) && isNameEmpty;
   const showStockError = (submitted || touchedFields.stock) && isStockEmpty;
+
+  if (isNew) {
+    return (
+      <div className="max-w-xl mx-auto flex flex-col min-h-screen bg-[#F4F6F9] p-3 sm:p-6 pb-28 space-y-4">
+        {/* Top Header */}
+        <div className="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/90 shadow-2xs flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={onBack}
+              className="w-10 h-10 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+            <div>
+              <h1 className="text-lg font-black text-stone-900 tracking-tight">Add New Product</h1>
+              <p className="text-xs text-stone-500 font-medium">Add item details to publish immediately on the customer app</p>
+            </div>
+          </div>
+        </div>
+
+        <form onSubmit={handleSave} className="space-y-4">
+          {errorMsg && (
+            <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-700 rounded-2xl text-xs font-bold flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0" />
+              <span>{errorMsg}</span>
+            </div>
+          )}
+
+          {saveSuccess && (
+            <div className="p-4 bg-emerald-600 text-white rounded-2xl text-xs font-bold flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-white shrink-0" />
+                <span className="text-sm">✓ Product published successfully to customer app!</span>
+              </div>
+              <div className="flex items-center gap-2">
+                {createdProductId && (
+                  <a
+                    href={`/product/${createdProductId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1.5 bg-white text-[#1B5E20] hover:bg-emerald-50 rounded-xl text-xs font-black transition-colors"
+                  >
+                    View in Store ↗
+                  </a>
+                )}
+                <button
+                  type="button"
+                  onClick={onBack}
+                  className="px-3 py-1.5 bg-emerald-800 hover:bg-emerald-900 text-white rounded-xl text-xs font-black cursor-pointer"
+                >
+                  Done
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* 1. Photo Upload */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/90 shadow-2xs space-y-3">
+            <label className="text-xs font-black uppercase tracking-wider text-stone-700 block">
+              Product Photo
+            </label>
+
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-20 rounded-xl bg-stone-50 border border-stone-200 p-1 flex items-center justify-center shrink-0 overflow-hidden">
+                <ProductImage
+                  imageUrl={imageUrl || '/products/placeholder.svg'}
+                  imageStatus="VERIFIED"
+                  alt={name || 'Photo'}
+                />
+              </div>
+
+              <div className="flex-1 space-y-1.5">
+                <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1B5E20] hover:bg-[#2E7D32] text-white text-xs font-bold shadow-2xs transition-all active:scale-95">
+                  <Camera className="w-4 h-4" />
+                  <span>{uploadingImage ? 'Compressing & Uploading...' : 'Take Photo / Upload'}</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileUpload}
+                    disabled={uploadingImage}
+                    className="hidden"
+                  />
+                </label>
+                <p className="text-[11px] text-stone-400">Photo is automatically optimized for fast customer loading</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 2. Product Name & Details */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/90 shadow-2xs space-y-3.5">
+            <div>
+              <label className="text-xs font-black uppercase tracking-wider text-stone-700 block mb-1">
+                Product Name *
+              </label>
+              <input
+                type="text"
+                value={name}
+                onFocus={(e) => e.target.select()}
+                onBlur={() => markTouched('name')}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  markTouched('name');
+                }}
+                placeholder="e.g. Aashirvaad Atta 5kg, Fortune Sunflower Oil 1L"
+                className={`w-full h-11 px-3.5 rounded-xl text-xs sm:text-sm font-bold text-stone-900 focus:outline-none transition-all ${
+                  showNameError
+                    ? 'bg-rose-50/50 border border-rose-300 focus:ring-2 focus:ring-rose-500'
+                    : 'bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#1B5E20]'
+                }`}
+              />
+              {showNameError && (
+                <span className="text-[10px] text-rose-600 font-bold mt-1 block">
+                  Product name is required
+                </span>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <label className="text-xs font-black uppercase tracking-wider text-stone-700 block mb-1">
+                  Category *
+                </label>
+                <select
+                  value={category}
+                  onChange={(e) => {
+                    const newCat = e.target.value;
+                    setCategory(newCat);
+                    const cfg = SUPERMARKET_CATEGORIES.find((c) => c.id === newCat);
+                    if (cfg && cfg.subcategories && cfg.subcategories.length > 0) {
+                      setSubCategory(cfg.subcategories[0]);
+                    }
+                  }}
+                  className="w-full h-11 px-3 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm font-bold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
+                >
+                  {STORE_SECTIONS_CATEGORIES.map((sec) => (
+                    <optgroup key={sec.section} label={sec.section}>
+                      {sec.categories.map((cat) => (
+                        <option key={cat.id} value={cat.id}>
+                          {cat.name}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="text-xs font-black uppercase tracking-wider text-stone-700 block mb-1">
+                  Pack Size / Unit *
+                </label>
+                <input
+                  type="text"
+                  value={unit}
+                  onFocus={(e) => e.target.select()}
+                  onChange={(e) => setUnit(e.target.value)}
+                  placeholder="e.g. 1 kg, 500 g, 1 L, 1 pc"
+                  className="w-full h-11 px-3.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm font-bold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* 3. Price & Stock */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/90 shadow-2xs space-y-3.5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+              <div>
+                <label className="text-xs font-black uppercase tracking-wider text-stone-700 block mb-1">
+                  Selling Price (₹) *
+                </label>
+                <div className="relative">
+                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-black text-[#1B5E20]">₹</span>
+                  <input
+                    type="text"
+                    inputMode="decimal"
+                    value={price}
+                    onFocus={(e) => e.target.select()}
+                    onClick={(e) => (e.target as HTMLInputElement).select()}
+                    onBlur={() => markTouched('price')}
+                    onChange={(e) => {
+                      const val = e.target.value.replace(/[^0-9.]/g, '');
+                      setPrice(val);
+                      markTouched('price');
+                    }}
+                    placeholder="0"
+                    className={`w-full h-11 pl-8 pr-3.5 rounded-xl text-sm font-black text-[#1B5E20] focus:outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
+                      showPriceError
+                        ? 'bg-rose-50/50 border border-rose-300 focus:ring-2 focus:ring-rose-500'
+                        : 'bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#1B5E20]'
+                    }`}
+                  />
+                </div>
+                {showPriceError && (
+                  <span className="text-[10px] text-rose-600 font-bold mt-1 block">
+                    Price is required
+                  </span>
+                )}
+              </div>
+
+              <div>
+                <label className="text-xs font-black uppercase tracking-wider text-stone-700 block mb-1">
+                  MRP (₹)
+                </label>
+                <div className="relative">
+                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-bold text-stone-400">₹</span>
+                  <input
+                    type="text"
+                    inputMode="decimal"
+                    value={originalPrice}
+                    onFocus={(e) => e.target.select()}
+                    onClick={(e) => (e.target as HTMLInputElement).select()}
+                    onChange={(e) => {
+                      const val = e.target.value.replace(/[^0-9.]/g, '');
+                      setOriginalPrice(val);
+                    }}
+                    placeholder="Optional"
+                    className="w-full h-11 pl-8 pr-3.5 bg-stone-50 border border-stone-200 rounded-xl text-sm font-bold text-stone-600 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-black uppercase tracking-wider text-stone-700 block mb-1">
+                  Available Stock *
+                </label>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={stockCount}
+                  onFocus={(e) => e.target.select()}
+                  onClick={(e) => (e.target as HTMLInputElement).select()}
+                  onBlur={() => markTouched('stock')}
+                  onChange={(e) => {
+                    const val = e.target.value.replace(/[^0-9]/g, '');
+                    setStockCount(val);
+                    markTouched('stock');
+                  }}
+                  placeholder="25"
+                  className={`w-full h-11 px-3.5 rounded-xl text-sm font-bold text-stone-900 focus:outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
+                    showStockError
+                      ? 'bg-rose-50/50 border border-rose-300 focus:ring-2 focus:ring-rose-500'
+                      : 'bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#1B5E20]'
+                  }`}
+                />
+                {showStockError && (
+                  <span className="text-[10px] text-rose-600 font-bold mt-1 block">
+                    Stock is required
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {parseFloat(originalPrice) > parseFloat(price) && parseFloat(price) > 0 && (
+              <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-100 text-xs font-bold text-emerald-800 flex items-center justify-between">
+                <span>Customer Discount:</span>
+                <span className="px-2 py-0.5 rounded-md bg-[#1B5E20] text-white font-black">
+                  {Math.round(((parseFloat(originalPrice) - parseFloat(price)) / parseFloat(originalPrice)) * 100)}% OFF
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* 4. Publish Button */}
+          <button
+            type="submit"
+            disabled={isSaving}
+            className="w-full h-12 rounded-2xl bg-[#1B5E20] hover:bg-[#2E7D32] disabled:opacity-50 text-white font-black text-sm flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.99] cursor-pointer"
+          >
+            {isSaving ? (
+              <>
+                <RefreshCw className="w-4 h-4 animate-spin" />
+                <span>Publishing Product...</span>
+              </>
+            ) : (
+              <>
+                <Plus className="w-4 h-4 stroke-[3]" />
+                <span>＋ Publish Product to App</span>
+              </>
+            )}
+          </button>
+        </form>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col min-h-screen bg-[#F4F6F9] p-3 sm:p-6 pb-28">

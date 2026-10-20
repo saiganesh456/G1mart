@@ -156,17 +156,17 @@
     "price": 55,
     "variants": [
       {
+        "id": "g1-p0457-v1",
+        "mrp": 42,
         "price": 55,
         "stock": 60,
-        "mrp": 42,
-        "id": "g1-p0457-v1",
         "size_label": "500 g"
       },
       {
+        "id": "g1-p0457-v2",
+        "mrp": 75,
         "price": 75,
         "stock": 60,
-        "mrp": 75,
-        "id": "g1-p0457-v2",
         "size_label": "1 kg"
       }
     ],

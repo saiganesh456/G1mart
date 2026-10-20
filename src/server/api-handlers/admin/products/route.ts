@@ -22,6 +22,7 @@ export async function GET(request: Request) {
       const q = query.toLowerCase();
       products = products.filter(
         (p) =>
+          (p.id && p.id.toLowerCase().includes(q)) ||
           p.name.toLowerCase().includes(q) ||
           (p.brand && p.brand.toLowerCase().includes(q)) ||
           (p.rawName && p.rawName.toLowerCase().includes(q)) ||

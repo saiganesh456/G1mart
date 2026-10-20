@@ -15,6 +15,7 @@ import {
   FileText,
   CheckSquare,
   Settings,
+  Plus,
 } from 'lucide-react';
 
 interface Props {
@@ -25,6 +26,7 @@ interface Props {
   onNavigateToInventory: (filter?: string) => void;
   onNavigateToTab?: (tab: string) => void;
   onNavigateToShootList?: () => void;
+  onAddNewProduct?: () => void;
   audioEnabled: boolean;
   onToggleAudio: () => void;
   onTestAudio?: () => void;
@@ -38,6 +40,7 @@ export default function HomeTab({
   onNavigateToInventory,
   onNavigateToTab,
   onNavigateToShootList,
+  onAddNewProduct,
   audioEnabled,
   onToggleAudio,
 }: Props) {
@@ -293,6 +296,26 @@ export default function HomeTab({
         </h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          {/* Add New Product Quick Action */}
+          {onAddNewProduct && (
+            <button
+              type="button"
+              onClick={onAddNewProduct}
+              className="p-3 rounded-xl border border-emerald-300 hover:border-[#1B5E20] bg-emerald-50/70 hover:bg-emerald-100/70 transition-all text-left flex flex-col justify-between group active:scale-[0.98] cursor-pointer"
+            >
+              <div className="w-7 h-7 rounded-lg bg-[#1B5E20] text-white flex items-center justify-center mb-2 shadow-2xs">
+                <Plus className="w-4 h-4 stroke-[3]" />
+              </div>
+              <div>
+                <span className="text-xs font-black text-stone-900 block group-hover:text-emerald-900">
+                  ＋ Add Product
+                </span>
+                <span className="text-[10px] text-emerald-800 font-bold block mt-0.5">
+                  Publish to store
+                </span>
+              </div>
+            </button>
+          )}
           {/* Slip Orders & Billing */}
           <button
             type="button"

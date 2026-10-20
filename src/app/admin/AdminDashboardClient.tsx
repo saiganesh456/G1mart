@@ -1855,6 +1855,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 onNavigateToInventory={(stockFilter) => {
                   pushAdminState({ tab: 'inventory', stockFilter: stockFilter || 'All' });
                 }}
+                onAddNewProduct={() => setIsCreatingProduct(true)}
                 onNavigateToShootList={() => {
                   stopAlarm();
                   pushAdminState({ tab: 'shoot-list' });
