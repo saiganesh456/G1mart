@@ -100,21 +100,20 @@ export default function InventoryTab({
     <div className="max-w-4xl mx-auto flex flex-col h-full bg-[#F4F6F9] p-3 sm:p-5 pb-32 space-y-4">
       {/* 1. TOP HEADER & SEARCH CARD */}
       <div className="bg-white rounded-3xl p-4 sm:p-5 border border-stone-200/80 shadow-2xs space-y-3.5">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 min-w-0">
             {onBackToDashboard && (
               <button
                 type="button"
                 onClick={onBackToDashboard}
-                className="px-2.5 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-stone-900 text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer mr-1 shrink-0"
+                className="w-9 h-9 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-stone-900 flex items-center justify-center transition-all active:scale-95 cursor-pointer shrink-0"
                 title="Back to Admin Dashboard Home"
               >
                 <ArrowLeft className="w-4 h-4 text-stone-600" />
-                <span className="hidden sm:inline">Dashboard</span>
               </button>
             )}
-            <div>
-              <h1 className="text-xl sm:text-2xl font-black text-stone-900 tracking-tight leading-tight">
+            <div className="min-w-0">
+              <h1 className="text-lg sm:text-2xl font-black text-stone-900 tracking-tight leading-snug">
                 Stock &amp; Price Control
               </h1>
               <p className="text-xs text-stone-500 font-medium mt-0.5">
@@ -123,22 +122,22 @@ export default function InventoryTab({
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full sm:w-auto">
             {onAddNewProduct && (
               <button
                 type="button"
                 onClick={onAddNewProduct}
-                className="px-3.5 py-1.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white rounded-xl text-xs font-black flex items-center gap-1.5 shrink-0 shadow-xs cursor-pointer active:scale-95 transition-all"
+                className="flex-1 sm:flex-initial h-10 px-4 bg-[#1B5E20] hover:bg-[#2E7D32] text-white rounded-xl text-xs font-black flex items-center justify-center gap-2 shadow-xs cursor-pointer active:scale-95 transition-all"
               >
-                <Plus className="w-3.5 h-3.5 stroke-[3]" />
-                <span>Add Product</span>
+                <Plus className="w-4 h-4 stroke-[3]" />
+                <span>＋ Add Product</span>
               </button>
             )}
 
             <button
               type="button"
               onClick={() => setShowFilterDrawer(true)}
-              className="sm:hidden px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-bold flex items-center gap-1.5 shrink-0 cursor-pointer"
+              className="sm:hidden h-10 px-3.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shrink-0 cursor-pointer"
             >
               <SlidersHorizontal className="w-3.5 h-3.5 text-[#087F5B]" />
               <span>Categories</span>
@@ -172,8 +171,8 @@ export default function InventoryTab({
           {[
             { key: 'All', label: 'All Products', count: totalCount },
             { key: 'In Stock', label: 'In Stock', count: inStockCount },
-            { key: 'Low Stock', label: 'Low Stock', count: lowStockCount },
             { key: 'Out of Stock', label: 'Out of Stock', count: outOfStockCount },
+            { key: 'Low Stock', label: 'Low Stock', count: lowStockCount },
           ].map((f) => (
             <button
               key={f.key}
@@ -298,15 +297,22 @@ export default function InventoryTab({
                       )}
                     </div>
 
-                    {/* Compact Stock Badge */}
+                    {/* Compact Stock Badge with 1-Tap Toggle */}
                     <span
-                      className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full border mt-0.5 ${
+                      onClick={(e) => {
+                        if (onQuickToggleStock) {
+                          e.stopPropagation();
+                          onQuickToggleStock(product.id, isOut);
+                        }
+                      }}
+                      className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full border mt-0.5 transition-transform active:scale-90 cursor-pointer ${
                         isOut
-                          ? 'bg-rose-50 text-rose-700 border-rose-200'
+                          ? 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100'
                           : isLow
-                          ? 'bg-amber-50 text-amber-800 border-amber-200'
-                          : 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                          ? 'bg-amber-50 text-amber-800 border-amber-200 hover:bg-amber-100'
+                          : 'bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-100'
                       }`}
+                      title="Tap to toggle stock"
                     >
                       {isOut ? 'Out of Stock' : isLow ? `${product.stockCount} left` : 'In Stock'}
                     </span>
