@@ -1295,6 +1295,14 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     const effectiveRider = assignedRider || targetOrder?.assignedRider || (selectedOrder?.id === orderId ? selectedOrder?.assignedRider : undefined);
 
     // Optimistic UI update
+    ordersRef.current = ordersRef.current.map((o) => {
+      if (o.id !== orderId) return o;
+      return {
+        ...o,
+        status: nextStatus as any,
+        assignedRider: effectiveRider || o.assignedRider,
+      };
+    });
     setOrders((prev) =>
       prev.map((o) => {
         if (o.id !== orderId) return o;

@@ -13,6 +13,7 @@ import {
   MessageSquare,
   ChevronDown,
   ChevronUp,
+  Loader2,
 } from 'lucide-react';
 import RiderAssignmentModal from '@/components/admin/RiderAssignmentModal';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
@@ -126,6 +127,22 @@ export default function OrdersTab({
   const [paymentFilter, setPaymentFilter] = useState<'all' | 'cod' | 'paid'>('all');
   const [riderModalOrder, setRiderModalOrder] = useState<Order | null>(null);
   const [expandedOrders, setExpandedOrders] = useState<Record<string, boolean>>({});
+  const [updatingOrderId, setUpdatingOrderId] = useState<string | null>(null);
+
+  const handleStageAction = async (order: Order, stageAction: any, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (updatingOrderId) return;
+    if (stageAction.requiresRiderModal) {
+      setRiderModalOrder(order);
+    } else if (onUpdateStatus && stageAction.next) {
+      setUpdatingOrderId(order.id);
+      try {
+        await onUpdateStatus(order.id, stageAction.next);
+      } finally {
+        setUpdatingOrderId(null);
+      }
+    }
+  };
 
   useEffect(() => {
     if (initialFilter && initialFilter !== queueFilter) {
@@ -487,16 +504,18 @@ export default function OrdersTab({
                 {stageAction && onUpdateStatus && stageAction.next ? (
                   <button
                     type="button"
-                    onClick={() => {
-                      if (stageAction.requiresRiderModal) {
-                        setRiderModalOrder(order);
-                      } else {
-                        onUpdateStatus(order.id, stageAction.next);
-                      }
-                    }}
-                    className="w-full py-2.5 px-4 bg-[#087F5B] hover:bg-[#066c4d] active:scale-[0.99] text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all shadow-2xs cursor-pointer"
+                    disabled={updatingOrderId === order.id}
+                    onClick={(e) => handleStageAction(order, stageAction, e)}
+                    className="w-full py-2.5 px-4 bg-[#087F5B] hover:bg-[#066c4d] active:scale-[0.99] text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all shadow-2xs cursor-pointer touch-manipulation disabled:opacity-75 disabled:cursor-not-allowed"
                   >
-                    <span>{stageAction.label}</span>
+                    {updatingOrderId === order.id ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Updating...</span>
+                      </>
+                    ) : (
+                      <span>{stageAction.label}</span>
+                    )}
                   </button>
                 ) : (
                   <button

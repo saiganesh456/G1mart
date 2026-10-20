@@ -26,6 +26,7 @@ import {
   Store,
   ChevronRight,
   CheckSquare,
+  Loader2,
   Square,
   ShoppingBag,
   ExternalLink,
@@ -182,12 +183,33 @@ export default function OrderDetailsPanel({
 
   const primaryAction = getPrimaryAction();
 
-  const handleExecutePrimary = () => {
-    if (!primaryAction) return;
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const handleExecutePrimary = async () => {
+    if (!primaryAction || isUpdating) return;
     if (primaryAction.next === 'Rider Assigned') {
       setShowRiderModal(true);
     } else {
-      onUpdateStatus(order.id, primaryAction.next, order.assignedRider);
+      setIsUpdating(true);
+      try {
+        await onUpdateStatus(order.id, primaryAction.next, order.assignedRider);
+      } finally {
+        setIsUpdating(false);
+      }
+    }
+  };
+
+  const handleStepClick = async (stepKey: OrderStatus) => {
+    if (isUpdating || stepKey === s) return;
+    if (stepKey === 'Rider Assigned') {
+      setShowRiderModal(true);
+      return;
+    }
+    setIsUpdating(true);
+    try {
+      await onUpdateStatus(order.id, stepKey, order.assignedRider);
+    } finally {
+      setIsUpdating(false);
     }
   };
 
@@ -369,15 +391,19 @@ export default function OrderDetailsPanel({
                 const StepIcon = step.icon;
 
                 return (
-                  <div
+                  <button
                     key={step.key}
-                    className={`flex flex-col items-center min-w-[54px] sm:min-w-[70px] text-center transition-all ${
+                    type="button"
+                    disabled={isUpdating}
+                    onClick={() => handleStepClick(step.key as OrderStatus)}
+                    className={`flex flex-col items-center min-w-[54px] sm:min-w-[70px] text-center transition-all cursor-pointer touch-manipulation hover:opacity-85 ${
                       isCurrent
                         ? 'scale-105 font-black text-emerald-900'
                         : isPassed
                         ? 'text-stone-700 font-bold'
-                        : 'text-stone-300 font-medium'
+                        : 'text-stone-400 font-medium'
                     }`}
+                    title={`Set status to ${step.label}`}
                   >
                     <div
                       className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs mb-1 transition-all ${
@@ -393,7 +419,7 @@ export default function OrderDetailsPanel({
                     <span className="text-[10px] sm:text-[11px] leading-tight max-w-[65px] truncate">
                       {step.label}
                     </span>
-                  </div>
+                  </button>
                 );
               })}
             </div>
@@ -422,11 +448,21 @@ export default function OrderDetailsPanel({
             {primaryAction && (
               <button
                 type="button"
+                disabled={isUpdating}
                 onClick={handleExecutePrimary}
-                className={`w-full sm:w-auto px-5 py-2.5 sm:py-3 rounded-xl text-white font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs transition-all active:scale-98 shrink-0 ${primaryAction.color}`}
+                className={`w-full sm:w-auto px-5 py-2.5 sm:py-3 rounded-xl text-white font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs transition-all active:scale-98 shrink-0 touch-manipulation disabled:opacity-75 disabled:cursor-not-allowed ${primaryAction.color}`}
               >
-                <span>{primaryAction.label}</span>
-                <ChevronRight className="w-4 h-4" />
+                {isUpdating ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Updating...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>{primaryAction.label}</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </>
+                )}
               </button>
             )}
           </div>
@@ -898,11 +934,21 @@ export default function OrderDetailsPanel({
           {primaryAction ? (
             <button
               type="button"
+              disabled={isUpdating}
               onClick={handleExecutePrimary}
-              className={`flex-1 py-2.5 rounded-xl text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-xs active:scale-98 ${primaryAction.color}`}
+              className={`flex-1 py-2.5 rounded-xl text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-xs active:scale-98 touch-manipulation disabled:opacity-75 disabled:cursor-not-allowed ${primaryAction.color}`}
             >
-              <span>{primaryAction.label}</span>
-              <ChevronRight className="w-4 h-4" />
+              {isUpdating ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>Updating...</span>
+                </>
+              ) : (
+                <>
+                  <span>{primaryAction.label}</span>
+                  <ChevronRight className="w-4 h-4" />
+                </>
+              )}
             </button>
           ) : (
             <div className="w-full text-center py-1 text-xs font-black text-emerald-800">
