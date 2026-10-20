@@ -1,0 +1,1753 @@
+[
+  {
+    "id": "g1-p0405",
+    "name": "G1 Mart Masoor Dal (Red Split Lentils / ఎర్ర కందిపప్పు)",
+    "unit": "500 g",
+    "brand": "G1 Mart",
+    "price": 55,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_masoor_dal_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-dal026-v1",
+        "mrp": 55,
+        "price": 55,
+        "stock": 100,
+        "image_url": "/products/generated_pouches/g1_masoor_dal_pouch.webp",
+        "product_id": "g1-p0405",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-dal027-v1",
+        "mrp": 105,
+        "price": 105,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_masoor_dal_pouch.webp",
+        "product_id": "g1-p0405",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T09:01:20.296Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 55
+  },
+  {
+    "id": "g1-p0166",
+    "name": "Ruchi Gold Refined Palmolein Oil",
+    "unit": "1 L",
+    "brand": "Ruchi Gold",
+    "price": 152,
+    "inStock": true,
+    "category": "oil-ghee-masala",
+    "imageUrl": "/products/packshots/ruchi-gold-oil.jpg",
+    "variants": [
+      {
+        "id": "g1-p0166-v1",
+        "mrp": 152,
+        "price": 152,
+        "stock": 100,
+        "image_url": "/products/packshots/ruchi-gold-oil.jpg",
+        "product_id": "g1-p0166",
+        "size_label": "1 L"
+      },
+      {
+        "id": "g1-p0166-v2",
+        "mrp": 590,
+        "price": 590,
+        "stock": 50,
+        "image_url": "/products/packshots/ruchi-gold-oil.jpg",
+        "product_id": "g1-p0166",
+        "size_label": "5 L"
+      }
+    ],
+    "updatedAt": "2026-10-19T09:36:05.727Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 152
+  },
+  {
+    "id": "g1-p1572",
+    "name": "Aashirvaad Superior MP Shudh Chakki Atta (గోధుమ పిండి)",
+    "unit": "1 kg",
+    "brand": "Aashirvaad",
+    "price": 65,
+    "inStock": true,
+    "category": "atta-rice-dal",
+    "imageUrl": "/products/packshots/aashirvaad-atta-5kg.jpg",
+    "variants": [
+      {
+        "id": "g1-p1572-v1",
+        "mrp": 70,
+        "price": 65,
+        "stock": 200,
+        "product_id": "g1-p1572",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:29:29.211Z",
+    "stockCount": 200,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 70
+  },
+  {
+    "id": "g1-p0219",
+    "name": "G1 Mart Premium Sona Masoori Raw Rice (సోనా మసూరి బియ్యం)",
+    "unit": "1 kg",
+    "brand": "G1 Mart",
+    "price": 80,
+    "inStock": true,
+    "category": "atta-rice-dal",
+    "imageUrl": "/products/generated_pouches/g1_rice_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-p0219-v1",
+        "mrp": 70,
+        "price": 80,
+        "stock": 200,
+        "image_url": null,
+        "created_at": "2026-10-17T05:01:01.170Z",
+        "product_id": "g1-p0219",
+        "size_label": "1 kg",
+        "updated_at": "2026-10-17T05:01:01.170Z"
+      },
+      {
+        "id": "g1-p0219-v2",
+        "mrp": 325,
+        "price": 295,
+        "stock": 50,
+        "image_url": null,
+        "created_at": "2026-10-17T05:01:01.170Z",
+        "product_id": "g1-p0219",
+        "size_label": "5 kg",
+        "updated_at": "2026-10-17T05:01:01.170Z"
+      },
+      {
+        "id": "g1-p0219-v3",
+        "mrp": 630,
+        "price": 575,
+        "stock": 50,
+        "image_url": null,
+        "created_at": "2026-10-17T05:01:01.170Z",
+        "product_id": "g1-p0219",
+        "size_label": "10 kg",
+        "updated_at": "2026-10-17T05:01:01.170Z"
+      },
+      {
+        "id": "g1-p0219-v4",
+        "mrp": 1500,
+        "price": 1380,
+        "stock": 50,
+        "image_url": null,
+        "created_at": "2026-10-17T05:01:01.170Z",
+        "product_id": "g1-p0219",
+        "size_label": "25 kg",
+        "updated_at": "2026-10-17T05:01:01.170Z"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:30:05.663Z",
+    "stockCount": 200,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 70
+  },
+  {
+    "id": "g1-p0457",
+    "price": 55,
+    "variants": [
+      {
+        "price": 55,
+        "stock": 60,
+        "mrp": 42,
+        "id": "g1-p0457-v1",
+        "size_label": "500 g"
+      },
+      {
+        "price": 75,
+        "stock": 60,
+        "mrp": 75,
+        "id": "g1-p0457-v2",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-20T03:10:25.472Z",
+    "stockCount": 120,
+    "originalPrice": 42
+  },
+  {
+    "id": "g1-p0428",
+    "name": "Sri Lalitha Idli Rava (ఇడ్లీ రవ్వ)",
+    "unit": "500 g",
+    "brand": "Sri Lalitha",
+    "price": 60,
+    "inStock": true,
+    "category": "local-millets",
+    "imageUrl": "/products/packshots/lalitha-idli-rava.jpg",
+    "variants": [
+      {
+        "id": "g1-p0428-v1",
+        "mrp": 36,
+        "price": 60,
+        "stock": 100,
+        "image_url": "/products/packshots/lalitha-idli-rava.jpg",
+        "product_id": "g1-p0428",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0428-v2",
+        "mrp": 68,
+        "price": 68,
+        "stock": 50,
+        "image_url": "/products/packshots/lalitha-idli-rava.jpg",
+        "product_id": "g1-p0428",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:31:51.356Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 36
+  },
+  {
+    "id": "g1-p0190",
+    "name": "G1 Mart Kabuli Senagalu (White Chickpeas / కాబూలీ శనగలు)",
+    "unit": "500 g",
+    "brand": "G1 Mart",
+    "price": 65,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_kabuli_chana_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-dal032-v1",
+        "mrp": 80,
+        "price": 65,
+        "stock": 100,
+        "image_url": "/products/generated_pouches/g1_kabuli_chana_pouch.webp",
+        "product_id": "g1-p0190",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0190-v1k",
+        "mrp": 160,
+        "price": 160,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_kabuli_chana_pouch.webp",
+        "product_id": "g1-p0190",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:42:25.938Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 80
+  },
+  {
+    "id": "g1-p0191",
+    "name": "G1 Mart Nalla Senagalu (Brown Kala Chana / నల్ల శనగలు)",
+    "unit": "500 g",
+    "brand": "G1 Mart",
+    "price": 50,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_kala_chana_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-dal033-v1",
+        "mrp": 50,
+        "price": 50,
+        "stock": 100,
+        "image_url": "/products/generated_pouches/g1_kala_chana_pouch.webp",
+        "product_id": "g1-p0191",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0191-v1k",
+        "mrp": 105,
+        "price": 105,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_kala_chana_pouch.webp",
+        "product_id": "g1-p0191",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:42:42.536Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 50
+  },
+  {
+    "id": "g1-dal001",
+    "name": "Tata Sampann Unpolished Toor Dal (కందిపప్పు)",
+    "unit": "500 g",
+    "brand": "Tata Sampann",
+    "price": 98,
+    "inStock": false,
+    "category": "local-dals",
+    "imageUrl": "/products/packshots/tata-sampann-toor-dal-1kg.webp",
+    "variants": [
+      {
+        "id": "g1-dal002-v1",
+        "mrp": 98,
+        "price": 98,
+        "stock": 100,
+        "image_url": "/products/packshots/tata-sampann-toor-dal-1kg.webp",
+        "product_id": "g1-dal001",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-dal001-v1",
+        "mrp": 185,
+        "price": 185,
+        "stock": 50,
+        "image_url": "/products/packshots/tata-sampann-toor-dal-1kg.webp",
+        "product_id": "g1-dal001",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:50:54.754Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 98
+  },
+  {
+    "id": "g1-dal003",
+    "name": "Tata Sampann Unpolished Chana Dal (శనగపప్పు)",
+    "unit": "500 g",
+    "brand": "Tata Sampann",
+    "price": 65,
+    "inStock": false,
+    "category": "local-dals",
+    "imageUrl": "/products/packshots/tata-sampann-chana-dal-1kg.webp",
+    "variants": [
+      {
+        "id": "g1-dal004-v1",
+        "mrp": 65,
+        "price": 65,
+        "stock": 100,
+        "image_url": "/products/packshots/tata-sampann-chana-dal-1kg.webp",
+        "product_id": "g1-dal003",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-dal003-v1",
+        "mrp": 125,
+        "price": 125,
+        "stock": 50,
+        "image_url": "/products/packshots/tata-sampann-chana-dal-1kg.webp",
+        "product_id": "g1-dal003",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:51:04.300Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 65
+  },
+  {
+    "id": "g1-p0327",
+    "name": "G1 Mart Kandi Pappu (Toor Dal / కందిపప్పు)",
+    "unit": "500 g",
+    "brand": "G1 Mart",
+    "price": 165,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-p0327-v1",
+        "mrp": 165,
+        "price": 165,
+        "stock": 200,
+        "image_url": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+        "product_id": "g1-p0327",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0327-v2",
+        "mrp": 185,
+        "price": 185,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+        "product_id": "g1-p0327",
+        "size_label": "1 kg"
+      },
+      {
+        "id": "g1-p0327-v3",
+        "mrp": 360,
+        "price": 360,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+        "product_id": "g1-p0327",
+        "size_label": "2 kg"
+      },
+      {
+        "id": "g1-p0327-v4",
+        "mrp": 890,
+        "price": 890,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+        "product_id": "g1-p0327",
+        "size_label": "5 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:32:49.285Z",
+    "stockCount": 200,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 165
+  },
+  {
+    "id": "g1-dal022",
+    "name": "G1 Mart Minapa Gundu (Whole White Urad / మినప గుండ్లు)",
+    "unit": "500 g",
+    "brand": "G1 Mart",
+    "price": 68,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_minapa_gundu_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-dal022-v1",
+        "mrp": 85,
+        "price": 68,
+        "stock": 200,
+        "image_url": null,
+        "created_at": "2026-10-17T05:01:01.172Z",
+        "product_id": "g1-dal022",
+        "size_label": "500 g",
+        "updated_at": "2026-10-17T05:01:01.172Z"
+      },
+      {
+        "id": "g1-dal022-v2",
+        "mrp": 160,
+        "price": 145,
+        "stock": 50,
+        "image_url": null,
+        "created_at": "2026-10-17T05:01:01.172Z",
+        "product_id": "g1-dal022",
+        "size_label": "1 kg",
+        "updated_at": "2026-10-17T05:01:01.172Z"
+      },
+      {
+        "id": "g1-dal022-v3",
+        "mrp": 315,
+        "price": 285,
+        "stock": 50,
+        "image_url": null,
+        "created_at": "2026-10-17T05:01:01.172Z",
+        "product_id": "g1-dal022",
+        "size_label": "2 kg",
+        "updated_at": "2026-10-17T05:01:01.172Z"
+      },
+      {
+        "id": "g1-dal022-v4",
+        "mrp": 775,
+        "price": 695,
+        "stock": 50,
+        "image_url": null,
+        "created_at": "2026-10-17T05:01:01.172Z",
+        "product_id": "g1-dal022",
+        "size_label": "5 kg",
+        "updated_at": "2026-10-17T05:01:01.172Z"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:36:25.412Z",
+    "stockCount": 200,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 85
+  },
+  {
+    "id": "g1-p0406",
+    "name": "G1 Mart Senaga Pappu (Bengal Gram / Chana Dal / శనగపప్పు)",
+    "unit": "1 kg",
+    "brand": "G1 Mart",
+    "price": 125,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_chana_dal_pouch.webp",
+    "variants": [
+      {
+        "id": "var-g1-dal018-500g",
+        "mrp": 48,
+        "price": 125,
+        "stock": 200,
+        "image_url": "/products/generated_pouches/g1_chana_dal_pouch.webp",
+        "product_id": "g1-p0406",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0406-v1",
+        "mrp": 48,
+        "price": 125,
+        "stock": 200,
+        "image_url": "/products/generated_pouches/g1_chana_dal_pouch.webp",
+        "product_id": "g1-p0406",
+        "size_label": "1 kg"
+      },
+      {
+        "id": "g1-p0388-v3",
+        "mrp": 185,
+        "price": 185,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_chana_dal_pouch.webp",
+        "product_id": "g1-p0406",
+        "size_label": "2 kg"
+      },
+      {
+        "id": "g1-p0406-v2",
+        "mrp": 230,
+        "price": 230,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_chana_dal_pouch.webp",
+        "product_id": "g1-p0406",
+        "size_label": "5 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:33:25.563Z",
+    "stockCount": 200,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 48
+  },
+  {
+    "id": "g1-p0412",
+    "name": "G1 Mart Pesara Pappu (Yellow Moong Dal / పెసరపప్పు)",
+    "unit": "250 g",
+    "brand": "G1 Mart",
+    "price": 30,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-p0412-v250",
+        "mrp": 40,
+        "price": 30,
+        "stock": 260,
+        "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
+        "product_id": "g1-p0412",
+        "size_label": "250 g"
+      },
+      {
+        "id": "g1-p0412-v1",
+        "mrp": 75,
+        "price": 75,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
+        "product_id": "g1-p0412",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0412-v2",
+        "mrp": 140,
+        "price": 140,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
+        "product_id": "g1-p0412",
+        "size_label": "1 kg"
+      },
+      {
+        "id": "g1-p0412-v3",
+        "mrp": 275,
+        "price": 275,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
+        "product_id": "g1-p0412",
+        "size_label": "2 kg"
+      },
+      {
+        "id": "g1-p0412-v4",
+        "mrp": 660,
+        "price": 660,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
+        "product_id": "g1-p0412",
+        "size_label": "5 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:33:57.496Z",
+    "stockCount": 260,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 40
+  },
+  {
+    "id": "g1-p0195",
+    "name": "G1 Mart Tella Bataneelu (Dry White Peas / తెల్ల బఠానీలు)",
+    "unit": "500 g",
+    "brand": "G1 Mart",
+    "price": 37,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_tella_bataneelu_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-p0195-v500",
+        "mrp": 55,
+        "price": 37,
+        "stock": 110,
+        "image_url": "/products/generated_pouches/g1_tella_bataneelu_pouch.webp",
+        "product_id": "g1-p0195",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0195-v1k",
+        "mrp": 100,
+        "price": 100,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_tella_bataneelu_pouch.webp",
+        "product_id": "g1-p0195",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:44:15.517Z",
+    "stockCount": 110,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 55
+  },
+  {
+    "id": "g1-p0408",
+    "name": "G1 Mart Green Moong Whole (Whole Pesalu / పచ్చ పెసలు)",
+    "unit": "500 g",
+    "brand": "G1 Mart",
+    "price": 55,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_green_moong_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-p0408-v500",
+        "mrp": 65,
+        "price": 55,
+        "stock": 110,
+        "image_url": "/products/generated_pouches/g1_pesalu_pouch.webp",
+        "product_id": "g1-p0408",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0408-v1k",
+        "mrp": 125,
+        "price": 125,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_pesalu_pouch.webp",
+        "product_id": "g1-p0408",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:35:35.549Z",
+    "stockCount": 110,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 65
+  },
+  {
+    "id": "g1-dal012",
+    "name": "Tata Sampann Unpolished Rajma (Red Kidney Beans)",
+    "unit": "1 kg",
+    "brand": "Tata Sampann",
+    "price": 165,
+    "inStock": false,
+    "category": "local-dals",
+    "imageUrl": "/products/packshots/tata-sampann-rajma-1kg.webp",
+    "variants": [
+      {
+        "id": "g1-dal012-v1",
+        "mrp": 165,
+        "price": 165,
+        "stock": 50,
+        "image_url": "/products/packshots/tata-sampann-rajma-1kg.webp",
+        "product_id": "g1-dal012",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:50:26.589Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 165
+  },
+  {
+    "id": "g1-dal005",
+    "name": "Tata Sampann Unpolished Moong Dal (పెసరపప్పు)",
+    "unit": "500 g",
+    "brand": "Tata Sampann",
+    "price": 85,
+    "inStock": false,
+    "category": "local-dals",
+    "imageUrl": "/products/packshots/tata-sampann-moong-dal-1kg.webp",
+    "variants": [
+      {
+        "id": "g1-dal006-v1",
+        "mrp": 85,
+        "price": 85,
+        "stock": 100,
+        "image_url": "/products/packshots/tata-sampann-moong-dal-1kg.webp",
+        "product_id": "g1-dal005",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-dal005-v1",
+        "mrp": 165,
+        "price": 165,
+        "stock": 50,
+        "image_url": "/products/packshots/tata-sampann-moong-dal-1kg.webp",
+        "product_id": "g1-dal005",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:51:13.785Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 85
+  },
+  {
+    "id": "g1-dal013",
+    "name": "Tata Sampann Unpolished Green Moong Whole",
+    "unit": "1 kg",
+    "brand": "Tata Sampann",
+    "price": 145,
+    "inStock": false,
+    "category": "local-dals",
+    "imageUrl": "/products/packshots/tata-sampann-green-moong-1kg.webp",
+    "variants": [
+      {
+        "id": "g1-dal013-v1",
+        "mrp": 145,
+        "price": 145,
+        "stock": 50,
+        "image_url": "/products/packshots/tata-sampann-green-moong-1kg.webp",
+        "product_id": "g1-dal013",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:51:27.244Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 145
+  },
+  {
+    "id": "g1-dal007",
+    "name": "Tata Sampann Unpolished Urad Dal Split",
+    "unit": "1 kg",
+    "brand": "Tata Sampann",
+    "price": 170,
+    "inStock": false,
+    "category": "local-dals",
+    "imageUrl": "/products/packshots/tata-sampann-urad-dal-1kg.webp",
+    "variants": [
+      {
+        "id": "g1-dal007-v1",
+        "mrp": 170,
+        "price": 170,
+        "stock": 50,
+        "image_url": "/products/packshots/tata-sampann-urad-dal-1kg.webp",
+        "product_id": "g1-dal007",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:51:35.423Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 170
+  },
+  {
+    "id": "g1-dal008",
+    "name": "Tata Sampann Unpolished Urad Whole (Gota)",
+    "unit": "1 kg",
+    "brand": "Tata Sampann",
+    "price": 180,
+    "inStock": false,
+    "category": "local-dals",
+    "imageUrl": "/products/packshots/tata-sampann-urad-whole-1kg.webp",
+    "variants": [
+      {
+        "id": "g1-dal008-v1",
+        "mrp": 180,
+        "price": 180,
+        "stock": 50,
+        "image_url": "/products/packshots/tata-sampann-urad-whole-1kg.webp",
+        "product_id": "g1-dal008",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:51:51.219Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 180
+  },
+  {
+    "id": "g1-dal009",
+    "name": "Tata Sampann Unpolished Masoor Dal (Red Lentils)",
+    "unit": "1 kg",
+    "brand": "Tata Sampann",
+    "price": 125,
+    "inStock": false,
+    "category": "local-dals",
+    "imageUrl": "/products/packshots/tata-sampann-masoor-dal-1kg.webp",
+    "variants": [
+      {
+        "id": "g1-dal009-v1",
+        "mrp": 125,
+        "price": 125,
+        "stock": 50,
+        "image_url": "/products/packshots/tata-sampann-masoor-dal-1kg.webp",
+        "product_id": "g1-dal009",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:52:00.180Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 125
+  },
+  {
+    "id": "g1-dal010",
+    "name": "Tata Sampann Unpolished Kabuli Chana",
+    "unit": "1 kg",
+    "brand": "Tata Sampann",
+    "price": 185,
+    "inStock": false,
+    "category": "local-dals",
+    "imageUrl": "/products/packshots/tata-sampann-kabuli-chana-1kg.webp",
+    "variants": [
+      {
+        "id": "g1-dal010-v1",
+        "mrp": 185,
+        "price": 185,
+        "stock": 50,
+        "image_url": "/products/packshots/tata-sampann-kabuli-chana-1kg.webp",
+        "product_id": "g1-dal010",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:52:10.741Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 185
+  },
+  {
+    "id": "g1-dal014",
+    "name": "Tata Sampann 100% Soya Chunks",
+    "unit": "200 g",
+    "brand": "Tata Sampann",
+    "price": 50,
+    "inStock": false,
+    "category": "local-dals",
+    "imageUrl": "/products/packshots/tata-sampann-soya-chunks-200g.webp",
+    "variants": [
+      {
+        "id": "g1-dal014-v1",
+        "mrp": 50,
+        "price": 50,
+        "stock": 50,
+        "image_url": "/products/packshots/tata-sampann-soya-chunks-200g.webp",
+        "product_id": "g1-dal014",
+        "size_label": "200 g"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:52:24.587Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 50
+  },
+  {
+    "id": "g1-dal011",
+    "name": "Tata Sampann Unpolished Kala Chana",
+    "unit": "1 kg",
+    "brand": "Tata Sampann",
+    "price": 125,
+    "inStock": false,
+    "category": "local-dals",
+    "imageUrl": "/products/packshots/tata-sampann-kala-chana-1kg.webp",
+    "variants": [
+      {
+        "id": "g1-dal011-v1",
+        "mrp": 125,
+        "price": 125,
+        "stock": 50,
+        "image_url": "/products/packshots/tata-sampann-kala-chana-1kg.webp",
+        "product_id": "g1-dal011",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:52:40.589Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 125
+  },
+  {
+    "id": "g1-p0236",
+    "name": "Fresh Onions (ఉల్లిపాయలు)",
+    "unit": "1 kg",
+    "brand": "G1 Mart Fresh",
+    "price": 65,
+    "inStock": true,
+    "category": "vegetables-fruits",
+    "imageUrl": "/products/packshots/fresh-onion.webp",
+    "variants": [
+      {
+        "id": "g1-p0236-v1kg",
+        "mrp": 40,
+        "price": 65,
+        "stock": 300,
+        "image_url": "/products/packshots/fresh-onion.webp",
+        "product_id": "g1-p0236",
+        "size_label": "1 kg"
+      },
+      {
+        "id": "g1-p0236-v2kg",
+        "mrp": 80,
+        "price": 68,
+        "stock": 100,
+        "image_url": "/products/packshots/fresh-onion.webp",
+        "product_id": "g1-p0236",
+        "size_label": "2 kg"
+      },
+      {
+        "id": "g1-p0236-v5kg",
+        "mrp": 200,
+        "price": 165,
+        "stock": 50,
+        "image_url": "/products/packshots/fresh-onion.webp",
+        "product_id": "g1-p0236",
+        "size_label": "5 kg Bag"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:52:58.135Z",
+    "stockCount": 300,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 40
+  },
+  {
+    "id": "g1-p0279",
+    "name": "Hatsun Pure Ghee (హట్సన్ స్వచ్ఛమైన నెయ్యి)",
+    "unit": "200 g",
+    "brand": "Hatsun",
+    "price": 200,
+    "inStock": true,
+    "category": "oil-ghee-masala",
+    "imageUrl": "/products/packshots/hatsun-ghee.jpg",
+    "variants": [
+      {
+        "id": "g1-p0279-v200",
+        "mrp": 160,
+        "price": 200,
+        "stock": 120,
+        "image_url": "/products/packshots/hatsun-ghee.jpg",
+        "product_id": "g1-p0279",
+        "size_label": "200 g"
+      },
+      {
+        "id": "g1-p0279-v500",
+        "mrp": 365,
+        "price": 365,
+        "stock": 50,
+        "image_url": "/products/packshots/hatsun-ghee.jpg",
+        "product_id": "g1-p0279",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0279-v1k",
+        "mrp": 710,
+        "price": 710,
+        "stock": 30,
+        "image_url": "/products/packshots/hatsun-ghee.jpg",
+        "product_id": "g1-p0279",
+        "size_label": "1 L"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:53:22.305Z",
+    "stockCount": 120,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 160
+  },
+  {
+    "id": "g1-p0293",
+    "name": "Kissan Mixed Fruit Jam",
+    "unit": "1 unit",
+    "brand": "Kissan",
+    "price": 90,
+    "inStock": true,
+    "category": "sauces-spreads",
+    "imageUrl": "/products/verified/g1-p0293.webp",
+    "variants": [
+      {
+        "id": "g1-p0293-v1",
+        "mrp": 2,
+        "price": 90,
+        "stock": 150,
+        "image_url": "/products/verified/g1-p0293.webp",
+        "product_id": "g1-p0293",
+        "size_label": "1 unit"
+      },
+      {
+        "id": "g1-p0293-v-200g",
+        "mrp": 75,
+        "price": 75,
+        "stock": 50,
+        "image_url": "/products/verified/g1-p0293.webp",
+        "product_id": "g1-p0293",
+        "size_label": "200 g"
+      },
+      {
+        "id": "g1-p0293-v-500g",
+        "mrp": 165,
+        "price": 165,
+        "stock": 50,
+        "image_url": "/products/verified/g1-p0293.webp",
+        "product_id": "g1-p0293",
+        "size_label": "500 g"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:54:04.006Z",
+    "stockCount": 150,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 2
+  },
+  {
+    "id": "g1-p0295",
+    "name": "G1 Mart California Badam / Almonds (బాదం పప్పు)",
+    "unit": "100 g",
+    "brand": "G1 Mart",
+    "price": 129,
+    "inStock": true,
+    "category": "dry-fruits-cereals",
+    "imageUrl": "/products/generated_pouches/g1_almonds_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-p0295-v100",
+        "mrp": 85,
+        "price": 129,
+        "stock": 260,
+        "image_url": "/products/generated_pouches/g1_almonds_pouch.webp",
+        "product_id": "g1-p0295",
+        "size_label": "100 g"
+      },
+      {
+        "id": "g1-p0295-v250",
+        "mrp": 210,
+        "price": 210,
+        "stock": 80,
+        "image_url": "/products/generated_pouches/g1_almonds_pouch.webp",
+        "product_id": "g1-p0295",
+        "size_label": "250 g"
+      },
+      {
+        "id": "g1-p0295-v500",
+        "mrp": 410,
+        "price": 410,
+        "stock": 60,
+        "image_url": "/products/generated_pouches/g1_almonds_pouch.webp",
+        "product_id": "g1-p0295",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0295-v1k",
+        "mrp": 800,
+        "price": 800,
+        "stock": 40,
+        "image_url": "/products/generated_pouches/g1_almonds_pouch.webp",
+        "product_id": "g1-p0295",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:54:28.218Z",
+    "stockCount": 260,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 85
+  },
+  {
+    "id": "g1-p0311",
+    "name": "Kissan Fresh Tomato Ketchup",
+    "unit": "500 g",
+    "brand": "Kissan",
+    "price": 125,
+    "inStock": true,
+    "category": "sauces-spreads",
+    "imageUrl": "/products/verified/g1-p0311.webp",
+    "variants": [
+      {
+        "id": "g1-p0311-v200",
+        "mrp": 35,
+        "price": 35,
+        "stock": 180,
+        "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg",
+        "product_id": "g1-p0311",
+        "size_label": "200 g"
+      },
+      {
+        "id": "g1-p0311-v500",
+        "mrp": 75,
+        "price": 125,
+        "stock": 60,
+        "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg",
+        "product_id": "g1-p0311",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0311-v1k",
+        "mrp": 140,
+        "price": 140,
+        "stock": 40,
+        "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg",
+        "product_id": "g1-p0311",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:56:07.999Z",
+    "stockCount": 60,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 75
+  },
+  {
+    "id": "g1-p0486",
+    "name": "Kisan Tomota Ketchup",
+    "unit": "Packs",
+    "brand": "Kissan",
+    "price": 75,
+    "inStock": true,
+    "category": "sauces-spreads",
+    "imageUrl": "200G",
+    "variants": [
+      {
+        "id": "g1-p0486-v1",
+        "mrp": 16,
+        "price": 75,
+        "stock": 50,
+        "image_url": "/products/verified/g1-p0486.webp",
+        "product_id": "g1-p0486",
+        "size_label": "Packs"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:57:07.601Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 16
+  },
+  {
+    "id": "g1-p0309",
+    "name": "Hellmann's Real Mayonnaise",
+    "unit": "250 g",
+    "brand": "Local / Unbranded",
+    "price": 40,
+    "inStock": true,
+    "category": "sauces-spreads",
+    "imageUrl": "85G",
+    "variants": [
+      {
+        "id": "g1-p0309-v250",
+        "mrp": 99,
+        "price": 40,
+        "stock": 90,
+        "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg",
+        "product_id": "g1-p0309",
+        "size_label": "250 g"
+      },
+      {
+        "id": "g1-p0309-v500",
+        "mrp": 180,
+        "price": 180,
+        "stock": 40,
+        "image_url": "/products/packshots/aashirvaad-svasti-ghee.jpg",
+        "product_id": "g1-p0309",
+        "size_label": "500 g"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:58:21.221Z",
+    "stockCount": 90,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 99
+  },
+  {
+    "id": "g1-p0422",
+    "name": "G1 Mart Jeedipappu (Premium Cashews / జీడిపప్పు)",
+    "unit": "250 g",
+    "brand": "G1 Mart",
+    "price": 235,
+    "inStock": true,
+    "category": "dry-fruits-cereals",
+    "imageUrl": "/products/generated_pouches/g1_cashews_pouch.webp",
+    "variants": [
+      {
+        "id": "var-g1-nut016-250g",
+        "mrp": 220,
+        "price": 235,
+        "stock": 150,
+        "image_url": "/products/generated_pouches/g1_cashews_250g_pouch.webp",
+        "product_id": "g1-p0422",
+        "size_label": "250 g"
+      },
+      {
+        "id": "var-g1-nut016-500g",
+        "mrp": 420,
+        "price": 420,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_cashews_500g_pouch.webp",
+        "product_id": "g1-p0422",
+        "size_label": "500 g"
+      },
+      {
+        "id": "var-g1-nut016-1kg",
+        "mrp": 820,
+        "price": 820,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_cashews_1kg_pouch.webp",
+        "product_id": "g1-p0422",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-19T13:59:00.293Z",
+    "stockCount": 150,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 220
+  },
+  {
+    "id": "g1-p0635",
+    "name": "GRB Pure Ghee",
+    "unit": "50 ml",
+    "brand": "GRB",
+    "price": 60,
+    "inStock": true,
+    "category": "oil-ghee-masala",
+    "imageUrl": "/products/packshots/grb-ghee.jpg",
+    "variants": [
+      {
+        "id": "g1-p0635-v1",
+        "mrp": 50,
+        "price": 60,
+        "stock": 200,
+        "image_url": "/products/packshots/grb-ghee.jpg",
+        "product_id": "g1-p0635",
+        "size_label": "50 ml"
+      },
+      {
+        "id": "g1-p0635-v2",
+        "mrp": 190,
+        "price": 190,
+        "stock": 50,
+        "image_url": "/products/packshots/grb-ghee.jpg",
+        "product_id": "g1-p0635",
+        "size_label": "200 ml"
+      },
+      {
+        "id": "g1-p0635-v3",
+        "mrp": 430,
+        "price": 430,
+        "stock": 50,
+        "image_url": "/products/packshots/grb-ghee.jpg",
+        "product_id": "g1-p0635",
+        "size_label": "500 ml"
+      },
+      {
+        "id": "g1-p0635-v4",
+        "mrp": 840,
+        "price": 840,
+        "stock": 50,
+        "image_url": "/products/packshots/grb-ghee.jpg",
+        "product_id": "g1-p0635",
+        "size_label": "1 L"
+      }
+    ],
+    "updatedAt": "2026-10-19T14:01:44.654Z",
+    "stockCount": 200,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 50
+  },
+  {
+    "id": "g1-freedom-oil-15l-tin",
+    "name": "Freedom Refined Sunflower Oil 15 Litre Tin (ఫ్రీడమ్ సన్‌ఫ్లవర్ ఆయిల్ 15L కేన్)",
+    "unit": "15 L Tin (13.65 kg)",
+    "brand": "Freedom",
+    "price": 2570,
+    "inStock": true,
+    "category": "oil-ghee-masala",
+    "imageUrl": "/products/verified/freedom-sunflower-oil-15l-tin.webp",
+    "variants": [
+      {
+        "id": "g1-freedom-oil-15l-tin-v1",
+        "mrp": 2350,
+        "price": 2570,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "/products/verified/freedom-sunflower-oil-15l-tin.webp",
+        "product_id": "g1-freedom-oil-15l-tin",
+        "size_label": "15 L Tin (13.65 kg)"
+      }
+    ],
+    "updatedAt": "2026-10-19T14:27:03.792Z",
+    "stockCount": 25,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 2350
+  },
+  {
+    "id": "g1-spc060",
+    "name": "G1 Mart LG Compounded Asafoetida (Hing / ఇంగువ)",
+    "unit": "50 g",
+    "brand": "LG",
+    "price": 100,
+    "inStock": true,
+    "category": "spices-masalas",
+    "imageUrl": "/products/verified/g1-p1004.webp",
+    "variants": [
+      {
+        "id": "g1-spc060-v1",
+        "mrp": 75,
+        "price": 100,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/verified/g1-p1004.webp",
+        "product_id": "g1-spc060",
+        "size_label": "50 g"
+      }
+    ],
+    "updatedAt": "2026-10-19T14:28:41.582Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 75
+  },
+  {
+    "id": "g1-spc058",
+    "name": "G1 Mart Tella Nuvvulu (White Sesame Seeds / తెల్ల నువ్వులు)",
+    "unit": "250 g",
+    "brand": "G1 Mart",
+    "price": 60,
+    "inStock": true,
+    "category": "spices-masalas",
+    "imageUrl": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-spc058-v1",
+        "mrp": 40,
+        "price": 35,
+        "stock": 130,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
+        "product_id": "g1-spc058",
+        "size_label": "100 g"
+      },
+      {
+        "id": "g1-spc058-v2",
+        "mrp": 95,
+        "price": 60,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
+        "product_id": "g1-spc058",
+        "size_label": "250 g"
+      },
+      {
+        "id": "g1-spc058-v3",
+        "mrp": 180,
+        "price": 155,
+        "stock": 30,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_nuvvulu_pouch.webp",
+        "product_id": "g1-spc058",
+        "size_label": "500 g"
+      }
+    ],
+    "updatedAt": "2026-10-19T14:30:24.687Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 95
+  },
+  {
+    "id": "g1-spc052",
+    "name": "G1 Mart Lavangalu (Whole Cloves / లవంగాలు)",
+    "unit": "Pack (10g)",
+    "brand": "G1 Mart",
+    "price": 20,
+    "inStock": true,
+    "category": "spices-masalas",
+    "imageUrl": "/products/generated_pouches/g1_lavangalu_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-spc052-v1",
+        "mrp": 10,
+        "price": 20,
+        "stock": 170,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_lavangalu_pouch.webp",
+        "product_id": "g1-spc052",
+        "size_label": "₹10 Pack (10g)"
+      },
+      {
+        "id": "g1-spc052-v2",
+        "mrp": 55,
+        "price": 45,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_lavangalu_pouch.webp",
+        "product_id": "g1-spc052",
+        "size_label": "50 g"
+      },
+      {
+        "id": "g1-spc052-v3",
+        "mrp": 100,
+        "price": 85,
+        "stock": 40,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_lavangalu_pouch.webp",
+        "product_id": "g1-spc052",
+        "size_label": "100 g"
+      },
+      {
+        "id": "g1-spc052-v4",
+        "mrp": 240,
+        "price": 200,
+        "stock": 20,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_lavangalu_pouch.webp",
+        "product_id": "g1-spc052",
+        "size_label": "250 g"
+      }
+    ],
+    "updatedAt": "2026-10-19T14:37:11.729Z",
+    "stockCount": 170,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 10
+  },
+  {
+    "id": "g1-spc057",
+    "name": "G1 Mart Endu Kobbari (Dry Coconut / ఎండు కొబ్బరి)",
+    "unit": "250 g",
+    "brand": "G1 Mart",
+    "price": 51,
+    "inStock": true,
+    "category": "spices-masalas",
+    "imageUrl": "/products/generated_pouches/g1_kobbari_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-spc057-v1",
+        "mrp": 65,
+        "price": 51,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_kobbari_pouch.webp",
+        "product_id": "g1-spc057",
+        "size_label": "250 g"
+      }
+    ],
+    "updatedAt": "2026-10-19T14:30:53.199Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 65
+  },
+  {
+    "id": "g1-spc056",
+    "name": "G1 Mart Chintapandu (Pure Cleaned Tamarind / చింతపండు)",
+    "unit": "500 g",
+    "brand": "G1 Mart",
+    "price": 90,
+    "inStock": true,
+    "category": "spices-masalas",
+    "imageUrl": "/products/generated_pouches/g1_chintapandu_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-spc056-v1",
+        "mrp": 105,
+        "price": 90,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_chintapandu_pouch.webp",
+        "product_id": "g1-spc056",
+        "size_label": "500 g"
+      }
+    ],
+    "updatedAt": "2026-10-19T14:31:17.243Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 105
+  },
+  {
+    "id": "g1-spc055",
+    "name": "G1 Mart Biryani Aaku (Bay Leaves / బిర్యానీ ఆకు)",
+    "unit": "50 g",
+    "brand": "G1 Mart",
+    "price": 20,
+    "inStock": true,
+    "category": "spices-masalas",
+    "imageUrl": "/products/generated_pouches/g1_biryani_aaku_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-spc055-v1",
+        "mrp": 25,
+        "price": 20,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_biryani_aaku_pouch.webp",
+        "product_id": "g1-spc055",
+        "size_label": "50 g"
+      }
+    ],
+    "updatedAt": "2026-10-19T14:34:42.504Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 25
+  },
+  {
+    "id": "g1-spc054",
+    "name": "G1 Mart Elakulu (Green Cardamom / యాలకులు)",
+    "unit": "10 g",
+    "brand": "G1 Mart",
+    "price": 50,
+    "inStock": true,
+    "category": "spices-masalas",
+    "imageUrl": "/products/generated_pouches/g1_elaichi_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-spc054-v1",
+        "mrp": 185,
+        "price": 50,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_elaichi_pouch.webp",
+        "product_id": "g1-spc054",
+        "size_label": "50 g"
+      }
+    ],
+    "updatedAt": "2026-10-19T14:35:31.118Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 185
+  },
+  {
+    "id": "g1-spc053",
+    "name": "G1 Mart Dalchini (Cinnamon Sticks / దాల్చిన చెక్క)",
+    "unit": "₹ Pack (10g)",
+    "brand": "G1 Mart",
+    "price": 20,
+    "inStock": true,
+    "category": "spices-masalas",
+    "imageUrl": "/products/generated_pouches/g1_dalchina_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-spc053-v1",
+        "mrp": 10,
+        "price": 20,
+        "stock": 155,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_dalchina_pouch.webp",
+        "product_id": "g1-spc053",
+        "size_label": "₹10 Pack (15g)"
+      },
+      {
+        "id": "g1-spc053-v2",
+        "mrp": 40,
+        "price": 35,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_dalchina_pouch.webp",
+        "product_id": "g1-spc053",
+        "size_label": "50 g"
+      },
+      {
+        "id": "g1-spc053-v3",
+        "mrp": 75,
+        "price": 65,
+        "stock": 40,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_dalchina_pouch.webp",
+        "product_id": "g1-spc053",
+        "size_label": "100 g"
+      },
+      {
+        "id": "g1-spc053-v4",
+        "mrp": 175,
+        "price": 150,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_dalchina_pouch.webp",
+        "product_id": "g1-spc053",
+        "size_label": "250 g"
+      }
+    ],
+    "updatedAt": "2026-10-19T14:36:24.295Z",
+    "stockCount": 155,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 10
+  },
+  {
+    "id": "g1-spc051",
+    "name": "G1 Mart Miriyalu (Whole Black Pepper / మిరియాలు)",
+    "unit": "Pack (100g)",
+    "brand": "G1 Mart",
+    "price": 70,
+    "inStock": true,
+    "category": "spices-masalas",
+    "imageUrl": "/products/generated_pouches/g1_miriyalu_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-spc051-v1",
+        "mrp": 100,
+        "price": 70,
+        "stock": 185,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
+        "product_id": "g1-spc051",
+        "size_label": "₹10 Pack (15g)"
+      },
+      {
+        "id": "g1-spc051-v2",
+        "mrp": 40,
+        "price": 35,
+        "stock": 40,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
+        "product_id": "g1-spc051",
+        "size_label": "50 g"
+      },
+      {
+        "id": "g1-spc051-v3",
+        "mrp": 75,
+        "price": 65,
+        "stock": 60,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
+        "product_id": "g1-spc051",
+        "size_label": "100 g"
+      },
+      {
+        "id": "g1-spc051-v4",
+        "mrp": 180,
+        "price": 155,
+        "stock": 35,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_miriyalu_pouch.webp",
+        "product_id": "g1-spc051",
+        "size_label": "250 g"
+      }
+    ],
+    "updatedAt": "2026-10-19T14:38:08.134Z",
+    "stockCount": 185,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 100
+  },
+  {
+    "id": "g1-spc050",
+    "name": "G1 Mart Sompu (Sweet Fennel Seeds / సోంపు)",
+    "unit": "50 g",
+    "brand": "G1 Mart",
+    "price": 10,
+    "inStock": true,
+    "category": "spices-masalas",
+    "imageUrl": "/products/generated_pouches/g1_sompu_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-spc050-v1",
+        "mrp": 80,
+        "price": 10,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_sompu_pouch.webp",
+        "product_id": "g1-spc050",
+        "size_label": "250 g"
+      }
+    ],
+    "updatedAt": "2026-10-19T14:40:17.571Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 80
+  },
+  {
+    "id": "new_1792435643759",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792435643759-1792435643887.png",
+    "updatedAt": "2026-10-19T18:47:25.109Z",
+    "imageStatus": "VERIFIED"
+  },
+  {
+    "id": "new_1792437010441",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792437010441-1792437010497.webp",
+    "updatedAt": "2026-10-19T19:10:11.451Z",
+    "imageStatus": "VERIFIED"
+  },
+  {
+    "id": "g1-p1140",
+    "name": "Weikfield Corn Starch / Corn Flour",
+    "unit": "100 g",
+    "brand": "Weikfield",
+    "price": 22,
+    "inStock": false,
+    "category": "atta-rice-dal",
+    "imageUrl": "/products/packshots/weikfield-corn-flour.jpg",
+    "variants": [
+      {
+        "id": "g1-p1140-v1",
+        "mrp": 22,
+        "price": 22,
+        "stock": 100,
+        "image_url": "/products/packshots/weikfield-corn-flour.jpg",
+        "product_id": "g1-p1140",
+        "size_label": "100 g"
+      },
+      {
+        "id": "g1-p1140-v2",
+        "mrp": 60,
+        "price": 60,
+        "stock": 50,
+        "image_url": "/products/packshots/weikfield-corn-flour.jpg",
+        "product_id": "g1-p1140",
+        "size_label": "500 g"
+      }
+    ],
+    "updatedAt": "2026-10-19T19:24:44.464Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 22
+  },
+  {
+    "id": "g1-p176890",
+    "name": "G1AMRT",
+    "unit": "500 G",
+    "brand": "G1 Mart",
+    "price": 36,
+    "inStock": true,
+    "category": "atta-rice-dal",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792437010441-1792437010497.webp",
+    "variants": [
+      {
+        "id": "p-v1",
+        "mrp": 54,
+        "price": 36,
+        "stock": 15,
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792437010441-1792437010497.webp",
+        "product_id": "p",
+        "size_label": "500 G"
+      }
+    ],
+    "isPopular": true,
+    "updatedAt": "2026-10-19T19:51:38.429Z",
+    "stockCount": 15,
+    "imageStatus": "VERIFIED",
+    "subCategory": "Atta & Wheat Flour",
+    "originalPrice": 54
+  },
+  {
+    "id": "g1-p445559",
+    "name": "vamsi",
+    "unit": "500 g",
+    "brand": "G1 Mart",
+    "price": 100,
+    "inStock": true,
+    "category": "atta-rice-dal",
+    "imageUrl": "/products/placeholder.svg",
+    "variants": [
+      {
+        "id": "p-v1",
+        "mrp": 890,
+        "price": 100,
+        "stock": 15,
+        "image_url": "/products/placeholder.svg",
+        "product_id": "p",
+        "size_label": "1 unit"
+      }
+    ],
+    "isPopular": true,
+    "updatedAt": "2026-10-19T19:51:38.744Z",
+    "stockCount": 15,
+    "imageStatus": "VERIFIED",
+    "subCategory": "Atta & Wheat Flour",
+    "originalPrice": 890
+  },
+  {
+    "id": "g1-p0001",
+    "price": 123,
+    "updatedAt": "2026-10-20T02:53:07.459Z"
+  }
+]

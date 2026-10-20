@@ -73,6 +73,7 @@ export default function SlipOrdersTab({
     };
   };
   const [subTab, setSubTab] = useState<'slips' | 'packer'>(initialActiveSubTab);
+  const activeSlipIdRef = useRef<string | null>(null);
   const [orders, setOrders] = useState<SlipOrder[]>([]);
   const ordersRef = useRef<SlipOrder[]>(orders);
   ordersRef.current = orders;
@@ -197,9 +198,15 @@ export default function SlipOrdersTab({
     };
   }, []);
 
-  // When selected slip changes, initialize bill builder and image viewer
+  // When selected slip changes, initialize bill builder and image viewer ONLY IF opening a different slip
   useEffect(() => {
     if (selectedSlip) {
+      // Guard: Never reset user's billing mode, zoom, or typed numbers when 2-second background poll refreshes the same slip!
+      if (activeSlipIdRef.current === selectedSlip.id) {
+        return;
+      }
+      activeSlipIdRef.current = selectedSlip.id;
+
       setActiveImageIndex(0);
       setZoomScale(1);
       setZoomRotation(0);
@@ -323,9 +330,9 @@ export default function SlipOrdersTab({
       },
     ]);
     setManualName('');
-    setManualQty(1);
+    setManualQty('1');
     setManualUnit('1 unit');
-    setManualPrice(50);
+    setManualPrice('');
     setShowManualModal(false);
   };
 
@@ -1248,22 +1255,17 @@ export default function SlipOrdersTab({
                           <div className="relative">
                             <Package className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
                             <input
-                              type="number"
-                              min={1}
+                              type="text"
+                              inputMode="numeric"
                               value={aggregateCount}
                               onFocus={(e) => e.target.select()}
-                              onChange={(e) => setAggregateCount(e.target.value)}
-                              onBlur={() => {
-                                if (
-                                  aggregateCount === '' ||
-                                  Number(aggregateCount) < 1 ||
-                                  isNaN(Number(aggregateCount))
-                                ) {
-                                  setAggregateCount(1);
-                                }
+                              onClick={(e) => (e.target as HTMLInputElement).select()}
+                              onChange={(e) => {
+                                const v = e.target.value.replace(/[^0-9]/g, '');
+                                setAggregateCount(v);
                               }}
                               placeholder="e.g. 5"
-                              className={`w-full pl-9 pr-3 py-2.5 rounded-xl text-sm font-black text-stone-900 focus:outline-none transition-all ${
+                              className={`w-full pl-9 pr-3 py-2.5 rounded-xl text-sm font-black text-stone-900 focus:outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
                                 aggregateCount === ''
                                   ? 'bg-rose-50/50 border border-rose-300 focus:ring-2 focus:ring-rose-500'
                                   : 'bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#2E7D32]'
@@ -1284,22 +1286,17 @@ export default function SlipOrdersTab({
                               ₹
                             </span>
                             <input
-                              type="number"
-                              min={0}
+                              type="text"
+                              inputMode="decimal"
                               value={aggregateAmount}
                               onFocus={(e) => e.target.select()}
-                              onChange={(e) => setAggregateAmount(e.target.value)}
-                              onBlur={() => {
-                                if (
-                                  aggregateAmount === '' ||
-                                  Number(aggregateAmount) < 0 ||
-                                  isNaN(Number(aggregateAmount))
-                                ) {
-                                  setAggregateAmount(0);
-                                }
+                              onClick={(e) => (e.target as HTMLInputElement).select()}
+                              onChange={(e) => {
+                                const v = e.target.value.replace(/[^0-9.]/g, '');
+                                setAggregateAmount(v);
                               }}
                               placeholder="e.g. 650"
-                              className={`w-full pl-8 pr-3 py-2.5 rounded-xl text-base font-black text-stone-900 focus:outline-none transition-all ${
+                              className={`w-full pl-8 pr-3 py-2.5 rounded-xl text-base font-black text-stone-900 focus:outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
                                 aggregateAmount === ''
                                   ? 'bg-rose-50/50 border border-rose-300 focus:ring-2 focus:ring-rose-500'
                                   : 'bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#2E7D32]'
@@ -1321,21 +1318,17 @@ export default function SlipOrdersTab({
                             ₹
                           </span>
                           <input
-                            type="number"
-                            min={0}
+                            type="text"
+                            inputMode="decimal"
                             value={aggregateDeliveryFee}
-                            onChange={(e) => setAggregateDeliveryFee(e.target.value)}
-                            onBlur={() => {
-                              if (
-                                aggregateDeliveryFee === '' ||
-                                Number(aggregateDeliveryFee) < 0 ||
-                                isNaN(Number(aggregateDeliveryFee))
-                              ) {
-                                setAggregateDeliveryFee(0);
-                              }
+                            onFocus={(e) => e.target.select()}
+                            onClick={(e) => (e.target as HTMLInputElement).select()}
+                            onChange={(e) => {
+                              const v = e.target.value.replace(/[^0-9.]/g, '');
+                              setAggregateDeliveryFee(v);
                             }}
                             placeholder="0"
-                            className="w-full pl-8 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                            className="w-full pl-8 pr-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                           />
                         </div>
                       </div>
@@ -1442,7 +1435,13 @@ export default function SlipOrdersTab({
                           </label>
                           <button
                             type="button"
-                            onClick={() => setShowManualModal(true)}
+                            onClick={() => {
+                              setManualName('');
+                              setManualQty('1');
+                              setManualUnit('1 unit');
+                              setManualPrice('');
+                              setShowManualModal(true);
+                            }}
                             className="inline-flex items-center gap-1 text-xs font-bold text-[#2E7D32] hover:underline"
                           >
                             <Plus className="w-3.5 h-3.5" />
@@ -1554,23 +1553,16 @@ export default function SlipOrdersTab({
                                       <div className="flex items-center gap-2 mt-1">
                                         <span className="text-[10px] text-stone-400 font-medium">Qty:</span>
                                         <input
-                                          type="number"
-                                          min={1}
+                                          type="text"
+                                          inputMode="numeric"
                                           value={item.requestedQty}
                                           onFocus={(e) => e.target.select()}
+                                          onClick={(e) => (e.target as HTMLInputElement).select()}
                                           onChange={(e) =>
-                                            handleUpdateItemField(idx, 'requestedQty', e.target.value)
+                                            handleUpdateItemField(idx, 'requestedQty', e.target.value.replace(/[^0-9]/g, ''))
                                           }
-                                          onBlur={() => {
-                                            if (
-                                              item.requestedQty === '' ||
-                                              Number(item.requestedQty) < 1 ||
-                                              isNaN(Number(item.requestedQty))
-                                            ) {
-                                              handleUpdateItemField(idx, 'requestedQty', 1);
-                                            }
-                                          }}
-                                          className="w-14 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-xs font-bold text-center focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                                          placeholder="1"
+                                          className="w-14 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-xs font-bold text-center focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#2E7D32] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                         />
                                         <input
                                           type="text"
@@ -1591,23 +1583,16 @@ export default function SlipOrdersTab({
                                       <div className="flex items-center gap-1">
                                         <span className="text-xs text-stone-400 font-bold">₹</span>
                                         <input
-                                          type="number"
-                                          min={0}
+                                          type="text"
+                                          inputMode="decimal"
                                           value={item.price}
                                           onFocus={(e) => e.target.select()}
+                                          onClick={(e) => (e.target as HTMLInputElement).select()}
                                           onChange={(e) =>
-                                            handleUpdateItemField(idx, 'price', e.target.value)
+                                            handleUpdateItemField(idx, 'price', e.target.value.replace(/[^0-9.]/g, ''))
                                           }
-                                          onBlur={() => {
-                                            if (
-                                              item.price === '' ||
-                                              Number(item.price) < 0 ||
-                                              isNaN(Number(item.price))
-                                            ) {
-                                              handleUpdateItemField(idx, 'price', 0);
-                                            }
-                                          }}
-                                          className="w-20 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-xs font-bold text-right focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                                          placeholder="0"
+                                          className="w-20 px-1.5 py-0.5 bg-stone-50 border border-stone-200 rounded text-xs font-bold text-right focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#2E7D32] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                         />
                                       </div>
                                       <span className="text-[11px] font-black text-stone-900 block mt-0.5">
@@ -1869,7 +1854,8 @@ export default function SlipOrdersTab({
                                             : Number(prev[key]),
                                       }));
                                     }}
-                                    className="w-16 px-2 py-1 bg-stone-50 border border-stone-200 rounded-lg text-xs font-black text-center disabled:opacity-40 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#2E7D32]"
+                                    onClick={(e) => (e.target as HTMLInputElement).select()}
+                                    className="w-16 px-2 py-1 bg-stone-50 border border-stone-200 rounded-lg text-xs font-black text-center disabled:opacity-40 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#2E7D32] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                                   />
                                 </div>
 
@@ -1950,20 +1936,14 @@ export default function SlipOrdersTab({
                 <div>
                   <label className="text-xs font-bold text-stone-700 block mb-1">Quantity</label>
                   <input
-                    type="number"
-                    min={1}
+                    type="text"
+                    inputMode="numeric"
                     value={manualQty}
-                    onChange={(e) => setManualQty(e.target.value)}
-                    onBlur={() => {
-                      if (
-                        manualQty === '' ||
-                        Number(manualQty) < 1 ||
-                        isNaN(Number(manualQty))
-                      ) {
-                        setManualQty(1);
-                      }
-                    }}
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                    onFocus={(e) => e.target.select()}
+                    onClick={(e) => (e.target as HTMLInputElement).select()}
+                    onChange={(e) => setManualQty(e.target.value.replace(/[^0-9]/g, ''))}
+                    placeholder="1"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#2E7D32] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                 </div>
                 <div>
@@ -1972,7 +1952,7 @@ export default function SlipOrdersTab({
                     type="text"
                     value={manualUnit}
                     onChange={(e) => setManualUnit(e.target.value)}
-                    placeholder="kg / packet"
+                    placeholder="e.g. 1 unit or 1 kg"
                     className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
                   />
                 </div>
@@ -1981,20 +1961,14 @@ export default function SlipOrdersTab({
               <div>
                 <label className="text-xs font-bold text-stone-700 block mb-1">Price per Unit (₹)</label>
                 <input
-                  type="number"
-                  min={0}
+                  type="text"
+                  inputMode="decimal"
                   value={manualPrice}
-                  onChange={(e) => setManualPrice(e.target.value)}
-                  onBlur={() => {
-                    if (
-                      manualPrice === '' ||
-                      Number(manualPrice) < 0 ||
-                      isNaN(Number(manualPrice))
-                    ) {
-                      setManualPrice(0);
-                    }
-                  }}
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                  onFocus={(e) => e.target.select()}
+                  onClick={(e) => (e.target as HTMLInputElement).select()}
+                  onChange={(e) => setManualPrice(e.target.value.replace(/[^0-9.]/g, ''))}
+                  placeholder="e.g. 50"
+                  className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold focus:outline-none focus:ring-2 focus:ring-[#2E7D32] [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
               </div>
             </div>

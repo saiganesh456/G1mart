@@ -1,10 +1,10 @@
 {
   "id": "default",
   "store_lat": 14.4329,
-  "store_lng": 79.9680,
+  "store_lng": 79.968,
   "store_address": "Govt Hospital, Beside Padarupalli, Nellore, Andhra Pradesh - 524004",
   "max_radius_km": 30,
   "prep_time_min": 10,
   "cod_fee": 50,
-  "updated_at": "2026-10-11T12:00:00.000Z"
+  "updated_at": "2026-10-20T03:26:57.891Z"
 }

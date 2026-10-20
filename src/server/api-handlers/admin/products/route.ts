@@ -84,6 +84,13 @@ export async function PATCH(request: NextRequest) {
           if (price !== undefined) mProd.price = Number(price);
           if (originalPrice !== undefined) mProd.originalPrice = Number(originalPrice);
           if (inStock !== undefined) mProd.is_active = Boolean(inStock);
+          if (body.stockCount !== undefined) {
+            mProd.stock_count = Number(body.stockCount);
+            mProd.stockCount = Number(body.stockCount);
+          }
+          if (Array.isArray(body.variants) && body.variants.length > 0) {
+            mProd.variants = body.variants;
+          }
           if (imageUrl !== undefined) {
             mProd.image_url = String(imageUrl).trim();
             mProd.image_status = 'verified';
@@ -100,14 +107,35 @@ export async function PATCH(request: NextRequest) {
       try {
         const variantsList = JSON.parse(fs.readFileSync(VARIANTS_PATH, 'utf-8'));
         let variantUpdated = false;
-        variantsList.forEach((v: any) => {
-          if (v.product_id === id) {
-            if (price !== undefined) v.price = Number(price);
-            if (originalPrice !== undefined) v.mrp = Number(originalPrice);
-            if (body.stockCount !== undefined) v.stock = Number(body.stockCount);
-            variantUpdated = true;
-          }
-        });
+
+        if (Array.isArray(body.variants) && body.variants.length > 0) {
+          variantsList.forEach((v: any) => {
+            if (v.product_id === id) {
+              const matched = body.variants.find(
+                (bv: any) =>
+                  bv.id === v.id ||
+                  (bv.size_label && v.size_label && bv.size_label.trim().toLowerCase() === v.size_label.trim().toLowerCase())
+              );
+              if (matched) {
+                if (matched.price !== undefined) v.price = Number(matched.price);
+                if (matched.mrp !== undefined) v.mrp = Number(matched.mrp);
+                if (matched.stock !== undefined) v.stock = Number(matched.stock);
+                if (matched.image_url) v.image_url = matched.image_url;
+                variantUpdated = true;
+              }
+            }
+          });
+        } else {
+          variantsList.forEach((v: any) => {
+            if (v.product_id === id) {
+              if (price !== undefined) v.price = Number(price);
+              if (originalPrice !== undefined) v.mrp = Number(originalPrice);
+              if (body.stockCount !== undefined) v.stock = Number(body.stockCount);
+              variantUpdated = true;
+            }
+          });
+        }
+
         if (variantUpdated) {
           fs.writeFileSync(VARIANTS_PATH, JSON.stringify(variantsList, null, 2), 'utf-8');
         }

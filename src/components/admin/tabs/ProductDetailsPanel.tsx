@@ -645,18 +645,19 @@ export default function ProductDetailsPanel({
                 Selling Price (₹) *
               </label>
               <input
-                type="number"
-                step="any"
-                min="0"
+                type="text"
+                inputMode="decimal"
                 value={price}
                 onFocus={(e) => e.target.select()}
+                onClick={(e) => (e.target as HTMLInputElement).select()}
                 onBlur={() => markTouched('price')}
                 onChange={(e) => {
-                  setPrice(e.target.value);
+                  const val = e.target.value.replace(/[^0-9.]/g, '');
+                  setPrice(val);
                   markTouched('price');
                 }}
-                placeholder="e.g. 65"
-                className={`w-full px-3.5 py-2.5 rounded-xl text-sm font-bold text-stone-900 focus:outline-none transition-all ${
+                placeholder="Enter selling price (e.g. 65)"
+                className={`w-full px-3.5 py-2.5 rounded-xl text-sm font-bold text-stone-900 focus:outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
                   showPriceError
                     ? 'bg-rose-50/50 border border-rose-300 focus:ring-2 focus:ring-rose-500'
                     : 'bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#1B5E20]'
@@ -677,14 +678,17 @@ export default function ProductDetailsPanel({
                 MRP / Strikethrough Price (₹)
               </label>
               <input
-                type="number"
-                step="any"
-                min="0"
+                type="text"
+                inputMode="decimal"
                 value={originalPrice}
                 onFocus={(e) => e.target.select()}
-                onChange={(e) => setOriginalPrice(e.target.value)}
-                placeholder="e.g. 70"
-                className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm font-bold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none transition-all"
+                onClick={(e) => (e.target as HTMLInputElement).select()}
+                onChange={(e) => {
+                  const val = e.target.value.replace(/[^0-9.]/g, '');
+                  setOriginalPrice(val);
+                }}
+                placeholder="Enter MRP (e.g. 70)"
+                className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm font-bold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
               <span className="text-[10px] text-stone-500 mt-1 block">Maximum Retail Price printed on packet</span>
             </div>
@@ -695,23 +699,25 @@ export default function ProductDetailsPanel({
                 Stock Quantity (Units) *
               </label>
               <input
-                type="number"
-                min="0"
+                type="text"
+                inputMode="numeric"
                 value={stockCount}
                 onFocus={(e) => e.target.select()}
+                onClick={(e) => (e.target as HTMLInputElement).select()}
                 onBlur={() => markTouched('stock')}
                 onChange={(e) => {
-                  setStockCount(e.target.value);
+                  const val = e.target.value.replace(/[^0-9]/g, '');
+                  setStockCount(val);
                   markTouched('stock');
-                  const n = parseInt(e.target.value, 10);
+                  const n = parseInt(val, 10);
                   if (!isNaN(n) && n <= 0) {
                     setInStock(false);
                   } else if (!isNaN(n) && n > 0) {
                     setInStock(true);
                   }
                 }}
-                placeholder="e.g. 50"
-                className={`w-full px-3.5 py-2.5 rounded-xl text-sm font-bold text-stone-900 focus:outline-none transition-all ${
+                placeholder="Enter stock units (e.g. 50)"
+                className={`w-full px-3.5 py-2.5 rounded-xl text-sm font-bold text-stone-900 focus:outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
                   showStockError
                     ? 'bg-rose-50/50 border border-rose-300 focus:ring-2 focus:ring-rose-500'
                     : 'bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#1B5E20]'

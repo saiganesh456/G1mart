@@ -86,7 +86,7 @@
     "category_name": "Millets & Grains",
     "imageStatus": "verified",
     "is_active": true,
-    "price": 42,
+    "price": 55,
     "mrp": 42,
     "discount": 0,
     "in_stock": true,
@@ -113,7 +113,8 @@
     "originalPrice": 42,
     "discountPercentage": 0,
     "unit": "500 g",
-    "unitLabel": "500 g"
+    "unitLabel": "500 g",
+    "priceConfirmed": true
   },
   {
     "id": "g1-p0219",

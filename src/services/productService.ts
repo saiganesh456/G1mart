@@ -473,6 +473,12 @@ export const productService = {
         if (product.variants && product.variants.length > 0) {
           variantsByProductId.set(product.id, product.variants);
           MIGRATED_PRODUCT_LIST[idx].variants = product.variants;
+          for (const pv of product.variants) {
+            const vIdx = MIGRATED_VARIANTS.findIndex((v) => v.id === pv.id);
+            if (vIdx !== -1) {
+              MIGRATED_VARIANTS[vIdx] = { ...MIGRATED_VARIANTS[vIdx], ...pv };
+            }
+          }
         } else {
           if (product.price !== undefined) {
             productVariants[0].price = product.price;
@@ -484,6 +490,10 @@ export const productService = {
             productVariants[0].stock = product.stockCount;
           }
           MIGRATED_PRODUCT_LIST[idx].variants = [...productVariants];
+          const vIdx = MIGRATED_VARIANTS.findIndex((v) => v.id === productVariants[0].id);
+          if (vIdx !== -1) {
+            MIGRATED_VARIANTS[vIdx] = { ...MIGRATED_VARIANTS[vIdx], ...productVariants[0] };
+          }
         }
       }
 

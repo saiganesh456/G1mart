@@ -27,13 +27,27 @@ import { adminFetch } from '@/lib/adminApi';
 import type { StoreSettings, DeliveryZone } from '@/types/deliveryZone';
 import { DEFAULT_STORE_SETTINGS, DEFAULT_DELIVERY_ZONES } from '@/lib/storeSettingsConstants';
 
+type EditableStoreSettings = Omit<StoreSettings, 'store_lat' | 'store_lng' | 'max_radius_km' | 'prep_time_min' | 'cod_fee'> & {
+  store_lat: number | string;
+  store_lng: number | string;
+  max_radius_km: number | string;
+  prep_time_min: number | string;
+  cod_fee: number | string;
+};
+
+type EditableDeliveryZone = Omit<DeliveryZone, 'min_km' | 'max_km' | 'min_order'> & {
+  min_km: number | string;
+  max_km: number | string;
+  min_order: number | string;
+};
+
 interface Props {
   onBackToDashboard?: () => void;
 }
 
 export default function SettingsTab({ onBackToDashboard }: Props = {}) {
-  const [settings, setSettings] = useState<StoreSettings>(DEFAULT_STORE_SETTINGS);
-  const [zones, setZones] = useState<DeliveryZone[]>(DEFAULT_DELIVERY_ZONES);
+  const [settings, setSettings] = useState<EditableStoreSettings>(DEFAULT_STORE_SETTINGS);
+  const [zones, setZones] = useState<EditableDeliveryZone[]>(DEFAULT_DELIVERY_ZONES);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
@@ -135,7 +149,7 @@ export default function SettingsTab({ onBackToDashboard }: Props = {}) {
 
     const lat = Number(settings.store_lat || 14.4329);
     const lng = Number(settings.store_lng || 79.9680);
-    const radiusMeters = (settings.max_radius_km || 30) * 1000;
+    const radiusMeters = (Number(settings.max_radius_km) || 30) * 1000;
 
     if (!mapInstanceRef.current) {
       const map = L.map(mapContainerRef.current).setView([lat, lng], 13);
@@ -383,15 +397,16 @@ export default function SettingsTab({ onBackToDashboard }: Props = {}) {
 
   // Test distance evaluation
   const testZoneMatch = (() => {
-    if (testDistance > settings.max_radius_km) {
-      return { serviceable: false, reason: `Beyond maximum delivery radius (${settings.max_radius_km} km)` };
+    const maxRadius = Number(settings.max_radius_km || 30);
+    if (testDistance > maxRadius) {
+      return { serviceable: false, reason: `Beyond maximum delivery radius (${maxRadius} km)` };
     }
     const match = zones.find(
       (z) =>
         (z.active ?? z.isActive) &&
-        (z.min_km === 0
-          ? testDistance >= 0 && testDistance <= z.max_km
-          : testDistance > z.min_km && testDistance <= z.max_km)
+        (Number(z.min_km || 0) === 0
+          ? testDistance >= 0 && testDistance <= Number(z.max_km || 0)
+          : testDistance > Number(z.min_km || 0) && testDistance <= Number(z.max_km || 0))
     );
     if (!match) {
       return { serviceable: false, reason: 'No active zone configured for this distance' };
@@ -399,7 +414,7 @@ export default function SettingsTab({ onBackToDashboard }: Props = {}) {
     return {
       serviceable: true,
       zone: match,
-      minOrder: match.min_order ?? match.minOrderValue ?? 500,
+      minOrder: match.min_order !== '' && match.min_order !== undefined ? match.min_order : (match.minOrderValue ?? 500),
       deliveryFee: 0,
     };
   })();
@@ -604,7 +619,7 @@ export default function SettingsTab({ onBackToDashboard }: Props = {}) {
               <span>Click or drag pin on map to set store coordinates. Translucent green ring shows {settings.max_radius_km} km max radius.</span>
             </span>
             <span className="font-mono text-[11px] bg-stone-100 px-2 py-0.5 rounded-md font-bold text-stone-700">
-              {settings.store_lat.toFixed(5)}, {settings.store_lng.toFixed(5)}
+              {Number(settings.store_lat || 0).toFixed(5)}, {Number(settings.store_lng || 0).toFixed(5)}
             </span>
           </div>
 
