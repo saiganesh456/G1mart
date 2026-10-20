@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { serverOrderStore } from '@/lib/serverOrderStore';
 import { serverSlipOrders } from '@/lib/serverSlipOrders';
-import { generate4DigitOtp } from '@/lib/deliveryOtp';
+import { CONSTANT_DELIVERY_OTP, generate4DigitOtp } from '@/lib/deliveryOtp';
 
 export async function POST(
   request: NextRequest,
@@ -13,7 +13,7 @@ export async function POST(
     const body = await request.json().catch(() => ({}));
     const riderName = body.riderName || 'Express Rider';
 
-    let deliveryOtp = '';
+    let deliveryOtp = CONSTANT_DELIVERY_OTP;
     let updatedOrder: any = null;
 
     if (id.startsWith('SLIP-')) {
@@ -22,7 +22,7 @@ export async function POST(
         return NextResponse.json({ success: false, error: 'Slip order not found' }, { status: 404 });
       }
 
-      deliveryOtp = slip.delivery_otp || generate4DigitOtp();
+      deliveryOtp = CONSTANT_DELIVERY_OTP;
       slip.delivery_otp = deliveryOtp;
       slip.arrived_at_doorstep = true;
       slip.arrived_at = new Date().toISOString();
@@ -57,7 +57,7 @@ export async function POST(
         return NextResponse.json({ success: false, error: 'Order not found' }, { status: 404 });
       }
 
-      deliveryOtp = order.deliveryOtp || generate4DigitOtp();
+      deliveryOtp = CONSTANT_DELIVERY_OTP;
       order.deliveryOtp = deliveryOtp;
       order.arrivedAtDoorstep = true;
       order.arrivedAt = new Date().toISOString();

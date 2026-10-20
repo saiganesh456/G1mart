@@ -849,7 +849,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
           const hasArrived = Boolean(order?.arrivedAtDoorstep || order?.arrived_at_doorstep);
 
           if (!isDelivered && (isOutForDelivery || isReadyPickup || otp || hasArrived)) {
-            const displayPin = otp || CONSTANT_DELIVERY_OTP;
+            const displayPin = CONSTANT_DELIVERY_OTP;
             const riderName =
               order?.assignedRider?.name ||
               order?.assigned_rider_name ||

@@ -78,12 +78,8 @@ export async function GET(req: NextRequest, { params }: Props) {
     }
 
     if (order) {
-      if (!order.deliveryOtp) {
-        order.deliveryOtp = '1234';
-      }
-      if (!order.delivery_otp) {
-        order.delivery_otp = '1234';
-      }
+      order.deliveryOtp = '1234';
+      order.delivery_otp = '1234';
     }
 
     if (!order) {

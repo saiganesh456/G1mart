@@ -1019,7 +1019,7 @@ export const serverOrderStore = {
             address: addr,
             userId: data.user_id || addr._userId,
             userEmail: addr._userEmail,
-            deliveryOtp: addr._deliveryOtp || existing?.deliveryOtp,
+            deliveryOtp: addr._deliveryOtp || existing?.deliveryOtp || '1234',
             assignedRider: addr._assignedRider || existing?.assignedRider,
             timeline: addr._timeline || existing?.timeline || [
               { status: 'Order Placed', time: 'Confirmed', completed: true },
@@ -1123,7 +1123,7 @@ export const serverOrderStore = {
               address: { ...addr, ...(existing?.address || {}), _status: winningStatus, _assignedRider: winningRider },
               userId: row.user_id || existing?.userId || addr._userId,
               userEmail: existing?.userEmail || addr._userEmail,
-              deliveryOtp: addr._deliveryOtp || existing?.deliveryOtp,
+              deliveryOtp: addr._deliveryOtp || existing?.deliveryOtp || '1234',
               assignedRider: winningRider,
               timeline: addr._timeline || existing?.timeline || [
                 { status: 'Order Placed', time: 'Confirmed', completed: true },

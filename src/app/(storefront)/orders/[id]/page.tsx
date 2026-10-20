@@ -82,8 +82,8 @@ export default async function OrderDetailPage({ params }: Props) {
   }
 
   if (initialOrder) {
-    if (!initialOrder.deliveryOtp) initialOrder.deliveryOtp = '1234';
-    if (!initialOrder.delivery_otp) initialOrder.delivery_otp = '1234';
+    initialOrder.deliveryOtp = '1234';
+    initialOrder.delivery_otp = '1234';
   }
 
   return (

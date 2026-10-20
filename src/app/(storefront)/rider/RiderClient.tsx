@@ -1471,7 +1471,7 @@ export default function RiderClient() {
                       </p>
                     ) : (
                       <p className="text-[11px] text-stone-500 mt-0.5">
-                        Ask customer for the 4-digit code on their screen
+                        Ask customer for the 4-digit code on their screen (PIN: 1234)
                       </p>
                     )}
                   </div>
