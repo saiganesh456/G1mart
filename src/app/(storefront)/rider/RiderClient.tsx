@@ -49,6 +49,7 @@ export default function RiderClient() {
   const [isArriving, setIsArriving] = useState(false);
   const [cashCollectedChecked, setCashCollectedChecked] = useState(false);
   const [itemsHandedOverChecked, setItemsHandedOverChecked] = useState(false);
+  const [showModalItems, setShowModalItems] = useState(false);
   const [acknowledgedOrderIds, setAcknowledgedOrderIds] = useState<Set<string>>(new Set());
   const [deliverySuccessOrder, setDeliverySuccessOrder] = useState<Order | null>(null);
   const [resendCooldown, setResendCooldown] = useState(0);
@@ -210,6 +211,7 @@ export default function RiderClient() {
       setOtpError(null);
       setCashCollectedChecked(Boolean(order.isPaid || order.paymentMethod !== 'Cash on Delivery'));
       setItemsHandedOverChecked(false);
+      setShowModalItems(false);
     }
   };
 
@@ -1180,245 +1182,306 @@ export default function RiderClient() {
           </div>
         )}
 
-        {/* ================= MODAL: DOORSTEP OTP VERIFICATION SHEET ================= */}
+        {/* ================= MODAL: STREAMLINED DOORSTEP HANDOVER SHEET ================= */}
         {otpModalOrder && (
           <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex flex-col justify-end sm:items-center sm:justify-center p-0 sm:p-4 animate-in fade-in duration-200">
-            <div className="bg-white rounded-t-[32px] sm:rounded-3xl max-w-sm w-full p-4 sm:p-5 shadow-2xl space-y-3.5 border-t sm:border border-stone-200 animate-in slide-in-from-bottom duration-200">
-              <div className="w-10 h-1 bg-stone-300 rounded-full mx-auto sm:hidden" />
+            <div className="bg-white rounded-t-[32px] sm:rounded-3xl max-w-sm w-full p-4 sm:p-5 shadow-2xl border-t sm:border border-stone-200 animate-in slide-in-from-bottom duration-200 max-h-[94vh] overflow-y-auto">
+              {/* Top drag handle indicator for mobile sheet */}
+              <div className="w-10 h-1 bg-stone-300 rounded-full mx-auto mb-3 sm:hidden" />
 
-              {/* Header */}
-              <div className="text-center space-y-1">
-                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 bg-emerald-100 text-emerald-900 rounded-full text-[10px] font-black uppercase tracking-wider">
-                  <MapPin className="w-3.5 h-3.5 text-emerald-700" />
-                  <span>REACHED DESTINATION — ORDER HANDOVER</span>
-                </div>
-                <h3 className="text-sm sm:text-base font-black text-stone-900">
-                  Doorstep Handover Verification
-                </h3>
-                <p className="text-xs text-stone-500">
-                  Order #{otpModalOrder.id} · <span className="font-bold text-stone-700">{otpModalOrder.address?.fullName || 'Customer'}</span>
-                </p>
-              </div>
-
-              {/* STEP 1: Verify Products With Customer */}
-              <div className="bg-stone-50 border border-stone-200 rounded-xl p-2.5 space-y-2">
-                <div className="flex items-center justify-between text-xs font-black text-stone-800">
-                  <span className="flex items-center gap-1.5">
-                    <ShoppingBag className="w-3.5 h-3.5 text-emerald-700" />
-                    <span>STEP 1: VERIFY PRODUCTS ({otpModalOrder.items?.length || 1} Items)</span>
-                  </span>
-                  <span className="text-[10px] bg-stone-200 text-stone-700 px-2 py-0.5 rounded-full font-bold">Doorstep</span>
-                </div>
-                <div className="max-h-24 overflow-y-auto space-y-1.5 pr-1 divide-y divide-stone-100">
-                  {otpModalOrder.items && otpModalOrder.items.length > 0 ? (
-                    otpModalOrder.items.map((it, idx) => (
-                      <div key={idx} className="pt-1 flex items-center justify-between text-xs">
-                        <div className="flex items-center gap-2 min-w-0 truncate">
-                          {it.image && (
-                            <img src={it.image} alt={it.productName} className="w-6 h-6 rounded object-contain bg-white border border-stone-200 shrink-0" />
-                          )}
-                          <span className="text-xs font-bold text-stone-800 truncate">{it.productName}</span>
-                        </div>
-                        <span className="text-xs font-black text-stone-700 shrink-0 ml-2">×{it.quantity}</span>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-xs text-stone-400">Products listed on store bill / packing slip</p>
-                  )}
-                </div>
-                <label className="flex items-center gap-2 text-xs font-bold text-stone-800 cursor-pointer pt-2 border-t border-stone-200">
-                  <input
-                    type="checkbox"
-                    checked={itemsHandedOverChecked}
-                    onChange={(e) => setItemsHandedOverChecked(e.target.checked)}
-                    className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-stone-300 cursor-pointer"
-                  />
-                  <span className="text-stone-900 font-extrabold">All items verified and handed to customer</span>
-                </label>
-              </div>
-
-              {/* STEP 2: Cash Collection Requirement (if COD) */}
-              {(!otpModalOrder.isPaid || otpModalOrder.paymentMethod === 'Cash on Delivery') ? (
-                <div className={`border rounded-xl p-3 space-y-2 transition-all ${
-                  cashCollectedChecked
-                    ? 'bg-emerald-50 border-emerald-300 text-emerald-900'
-                    : 'bg-rose-50 border-rose-300 text-rose-900'
-                }`}>
-                  <div className="flex items-center justify-between text-xs font-black">
-                    <span className="flex items-center gap-1">
-                      <DollarSign className="w-4 h-4 text-rose-600" />
-                      <span>STEP 2: CASH ON DELIVERY</span>
-                    </span>
-                    <span className="text-sm font-mono font-black text-rose-700">
-                      Collect ₹{otpModalOrder.grandTotal}
-                    </span>
+              {/* Header with Title and Close Button */}
+              <div className="flex items-start justify-between gap-3 pb-2.5 border-b border-stone-100">
+                <div className="min-w-0">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-emerald-100 text-emerald-900 rounded-full text-[10px] font-black uppercase tracking-wider mb-1">
+                    <MapPin className="w-3 h-3 text-emerald-700" />
+                    <span>Reached Destination</span>
                   </div>
-                  <label className="flex items-center gap-2 text-xs font-bold text-stone-800 cursor-pointer pt-1 border-t border-rose-200/60">
-                    <input
-                      type="checkbox"
-                      checked={cashCollectedChecked}
-                      onChange={(e) => {
-                        setCashCollectedChecked(e.target.checked);
-                        if (e.target.checked) setOtpError(null);
-                      }}
-                      className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 border-stone-300 cursor-pointer"
-                    />
-                    <span className="font-extrabold text-stone-900">
-                      I have collected ₹{otpModalOrder.grandTotal} cash from customer
-                    </span>
-                  </label>
-                </div>
-              ) : (
-                <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-2.5 flex items-center justify-between text-xs font-bold text-emerald-900">
-                  <span className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                    <span>STEP 2: Prepaid Online (UPI / Card)</span>
-                  </span>
-                  <span className="text-emerald-700 font-mono font-black">₹0 to collect</span>
-                </div>
-              )}
-
-              {/* STEP 3: Customer Delivery OTP */}
-              <div className="text-center space-y-1 pt-1">
-                <span className="text-[11px] font-black text-stone-700 uppercase tracking-wider">
-                  STEP 3: ASK CUSTOMER FOR 4-DIGIT PIN
-                </span>
-                {(!otpModalOrder.isPaid && otpModalOrder.paymentMethod === 'Cash on Delivery' && !cashCollectedChecked) && (
-                  <p className="text-[11px] font-bold text-rose-600">
-                    🔒 Collect cash and tick Step 2 above to unlock PIN entry
+                  <h3 className="text-base font-black text-stone-900 truncate">
+                    {otpModalOrder.address?.fullName || 'Customer Handover'}
+                  </h3>
+                  <p className="text-xs text-stone-500 font-medium truncate">
+                    Order #{otpModalOrder.id} {otpModalOrder.address?.streetArea ? `· ${otpModalOrder.address.streetArea}` : ''}
                   </p>
-                )}
-              </div>
-
-              {/* 4 Digit Boxes */}
-              <div className="flex justify-center items-center gap-2 py-1">
-                {[0, 1, 2, 3].map((idx) => {
-                  const digit = otpDigits[idx] || '';
-                  const isLocked = !otpModalOrder.isPaid && otpModalOrder.paymentMethod === 'Cash on Delivery' && !cashCollectedChecked;
-                  return (
-                    <div
-                      key={idx}
-                      className={`w-11 h-13 rounded-xl border-2 flex items-center justify-center font-mono text-2xl font-black shadow-inner transition-all ${
-                        isLocked
-                          ? 'border-stone-200 bg-stone-100 text-stone-300 cursor-not-allowed'
-                          : digit
-                          ? 'border-emerald-600 bg-white text-emerald-700'
-                          : otpError
-                          ? 'border-rose-400 bg-rose-50 text-rose-700'
-                          : 'border-stone-300 bg-stone-50 text-stone-900'
-                      }`}
-                    >
-                      {digit}
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Feedback / Error Message */}
-              {otpError ? (
-                <div className="text-center text-xs font-black text-rose-600 animate-pulse">
-                  ⚠️ {otpError}
                 </div>
-              ) : (
-                <div className="text-center text-[11px] text-stone-400">
-                  Customer has the 4-digit PIN on their order screen
-                </div>
-              )}
-
-              {/* Custom Large Mobile Number Pad */}
-              <div className="grid grid-cols-3 gap-1.5 px-1">
-                {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((num) => {
-                  const isLocked = !otpModalOrder.isPaid && otpModalOrder.paymentMethod === 'Cash on Delivery' && !cashCollectedChecked;
-                  return (
-                    <button
-                      key={num}
-                      type="button"
-                      onClick={() => handlePressOtpDigit(num)}
-                      disabled={isVerifyingOtp || isLocked}
-                      className={`h-11 rounded-xl font-black text-lg shadow-xs transition-all ${
-                        isLocked
-                          ? 'bg-stone-100 text-stone-300 cursor-not-allowed opacity-50'
-                          : 'bg-stone-100 hover:bg-stone-200 active:scale-95 text-stone-900 cursor-pointer'
-                      }`}
-                    >
-                      {num}
-                    </button>
-                  );
-                })}
                 <button
                   type="button"
                   onClick={() => {
                     setOtpModalOrder(null);
                     setOtpDigits('');
                     setOtpError(null);
+                    setShowModalItems(false);
                   }}
-                  className="h-11 bg-rose-50 hover:bg-rose-100 active:scale-95 text-rose-700 rounded-xl font-bold text-xs shadow-xs transition-all flex items-center justify-center cursor-pointer"
+                  className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-500 hover:text-stone-800 flex items-center justify-center transition-colors cursor-pointer shrink-0 mt-0.5"
+                  aria-label="Close"
                 >
-                  Cancel
-                </button>
-                {(() => {
-                  const isLocked = !otpModalOrder.isPaid && otpModalOrder.paymentMethod === 'Cash on Delivery' && !cashCollectedChecked;
-                  return (
-                    <button
-                      type="button"
-                      onClick={() => handlePressOtpDigit('0')}
-                      disabled={isVerifyingOtp || isLocked}
-                      className={`h-11 rounded-xl font-black text-lg shadow-xs transition-all ${
-                        isLocked
-                          ? 'bg-stone-100 text-stone-300 cursor-not-allowed opacity-50'
-                          : 'bg-stone-100 hover:bg-stone-200 active:scale-95 text-stone-900 cursor-pointer'
-                      }`}
-                    >
-                      0
-                    </button>
-                  );
-                })()}
-                <button
-                  type="button"
-                  onClick={handleDeleteOtpDigit}
-                  disabled={isVerifyingOtp || otpDigits.length === 0}
-                  className="h-11 bg-stone-200 hover:bg-stone-300 active:scale-95 text-stone-800 rounded-xl font-black text-base shadow-xs transition-all flex items-center justify-center cursor-pointer"
-                >
-                  ⌫
+                  <X className="w-4 h-4" />
                 </button>
               </div>
 
-              {/* Primary Submit Button */}
-              <button
-                type="button"
-                onClick={() => triggerOtpVerification()}
-                disabled={isVerifyingOtp || otpDigits.length !== 4}
-                className="w-full py-2.5 bg-emerald-700 hover:bg-emerald-800 disabled:opacity-50 text-white rounded-xl font-black text-xs uppercase tracking-wider transition-all shadow-md active:scale-98 flex items-center justify-center gap-1.5 cursor-pointer"
-              >
-                {isVerifyingOtp ? (
-                  <span>Verifying PIN...</span>
-                ) : (
-                  <>
-                    <CheckCircle2 className="w-4 h-4" />
-                    <span>Verify &amp; Complete Handover</span>
-                  </>
-                )}
-              </button>
+              <div className="space-y-3 pt-3">
+                {/* Clean 1-Line Collapsible Product Handover Bar */}
+                <div className="bg-stone-50 border border-stone-200 rounded-2xl overflow-hidden transition-all">
+                  <button
+                    type="button"
+                    onClick={() => setShowModalItems((prev) => !prev)}
+                    className="w-full px-3.5 py-2.5 flex items-center justify-between text-xs font-bold text-stone-800 hover:bg-stone-100/70 transition-colors cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2">
+                      <ShoppingBag className="w-4 h-4 text-emerald-700 shrink-0" />
+                      <span>
+                        {otpModalOrder.items?.length || 1} {(otpModalOrder.items?.length || 1) === 1 ? 'Item' : 'Items'} to Hand Over
+                      </span>
+                    </div>
+                    <span className="text-[11px] font-black text-emerald-800 flex items-center gap-1">
+                      {showModalItems ? 'Hide Items' : 'View Items'}
+                      {showModalItems ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                    </span>
+                  </button>
 
-              {/* Footer Utilities: Resend / Call Customer */}
-              <div className="flex items-center justify-between text-xs pt-1 border-t border-stone-100">
+                  {showModalItems && (
+                    <div className="px-3 pb-3 pt-1 border-t border-stone-200/70 max-h-36 overflow-y-auto space-y-1.5 divide-y divide-stone-100">
+                      {otpModalOrder.items && otpModalOrder.items.length > 0 ? (
+                        otpModalOrder.items.map((it, idx) => (
+                          <div key={idx} className="pt-1.5 flex items-center justify-between text-xs">
+                            <div className="flex items-center gap-2 min-w-0 pr-2">
+                              {it.image ? (
+                                <img
+                                  src={it.image}
+                                  alt={it.productName}
+                                  className="w-7 h-7 rounded-lg object-contain bg-white border border-stone-200 shrink-0"
+                                />
+                              ) : (
+                                <div className="w-7 h-7 rounded-lg bg-stone-100 border border-stone-200 flex items-center justify-center text-[10px] text-stone-400 shrink-0">
+                                  📦
+                                </div>
+                              )}
+                              <span className="font-bold text-stone-800 truncate text-xs">{it.productName}</span>
+                            </div>
+                            <span className="font-black text-stone-700 bg-stone-100 px-2 py-0.5 rounded-md shrink-0 text-xs font-mono">
+                              ×{it.quantity}
+                            </span>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="text-xs text-stone-400 py-1">Items listed on store packing slip</p>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* Tactile Cash on Delivery Card (or Prepaid Badge) */}
+                {(!otpModalOrder.isPaid || otpModalOrder.paymentMethod === 'Cash on Delivery') ? (
+                  cashCollectedChecked ? (
+                    <button
+                      type="button"
+                      onClick={() => setCashCollectedChecked(false)}
+                      className="w-full flex items-center justify-between p-3 rounded-2xl bg-emerald-50 border-2 border-emerald-400 hover:bg-emerald-100/70 transition-all text-left shadow-xs cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-base shadow-xs shrink-0">
+                          <Check className="w-5 h-5 stroke-[3]" />
+                        </div>
+                        <div>
+                          <div className="text-[10px] font-black uppercase tracking-wider text-emerald-800">
+                            Cash Collected
+                          </div>
+                          <div className="text-sm font-black text-emerald-950 font-mono">
+                            ₹{otpModalOrder.grandTotal} Received
+                          </div>
+                        </div>
+                      </div>
+                      <span className="text-[11px] text-emerald-700 font-bold underline hover:text-emerald-900">
+                        Change
+                      </span>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCashCollectedChecked(true);
+                        setOtpError(null);
+                      }}
+                      className="w-full flex items-center justify-between p-3 rounded-2xl bg-amber-50 border-2 border-amber-300 hover:bg-amber-100/70 transition-all text-left shadow-xs cursor-pointer group"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center font-black text-base shadow-xs shrink-0">
+                          ₹
+                        </div>
+                        <div>
+                          <div className="text-[10px] font-black uppercase tracking-wider text-amber-800">
+                            Cash to Collect (COD)
+                          </div>
+                          <div className="text-sm font-black text-amber-950 font-mono">
+                            Collect ₹{otpModalOrder.grandTotal}
+                          </div>
+                        </div>
+                      </div>
+                      <span className="px-2.5 py-1.5 rounded-xl bg-amber-600 group-hover:bg-amber-700 text-white text-xs font-black transition-colors shadow-xs">
+                        Tap to Confirm
+                      </span>
+                    </button>
+                  )
+                ) : (
+                  <div className="flex items-center justify-between px-3.5 py-2.5 rounded-2xl bg-emerald-50 border border-emerald-200">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <span className="text-xs font-bold text-emerald-900">Prepaid Online Order</span>
+                    </div>
+                    <span className="text-xs font-black text-emerald-700 font-mono">₹0 to collect</span>
+                  </div>
+                )}
+
+                {/* Customer Delivery PIN Entry */}
+                <div className="bg-stone-50/70 border border-stone-200 rounded-2xl p-3 space-y-2.5">
+                  <div className="text-center">
+                    <div className="text-xs font-black text-stone-900">
+                      Customer Delivery PIN
+                    </div>
+                    {(!otpModalOrder.isPaid && otpModalOrder.paymentMethod === 'Cash on Delivery' && !cashCollectedChecked) ? (
+                      <p className="text-[11px] font-bold text-amber-700 mt-0.5">
+                        🔒 Confirm ₹{otpModalOrder.grandTotal} cash above to unlock PIN
+                      </p>
+                    ) : (
+                      <p className="text-[11px] text-stone-500 mt-0.5">
+                        Ask customer for the 4-digit code on their screen
+                      </p>
+                    )}
+                  </div>
+
+                  {/* 4 Digit Boxes */}
+                  <div className="flex justify-center items-center gap-2.5">
+                    {[0, 1, 2, 3].map((idx) => {
+                      const digit = otpDigits[idx] || '';
+                      const isLocked = !otpModalOrder.isPaid && otpModalOrder.paymentMethod === 'Cash on Delivery' && !cashCollectedChecked;
+                      return (
+                        <div
+                          key={idx}
+                          className={`w-11 h-12 rounded-xl border-2 flex items-center justify-center font-mono text-2xl font-black shadow-inner transition-all ${
+                            isLocked
+                              ? 'border-stone-200 bg-stone-100 text-stone-300'
+                              : digit
+                              ? 'border-emerald-600 bg-white text-emerald-700 shadow-sm ring-2 ring-emerald-500/20'
+                              : otpError
+                              ? 'border-rose-400 bg-rose-50 text-rose-700'
+                              : 'border-stone-300 bg-white text-stone-900'
+                          }`}
+                        >
+                          {isLocked ? '•' : digit}
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Feedback / Error Message */}
+                  {otpError && (
+                    <div className="text-center text-xs font-black text-rose-600 animate-pulse">
+                      ⚠️ {otpError}
+                    </div>
+                  )}
+
+                  {/* Clean Number Pad: 1-9, Clear, 0, Backspace */}
+                  <div className="grid grid-cols-3 gap-1.5 pt-1">
+                    {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((num) => {
+                      const isLocked = !otpModalOrder.isPaid && otpModalOrder.paymentMethod === 'Cash on Delivery' && !cashCollectedChecked;
+                      return (
+                        <button
+                          key={num}
+                          type="button"
+                          onClick={() => handlePressOtpDigit(num)}
+                          disabled={isVerifyingOtp || isLocked}
+                          className={`h-10 rounded-xl font-black text-lg shadow-xs transition-all ${
+                            isLocked
+                              ? 'bg-stone-100 text-stone-300 cursor-not-allowed opacity-50'
+                              : 'bg-white hover:bg-stone-100 active:scale-95 text-stone-900 border border-stone-200 cursor-pointer'
+                          }`}
+                        >
+                          {num}
+                        </button>
+                      );
+                    })}
+
+                    {/* Clear Button */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setOtpDigits('');
+                        setOtpError(null);
+                      }}
+                      disabled={isVerifyingOtp || otpDigits.length === 0}
+                      className="h-10 bg-white hover:bg-stone-100 active:scale-95 disabled:opacity-40 border border-stone-200 text-stone-600 rounded-xl font-bold text-xs shadow-xs transition-all flex items-center justify-center cursor-pointer"
+                    >
+                      Clear
+                    </button>
+
+                    {/* Zero Button */}
+                    {(() => {
+                      const isLocked = !otpModalOrder.isPaid && otpModalOrder.paymentMethod === 'Cash on Delivery' && !cashCollectedChecked;
+                      return (
+                        <button
+                          type="button"
+                          onClick={() => handlePressOtpDigit('0')}
+                          disabled={isVerifyingOtp || isLocked}
+                          className={`h-10 rounded-xl font-black text-lg shadow-xs transition-all ${
+                            isLocked
+                              ? 'bg-stone-100 text-stone-300 cursor-not-allowed opacity-50'
+                              : 'bg-white hover:bg-stone-100 active:scale-95 text-stone-900 border border-stone-200 cursor-pointer'
+                          }`}
+                        >
+                          0
+                        </button>
+                      );
+                    })()}
+
+                    {/* Backspace Button */}
+                    <button
+                      type="button"
+                      onClick={handleDeleteOtpDigit}
+                      disabled={isVerifyingOtp || otpDigits.length === 0}
+                      className="h-10 bg-stone-200 hover:bg-stone-300 active:scale-95 disabled:opacity-40 text-stone-800 rounded-xl font-black text-base shadow-xs transition-all flex items-center justify-center cursor-pointer"
+                      aria-label="Backspace"
+                    >
+                      ⌫
+                    </button>
+                  </div>
+                </div>
+
+                {/* Primary Submit Button */}
                 <button
                   type="button"
-                  onClick={handleResendOtp}
-                  disabled={resendCooldown > 0}
-                  className="text-emerald-700 font-bold hover:underline disabled:text-stone-400 text-[11px] cursor-pointer"
+                  onClick={() => triggerOtpVerification()}
+                  disabled={isVerifyingOtp || otpDigits.length !== 4}
+                  className="w-full py-3 bg-emerald-700 hover:bg-emerald-800 disabled:opacity-50 text-white rounded-xl font-black text-xs uppercase tracking-wider transition-all shadow-md active:scale-98 flex items-center justify-center gap-1.5 cursor-pointer"
                 >
-                  {resendCooldown > 0 ? `Resend (${resendCooldown}s)` : '🔄 Resend Alert'}
+                  {isVerifyingOtp ? (
+                    <span>Verifying PIN...</span>
+                  ) : (
+                    <>
+                      <CheckCircle2 className="w-4 h-4" />
+                      <span>Verify &amp; Complete Handover</span>
+                    </>
+                  )}
                 </button>
-                {otpModalOrder.address?.mobileNumber && (
-                  <a
-                    href={`tel:${otpModalOrder.address.mobileNumber}`}
-                    className="text-stone-700 font-bold hover:underline flex items-center gap-1 text-[11px]"
+
+                {/* Footer Utilities: Resend / Call Customer */}
+                <div className="flex items-center justify-between text-xs pt-1 border-t border-stone-100">
+                  <button
+                    type="button"
+                    onClick={handleResendOtp}
+                    disabled={resendCooldown > 0}
+                    className="text-emerald-700 font-bold hover:underline disabled:text-stone-400 text-[11px] cursor-pointer"
                   >
-                    <Phone className="w-3 h-3 text-emerald-700" />
-                    <span>Call Customer</span>
-                  </a>
-                )}
+                    {resendCooldown > 0 ? `Resend (${resendCooldown}s)` : '🔄 Resend Alert'}
+                  </button>
+                  {otpModalOrder.address?.mobileNumber && (
+                    <a
+                      href={`tel:${otpModalOrder.address.mobileNumber}`}
+                      className="text-stone-700 font-bold hover:underline flex items-center gap-1 text-[11px]"
+                    >
+                      <Phone className="w-3 h-3 text-emerald-700" />
+                      <span>Call Customer</span>
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           </div>
