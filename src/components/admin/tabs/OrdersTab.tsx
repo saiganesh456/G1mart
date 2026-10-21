@@ -289,7 +289,7 @@ export default function OrdersTab({
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-4 p-3 sm:p-6 pb-28 text-stone-900">
+    <div className="w-full max-w-7xl 2xl:max-w-none mx-auto space-y-4 p-3 sm:p-6 pb-28 text-stone-900">
       {/* 1. COMPACT HEADER — Title & Search */}
       <div className="space-y-3">
         <div className="flex items-center justify-between gap-3">
@@ -381,8 +381,8 @@ export default function OrdersTab({
         </div>
       </div>
 
-      {/* 3. COMPACT ORDER CARDS (Matches Reference Screenshot) */}
-      <div className="space-y-3">
+      {/* 3. COMPACT ORDER CARDS (Dual-Column on Monitor) */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-3.5">
         {filteredOrders.map((order) => {
           const isPaid =
             order.isPaid ||

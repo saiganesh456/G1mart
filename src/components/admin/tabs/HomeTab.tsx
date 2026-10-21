@@ -117,7 +117,7 @@ export default function HomeTab({
   const recentOrders = orders.slice(0, 5);
 
   return (
-    <div className="space-y-4 max-w-4xl mx-auto p-3 sm:p-6 pb-28 text-stone-900">
+    <div className="space-y-5 w-full max-w-7xl 2xl:max-w-none mx-auto p-3 sm:p-6 pb-28 text-stone-900">
       {/* 1. MINIMAL HEADER — G1 Mart Branding & Store Status */}
       <div className="flex items-center justify-between pt-1">
         <div>
@@ -130,7 +130,7 @@ export default function HomeTab({
               <span>Store open</span>
             </span>
           </div>
-          <p className="text-xs text-stone-500 font-medium mt-0.5">Store operations</p>
+          <p className="text-xs text-stone-500 font-medium mt-0.5">Store operations &amp; counter hub</p>
         </div>
 
         {/* Unobtrusive Sound Alert Toggle */}
@@ -155,91 +155,97 @@ export default function HomeTab({
         </button>
       </div>
 
-      {/* 2. PRIORITY SECTION — "NEEDS ATTENTION" CARD */}
-      <div className="bg-white rounded-2xl border border-stone-200/90 p-4 sm:p-5 shadow-2xs space-y-3">
-        <div>
-          <span className="text-xs font-bold text-stone-500 uppercase tracking-wider block">
-            Needs attention
-          </span>
-          <p className="text-2xl sm:text-3xl font-black text-stone-900 mt-1">
-            {needsAttentionCount} {needsAttentionCount === 1 ? 'order' : 'orders'}
-          </p>
-          <p className="text-xs text-stone-600 font-medium mt-1">
-            {needsAttentionCount === 0
-              ? 'All orders are on track'
-              : `${ordersToConfirm} to confirm • ${ordersToPack} to pack`}
-          </p>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => onNavigateToOrders('Needs action')}
-          className="w-full py-3 px-4 bg-[#087F5B] hover:bg-[#066c4d] active:scale-[0.99] text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all shadow-2xs cursor-pointer"
-        >
-          <span>View pending orders</span>
-          <ArrowRight className="w-4 h-4" />
-        </button>
-      </div>
-
-      {/* 3. SECONDARY METRICS — COMPACT OPERATIONAL QUEUES */}
-      <div className="grid grid-cols-2 gap-3">
-        {/* To Pack */}
-        <div
-          onClick={() => onNavigateToOrders('Packing')}
-          className="bg-white p-4 rounded-2xl border border-stone-200/90 shadow-2xs hover:border-amber-400 cursor-pointer transition-all active:scale-[0.98]"
-        >
-          <div className="w-7 h-7 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center">
-            <Package className="w-4 h-4" />
-          </div>
-          <p className="text-2xl font-black text-stone-900 mt-2">{ordersToPack}</p>
-          <span className="text-xs font-semibold text-stone-600 block mt-0.5">To pack</span>
-        </div>
-
-        {/* Ready for Delivery / Pickup */}
-        <div
-          onClick={() => onNavigateToOrders('Ready for delivery')}
-          className="bg-white p-4 rounded-2xl border border-stone-200/90 shadow-2xs hover:border-teal-500 cursor-pointer transition-all active:scale-[0.98]"
-        >
-          <div className="w-7 h-7 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center">
-            <Truck className="w-4 h-4" />
-          </div>
-          <p className="text-2xl font-black text-stone-900 mt-2">{totalReadyOrders}</p>
-          <div className="flex items-center justify-between mt-0.5">
-            <span className="text-xs font-semibold text-stone-600">
-              {ordersReadyForPickup > 0 && ordersToDeliver === 0
-                ? 'Ready for pickup'
-                : ordersToDeliver > 0 && ordersReadyForPickup === 0
-                ? 'To deliver'
-                : 'Ready for handover'}
+      {/* 2. TOP METRICS DASHBOARD GRID (Fluid on PC Monitors) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        {/* Priority "Needs Attention" Card */}
+        <div className="lg:col-span-5 2xl:col-span-4 bg-white rounded-2xl border border-stone-200/90 p-4 sm:p-5 shadow-2xs flex flex-col justify-between space-y-3">
+          <div>
+            <span className="text-xs font-bold text-stone-500 uppercase tracking-wider block">
+              Needs attention
             </span>
-            {(ordersReadyForPickup > 0 || ordersToDeliver > 0) && (
-              <span className="text-[10px] text-stone-400 font-bold truncate">
-                {ordersToDeliver > 0 ? `${ordersToDeliver} delivery` : ''}
-                {ordersToDeliver > 0 && ordersReadyForPickup > 0 ? ' • ' : ''}
-                {ordersReadyForPickup > 0 ? `${ordersReadyForPickup} pickup` : ''}
-              </span>
-            )}
+            <p className="text-2xl sm:text-3xl font-black text-stone-900 mt-1">
+              {needsAttentionCount} {needsAttentionCount === 1 ? 'order' : 'orders'}
+            </p>
+            <p className="text-xs text-stone-600 font-medium mt-1">
+              {needsAttentionCount === 0
+                ? 'All orders are on track'
+                : `${ordersToConfirm} to confirm • ${ordersToPack} to pack`}
+            </p>
           </div>
-        </div>
-      </div>
 
-      {/* 4. STOCK ALERTS CARD */}
-      <div
-        onClick={() => onNavigateToInventory('Low Stock')}
-        className="bg-white p-4 rounded-2xl border border-stone-200/90 shadow-2xs hover:border-rose-300 cursor-pointer transition-all active:scale-[0.99]"
-      >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-stone-700" />
-            <span className="text-sm font-bold text-stone-900">Stock alerts</span>
-          </div>
-          <span className="text-base font-black text-stone-900">{stockAlertsCount}</span>
+          <button
+            type="button"
+            onClick={() => onNavigateToOrders('Needs action')}
+            className="w-full py-3 px-4 bg-[#087F5B] hover:bg-[#066c4d] active:scale-[0.99] text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 transition-all shadow-2xs cursor-pointer mt-2"
+          >
+            <span>View pending orders</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
-        <p className="text-xs text-stone-500 font-medium mt-1">
-          {stockAlertsCount === 0
-            ? 'No items need restocking'
-            : `${stockAlertsCount} items need restocking`}
-        </p>
+
+        {/* Secondary Operational Queues (3 Columns on Monitors) */}
+        <div className="lg:col-span-7 2xl:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {/* To Pack */}
+          <div
+            onClick={() => onNavigateToOrders('Packing')}
+            className="bg-white p-4 rounded-2xl border border-stone-200/90 shadow-2xs hover:border-amber-400 cursor-pointer transition-all active:scale-[0.98] flex flex-col justify-between"
+          >
+            <div>
+              <div className="w-7 h-7 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center">
+                <Package className="w-4 h-4" />
+              </div>
+              <p className="text-2xl font-black text-stone-900 mt-2">{ordersToPack}</p>
+            </div>
+            <span className="text-xs font-semibold text-stone-600 block mt-1">To pack</span>
+          </div>
+
+          {/* Ready for Delivery / Pickup */}
+          <div
+            onClick={() => onNavigateToOrders('Ready for delivery')}
+            className="bg-white p-4 rounded-2xl border border-stone-200/90 shadow-2xs hover:border-teal-500 cursor-pointer transition-all active:scale-[0.98] flex flex-col justify-between"
+          >
+            <div>
+              <div className="w-7 h-7 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center">
+                <Truck className="w-4 h-4" />
+              </div>
+              <p className="text-2xl font-black text-stone-900 mt-2">{totalReadyOrders}</p>
+            </div>
+            <div className="flex flex-col mt-1">
+              <span className="text-xs font-semibold text-stone-600 truncate">
+                {ordersReadyForPickup > 0 && ordersToDeliver === 0
+                  ? 'Ready for pickup'
+                  : ordersToDeliver > 0 && ordersReadyForPickup === 0
+                  ? 'To deliver'
+                  : 'Ready for handover'}
+              </span>
+              {(ordersReadyForPickup > 0 || ordersToDeliver > 0) && (
+                <span className="text-[10px] text-stone-400 font-bold truncate">
+                  {ordersToDeliver > 0 ? `${ordersToDeliver} del` : ''}
+                  {ordersToDeliver > 0 && ordersReadyForPickup > 0 ? ' • ' : ''}
+                  {ordersReadyForPickup > 0 ? `${ordersReadyForPickup} pick` : ''}
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Stock Alerts Card */}
+          <div
+            onClick={() => onNavigateToInventory('Low Stock')}
+            className="bg-white p-4 rounded-2xl border border-stone-200/90 shadow-2xs hover:border-rose-300 cursor-pointer transition-all active:scale-[0.99] flex flex-col justify-between"
+          >
+            <div>
+              <div className="w-7 h-7 rounded-xl bg-rose-50 text-rose-700 flex items-center justify-center">
+                <AlertTriangle className="w-4 h-4" />
+              </div>
+              <p className="text-2xl font-black text-stone-900 mt-2">{stockAlertsCount}</p>
+            </div>
+            <p className="text-xs text-stone-600 font-semibold mt-1">
+              {stockAlertsCount === 0
+                ? 'Stock healthy'
+                : `${stockAlertsCount} alerts`}
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* 5. FINANCIAL & STORE VOLUME SUMMARIES (Secondary, lower down) */}

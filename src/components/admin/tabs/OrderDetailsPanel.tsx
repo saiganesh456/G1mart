@@ -290,7 +290,7 @@ export default function OrderDetailsPanel({
   };
 
   return (
-    <div className="max-w-4xl mx-auto flex flex-col min-h-screen bg-[#F4F6F9] pb-36">
+    <div className="w-full max-w-7xl 2xl:max-w-none mx-auto flex flex-col min-h-screen bg-[#F4F6F9] pb-36">
       {/* 1. CLEAN STICKY APP BAR (Mobile & Desktop optimized) */}
       <div className="sticky top-14 sm:top-16 z-30 bg-white/95 backdrop-blur-md border-b sm:border border-stone-200/90 sm:rounded-3xl p-3.5 sm:p-4 shadow-xs mb-3 sm:mb-4 transition-all">
         <div className="flex items-center justify-between gap-2">
@@ -753,165 +753,168 @@ export default function OrderDetailsPanel({
           </div>
         )}
 
-        {/* 5. ORDERED PRODUCTS & INTERACTIVE PACKING CHECKLIST */}
-        <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-stone-200/90 shadow-2xs space-y-3">
-          <div className="flex items-center justify-between border-b border-stone-100 pb-2.5">
-            <div className="flex items-center gap-2">
-              <ShoppingBag className="w-4 h-4 text-emerald-700" />
-              <h3 className="text-xs font-black uppercase text-stone-500 tracking-wider">
-                Ordered Products ({order.items?.length || 0})
-              </h3>
+        {/* 5 & 6. PRODUCTS CHECKLIST & PAYMENT SUMMARY GRID (Side-by-side on Monitor) */}
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 items-start">
+          {/* 5. ORDERED PRODUCTS & INTERACTIVE PACKING CHECKLIST */}
+          <div className="xl:col-span-7 bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-stone-200/90 shadow-2xs space-y-3">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-2.5">
+              <div className="flex items-center gap-2">
+                <ShoppingBag className="w-4 h-4 text-emerald-700" />
+                <h3 className="text-xs font-black uppercase text-stone-500 tracking-wider">
+                  Ordered Products ({order.items?.length || 0})
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={toggleAllItems}
+                className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1"
+              >
+                <span>{allItemsChecked ? 'Uncheck All' : 'Check All Packed'}</span>
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={toggleAllItems}
-              className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1"
-            >
-              <span>{allItemsChecked ? 'Uncheck All' : 'Check All Packed'}</span>
-            </button>
-          </div>
 
-          <div className="divide-y divide-stone-100">
-            {order.items?.map((item: any, i: number) => {
-              const isChecked = Boolean(checkedItems[i.toString()]);
-              return (
-                <div
-                  key={i}
-                  onClick={() => toggleItemCheck(i.toString())}
-                  className={`py-2.5 flex items-center justify-between gap-3 cursor-pointer rounded-xl px-1.5 transition-colors ${
-                    isChecked ? 'bg-emerald-50/60' : 'hover:bg-stone-50'
-                  }`}
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <button
-                      type="button"
-                      className="text-stone-400 hover:text-emerald-600 transition-colors shrink-0"
-                      aria-label={isChecked ? 'Mark item unpacked' : 'Mark item packed'}
-                    >
-                      {isChecked ? (
-                        <CheckSquare className="w-5 h-5 text-emerald-600 fill-emerald-100" />
-                      ) : (
-                        <Square className="w-5 h-5 text-stone-300" />
-                      )}
-                    </button>
-
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={item.image || '/products/placeholder.svg'}
-                      alt={item.productName}
-                      className="w-11 h-11 object-contain bg-white border border-stone-200 rounded-xl p-1 shrink-0"
-                    />
-
-                    <div className="min-w-0">
-                      <p
-                        className={`text-xs sm:text-sm leading-snug font-bold truncate ${
-                          isChecked ? 'line-through text-stone-400' : 'text-stone-900'
-                        }`}
+            <div className="divide-y divide-stone-100">
+              {order.items?.map((item: any, i: number) => {
+                const isChecked = Boolean(checkedItems[i.toString()]);
+                return (
+                  <div
+                    key={i}
+                    onClick={() => toggleItemCheck(i.toString())}
+                    className={`py-2.5 flex items-center justify-between gap-3 cursor-pointer rounded-xl px-1.5 transition-colors ${
+                      isChecked ? 'bg-emerald-50/60' : 'hover:bg-stone-50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <button
+                        type="button"
+                        className="text-stone-400 hover:text-emerald-600 transition-colors shrink-0"
+                        aria-label={isChecked ? 'Mark item unpacked' : 'Mark item packed'}
                       >
-                        {item.productName}
-                      </p>
-                      <p className="text-[11px] text-stone-500 mt-0.5">
-                        {item.unit || '1 unit'} • ₹{item.price} each
-                      </p>
+                        {isChecked ? (
+                          <CheckSquare className="w-5 h-5 text-emerald-600 fill-emerald-100" />
+                        ) : (
+                          <Square className="w-5 h-5 text-stone-300" />
+                        )}
+                      </button>
+
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={item.image || '/products/placeholder.svg'}
+                        alt={item.productName}
+                        className="w-11 h-11 object-contain bg-white border border-stone-200 rounded-xl p-1 shrink-0"
+                      />
+
+                      <div className="min-w-0">
+                        <p
+                          className={`text-xs sm:text-sm leading-snug font-bold truncate ${
+                            isChecked ? 'line-through text-stone-400' : 'text-stone-900'
+                          }`}
+                        >
+                          {item.productName}
+                        </p>
+                        <p className="text-[11px] text-stone-500 mt-0.5">
+                          {item.unit || '1 unit'} • ₹{item.price} each
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="text-right shrink-0">
+                      <span className="px-2 py-0.5 bg-stone-100 rounded-lg font-black text-xs text-stone-800 mr-2">
+                        Qty: {item.quantity}
+                      </span>
+                      <span className="font-black text-stone-900 text-xs sm:text-sm">
+                        ₹{item.quantity * item.price || 0}
+                      </span>
                     </div>
                   </div>
-
-                  <div className="text-right shrink-0">
-                    <span className="px-2 py-0.5 bg-stone-100 rounded-lg font-black text-xs text-stone-800 mr-2">
-                      Qty: {item.quantity}
-                    </span>
-                    <span className="font-black text-stone-900 text-xs sm:text-sm">
-                      ₹{item.quantity * item.price || 0}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* 6. TRANSPARENT BILLING & PAYMENT BREAKDOWN */}
-        <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-stone-200/90 shadow-2xs space-y-3">
-          <div className="flex items-center justify-between border-b border-stone-100 pb-2">
-            <h3 className="text-xs font-black uppercase text-stone-400 tracking-wider">
-              Bill Details &amp; Payment Status
-            </h3>
-            <span
-              className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full border ${
-                isPaid
-                  ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
-                  : 'bg-amber-100 text-amber-900 border-amber-300'
-              }`}
-            >
-              {isPaid ? '✓ Paid' : '🟠 Payment Pending'}
-            </span>
-          </div>
-
-          <div className="space-y-1.5 text-xs text-stone-600 border-b border-stone-100 pb-3">
-            <div className="flex justify-between">
-              <span>Item Subtotal:</span>
-              <span className="font-bold text-stone-900">₹{subtotal}</span>
+                );
+              })}
             </div>
+          </div>
 
-            <div className="flex justify-between">
-              <span>Delivery Charges:</span>
-              <span className="font-bold text-stone-900">
-                {deliveryFee === 0 ? <strong className="text-emerald-700">FREE</strong> : `₹${deliveryFee}`}
+          {/* 6. TRANSPARENT BILLING & PAYMENT BREAKDOWN */}
+          <div className="xl:col-span-5 bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-stone-200/90 shadow-2xs space-y-3 sticky top-24">
+            <div className="flex items-center justify-between border-b border-stone-100 pb-2">
+              <h3 className="text-xs font-black uppercase text-stone-400 tracking-wider">
+                Bill Details &amp; Payment Status
+              </h3>
+              <span
+                className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full border ${
+                  isPaid
+                    ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
+                    : 'bg-amber-100 text-amber-900 border-amber-300'
+                }`}
+              >
+                {isPaid ? '✓ Paid' : '🟠 Payment Pending'}
               </span>
             </div>
 
-            {/* Display store packaging / handling charge so math adds up without confusion */}
-            {handlingFee > 0 && (
-              <div className="flex justify-between text-stone-700">
-                <span>Packaging &amp; Handling Charge:</span>
-                <span className="font-bold text-stone-900">₹{handlingFee}</span>
+            <div className="space-y-1.5 text-xs text-stone-600 border-b border-stone-100 pb-3">
+              <div className="flex justify-between">
+                <span>Item Subtotal:</span>
+                <span className="font-bold text-stone-900">₹{subtotal}</span>
               </div>
-            )}
 
-            {taxes > 0 && (
-              <div className="flex justify-between text-stone-700">
-                <span>Taxes &amp; GST:</span>
-                <span className="font-bold text-stone-900">₹{taxes}</span>
+              <div className="flex justify-between">
+                <span>Delivery Charges:</span>
+                <span className="font-bold text-stone-900">
+                  {deliveryFee === 0 ? <strong className="text-emerald-700">FREE</strong> : `₹${deliveryFee}`}
+                </span>
               </div>
-            )}
 
-            {codFee > 0 && (
-              <div className="flex justify-between text-stone-700">
-                <span>Cash on Delivery Fee:</span>
-                <span className="font-bold text-stone-900">₹{codFee}</span>
+              {/* Display store packaging / handling charge so math adds up without confusion */}
+              {handlingFee > 0 && (
+                <div className="flex justify-between text-stone-700">
+                  <span>Packaging &amp; Handling Charge:</span>
+                  <span className="font-bold text-stone-900">₹{handlingFee}</span>
+                </div>
+              )}
+
+              {taxes > 0 && (
+                <div className="flex justify-between text-stone-700">
+                  <span>Taxes &amp; GST:</span>
+                  <span className="font-bold text-stone-900">₹{taxes}</span>
+                </div>
+              )}
+
+              {codFee > 0 && (
+                <div className="flex justify-between text-stone-700">
+                  <span>Cash on Delivery Fee:</span>
+                  <span className="font-bold text-stone-900">₹{codFee}</span>
+                </div>
+              )}
+
+              {discount > 0 && (
+                <div className="flex justify-between text-emerald-700">
+                  <span>Promotional Discount:</span>
+                  <span className="font-bold">-₹{discount}</span>
+                </div>
+              )}
+
+              <div className="flex justify-between text-sm sm:text-base font-black text-stone-900 pt-2 border-t border-dashed border-stone-200">
+                <span>Grand Total:</span>
+                <span className="text-base sm:text-lg text-emerald-800">₹{grandTotal}</span>
               </div>
-            )}
-
-            {discount > 0 && (
-              <div className="flex justify-between text-emerald-700">
-                <span>Promotional Discount:</span>
-                <span className="font-bold">-₹{discount}</span>
-              </div>
-            )}
-
-            <div className="flex justify-between text-sm sm:text-base font-black text-stone-900 pt-2 border-t border-dashed border-stone-200">
-              <span>Grand Total:</span>
-              <span className="text-base sm:text-lg text-emerald-800">₹{grandTotal}</span>
             </div>
-          </div>
 
-          {/* Payment Method Badge & Collection Trigger */}
-          <div className="pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-stone-500 font-medium">Method:</span>
-              <span className="font-bold text-xs text-stone-900">{order.paymentMethod || 'Cash on Delivery'}</span>
+            {/* Payment Method Badge & Collection Trigger */}
+            <div className="pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-stone-500 font-medium">Method:</span>
+                <span className="font-bold text-xs text-stone-900">{order.paymentMethod || 'Cash on Delivery'}</span>
+              </div>
+
+              {!isPaid && onMarkPaid && (
+                <button
+                  type="button"
+                  onClick={() => onMarkPaid(order.id)}
+                  className="w-full sm:w-auto px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-colors shadow-xs flex items-center justify-center gap-1.5 active:scale-98"
+                >
+                  <Banknote className="w-4 h-4" />
+                  <span>Confirm Cash Collected (₹{grandTotal})</span>
+                </button>
+              )}
             </div>
-
-            {!isPaid && onMarkPaid && (
-              <button
-                type="button"
-                onClick={() => onMarkPaid(order.id)}
-                className="w-full sm:w-auto px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-colors shadow-xs flex items-center justify-center gap-1.5 active:scale-98"
-              >
-                <Banknote className="w-4 h-4" />
-                <span>Confirm Cash Collected (₹{grandTotal})</span>
-              </button>
-            )}
           </div>
         </div>
       </div>

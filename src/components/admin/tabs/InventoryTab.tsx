@@ -97,7 +97,7 @@ export default function InventoryTab({
   }, [products, search, stockFilter, selectedCategory]);
 
   return (
-    <div className="max-w-4xl mx-auto flex flex-col h-full bg-[#F4F6F9] p-3 sm:p-5 pb-32 space-y-4">
+    <div className="w-full max-w-7xl 2xl:max-w-none mx-auto flex flex-col h-full bg-[#F4F6F9] p-3 sm:p-5 pb-32 space-y-4">
       {/* 1. TOP HEADER & SEARCH CARD */}
       <div className="bg-white rounded-3xl p-4 sm:p-5 border border-stone-200/80 shadow-2xs space-y-3.5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -239,7 +239,7 @@ export default function InventoryTab({
           </p>
         </div>
       ) : (
-        <div className="space-y-2">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-2.5">
           {filteredProducts.map((product) => {
             const isOut = !product.inStock || product.stockCount === 0;
             const isLow = product.inStock && product.stockCount !== undefined && product.stockCount > 0 && product.stockCount <= 5;

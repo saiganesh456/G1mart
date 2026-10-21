@@ -964,7 +964,7 @@ export default function SlipOrdersTab({
                   </p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3.5">
                   {filteredOrders.map((slip) => {
                     const isNew = slip.status === 'SLIP_RECEIVED';
                     return (
@@ -1180,7 +1180,7 @@ export default function SlipOrdersTab({
                     onMouseMove={handleMouseMove}
                     onMouseUp={handleMouseUp}
                     onMouseLeave={handleMouseUp}
-                    className="relative w-full h-[420px] bg-stone-900 rounded-2xl overflow-hidden cursor-grab active:cursor-grabbing flex items-center justify-center border border-stone-300 select-none"
+                    className="relative w-full h-[420px] lg:h-[calc(100vh-230px)] min-h-[460px] lg:min-h-[580px] 2xl:min-h-[720px] bg-stone-900 rounded-2xl overflow-hidden cursor-grab active:cursor-grabbing flex items-center justify-center border border-stone-300 select-none"
                   >
                     {selectedSlip.images && selectedSlip.images[activeImageIndex] ? (
                       // eslint-disable-next-line @next/next/no-img-element

@@ -747,7 +747,7 @@ export default function ProductDetailsPanel({
   }
 
   return (
-    <div className="max-w-2xl mx-auto flex flex-col min-h-screen bg-[#F4F6F9] p-3 sm:p-6 pb-28">
+    <div className="w-full max-w-4xl 2xl:max-w-5xl mx-auto flex flex-col min-h-screen bg-[#F4F6F9] p-3 sm:p-6 pb-28">
       {/* Header */}
       <div className="bg-white rounded-3xl p-4 sm:p-5 border border-stone-200/90 shadow-2xs flex items-center justify-between mb-4 sticky top-16 z-20">
         <div className="flex items-center gap-3">

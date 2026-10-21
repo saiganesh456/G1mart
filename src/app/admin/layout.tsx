@@ -13,7 +13,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="min-h-screen bg-[#F4F6F9] text-stone-900 flex flex-col">
       {/* Admin Top Navigation Bar */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md text-stone-900 border-b border-stone-200/80 shadow-2xs transition-all">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
+        <div className="w-full max-w-[1920px] 2xl:max-w-[2200px] mx-auto px-4 sm:px-6 2xl:px-8 h-14 sm:h-16 flex items-center justify-between">
           {/* Brand & Admin Badge */}
           <div className="flex items-center gap-3">
             <Link href="/admin" className="flex items-center gap-2.5 group">
@@ -50,7 +50,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </header>
 
       {/* Main Content Area Protected by AdminAuthGuard */}
-      <div className="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6">
+      <div className="flex-1 w-full max-w-[1920px] 2xl:max-w-[2200px] mx-auto p-3 sm:p-6 2xl:p-8">
         <AdminAuthGuard>
           {children}
         </AdminAuthGuard>
