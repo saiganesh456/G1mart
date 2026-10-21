@@ -16,6 +16,10 @@ import {
   Navigation,
   ChevronRight,
   Download,
+  Shield,
+  FileText,
+  RefreshCw,
+  Trash2,
 } from 'lucide-react';
 import { STORE_CONFIG } from '@/config/store';
 import { useAuth } from '@/context/AuthContext';
@@ -26,6 +30,7 @@ type RowItem = {
   href: string;
   icon: React.ElementType;
   label: string;
+  isDestructive?: boolean;
 };
 
 const ACCOUNT_ROWS: RowItem[] = [
@@ -35,15 +40,22 @@ const ACCOUNT_ROWS: RowItem[] = [
   { href: '/help', icon: HelpCircle, label: 'Help & Support / FAQs' },
 ];
 
-function AccountRow({ href, icon: Icon, label }: RowItem) {
+const LEGAL_ROWS: RowItem[] = [
+  { href: '/privacy', icon: Shield, label: 'Privacy Policy' },
+  { href: '/terms', icon: FileText, label: 'Terms of Service' },
+  { href: '/refund-policy', icon: RefreshCw, label: 'Refund & Cancellation Policy' },
+  { href: '/account-deletion', icon: Trash2, label: 'Delete Account & Data', isDestructive: true },
+];
+
+function AccountRow({ href, icon: Icon, label, isDestructive }: RowItem) {
   return (
     <Link
       href={href}
-      className="flex items-center justify-between px-4 transition-colors"
-      style={{ height: 56, color: 'var(--g1-text)' }}
+      className="flex items-center justify-between px-4 transition-colors hover:bg-stone-50/50"
+      style={{ height: 56, color: isDestructive ? '#dc2626' : 'var(--g1-text)' }}
     >
       <div className="flex items-center gap-3">
-        <Icon className="w-[22px] h-[22px]" strokeWidth={1.75} style={{ color: 'var(--g1-primary)' }} />
+        <Icon className="w-[22px] h-[22px]" strokeWidth={1.75} style={{ color: isDestructive ? '#dc2626' : 'var(--g1-primary)' }} />
         <span className="font-medium" style={{ fontSize: 15, fontWeight: 500 }}>{label}</span>
       </div>
       <ChevronRight className="w-[18px] h-[18px] shrink-0" strokeWidth={1.75} style={{ color: 'var(--g1-text-secondary)' }} />
@@ -218,6 +230,21 @@ export default function AccountPage() {
           style={{ border: '1px solid var(--g1-border)', boxShadow: 'var(--g1-e1)' }}
         >
           {ACCOUNT_ROWS.map((row, idx) => (
+            <div key={row.href} style={{ borderTop: idx > 0 ? `1px solid var(--g1-border)` : 'none' }}>
+              <AccountRow {...row} />
+            </div>
+          ))}
+        </div>
+
+        {/* ── Policies & Legal (Google Play Store compliance) ── */}
+        <div
+          className="mx-4 mt-4 rounded-[var(--g1-r-card)] bg-[var(--g1-bg)] overflow-hidden"
+          style={{ border: '1px solid var(--g1-border)', boxShadow: 'var(--g1-e1)' }}
+        >
+          <div className="px-4 py-2 bg-stone-50 border-b border-stone-200/80 text-[11px] font-bold uppercase tracking-wider text-stone-500">
+            Policies &amp; Legal
+          </div>
+          {LEGAL_ROWS.map((row, idx) => (
             <div key={row.href} style={{ borderTop: idx > 0 ? `1px solid var(--g1-border)` : 'none' }}>
               <AccountRow {...row} />
             </div>

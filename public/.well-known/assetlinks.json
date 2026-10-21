@@ -1,0 +1,22 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "in.g1mart.store",
+      "sha256_cert_fingerprints": [
+        "4A:2B:9C:8D:1E:F3:A2:7B:8C:9D:0E:1F:2A:3B:4C:5D:6E:7F:80:91:A2:B3:C4:D5:E6:F7:08:19:2A:3B:4C:5D"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.g1mart.app",
+      "sha256_cert_fingerprints": [
+        "4A:2B:9C:8D:1E:F3:A2:7B:8C:9D:0E:1F:2A:3B:4C:5D:6E:7F:80:91:A2:B3:C4:D5:E6:F7:08:19:2A:3B:4C:5D"
+      ]
+    }
+  }
+]

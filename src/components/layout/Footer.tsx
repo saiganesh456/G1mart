@@ -152,12 +152,14 @@ export default function Footer() {
       <div className="border-t border-stone-200/80 bg-stone-50 py-4 pb-20 lg:pb-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-500">
           <span>© {new Date().getFullYear()} G1mart. All rights reserved.</span>
-          <div className="flex items-center gap-4 font-medium">
-            <span>Privacy Policy</span>
+          <div className="flex flex-wrap items-center justify-center gap-3 font-medium">
+            <Link href="/privacy" className="hover:text-[#2E7D32] transition-colors">Privacy Policy</Link>
             <span>·</span>
-            <span>Terms of Service</span>
+            <Link href="/terms" className="hover:text-[#2E7D32] transition-colors">Terms of Service</Link>
             <span>·</span>
-            <span>Refund &amp; Cancellation</span>
+            <Link href="/refund-policy" className="hover:text-[#2E7D32] transition-colors">Refund &amp; Cancellation</Link>
+            <span>·</span>
+            <Link href="/account-deletion" className="hover:text-red-600 transition-colors">Delete Account</Link>
           </div>
         </div>
       </div>

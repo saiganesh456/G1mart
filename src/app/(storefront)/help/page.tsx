@@ -116,7 +116,18 @@ export default function HelpPage() {
         </div>
       </div>
 
-      <div className="flex items-center justify-center gap-1.5 text-[11px] text-stone-400 pt-2">
+      {/* Quick Legal & Policy Links for Google Play Store Quality */}
+      <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-stone-500 pt-1 font-medium">
+        <Link href="/privacy" className="hover:text-[#2E7D32] underline">Privacy Policy</Link>
+        <span>·</span>
+        <Link href="/terms" className="hover:text-[#2E7D32] underline">Terms</Link>
+        <span>·</span>
+        <Link href="/refund-policy" className="hover:text-[#2E7D32] underline">Refunds</Link>
+        <span>·</span>
+        <Link href="/account-deletion" className="hover:text-red-600 underline">Delete Account</Link>
+      </div>
+
+      <div className="flex items-center justify-center gap-1.5 text-[11px] text-stone-400 pt-1">
         <ShieldCheck className="w-4 h-4 text-[#2E7D32]" />
         <span>Official G1mart Neighbourhood Store Customer Support</span>
       </div>

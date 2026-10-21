@@ -3,12 +3,46 @@
  * Handles notifications even when the browser or app window is completely closed.
  */
 
+const CACHE_NAME = 'g1mart-offline-v1';
+const OFFLINE_URL = '/offline';
+
 self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.add(new Request(OFFLINE_URL, { cache: 'reload' }));
+    }).catch((err) => {
+      console.warn('[G1 Mart SW] Failed to pre-cache offline page:', err);
+    })
+  );
   self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(clients.claim());
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames
+          .filter((name) => name !== CACHE_NAME)
+          .map((name) => caches.delete(name))
+      );
+    }).then(() => clients.claim())
+  );
+});
+
+// Offline navigation fallback: If user loses internet connectivity while navigating,
+// serve the cached /offline page instead of Chrome's ugly network error dinosaur
+self.addEventListener('fetch', (event) => {
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(async () => {
+        const cache = await caches.open(CACHE_NAME);
+        const cachedResponse = await cache.match(OFFLINE_URL);
+        return cachedResponse || new Response('Offline - G1mart', {
+          headers: { 'Content-Type': 'text/html' },
+        });
+      })
+    );
+  }
 });
 
 // Handle Background Push Messages from G1 Mart Server

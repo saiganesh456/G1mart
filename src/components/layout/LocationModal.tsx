@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { useLocation, DeliveryLocation } from '@/context/LocationContext';
 import { NELLORE_AREAS } from '@/services/deliveryZoneService';
+import { useModalBackHandler } from '@/hooks/useModalBackHandler';
 
 export default function LocationModal() {
   const {
@@ -24,6 +25,8 @@ export default function LocationModal() {
     detectLocation,
     setLocation,
   } = useLocation();
+
+  useModalBackHandler(isModalOpen, () => setIsModalOpen(false), 'location_modal');
 
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
