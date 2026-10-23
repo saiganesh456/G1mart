@@ -991,7 +991,7 @@ export default function ProductDetailsPanel({
                 ) : (
                   <>
                     <Plus className="w-4 h-4 stroke-[3]" />
-                    <span>＋ Publish Product to App</span>
+                    <span>Publish Product to App</span>
                   </>
                 )}
               </button>

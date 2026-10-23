@@ -137,7 +137,7 @@ export default function InventoryTab({
                 className="flex-1 sm:flex-initial h-10 px-4 bg-[#1B5E20] hover:bg-[#2E7D32] text-white rounded-xl text-xs font-black flex items-center justify-center gap-2 shadow-xs cursor-pointer active:scale-95 transition-all"
               >
                 <Plus className="w-4 h-4 stroke-[3]" />
-                <span>＋ Add Product</span>
+                <span>Add Product</span>
               </button>
             )}
 

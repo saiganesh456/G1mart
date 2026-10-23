@@ -314,7 +314,7 @@ export default function HomeTab({
               </div>
               <div>
                 <span className="text-xs font-black text-stone-900 block group-hover:text-emerald-900">
-                  ＋ Add Product
+                  Add Product
                 </span>
                 <span className="text-[10px] text-emerald-800 font-bold block mt-0.5">
                   Publish to store
