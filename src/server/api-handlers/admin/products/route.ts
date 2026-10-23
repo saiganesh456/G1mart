@@ -418,3 +418,94 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
+
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const auth = await verifyAdminRequest(request);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
+    const { searchParams } = new URL(request.url);
+    let id = searchParams.get('id');
+    if (!id) {
+      const body = await request.json().catch(() => ({}));
+      id = body?.id;
+    }
+
+    if (!id) {
+      return NextResponse.json({ success: false, error: 'Product ID is required' }, { status: 400 });
+    }
+
+    const MIGRATED_PATH = path.join(process.cwd(), 'data', 'migrated_products.json');
+    const VARIANTS_PATH = path.join(process.cwd(), 'data', 'migrated_product_variants.json');
+
+    // 1. Remove from data/migrated_products.json
+    if (fs.existsSync(MIGRATED_PATH)) {
+      try {
+        const migratedList = JSON.parse(fs.readFileSync(MIGRATED_PATH, 'utf-8'));
+        const filtered = migratedList.filter((p: any) => p.id !== id);
+        if (filtered.length !== migratedList.length) {
+          fs.writeFileSync(MIGRATED_PATH, JSON.stringify(filtered, null, 2), 'utf-8');
+        }
+      } catch (err) {
+        console.warn('[Admin Products] Error removing from migrated_products.json:', err);
+      }
+    }
+
+    // 2. Remove from data/migrated_product_variants.json
+    if (fs.existsSync(VARIANTS_PATH)) {
+      try {
+        const variantsList = JSON.parse(fs.readFileSync(VARIANTS_PATH, 'utf-8'));
+        const filteredVariants = variantsList.filter((v: any) => v.product_id !== id);
+        if (filteredVariants.length !== variantsList.length) {
+          fs.writeFileSync(VARIANTS_PATH, JSON.stringify(filteredVariants, null, 2), 'utf-8');
+        }
+      } catch (err) {
+        console.warn('[Admin Products] Error removing from migrated_product_variants.json:', err);
+      }
+    }
+
+    // 3. Remove from src/data/products-catalog.json
+    if (fs.existsSync(CATALOG_PATH)) {
+      try {
+        const catalog = JSON.parse(fs.readFileSync(CATALOG_PATH, 'utf-8'));
+        const filteredCatalog = catalog.filter((p: any) => p.id !== id);
+        if (filteredCatalog.length !== catalog.length) {
+          fs.writeFileSync(CATALOG_PATH, JSON.stringify(filteredCatalog, null, 2), 'utf-8');
+        }
+      } catch (err) {
+        console.warn('[Admin Products] Error removing from products-catalog.json:', err);
+      }
+    }
+
+    // 4. Mark deleted in cloud overrides
+    try {
+      await serverProductOverrides.saveOverride({
+        id,
+        inStock: false,
+        stockCount: 0,
+        is_active: false,
+        isActive: false,
+        deleted: true,
+      } as any);
+    } catch (err) {
+      console.warn('[Admin Products] Error updating override on delete:', err);
+    }
+
+    // 5. Remove from in-memory product service
+    await productService.deleteProduct(id);
+
+    return NextResponse.json({
+      success: true,
+      message: 'Product deleted successfully',
+      productId: id,
+    });
+  } catch (error: any) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  }
+}

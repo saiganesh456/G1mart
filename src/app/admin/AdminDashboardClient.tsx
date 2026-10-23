@@ -1880,6 +1880,25 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 return false;
               }
             }}
+            onDeleteProduct={async (productId) => {
+              try {
+                const res = await fetch(`/api/admin/products?id=${encodeURIComponent(productId)}`, {
+                  method: 'DELETE',
+                  headers: getAdminHeaders(),
+                });
+                const data = await res.json();
+                if (data.success) {
+                  setProducts((prev) => prev.filter((p) => p.id !== productId));
+                  productsRef.current = productsRef.current.filter((p) => p.id !== productId);
+                  setSelectedProduct(null);
+                  return true;
+                }
+                return false;
+              } catch (err) {
+                console.error('Failed to delete product:', err);
+                return false;
+              }
+            }}
           />
         ) : (
           <>

@@ -83,6 +83,7 @@ interface Props {
   product: Product;
   onBack: () => void;
   onSaveProduct?: (updatedProduct: Product) => Promise<boolean>;
+  onDeleteProduct?: (productId: string) => Promise<boolean>;
   categories?: Category[];
   isNew?: boolean;
 }
@@ -91,6 +92,7 @@ export default function ProductDetailsPanel({
   product,
   onBack,
   onSaveProduct,
+  onDeleteProduct,
   categories = [],
   isNew = false,
 }: Props) {
@@ -158,6 +160,39 @@ export default function ProductDetailsPanel({
 
   // Quick Pack Size / Variant modal state
   const [showAddVariantModal, setShowAddVariantModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDeleteProduct = async () => {
+    if (!product.id || isNew) return;
+    setIsDeleting(true);
+    try {
+      if (onDeleteProduct) {
+        const ok = await onDeleteProduct(product.id);
+        if (ok) {
+          setShowDeleteModal(false);
+          onBack();
+          return;
+        }
+      }
+      const res = await adminFetch(`/api/admin/products?id=${encodeURIComponent(product.id)}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success) {
+        setShowDeleteModal(false);
+        onBack();
+      } else {
+        setErrorMsg(data.error || 'Failed to delete product');
+        setShowDeleteModal(false);
+      }
+    } catch (err: any) {
+      setErrorMsg(err.message || 'Error deleting product');
+      setShowDeleteModal(false);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
   const [newVariantUnit, setNewVariantUnit] = useState('');
   const [newVariantPrice, setNewVariantPrice] = useState('');
   const [newVariantMrp, setNewVariantMrp] = useState('');
@@ -981,6 +1016,17 @@ export default function ProductDetailsPanel({
 
         <div className="flex items-center gap-2">
           {!isNew && product.id && (
+            <button
+              type="button"
+              onClick={() => setShowDeleteModal(true)}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95 shrink-0"
+              title="Delete this product"
+            >
+              <Trash2 className="w-3.5 h-3.5 text-rose-600" />
+              <span>Delete</span>
+            </button>
+          )}
+          {!isNew && product.id && (
             <a
               href={`/product/${product.id}`}
               target="_blank"
@@ -1600,9 +1646,77 @@ export default function ProductDetailsPanel({
             >
               Cancel
             </button>
+            {!isNew && product.id && (
+              <button
+                type="button"
+                onClick={() => setShowDeleteModal(true)}
+                className="py-3 px-3.5 sm:px-4 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-colors cursor-pointer shrink-0"
+                title="Delete product"
+              >
+                <Trash2 className="w-4 h-4 text-rose-600" />
+                <span>Delete</span>
+              </button>
+            )}
           </div>
         </div>
         {/* Quick Add Pack Size / Quantity Modal */}
+        {/* Delete Product Confirmation Modal */}
+        {showDeleteModal && (
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-4 sm:p-5 space-y-4 border border-stone-200 animate-in fade-in zoom-in-95 duration-150">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0">
+                  <Trash2 className="w-5 h-5 text-rose-600" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">Delete Product?</h3>
+                  <p className="text-[11px] text-stone-500 truncate">ID: {product.id}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowDeleteModal(false)}
+                  className="text-stone-400 hover:text-stone-700 p-1 rounded-lg"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <p className="text-xs text-stone-600 leading-relaxed">
+                Are you sure you want to delete <span className="font-bold text-stone-900">&ldquo;{name || product.name}&rdquo;</span>? This will permanently remove it from customer search and the storefront.
+              </p>
+
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-stone-100">
+                <button
+                  type="button"
+                  disabled={isDeleting}
+                  onClick={() => setShowDeleteModal(false)}
+                  className="px-3.5 py-2 text-xs font-bold text-stone-600 hover:bg-stone-100 rounded-xl transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  disabled={isDeleting}
+                  onClick={handleDeleteProduct}
+                  className="px-4 py-2 text-xs font-bold text-white bg-rose-600 hover:bg-rose-700 disabled:opacity-50 rounded-xl shadow-xs active:scale-95 transition-all flex items-center gap-1.5 cursor-pointer"
+                >
+                  {isDeleting ? (
+                    <>
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      <span>Deleting...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Trash2 className="w-3.5 h-3.5" />
+                      <span>Yes, Delete</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {showAddVariantModal && (
           <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
             <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-4 sm:p-5 space-y-3.5 border border-stone-200 animate-in fade-in zoom-in-95 duration-150">

@@ -174,14 +174,14 @@ export const MIGRATED_PRODUCT_LIST: Product[] = MIGRATED_PRODUCTS.map(mapMigrate
 });
 
 function mapDbRowToProduct(row: any, fallback?: Product): Product {
-  const priceNum = (row.price !== null && row.price !== undefined && Number(row.price) > 0) 
-    ? Number(row.price) 
+  const priceNum = (row.price !== null && row.price !== undefined && Number(row.price) > 0)
+    ? Number(row.price)
     : (fallback?.price || 0);
   const origPriceNum = (row.original_price !== null && row.original_price !== undefined && Number(row.original_price) > 0)
     ? Number(row.original_price)
     : (fallback?.originalPrice || priceNum);
   const isConfirmed = Boolean(
-    (row.price !== null && row.price !== undefined && Number(row.price) > 0) || 
+    (row.price !== null && row.price !== undefined && Number(row.price) > 0) ||
     fallback?.priceConfirmed
   );
   const discount = origPriceNum > priceNum && origPriceNum > 0
@@ -585,5 +585,19 @@ export const productService = {
     }
 
     return newProd;
+  },
+
+  async deleteProduct(id: string): Promise<boolean> {
+    const idx = MIGRATED_PRODUCT_LIST.findIndex((p) => p.id === id);
+    if (idx !== -1) {
+      MIGRATED_PRODUCT_LIST.splice(idx, 1);
+    }
+    variantsByProductId.delete(id);
+    for (let i = MIGRATED_VARIANTS.length - 1; i >= 0; i--) {
+      if (MIGRATED_VARIANTS[i].product_id === id) {
+        MIGRATED_VARIANTS.splice(i, 1);
+      }
+    }
+    return true;
   },
 };
