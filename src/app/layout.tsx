@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     icon: '/icons/icon-192x192.png?v=6',
     apple: '/apple-touch-icon.png?v=6',
   },
-  manifest: '/manifest.json?v=6',
+  manifest: '/manifest.json',
 };
 
 export const viewport: Viewport = {
@@ -30,6 +30,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link
           href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+                if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                  navigator.serviceWorker.register('/sw.js', { scope: '/' });
+                } else {
+                  window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/sw.js', { scope: '/' });
+                  });
+                }
+              }
+            `,
+          }}
         />
       </head>
       <body className="min-h-screen bg-[#F7F7F7] text-[#212121] antialiased">

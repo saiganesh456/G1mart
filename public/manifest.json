@@ -11,7 +11,16 @@
   "theme_color": "#FFFFFF",
   "orientation": "portrait",
   "lang": "en-IN",
+  "dir": "ltr",
   "categories": ["shopping", "food", "lifestyle"],
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=in.g1mart.store",
+      "id": "in.g1mart.store"
+    }
+  ],
   "icons": [
     {
       "src": "/icons/icon-192x192.png?v=6",
@@ -36,6 +45,22 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/mobile-home.png",
+      "sizes": "390x1596",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "G1 Mart Storefront - Fast Home Delivery in Nellore"
+    },
+    {
+      "src": "/screenshots/desktop-home.png",
+      "sizes": "1440x1793",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "G1 Mart Supermarket Catalog"
     }
   ],
   "shortcuts": [
