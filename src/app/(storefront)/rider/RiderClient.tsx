@@ -143,7 +143,11 @@ export default function RiderClient() {
   useEffect(() => {
     fetchOrders();
     // Realtime auto-poll every 7 seconds
-    const interval = setInterval(fetchOrders, 7000);
+    const interval = setInterval(() => {
+      if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
+        fetchOrders();
+      }
+    }, 25000);
     return () => clearInterval(interval);
   }, []);
 

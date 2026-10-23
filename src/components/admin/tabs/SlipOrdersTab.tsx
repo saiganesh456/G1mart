@@ -181,8 +181,10 @@ export default function SlipOrdersTab({
   useEffect(() => {
     fetchSlipOrders(false);
     const interval = setInterval(() => {
-      fetchSlipOrders(true);
-    }, 2000);
+      if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
+        fetchSlipOrders(true);
+      }
+    }, 25000);
 
     const onPopState = () => {
       if (typeof window === 'undefined') return;

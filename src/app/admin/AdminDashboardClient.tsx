@@ -1182,10 +1182,12 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       };
     } catch {}
 
-    // 3. 4-second safety net background sync (never misses orders if realtime is reconnecting)
+    // 3. 30-second visibility-aware safety net background sync (never misses orders if realtime is reconnecting)
     const interval = setInterval(() => {
-      fetchOrders(true);
-    }, 4000);
+      if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
+        fetchOrders(true);
+      }
+    }, 30000);
 
     // 4. Service Worker Push Sync Listener (triggers if push arrived or notification was tapped)
     let handleSwMessage: ((event: MessageEvent) => void) | null = null;
@@ -1531,7 +1533,11 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       } catch {}
     };
     fetchSlipData();
-    const iv = setInterval(fetchSlipData, 4000);
+    const iv = setInterval(() => {
+      if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
+        fetchSlipData();
+      }
+    }, 30000);
     return () => clearInterval(iv);
   }, []);
 

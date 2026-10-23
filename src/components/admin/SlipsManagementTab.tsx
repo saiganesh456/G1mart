@@ -50,8 +50,10 @@ export default function SlipsManagementTab() {
   useEffect(() => {
     fetchSlips(false);
     const interval = setInterval(() => {
-      fetchSlips(true);
-    }, 4000);
+      if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
+        fetchSlips(true);
+      }
+    }, 25000);
     return () => clearInterval(interval);
   }, []);
 

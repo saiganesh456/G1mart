@@ -375,7 +375,11 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
     };
     window.addEventListener('storage', handleStorageChange);
 
-    const interval = setInterval(syncLiveOrder, 2500);
+    const interval = setInterval(() => {
+      if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
+        syncLiveOrder();
+      }
+    }, 25000);
 
     return () => {
       clearTimeout(timer);
