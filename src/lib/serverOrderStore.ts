@@ -232,6 +232,14 @@ export const serverOrderStore = {
 
     const dynamicOtp = (params as any).deliveryOtp || generate4DigitOtp();
 
+    const isCod =
+      (params.paymentMethod as string) === 'Cash on Delivery' ||
+      (params.paymentMethod as string) === 'Pay on delivery' ||
+      (params.paymentMethod as string)?.toLowerCase() === 'cod';
+
+    const initialStatus: OrderStatus = isCod ? 'Order Placed' : 'Payment Pending';
+    const initialPaymentStatus: PaymentStatus = isCod ? 'COD_PENDING' : 'pending';
+
     const order: Order = {
       id: params.orderId,
       orderNumber: params.orderId,
@@ -240,8 +248,8 @@ export const serverOrderStore = {
       address: params.address,
       slot: params.slot || 'Standard Delivery',
       paymentMethod: params.paymentMethod,
-      paymentStatus: 'pending',
-      status: 'Order Placed',
+      paymentStatus: initialPaymentStatus,
+      status: initialStatus,
       subtotal: params.subtotal,
       discount: 0,
       deliveryFee: params.deliveryFee,
@@ -265,7 +273,7 @@ export const serverOrderStore = {
       deliveryOtp: dynamicOtp,
       createdAt: new Date().toISOString(),
       timeline: [
-        { status: 'Order Placed', time: 'Just now', completed: true },
+        { status: initialStatus, time: 'Just now', completed: true },
         { status: 'Packed', time: 'Pending', completed: false },
         { status: 'Out for Delivery', time: 'Pending', completed: false },
         { status: 'Delivered', time: 'Pending', completed: false },
@@ -279,7 +287,7 @@ export const serverOrderStore = {
     const paymentRecord: PaymentRecord = {
       id: `pay_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
       orderId: params.orderId,
-      provider: params.paymentMethod === 'Cash on Delivery' ? 'cash_on_delivery' : 'phonepe',
+      provider: isCod ? 'cash_on_delivery' : 'phonepe',
       providerOrderId: params.merchantOrderId,
       amount: params.grandTotal,
       status: 'PENDING',
@@ -288,8 +296,10 @@ export const serverOrderStore = {
     };
     paymentsMap.set(params.merchantOrderId, paymentRecord);
 
-    // Persist to Supabase if configured with resilient multi-client fallback
-    if (isSupabaseConfigured()) {
+    // Only persist confirmed Cash on Delivery orders to Supabase cloud table immediately.
+    // Online checkout attempts (UPI/Card) remain in server store memory/disk and are ONLY
+    // upserted to Supabase orders table once payment verification succeeds in markOrderPaid().
+    if (isCod && isSupabaseConfigured()) {
       for (const client of supabaseClients) {
         try {
           const { error: upsertErr } = await client.from('orders').upsert({
@@ -310,7 +320,7 @@ export const serverOrderStore = {
               _status: 'Order Placed',
               _deliveryOtp: order.deliveryOtp,
               _items: order.items,
-              _paymentStatus: 'pending',
+              _paymentStatus: 'COD_PENDING',
               _providerOrderId: params.merchantOrderId,
               _userId: params.userId,
               _userEmail: params.userEmail,
@@ -379,11 +389,18 @@ export const serverOrderStore = {
     }
 
     const nowIso = new Date().toISOString();
+    order.status = 'Order Placed';
     order.paymentStatus = 'completed';
     order.isPaid = true;
     order.paidAmount = order.grandTotal;
     order.paidAt = nowIso;
     order.transactionId = params.transactionId;
+    order.timeline = [
+      { status: 'Order Placed', time: 'Just now', completed: true },
+      { status: 'Packed', time: 'Pending', completed: false },
+      { status: 'Out for Delivery', time: 'Pending', completed: false },
+      { status: 'Delivered', time: 'Pending', completed: false },
+    ];
     ordersMap.set(order.id, order);
     this.persistToDisk();
 
@@ -402,26 +419,41 @@ export const serverOrderStore = {
       }
     }
 
-    // Update Supabase if configured (valid schema columns only)
+    // Upsert full order to Supabase cloud table now that payment is confirmed
     if (isSupabaseConfigured()) {
-      try {
-        await supabase
-          .from('orders')
-          .update({
-            is_paid: true,
-            address: {
-              ...(order.address || {}),
-              _items: order.items,
-              _paymentStatus: 'completed',
-              _paidAmount: order.grandTotal,
-              _paidAt: nowIso,
-              _transactionId: params.transactionId,
-            },
-            updated_at: nowIso,
-          })
-          .eq('id', order.id);
-      } catch (err) {
-        console.warn('[serverOrderStore] Supabase update fallback to memory:', err);
+      for (const client of supabaseClients) {
+        try {
+          const { error: upsertErr } = await client
+            .from('orders')
+            .upsert({
+              id: order.id,
+              user_id: order.userId || null,
+              date: order.date,
+              slot: order.slot || 'Standard Delivery',
+              payment_method: order.paymentMethod,
+              is_paid: true,
+              status: 'Order Placed',
+              subtotal: order.subtotal,
+              discount: order.discount || 0,
+              delivery_fee: order.deliveryFee || 0,
+              taxes: order.taxes || 0,
+              grand_total: order.grandTotal,
+              address: {
+                ...(order.address || {}),
+                _status: 'Order Placed',
+                _items: order.items,
+                _paymentStatus: 'completed',
+                _paidAmount: order.grandTotal,
+                _paidAt: nowIso,
+                _transactionId: params.transactionId,
+                _deliveryOtp: order.deliveryOtp,
+              },
+              updated_at: nowIso,
+            });
+          if (!upsertErr) break;
+        } catch (err) {
+          console.warn('[serverOrderStore] Supabase markOrderPaid upsert notice:', err);
+        }
       }
     }
 
@@ -774,6 +806,45 @@ export const serverOrderStore = {
             .eq('id', orderId)
             .then(() => {})
             .catch(() => {});
+        } catch {}
+      }
+    }
+
+    return { success: true, order };
+  },
+
+  /**
+   * Cancel an order cleanly across memory, disk, and Supabase
+   */
+  async cancelOrder(orderId: string, reason?: string): Promise<{ success: boolean; order?: Order }> {
+    this.loadFromDisk();
+    const order = ordersMap.get(orderId);
+    if (!order) return { success: false };
+
+    order.status = 'Cancelled';
+    order.paymentStatus = 'cancelled';
+    (order as any).cancelReason = reason || 'Cancelled by customer';
+    (order as any).updatedAt = new Date().toISOString();
+    ordersMap.set(orderId, order);
+    this.persistToDisk();
+
+    if (isSupabaseConfigured()) {
+      for (const client of supabaseClients) {
+        try {
+          const { error } = await client
+            .from('orders')
+            .update({
+              status: 'Cancelled',
+              address: {
+                ...(order.address || {}),
+                _status: 'Cancelled',
+                _paymentStatus: 'cancelled',
+                _cancelReason: reason || 'Cancelled by customer',
+              },
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', orderId);
+          if (!error) break;
         } catch {}
       }
     }

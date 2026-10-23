@@ -13,7 +13,8 @@ export async function POST(req: NextRequest) {
 
     // Parse form data
     const formData = await req.formData();
-    const customerName = (formData.get('name') as string)?.trim() || 'Valued Customer';
+    const rawName = (formData.get('name') as string)?.trim();
+    const customerName = rawName && rawName.toLowerCase() !== 'valued customer' ? rawName : 'Customer';
     const customerPhone = (formData.get('phone') as string)?.trim() || '';
     const customerNote = (formData.get('note') as string)?.trim() || '';
 

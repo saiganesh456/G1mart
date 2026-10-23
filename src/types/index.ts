@@ -159,6 +159,7 @@ export type PaymentMethod =
 
 export type OrderStatus =
   | 'Order Placed'
+  | 'Payment Pending'
   | 'New'
   | 'Confirmed'
   | 'Packing'

@@ -104,6 +104,8 @@ function getStatusBadge(status?: string, isPickup?: boolean) {
     case 'Order Placed':
     case 'New':
       return { label: 'Order placed', bg: 'bg-blue-50 text-blue-700 border-blue-200' };
+    case 'Payment Pending':
+      return { label: 'Payment Pending', bg: 'bg-amber-50 text-amber-700 border-amber-200' };
     case 'Confirmed':
       return { label: 'Confirmed', bg: 'bg-sky-50 text-sky-700 border-sky-200' };
     case 'Packing':
@@ -181,7 +183,16 @@ export default function OrdersTab({
 
     orders.forEach((o) => {
       const s = o.status || 'Order Placed';
-      if (s === 'Order Placed' || s === 'New' || s === 'Confirmed') {
+      const isPaid =
+        o.isPaid ||
+        o.paymentStatus === 'completed' ||
+        o.paymentStatus === 'manual_verified';
+      const isCod = o.paymentMethod === 'Cash on Delivery';
+      const isRealPlaced = isPaid || isCod;
+
+      if (s === 'Cancelled' || s === 'Payment Pending') return;
+
+      if ((s === 'Order Placed' || s === 'New' || s === 'Confirmed') && isRealPlaced) {
         needsAction++;
       } else if (s === 'Packing') {
         packing++;
@@ -205,10 +216,17 @@ export default function OrdersTab({
   const filteredOrders = useMemo(() => {
     const list = orders.filter((o) => {
       const s = o.status || 'Order Placed';
+      const isPaid =
+        o.isPaid ||
+        o.paymentStatus === 'completed' ||
+        o.paymentStatus === 'manual_verified';
+      const isCod = o.paymentMethod === 'Cash on Delivery';
+      const isRealPlaced = isPaid || isCod;
 
       // 1. Queue Filter
       if (queueFilter === 'Needs action') {
         if (s !== 'Order Placed' && s !== 'New' && s !== 'Confirmed') return false;
+        if (!isRealPlaced) return false;
       } else if (queueFilter === 'Packing') {
         if (s !== 'Packing') return false;
       } else if (queueFilter === 'Ready for delivery') {
@@ -219,10 +237,6 @@ export default function OrdersTab({
       }
 
       // 2. Payment filter
-      const isPaid =
-        o.isPaid ||
-        o.paymentStatus === 'completed' ||
-        o.paymentStatus === 'manual_verified';
       if (paymentFilter === 'cod' && (isPaid || o.paymentMethod !== 'Cash on Delivery'))
         return false;
       if (paymentFilter === 'paid' && !isPaid) return false;

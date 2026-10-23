@@ -81,6 +81,9 @@ export interface SlipOrder {
   assigned_rider_id?: string | null;
   assigned_rider_name?: string | null;
   assigned_rider_phone?: string | null;
+  rider_id?: string | null;
+  rider_name?: string | null;
+  rider_phone?: string | null;
 
   admin_notes?: string | null;
   cancel_reason?: string | null;

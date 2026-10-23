@@ -35,7 +35,11 @@ import {
   Info,
   Zap,
   Receipt,
+  Bike,
+  Loader2,
 } from 'lucide-react';
+import RiderAssignmentModal from '@/components/admin/RiderAssignmentModal';
+import { soundAlerts } from '@/lib/soundAlerts';
 import type { SlipOrder, SlipItem, SlipOrderStatus } from '@/types/slipOrder';
 import type { Product } from '@/types';
 import { formatIndianPhoneDisplay } from '@/lib/phone';
@@ -48,6 +52,7 @@ interface Props {
   onSelectSlip?: (slip: any) => void;
   onCloseSlip?: () => void;
   onBackToDashboard?: () => void;
+  availableRiders?: any[];
 }
 
 export default function SlipOrdersTab({
@@ -57,6 +62,7 @@ export default function SlipOrdersTab({
   onSelectSlip,
   onCloseSlip,
   onBackToDashboard,
+  availableRiders = [],
 }: Props) {
   const { user } = useAuth();
   const getAdminHeaders = (): Record<string, string> => {
@@ -81,6 +87,20 @@ export default function SlipOrdersTab({
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [selectedSlip, setSelectedSlip] = useState<SlipOrder | null>(null);
+
+  // Rider modal & fulfillment actions
+  const [riderModalSlip, setRiderModalSlip] = useState<SlipOrder | null>(null);
+  const [updatingSlipId, setUpdatingSlipId] = useState<string | null>(null);
+
+  const effectiveRiders = useMemo(() => {
+    if (Array.isArray(availableRiders) && availableRiders.length > 0) {
+      return availableRiders;
+    }
+    return [
+      { id: 'rider-sai', name: 'Sai Ganesh (Express Fleet)', phone: '9346389857' },
+      { id: 'rider-g1', name: 'G1mart Store Express Rider', phone: '9876543210' },
+    ];
+  }, [availableRiders]);
 
   // Bill Builder state
   const [billedItems, setBilledItems] = useState<
@@ -700,11 +720,209 @@ export default function SlipOrdersTab({
 
   const handleMouseUp = () => setIsDragging(false);
 
+  // Adapter for RiderAssignmentModal
+  const slipOrderForModal = useMemo(() => {
+    if (!riderModalSlip) return null;
+    return {
+      id: riderModalSlip.id,
+      orderNumber: riderModalSlip.id,
+      grandTotal: riderModalSlip.final_total || riderModalSlip.estimated_total || 0,
+      isPaid: riderModalSlip.status === 'PAID' || riderModalSlip.payment_status === 'completed',
+      paymentStatus: riderModalSlip.payment_status,
+      paymentMethod:
+        riderModalSlip.payment_method ||
+        (riderModalSlip.status === 'COD_PENDING' ? 'Cash on Delivery' : 'Online Payment'),
+      address: {
+        fullName: riderModalSlip.customer_name,
+        mobileNumber: riderModalSlip.customer_phone,
+        streetArea: riderModalSlip.address,
+        city: 'Nellore',
+      },
+      items: riderModalSlip.items || [],
+      assignedRider: riderModalSlip.rider_id
+        ? {
+            id: riderModalSlip.rider_id,
+            name: riderModalSlip.rider_name || 'Rider',
+            phone: riderModalSlip.rider_phone || '',
+          }
+        : undefined,
+    } as any;
+  }, [riderModalSlip]);
+
+  const handleRiderAssignSubmit = async (
+    orderId: string,
+    riderInfo: { id?: string; email?: string; name: string; phone?: string; vehicleNumber?: string }
+  ) => {
+    setUpdatingSlipId(orderId);
+    setActionSuccess(null);
+    setActionError(null);
+    try {
+      const res = await fetch(`/api/admin/slip-orders/${orderId}/assign-rider`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAdminHeaders(),
+        },
+        body: JSON.stringify({
+          riderId: riderInfo.id || 'rider-1',
+          riderName: riderInfo.name,
+          riderPhone: riderInfo.phone || '',
+          staffName: user?.name || user?.email || 'Store Admin',
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        soundAlerts.playRiderAssignmentChime?.();
+        setOrders((prev) =>
+          prev.map((o) =>
+            o.id === orderId
+              ? {
+                  ...o,
+                  status: 'RIDER_ASSIGNED',
+                  rider_id: riderInfo.id,
+                  rider_name: riderInfo.name,
+                  rider_phone: riderInfo.phone,
+                }
+              : o
+          )
+        );
+        if (selectedSlip?.id === orderId) {
+          setSelectedSlip((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  status: 'RIDER_ASSIGNED',
+                  rider_id: riderInfo.id,
+                  rider_name: riderInfo.name,
+                  rider_phone: riderInfo.phone,
+                }
+              : null
+          );
+        }
+        setActionSuccess(`Rider ${riderInfo.name} assigned to Slip #${orderId}! Ready for dispatch.`);
+        setTimeout(() => setActionSuccess(null), 4000);
+      } else {
+        setActionError(data.error || 'Failed to assign rider');
+      }
+    } catch (err: any) {
+      setActionError(err.message || 'Error assigning rider');
+    } finally {
+      setUpdatingSlipId(null);
+      setRiderModalSlip(null);
+    }
+  };
+
+  const handleSlipStageAction = async (
+    slip: SlipOrder,
+    actionType: 'assign_rider' | 'dispatch' | 'deliver'
+  ) => {
+    if (actionType === 'assign_rider') {
+      setRiderModalSlip(slip);
+      return;
+    }
+
+    if (actionType === 'dispatch') {
+      setUpdatingSlipId(slip.id);
+      setActionSuccess(null);
+      setActionError(null);
+      try {
+        const res = await fetch(`/api/admin/orders/${slip.id}/status`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...getAdminHeaders(),
+          },
+          body: JSON.stringify({
+            status: 'Out for Delivery',
+            staffIdentifier: user?.name || user?.email || 'Store Admin',
+            orderFallback: slip,
+          }),
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          soundAlerts.playRiderAssignmentChime?.();
+          setOrders((prev) =>
+            prev.map((o) => (o.id === slip.id ? { ...o, status: 'OUT_FOR_DELIVERY' } : o))
+          );
+          if (selectedSlip?.id === slip.id) {
+            setSelectedSlip((prev) => (prev ? { ...prev, status: 'OUT_FOR_DELIVERY' } : null));
+          }
+          setActionSuccess(`Order #${slip.id} dispatched! Out for express delivery 🛵`);
+          setTimeout(() => setActionSuccess(null), 4000);
+        } else {
+          setActionError(data.error || 'Failed to dispatch order');
+        }
+      } catch (err: any) {
+        setActionError(err.message || 'Error dispatching order');
+      } finally {
+        setUpdatingSlipId(null);
+      }
+      return;
+    }
+
+    if (actionType === 'deliver') {
+      const isPickup = slip.order_type === 'pickup';
+      const promptMsg = isPickup
+        ? `Customer Store Pickup Handover:\n\nPlease enter the 4-digit Store Pickup PIN shown on the customer's screen to complete handover:`
+        : `Customer Delivery OTP Verification:\n\nPlease enter the customer's 4-digit delivery PIN to confirm delivery:`;
+      const input = window.prompt(promptMsg);
+      if (!input || !input.trim()) return;
+
+      const otp = input.trim();
+      setUpdatingSlipId(slip.id);
+      setActionSuccess(null);
+      setActionError(null);
+      try {
+        const res = await fetch(`/api/admin/orders/${slip.id}/status`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...getAdminHeaders(),
+          },
+          body: JSON.stringify({
+            status: 'Delivered',
+            otp,
+            staffIdentifier: user?.name || user?.email || 'Store Admin',
+            orderFallback: slip,
+            cashCollected: slip.payment_status === 'COD_PENDING',
+          }),
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          setOrders((prev) =>
+            prev.map((o) =>
+              o.id === slip.id
+                ? { ...o, status: 'DELIVERED', payment_status: 'completed' }
+                : o
+            )
+          );
+          if (selectedSlip?.id === slip.id) {
+            setSelectedSlip((prev) =>
+              prev ? { ...prev, status: 'DELIVERED', payment_status: 'completed' } : null
+            );
+          }
+          setActionSuccess(`Order #${slip.id} successfully marked as Delivered! 🎉`);
+          setTimeout(() => setActionSuccess(null), 4000);
+        } else {
+          setActionError(data.error || 'Invalid OTP code. Please recheck with customer.');
+        }
+      } catch (err: any) {
+        setActionError(err.message || 'Error completing delivery');
+      } finally {
+        setUpdatingSlipId(null);
+      }
+    }
+  };
+
   // Counts for badges
   const newSlipsCount = orders.filter((o) => o.status === 'SLIP_RECEIVED').length;
   const confirmedForPacker = orders.filter(
     (o) => o.status === 'CONFIRMED' || o.status === 'PACKING'
   ).length;
+  const dispatchedCount = orders.filter(
+    (o) => o.status === 'RIDER_ASSIGNED' || o.status === 'OUT_FOR_DELIVERY'
+  ).length;
+  const deliveredCount = orders.filter((o) => o.status === 'DELIVERED').length;
 
   // Filtered orders list for slips view
   const filteredOrders = useMemo(() => {
@@ -719,8 +937,13 @@ export default function SlipOrdersTab({
       if (statusFilter === 'new') return matchSearch && o.status === 'SLIP_RECEIVED';
       if (statusFilter === 'confirmed') return matchSearch && o.status === 'CONFIRMED';
       if (statusFilter === 'packing') return matchSearch && o.status === 'PACKING';
-      if (statusFilter === 'packed') return matchSearch && (o.status === 'PACKED' || o.status === 'AWAITING_PAYMENT');
-      if (statusFilter === 'paid') return matchSearch && (o.status === 'PAID' || o.status === 'COD_PENDING');
+      if (statusFilter === 'packed')
+        return matchSearch && (o.status === 'PACKED' || o.status === 'AWAITING_PAYMENT');
+      if (statusFilter === 'paid')
+        return matchSearch && (o.status === 'PAID' || o.status === 'COD_PENDING');
+      if (statusFilter === 'dispatched')
+        return matchSearch && (o.status === 'RIDER_ASSIGNED' || o.status === 'OUT_FOR_DELIVERY');
+      if (statusFilter === 'delivered') return matchSearch && o.status === 'DELIVERED';
       return matchSearch && o.status === statusFilter;
     });
   }, [orders, searchQuery, statusFilter]);
@@ -929,6 +1152,8 @@ export default function SlipOrdersTab({
                     { id: 'packing', label: 'Packing' },
                     { id: 'packed', label: 'Packed' },
                     { id: 'paid', label: 'Paid/COD' },
+                    { id: 'dispatched', label: 'Out for Delivery 🛵', count: dispatchedCount },
+                    { id: 'delivered', label: 'Delivered ✓', count: deliveredCount },
                   ].map((filter) => (
                     <button
                       key={filter.id}
@@ -1041,25 +1266,109 @@ export default function SlipOrdersTab({
                             )}
                           </div>
 
-                          <button
-                            type="button"
-                            onClick={() => {
-                              activeSlipIdRef.current = null;
-                              userBillingModeRef.current = null;
-                              setSelectedSlip(slip);
-                              try {
-                                window.history.pushState(
-                                  { view: 'slip', slipId: slip.id, tab: 'slips', adminBack: true },
-                                  '',
-                                  `/admin?tab=slips&slipId=${encodeURIComponent(slip.id)}`
+                          <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                activeSlipIdRef.current = null;
+                                userBillingModeRef.current = null;
+                                setSelectedSlip(slip);
+                                try {
+                                  window.history.pushState(
+                                    { view: 'slip', slipId: slip.id, tab: 'slips', adminBack: true },
+                                    '',
+                                    `/admin?tab=slips&slipId=${encodeURIComponent(slip.id)}`
+                                  );
+                                } catch {}
+                              }}
+                              className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-bold rounded-xl transition-all"
+                            >
+                              <span>{slip.status === 'SLIP_RECEIVED' ? 'Build Bill' : 'View Bill'}</span>
+                              <ChevronRight className="w-3.5 h-3.5" />
+                            </button>
+
+                            {/* Stage Action Button */}
+                            {(() => {
+                              const s = slip.status;
+                              const isPickup = slip.order_type === 'pickup';
+                              const isUpdating = updatingSlipId === slip.id;
+
+                              if (s === 'PAID' || s === 'COD_PENDING') {
+                                if (isPickup) {
+                                  return (
+                                    <button
+                                      type="button"
+                                      disabled={isUpdating}
+                                      onClick={() => handleSlipStageAction(slip, 'deliver')}
+                                      className="inline-flex items-center gap-1 px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-black rounded-xl transition-all shadow-2xs"
+                                    >
+                                      {isUpdating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <span>Complete Pickup (PIN) →</span>}
+                                    </button>
+                                  );
+                                }
+                                return (
+                                  <button
+                                    type="button"
+                                    disabled={isUpdating}
+                                    onClick={() => handleSlipStageAction(slip, 'assign_rider')}
+                                    className="inline-flex items-center gap-1 px-3 py-1.5 bg-purple-700 hover:bg-purple-800 text-white text-xs font-black rounded-xl transition-all shadow-2xs"
+                                  >
+                                    <Bike className="w-3.5 h-3.5" />
+                                    <span>Assign Rider →</span>
+                                  </button>
                                 );
-                              } catch {}
-                            }}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white text-xs font-black rounded-xl transition-all shadow-2xs"
-                          >
-                            <span>Open Bill Builder</span>
-                            <ChevronRight className="w-3.5 h-3.5" />
-                          </button>
+                              }
+
+                              if (s === 'RIDER_ASSIGNED') {
+                                return (
+                                  <div className="flex items-center gap-1">
+                                    <button
+                                      type="button"
+                                      disabled={isUpdating}
+                                      onClick={() => handleSlipStageAction(slip, 'dispatch')}
+                                      className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-black rounded-xl transition-all shadow-2xs"
+                                    >
+                                      {isUpdating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <>
+                                        <Truck className="w-3.5 h-3.5" />
+                                        <span>Dispatch 🛵 →</span>
+                                      </>}
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={() => handleSlipStageAction(slip, 'assign_rider')}
+                                      title="Reassign Rider"
+                                      className="p-1.5 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-xl text-xs font-bold"
+                                    >
+                                      <Bike className="w-3.5 h-3.5" />
+                                    </button>
+                                  </div>
+                                );
+                              }
+
+                              if (s === 'OUT_FOR_DELIVERY') {
+                                return (
+                                  <button
+                                    type="button"
+                                    disabled={isUpdating}
+                                    onClick={() => handleSlipStageAction(slip, 'deliver')}
+                                    className="inline-flex items-center gap-1 px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-black rounded-xl transition-all shadow-2xs"
+                                  >
+                                    {isUpdating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <span>Handover (OTP) →</span>}
+                                  </button>
+                                );
+                              }
+
+                              if (s === 'DELIVERED') {
+                                return (
+                                  <span className="text-[11px] font-black text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-1 rounded-xl">
+                                    ✓ Delivered
+                                  </span>
+                                );
+                              }
+
+                              return null;
+                            })()}
+                          </div>
                         </div>
                       </div>
                     );
@@ -1092,9 +1401,83 @@ export default function SlipOrdersTab({
                   <span>Back to Slips List</span>
                 </button>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-xs font-black text-stone-900">Slip #{selectedSlip.id}</span>
                   {getStatusBadge(selectedSlip.status)}
+
+                  {/* Context Stage Action in Detail Header */}
+                  {(() => {
+                    const s = selectedSlip.status;
+                    const isPickup = selectedSlip.order_type === 'pickup';
+                    const isUpdating = updatingSlipId === selectedSlip.id;
+
+                    if (s === 'PAID' || s === 'COD_PENDING') {
+                      if (isPickup) {
+                        return (
+                          <button
+                            type="button"
+                            disabled={isUpdating}
+                            onClick={() => handleSlipStageAction(selectedSlip, 'deliver')}
+                            className="inline-flex items-center gap-1 px-3 py-1 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-black rounded-xl transition-all shadow-2xs"
+                          >
+                            {isUpdating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <span>Complete Pickup (PIN) →</span>}
+                          </button>
+                        );
+                      }
+                      return (
+                        <button
+                          type="button"
+                          disabled={isUpdating}
+                          onClick={() => handleSlipStageAction(selectedSlip, 'assign_rider')}
+                          className="inline-flex items-center gap-1 px-3 py-1 bg-purple-700 hover:bg-purple-800 text-white text-xs font-black rounded-xl transition-all shadow-2xs"
+                        >
+                          <Bike className="w-3.5 h-3.5" />
+                          <span>Assign Rider →</span>
+                        </button>
+                      );
+                    }
+
+                    if (s === 'RIDER_ASSIGNED') {
+                      return (
+                        <div className="flex items-center gap-1">
+                          <button
+                            type="button"
+                            disabled={isUpdating}
+                            onClick={() => handleSlipStageAction(selectedSlip, 'dispatch')}
+                            className="inline-flex items-center gap-1 px-3 py-1 bg-indigo-700 hover:bg-indigo-800 text-white text-xs font-black rounded-xl transition-all shadow-2xs"
+                          >
+                            {isUpdating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <>
+                              <Truck className="w-3.5 h-3.5" />
+                              <span>Dispatch 🛵 →</span>
+                            </>}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleSlipStageAction(selectedSlip, 'assign_rider')}
+                            title="Reassign Rider"
+                            className="p-1 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-xl text-xs font-bold"
+                          >
+                            <Bike className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      );
+                    }
+
+                    if (s === 'OUT_FOR_DELIVERY') {
+                      return (
+                        <button
+                          type="button"
+                          disabled={isUpdating}
+                          onClick={() => handleSlipStageAction(selectedSlip, 'deliver')}
+                          className="inline-flex items-center gap-1 px-3 py-1 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-black rounded-xl transition-all shadow-2xs"
+                        >
+                          {isUpdating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <span>Complete Handover (OTP) →</span>}
+                        </button>
+                      );
+                    }
+
+                    return null;
+                  })()}
                 </div>
               </div>
 
@@ -2096,6 +2479,15 @@ export default function SlipOrdersTab({
           </div>
         </div>
       )}
+
+      {/* Appoint Rider Modal for Slips */}
+      <RiderAssignmentModal
+        isOpen={Boolean(riderModalSlip)}
+        onClose={() => setRiderModalSlip(null)}
+        order={slipOrderForModal}
+        availableRiders={effectiveRiders}
+        onAssignRider={(orderId, riderInfo) => handleRiderAssignSubmit(orderId, riderInfo)}
+      />
     </div>
   );
 }

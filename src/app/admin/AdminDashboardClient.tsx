@@ -855,12 +855,18 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       if (isInitialFetchDoneRef.current) {
         const newlyArrived = merged.filter((o) => {
           if (seenOrderIdsRef.current.has(o.id)) return false;
-          // Strictly ring alarm ONLY for fresh new orders placed in the last 5 minutes
+          // Strictly ring alarm ONLY for genuine placed orders (COD or paid online) placed in the last 5 minutes
           const rawDate = (o as any).created_at || o.date;
           const orderTime = rawDate ? new Date(rawDate).getTime() : 0;
           const isFresh = isNaN(orderTime) || orderTime <= 0 || Date.now() - orderTime < 5 * 60 * 1000;
-          const isPending = !o.status || o.status === 'Order Placed' || o.status === 'New';
-          return isFresh && isPending;
+          const isPlacedStatus = !o.status || o.status === 'Order Placed' || o.status === 'New';
+          const isPaidOrCod =
+            o.paymentMethod === 'Cash on Delivery' ||
+            o.isPaid ||
+            o.paymentStatus === 'completed' ||
+            o.paymentStatus === 'manual_verified';
+          const isNotCancelledOrPending = o.status !== 'Cancelled' && o.status !== 'Payment Pending';
+          return isFresh && isPlacedStatus && isPaidOrCod && isNotCancelledOrPending;
         });
 
         merged.forEach((o) => seenOrderIdsRef.current.add(o.id));
@@ -1966,6 +1972,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 }}
                 onCloseSlip={() => navigateBack()}
                 onBackToDashboard={() => navigateBack()}
+                availableRiders={staffMembers.riders}
               />
             )}
 
@@ -1979,6 +1986,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 }}
                 onCloseSlip={() => navigateBack()}
                 onBackToDashboard={() => navigateBack()}
+                availableRiders={staffMembers.riders}
               />
             )}
 

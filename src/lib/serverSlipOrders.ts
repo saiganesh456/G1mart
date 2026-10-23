@@ -179,6 +179,19 @@ async function syncSlipOrderToSupabase(slip: SlipOrder): Promise<void> {
           await client.from('slip_items').insert(itemsPayload);
         }
       }
+
+      if (Array.isArray(slip.images) && slip.images.length > 0) {
+        await client.from('slip_images').upsert(
+          slip.images.map((img) => ({
+            id: img.id,
+            slip_order_id: slip.id,
+            storage_path: img.storage_path,
+            image_url: img.image_url,
+            sort_order: img.sort_order ?? 0,
+            created_at: img.created_at || new Date().toISOString(),
+          }))
+        );
+      }
       return; // Succeeded with this client
     } catch (err) {
       console.warn('[serverSlipOrders] Supabase sync attempt note:', err);
@@ -322,50 +335,9 @@ export const serverSlipOrders = {
     slipsMap.set(order.id, order);
     persistDiskSlipOrders();
 
-    // Mirror to Supabase if configured
+    // Mirror to Supabase if configured across both clients with full fallback
     if (isSupabaseConfigured()) {
-      try {
-        await supabase.from('slip_orders').upsert({
-          id: order.id,
-          customer_id: params.customerId || null,
-          customer_name: order.customer_name,
-          customer_phone: order.customer_phone,
-          customer_note: order.customer_note,
-          address: order.address,
-          lat: order.lat,
-          lng: order.lng,
-          pincode: order.pincode,
-          distance_km: order.distance_km,
-          eta_min: order.eta_min,
-          zone_id: order.zone_id,
-          zone_min_order: order.zone_min_order,
-          order_type: order.order_type,
-          status: order.status,
-          estimated_total: order.estimated_total,
-          final_total: order.final_total,
-          subtotal: order.subtotal,
-          delivery_fee: order.delivery_fee,
-          cod_fee: order.cod_fee,
-          payment_status: order.payment_status,
-          created_at: order.created_at,
-          updated_at: order.updated_at,
-        });
-
-        if (slipImages.length > 0) {
-          await supabase.from('slip_images').upsert(
-            slipImages.map((img) => ({
-              id: img.id,
-              slip_order_id: img.slip_order_id,
-              storage_path: img.storage_path,
-              image_url: img.image_url,
-              sort_order: img.sort_order,
-              created_at: img.created_at,
-            }))
-          );
-        }
-      } catch (err) {
-        console.warn('[serverSlipOrders] Supabase sync note:', err);
-      }
+      await syncSlipOrderToSupabase(order);
     }
 
     return order;

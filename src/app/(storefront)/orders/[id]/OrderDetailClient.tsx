@@ -843,11 +843,15 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
                     ? 'Pay on Delivery Confirmed'
                     : order?.status === 'PAID'
                     ? (isPickup ? 'Paid Online · Ready for Pickup' : 'Paid Online · Ready for Dispatch')
-                    : order?.status === 'Delivered'
+                    : (order?.status === 'RIDER_ASSIGNED' || order?.status === 'Rider Assigned')
+                    ? 'Rider Assigned · Preparing Dispatch 🛵'
+                    : (order?.status === 'OUT_FOR_DELIVERY' || order?.status === 'Out for Delivery' || order?.status === 'Order Dispatched')
+                    ? 'Out for Express Delivery 🛵'
+                    : (order?.status === 'Delivered' || order?.status === 'DELIVERED')
                     ? (isPickup ? 'Picked Up & Completed 🎉' : 'Delivered at Doorstep 🎉')
                     : order?.status || 'Order Placed'}
                 </span>
-                {(order?.status === 'PACKING' || (isSlipOrder && order?.status === 'AWAITING_PAYMENT') || order?.status === 'Out for Delivery') && (
+                {(order?.status === 'PACKING' || (isSlipOrder && order?.status === 'AWAITING_PAYMENT') || order?.status === 'Out for Delivery' || order?.status === 'OUT_FOR_DELIVERY' || order?.status === 'RIDER_ASSIGNED') && (
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 )}
               </span>
@@ -895,12 +899,13 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
                 status === 'Out for Delivery' ||
                 status === 'OUT_FOR_DELIVERY' ||
                 status === 'Order Dispatched' ||
-                status === 'RIDER_ASSIGNED';
+                status === 'RIDER_ASSIGNED' ||
+                status === 'Rider Assigned';
               const isReadyPickup = isPickup && (status === 'Packed' || status === 'PACKED' || status === 'Confirmed' || status === 'Packing');
               const otp = order?.deliveryOtp || order?.delivery_otp;
               const hasArrived = Boolean(order?.arrivedAtDoorstep || order?.arrived_at_doorstep);
 
-              if (!isDelivered && (isOutForDelivery || isReadyPickup || otp || hasArrived)) {
+              if (!isDelivered && (isOutForDelivery || isReadyPickup || otp || hasArrived || status === 'PAID' || status === 'COD_PENDING')) {
                 const displayPin = order?.deliveryOtp || order?.delivery_otp || (order?.address as any)?._deliveryOtp || '----';
                 const riderName =
                   order?.assignedRider?.name ||

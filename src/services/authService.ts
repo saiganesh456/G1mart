@@ -87,8 +87,11 @@ export const authService = {
       }
 
       if (data) {
+        const meta = user.user_metadata || {};
+        const profileName = data.full_name || meta.full_name || meta.name || user.email?.split('@')[0] || 'Customer';
         return {
-          name: data.full_name || 'Customer',
+          id: user.id,
+          name: profileName,
           phone: data.phone || user.phone || '',
           email: userEmail,
           avatar: data.avatar_url || '',

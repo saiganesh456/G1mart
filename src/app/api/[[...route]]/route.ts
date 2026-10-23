@@ -21,6 +21,7 @@ import * as AdminSlipDetail from '@/server/api-handlers/admin/slips/[id]/route';
 import * as AdminStaff from '@/server/api-handlers/admin/staff/route';
 import * as AuthRoleCheck from '@/server/api-handlers/auth/role-check/route';
 import * as Banners from '@/server/api-handlers/banners/route';
+import * as CheckoutCancel from '@/server/api-handlers/checkout/cancel/route';
 import * as CheckoutInitiate from '@/server/api-handlers/checkout/initiate/route';
 import * as CreateOrder from '@/server/api-handlers/create-order/route';
 import * as LocationDistance from '@/server/api-handlers/location/distance/route';
@@ -124,6 +125,7 @@ async function handleRequest(req: NextRequest, { params }: RouteContext) {
     handlerModule = Banners;
   } else if (p0 === 'checkout') {
     if (p1 === 'initiate') handlerModule = CheckoutInitiate;
+    else if (p1 === 'cancel') handlerModule = CheckoutCancel;
   } else if (p0 === 'create-order') {
     handlerModule = CreateOrder;
   } else if (p0 === 'location') {

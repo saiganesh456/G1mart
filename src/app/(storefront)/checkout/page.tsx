@@ -57,6 +57,33 @@ export default function CheckoutPage() {
   const [quickName, setQuickName] = useState('');
   const [authError, setAuthError] = useState<string | null>(null);
 
+  // Customer contact name & mobile (editable for both Home Delivery & Store Pickup)
+  const [contactName, setContactName] = useState('');
+  const [contactPhone, setContactPhone] = useState('');
+
+  // Auto-grab Google Account profile name & phone
+  useEffect(() => {
+    const googleName =
+      user?.name ||
+      supabaseUser?.user_metadata?.full_name ||
+      supabaseUser?.user_metadata?.name ||
+      savedAddress?.fullName ||
+      '';
+    const googlePhone =
+      user?.phone ||
+      supabaseUser?.phone ||
+      savedAddress?.phone ||
+      savedAddress?.mobileNumber ||
+      '';
+
+    if (googleName && googleName.toLowerCase() !== 'valued customer' && googleName.toLowerCase() !== 'customer') {
+      setContactName((prev) => (prev ? prev : googleName));
+    }
+    if (googlePhone) {
+      setContactPhone((prev) => (prev ? prev : googlePhone));
+    }
+  }, [user, supabaseUser, savedAddress]);
+
   // Load saved address on initial mount
   useEffect(() => {
     let isMounted = true;
@@ -164,7 +191,7 @@ export default function CheckoutPage() {
       setAuthError('Please enter a valid 10-digit mobile number (starts with 6, 7, 8, or 9)');
       return;
     }
-    const name = quickName.trim() || 'Valued Customer';
+    const name = quickName.trim() || 'Customer';
     setLocalUser({
       name,
       phone: clean,
@@ -172,6 +199,8 @@ export default function CheckoutPage() {
       avatar: '',
       memberSince: new Date().toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }),
     });
+    setContactName(name);
+    setContactPhone(clean);
     setAuthError(null);
     if (!savedAddress && orderType === 'delivery') {
       setIsAddressSheetOpen(true);
@@ -243,13 +272,30 @@ export default function CheckoutPage() {
     }
 
     // Prepare checkout payload
+    const effectiveFullName =
+      contactName.trim() ||
+      savedAddress?.fullName ||
+      user?.name ||
+      supabaseUser?.user_metadata?.full_name ||
+      supabaseUser?.user_metadata?.name ||
+      'Customer';
+
+    const cleanContactPhone = sanitizeIndianPhone(contactPhone.trim());
+    const effectivePhone =
+      cleanContactPhone ||
+      savedAddress?.phone ||
+      savedAddress?.mobileNumber ||
+      user?.phone ||
+      '9876543210';
+
     const checkoutData = {
       ...(savedAddress || {}),
       orderType,
       selectedSlot: orderType === 'pickup' ? 'Store Pickup' : selectedSlot,
-      fullName: savedAddress?.fullName || user?.name || 'Customer',
-      phone: savedAddress?.phone || savedAddress?.mobileNumber || user?.phone || '9876543210',
-      mobileNumber: savedAddress?.phone || savedAddress?.mobileNumber || user?.phone || '9876543210',
+      fullName: effectiveFullName,
+      name: effectiveFullName,
+      phone: effectivePhone,
+      mobileNumber: effectivePhone,
       distance_km: activeDistanceKm,
       zone_min_order: activeMinOrder,
       eta_min: activeEtaMins,
@@ -449,7 +495,52 @@ export default function CheckoutPage() {
         </div>
       </div>
 
-      {/* 2. Small Line Address in Checkout */}
+      {/* 2. Customer Contact Name & Phone (Editable for both Home Delivery & Store Pickup) */}
+      <div className="bg-white rounded-2xl border border-stone-200/90 p-3.5 shadow-2xs space-y-2.5 min-w-0 w-full box-border">
+        <div className="flex items-center justify-between">
+          <label className="text-[11px] font-extrabold text-stone-500 uppercase tracking-wider block">
+            Customer Contact & Verification Details
+          </label>
+          <span className="text-[10px] text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+            Auto-filled from Google
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div>
+            <label className="text-[11px] font-bold text-stone-700 block mb-1">
+              Your Name / Recipient
+            </label>
+            <input
+              type="text"
+              value={contactName}
+              onChange={(e) => setContactName(e.target.value)}
+              placeholder="e.g. Your Name"
+              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+            />
+          </div>
+
+          <div>
+            <label className="text-[11px] font-bold text-stone-700 block mb-1">
+              Contact Mobile Number
+            </label>
+            <input
+              type="tel"
+              inputMode="tel"
+              value={contactPhone}
+              onChange={(e) => setContactPhone(e.target.value.replace(/[^0-9]/g, ''))}
+              placeholder="10-digit mobile number"
+              maxLength={10}
+              className="w-full px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-bold text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+            />
+          </div>
+        </div>
+        <p className="text-[10px] text-stone-400 leading-tight">
+          Used on order invoice and for handover PIN verification during {orderType === 'pickup' ? 'store pickup' : 'doorstep delivery'}.
+        </p>
+      </div>
+
+      {/* 3. Small Line Address in Checkout */}
       {orderType === 'delivery' ? (
         <div className="space-y-1.5 min-w-0 w-full box-border">
           <div className="flex items-center justify-between px-1">

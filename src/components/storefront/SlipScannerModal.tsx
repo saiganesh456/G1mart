@@ -36,7 +36,7 @@ interface CapturedPhoto {
 
 export default function SlipScannerModal({ isOpen, onClose }: Props) {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, supabaseUser } = useAuth();
   const { currentLocation, isServiceable } = useLocation();
   const [step, setStep] = useState<'camera' | 'preview' | 'details' | 'success'>('camera');
   const [cameraActive, setCameraActive] = useState(false);
@@ -92,12 +92,23 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
 
   // Sync user details if available, with fallback to previously saved customer details
   useEffect(() => {
-    if (user?.name) setCustomerName(user.name);
-    if (user?.phone) setCustomerPhone(user.phone);
+    const googleName =
+      user?.name ||
+      supabaseUser?.user_metadata?.full_name ||
+      supabaseUser?.user_metadata?.name ||
+      '';
+    const googlePhone = user?.phone || supabaseUser?.phone || '';
+
+    if (googleName && googleName.toLowerCase() !== 'valued customer' && googleName.toLowerCase() !== 'customer') {
+      setCustomerName(googleName);
+    }
+    if (googlePhone) {
+      setCustomerPhone(googlePhone);
+    }
 
     try {
       if (typeof window !== 'undefined') {
-        if (!user?.phone) {
+        if (!user?.phone && !supabaseUser?.phone) {
           const savedPhone =
             localStorage.getItem('g1mart_customer_phone') ||
             JSON.parse(localStorage.getItem('g1mart_user_session') || '{}')?.phone ||
@@ -106,18 +117,18 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
             '';
           if (savedPhone) setCustomerPhone(savedPhone);
         }
-        if (!user?.name) {
+        if (!googleName) {
           const savedName =
             localStorage.getItem('g1mart_customer_name') ||
             JSON.parse(localStorage.getItem('g1mart_user_session') || '{}')?.name ||
             JSON.parse(localStorage.getItem('g1mart_last_used_address') || '{}')?.fullName ||
             JSON.parse(localStorage.getItem('g1mart_recent_order') || '{}')?.address?.fullName ||
             '';
-          if (savedName) setCustomerName(savedName);
+          if (savedName && savedName.toLowerCase() !== 'valued customer') setCustomerName(savedName);
         }
       }
     } catch {}
-  }, [user, isOpen]);
+  }, [user, supabaseUser, isOpen]);
 
   // Clean up camera stream
   const stopCamera = () => {
@@ -413,7 +424,13 @@ export default function SlipScannerModal({ isOpen, onClose }: Props) {
       if (capturedPhotos[0]) {
         formData.append('file', capturedPhotos[0].blob, 'slip.jpg');
       }
-      formData.append('name', customerName.trim() || 'Valued Customer');
+      const effectiveCustomerName =
+        customerName.trim() ||
+        user?.name ||
+        supabaseUser?.user_metadata?.full_name ||
+        supabaseUser?.user_metadata?.name ||
+        'Customer';
+      formData.append('name', effectiveCustomerName);
       formData.append('phone', cleanPhone);
       formData.append('note', deliveryNote.trim());
       if (user?.id) {

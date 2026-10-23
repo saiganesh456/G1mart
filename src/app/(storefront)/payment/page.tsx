@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
@@ -37,6 +37,7 @@ export default function PaymentPage() {
   // Dynamic COD fee from store settings (default ₹50)
   const [codFee, setCodFee] = useState<number>(50);
   const [recentOrder, setRecentOrder] = useState<any>(null);
+  const pendingOnlineOrderIdRef = useRef<string | null>(null);
 
   // If user arrives at /payment with ?paid=true and ?orderId=, redirect to order detail page immediately
   useEffect(() => {
@@ -177,6 +178,17 @@ export default function PaymentPage() {
       // --- Option B: Pay on Delivery ---
       // Adds cod_fee to total; order becomes PLACED with payment_status = COD_PENDING (Phase 5 Rule 1)
       if (selectedMethod === 'cod') {
+        // If there was an abandoned online checkout attempt, cancel it immediately on the server
+        if (pendingOnlineOrderIdRef.current) {
+          const toCancel = pendingOnlineOrderIdRef.current;
+          pendingOnlineOrderIdRef.current = null;
+          fetch('/api/checkout/cancel', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ orderId: toCancel, reason: 'Switched to Cash on Delivery' }),
+          }).catch(() => {});
+        }
+
         const effectiveCodFee = isPickup ? 0 : (data.codFee !== undefined ? data.codFee : codFee);
         const effectiveGrandTotal = data.grandTotal || (cartSubtotal + effectiveCodFee);
 
@@ -319,6 +331,8 @@ export default function PaymentPage() {
         return;
       }
 
+      pendingOnlineOrderIdRef.current = data.orderId;
+
       // Load official Razorpay checkout.js script
       const scriptReady = await loadRazorpayScript();
       if (!scriptReady || !(window as any).Razorpay) {
@@ -351,6 +365,15 @@ export default function PaymentPage() {
           ondismiss: () => {
             setProcessing(false);
             setErrorMessage('Online payment was cancelled or not completed. Please retry or choose Pay on delivery.');
+            if (pendingOnlineOrderIdRef.current) {
+              const toCancel = pendingOnlineOrderIdRef.current;
+              pendingOnlineOrderIdRef.current = null;
+              fetch('/api/checkout/cancel', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ orderId: toCancel, reason: 'Customer closed payment window without paying' }),
+              }).catch(() => {});
+            }
           },
         },
         handler: async (response: {
@@ -358,6 +381,7 @@ export default function PaymentPage() {
           razorpay_order_id: string;
           razorpay_signature: string;
         }) => {
+          pendingOnlineOrderIdRef.current = null;
           await handleVerifyRazorpaySuccess({
             orderId: data.orderId,
             razorpayOrderId: response.razorpay_order_id,
@@ -374,6 +398,15 @@ export default function PaymentPage() {
           setProcessing(false);
           const desc = failResp?.error?.description || failResp?.error?.reason || 'Payment transaction failed.';
           setErrorMessage(`Payment failed: ${desc}`);
+          if (pendingOnlineOrderIdRef.current) {
+            const toCancel = pendingOnlineOrderIdRef.current;
+            pendingOnlineOrderIdRef.current = null;
+            fetch('/api/checkout/cancel', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ orderId: toCancel, reason: `Payment failed: ${desc}` }),
+            }).catch(() => {});
+          }
         });
 
         rzp.open();
