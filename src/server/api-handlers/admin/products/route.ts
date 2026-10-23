@@ -110,20 +110,35 @@ export async function PATCH(request: NextRequest) {
         let variantUpdated = false;
 
         if (Array.isArray(body.variants) && body.variants.length > 0) {
-          variantsList.forEach((v: any) => {
-            if (v.product_id === id) {
-              const matched = body.variants.find(
-                (bv: any) =>
-                  bv.id === v.id ||
-                  (bv.size_label && v.size_label && bv.size_label.trim().toLowerCase() === v.size_label.trim().toLowerCase())
-              );
-              if (matched) {
-                if (matched.price !== undefined) v.price = Number(matched.price);
-                if (matched.mrp !== undefined) v.mrp = Number(matched.mrp);
-                if (matched.stock !== undefined) v.stock = Number(matched.stock);
-                if (matched.image_url) v.image_url = matched.image_url;
-                variantUpdated = true;
-              }
+          body.variants.forEach((bv: any, bIdx: number) => {
+            const existing = variantsList.find(
+              (v: any) =>
+                v.product_id === id &&
+                (v.id === bv.id ||
+                  (bv.size_label &&
+                    v.size_label &&
+                    bv.size_label.trim().toLowerCase() === v.size_label.trim().toLowerCase()))
+            );
+            if (existing) {
+              if (bv.price !== undefined) existing.price = Number(bv.price);
+              if (bv.mrp !== undefined) existing.mrp = Number(bv.mrp);
+              if (bv.stock !== undefined) existing.stock = Number(bv.stock);
+              if (bv.size_label) existing.size_label = bv.size_label.trim();
+              if (bv.image_url) existing.image_url = bv.image_url;
+              variantUpdated = true;
+            } else {
+              variantsList.push({
+                id: bv.id || `${id}-v${Date.now().toString().slice(-4)}${bIdx}`,
+                product_id: id,
+                size_label: bv.size_label ? bv.size_label.trim() : '1 unit',
+                price: Number(bv.price) || 0,
+                mrp: Number(bv.mrp) || Number(bv.price) || 0,
+                stock: Number(bv.stock) >= 0 ? Number(bv.stock) : 15,
+                image_url: bv.image_url || null,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+              });
+              variantUpdated = true;
             }
           });
         } else {
@@ -174,6 +189,7 @@ export async function PATCH(request: NextRequest) {
             }
           }
           if (inStock !== undefined) current.inStock = Boolean(inStock);
+          if (Array.isArray(body.variants) && body.variants.length > 0) current.variants = body.variants;
           if (imageUrl !== undefined) {
             const cleanImg = String(imageUrl).trim();
             current.imageUrl = cleanImg;
@@ -402,4 +418,3 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
-

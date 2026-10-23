@@ -14,6 +14,8 @@ import {
   Plus,
   ExternalLink,
   Camera,
+  X,
+  Trash2,
 } from 'lucide-react';
 import ProductImage from '@/components/storefront/ProductImage';
 import { adminFetch } from '@/lib/adminApi';
@@ -139,9 +141,28 @@ export default function ProductDetailsPanel({
     if (product.variants && product.variants.length > 0) {
       return product.variants.map((v) => ({ ...v }));
     }
-    return [];
+    return [
+      {
+        id: `${product.id || 'p'}-v1`,
+        product_id: product.id || 'p',
+        size_label: product.unit || '1 unit',
+        price: product.price !== undefined && product.price !== null ? product.price : 0,
+        mrp: product.originalPrice || product.price || 0,
+        stock: product.stockCount !== undefined && product.stockCount !== null ? product.stockCount : 15,
+        in_stock: product.inStock !== false,
+        image_url: product.imageUrl || product.image_url || product.image || '/products/placeholder.svg',
+      },
+    ];
   });
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
+
+  // Quick Pack Size / Variant modal state
+  const [showAddVariantModal, setShowAddVariantModal] = useState(false);
+  const [newVariantUnit, setNewVariantUnit] = useState('');
+  const [newVariantPrice, setNewVariantPrice] = useState('');
+  const [newVariantMrp, setNewVariantMrp] = useState('');
+  const [newVariantStock, setNewVariantStock] = useState('25');
+  const [modalVariantError, setModalVariantError] = useState('');
 
   // Key tracking to prevent wiping user edits on background re-renders
   const productKey = isNew ? 'new-product-creation' : `product-${product.id}`;
@@ -186,7 +207,18 @@ export default function ProductDetailsPanel({
     if (product.variants && product.variants.length > 0) {
       setVariantsList(product.variants.map((v) => ({ ...v })));
     } else {
-      setVariantsList([]);
+      setVariantsList([
+        {
+          id: `${product.id || 'p'}-v1`,
+          product_id: product.id || 'p',
+          size_label: product.unit || '1 unit',
+          price: product.price !== undefined && product.price !== null ? product.price : 0,
+          mrp: product.originalPrice || product.price || 0,
+          stock: product.stockCount !== undefined && product.stockCount !== null ? product.stockCount : 15,
+          in_stock: product.inStock !== false,
+          image_url: product.imageUrl || product.image_url || product.image || '/products/placeholder.svg',
+        },
+      ]);
     }
     setSelectedVariantIdx(0);
     setErrorMsg('');
@@ -200,17 +232,22 @@ export default function ProductDetailsPanel({
   };
 
   const handleSelectVariant = (idx: number) => {
+    if (idx === selectedVariantIdx) return;
+
     const currPrice = parseFloat(price) || 0;
     const currMrp = parseFloat(originalPrice) || currPrice;
     const currStock = parseInt(stockCount, 10) || 0;
+    const currUnit = unit.trim() || '1 unit';
 
     const nextList = [...variantsList];
     if (nextList[selectedVariantIdx]) {
       nextList[selectedVariantIdx] = {
         ...nextList[selectedVariantIdx],
+        size_label: currUnit,
         price: currPrice,
         mrp: currMrp,
         stock: currStock,
+        in_stock: inStock && currStock > 0,
       };
     }
     setVariantsList(nextList);
@@ -218,10 +255,155 @@ export default function ProductDetailsPanel({
     setSelectedVariantIdx(idx);
     const target = nextList[idx];
     if (target) {
-      setPrice(target.price !== undefined ? String(target.price) : '');
-      setOriginalPrice(target.mrp !== undefined ? String(target.mrp) : String(target.price ?? ''));
+      setPrice(target.price !== undefined && target.price !== null ? String(target.price) : '');
+      setOriginalPrice(target.mrp !== undefined && target.mrp !== null ? String(target.mrp) : String(target.price ?? ''));
       if (target.stock !== undefined) setStockCount(String(target.stock));
       if (target.size_label) setUnit(target.size_label);
+      if (target.in_stock !== undefined) setInStock(target.in_stock !== false);
+    }
+  };
+
+  const handleOpenAddVariantModal = () => {
+    const currPriceNum = parseFloat(price) || 0;
+    const currMrpNum = parseFloat(originalPrice) || currPriceNum;
+    const currStockNum = parseInt(stockCount, 10) || 0;
+    const currUnitLabel = unit.trim() || '1 unit';
+
+    setVariantsList((prev) => {
+      const baseList = prev.length > 0 ? [...prev] : [
+        {
+          id: `${product.id || 'p'}-v1`,
+          product_id: product.id || 'p',
+          size_label: currUnitLabel,
+          price: currPriceNum,
+          mrp: currMrpNum,
+          stock: currStockNum,
+          in_stock: inStock && currStockNum > 0,
+          image_url: imageUrl,
+        },
+      ];
+      if (baseList[selectedVariantIdx]) {
+        baseList[selectedVariantIdx] = {
+          ...baseList[selectedVariantIdx],
+          size_label: currUnitLabel,
+          price: currPriceNum,
+          mrp: currMrpNum,
+          stock: currStockNum,
+          in_stock: inStock && currStockNum > 0,
+        };
+      }
+      return baseList;
+    });
+
+    setNewVariantUnit('');
+    setNewVariantPrice('');
+    setNewVariantMrp('');
+    setNewVariantStock('25');
+    setModalVariantError('');
+    setShowAddVariantModal(true);
+  };
+
+  const handleConfirmAddVariant = () => {
+    const trimmedUnit = newVariantUnit.trim();
+    if (!trimmedUnit) {
+      setModalVariantError('Please enter a pack size or unit name (e.g. 2 kg)');
+      return;
+    }
+    const parsedPrice = parseFloat(newVariantPrice);
+    if (isNaN(parsedPrice) || parsedPrice <= 0) {
+      setModalVariantError('Please enter a valid selling price greater than 0');
+      return;
+    }
+    const parsedMrp = parseFloat(newVariantMrp) || parsedPrice;
+    const parsedStock = parseInt(newVariantStock, 10) >= 0 ? parseInt(newVariantStock, 10) : 25;
+
+    const currPriceNum = parseFloat(price) || 0;
+    const currMrpNum = parseFloat(originalPrice) || currPriceNum;
+    const currStockNum = parseInt(stockCount, 10) || 0;
+    const currUnitLabel = unit.trim() || '1 unit';
+
+    const baseList = variantsList.length > 0 ? [...variantsList] : [
+      {
+        id: `${product.id || 'p'}-v1`,
+        product_id: product.id || 'p',
+        size_label: currUnitLabel,
+        price: currPriceNum,
+        mrp: currMrpNum,
+        stock: currStockNum,
+        in_stock: inStock && currStockNum > 0,
+        image_url: imageUrl,
+      },
+    ];
+
+    const isDuplicate = baseList.some(
+      (v) => v.size_label && v.size_label.trim().toLowerCase() === trimmedUnit.toLowerCase()
+    );
+    if (isDuplicate) {
+      setModalVariantError(`A pack size for "${trimmedUnit}" already exists.`);
+      return;
+    }
+
+    if (baseList[selectedVariantIdx]) {
+      baseList[selectedVariantIdx] = {
+        ...baseList[selectedVariantIdx],
+        size_label: currUnitLabel,
+        price: currPriceNum,
+        mrp: currMrpNum,
+        stock: currStockNum,
+        in_stock: inStock && currStockNum > 0,
+      };
+    }
+
+    const newV = {
+      id: `${product.id || 'p'}-v${Date.now().toString().slice(-4)}`,
+      product_id: product.id || 'p',
+      size_label: trimmedUnit,
+      price: parsedPrice,
+      mrp: parsedMrp,
+      stock: parsedStock,
+      in_stock: parsedStock > 0,
+      image_url: imageUrl,
+    };
+
+    const updated = [...baseList, newV];
+    const newIdx = updated.length - 1;
+
+    setVariantsList(updated);
+    setSelectedVariantIdx(newIdx);
+
+    setUnit(newV.size_label);
+    setPrice(String(newV.price));
+    setOriginalPrice(String(newV.mrp));
+    setStockCount(String(newV.stock));
+    setInStock(newV.in_stock);
+
+    setShowAddVariantModal(false);
+  };
+
+  const handleDeleteVariant = (idxToDelete: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (variantsList.length <= 1) return;
+
+    const nextList = variantsList.filter((_, i) => i !== idxToDelete);
+    setVariantsList(nextList);
+
+    let nextIdx = 0;
+    if (selectedVariantIdx === idxToDelete) {
+      nextIdx = 0;
+    } else if (selectedVariantIdx > idxToDelete) {
+      nextIdx = selectedVariantIdx - 1;
+    } else {
+      nextIdx = selectedVariantIdx;
+    }
+    setSelectedVariantIdx(nextIdx);
+
+    const target = nextList[nextIdx];
+    if (target) {
+      setUnit(target.size_label || '1 unit');
+      setPrice(target.price !== undefined ? String(target.price) : '');
+      setOriginalPrice(target.mrp !== undefined ? String(target.mrp) : String(target.price ?? ''));
+      setStockCount(target.stock !== undefined ? String(target.stock) : '15');
+      setInStock(target.in_stock !== false && (target.stock ?? 15) > 0);
     }
   };
 
@@ -339,9 +521,11 @@ export default function ProductDetailsPanel({
             if (i === selectedVariantIdx || (v.size_label && unit && v.size_label.toLowerCase() === unit.trim().toLowerCase())) {
               return {
                 ...v,
+                size_label: unit.trim() || v.size_label || '1 unit',
                 price: priceNum,
                 mrp: mrpNum,
                 stock: stockNum,
+                in_stock: inStock && stockNum > 0,
               };
             }
             return v;
@@ -355,8 +539,16 @@ export default function ProductDetailsPanel({
               mrp: mrpNum,
               stock: stockNum,
               image_url: cleanImg,
+              in_stock: inStock && stockNum > 0,
             },
           ];
+
+    const primaryVariant = finalVariants[0] || {
+      size_label: unit.trim() || '1 unit',
+      price: priceNum,
+      mrp: mrpNum,
+      stock: stockNum,
+    };
 
     const finalSub = isCustomSubCategory
       ? customSubCategoryName.trim()
@@ -364,17 +556,20 @@ export default function ProductDetailsPanel({
 
     const updatedProduct: Product = {
       ...product,
-      id: product.id || `g1-p${Date.now().toString().slice(-6)}`,
+      id: product.id ? String(product.id) : `g1-p${Date.now().toString().slice(-6)}`,
       name: name.trim(),
       brand: brand.trim() || 'G1 Mart',
-      unit: unit.trim() || '1 unit',
+      unit: primaryVariant.size_label || unit.trim() || '1 unit',
       category: category.trim(),
       category_id: category.trim(),
       subCategory: finalSub,
-      price: priceNum,
-      originalPrice: mrpNum,
-      discountPercentage: mrpNum > priceNum && mrpNum > 0 ? Math.round(((mrpNum - priceNum) / mrpNum) * 100) : 0,
-      stockCount: stockNum,
+      price: primaryVariant.price ?? priceNum,
+      originalPrice: primaryVariant.mrp ?? mrpNum,
+      discountPercentage:
+        (primaryVariant.mrp ?? mrpNum) > (primaryVariant.price ?? priceNum) && (primaryVariant.mrp ?? mrpNum) > 0
+          ? Math.round((((primaryVariant.mrp ?? mrpNum) - (primaryVariant.price ?? priceNum)) / (primaryVariant.mrp ?? mrpNum)) * 100)
+          : 0,
+      stockCount: primaryVariant.stock ?? stockNum,
       inStock: inStock && stockNum > 0,
       priceConfirmed: priceNum > 0,
       imageUrl: cleanImg,
@@ -895,34 +1090,61 @@ export default function ProductDetailsPanel({
             </div>
           )}
 
-          {/* Pack / Variant Selector if product has multiple variants */}
-          {variantsList.length > 1 && (
-            <div className="bg-stone-50 border border-stone-200 rounded-2xl p-3 space-y-1.5">
-              <label className="text-[11px] font-black text-stone-700 uppercase tracking-wider block">
-                Pack Sizes / Variants (Tap pack size to edit its price &amp; stock)
-              </label>
-              <div className="flex flex-wrap gap-2 pt-1">
-                {variantsList.map((v, idx) => {
-                  const isSel = selectedVariantIdx === idx;
-                  return (
-                    <button
-                      key={v.id || idx}
-                      type="button"
-                      onClick={() => handleSelectVariant(idx)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
-                        isSel
-                          ? 'bg-[#1B5E20] text-white border-[#1B5E20] shadow-2xs'
-                          : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-100'
-                      }`}
-                    >
-                      <span>{v.size_label || `Pack ${idx + 1}`}</span>
-                      <span className="ml-1.5 opacity-80">₹{v.price}</span>
-                    </button>
-                  );
-                })}
+          {/* Pack Sizes & Quantities Section */}
+          <div className="bg-stone-50 border border-stone-200/90 rounded-2xl p-3 sm:p-3.5 space-y-2">
+            <div className="flex items-center justify-between gap-2">
+              <div>
+                <span className="text-[11px] font-black text-stone-700 uppercase tracking-wider block">
+                  Pack Sizes / Quantities ({variantsList.length || 1})
+                </span>
+                <span className="text-[10px] text-stone-500 font-medium">
+                  Tap a size to edit price &amp; stock, or tap + Add Size
+                </span>
               </div>
+              <button
+                type="button"
+                onClick={handleOpenAddVariantModal}
+                className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-bold text-[#1B5E20] bg-white hover:bg-emerald-50 active:scale-95 border border-emerald-300 rounded-lg shadow-2xs transition-all cursor-pointer shrink-0"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>Add Size</span>
+              </button>
             </div>
-          )}
+
+            <div className="flex flex-wrap items-center gap-2 pt-0.5">
+              {variantsList.map((v, idx) => {
+                const isSel = selectedVariantIdx === idx;
+                return (
+                  <div
+                    key={v.id || idx}
+                    onClick={() => handleSelectVariant(idx)}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all border cursor-pointer select-none ${
+                      isSel
+                        ? 'bg-[#1B5E20] text-white border-[#1B5E20] shadow-2xs'
+                        : 'bg-white text-stone-700 border-stone-200 hover:bg-stone-100 hover:border-stone-300'
+                    }`}
+                  >
+                    <span>{v.size_label || `Pack ${idx + 1}`}</span>
+                    <span className={`text-[11px] font-semibold ${isSel ? 'text-emerald-200' : 'text-stone-500'}`}>
+                      ₹{v.price}
+                    </span>
+                    {variantsList.length > 1 && (
+                      <button
+                        type="button"
+                        title="Delete this pack size"
+                        onClick={(e) => handleDeleteVariant(idx, e)}
+                        className={`ml-0.5 p-0.5 rounded-full hover:bg-black/10 transition-colors ${
+                          isSel ? 'text-white/80 hover:text-white' : 'text-stone-400 hover:text-rose-600'
+                        }`}
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Selling Price */}
@@ -941,6 +1163,17 @@ export default function ProductDetailsPanel({
                   const val = e.target.value.replace(/[^0-9.]/g, '');
                   setPrice(val);
                   markTouched('price');
+                  setVariantsList((prev) => {
+                    if (!prev.length) return prev;
+                    const copy = [...prev];
+                    if (copy[selectedVariantIdx]) {
+                      copy[selectedVariantIdx] = {
+                        ...copy[selectedVariantIdx],
+                        price: parseFloat(val) || 0,
+                      };
+                    }
+                    return copy;
+                  });
                 }}
                 placeholder="Enter selling price (e.g. 65)"
                 className={`w-full px-3.5 py-2.5 rounded-xl text-sm font-bold text-stone-900 focus:outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
@@ -972,6 +1205,17 @@ export default function ProductDetailsPanel({
                 onChange={(e) => {
                   const val = e.target.value.replace(/[^0-9.]/g, '');
                   setOriginalPrice(val);
+                  setVariantsList((prev) => {
+                    if (!prev.length) return prev;
+                    const copy = [...prev];
+                    if (copy[selectedVariantIdx]) {
+                      copy[selectedVariantIdx] = {
+                        ...copy[selectedVariantIdx],
+                        mrp: parseFloat(val) || 0,
+                      };
+                    }
+                    return copy;
+                  });
                 }}
                 placeholder="Enter MRP (e.g. 70)"
                 className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-sm font-bold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
@@ -996,11 +1240,24 @@ export default function ProductDetailsPanel({
                   setStockCount(val);
                   markTouched('stock');
                   const n = parseInt(val, 10);
+                  const validStock = !isNaN(n) ? n : 0;
                   if (!isNaN(n) && n <= 0) {
                     setInStock(false);
                   } else if (!isNaN(n) && n > 0) {
                     setInStock(true);
                   }
+                  setVariantsList((prev) => {
+                    if (!prev.length) return prev;
+                    const copy = [...prev];
+                    if (copy[selectedVariantIdx]) {
+                      copy[selectedVariantIdx] = {
+                        ...copy[selectedVariantIdx],
+                        stock: validStock,
+                        in_stock: validStock > 0 && (n > 0 || inStock),
+                      };
+                    }
+                    return copy;
+                  });
                 }}
                 placeholder="Enter stock units (e.g. 50)"
                 className={`w-full px-3.5 py-2.5 rounded-xl text-sm font-bold text-stone-900 focus:outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
@@ -1025,7 +1282,21 @@ export default function ProductDetailsPanel({
               </label>
               <button
                 type="button"
-                onClick={() => setInStock(!inStock)}
+                onClick={() => {
+                  const nextInStock = !inStock;
+                  setInStock(nextInStock);
+                  setVariantsList((prev) => {
+                    if (!prev.length) return prev;
+                    const copy = [...prev];
+                    if (copy[selectedVariantIdx]) {
+                      copy[selectedVariantIdx] = {
+                        ...copy[selectedVariantIdx],
+                        in_stock: nextInStock,
+                      };
+                    }
+                    return copy;
+                  });
+                }}
                 className={`w-full py-2.5 px-4 rounded-xl text-xs font-black flex items-center justify-center gap-2 border transition-all cursor-pointer ${
                   inStock
                     ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
@@ -1082,14 +1353,38 @@ export default function ProductDetailsPanel({
               </div>
 
               <div>
-                <label className="text-xs font-black text-stone-700 uppercase tracking-wider block mb-1">
-                  Unit / Pack Size
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-xs font-black text-stone-700 uppercase tracking-wider block">
+                    Unit / Pack Size
+                  </label>
+                  <button
+                    type="button"
+                    onClick={handleOpenAddVariantModal}
+                    className="text-[10px] font-bold text-[#1B5E20] hover:underline cursor-pointer flex items-center gap-0.5"
+                  >
+                    <Plus className="w-3 h-3" />
+                    <span>Add Size</span>
+                  </button>
+                </div>
                 <input
                   type="text"
                   value={unit}
                   onFocus={(e) => e.target.select()}
-                  onChange={(e) => setUnit(e.target.value)}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setUnit(val);
+                    setVariantsList((prev) => {
+                      if (!prev.length) return prev;
+                      const copy = [...prev];
+                      if (copy[selectedVariantIdx]) {
+                        copy[selectedVariantIdx] = {
+                          ...copy[selectedVariantIdx],
+                          size_label: val,
+                        };
+                      }
+                      return copy;
+                    });
+                  }}
                   placeholder="e.g. 1 kg, 500 g, 1 L"
                   className="w-full px-3.5 py-2 bg-stone-50 border border-stone-200 rounded-xl text-xs font-semibold text-stone-900 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
                 />
@@ -1291,6 +1586,138 @@ export default function ProductDetailsPanel({
             </button>
           </div>
         </div>
+        {/* Quick Add Pack Size / Quantity Modal */}
+        {showAddVariantModal && (
+          <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-4 sm:p-5 space-y-3.5 border border-stone-200 animate-in fade-in zoom-in-95 duration-150">
+              <div className="flex items-center justify-between pb-2 border-b border-stone-100">
+                <div>
+                  <h3 className="text-sm font-black text-stone-900 tracking-tight">Add Pack Size / Quantity</h3>
+                  <p className="text-[11px] text-stone-500">e.g. 500 g, 1 kg, 2 kg, 5 L for this product</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowAddVariantModal(false)}
+                  className="text-stone-400 hover:text-stone-700 p-1 rounded-lg"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Quick Suggestions */}
+              <div>
+                <label className="text-[10px] font-bold text-stone-500 uppercase tracking-wider block mb-1">
+                  Quick Suggestions (Tap to pick)
+                </label>
+                <div className="flex flex-wrap gap-1.5">
+                  {['500 g', '1 kg', '2 kg', '3 kg', '5 kg', '10 kg', '500 ml', '1 L', '2 L', '5 L'].map((preset) => (
+                    <button
+                      key={preset}
+                      type="button"
+                      onClick={() => setNewVariantUnit(preset)}
+                      className={`px-2 py-0.5 text-[11px] rounded-md font-semibold border transition-all ${
+                        newVariantUnit === preset
+                          ? 'bg-emerald-100 text-[#1B5E20] border-emerald-400 font-bold'
+                          : 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100'
+                      }`}
+                    >
+                      {preset}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Pack Size / Unit Name */}
+              <div>
+                <label className="text-[11px] font-bold text-stone-700 block mb-1">
+                  Pack Size / Unit Label *
+                </label>
+                <input
+                  type="text"
+                  value={newVariantUnit}
+                  onChange={(e) => {
+                    setNewVariantUnit(e.target.value);
+                    if (modalVariantError) setModalVariantError('');
+                  }}
+                  placeholder="e.g. 2 kg, 5 kg, 500 ml"
+                  className="w-full px-3 py-2 rounded-xl text-xs font-bold text-stone-900 bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
+                />
+              </div>
+
+              {/* Selling price and MRP */}
+              <div className="grid grid-cols-2 gap-2.5">
+                <div>
+                  <label className="text-[11px] font-bold text-stone-700 block mb-1">
+                    Selling Price (₹) *
+                  </label>
+                  <input
+                    type="text"
+                    inputMode="decimal"
+                    value={newVariantPrice}
+                    onChange={(e) => {
+                      setNewVariantPrice(e.target.value.replace(/[^0-9.]/g, ''));
+                      if (modalVariantError) setModalVariantError('');
+                    }}
+                    placeholder="e.g. 130"
+                    className="w-full px-3 py-2 rounded-xl text-xs font-bold text-stone-900 bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="text-[11px] font-bold text-stone-700 block mb-1">
+                    MRP / Strike (₹)
+                  </label>
+                  <input
+                    type="text"
+                    inputMode="decimal"
+                    value={newVariantMrp}
+                    onChange={(e) => setNewVariantMrp(e.target.value.replace(/[^0-9.]/g, ''))}
+                    placeholder="e.g. 140"
+                    className="w-full px-3 py-2 rounded-xl text-xs font-bold text-stone-900 bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Stock Quantity */}
+              <div>
+                <label className="text-[11px] font-bold text-stone-700 block mb-1">
+                  Stock Quantity (Units) *
+                </label>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  value={newVariantStock}
+                  onChange={(e) => setNewVariantStock(e.target.value.replace(/[^0-9]/g, ''))}
+                  placeholder="e.g. 25"
+                  className="w-full px-3 py-2 rounded-xl text-xs font-bold text-stone-900 bg-stone-50 border border-stone-200 focus:bg-white focus:ring-2 focus:ring-[#1B5E20] focus:outline-none"
+                />
+              </div>
+
+              {modalVariantError && (
+                <p className="text-xs text-rose-600 font-bold bg-rose-50 p-2 rounded-lg border border-rose-200">
+                  {modalVariantError}
+                </p>
+              )}
+
+              {/* Action Buttons */}
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-stone-100">
+                <button
+                  type="button"
+                  onClick={() => setShowAddVariantModal(false)}
+                  className="px-3 py-1.5 text-xs font-bold text-stone-600 hover:bg-stone-100 rounded-xl"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleConfirmAddVariant}
+                  className="px-4 py-1.5 text-xs font-bold text-white bg-[#1B5E20] hover:bg-[#154a19] rounded-xl shadow-xs active:scale-95 transition-all"
+                >
+                  Add Pack Size
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </form>
     </div>
   );

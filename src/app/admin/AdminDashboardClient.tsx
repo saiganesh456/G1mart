@@ -140,6 +140,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   const [newOrderAlert, setNewOrderAlert] = useState<any>(null);
   const [pushStatusMessage, setPushStatusMessage] = useState<string | null>(null);
   const [testingPush, setTestingPush] = useState(false);
+  const [bannerDismissed, setBannerDismissed] = useState(false);
 
   const handleEnablePush = async () => {
     try {
@@ -1746,9 +1747,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       {/* 3. MAIN CONTENT WORKSPACE AREA */}
       <main className="flex-1 w-full min-w-0">
         {/* Notification Permission Prompt for Store Admins (Only visible if notifications not yet enabled) */}
-        {!isPermissionGranted && (
-          <div className="bg-gradient-to-r from-[#1B5E20] via-emerald-800 to-green-700 text-white rounded-2xl p-3.5 sm:p-4 mb-4 shadow-sm border border-emerald-600/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
+        {!isPermissionGranted && !bannerDismissed && (
+          <div className="bg-gradient-to-r from-[#1B5E20] via-emerald-800 to-green-700 text-white rounded-2xl p-3.5 sm:p-4 mb-4 shadow-sm border border-emerald-600/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 relative">
+            <div className="flex items-center gap-3 pr-8 sm:pr-0">
               <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
                 <Bell className="w-4 h-4 text-white animate-bounce" />
               </div>
@@ -1761,13 +1762,23 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 </p>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={handleEnablePush}
-              className="px-4 py-2 bg-white text-emerald-950 hover:bg-emerald-50 rounded-xl text-xs font-black uppercase tracking-wider shrink-0 transition-all shadow-sm active:scale-95 flex items-center justify-center"
-            >
-              <span>Enable Alerts on this Device</span>
-            </button>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={handleEnablePush}
+                className="px-4 py-2 bg-white text-emerald-950 hover:bg-emerald-50 rounded-xl text-xs font-black uppercase tracking-wider shrink-0 transition-all shadow-sm active:scale-95 flex items-center justify-center"
+              >
+                <span>Enable Alerts on this Device</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setBannerDismissed(true)}
+                title="Dismiss banner"
+                className="p-1.5 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-colors shrink-0"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         )}
 

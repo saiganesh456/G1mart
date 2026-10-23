@@ -467,19 +467,21 @@ export const productService = {
         ...product,
       };
 
-      // Also sync variants in-memory if price or stock changed
-      const productVariants = variantsByProductId.get(product.id);
-      if (productVariants && productVariants.length > 0) {
-        if (product.variants && product.variants.length > 0) {
-          variantsByProductId.set(product.id, product.variants);
-          MIGRATED_PRODUCT_LIST[idx].variants = product.variants;
-          for (const pv of product.variants) {
-            const vIdx = MIGRATED_VARIANTS.findIndex((v) => v.id === pv.id);
-            if (vIdx !== -1) {
-              MIGRATED_VARIANTS[vIdx] = { ...MIGRATED_VARIANTS[vIdx], ...pv };
-            }
+      // Also sync variants in-memory
+      if (product.variants && product.variants.length > 0) {
+        variantsByProductId.set(product.id, product.variants);
+        MIGRATED_PRODUCT_LIST[idx].variants = product.variants;
+        for (const pv of product.variants) {
+          const vIdx = MIGRATED_VARIANTS.findIndex((v) => v.id === pv.id);
+          if (vIdx !== -1) {
+            MIGRATED_VARIANTS[vIdx] = { ...MIGRATED_VARIANTS[vIdx], ...pv };
+          } else {
+            MIGRATED_VARIANTS.unshift(pv);
           }
-        } else {
+        }
+      } else {
+        const productVariants = variantsByProductId.get(product.id);
+        if (productVariants && productVariants.length > 0) {
           if (product.price !== undefined) {
             productVariants[0].price = product.price;
           }
