@@ -64,3 +64,11 @@ quarantine/
 public/quarantine/
 scratch_*
 
+
+# Android Signing & Packages (Protected Secrets)
+android_package/
+*.keystore
+*.jks
+*.aab
+*.apk
+signing-key-info.txt

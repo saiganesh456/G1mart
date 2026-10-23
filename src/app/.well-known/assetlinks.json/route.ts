@@ -16,9 +16,8 @@ export async function GET() {
     : [];
 
   const defaultFingerprints = [
-    // Replace with the SHA-256 fingerprint generated from your release keystore (.jks)
-    // or Google Play App Signing certificate fingerprint in Google Play Console
-    "4A:2B:9C:8D:1E:F3:A2:7B:8C:9D:0E:1F:2A:3B:4C:5D:6E:7F:80:91:A2:B3:C4:D5:E6:F7:08:19:2A:3B:4C:5D",
+    // Real SHA-256 fingerprint generated from signing.keystore / PWABuilder package
+    "7C:77:EB:9D:0F:EE:E5:17:B9:C6:32:9D:AB:73:BB:53:77:6C:C8:48:65:9A:07:F1:3C:B6:3F:68:4E:13:81:47",
     ...envFingerprints,
   ];
 
@@ -27,7 +26,7 @@ export async function GET() {
       relation: ["delegate_permission/common.handle_all_urls"],
       target: {
         namespace: "android_app",
-        package_name: "in.g1mart.store",
+        package_name: "in.g1mart.twa",
         sha256_cert_fingerprints: defaultFingerprints,
       },
     },
@@ -35,7 +34,7 @@ export async function GET() {
       relation: ["delegate_permission/common.handle_all_urls"],
       target: {
         namespace: "android_app",
-        package_name: "com.g1mart.app",
+        package_name: "in.g1mart.store",
         sha256_cert_fingerprints: defaultFingerprints,
       },
     },
