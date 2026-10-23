@@ -6,6 +6,7 @@ import { LocationProvider } from '@/context/LocationContext';
 import { NotificationProvider } from '@/context/NotificationContext';
 import GlobalNotificationBanner from '@/components/common/GlobalNotificationBanner';
 import LocationGate from '@/components/location/LocationGate';
+import ServiceWorkerRegister from '@/components/pwa/ServiceWorkerRegister';
 
 /**
  * Root client-side providers wrapper.
@@ -17,6 +18,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <NotificationProvider>
         <LocationProvider>
           <CartProvider>
+            <ServiceWorkerRegister />
             <LocationGate>
               {children}
             </LocationGate>
@@ -27,4 +29,3 @@ export function Providers({ children }: { children: React.ReactNode }) {
     </AuthProvider>
   );
 }
-

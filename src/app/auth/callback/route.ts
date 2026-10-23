@@ -108,11 +108,21 @@ export async function GET(request: NextRequest) {
         }
       }
 
+      // Security Guard (Cloudflare Security Audit - Protocol & Auth):
+      // Sanitize targetPath to avoid open redirect vulnerabilities (must start with / and not //)
+      if (!targetPath.startsWith('/') || targetPath.startsWith('//')) {
+        targetPath = '/checkout';
+      }
+
       const forwardedHost = request.headers.get('x-forwarded-host');
       const isLocalEnv = process.env.NODE_ENV === 'development';
+      const allowedHostPattern = /^(g1mart\.in|[a-zA-Z0-9-]+\.vercel\.app|localhost(:\d+)?)$/i;
+      const rawHost = forwardedHost ? forwardedHost.split(':')[0] : null;
+      const isSafeHost = rawHost && allowedHostPattern.test(rawHost);
+
       const redirectUrl = isLocalEnv
         ? `${origin}${targetPath}`
-        : forwardedHost
+        : (forwardedHost && isSafeHost)
         ? `https://${forwardedHost}${targetPath}`
         : `${origin}${targetPath}`;
 
