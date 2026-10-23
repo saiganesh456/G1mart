@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { serverOrderStore } from '@/lib/serverOrderStore';
 import { phonePeAdapter } from '@/lib/payment/phonepeAdapter';
+import { razorpayAdapter } from '@/lib/payment/razorpayAdapter';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -48,7 +49,12 @@ export async function GET(req: NextRequest, { params }: Props) {
 
     // Rule 6: If the webhook has not arrived, server check uses the Order Status API
     if (order.paymentStatus === 'pending' && order.providerOrderId) {
-      const verifyResult = await phonePeAdapter.verifyPayment(order.providerOrderId);
+      const isRazorpay =
+        Boolean(order.paymentMethod?.toLowerCase().includes('razorpay')) ||
+        order.providerOrderId.startsWith('order_');
+      const verifyResult = isRazorpay
+        ? await razorpayAdapter.verifyPayment(order.providerOrderId)
+        : await phonePeAdapter.verifyPayment(order.providerOrderId);
 
       if (verifyResult.state === 'COMPLETED') {
         const markResult = await serverOrderStore.markOrderPaid({

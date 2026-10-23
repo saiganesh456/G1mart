@@ -208,6 +208,8 @@ export interface Order {
   id: string;
   orderNumber?: string;
   date: string;
+  created_at?: string;
+  createdAt?: string;
   items: OrderItem[];
   address: Address;
   slot: string;

@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse, type NextRequest } from 'next/server';
 import { serverOrderStore } from '@/lib/serverOrderStore';
+import { resolveAuthoritativeStatus } from '@/lib/orderStatus';
 import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 import { verifyAdminRequest } from '@/lib/authGuard';
 
@@ -29,7 +30,7 @@ export async function GET(request: NextRequest) {
             if (row && row.id && !orders.some((o) => o.id === row.id)) {
               const rawAddr = row.address;
               const addr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
-              const realStatus = addr._status || row.status || 'Order Placed';
+              const realStatus = resolveAuthoritativeStatus(row.status, addr._status);
               serverOrderStore.registerOrder({
                 id: row.id,
                 date: row.date || new Date(row.created_at).toLocaleDateString(),

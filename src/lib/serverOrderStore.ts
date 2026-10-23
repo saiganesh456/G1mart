@@ -60,18 +60,8 @@ const toValidUuidOrNull = (val?: string | null): string | null => {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(val) ? val : null;
 };
 
-export const STATUS_RANK: Record<string, number> = {
-  'Order Placed': 1,
-  'New': 1,
-  'Confirmed': 2,
-  'Packing': 3,
-  'Packed': 4,
-  'Rider Assigned': 5,
-  'Order Dispatched': 6,
-  'Out for Delivery': 6,
-  'Delivered': 7,
-  'Cancelled': 8,
-};
+export { STATUS_RANK, resolveAuthoritativeStatus } from './orderStatus';
+import { STATUS_RANK, resolveAuthoritativeStatus } from './orderStatus';
 
 export interface RecalculatedCart {
   items: OrderItem[];
@@ -565,7 +555,7 @@ export const serverOrderStore = {
           if (!error && data) {
             const rawAddr = data.address;
             const addr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
-            const realStatus = (addr._status || data.status || 'Order Placed') as OrderStatus;
+            const realStatus = resolveAuthoritativeStatus(data.status, addr._status);
             const loadedOrder: Order = {
               id: data.id,
               date: data.date,
@@ -700,7 +690,10 @@ export const serverOrderStore = {
         status: dbStatus,
         is_paid: Boolean(order.isPaid),
         updated_at: new Date().toISOString(),
-        address: order.address,
+        address: {
+          ...order.address,
+          _status: status,
+        },
       };
 
       const validRiderUuid = toValidUuidOrNull(order.assignedRider?.id);
@@ -1023,7 +1016,7 @@ export const serverOrderStore = {
           if (!error && data) {
             const addr = data.address || {};
             const existing = order;
-            const realStatus = (addr._status || data.status || 'Order Placed') as OrderStatus;
+            const realStatus = resolveAuthoritativeStatus(data.status, addr._status);
             const items = (existing?.items && existing.items.length > 0) ? existing.items : (addr._items || []);
             const rawSubtotal = Number(data.subtotal || 0);
             const rawGrand = Number(data.grand_total || 0);
@@ -1034,7 +1027,7 @@ export const serverOrderStore = {
               ? itemsSum + Number(data.delivery_fee || 0) + codFee
               : rawGrand;
 
-            order = {
+            const loadedOrder: Order = {
               id: data.id,
               orderNumber: data.id,
               date: data.date,
@@ -1067,7 +1060,8 @@ export const serverOrderStore = {
                 { status: 'Delivered', time: 'Pending', completed: realStatus === 'Delivered' },
               ],
             };
-            ordersMap.set(data.id, order);
+            order = loadedOrder;
+            ordersMap.set(data.id, loadedOrder);
             this.persistToDisk();
 
             if (effectiveSubtotal !== rawSubtotal || effectiveGrandTotal !== rawGrand) {
@@ -1168,7 +1162,7 @@ export const serverOrderStore = {
               image: oi.image_url || '/products/placeholder.svg',
             }));
           }
-          const realStatus = (addr._status || row.status || 'Order Placed') as OrderStatus;
+          const realStatus = resolveAuthoritativeStatus(row.status, addr._status);
           const curRank = STATUS_RANK[existing?.status || ''] || 0;
           const remoteRank = STATUS_RANK[realStatus] || 0;
           const winningStatus = curRank > remoteRank ? existing!.status : realStatus;

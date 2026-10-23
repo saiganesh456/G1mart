@@ -27,6 +27,7 @@ import DeliveryJourneyAnimation from '@/components/orders/DeliveryJourneyAnimati
 import { formatIndianPhoneDisplay } from '@/lib/phone';
 import { STORE_CONFIG } from '@/config/store';
 import { soundAlerts } from '@/lib/soundAlerts';
+import { resolveAuthoritativeStatus } from '@/lib/orderStatus';
 import { useCart } from '@/context/CartContext';
 import { triggerSuccessHaptic } from '@/lib/haptics';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
@@ -331,7 +332,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
             },
             (payload: any) => {
               if (payload.new) {
-                const nextStatus = payload.new.address?._status || payload.new.status;
+                const nextStatus = resolveAuthoritativeStatus(payload.new.status, payload.new.address?._status);
                 setOrder((prev: any) => {
                   if (prev && nextStatus && prev.status !== nextStatus) {
                     playStatusChime(nextStatus);
@@ -351,7 +352,8 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
       bc = new BroadcastChannel('g1mart_order_channel');
       bc.onmessage = (event) => {
         if (event.data?.type === 'ORDER_UPDATED' && (event.data.orderId === orderId || event.data.order?.id === orderId)) {
-          const nextStatus = event.data.status || event.data.order?.status;
+          const incomingStatus = event.data.status || event.data.order?.status;
+          const nextStatus = resolveAuthoritativeStatus(incomingStatus, event.data.order?.address?._status);
           setOrder((prev: any) => {
             if (prev && nextStatus && prev.status !== nextStatus) {
               playStatusChime(nextStatus);
@@ -374,6 +376,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
     };
     window.addEventListener('storage', handleStorageChange);
 
+    // Adaptive live polling: every 5s while order is active, easing to 25s once completed
     const interval = setInterval(() => {
       setOrder((currentOrder: any) => {
         const s = (currentOrder?.status || '').toLowerCase();
@@ -386,7 +389,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
         }
         return currentOrder;
       });
-    }, 30000);
+    }, 8000);
 
     return () => {
       clearTimeout(timer);

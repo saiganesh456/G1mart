@@ -40,18 +40,7 @@ import { Camera } from 'lucide-react';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import { formatToIST } from '@/lib/dateUtils';
 
-const STATUS_RANK: Record<string, number> = {
-  'Order Placed': 1,
-  'New': 1,
-  'Confirmed': 2,
-  'Packing': 3,
-  'Packed': 4,
-  'Rider Assigned': 5,
-  'Order Dispatched': 6,
-  'Out for Delivery': 6,
-  'Delivered': 7,
-  'Cancelled': 8,
-};
+import { STATUS_RANK, resolveAuthoritativeStatus } from '@/lib/orderStatus';
 
 const BLANK_NEW_PRODUCT: Product = {
   id: '',
@@ -611,7 +600,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       slot: row.slot || row.delivery_slot || 'Standard Delivery',
       paymentMethod: row.payment_method || 'Cash on Delivery',
       paymentStatus: row.payment_status || (row.is_paid ? 'completed' : 'pending'),
-      status: (row.address?._status || row.status || 'Order Placed') as any,
+      status: resolveAuthoritativeStatus(row.status, row.address?._status),
       subtotal: (() => {
         const rawItems = Array.isArray(row.order_items) && row.order_items.length > 0
           ? row.order_items
@@ -1047,7 +1036,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
 
                 const rawAddr = row.address;
                 const rowAddr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
-                const actualStatus = (rowAddr._status || row.status || 'Order Placed') as any;
+                const actualStatus = resolveAuthoritativeStatus(row.status, rowAddr._status);
                 const actualRider = rowAddr._assignedRider;
 
                 setOrders((prev) =>
