@@ -284,7 +284,7 @@ export default function ShootListTab({ products, categories, onProductUpdated, o
   };
 
   return (
-    <div className="space-y-4 pb-36">
+    <div className="space-y-4 pb-24 lg:pb-8">
       {/* Hidden file inputs */}
       <input
         ref={cameraInputRef}

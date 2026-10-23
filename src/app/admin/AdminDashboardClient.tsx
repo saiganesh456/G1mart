@@ -1578,7 +1578,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   return (
     <div className="flex flex-col lg:flex-row gap-6 items-start min-h-screen">
       {/* 1. DESKTOP PERMANENT NAVIGATION SIDEBAR (Laptop/Desktop) */}
-      <aside className="hidden lg:flex flex-col w-64 xl:w-72 shrink-0 bg-white rounded-3xl border border-stone-200/90 shadow-2xs p-5 space-y-6 sticky top-20">
+      <aside className="hidden lg:flex flex-col w-64 xl:w-72 shrink-0 bg-white rounded-3xl border border-stone-200/90 shadow-2xs p-5 space-y-6 sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-stone-200">
         {/* Hub Info Banner */}
         <div className="p-3.5 bg-stone-50 rounded-2xl border border-stone-200/80 space-y-1.5">
           <div className="flex items-center justify-between">
@@ -1592,6 +1592,30 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           </div>
           <p className="text-xs font-black text-stone-900 truncate">G1mart Main Supermarket</p>
           <p className="text-[10px] text-stone-500 truncate">Nellore Hub • Padarupalli (524004)</p>
+
+          {/* Persistent Audio Alerts Quick Control */}
+          <button
+            type="button"
+            onClick={handleToggleAudio}
+            className={`w-full py-1.5 px-2.5 rounded-xl text-[11px] font-bold flex items-center justify-between transition-all border ${
+              audioEnabled
+                ? 'bg-emerald-50 text-emerald-800 border-emerald-200 hover:bg-emerald-100'
+                : 'bg-white text-stone-600 border-stone-200 hover:bg-stone-100'
+            }`}
+            title="Toggle audible order alerts across admin console"
+          >
+            <div className="flex items-center gap-1.5">
+              {audioEnabled ? (
+                <Volume2 className="w-3.5 h-3.5 text-emerald-700" />
+              ) : (
+                <VolumeX className="w-3.5 h-3.5 text-stone-400" />
+              )}
+              <span>Voice &amp; Chime</span>
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-wider">
+              {audioEnabled ? 'ON' : 'OFF'}
+            </span>
+          </button>
         </div>
 
         {/* Navigation Menu Links */}

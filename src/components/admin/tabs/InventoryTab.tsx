@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Product, Category } from '@/types';
 import {
   ArrowLeft,
@@ -18,6 +18,7 @@ import {
   TrendingDown,
   ShoppingBag,
   Plus,
+  ChevronLeft,
 } from 'lucide-react';
 
 interface Props {
@@ -45,6 +46,12 @@ export default function InventoryTab({
   const [stockFilter, setStockFilter] = useState(initialStockFilter);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [showFilterDrawer, setShowFilterDrawer] = useState(false);
+  const categoryScrollRef = useRef<HTMLDivElement>(null);
+  const scrollCategories = (dir: 'left' | 'right') => {
+    if (categoryScrollRef.current) {
+      categoryScrollRef.current.scrollBy({ left: dir === 'left' ? -260 : 260, behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     if (initialStockFilter && initialStockFilter !== stockFilter) {
@@ -97,7 +104,7 @@ export default function InventoryTab({
   }, [products, search, stockFilter, selectedCategory]);
 
   return (
-    <div className="w-full max-w-7xl 2xl:max-w-none mx-auto flex flex-col h-full bg-[#F4F6F9] p-3 sm:p-5 pb-32 space-y-4">
+    <div className="w-full max-w-7xl 2xl:max-w-none mx-auto flex flex-col h-full bg-[#F4F6F9] p-3 sm:p-5 pb-24 lg:pb-8 space-y-4">
       {/* 1. TOP HEADER & SEARCH CARD */}
       <div className="bg-white rounded-3xl p-4 sm:p-5 border border-stone-200/80 shadow-2xs space-y-3.5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -199,8 +206,20 @@ export default function InventoryTab({
           ))}
         </div>
 
-        {/* Desktop Category Filter Bar */}
-        <div className="hidden sm:flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none border-t border-stone-100 pt-2.5">
+        {/* Desktop Category Filter Bar with Smooth Mouse Scroll Buttons */}
+        <div className="hidden sm:flex items-center gap-1.5 border-t border-stone-100 pt-2.5 relative">
+          <button
+            type="button"
+            onClick={() => scrollCategories('left')}
+            className="w-7 h-7 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-600 hover:text-stone-900 flex items-center justify-center transition-colors shrink-0 cursor-pointer"
+            title="Scroll categories left"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <div
+            ref={categoryScrollRef}
+            className="flex-1 flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none scroll-smooth"
+          >
           <button
             type="button"
             onClick={() => setSelectedCategory('All')}
@@ -226,6 +245,15 @@ export default function InventoryTab({
               {c.name}
             </button>
           ))}
+          </div>
+          <button
+            type="button"
+            onClick={() => scrollCategories('right')}
+            className="w-7 h-7 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-600 hover:text-stone-900 flex items-center justify-center transition-colors shrink-0 cursor-pointer"
+            title="Scroll categories right"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
       </div>
 

@@ -434,7 +434,7 @@ export default function StaffManagementTab({ onBackToDashboard }: Props = {}) {
   };
 
   return (
-    <div className="space-y-4 max-w-5xl mx-auto pb-28">
+    <div className="space-y-4 max-w-5xl mx-auto pb-24 lg:pb-8">
       {/* 1. Compact Brand Header (Mobile Optimized) */}
       <div className="bg-gradient-to-r from-[#1A2E1C] via-[#1B5E20] to-[#2E7D32] text-white rounded-3xl p-4 sm:p-5 border border-emerald-800/40 shadow-sm flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">

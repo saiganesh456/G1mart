@@ -818,7 +818,7 @@ export default function SlipOrdersTab({
   };
 
   return (
-    <div className="space-y-5 pb-20">
+    <div className="space-y-5 pb-20 lg:pb-8">
       {/* Tab Switcher Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-stone-200/90 shadow-2xs">
         <div>

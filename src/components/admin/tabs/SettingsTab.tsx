@@ -152,7 +152,7 @@ export default function SettingsTab({ onBackToDashboard }: Props = {}) {
     const radiusMeters = (Number(settings.max_radius_km) || 30) * 1000;
 
     if (!mapInstanceRef.current) {
-      const map = L.map(mapContainerRef.current).setView([lat, lng], 13);
+      const map = L.map(mapContainerRef.current, { scrollWheelZoom: false }).setView([lat, lng], 13);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors',
         maxZoom: 19,

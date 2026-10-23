@@ -659,7 +659,7 @@ export default function ProductDetailsPanel({
 
   if (isNew) {
     return (
-      <div className="max-w-xl mx-auto flex flex-col min-h-screen bg-[#F4F6F9] p-3 sm:p-6 pb-28 space-y-4">
+      <div className="w-full max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto flex flex-col min-h-screen bg-[#F4F6F9] p-3 sm:p-6 pb-24 lg:pb-8 space-y-4">
         {/* Top Header */}
         <div className="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/90 shadow-2xs flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -713,37 +713,51 @@ export default function ProductDetailsPanel({
             </div>
           )}
 
-          {/* 1. Photo Upload */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/90 shadow-2xs space-y-3">
-            <label className="text-xs font-black uppercase tracking-wider text-stone-700 block">
-              Product Photo
-            </label>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+            {/* Left Column: Photo Upload & Visual Presentation (5 cols on desktop) */}
+            <div className="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
+              {/* 1. Photo Upload */}
+              <div className="bg-white rounded-3xl p-5 border border-stone-200/90 shadow-2xs space-y-4">
+                <div className="flex items-center justify-between border-b border-stone-100 pb-2.5">
+                  <label className="text-xs font-black uppercase tracking-wider text-stone-700">
+                    Product Photo
+                  </label>
+                  <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full">
+                    Customer App Display
+                  </span>
+                </div>
 
-            <div className="flex items-center gap-4">
-              <div className="w-20 h-20 rounded-xl bg-stone-50 border border-stone-200 p-1 flex items-center justify-center shrink-0 overflow-hidden">
-                <ProductImage
-                  imageUrl={imageUrl || '/products/placeholder.svg'}
-                  imageStatus="VERIFIED"
-                  alt={name || 'Photo'}
-                />
-              </div>
+                <div className="flex flex-col items-center justify-center p-4 bg-stone-50 rounded-2xl border border-stone-200/80 gap-3">
+                  <div className="w-36 h-36 rounded-2xl bg-white border border-stone-200 p-2 flex items-center justify-center shrink-0 overflow-hidden shadow-2xs">
+                    <ProductImage
+                      imageUrl={imageUrl || '/products/placeholder.svg'}
+                      imageStatus="VERIFIED"
+                      alt={name || 'Photo'}
+                    />
+                  </div>
 
-              <div className="flex-1 space-y-1.5">
-                <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#1B5E20] hover:bg-[#2E7D32] text-white text-xs font-bold shadow-2xs transition-all active:scale-95">
-                  <Camera className="w-4 h-4" />
-                  <span>{uploadingImage ? 'Compressing & Uploading...' : 'Take Photo / Upload'}</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileUpload}
-                    disabled={uploadingImage}
-                    className="hidden"
-                  />
-                </label>
-                <p className="text-[11px] text-stone-400">Photo is automatically optimized for fast customer loading</p>
+                  <div className="w-full text-center space-y-2">
+                    <label className="cursor-pointer inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-[#1B5E20] hover:bg-[#2E7D32] text-white text-xs font-bold shadow-2xs transition-all active:scale-95">
+                      <Camera className="w-4 h-4" />
+                      <span>{uploadingImage ? 'Compressing & Uploading...' : 'Take Photo / Upload Image'}</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileUpload}
+                        disabled={uploadingImage}
+                        className="hidden"
+                      />
+                    </label>
+                    <p className="text-[11px] text-stone-400">
+                      Square photos work best. Automatically optimized for 5G/4G fast mobile shopping.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+
+            {/* Right Column: Name, Category, Pricing, Inventory & Actions (7 cols on desktop) */}
+            <div className="lg:col-span-7 space-y-4">
 
           {/* 2. Product Name & Details */}
           <div className="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/90 shadow-2xs space-y-3.5">
@@ -918,31 +932,33 @@ export default function ProductDetailsPanel({
             )}
           </div>
 
-          {/* 4. Publish Button */}
-          <button
-            type="submit"
-            disabled={isSaving}
-            className="w-full h-12 rounded-2xl bg-[#1B5E20] hover:bg-[#2E7D32] disabled:opacity-50 text-white font-black text-sm flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.99] cursor-pointer"
-          >
-            {isSaving ? (
-              <>
-                <RefreshCw className="w-4 h-4 animate-spin" />
-                <span>Publishing Product...</span>
-              </>
-            ) : (
-              <>
-                <Plus className="w-4 h-4 stroke-[3]" />
-                <span>＋ Publish Product to App</span>
-              </>
-            )}
-          </button>
+              {/* 4. Publish Button */}
+              <button
+                type="submit"
+                disabled={isSaving}
+                className="w-full h-12 rounded-2xl bg-[#1B5E20] hover:bg-[#2E7D32] disabled:opacity-50 text-white font-black text-sm flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.99] cursor-pointer"
+              >
+                {isSaving ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    <span>Publishing Product...</span>
+                  </>
+                ) : (
+                  <>
+                    <Plus className="w-4 h-4 stroke-[3]" />
+                    <span>＋ Publish Product to App</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     );
   }
 
   return (
-    <div className="w-full max-w-4xl 2xl:max-w-5xl mx-auto flex flex-col min-h-screen bg-[#F4F6F9] p-3 sm:p-6 pb-28">
+    <div className="w-full max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto flex flex-col min-h-screen bg-[#F4F6F9] p-3 sm:p-6 pb-24 lg:pb-8">
       {/* Header */}
       <div className="bg-white rounded-3xl p-4 sm:p-5 border border-stone-200/90 shadow-2xs flex items-center justify-between mb-4 sticky top-16 z-20">
         <div className="flex items-center gap-3">

@@ -117,7 +117,7 @@ export default function HomeTab({
   const recentOrders = orders.slice(0, 5);
 
   return (
-    <div className="space-y-5 w-full max-w-7xl 2xl:max-w-none mx-auto p-3 sm:p-6 pb-28 text-stone-900">
+    <div className="space-y-5 w-full max-w-7xl 2xl:max-w-none mx-auto p-3 sm:p-6 pb-24 lg:pb-8 text-stone-900">
       {/* 1. MINIMAL HEADER — G1 Mart Branding & Store Status */}
       <div className="flex items-center justify-between pt-1">
         <div>
