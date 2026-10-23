@@ -162,33 +162,43 @@ export default function ProductDetailsPanel({
   const [showAddVariantModal, setShowAddVariantModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   const handleDeleteProduct = async () => {
     if (!product.id || isNew) return;
     setIsDeleting(true);
+    setDeleteError(null);
     try {
+      let isSuccess = false;
+      let lastError = '';
+
       if (onDeleteProduct) {
         const ok = await onDeleteProduct(product.id);
         if (ok) {
-          setShowDeleteModal(false);
-          onBack();
-          return;
+          isSuccess = true;
         }
       }
-      const res = await adminFetch(`/api/admin/products?id=${encodeURIComponent(product.id)}`, {
-        method: 'DELETE',
-      });
-      const data = await res.json();
-      if (data.success) {
+
+      if (!isSuccess) {
+        const res = await adminFetch(`/api/admin/products?id=${encodeURIComponent(product.id)}`, {
+          method: 'DELETE',
+        });
+        const data = await res.json().catch(() => ({}));
+        if (data?.success) {
+          isSuccess = true;
+        } else {
+          lastError = data?.error || 'Failed to delete product from server.';
+        }
+      }
+
+      if (isSuccess) {
         setShowDeleteModal(false);
         onBack();
       } else {
-        setErrorMsg(data.error || 'Failed to delete product');
-        setShowDeleteModal(false);
+        setDeleteError(lastError || 'Failed to delete product. Please try again.');
       }
     } catch (err: any) {
-      setErrorMsg(err.message || 'Error deleting product');
-      setShowDeleteModal(false);
+      setDeleteError(err.message || 'Error occurred while deleting product.');
     } finally {
       setIsDeleting(false);
     }
@@ -1018,7 +1028,7 @@ export default function ProductDetailsPanel({
           {!isNew && product.id && (
             <button
               type="button"
-              onClick={() => setShowDeleteModal(true)}
+              onClick={() => { setDeleteError(null); setShowDeleteModal(true); }}
               className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-2xs active:scale-95 shrink-0"
               title="Delete this product"
             >
@@ -1649,7 +1659,7 @@ export default function ProductDetailsPanel({
             {!isNew && product.id && (
               <button
                 type="button"
-                onClick={() => setShowDeleteModal(true)}
+                onClick={() => { setDeleteError(null); setShowDeleteModal(true); }}
                 className="py-3 px-3.5 sm:px-4 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition-colors cursor-pointer shrink-0"
                 title="Delete product"
               >
@@ -1684,6 +1694,13 @@ export default function ProductDetailsPanel({
               <p className="text-xs text-stone-600 leading-relaxed">
                 Are you sure you want to delete <span className="font-bold text-stone-900">&ldquo;{name || product.name}&rdquo;</span>? This will permanently remove it from customer search and the storefront.
               </p>
+
+              {deleteError && (
+                <div className="p-2.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 flex items-start gap-2">
+                  <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                  <span>{deleteError}</span>
+                </div>
+              )}
 
               <div className="flex items-center justify-end gap-2 pt-2 border-t border-stone-100">
                 <button

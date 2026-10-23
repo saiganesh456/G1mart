@@ -497,7 +497,17 @@ export async function DELETE(request: NextRequest) {
       console.warn('[Admin Products] Error updating override on delete:', err);
     }
 
-    // 5. Remove from in-memory product service
+    // 5. Best-effort remove from Supabase database if configured
+    if (isSupabaseConfigured()) {
+      try {
+        await supabase.from('products').delete().eq('id', id);
+        await supabase.from('product_variants').delete().eq('product_id', id);
+      } catch (err) {
+        console.warn('[Admin Products] Error removing from Supabase:', err);
+      }
+    }
+
+    // 6. Remove from in-memory product service
     await productService.deleteProduct(id);
 
     return NextResponse.json({

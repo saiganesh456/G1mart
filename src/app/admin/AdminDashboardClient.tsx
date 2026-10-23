@@ -24,6 +24,7 @@ import type { Category, Product, Order, StaffMember } from '@/types';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import { useNotification } from '@/context/NotificationContext';
 import { useAuth } from '@/context/AuthContext';
+import { adminFetch } from '@/lib/adminApi';
 
 // Tab components
 import HomeTab from '@/components/admin/tabs/HomeTab';
@@ -1888,17 +1889,18 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             }}
             onDeleteProduct={async (productId) => {
               try {
-                const res = await fetch(`/api/admin/products?id=${encodeURIComponent(productId)}`, {
+                const res = await adminFetch(`/api/admin/products?id=${encodeURIComponent(productId)}`, {
                   method: 'DELETE',
-                  headers: getAdminHeaders(),
                 });
-                const data = await res.json();
+                const data = await res.json().catch(() => ({}));
                 if (data.success) {
                   setProducts((prev) => prev.filter((p) => p.id !== productId));
                   productsRef.current = productsRef.current.filter((p) => p.id !== productId);
                   setSelectedProduct(null);
+                  pushAdminState({ tab: 'inventory', stockFilter: inventoryStockFilter || 'All' });
                   return true;
                 }
+                console.error('Failed to delete product:', data.error);
                 return false;
               } catch (err) {
                 console.error('Failed to delete product:', err);
