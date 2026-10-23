@@ -24,8 +24,16 @@ function LoginForm() {
         const saved = localStorage.getItem('g1mart_auth_next');
         if (saved) {
           target = saved;
-          localStorage.removeItem('g1mart_auth_next');
         }
+      }
+      // Security: Validate that target is a safe relative internal route to prevent open-redirect attacks
+      const isSafeInternalUrl = (url: string | null): boolean => {
+        if (!url) return false;
+        return url.startsWith('/') && !url.startsWith('//') && !url.includes('\\');
+      };
+
+      if (!isSafeInternalUrl(target)) {
+        target = null;
       }
 
       if (target && target !== '/account' && target !== '/') {

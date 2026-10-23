@@ -106,11 +106,11 @@ function PaymentResultContent() {
     let intervalId: any = null;
     let isCancelled = false;
     let attempts = 0;
-    const maxAttempts = 24; // 24 * 2.5s = 60s timeout
+    const maxAttempts = 10; // 10 * 5s = 50s timeout to protect serverless function quota
 
     const checkStatus = async () => {
       attempts++;
-      setSecondsElapsed((prev) => prev + 2.5);
+      setSecondsElapsed((prev) => prev + 5);
 
       try {
         const res = await fetch(`/api/orders/${encodeURIComponent(orderId)}/payment-status`);
@@ -160,8 +160,7 @@ function PaymentResultContent() {
 
     // Initial check immediately
     checkStatus();
-    // Rule 7: Polls server order status every 2-3 seconds, not PhonePe directly
-    intervalId = setInterval(checkStatus, 2500);
+    intervalId = setInterval(checkStatus, 5000);
 
     return () => {
       isCancelled = true;

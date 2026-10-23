@@ -8,12 +8,20 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - assets folder
+     * Only run Supabase session refresh on authenticated and protected routes:
+     * - Admin console (/admin)
+     * - Rider console (/rider)
+     * - Account & Profile (/account)
+     * - Checkout & Orders (/checkout, /orders)
+     * - Auth callbacks (/auth)
+     * Public storefront browsing (/, /categories, /category/*, /product/*, /search)
+     * is served directly from CDN with zero Edge middleware overhead.
      */
-    '/((?!_next/static|_next/image|_not-found|favicon.ico|assets/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/admin/:path*',
+    '/rider/:path*',
+    '/account/:path*',
+    '/checkout/:path*',
+    '/orders/:path*',
+    '/auth/:path*',
   ],
 };

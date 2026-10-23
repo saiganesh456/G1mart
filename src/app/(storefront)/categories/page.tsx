@@ -3,8 +3,7 @@ import BlinkitHomeSections from '@/components/storefront/BlinkitHomeSections';
 import InnerPageHeader from '@/components/layout/InnerPageHeader';
 import type { Metadata } from 'next';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 300; // 5-minute Edge CDN ISR cache to keep Vercel Hobby quota safe
 
 export const metadata: Metadata = {
   title: 'All Categories | G1mart',

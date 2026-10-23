@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { serverOrderStore } from '@/lib/serverOrderStore';
 import { serverSlipOrders } from '@/lib/serverSlipOrders';
+import { generate4DigitOtp } from '@/lib/deliveryOtp';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -16,6 +17,7 @@ export async function GET(req: NextRequest, { params }: Props) {
     if (!order) {
       const slipOrder = await serverSlipOrders.getSlipOrderById(id);
       if (slipOrder) {
+        const slipOtp = slipOrder.delivery_otp || generate4DigitOtp(slipOrder.id);
         order = {
           id: slipOrder.id,
           orderNumber: slipOrder.id,
@@ -69,8 +71,8 @@ export async function GET(req: NextRequest, { params }: Props) {
                 phone: slipOrder.assigned_rider_phone,
               }
             : undefined,
-          deliveryOtp: slipOrder.delivery_otp || '1234',
-          delivery_otp: slipOrder.delivery_otp || '1234',
+          deliveryOtp: slipOtp,
+          delivery_otp: slipOtp,
           arrivedAtDoorstep: Boolean(slipOrder.arrived_at_doorstep),
           arrived_at_doorstep: Boolean(slipOrder.arrived_at_doorstep),
         };
@@ -78,8 +80,9 @@ export async function GET(req: NextRequest, { params }: Props) {
     }
 
     if (order) {
-      order.deliveryOtp = '1234';
-      order.delivery_otp = '1234';
+      const otp = order.deliveryOtp || order.delivery_otp || order.address?._deliveryOtp || generate4DigitOtp(order.id || id);
+      order.deliveryOtp = otp;
+      order.delivery_otp = otp;
     }
 
     if (!order) {

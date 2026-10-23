@@ -185,6 +185,14 @@ export class RazorpayAdapter implements PaymentAdapter {
       const signature = Array.isArray(signatureHeader) ? signatureHeader[0] : signatureHeader;
       const webhookSecret = this.getWebhookSecret();
 
+      if (!signature && process.env.NODE_ENV === 'production') {
+        return {
+          success: false,
+          state: 'FAILED',
+          error: 'Missing required x-razorpay-signature header on webhook',
+        };
+      }
+
       if (signature && webhookSecret) {
         const bodyString = typeof rawBody === 'string' ? rawBody : JSON.stringify(rawBody);
         const expected = crypto

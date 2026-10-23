@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { serverSlipOrders } from '@/lib/serverSlipOrders';
+import { verifyAdminRequest } from '@/lib/authGuard';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -8,6 +9,14 @@ interface Props {
 
 export async function POST(req: NextRequest, { params }: Props) {
   try {
+    const auth = await verifyAdminRequest(req);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
     const { id } = await params;
     const body = await req.json();
     const { riderId, riderName, riderPhone, staffName } = body;

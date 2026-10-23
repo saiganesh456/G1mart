@@ -1,7 +1,6 @@
 import RiderClient from './RiderClient';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+
 
 export const metadata = {
   title: 'Rider Console | G1mart Fleet',

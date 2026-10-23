@@ -5,6 +5,7 @@ import { serverSlipOrders } from '@/lib/serverSlipOrders';
 import { serverPushService } from '@/lib/serverPushService';
 import { sanitizeIndianPhone } from '@/lib/phone';
 import { formatToIST } from '@/lib/dateUtils';
+import { verifyAdminRequest } from '@/lib/authGuard';
 
 export async function GET(req: NextRequest) {
   try {
@@ -160,8 +161,23 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function DELETE() {
+export async function DELETE(req: NextRequest) {
   try {
+    const auth = await verifyAdminRequest(req);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+      return NextResponse.json(
+        { success: false, error: 'Database wipe is strictly disabled in production.' },
+        { status: 403 }
+      );
+    }
+
     serverOrderStore.clearAllOrders();
     const { serverSlipOrders } = await import('@/lib/serverSlipOrders');
     serverSlipOrders.clearAllSlips();

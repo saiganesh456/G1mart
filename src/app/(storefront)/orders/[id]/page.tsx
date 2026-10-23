@@ -70,8 +70,8 @@ export default async function OrderDetailPage({ params }: Props) {
                 phone: slipOrder.assigned_rider_phone,
               }
             : undefined,
-          deliveryOtp: slipOrder.delivery_otp || '1234',
-          delivery_otp: slipOrder.delivery_otp || '1234',
+          deliveryOtp: slipOrder.delivery_otp,
+          delivery_otp: slipOrder.delivery_otp,
           arrivedAtDoorstep: Boolean((slipOrder as any).arrived_at_doorstep),
           arrived_at_doorstep: Boolean((slipOrder as any).arrived_at_doorstep),
         };
@@ -82,8 +82,11 @@ export default async function OrderDetailPage({ params }: Props) {
   }
 
   if (initialOrder) {
-    initialOrder.deliveryOtp = '1234';
-    initialOrder.delivery_otp = '1234';
+    const realOtp = initialOrder.deliveryOtp || initialOrder.delivery_otp || (initialOrder.address as any)?._deliveryOtp;
+    if (realOtp) {
+      initialOrder.deliveryOtp = realOtp;
+      initialOrder.delivery_otp = realOtp;
+    }
   }
 
   return (

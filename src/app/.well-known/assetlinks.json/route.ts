@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-static';
+export const revalidate = 86400;
+
 /**
  * Google Play Store Digital Asset Links API Route
  *

@@ -3,8 +3,7 @@ import BlinkitHomeSections from '@/components/storefront/BlinkitHomeSections';
 import BannerCarousel from '@/components/storefront/BannerCarousel';
 import StickyHomeSearchBar from '@/components/storefront/StickyHomeSearchBar';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 300; // 5-minute Edge CDN ISR cache to keep Vercel Hobby quota safe
 
 export const metadata = {
   title: 'G1mart — Fresh Groceries & Daily Essentials',

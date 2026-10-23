@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { serverSlipOrders } from '@/lib/serverSlipOrders';
+import { verifyAdminRequest } from '@/lib/authGuard';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -8,9 +9,17 @@ interface Props {
 
 export async function POST(req: NextRequest, { params }: Props) {
   try {
+    const auth = await verifyAdminRequest(req);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: auth.error || 'Admin authorization required' },
+        { status: auth.status || 401 }
+      );
+    }
+
     const { id } = await params;
     const body = await req.json();
-    const { items, staffName = 'Store Packer', action = 'mark_packed' } = body;
+    const { items, staffName = `Store Packer (${auth.email || 'Staff'})`, action = 'mark_packed' } = body;
 
     if (!items || !Array.isArray(items)) {
       return NextResponse.json(
@@ -45,7 +54,7 @@ export async function POST(req: NextRequest, { params }: Props) {
     });
   } catch (err: any) {
     return NextResponse.json(
-      { success: false, error: err.message || 'Error processing packing update' },
+      { success: false, error: err.message || 'Failed to update packed items' },
       { status: 500 }
     );
   }

@@ -19,99 +19,86 @@ const KNOWN_ADMIN_EMAILS = [
 ];
 
 /**
- * Server-side guard to enforce administrator privileges on API routes.
+ * Server-side guard to strictly enforce administrator privileges on API routes.
+ * Securely verifies machine-to-machine admin keys, Bearer tokens, or Supabase SSR cookies.
+ * Does NOT trust client-spoofed headers (x-admin-client or Referer).
  */
 export async function verifyAdminRequest(req: NextRequest): Promise<AuthGuardResult> {
   // 1. Support secure machine-to-machine admin API key via header
   const adminKey = req.headers.get('x-admin-key');
   const configuredAdminKey = process.env.ADMIN_API_KEY || process.env.ADMIN_SECRET;
-  if (configuredAdminKey && adminKey === configuredAdminKey) {
+  if (configuredAdminKey && adminKey && adminKey === configuredAdminKey) {
     return { authorized: true, email: 'system@g1mart.com' };
   }
 
-  // 2. Support client admin session headers (x-user-email / Bearer token)
-  const clientUserEmail = (req.headers.get('x-user-email') || '').toLowerCase().trim();
-  if (clientUserEmail && (serverStaffStore.isAdmin(clientUserEmail) || KNOWN_ADMIN_EMAILS.includes(clientUserEmail))) {
-    return { authorized: true, email: clientUserEmail };
-  }
-
-  // 3. Support requests initiated from the Admin Console UI
-  const isAdminClient = req.headers.get('x-admin-client') === 'true';
-  const referer = req.headers.get('referer') || '';
-  if (isAdminClient || referer.includes('/admin')) {
-    const adminEmail = clientUserEmail && (KNOWN_ADMIN_EMAILS.includes(clientUserEmail) || serverStaffStore.isAdmin(clientUserEmail))
-      ? clientUserEmail
-      : 'sureshdega466@gmail.com';
-    return { authorized: true, email: adminEmail };
-  }
-
-  // 4. Support requests initiated from the Rider Fleet Console UI
-  const isRiderClient = req.headers.get('x-rider-client') === 'true';
-  if (isRiderClient || referer.includes('/rider')) {
-    const riderEmail = clientUserEmail || 'rider@g1mart.com';
-    return { authorized: true, email: riderEmail };
-  }
-
+  // 2. Verify Bearer token if provided in Authorization header
   const authHeader = req.headers.get('authorization');
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.substring(7).trim();
     try {
       const supabase = await createServerSupabaseClient();
-      const { data } = await supabase.auth.getUser(token);
-      if (data?.user?.email) {
+      const { data, error } = await supabase.auth.getUser(token);
+      if (!error && data?.user?.email) {
         const email = data.user.email.toLowerCase().trim();
         if (serverStaffStore.isAdmin(email) || KNOWN_ADMIN_EMAILS.includes(email)) {
           return { authorized: true, email };
         }
+        return {
+          authorized: false,
+          error: 'Forbidden: Administrator privileges required for this account.',
+          status: 403,
+        };
       }
     } catch {}
   }
 
-  // 4. Offline / local development fallback when Supabase is not configured
-  if (!isSupabaseConfigured()) {
-    return { authorized: true, email: clientUserEmail || 'sureshdega466@gmail.com' };
-  }
+  // 3. Verify user session via Supabase SSR cookies
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = await createServerSupabaseClient();
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
 
-  // 5. Verify user session via Supabase SSR cookies
-  try {
-    const supabase = await createServerSupabaseClient();
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.getUser();
-
-    if (error || !user) {
-      const host = req.headers.get('host') || '';
-      if (process.env.NODE_ENV !== 'production' || host.includes('localhost') || host.includes('127.0.0.1') || referer.includes('/admin')) {
-        return { authorized: true, email: clientUserEmail || 'sureshdega466@gmail.com' };
+      if (error || !user) {
+        return {
+          authorized: false,
+          error: 'Unauthorized: Authentication required to access administrative resources.',
+          status: 401,
+        };
       }
+
+      const email = (user.email || '').toLowerCase().trim();
+      if (!serverStaffStore.isAdmin(email) && !KNOWN_ADMIN_EMAILS.includes(email)) {
+        return {
+          authorized: false,
+          error: 'Forbidden: Administrator privileges required.',
+          status: 403,
+        };
+      }
+
+      return { authorized: true, email };
+    } catch (err: any) {
       return {
         authorized: false,
-        error: 'Unauthorized: Authentication required to access administrative resources.',
-        status: 401,
+        error: err?.message || 'Authentication verification failed',
+        status: 500,
       };
     }
-
-    const email = (user.email || '').toLowerCase().trim();
-    if (!serverStaffStore.isAdmin(email) && !KNOWN_ADMIN_EMAILS.includes(email)) {
-      return {
-        authorized: false,
-        error: 'Forbidden: Administrator privileges required.',
-        status: 403,
-      };
-    }
-
-    return { authorized: true, email };
-  } catch (err: any) {
-    if (referer.includes('/admin')) {
-      return { authorized: true, email: clientUserEmail || 'sureshdega466@gmail.com' };
-    }
-    return {
-      authorized: false,
-      error: err?.message || 'Authentication failed',
-      status: 500,
-    };
   }
+
+  // 4. Offline / local development fallback ONLY when running in local development mode without Supabase
+  if (process.env.NODE_ENV === 'development' && !isSupabaseConfigured()) {
+    const devEmail = req.headers.get('x-user-email') || 'dev-admin@g1mart.local';
+    return { authorized: true, email: devEmail };
+  }
+
+  return {
+    authorized: false,
+    error: 'Unauthorized: Authentication required.',
+    status: 401,
+  };
 }
 
 /**
@@ -120,72 +107,75 @@ export async function verifyAdminRequest(req: NextRequest): Promise<AuthGuardRes
 export async function verifyRiderOrAdminRequest(req: NextRequest): Promise<AuthGuardResult> {
   const adminKey = req.headers.get('x-admin-key');
   const configuredAdminKey = process.env.ADMIN_API_KEY || process.env.ADMIN_SECRET;
-  if (configuredAdminKey && adminKey === configuredAdminKey) {
+  if (configuredAdminKey && adminKey && adminKey === configuredAdminKey) {
     return { authorized: true, email: 'system@g1mart.com' };
   }
 
-  // Support client user email header
-  const clientUserEmail = (req.headers.get('x-user-email') || '').toLowerCase().trim();
-  if (clientUserEmail && (serverStaffStore.isAdmin(clientUserEmail) || serverStaffStore.isRider(clientUserEmail) || KNOWN_ADMIN_EMAILS.includes(clientUserEmail))) {
-    return { authorized: true, email: clientUserEmail };
-  }
-
-  // Support requests initiated from the Admin Console UI
-  const isAdminClient = req.headers.get('x-admin-client') === 'true';
-  const referer = req.headers.get('referer') || '';
-  if (isAdminClient || referer.includes('/admin')) {
-    const adminEmail = clientUserEmail && (KNOWN_ADMIN_EMAILS.includes(clientUserEmail) || serverStaffStore.isAdmin(clientUserEmail))
-      ? clientUserEmail
-      : 'sureshdega466@gmail.com';
-    return { authorized: true, email: adminEmail };
-  }
-
-  if (!isSupabaseConfigured()) {
-    if (process.env.NODE_ENV !== 'production') {
-      return { authorized: true, email: 'dev-rider@g1mart.com' };
-    }
-    return {
-      authorized: false,
-      error: 'Authentication service not configured in production.',
-      status: 500,
-    };
-  }
-
-  try {
-    const supabase = await createServerSupabaseClient();
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.getUser();
-
-    if (error || !user) {
-      const host = req.headers.get('host') || '';
-      const referer = req.headers.get('referer') || '';
-      if (process.env.NODE_ENV !== 'production' || host.includes('localhost') || host.includes('127.0.0.1') || referer.includes('/rider') || referer.includes('/admin')) {
-        return { authorized: true, email: clientUserEmail || 'rider@g1mart.com' };
+  // 1. Verify Bearer token
+  const authHeader = req.headers.get('authorization');
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    const token = authHeader.substring(7).trim();
+    try {
+      const supabase = await createServerSupabaseClient();
+      const { data, error } = await supabase.auth.getUser(token);
+      if (!error && data?.user?.email) {
+        const email = data.user.email.toLowerCase().trim();
+        if (serverStaffStore.isRider(email) || serverStaffStore.isAdmin(email) || KNOWN_ADMIN_EMAILS.includes(email)) {
+          return { authorized: true, email };
+        }
+        return {
+          authorized: false,
+          error: 'Forbidden: Rider or admin privileges required.',
+          status: 403,
+        };
       }
-      return {
-        authorized: false,
-        error: 'Unauthorized: Authentication required.',
-        status: 401,
-      };
-    }
-
-    const email = (user.email || '').toLowerCase().trim();
-    if (!serverStaffStore.isRider(email) && !serverStaffStore.isAdmin(email)) {
-      return {
-        authorized: false,
-        error: 'Forbidden: Rider or admin privileges required.',
-        status: 403,
-      };
-    }
-
-    return { authorized: true, email };
-  } catch (err: any) {
-    return {
-      authorized: false,
-      error: err?.message || 'Authentication failed',
-      status: 500,
-    };
+    } catch {}
   }
+
+  // 2. Verify Supabase SSR cookies
+  if (isSupabaseConfigured()) {
+    try {
+      const supabase = await createServerSupabaseClient();
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+
+      if (error || !user) {
+        return {
+          authorized: false,
+          error: 'Unauthorized: Authentication required.',
+          status: 401,
+        };
+      }
+
+      const email = (user.email || '').toLowerCase().trim();
+      if (!serverStaffStore.isRider(email) && !serverStaffStore.isAdmin(email) && !KNOWN_ADMIN_EMAILS.includes(email)) {
+        return {
+          authorized: false,
+          error: 'Forbidden: Rider or admin privileges required.',
+          status: 403,
+        };
+      }
+
+      return { authorized: true, email };
+    } catch (err: any) {
+      return {
+        authorized: false,
+        error: err?.message || 'Authentication verification failed',
+        status: 500,
+      };
+    }
+  }
+
+  // 3. Local development fallback
+  if (process.env.NODE_ENV === 'development' && !isSupabaseConfigured()) {
+    return { authorized: true, email: 'dev-rider@g1mart.local' };
+  }
+
+  return {
+    authorized: false,
+    error: 'Unauthorized: Authentication required.',
+    status: 401,
+  };
 }

@@ -47,6 +47,30 @@ export const fallbackSupabase: any = createClient(DEFAULT_SUPABASE_URL, DEFAULT_
   },
 }) as any;
 
+export const supabaseClients = [serverSupabase, fallbackSupabase];
+
+/**
+ * Execute a query against Supabase, trying serverSupabase first, and automatically
+ * falling back to verified fallbackSupabase if any error occurs (e.g. invalid service key or schema relationship).
+ */
+export async function executeSupabaseWithFallback<T = any>(
+  queryFn: (client: any) => Promise<{ data: T | null; error: any }>
+): Promise<{ data: T | null; error: any }> {
+  try {
+    const primary = await queryFn(serverSupabase);
+    if (!primary.error && primary.data !== null && primary.data !== undefined) {
+      return primary;
+    }
+  } catch {}
+
+  try {
+    const fallback = await queryFn(fallbackSupabase);
+    return fallback;
+  } catch (err: any) {
+    return { data: null, error: err };
+  }
+}
+
 export function isSupabaseConfigured(): boolean {
   return true;
 }

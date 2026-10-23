@@ -185,15 +185,23 @@ export default function OrdersPage() {
   useEffect(() => {
     syncOrders(false);
 
-    // Visibility-aware background refresh every 15s
+    // Only poll if there are active/in-transit orders; if user has no active orders, do not poll!
+    const hasActiveOrders = orders.some((o) => {
+      const s = (o.status || '').toLowerCase();
+      return !s.includes('delivered') && !s.includes('cancel');
+    });
+
+    if (!hasActiveOrders) return;
+
+    // Visibility-aware background refresh every 30s
     const interval = setInterval(() => {
       if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
         syncOrders(false);
       }
-    }, 15000);
+    }, 30000);
 
     return () => clearInterval(interval);
-  }, [syncOrders]);
+  }, [syncOrders, orders]);
 
   // Order filtering
   const filteredOrders = useMemo(() => {

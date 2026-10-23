@@ -168,7 +168,15 @@ export class PhonePePaymentAdapter implements PaymentAdapter {
       if (rawBody?.response) {
         const base64Response = rawBody.response;
 
-        // Verify X-VERIFY checksum if provided
+        // Verify X-VERIFY checksum
+        if (!receivedXVerify && process.env.NODE_ENV === 'production') {
+          return {
+            success: false,
+            state: 'FAILED',
+            error: 'Missing required X-VERIFY header on PhonePe webhook',
+          };
+        }
+
         if (receivedXVerify) {
           const stringToHash = base64Response + this.saltKey;
           const calculatedSha256 = crypto.createHash('sha256').update(stringToHash).digest('hex');

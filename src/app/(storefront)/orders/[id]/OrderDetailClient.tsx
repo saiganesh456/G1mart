@@ -33,7 +33,6 @@ import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import type { Product } from '@/types';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import { loadRazorpayScript } from '@/components/payment/RazorpayCheckoutButton';
-import { CONSTANT_DELIVERY_OTP } from '@/lib/deliveryOtp';
 
 function getProductHref(item: any): string | null {
   if (!item) return null;
@@ -376,10 +375,18 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
     window.addEventListener('storage', handleStorageChange);
 
     const interval = setInterval(() => {
-      if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
-        syncLiveOrder();
-      }
-    }, 25000);
+      setOrder((currentOrder: any) => {
+        const s = (currentOrder?.status || '').toLowerCase();
+        if (s.includes('delivered') || s.includes('cancel')) {
+          clearInterval(interval);
+          return currentOrder;
+        }
+        if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
+          syncLiveOrder();
+        }
+        return currentOrder;
+      });
+    }, 30000);
 
     return () => {
       clearTimeout(timer);
@@ -885,7 +892,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
           const hasArrived = Boolean(order?.arrivedAtDoorstep || order?.arrived_at_doorstep);
 
           if (!isDelivered && (isOutForDelivery || isReadyPickup || otp || hasArrived)) {
-            const displayPin = CONSTANT_DELIVERY_OTP;
+            const displayPin = order?.deliveryOtp || order?.delivery_otp || (order?.address as any)?._deliveryOtp || '----';
             const riderName =
               order?.assignedRider?.name ||
               order?.assigned_rider_name ||

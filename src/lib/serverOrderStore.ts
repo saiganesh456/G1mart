@@ -3,11 +3,35 @@ import path from 'path';
 import os from 'os';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import { resolveLegacyId } from '@/lib/legacyIdMap';
-import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
+import {
+  serverSupabase as supabase,
+  fallbackSupabase,
+  supabaseClients,
+  executeSupabaseWithFallback,
+  isSupabaseConfigured,
+} from '@/lib/supabase/serverAdmin';
 import { serverProductOverrides } from '@/lib/serverProductOverrides';
 import type { Order, OrderItem, PaymentRecord, PaymentStatus, OrderStatus } from '@/types';
 import migratedVariantsData from '../../data/migrated_product_variants.json';
 import { formatToIST, formatTimeToIST } from '@/lib/dateUtils';
+import { generate4DigitOtp } from '@/lib/deliveryOtp';
+
+export function getOrderTimestamp(o: any): number {
+  if (!o) return 0;
+  if (o.created_at) {
+    const t = new Date(o.created_at).getTime();
+    if (!isNaN(t) && t > 0) return t;
+  }
+  if (o.createdAt) {
+    const t = new Date(o.createdAt).getTime();
+    if (!isNaN(t) && t > 0) return t;
+  }
+  if (o.date) {
+    const t = new Date(o.date).getTime();
+    if (!isNaN(t) && t > 0) return t;
+  }
+  return 0;
+}
 
 const PRIMARY_ORDERS_PATH = path.join(process.cwd(), 'src', 'data', 'orders_store.json');
 const ORDERS_FILE_PATH = path.join(process.cwd(), 'data', 'g1mart_orders.json');
@@ -216,6 +240,8 @@ export const serverOrderStore = {
     const finalTotal = params.final_total ?? params.finalTotal ?? params.grandTotal;
     const orderType = params.orderType ?? params.type ?? 'standard';
 
+    const dynamicOtp = (params as any).deliveryOtp || generate4DigitOtp();
+
     const order: Order = {
       id: params.orderId,
       orderNumber: params.orderId,
@@ -246,7 +272,8 @@ export const serverOrderStore = {
       providerOrderId: params.merchantOrderId,
       userId: params.userId,
       userEmail: params.userEmail,
-      deliveryOtp: '1234',
+      deliveryOtp: dynamicOtp,
+      createdAt: new Date().toISOString(),
       timeline: [
         { status: 'Order Placed', time: 'Just now', completed: true },
         { status: 'Packed', time: 'Pending', completed: false },
@@ -271,40 +298,43 @@ export const serverOrderStore = {
     };
     paymentsMap.set(params.merchantOrderId, paymentRecord);
 
-    // Persist to Supabase if configured (valid schema columns only)
+    // Persist to Supabase if configured with resilient multi-client fallback
     if (isSupabaseConfigured()) {
-      try {
-        await supabase.from('orders').upsert({
-          id: order.id,
-          user_id: params.userId || null,
-          date: order.date,
-          slot: order.slot,
-          payment_method: order.paymentMethod,
-          is_paid: false,
-          status: 'Order Placed',
-          subtotal: order.subtotal,
-          discount: 0,
-          delivery_fee: order.deliveryFee,
-          taxes: order.taxes,
-          grand_total: order.grandTotal,
-          address: {
-            ...order.address,
-            _status: 'Order Placed',
-            _deliveryOtp: order.deliveryOtp,
-            _items: order.items,
-            _paymentStatus: 'pending',
-            _providerOrderId: params.merchantOrderId,
-            _userId: params.userId,
-            _userEmail: params.userEmail,
-            _distanceKm: distanceKm,
-            _zoneMinOrder: zoneMinOrder,
-            _codFee: codFee,
-            _finalTotal: finalTotal,
-          },
-          updated_at: new Date().toISOString(),
-        });
-      } catch (err) {
-        console.warn('[serverOrderStore] Supabase insert fallback to memory:', err);
+      for (const client of supabaseClients) {
+        try {
+          const { error: upsertErr } = await client.from('orders').upsert({
+            id: order.id,
+            user_id: params.userId || null,
+            date: order.date,
+            slot: order.slot,
+            payment_method: order.paymentMethod,
+            is_paid: false,
+            status: 'Order Placed',
+            subtotal: order.subtotal,
+            discount: 0,
+            delivery_fee: order.deliveryFee,
+            taxes: order.taxes,
+            grand_total: order.grandTotal,
+            address: {
+              ...order.address,
+              _status: 'Order Placed',
+              _deliveryOtp: order.deliveryOtp,
+              _items: order.items,
+              _paymentStatus: 'pending',
+              _providerOrderId: params.merchantOrderId,
+              _userId: params.userId,
+              _userEmail: params.userEmail,
+              _distanceKm: distanceKm,
+              _zoneMinOrder: zoneMinOrder,
+              _codFee: codFee,
+              _finalTotal: finalTotal,
+            },
+            updated_at: new Date().toISOString(),
+          });
+          if (!upsertErr) break;
+        } catch (err) {
+          console.warn('[serverOrderStore] Supabase insert fallback notice:', err);
+        }
       }
     }
 
@@ -527,45 +557,50 @@ export const serverOrderStore = {
     this.loadFromDisk();
     let order = ordersMap.get(orderId);
 
-    // Fallback: If order not in memory, try to load from Supabase
+    // Fallback: If order not in memory, try to load from Supabase with multi-client resilience
     if (!order && isSupabaseConfigured()) {
-      try {
-        const { data } = await supabase.from('orders').select('*').eq('id', orderId).maybeSingle();
-        if (data) {
-          const rawAddr = data.address;
-          const addr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
-          const realStatus = (addr._status || data.status || 'Order Placed') as OrderStatus;
-          const loadedOrder: Order = {
-            id: data.id,
-            date: data.date,
-            slot: data.slot,
-            paymentMethod: data.payment_method,
-            paymentStatus: data.is_paid ? 'completed' : (addr._paymentStatus || (data.payment_method === 'Cash on Delivery' ? 'cash_on_delivery' : 'pending')),
-            isPaid: data.is_paid,
-            status: realStatus,
-            subtotal: Number(data.subtotal),
-            discount: Number(data.discount),
-            deliveryFee: Number(data.delivery_fee),
-            taxes: Number(data.taxes),
-            grandTotal: Number(data.grand_total),
-            items: (addr._items && Array.isArray(addr._items) && addr._items.length > 0)
-              ? addr._items
-              : [],
-            address: addr,
-            assignedRider: addr._assignedRider,
-            deliveryOtp: addr._deliveryOtp,
-            timeline: addr._timeline || [
-              { status: 'Order Placed', time: 'Confirmed', completed: true },
-              { status: 'Packed', time: 'Pending', completed: realStatus === 'Packed' || realStatus === 'Rider Assigned' || realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
-              { status: 'Out for Delivery', time: 'Pending', completed: realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
-              { status: 'Delivered', time: 'Pending', completed: realStatus === 'Delivered' },
-            ],
-          };
-          order = loadedOrder;
-          ordersMap.set(orderId, loadedOrder);
+      for (const client of supabaseClients) {
+        try {
+          const { data, error } = await client.from('orders').select('*').eq('id', orderId).maybeSingle();
+          if (!error && data) {
+            const rawAddr = data.address;
+            const addr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
+            const realStatus = (addr._status || data.status || 'Order Placed') as OrderStatus;
+            const loadedOrder: Order = {
+              id: data.id,
+              date: data.date,
+              created_at: data.created_at,
+              createdAt: data.created_at,
+              slot: data.slot,
+              paymentMethod: data.payment_method,
+              paymentStatus: data.is_paid ? 'completed' : (addr._paymentStatus || (data.payment_method === 'Cash on Delivery' ? 'cash_on_delivery' : 'pending')),
+              isPaid: data.is_paid,
+              status: realStatus,
+              subtotal: Number(data.subtotal),
+              discount: Number(data.discount),
+              deliveryFee: Number(data.delivery_fee),
+              taxes: Number(data.taxes),
+              grandTotal: Number(data.grand_total),
+              items: (addr._items && Array.isArray(addr._items) && addr._items.length > 0)
+                ? addr._items
+                : [],
+              address: addr,
+              assignedRider: addr._assignedRider,
+              deliveryOtp: addr._deliveryOtp || generate4DigitOtp(),
+              timeline: addr._timeline || [
+                { status: 'Order Placed', time: 'Confirmed', completed: true },
+                { status: 'Packed', time: 'Pending', completed: realStatus === 'Packed' || realStatus === 'Rider Assigned' || realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
+                { status: 'Out for Delivery', time: 'Pending', completed: realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
+                { status: 'Delivered', time: 'Pending', completed: realStatus === 'Delivered' },
+              ],
+            };
+            order = loadedOrder;
+            ordersMap.set(orderId, loadedOrder);
+            break;
+          }
+        } catch (err) {
+          console.warn('[serverOrderStore] Error loading order from Supabase client:', err);
         }
-      } catch (err) {
-        console.warn('[serverOrderStore] Error loading order from Supabase:', err);
       }
     }
 
@@ -575,7 +610,7 @@ export const serverOrderStore = {
 
     order.status = status;
     if (!order.deliveryOtp) {
-      order.deliveryOtp = '1234';
+      order.deliveryOtp = generate4DigitOtp();
     }
     if (assignedRider) {
       order.assignedRider = {
@@ -648,53 +683,54 @@ export const serverOrderStore = {
     this.persistToDisk();
 
     if (isSupabaseConfigured()) {
-      try {
-        // Map status to valid database enum ('Order Placed', 'Packed', 'Out for Delivery', 'Delivered', 'Cancelled')
-        let dbStatus: 'Order Placed' | 'Packed' | 'Out for Delivery' | 'Delivered' | 'Cancelled' = 'Order Placed';
-        if (status === 'Delivered') {
-          dbStatus = 'Delivered';
-        } else if (status === 'Out for Delivery' || status === 'Order Dispatched') {
-          dbStatus = 'Out for Delivery';
-        } else if (status === 'Packed' || status === 'Rider Assigned') {
-          dbStatus = 'Packed';
-        } else if (status === 'Cancelled') {
-          dbStatus = 'Cancelled';
-        } else {
-          dbStatus = 'Order Placed';
-        }
+      let dbStatus: 'Order Placed' | 'Packed' | 'Out for Delivery' | 'Delivered' | 'Cancelled' = 'Order Placed';
+      if (status === 'Delivered') {
+        dbStatus = 'Delivered';
+      } else if (status === 'Out for Delivery' || status === 'Order Dispatched') {
+        dbStatus = 'Out for Delivery';
+      } else if (status === 'Packed' || status === 'Rider Assigned') {
+        dbStatus = 'Packed';
+      } else if (status === 'Cancelled') {
+        dbStatus = 'Cancelled';
+      } else {
+        dbStatus = 'Order Placed';
+      }
 
-        const updatePayload: any = {
-          status: dbStatus,
-          is_paid: Boolean(order.isPaid),
-          updated_at: new Date().toISOString(),
-          address: order.address,
-        };
+      const updatePayload: any = {
+        status: dbStatus,
+        is_paid: Boolean(order.isPaid),
+        updated_at: new Date().toISOString(),
+        address: order.address,
+      };
 
-        const validRiderUuid = toValidUuidOrNull(order.assignedRider?.id);
-        if (validRiderUuid) {
-          updatePayload.assigned_rider_id = validRiderUuid;
-        }
+      const validRiderUuid = toValidUuidOrNull(order.assignedRider?.id);
+      if (validRiderUuid) {
+        updatePayload.assigned_rider_id = validRiderUuid;
+      }
 
-        const { error: updateErr } = await supabase
-          .from('orders')
-          .update(updatePayload)
-          .eq('id', orderId);
+      for (const client of supabaseClients) {
+        try {
+          const { error: updateErr } = await client
+            .from('orders')
+            .update(updatePayload)
+            .eq('id', orderId);
 
-        if (updateErr) {
-          console.warn('[serverOrderStore] Supabase updateOrderStatus notice:', updateErr);
-          if (updatePayload.assigned_rider_id) {
-            delete updatePayload.assigned_rider_id;
-            const { error: retryErr } = await supabase
-              .from('orders')
-              .update(updatePayload)
-              .eq('id', orderId);
-            if (retryErr) {
-              console.warn('[serverOrderStore] Supabase updateOrderStatus retry error:', retryErr);
+          if (updateErr) {
+            if (updatePayload.assigned_rider_id) {
+              const retryPayload = { ...updatePayload };
+              delete retryPayload.assigned_rider_id;
+              const { error: retryErr } = await client
+                .from('orders')
+                .update(retryPayload)
+                .eq('id', orderId);
+              if (!retryErr) break;
             }
+          } else {
+            break;
           }
+        } catch (err) {
+          console.warn('[serverOrderStore] Supabase updateOrderStatus client notice:', err);
         }
-      } catch (err) {
-        console.warn('[serverOrderStore] Supabase updateOrderStatus fallback:', err);
       }
     }
 
@@ -981,65 +1017,70 @@ export const serverOrderStore = {
     this.loadFromDisk();
     let order = this.getOrder(orderId);
     if (isSupabaseConfigured()) {
-      try {
-        const { data } = await supabase.from('orders').select('*').eq('id', orderId).maybeSingle();
-        if (data) {
-          const addr = data.address || {};
-          const existing = order;
-          const realStatus = (addr._status || data.status || 'Order Placed') as OrderStatus;
-          const items = (existing?.items && existing.items.length > 0) ? existing.items : (addr._items || []);
-          const rawSubtotal = Number(data.subtotal || 0);
-          const rawGrand = Number(data.grand_total || 0);
-          const itemsSum = items.reduce((acc: number, it: any) => acc + ((Number(it.price) || 0) * (Number(it.quantity) || 1)), 0);
-          const effectiveSubtotal = itemsSum > 0 ? itemsSum : rawSubtotal;
-          const codFee = Number(addr._codFee || addr.codFee || (data.payment_method === 'Cash on Delivery' && !data.slot?.toLowerCase().includes('pickup') ? 50 : 0));
-          const effectiveGrandTotal = itemsSum > 0 && (rawGrand < itemsSum || Math.abs((itemsSum + codFee) - rawGrand) > 5)
-            ? itemsSum + Number(data.delivery_fee || 0) + codFee
-            : rawGrand;
+      for (const client of supabaseClients) {
+        try {
+          const { data, error } = await client.from('orders').select('*').eq('id', orderId).maybeSingle();
+          if (!error && data) {
+            const addr = data.address || {};
+            const existing = order;
+            const realStatus = (addr._status || data.status || 'Order Placed') as OrderStatus;
+            const items = (existing?.items && existing.items.length > 0) ? existing.items : (addr._items || []);
+            const rawSubtotal = Number(data.subtotal || 0);
+            const rawGrand = Number(data.grand_total || 0);
+            const itemsSum = items.reduce((acc: number, it: any) => acc + ((Number(it.price) || 0) * (Number(it.quantity) || 1)), 0);
+            const effectiveSubtotal = itemsSum > 0 ? itemsSum : rawSubtotal;
+            const codFee = Number(addr._codFee || addr.codFee || (data.payment_method === 'Cash on Delivery' && !data.slot?.toLowerCase().includes('pickup') ? 50 : 0));
+            const effectiveGrandTotal = itemsSum > 0 && (rawGrand < itemsSum || Math.abs((itemsSum + codFee) - rawGrand) > 5)
+              ? itemsSum + Number(data.delivery_fee || 0) + codFee
+              : rawGrand;
 
-          order = {
-            id: data.id,
-            orderNumber: data.id,
-            date: data.date,
-            slot: data.slot,
-            paymentMethod: data.payment_method,
-            paymentStatus: data.is_paid ? 'completed' : (addr._paymentStatus || (data.payment_method === 'Cash on Delivery' ? 'cash_on_delivery' : 'pending')),
-            isPaid: Boolean(data.is_paid),
-            paidAmount: addr._paidAmount || (data.is_paid ? effectiveGrandTotal : 0),
-            paidAt: addr._paidAt,
-            status: realStatus,
-            subtotal: effectiveSubtotal,
-            discount: Number(data.discount || 0),
-            deliveryFee: Number(data.delivery_fee || 0),
-            taxes: Number(data.taxes || 0),
-            grandTotal: effectiveGrandTotal,
-            codFee,
-            orderType: addr.orderType || existing?.orderType || (data.slot?.toLowerCase().includes('pickup') ? 'pickup' : 'standard'),
-            items,
-            address: addr,
-            userId: data.user_id || addr._userId,
-            userEmail: addr._userEmail,
-            deliveryOtp: addr._deliveryOtp || existing?.deliveryOtp || '1234',
-            assignedRider: addr._assignedRider || existing?.assignedRider,
-            timeline: addr._timeline || existing?.timeline || [
-              { status: 'Order Placed', time: 'Confirmed', completed: true },
-              { status: 'Packed', time: 'Pending', completed: realStatus === 'Packed' || realStatus === 'Rider Assigned' || realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
-              { status: 'Out for Delivery', time: 'Pending', completed: realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
-              { status: 'Delivered', time: 'Pending', completed: realStatus === 'Delivered' },
-            ],
-          };
-          ordersMap.set(data.id, order);
-          this.persistToDisk();
-
-          if (isSupabaseConfigured() && (effectiveSubtotal !== rawSubtotal || effectiveGrandTotal !== rawGrand)) {
-            supabase.from('orders').update({
+            order = {
+              id: data.id,
+              orderNumber: data.id,
+              date: data.date,
+              created_at: data.created_at,
+              createdAt: data.created_at,
+              slot: data.slot,
+              paymentMethod: data.payment_method,
+              paymentStatus: data.is_paid ? 'completed' : (addr._paymentStatus || (data.payment_method === 'Cash on Delivery' ? 'cash_on_delivery' : 'pending')),
+              isPaid: Boolean(data.is_paid),
+              paidAmount: addr._paidAmount || (data.is_paid ? effectiveGrandTotal : 0),
+              paidAt: addr._paidAt,
+              status: realStatus,
               subtotal: effectiveSubtotal,
-              grand_total: effectiveGrandTotal,
-              updated_at: new Date().toISOString(),
-            }).eq('id', data.id).then(() => {}).catch(() => {});
+              discount: Number(data.discount || 0),
+              deliveryFee: Number(data.delivery_fee || 0),
+              taxes: Number(data.taxes || 0),
+              grandTotal: effectiveGrandTotal,
+              codFee,
+              orderType: addr.orderType || existing?.orderType || (data.slot?.toLowerCase().includes('pickup') ? 'pickup' : 'standard'),
+              items,
+              address: addr,
+              userId: data.user_id || addr._userId,
+              userEmail: addr._userEmail,
+              deliveryOtp: addr._deliveryOtp || existing?.deliveryOtp || generate4DigitOtp(),
+              assignedRider: addr._assignedRider || existing?.assignedRider,
+              timeline: addr._timeline || existing?.timeline || [
+                { status: 'Order Placed', time: 'Confirmed', completed: true },
+                { status: 'Packed', time: 'Pending', completed: realStatus === 'Packed' || realStatus === 'Rider Assigned' || realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
+                { status: 'Out for Delivery', time: 'Pending', completed: realStatus === 'Out for Delivery' || realStatus === 'Delivered' },
+                { status: 'Delivered', time: 'Pending', completed: realStatus === 'Delivered' },
+              ],
+            };
+            ordersMap.set(data.id, order);
+            this.persistToDisk();
+
+            if (effectiveSubtotal !== rawSubtotal || effectiveGrandTotal !== rawGrand) {
+              client.from('orders').update({
+                subtotal: effectiveSubtotal,
+                grand_total: effectiveGrandTotal,
+                updated_at: new Date().toISOString(),
+              }).eq('id', data.id).then(() => {}).catch(() => {});
+            }
+            break;
           }
-        }
-      } catch {}
+        } catch {}
+      }
     }
     return order;
   },
@@ -1058,100 +1099,131 @@ export const serverOrderStore = {
   },
 
   /**
-   * Get all orders
+   * Get all orders sorted newest first
    */
   getAllOrders(): Order[] {
     this.loadFromDisk();
     return Array.from(ordersMap.values()).sort(
-      (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
+      (a, b) => getOrderTimestamp(b) - getOrderTimestamp(a)
     );
   },
 
   /**
-   * Get all orders with async Supabase remote database synchronization
+   * Get all orders with async Supabase remote database synchronization (sorted newest first)
    */
   async getAllOrdersAsync(): Promise<Order[]> {
     this.loadFromDisk();
 
     if (isSupabaseConfigured()) {
-      try {
-        const { data, error } = await supabase
-          .from('orders')
-          .select('*')
-          .order('date', { ascending: false });
+      let dbOrders: any[] | null = null;
+      for (const client of supabaseClients) {
+        if (dbOrders && dbOrders.length > 0) break;
+        try {
+          // Try join query first
+          const joinRes = await client
+            .from('orders')
+            .select('*, order_items(*)')
+            .order('created_at', { ascending: false });
 
-        if (!error && Array.isArray(data) && data.length > 0) {
-          for (const row of data) {
-            if (!row || !row.id) continue;
-            const existing = ordersMap.get(row.id);
-            const rawAddr = row.address;
-            const addr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
-            const items = existing?.items?.length ? existing.items : (addr._items || []);
-            const realStatus = (addr._status || row.status || 'Order Placed') as OrderStatus;
-            const curRank = STATUS_RANK[existing?.status || ''] || 0;
-            const remoteRank = STATUS_RANK[realStatus] || 0;
-            const winningStatus = curRank > remoteRank ? existing!.status : realStatus;
-            const winningRider = curRank > remoteRank ? (existing?.assignedRider || addr._assignedRider) : (addr._assignedRider || existing?.assignedRider);
-            const rawSubtotal = Number(row.subtotal || existing?.subtotal || 0);
-            const rawGrand = Number(row.grand_total || existing?.grandTotal || 0);
-            const itemsSum = items.reduce((acc: number, it: any) => acc + ((Number(it.price) || 0) * (Number(it.quantity) || 1)), 0);
-            const effectiveSubtotal = itemsSum > 0 ? itemsSum : rawSubtotal;
-            const codFee = Number(addr._codFee || addr.codFee || (row.payment_method === 'Cash on Delivery' && !row.slot?.toLowerCase().includes('pickup') ? 50 : 0));
-            const effectiveGrandTotal = itemsSum > 0 && (rawGrand < itemsSum || Math.abs((itemsSum + codFee) - rawGrand) > 5)
-              ? itemsSum + Number(row.delivery_fee || 0) + codFee
-              : rawGrand;
-
-            const syncedOrder: Order = {
-              id: row.id,
-              orderNumber: existing?.orderNumber || row.id,
-              date: row.date || existing?.date || new Date().toISOString(),
-              slot: row.slot || existing?.slot || 'Standard Delivery',
-              orderType: addr.orderType || existing?.orderType || (row.slot?.toLowerCase().includes('pickup') ? 'pickup' : 'standard'),
-              paymentMethod: (row.payment_method as any) || existing?.paymentMethod || 'Cash on Delivery',
-              paymentStatus: row.is_paid
-                ? 'completed'
-                : (addr._paymentStatus || existing?.paymentStatus || (row.payment_method === 'Cash on Delivery' ? 'cash_on_delivery' : 'pending')),
-              isPaid: Boolean(row.is_paid ?? existing?.isPaid ?? false),
-              status: winningStatus,
-              subtotal: effectiveSubtotal,
-              discount: Number(row.discount || existing?.discount || 0),
-              deliveryFee: Number(row.delivery_fee || existing?.deliveryFee || 0),
-              taxes: Number(row.taxes || existing?.taxes || 0),
-              grandTotal: effectiveGrandTotal,
-              codFee,
-              items: items,
-              address: { ...addr, ...(existing?.address || {}), _status: winningStatus, _assignedRider: winningRider },
-              userId: row.user_id || existing?.userId || addr._userId,
-              userEmail: existing?.userEmail || addr._userEmail,
-              deliveryOtp: addr._deliveryOtp || existing?.deliveryOtp || '1234',
-              assignedRider: winningRider,
-              timeline: addr._timeline || existing?.timeline || [
-                { status: 'Order Placed', time: 'Confirmed', completed: true },
-                { status: 'Packed', time: 'Pending', completed: winningStatus === 'Packed' || winningStatus === 'Rider Assigned' || winningStatus === 'Out for Delivery' || winningStatus === 'Delivered' },
-                { status: 'Out for Delivery', time: 'Pending', completed: winningStatus === 'Out for Delivery' || winningStatus === 'Delivered' },
-                { status: 'Delivered', time: 'Pending', completed: winningStatus === 'Delivered' },
-              ],
-            };
-
-            ordersMap.set(row.id, syncedOrder);
-
-            if (isSupabaseConfigured() && (effectiveSubtotal !== rawSubtotal || effectiveGrandTotal !== rawGrand)) {
-              supabase.from('orders').update({
-                subtotal: effectiveSubtotal,
-                grand_total: effectiveGrandTotal,
-                updated_at: new Date().toISOString(),
-              }).eq('id', row.id).then(() => {}).catch(() => {});
+          if (!joinRes.error && Array.isArray(joinRes.data) && joinRes.data.length > 0) {
+            dbOrders = joinRes.data;
+          } else {
+            // Flat query fallback
+            const flatRes = await client
+              .from('orders')
+              .select('*')
+              .order('created_at', { ascending: false });
+            if (!flatRes.error && Array.isArray(flatRes.data) && flatRes.data.length > 0) {
+              dbOrders = flatRes.data;
+            } else {
+              // Date fallback
+              const dateRes = await client
+                .from('orders')
+                .select('*')
+                .order('date', { ascending: false });
+              if (!dateRes.error && Array.isArray(dateRes.data) && dateRes.data.length > 0) {
+                dbOrders = dateRes.data;
+              }
             }
           }
-          this.persistToDisk();
+        } catch (err) {
+          console.warn('[serverOrderStore] Supabase remote sync try client notice:', err);
         }
-      } catch (err) {
-        console.warn('[serverOrderStore] Supabase remote sync note in getAllOrdersAsync:', err);
+      }
+
+      if (Array.isArray(dbOrders) && dbOrders.length > 0) {
+        for (const row of dbOrders) {
+          if (!row || !row.id) continue;
+          const existing = ordersMap.get(row.id);
+          const rawAddr = row.address;
+          const addr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
+          let items = existing?.items?.length ? existing.items : (addr._items || []);
+          if ((!items || items.length === 0) && Array.isArray(row.order_items) && row.order_items.length > 0) {
+            items = row.order_items.map((oi: any) => ({
+              productId: oi.product_id,
+              productName: oi.product_name || 'Product',
+              unit: oi.unit || '1 unit',
+              price: Number(oi.unit_price || 0),
+              quantity: Number(oi.quantity || 1),
+              image: oi.image_url || '/products/placeholder.svg',
+            }));
+          }
+          const realStatus = (addr._status || row.status || 'Order Placed') as OrderStatus;
+          const curRank = STATUS_RANK[existing?.status || ''] || 0;
+          const remoteRank = STATUS_RANK[realStatus] || 0;
+          const winningStatus = curRank > remoteRank ? existing!.status : realStatus;
+          const winningRider = curRank > remoteRank ? (existing?.assignedRider || addr._assignedRider) : (addr._assignedRider || existing?.assignedRider);
+          const rawSubtotal = Number(row.subtotal || existing?.subtotal || 0);
+          const rawGrand = Number(row.grand_total || existing?.grandTotal || 0);
+          const itemsSum = items.reduce((acc: number, it: any) => acc + ((Number(it.price) || 0) * (Number(it.quantity) || 1)), 0);
+          const effectiveSubtotal = itemsSum > 0 ? itemsSum : rawSubtotal;
+          const codFee = Number(addr._codFee || addr.codFee || (row.payment_method === 'Cash on Delivery' && !row.slot?.toLowerCase().includes('pickup') ? 50 : 0));
+          const effectiveGrandTotal = itemsSum > 0 && (rawGrand < itemsSum || Math.abs((itemsSum + codFee) - rawGrand) > 5)
+            ? itemsSum + Number(row.delivery_fee || 0) + codFee
+            : rawGrand;
+
+          const syncedOrder: Order = {
+            id: row.id,
+            orderNumber: existing?.orderNumber || row.id,
+            date: row.date || existing?.date || new Date().toISOString(),
+            created_at: row.created_at || (existing as any)?.created_at,
+            createdAt: row.created_at || (existing as any)?.createdAt,
+            slot: row.slot || existing?.slot || 'Standard Delivery',
+            orderType: addr.orderType || existing?.orderType || (row.slot?.toLowerCase().includes('pickup') ? 'pickup' : 'standard'),
+            paymentMethod: (row.payment_method as any) || existing?.paymentMethod || 'Cash on Delivery',
+            paymentStatus: row.is_paid
+              ? 'completed'
+              : (addr._paymentStatus || existing?.paymentStatus || (row.payment_method === 'Cash on Delivery' ? 'cash_on_delivery' : 'pending')),
+            isPaid: Boolean(row.is_paid ?? existing?.isPaid ?? false),
+            status: winningStatus,
+            subtotal: effectiveSubtotal,
+            discount: Number(row.discount || existing?.discount || 0),
+            deliveryFee: Number(row.delivery_fee || existing?.deliveryFee || 0),
+            taxes: Number(row.taxes || existing?.taxes || 0),
+            grandTotal: effectiveGrandTotal,
+            codFee,
+            items: items,
+            address: { ...addr, ...(existing?.address || {}), _status: winningStatus, _assignedRider: winningRider },
+            userId: row.user_id || existing?.userId || addr._userId,
+            userEmail: existing?.userEmail || addr._userEmail,
+            deliveryOtp: addr._deliveryOtp || existing?.deliveryOtp || generate4DigitOtp(),
+            assignedRider: winningRider,
+            timeline: addr._timeline || existing?.timeline || [
+              { status: 'Order Placed', time: 'Confirmed', completed: true },
+              { status: 'Packed', time: 'Pending', completed: winningStatus === 'Packed' || winningStatus === 'Rider Assigned' || winningStatus === 'Out for Delivery' || winningStatus === 'Delivered' },
+              { status: 'Out for Delivery', time: 'Pending', completed: winningStatus === 'Out for Delivery' || winningStatus === 'Delivered' },
+              { status: 'Delivered', time: 'Pending', completed: winningStatus === 'Delivered' },
+            ],
+          };
+
+          ordersMap.set(row.id, syncedOrder);
+        }
+        this.persistToDisk();
       }
     }
 
     return Array.from(ordersMap.values()).sort(
-      (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
+      (a, b) => getOrderTimestamp(b) - getOrderTimestamp(a)
     );
   },
 

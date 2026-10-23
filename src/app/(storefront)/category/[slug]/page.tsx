@@ -1,9 +1,18 @@
+import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { productService, normalizeCategory } from '@/services/productService';
 import CategoryDashboardClient from './CategoryDashboardClient';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 300; // 5-minute Edge CDN ISR cache to keep Vercel Hobby quota safe
+
+export async function generateStaticParams() {
+  try {
+    const categories = await productService.getCategories();
+    return categories.map((c) => ({ slug: c.id }));
+  } catch {
+    return [];
+  }
+}
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -91,10 +100,12 @@ export default async function CategoryPage({ params }: Props) {
   });
 
   return (
-    <CategoryDashboardClient
-      category={category!}
-      allCategories={categories}
-      products={finalProducts}
-    />
+    <Suspense fallback={<div className="min-h-screen bg-[var(--g1-bg)]" />}>
+      <CategoryDashboardClient
+        category={category!}
+        allCategories={categories}
+        products={finalProducts}
+      />
+    </Suspense>
   );
 }
