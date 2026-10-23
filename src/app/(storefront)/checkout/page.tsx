@@ -285,7 +285,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="w-full max-w-xl lg:max-w-6xl xl:max-w-7xl mx-auto space-y-4 pb-32 pt-2 sm:pt-4 px-3 sm:px-6 box-border min-w-0 overflow-x-hidden">
+    <div className="w-full max-w-xl lg:max-w-6xl xl:max-w-7xl mx-auto space-y-4 pb-32 lg:pb-12 pt-2 sm:pt-4 px-3 sm:px-6 box-border min-w-0 overflow-x-hidden">
       {/* Top Header */}
       <div className="flex items-center justify-between border-b border-stone-200/80 pb-3">
         <div className="flex items-center gap-3 min-w-0">

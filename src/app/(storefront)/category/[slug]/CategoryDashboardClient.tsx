@@ -563,7 +563,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
       <div className="flex flex-1 min-h-0 overflow-hidden">
         {/* Left rail: responsive width (compact on mobile, wide with text on desktop) */}
         <aside
-          className="w-[76px] sm:w-20 lg:w-56 xl:w-60 shrink-0 h-full overflow-y-auto no-scrollbar bg-[var(--g1-surface)] border-r flex flex-col py-2 select-none"
+          className="w-[76px] sm:w-20 lg:w-56 xl:w-60 shrink-0 h-full overflow-y-auto no-scrollbar bg-[var(--g1-surface)] border-r flex flex-col py-2 pb-28 lg:pb-4 select-none"
           style={{ borderColor: 'var(--g1-border)' }}
         >
           {/* "All" subcategory button */}
@@ -663,7 +663,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
         {/* Right Main: INDEPENDENT PRODUCT SCROLL (Smooth 2-column Blinkit-style grid) */}
         <main
           ref={productContainerRef}
-          className="flex-1 h-full overflow-y-auto overscroll-contain p-2 sm:p-3 pb-32"
+          className="flex-1 h-full overflow-y-auto overscroll-contain p-2 sm:p-3 pb-32 lg:pb-8"
         >
           {/* Subcategory title banner */}
           <div className="mb-2 pb-1.5 border-b flex items-center justify-between" style={{ borderColor: 'var(--g1-border)' }}>

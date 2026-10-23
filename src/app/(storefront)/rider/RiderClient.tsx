@@ -454,7 +454,7 @@ export default function RiderClient() {
   return (
     <RiderAuthGuard>
       {/* Strict overflow protection so mobile screens never clip on the right */}
-      <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-6 pb-36 sm:pb-24 min-w-0 max-w-full overflow-x-hidden box-border">
+      <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-6 pb-36 sm:pb-24 lg:pb-12 min-w-0 max-w-full overflow-x-hidden box-border">
 
         {/* ================= 1. RESPONSIVE TOP HEADER ================= */}
         <header className="bg-gradient-to-r from-[#0C2411] via-[#12381A] to-[#1B5E20] text-white rounded-2xl sm:rounded-3xl p-3 sm:p-5 shadow-lg border border-emerald-900/60 mb-3 sm:mb-6 w-full min-w-0 max-w-full box-border">

@@ -188,7 +188,7 @@ export default function ProductDetailPage({ params }: Props) {
     : null;
 
   return (
-    <div className="w-full max-w-2xl lg:max-w-6xl xl:max-w-7xl mx-auto space-y-4 lg:space-y-6 pb-28 pt-2 sm:pt-4 px-4 sm:px-6 box-border">
+    <div className="w-full max-w-2xl lg:max-w-6xl xl:max-w-7xl mx-auto space-y-4 lg:space-y-6 pb-28 lg:pb-8 pt-2 sm:pt-4 px-4 sm:px-6 box-border">
       {/* Desktop Breadcrumbs Bar */}
       <div className="hidden lg:block pb-1">
         <div className="flex items-center gap-2 text-xs text-stone-500 font-medium">
@@ -511,7 +511,7 @@ export default function ProductDetailPage({ params }: Props) {
               More from {effectiveProduct.brand}
             </h3>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pb-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2.5 sm:gap-3.5 pb-4">
             {brandProducts.map((bp) => (
               <ProductCard key={bp.id} product={bp} compact />
             ))}

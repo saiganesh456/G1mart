@@ -785,7 +785,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
       </div>
 
       {/* Main Page Content */}
-      <main className="max-w-2xl lg:max-w-5xl xl:max-w-6xl mx-auto px-3 sm:px-4 pt-3 space-y-3.5">
+      <main className="max-w-2xl lg:max-w-6xl xl:max-w-7xl mx-auto px-3 sm:px-6 pt-3 pb-24 lg:pb-12 space-y-4">
         {/* Just Placed / Paid Congratulations Pill */}
         {(isJustPlaced || isPaid) && (
           <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 flex items-start gap-3 shadow-xs animate-in fade-in">
@@ -817,18 +817,10 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
           </div>
         )}
 
-        {/* Illustrated Delivery Journey Component — Reference C Primary Visual Feature */}
-        <DeliveryJourneyAnimation
-          status={order?.status || 'Order Placed'}
-          orderType={order?.orderType}
-          orderId={orderId}
-          etaMin={order?.eta_min}
-        />
-
-        {/* Main Order Card */}
-        <div className="bg-white rounded-2xl border border-stone-200/90 p-4 shadow-2xs space-y-4">
+        {/* Order Status & Payment Status Card */}
+        <div className="bg-white rounded-2xl border border-stone-200/90 p-4 shadow-2xs">
           {/* Order Status & Payment Status row — Reference C */}
-          <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+          <div className="flex items-center justify-between">
             <div>
               <span className="text-[11px] text-stone-400 font-semibold block">Order Status</span>
               <span className="text-sm sm:text-base font-bold text-[#1E6B2E] flex items-center gap-1.5">
@@ -880,524 +872,544 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
               </span>
             </div>
           </div>
+        </div>
 
-        {/* Customer Handover PIN (Doorstep Delivery or In-Store Pickup) */}
-        {(() => {
-          const status = order?.status || 'Order Placed';
-          const isDelivered = status === 'Delivered' || status === 'DELIVERED';
-          const isOutForDelivery =
-            status === 'Out for Delivery' ||
-            status === 'OUT_FOR_DELIVERY' ||
-            status === 'Order Dispatched' ||
-            status === 'RIDER_ASSIGNED';
-          const isReadyPickup = isPickup && (status === 'Packed' || status === 'PACKED' || status === 'Confirmed' || status === 'Packing');
-          const otp = order?.deliveryOtp || order?.delivery_otp;
-          const hasArrived = Boolean(order?.arrivedAtDoorstep || order?.arrived_at_doorstep);
+        {/* Responsive 2-Column Desktop Grid / 1-Column Mobile Layout */}
+        <div className="lg:grid lg:grid-cols-12 lg:gap-6 lg:items-start space-y-4 lg:space-y-0">
+          
+          {/* Left Column (7 cols): Visual Delivery Journey, Handover PIN, Rider & Grocery Items */}
+          <div className="lg:col-span-7 xl:col-span-7 space-y-4">
+            {/* Illustrated Delivery Journey Component — Reference C Primary Visual Feature */}
+            <DeliveryJourneyAnimation
+              status={order?.status || 'Order Placed'}
+              orderType={order?.orderType}
+              orderId={orderId}
+              etaMin={order?.eta_min}
+            />
 
-          if (!isDelivered && (isOutForDelivery || isReadyPickup || otp || hasArrived)) {
-            const displayPin = order?.deliveryOtp || order?.delivery_otp || (order?.address as any)?._deliveryOtp || '----';
-            const riderName =
-              order?.assignedRider?.name ||
-              order?.assigned_rider_name ||
-              'Express Fleet Partner';
+            {/* Customer Handover PIN (Doorstep Delivery or In-Store Pickup) */}
+            {(() => {
+              const status = order?.status || 'Order Placed';
+              const isDelivered = status === 'Delivered' || status === 'DELIVERED';
+              const isOutForDelivery =
+                status === 'Out for Delivery' ||
+                status === 'OUT_FOR_DELIVERY' ||
+                status === 'Order Dispatched' ||
+                status === 'RIDER_ASSIGNED';
+              const isReadyPickup = isPickup && (status === 'Packed' || status === 'PACKED' || status === 'Confirmed' || status === 'Packing');
+              const otp = order?.deliveryOtp || order?.delivery_otp;
+              const hasArrived = Boolean(order?.arrivedAtDoorstep || order?.arrived_at_doorstep);
 
-            return (
-              <div className="space-y-2.5">
-                {/* Doorstep Arrival Alert Banner */}
-                {hasArrived && (
-                  <div className="p-3.5 bg-gradient-to-r from-emerald-600 to-teal-700 text-white rounded-2xl flex items-center justify-between gap-3 shadow-md border border-emerald-400/40 animate-in zoom-in-95 duration-200">
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="w-9 h-9 rounded-xl bg-white text-emerald-800 flex items-center justify-center font-black text-base shadow-xs shrink-0">
-                        📍
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-[11px] font-black uppercase tracking-wider text-emerald-200 truncate">
-                          Rider Reached Your Doorstep!
-                        </div>
-                        <div className="text-xs font-bold text-white truncate">
-                          Share this PIN with {riderName}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="bg-white text-emerald-800 font-mono text-xl font-black px-3 py-1 rounded-xl shadow-xs shrink-0 tracking-widest border border-emerald-200">
-                      {displayPin}
-                    </div>
-                  </div>
-                )}
-
-                <div className="p-4 rounded-2xl bg-gradient-to-br from-[#0E2813] via-[#163D1D] to-[#1E6B2E] text-white shadow-lg space-y-2 border border-emerald-500/30 animate-in fade-in">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-                      <span className="text-xs font-black uppercase text-emerald-300 tracking-wider">
-                        {isPickup ? 'Store Pickup PIN' : 'Doorstep Delivery PIN'}
-                      </span>
-                    </div>
-                    <span className="text-[10px] bg-white/15 text-emerald-100 px-2.5 py-0.5 rounded-full font-bold">
-                      {isPickup ? 'Show at Counter' : 'Share with Rider'}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between pt-1 gap-3">
-                    <div>
-                      <p className="text-xs text-stone-200 leading-snug">
-                        {isPickup ? (
-                          <>Show this 4-digit code at the <strong className="text-white">G1mart Supermarket counter</strong> when picking up your order:</>
-                        ) : (
-                          <>Share this 4-digit code with rider <strong className="text-white">{riderName}</strong> when they arrive at your door:</>
-                        )}
-                      </p>
-                    </div>
-                    <div className="bg-white text-[#1E6B2E] font-mono text-2xl font-black px-4 py-1.5 rounded-xl border-2 border-emerald-400 tracking-widest shadow-inner shrink-0">
-                      {displayPin}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          }
-          return null;
-        })()}
-
-        {/* Slip Order Confirmation by Store Manager Call */}
-        {isSlipOrder && (
-          <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50/70 to-emerald-50 border border-emerald-300 shadow-xs space-y-2.5">
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-[#1E6B2E] text-white flex items-center justify-center text-lg shrink-0 shadow-xs">
-                📞
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-black text-emerald-950 uppercase tracking-wide">
-                    {order?.status === 'SLIP_RECEIVED'
-                      ? 'Store Reviewing Your Slip'
-                      : 'Confirmed via Call with Store Manager'}
-                  </span>
-                  <span className="text-[10px] font-bold bg-emerald-200/80 text-emerald-900 px-2.5 py-0.5 rounded-full border border-emerald-300">
-                    {order?.status === 'SLIP_RECEIVED' ? 'Pending Call' : 'Verified on Call'}
-                  </span>
-                </div>
-                <p className="text-xs text-emerald-900 mt-1 leading-snug">
-                  {order?.status === 'SLIP_RECEIVED'
-                    ? 'Our store manager is reviewing your uploaded grocery list and will call your phone to verify brands and pack your items.'
-                    : 'The store manager verified your grocery list over phone. Items have been billed and prepared as discussed.'}
-                </p>
-              </div>
-            </div>
-
-            {/* Price confirmation box */}
-            {currentSubtotal > 0 && (
-              <div className="bg-white/90 rounded-xl p-3 border border-emerald-200/90 flex items-center justify-between text-xs">
-                <div>
-                  <span className="text-stone-700 font-bold block">Verified Bill Amount</span>
-                  <span className="text-[10px] text-stone-500">Confirmed over phone for your uploaded slip</span>
-                </div>
-                <div className="text-right">
-                  <span className="text-base font-black text-[#1E6B2E]">
-                    ₹{currentSubtotal}
-                  </span>
-                  <span className="text-[10px] text-emerald-700 font-bold block">Free Doorstep Delivery</span>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Customer Uploaded Photos Preview (for slip orders) */}
-        {order?.images && order.images.length > 0 && (
-          <div className="bg-stone-50 p-3 rounded-xl border border-stone-200/70 space-y-1.5">
-            <span className="text-[10px] font-black uppercase text-stone-500 tracking-wider flex items-center gap-1">
-              <FileText className="w-3 h-3 text-[#2E7D32]" />
-              <span>Your Uploaded Grocery List ({order.images.length} photos)</span>
-            </span>
-            <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-              {order.images.map((img: any, idx: number) => (
-                <a
-                  key={idx}
-                  href={img.image_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={img.image_url}
-                    alt={`List page ${idx + 1}`}
-                    className="w-12 h-12 object-cover rounded-lg border border-stone-200 hover:opacity-80 transition-opacity bg-stone-100"
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).style.display = 'none';
-                    }}
-                  />
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Assigned Rider Card (if assigned) */}
-        {order?.assignedRider && (
-          <div className="bg-emerald-50 p-3.5 rounded-2xl border border-emerald-200 flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-full bg-[#1B5E20] text-white flex items-center justify-center font-black">
-                🛵
-              </div>
-              <div>
-                <p className="text-xs font-black text-emerald-950">
-                  {order.assignedRider.name || 'Express Rider'}
-                </p>
-                <p className="text-[10px] text-emerald-700">G1mart Delivery Partner</p>
-              </div>
-            </div>
-
-            {order.assignedRider.phone && (
-              <a
-                href={`tel:${order.assignedRider.phone}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#1B5E20] text-white text-xs font-black rounded-xl hover:bg-[#2E7D32]"
-              >
-                <Phone className="w-3.5 h-3.5" />
-                <span>Call Rider</span>
-              </a>
-            )}
-          </div>
-        )}
-
-        {/* Customer & Address Details */}
-        {address && (
-          <div className="bg-stone-50 p-3.5 rounded-xl border border-stone-200/70 space-y-2">
-            <div className="flex items-center justify-between border-b border-stone-200/60 pb-1.5">
-              <div className="flex items-center gap-2 text-xs font-bold text-stone-800">
-                <MapPin className="w-4 h-4 text-[#2E7D32]" />
-                <span>Delivery Details</span>
-              </div>
-              {order?.distance_km && (
-                <span className="text-[11px] font-bold text-stone-500">
-                  {order.distance_km} km road distance
-                </span>
-              )}
-            </div>
-
-            <div className="text-xs text-stone-700 space-y-1">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-stone-900">{address.fullName || 'Customer'}</span>
-                {address.phone && (
-                  <span className="inline-flex items-center gap-1 font-bold text-[#2E7D32] bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                    <Phone className="w-3 h-3" />
-                    {formatIndianPhoneDisplay(address.phone)}
-                  </span>
-                )}
-              </div>
-              <p className="text-stone-600">
-                {(() => {
-                  const rawParts = [address.houseFlat, address.streetArea, address.city, address.pincode]
-                    .filter(Boolean)
-                    .flatMap((p) => String(p).split(/,\s*/))
-                    .map((s) => s.trim().replace(/^-+|-+$/g, '').trim())
-                    .filter(Boolean);
-                  const unique = rawParts.filter((item, index) => rawParts.indexOf(item) === index);
-                  return unique.join(', ');
-                })()}
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* Items Breakdown with Unavailable Strike-Through (Phase 6 Rule 5) */}
-        {(items.length > 0 || isSlipOrder || currentSubtotal > 0) && (
-          <div className="space-y-2.5 border-t border-stone-100 pt-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-stone-900">
-                <Package className="w-4 h-4 text-[#1E6B2E]" />
-                <span>Items ({items.length > 0 ? items.length : 'From Uploaded Slip'})</span>
-              </div>
-
-              {/* Add items top-up button if awaiting payment */}
-              {isAwaitingPayment && (
-                <button
-                  type="button"
-                  onClick={() => setShowAddItemsModal(true)}
-                  className="inline-flex items-center gap-1 text-xs font-black text-[#1E6B2E] hover:underline"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                  <span>+ Add Items</span>
-                </button>
-              )}
-            </div>
-
-            {items.length === 0 && isSlipOrder && (
-              <div className="p-3 bg-white rounded-xl border border-stone-200 text-xs text-stone-700 flex items-center justify-between shadow-2xs">
-                <div>
-                  <span className="font-bold text-stone-900 block">Items verified from uploaded slip</span>
-                  <span className="text-[10px] text-stone-500">Lump-sum bill confirmed with store manager over call</span>
-                </div>
-                <span className="font-black text-[#1E6B2E] text-sm">₹{currentSubtotal}</span>
-              </div>
-            )}
-
-            {items.length > 0 && (
-            <div className="divide-y divide-stone-100 border border-stone-100 rounded-xl overflow-hidden">
-              {items.map((item: any, idx: number) => {
-                const isItemUnavailable = item.available === false;
-                const qty = item.packedQty || item.requestedQty || item.quantity || 1;
-                const price = Number(item.price) || 0;
-                const lineTotal = isItemUnavailable ? 0 : price * qty;
-
-                const itemHref = getProductHref(item);
-
-                const itemContent = (
-                  <div className="flex items-start gap-2.5 flex-1 min-w-0">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={item.image || '/products/placeholder.svg'}
-                      alt={item.productName || item.name}
-                      className="w-10 h-10 object-contain rounded-lg border border-stone-200 bg-stone-50 p-1 shrink-0 group-hover:scale-105 transition-transform"
-                      onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
-                      }}
-                    />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-1.5">
-                        <p
-                          className={`font-black group-hover:text-[#1E6B2E] transition-colors leading-snug line-clamp-2 ${
-                            isItemUnavailable ? 'line-through text-stone-400' : 'text-[#212121]'
-                          }`}
-                        >
-                          {item.productName || item.name}
-                        </p>
-                        {itemHref && (
-                          <ChevronRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-[#1E6B2E] group-hover:translate-x-0.5 transition-all shrink-0" />
-                        )}
-                      </div>
-                      <p className="text-stone-500 text-[11px] mt-0.5">
-                        {String(item.id).startsWith('slip_item_') || (item.productName || item.name || '').includes('as per')
-                          ? `Total verified store amount for ${item.unit || 'slip items'}`
-                          : item.requestedQty !== undefined && item.packedQty !== undefined
-                          ? `Requested: ${item.requestedQty} · Packed: ${item.packedQty} ${item.unit || ''} @ ₹${price}/unit`
-                          : `Qty: ${qty} · ${item.unit || 'unit'} @ ₹${price}/unit`}
-                      </p>
-
-                      {/* Unavailable Badge & Substitute Note */}
-                      {isItemUnavailable && (
-                        <div className="mt-1 flex items-center gap-1.5">
-                          <span className="px-2 py-0.5 rounded text-[10px] font-black bg-rose-100 text-rose-800 border border-rose-200">
-                            Out of stock
-                          </span>
-                          {item.substituteNote && (
-                            <span className="text-[11px] text-stone-600 italic">
-                              Note: {item.substituteNote}
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
+              if (!isDelivered && (isOutForDelivery || isReadyPickup || otp || hasArrived)) {
+                const displayPin = order?.deliveryOtp || order?.delivery_otp || (order?.address as any)?._deliveryOtp || '----';
+                const riderName =
+                  order?.assignedRider?.name ||
+                  order?.assigned_rider_name ||
+                  'Express Fleet Partner';
 
                 return (
-                  <div
-                    key={idx}
-                    className={`p-3 flex items-start justify-between text-xs transition-colors ${
-                      isItemUnavailable ? 'bg-rose-50/40 text-stone-400' : 'bg-white hover:bg-stone-50/80'
-                    }`}
-                  >
-                    {itemHref ? (
-                      <Link
-                        href={itemHref}
-                        className="group flex-1 min-w-0 flex items-start cursor-pointer mr-3"
-                        title={`View ${item.productName || item.name} details`}
-                      >
-                        {itemContent}
-                      </Link>
-                    ) : (
-                      <div className="flex-1 min-w-0 flex items-start mr-3">{itemContent}</div>
+                  <div className="space-y-2.5">
+                    {/* Doorstep Arrival Alert Banner */}
+                    {hasArrived && (
+                      <div className="p-3.5 bg-gradient-to-r from-emerald-600 to-teal-700 text-white rounded-2xl flex items-center justify-between gap-3 shadow-md border border-emerald-400/40 animate-in zoom-in-95 duration-200">
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <div className="w-9 h-9 rounded-xl bg-white text-emerald-800 flex items-center justify-center font-black text-base shadow-xs shrink-0">
+                            📍
+                          </div>
+                          <div className="min-w-0">
+                            <div className="text-[11px] font-black uppercase tracking-wider text-emerald-200 truncate">
+                              Rider Reached Your Doorstep!
+                            </div>
+                            <div className="text-xs font-bold text-white truncate">
+                              Share this PIN with {riderName}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="bg-white text-emerald-800 font-mono text-xl font-black px-3 py-1 rounded-xl shadow-xs shrink-0 tracking-widest border border-emerald-200">
+                          {displayPin}
+                        </div>
+                      </div>
                     )}
 
-                    <div className="text-right shrink-0">
-                      <span
-                        className={`font-black ${
-                          isItemUnavailable ? 'line-through text-stone-400' : 'text-stone-900'
-                        }`}
-                      >
-                        {isItemUnavailable ? '₹0' : `₹${lineTotal}`}
-                      </span>
+                    <div className="p-4 rounded-2xl bg-gradient-to-br from-[#0E2813] via-[#163D1D] to-[#1E6B2E] text-white shadow-lg space-y-2 border border-emerald-500/30 animate-in fade-in">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+                          <span className="text-xs font-black uppercase text-emerald-300 tracking-wider">
+                            {isPickup ? 'Store Pickup PIN' : 'Doorstep Delivery PIN'}
+                          </span>
+                        </div>
+                        <span className="text-[10px] bg-white/15 text-emerald-100 px-2.5 py-0.5 rounded-full font-bold">
+                          {isPickup ? 'Show at Counter' : 'Share with Rider'}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between pt-1 gap-3">
+                        <div>
+                          <p className="text-xs text-stone-200 leading-snug">
+                            {isPickup ? (
+                              <>Show this 4-digit code at the <strong className="text-white">G1mart Supermarket counter</strong> when picking up your order:</>
+                            ) : (
+                              <>Share this 4-digit code with rider <strong className="text-white">{riderName}</strong> when they arrive at your door:</>
+                            )}
+                          </p>
+                        </div>
+                        <div className="bg-white text-[#1E6B2E] font-mono text-2xl font-black px-4 py-1.5 rounded-xl border-2 border-emerald-400 tracking-widest shadow-inner shrink-0">
+                          {displayPin}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 );
-              })}
-            </div>
+              }
+              return null;
+            })()}
+
+            {/* Slip Order Confirmation by Store Manager Call */}
+            {isSlipOrder && (
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50/70 to-emerald-50 border border-emerald-300 shadow-xs space-y-2.5">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-[#1E6B2E] text-white flex items-center justify-center text-lg shrink-0 shadow-xs">
+                    📞
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-black text-emerald-950 uppercase tracking-wide">
+                        {order?.status === 'SLIP_RECEIVED'
+                          ? 'Store Reviewing Your Slip'
+                          : 'Confirmed via Call with Store Manager'}
+                      </span>
+                      <span className="text-[10px] font-bold bg-emerald-200/80 text-emerald-900 px-2.5 py-0.5 rounded-full border border-emerald-300">
+                        {order?.status === 'SLIP_RECEIVED' ? 'Pending Call' : 'Verified on Call'}
+                      </span>
+                    </div>
+                    <p className="text-xs text-emerald-900 mt-1 leading-snug">
+                      {order?.status === 'SLIP_RECEIVED'
+                        ? 'Our store manager is reviewing your uploaded grocery list and will call your phone to verify brands and pack your items.'
+                        : 'The store manager verified your grocery list over phone. Items have been billed and prepared as discussed.'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Price confirmation box */}
+                {currentSubtotal > 0 && (
+                  <div className="bg-white/90 rounded-xl p-3 border border-emerald-200/90 flex items-center justify-between text-xs">
+                    <div>
+                      <span className="text-stone-700 font-bold block">Verified Bill Amount</span>
+                      <span className="text-[10px] text-stone-500">Confirmed over phone for your uploaded slip</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-base font-black text-[#1E6B2E]">
+                        ₹{currentSubtotal}
+                      </span>
+                      <span className="text-[10px] text-emerald-700 font-bold block">Free Doorstep Delivery</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Customer Uploaded Photos Preview (for slip orders) */}
+            {order?.images && order.images.length > 0 && (
+              <div className="bg-stone-50 p-3 rounded-xl border border-stone-200/70 space-y-1.5">
+                <span className="text-[10px] font-black uppercase text-stone-500 tracking-wider flex items-center gap-1">
+                  <FileText className="w-3 h-3 text-[#2E7D32]" />
+                  <span>Your Uploaded Grocery List ({order.images.length} photos)</span>
+                </span>
+                <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                  {order.images.map((img: any, idx: number) => (
+                    <a
+                      key={idx}
+                      href={img.image_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shrink-0"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={img.image_url}
+                        alt={`List page ${idx + 1}`}
+                        className="w-12 h-12 object-cover rounded-lg border border-stone-200 hover:opacity-80 transition-opacity bg-stone-100"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).style.display = 'none';
+                        }}
+                      />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Assigned Rider Card (if assigned) */}
+            {order?.assignedRider && (
+              <div className="bg-emerald-50 p-3.5 rounded-2xl border border-emerald-200 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-full bg-[#1B5E20] text-white flex items-center justify-center font-black">
+                    🛵
+                  </div>
+                  <div>
+                    <p className="text-xs font-black text-emerald-950">
+                      {order.assignedRider.name || 'Express Rider'}
+                    </p>
+                    <p className="text-[10px] text-emerald-700">G1mart Delivery Partner</p>
+                  </div>
+                </div>
+
+                {order.assignedRider.phone && (
+                  <a
+                    href={`tel:${order.assignedRider.phone}`}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#1B5E20] text-white text-xs font-black rounded-xl hover:bg-[#2E7D32]"
+                  >
+                    <Phone className="w-3.5 h-3.5" />
+                    <span>Call Rider</span>
+                  </a>
+                )}
+              </div>
+            )}
+
+            {/* Items Breakdown with Unavailable Strike-Through (Phase 6 Rule 5) */}
+            {(items.length > 0 || isSlipOrder || currentSubtotal > 0) && (
+              <div className="bg-white rounded-2xl border border-stone-200/90 p-4 shadow-2xs space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-stone-900">
+                    <Package className="w-4 h-4 text-[#1E6B2E]" />
+                    <span>Items ({items.length > 0 ? items.length : 'From Uploaded Slip'})</span>
+                  </div>
+
+                  {/* Add items top-up button if awaiting payment */}
+                  {isAwaitingPayment && (
+                    <button
+                      type="button"
+                      onClick={() => setShowAddItemsModal(true)}
+                      className="inline-flex items-center gap-1 text-xs font-black text-[#1E6B2E] hover:underline cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>+ Add Items</span>
+                    </button>
+                  )}
+                </div>
+
+                {items.length === 0 && isSlipOrder && (
+                  <div className="p-3 bg-white rounded-xl border border-stone-200 text-xs text-stone-700 flex items-center justify-between shadow-2xs">
+                    <div>
+                      <span className="font-bold text-stone-900 block">Items verified from uploaded slip</span>
+                      <span className="text-[10px] text-stone-500">Lump-sum bill confirmed with store manager over call</span>
+                    </div>
+                    <span className="font-black text-[#1E6B2E] text-sm">₹{currentSubtotal}</span>
+                  </div>
+                )}
+
+                {items.length > 0 && (
+                  <div className="divide-y divide-stone-100 border border-stone-100 rounded-xl overflow-hidden">
+                    {items.map((item: any, idx: number) => {
+                      const isItemUnavailable = item.available === false;
+                      const qty = item.packedQty || item.requestedQty || item.quantity || 1;
+                      const price = Number(item.price) || 0;
+                      const lineTotal = isItemUnavailable ? 0 : price * qty;
+
+                      const itemHref = getProductHref(item);
+
+                      const itemContent = (
+                        <div className="flex items-start gap-2.5 flex-1 min-w-0">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={item.image || '/products/placeholder.svg'}
+                            alt={item.productName || item.name}
+                            className="w-10 h-10 object-contain rounded-lg border border-stone-200 bg-stone-50 p-1 shrink-0 group-hover:scale-105 transition-transform"
+                            onError={(e) => {
+                              (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
+                            }}
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-1.5">
+                              <p
+                                className={`font-black group-hover:text-[#1E6B2E] transition-colors leading-snug line-clamp-2 ${
+                                  isItemUnavailable ? 'line-through text-stone-400' : 'text-[#212121]'
+                                }`}
+                              >
+                                {item.productName || item.name}
+                              </p>
+                              {itemHref && (
+                                <ChevronRight className="w-3.5 h-3.5 text-stone-400 group-hover:text-[#1E6B2E] group-hover:translate-x-0.5 transition-all shrink-0" />
+                              )}
+                            </div>
+                            <p className="text-stone-500 text-[11px] mt-0.5">
+                              {String(item.id).startsWith('slip_item_') || (item.productName || item.name || '').includes('as per')
+                                ? `Total verified store amount for ${item.unit || 'slip items'}`
+                                : item.requestedQty !== undefined && item.packedQty !== undefined
+                                ? `Requested: ${item.requestedQty} · Packed: ${item.packedQty} ${item.unit || ''} @ ₹${price}/unit`
+                                : `Qty: ${qty} · ${item.unit || 'unit'} @ ₹${price}/unit`}
+                            </p>
+
+                            {/* Unavailable Badge & Substitute Note */}
+                            {isItemUnavailable && (
+                              <div className="mt-1 flex items-center gap-1.5">
+                                <span className="px-2 py-0.5 rounded text-[10px] font-black bg-rose-100 text-rose-800 border border-rose-200">
+                                  Out of stock
+                                </span>
+                                {item.substituteNote && (
+                                  <span className="text-[11px] text-stone-600 italic">
+                                    Note: {item.substituteNote}
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      );
+
+                      return (
+                        <div
+                          key={idx}
+                          className={`p-3 flex items-start justify-between text-xs transition-colors ${
+                            isItemUnavailable ? 'bg-rose-50/40 text-stone-400' : 'bg-white hover:bg-stone-50/80'
+                          }`}
+                        >
+                          {itemHref ? (
+                            <Link
+                              href={itemHref}
+                              className="group flex-1 min-w-0 flex items-start cursor-pointer mr-3"
+                              title={`View ${item.productName || item.name} details`}
+                            >
+                              {itemContent}
+                            </Link>
+                          ) : (
+                            <div className="flex-1 min-w-0 flex items-start mr-3">{itemContent}</div>
+                          )}
+
+                          <div className="text-right shrink-0">
+                            <span
+                              className={`font-black ${
+                                isItemUnavailable ? 'line-through text-stone-400' : 'text-stone-900'
+                              }`}
+                            >
+                              {isItemUnavailable ? '₹0' : `₹${lineTotal}`}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Right Column (5 cols, sticky on desktop): Delivery Address, Bill Summary, Payment & Support */}
+          <div className="lg:col-span-5 xl:col-span-5 space-y-4 lg:sticky lg:top-20">
+            {/* Customer & Address Details */}
+            {address && (
+              <div className="bg-white rounded-2xl border border-stone-200/90 p-4 shadow-2xs space-y-2.5">
+                <div className="flex items-center justify-between border-b border-stone-100 pb-2">
+                  <div className="flex items-center gap-2 text-xs font-bold text-stone-800">
+                    <MapPin className="w-4 h-4 text-[#2E7D32]" />
+                    <span>Delivery Details</span>
+                  </div>
+                  {order?.distance_km && (
+                    <span className="text-[11px] font-bold text-stone-500">
+                      {order.distance_km} km road distance
+                    </span>
+                  )}
+                </div>
+
+                <div className="text-xs text-stone-700 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-stone-900">{address.fullName || 'Customer'}</span>
+                    {address.phone && (
+                      <span className="inline-flex items-center gap-1 font-bold text-[#2E7D32] bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                        <Phone className="w-3 h-3" />
+                        {formatIndianPhoneDisplay(address.phone)}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-stone-600">
+                    {(() => {
+                      const rawParts = [address.houseFlat, address.streetArea, address.city, address.pincode]
+                        .filter(Boolean)
+                        .flatMap((p) => String(p).split(/,\s*/))
+                        .map((s) => s.trim().replace(/^-+|-+$/g, '').trim())
+                        .filter(Boolean);
+                      const unique = rawParts.filter((item, index) => rawParts.indexOf(item) === index);
+                      return unique.join(', ');
+                    })()}
+                  </p>
+                </div>
+              </div>
             )}
 
             {/* Bill Summary — Reference C */}
-            <div className="bg-stone-50 p-3.5 rounded-2xl border border-stone-200/80 space-y-2 text-xs">
-              <div className="flex items-center gap-2 font-bold text-stone-900 text-xs sm:text-sm pb-1 border-b border-stone-200/60">
+            <div className="bg-white rounded-2xl border border-stone-200/90 p-4 shadow-2xs space-y-3 text-xs">
+              <div className="flex items-center gap-2 font-bold text-stone-900 text-xs sm:text-sm pb-2 border-b border-stone-100">
                 <FileText className="w-4 h-4 text-[#1E6B2E]" />
                 <span>Bill Summary</span>
               </div>
 
-              <div className="flex justify-between items-center text-stone-600">
-                <span>Items Subtotal:</span>
-                <span className="font-bold text-stone-900">₹{currentSubtotal}</span>
-              </div>
-
-              <div className="flex justify-between items-center text-stone-600">
-                <span>Delivery Charge:</span>
-                <span className="font-bold text-[#1E6B2E]">FREE (₹0)</span>
-              </div>
-
-              {/* Pay on Delivery Fee row (Phase 5 Rule 2) */}
-              {(isCodPending || paymentMethod === 'cod') && (
-                <div className="flex justify-between items-center text-stone-800 font-medium">
-                  <span>Pay on Delivery handling fee:</span>
-                  <span className="font-bold text-orange-900">+₹{order?.codFee ?? codFee}</span>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center text-stone-600">
+                  <span>Items Subtotal:</span>
+                  <span className="font-bold text-stone-900">₹{currentSubtotal}</span>
                 </div>
-              )}
 
-              <div className="border-t border-stone-200 pt-2 flex justify-between items-center">
-                <span className="font-bold text-stone-900 text-sm">Final Bill Total:</span>
-                <span className="text-base font-black text-[#1E6B2E]">
-                  ₹{order?.finalTotal || slipFinalTotal}
+                <div className="flex justify-between items-center text-stone-600">
+                  <span>Delivery Charge:</span>
+                  <span className="font-bold text-[#1E6B2E]">FREE (₹0)</span>
+                </div>
+
+                {/* Pay on Delivery Fee row (Phase 5 Rule 2) */}
+                {(isCodPending || paymentMethod === 'cod') && (
+                  <div className="flex justify-between items-center text-stone-800 font-medium">
+                    <span>Pay on Delivery handling fee:</span>
+                    <span className="font-bold text-orange-900">+₹{order?.codFee ?? codFee}</span>
+                  </div>
+                )}
+
+                <div className="border-t border-stone-200 pt-2 flex justify-between items-center">
+                  <span className="font-bold text-stone-900 text-sm">Final Bill Total:</span>
+                  <span className="text-base font-black text-[#1E6B2E]">
+                    ₹{order?.finalTotal || slipFinalTotal}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* PHASE 6 RULE 5: ZONE MINIMUM SHORTFALL BANNER & BLOCK PAYMENT */}
+            {isAwaitingPayment && hasShortfall && (
+              <div className="p-4 bg-amber-50 border-2 border-amber-300 rounded-2xl space-y-2.5 animate-in fade-in">
+                <div className="flex items-start gap-2.5">
+                  <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                  <div>
+                    <h3 className="text-xs font-black text-amber-950">
+                      Add ₹{shortfallAmount} more to get free delivery to your location
+                    </h3>
+                    <p className="text-[11px] text-amber-800 mt-0.5">
+                      Your delivery zone requires a minimum order of ₹{zoneMinOrder}. Current subtotal is ₹{currentSubtotal}.
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setShowAddItemsModal(true)}
+                  className="w-full py-2.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white text-xs font-black rounded-xl transition-all shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Plus className="w-4 h-4 stroke-[3]" />
+                  <span>+ Add Items to Meet ₹{zoneMinOrder} Minimum</span>
+                </button>
+              </div>
+            )}
+
+            {/* PHASE 5 & 6 PAYMENT STEP (When at or above minimum) */}
+            {isAwaitingPayment && !hasShortfall && (
+              <div className="bg-emerald-50/50 p-4 rounded-2xl border border-emerald-200/90 space-y-3.5 animate-in fade-in">
+                <div>
+                  <span className="text-xs font-black text-[#1B5E20] uppercase tracking-wider block">
+                    Choose Payment Method to Dispatch
+                  </span>
+                  <p className="text-[11px] text-stone-600 mt-0.5">
+                    Delivery is 100% Free. Complete payment to dispatch our delivery partner.
+                  </p>
+                </div>
+
+                {/* Payment Options Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {/* Option 1: Pay Online */}
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod('online')}
+                    className={`p-3 rounded-2xl border-2 text-left flex items-start gap-2.5 transition-all cursor-pointer ${
+                      paymentMethod === 'online'
+                        ? 'border-[#1B5E20] bg-white ring-2 ring-emerald-100 shadow-xs'
+                        : 'border-stone-200 bg-white/70 hover:bg-white'
+                    }`}
+                  >
+                    <CreditCard className="w-5 h-5 text-[#2E7D32] shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <span className="text-xs font-black text-stone-900 block">
+                        Pay Online (UPI / Card)
+                      </span>
+                      <span className="text-[10px] text-emerald-700 font-bold block">
+                        No extra fee • Instant verification
+                      </span>
+                      <span className="text-xs font-black text-[#2E7D32] mt-1 block">
+                        ₹{currentSubtotal}
+                      </span>
+                    </div>
+                  </button>
+
+                  {/* Option 2: Pay on Delivery */}
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod('cod')}
+                    className={`p-3 rounded-2xl border-2 text-left flex items-start gap-2.5 transition-all cursor-pointer ${
+                      paymentMethod === 'cod'
+                        ? 'border-[#1B5E20] bg-white ring-2 ring-emerald-100 shadow-xs'
+                        : 'border-stone-200 bg-white/70 hover:bg-white'
+                    }`}
+                  >
+                    <Banknote className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <span className="text-xs font-black text-stone-900 block">Pay on Delivery</span>
+                      <span className="text-[10px] text-amber-800 font-bold block">
+                        +₹{codFee} handling fee
+                      </span>
+                      <span className="text-xs font-black text-stone-900 mt-1 block">
+                        ₹{currentSubtotal + codFee}
+                      </span>
+                    </div>
+                  </button>
+                </div>
+
+                {/* Pay CTA */}
+                <button
+                  type="button"
+                  disabled={isProcessingPayment}
+                  onClick={() => handleCompleteSlipPayment()}
+                  className="w-full py-3.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black rounded-2xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+                >
+                  <Check className="w-4 h-4 stroke-[3]" />
+                  <span>
+                    {isProcessingPayment
+                      ? 'Processing Payment...'
+                      : paymentMethod === 'online'
+                      ? `Pay Online ₹${currentSubtotal}`
+                      : `Confirm Pay on Delivery (₹${currentSubtotal + codFee})`}
+                  </span>
+                </button>
+              </div>
+            )}
+
+            {/* Customer Help & Support — Reference C */}
+            <div className="bg-white rounded-2xl border border-stone-200/90 p-4 shadow-2xs space-y-2.5">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-stone-800">Need Help with your Order?</span>
+                <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                  <ShieldCheck className="w-3 h-3 text-[#1E6B2E]" />
+                  <span>G1mart Care</span>
                 </span>
               </div>
-            </div>
-          </div>
-        )}
-
-        {/* PHASE 6 RULE 5: ZONE MINIMUM SHORTFALL BANNER & BLOCK PAYMENT */}
-        {isAwaitingPayment && hasShortfall && (
-          <div className="p-4 bg-amber-50 border-2 border-amber-300 rounded-2xl space-y-2.5 animate-in fade-in">
-            <div className="flex items-start gap-2.5">
-              <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-              <div>
-                <h3 className="text-xs font-black text-amber-950">
-                  Add ₹{shortfallAmount} more to get free delivery to your location
-                </h3>
-                <p className="text-[11px] text-amber-800 mt-0.5">
-                  Your delivery zone requires a minimum order of ₹{zoneMinOrder}. Current subtotal is ₹{currentSubtotal}.
-                </p>
+              <div className="flex items-center gap-2.5 pt-1">
+                <a
+                  href={`tel:${(STORE_CONFIG.contact.phone || '+919876543210').replace(/\s+/g, '')}`}
+                  className="flex-1 h-11 inline-flex items-center justify-center gap-2 px-3 bg-stone-50 hover:bg-stone-100 active:scale-95 text-stone-800 font-bold rounded-xl text-xs sm:text-sm border border-stone-200 transition-all shadow-2xs cursor-pointer"
+                >
+                  <Phone className="w-4 h-4 text-[#1E6B2E]" />
+                  <span>Call Store</span>
+                </a>
+                <a
+                  href={`https://wa.me/${(STORE_CONFIG.contact.whatsapp || '919876543210').replace(/\D/g, '')}?text=${encodeURIComponent(`Hi G1mart Team, I have an inquiry regarding Order #${orderId}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 h-11 inline-flex items-center justify-center gap-2 px-3 bg-[#1E6B2E] hover:bg-[#155223] active:scale-95 text-white font-bold rounded-xl text-xs sm:text-sm transition-all shadow-xs cursor-pointer"
+                >
+                  <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
+                    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.077-2.079-.496-1.637-.679-2.684-2.348-2.766-2.456-.081-.109-.652-.868-.652-1.652 0-.784.412-1.17.558-1.328.146-.159.32-.198.428-.198.107 0 .214.002.308.006.098.005.231-.038.36.273.134.323.456 1.111.496 1.192.04.081.067.176.014.283-.053.107-.08.175-.16.27-.08.095-.169.213-.241.286-.081.082-.166.17-.071.332.094.163.42 1.002 1.018 1.533.771.686 1.42.898 1.62.998.2.1.317.087.435-.048.118-.135.508-.59.643-.792.135-.202.27-.168.455-.1.185.068 1.172.553 1.374.654.202.101.337.151.386.236.049.085.049.493-.095.898z" />
+                  </svg>
+                  <span>WhatsApp Store</span>
+                </a>
               </div>
             </div>
-
-            <button
-              type="button"
-              onClick={() => setShowAddItemsModal(true)}
-              className="w-full py-2.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white text-xs font-black rounded-xl transition-all shadow-xs flex items-center justify-center gap-1.5"
-            >
-              <Plus className="w-4 h-4 stroke-[3]" />
-              <span>+ Add Items to Meet ₹{zoneMinOrder} Minimum</span>
-            </button>
-          </div>
-        )}
-
-        {/* PHASE 5 & 6 PAYMENT STEP (When at or above minimum) */}
-        {isAwaitingPayment && !hasShortfall && (
-          <div className="bg-emerald-50/50 p-4 rounded-2xl border border-emerald-200/90 space-y-3.5 animate-in fade-in">
-            <div>
-              <span className="text-xs font-black text-[#1B5E20] uppercase tracking-wider block">
-                Choose Payment Method to Dispatch
-              </span>
-              <p className="text-[11px] text-stone-600 mt-0.5">
-                Delivery is 100% Free. Complete payment to dispatch our delivery partner.
-              </p>
-            </div>
-
-            {/* Payment Options Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              {/* Option 1: Pay Online */}
-              <button
-                type="button"
-                onClick={() => setPaymentMethod('online')}
-                className={`p-3 rounded-2xl border-2 text-left flex items-start gap-2.5 transition-all ${
-                  paymentMethod === 'online'
-                    ? 'border-[#1B5E20] bg-white ring-2 ring-emerald-100 shadow-xs'
-                    : 'border-stone-200 bg-white/70 hover:bg-white'
-                }`}
-              >
-                <CreditCard className="w-5 h-5 text-[#2E7D32] shrink-0 mt-0.5" />
-                <div className="flex-1">
-                  <span className="text-xs font-black text-stone-900 block">
-                    Pay Online (UPI / Card)
-                  </span>
-                  <span className="text-[10px] text-emerald-700 font-bold block">
-                    No extra fee • Instant verification
-                  </span>
-                  <span className="text-xs font-black text-[#2E7D32] mt-1 block">
-                    ₹{currentSubtotal}
-                  </span>
-                </div>
-              </button>
-
-              {/* Option 2: Pay on Delivery */}
-              <button
-                type="button"
-                onClick={() => setPaymentMethod('cod')}
-                className={`p-3 rounded-2xl border-2 text-left flex items-start gap-2.5 transition-all ${
-                  paymentMethod === 'cod'
-                    ? 'border-[#1B5E20] bg-white ring-2 ring-emerald-100 shadow-xs'
-                    : 'border-stone-200 bg-white/70 hover:bg-white'
-                }`}
-              >
-                <Banknote className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-                <div className="flex-1">
-                  <span className="text-xs font-black text-stone-900 block">Pay on Delivery</span>
-                  <span className="text-[10px] text-amber-800 font-bold block">
-                    +₹{codFee} handling fee
-                  </span>
-                  <span className="text-xs font-black text-stone-900 mt-1 block">
-                    ₹{currentSubtotal + codFee}
-                  </span>
-                </div>
-              </button>
-            </div>
-
-            {/* Pay CTA */}
-            <button
-              type="button"
-              disabled={isProcessingPayment}
-              onClick={() => handleCompleteSlipPayment()}
-              className="w-full py-3.5 bg-[#1B5E20] hover:bg-[#2E7D32] text-white font-black rounded-2xl text-xs sm:text-sm transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50"
-            >
-              <Check className="w-4 h-4 stroke-[3]" />
-              <span>
-                {isProcessingPayment
-                  ? 'Processing Payment...'
-                  : paymentMethod === 'online'
-                  ? `Pay Online ₹${currentSubtotal}`
-                  : `Confirm Pay on Delivery (₹${currentSubtotal + codFee})`}
-              </span>
-            </button>
-          </div>
-        )}
-
-        {/* Customer Help & Support — Reference C */}
-        <div className="bg-stone-50 p-3.5 sm:p-4 rounded-2xl border border-stone-200/70 space-y-2.5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-stone-800">Need Help with your Order?</span>
-            <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
-              <ShieldCheck className="w-3 h-3 text-[#1E6B2E]" />
-              <span>G1mart Care</span>
-            </span>
-          </div>
-          <div className="flex items-center gap-2.5 pt-1">
-            <a
-              href={`tel:${(STORE_CONFIG.contact.phone || '+919876543210').replace(/\s+/g, '')}`}
-              className="flex-1 h-11 inline-flex items-center justify-center gap-2 px-3 bg-white hover:bg-stone-100 active:scale-95 text-stone-800 font-bold rounded-xl text-xs sm:text-sm border border-stone-200 transition-all shadow-2xs cursor-pointer"
-            >
-              <Phone className="w-4 h-4 text-[#1E6B2E]" />
-              <span>Call Store</span>
-            </a>
-            <a
-              href={`https://wa.me/${(STORE_CONFIG.contact.whatsapp || '919876543210').replace(/\D/g, '')}?text=${encodeURIComponent(`Hi G1mart Team, I have an inquiry regarding Order #${orderId}`)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 h-11 inline-flex items-center justify-center gap-2 px-3 bg-[#1E6B2E] hover:bg-[#155223] active:scale-95 text-white font-bold rounded-xl text-xs sm:text-sm transition-all shadow-xs cursor-pointer"
-            >
-              <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
-                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.077-2.079-.496-1.637-.679-2.684-2.348-2.766-2.456-.081-.109-.652-.868-.652-1.652 0-.784.412-1.17.558-1.328.146-.159.32-.198.428-.198.107 0 .214.002.308.006.098.005.231-.038.36.273.134.323.456 1.111.496 1.192.04.081.067.176.014.283-.053.107-.08.175-.16.27-.08.095-.169.213-.241.286-.081.082-.166.17-.071.332.094.163.42 1.002 1.018 1.533.771.686 1.42.898 1.62.998.2.1.317.087.435-.048.118-.135.508-.59.643-.792.135-.202.27-.168.455-.1.185.068 1.172.553 1.374.654.202.101.337.151.386.236.049.085.049.493-.095.898z" />
-              </svg>
-              <span>WhatsApp Store</span>
-            </a>
           </div>
         </div>
-      </div>
-    </main>
+          </main>
 
       {/* MODAL 1: ADD TOP-UP ITEMS TO MEET ZONE MINIMUM */}
       {showAddItemsModal && (

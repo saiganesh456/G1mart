@@ -134,7 +134,7 @@ export default function CartPage() {
   return (
     <>
       <InnerPageHeader title="Review Cart" />
-      <div className="w-full max-w-2xl lg:max-w-6xl xl:max-w-7xl mx-auto space-y-4 pb-28 pt-2 sm:pt-4 px-4 sm:px-6 box-border">
+      <div className="w-full max-w-2xl lg:max-w-6xl xl:max-w-7xl mx-auto space-y-4 pb-28 lg:pb-8 pt-2 sm:pt-4 px-4 sm:px-6 box-border">
         {/* Desktop Breadcrumbs & Title */}
         <div className="hidden lg:block pb-2 border-b border-stone-200/80">
           <div className="flex items-center gap-2 text-xs text-stone-500 mb-1 font-medium">
@@ -152,12 +152,17 @@ export default function CartPage() {
           <div className="lg:col-span-7 xl:col-span-8 space-y-4">
         {/* Quick action bar */}
         <div className="flex items-center justify-between">
-          <div>
+          <div className="lg:hidden">
             <h1 className="font-bold" style={{ fontSize: 16, color: 'var(--g1-text)' }}>
               Cart ({cartItemCount} {cartItemCount === 1 ? 'item' : 'items'})
             </h1>
             <p className="text-[11px]" style={{ color: 'var(--g1-text-secondary)' }}>
               Nellore supermarket in-store fulfillment
+            </p>
+          </div>
+          <div className="hidden lg:block">
+            <p className="text-xs text-stone-500 font-medium">
+              Nellore supermarket in-store fulfillment • Instant local delivery
             </p>
           </div>
 
