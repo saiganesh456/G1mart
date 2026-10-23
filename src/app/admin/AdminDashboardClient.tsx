@@ -1824,9 +1824,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           <OrderDetailsPanel
             order={selectedOrder}
             onBack={() => navigateBack()}
-            onUpdateStatus={(id, status, assignedRider) => {
-              handleUpdateOrderStatus(id, status, assignedRider);
-            }}
+            onUpdateStatus={(id, status, assignedRider) =>
+              handleUpdateOrderStatus(id, status, assignedRider)
+            }
             onMarkPaid={(id) => handleMarkPaid(id)}
             availableRiders={staffMembers.riders}
           />
@@ -1956,9 +1956,9 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                   });
                 }}
                 onBackToDashboard={() => navigateBack()}
-                onUpdateStatus={(id, nextStatus, assignedRider) => {
-                  handleUpdateOrderStatus(id, nextStatus, assignedRider);
-                }}
+                onUpdateStatus={(id, nextStatus, assignedRider) =>
+                  handleUpdateOrderStatus(id, nextStatus, assignedRider)
+                }
                 availableRiders={staffMembers.riders}
                 onClearAllOrders={handleClearAllOrders}
               />

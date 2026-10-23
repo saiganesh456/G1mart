@@ -35,6 +35,20 @@ import { soundAlerts } from '@/lib/soundAlerts';
 
 export default function RiderClient() {
   const { user, signOut } = useAuth();
+
+  const getRiderHeaders = (): Record<string, string> => {
+    let email = user?.email;
+    if (!email && typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem('g1mart_user_session');
+        if (stored) email = JSON.parse(stored).email;
+      } catch {}
+    }
+    return {
+      'x-rider-client': 'true',
+      'x-user-email': (email || 'rider@g1mart.com').toLowerCase().trim(),
+    };
+  };
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState<string | null>(null);

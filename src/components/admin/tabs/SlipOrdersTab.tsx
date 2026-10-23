@@ -674,6 +674,7 @@ export default function SlipOrdersTab({
           items: packedItemsPayload,
           staffName: 'Store Packer',
           action: 'mark_packed',
+          orderFallback: slipOrder,
         }),
       });
 

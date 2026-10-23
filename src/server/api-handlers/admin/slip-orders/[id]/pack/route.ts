@@ -38,7 +38,11 @@ export async function POST(req: NextRequest, { params }: Props) {
 
     // Action: Mark Packed (Phase 6 Rule 4)
     // Recalculates final_total from actual quantities, moves to PACKED -> AWAITING_PAYMENT
-    const order = await serverSlipOrders.markPacked(id, items, staffName);
+    let order = await serverSlipOrders.markPacked(id, items, staffName);
+    if (!order && body.orderFallback) {
+      await serverSlipOrders.saveOrder(body.orderFallback);
+      order = await serverSlipOrders.markPacked(id, items, staffName);
+    }
 
     if (!order) {
       return NextResponse.json(

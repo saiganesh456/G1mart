@@ -907,6 +907,15 @@ export const serverSlipOrders = {
     persistDiskSlipOrders();
     await syncSlipOrderToSupabase(order);
 
+    try {
+      const { serverOrderStore } = await import('@/lib/serverOrderStore');
+      const standardOrder = this.convertToStandardOrder(order, 'Packed');
+      serverOrderStore.registerOrder(standardOrder);
+      await serverOrderStore.registerOrderAsync(standardOrder);
+    } catch (orderStoreErr) {
+      console.warn('[serverSlipOrders] Error registering packed order to store:', orderStoreErr);
+    }
+
     return order;
   },
 

@@ -19,23 +19,27 @@ export async function POST(
 
     const { id } = await params;
     const body = await request.json();
-    const { status, staffIdentifier, assignedRider, otp } = body;
+    const { status: rawStatus, staffIdentifier, assignedRider, otp } = body;
+    const status: OrderStatus =
+      rawStatus === 'Ready for Pickup' ? 'Packed' : rawStatus === 'Picked Up' ? 'Delivered' : (rawStatus as OrderStatus);
 
-    const validStatuses: OrderStatus[] = [
+    const validStatuses: string[] = [
       'Order Placed',
       'Confirmed',
       'Packing',
       'Packed',
+      'Ready for Pickup',
       'Rider Assigned',
       'Order Dispatched',
       'Out for Delivery',
       'Delivered',
+      'Picked Up',
       'Cancelled',
     ];
 
-    if (!validStatuses.includes(status)) {
+    if (!validStatuses.includes(rawStatus)) {
       return NextResponse.json(
-        { success: false, error: 'Invalid order status' },
+        { success: false, error: `Invalid order status: "${rawStatus}"` },
         { status: 400 }
       );
     }
@@ -237,10 +241,22 @@ export async function POST(
     }
 
     if (!result.success || !result.order) {
-      return NextResponse.json(
-        { success: false, error: 'Order not found' },
-        { status: 404 }
-      );
+      if (body.orderFallback) {
+        const fallbackOrder = {
+          ...body.orderFallback,
+          id,
+          status,
+          assignedRider: effectiveRider || body.orderFallback.assignedRider,
+        };
+        serverOrderStore.cacheOrder(fallbackOrder);
+        await serverOrderStore.registerOrderAsync(fallbackOrder);
+        result = { success: true, order: fallbackOrder };
+      } else {
+        return NextResponse.json(
+          { success: false, error: 'Order not found' },
+          { status: 404 }
+        );
+      }
     }
 
     if (status === 'Delivered' && result.order) {
@@ -258,7 +274,7 @@ export async function POST(
     // Trigger targeted background Web Push notification directly to the customer
     try {
       const { serverPushService } = await import('@/lib/serverPushService');
-      await serverPushService.sendOrderPushNotification(result.order, status as OrderStatus);
+      if (result.order) await serverPushService.sendOrderPushNotification(result.order, status as OrderStatus);
     } catch (pushErr) {
       console.warn('[Admin Order Status] Push dispatch notice:', pushErr);
     }

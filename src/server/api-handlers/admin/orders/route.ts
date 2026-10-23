@@ -2,14 +2,14 @@ export const dynamic = 'force-dynamic';
 import { NextResponse, type NextRequest } from 'next/server';
 import { serverOrderStore, getOrderTimestamp } from '@/lib/serverOrderStore';
 import { serverSupabase, fallbackSupabase, supabaseClients, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
-import { verifyAdminRequest } from '@/lib/authGuard';
+import { verifyAdminRequest, verifyRiderOrAdminRequest } from '@/lib/authGuard';
 
 export async function GET(request: NextRequest) {
   try {
-    const auth = await verifyAdminRequest(request);
+    const auth = await verifyRiderOrAdminRequest(request);
     if (!auth.authorized) {
       return NextResponse.json(
-        { success: false, error: auth.error || 'Admin authorization required' },
+        { success: false, error: auth.error || 'Authorization required' },
         { status: auth.status || 401 }
       );
     }
