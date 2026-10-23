@@ -1,8 +1,7 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse, type NextRequest } from 'next/server';
-import { serverOrderStore } from '@/lib/serverOrderStore';
-import { resolveAuthoritativeStatus } from '@/lib/orderStatus';
-import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
+import { serverOrderStore, getOrderTimestamp } from '@/lib/serverOrderStore';
+import { serverSupabase, fallbackSupabase, supabaseClients, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 import { verifyAdminRequest } from '@/lib/authGuard';
 
 export async function GET(request: NextRequest) {
@@ -15,76 +14,10 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // 1. Sync and fetch all regular/standard orders from database and store
     const orders = await serverOrderStore.getAllOrdersAsync();
 
-    if (isSupabaseConfigured()) {
-      try {
-        const { data } = await supabase
-          .from('orders')
-          .select('*, order_items(*)')
-          .order('created_at', { ascending: false })
-          .limit(100);
-
-        if (data && Array.isArray(data)) {
-          data.forEach((row: any) => {
-            if (row && row.id && !orders.some((o) => o.id === row.id)) {
-              const rawAddr = row.address;
-              const addr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
-              const realStatus = resolveAuthoritativeStatus(row.status, addr._status);
-              serverOrderStore.registerOrder({
-                id: row.id,
-                date: row.date || new Date(row.created_at).toLocaleDateString(),
-                slot: row.slot || 'Standard',
-                paymentMethod: row.payment_method,
-                paymentStatus: row.payment_status || (row.is_paid ? 'completed' : 'pending'),
-                isPaid: Boolean(row.is_paid),
-                status: realStatus,
-                subtotal: Number(row.subtotal || 0),
-                discount: Number(row.discount || 0),
-                deliveryFee: Number(row.delivery_fee || 0),
-                taxes: Number(row.taxes || 0),
-                grandTotal: Number(row.grand_total || 0),
-                items: Array.isArray(row.order_items) && row.order_items.length > 0
-                  ? row.order_items.map((oi: any) => ({
-                      productId: oi.product_id,
-                      productName: oi.product_name || 'Product',
-                      unit: oi.unit || '1 unit',
-                      price: Number(oi.unit_price || 0),
-                      quantity: Number(oi.quantity || 1),
-                      image: oi.image_url || '/products/placeholder.svg',
-                    }))
-                  : (addr._items || []),
-                address: addr,
-                orderType: addr.orderType || (row.slot?.toLowerCase().includes('pickup') ? 'pickup' : 'standard'),
-                assignedRider: addr._assignedRider,
-                deliveryOtp: addr._deliveryOtp,
-                timeline: addr._timeline || [
-                  { status: 'Order Placed', time: 'Confirmed', completed: true },
-                  {
-                    status: 'Packed',
-                    time: 'Pending',
-                    completed:
-                      realStatus === 'Packed' ||
-                      realStatus === 'Rider Assigned' ||
-                      realStatus === 'Out for Delivery' ||
-                      realStatus === 'Delivered',
-                  },
-                  {
-                    status: 'Out for Delivery',
-                    time: 'Pending',
-                    completed: realStatus === 'Out for Delivery' || realStatus === 'Delivered',
-                  },
-                  { status: 'Delivered', time: 'Pending', completed: realStatus === 'Delivered' },
-                ],
-              });
-            }
-          });
-        }
-      } catch (err) {
-        console.warn('Failed to sync orders from Supabase:', err);
-      }
-    }
-
+    // 2. Sync slip orders
     try {
       const { serverSlipOrders } = await import('@/lib/serverSlipOrders');
       const slipOrders = await serverSlipOrders.getSlipOrders();
@@ -97,7 +30,10 @@ export async function GET(request: NextRequest) {
       console.warn('[Admin Orders] Slip sync notice:', slipErr);
     }
 
+    // 3. Retrieve complete list sorted newest first
     const finalOrders = await serverOrderStore.getAllOrdersAsync();
+    finalOrders.sort((a, b) => getOrderTimestamp(b) - getOrderTimestamp(a));
+
     return NextResponse.json(
       { success: true, orders: finalOrders },
       {
@@ -132,16 +68,18 @@ export async function DELETE(request: NextRequest) {
     serverSlipOrders.clearAllSlips();
 
     if (isSupabaseConfigured()) {
-      try {
-        await supabase.from('order_items').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-        await supabase.from('order_status_history').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-        await supabase.from('payments').delete().neq('id', '');
-        await supabase.from('orders').delete().neq('id', '');
-        await supabase.from('slip_items').delete().neq('id', '');
-        await supabase.from('slip_images').delete().neq('id', '');
-        await supabase.from('slip_orders').delete().neq('id', '');
-      } catch (err) {
-        console.warn('Supabase orders delete notice:', err);
+      for (const client of supabaseClients) {
+        try {
+          await client.from('order_items').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+          await client.from('order_status_history').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+          await client.from('payments').delete().neq('id', '');
+          await client.from('orders').delete().neq('id', '');
+          await client.from('slip_items').delete().neq('id', '');
+          await client.from('slip_images').delete().neq('id', '');
+          await client.from('slip_orders').delete().neq('id', '');
+        } catch (err) {
+          console.warn('Supabase orders delete notice:', err);
+        }
       }
     }
 

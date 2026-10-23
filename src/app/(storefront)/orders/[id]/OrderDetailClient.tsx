@@ -389,7 +389,7 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
         }
         return currentOrder;
       });
-    }, 8000);
+    }, 4000);
 
     return () => {
       clearTimeout(timer);

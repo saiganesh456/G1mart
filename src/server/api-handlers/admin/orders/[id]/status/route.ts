@@ -196,6 +196,10 @@ export async function POST(
           expectedOtp = order?.deliveryOtp || (order?.address as any)?._deliveryOtp;
           if (!customerPhone) customerPhone = order?.address?.mobileNumber || order?.address?.phone;
         }
+        if (!expectedOtp && (order?.id || id)) {
+          const { generate4DigitOtp } = await import('@/lib/deliveryOtp');
+          expectedOtp = generate4DigitOtp(order?.id || id);
+        }
       }
       const { verifyDeliveryOtp } = await import('@/lib/deliveryOtp');
 
@@ -248,6 +252,7 @@ export async function POST(
         result.order.paidAt = new Date().toISOString();
       }
       serverOrderStore.cacheOrder(result.order);
+      await serverOrderStore.registerOrderAsync(result.order);
     }
 
     // Trigger targeted background Web Push notification directly to the customer

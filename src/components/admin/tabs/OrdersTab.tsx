@@ -81,6 +81,23 @@ export const isStorePickupOrder = (o: any) => Boolean(
   o?.address?.fullName?.toLowerCase().includes('pickup')
 );
 
+export function getOrderTimestamp(order: any): number {
+  if (!order) return 0;
+  if (order.created_at) {
+    const t = new Date(order.created_at).getTime();
+    if (!isNaN(t) && t > 0) return t;
+  }
+  if (order.createdAt) {
+    const t = new Date(order.createdAt).getTime();
+    if (!isNaN(t) && t > 0) return t;
+  }
+  if (order.date) {
+    const t = new Date(order.date).getTime();
+    if (!isNaN(t) && t > 0) return t;
+  }
+  return 0;
+}
+
 function getStatusBadge(status?: string, isPickup?: boolean) {
   const s = status || 'Order Placed';
   switch (s) {
@@ -184,9 +201,9 @@ export default function OrdersTab({
     };
   }, [orders]);
 
-  // Filtered orders list
+  // Filtered orders list (strictly ordered newest first)
   const filteredOrders = useMemo(() => {
-    return orders.filter((o) => {
+    const list = orders.filter((o) => {
       const s = o.status || 'Order Placed';
 
       // 1. Queue Filter
@@ -222,6 +239,8 @@ export default function OrdersTab({
 
       return true;
     });
+
+    return list.sort((a, b) => getOrderTimestamp(b) - getOrderTimestamp(a));
   }, [orders, queueFilter, paymentFilter, search]);
 
   // Determine stage-appropriate primary action

@@ -42,6 +42,23 @@ import { formatToIST } from '@/lib/dateUtils';
 
 import { STATUS_RANK, resolveAuthoritativeStatus } from '@/lib/orderStatus';
 
+function getOrderTimestamp(order: any): number {
+  if (!order) return 0;
+  if (order.created_at) {
+    const t = new Date(order.created_at).getTime();
+    if (!isNaN(t) && t > 0) return t;
+  }
+  if (order.createdAt) {
+    const t = new Date(order.createdAt).getTime();
+    if (!isNaN(t) && t > 0) return t;
+  }
+  if (order.date) {
+    const t = new Date(order.date).getTime();
+    if (!isNaN(t) && t > 0) return t;
+  }
+  return 0;
+}
+
 const BLANK_NEW_PRODUCT: Product = {
   id: '',
   name: '',
@@ -831,11 +848,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       const data = await res.json();
       const serverList: Order[] = data.success && Array.isArray(data.orders) ? data.orders : [];
 
-      const merged = serverList.sort((a, b) => {
-        const timeA = new Date((a as any).created_at || a.date || 0).getTime() || 0;
-        const timeB = new Date((b as any).created_at || b.date || 0).getTime() || 0;
-        return timeB - timeA;
-      });
+      const merged = serverList.sort((a, b) => getOrderTimestamp(b) - getOrderTimestamp(a));
 
       // Strict deduplication & new order alert detection
       if (isInitialFetchDoneRef.current) {
@@ -1171,12 +1184,12 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       };
     } catch {}
 
-    // 3. 30-second visibility-aware safety net background sync (never misses orders if realtime is reconnecting)
+    // 3. 5-second visibility-aware safety net background sync (never misses orders if realtime is reconnecting)
     const interval = setInterval(() => {
       if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
         fetchOrders(true);
       }
-    }, 30000);
+    }, 5000);
 
     // 4. Service Worker Push Sync Listener (triggers if push arrived or notification was tapped)
     let handleSwMessage: ((event: MessageEvent) => void) | null = null;
@@ -1526,7 +1539,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
         fetchSlipData();
       }
-    }, 30000);
+    }, 5000);
     return () => clearInterval(iv);
   }, []);
 

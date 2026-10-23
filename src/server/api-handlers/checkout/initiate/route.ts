@@ -134,6 +134,9 @@ export async function POST(req: NextRequest) {
         orderType: isPickup ? 'pickup' : 'delivery',
         paymentMethod: 'Cash on Delivery',
         paymentStatus: 'COD_PENDING',
+        deliveryOtp: order.deliveryOtp,
+        delivery_otp: order.deliveryOtp,
+        order,
         redirectUrl: `/orders/${orderId}?placed=true`,
       });
     }

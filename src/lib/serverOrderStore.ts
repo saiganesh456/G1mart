@@ -507,23 +507,26 @@ export const serverOrderStore = {
     paymentsMap.set(manualPayRecord.id, manualPayRecord);
 
     if (isSupabaseConfigured()) {
-      try {
-        await supabase
-          .from('orders')
-          .update({
-            is_paid: true,
-            address: {
-              ...(order.address || {}),
-              _items: order.items,
-              _paymentStatus: 'manual_verified',
-              _paidAmount: order.grandTotal,
-              _paidAt: nowIso,
-              _markedPaidBy: staffIdentifier,
-            },
-            updated_at: nowIso,
-          })
-          .eq('id', orderId);
-      } catch {}
+      for (const client of supabaseClients) {
+        try {
+          const { error } = await client
+            .from('orders')
+            .update({
+              is_paid: true,
+              address: {
+                ...(order.address || {}),
+                _items: order.items,
+                _paymentStatus: 'manual_verified',
+                _paidAmount: order.grandTotal,
+                _paidAt: nowIso,
+                _markedPaidBy: staffIdentifier,
+              },
+              updated_at: nowIso,
+            })
+            .eq('id', orderId);
+          if (!error) break;
+        } catch {}
+      }
     }
 
     return { success: true, order };
@@ -754,21 +757,25 @@ export const serverOrderStore = {
     this.persistToDisk();
 
     if (isSupabaseConfigured()) {
-      supabase
-        .from('orders')
-        .update({
-          is_paid: false,
-          status: 'Order Placed',
-          address: {
-            ...(order.address || {}),
-            _items: (order.items && order.items.length > 0) ? order.items : ((order.address as any)?._items || []),
-            _paymentStatus: 'COD_PENDING',
-          },
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', orderId)
-        .then(() => {})
-        .catch(() => {});
+      for (const client of supabaseClients) {
+        try {
+          client
+            .from('orders')
+            .update({
+              is_paid: false,
+              status: 'Order Placed',
+              address: {
+                ...(order.address || {}),
+                _items: (order.items && order.items.length > 0) ? order.items : ((order.address as any)?._items || []),
+                _paymentStatus: 'COD_PENDING',
+              },
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', orderId)
+            .then(() => {})
+            .catch(() => {});
+        } catch {}
+      }
     }
 
     return { success: true, order };
@@ -923,31 +930,34 @@ export const serverOrderStore = {
     const merged = this.registerOrder(order);
 
     if (isSupabaseConfigured()) {
-      try {
-        await supabase.from('orders').upsert({
-          id: merged.id,
-          user_id: merged.userId || null,
-          date: merged.date,
-          slot: merged.slot || 'Standard Delivery',
-          payment_method: merged.paymentMethod || 'Cash on Delivery',
-          is_paid: Boolean(merged.isPaid),
-          status: merged.status || 'Order Placed',
-          subtotal: merged.subtotal || merged.grandTotal || 0,
-          discount: merged.discount || 0,
-          delivery_fee: merged.deliveryFee || 0,
-          taxes: merged.taxes || 0,
-          grand_total: merged.grandTotal || 0,
-          address: {
-            ...merged.address,
-            _items: merged.items,
-            _paymentStatus: merged.paymentStatus,
-            _userId: merged.userId,
-            _userEmail: merged.userEmail,
-          },
-          updated_at: new Date().toISOString(),
-        });
-      } catch (err) {
-        console.warn('[serverOrderStore] Supabase async register note:', err);
+      for (const client of supabaseClients) {
+        try {
+          const { error } = await client.from('orders').upsert({
+            id: merged.id,
+            user_id: merged.userId || null,
+            date: merged.date,
+            slot: merged.slot || 'Standard Delivery',
+            payment_method: merged.paymentMethod || 'Cash on Delivery',
+            is_paid: Boolean(merged.isPaid),
+            status: merged.status || 'Order Placed',
+            subtotal: merged.subtotal || merged.grandTotal || 0,
+            discount: merged.discount || 0,
+            delivery_fee: merged.deliveryFee || 0,
+            taxes: merged.taxes || 0,
+            grand_total: merged.grandTotal || 0,
+            address: {
+              ...merged.address,
+              _items: merged.items,
+              _paymentStatus: merged.paymentStatus,
+              _userId: merged.userId,
+              _userEmail: merged.userEmail,
+            },
+            updated_at: new Date().toISOString(),
+          });
+          if (!error) break;
+        } catch (err) {
+          console.warn('[serverOrderStore] Supabase async register note:', err);
+        }
       }
     }
 

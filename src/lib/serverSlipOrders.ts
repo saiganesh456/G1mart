@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import { serverSupabase as supabase, fallbackSupabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
+import { generate4DigitOtp } from '@/lib/deliveryOtp';
 import { serverStoreSettings } from '@/lib/serverStoreSettings';
 import { serverOrderStore } from '@/lib/serverOrderStore';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
@@ -153,7 +154,7 @@ async function syncSlipOrderToSupabase(slip: SlipOrder): Promise<void> {
         assigned_rider_phone: slip.assigned_rider_phone || null,
         admin_notes: slip.admin_notes || null,
         cancel_reason: slip.cancel_reason || null,
-        delivery_otp: slip.delivery_otp || '1234',
+        delivery_otp: slip.delivery_otp || generate4DigitOtp(slip.id),
         arrived_at_doorstep: Boolean(slip.arrived_at_doorstep),
         updated_at: new Date().toISOString(),
       });
@@ -300,7 +301,7 @@ export const serverSlipOrders = {
 
       admin_notes: null,
       cancel_reason: null,
-      delivery_otp: '1234',
+      delivery_otp: generate4DigitOtp(id),
 
       images: slipImages,
       items: [],
@@ -1082,7 +1083,7 @@ export const serverSlipOrders = {
     order.assigned_rider_name = params.riderName;
     order.assigned_rider_phone = params.riderPhone;
     order.status = 'RIDER_ASSIGNED';
-    order.delivery_otp = '1234';
+    order.delivery_otp = order.delivery_otp || generate4DigitOtp(order.id);
     order.updated_at = new Date().toISOString();
 
     this.addStatusHistory(
@@ -1265,7 +1266,7 @@ export const serverSlipOrders = {
             phone: slip.assigned_rider_phone || '',
           }
         : undefined,
-      deliveryOtp: slip.delivery_otp || '1234',
+      deliveryOtp: slip.delivery_otp || generate4DigitOtp(slip.id),
       arrivedAtDoorstep: Boolean(slip.arrived_at_doorstep),
       address: {
         fullName: slip.customer_name,
