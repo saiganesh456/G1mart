@@ -134,6 +134,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
+    // Automatic self-healing: purge orphaned PKCE verifiers, stale flows, and obsolete cookies
+    // so any phone or device that accumulated bloated cookies recovers immediately on app load.
+    if (typeof document !== 'undefined') {
+      try {
+        const cookies = document.cookie.split(';');
+        for (const cookie of cookies) {
+          const name = cookie.trim().split('=')[0];
+          if (
+            name.includes('-code-verifier') ||
+            name.includes('-flows-') ||
+            (name.startsWith('sb-') && !name.includes('pzrigfczxwscpzxkykvf'))
+          ) {
+            document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax`;
+            document.cookie = `${name}=; path=/; domain=.g1mart.in; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax`;
+            document.cookie = `${name}=; path=/auth; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax`;
+          }
+        }
+      } catch {}
+    }
+
     fetchProfile();
 
     if (!isSupabaseConfigured()) return;

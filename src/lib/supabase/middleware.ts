@@ -24,6 +24,12 @@ export async function updateSession(request: NextRequest) {
       supabaseUrl,
       supabaseAnonKey,
       {
+        cookieOptions: {
+          name: 'sb-pzrigfczxwscpzxkykvf-auth-token',
+          path: '/',
+          sameSite: 'lax',
+          secure: process.env.NODE_ENV === 'production',
+        },
         cookies: {
           getAll() {
             return request.cookies.getAll();
@@ -36,7 +42,12 @@ export async function updateSession(request: NextRequest) {
               request,
             });
             cookiesToSet.forEach(({ name, value, options }) =>
-              supabaseResponse.cookies.set(name, value, options)
+              supabaseResponse.cookies.set(name, value, {
+                ...options,
+                path: '/',
+                sameSite: 'lax',
+                secure: process.env.NODE_ENV === 'production',
+              })
             );
           },
         },
@@ -46,6 +57,23 @@ export async function updateSession(request: NextRequest) {
     // IMPORTANT: Do not remove getUser() as this refreshes the token when expired.
     // It checks cookies and writes any refreshed token back onto supabaseResponse.
     await supabase.auth.getUser();
+
+    // Self-healing: Clean up any stale OAuth verifiers or legacy project cookies
+    // to prevent request header bloat (HTTP 494 REQUEST_HEADER_TOO_LARGE)
+    const incomingCookies = request.cookies.getAll();
+    for (const { name } of incomingCookies) {
+      if (
+        name.includes('-code-verifier') ||
+        name.includes('-flows-') ||
+        (name.startsWith('sb-') && !name.includes('pzrigfczxwscpzxkykvf'))
+      ) {
+        supabaseResponse.cookies.set(name, '', {
+          path: '/',
+          maxAge: 0,
+          sameSite: 'lax',
+        });
+      }
+    }
   } catch (err) {
     console.warn('[Middleware] Supabase auth session check non-blocking fallback:', err);
   }

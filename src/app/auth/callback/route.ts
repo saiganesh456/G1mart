@@ -40,12 +40,26 @@ export async function GET(request: NextRequest) {
       supabaseUrl,
       supabaseAnonKey,
       {
+        cookieOptions: {
+          name: 'sb-pzrigfczxwscpzxkykvf-auth-token',
+          path: '/',
+          sameSite: 'lax',
+          secure: process.env.NODE_ENV === 'production',
+        },
         cookies: {
           getAll() {
             return request.cookies.getAll();
           },
           setAll(cookiesToSet: Array<{ name: string; value: string; options?: any }>) {
-            cookiesToSetOnRedirect = cookiesToSet;
+            // Merge properly instead of overwriting, preserving both removals and additions
+            cookiesToSet.forEach((cookie) => {
+              const idx = cookiesToSetOnRedirect.findIndex((c) => c.name === cookie.name);
+              if (idx >= 0) {
+                cookiesToSetOnRedirect[idx] = cookie;
+              } else {
+                cookiesToSetOnRedirect.push(cookie);
+              }
+            });
           },
         },
       }
@@ -128,22 +142,58 @@ export async function GET(request: NextRequest) {
 
       const response = NextResponse.redirect(redirectUrl);
 
-      // Attach session cookies
+      // Clean up all incoming PKCE verifiers, flow index cookies, and legacy cookies
+      // to eliminate cookie accumulation and prevent HTTP 494 REQUEST_HEADER_TOO_LARGE
+      request.cookies.getAll().forEach((c) => {
+        if (
+          c.name.includes('-code-verifier') ||
+          c.name.includes('-flows-') ||
+          c.name === 'g1mart_auth_next' ||
+          (c.name.startsWith('sb-') && !c.name.includes('pzrigfczxwscpzxkykvf'))
+        ) {
+          response.cookies.set(c.name, '', { path: '/', maxAge: 0, sameSite: 'lax' });
+          if (process.env.NODE_ENV === 'production') {
+            response.headers.append(
+              'Set-Cookie',
+              `${c.name}=; Path=/; Domain=.g1mart.in; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax`
+            );
+            response.headers.append(
+              'Set-Cookie',
+              `${c.name}=; Path=/auth; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax`
+            );
+          }
+        }
+      });
+
+      // Attach fresh session cookies with secure, explicit attributes
       cookiesToSetOnRedirect.forEach(({ name, value, options }) => {
-        response.cookies.set(name, value, options);
+        response.cookies.set(name, value, {
+          ...options,
+          path: '/',
+          sameSite: 'lax',
+          secure: process.env.NODE_ENV === 'production',
+        });
       });
 
       // Clear the temporary redirect cookie
       response.cookies.delete('g1mart_auth_next');
+      response.cookies.set('g1mart_auth_next', '', { path: '/', maxAge: 0 });
 
       return response;
     }
 
     if (exchangeError) {
       console.error('[Auth Callback Code Exchange Error]:', exchangeError.message, exchangeError);
-      return NextResponse.redirect(
+      const errResponse = NextResponse.redirect(
         `${origin}/login?error=${encodeURIComponent(exchangeError.message)}`
       );
+      // Clean up verifiers on failure so they don't linger in browser
+      request.cookies.getAll().forEach((c) => {
+        if (c.name.includes('-code-verifier') || c.name.includes('-flows-') || c.name === 'g1mart_auth_next') {
+          errResponse.cookies.set(c.name, '', { path: '/', maxAge: 0, sameSite: 'lax' });
+        }
+      });
+      return errResponse;
     }
   }
 

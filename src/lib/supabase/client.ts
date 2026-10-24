@@ -15,7 +15,14 @@ const supabaseAnonKey =
   'sb_publishable_21Va_owgBZfUACOuIp5Z2w_tQFUY74e';
 
 export function createClient() {
-  return createBrowserClient(supabaseUrl, supabaseAnonKey) as any;
+  return createBrowserClient(supabaseUrl, supabaseAnonKey, {
+    cookieOptions: {
+      name: 'sb-pzrigfczxwscpzxkykvf-auth-token',
+      path: '/',
+      sameSite: 'lax',
+      secure: typeof window !== 'undefined' && window.location.protocol === 'https:',
+    },
+  }) as any;
 }
 
 /** Singleton for convenience in client components */

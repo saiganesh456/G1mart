@@ -33,6 +33,12 @@ export async function createServerSupabaseClient() {
     supabaseUrl,
     supabaseAnonKey,
     {
+      cookieOptions: {
+        name: 'sb-pzrigfczxwscpzxkykvf-auth-token',
+        path: '/',
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production',
+      },
       cookies: {
         getAll() {
           return cookieStore.getAll();
@@ -40,7 +46,12 @@ export async function createServerSupabaseClient() {
         setAll(cookiesToSet: CookieItem[]) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
+              cookieStore.set(name, value, {
+                ...options,
+                path: '/',
+                sameSite: 'lax',
+                secure: process.env.NODE_ENV === 'production',
+              })
             );
           } catch {
             // setAll called from a Server Component — safe to ignore
@@ -62,9 +73,15 @@ export async function createAdminSupabaseClient() {
   const cookieStore = await cookies();
 
   return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co',
-    process.env.SUPABASE_SERVICE_ROLE_KEY || 'placeholder',
+    process.env.NEXT_PUBLIC_SUPABASE_URL || supabaseUrl,
+    process.env.SUPABASE_SERVICE_ROLE_KEY || supabaseAnonKey,
     {
+      cookieOptions: {
+        name: 'sb-pzrigfczxwscpzxkykvf-auth-token',
+        path: '/',
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production',
+      },
       cookies: {
         getAll() {
           return cookieStore.getAll();
@@ -72,7 +89,12 @@ export async function createAdminSupabaseClient() {
         setAll(cookiesToSet: CookieItem[]) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
+              cookieStore.set(name, value, {
+                ...options,
+                path: '/',
+                sameSite: 'lax',
+                secure: process.env.NODE_ENV === 'production',
+              })
             );
           } catch {
             // ignore
