@@ -105,11 +105,19 @@ export async function GET(req: NextRequest) {
       (a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime()
     );
 
+    // Filter out abandoned/unpaid online checkout attempts
+    const activeOrders = merged.filter((o) => {
+      const isOnline = o.paymentMethod !== 'Cash on Delivery';
+      const isUnpaid = !o.isPaid && o.paymentStatus !== 'completed' && o.paymentStatus !== 'paid';
+      const isPendingStatus = o.status === 'Payment Pending' || (o.address && o.address._status === 'Payment Pending');
+      return !((isOnline && isUnpaid) && isPendingStatus);
+    });
+
     return NextResponse.json(
       {
         success: true,
-        orders: merged,
-        count: merged.length,
+        orders: activeOrders,
+        count: activeOrders.length,
       },
       {
         headers: {

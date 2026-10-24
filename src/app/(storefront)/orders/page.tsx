@@ -206,6 +206,12 @@ export default function OrdersPage() {
   // Order filtering
   const filteredOrders = useMemo(() => {
     return orders.filter((o) => {
+      // Hide abandoned payment attempts (unpaid online checkout attempts)
+      const isUnpaidOnline =
+        (o.paymentMethod !== 'Cash on Delivery' && !o.isPaid && o.paymentStatus !== 'completed' && o.paymentStatus !== 'paid') &&
+        (o.status === 'Payment Pending' || (o.address && o.address._status === 'Payment Pending'));
+      if (isUnpaidOnline) return false;
+
       const s = (o.status || '').toLowerCase();
       const isDelivered = s.includes('delivered');
       const isCancelled = s.includes('cancel');

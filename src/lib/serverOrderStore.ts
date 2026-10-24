@@ -1095,7 +1095,8 @@ export const serverOrderStore = {
         try {
           const { data, error } = await client.from('orders').select('*').eq('id', orderId).maybeSingle();
           if (!error && data) {
-            const addr = data.address || {};
+            const rawAddr = data.address;
+            const addr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
             const existing = order;
             const realStatus = resolveAuthoritativeStatus(data.status, addr._status);
             const items = (existing?.items && existing.items.length > 0) ? existing.items : (addr._items || []);

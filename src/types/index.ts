@@ -161,6 +161,7 @@ export type OrderStatus =
   | 'Order Placed'
   | 'Payment Pending'
   | 'New'
+  | 'Payment Pending'
   | 'Confirmed'
   | 'Packing'
   | 'Packed'

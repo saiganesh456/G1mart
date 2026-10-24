@@ -66,8 +66,25 @@ export async function POST(
         order.status = 'Out for Delivery';
       }
 
+      if (order.address) {
+        (order.address as any)._arrivedAtDoorstep = true;
+        (order.address as any)._deliveryOtp = deliveryOtp;
+        (order.address as any)._status = order.status;
+      }
+
       serverOrderStore.cacheOrder(order);
       updatedOrder = order;
+
+      // Sync arrival to Supabase so customer real-time tracking gets the doorstep alert immediately
+      try {
+        const { serverSupabase: supabase, isSupabaseConfigured } = await import('@/lib/supabase/serverAdmin');
+        if (isSupabaseConfigured()) {
+          await supabase.from('orders').update({
+            address: order.address,
+            updated_at: new Date().toISOString(),
+          }).eq('id', id);
+        }
+      } catch {}
     }
 
     // Trigger customer push notification if available

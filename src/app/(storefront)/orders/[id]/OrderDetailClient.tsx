@@ -332,12 +332,22 @@ export default function OrderDetailClient({ orderId, initialOrder }: Props) {
             },
             (payload: any) => {
               if (payload.new) {
-                const nextStatus = resolveAuthoritativeStatus(payload.new.status, payload.new.address?._status);
+const rawAddr = payload.new.address;
+                const parsedAddr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
+                const nextStatus = resolveAuthoritativeStatus(payload.new.status, parsedAddr._status);
+                const nextTimeline = parsedAddr._timeline || payload.new.timeline;
+                const nextRider = parsedAddr._assignedRider || payload.new.assigned_rider || payload.new.assignedRider;
                 setOrder((prev: any) => {
                   if (prev && nextStatus && prev.status !== nextStatus) {
                     playStatusChime(nextStatus);
                   }
-                  return { ...prev, ...payload.new, status: nextStatus || prev?.status };
+                  return {
+                    ...prev,
+                    ...payload.new,
+                    status: nextStatus || prev?.status,
+                    assignedRider: nextRider || prev?.assignedRider,
+                    timeline: nextTimeline || prev?.timeline,
+                  };
                 });
                 syncLiveOrder();
               }

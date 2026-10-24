@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     }
 
     // 1. Sync and fetch all regular/standard orders from database and store
-    const orders = await serverOrderStore.getAllOrdersAsync();
+    await serverOrderStore.getAllOrdersAsync();
 
     // 2. Sync slip orders
     try {
@@ -30,12 +30,18 @@ export async function GET(request: NextRequest) {
       console.warn('[Admin Orders] Slip sync notice:', slipErr);
     }
 
-    // 3. Retrieve complete list sorted newest first
+    // 3. Retrieve complete list sorted newest first, excluding unpaid online checkout attempts
     const finalOrders = await serverOrderStore.getAllOrdersAsync();
-    finalOrders.sort((a, b) => getOrderTimestamp(b) - getOrderTimestamp(a));
+    const activeOrders = finalOrders.filter((o) => {
+      const isOnline = o.paymentMethod !== 'Cash on Delivery';
+      const isUnpaid = !o.isPaid && o.paymentStatus !== 'completed' && o.paymentStatus !== 'paid';
+      const isPendingStatus = o.status === 'Payment Pending' || (o.address && (o.address as any)._status === 'Payment Pending');
+      return !((isOnline && isUnpaid) || isPendingStatus);
+    });
+    activeOrders.sort((a, b) => getOrderTimestamp(b) - getOrderTimestamp(a));
 
     return NextResponse.json(
-      { success: true, orders: finalOrders },
+      { success: true, orders: activeOrders },
       {
         headers: {
           'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0',
@@ -85,7 +91,7 @@ export async function DELETE(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: 'All test orders cleared from server and database. Store pipeline is 100% fresh.',
+      message: 'All test orders cleared from server and database. Store pipeline is 100 fresh.',
     });
   } catch (err: any) {
     return NextResponse.json(

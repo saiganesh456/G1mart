@@ -126,22 +126,16 @@ export async function POST(
         }, { status: 400 });
       }
 
-      // Valid OTP -> Mark Delivered
-      order.status = 'Delivered';
-      order.deliveredAt = new Date().toISOString();
-      if (!order.isPaid && (cashCollected || order.paymentMethod === 'Cash on Delivery')) {
-        order.isPaid = true;
-        order.paymentStatus = 'completed';
-        order.paidAmount = order.grandTotal;
-        order.paidAt = new Date().toISOString();
+      // Valid OTP -> Mark Delivered via updateOrderStatus (updates memory, disk, and Supabase)
+      const updateRes = await serverOrderStore.updateOrderStatus(id, 'Delivered', riderIdentifier);
+      const deliveredOrder = updateRes.order || order;
+      if (!deliveredOrder.isPaid && (cashCollected || deliveredOrder.paymentMethod === 'Cash on Delivery')) {
+        deliveredOrder.isPaid = true;
+        deliveredOrder.paymentStatus = 'completed';
+        deliveredOrder.paidAmount = deliveredOrder.grandTotal;
+        deliveredOrder.paidAt = new Date().toISOString();
+        serverOrderStore.cacheOrder(deliveredOrder);
       }
-
-      const timeStr = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
-      order.timeline = (order.timeline || []).map((t) =>
-        t.status === 'Delivered' ? { ...t, time: timeStr, completed: true } : t
-      );
-
-      serverOrderStore.cacheOrder(order);
 
       // Trigger Web Push to customer
       try {
@@ -157,7 +151,7 @@ export async function POST(
       return NextResponse.json({
         success: true,
         message: 'Delivery verified successfully via OTP',
-        order,
+        order: deliveredOrder,
       });
     }
   } catch (error: any) {

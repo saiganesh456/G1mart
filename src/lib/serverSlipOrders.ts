@@ -671,35 +671,8 @@ export const serverSlipOrders = {
 
     // Mirror to serverOrderStore so standard order store & storefront sees itemized bill immediately
     try {
-      await serverOrderStore.createPendingOrder({
-        orderId: order.id,
-        merchantOrderId: `MT_${order.id}`,
-        items: slipItems.map((it) => ({
-          productId: it.product_id || it.id,
-          productName: it.name,
-          unit: it.unit,
-          price: it.price,
-          quantity: it.requested_qty,
-          image: order.images?.[0]?.image_url || '/products/placeholder.svg',
-        })),
-        subtotal: estimatedTotal,
-        deliveryFee: order.delivery_fee || 0,
-        taxes: 0,
-        grandTotal: estimatedTotal + (order.delivery_fee || 0),
-        final_total: estimatedTotal + (order.delivery_fee || 0),
-        address: {
-          fullName: order.customer_name,
-          phone: order.customer_phone,
-          mobileNumber: order.customer_phone,
-          streetArea: order.address,
-          city: 'Nellore',
-        },
-        slot: order.order_type === 'pickup' ? 'Store Pickup' : 'Standard Delivery',
-        paymentMethod: (order.payment_method as any) || 'Cash on Delivery',
-        distance_km: order.distance_km,
-        zone_min_order: order.zone_min_order,
-        orderType: 'slip',
-      });
+      const converted = this.convertToStandardOrder(order);
+      serverOrderStore.registerOrder(converted);
     } catch (mirrorErr) {
       console.warn('[serverSlipOrders] Error mirroring order to serverOrderStore:', mirrorErr);
     }
@@ -835,36 +808,8 @@ export const serverSlipOrders = {
 
     // Mirror as standard order into serverOrderStore so packer and admin orders see it
     try {
-      const orderTotal = Number(order.final_total || order.estimated_total || (order.subtotal + (order.delivery_fee || 0)));
-      await serverOrderStore.createPendingOrder({
-        orderId: order.id,
-        merchantOrderId: `MT_${order.id}`,
-        items: (order.items || []).map((it) => ({
-          productId: it.product_id || it.id,
-          productName: it.name,
-          unit: it.unit,
-          price: it.price,
-          quantity: it.requested_qty,
-          image: order.images?.[0]?.image_url || '/products/placeholder.svg',
-        })),
-        subtotal: order.subtotal,
-        deliveryFee: order.delivery_fee || 0,
-        taxes: 0,
-        grandTotal: orderTotal,
-        final_total: orderTotal,
-        address: {
-          fullName: order.customer_name,
-          phone: order.customer_phone,
-          mobileNumber: order.customer_phone,
-          streetArea: order.address,
-          city: 'Nellore',
-        },
-        slot: order.order_type === 'pickup' ? 'Store Pickup' : 'Standard Delivery',
-        paymentMethod: (order.payment_method as any) || 'Cash on Delivery',
-        distance_km: order.distance_km,
-        zone_min_order: order.zone_min_order,
-        orderType: 'slip',
-      });
+      const converted = this.convertToStandardOrder(order, 'Confirmed');
+      serverOrderStore.registerOrder(converted);
       await serverOrderStore.updateOrderStatus(order.id, 'Confirmed', staffName);
     } catch {}
 

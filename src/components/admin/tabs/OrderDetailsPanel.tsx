@@ -44,8 +44,8 @@ interface Props {
     status: string,
     assignedRider?: { id?: string; email?: string; name: string; phone?: string; vehicleNumber?: string },
     providedOtp?: string
-  ) => void;
-  onMarkPaid?: (orderId: string) => void;
+  ) => Promise<any> | void;
+  onMarkPaid?: (orderId: string) => Promise<any> | void;
   availableRiders?: StaffMember[];
 }
 

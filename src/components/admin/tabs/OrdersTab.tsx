@@ -53,7 +53,7 @@ interface Props {
     orderId: string,
     status: string,
     assignedRider?: { id?: string; email?: string; name: string; phone?: string; vehicleNumber?: string }
-  ) => void;
+  ) => Promise<any> | void;
   onClearTestOrders?: () => void;
   availableRiders?: StaffMember[];
   onClearAllOrders?: () => void;

@@ -850,7 +850,15 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
       const data = await res.json();
       const serverList: Order[] = data.success && Array.isArray(data.orders) ? data.orders : [];
 
-      const merged = serverList.sort((a, b) => getOrderTimestamp(b) - getOrderTimestamp(a));
+// Filter out unpaid online checkout attempts from active orders
+      const activeList = serverList.filter((o) => {
+        const isOnline = o.paymentMethod !== 'Cash on Delivery';
+        const isUnpaid = !o.isPaid && o.paymentStatus !== 'completed' && o.paymentStatus !== 'paid';
+        const isPendingStatus = o.status === 'Payment Pending' || (o.address && (o.address as any)._status === 'Payment Pending');
+        return !((isOnline && isUnpaid) || isPendingStatus);
+      });
+
+      const merged = activeList.sort((a, b) => getOrderTimestamp(b) - getOrderTimestamp(a));
 
       // Strict deduplication & new order alert detection
       if (isInitialFetchDoneRef.current) {
@@ -1036,6 +1044,16 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 const row = payload.new;
                 if (!row || !row.id) return;
 
+                // Guard: Ignore unpaid online checkout attempts (never ring alarm or add to queue before customer pays)
+                const isOnline = row.payment_method !== 'Cash on Delivery';
+                const isUnpaid = !row.is_paid && row.payment_status !== 'completed' && row.payment_status !== 'paid';
+                const rawAddr = row.address;
+                const rowAddr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
+                const isPending = row.status === 'Payment Pending' || rowAddr._status === 'Payment Pending';
+                if ((isOnline && isUnpaid) || isPending) {
+                  return;
+                }
+
                 // Strict deduplication: never alert twice for the same order
                 if (seenOrderIdsRef.current.has(row.id)) return;
                 seenOrderIdsRef.current.add(row.id);
@@ -1059,6 +1077,22 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                 const rowAddr = typeof rawAddr === 'string' ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })() : (rawAddr || {});
                 const actualStatus = resolveAuthoritativeStatus(row.status, rowAddr._status);
                 const actualRider = rowAddr._assignedRider;
+
+                // If this order was previously pending payment and is now paid, ring alarm & insert into orders!
+                const isNowPaidOnline = !seenOrderIdsRef.current.has(row.id) &&
+                  (Boolean(row.is_paid) || row.payment_status === 'completed' || row.payment_status === 'paid' || actualStatus === 'Order Placed') &&
+                  actualStatus !== 'Payment Pending';
+                if (isNowPaidOnline) {
+                  seenOrderIdsRef.current.add(row.id);
+                  const newPaidOrder = formatSupabaseRowToOrder(row);
+                  setOrders((prev) => {
+                    if (prev.some((o) => o.id === newPaidOrder.id)) {
+                      return prev.map((o) => (o.id === newPaidOrder.id ? newPaidOrder : o));
+                    }
+                    return [newPaidOrder, ...prev];
+                  });
+                  startAlarm(newPaidOrder);
+                }
 
                 setOrders((prev) =>
                   prev.map((o) => {
@@ -1350,7 +1384,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           otp,
           staffIdentifier: user?.name || user?.email || 'Store Admin',
           assignedRider: effectiveRider,
-          orderFallback: targetOrder,
+          orderFallback: targetOrder || selectedOrder,
         }),
       });
       const data = await res.json();
@@ -1824,7 +1858,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           <OrderDetailsPanel
             order={selectedOrder}
             onBack={() => navigateBack()}
-            onUpdateStatus={(id, status, assignedRider) =>
+onUpdateStatus={(id, status, assignedRider) =>
               handleUpdateOrderStatus(id, status, assignedRider)
             }
             onMarkPaid={(id) => handleMarkPaid(id)}
@@ -1956,7 +1990,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
                   });
                 }}
                 onBackToDashboard={() => navigateBack()}
-                onUpdateStatus={(id, nextStatus, assignedRider) =>
+onUpdateStatus={(id, nextStatus, assignedRider) =>
                   handleUpdateOrderStatus(id, nextStatus, assignedRider)
                 }
                 availableRiders={staffMembers.riders}
