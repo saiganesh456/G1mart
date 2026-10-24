@@ -58,7 +58,7 @@ export async function executeSupabaseWithFallback<T = any>(
 ): Promise<{ data: T | null; error: any }> {
   try {
     const primary = await queryFn(serverSupabase);
-    if (!primary.error && primary.data !== null && primary.data !== undefined) {
+    if (!primary.error) {
       return primary;
     }
   } catch {}

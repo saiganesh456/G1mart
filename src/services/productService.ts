@@ -291,6 +291,21 @@ export const productService = {
       if (!overrides || overrides.size === 0) return;
 
       for (const [id, override] of overrides.entries()) {
+        const isDeleted = Boolean(override.deleted || (override as any).is_deleted || override.isActive === false);
+        if (isDeleted) {
+          const delIdx = MIGRATED_PRODUCT_LIST.findIndex((p) => p.id === id);
+          if (delIdx !== -1) {
+            MIGRATED_PRODUCT_LIST.splice(delIdx, 1);
+          }
+          variantsByProductId.delete(id);
+          for (let i = MIGRATED_VARIANTS.length - 1; i >= 0; i--) {
+            if (MIGRATED_VARIANTS[i].product_id === id) {
+              MIGRATED_VARIANTS.splice(i, 1);
+            }
+          }
+          continue;
+        }
+
         const idx = MIGRATED_PRODUCT_LIST.findIndex((p) => p.id === id);
         if (idx !== -1) {
           MIGRATED_PRODUCT_LIST[idx] = serverProductOverrides.applyToProduct(MIGRATED_PRODUCT_LIST[idx], override);
@@ -370,7 +385,7 @@ export const productService = {
    */
   async getProducts(): Promise<Product[]> {
     await this.syncOverrides();
-    return MIGRATED_PRODUCT_LIST.filter((p) => p.isActive !== false);
+    return MIGRATED_PRODUCT_LIST.filter((p) => p.isActive !== false && !(p as any).deleted);
   },
 
   /**
@@ -378,7 +393,7 @@ export const productService = {
    */
   async getAllProductsRaw(): Promise<Product[]> {
     await this.syncOverrides();
-    return MIGRATED_PRODUCT_LIST;
+    return MIGRATED_PRODUCT_LIST.filter((p) => !(p as any).deleted);
   },
 
   /**
@@ -444,7 +459,14 @@ export const productService = {
       });
       return true;
     }
-    return false;
+
+    // Persist to Supabase even if not in memory (for custom products or cold lambdas)
+    await serverProductOverrides.saveOverride({
+      id: productId,
+      imageUrl,
+      imageStatus,
+    });
+    return true;
   },
 
   /**
@@ -518,7 +540,25 @@ export const productService = {
 
       return true;
     }
-    return false;
+
+    // Persist to Supabase even if not in memory (for custom products or cold lambdas)
+    await serverProductOverrides.saveOverride({
+      id: product.id,
+      name: product.name,
+      brand: product.brand,
+      unit: product.unit,
+      category: product.category || (product as any).category_id,
+      subCategory: product.subCategory,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      stockCount: product.stockCount,
+      inStock: product.inStock,
+      imageUrl: product.imageUrl || product.image,
+      imageStatus: (product as any).imageStatus,
+      variants: product.variants,
+    });
+    await this.syncOverrides();
+    return true;
   },
 
   async addProduct(product: Partial<Product> & { id?: string }): Promise<Product | null> {
@@ -598,6 +638,7 @@ export const productService = {
         MIGRATED_VARIANTS.splice(i, 1);
       }
     }
+    await serverProductOverrides.deleteOverride(id);
     return true;
   },
 };

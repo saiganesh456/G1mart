@@ -5,7 +5,7 @@ import path from 'path';
 import { productService, normalizeCategory } from '@/services/productService';
 import { serverProductOverrides } from '@/lib/serverProductOverrides';
 import { verifyAdminRequest } from '@/lib/authGuard';
-import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
+import { executeSupabaseWithFallback, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 
 const CATALOG_PATH = path.join(process.cwd(), 'src', 'data', 'products-catalog.json');
 
@@ -483,16 +483,9 @@ export async function DELETE(request: NextRequest) {
       }
     }
 
-    // 4. Mark deleted in cloud overrides
+    // 4. Mark deleted in cloud overrides and local cache
     try {
-      await serverProductOverrides.saveOverride({
-        id,
-        inStock: false,
-        stockCount: 0,
-        is_active: false,
-        isActive: false,
-        deleted: true,
-      } as any);
+      await serverProductOverrides.deleteOverride(id);
     } catch (err) {
       console.warn('[Admin Products] Error updating override on delete:', err);
     }
@@ -500,8 +493,12 @@ export async function DELETE(request: NextRequest) {
     // 5. Best-effort remove from Supabase database if configured
     if (isSupabaseConfigured()) {
       try {
-        await supabase.from('products').delete().eq('id', id);
-        await supabase.from('product_variants').delete().eq('product_id', id);
+        await executeSupabaseWithFallback(async (client) => {
+          return client.from('products').delete().eq('id', id);
+        });
+        await executeSupabaseWithFallback(async (client) => {
+          return client.from('product_variants').delete().eq('product_id', id);
+        });
       } catch (err) {
         console.warn('[Admin Products] Error removing from Supabase:', err);
       }

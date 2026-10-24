@@ -1719,33 +1719,6 @@
     "originalPrice": 54
   },
   {
-    "id": "g1-p445559",
-    "name": "vamsi",
-    "unit": "500 g",
-    "brand": "G1 Mart",
-    "price": 100,
-    "inStock": true,
-    "category": "atta-rice-dal",
-    "imageUrl": "/products/placeholder.svg",
-    "variants": [
-      {
-        "id": "p-v1",
-        "mrp": 890,
-        "price": 100,
-        "stock": 15,
-        "image_url": "/products/placeholder.svg",
-        "product_id": "p",
-        "size_label": "1 unit"
-      }
-    ],
-    "isPopular": true,
-    "updatedAt": "2026-10-19T19:51:38.744Z",
-    "stockCount": 15,
-    "imageStatus": "VERIFIED",
-    "subCategory": "Atta & Wheat Flour",
-    "originalPrice": 890
-  },
-  {
     "id": "g1-p0001",
     "price": 123,
     "updatedAt": "2026-10-20T02:53:07.459Z"

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { serverSupabase as supabase, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
+import { executeSupabaseWithFallback, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 
 export interface ProductOverride {
   id: string;
@@ -13,6 +13,9 @@ export interface ProductOverride {
   originalPrice?: number;
   stockCount?: number;
   inStock?: boolean;
+  isActive?: boolean;
+  is_active?: boolean;
+  deleted?: boolean;
   imageUrl?: string;
   imageStatus?: string;
   variants?: any[];
@@ -33,7 +36,7 @@ if (!global.__g1ProductOverridesLastSync) {
   global.__g1ProductOverridesLastSync = 0;
 }
 
-const CACHE_TTL_MS = 5000; // 5-second cache to balance instant freshness with zero latency
+const CACHE_TTL_MS = 3000; // 3-second cache to balance freshness with instant response
 
 function getDiskPath(): string | null {
   if (path && typeof process !== 'undefined' && process.cwd) {
@@ -51,7 +54,7 @@ function loadDiskOverrides(): Map<string, ProductOverride> {
       const list = JSON.parse(raw);
       if (Array.isArray(list)) {
         for (const item of list) {
-          if (item && item.id) {
+          if (item && item.id && !item.deleted && !(item as any).is_deleted && item.isActive !== false) {
             map.set(item.id, item);
           }
         }
@@ -71,7 +74,9 @@ function persistDiskOverrides(overrides: Map<string, ProductOverride>): void {
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
-      const list = Array.from(overrides.values());
+      const list = Array.from(overrides.values()).filter(
+        (item) => !item.deleted && !(item as any).is_deleted && item.isActive !== false
+      );
       fs.writeFileSync(filePath, JSON.stringify(list, null, 2), 'utf-8');
     }
   } catch (err) {
@@ -96,15 +101,20 @@ export const serverProductOverrides = {
     // 1. Try disk first for local dev
     const diskMap = loadDiskOverrides();
     for (const [k, v] of diskMap.entries()) {
-      cache.set(k, v);
+      if (!cache.has(k) || !cache.get(k)?.deleted) {
+        cache.set(k, v);
+      }
     }
 
     // 2. Fetch from Supabase cloud (Shared across all Vercel Lambdas)
     if (isSupabaseConfigured()) {
       try {
         // Try dedicated product_overrides table first
-        const { data, error } = await supabase.from('product_overrides').select('*');
-        if (!error && Array.isArray(data)) {
+        const { data, error } = await executeSupabaseWithFallback(async (client) => {
+          return client.from('product_overrides').select('*');
+        });
+
+        if (!error && Array.isArray(data) && data.length > 0) {
           for (const row of data) {
             cache.set(row.id, {
               id: row.id,
@@ -117,6 +127,8 @@ export const serverProductOverrides = {
               originalPrice: row.original_price !== null && row.original_price !== undefined ? Number(row.original_price) : undefined,
               stockCount: row.stock_count !== null && row.stock_count !== undefined ? Number(row.stock_count) : undefined,
               inStock: row.in_stock !== null && row.in_stock !== undefined ? Boolean(row.in_stock) : undefined,
+              isActive: row.is_active !== null && row.is_active !== undefined ? Boolean(row.is_active) : undefined,
+              deleted: row.deleted !== null && row.deleted !== undefined ? Boolean(row.deleted) : undefined,
               imageUrl: row.image_url ?? undefined,
               imageStatus: row.image_status ?? undefined,
               variants: row.variants ?? undefined,
@@ -127,11 +139,13 @@ export const serverProductOverrides = {
           return cache;
         }
 
-        // If product_overrides table is not yet created, use verified key-value fallback
-        const { data: kvData, error: kvError } = await supabase
-          .from('push_subscriptions')
-          .select('*')
-          .like('endpoint', 'product_override:%');
+        // Use verified key-value fallback via push_subscriptions
+        const { data: kvData, error: kvError } = await executeSupabaseWithFallback(async (client) => {
+          return client
+            .from('push_subscriptions')
+            .select('*')
+            .like('endpoint', 'product_override:%');
+        });
 
         if (!kvError && Array.isArray(kvData)) {
           for (const row of kvData) {
@@ -158,6 +172,9 @@ export const serverProductOverrides = {
     const merged: ProductOverride = {
       ...existing,
       ...override,
+      deleted: false,
+      is_active: override.inStock !== false,
+      isActive: override.inStock !== false,
       updatedAt: new Date().toISOString(),
     };
 
@@ -189,20 +206,24 @@ export const serverProductOverrides = {
         if (merged.imageStatus !== undefined) tablePayload.image_status = merged.imageStatus;
         if (merged.variants !== undefined) tablePayload.variants = merged.variants;
 
-        const { error } = await supabase.from('product_overrides').upsert(tablePayload);
-        if (!error) {
+        const tableRes = await executeSupabaseWithFallback(async (client) => {
+          return client.from('product_overrides').upsert(tablePayload);
+        });
+        if (!tableRes.error) {
           return true;
         }
 
-        // 2. If table doesn't exist, use zero-setup push_subscriptions table fallback
-        const { error: fallbackErr } = await supabase.from('push_subscriptions').upsert({
-          endpoint: `product_override:${merged.id}`,
-          keys: merged,
-          role: 'product_override',
+        // 2. Fallback to push_subscriptions table
+        const kvRes = await executeSupabaseWithFallback(async (client) => {
+          return client.from('push_subscriptions').upsert({
+            endpoint: `product_override:${merged.id}`,
+            keys: merged,
+            role: 'product_override',
+          });
         });
 
-        if (fallbackErr) {
-          console.error('[serverProductOverrides] Fallback save error:', fallbackErr);
+        if (kvRes.error) {
+          console.error('[serverProductOverrides] Fallback save error:', kvRes.error);
           return false;
         }
 
@@ -217,9 +238,70 @@ export const serverProductOverrides = {
   },
 
   /**
+   * Delete an override permanently by setting a tombstone and removing it from cloud and cache.
+   */
+  async deleteOverride(id: string): Promise<boolean> {
+    const cache = global.__g1ProductOverrides!;
+    const tombstone: ProductOverride = {
+      id,
+      deleted: true,
+      inStock: false,
+      stockCount: 0,
+      isActive: false,
+      is_active: false,
+      updatedAt: new Date().toISOString(),
+    };
+
+    cache.set(id, tombstone);
+    global.__g1ProductOverridesLastSync = Date.now();
+
+    persistDiskOverrides(cache);
+
+    if (isSupabaseConfigured()) {
+      try {
+        // Persist tombstone to push_subscriptions so restarts/other lambdas know it was deleted
+        await executeSupabaseWithFallback(async (client) => {
+          return client.from('push_subscriptions').upsert({
+            endpoint: `product_override:${id}`,
+            keys: tombstone,
+            role: 'product_override',
+          });
+        });
+
+        // Also attempt delete from product_overrides & products table
+        await executeSupabaseWithFallback(async (client) => {
+          return client.from('product_overrides').delete().eq('id', id);
+        });
+
+        await executeSupabaseWithFallback(async (client) => {
+          return client.from('products').delete().eq('id', id);
+        });
+
+        await executeSupabaseWithFallback(async (client) => {
+          return client.from('product_variants').delete().eq('product_id', id);
+        });
+      } catch (err) {
+        console.warn('[serverProductOverrides] Error deleting from Supabase:', err);
+      }
+    }
+
+    return true;
+  },
+
+  /**
    * Helper to apply override fields to a Product object.
    */
   applyToProduct(product: any, override: ProductOverride): any {
+    if (override.deleted || (override as any).is_deleted || override.isActive === false) {
+      return {
+        ...product,
+        isActive: false,
+        inStock: false,
+        stockCount: 0,
+        deleted: true,
+      };
+    }
+
     const priceNum = override.price !== undefined ? override.price : product.price;
     const mrpNum = override.originalPrice !== undefined ? override.originalPrice : product.originalPrice;
     const discount = mrpNum > priceNum && mrpNum > 0
@@ -261,6 +343,7 @@ export const serverProductOverrides = {
         imageStatus: override.imageStatus || 'VERIFIED',
         image_status: override.imageStatus || 'VERIFIED',
       }),
+      isActive: override.inStock !== false && override.isActive !== false,
       variants: updatedVariants,
     };
   },

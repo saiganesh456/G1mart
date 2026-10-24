@@ -1515,11 +1515,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     );
 
     try {
-      await fetch('/api/admin/products', {
+      await adminFetch('/api/admin/products', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          ...getAdminHeaders(),
         },
         body: JSON.stringify({
           id: productId,
@@ -1893,11 +1892,10 @@ onUpdateStatus={(id, status, assignedRider) =>
                 p.id === updatedProduct.id ? updatedProduct : p
               );
               try {
-                const res = await fetch('/api/admin/products', {
+                const res = await adminFetch('/api/admin/products', {
                   method: 'PATCH',
                   headers: {
                     'Content-Type': 'application/json',
-                    ...getAdminHeaders(),
                   },
                   body: JSON.stringify({
                     id: updatedProduct.id,
@@ -1914,7 +1912,7 @@ onUpdateStatus={(id, status, assignedRider) =>
                     variants: updatedProduct.variants,
                   }),
                 });
-                const data = await res.json();
+                const data = await res.json().catch(() => ({}));
                 return Boolean(data.success);
               } catch (err) {
                 console.error('Failed to update product on server:', err);

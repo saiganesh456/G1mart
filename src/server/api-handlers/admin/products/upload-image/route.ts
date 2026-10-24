@@ -5,7 +5,7 @@ import path from 'path';
 import { verifyAdminRequest } from '@/lib/authGuard';
 import { serverProductOverrides } from '@/lib/serverProductOverrides';
 import { productService } from '@/services/productService';
-import { serverSupabase as supabase, isSupabaseConfigured, DEFAULT_SUPABASE_ANON_KEY } from '@/lib/supabase/serverAdmin';
+import { serverSupabase as supabase, executeSupabaseWithFallback, fallbackSupabase, isSupabaseConfigured, DEFAULT_SUPABASE_ANON_KEY } from '@/lib/supabase/serverAdmin';
 
 const SUPABASE_STORAGE_URL = 'https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/product-images';
 const STORAGE_PUBLIC_BASE = 'https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images';
@@ -64,22 +64,34 @@ export async function POST(req: NextRequest) {
 
       let finalImageUrl = '';
 
-      // 2. Try Supabase Storage 'product-images' bucket first
+      // 2. Try Supabase Storage 'product-images' bucket
       try {
-        const uploadUrl = `${SUPABASE_STORAGE_URL}/${storagePath}`;
-        const uploadResp = await fetch(uploadUrl, {
-          method: 'POST',
-          headers: {
-            apikey: SUPABASE_ANON_KEY,
-            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-            'Content-Type': file.type || 'image/jpeg',
-            'x-upsert': 'true',
-          },
-          body: fileBuffer,
+        const sdkRes = await executeSupabaseWithFallback(async (client) => {
+          return client.storage.from('product-images').upload(storagePath, fileBuffer, {
+            upsert: true,
+            contentType: file.type || 'image/jpeg',
+          });
         });
 
-        if (uploadResp.ok) {
+        if (!sdkRes.error) {
           finalImageUrl = `${STORAGE_PUBLIC_BASE}/${storagePath}`;
+        } else {
+          // Fallback to raw REST upload
+          const uploadUrl = `${SUPABASE_STORAGE_URL}/${storagePath}`;
+          const uploadResp = await fetch(uploadUrl, {
+            method: 'POST',
+            headers: {
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+              'Content-Type': file.type || 'image/jpeg',
+              'x-upsert': 'true',
+            },
+            body: fileBuffer,
+          });
+
+          if (uploadResp.ok) {
+            finalImageUrl = `${STORAGE_PUBLIC_BASE}/${storagePath}`;
+          }
         }
       } catch (sbErr) {
         console.warn('[upload-image] Supabase Storage upload error, falling back to local storage:', sbErr);
