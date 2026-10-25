@@ -304,7 +304,9 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
 
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(enriched));
-        localStorage.setItem(MANUAL_STORAGE_KEY, JSON.stringify(enriched));
+        if (saveAsManual) {
+          localStorage.setItem(MANUAL_STORAGE_KEY, JSON.stringify(enriched));
+        }
         localStorage.setItem(PROMPT_DISMISSED_KEY, 'true');
       } catch {}
 
@@ -360,11 +362,21 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
         accuracy: Math.round(accuracy),
       };
 
-      const applied = await applyLocation(detected, false);
-      setIsDetecting(false);
-      setShowDeniedPopup(false);
-      setShowPrePromptModal(false);
-      return applied;
+      const distMeters = computeDistanceMeters(14.4329, 79.9680, latitude, longitude);
+      const distKm = distMeters / 1000;
+      detected.distance_km = Math.round(distKm * 10) / 10;
+      detected.distanceKm = Math.round(distKm * 10) / 10;
+
+      if (distKm <= 30) {
+        const applied = await applyLocation(detected, false);
+        setIsDetecting(false);
+        setShowDeniedPopup(false);
+        setShowPrePromptModal(false);
+        return applied;
+      } else {
+        setIsDetecting(false);
+        return detected;
+      }
     } catch (error: any) {
       setIsDetecting(false);
       let msg = 'Failed to detect your location.';
@@ -451,6 +463,20 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
       // Case 1: User ALREADY has a saved location.
       // ALWAYS respect and keep it. NEVER show nagging popups or movement alerts!
       if (activeSaved) {
+        // Auto-heal check: if the saved location was an unserviceable auto-detection (e.g. Vijayawada ISP IP, > 30km)
+        // and was not explicitly confirmed as a deliberate manual choice by user:
+        const distKm =
+          activeSaved.distance_km ??
+          activeSaved.distanceKm ??
+          computeDistanceMeters(14.4329, 79.9680, activeSaved.lat ?? 14.4329, activeSaved.lng ?? 79.9680) / 1000;
+
+        if (distKm > 30 && !activeSaved.isManual) {
+          console.log('[LocationContext] Healing unserviceable auto-detected ISP location, defaulting to Nellore Hub');
+          await applyLocation(DEFAULT_LOCATION, false);
+          setIsGateReady(true);
+          return;
+        }
+
         setHasConfirmedLocation(true);
         setShowPrePromptModal(false);
         setShowDeniedPopup(false);
@@ -478,6 +504,19 @@ export function LocationProvider({ children }: { children: React.ReactNode }) {
           setIsDetecting(true);
           const position = await acquireHighAccuracyGPS(4000);
           const { latitude, longitude, accuracy } = position.coords;
+          const distMeters = computeDistanceMeters(14.4329, 79.9680, latitude, longitude);
+          const distKm = distMeters / 1000;
+
+          // If detected location is beyond 30 km (e.g. ISP IP routing in Vijayawada / Hyderabad / Chennai),
+          // do NOT lock customer out! Fall back to Nellore default.
+          if (distKm > 30) {
+            console.warn('[LocationGate] Detected IP/network location is outside Nellore 30km radius. Using Nellore default.');
+            await applyLocation(DEFAULT_LOCATION, false);
+            setIsGateReady(true);
+            setIsDetecting(false);
+            return;
+          }
+
           const geoData = await reverseGeocode(latitude, longitude);
           const freshGpsLoc: DeliveryLocation = {
             formattedAddress:
