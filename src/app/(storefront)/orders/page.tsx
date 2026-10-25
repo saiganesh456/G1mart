@@ -90,12 +90,16 @@ function getInitialCachedOrders(): any[] {
     }
   };
 
+  // Only load account orders if a user session is active
   try {
-    const stored = localStorage.getItem('g1mart_account_orders');
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed)) {
-        for (const o of parsed) registerOrderToMap(o);
+    const hasSession = Boolean(localStorage.getItem('g1mart_user_session'));
+    if (hasSession) {
+      const stored = localStorage.getItem('g1mart_account_orders');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          for (const o of parsed) registerOrderToMap(o);
+        }
       }
     }
   } catch {}
@@ -147,19 +151,13 @@ export default function OrdersPage() {
 
     try {
       const userId = authUserId || undefined;
-      let phone = userPhone || undefined;
-      if (!phone && typeof window !== 'undefined') {
-        try {
-          const lastAddr = JSON.parse(localStorage.getItem('g1mart_last_used_address') || '{}');
-          phone = lastAddr.phone || lastAddr.mobileNumber || undefined;
-        } catch {}
-      }
+      const phone = userPhone || undefined;
 
-      const query = new URLSearchParams();
-      if (userId) query.set('userId', userId);
-      if (phone) query.set('phone', phone);
-
+      // Only query cloud orders for authenticated users
       if (userId || phone) {
+        const query = new URLSearchParams();
+        if (userId) query.set('userId', userId);
+        if (phone) query.set('phone', phone);
         query.set('_t', String(Date.now()));
         const res = await fetch(`/api/orders?${query.toString()}`, { cache: 'no-store' });
         const data = await res.json();
@@ -171,18 +169,8 @@ export default function OrdersPage() {
           } catch {}
         }
       } else {
-        // Unauthenticated guest without stored phone: read local cache without re-allocating state
-        const localCached = getInitialCachedOrders();
-        setOrders((prev) => {
-          if (prev.length === 0 && localCached.length === 0) return prev;
-          if (
-            prev.length === localCached.length &&
-            prev.every((o, i) => o.id === localCached[i]?.id && o.status === localCached[i]?.status)
-          ) {
-            return prev;
-          }
-          return localCached;
-        });
+        // Unauthenticated guest: empty list, no past account orders
+        setOrders((prev) => (prev.length === 0 ? prev : []));
       }
     } catch (err) {
       console.warn('Could not fetch cloud orders:', err);
@@ -192,6 +180,13 @@ export default function OrdersPage() {
       isSyncingRef.current = false;
     }
   }, [authUserId, userPhone]);
+
+  // Reset orders immediately when user logs out
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setOrders([]);
+    }
+  }, [isLoggedIn]);
 
   // Initial sync on mount and auth changes
   useEffect(() => {

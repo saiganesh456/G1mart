@@ -193,6 +193,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(null);
     try {
       localStorage.removeItem('g1mart_user_session');
+      localStorage.removeItem('g1mart_account_orders');
+      localStorage.removeItem('g1mart_last_used_address');
+      localStorage.removeItem('g1mart_customer_phone');
+      localStorage.removeItem('g1mart_customer_name');
+      localStorage.removeItem('g1mart_checkout_address');
+      sessionStorage.removeItem('g1mart_orders_list');
+      sessionStorage.removeItem('g1mart_latest_order');
+      sessionStorage.removeItem('g1mart_recent_order');
     } catch {}
   };
 
