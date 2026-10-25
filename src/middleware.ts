@@ -22,6 +22,7 @@ export const config = {
      * internal transit headers (x-middleware-request-cookie), inflating header size
      * past Vercel's 32KB edge limit and triggering HTTP 494 REQUEST_HEADER_TOO_LARGE.
      */
+    '/login',
     '/admin/:path*',
     '/rider/:path*',
     '/account/:path*',

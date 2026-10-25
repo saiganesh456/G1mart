@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { ShieldCheck, AlertCircle } from 'lucide-react';
 import { authService } from '@/services/authService';
 import { useAuth } from '@/context/AuthContext';
+import { purgeStaleCookies } from '@/lib/cookieHygiene';
 
 function LoginForm() {
   const router = useRouter();
@@ -49,6 +50,11 @@ function LoginForm() {
   }, [authLoading, isLoggedIn, user, nextParam, router]);
 
   useEffect(() => {
+    // Proactively clean any bloated cookies as soon as user opens /login
+    purgeStaleCookies().catch(() => {});
+  }, []);
+
+  useEffect(() => {
     const errorParam = searchParams.get('error') || searchParams.get('error_description');
     if (errorParam) {
       if (errorParam === 'auth_failed' || errorParam === 'no_code_provided') {
@@ -63,6 +69,8 @@ function LoginForm() {
     try {
       setGoogleLoading(true);
       setAuthError('');
+      // Force an immediate cookie flush before initiating OAuth flow
+      await purgeStaleCookies().catch(() => {});
       const targetNext =
         nextParam || (roleParam === 'admin' ? '/admin' : roleParam === 'rider' ? '/rider' : '/account');
       const res = await authService.signInWithGoogle(targetNext);

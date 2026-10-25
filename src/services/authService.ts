@@ -1,4 +1,5 @@
 import { supabase, isSupabaseConfigured } from '../lib/supabase/client';
+import { purgeStaleCookies } from '@/lib/cookieHygiene';
 import { UserProfile, UserRole } from '../types';
 
 export interface AuthResponse<T = unknown> {
@@ -136,23 +137,13 @@ export const authService = {
       // Pre-flight Cookie Hygiene (Prevents HTTP 494 REQUEST_HEADER_TOO_LARGE):
       // Clean up any stale PKCE verifiers, orphaned flow indices, and legacy cookies
       // across all domain and path variants before initiating a fresh OAuth request.
-      if (typeof document !== 'undefined') {
-        const cookies = document.cookie.split(';');
-        for (const cookie of cookies) {
-          const name = cookie.trim().split('=')[0];
-          if (
-            name.includes('-code-verifier') ||
-            name.includes('-flows-') ||
-            (name.startsWith('sb-') && !name.includes('pzrigfczxwscpzxkykvf'))
-          ) {
-            document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax`;
-            document.cookie = `${name}=; path=/; domain=.g1mart.in; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax`;
-            document.cookie = `${name}=; path=/auth; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax`;
-          }
-        }
+      await purgeStaleCookies().catch(() => {});
 
+      if (typeof document !== 'undefined') {
+        const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:';
+        const secureStr = isHttps ? '; Secure' : '';
         // Persist intended destination in cookie and localStorage so it survives OAuth redirect even if query params are stripped
-        document.cookie = `g1mart_auth_next=${encodeURIComponent(nextUrl)}; path=/; max-age=1800; SameSite=Lax`;
+        document.cookie = `g1mart_auth_next=${encodeURIComponent(nextUrl)}; path=/; max-age=1800; SameSite=Lax${secureStr}`;
         try {
           localStorage.setItem('g1mart_auth_next', nextUrl);
         } catch {}
@@ -219,17 +210,7 @@ export const authService = {
   async signOut(): Promise<boolean> {
     if (!isSupabaseConfigured()) return true;
     try {
-      if (typeof document !== 'undefined') {
-        const cookies = document.cookie.split(';');
-        for (const cookie of cookies) {
-          const name = cookie.trim().split('=')[0];
-          if (name.startsWith('sb-') || name.startsWith('g1mart_auth_')) {
-            document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax`;
-            document.cookie = `${name}=; path=/; domain=.g1mart.in; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax`;
-            document.cookie = `${name}=; path=/auth; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax`;
-          }
-        }
-      }
+      await purgeStaleCookies().catch(() => {});
     } catch {}
     const { error } = await supabase.auth.signOut();
     return !error;

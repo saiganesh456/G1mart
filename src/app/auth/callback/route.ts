@@ -151,15 +151,28 @@ export async function GET(request: NextRequest) {
           c.name === 'g1mart_auth_next' ||
           (c.name.startsWith('sb-') && !c.name.includes('pzrigfczxwscpzxkykvf'))
         ) {
-          response.cookies.set(c.name, '', { path: '/', maxAge: 0, sameSite: 'lax' });
+          response.cookies.set(c.name, '', {
+            path: '/',
+            maxAge: 0,
+            sameSite: 'lax',
+            secure: process.env.NODE_ENV === 'production',
+          });
           if (process.env.NODE_ENV === 'production') {
             response.headers.append(
               'Set-Cookie',
-              `${c.name}=; Path=/; Domain=.g1mart.in; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax`
+              `${c.name}=; Path=/; Domain=.g1mart.in; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax; Secure`
             );
             response.headers.append(
               'Set-Cookie',
-              `${c.name}=; Path=/auth; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax`
+              `${c.name}=; Path=/; Domain=g1mart.in; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax; Secure`
+            );
+            response.headers.append(
+              'Set-Cookie',
+              `${c.name}=; Path=/auth; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax; Secure`
+            );
+            response.headers.append(
+              'Set-Cookie',
+              `${c.name}=; Path=/auth; Domain=.g1mart.in; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax; Secure`
             );
           }
         }
@@ -190,7 +203,12 @@ export async function GET(request: NextRequest) {
       // Clean up verifiers on failure so they don't linger in browser
       request.cookies.getAll().forEach((c) => {
         if (c.name.includes('-code-verifier') || c.name.includes('-flows-') || c.name === 'g1mart_auth_next') {
-          errResponse.cookies.set(c.name, '', { path: '/', maxAge: 0, sameSite: 'lax' });
+          errResponse.cookies.set(c.name, '', {
+            path: '/',
+            maxAge: 0,
+            sameSite: 'lax',
+            secure: process.env.NODE_ENV === 'production',
+          });
         }
       });
       return errResponse;
