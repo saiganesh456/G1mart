@@ -127,6 +127,8 @@ export default function OrdersPage() {
   const router = useRouter();
   const { user, supabaseUser, isLoggedIn } = useAuth();
   const { cartItemCount } = useCart();
+  const authUserId = supabaseUser?.id;
+  const userPhone = user?.phone;
 
   // Instant render from local cache
   const [orders, setOrders] = useState<any[]>(() => getInitialCachedOrders());
@@ -144,8 +146,8 @@ export default function OrdersPage() {
     if (isManual) setRefreshing(true);
 
     try {
-      const userId = supabaseUser?.id || undefined;
-      let phone = user?.phone || undefined;
+      const userId = authUserId || undefined;
+      let phone = userPhone || undefined;
       if (!phone && typeof window !== 'undefined') {
         try {
           const lastAddr = JSON.parse(localStorage.getItem('g1mart_last_used_address') || '{}');
@@ -169,9 +171,18 @@ export default function OrdersPage() {
           } catch {}
         }
       } else {
-        // Unauthenticated guest without stored phone: read local cache
+        // Unauthenticated guest without stored phone: read local cache without re-allocating state
         const localCached = getInitialCachedOrders();
-        setOrders(localCached);
+        setOrders((prev) => {
+          if (prev.length === 0 && localCached.length === 0) return prev;
+          if (
+            prev.length === localCached.length &&
+            prev.every((o, i) => o.id === localCached[i]?.id && o.status === localCached[i]?.status)
+          ) {
+            return prev;
+          }
+          return localCached;
+        });
       }
     } catch (err) {
       console.warn('Could not fetch cloud orders:', err);
@@ -180,28 +191,30 @@ export default function OrdersPage() {
       setRefreshing(false);
       isSyncingRef.current = false;
     }
-  }, [supabaseUser, user]);
+  }, [authUserId, userPhone]);
 
+  // Initial sync on mount and auth changes
   useEffect(() => {
     syncOrders(false);
+  }, [syncOrders]);
 
-    // Only poll if there are active/in-transit orders; if user has no active orders, do not poll!
-    const hasActiveOrders = orders.some((o) => {
-      const s = (o.status || '').toLowerCase();
-      return !s.includes('delivered') && !s.includes('cancel');
-    });
-
-    if (!hasActiveOrders) return;
-
-    // Visibility-aware background refresh every 30s
+  // Visibility-aware background refresh every 30s only when active orders exist
+  useEffect(() => {
     const interval = setInterval(() => {
-      if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
+      if (typeof document === 'undefined' || document.visibilityState !== 'visible') return;
+
+      const hasActiveOrders = ordersRef.current.some((o) => {
+        const s = (o.status || '').toLowerCase();
+        return !s.includes('delivered') && !s.includes('cancel');
+      });
+
+      if (hasActiveOrders) {
         syncOrders(false);
       }
     }, 30000);
 
     return () => clearInterval(interval);
-  }, [syncOrders, orders]);
+  }, [syncOrders]);
 
   // Order filtering
   const filteredOrders = useMemo(() => {
@@ -356,7 +369,7 @@ export default function OrdersPage() {
             </div>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-xs transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white shadow-xs hover:opacity-90 active:scale-95 transition-all cursor-pointer"
               style={{ backgroundColor: 'var(--g1-primary)' }}
             >
               <span>Start Shopping</span>
