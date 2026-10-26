@@ -308,21 +308,45 @@ export const serverProductOverrides = {
       ? Math.round(((mrpNum - priceNum) / mrpNum) * 100)
       : (override.price !== undefined ? 0 : product.discountPercentage);
 
-    const updatedVariants = override.variants && Array.isArray(override.variants) && override.variants.length > 0
-      ? override.variants
-      : (product.variants && product.variants.length > 0)
-      ? product.variants.map((v: any, i: number) => {
-          if (i === 0 || (v.size_label && override.unit && v.size_label.toLowerCase() === override.unit.toLowerCase())) {
+    let updatedVariants = product.variants;
+
+    if (override.variants && Array.isArray(override.variants) && override.variants.length > 0) {
+      if (override.variants.length > 1 || !product.variants || product.variants.length <= 1) {
+        updatedVariants = override.variants;
+      } else {
+        // Single-variant override on a multi-variant catalog item: merge the single variant update without wiping others
+        const singleV = override.variants[0];
+        updatedVariants = product.variants.map((v: any, i: number) => {
+          const isMatch =
+            (singleV.id && v.id === singleV.id) ||
+            (singleV.size_label && v.size_label && singleV.size_label.toLowerCase().trim() === v.size_label.toLowerCase().trim()) ||
+            i === 0;
+          if (isMatch) {
             return {
               ...v,
-              ...(override.price !== undefined && { price: override.price }),
-              ...(override.originalPrice !== undefined && { mrp: override.originalPrice }),
-              ...(override.stockCount !== undefined && { stock: override.stockCount }),
+              ...singleV,
+              ...(singleV.price !== undefined && { price: singleV.price }),
+              ...(singleV.mrp !== undefined && { mrp: singleV.mrp }),
+              ...(singleV.stock !== undefined && { stock: singleV.stock }),
+              ...(singleV.image_url && { image_url: singleV.image_url }),
             };
           }
           return v;
-        })
-      : product.variants;
+        });
+      }
+    } else if (product.variants && product.variants.length > 0) {
+      updatedVariants = product.variants.map((v: any, i: number) => {
+        if (i === 0 || (v.size_label && override.unit && v.size_label.toLowerCase().trim() === override.unit.toLowerCase().trim())) {
+          return {
+            ...v,
+            ...(override.price !== undefined && { price: override.price }),
+            ...(override.originalPrice !== undefined && { mrp: override.originalPrice }),
+            ...(override.stockCount !== undefined && { stock: override.stockCount }),
+          };
+        }
+        return v;
+      });
+    }
 
     return {
       ...product,
