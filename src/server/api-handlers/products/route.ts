@@ -2,6 +2,10 @@ export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { productService } from '@/services/productService';
 
+const CACHE_HEADERS = {
+  'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+};
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -9,7 +13,7 @@ export async function GET(request: NextRequest) {
     if (id) {
       const prod = await productService.getProductById(id);
       if (prod) {
-        return NextResponse.json({ success: true, product: prod });
+        return NextResponse.json({ success: true, product: prod }, { headers: CACHE_HEADERS });
       }
       return NextResponse.json({ success: false, error: 'Product not found' }, { status: 404 });
     }
@@ -17,11 +21,14 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get('category') || '';
     if (category) {
       const prods = await productService.getProductsByCategory(category);
-      return NextResponse.json({
-        success: true,
-        products: prods,
-        total: prods.length,
-      });
+      return NextResponse.json(
+        {
+          success: true,
+          products: prods,
+          total: prods.length,
+        },
+        { headers: CACHE_HEADERS }
+      );
     }
 
     const query = searchParams.get('q') || '';
@@ -39,11 +46,14 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({
-      success: true,
-      products: products.slice(0, limit),
-      total: products.length,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        products: products.slice(0, limit),
+        total: products.length,
+      },
+      { headers: CACHE_HEADERS }
+    );
   } catch (err: any) {
     return NextResponse.json(
       { success: false, error: err.message || 'Failed to search products' },

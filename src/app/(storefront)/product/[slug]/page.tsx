@@ -37,7 +37,7 @@ export default function ProductDetailPage({ params }: Props) {
     });
 
     // Real-time server revalidation for updated MRP, price, or photo from admin
-    fetch(`/api/products?id=${encodeURIComponent(canonicalId)}&_t=${Date.now()}`)
+    fetch(`/api/products?id=${encodeURIComponent(canonicalId)}`)
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (isMounted && data?.success && data?.product) {

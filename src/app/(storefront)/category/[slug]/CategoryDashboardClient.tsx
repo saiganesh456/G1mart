@@ -145,7 +145,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
     let isMounted = true;
     const fetchLatest = async () => {
       try {
-        const res = await fetch(`/api/products?category=${encodeURIComponent(category.id)}&_t=${Date.now()}`);
+        const res = await fetch(`/api/products?category=${encodeURIComponent(category.id)}`);
         if (res.ok) {
           const data = await res.json();
           if (isMounted && data.success && Array.isArray(data.products) && data.products.length > 0) {
