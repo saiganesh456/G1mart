@@ -37,6 +37,7 @@ import StaffManagementTab from '@/components/admin/StaffManagementTab';
 import ShootListTab from '@/components/admin/tabs/ShootListTab';
 import SettingsTab from '@/components/admin/tabs/SettingsTab';
 import SlipOrdersTab from '@/components/admin/tabs/SlipOrdersTab';
+import TabErrorBoundary from '@/components/admin/TabErrorBoundary';
 import { Camera } from 'lucide-react';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 import { formatToIST } from '@/lib/dateUtils';
@@ -538,20 +539,21 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
 
   // Helper to parse Supabase row
   const formatSupabaseRowToOrder = (row: any): Order => {
-    const address =
-      row.address ||
-      row.delivery_address || {
-        fullName: 'Customer',
-        mobileNumber: '',
-        houseFlat: '',
-        streetArea: '',
-        landmark: '',
-        city: 'Nellore',
-        state: 'Andhra Pradesh',
-        pincode: '',
-        type: 'Home',
-        isDefault: true,
-      };
+    const rawAddr = row.address || row.delivery_address;
+    const address = typeof rawAddr === 'string'
+      ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })()
+      : (rawAddr || {
+          fullName: 'Customer',
+          mobileNumber: '',
+          houseFlat: '',
+          streetArea: '',
+          landmark: '',
+          city: 'Nellore',
+          state: 'Andhra Pradesh',
+          pincode: '',
+          type: 'Home',
+          isDefault: true,
+        });
 
     return {
       id: row.id,
@@ -562,31 +564,37 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           ? row.order_items
           : Array.isArray(row.items) && row.items.length > 0
           ? row.items
-          : Array.isArray(row.address?._items)
-          ? row.address._items
+          : Array.isArray(address?._items)
+          ? address._items
           : [];
 
         return raw.map((oi: any) => {
-          const pid = (oi.product_id || oi.productId || oi.id || '').trim();
-          const rawName = (oi.product_name || oi.productName || oi.name || '').trim();
+          if (!oi) return { productId: 'p-1', productName: 'Catalog Item', unit: '1 unit', price: 0, quantity: 1, image: '/products/placeholder.svg' };
+          const pid = String(oi.product_id || oi.productId || oi.id || '').trim();
+          const rawName = String(oi.product_name || oi.productName || oi.name || '').trim();
+          const rawLower = rawName.toLowerCase();
 
           const match =
             MIGRATED_PRODUCT_LIST.find(
               (p) =>
-                p.id === pid ||
-                p.id === rawName ||
-                p.sku === rawName ||
-                p.slug === rawName ||
-                p.sku === pid
+                p && (
+                  p.id === pid ||
+                  p.id === rawName ||
+                  p.sku === rawName ||
+                  p.slug === rawName ||
+                  p.sku === pid
+                )
             ) ||
             MIGRATED_PRODUCT_LIST.find(
-              (p) => rawName && p.name.toLowerCase() === rawName.toLowerCase()
+              (p) => rawName && p && typeof p.name === 'string' && p.name.toLowerCase() === rawLower
             ) ||
             (rawName && rawName.length > 3
               ? MIGRATED_PRODUCT_LIST.find(
                   (p) =>
-                    p.name.toLowerCase().includes(rawName.toLowerCase()) ||
-                    rawName.toLowerCase().includes(p.name.toLowerCase())
+                    p && typeof p.name === 'string' && (
+                      p.name.toLowerCase().includes(rawLower) ||
+                      rawLower.includes(p.name.toLowerCase())
+                    )
                 )
               : null);
 
@@ -1324,8 +1332,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
     if (nextStatus === 'Delivered' && !otp) {
       const isPickup = Boolean(
         targetOrder?.orderType === 'pickup' ||
-        targetOrder?.slot?.toLowerCase().includes('pickup') ||
-        targetOrder?.address?.streetArea?.toLowerCase().includes('pickup') ||
+        String(targetOrder?.slot || '').toLowerCase().includes('pickup') ||
+        String(targetOrder?.address?.streetArea || '').toLowerCase().includes('pickup') ||
         (targetOrder?.address as any)?.orderType === 'pickup'
       );
       const promptMsg = isPickup
@@ -1387,10 +1395,10 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           orderFallback: targetOrder || selectedOrder,
         }),
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({ success: false, error: 'Server communication error' }));
 
       if (data.success && data.order) {
-        setSelectedOrder(data.order);
+        setSelectedOrder((prev) => (prev && prev.id === orderId ? data.order : prev));
         setOrders((prev) => prev.map((o) => (o.id === orderId ? data.order : o)));
 
         // Sync local storage for customer persistence
@@ -1853,16 +1861,20 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
           </div>
         )}
 
-        {selectedOrder ? (
-          <OrderDetailsPanel
-            order={selectedOrder}
-            onBack={() => navigateBack()}
-onUpdateStatus={(id, status, assignedRider) =>
-              handleUpdateOrderStatus(id, status, assignedRider)
-            }
-            onMarkPaid={(id) => handleMarkPaid(id)}
-            availableRiders={staffMembers.riders}
-          />
+        <TabErrorBoundary
+          fallbackTitle={selectedOrder ? 'Order Details Display Error' : `${activeTab.toUpperCase()} Tab Display Error`}
+          onReset={() => fetchOrders(true)}
+        >
+          {selectedOrder ? (
+            <OrderDetailsPanel
+              order={selectedOrder}
+              onBack={() => navigateBack()}
+              onUpdateStatus={(id, status, assignedRider) =>
+                handleUpdateOrderStatus(id, status, assignedRider)
+              }
+              onMarkPaid={(id) => handleMarkPaid(id)}
+              availableRiders={staffMembers.riders}
+            />
         ) : isCreatingProduct ? (
           <ProductDetailsPanel
             key="create-new-product"
@@ -2065,6 +2077,7 @@ onUpdateStatus={(id, nextStatus, assignedRider) =>
             )}
           </>
         )}
+        </TabErrorBoundary>
       </main>
 
       {/* 4. PINNED MOBILE BOTTOM NAVIGATION (Mobile/Tablet only) */}

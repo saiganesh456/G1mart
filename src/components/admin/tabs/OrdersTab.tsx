@@ -19,21 +19,25 @@ import RiderAssignmentModal from '@/components/admin/RiderAssignmentModal';
 import { MIGRATED_PRODUCT_LIST } from '@/services/productService';
 
 function resolveOrderItemName(it: any): { name: string; image: string } {
-  const pid = (it.productId || it.product_id || it.id || '').trim();
-  const rawName = (it.productName || it.name || '').trim();
+  if (!it) return { name: 'Grocery Item', image: '/products/placeholder.svg' };
+  const pid = String(it.productId || it.product_id || it.id || '').trim();
+  const rawName = String(it.productName || it.name || '').trim();
 
   let match = MIGRATED_PRODUCT_LIST.find(
     (p) =>
-      p.id === pid ||
-      p.id === rawName ||
-      p.slug === rawName ||
-      p.sku === rawName ||
-      p.sku === pid
+      p && (
+        p.id === pid ||
+        p.id === rawName ||
+        p.slug === rawName ||
+        p.sku === rawName ||
+        p.sku === pid
+      )
   );
 
   if (!match && rawName) {
+    const rawLower = rawName.toLowerCase();
     match = MIGRATED_PRODUCT_LIST.find(
-      (p) => p.name.toLowerCase() === rawName.toLowerCase()
+      (p) => p && typeof p.name === 'string' && p.name.toLowerCase() === rawLower
     );
   }
 
@@ -72,14 +76,25 @@ const QUEUE_FILTERS: QueueFilter[] = [
   'Completed',
 ];
 
-export const isStorePickupOrder = (o: any) => Boolean(
-  o?.orderType === 'pickup' ||
-  o?.slot?.toLowerCase().includes('pickup') ||
-  o?.address?.streetArea?.toLowerCase().includes('pickup') ||
-  o?.address?.landmark?.toLowerCase().includes('pickup') ||
-  o?.address?.orderType === 'pickup' ||
-  o?.address?.fullName?.toLowerCase().includes('pickup')
-);
+export const isStorePickupOrder = (o: any) => {
+  if (!o) return false;
+  const rawAddr = o.address;
+  const addr = typeof rawAddr === 'string'
+    ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })()
+    : (rawAddr || {});
+  const slot = String(o.slot || '').toLowerCase();
+  const streetArea = String(addr.streetArea || '').toLowerCase();
+  const landmark = String(addr.landmark || '').toLowerCase();
+  const fullName = String(addr.fullName || '').toLowerCase();
+  return Boolean(
+    o.orderType === 'pickup' ||
+    addr.orderType === 'pickup' ||
+    slot.includes('pickup') ||
+    streetArea.includes('pickup') ||
+    landmark.includes('pickup') ||
+    fullName.includes('pickup')
+  );
+};
 
 export function getOrderTimestamp(order: any): number {
   if (!order) return 0;
@@ -157,6 +172,8 @@ export default function OrdersTab({
       setUpdatingOrderId(order.id);
       try {
         await onUpdateStatus(order.id, stageAction.next);
+      } catch (err) {
+        console.error('Failed to update order status:', err);
       } finally {
         setUpdatingOrderId(null);
       }
@@ -244,10 +261,14 @@ export default function OrdersTab({
       // 3. Search query
       if (search.trim()) {
         const q = search.trim().toLowerCase();
-        const matchId = (o.id || '').toLowerCase().includes(q);
-        const matchName = (o.address?.fullName || '').toLowerCase().includes(q);
-        const matchPhone = (o.address?.mobileNumber || o.address?.phone || '').includes(q);
-        const matchStreet = (o.address?.streetArea || o.address?.city || '').toLowerCase().includes(q);
+        const rawAddr = o.address;
+        const addr = typeof rawAddr === 'string'
+          ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })()
+          : (rawAddr || {});
+        const matchId = String(o.id || '').toLowerCase().includes(q);
+        const matchName = String(addr.fullName || '').toLowerCase().includes(q);
+        const matchPhone = String(addr.mobileNumber || addr.phone || '').includes(q);
+        const matchStreet = String(addr.streetArea || addr.city || '').toLowerCase().includes(q);
         if (!matchId && !matchName && !matchPhone && !matchStreet) return false;
       }
 
@@ -499,8 +520,10 @@ export default function OrdersTab({
 
                   {isExpanded && (
                     <div className="mt-2 space-y-1.5 pt-1.5 border-t border-stone-100">
-                      {order.items?.map((it: any, idx: number) => {
+                      {(Array.isArray(order.items) ? order.items : []).map((it: any, idx: number) => {
                         const resolved = resolveOrderItemName(it);
+                        const qty = Number(it?.quantity) || 1;
+                        const price = Number(it?.price) || 0;
                         return (
                           <div
                             key={idx}
@@ -517,12 +540,12 @@ export default function OrdersTab({
                                 }}
                               />
                               <span className="text-stone-800 truncate font-medium">
-                                <span className="font-bold text-stone-900">{it.quantity}×</span>{' '}
+                                <span className="font-bold text-stone-900">{qty}×</span>{' '}
                                 {resolved.name}
                               </span>
                             </div>
                             <span className="font-bold text-stone-900 shrink-0">
-                              ₹{(it.quantity * it.price) || 0}
+                              ₹{qty * price}
                             </span>
                           </div>
                         );

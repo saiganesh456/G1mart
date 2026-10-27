@@ -77,14 +77,24 @@ export default function OrderDetailsPanel({
   // Interactive packing checklist state
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
 
-  // Accurate Store Pickup detection
+  // Accurate Store Pickup detection with robust address parsing
+  const rawAddr = order.address;
+  const addr = typeof rawAddr === 'string'
+    ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })()
+    : (rawAddr || {});
+  const slotStr = String(order.slot || '').toLowerCase();
+  const streetStr = String(addr.streetArea || '').toLowerCase();
+  const landmarkStr = String(addr.landmark || '').toLowerCase();
+  const nameStr = String(addr.fullName || '').toLowerCase();
+
   const isStorePickup = Boolean(
-    order.slot?.toLowerCase().includes('pickup') ||
-    order.address?.streetArea?.toLowerCase().includes('pickup') ||
-    order.address?.landmark?.toLowerCase().includes('pickup') ||
+    slotStr.includes('pickup') ||
+    streetStr.includes('pickup') ||
+    landmarkStr.includes('pickup') ||
     (order as any).orderType === 'pickup' ||
     (order as any).deliveryType === 'pickup' ||
-    order.address?.fullName?.toLowerCase().includes('pickup')
+    addr.orderType === 'pickup' ||
+    nameStr.includes('pickup')
   );
 
   // Dynamic workflow steps: Pickup vs Home Delivery
@@ -225,16 +235,24 @@ export default function OrderDetailsPanel({
     setCheckedItems((prev) => ({ ...prev, [idxKey]: !prev[idxKey] }));
   };
 
+  const orderItems = Array.isArray(order.items)
+    ? order.items
+    : typeof (order.items as any) === 'string'
+    ? (() => { try { const p = JSON.parse(order.items as any); return Array.isArray(p) ? p : []; } catch { return []; } })()
+    : Array.isArray(addr._items)
+    ? addr._items
+    : [];
+
   const allItemsChecked =
-    (order.items || []).length > 0 &&
-    (order.items || []).every((_, idx) => checkedItems[idx.toString()]);
+    orderItems.length > 0 &&
+    orderItems.every((_: any, idx: number) => checkedItems[idx.toString()]);
 
   const toggleAllItems = () => {
     if (allItemsChecked) {
       setCheckedItems({});
     } else {
       const all: Record<string, boolean> = {};
-      (order.items || []).forEach((_, idx) => {
+      orderItems.forEach((_: any, idx: number) => {
         all[idx.toString()] = true;
       });
       setCheckedItems(all);
@@ -242,15 +260,15 @@ export default function OrderDetailsPanel({
   };
 
   // Contacts
-  const phone = order.address?.mobileNumber || order.address?.phone || '';
-  const cleanPhone = phone.replace(/\D/g, '').slice(-10);
-  const lat = order.address?.latitude || 14.4426;
-  const lng = order.address?.longitude || 79.9865;
+  const phone = addr.mobileNumber || addr.phone || '';
+  const cleanPhone = String(phone).replace(/\D/g, '').slice(-10);
+  const lat = Number(addr.latitude) || 14.4426;
+  const lng = Number(addr.longitude) || 79.9865;
   const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
 
   // Accurate Billing Calculations (solving the mystery difference)
-  const itemsSum = (order.items || []).reduce(
-    (acc: number, it: any) => acc + ((Number(it.price) || 0) * (Number(it.quantity) || 1)),
+  const itemsSum = orderItems.reduce(
+    (acc: number, it: any) => acc + ((Number(it?.price) || 0) * (Number(it?.quantity) || 1)),
     0
   );
 
@@ -684,10 +702,10 @@ export default function OrderDetailsPanel({
                           <span>Call</span>
                         </a>
                         <a
-                          href={`https://wa.me/91${order.assignedRider.phone
+                          href={`https://wa.me/91${String(order.assignedRider.phone)
                             .replace(/\D/g, '')
                             .slice(-10)}?text=Hello%20${encodeURIComponent(
-                            order.assignedRider.name
+                            order.assignedRider.name || 'Delivery Partner'
                           )},%20order%20%23${order.id}%20is%20ready%20for%20delivery.`}
                           target="_blank"
                           rel="noopener noreferrer"
@@ -761,7 +779,7 @@ export default function OrderDetailsPanel({
               <div className="flex items-center gap-2">
                 <ShoppingBag className="w-4 h-4 text-emerald-700" />
                 <h3 className="text-xs font-black uppercase text-stone-500 tracking-wider">
-                  Ordered Products ({order.items?.length || 0})
+                  Ordered Products ({orderItems.length})
                 </h3>
               </div>
               <button
@@ -774,8 +792,11 @@ export default function OrderDetailsPanel({
             </div>
 
             <div className="divide-y divide-stone-100">
-              {order.items?.map((item: any, i: number) => {
+              {orderItems.map((item: any, i: number) => {
                 const isChecked = Boolean(checkedItems[i.toString()]);
+                const prodName = item.productName || item.name || 'Grocery Item';
+                const itemPrice = Number(item.price) || 0;
+                const itemQty = Number(item.quantity) || 1;
                 return (
                   <div
                     key={i}
@@ -799,9 +820,12 @@ export default function OrderDetailsPanel({
 
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={item.image || '/products/placeholder.svg'}
-                        alt={item.productName}
+                        src={item.image || item.imageUrl || '/products/placeholder.svg'}
+                        alt={prodName}
                         className="w-11 h-11 object-contain bg-white border border-stone-200 rounded-xl p-1 shrink-0"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = '/products/placeholder.svg';
+                        }}
                       />
 
                       <div className="min-w-0">
@@ -810,20 +834,20 @@ export default function OrderDetailsPanel({
                             isChecked ? 'line-through text-stone-400' : 'text-stone-900'
                           }`}
                         >
-                          {item.productName}
+                          {prodName}
                         </p>
                         <p className="text-[11px] text-stone-500 mt-0.5">
-                          {item.unit || '1 unit'} • ₹{item.price} each
+                          {item.unit || '1 unit'} • ₹{itemPrice} each
                         </p>
                       </div>
                     </div>
 
                     <div className="text-right shrink-0">
                       <span className="px-2 py-0.5 bg-stone-100 rounded-lg font-black text-xs text-stone-800 mr-2">
-                        Qty: {item.quantity}
+                        Qty: {itemQty}
                       </span>
                       <span className="font-black text-stone-900 text-xs sm:text-sm">
-                        ₹{item.quantity * item.price || 0}
+                        ₹{itemQty * itemPrice}
                       </span>
                     </div>
                   </div>

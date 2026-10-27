@@ -329,7 +329,7 @@ export default function SlipOrdersTab({
     if (!catalogSearch.trim()) return [];
     const query = catalogSearch.toLowerCase().trim();
     return products
-      .filter((p) => p.name.toLowerCase().includes(query) || (p.category || '').toLowerCase().includes(query))
+      .filter((p) => (p && typeof p.name === 'string' && p.name.toLowerCase().includes(query)) || (p && typeof p.category === 'string' && p.category.toLowerCase().includes(query)))
       .slice(0, 8);
   }, [catalogSearch, products]);
 
@@ -928,11 +928,12 @@ export default function SlipOrdersTab({
   // Filtered orders list for slips view
   const filteredOrders = useMemo(() => {
     return orders.filter((o) => {
+      const q = (searchQuery || '').toLowerCase();
       const matchSearch =
-        o.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        o.customer_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        o.customer_phone.includes(searchQuery) ||
-        (o.address || '').toLowerCase().includes(searchQuery.toLowerCase());
+        String(o?.id || '').toLowerCase().includes(q) ||
+        String(o?.customer_name || '').toLowerCase().includes(q) ||
+        String(o?.customer_phone || '').includes(searchQuery) ||
+        String(o?.address || '').toLowerCase().includes(q);
 
       if (statusFilter === 'all') return matchSearch;
       if (statusFilter === 'new') return matchSearch && o.status === 'SLIP_RECEIVED';

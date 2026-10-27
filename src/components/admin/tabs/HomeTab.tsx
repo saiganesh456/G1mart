@@ -45,13 +45,25 @@ export default function HomeTab({
   onToggleAudio,
 }: Props) {
   // Helper: detect store pickup
-  const isOrderPickup = (o: Order) => Boolean(
-    o.orderType === 'pickup' ||
-    o.slot?.toLowerCase().includes('pickup') ||
-    o.address?.streetArea?.toLowerCase().includes('pickup') ||
-    o.address?.landmark?.toLowerCase().includes('pickup') ||
-    (o.address as any)?.orderType === 'pickup'
-  );
+  const isOrderPickup = (o: Order) => {
+    if (!o) return false;
+    const rawAddr = o.address;
+    const addr = typeof rawAddr === 'string'
+      ? (() => { try { return JSON.parse(rawAddr); } catch { return {}; } })()
+      : (rawAddr || {});
+    const slot = String(o.slot || '').toLowerCase();
+    const streetArea = String(addr.streetArea || '').toLowerCase();
+    const landmark = String(addr.landmark || '').toLowerCase();
+    const fullName = String(addr.fullName || '').toLowerCase();
+    return Boolean(
+      o.orderType === 'pickup' ||
+      addr.orderType === 'pickup' ||
+      slot.includes('pickup') ||
+      streetArea.includes('pickup') ||
+      landmark.includes('pickup') ||
+      fullName.includes('pickup')
+    );
+  };
 
   // Real database-derived status counts
   const ordersToConfirm = orders.filter(

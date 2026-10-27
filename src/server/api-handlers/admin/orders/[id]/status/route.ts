@@ -160,9 +160,9 @@ export async function POST(
     }
 
     const isStorePickup = Boolean(
-      order?.slot?.toLowerCase().includes('pickup') ||
-      order?.address?.streetArea?.toLowerCase().includes('pickup') ||
-      order?.address?.fullName?.toLowerCase().includes('pickup') ||
+      String(order?.slot || '').toLowerCase().includes('pickup') ||
+      String(order?.address?.streetArea || '').toLowerCase().includes('pickup') ||
+      String(order?.address?.fullName || '').toLowerCase().includes('pickup') ||
       (order as any)?.orderType === 'pickup'
     );
 

@@ -1158,12 +1158,12 @@ export const serverSlipOrders = {
 
     const resolveProductImage = (name?: string, pid?: string | null): string => {
       if (pid) {
-        const found = MIGRATED_PRODUCT_LIST.find((p) => p.id === pid);
+        const found = MIGRATED_PRODUCT_LIST.find((p) => p && p.id === pid);
         if (found?.imageUrl || found?.image) return found.imageUrl || found.image || '';
       }
       if (name) {
-        const lower = name.toLowerCase();
-        const found = MIGRATED_PRODUCT_LIST.find((p) => p.name.toLowerCase().includes(lower));
+        const lower = String(name).toLowerCase();
+        const found = MIGRATED_PRODUCT_LIST.find((p) => p && typeof p.name === 'string' && p.name.toLowerCase().includes(lower));
         if (found?.imageUrl || found?.image) return found.imageUrl || found.image || '';
       }
       return '/products/placeholder.svg';
