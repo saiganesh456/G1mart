@@ -34,6 +34,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           dangerouslySetInnerHTML={{
             __html: `
+              try {
+                if (sessionStorage.getItem('g1mart_launch_splash_seen')) {
+                  document.documentElement.classList.add('g1-splash-dismissed');
+                }
+              } catch (e) {}
               if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
                 if (document.readyState === 'complete' || document.readyState === 'interactive') {
                   navigator.serviceWorker.register('/sw.js', { scope: '/' });

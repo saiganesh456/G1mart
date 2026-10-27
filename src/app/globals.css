@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Instant splash dismissal for returning visits */
+html.g1-splash-dismissed #g1-splash-overlay {
+  display: none !important;
+}
+
 /* ============================================================
    G1 MART DESIGN TOKENS  — all colours live here, nowhere else
    ============================================================ */
