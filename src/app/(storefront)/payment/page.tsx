@@ -27,7 +27,7 @@ import { formatToIST } from '@/lib/dateUtils';
 export default function PaymentPage() {
   const router = useRouter();
   const { cart, cartSubtotal, cartItemCount, clearCart } = useCart();
-  const { isLoggedIn, supabaseUser, user } = useAuth();
+  const { isLoggedIn, supabaseUser, user, isLoading: authLoading } = useAuth();
 
   // Two options — 'online' (Razorpay UPI/Cards/NetBanking) vs 'cod' (Pay on delivery)
   const [selectedMethod, setSelectedMethod] = useState<'online' | 'cod'>('online');
@@ -82,6 +82,8 @@ export default function PaymentPage() {
   // Handle Order Placement / Payment Step
   const handleProceed = async () => {
     setErrorMessage(null);
+
+    if (authLoading) return;
 
     if (!isLoggedIn) {
       alert('Account required for ordering. Please sign in with Google first.');

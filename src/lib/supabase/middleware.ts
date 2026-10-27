@@ -58,8 +58,7 @@ export async function updateSession(request: NextRequest) {
     // It checks cookies and writes any refreshed token back onto supabaseResponse.
     await supabase.auth.getUser();
 
-    // Self-healing: Clean up any stale OAuth verifiers or legacy project cookies
-    // to prevent request header bloat (HTTP 494 REQUEST_HEADER_TOO_LARGE)
+    // Clean up any stale OAuth verifiers or legacy project cookies cleanly
     const incomingCookies = request.cookies.getAll();
     const isProd = process.env.NODE_ENV === 'production';
     for (const { name } of incomingCookies) {
@@ -75,24 +74,6 @@ export async function updateSession(request: NextRequest) {
           sameSite: 'lax',
           secure: isProd,
         });
-        if (isProd) {
-          supabaseResponse.headers.append(
-            'Set-Cookie',
-            `${name}=; Path=/; Domain=.g1mart.in; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax; Secure`
-          );
-          supabaseResponse.headers.append(
-            'Set-Cookie',
-            `${name}=; Path=/; Domain=g1mart.in; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax; Secure`
-          );
-          supabaseResponse.headers.append(
-            'Set-Cookie',
-            `${name}=; Path=/auth; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax; Secure`
-          );
-          supabaseResponse.headers.append(
-            'Set-Cookie',
-            `${name}=; Path=/auth; Domain=.g1mart.in; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax; Secure`
-          );
-        }
       }
     }
   } catch (err) {

@@ -28,8 +28,8 @@ export async function purgeStaleCookies(): Promise<void> {
   if (typeof window === 'undefined') return;
 
   const isHttps = window.location.protocol === 'https:';
-  const hostname = window.location.hostname;
-  const isProd = hostname.includes('g1mart.in');
+  const isProd = window.location.hostname.includes('g1mart.in');
+  const secureStr = isHttps ? '; Secure' : '';
 
   // 1. Modern Chrome / Android Cookie Store API
   if ('cookieStore' in window && typeof (window as any).cookieStore?.getAll === 'function') {
@@ -44,43 +44,30 @@ export async function purgeStaleCookies(): Promise<void> {
           if (cookie.domain) deleteOptions.domain = cookie.domain;
 
           await (window as any).cookieStore.delete(deleteOptions).catch(() => {});
-          // Also attempt generic deletion
           await (window as any).cookieStore.delete({ name: cookie.name, path: '/' }).catch(() => {});
         }
       }
     } catch {
-      // CookieStore fallback to document.cookie
+      // Fallback to document.cookie
     }
   }
 
-  // 2. Standard document.cookie API (sweeping all path and domain permutations)
+  // 2. Standard document.cookie API (clean direct deletion without permutations)
   if (typeof document !== 'undefined' && document.cookie) {
     try {
       const cookies = document.cookie.split(';');
-      const paths = ['/', '/auth', ''];
-      const domains = isProd ? ['.g1mart.in', 'g1mart.in', ''] : [''];
 
       for (const rawCookie of cookies) {
         const name = rawCookie.trim().split('=')[0];
         if (!name || !isStaleAuthCookie(name)) continue;
 
-        for (const p of paths) {
-          for (const d of domains) {
-            const pathStr = p ? `; path=${p}` : '; path=/';
-            const domainStr = d ? `; domain=${d}` : '';
-            const secureStr = isHttps ? '; Secure' : '';
+        // Clean host-only default cookie
+        document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax${secureStr}`;
 
-            // Expire with SameSite=Lax
-            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0${pathStr}${domainStr}; SameSite=Lax${secureStr}`;
-
-            // Expire with SameSite=None (for any cookies originally written with SameSite=None)
-            if (isHttps) {
-              document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0${pathStr}${domainStr}; SameSite=None; Secure`;
-            }
-
-            // Expire without SameSite
-            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0${pathStr}${domainStr}${secureStr}`;
-          }
+        // If on production domain, also clear any domain-level cookie that was previously registered
+        if (isProd) {
+          document.cookie = `${name}=; path=/; domain=.g1mart.in; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax; Secure`;
+          document.cookie = `${name}=; path=/; domain=g1mart.in; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; SameSite=Lax; Secure`;
         }
       }
     } catch {

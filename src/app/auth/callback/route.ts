@@ -142,8 +142,7 @@ export async function GET(request: NextRequest) {
 
       const response = NextResponse.redirect(redirectUrl);
 
-      // Clean up all incoming PKCE verifiers, flow index cookies, and legacy cookies
-      // to eliminate cookie accumulation and prevent HTTP 494 REQUEST_HEADER_TOO_LARGE
+      // Clean up all incoming PKCE verifiers, flow index cookies, and legacy cookies cleanly
       request.cookies.getAll().forEach((c) => {
         if (
           c.name.includes('-code-verifier') ||
@@ -157,24 +156,6 @@ export async function GET(request: NextRequest) {
             sameSite: 'lax',
             secure: process.env.NODE_ENV === 'production',
           });
-          if (process.env.NODE_ENV === 'production') {
-            response.headers.append(
-              'Set-Cookie',
-              `${c.name}=; Path=/; Domain=.g1mart.in; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax; Secure`
-            );
-            response.headers.append(
-              'Set-Cookie',
-              `${c.name}=; Path=/; Domain=g1mart.in; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax; Secure`
-            );
-            response.headers.append(
-              'Set-Cookie',
-              `${c.name}=; Path=/auth; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax; Secure`
-            );
-            response.headers.append(
-              'Set-Cookie',
-              `${c.name}=; Path=/auth; Domain=.g1mart.in; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax; Secure`
-            );
-          }
         }
       });
 

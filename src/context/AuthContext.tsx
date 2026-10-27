@@ -28,8 +28,23 @@ const AuthContext = createContext<AuthContextType>({
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [supabaseUser, setSupabaseUser] = useState<any | null>(null);
-  const [user, setUser] = useState<UserProfile | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<UserProfile | null>(() => {
+    if (typeof window === 'undefined') return null;
+    try {
+      const stored = localStorage.getItem('g1mart_user_session');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [isLoading, setIsLoading] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return true;
+    try {
+      return !localStorage.getItem('g1mart_user_session');
+    } catch {
+      return true;
+    }
+  });
 
   const fetchProfile = async (rawUser?: any) => {
     try {
