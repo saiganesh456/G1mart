@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 /* Instant splash dismissal for returning visits */
+html.g1-splash-dismissed #g1-launch-screen,
 html.g1-splash-dismissed #g1-splash-overlay {
   display: none !important;
 }
