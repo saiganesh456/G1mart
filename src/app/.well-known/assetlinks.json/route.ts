@@ -19,7 +19,9 @@ export async function GET() {
     : [];
 
   const defaultFingerprints = [
-    // Real SHA-256 fingerprint generated from signing.keystore / PWABuilder package
+    // Google Play App Signing key certificate (Play Integrity / Closed Testing & Production)
+    "62:BC:43:3D:87:24:C1:28:C0:78:BC:4E:9E:E3:20:56:82:E1:D5:C2:55:91:C7:B7:9C:38:79:EA:1F:C9:71:80",
+    // Local / PWABuilder upload signing key certificate
     "7C:77:EB:9D:0F:EE:E5:17:B9:C6:32:9D:AB:73:BB:53:77:6C:C8:48:65:9A:07:F1:3C:B6:3F:68:4E:13:81:47",
     ...envFingerprints,
   ];

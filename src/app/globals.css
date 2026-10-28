@@ -58,6 +58,7 @@ html.g1-splash-dismissed #g1-splash-overlay {
   html {
     box-sizing: border-box;
     overflow-x: clip;
+    overscroll-behavior-y: none;
     max-width: 100vw;
     width: 100%;
     -webkit-text-size-adjust: 100%;
@@ -65,13 +66,14 @@ html.g1-splash-dismissed #g1-splash-overlay {
 
   body {
     box-sizing: border-box;
+    overflow-x: clip;
+    overscroll-behavior-y: none;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont,
       'Segoe UI', Roboto, sans-serif;
     background-color: var(--g1-bg);
     color: var(--g1-text);
     margin: 0;
     padding: 0;
-    overflow-x: clip;
     max-width: 100vw;
     width: 100%;
     -webkit-tap-highlight-color: transparent;
