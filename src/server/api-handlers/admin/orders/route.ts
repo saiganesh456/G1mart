@@ -1,7 +1,6 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse, type NextRequest } from 'next/server';
 import { serverOrderStore, getOrderTimestamp } from '@/lib/serverOrderStore';
-import { serverSupabase, fallbackSupabase, supabaseClients, isSupabaseConfigured } from '@/lib/supabase/serverAdmin';
 import { verifyAdminRequest, verifyRiderOrAdminRequest } from '@/lib/authGuard';
 
 export async function GET(request: NextRequest) {
@@ -30,18 +29,19 @@ export async function GET(request: NextRequest) {
       console.warn('[Admin Orders] Slip sync notice:', slipErr);
     }
 
-    // 3. Retrieve complete list sorted newest first, excluding unpaid online checkout attempts
+    // 3. Retrieve complete list sorted newest first.
+    // Include all orders (including Payment Pending and Cancelled) so admin tabs display all queues.
     const finalOrders = await serverOrderStore.getAllOrdersAsync();
-    const activeOrders = finalOrders.filter((o) => {
-      const isOnline = o.paymentMethod !== 'Cash on Delivery';
-      const isUnpaid = !o.isPaid && o.paymentStatus !== 'completed' && o.paymentStatus !== 'paid';
-      const isPendingStatus = o.status === 'Payment Pending' || (o.address && (o.address as any)._status === 'Payment Pending');
-      return !((isOnline && isUnpaid) || isPendingStatus);
-    });
-    activeOrders.sort((a, b) => getOrderTimestamp(b) - getOrderTimestamp(a));
+    finalOrders.sort((a, b) => getOrderTimestamp(b) - getOrderTimestamp(a));
+
+    const orphanPayments = serverOrderStore.getOrphanPayments();
 
     return NextResponse.json(
-      { success: true, orders: activeOrders },
+      {
+        success: true,
+        orders: finalOrders,
+        orphanPayments,
+      },
       {
         headers: {
           'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0, s-maxage=0',
@@ -69,33 +69,18 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    serverOrderStore.clearAllOrders();
-    const { serverSlipOrders } = await import('@/lib/serverSlipOrders');
-    serverSlipOrders.clearAllSlips();
-
-    if (isSupabaseConfigured()) {
-      for (const client of supabaseClients) {
-        try {
-          await client.from('order_items').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-          await client.from('order_status_history').delete().neq('id', '00000000-0000-0000-0000-000000000000');
-          await client.from('payments').delete().neq('id', '');
-          await client.from('orders').delete().neq('id', '');
-          await client.from('slip_items').delete().neq('id', '');
-          await client.from('slip_images').delete().neq('id', '');
-          await client.from('slip_orders').delete().neq('id', '');
-        } catch (err) {
-          console.warn('Supabase orders delete notice:', err);
-        }
-      }
-    }
+    // Safely delete ONLY test orders (ID starts with TEST, address._isTest = true, or phone 9876543210).
+    // Genuine customer orders are strictly protected and never touched.
+    const result = await serverOrderStore.clearTestOrders();
 
     return NextResponse.json({
       success: true,
-      message: 'All test orders cleared from server and database. Store pipeline is 100 fresh.',
+      message: `Test orders cleared safely. Removed ${result.clearedLocal} local and ${result.clearedSupabase} database test records. Genuine customer orders preserved.`,
+      result,
     });
   } catch (err: any) {
     return NextResponse.json(
-      { success: false, error: err.message || 'Failed to clear orders' },
+      { success: false, error: err.message || 'Failed to clear test orders' },
       { status: 500 }
     );
   }

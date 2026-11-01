@@ -10,6 +10,7 @@ import * as AdminProductsBulkUpload from '@/server/api-handlers/admin/products/b
 import * as AdminProductsImagePipeline from '@/server/api-handlers/admin/products/image-pipeline/route';
 import * as AdminProductsUploadImage from '@/server/api-handlers/admin/products/upload-image/route';
 import * as AdminProductsUploadPhoto from '@/server/api-handlers/admin/products/upload-photo/route';
+import * as AdminReconcile from '@/server/api-handlers/admin/reconcile/route';
 import * as AdminSettings from '@/server/api-handlers/admin/settings/route';
 import * as AdminSlipOrders from '@/server/api-handlers/admin/slip-orders/route';
 import * as AdminSlipOrderDetail from '@/server/api-handlers/admin/slip-orders/[id]/route';
@@ -119,6 +120,7 @@ async function handleRequest(req: NextRequest, { params }: RouteContext) {
         handlerContext = createParamsContext({ id: p2 });
       }
     } else if (p1 === 'staff') handlerModule = AdminStaff;
+    else if (p1 === 'reconcile') handlerModule = AdminReconcile;
   } else if (p0 === 'auth') {
     if (p1 === 'role-check') handlerModule = AuthRoleCheck;
   } else if (p0 === 'banners') {

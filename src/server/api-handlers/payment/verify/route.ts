@@ -40,11 +40,12 @@ export async function POST(req: NextRequest) {
     }
 
     // Signature verified on server! Mark order as paid in server store & Supabase
-    if (orderId) {
+    if (orderId || razorpayOrderId) {
       const markResult = await serverOrderStore.markOrderPaid({
         orderId,
         providerOrderId: razorpayOrderId,
         transactionId: razorpayPaymentId,
+        source: 'client_verify',
         rawResponse: {
           gateway: 'razorpay',
           razorpayOrderId,

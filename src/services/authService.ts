@@ -59,14 +59,14 @@ export const authService = {
         userEmail === 'sureshdega466@gmail.com' ||
         userEmail === 'g1mart@gmail.com' ||
         userEmail === 'lingalamahendra0@gmail.com' ||
+        userEmail === 'gummasaiganesh57@gmail.com' ||
+        userEmail === 'gumma.saiganesh57@gmail.com' ||
+        normEmail === 'gummasaiganesh57@gmail.com' ||
         userEmail === 'orders@g1mart.com' ||
         userEmail === 'admin@g1mart.com';
 
       const isCoreRider =
         userEmail === 'rider@g1mart.com' ||
-        userEmail === 'gummasaiganesh57@gmail.com' ||
-        userEmail === 'gumma.saiganesh57@gmail.com' ||
-        normEmail === 'gummasaiganesh57@gmail.com' ||
         normEmail === 'rider@g1mart.com';
 
       if (isCoreAdmin) {

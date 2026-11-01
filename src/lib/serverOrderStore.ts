@@ -36,6 +36,38 @@ export function getOrderTimestamp(o: any): number {
 const PRIMARY_ORDERS_PATH = path.join(process.cwd(), 'src', 'data', 'orders_store.json');
 const ORDERS_FILE_PATH = path.join(process.cwd(), 'data', 'g1mart_orders.json');
 const LEGACY_CACHE_PATH = path.join(process.cwd(), '.next', 'g1mart_orders_dev.json');
+const PAYMENT_EVENTS_PATH = path.join(process.cwd(), 'src', 'data', 'payment_events.json');
+const ORPHAN_PAYMENTS_PATH = path.join(process.cwd(), 'src', 'data', 'orphan_payments.json');
+
+export interface PaymentEvent {
+  id: string;
+  source: 'webhook' | 'client_verify' | 'recovery_job' | 'callback' | 'manual_staff';
+  payloadId: string;
+  eventType: string;
+  orderId?: string;
+  paymentId?: string;
+  amount?: number;
+  result: 'ORDER_PAID' | 'ORDER_FAILED' | 'ORDER_PENDING' | 'ORPHAN_PAYMENT_RECORDED' | 'ALREADY_PROCESSED' | 'ERROR';
+  details?: any;
+  createdAt: string;
+}
+
+export interface OrphanPayment {
+  paymentId: string;
+  amount: number;
+  currency: string;
+  customerPhone?: string;
+  customerEmail?: string;
+  customerName?: string;
+  bankRrn?: string;
+  capturedAt: string;
+  orderId?: string;
+  status: 'UNLINKED' | 'LINKED' | 'REFUNDED' | 'DISMISSED';
+  resolvedAt?: string;
+  resolvedBy?: string;
+  notes?: string;
+  createdAt: string;
+}
 
 // Global server memory store fallback for development & testing when Supabase is not connected
 declare global {
@@ -45,15 +77,23 @@ declare global {
   var __g1Payments: Map<string, PaymentRecord> | undefined;
   // eslint-disable-next-line no-var
   var __g1ProcessedWebhooks: Set<string> | undefined;
+  // eslint-disable-next-line no-var
+  var __g1PaymentEvents: PaymentEvent[] | undefined;
+  // eslint-disable-next-line no-var
+  var __g1OrphanPayments: Map<string, OrphanPayment> | undefined;
 }
 
 if (!global.__g1Orders) global.__g1Orders = new Map<string, Order>();
 if (!global.__g1Payments) global.__g1Payments = new Map<string, PaymentRecord>();
 if (!global.__g1ProcessedWebhooks) global.__g1ProcessedWebhooks = new Set<string>();
+if (!global.__g1PaymentEvents) global.__g1PaymentEvents = [];
+if (!global.__g1OrphanPayments) global.__g1OrphanPayments = new Map<string, OrphanPayment>();
 
 const ordersMap = global.__g1Orders;
 const paymentsMap = global.__g1Payments;
 const processedWebhooks = global.__g1ProcessedWebhooks;
+const paymentEventsList = global.__g1PaymentEvents;
+const orphanPaymentsMap = global.__g1OrphanPayments;
 
 const toValidUuidOrNull = (val?: string | null): string | null => {
   if (!val || typeof val !== 'string') return null;
@@ -296,10 +336,9 @@ export const serverOrderStore = {
     };
     paymentsMap.set(params.merchantOrderId, paymentRecord);
 
-    // Only persist confirmed Cash on Delivery orders to Supabase cloud table immediately.
-    // Online checkout attempts (UPI/Card) remain in server store memory/disk and are ONLY
-    // upserted to Supabase orders table once payment verification succeeds in markOrderPaid().
-    if (isCod && isSupabaseConfigured()) {
+    // Phase 2 Fix: ALWAYS persist pending orders to Supabase cloud table immediately
+    // Both COD and Online (UPI/Card) orders exist in the database from the moment checkout starts.
+    if (isSupabaseConfigured()) {
       for (const client of supabaseClients) {
         try {
           const { error: upsertErr } = await client.from('orders').upsert({
@@ -309,7 +348,7 @@ export const serverOrderStore = {
             slot: order.slot,
             payment_method: order.paymentMethod,
             is_paid: false,
-            status: 'Order Placed',
+            status: isCod ? 'Order Placed' : 'Order Placed',
             subtotal: order.subtotal,
             discount: 0,
             delivery_fee: order.deliveryFee,
@@ -317,10 +356,10 @@ export const serverOrderStore = {
             grand_total: order.grandTotal,
             address: {
               ...order.address,
-              _status: 'Order Placed',
+              _status: initialStatus,
               _deliveryOtp: order.deliveryOtp,
               _items: order.items,
-              _paymentStatus: 'COD_PENDING',
+              _paymentStatus: initialPaymentStatus,
               _providerOrderId: params.merchantOrderId,
               _userId: params.userId,
               _userEmail: params.userEmail,
@@ -333,12 +372,56 @@ export const serverOrderStore = {
           });
           if (!upsertErr) break;
         } catch (err) {
-          console.warn('[serverOrderStore] Supabase insert fallback notice:', err);
+          console.warn('[serverOrderStore] Supabase insert pending order notice:', err);
         }
       }
     }
 
     return order;
+  },
+
+  /**
+   * Rule 5 & 8: Verify amount & mark order paid idempotently.
+   */
+  /**
+   * Rule 1 & 2: Associate Razorpay Order ID to the order record in memory, disk, and Supabase
+   */
+  async attachRazorpayOrderId(orderId: string, razorpayOrderId: string): Promise<void> {
+    this.loadFromDisk();
+    const order = ordersMap.get(orderId);
+    if (order) {
+      order.providerOrderId = razorpayOrderId;
+      order.address = {
+        ...(order.address || {}),
+        _razorpayOrderId: razorpayOrderId,
+        _providerOrderId: razorpayOrderId,
+      } as any;
+      ordersMap.set(orderId, order);
+      this.persistToDisk();
+    }
+
+    if (isSupabaseConfigured()) {
+      for (const client of supabaseClients) {
+        try {
+          const { data } = await client.from('orders').select('address').eq('id', orderId).maybeSingle();
+          const existingAddr = typeof data?.address === 'string' ? JSON.parse(data.address) : (data?.address || {});
+          await client
+            .from('orders')
+            .update({
+              address: {
+                ...existingAddr,
+                _razorpayOrderId: razorpayOrderId,
+                _providerOrderId: razorpayOrderId,
+              },
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', orderId);
+          break;
+        } catch (err) {
+          console.warn('[serverOrderStore] attachRazorpayOrderId Supabase notice:', err);
+        }
+      }
+    }
   },
 
   /**
@@ -350,7 +433,9 @@ export const serverOrderStore = {
     transactionId?: string;
     amountInPaise?: number;
     rawResponse?: any;
+    source?: 'webhook' | 'client_verify' | 'recovery_job' | 'callback' | 'manual_staff';
   }): Promise<{ success: boolean; error?: string; order?: Order }> {
+    this.loadFromDisk();
     let order: Order | undefined;
     if (params.orderId) {
       order = this.getOrder(params.orderId);
@@ -361,12 +446,23 @@ export const serverOrderStore = {
     if (!order && params.orderId) {
       order = ordersMap.get(params.orderId);
     }
+
+    // Remote database fallback: search Supabase if not currently in memory
+    if (!order && isSupabaseConfigured()) {
+      if (params.orderId) {
+        order = await this.getOrderAsync(params.orderId);
+      }
+      if (!order && params.providerOrderId) {
+        order = await this.getOrderByProviderOrderIdAsync(params.providerOrderId);
+      }
+    }
+
     if (!order) {
       return { success: false, error: `No order found for order #${params.orderId || params.providerOrderId}` };
     }
 
-    // Idempotency check: Already marked completed with same status
-    if (order.paymentStatus === 'completed' && order.isPaid) {
+    // Idempotency check: Already marked completed with same status or same transactionId
+    if ((order.paymentStatus === 'completed' || order.paymentStatus === 'paid') && order.isPaid) {
       return { success: true, order };
     }
 
@@ -456,6 +552,27 @@ export const serverOrderStore = {
         }
       }
     }
+
+    // Automatically resolve any matching orphan payment
+    if (params.transactionId) {
+      this.resolveOrphanPayment(params.transactionId, 'LINKED', order.id, 'Linked automatically upon payment verification');
+    }
+
+    // Audit log payment event
+    this.logPaymentEvent({
+      source: params.source || 'client_verify',
+      payloadId: params.transactionId || pId || order.id,
+      eventType: 'payment.completed',
+      orderId: order.id,
+      paymentId: params.transactionId,
+      amount: order.grandTotal,
+      result: 'ORDER_PAID',
+      details: {
+        providerOrderId: pId,
+        transactionId: params.transactionId,
+        paymentStatus: order.paymentStatus,
+      },
+    });
 
     return { success: true, order };
   },
@@ -876,6 +993,7 @@ export const serverOrderStore = {
         const tmpPath = path.join(os.tmpdir(), 'g1mart_orders.json');
         fs.writeFileSync(tmpPath, dataStr, 'utf-8');
       } catch {}
+      this.persistOrphanPayments();
     } catch (err) {
       console.warn('[serverOrderStore] persistToDisk error:', err);
     }
@@ -883,6 +1001,8 @@ export const serverOrderStore = {
 
   loadFromDisk() {
     try {
+      this.loadPaymentEvents();
+      this.loadOrphanPayments();
       const pathsToCheck = [
         PRIMARY_ORDERS_PATH,
         ORDERS_FILE_PATH,
@@ -1166,9 +1286,63 @@ export const serverOrderStore = {
    */
   getOrderByProviderOrderId(providerOrderId: string): Order | undefined {
     this.loadFromDisk();
+    const cleanTarget = String(providerOrderId || '').trim().toLowerCase();
     for (const order of ordersMap.values()) {
-      if (order.providerOrderId === providerOrderId) {
+      const pId = String(order.providerOrderId || '').trim().toLowerCase();
+      const addrPId = String((order.address as any)?._providerOrderId || '').trim().toLowerCase();
+      const addrRzpId = String((order.address as any)?._razorpayOrderId || '').trim().toLowerCase();
+      const txnId = String((order.address as any)?._transactionId || order.transactionId || '').trim().toLowerCase();
+      const ordId = String(order.id || '').trim().toLowerCase();
+
+      if (
+        pId === cleanTarget ||
+        addrPId === cleanTarget ||
+        addrRzpId === cleanTarget ||
+        txnId === cleanTarget ||
+        ordId === cleanTarget
+      ) {
         return order;
+      }
+    }
+    return undefined;
+  },
+
+  async getOrderByProviderOrderIdAsync(providerOrderId: string): Promise<Order | undefined> {
+    const memoryMatch = this.getOrderByProviderOrderId(providerOrderId);
+    if (memoryMatch) return memoryMatch;
+
+    if (isSupabaseConfigured()) {
+      for (const client of supabaseClients) {
+        try {
+          const { data: dbOrders } = await client
+            .from('orders')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(100);
+
+          if (Array.isArray(dbOrders)) {
+            const cleanTarget = String(providerOrderId || '').trim().toLowerCase();
+            for (const row of dbOrders) {
+              const rawAddr = row.address;
+              const addr = typeof rawAddr === 'string' ? JSON.parse(rawAddr) : (rawAddr || {});
+              const rowId = String(row.id || '').trim().toLowerCase();
+              const addrPId = String(addr._providerOrderId || '').trim().toLowerCase();
+              const addrRzpId = String(addr._razorpayOrderId || '').trim().toLowerCase();
+              const txnId = String(addr._transactionId || '').trim().toLowerCase();
+
+              if (
+                rowId === cleanTarget ||
+                addrPId === cleanTarget ||
+                addrRzpId === cleanTarget ||
+                txnId === cleanTarget
+              ) {
+                return await this.getOrderAsync(row.id);
+              }
+            }
+          }
+        } catch (err) {
+          console.warn('[serverOrderStore] getOrderByProviderOrderIdAsync Supabase query note:', err);
+        }
       }
     }
     return undefined;
@@ -1324,6 +1498,147 @@ export const serverOrderStore = {
   /**
    * Completely clear all orders, payments, and webhooks from memory and disk
    */
+  /**
+   * Phase 2 Fix: Safe Test Order Deletion
+   * ONLY deletes orders marked is_test or with demo test phone '9876543210' or ID 'SLIP-TEST'
+   * NEVER touches real customer orders!
+   */
+  async clearTestOrders(): Promise<{ clearedLocal: number; clearedSupabase: number }> {
+    this.loadFromDisk();
+    let clearedLocal = 0;
+    let clearedSupabase = 0;
+    for (const [id, order] of ordersMap.entries()) {
+      const addr = (order.address as any) || {};
+      const isTest =
+        (order as any).is_test === true ||
+        (order as any).isTest === true ||
+        addr._isTest === true ||
+        addr.phone === "9876543210" ||
+        addr.mobileNumber === "9876543210" ||
+        id.includes("TEST");
+      if (isTest) {
+        ordersMap.delete(id);
+        clearedLocal++;
+      }
+    }
+    this.persistToDisk();
+    if (isSupabaseConfigured()) {
+      for (const client of supabaseClients) {
+        try {
+          const { count } = await client
+            .from("orders")
+            .delete({ count: "exact" })
+            .or("id.ilike.%TEST%,delivery_address.ilike.%9876543210%");
+          if (count) clearedSupabase += count;
+        } catch (err) {
+          console.warn("[clearTestOrders] Supabase delete note:", err);
+        }
+      }
+    }
+    return { clearedLocal, clearedSupabase };
+  },
+
+  /**
+   * Payment Events Audit Logging
+   */
+  async logPaymentEvent(event: Omit<PaymentEvent, 'id' | 'createdAt'>): Promise<PaymentEvent> {
+    const record: PaymentEvent = {
+      id: `evt_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+      ...event,
+      createdAt: new Date().toISOString(),
+    };
+    paymentEventsList.unshift(record);
+    if (paymentEventsList.length > 500) paymentEventsList.pop();
+
+    try {
+      const pDir = path.dirname(PAYMENT_EVENTS_PATH);
+      if (!fs.existsSync(pDir)) fs.mkdirSync(pDir, { recursive: true });
+      fs.writeFileSync(PAYMENT_EVENTS_PATH, JSON.stringify(paymentEventsList, null, 2), 'utf-8');
+    } catch {}
+
+    return record;
+  },
+
+  getPaymentEvents(): PaymentEvent[] {
+    this.loadPaymentEvents();
+    return [...paymentEventsList];
+  },
+
+  loadPaymentEvents() {
+    try {
+      if (fs.existsSync(PAYMENT_EVENTS_PATH)) {
+        const raw = fs.readFileSync(PAYMENT_EVENTS_PATH, 'utf-8');
+        const list = JSON.parse(raw);
+        if (Array.isArray(list)) {
+          paymentEventsList.length = 0;
+          paymentEventsList.push(...list);
+        }
+      }
+    } catch {}
+  },
+
+  /**
+   * Orphan Payments Management
+   */
+  async addOrphanPayment(p: Omit<OrphanPayment, 'createdAt'>): Promise<OrphanPayment> {
+    const record: OrphanPayment = {
+      ...p,
+      createdAt: new Date().toISOString(),
+    };
+    orphanPaymentsMap.set(p.paymentId, record);
+    this.persistOrphanPayments();
+    return record;
+  },
+
+  getOrphanPayments(): OrphanPayment[] {
+    this.loadOrphanPayments();
+    return Array.from(orphanPaymentsMap.values());
+  },
+
+  async resolveOrphanPayment(
+    paymentId: string,
+    status: 'LINKED' | 'REFUNDED' | 'DISMISSED',
+    orderId?: string,
+    notes?: string,
+    resolvedBy?: string
+  ): Promise<boolean> {
+    this.loadOrphanPayments();
+    const existing = orphanPaymentsMap.get(paymentId);
+    if (existing) {
+      existing.status = status;
+      if (orderId) existing.orderId = orderId;
+      if (notes) existing.notes = notes;
+      if (resolvedBy) existing.resolvedBy = resolvedBy;
+      existing.resolvedAt = new Date().toISOString();
+      orphanPaymentsMap.set(paymentId, existing);
+      this.persistOrphanPayments();
+      return true;
+    }
+    return false;
+  },
+
+  persistOrphanPayments() {
+    try {
+      const pDir = path.dirname(ORPHAN_PAYMENTS_PATH);
+      if (!fs.existsSync(pDir)) fs.mkdirSync(pDir, { recursive: true });
+      fs.writeFileSync(ORPHAN_PAYMENTS_PATH, JSON.stringify(Array.from(orphanPaymentsMap.values()), null, 2), 'utf-8');
+    } catch {}
+  },
+
+  loadOrphanPayments() {
+    try {
+      if (fs.existsSync(ORPHAN_PAYMENTS_PATH)) {
+        const raw = fs.readFileSync(ORPHAN_PAYMENTS_PATH, 'utf-8');
+        const list = JSON.parse(raw);
+        if (Array.isArray(list)) {
+          for (const item of list) {
+            if (item && item.paymentId) orphanPaymentsMap.set(item.paymentId, item);
+          }
+        }
+      }
+    } catch {}
+  },
+
   clearAllOrders() {
     ordersMap.clear();
     paymentsMap.clear();

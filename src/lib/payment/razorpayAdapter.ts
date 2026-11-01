@@ -185,6 +185,14 @@ export class RazorpayAdapter implements PaymentAdapter {
       const signature = Array.isArray(signatureHeader) ? signatureHeader[0] : signatureHeader;
       const webhookSecret = this.getWebhookSecret();
 
+      const rawText = typeof rawBody === 'string' ? rawBody : JSON.stringify(rawBody);
+      let parsedBody: any;
+      try {
+        parsedBody = typeof rawBody === 'string' ? JSON.parse(rawBody) : rawBody;
+      } catch {
+        parsedBody = rawBody;
+      }
+
       if (!signature && process.env.NODE_ENV === 'production') {
         return {
           success: false,
@@ -193,17 +201,33 @@ export class RazorpayAdapter implements PaymentAdapter {
         };
       }
 
+      // Phase 2 Fix: Verify signature directly on the RAW UNPARSED HTTP body
       if (signature && webhookSecret) {
-        const bodyString = typeof rawBody === 'string' ? rawBody : JSON.stringify(rawBody);
         const expected = crypto
           .createHmac('sha256', webhookSecret)
-          .update(bodyString)
+          .update(rawText)
           .digest('hex');
 
-        if (
-          expected.length !== signature.length ||
-          !crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature))
-        ) {
+        let isValid =
+          expected.length === signature.length &&
+          crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature));
+
+        // Resilience: Also check against RAZORPAY_KEY_SECRET if separate webhook secret was not set
+        if (!isValid && process.env.RAZORPAY_KEY_SECRET && process.env.RAZORPAY_KEY_SECRET !== webhookSecret) {
+          const expectedKeySecret = crypto
+            .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
+            .update(rawText)
+            .digest('hex');
+          if (
+            expectedKeySecret.length === signature.length &&
+            crypto.timingSafeEqual(Buffer.from(expectedKeySecret), Buffer.from(signature))
+          ) {
+            isValid = true;
+          }
+        }
+
+        if (!isValid) {
+          console.error('[RazorpayAdapter] Invalid Razorpay webhook signature');
           return {
             success: false,
             state: 'FAILED',
@@ -212,9 +236,9 @@ export class RazorpayAdapter implements PaymentAdapter {
         }
       }
 
-      const event = rawBody?.event;
-      const paymentEntity = rawBody?.payload?.payment?.entity;
-      const orderEntity = rawBody?.payload?.order?.entity;
+      const event = parsedBody?.event;
+      const paymentEntity = parsedBody?.payload?.payment?.entity;
+      const orderEntity = parsedBody?.payload?.order?.entity;
 
       const providerOrderId = orderEntity?.id || paymentEntity?.order_id;
       const transactionId = paymentEntity?.id;
@@ -227,7 +251,7 @@ export class RazorpayAdapter implements PaymentAdapter {
           providerOrderId,
           transactionId,
           amountInPaise,
-          raw: rawBody,
+          raw: parsedBody,
         };
       } else if (event === 'payment.failed') {
         return {
@@ -236,7 +260,7 @@ export class RazorpayAdapter implements PaymentAdapter {
           providerOrderId,
           transactionId,
           error: paymentEntity?.error_description || 'Payment failed',
-          raw: rawBody,
+          raw: parsedBody,
         };
       }
 
@@ -245,7 +269,7 @@ export class RazorpayAdapter implements PaymentAdapter {
         state: 'PENDING',
         providerOrderId,
         transactionId,
-        raw: rawBody,
+        raw: parsedBody,
       };
     } catch (err: any) {
       return {

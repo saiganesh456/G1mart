@@ -29,7 +29,8 @@ export default function AdminAuthGuard({ children }: { children: React.ReactNode
         user.role === 'admin' ||
         normalizedEmail === 'sureshdega466@gmail.com' ||
         normalizedEmail === 'g1mart@gmail.com' ||
-        normalizedEmail === 'lingalamahendra0@gmail.com'
+        normalizedEmail === 'lingalamahendra0@gmail.com' ||
+        normalizedEmail === 'gummasaiganesh57@gmail.com'
       ) {
         if (isMounted) setVerifiedAdmin(true);
         return;

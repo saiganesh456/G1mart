@@ -113,6 +113,14 @@ export default function StaffManagementTab({ onBackToDashboard }: Props = {}) {
             createdAt: '2026-10-01T00:00:00Z',
             status: 'active',
           },
+          {
+            id: 'root-admin-03',
+            email: 'gummasaiganesh57@gmail.com',
+            role: 'admin',
+            name: 'Sai Ganesh (Store Admin)',
+            createdAt: '2026-11-01T00:00:00Z',
+            status: 'active',
+          },
         ];
       }
 
@@ -134,19 +142,9 @@ export default function StaffManagementTab({ onBackToDashboard }: Props = {}) {
         }
       }
 
-      // 4. Default delivery fleet fallback if empty
-      if (serverRiders.length === 0) {
+      // 4. Default delivery fleet fallback only if fetch failed completely
+      if (!data.success && serverRiders.length === 0) {
         serverRiders = [
-          {
-            id: 'rider-sai-ganesh',
-            email: 'gummasaiganesh57@gmail.com',
-            role: 'rider',
-            name: 'Sai Ganesh',
-            phone: '9876543210',
-            vehicleNumber: 'AP 26 EQ 4589',
-            createdAt: '2026-10-01T00:00:00Z',
-            status: 'active',
-          },
           {
             id: 'default-rider',
             email: 'rider@g1mart.com',

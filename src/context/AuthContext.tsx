@@ -98,14 +98,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           uEmail === 'sureshdega466@gmail.com' ||
           uEmail === 'g1mart@gmail.com' ||
           uEmail === 'lingalamahendra0@gmail.com' ||
+          uEmail === 'gummasaiganesh57@gmail.com' ||
+          uEmail === 'gumma.saiganesh57@gmail.com' ||
+          normEmail === 'gummasaiganesh57@gmail.com' ||
           uEmail === 'orders@g1mart.com' ||
           uEmail === 'admin@g1mart.com';
 
         const isCoreRider =
           uEmail === 'rider@g1mart.com' ||
-          uEmail === 'gummasaiganesh57@gmail.com' ||
-          uEmail === 'gumma.saiganesh57@gmail.com' ||
-          normEmail === 'gummasaiganesh57@gmail.com' ||
           normEmail === 'rider@g1mart.com';
 
         if (isCoreAdmin) {

@@ -252,7 +252,11 @@ export default function AccountPage() {
         </div>
 
         {/* ── Admin shortcut ── */}
-        {isLoggedIn && user?.role === 'admin' && (
+        {isLoggedIn &&
+          (user?.role === 'admin' ||
+            ['sureshdega466@gmail.com', 'g1mart@gmail.com', 'lingalamahendra0@gmail.com', 'gummasaiganesh57@gmail.com', 'gumma.saiganesh57@gmail.com'].includes(
+              (user?.email || '').toLowerCase().trim()
+            )) && (
           <div
             className="mx-4 mt-4 rounded-[var(--g1-r-card)] p-4 flex items-center justify-between"
             style={{ background: '#0f172a', border: '1px solid rgba(96,165,250,.3)' }}
@@ -264,7 +268,7 @@ export default function AccountPage() {
               </div>
               <div className="min-w-0">
                 <div className="text-xs font-bold text-blue-300">Administrator Access</div>
-                <div className="text-[11px] text-slate-400 truncate">{user.email || 'Store Admin'}</div>
+                <div className="text-[11px] text-slate-400 truncate">{user?.email || 'Store Admin'}</div>
               </div>
             </div>
             <Link href="/admin"

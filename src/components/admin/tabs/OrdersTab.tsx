@@ -64,9 +64,11 @@ interface Props {
   initialFilter?: string;
   onFilterChange?: (filter: string) => void;
   onBackToDashboard?: () => void;
+  orphanPayments?: any[];
+  onReconcileAction?: (action: string, paymentId: string, orderId?: string) => Promise<any> | void;
 }
 
-export type QueueFilter = 'All' | 'Needs action' | 'Packing' | 'Ready for delivery' | 'Completed';
+export type QueueFilter = 'All' | 'Needs action' | 'Packing' | 'Ready for delivery' | 'Completed' | 'Pending payments' | 'Cancelled';
 
 const QUEUE_FILTERS: QueueFilter[] = [
   'All',
@@ -74,6 +76,8 @@ const QUEUE_FILTERS: QueueFilter[] = [
   'Packing',
   'Ready for delivery',
   'Completed',
+  'Pending payments',
+  'Cancelled',
 ];
 
 export const isStorePickupOrder = (o: any) => {
@@ -153,6 +157,8 @@ export default function OrdersTab({
   initialFilter = 'All',
   onFilterChange,
   onBackToDashboard,
+  orphanPayments = [],
+  onReconcileAction,
 }: Props) {
   const [search, setSearch] = useState('');
   const [queueFilter, setQueueFilter] = useState<QueueFilter>(
@@ -197,6 +203,8 @@ export default function OrdersTab({
     let packing = 0;
     let readyForDelivery = 0;
     let completed = 0;
+    let pendingPayments = 0;
+    let cancelled = 0;
 
     orders.forEach((o) => {
       const s = o.status || 'Order Placed';
@@ -207,7 +215,14 @@ export default function OrdersTab({
       const isCod = o.paymentMethod === 'Cash on Delivery';
       const isRealPlaced = isPaid || isCod;
 
-      if (s === 'Cancelled' || s === 'Payment Pending') return;
+      if (s === 'Cancelled') {
+        cancelled++;
+        return;
+      }
+      if (s === 'Payment Pending' || (!isRealPlaced && !isCod)) {
+        pendingPayments++;
+        return;
+      }
 
       if ((s === 'Order Placed' || s === 'New' || s === 'Confirmed') && isRealPlaced) {
         needsAction++;
@@ -226,6 +241,8 @@ export default function OrdersTab({
       Packing: packing,
       'Ready for delivery': readyForDelivery,
       Completed: completed,
+      'Pending payments': pendingPayments,
+      Cancelled: cancelled,
     };
   }, [orders]);
 
@@ -251,6 +268,10 @@ export default function OrdersTab({
           return false;
       } else if (queueFilter === 'Completed') {
         if (s !== 'Delivered') return false;
+      } else if (queueFilter === 'Pending payments') {
+        if (s !== 'Payment Pending' && !(!isRealPlaced && !isCod)) return false;
+      } else if (queueFilter === 'Cancelled') {
+        if (s !== 'Cancelled') return false;
       }
 
       // 2. Payment filter
@@ -399,6 +420,77 @@ export default function OrdersTab({
             </button>
           )}
         </div>
+
+{/* ORPHAN PAYMENTS ALERT BANNER */}
+        {orphanPayments && orphanPayments.length > 0 && (
+          <div className="bg-amber-50 border-2 border-amber-300 rounded-2xl p-4 space-y-3 shadow-xs">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-sm sm:text-base font-black text-amber-950">
+                  🚨 Payment received – needs order ({orphanPayments.length})
+                </span>
+              </div>
+              <span className="text-[11px] font-bold text-amber-800 bg-amber-200/70 border border-amber-300 px-2.5 py-0.5 rounded-full">
+                Action Required
+              </span>
+            </div>
+            <p className="text-xs text-amber-900 leading-relaxed font-medium">
+              Razorpay captured money for these payments, but no confirmed order exists in the store system. Choose an action for each:
+            </p>
+            <div className="space-y-2">
+              {orphanPayments.map((p: any) => (
+                <div
+                  key={p.payment_id}
+                  className="bg-white border border-amber-200 rounded-xl p-3 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs"
+                >
+                  <div className="space-y-0.5">
+                    <div className="font-black text-stone-900 text-sm">
+                      ₹{p.amount} • {p.customer_phone || p.customer_email || 'Customer'}
+                    </div>
+                    <div className="text-stone-500 font-mono text-[11px]">
+                      {p.payment_id} {p.bank_rrn ? `• RRN: ${p.bank_rrn}` : ''} • {p.time ? new Date(p.time).toLocaleString() : ''}
+                    </div>
+                    {p.notes && <div className="text-stone-600 text-[11px]">{p.notes}</div>}
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const orderId = prompt(`Enter Order ID (e.g. G1-...) to link payment ${p.payment_id}:`, p.order_id || '');
+                        if (orderId && onReconcileAction) onReconcileAction('link_order', p.payment_id, orderId);
+                      }}
+                      className="px-3 py-1.5 bg-[#087F5B] hover:bg-[#066347] text-white font-bold rounded-lg cursor-pointer transition-all text-xs"
+                    >
+                      Link to Order
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (confirm(`Create an active order from payment ${p.payment_id} (₹${p.amount})?`) && onReconcileAction) {
+                          onReconcileAction('create_order', p.payment_id);
+                        }
+                      }}
+                      className="px-3 py-1.5 bg-sky-700 hover:bg-sky-800 text-white font-bold rounded-lg cursor-pointer transition-all text-xs"
+                    >
+                      Create Order
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (confirm(`Dismiss alert for payment ${p.payment_id}?`) && onReconcileAction) {
+                          onReconcileAction('dismiss', p.payment_id);
+                        }
+                      }}
+                      className="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold rounded-lg cursor-pointer transition-all text-xs border border-stone-200"
+                    >
+                      Dismiss
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* 2. SIMPLE QUEUE FILTERS (Matches Reference Specification) */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">

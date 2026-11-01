@@ -115,6 +115,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   // Data states
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [orders, setOrders] = useState<Order[]>([]);
+  const [orphanPayments, setOrphanPayments] = useState<any[]>([]);
   const ordersRef = useRef<Order[]>(orders);
   ordersRef.current = orders;
   const productsRef = useRef<Product[]>(products);
@@ -1240,6 +1241,18 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
         fetchOrders(true);
       }
     }, 5000);
+    const reconcileInterval = setInterval(() => {
+      if (typeof document !== "undefined" && document.visibilityState === "visible") {
+        fetch("/api/admin/reconcile?run=true", { headers: getAdminHeaders() })
+          .then((r) => r.json())
+          .then((d) => {
+            if (d.success && Array.isArray(d.orphanPayments)) {
+              setOrphanPayments(d.orphanPayments);
+            }
+          })
+          .catch(() => {});
+      }
+    }, 5 * 60 * 1000);
 
     // 4. Service Worker Push Sync Listener (triggers if push arrived or notification was tapped)
     let handleSwMessage: ((event: MessageEvent) => void) | null = null;
@@ -1298,6 +1311,7 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
 
     return () => {
       clearInterval(interval);
+      clearInterval(reconcileInterval);
       if (typeof window !== 'undefined') {
         window.removeEventListener('popstate', onPopState);
       }

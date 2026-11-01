@@ -82,7 +82,10 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const orderId = `G1-${Math.floor(100000 + Math.random() * 900000)}`;
+    // Phase 2 Rule 3: Support reusing existing pending order on payment retry
+    let orderId = (typeof body.existingOrderId === 'string' && body.existingOrderId.startsWith('G1-'))
+      ? body.existingOrderId
+      : `G1-${Math.floor(100000 + Math.random() * 900000)}`;
     const merchantOrderId = `MT_${orderId}_${Date.now()}`;
     const isCod =
       paymentMethod === 'Cash on Delivery' ||
@@ -194,6 +197,9 @@ export async function POST(req: NextRequest) {
         { status: 500 }
       );
     }
+
+    // Phase 2 Fix: Store Razorpay order ID immediately on server order and Supabase
+    await serverOrderStore.attachRazorpayOrderId(orderId, paymentResult.providerOrderId);
 
     return NextResponse.json({
       success: true,

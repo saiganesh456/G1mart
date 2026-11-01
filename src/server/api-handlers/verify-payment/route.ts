@@ -61,24 +61,23 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Signatures match! If internal app order ID is present, update server store
+    // Signatures match! Update server store and Supabase
     const internalOrderId = body.internalOrderId || body.merchantOrderId || body.appOrderId;
-    if (internalOrderId) {
-      try {
-        await serverOrderStore.markOrderPaid({
-          orderId: internalOrderId,
-          providerOrderId: orderId,
-          transactionId: paymentId,
-          rawResponse: {
-            gateway: 'razorpay',
-            razorpayOrderId: orderId,
-            razorpayPaymentId: paymentId,
-            verifiedAt: new Date().toISOString(),
-          },
-        });
-      } catch (markErr) {
-        console.warn('[Verify Payment] Could not update internal order store:', markErr);
-      }
+    try {
+      await serverOrderStore.markOrderPaid({
+        orderId: internalOrderId,
+        providerOrderId: orderId,
+        transactionId: paymentId,
+        source: 'client_verify',
+        rawResponse: {
+          gateway: 'razorpay',
+          razorpayOrderId: orderId,
+          razorpayPaymentId: paymentId,
+          verifiedAt: new Date().toISOString(),
+        },
+      });
+    } catch (markErr) {
+      console.warn('[Verify Payment] Could not update internal order store:', markErr);
     }
 
     return NextResponse.json({

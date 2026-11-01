@@ -8,6 +8,7 @@ export const ROOT_ADMIN_EMAILS = [
   'sureshdega466@gmail.com',
   'g1mart@gmail.com',
   'lingalamahendra0@gmail.com',
+  'gummasaiganesh57@gmail.com',
 ];
 export const ROOT_ADMIN_EMAIL = 'sureshdega466@gmail.com';
 export const PROTECTED_MASTER_ADMIN = 'sureshdega466@gmail.com';
@@ -44,13 +45,17 @@ declare global {
   var __g1Admins: Map<string, StaffMember> | undefined;
   // eslint-disable-next-line no-var
   var __g1Riders: Map<string, StaffMember> | undefined;
+  // eslint-disable-next-line no-var
+  var __g1RemovedRiders: Set<string> | undefined;
 }
 
 if (!global.__g1Admins) global.__g1Admins = new Map<string, StaffMember>();
 if (!global.__g1Riders) global.__g1Riders = new Map<string, StaffMember>();
+if (!global.__g1RemovedRiders) global.__g1RemovedRiders = new Set<string>();
 
 const adminsMap = global.__g1Admins;
 const ridersMap = global.__g1Riders;
+const removedRidersSet = global.__g1RemovedRiders;
 
 function loadCacheFromDisk() {
   adminsMap.clear();
@@ -128,6 +133,8 @@ function loadCacheFromDisk() {
           ? 'Suresh Dega (Super Admin)'
           : rootEmail.includes('lingala')
           ? 'Mahendra Lingala (Store Admin)'
+          : rootEmail.includes('gumma')
+          ? 'Sai Ganesh (Store Admin)'
           : 'Primary Store Admin',
         createdAt: '2026-10-01T00:00:00Z',
         status: 'active',
@@ -135,16 +142,15 @@ function loadCacheFromDisk() {
     }
   });
 
-  // 4. Ensure known core riders are ALWAYS present
+  // 4. Ensure known core riders are present only if not explicitly removed
   const defaultRidersList: { email: string; name: string; phone: string; vehicle: string }[] = [
     { email: 'rider@g1mart.com', name: 'Express Delivery Rider', phone: '9876543212', vehicle: 'AP 26 EQ 4591' },
-    { email: 'gummasaiganesh57@gmail.com', name: 'Sai Ganesh (Delivery Partner)', phone: '9876543210', vehicle: 'AP 26 EQ 4589' },
-    { email: 'gumma.saiganesh57@gmail.com', name: 'Sai Ganesh (Delivery Partner)', phone: '9876543210', vehicle: 'AP 26 EQ 4589' },
   ];
 
   defaultRidersList.forEach((r) => {
     const cleanEmail = r.email.toLowerCase().trim();
-    if (!ridersMap.has(cleanEmail)) {
+    const norm = normalizeEmail(cleanEmail);
+    if (!ridersMap.has(cleanEmail) && !removedRidersSet.has(cleanEmail) && !removedRidersSet.has(norm)) {
       ridersMap.set(cleanEmail, {
         id: `rider-${cleanEmail.replace(/[^a-z0-9]/g, '_')}`,
         email: cleanEmail,
@@ -258,6 +264,11 @@ async function loadStaffFromSupabase(): Promise<void> {
           };
           adminsMap.set(email, adm);
           if (norm && norm !== email) adminsMap.set(norm, adm);
+        } else if (type === 'removed_rider') {
+          removedRidersSet.add(email);
+          if (norm) removedRidersSet.add(norm);
+          ridersMap.delete(email);
+          if (norm) ridersMap.delete(norm);
         } else if (type === 'rider') {
           const rdr: StaffMember = {
             id: `rider-${email.replace(/[^a-z0-9]/g, '_')}`,
@@ -321,11 +332,7 @@ export const serverStaffStore = {
     }
 
     // 4. Default hard-fallback for known delivery partners
-    if (
-      norm === 'rider@g1mart.com' ||
-      norm === 'gummasaiganesh57@gmail.com' ||
-      email === 'gumma.saiganesh57@gmail.com'
-    ) {
+    if (norm === 'rider@g1mart.com' && !removedRidersSet.has('rider@g1mart.com')) {
       return 'delivery_partner';
     }
 
@@ -703,6 +710,8 @@ export const serverStaffStore = {
 
     ridersMap.delete(emailKey);
     if (normEmail) ridersMap.delete(normEmail);
+    removedRidersSet.add(emailKey);
+    if (normEmail) removedRidersSet.add(normEmail);
     persistCacheToDisk();
 
     // Delete from Supabase push_subscriptions & downgrade in profiles
@@ -712,6 +721,17 @@ export const serverStaffStore = {
           .from('push_subscriptions')
           .delete()
           .in('endpoint', [`staff:rider:${emailKey}`, `staff:rider:${normEmail}`]);
+
+        await supabase
+          .from('push_subscriptions')
+          .upsert({
+            endpoint: `staff:removed_rider:${emailKey}`,
+            keys: { name: 'Removed Rider' },
+            user_email: emailKey,
+            role: 'customer',
+            is_admin: false,
+            created_at: new Date().toISOString(),
+          });
 
         await supabase
           .from('profiles')
