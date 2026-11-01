@@ -1528,7 +1528,7 @@ export const serverOrderStore = {
           const { count } = await client
             .from("orders")
             .delete({ count: "exact" })
-            .or("id.ilike.%TEST%,delivery_address.ilike.%9876543210%");
+            .ilike("id", "%TEST%");
           if (count) clearedSupabase += count;
         } catch (err) {
           console.warn("[clearTestOrders] Supabase delete note:", err);
