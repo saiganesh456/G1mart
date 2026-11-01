@@ -463,7 +463,7 @@ export const serverOrderStore = {
 
     // Idempotency check: Already marked completed with same status or same transactionId
     if ((order.paymentStatus === 'completed' || order.paymentStatus === 'paid') && order.isPaid) {
-      return { success: true, order };
+      return { success: true, order, alreadyPaid: true };
     }
 
     // Rule 8: Verify that the amount in PhonePe's response matches the order total before marking it paid.
