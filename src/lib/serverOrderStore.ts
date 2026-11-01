@@ -434,7 +434,7 @@ export const serverOrderStore = {
     amountInPaise?: number;
     rawResponse?: any;
     source?: 'webhook' | 'client_verify' | 'recovery_job' | 'callback' | 'manual_staff';
-  }): Promise<{ success: boolean; error?: string; order?: Order }> {
+  }): Promise<{ success: boolean; error?: string; order?: Order; alreadyPaid?: boolean }> {
     this.loadFromDisk();
     let order: Order | undefined;
     if (params.orderId) {

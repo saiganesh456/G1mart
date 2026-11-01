@@ -38,7 +38,7 @@ async function runTests() {
       deliveryFee: 0,
       taxes: 0,
       grandTotal: 350,
-      items: [{ productId: 'p1', productName: 'Sunflower Oil 1L', price: 150, quantity: 2, unit: '1 L' }],
+      items: [{ productId: 'p1', productName: 'Sunflower Oil 1L', price: 150, quantity: 2, unit: '1 L', image: '/products/placeholder.svg' }],
       address: { fullName: 'Test User', phone: '9876543210', streetArea: 'Magunta Layout', city: 'Nellore', _isTest: true } as any,
       slot: 'Standard Delivery',
     });
@@ -87,7 +87,7 @@ async function runTests() {
       deliveryFee: 0,
       taxes: 0,
       grandTotal: 500,
-      items: [{ productId: 'p2', productName: 'Basmati Rice 5kg', price: 500, quantity: 1, unit: '5 kg' }],
+      items: [{ productId: 'p2', productName: 'Basmati Rice 5kg', price: 500, quantity: 1, unit: '5 kg', image: '/products/placeholder.svg' }],
       address: { fullName: 'App Close Customer', phone: '9876543210', _isTest: true } as any,
     });
     await serverOrderStore.attachRazorpayOrderId(testOrderId, rzpOrderId);
@@ -158,7 +158,7 @@ async function runTests() {
       deliveryFee: 0,
       taxes: 0,
       grandTotal: 180,
-      items: [{ productId: 'p3', productName: 'Paneer 200g', price: 90, quantity: 2, unit: '200g' }],
+      items: [{ productId: 'p3', productName: 'Paneer 200g', price: 90, quantity: 2, unit: '200g', image: '/products/placeholder.svg' }],
       address: { fullName: 'UPI Switch User', phone: '9876543210', _isTest: true } as any,
     });
     await serverOrderStore.attachRazorpayOrderId(testOrderId, rzpOrderId);
@@ -205,7 +205,7 @@ async function runTests() {
       deliveryFee: 0,
       taxes: 0,
       grandTotal: 420,
-      items: [{ productId: 'p4', productName: 'Aashirvaad Atta 5kg', price: 420, quantity: 1, unit: '5 kg' }],
+      items: [{ productId: 'p4', productName: 'Aashirvaad Atta 5kg', price: 420, quantity: 1, unit: '5 kg', image: '/products/placeholder.svg' }],
       address: { fullName: 'Delayed Customer', phone: '9876543210', _isTest: true } as any,
     });
     await serverOrderStore.attachRazorpayOrderId(testOrderId, rzpOrderId);
@@ -245,7 +245,7 @@ async function runTests() {
       deliveryFee: 0,
       taxes: 0,
       grandTotal: 250,
-      items: [{ productId: 'p5', productName: 'Sugar 5kg', price: 250, quantity: 1, unit: '5 kg' }],
+      items: [{ productId: 'p5', productName: 'Sugar 5kg', price: 250, quantity: 1, unit: '5 kg', image: '/products/placeholder.svg' }],
       address: { fullName: 'Retry Customer', phone: '9876543210', _isTest: true } as any,
     });
     await serverOrderStore.attachRazorpayOrderId(existingOrderId, rzpOrderId1);
@@ -285,7 +285,7 @@ async function runTests() {
       deliveryFee: 0,
       taxes: 0,
       grandTotal: 100,
-      items: [{ productId: 'p6', productName: 'Salt 1kg', price: 25, quantity: 4, unit: '1 kg' }],
+      items: [{ productId: 'p6', productName: 'Salt 1kg', price: 25, quantity: 4, unit: '1 kg', image: '/products/placeholder.svg' }],
       address: { fullName: 'Duplicate Test', phone: '9876543210', _isTest: true } as any,
     });
     await serverOrderStore.attachRazorpayOrderId(testOrderId, rzpOrderId);
