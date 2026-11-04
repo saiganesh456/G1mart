@@ -9,6 +9,19 @@ import { executeSupabaseWithFallback, isSupabaseConfigured } from '@/lib/supabas
 
 const CATALOG_PATH = path.join(process.cwd(), 'src', 'data', 'products-catalog.json');
 
+
+async function triggerCacheRevalidation() {
+  try {
+    const { revalidatePath } = await import('next/cache');
+    revalidatePath('/', 'layout');
+    revalidatePath('/category/[slug]', 'page');
+    revalidatePath('/product/[slug]', 'page');
+    revalidatePath('/api/products');
+  } catch (err) {
+    // Non-blocking in dev or non-Next runtime
+  }
+}
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);

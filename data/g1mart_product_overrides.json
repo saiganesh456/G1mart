@@ -1,53 +1,68 @@
 [
   {
-    "id": "g1-p0405",
-    "name": "G1 Mart Masoor Dal (Red Split Lentils / ఎర్ర కందిపప్పు)",
-    "unit": "500 g",
-    "brand": "G1 Mart",
-    "price": 55,
-    "inStock": true,
-    "category": "local-dals",
-    "imageUrl": "/products/generated_pouches/g1_masoor_dal_pouch.webp",
+    "id": "g1-snk013",
+    "inStock": false,
     "variants": [
       {
-        "id": "g1-dal026-v1",
-        "mrp": 55,
-        "price": 55,
-        "stock": 100,
-        "image_url": "/products/generated_pouches/g1_masoor_dal_pouch.webp",
-        "product_id": "g1-p0405",
-        "size_label": "500 g"
+        "id": "g1-snk013-v-21g(pouch)",
+        "mrp": 5,
+        "price": 5,
+        "stock": 0,
+        "image_url": "/products/verified/snk-bingo-mad-angles-tomato-5rs.webp",
+        "product_id": "g1-snk013",
+        "size_label": "21 g (Pouch)"
       },
       {
-        "id": "g1-dal027-v1",
-        "mrp": 105,
-        "price": 105,
+        "id": "g1-snk013-v-30g(pouch)",
+        "mrp": 10,
+        "price": 10,
         "stock": 50,
-        "image_url": "/products/generated_pouches/g1_masoor_dal_pouch.webp",
-        "product_id": "g1-p0405",
-        "size_label": "1 kg"
+        "image_url": "/products/verified/snk-bingo-mad-angles-tomato-10rs.webp",
+        "product_id": "g1-snk013",
+        "size_label": "30 g (Pouch)"
+      },
+      {
+        "id": "var-g1-snk013-1",
+        "mrp": 20,
+        "price": 20,
+        "stock": 50,
+        "image_url": "/products/verified/snk-bingo-mad-angles-tomato.webp",
+        "product_id": "g1-snk013",
+        "size_label": "66 g (Pouch)"
+      },
+      {
+        "id": "g1-snk013-v-130g(pouch)",
+        "mrp": 50,
+        "price": 50,
+        "stock": 50,
+        "image_url": "/products/verified/snk-bingo-mad-angles-tomato-50rs.webp",
+        "product_id": "g1-snk013",
+        "size_label": "130 g (Pouch)"
       }
     ],
-    "updatedAt": "2026-10-19T09:01:20.296Z",
-    "stockCount": 100,
-    "imageStatus": "VERIFIED",
-    "originalPrice": 55
+    "updatedAt": "2026-11-04T09:37:35.677Z",
+    "stockCount": 0,
+    "price": 5,
+    "originalPrice": 5
   },
   {
     "id": "g1-p0166",
     "name": "Ruchi Gold Refined Palmolein Oil",
     "unit": "1 L",
     "brand": "Ruchi Gold",
-    "price": 152,
+    "price": 149,
+    "deleted": false,
     "inStock": true,
     "category": "oil-ghee-masala",
     "imageUrl": "/products/packshots/ruchi-gold-oil.jpg",
+    "isActive": true,
     "variants": [
       {
         "id": "g1-p0166-v1",
         "mrp": 152,
-        "price": 152,
+        "price": 149,
         "stock": 100,
+        "in_stock": true,
         "image_url": "/products/packshots/ruchi-gold-oil.jpg",
         "product_id": "g1-p0166",
         "size_label": "1 L"
@@ -55,73 +70,47 @@
       {
         "id": "g1-p0166-v2",
         "mrp": 590,
-        "price": 590,
+        "price": 805,
         "stock": 50,
+        "in_stock": true,
         "image_url": "/products/packshots/ruchi-gold-oil.jpg",
         "product_id": "g1-p0166",
         "size_label": "5 L"
       }
     ],
-    "updatedAt": "2026-10-19T09:36:05.727Z",
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:09:50.902Z",
     "stockCount": 100,
     "imageStatus": "VERIFIED",
     "originalPrice": 152
   },
   {
-    "id": "g1-p1572",
-    "name": "Aashirvaad Superior MP Shudh Chakki Atta (గోధుమ పిండి)",
-    "unit": "1 kg",
-    "brand": "Aashirvaad",
-    "price": 65,
-    "inStock": true,
-    "category": "atta-rice-dal",
-    "imageUrl": "/products/packshots/aashirvaad-atta-5kg.jpg",
+    "id": "g1-snk008",
+    "inStock": false,
     "variants": [
       {
-        "id": "g1-p1572-v1",
-        "mrp": 70,
-        "price": 65,
-        "stock": 200,
-        "in_stock": true,
-        "product_id": "g1-p1572",
-        "size_label": "1 kg",
-        "image_url": "/products/packshots/aashirvaad-atta-1kg.jpg"
+        "id": "g1-snk008-v-40g(pouch)",
+        "mrp": 10,
+        "price": 10,
+        "stock": 0,
+        "image_url": "/products/verified/snk-kurkure-green-chutney-10rs.webp",
+        "product_id": "g1-snk008",
+        "size_label": "40 g (Pouch)"
       },
       {
-        "id": "g1-p1572-v2",
-        "mrp": 135,
-        "price": 125,
+        "id": "var-g1-snk008-1",
+        "mrp": 20,
+        "price": 20,
         "stock": 50,
-        "in_stock": true,
-        "product_id": "g1-p1572",
-        "size_label": "2 kg",
-        "image_url": "/products/packshots/aashirvaad-atta-1kg.jpg"
-      },
-      {
-        "id": "g1-p1572-v3",
-        "mrp": 320,
-        "price": 295,
-        "stock": 50,
-        "in_stock": true,
-        "product_id": "g1-p1572",
-        "size_label": "5 kg",
-        "image_url": "/products/packshots/aashirvaad-atta-5kg.jpg"
-      },
-      {
-        "id": "g1-p1572-v4",
-        "mrp": 590,
-        "price": 540,
-        "stock": 50,
-        "in_stock": true,
-        "product_id": "g1-p1572",
-        "size_label": "10 kg",
-        "image_url": "/products/packshots/aashirvaad-atta-10kg.jpg"
+        "image_url": "/products/verified/snk-kurkure-green-chutney.webp",
+        "product_id": "g1-snk008",
+        "size_label": "85 g (Pouch)"
       }
     ],
-    "updatedAt": "2026-10-19T13:29:29.211Z",
-    "stockCount": 200,
-    "imageStatus": "VERIFIED",
-    "originalPrice": 70
+    "updatedAt": "2026-11-04T09:37:35.840Z",
+    "stockCount": 0,
+    "price": 10,
+    "originalPrice": 10
   },
   {
     "id": "g1-p0219",
@@ -182,63 +171,6 @@
     "stockCount": 200,
     "imageStatus": "VERIFIED",
     "originalPrice": 70
-  },
-  {
-    "id": "g1-p0457",
-    "price": 55,
-    "variants": [
-      {
-        "id": "g1-p0457-v1",
-        "mrp": 42,
-        "price": 55,
-        "stock": 60,
-        "size_label": "500 g"
-      },
-      {
-        "id": "g1-p0457-v2",
-        "mrp": 75,
-        "price": 75,
-        "stock": 60,
-        "size_label": "1 kg"
-      }
-    ],
-    "updatedAt": "2026-10-20T03:10:25.472Z",
-    "stockCount": 120,
-    "originalPrice": 42
-  },
-  {
-    "id": "g1-p0428",
-    "name": "Sri Lalitha Idli Rava (ఇడ్లీ రవ్వ)",
-    "unit": "500 g",
-    "brand": "Sri Lalitha",
-    "price": 60,
-    "inStock": true,
-    "category": "local-millets",
-    "imageUrl": "/products/packshots/lalitha-idli-rava.jpg",
-    "variants": [
-      {
-        "id": "g1-p0428-v1",
-        "mrp": 36,
-        "price": 60,
-        "stock": 100,
-        "image_url": "/products/packshots/lalitha-idli-rava.jpg",
-        "product_id": "g1-p0428",
-        "size_label": "500 g"
-      },
-      {
-        "id": "g1-p0428-v2",
-        "mrp": 68,
-        "price": 68,
-        "stock": 50,
-        "image_url": "/products/packshots/lalitha-idli-rava.jpg",
-        "product_id": "g1-p0428",
-        "size_label": "1 kg"
-      }
-    ],
-    "updatedAt": "2026-10-19T13:31:51.356Z",
-    "stockCount": 100,
-    "imageStatus": "VERIFIED",
-    "originalPrice": 36
   },
   {
     "id": "g1-p0190",
@@ -377,56 +309,83 @@
     "originalPrice": 65
   },
   {
-    "id": "g1-p0327",
-    "name": "G1 Mart Kandi Pappu (Toor Dal / కందిపప్పు)",
-    "unit": "500 g",
-    "brand": "G1 Mart",
-    "price": 165,
-    "inStock": true,
-    "category": "local-dals",
-    "imageUrl": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+    "id": "g1-snk015",
+    "inStock": false,
     "variants": [
       {
-        "id": "g1-p0327-v1",
-        "mrp": 165,
-        "price": 165,
-        "stock": 200,
-        "image_url": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
-        "product_id": "g1-p0327",
+        "id": "g1-snk015-v-30g(pouch)",
+        "mrp": 5,
+        "price": 5,
+        "stock": 0,
+        "image_url": "/products/verified/snk-bingo-tedhe-medhe-5rs.webp",
+        "product_id": "g1-snk015",
+        "size_label": "30 g (Pouch)"
+      },
+      {
+        "id": "var-g1-snk015-1",
+        "mrp": 10,
+        "price": 10,
+        "stock": 50,
+        "image_url": "/products/verified/snk-bingo-tedhe-medhe.webp",
+        "product_id": "g1-snk015",
+        "size_label": "55 g (Pouch)"
+      },
+      {
+        "id": "g1-snk015-v-105g(pouch)",
+        "mrp": 20,
+        "price": 20,
+        "stock": 50,
+        "image_url": "/products/verified/snk-bingo-tedhe-medhe-20rs.webp",
+        "product_id": "g1-snk015",
+        "size_label": "105 g (Pouch)"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:36.003Z",
+    "stockCount": 0,
+    "price": 5,
+    "originalPrice": 5
+  },
+  {
+    "id": "g1-p0457",
+    "price": 55,
+    "variants": [
+      {
+        "id": "g1-p0457-v1",
+        "mrp": 42,
+        "price": 55,
+        "stock": 60,
         "size_label": "500 g"
       },
       {
-        "id": "g1-p0327-v2",
-        "mrp": 185,
-        "price": 185,
-        "stock": 50,
-        "image_url": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
-        "product_id": "g1-p0327",
+        "id": "g1-p0457-v2",
+        "mrp": 75,
+        "price": 75,
+        "stock": 60,
         "size_label": "1 kg"
-      },
-      {
-        "id": "g1-p0327-v3",
-        "mrp": 360,
-        "price": 360,
-        "stock": 50,
-        "image_url": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
-        "product_id": "g1-p0327",
-        "size_label": "2 kg"
-      },
-      {
-        "id": "g1-p0327-v4",
-        "mrp": 890,
-        "price": 890,
-        "stock": 50,
-        "image_url": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
-        "product_id": "g1-p0327",
-        "size_label": "5 kg"
       }
     ],
-    "updatedAt": "2026-10-19T13:32:49.285Z",
-    "stockCount": 200,
-    "imageStatus": "VERIFIED",
-    "originalPrice": 165
+    "updatedAt": "2026-10-20T03:10:25.472Z",
+    "stockCount": 120,
+    "originalPrice": 42
+  },
+  {
+    "id": "g1-snk006",
+    "inStock": false,
+    "variants": [
+      {
+        "id": "var-g1-snk006-1",
+        "mrp": 20,
+        "price": 20,
+        "stock": 0,
+        "image_url": "/products/verified/snk-lays-wafer-style.webp",
+        "product_id": "g1-snk006",
+        "size_label": "48 g (Pouch)"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:36.086Z",
+    "stockCount": 0,
+    "price": 20,
+    "originalPrice": 20
   },
   {
     "id": "g1-dal022",
@@ -541,67 +500,6 @@
     "originalPrice": 48
   },
   {
-    "id": "g1-p0412",
-    "name": "G1 Mart Pesara Pappu (Yellow Moong Dal / పెసరపప్పు)",
-    "unit": "250 g",
-    "brand": "G1 Mart",
-    "price": 30,
-    "inStock": true,
-    "category": "local-dals",
-    "imageUrl": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
-    "variants": [
-      {
-        "id": "g1-p0412-v250",
-        "mrp": 40,
-        "price": 30,
-        "stock": 260,
-        "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
-        "product_id": "g1-p0412",
-        "size_label": "250 g"
-      },
-      {
-        "id": "g1-p0412-v1",
-        "mrp": 75,
-        "price": 75,
-        "stock": 50,
-        "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
-        "product_id": "g1-p0412",
-        "size_label": "500 g"
-      },
-      {
-        "id": "g1-p0412-v2",
-        "mrp": 140,
-        "price": 140,
-        "stock": 50,
-        "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
-        "product_id": "g1-p0412",
-        "size_label": "1 kg"
-      },
-      {
-        "id": "g1-p0412-v3",
-        "mrp": 275,
-        "price": 275,
-        "stock": 50,
-        "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
-        "product_id": "g1-p0412",
-        "size_label": "2 kg"
-      },
-      {
-        "id": "g1-p0412-v4",
-        "mrp": 660,
-        "price": 660,
-        "stock": 50,
-        "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
-        "product_id": "g1-p0412",
-        "size_label": "5 kg"
-      }
-    ],
-    "updatedAt": "2026-10-19T13:33:57.496Z",
-    "stockCount": 260,
-    "imageStatus": "VERIFIED",
-    "originalPrice": 40
-  },
-  {
     "id": "g1-p0195",
     "name": "G1 Mart Tella Bataneelu (Dry White Peas / తెల్ల బఠానీలు)",
     "unit": "500 g",
@@ -636,40 +534,6 @@
     "originalPrice": 55
   },
   {
-    "id": "g1-p0408",
-    "name": "G1 Mart Green Moong Whole (Whole Pesalu / పచ్చ పెసలు)",
-    "unit": "500 g",
-    "brand": "G1 Mart",
-    "price": 55,
-    "inStock": true,
-    "category": "local-dals",
-    "imageUrl": "/products/generated_pouches/g1_green_moong_pouch.webp",
-    "variants": [
-      {
-        "id": "g1-p0408-v500",
-        "mrp": 65,
-        "price": 55,
-        "stock": 110,
-        "image_url": "/products/generated_pouches/g1_pesalu_pouch.webp",
-        "product_id": "g1-p0408",
-        "size_label": "500 g"
-      },
-      {
-        "id": "g1-p0408-v1k",
-        "mrp": 125,
-        "price": 125,
-        "stock": 50,
-        "image_url": "/products/generated_pouches/g1_pesalu_pouch.webp",
-        "product_id": "g1-p0408",
-        "size_label": "1 kg"
-      }
-    ],
-    "updatedAt": "2026-10-19T13:35:35.549Z",
-    "stockCount": 110,
-    "imageStatus": "VERIFIED",
-    "originalPrice": 65
-  },
-  {
     "id": "g1-dal012",
     "name": "Tata Sampann Unpolished Rajma (Red Kidney Beans)",
     "unit": "1 kg",
@@ -693,6 +557,40 @@
     "stockCount": 50,
     "imageStatus": "VERIFIED",
     "originalPrice": 165
+  },
+  {
+    "id": "g1-p0408",
+    "name": "G1 Mart Green Moong Whole (Whole Pesalu / పచ్చ పెసలు)",
+    "unit": "1 kg",
+    "brand": "G1 Mart",
+    "price": 110,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_green_moong_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-p0408-v500",
+        "mrp": 65,
+        "price": 55,
+        "stock": 110,
+        "image_url": "/products/generated_pouches/g1_pesalu_pouch.webp",
+        "product_id": "g1-p0408",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0408-v1k",
+        "mrp": 125,
+        "price": 110,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_pesalu_pouch.webp",
+        "product_id": "g1-p0408",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-21T12:24:02.805Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 125
   },
   {
     "id": "g1-dal005",
@@ -902,6 +800,87 @@
     "stockCount": 50,
     "imageStatus": "VERIFIED",
     "originalPrice": 125
+  },
+  {
+    "id": "g1-snk010",
+    "inStock": false,
+    "variants": [
+      {
+        "id": "var-g1-snk010-1",
+        "mrp": 20,
+        "price": 20,
+        "stock": 0,
+        "image_url": "/products/verified/snk-kurkure-puffcorn.webp",
+        "product_id": "g1-snk010",
+        "size_label": "60 g (Pouch)"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:36.161Z",
+    "stockCount": 0,
+    "price": 20,
+    "originalPrice": 20
+  },
+  {
+    "id": "g1-p1632",
+    "inStock": false,
+    "variants": [
+      {
+        "id": "g1-p1632-v1",
+        "mrp": 195,
+        "price": 195,
+        "stock": 0,
+        "image_url": "/products/packshots/saffola-gold-oil.jpg",
+        "product_id": "g1-p1632",
+        "size_label": "1 L"
+      },
+      {
+        "id": "g1-p1632-v2",
+        "mrp": 990,
+        "price": 990,
+        "stock": 50,
+        "image_url": "/products/packshots/saffola-gold-oil.jpg",
+        "product_id": "g1-p1632",
+        "size_label": "5 L"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:36.247Z",
+    "stockCount": 0,
+    "price": 195,
+    "originalPrice": 195
+  },
+  {
+    "id": "g1-p1622",
+    "inStock": false,
+    "variants": [
+      {
+        "id": "g1-p1622-v1",
+        "mrp": 160,
+        "price": 160,
+        "stock": 0,
+        "image_url": "/products/packshots/gold-drop-sunflower-clean.jpg",
+        "product_id": "g1-p1622",
+        "size_label": "1 L"
+      },
+      {
+        "id": "g1-p1622-v2",
+        "mrp": 810,
+        "price": 810,
+        "stock": 50,
+        "image_url": "/products/packshots/gold-drop-sunflower-clean.jpg",
+        "product_id": "g1-p1622",
+        "size_label": "5 L"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:36.328Z",
+    "stockCount": 0,
+    "price": 160,
+    "originalPrice": 160
+  },
+  {
+    "id": "new_1792680759166",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792680759166-1792680761696.webp",
+    "updatedAt": "2026-10-22T14:52:42.622Z",
+    "imageStatus": "VERIFIED"
   },
   {
     "id": "g1-p0236",
@@ -1187,49 +1166,6 @@
     "originalPrice": 99
   },
   {
-    "id": "g1-p0422",
-    "name": "G1 Mart Jeedipappu (Premium Cashews / జీడిపప్పు)",
-    "unit": "250 g",
-    "brand": "G1 Mart",
-    "price": 235,
-    "inStock": true,
-    "category": "dry-fruits-cereals",
-    "imageUrl": "/products/generated_pouches/g1_cashews_pouch.webp",
-    "variants": [
-      {
-        "id": "var-g1-nut016-250g",
-        "mrp": 220,
-        "price": 235,
-        "stock": 150,
-        "image_url": "/products/generated_pouches/g1_cashews_250g_pouch.webp",
-        "product_id": "g1-p0422",
-        "size_label": "250 g"
-      },
-      {
-        "id": "var-g1-nut016-500g",
-        "mrp": 420,
-        "price": 420,
-        "stock": 50,
-        "image_url": "/products/generated_pouches/g1_cashews_500g_pouch.webp",
-        "product_id": "g1-p0422",
-        "size_label": "500 g"
-      },
-      {
-        "id": "var-g1-nut016-1kg",
-        "mrp": 820,
-        "price": 820,
-        "stock": 50,
-        "image_url": "/products/generated_pouches/g1_cashews_1kg_pouch.webp",
-        "product_id": "g1-p0422",
-        "size_label": "1 kg"
-      }
-    ],
-    "updatedAt": "2026-10-19T13:59:00.293Z",
-    "stockCount": 150,
-    "imageStatus": "VERIFIED",
-    "originalPrice": 220
-  },
-  {
     "id": "g1-p0635",
     "name": "GRB Pure Ghee",
     "unit": "50 ml",
@@ -1488,6 +1424,43 @@
     "originalPrice": 105
   },
   {
+    "id": "g1-snk002",
+    "inStock": false,
+    "variants": [
+      {
+        "id": "g1-snk002-v-26g(pouch)",
+        "mrp": 10,
+        "price": 10,
+        "stock": 0,
+        "image_url": "/products/verified/snk-lays-classic-salted-10rs.webp",
+        "product_id": "g1-snk002",
+        "size_label": "26 g (Pouch)"
+      },
+      {
+        "id": "var-g1-snk002-1",
+        "mrp": 20,
+        "price": 20,
+        "stock": 50,
+        "image_url": "/products/verified/snk-lays-classic-salted.webp",
+        "product_id": "g1-snk002",
+        "size_label": "50 g (Pouch)"
+      },
+      {
+        "id": "g1-snk002-v-115g(pouch)",
+        "mrp": 50,
+        "price": 50,
+        "stock": 50,
+        "image_url": "/products/verified/snk-lays-classic-salted-50rs.webp",
+        "product_id": "g1-snk002",
+        "size_label": "115 g (Pouch)"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:36.450Z",
+    "stockCount": 0,
+    "price": 10,
+    "originalPrice": 10
+  },
+  {
     "id": "g1-spc055",
     "name": "G1 Mart Biryani Aaku (Bay Leaves / బిర్యానీ ఆకు)",
     "unit": "50 g",
@@ -1538,6 +1511,100 @@
     "stockCount": 50,
     "imageStatus": "VERIFIED",
     "originalPrice": 185
+  },
+  {
+    "id": "g1-p0198",
+    "inStock": false,
+    "variants": [
+      {
+        "id": "g1-p0198-v1",
+        "mrp": 58,
+        "price": 50,
+        "stock": 0,
+        "image_url": null,
+        "created_at": "2026-10-17T05:01:01.172Z",
+        "product_id": "g1-p0198",
+        "size_label": "1 kg",
+        "updated_at": "2026-10-17T05:01:01.172Z"
+      },
+      {
+        "id": "g1-p0198-v2",
+        "mrp": 275,
+        "price": 240,
+        "stock": 50,
+        "image_url": null,
+        "created_at": "2026-10-17T05:01:01.172Z",
+        "product_id": "g1-p0198",
+        "size_label": "5 kg",
+        "updated_at": "2026-10-17T05:01:01.172Z"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:36.519Z",
+    "stockCount": 0,
+    "price": 50,
+    "originalPrice": 58
+  },
+  {
+    "id": "g1-p0405",
+    "name": "G1 Mart Masoor Dal (Red Split Lentils / ఎర్ర కందిపప్పు)",
+    "unit": "1 kg",
+    "brand": "G1 Mart",
+    "price": 100,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_masoor_dal_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-dal026-v1",
+        "mrp": 55,
+        "price": 50,
+        "stock": 100,
+        "image_url": "/products/generated_pouches/g1_masoor_dal_pouch.webp",
+        "product_id": "g1-p0405",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-dal027-v1",
+        "mrp": 105,
+        "price": 100,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_masoor_dal_pouch.webp",
+        "product_id": "g1-p0405",
+        "size_label": "1 kg"
+      }
+    ],
+    "updatedAt": "2026-10-21T12:24:41.818Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 105
+  },
+  {
+    "id": "g1-p1642",
+    "inStock": false,
+    "variants": [
+      {
+        "id": "g1-p1642-v1",
+        "mrp": 158,
+        "price": 158,
+        "stock": 0,
+        "image_url": "/products/packshots/gemini-sunflower-oil.jpg",
+        "product_id": "g1-p1642",
+        "size_label": "1 L"
+      },
+      {
+        "id": "g1-p1642-v2",
+        "mrp": 790,
+        "price": 790,
+        "stock": 50,
+        "image_url": "/products/packshots/gemini-sunflower-oil.jpg",
+        "product_id": "g1-p1642",
+        "size_label": "5 L"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:36.576Z",
+    "stockCount": 0,
+    "price": 158,
+    "originalPrice": 158
   },
   {
     "id": "g1-spc053",
@@ -1594,6 +1661,172 @@
     "stockCount": 155,
     "imageStatus": "VERIFIED",
     "originalPrice": 10
+  },
+  {
+    "id": "g1-pc005",
+    "name": "Mysore Sandal Pure Sandalwood Soap",
+    "unit": "125 g",
+    "brand": "Mysore Sandal",
+    "price": 63,
+    "inStock": true,
+    "category": "soaps-bath",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/g1-pc005-1792678427121.webp",
+    "variants": [
+      {
+        "id": "var-g1-pc005-1",
+        "mrp": 42,
+        "price": 42,
+        "stock": 150,
+        "image_url": "/products/verified/pc-mysore-sandal-soap.webp",
+        "product_id": "g1-pc005",
+        "size_label": "75 g"
+      },
+      {
+        "id": "var-g1-pc005-2",
+        "mrp": 63,
+        "price": 63,
+        "stock": 50,
+        "image_url": "/products/verified/pc-mysore-sandal-soap.webp",
+        "product_id": "g1-pc005",
+        "size_label": "125 g"
+      },
+      {
+        "id": "var-g1-pc005-3",
+        "mrp": 75,
+        "price": 75,
+        "stock": 50,
+        "image_url": "/products/verified/pc-mysore-sandal-soap.webp",
+        "product_id": "g1-pc005",
+        "size_label": "150 g"
+      }
+    ],
+    "updatedAt": "2026-10-22T14:14:01.567Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 63
+  },
+  {
+    "id": "g1-snk004",
+    "inStock": false,
+    "variants": [
+      {
+        "id": "var-g1-snk004-1",
+        "mrp": 20,
+        "price": 20,
+        "stock": 0,
+        "image_url": "/products/verified/snk-lays-cream-onion.webp",
+        "product_id": "g1-snk004",
+        "size_label": "50 g (Pouch)"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:36.630Z",
+    "stockCount": 0,
+    "price": 20,
+    "originalPrice": 20
+  },
+  {
+    "id": "new_1792678137760",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792678137760-1792678139438.webp",
+    "updatedAt": "2026-10-22T14:09:00.505Z",
+    "imageStatus": "VERIFIED"
+  },
+  {
+    "id": "g1-hh026",
+    "name": "Surf Excel Stain Eraser Detergent Bar",
+    "unit": "145 g (1 Bar)",
+    "brand": "Surf Excel",
+    "price": 24,
+    "inStock": true,
+    "category": "laundry-detergents",
+    "imageUrl": "/products/verified/hh-surf-excel-bar.webp",
+    "variants": [
+      {
+        "id": "var-g1-hh026-1",
+        "mrp": 25,
+        "price": 24,
+        "stock": 100,
+        "image_url": "/products/verified/hh-surf-excel-bar.webp",
+        "product_id": "g1-hh026",
+        "size_label": "150 g (1 Bar)"
+      },
+      {
+        "id": "var-g1-hh026-2",
+        "mrp": 60,
+        "price": 60,
+        "stock": 50,
+        "image_url": "/products/verified/hh-surf-excel-bar.webp",
+        "product_id": "g1-hh026",
+        "size_label": "4 x 150 g (Multipack)"
+      }
+    ],
+    "updatedAt": "2026-10-22T14:23:57.205Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 25
+  },
+  {
+    "id": "g1-p702786",
+    "name": "surf excel big bar",
+    "unit": "1 unit",
+    "brand": "G1 Mart",
+    "price": 40,
+    "inStock": true,
+    "category": "laundry-detergents",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792679544284-1792679545975.jpg",
+    "variants": [
+      {
+        "id": "p-v1",
+        "mrp": 42,
+        "price": 40,
+        "stock": 100,
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792679544284-1792679545975.jpg",
+        "product_id": "p",
+        "size_label": "1 unit"
+      }
+    ],
+    "updatedAt": "2026-10-22T14:35:02.851Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "subCategory": "Surf Excel, Rin & Tide Powder",
+    "originalPrice": 42
+  },
+  {
+    "id": "g1-hh003",
+    "name": "Exo Dishwash Round Container Tub with Free Scrubber",
+    "unit": "500 g Tub",
+    "brand": "Exo",
+    "price": 57,
+    "deleted": false,
+    "inStock": true,
+    "category": "dishwash",
+    "imageUrl": "/products/verified/hh-exo-dishwash-round.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "var-g1-hh003-1",
+        "mrp": 60,
+        "price": 57,
+        "stock": 100,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-exo-dishwash-round.webp",
+        "product_id": "g1-hh003",
+        "size_label": "500 g Tub"
+      },
+      {
+        "id": "var-g1-hh003-2",
+        "mrp": 85,
+        "price": 85,
+        "stock": 50,
+        "image_url": "/products/verified/hh-exo-dishwash-round.webp",
+        "product_id": "g1-hh003",
+        "size_label": "700 g Tub"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:39:30.484Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 60
   },
   {
     "id": "g1-spc051",
@@ -1724,35 +1957,2392 @@
     "originalPrice": 22
   },
   {
-    "id": "g1-p176890",
-    "name": "G1AMRT",
-    "unit": "500 G",
-    "brand": "G1 Mart",
-    "price": 36,
-    "inStock": true,
-    "category": "atta-rice-dal",
-    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792437010441-1792437010497.webp",
-    "variants": [
-      {
-        "id": "p-v1",
-        "mrp": 54,
-        "price": 36,
-        "stock": 15,
-        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792437010441-1792437010497.webp",
-        "product_id": "p",
-        "size_label": "500 G"
-      }
-    ],
-    "isPopular": true,
-    "updatedAt": "2026-10-19T19:51:38.429Z",
-    "stockCount": 15,
-    "imageStatus": "VERIFIED",
-    "subCategory": "Atta & Wheat Flour",
-    "originalPrice": 54
-  },
-  {
     "id": "g1-p0001",
     "price": 123,
     "updatedAt": "2026-10-20T02:53:07.459Z"
+  },
+  {
+    "id": "g1-p1590",
+    "inStock": false,
+    "variants": [
+      {
+        "id": "g1-p1590-v1",
+        "mrp": 50,
+        "price": 50,
+        "stock": 0,
+        "image_url": "/products/packshots/patanjali-atta-5kg.jpg",
+        "product_id": "g1-p1590",
+        "size_label": "1 kg"
+      },
+      {
+        "id": "g1-p1590-v2",
+        "mrp": 240,
+        "price": 240,
+        "stock": 50,
+        "image_url": "/products/packshots/patanjali-atta-5kg.jpg",
+        "product_id": "g1-p1590",
+        "size_label": "5 kg"
+      },
+      {
+        "id": "g1-p1590-v3",
+        "mrp": 450,
+        "price": 450,
+        "stock": 50,
+        "image_url": "/products/packshots/patanjali-atta-5kg.jpg",
+        "product_id": "g1-p1590",
+        "size_label": "10 kg"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:36.715Z",
+    "stockCount": 0,
+    "price": 50,
+    "originalPrice": 50
+  },
+  {
+    "id": "g1-pc086",
+    "name": "Pears Soft & Fresh Mint Extracts Bathing Bar",
+    "unit": "50 G",
+    "brand": "Pears",
+    "price": 25,
+    "inStock": true,
+    "category": "soaps-bath",
+    "imageUrl": "/products/verified/pc-pears-soft-fresh-soap.webp",
+    "variants": [
+      {
+        "id": "var-g1-pc086-1",
+        "mrp": 55,
+        "price": 25,
+        "stock": 100,
+        "image_url": "/products/verified/pc-pears-soft-fresh-soap.webp",
+        "product_id": "g1-pc086",
+        "size_label": "75 g"
+      },
+      {
+        "id": "var-g1-pc086-2",
+        "mrp": 95,
+        "price": 95,
+        "stock": 50,
+        "image_url": "/products/verified/pc-pears-soft-fresh-soap.webp",
+        "product_id": "g1-pc086",
+        "size_label": "125 g"
+      }
+    ],
+    "updatedAt": "2026-10-22T10:36:43.784Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 55
+  },
+  {
+    "id": "g1-p0412",
+    "name": "G1 Mart Pesara Pappu (Yellow Moong Dal / పెసరపప్పు)",
+    "unit": "500 g",
+    "brand": "G1 Mart",
+    "price": 60,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-p0412-v250",
+        "mrp": 40,
+        "price": 30,
+        "stock": 260,
+        "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
+        "product_id": "g1-p0412",
+        "size_label": "250 g"
+      },
+      {
+        "id": "g1-p0412-v1",
+        "mrp": 75,
+        "price": 60,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
+        "product_id": "g1-p0412",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0412-v2",
+        "mrp": 140,
+        "price": 120,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
+        "product_id": "g1-p0412",
+        "size_label": "1 kg"
+      },
+      {
+        "id": "g1-p0412-v3",
+        "mrp": 275,
+        "price": 275,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
+        "product_id": "g1-p0412",
+        "size_label": "2 kg"
+      },
+      {
+        "id": "g1-p0412-v4",
+        "mrp": 660,
+        "price": 660,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_yellow_moong_dal_pouch.webp",
+        "product_id": "g1-p0412",
+        "size_label": "5 kg"
+      }
+    ],
+    "updatedAt": "2026-10-21T12:22:49.449Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 75
+  },
+  {
+    "id": "g1-pc090",
+    "name": "Medimix Ayurvedic Natural Glycerine Soap",
+    "unit": "125 g",
+    "brand": "Medimix",
+    "price": 50,
+    "inStock": true,
+    "category": "soaps-bath",
+    "imageUrl": "/products/verified/pc-medimix-glycerine-soap.webp",
+    "variants": [
+      {
+        "id": "var-g1-pc090-1",
+        "mrp": 65,
+        "price": 42,
+        "stock": 50,
+        "image_url": "/products/verified/pc-medimix-glycerine-soap.webp",
+        "product_id": "g1-pc090",
+        "size_label": "75 g"
+      },
+      {
+        "id": "var-g1-pc090-2",
+        "mrp": 52,
+        "price": 50,
+        "stock": 50,
+        "image_url": "/products/verified/pc-medimix-glycerine-soap.webp",
+        "product_id": "g1-pc090",
+        "size_label": "125 g"
+      }
+    ],
+    "updatedAt": "2026-10-22T13:28:03.314Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 52
+  },
+  {
+    "id": "g1-p0327",
+    "name": "G1 Mart Kandi Pappu (Toor Dal / కందిపప్పు)",
+    "unit": "1 kg",
+    "brand": "G1 Mart",
+    "price": 178,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-p0327-v1",
+        "mrp": 185,
+        "price": 80,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+        "product_id": "g1-p0327",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0327-v2",
+        "mrp": 185,
+        "price": 178,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+        "product_id": "g1-p0327",
+        "size_label": "1 kg"
+      },
+      {
+        "id": "g1-p0327-v3",
+        "mrp": 360,
+        "price": 360,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+        "product_id": "g1-p0327",
+        "size_label": "2 kg"
+      },
+      {
+        "id": "g1-p0327-v4",
+        "mrp": 890,
+        "price": 890,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_kandi_pappu_pouch.webp",
+        "product_id": "g1-p0327",
+        "size_label": "5 kg"
+      }
+    ],
+    "updatedAt": "2026-10-21T12:23:21.454Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 185
+  },
+  {
+    "id": "g1-pc077",
+    "name": "Lifebuoy Neem Germ Protection Soap",
+    "unit": "100 g",
+    "brand": "Lifebuoy",
+    "price": 38,
+    "inStock": true,
+    "category": "soaps-bath",
+    "imageUrl": "/products/verified/pc-lifebuoy-neem-soap.webp",
+    "variants": [
+      {
+        "id": "var-g1-pc077-1",
+        "mrp": 42,
+        "price": 38,
+        "stock": 50,
+        "image_url": "/products/verified/pc-lifebuoy-neem-soap.webp",
+        "product_id": "g1-pc077",
+        "size_label": "100 g"
+      }
+    ],
+    "updatedAt": "2026-10-22T13:30:11.086Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 42
+  },
+  {
+    "id": "g1-pc091",
+    "name": "Margo Original Neem Bathing Soap",
+    "unit": "100 g",
+    "brand": "Margo",
+    "price": 38,
+    "inStock": true,
+    "category": "soaps-bath",
+    "imageUrl": "/products/verified/pc-margo-neem-soap.webp",
+    "variants": [
+      {
+        "id": "var-g1-pc091-1",
+        "mrp": 40,
+        "price": 38,
+        "stock": 100,
+        "image_url": "/products/verified/pc-margo-neem-soap.webp",
+        "product_id": "g1-pc091",
+        "size_label": "100 g"
+      },
+      {
+        "id": "var-g1-pc091-2",
+        "mrp": 48,
+        "price": 48,
+        "stock": 50,
+        "image_url": "/products/verified/pc-margo-neem-soap.webp",
+        "product_id": "g1-pc091",
+        "size_label": "125 g"
+      }
+    ],
+    "updatedAt": "2026-10-22T13:53:33.194Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 40
+  },
+  {
+    "id": "g1-pc093",
+    "name": "Fiama Gel Bar Peach & Avocado Bathing Soap",
+    "unit": "75 G",
+    "brand": "Fiama",
+    "price": 33,
+    "inStock": true,
+    "category": "soaps-bath",
+    "imageUrl": "/products/verified/pc-fiama-peach-avocado-soap.webp",
+    "variants": [
+      {
+        "id": "var-g1-pc093-1",
+        "mrp": 75,
+        "price": 33,
+        "stock": 50,
+        "image_url": "/products/verified/pc-fiama-peach-avocado-soap.webp",
+        "product_id": "g1-pc093",
+        "size_label": "125 g"
+      }
+    ],
+    "updatedAt": "2026-10-22T13:55:56.162Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 75
+  },
+  {
+    "id": "g1-p1637",
+    "inStock": false,
+    "variants": [
+      {
+        "id": "g1-p1637-v1",
+        "mrp": 155,
+        "price": 155,
+        "stock": 0,
+        "image_url": "/products/packshots/dhara-sunflower-oil.jpg",
+        "product_id": "g1-p1637",
+        "size_label": "1 L"
+      },
+      {
+        "id": "g1-p1637-v2",
+        "mrp": 780,
+        "price": 780,
+        "stock": 50,
+        "image_url": "/products/packshots/dhara-sunflower-oil.jpg",
+        "product_id": "g1-p1637",
+        "size_label": "5 L"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:36.789Z",
+    "stockCount": 0,
+    "price": 155,
+    "originalPrice": 155
+  },
+  {
+    "id": "new_1792679544284",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792679544284-1792679545975.jpg",
+    "updatedAt": "2026-10-22T14:32:26.916Z",
+    "imageStatus": "VERIFIED"
+  },
+  {
+    "id": "g1-p0393",
+    "name": "G1 Mart Verusenaga Pappu (Peanuts / Groundnuts / వేరుశనగ గుళ్లు)",
+    "unit": "1 kg",
+    "brand": "G1 Mart",
+    "price": 165,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_groundnuts_pouch.webp",
+    "variants": [
+      {
+        "id": "g1-p0393-v1",
+        "mrp": 85,
+        "price": 85,
+        "stock": 200,
+        "image_url": "/products/generated_pouches/g1_groundnuts_pouch.webp",
+        "product_id": "g1-p0393",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0393-v2",
+        "mrp": 165,
+        "price": 165,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_groundnuts_pouch.webp",
+        "product_id": "g1-p0393",
+        "size_label": "1 kg"
+      },
+      {
+        "id": "g1-p0393-v3",
+        "mrp": 315,
+        "price": 315,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_groundnuts_pouch.webp",
+        "product_id": "g1-p0393",
+        "size_label": "2 kg"
+      },
+      {
+        "id": "g1-p0393-v4",
+        "mrp": 760,
+        "price": 760,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_groundnuts_pouch.webp",
+        "product_id": "g1-p0393",
+        "size_label": "5 kg"
+      }
+    ],
+    "updatedAt": "2026-10-21T12:25:35.239Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 165
+  },
+  {
+    "id": "g1-hh075",
+    "name": "Goodknight Gold Flash Mosquito Liquid Vaporizer Refill",
+    "unit": "45 ml (1 Refil L)",
+    "brand": "Goodknight",
+    "price": 90,
+    "inStock": true,
+    "category": "floor-surface-cleaners",
+    "imageUrl": "/products/verified/hh-goodknight-liquid-refill.webp",
+    "variants": [
+      {
+        "id": "var-g1-hh075-1",
+        "mrp": 85,
+        "price": 90,
+        "stock": 100,
+        "image_url": "/products/verified/hh-goodknight-liquid-refill.webp",
+        "product_id": "g1-hh075",
+        "size_label": "45 ml (1 Refil L)"
+      },
+      {
+        "id": "var-g1-hh075-2",
+        "mrp": 160,
+        "price": 160,
+        "stock": 50,
+        "image_url": "/products/verified/hh-goodknight-liquid-refill.webp",
+        "product_id": "g1-hh075",
+        "size_label": "2 x 45 ml (Twin Pack)"
+      }
+    ],
+    "updatedAt": "2026-10-22T08:51:50.975Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 85
+  },
+  {
+    "id": "g1-pc084",
+    "name": "Cinthol Lime Bath Soap",
+    "unit": "100 g",
+    "brand": "Cinthol",
+    "price": 42,
+    "inStock": true,
+    "category": "soaps-bath",
+    "imageUrl": "/products/verified/pc-cinthol-lime-soap.webp",
+    "variants": [
+      {
+        "id": "var-g1-pc084-1",
+        "mrp": 42,
+        "price": 42,
+        "stock": 100,
+        "image_url": "/products/verified/pc-cinthol-lime-soap.webp",
+        "product_id": "g1-pc084",
+        "size_label": "100 g"
+      },
+      {
+        "id": "var-g1-pc084-2",
+        "mrp": 62,
+        "price": 62,
+        "stock": 50,
+        "image_url": "/products/verified/pc-cinthol-lime-soap.webp",
+        "product_id": "g1-pc084",
+        "size_label": "150 g"
+      }
+    ],
+    "updatedAt": "2026-10-22T09:31:27.853Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 42
+  },
+  {
+    "id": "g1-pc075",
+    "name": "Mysore Sandal Gold Sandalwood Soap",
+    "unit": "125 g",
+    "brand": "Mysore Sandal",
+    "price": 85,
+    "inStock": true,
+    "category": "soaps-bath",
+    "imageUrl": "/products/verified/pc-mysore-sandal-gold-soap.webp",
+    "variants": [
+      {
+        "id": "var-g1-pc075-1",
+        "mrp": 90,
+        "price": 85,
+        "stock": 50,
+        "image_url": "/products/verified/pc-mysore-sandal-gold-soap.webp",
+        "product_id": "g1-pc075",
+        "size_label": "125 g"
+      }
+    ],
+    "updatedAt": "2026-10-22T13:21:24.385Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 90
+  },
+  {
+    "id": "g1-pc089",
+    "name": "Medimix Ayurvedic Sandal with Eladi Oil Soap",
+    "unit": "125 g",
+    "brand": "Medimix",
+    "price": 60,
+    "inStock": true,
+    "category": "soaps-bath",
+    "imageUrl": "/products/verified/pc-medimix-sandal-soap.webp",
+    "variants": [
+      {
+        "id": "var-g1-pc089-1",
+        "mrp": 40,
+        "price": 40,
+        "stock": 100,
+        "image_url": "/products/verified/pc-medimix-sandal-soap.webp",
+        "product_id": "g1-pc089",
+        "size_label": "75 g"
+      },
+      {
+        "id": "var-g1-pc089-2",
+        "mrp": 60,
+        "price": 60,
+        "stock": 50,
+        "image_url": "/products/verified/pc-medimix-sandal-soap.webp",
+        "product_id": "g1-pc089",
+        "size_label": "125 g"
+      }
+    ],
+    "updatedAt": "2026-10-22T13:27:26.351Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 60
+  },
+  {
+    "id": "g1-snk001",
+    "inStock": false,
+    "variants": [
+      {
+        "id": "g1-snk001-v-26g(pouch)",
+        "mrp": 10,
+        "price": 10,
+        "stock": 0,
+        "image_url": "/products/verified/snk-lays-magic-masala-10rs.webp",
+        "product_id": "g1-snk001",
+        "size_label": "26 g (Pouch)"
+      },
+      {
+        "id": "var-g1-snk001-1",
+        "mrp": 20,
+        "price": 20,
+        "stock": 50,
+        "image_url": "/products/verified/snk-lays-magic-masala.webp",
+        "product_id": "g1-snk001",
+        "size_label": "50 g (Pouch)"
+      },
+      {
+        "id": "g1-snk001-v-115g(pouch)",
+        "mrp": 50,
+        "price": 50,
+        "stock": 50,
+        "image_url": "/products/verified/snk-lays-magic-masala-50rs.webp",
+        "product_id": "g1-snk001",
+        "size_label": "115 g (Pouch)"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:36.903Z",
+    "stockCount": 0,
+    "price": 10,
+    "originalPrice": 10
+  },
+  {
+    "id": "g1-snk003",
+    "inStock": false,
+    "variants": [
+      {
+        "id": "g1-snk003-v-26g(pouch)",
+        "mrp": 10,
+        "price": 10,
+        "stock": 0,
+        "image_url": "/products/verified/snk-lays-tomato-tango-10rs.webp",
+        "product_id": "g1-snk003",
+        "size_label": "26 g (Pouch)"
+      },
+      {
+        "id": "var-g1-snk003-1",
+        "mrp": 20,
+        "price": 20,
+        "stock": 50,
+        "image_url": "/products/verified/snk-lays-tomato-tango.webp",
+        "product_id": "g1-snk003",
+        "size_label": "50 g (Pouch)"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:36.967Z",
+    "stockCount": 0,
+    "price": 10,
+    "originalPrice": 10
+  },
+  {
+    "id": "g1-snk005",
+    "inStock": false,
+    "variants": [
+      {
+        "id": "g1-snk005-v-26g(pouch)",
+        "mrp": 10,
+        "price": 10,
+        "stock": 0,
+        "image_url": "/products/verified/snk-lays-sizzling-hot-10rs.webp",
+        "product_id": "g1-snk005",
+        "size_label": "26 g (Pouch)"
+      },
+      {
+        "id": "var-g1-snk005-1",
+        "mrp": 20,
+        "price": 20,
+        "stock": 50,
+        "image_url": "/products/verified/snk-lays-sizzling-hot.webp",
+        "product_id": "g1-snk005",
+        "size_label": "50 g (Pouch)"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:37.056Z",
+    "stockCount": 0,
+    "price": 10,
+    "originalPrice": 10
+  },
+  {
+    "id": "g1-snk009",
+    "inStock": false,
+    "variants": [
+      {
+        "id": "var-g1-snk009-1",
+        "mrp": 20,
+        "price": 20,
+        "stock": 0,
+        "image_url": "/products/verified/snk-kurkure-chilli-chatka.webp",
+        "product_id": "g1-snk009",
+        "size_label": "85 g (Pouch)"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:37.139Z",
+    "stockCount": 0,
+    "price": 20,
+    "originalPrice": 20
+  },
+  {
+    "id": "g1-snk011",
+    "inStock": false,
+    "variants": [
+      {
+        "id": "var-g1-snk011-1",
+        "mrp": 20,
+        "price": 20,
+        "stock": 0,
+        "image_url": "/products/verified/snk-kurkure-pastax.webp",
+        "product_id": "g1-snk011",
+        "size_label": "65 g (Pouch)"
+      }
+    ],
+    "updatedAt": "2026-11-04T09:37:37.220Z",
+    "stockCount": 0,
+    "price": 20,
+    "originalPrice": 20
+  },
+  {
+    "id": "g1-p274518",
+    "name": "dettol antiseptic liquid",
+    "unit": "500g",
+    "brand": "G1 Mart",
+    "price": 260,
+    "deleted": false,
+    "inStock": true,
+    "category": "laundry-detergents",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792680759166-1792680761696.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "p-v1",
+        "mrp": 267,
+        "price": 260,
+        "stock": 15,
+        "in_stock": true,
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792680759166-1792680761696.webp",
+        "product_id": "p",
+        "size_label": "500g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-30T13:22:13.752Z",
+    "stockCount": 15,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 267
+  },
+  {
+    "id": "g1-hh048",
+    "name": "Dettol Disinfectant Liquid for Personal & Surface Hygiene",
+    "unit": "125ml",
+    "brand": "Dettol",
+    "price": 89,
+    "inStock": true,
+    "category": "floor-surface-cleaners",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/g1-hh048-1792681457230.webp",
+    "variants": [
+      {
+        "id": "var-g1-hh048-1",
+        "mrp": 91,
+        "price": 89,
+        "stock": 100,
+        "image_url": "/products/verified/hh-dettol-disinfectant-liquid.webp",
+        "product_id": "g1-hh048",
+        "size_label": "250 ml"
+      },
+      {
+        "id": "var-g1-hh048-2",
+        "mrp": 225,
+        "price": 225,
+        "stock": 50,
+        "image_url": "/products/verified/hh-dettol-disinfectant-liquid.webp",
+        "product_id": "g1-hh048",
+        "size_label": "500 ml"
+      }
+    ],
+    "updatedAt": "2026-10-22T15:05:05.160Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 91
+  },
+  {
+    "id": "new_1792681548119",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792681548119-1792681549683.webp",
+    "updatedAt": "2026-10-22T15:05:50.084Z",
+    "imageStatus": "VERIFIED"
+  },
+  {
+    "id": "new_1792682546728",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792682546728-1792682548544.webp",
+    "updatedAt": "2026-10-22T15:22:29.082Z",
+    "imageStatus": "VERIFIED"
+  },
+  {
+    "id": "new_1792683012029",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792683012029-1792683013527.jpg",
+    "updatedAt": "2026-10-22T15:30:14.097Z",
+    "imageStatus": "VERIFIED"
+  },
+  {
+    "id": "g1-p0197",
+    "name": "G1 Mart Pure Corn Flour (మొక్కజొన్న పిండి)",
+    "unit": "500 g",
+    "brand": "G1 Mart",
+    "price": 58,
+    "inStock": true,
+    "category": "atta-rice-dal",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/g1-p0197-1792683606527.jpg",
+    "variants": [
+      {
+        "id": "g1-p0197-v1",
+        "mrp": 60,
+        "price": 58,
+        "stock": 100,
+        "image_url": null,
+        "created_at": "2026-10-17T05:01:01.172Z",
+        "product_id": "g1-p0197",
+        "size_label": "500 g",
+        "updated_at": "2026-10-17T05:01:01.172Z"
+      },
+      {
+        "id": "g1-p0197-v2",
+        "mrp": 70,
+        "price": 60,
+        "stock": 50,
+        "image_url": null,
+        "created_at": "2026-10-17T05:01:01.172Z",
+        "product_id": "g1-p0197",
+        "size_label": "1 kg",
+        "updated_at": "2026-10-17T05:01:01.172Z"
+      }
+    ],
+    "updatedAt": "2026-10-22T15:42:08.007Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 60
+  },
+  {
+    "id": "g1-hh001",
+    "name": "Exo Ginger Twist Anti-Bacterial Dishwash Bar",
+    "unit": "90 g (1 Bar)",
+    "brand": "Exo",
+    "price": 9,
+    "deleted": false,
+    "inStock": true,
+    "category": "dishwash",
+    "imageUrl": "/products/verified/hh-exo-ginger-twist-bar.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "var-g1-hh001-1",
+        "mrp": 10,
+        "price": 9,
+        "stock": 100,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-exo-ginger-twist-bar.webp",
+        "product_id": "g1-hh001",
+        "size_label": "90 g (1 Bar)"
+      },
+      {
+        "id": "var-g1-hh001-2",
+        "mrp": 40,
+        "price": 40,
+        "stock": 50,
+        "image_url": "/products/verified/hh-exo-ginger-twist-bar.webp",
+        "product_id": "g1-hh001",
+        "size_label": "4 x 90 g (Multipack)"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:38:55.670Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 10
+  },
+  {
+    "id": "g1-p114809",
+    "name": "Bambino Instant Kheer Mix",
+    "unit": "180g",
+    "brand": "G1 Mart",
+    "price": 105,
+    "deleted": false,
+    "inStock": true,
+    "category": "sweets-chocolates",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792683012029-1792683013527.jpg",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "p-v1",
+        "mrp": 115,
+        "price": 105,
+        "stock": 100,
+        "in_stock": true,
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792683012029-1792683013527.jpg",
+        "product_id": "p",
+        "size_label": "180g"
+      },
+      {
+        "id": "g1-p114809-v0731",
+        "mrp": 10,
+        "price": 9,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792683012029-1792683013527.jpg",
+        "product_id": "g1-p114809",
+        "size_label": "35 g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-31T05:09:44.506Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 115
+  },
+  {
+    "id": "g1-p1030",
+    "name": "G1 Mart Maida Pindi / Refined Wheat Flour (మైదా)",
+    "unit": "500 g",
+    "brand": "G1 Mart",
+    "price": 28,
+    "inStock": true,
+    "category": "atta-rice-dal",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/g1-p1030-1792683982474.jpg",
+    "variants": [
+      {
+        "id": "g1-p1030-v1",
+        "mrp": 31,
+        "price": 28,
+        "stock": 100,
+        "image_url": null,
+        "created_at": "2026-10-17T05:01:01.172Z",
+        "product_id": "g1-p1030",
+        "size_label": "500 g",
+        "updated_at": "2026-10-17T05:01:01.172Z"
+      },
+      {
+        "id": "g1-p1030-v2",
+        "mrp": 60,
+        "price": 50,
+        "stock": 50,
+        "image_url": null,
+        "created_at": "2026-10-17T05:01:01.172Z",
+        "product_id": "g1-p1030",
+        "size_label": "1 kg",
+        "updated_at": "2026-10-17T05:01:01.172Z"
+      }
+    ],
+    "updatedAt": "2026-10-22T15:46:58.487Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 31
+  },
+  {
+    "id": "g1-hh139",
+    "name": "Mangalam Pure Bhimseni Camphor Tablets (Karpooram)",
+    "unit": "50 g Jar",
+    "brand": "Mangalam",
+    "price": 65,
+    "deleted": false,
+    "inStock": true,
+    "category": "pooja-needs",
+    "imageUrl": "blob:https://www.g1mart.in/040cbc03-ea43-45f3-adea-1a79dd30f6c3",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "var-g1-hh139-1",
+        "mrp": 65,
+        "price": 65,
+        "stock": 100,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-camphor-karpooram.webp",
+        "product_id": "g1-hh139",
+        "size_label": "50 g Jar"
+      },
+      {
+        "id": "var-g1-hh139-2",
+        "mrp": 120,
+        "price": 120,
+        "stock": 50,
+        "image_url": "/products/verified/hh-camphor-karpooram.webp",
+        "product_id": "g1-hh139",
+        "size_label": "100 g Jar"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-24T09:30:26.227Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 65
+  },
+  {
+    "id": "g1-p0428",
+    "name": "Sri Lalitha Idli Rava (ఇడ్లీ రవ్వ)",
+    "unit": "500 g",
+    "brand": "Sri Lalitha",
+    "price": 30,
+    "deleted": false,
+    "inStock": true,
+    "category": "local-millets",
+    "imageUrl": "/products/packshots/lalitha-idli-rava.jpg",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0428-v1",
+        "mrp": 35,
+        "price": 30,
+        "stock": 100,
+        "in_stock": true,
+        "image_url": "/products/packshots/lalitha-idli-rava.jpg",
+        "product_id": "g1-p0428",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0428-v2",
+        "mrp": 72,
+        "price": 56,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/packshots/lalitha-idli-rava.jpg",
+        "product_id": "g1-p0428",
+        "size_label": "1 kg"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:02:15.769Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 35
+  },
+  {
+    "id": "g1-hh160",
+    "name": "Pigeon Stainless Steel Gas Lighter",
+    "unit": "1 Piece",
+    "brand": "Pigeon",
+    "price": 99,
+    "deleted": false,
+    "inStock": true,
+    "category": "kitchenware",
+    "imageUrl": "/products/verified/hh-160-pigeon-gas-lighter.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "var-g1-hh160-1",
+        "mrp": 110,
+        "price": 99,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-160-pigeon-gas-lighter.webp",
+        "product_id": "g1-hh160",
+        "size_label": "1 Piece"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-24T14:07:57.165Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 110
+  },
+  {
+    "id": "g1-p922714",
+    "name": "bambino gulab jamun",
+    "unit": "30g",
+    "brand": "G1 Mart",
+    "price": 9,
+    "deleted": false,
+    "inStock": true,
+    "category": "sweets-chocolates",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792682546728-1792682548544.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "p-v1",
+        "mrp": 10,
+        "price": 9,
+        "stock": 100,
+        "in_stock": true,
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792682546728-1792682548544.webp",
+        "product_id": "p",
+        "size_label": "30g"
+      },
+      {
+        "id": "g1-p922714-v1049",
+        "mrp": 135,
+        "price": 60,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792682546728-1792682548544.webp",
+        "product_id": "g1-p922714",
+        "size_label": "160g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-30T12:35:00.543Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 10
+  },
+  {
+    "id": "g1-p1572",
+    "name": "Aashirvaad Superior MP Shudh Chakki Atta (గోధుమ పిండి)",
+    "unit": "1 kg",
+    "brand": "Aashirvaad",
+    "price": 68,
+    "deleted": false,
+    "inStock": true,
+    "category": "atta-rice-dal",
+    "imageUrl": "/products/packshots/aashirvaad-atta-5kg.jpg",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p1572-v1",
+        "mrp": 75,
+        "price": 68,
+        "stock": 200,
+        "in_stock": true,
+        "image_url": "/products/packshots/aashirvaad-atta-1kg.jpg",
+        "product_id": "g1-p1572",
+        "size_label": "1 kg"
+      },
+      {
+        "id": "g1-p1572-v2",
+        "mrp": 135,
+        "price": 125,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/packshots/aashirvaad-atta-1kg.jpg",
+        "product_id": "g1-p1572",
+        "size_label": "2 kg"
+      },
+      {
+        "id": "g1-p1572-v3",
+        "mrp": 350,
+        "price": 320,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/packshots/aashirvaad-atta-5kg.jpg",
+        "product_id": "g1-p1572",
+        "size_label": "5 kg"
+      },
+      {
+        "id": "g1-p1572-v4",
+        "mrp": 590,
+        "price": 540,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/packshots/aashirvaad-atta-10kg.jpg",
+        "product_id": "g1-p1572",
+        "size_label": "10 kg"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-30T12:37:09.783Z",
+    "stockCount": 200,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 75
+  },
+  {
+    "id": "g1-p248745",
+    "name": "MYSORE  SANDAL SOAP",
+    "unit": "450 g",
+    "brand": "G1 Mart",
+    "price": 225,
+    "deleted": false,
+    "inStock": true,
+    "category": "soaps-bath",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792678137760-1792678139438.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "p-v1",
+        "mrp": 245,
+        "price": 225,
+        "stock": 15,
+        "in_stock": true,
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792678137760-1792678139438.webp",
+        "product_id": "p",
+        "size_label": "450 g"
+      },
+      {
+        "id": "g1-p248745-v1671",
+        "mrp": 75,
+        "price": 70,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792678137760-1792678139438.webp",
+        "product_id": "g1-p248745",
+        "size_label": "150 g"
+      },
+      {
+        "id": "g1-p248745-v0742",
+        "mrp": 63,
+        "price": 59,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792678137760-1792678139438.webp",
+        "product_id": "g1-p248745",
+        "size_label": "125 g"
+      },
+      {
+        "id": "g1-p248745-v3862",
+        "mrp": 42,
+        "price": 39,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792678137760-1792678139438.webp",
+        "product_id": "g1-p248745",
+        "size_label": "75 g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-30T13:13:21.910Z",
+    "stockCount": 15,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 245
+  },
+  {
+    "id": "g1-p0411",
+    "name": "India Gate Basmati Rice Feast Rozzana",
+    "unit": "1 kg",
+    "brand": "India Gate",
+    "price": 140,
+    "deleted": false,
+    "inStock": true,
+    "category": "atta-rice-dal",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/g1-p0411-1793366395009.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0411-v1",
+        "mrp": 167,
+        "price": 140,
+        "stock": 100,
+        "in_stock": true,
+        "image_url": "/products/packshots/basmati-rice.jpg",
+        "product_id": "g1-p0411",
+        "size_label": "1 kg"
+      },
+      {
+        "id": "g1-p0411-v2",
+        "mrp": 575,
+        "price": 575,
+        "stock": 50,
+        "in_stock": false,
+        "image_url": "/products/packshots/basmati-rice.jpg",
+        "product_id": "g1-p0411",
+        "size_label": "5 kg"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-30T13:20:35.714Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 167
+  },
+  {
+    "id": "g1-p626752",
+    "name": "dettol antiseptic liquid",
+    "unit": "60ml",
+    "brand": "G1 Mart",
+    "price": 42,
+    "deleted": false,
+    "inStock": true,
+    "category": "laundry-detergents",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792681548119-1792681549683.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "p-v1",
+        "mrp": 45,
+        "price": 42,
+        "stock": 15,
+        "in_stock": true,
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792681548119-1792681549683.webp",
+        "product_id": "p",
+        "size_label": "60ml"
+      },
+      {
+        "id": "g1-p626752-v3939",
+        "mrp": 91,
+        "price": 89,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/new_1792681548119-1792681549683.webp",
+        "product_id": "g1-p626752",
+        "size_label": "125g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-30T13:25:48.328Z",
+    "stockCount": 15,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 45
+  },
+  {
+    "id": "g1-p0028",
+    "name": "Tata RA Salt",
+    "unit": "1 kg",
+    "brand": "Tata",
+    "price": 29,
+    "deleted": false,
+    "inStock": true,
+    "category": "sugar-salt-staples",
+    "imageUrl": "/products/verified/g1-p0028.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0028-v5147",
+        "mrp": 32,
+        "price": 29,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "/products/verified/g1-p0028.webp",
+        "product_id": "g1-p0028",
+        "size_label": "1 kg"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-30T15:53:23.610Z",
+    "stockCount": 25,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 32
+  },
+  {
+    "id": "g1-p0077",
+    "name": "G1 Mart Endu Kharjuram (Dry Hard Dates / ఎండు ఖర్జూరం)",
+    "unit": "100 g",
+    "brand": "G1 Mart",
+    "price": 40,
+    "deleted": false,
+    "inStock": true,
+    "category": "dry-fruits-cereals",
+    "imageUrl": "/products/generated_pouches/g1_dates_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0077-v100",
+        "mrp": 35,
+        "price": 40,
+        "stock": 260,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_dates_pouch.webp",
+        "product_id": "g1-p0077",
+        "size_label": "100 g"
+      },
+      {
+        "id": "g1-p0077-v250",
+        "mrp": 85,
+        "price": 80,
+        "stock": 80,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_dates_pouch.webp",
+        "product_id": "g1-p0077",
+        "size_label": "250 g"
+      },
+      {
+        "id": "g1-p0077-v500",
+        "mrp": 160,
+        "price": 155,
+        "stock": 60,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_dates_pouch.webp",
+        "product_id": "g1-p0077",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0077-v1k",
+        "mrp": 310,
+        "price": 310,
+        "stock": 40,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_dates_pouch.webp",
+        "product_id": "g1-p0077",
+        "size_label": "1 kg"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-30T15:57:07.174Z",
+    "stockCount": 260,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 35
+  },
+  {
+    "id": "g1-p0979",
+    "name": "G1 Mart Phool Makhana (Lotus Seeds / పూల్ మఖానా)",
+    "unit": "100 g",
+    "brand": "G1 Mart",
+    "price": 150,
+    "deleted": false,
+    "inStock": true,
+    "category": "dry-fruits-cereals",
+    "imageUrl": "/products/generated_pouches/g1_makhana_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0979-v1",
+        "mrp": 170,
+        "price": 150,
+        "stock": 150,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_makhana_pouch.webp",
+        "product_id": "g1-p0979",
+        "size_label": "100 g"
+      },
+      {
+        "id": "var-g1-nut023-250g",
+        "mrp": 350,
+        "price": 300,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_makhana_pouch.webp",
+        "product_id": "g1-p0979",
+        "size_label": "250 g"
+      },
+      {
+        "id": "var-g1-nut023-500g",
+        "mrp": 390,
+        "price": 370,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_makhana_pouch.webp",
+        "product_id": "g1-p0979",
+        "size_label": "500 g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:25:08.664Z",
+    "stockCount": 150,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 170
+  },
+  {
+    "id": "g1-p0081",
+    "name": "G1 Mart Minapa Pappu (Split Urad Dal / మినప పప్పు)",
+    "unit": "500 g",
+    "brand": "G1 Mart",
+    "price": 115,
+    "deleted": false,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_urad_dal_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-dal024-v1",
+        "mrp": 135,
+        "price": 115,
+        "stock": 100,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_urad_dal_pouch.webp",
+        "product_id": "g1-p0081",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-dal025-v1",
+        "mrp": 140,
+        "price": 130,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_urad_dal_pouch.webp",
+        "product_id": "g1-p0081",
+        "size_label": "1 kg"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:05:27.539Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 135
+  },
+  {
+    "id": "g1-p0826",
+    "name": "Kisan JAM",
+    "unit": "Packs",
+    "brand": "Kissan",
+    "price": 26,
+    "deleted": false,
+    "inStock": true,
+    "category": "sauces-spreads",
+    "imageUrl": "/products/verified/g1-p0826.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0826-v1",
+        "mrp": 28,
+        "price": 26,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/verified/g1-p0826.webp",
+        "product_id": "g1-p0826",
+        "size_label": "Packs"
+      },
+      {
+        "id": "g1-p0826-v5084",
+        "mrp": 90,
+        "price": 86,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "/products/verified/g1-p0826.webp",
+        "product_id": "g1-p0826",
+        "size_label": "200G"
+      },
+      {
+        "id": "g1-p0826-v5211",
+        "mrp": 10,
+        "price": 10,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "/products/verified/g1-p0826.webp",
+        "product_id": "g1-p0826",
+        "size_label": "48G"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-31T11:11:57.844Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 28
+  },
+  {
+    "id": "g1-p0427",
+    "name": "Upma Ravva / Bombay Rava (ఉప్మా రవ్వ)",
+    "unit": "500 g",
+    "brand": "Local / Unbranded",
+    "price": 28,
+    "deleted": false,
+    "inStock": true,
+    "category": "local-millets",
+    "imageUrl": "/products/generated_pouches/g1_upma_rava_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0427-v1",
+        "mrp": 32,
+        "price": 28,
+        "stock": 100,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_upma_rava_pouch.webp",
+        "product_id": "g1-p0427",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0427-v2",
+        "mrp": 60,
+        "price": 60,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_upma_rava_pouch.webp",
+        "product_id": "g1-p0427",
+        "size_label": "1 kg"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:02:37.577Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 32
+  },
+  {
+    "id": "g1-p0895",
+    "name": "G1 Mart Muskmelon Seeds (ఖర్బూజ గింజలు)",
+    "unit": "500 g",
+    "brand": "G1 Mart",
+    "price": 350,
+    "deleted": false,
+    "inStock": true,
+    "category": "dry-fruits-cereals",
+    "imageUrl": "/products/generated_pouches/g1_muskmelon_seeds_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0895-v1",
+        "mrp": 375,
+        "price": 350,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/verified/g1-p0895.webp",
+        "product_id": "g1-p0895",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0895-v3347",
+        "mrp": 80,
+        "price": 69,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_muskmelon_seeds_pouch.webp",
+        "product_id": "g1-p0895",
+        "size_label": "100G"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:19:13.460Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 375
+  },
+  {
+    "id": "g1-bev003",
+    "name": "Sprite Lemon-Lime Carbonated Drink",
+    "unit": "250 ml (Pet Bottle)",
+    "brand": "Sprite",
+    "price": 18,
+    "deleted": false,
+    "inStock": true,
+    "category": "drinks-juices",
+    "imageUrl": "/products/verified/bev-sprite-750ml.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-bev003-v1",
+        "mrp": 20,
+        "price": 18,
+        "stock": 200,
+        "in_stock": true,
+        "image_url": "/products/verified/bev-sprite-250ml.webp",
+        "product_id": "g1-bev003",
+        "size_label": "250 ml (Pet Bottle)"
+      },
+      {
+        "id": "g1-bev003-v2",
+        "mrp": 40,
+        "price": 40,
+        "stock": 50,
+        "image_url": "/products/verified/bev-sprite-750ml.webp",
+        "product_id": "g1-bev003",
+        "size_label": "750 ml (Standard)"
+      },
+      {
+        "id": "g1-bev003-v3",
+        "mrp": 50,
+        "price": 50,
+        "stock": 50,
+        "image_url": "/products/verified/bev-sprite-1l.webp",
+        "product_id": "g1-bev003",
+        "size_label": "1 L (Large Bottle)"
+      },
+      {
+        "id": "g1-bev003-v4",
+        "mrp": 100,
+        "price": 100,
+        "stock": 50,
+        "image_url": "/products/verified/bev-sprite-2l.webp",
+        "product_id": "g1-bev003",
+        "size_label": "2.25 L (Family Pack)"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-31T05:05:38.849Z",
+    "stockCount": 200,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 20
+  },
+  {
+    "id": "g1-bev004",
+    "name": "Limca Fresh Lemon Carbonated Drink",
+    "unit": "250 ml (Pet Bottle)",
+    "brand": "Limca",
+    "price": 18,
+    "deleted": false,
+    "inStock": true,
+    "category": "drinks-juices",
+    "imageUrl": "https://pzrigfczxwscpzxkykvf.supabase.co/storage/v1/object/public/product-images/products/g1-bev004-1793423336310.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-bev004-v-250ml(petbottle)",
+        "mrp": 20,
+        "price": 18,
+        "stock": 150,
+        "in_stock": true,
+        "image_url": "/products/verified/bev-limca-250ml.webp",
+        "product_id": "g1-bev004",
+        "size_label": "250 ml (Pet Bottle)"
+      },
+      {
+        "id": "var-g1-bev004-1",
+        "mrp": 40,
+        "price": 40,
+        "stock": 50,
+        "image_url": "/products/verified/bev-limca-750ml.webp",
+        "product_id": "g1-bev004",
+        "size_label": "750 ml (PET Bottle)"
+      },
+      {
+        "id": "g1-bev004-v-2.25l(largebottle)",
+        "mrp": 100,
+        "price": 100,
+        "stock": 50,
+        "image_url": "/products/verified/bev-limca-2l.webp",
+        "product_id": "g1-bev004",
+        "size_label": "2.25 L (Large Bottle)"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-31T05:08:59.598Z",
+    "stockCount": 150,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 20
+  },
+  {
+    "id": "g1-p0898",
+    "name": "G1 Mart Watermelon Seeds (పుచ్చకాయ గింజలు)",
+    "unit": "100 g",
+    "brand": "G1 Mart",
+    "price": 70,
+    "deleted": false,
+    "inStock": true,
+    "category": "dry-fruits-cereals",
+    "imageUrl": "/products/generated_pouches/g1_watermelon_seeds_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0898-v1",
+        "mrp": 80,
+        "price": 70,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/verified/g1-p0898.webp",
+        "product_id": "g1-p0898",
+        "size_label": "100 g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-31T11:17:31.531Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 80
+  },
+  {
+    "id": "g1-p0409",
+    "name": "Finger Millet / Whole Ragi (రాగులు)",
+    "unit": "500 g",
+    "brand": "Local / Unbranded",
+    "price": 35,
+    "deleted": false,
+    "inStock": true,
+    "category": "local-millets",
+    "imageUrl": "/products/generated_pouches/g1_whole_ragi_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0409-v1",
+        "mrp": 40,
+        "price": 35,
+        "stock": 100,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_whole_ragi_pouch.webp",
+        "product_id": "g1-p0409",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0409-v2",
+        "mrp": 80,
+        "price": 70,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_whole_ragi_pouch.webp",
+        "product_id": "g1-p0409",
+        "size_label": "1 kg"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-31T11:04:34.333Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 40
+  },
+  {
+    "id": "g1-p0894",
+    "name": "G1 Mart Sunflower Seeds (పొద్దుతిరుగుడు గింజలు)",
+    "unit": "100 g",
+    "brand": "G1 Mart",
+    "price": 35,
+    "deleted": false,
+    "inStock": true,
+    "category": "dry-fruits-cereals",
+    "imageUrl": "/products/generated_pouches/g1_sunflower_seeds_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0894-v1",
+        "mrp": 40,
+        "price": 35,
+        "stock": 150,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_sunflower_seeds_pouch.webp",
+        "product_id": "g1-p0894",
+        "size_label": "100 g"
+      },
+      {
+        "id": "var-g1-p0894-250g",
+        "mrp": 120,
+        "price": 120,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_sunflower_seeds_pouch.webp",
+        "product_id": "g1-p0894",
+        "size_label": "250 g"
+      },
+      {
+        "id": "var-g1-p0894-500g",
+        "mrp": 230,
+        "price": 230,
+        "stock": 50,
+        "image_url": "/products/generated_pouches/g1_sunflower_seeds_pouch.webp",
+        "product_id": "g1-p0894",
+        "size_label": "500 g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-10-31T11:18:19.606Z",
+    "stockCount": 150,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 40
+  },
+  {
+    "id": "g1-p0203",
+    "name": "Sajjalu / Pearl Millet (సజ్జలు)",
+    "unit": "500 g",
+    "brand": "Local / Unbranded",
+    "price": 23,
+    "deleted": false,
+    "inStock": true,
+    "category": "local-millets",
+    "imageUrl": "/products/generated_pouches/g1_sajjalu_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0203-v1",
+        "mrp": 30,
+        "price": 23,
+        "stock": 100,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_sajjalu_pouch.webp",
+        "product_id": "g1-p0203",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0203-v2",
+        "mrp": 50,
+        "price": 45,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_sajjalu_pouch.webp",
+        "product_id": "g1-p0203",
+        "size_label": "1 kg"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:03:03.579Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 30
+  },
+  {
+    "id": "g1-red-alasandalu",
+    "name": "G1 Mart Red Alasandalu (Red Cowpeas / ఎర్ర అలసందలు)",
+    "unit": "500 g",
+    "brand": "G1 Mart",
+    "price": 59,
+    "deleted": false,
+    "inStock": true,
+    "category": "local-dals",
+    "imageUrl": "/products/generated_pouches/g1_red_alasandalu_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-red-alasandalu-v500",
+        "mrp": 65,
+        "image": "/products/generated_pouches/g1_red_alasandalu_pouch.webp",
+        "price": 59,
+        "stock": 50,
+        "imageUrl": "/products/generated_pouches/g1_red_alasandalu_pouch.webp",
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_red_alasandalu_pouch.webp",
+        "product_id": "g1-red-alasandalu",
+        "size_label": "500 g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:07:20.664Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 65
+  },
+  {
+    "id": "g1-p0200",
+    "name": "G1 Mart Country Crystal Salt (Kallu Uppu / కల్లు ఉప్పు)",
+    "unit": "1 kg",
+    "brand": "G1 Mart",
+    "price": 15,
+    "deleted": false,
+    "inStock": true,
+    "category": "sugar-salt-staples",
+    "imageUrl": "/products/generated_pouches/g1_crystal_salt_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0200-v1k",
+        "mrp": 20,
+        "price": 15,
+        "stock": 80,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_crystal_salt_pouch.webp",
+        "product_id": "g1-p0200",
+        "size_label": "1 kg"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:10:24.366Z",
+    "stockCount": 80,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 20
+  },
+  {
+    "id": "g1-p0422",
+    "name": "G1 Mart Jeedipappu (Premium Cashews / జీడిపప్పు)",
+    "unit": "250 g",
+    "brand": "G1 Mart",
+    "price": 235,
+    "deleted": false,
+    "inStock": true,
+    "category": "dry-fruits-cereals",
+    "imageUrl": "/products/generated_pouches/g1_cashews_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "var-g1-nut016-250g",
+        "mrp": 220,
+        "price": 235,
+        "stock": 150,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_cashews_250g_pouch.webp",
+        "product_id": "g1-p0422",
+        "size_label": "250 g"
+      },
+      {
+        "id": "var-g1-nut016-500g",
+        "mrp": 520,
+        "price": 469,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_cashews_500g_pouch.webp",
+        "product_id": "g1-p0422",
+        "size_label": "500 g"
+      },
+      {
+        "id": "var-g1-nut016-1kg",
+        "mrp": 900,
+        "price": 570,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_cashews_1kg_pouch.webp",
+        "product_id": "g1-p0422",
+        "size_label": "1 kg"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:11:57.157Z",
+    "stockCount": 150,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 220
+  },
+  {
+    "id": "g1-p0583",
+    "name": "[INACTIVE DUPLICATE] Badam",
+    "unit": "100 g",
+    "brand": "Local / Unbranded",
+    "price": 130,
+    "deleted": false,
+    "inStock": true,
+    "category": "dry-fruits-cereals",
+    "imageUrl": "/products/generated_pouches/g1_almonds_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0583-v2",
+        "mrp": 73,
+        "price": 130,
+        "stock": 100,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_almonds_pouch.webp",
+        "product_id": "g1-p0583",
+        "size_label": "100 g"
+      },
+      {
+        "id": "g1-p0583-v1",
+        "mrp": 690,
+        "price": 660,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_almonds_pouch.webp",
+        "product_id": "g1-p0583",
+        "size_label": "500 g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:13:56.419Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 73
+  },
+  {
+    "id": "g1-hh007",
+    "name": "Vim Neem Clean Anti-Germ Dishwash Bar",
+    "unit": "150 g",
+    "brand": "Vim",
+    "price": 10,
+    "deleted": false,
+    "inStock": true,
+    "category": "dishwash",
+    "imageUrl": "/products/verified/hh-vim-neem-dishwash-bar.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "var-g1-hh007-1",
+        "mrp": 10,
+        "price": 10,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-vim-neem-dishwash-bar.webp",
+        "product_id": "g1-hh007",
+        "size_label": "150 g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:41:47.524Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 10
+  },
+  {
+    "id": "g1-hh021",
+    "name": "Surf Excel Easy Wash Detergent Powder",
+    "unit": "500 g",
+    "brand": "Surf Excel",
+    "price": 85,
+    "deleted": false,
+    "inStock": true,
+    "category": "laundry-detergents",
+    "imageUrl": "/products/verified/hh-surf-excel-easy-wash.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "var-g1-hh021-1",
+        "mrp": 90,
+        "price": 85,
+        "stock": 150,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-surf-excel-easy-wash.webp",
+        "product_id": "g1-hh021",
+        "size_label": "500 g"
+      },
+      {
+        "id": "var-g1-hh021-2",
+        "mrp": 145,
+        "price": 145,
+        "stock": 50,
+        "image_url": "/products/verified/hh-surf-excel-easy-wash.webp",
+        "product_id": "g1-hh021",
+        "size_label": "1 kg"
+      },
+      {
+        "id": "var-g1-hh021-3",
+        "mrp": 280,
+        "price": 280,
+        "stock": 50,
+        "image_url": "/products/verified/hh-surf-excel-easy-wash.webp",
+        "product_id": "g1-hh021",
+        "size_label": "2 kg"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:50:04.527Z",
+    "stockCount": 150,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 90
+  },
+  {
+    "id": "g1-hh009",
+    "name": "Vim Lemon Concentrated Dishwash Gel Liquid",
+    "unit": "250 ml",
+    "brand": "Vim",
+    "price": 45,
+    "deleted": false,
+    "inStock": true,
+    "category": "dishwash",
+    "imageUrl": "/products/verified/hh-vim-lemon-dishwash-gel.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "var-g1-hh009-1",
+        "mrp": 49,
+        "price": 45,
+        "stock": 150,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-vim-lemon-dishwash-gel.webp",
+        "product_id": "g1-hh009",
+        "size_label": "250 ml"
+      },
+      {
+        "id": "var-g1-hh009-2",
+        "mrp": 140,
+        "price": 135,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-vim-lemon-dishwash-gel.webp",
+        "product_id": "g1-hh009",
+        "size_label": "500 ml"
+      },
+      {
+        "id": "var-g1-hh009-3",
+        "mrp": 199,
+        "price": 190,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-vim-lemon-dishwash-gel.webp",
+        "product_id": "g1-hh009",
+        "size_label": "750 ml"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:47:12.641Z",
+    "stockCount": 150,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 49
+  },
+  {
+    "id": "g1-p0893",
+    "name": "G1 Mart Pumpkin Seeds (గుమ్మడి గింజలు)",
+    "unit": "100 g",
+    "brand": "G1 Mart",
+    "price": 80,
+    "deleted": false,
+    "inStock": true,
+    "category": "dry-fruits-cereals",
+    "imageUrl": "/products/generated_pouches/g1_pumpkin_seeds_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0893-v1",
+        "mrp": 95,
+        "price": 80,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/verified/g1-p0893.webp",
+        "product_id": "g1-p0893",
+        "size_label": "100 g"
+      },
+      {
+        "id": "g1-p0893-v0938",
+        "mrp": 290,
+        "price": 375,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_pumpkin_seeds_pouch.webp",
+        "product_id": "g1-p0893",
+        "size_label": "500 g"
+      },
+      {
+        "id": "g1-p0893-v3394",
+        "mrp": 710,
+        "price": 690,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_pumpkin_seeds_pouch.webp",
+        "product_id": "g1-p0893",
+        "size_label": "1 kg"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:17:57.039Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 95
+  },
+  {
+    "id": "g1-p0909",
+    "name": "[INACTIVE DUPLICATE] Gokilam Dates",
+    "unit": "500 g",
+    "brand": "Local / Unbranded",
+    "price": 118,
+    "deleted": false,
+    "inStock": true,
+    "category": "dry-fruits-cereals",
+    "imageUrl": "/products/generated_pouches/g1_dates_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0909-v1",
+        "mrp": 245,
+        "price": 118,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_dates_pouch.webp",
+        "product_id": "g1-p0909",
+        "size_label": "500 g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:23:42.189Z",
+    "stockCount": 50,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 245
+  },
+  {
+    "id": "g1-p0985",
+    "name": "[INACTIVE DUPLICATE] Pistachio",
+    "unit": "100 g",
+    "brand": "Local / Unbranded",
+    "price": 220,
+    "deleted": false,
+    "inStock": true,
+    "category": "dry-fruits-cereals",
+    "imageUrl": "/products/generated_pouches/g1_pista_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p0985-v9623",
+        "mrp": 250,
+        "price": 220,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_pista_pouch.webp",
+        "product_id": "g1-p0985",
+        "size_label": "100 g"
+      },
+      {
+        "id": "g1-p0985-v6159",
+        "mrp": 560,
+        "price": 510,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_pista_pouch.webp",
+        "product_id": "g1-p0985",
+        "size_label": "250 g"
+      },
+      {
+        "id": "g1-p0985-v0550",
+        "mrp": 990,
+        "price": 990,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_pista_pouch.webp",
+        "product_id": "g1-p0985",
+        "size_label": "500 g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:30:05.469Z",
+    "stockCount": 25,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 250
+  },
+  {
+    "id": "g1-p1000",
+    "name": "G1 Mart Rolled Oats (100% Wholegrain Cereals / రోల్డ్ ఓట్స్)",
+    "unit": "400 g",
+    "brand": "G1 Mart",
+    "price": 83,
+    "deleted": false,
+    "inStock": true,
+    "category": "dry-fruits-cereals",
+    "imageUrl": "/products/generated_pouches/g1_oats_pouch.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p1000-v8494",
+        "mrp": 86,
+        "price": 83,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_oats_pouch.webp",
+        "product_id": "g1-p1000",
+        "size_label": "400 g"
+      },
+      {
+        "id": "g1-p1000-v4078",
+        "mrp": 119,
+        "price": 116,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "/products/generated_pouches/g1_oats_pouch.webp",
+        "product_id": "g1-p1000",
+        "size_label": "700 g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:32:29.477Z",
+    "stockCount": 25,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 86
+  },
+  {
+    "id": "g1-p1175",
+    "name": "Veeba Burger Mayonnaise",
+    "unit": "85 g",
+    "brand": "Veeba",
+    "price": 39,
+    "deleted": false,
+    "inStock": true,
+    "category": "sauces-spreads",
+    "imageUrl": "/products/packshots/ginger-garlic-paste.jpg",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "g1-p1175-v6166",
+        "mrp": 40,
+        "price": 39,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "/products/packshots/ginger-garlic-paste.jpg",
+        "product_id": "g1-p1175",
+        "size_label": "85 g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:34:03.697Z",
+    "stockCount": 25,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 40
+  },
+  {
+    "id": "g1-hh023",
+    "name": "Surf Excel Matic Front Load Detergent Powder",
+    "unit": "1 kg",
+    "brand": "Surf Excel",
+    "price": 200,
+    "deleted": false,
+    "inStock": true,
+    "category": "laundry-detergents",
+    "imageUrl": "/products/verified/hh-surf-excel-matic-front-powder.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "var-g1-hh023-1",
+        "mrp": 209,
+        "price": 200,
+        "stock": 100,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-surf-excel-matic-front-powder.webp",
+        "product_id": "g1-hh023",
+        "size_label": "1 kg"
+      },
+      {
+        "id": "var-g1-hh023-2",
+        "mrp": 318,
+        "price": 310,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-surf-excel-matic-front-powder.webp",
+        "product_id": "g1-hh023",
+        "size_label": "2 kg"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:52:28.267Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 209
+  },
+  {
+    "id": "g1-hh027",
+    "name": "Tide Plus Extra Power Detergent Powder (Jasmine & Rose)",
+    "unit": "500 g",
+    "brand": "Tide",
+    "price": 65,
+    "deleted": false,
+    "inStock": true,
+    "category": "laundry-detergents",
+    "imageUrl": "/products/verified/hh-tide-plus-powder.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "var-g1-hh027-1",
+        "mrp": 70,
+        "price": 65,
+        "stock": 150,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-tide-plus-powder.webp",
+        "product_id": "g1-hh027",
+        "size_label": "500 g"
+      },
+      {
+        "id": "var-g1-hh027-2",
+        "mrp": 146,
+        "price": 138,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-tide-plus-powder.webp",
+        "product_id": "g1-hh027",
+        "size_label": "1 kg"
+      },
+      {
+        "id": "var-g1-hh027-3",
+        "mrp": 255,
+        "price": 255,
+        "stock": 50,
+        "image_url": "/products/verified/hh-tide-plus-powder.webp",
+        "product_id": "g1-hh027",
+        "size_label": "2 kg"
+      },
+      {
+        "id": "g1-hh027-v0000",
+        "mrp": 10,
+        "price": 9,
+        "stock": 25,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-tide-plus-powder.webp",
+        "product_id": "g1-hh027",
+        "size_label": "70 g"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:54:53.897Z",
+    "stockCount": 150,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 70
+  },
+  {
+    "id": "g1-hh029",
+    "name": "Rin Advanced Detergent Powder with Bright Clean Technology",
+    "unit": "500 g",
+    "brand": "Rin",
+    "price": 57,
+    "deleted": false,
+    "inStock": true,
+    "category": "laundry-detergents",
+    "imageUrl": "/products/verified/hh-rin-detergent-powder.webp",
+    "isActive": true,
+    "variants": [
+      {
+        "id": "var-g1-hh029-1",
+        "mrp": 64,
+        "price": 57,
+        "stock": 100,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-rin-detergent-powder.webp",
+        "product_id": "g1-hh029",
+        "size_label": "500 g"
+      },
+      {
+        "id": "var-g1-hh029-2",
+        "mrp": 130,
+        "price": 124,
+        "stock": 50,
+        "in_stock": true,
+        "image_url": "/products/verified/hh-rin-detergent-powder.webp",
+        "product_id": "g1-hh029",
+        "size_label": "1 kg"
+      }
+    ],
+    "is_active": true,
+    "updatedAt": "2026-11-04T07:55:53.594Z",
+    "stockCount": 100,
+    "imageStatus": "VERIFIED",
+    "originalPrice": 64
   }
 ]

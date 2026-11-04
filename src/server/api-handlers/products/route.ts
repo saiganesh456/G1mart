@@ -3,7 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { productService } from '@/services/productService';
 
 const CACHE_HEADERS = {
-  'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+  'Cache-Control': 'no-cache, no-store, must-revalidate',
+  'Pragma': 'no-cache',
+  'Expires': '0',
 };
 
 export async function GET(request: NextRequest) {

@@ -311,6 +311,12 @@ export const productService = {
           MIGRATED_PRODUCT_LIST[idx] = serverProductOverrides.applyToProduct(MIGRATED_PRODUCT_LIST[idx], override);
           if (MIGRATED_PRODUCT_LIST[idx].variants && MIGRATED_PRODUCT_LIST[idx].variants!.length > 0) {
             variantsByProductId.set(id, MIGRATED_PRODUCT_LIST[idx].variants!);
+            for (const pv of MIGRATED_PRODUCT_LIST[idx].variants!) {
+              const vIdx = MIGRATED_VARIANTS.findIndex((v) => v.id === pv.id);
+              if (vIdx !== -1) {
+                MIGRATED_VARIANTS[vIdx] = { ...MIGRATED_VARIANTS[vIdx], ...pv };
+              }
+            }
           }
         } else if (override.name) {
           // Brand new product created in Admin console - register for storefront & customer views
