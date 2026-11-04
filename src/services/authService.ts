@@ -13,22 +13,34 @@ export const authService = {
 
   async getSession() {
     if (!isSupabaseConfigured()) return null;
-    const { data, error } = await supabase.auth.getSession();
-    if (error) {
-      console.warn('[G1 Mart Auth] getSession error:', error.message);
+    try {
+      const { data, error } = await supabase.auth.getSession();
+      if (error) {
+        console.warn('[G1 Mart Auth] getSession error:', error.message);
+        return null;
+      }
+      return data.session;
+    } catch {
       return null;
     }
-    return data.session;
   },
 
   async getCurrentUser() {
     if (!isSupabaseConfigured()) return null;
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.getUser();
-    if (error || !user) return null;
-    return user;
+    try {
+      // First try active session (auto-refreshes expired token)
+      const session = await this.getSession();
+      if (session?.user) return session.user;
+
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+      if (error || !user) return null;
+      return user;
+    } catch {
+      return null;
+    }
   },
 
   async getCurrentProfile(): Promise<UserProfile | null> {
@@ -37,7 +49,7 @@ export const authService = {
       const user = await this.getCurrentUser();
       if (!user) return null;
 
-      // Check public.profiles first (from schema migration)
+      // Check public.profiles first
       const { data } = await supabase
         .from('profiles')
         .select('*')
@@ -54,7 +66,7 @@ export const authService = {
           ? `${emailParts[0].replace(/\./g, '').split('+')[0]}@gmail.com`
           : userEmail;
 
-      // Always grant admin to root admin emails or check server role
+      // Always grant admin to root admin emails
       const isCoreAdmin =
         userEmail === 'sureshdega466@gmail.com' ||
         userEmail === 'g1mart@gmail.com' ||
@@ -73,18 +85,6 @@ export const authService = {
         detectedRole = 'admin';
       } else if (isCoreRider) {
         detectedRole = 'delivery_partner';
-      } else {
-        try {
-          const roleRes = await fetch('/api/auth/role-check', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: userEmail, normalizedEmail: normEmail }),
-          });
-          const roleData = await roleRes.json();
-          if (roleData.success && roleData.role) {
-            detectedRole = roleData.role;
-          }
-        } catch {}
       }
 
       if (data) {
@@ -96,7 +96,7 @@ export const authService = {
           phone: data.phone || user.phone || '',
           email: userEmail,
           avatar: data.avatar_url || '',
-          memberSince: new Date(data.created_at).toLocaleDateString('en-IN', {
+          memberSince: new Date(data.created_at || Date.now()).toLocaleDateString('en-IN', {
             month: 'short',
             year: 'numeric',
           }),
@@ -134,15 +134,10 @@ export const authService = {
           ? window.location.origin
           : 'http://localhost:3000';
 
-      // Pre-flight Cookie Hygiene (Prevents HTTP 494 REQUEST_HEADER_TOO_LARGE):
-      // Clean up any stale PKCE verifiers, orphaned flow indices, and legacy cookies
-      // across all domain and path variants before initiating a fresh OAuth request.
-      await purgeStaleCookies().catch(() => {});
-
       if (typeof document !== 'undefined') {
         const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:';
         const secureStr = isHttps ? '; Secure' : '';
-        // Persist intended destination in cookie and localStorage so it survives OAuth redirect even if query params are stripped
+        // Persist intended destination in cookie and localStorage so it survives OAuth redirect
         document.cookie = `g1mart_auth_next=${encodeURIComponent(nextUrl)}; path=/; max-age=1800; SameSite=Lax${secureStr}`;
         try {
           localStorage.setItem('g1mart_auth_next', nextUrl);

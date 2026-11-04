@@ -2,7 +2,7 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
 /**
- * Refreshes auth tokens on every server request so user sessions remain active
+ * Refreshes auth tokens on server requests so user sessions remain active
  * and cookies are synchronized across Next.js Server Components, Pages, and Browser.
  */
 export async function updateSession(request: NextRequest) {
@@ -58,16 +58,11 @@ export async function updateSession(request: NextRequest) {
     // It checks cookies and writes any refreshed token back onto supabaseResponse.
     await supabase.auth.getUser();
 
-    // Clean up any stale OAuth verifiers or legacy project cookies cleanly
+    // Clean up only obsolete cookies from other projects (never active project verifiers)
     const incomingCookies = request.cookies.getAll();
     const isProd = process.env.NODE_ENV === 'production';
     for (const { name } of incomingCookies) {
-      if (
-        name.includes('-code-verifier') ||
-        name.includes('-flows-') ||
-        name === 'g1mart_auth_next' ||
-        (name.startsWith('sb-') && !name.includes('pzrigfczxwscpzxkykvf'))
-      ) {
+      if (name.startsWith('sb-') && !name.includes('pzrigfczxwscpzxkykvf')) {
         supabaseResponse.cookies.set(name, '', {
           path: '/',
           maxAge: 0,

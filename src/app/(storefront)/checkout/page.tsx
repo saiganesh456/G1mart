@@ -35,6 +35,7 @@ export default function CheckoutPage() {
   const { cart, cartItemCount, cartSubtotal, updateCartQuantity, removeFromCart } = useCart();
   const { currentLocation } = useLocation();
   const { user, supabaseUser, isLoggedIn, isLoading: authLoading, setLocalUser, signOut } = useAuth();
+  const isUserAuthenticated = Boolean(isLoggedIn || user?.id || user?.email || user?.phone || supabaseUser?.id);
 
   // Fulfillment selector: Delivery vs Pickup
   const [orderType, setOrderType] = useState<'delivery' | 'pickup'>('delivery');
@@ -249,7 +250,7 @@ export default function CheckoutPage() {
   const handlePlaceOrder = () => {
     if (authLoading) return;
 
-    if (!isLoggedIn) {
+    if (!isUserAuthenticated) {
       setAuthError('Account registration is required before placing order. Please sign in with Google to continue.');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
@@ -380,7 +381,7 @@ export default function CheckoutPage() {
             <div className="h-2.5 w-48 bg-stone-200 rounded" />
           </div>
         </div>
-      ) : !isLoggedIn ? (
+      ) : !isUserAuthenticated ? (
         <div className="bg-white rounded-2xl border-2 border-[#2E7D32]/40 p-3.5 sm:p-4 shadow-sm space-y-3 animate-in fade-in min-w-0 w-full box-border">
           <div className="flex items-center justify-between border-b border-stone-100 pb-2 gap-2">
             <div className="flex items-center gap-2 min-w-0">

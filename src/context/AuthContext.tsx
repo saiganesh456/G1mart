@@ -3,8 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import { authService } from '@/services/authService';
-import { purgeStaleCookies } from '@/lib/cookieHygiene';
-import { UserProfile } from '@/types';
+import { UserProfile, UserRole } from '@/types';
 
 interface AuthContextType {
   user: UserProfile | null;
@@ -37,6 +36,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       return null;
     }
   });
+
   const [isLoading, setIsLoading] = useState<boolean>(() => {
     if (typeof window === 'undefined') return true;
     try {
@@ -48,29 +48,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const fetchProfile = async (rawUser?: any) => {
     try {
-      if (!isSupabaseConfigured()) {
+      let activeUser = rawUser;
+
+      if (!activeUser && isSupabaseConfigured()) {
         try {
-          const stored = localStorage.getItem('g1mart_user_session');
-          if (stored) setUser(JSON.parse(stored));
-        } catch {}
-        setIsLoading(false);
-        return;
+          const session = await authService.getSession();
+          if (session?.user) {
+            activeUser = session.user;
+          } else {
+            const userRes = await supabase.auth.getUser();
+            activeUser = userRes.data?.user;
+          }
+        } catch (err) {
+          console.warn('[AuthContext] Session retrieval note:', err);
+        }
       }
 
-      const activeUser = rawUser || (await supabase.auth.getUser()).data?.user;
       if (!activeUser) {
-        setSupabaseUser(null);
-        // Fallback to locally stored session if any
+        // Fallback to locally stored session if any (Never log user out unless explicit SIGNED_OUT)
         try {
           const stored = localStorage.getItem('g1mart_user_session');
           if (stored) {
             setUser(JSON.parse(stored));
-          } else {
-            setUser(null);
           }
-        } catch {
-          setUser(null);
-        }
+        } catch {}
         setIsLoading(false);
         return;
       }
@@ -83,6 +84,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(profile);
         try {
           localStorage.setItem('g1mart_user_session', JSON.stringify(profile));
+          if (profile.name) localStorage.setItem('g1mart_customer_name', profile.name);
+          if (profile.phone) localStorage.setItem('g1mart_customer_phone', profile.phone);
         } catch {}
       } else {
         const meta = activeUser.user_metadata || {};
@@ -93,7 +96,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             ? `${emailParts[0].replace(/\./g, '').split('+')[0]}@gmail.com`
             : uEmail;
 
-        let fallbackRole: any = 'customer';
+        let fallbackRole: UserRole = 'customer';
         const isCoreAdmin =
           uEmail === 'sureshdega466@gmail.com' ||
           uEmail === 'g1mart@gmail.com' ||
@@ -112,26 +115,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           fallbackRole = 'admin';
         } else if (isCoreRider) {
           fallbackRole = 'delivery_partner';
-        } else if (uEmail) {
-          try {
-            const roleRes = await fetch('/api/auth/role-check', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email: uEmail, normalizedEmail: normEmail }),
-            });
-            const roleData = await roleRes.json();
-            if (roleData.success && roleData.role && roleData.role !== 'customer') {
-              fallbackRole = roleData.role;
-            }
-          } catch {}
         }
+
         const p: UserProfile = {
           id: activeUser.id,
           name: meta.full_name || meta.name || activeUser.email?.split('@')[0] || 'Customer',
           phone: activeUser.phone || meta.phone || '',
           email: uEmail,
           avatar: meta.avatar_url || meta.picture || '',
-          memberSince: new Date(activeUser.created_at).toLocaleDateString('en-IN', {
+          memberSince: new Date(activeUser.created_at || Date.now()).toLocaleDateString('en-IN', {
             month: 'short',
             year: 'numeric',
           }),
@@ -140,6 +132,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(p);
         try {
           localStorage.setItem('g1mart_user_session', JSON.stringify(p));
+          if (p.name) localStorage.setItem('g1mart_customer_name', p.name);
+          if (p.phone) localStorage.setItem('g1mart_customer_phone', p.phone);
         } catch {}
       }
     } catch (err) {
@@ -150,28 +144,35 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    // Automatic self-healing: purge orphaned PKCE verifiers, stale flows, and obsolete cookies
-    // so any phone or device that accumulated bloated cookies recovers immediately on app load.
-    purgeStaleCookies().catch(() => {});
-
     fetchProfile();
 
     if (!isSupabaseConfigured()) return;
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event: string, session: any) => {
+    } = supabase.auth.onAuthStateChange(async (event: string, session: any) => {
       if (session?.user) {
         await fetchProfile(session.user);
-      } else {
+      } else if (event === 'SIGNED_OUT') {
         setSupabaseUser(null);
+        setUser(null);
+        try {
+          localStorage.removeItem('g1mart_user_session');
+          localStorage.removeItem('g1mart_account_orders');
+          localStorage.removeItem('g1mart_last_used_address');
+          localStorage.removeItem('g1mart_customer_phone');
+          localStorage.removeItem('g1mart_customer_name');
+          localStorage.removeItem('g1mart_checkout_address');
+        } catch {}
+      } else {
+        // For INITIAL_SESSION or non-signout events where session is momentarily null,
+        // preserve the local session to avoid unauthenticated flicker or auth loops!
         try {
           const stored = localStorage.getItem('g1mart_user_session');
-          if (stored) setUser(JSON.parse(stored));
-          else setUser(null);
-        } catch {
-          setUser(null);
-        }
+          if (stored) {
+            setUser(JSON.parse(stored));
+          }
+        } catch {}
       }
     });
 
@@ -184,6 +185,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(profile);
     try {
       localStorage.setItem('g1mart_user_session', JSON.stringify(profile));
+      if (profile.name) localStorage.setItem('g1mart_customer_name', profile.name);
+      if (profile.phone) localStorage.setItem('g1mart_customer_phone', profile.phone);
     } catch {}
   };
 
@@ -204,13 +207,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } catch {}
   };
 
+  const isLoggedIn = Boolean(
+    supabaseUser ||
+    (user && (user.id || user.email || user.phone || (user.name && user.name !== 'Customer')))
+  );
+
   return (
     <AuthContext.Provider
       value={{
         user,
         supabaseUser,
         isLoading,
-        isLoggedIn: Boolean(supabaseUser || user),
+        isLoggedIn,
         setLocalUser,
         signOut,
         refreshProfile: fetchProfile,

@@ -1,23 +1,17 @@
 /**
  * Client-side Cookie Hygiene Utility
  * 
- * Aggressively purges stale PKCE verifiers, flow indices, and obsolete Supabase cookies
+ * Purges obsolete Supabase cookies from older projects
  * to prevent HTTP 494 REQUEST_HEADER_TOO_LARGE on Android devices and Chrome browsers.
  * 
- * Supports both standard document.cookie (with explicit Secure/Domain/Path variations)
- * and the modern asynchronous window.cookieStore API available in Chrome / Android WebView.
+ * Never deletes active PKCE verifiers (-code-verifier / -flows-) so OAuth flows complete reliably.
  */
 
 const TARGET_PROJECT_ID = 'pzrigfczxwscpzxkykvf';
 
 export function isStaleAuthCookie(name: string): boolean {
   const trimmed = name.trim();
-  if (trimmed.includes('-code-verifier') || trimmed.includes('-flows-')) {
-    return true;
-  }
-  if (trimmed === 'g1mart_auth_next') {
-    return true;
-  }
+  // Only purge legacy project cookies or cookies from decommissioned projects
   if (trimmed.startsWith('sb-') && !trimmed.includes(TARGET_PROJECT_ID)) {
     return true;
   }

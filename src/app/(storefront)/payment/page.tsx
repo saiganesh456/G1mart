@@ -85,7 +85,8 @@ export default function PaymentPage() {
 
     if (authLoading) return;
 
-    if (!isLoggedIn) {
+    const isUserAuthenticated = Boolean(isLoggedIn || user?.id || user?.email || user?.phone || supabaseUser?.id);
+    if (!isUserAuthenticated) {
       alert('Account required for ordering. Please sign in with Google first.');
       router.push('/checkout');
       return;
