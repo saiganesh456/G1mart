@@ -134,7 +134,7 @@ export const serverOrderStore = {
 
     for (const item of rawItems) {
       const pid = item.productId || item.id;
-      const canonicalPid = resolveLegacyId(pid) || pid;
+      const canonicalPid = (pid && migratedProductById.has(pid)) ? pid : (resolveLegacyId(pid) || pid);
       const vid = item.variantId || item.variant_id;
 
       // Check if this product has dynamic price overrides from admin
@@ -187,7 +187,10 @@ export const serverOrderStore = {
       }
 
       // --- Fallback: catalog product lookup ---
-      let product = MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalPid || p.id === pid);
+      let product =
+        (pid ? migratedProductById.get(pid) : undefined) ||
+        (canonicalPid ? migratedProductById.get(canonicalPid) : undefined) ||
+        MIGRATED_PRODUCT_LIST.find((p) => p.slug === pid || p.id === canonicalPid || p.id === pid);
 
       if (!product && item.name) {
         product = MIGRATED_PRODUCT_LIST.find((p) => p.name.toLowerCase().includes(item.name.toLowerCase()));

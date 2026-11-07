@@ -409,11 +409,19 @@ export const productService = {
   async getProductById(id: string): Promise<Product | null> {
     if (!id) return null;
     await this.syncOverrides();
+    // 1. Direct match by ID first
+    const direct = MIGRATED_PRODUCT_LIST.find((p) => p.id === id);
+    if (direct) return direct;
+    // 2. Direct match by slug
+    const bySlug = MIGRATED_PRODUCT_LIST.find((p) => p.slug === id);
+    if (bySlug) return bySlug;
+    // 3. Fallback to legacy resolution
     const canonicalId = resolveLegacyId(id);
-    const migrated = MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalId || p.id === id);
-    if (migrated) return migrated;
-    const bySlug = MIGRATED_PRODUCT_LIST.find((p) => p.slug === id || p.slug === canonicalId);
-    return bySlug || null;
+    if (canonicalId && canonicalId !== id) {
+      const migrated = MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalId || p.slug === canonicalId);
+      if (migrated) return migrated;
+    }
+    return null;
   },
 
   /**

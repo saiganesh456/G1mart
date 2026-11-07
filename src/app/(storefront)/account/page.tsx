@@ -1,8 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import {
   UserRound,
   MapPin,
@@ -15,7 +13,6 @@ import {
   Truck,
   Navigation,
   ChevronRight,
-  Download,
   Shield,
   FileText,
   RefreshCw,
@@ -23,7 +20,6 @@ import {
 } from 'lucide-react';
 import { STORE_CONFIG } from '@/config/store';
 import { useAuth } from '@/context/AuthContext';
-import { isAppInstalled, executeInstallFlow } from '@/lib/installState';
 import InnerPageHeader from '@/components/layout/InnerPageHeader';
 
 type RowItem = {
@@ -65,25 +61,6 @@ function AccountRow({ href, icon: Icon, label, isDestructive }: RowItem) {
 
 export default function AccountPage() {
   const { user, isLoggedIn, signOut } = useAuth();
-  const [appInstalled, setAppInstalled] = useState(false);
-  const [isInstalling, setIsInstalling] = useState(false);
-
-  useEffect(() => {
-    setAppInstalled(isAppInstalled(user?.id));
-  }, [user]);
-
-  const handleInstallApp = async () => {
-    setIsInstalling(true);
-    try {
-      await executeInstallFlow(user?.id, '/downloads/g1mart.apk?v=1.2.2');
-      setAppInstalled(true);
-    } catch (err) {
-      console.error('Failed to install app:', err);
-    } finally {
-      setIsInstalling(false);
-    }
-  };
-
   const avatarInitial = user?.name ? user.name.charAt(0).toUpperCase() : null;
 
   return (
@@ -168,59 +145,6 @@ export default function AccountPage() {
                 <span>Sign in with Google</span>
               </Link>
             )}
-          </div>
-        </div>
-
-        {/* ── Prominent G1 Mart APK Download Banner ── */}
-        <div
-          className="mx-4 mt-4 rounded-[var(--g1-r-card)] overflow-hidden border p-4 shadow-sm"
-          style={{
-            borderColor: 'rgba(30,107,46,0.35)',
-            background: 'linear-gradient(135deg, rgba(236,253,245,0.95) 0%, rgba(255,255,255,1) 50%, rgba(240,253,244,0.95) 100%)',
-          }}
-        >
-          <div className="flex items-center gap-3.5">
-            <div
-              className="w-13 h-13 rounded-2xl overflow-hidden border shrink-0 shadow-md flex items-center justify-center p-0.5"
-              style={{ backgroundColor: '#0D481C', borderColor: 'rgba(16,185,129,0.3)' }}
-            >
-              <Image
-                src="/icons/icon-512x512.png"
-                alt="G1mart App Icon"
-                width={52}
-                height={52}
-                className="w-full h-full object-cover rounded-xl"
-              />
-            </div>
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-1.5 flex-wrap">
-                <h2 className="font-extrabold text-[15px] tracking-tight" style={{ color: 'var(--g1-text)' }}>
-                  G1 Mart Android App
-                </h2>
-                <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-[#1E6B2E] border border-emerald-300">
-                  Official APK
-                </span>
-              </div>
-              <p className="text-xs mt-0.5 line-clamp-1" style={{ color: 'var(--g1-text-secondary)' }}>
-                Direct APK for supermarket grocery delivery &amp; live tracking
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-3.5 pt-3 border-t border-emerald-200/60 flex items-center justify-between gap-2">
-            <span className="text-[11px] font-medium" style={{ color: 'var(--g1-text-secondary)' }}>
-              Direct Android APK (v1.2.2)
-            </span>
-            <a
-              href="/downloads/g1mart.apk?v=1.2.2"
-              download="G1mart.apk"
-              onClick={handleInstallApp}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white shadow-md transition-all shrink-0 g1-press"
-              style={{ backgroundColor: '#1E6B2E' }}
-            >
-              <Download className="w-4 h-4" strokeWidth={2.2} />
-              <span>Download APK</span>
-            </a>
           </div>
         </div>
 

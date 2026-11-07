@@ -46,8 +46,10 @@ export default function OrderAgainPage() {
     let outOfStockCount = 0;
 
     recentOrder.items.forEach((item: any) => {
-      const canonicalId = resolveLegacyId(item.productId) || item.productId;
-      const prod = MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalId);
+      const pid = item.productId || item.id;
+      const prod =
+        MIGRATED_PRODUCT_LIST.find((p) => p.id === pid || p.slug === pid) ||
+        MIGRATED_PRODUCT_LIST.find((p) => p.id === resolveLegacyId(pid));
       if (prod && prod.inStock) {
         addToCart(prod, item.quantity || 1);
         addedCount++;
@@ -74,8 +76,10 @@ export default function OrderAgainPage() {
     let outOfStockCount = 0;
 
     monthlyList.forEach((item: any) => {
-      const canonicalId = resolveLegacyId(item.productId) || item.productId;
-      const prod = MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalId);
+      const pid = item.productId || item.id;
+      const prod =
+        MIGRATED_PRODUCT_LIST.find((p) => p.id === pid || p.slug === pid) ||
+        MIGRATED_PRODUCT_LIST.find((p) => p.id === resolveLegacyId(pid));
       if (prod && prod.inStock) {
         addToCart(prod, item.quantity || 1);
         addedCount++;
@@ -169,8 +173,10 @@ export default function OrderAgainPage() {
 
               <div className="space-y-2 max-h-60 overflow-y-auto no-scrollbar pr-1">
                 {recentOrder.items?.map((item: any, idx: number) => {
-                  const canonicalId = resolveLegacyId(item.productId) || item.productId;
-                  const prod = MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalId);
+                  const pid = item.productId || item.id;
+                  const prod =
+                    MIGRATED_PRODUCT_LIST.find((p) => p.id === pid || p.slug === pid) ||
+                    MIGRATED_PRODUCT_LIST.find((p) => p.id === resolveLegacyId(pid));
                   return (
                     <div key={idx} className="flex items-center justify-between text-xs py-1">
                       <div className="flex items-center gap-2 min-w-0">

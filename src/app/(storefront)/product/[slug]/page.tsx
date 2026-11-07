@@ -21,15 +21,21 @@ export default function ProductDetailPage({ params }: Props) {
   const router = useRouter();
   const { cart, addToCart, updateCartQuantity, getItemQuantity, toggleWishlist, isWishlisted, cartItemCount } = useCart();
 
-  const canonicalId = resolveLegacyId(slug) || slug;
-  const [product, setProduct] = useState<Product | null>(() => 
-    MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalId || p.id === slug) || null
+  // Prioritize direct ID / slug match before falling back to legacy migration mapping
+  const directMatch = useMemo(
+    () => MIGRATED_PRODUCT_LIST.find((p) => p.id === slug || p.slug === slug),
+    [slug]
+  );
+  const canonicalId = directMatch ? directMatch.id : (resolveLegacyId(slug) || slug);
+  const [product, setProduct] = useState<Product | null>(() =>
+    directMatch || MIGRATED_PRODUCT_LIST.find((p) => p.id === canonicalId) || null
   );
   const [loading, setLoading] = useState(!product);
 
   useEffect(() => {
     let isMounted = true;
-    productService.getProductById(canonicalId).then((cached) => {
+    const lookupId = directMatch?.id || canonicalId;
+    productService.getProductById(lookupId).then((cached) => {
       if (isMounted && cached) {
         setProduct(cached);
         setLoading(false);
@@ -37,7 +43,7 @@ export default function ProductDetailPage({ params }: Props) {
     });
 
     // Real-time server revalidation for updated MRP, price, or photo from admin
-    fetch(`/api/products?id=${encodeURIComponent(canonicalId)}`)
+    fetch(`/api/products?id=${encodeURIComponent(lookupId)}`)
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (isMounted && data?.success && data?.product) {
@@ -50,7 +56,7 @@ export default function ProductDetailPage({ params }: Props) {
     return () => {
       isMounted = false;
     };
-  }, [canonicalId]);
+  }, [canonicalId, directMatch]);
 
   // Size & Pack Selection Options
   const sizeVariants = useMemo(() => {

@@ -118,10 +118,11 @@ export default function CategoryDashboardClient({ category, products }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const brandParam = searchParams.get('brand');
+  const subParam = searchParams.get('sub') || searchParams.get('subCategory');
   const { currentLocation } = useLocation();
 
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string>('all');
-  const [selectedBrand, setSelectedBrand] = useState<string>('all');
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>(() => subParam || 'all');
+  const [selectedBrand, setSelectedBrand] = useState<string>(() => brandParam || 'all');
   const [sortBy, setSortBy] = useState<'popular' | 'price-asc' | 'price-desc'>('popular');
   const [priceFilter, setPriceFilter] = useState<'all' | 'under-100' | '100-200' | 'above-200'>('all');
 
@@ -164,7 +165,8 @@ export default function CategoryDashboardClient({ category, products }: Props) {
 
   useEffect(() => {
     if (brandParam) setSelectedBrand(brandParam);
-  }, [brandParam]);
+    if (subParam) setSelectedSubCategory(subParam);
+  }, [brandParam, subParam]);
 
   // Base list: enforce strict category membership and active status
   const categoryProducts = useMemo(

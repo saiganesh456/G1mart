@@ -212,11 +212,13 @@ export const SUPERMARKET_CATEGORIES: Omit<Category, 'itemCount'>[] = [
     "icon": "Cookie",
     "description": "Parle-G, Good Day, Marie Gold, Oreo, Bourbon, tea rusks and bakery cakes",
     "subcategories": [
-      "Parle-G & Glucose",
-      "Good Day & Cookies",
-      "Marie Gold & Rusks",
-      "Oreo & Cream Biscuits",
-      "Bakery Cakes"
+      "Glucose & Marie Biscuits",
+      "Cream Biscuits & Choco Fills",
+      "Cookies & Butter Biscuits",
+      "Crackers & Salted Biscuits",
+      "Digestive & Health Biscuits",
+      "Rusks & Bakery Cakes",
+      "Wafers & Light Bites"
     ]
   },
   {

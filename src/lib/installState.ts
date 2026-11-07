@@ -91,18 +91,13 @@ export function markInstallDismissed(): void {
   } catch {}
 }
 
+export const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=in.g1mart.twa';
+
 export async function executeInstallFlow(
   userId?: string | null,
-  apkUrl: string = '/downloads/g1mart.apk?v=1.2.1'
-): Promise<'pwa' | 'apk'> {
+  fallbackUrl: string = PLAY_STORE_URL
+): Promise<'pwa' | 'store'> {
   markAppInstalled(userId);
-
-  // Trigger global APK download / installation notification & chime
-  if (typeof window !== 'undefined') {
-    try {
-      window.dispatchEvent(new CustomEvent('g1mart:apk-downloaded'));
-    } catch {}
-  }
 
   // 1. If Chrome PWA prompt is available, launch WebAPK native installation
   if (deferredInstallPrompt) {
@@ -115,21 +110,14 @@ export async function executeInstallFlow(
         return 'pwa';
       }
     } catch (err) {
-      console.warn('[Install] PWA prompt failed, falling back to direct APK download:', err);
+      console.warn('[Install] PWA prompt failed, falling back to Play Store:', err);
     }
   }
 
-  // 2. Direct APK Download (Android Browser fallback or direct requested APK delivery)
+  // 2. Open Official Google Play Store listing
   if (typeof window !== 'undefined') {
-    const link = document.createElement('a');
-    link.href = apkUrl;
-    link.setAttribute('download', 'g1mart.apk');
-    document.body.appendChild(link);
-    link.click();
-    setTimeout(() => {
-      if (link.parentNode) link.parentNode.removeChild(link);
-    }, 500);
+    window.open(fallbackUrl, '_blank', 'noopener,noreferrer');
   }
 
-  return 'apk';
+  return 'store';
 }

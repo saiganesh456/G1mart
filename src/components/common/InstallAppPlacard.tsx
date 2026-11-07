@@ -45,7 +45,7 @@ export default function InstallAppPlacard() {
   const handleInstall = async () => {
     setInstalling(true);
     try {
-      await executeInstallFlow(user?.id, '/downloads/g1mart.apk?v=1.2.2');
+      await executeInstallFlow(user?.id);
       setInstalled(true);
       // Auto-hide after success
       setTimeout(() => {
@@ -110,21 +110,19 @@ export default function InstallAppPlacard() {
               </h3>
               <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-[#1E6B2E] border border-emerald-200">
                 <ShieldCheck className="w-2.5 h-2.5" />
-                Official APK
+                Play Store
               </span>
             </div>
 
             <p className="text-xs text-stone-500 line-clamp-1 mt-0.5">
-              Direct APK for supermarket grocery delivery &amp; exclusive offers
+              Official app for supermarket grocery delivery &amp; live tracking
             </p>
 
             {/* Badges */}
             <div className="flex items-center gap-2 mt-1.5 text-[11px] text-stone-600 font-semibold">
-              <span>12 MB</span>
+              <span className="text-emerald-700 font-bold">Google Play Store</span>
               <span className="text-stone-300">•</span>
-              <span className="text-emerald-700 font-bold">
-                Android APK
-              </span>
+              <span>Fast 10-Min Delivery</span>
             </div>
           </div>
         </div>
@@ -146,17 +144,17 @@ export default function InstallAppPlacard() {
             {installed ? (
               <>
                 <CheckCircle2 className="w-4 h-4" />
-                <span>Installed Successfully!</span>
+                <span>Redirecting to Play Store...</span>
               </>
             ) : installing ? (
               <>
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                <span>Installing APK...</span>
+                <span>Opening Play Store...</span>
               </>
             ) : (
               <>
                 <Download className="w-4 h-4" />
-                <span>Install G1 Mart App (Direct APK)</span>
+                <span>Get G1 Mart on Play Store</span>
               </>
             )}
           </button>
