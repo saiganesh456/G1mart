@@ -94,6 +94,37 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   document.documentElement.classList.add('g1-splash-dismissed');
                 }
               } catch (e) {}
+              try {
+                // Immediate cookie hygiene check in <head> to prevent HTTP 494 REQUEST_HEADER_TOO_LARGE
+                if (typeof document !== 'undefined' && document.cookie) {
+                  var cookies = document.cookie.split(';');
+                  var isProd = window.location.hostname.includes('g1mart.in');
+                  for (var i = 0; i < cookies.length; i++) {
+                    var cName = cookies[i].split('=')[0].trim();
+                    var isStale = cName.indexOf('-code-verifier') !== -1 || cName.indexOf('-flows-') !== -1 || cName === 'g1mart_auth_next' || (cName.indexOf('sb-') === 0 && cName.indexOf('pzrigfczxwscpzxkykvf') === -1);
+                    if (isStale) {
+                      document.cookie = cName + '=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+                      if (isProd) {
+                        document.cookie = cName + '=; path=/; domain=.g1mart.in; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax; Secure';
+                        document.cookie = cName + '=; path=/; domain=g1mart.in; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax; Secure';
+                      }
+                    }
+                  }
+                  if ('cookieStore' in window && window.cookieStore.getAll) {
+                    window.cookieStore.getAll().then(function(all) {
+                      for (var j = 0; j < all.length; j++) {
+                        var c = all[j];
+                        var isGhost = isProd && (c.domain === '.g1mart.in' || c.domain === 'g1mart.in');
+                        var isStaleV = c.name.indexOf('-code-verifier') !== -1 || c.name.indexOf('-flows-') !== -1 || (c.name.indexOf('sb-') === 0 && c.name.indexOf('pzrigfczxwscpzxkykvf') === -1);
+                        if (isGhost || isStaleV) {
+                          window.cookieStore.delete({ name: c.name, domain: c.domain, path: '/' }).catch(function(){});
+                          window.cookieStore.delete({ name: c.name, path: '/' }).catch(function(){});
+                        }
+                      }
+                    }).catch(function(){});
+                  }
+                }
+              } catch (e) {}
               if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
                 if (document.readyState === 'complete' || document.readyState === 'interactive') {
                   navigator.serviceWorker.register('/sw.js', { scope: '/' });

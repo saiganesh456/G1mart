@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase/client';
 import { authService } from '@/services/authService';
+import { ensureCookieSafety } from '@/lib/cookieHygiene';
 import { UserProfile, UserRole } from '@/types';
 
 interface AuthContextType {
@@ -144,6 +145,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
+    ensureCookieSafety();
     fetchProfile();
 
     if (!isSupabaseConfigured()) return;

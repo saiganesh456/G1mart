@@ -29,18 +29,100 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Offline navigation fallback: If user loses internet connectivity while navigating,
-// serve the cached /offline page instead of Chrome's ugly network error dinosaur
+// Offline navigation fallback & HTTP 494 header overflow recovery:
+// 1. If edge proxy returns 494/431 (REQUEST_HEADER_TOO_LARGE), return instant self-healing page to purge cookies.
+// 2. If user loses internet connectivity while navigating, serve the cached /offline page.
 self.addEventListener('fetch', (event) => {
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      fetch(event.request).catch(async () => {
-        const cache = await caches.open(CACHE_NAME);
-        const cachedResponse = await cache.match(OFFLINE_URL);
-        return cachedResponse || new Response('Offline - G1mart', {
-          headers: { 'Content-Type': 'text/html' },
-        });
-      })
+      fetch(event.request)
+        .then(async (response) => {
+          // Intercept Vercel 494 / 431 Request Header Too Large
+          if (response.status === 494 || response.status === 431) {
+            console.warn('[G1 Mart SW] Intercepted 494 Request Header Too Large. Triggering auto-recovery...');
+
+            // Clear cookies via Service Worker cookieStore if available
+            if ('cookieStore' in self && typeof (self as any).cookieStore?.getAll === 'function') {
+              try {
+                const allCookies = await (self as any).cookieStore.getAll();
+                for (const c of allCookies) {
+                  await (self as any).cookieStore.delete({ name: c.name, path: '/', domain: c.domain });
+                  await (self as any).cookieStore.delete({ name: c.name, path: '/' });
+                }
+              } catch (e) {}
+            }
+
+            // Return an instant auto-healing HTML page that purges all cookies and reloads cleanly
+            const recoveryHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Refreshing G1 Mart...</title>
+  <style>
+    body { margin: 0; background: #FFFFFF; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; text-align: center; color: #212121; }
+    .loader { width: 36px; height: 36px; border: 3px solid #E0E0E0; border-top-color: #2E7D32; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    h2 { font-size: 16px; font-weight: 800; color: #1B5E20; margin: 0 0 6px; }
+    p { font-size: 12px; color: #757575; margin: 0; }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="loader"></div>
+    <h2>Optimizing G1 Mart...</h2>
+    <p>Loading your supermarket catalog...</p>
+  </div>
+  <script>
+    (async function() {
+      try {
+        var cookies = document.cookie.split(';');
+        var domains = ['', '.g1mart.in', 'g1mart.in'];
+        for (var i = 0; i < cookies.length; i++) {
+          var name = cookies[i].split('=')[0].trim();
+          if (name) {
+            for (var d = 0; d < domains.length; d++) {
+              var domStr = domains[d] ? '; domain=' + domains[d] : '';
+              document.cookie = name + '=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT' + domStr;
+              document.cookie = name + '=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT' + domStr + '; Secure';
+            }
+          }
+        }
+        if ('cookieStore' in window && window.cookieStore.getAll) {
+          var all = await window.cookieStore.getAll();
+          for (var j = 0; j < all.length; j++) {
+            await window.cookieStore.delete({ name: all[j].name, path: '/' }).catch(function(){});
+            if (all[j].domain) {
+              await window.cookieStore.delete({ name: all[j].name, domain: all[j].domain, path: '/' }).catch(function(){});
+            }
+          }
+        }
+      } catch (err) {}
+      setTimeout(function() {
+        window.location.replace('/');
+      }, 250);
+    })();
+  </script>
+</body>
+</html>`;
+
+            return new Response(recoveryHtml, {
+              status: 200,
+              headers: {
+                'Content-Type': 'text/html; charset=utf-8',
+                'Cache-Control': 'no-store, max-age=0',
+              },
+            });
+          }
+          return response;
+        })
+        .catch(async () => {
+          const cache = await caches.open(CACHE_NAME);
+          const cachedResponse = await cache.match(OFFLINE_URL);
+          return cachedResponse || new Response('Offline - G1mart', {
+            headers: { 'Content-Type': 'text/html' },
+          });
+        })
     );
   }
 });

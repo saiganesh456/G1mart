@@ -212,17 +212,45 @@ export async function GET(request: NextRequest) {
     <p>Loading your order details...</p>
   </div>
   <script>
-    try {
-      localStorage.setItem('g1mart_user_session', ${JSON.stringify(JSON.stringify(userProfile))});
-      localStorage.setItem('g1mart_customer_name', ${JSON.stringify(userProfile.name)});
-      if (${JSON.stringify(userProfile.phone)}) {
-        localStorage.setItem('g1mart_customer_phone', ${JSON.stringify(userProfile.phone)});
+    (async function() {
+      try {
+        localStorage.setItem('g1mart_user_session', ${JSON.stringify(JSON.stringify(userProfile))});
+        localStorage.setItem('g1mart_customer_name', ${JSON.stringify(userProfile.name)});
+        if (${JSON.stringify(userProfile.phone)}) {
+          localStorage.setItem('g1mart_customer_phone', ${JSON.stringify(userProfile.phone)});
+        }
+        localStorage.removeItem('g1mart_auth_next');
+
+        // Pre-redirect cookie hygiene: purge ghost domain cookies and stale verifiers to prevent HTTP 494
+        if ('cookieStore' in window && window.cookieStore.getAll) {
+          try {
+            var all = await window.cookieStore.getAll();
+            for (var i = 0; i < all.length; i++) {
+              var c = all[i];
+              var isGhostDomain = c.domain === '.g1mart.in' || c.domain === 'g1mart.in';
+              var isVerifier = c.name.indexOf('-code-verifier') !== -1 || c.name.indexOf('-flows-') !== -1 || c.name === 'g1mart_auth_next';
+              if (isGhostDomain || isVerifier) {
+                await window.cookieStore.delete({ name: c.name, domain: c.domain, path: '/' }).catch(function(){});
+                await window.cookieStore.delete({ name: c.name, path: '/' }).catch(function(){});
+              }
+            }
+          } catch (e) {}
+        }
+        if (typeof document !== 'undefined' && document.cookie) {
+          var cookies = document.cookie.split(';');
+          for (var j = 0; j < cookies.length; j++) {
+            var name = cookies[j].split('=')[0].trim();
+            if (name.indexOf('-code-verifier') !== -1 || name.indexOf('-flows-') !== -1 || name === 'g1mart_auth_next') {
+              document.cookie = name + '=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax; Secure';
+              document.cookie = name + '=; path=/; domain=.g1mart.in; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax; Secure';
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('Storage sync note:', e);
       }
-      localStorage.removeItem('g1mart_auth_next');
-    } catch (e) {
-      console.warn('Storage sync note:', e);
-    }
-    window.location.replace(${JSON.stringify(redirectUrl)});
+      window.location.replace(${JSON.stringify(redirectUrl)});
+    })();
   </script>
 </body>
 </html>`;
@@ -237,7 +265,7 @@ export async function GET(request: NextRequest) {
       const isProd = process.env.NODE_ENV === 'production';
       const hostIsProdDomain = rawHost?.includes('g1mart.in');
 
-      // Attach fresh session cookies with secure, explicit attributes
+      // 1. Attach fresh session cookies ONLY to host (NO domain: '.g1mart.in' duplication!)
       cookiesToSetOnRedirect.forEach(({ name, value, options }) => {
         response.cookies.set(name, value, {
           ...options,
@@ -246,15 +274,38 @@ export async function GET(request: NextRequest) {
           secure: isProd,
         });
 
-        // If in production domain, also share across all subdomains (e.g. www.g1mart.in and g1mart.in)
+        // Actively send deletion headers for any old domain-level duplicate on .g1mart.in!
         if (hostIsProdDomain) {
-          response.cookies.set(name, value, {
-            ...options,
+          response.cookies.set(name, '', {
             path: '/',
             domain: '.g1mart.in',
+            maxAge: 0,
             sameSite: 'lax',
             secure: true,
           });
+          response.cookies.set(name, '', {
+            path: '/',
+            domain: 'g1mart.in',
+            maxAge: 0,
+            sameSite: 'lax',
+            secure: true,
+          });
+        }
+      });
+
+      // 2. Clean up incoming PKCE verifiers, flow indices, and temporary redirect cookies
+      request.cookies.getAll().forEach((c) => {
+        if (
+          c.name.includes('-code-verifier') ||
+          c.name.includes('-flows-') ||
+          c.name === 'g1mart_auth_next' ||
+          (c.name.startsWith('sb-') && !c.name.includes('pzrigfczxwscpzxkykvf'))
+        ) {
+          response.cookies.set(c.name, '', { path: '/', maxAge: 0, sameSite: 'lax', secure: isProd });
+          if (hostIsProdDomain) {
+            response.cookies.set(c.name, '', { path: '/', domain: '.g1mart.in', maxAge: 0, sameSite: 'lax', secure: true });
+            response.cookies.set(c.name, '', { path: '/', domain: 'g1mart.in', maxAge: 0, sameSite: 'lax', secure: true });
+          }
         }
       });
 
@@ -267,9 +318,22 @@ export async function GET(request: NextRequest) {
 
     if (exchangeError) {
       console.error('[Auth Callback Code Exchange Error]:', exchangeError.message, exchangeError);
-      return NextResponse.redirect(
+      const errResponse = NextResponse.redirect(
         `${origin}/login?error=${encodeURIComponent(exchangeError.message)}`
       );
+      // Clean up verifiers on failure so they never linger in the browser
+      const isProd = process.env.NODE_ENV === 'production';
+      const forwardedHost = request.headers.get('x-forwarded-host');
+      const hostIsProdDomain = forwardedHost?.includes('g1mart.in');
+      request.cookies.getAll().forEach((c) => {
+        if (c.name.includes('-code-verifier') || c.name.includes('-flows-') || c.name === 'g1mart_auth_next') {
+          errResponse.cookies.set(c.name, '', { path: '/', maxAge: 0, sameSite: 'lax', secure: isProd });
+          if (hostIsProdDomain) {
+            errResponse.cookies.set(c.name, '', { path: '/', domain: '.g1mart.in', maxAge: 0, sameSite: 'lax', secure: true });
+          }
+        }
+      });
+      return errResponse;
     }
   }
 

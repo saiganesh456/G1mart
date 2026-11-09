@@ -58,17 +58,39 @@ export async function updateSession(request: NextRequest) {
     // It checks cookies and writes any refreshed token back onto supabaseResponse.
     await supabase.auth.getUser();
 
-    // Clean up only obsolete cookies from other projects (never active project verifiers)
+    // Clean up stale PKCE verifiers, flow cookies, and obsolete project cookies
     const incomingCookies = request.cookies.getAll();
     const isProd = process.env.NODE_ENV === 'production';
     for (const { name } of incomingCookies) {
-      if (name.startsWith('sb-') && !name.includes('pzrigfczxwscpzxkykvf')) {
+      const isStale =
+        (name.startsWith('sb-') && !name.includes('pzrigfczxwscpzxkykvf')) ||
+        name.includes('-code-verifier') ||
+        name.includes('-flows-') ||
+        name === 'g1mart_auth_next';
+
+      if (isStale) {
         supabaseResponse.cookies.set(name, '', {
           path: '/',
           maxAge: 0,
           sameSite: 'lax',
           secure: isProd,
         });
+        if (isProd) {
+          supabaseResponse.cookies.set(name, '', {
+            path: '/',
+            domain: '.g1mart.in',
+            maxAge: 0,
+            sameSite: 'lax',
+            secure: true,
+          });
+          supabaseResponse.cookies.set(name, '', {
+            path: '/',
+            domain: 'g1mart.in',
+            maxAge: 0,
+            sameSite: 'lax',
+            secure: true,
+          });
+        }
       }
     }
   } catch (err) {
