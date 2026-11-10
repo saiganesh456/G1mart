@@ -110,6 +110,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
   const [ordersStatusFilter, setOrdersStatusFilter] = useState<string>('All');
   const [activeSlipId, setActiveSlipId] = useState<string | null>(null);
   const [inventoryStockFilter, setInventoryStockFilter] = useState<string>('All');
+  const [inventoryCategoryFilter, setInventoryCategoryFilter] = useState<string>('All');
+  const [inventorySearchQuery, setInventorySearchQuery] = useState<string>('');
   const [homeNotice, setHomeNotice] = useState<string | null>(null);
 
   // Data states
@@ -1897,8 +1899,8 @@ export default function AdminDashboardClient({ initialProducts = [], categories 
             onBack={() => setIsCreatingProduct(false)}
             categories={categories}
             onSaveProduct={async (newProduct) => {
-              setProducts((prev) => [newProduct, ...prev]);
-              productsRef.current = [newProduct, ...productsRef.current];
+              setProducts((prev) => [...prev, newProduct]);
+              productsRef.current = [...productsRef.current, newProduct];
               setIsCreatingProduct(false);
               return true;
             }}
@@ -2059,6 +2061,10 @@ onUpdateStatus={(id, nextStatus, assignedRider) =>
                 onStockFilterChange={(stockFilter) => {
                   pushAdminState({ tab: 'inventory', stockFilter });
                 }}
+                initialCategoryFilter={inventoryCategoryFilter}
+                onCategoryFilterChange={(cat) => setInventoryCategoryFilter(cat)}
+                initialSearchQuery={inventorySearchQuery}
+                onSearchQueryChange={(q) => setInventorySearchQuery(q)}
                 onViewProduct={(product) => {
                   pushAdminState({
                     tab: 'inventory',

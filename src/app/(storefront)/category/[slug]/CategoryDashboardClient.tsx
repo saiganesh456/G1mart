@@ -146,7 +146,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
     let isMounted = true;
     const fetchLatest = async () => {
       try {
-        const res = await fetch(`/api/products?category=${encodeURIComponent(category.id)}`);
+        const res = await fetch(`/api/products?category=${encodeURIComponent(category.id)}&_t=${Date.now()}`, { cache: 'no-store', headers: { 'Cache-Control': 'no-cache' } });
         if (res.ok) {
           const data = await res.json();
           if (isMounted && data.success && Array.isArray(data.products) && data.products.length > 0) {
@@ -680,7 +680,7 @@ export default function CategoryDashboardClient({ category, products }: Props) {
           {displayedProducts.length > 0 ? (
             <div className="grid grid-cols-2 min-[480px]:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 sm:gap-2.5 lg:gap-3 min-w-0">
               {displayedProducts.map((p) => (
-                <ProductCard key={`${p.id}::${selectedBrand}::${priceFilter}`} product={p} compact />
+                <ProductCard key={`${p.id}::${p.price}::${p.originalPrice}::${selectedBrand}::${priceFilter}`} product={p} compact />
               ))}
             </div>
           ) : (

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { Plus, Minus, ChevronDown, X, Check } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
@@ -200,6 +200,16 @@ export default function ProductCard({ product, compact = false }: ProductCardPro
   const firstInStock = variants.find(isVariantInStock) ?? variants[0] ?? null;
   const [activeVariant, setActiveVariant] = useState<ProductVariant | null>(firstInStock);
   const [sheetOpen, setSheetOpen] = useState(false);
+
+  // Synchronize activeVariant when product or variants update from server/API revalidation
+  useEffect(() => {
+    const currentId = activeVariant?.id;
+    const matched = (currentId ? variants.find((v) => v.id === currentId) : null)
+      ?? variants.find(isVariantInStock)
+      ?? variants[0]
+      ?? null;
+    setActiveVariant(matched);
+  }, [product.price, product.originalPrice, product.variants, variants]);
 
   const effectivePrice = activeVariant?.price ?? product.price;
   const effectiveMrp = activeVariant?.mrp ?? product.originalPrice;

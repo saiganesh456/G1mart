@@ -97,7 +97,8 @@ export async function PATCH(request: NextRequest) {
           if (unit !== undefined) mProd.unit = String(unit).trim();
           if (price !== undefined) mProd.price = Number(price);
           if (originalPrice !== undefined) mProd.originalPrice = Number(originalPrice);
-          if (inStock !== undefined) mProd.is_active = Boolean(inStock);
+          if (inStock !== undefined) mProd.in_stock = Boolean(inStock);
+          if (body.isActive !== undefined) mProd.is_active = Boolean(body.isActive);
           if (body.stockCount !== undefined) {
             mProd.stock_count = Number(body.stockCount);
             mProd.stockCount = Number(body.stockCount);
@@ -257,6 +258,9 @@ export async function PATCH(request: NextRequest) {
       }),
       ...(body.variants !== undefined && { variants: body.variants }),
     });
+
+    serverProductOverrides.invalidateCache();
+    await triggerCacheRevalidation();
 
     return NextResponse.json({
       success: true,
@@ -422,6 +426,9 @@ export async function POST(request: NextRequest) {
     // 5. Update in-memory product service immediately
     await productService.addProduct(newProduct);
 
+    serverProductOverrides.invalidateCache();
+    await triggerCacheRevalidation();
+
     return NextResponse.json({
       success: true,
       message: 'Product created successfully and published to storefront!',
@@ -519,6 +526,9 @@ export async function DELETE(request: NextRequest) {
 
     // 6. Remove from in-memory product service
     await productService.deleteProduct(id);
+
+    serverProductOverrides.invalidateCache();
+    await triggerCacheRevalidation();
 
     return NextResponse.json({
       success: true,

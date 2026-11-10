@@ -202,8 +202,8 @@ export const serverProductOverrides = {
       ...(resolvedOriginalPrice !== undefined && { originalPrice: resolvedOriginalPrice }),
       ...(mergedVariants !== undefined && { variants: mergedVariants }),
       deleted: false,
-      is_active: override.inStock !== false && (override.isActive as any) !== false && (existing.isActive as any) !== false,
-      isActive: override.inStock !== false && (override.isActive as any) !== false && (existing.isActive as any) !== false,
+      is_active: (override.isActive as any) !== false && (existing.isActive as any) !== false,
+      isActive: (override.isActive as any) !== false && (existing.isActive as any) !== false,
       updatedAt: new Date().toISOString(),
     };
 
@@ -378,7 +378,7 @@ export const serverProductOverrides = {
         imageStatus: override.imageStatus || 'VERIFIED',
         image_status: override.imageStatus || 'VERIFIED',
       }),
-      isActive: override.inStock !== false && (override.isActive as any) !== false,
+      isActive: (override.isActive as any) !== false,
       variants: updatedVariants,
     };
   },

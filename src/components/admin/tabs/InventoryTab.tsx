@@ -29,6 +29,10 @@ interface Props {
   onQuickToggleStock?: (productId: string, inStock: boolean) => void;
   initialStockFilter?: string;
   onStockFilterChange?: (filter: string) => void;
+  initialCategoryFilter?: string;
+  onCategoryFilterChange?: (cat: string) => void;
+  initialSearchQuery?: string;
+  onSearchQueryChange?: (query: string) => void;
   onBackToDashboard?: () => void;
 }
 
@@ -40,11 +44,15 @@ export default function InventoryTab({
   onQuickToggleStock,
   initialStockFilter = 'All',
   onStockFilterChange,
+  initialCategoryFilter = 'All',
+  onCategoryFilterChange,
+  initialSearchQuery = '',
+  onSearchQueryChange,
   onBackToDashboard,
 }: Props) {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(initialSearchQuery);
   const [stockFilter, setStockFilter] = useState(initialStockFilter);
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState(initialCategoryFilter);
   const [showFilterDrawer, setShowFilterDrawer] = useState(false);
   const categoryScrollRef = useRef<HTMLDivElement>(null);
   const scrollCategories = (dir: 'left' | 'right') => {
@@ -58,6 +66,18 @@ export default function InventoryTab({
       setStockFilter(initialStockFilter);
     }
   }, [initialStockFilter]);
+
+  useEffect(() => {
+    if (initialCategoryFilter && initialCategoryFilter !== selectedCategory) {
+      setSelectedCategory(initialCategoryFilter);
+    }
+  }, [initialCategoryFilter]);
+
+  useEffect(() => {
+    if (initialSearchQuery !== undefined && initialSearchQuery !== search) {
+      setSearch(initialSearchQuery);
+    }
+  }, [initialSearchQuery]);
 
   // Stock counts
   const totalCount = products.length;
@@ -159,13 +179,13 @@ export default function InventoryTab({
             type="text"
             placeholder="Search by product name, brand, SKU (e.g. Atta, Oil, Salt)..."
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => { setSearch(e.target.value); onSearchQueryChange?.(e.target.value); }}
             className="w-full pl-10 pr-9 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#087F5B] focus:bg-white transition-all"
           />
           {search && (
             <button
               type="button"
-              onClick={() => setSearch('')}
+              onClick={() => { setSearch(''); onSearchQueryChange?.(''); }}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 cursor-pointer"
             >
               <X className="w-4 h-4" />
@@ -222,7 +242,7 @@ export default function InventoryTab({
           >
           <button
             type="button"
-            onClick={() => setSelectedCategory('All')}
+            onClick={() => { setSelectedCategory('All'); onCategoryFilterChange?.('All'); }}
             className={`whitespace-nowrap px-3 py-1 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
               selectedCategory === 'All'
                 ? 'bg-stone-900 text-white'
@@ -235,7 +255,7 @@ export default function InventoryTab({
             <button
               key={c.id}
               type="button"
-              onClick={() => setSelectedCategory(c.id)}
+              onClick={() => { setSelectedCategory(c.id); onCategoryFilterChange?.(c.id); }}
               className={`whitespace-nowrap px-3 py-1 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
                 selectedCategory === c.id
                   ? 'bg-stone-900 text-white'
