@@ -66,7 +66,8 @@ export async function updateSession(request: NextRequest) {
         (name.startsWith('sb-') && !name.includes('pzrigfczxwscpzxkykvf')) ||
         name.includes('-code-verifier') ||
         name.includes('-flows-') ||
-        name === 'g1mart_auth_next';
+        name === 'g1mart_auth_next' ||
+        /\.auth-token\.[1-9]$/.test(name);
 
       if (isStale) {
         supabaseResponse.cookies.set(name, '', {

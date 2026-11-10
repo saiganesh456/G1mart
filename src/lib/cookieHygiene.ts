@@ -21,6 +21,10 @@ export function isStaleAuthCookie(name: string): boolean {
   if (trimmed === 'g1mart_auth_next') {
     return true;
   }
+  // 4. Purge orphaned multi-chunk Supabase token fragments (.1 through .9)
+  if (/\.auth-token\.[1-9]$/.test(trimmed)) {
+    return true;
+  }
   return false;
 }
 

@@ -79,6 +79,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       setSupabaseUser(activeUser);
 
+      // Actively purge legacy orders array from Supabase user_metadata to keep JWT slim (<1 KB)
+      if (activeUser?.user_metadata?.orders) {
+        supabase.auth.updateUser({
+          data: { orders: null },
+        }).catch((err: any) => console.warn('[AuthContext] Note during orders metadata purge:', err));
+      }
+
       // Fetch profile
       const profile = await authService.getCurrentProfile();
       if (profile) {

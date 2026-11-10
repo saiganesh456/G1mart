@@ -240,13 +240,7 @@ export default function PaymentPage() {
             keepalive: true,
           }).catch(() => {});
 
-          // Sync to Supabase auth user metadata across devices
-          if (supabaseUser && isSupabaseConfigured()) {
-            const existingOrders = supabaseUser.user_metadata?.orders || [];
-            supabase.auth.updateUser({
-              data: { orders: [orderRecord, ...existingOrders] },
-            }).catch(() => {});
-          }
+          // Orders are persisted to database table and serverOrderStore (never in auth metadata to prevent JWT bloat and HTTP 494)
 
           // Direct client upsert to Supabase database (valid schema columns only)
           if (isSupabaseConfigured()) {
@@ -532,13 +526,7 @@ export default function PaymentPage() {
           keepalive: true,
         }).catch(() => {});
 
-        // Sync to Supabase auth user metadata across devices
-        if (supabaseUser && isSupabaseConfigured()) {
-          const existingOrders = supabaseUser.user_metadata?.orders || [];
-          supabase.auth.updateUser({
-            data: { orders: [paidOrderRecord, ...existingOrders] },
-          }).catch(() => {});
-        }
+        // Orders are persisted to database table and serverOrderStore (never in auth metadata to prevent JWT bloat and HTTP 494)
 
         // Direct client upsert to Supabase database (valid schema columns only)
         if (isSupabaseConfigured()) {

@@ -73,6 +73,17 @@ export async function GET(request: NextRequest) {
       const meta = u.user_metadata || {};
       const userEmail = (u.email || '').toLowerCase().trim();
 
+      // Proactively purge legacy orders from user_metadata in Supabase cloud to prevent JWT bloat and HTTP 494
+      if (meta.orders) {
+        try {
+          await supabase.auth.updateUser({
+            data: { orders: null },
+          });
+        } catch (purgeErr) {
+          console.warn('[Auth Callback] Purge legacy orders metadata note:', purgeErr);
+        }
+      }
+
       // Check role assignment from staff directory
       let assignedRole = await serverStaffStore.getRoleForEmailAsync(userEmail);
 
@@ -221,7 +232,7 @@ export async function GET(request: NextRequest) {
         }
         localStorage.removeItem('g1mart_auth_next');
 
-        // Pre-redirect cookie hygiene: purge ghost domain cookies and stale verifiers to prevent HTTP 494
+        // Pre-redirect cookie hygiene: purge ghost domain cookies, stale verifiers, and bloated token chunks to prevent HTTP 494
         if ('cookieStore' in window && window.cookieStore.getAll) {
           try {
             var all = await window.cookieStore.getAll();
@@ -229,7 +240,8 @@ export async function GET(request: NextRequest) {
               var c = all[i];
               var isGhostDomain = c.domain === '.g1mart.in' || c.domain === 'g1mart.in';
               var isVerifier = c.name.indexOf('-code-verifier') !== -1 || c.name.indexOf('-flows-') !== -1 || c.name === 'g1mart_auth_next';
-              if (isGhostDomain || isVerifier) {
+              var isBloatedChunk = /\.auth-token\.[1-9]$/.test(c.name);
+              if (isGhostDomain || isVerifier || isBloatedChunk) {
                 await window.cookieStore.delete({ name: c.name, domain: c.domain, path: '/' }).catch(function(){});
                 await window.cookieStore.delete({ name: c.name, path: '/' }).catch(function(){});
               }
@@ -240,7 +252,12 @@ export async function GET(request: NextRequest) {
           var cookies = document.cookie.split(';');
           for (var j = 0; j < cookies.length; j++) {
             var name = cookies[j].split('=')[0].trim();
-            if (name.indexOf('-code-verifier') !== -1 || name.indexOf('-flows-') !== -1 || name === 'g1mart_auth_next') {
+            if (
+              name.indexOf('-code-verifier') !== -1 ||
+              name.indexOf('-flows-') !== -1 ||
+              name === 'g1mart_auth_next' ||
+              /\.auth-token\.[1-9]$/.test(name)
+            ) {
               document.cookie = name + '=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax; Secure';
               document.cookie = name + '=; path=/; domain=.g1mart.in; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax; Secure';
             }
@@ -293,9 +310,13 @@ export async function GET(request: NextRequest) {
         }
       });
 
-      // 2. Clean up incoming PKCE verifiers, flow indices, and temporary redirect cookies
+      // 2. Clean up incoming PKCE verifiers, flow indices, temporary redirect cookies, and any orphaned token chunks
+      const activeChunkNames = new Set(cookiesToSetOnRedirect.map((c) => c.name));
       request.cookies.getAll().forEach((c) => {
+        const isOrphanedTokenChunk =
+          c.name.startsWith('sb-pzrigfczxwscpzxkykvf-auth-token') && !activeChunkNames.has(c.name);
         if (
+          isOrphanedTokenChunk ||
           c.name.includes('-code-verifier') ||
           c.name.includes('-flows-') ||
           c.name === 'g1mart_auth_next' ||
@@ -308,6 +329,18 @@ export async function GET(request: NextRequest) {
           }
         }
       });
+
+      // Explicitly expire chunks .1 through .9 if not present in new slim session
+      for (let i = 1; i <= 9; i++) {
+        const chunkName = `sb-pzrigfczxwscpzxkykvf-auth-token.${i}`;
+        if (!activeChunkNames.has(chunkName)) {
+          response.cookies.set(chunkName, '', { path: '/', maxAge: 0, sameSite: 'lax', secure: isProd });
+          if (hostIsProdDomain) {
+            response.cookies.set(chunkName, '', { path: '/', domain: '.g1mart.in', maxAge: 0, sameSite: 'lax', secure: true });
+            response.cookies.set(chunkName, '', { path: '/', domain: 'g1mart.in', maxAge: 0, sameSite: 'lax', secure: true });
+          }
+        }
+      }
 
       // Clear the temporary redirect cookie
       response.cookies.delete('g1mart_auth_next');

@@ -101,7 +101,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   var isProd = window.location.hostname.includes('g1mart.in');
                   for (var i = 0; i < cookies.length; i++) {
                     var cName = cookies[i].split('=')[0].trim();
-                    var isStale = cName.indexOf('-code-verifier') !== -1 || cName.indexOf('-flows-') !== -1 || cName === 'g1mart_auth_next' || (cName.indexOf('sb-') === 0 && cName.indexOf('pzrigfczxwscpzxkykvf') === -1);
+                    var isStale = cName.indexOf('-code-verifier') !== -1 || cName.indexOf('-flows-') !== -1 || cName === 'g1mart_auth_next' || (cName.indexOf('sb-') === 0 && cName.indexOf('pzrigfczxwscpzxkykvf') === -1) || /\.auth-token\.[1-9]$/.test(cName);
                     if (isStale) {
                       document.cookie = cName + '=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
                       if (isProd) {
@@ -115,7 +115,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       for (var j = 0; j < all.length; j++) {
                         var c = all[j];
                         var isGhost = isProd && (c.domain === '.g1mart.in' || c.domain === 'g1mart.in');
-                        var isStaleV = c.name.indexOf('-code-verifier') !== -1 || c.name.indexOf('-flows-') !== -1 || (c.name.indexOf('sb-') === 0 && c.name.indexOf('pzrigfczxwscpzxkykvf') === -1);
+                        var isStaleV = c.name.indexOf('-code-verifier') !== -1 || c.name.indexOf('-flows-') !== -1 || (c.name.indexOf('sb-') === 0 && c.name.indexOf('pzrigfczxwscpzxkykvf') === -1) || /\.auth-token\.[1-9]$/.test(c.name);
                         if (isGhost || isStaleV) {
                           window.cookieStore.delete({ name: c.name, domain: c.domain, path: '/' }).catch(function(){});
                           window.cookieStore.delete({ name: c.name, path: '/' }).catch(function(){});
